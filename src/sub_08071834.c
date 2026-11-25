@@ -1,0 +1,60 @@
+struct GameState {
+    u8 _0[0x10];
+    s32 field10;
+    u8 _1[0x14ED - 0x14];
+    u8 field14ED;
+    u8 _2[0x14FC - 0x14EE];
+    s32 field14FC;
+    u8 _3[0x173A - 0x1500];
+    u8 field173A;
+};
+extern struct GameState D_02025FF0;
+
+s32 sub_08003740(void *, s32);
+s32 sub_0806D2F8(void *, s32);
+s32 sub_0806D35C(void *, s32, void *);
+s32 sub_0806D588(s32, void *);
+s32 sub_0806E114(s32, s32, s32, s32);
+s32 sub_080C31E0(void *, s32);
+
+/* One frame of a scripted actor: skip it while an area movement override is
+ * active, otherwise integrate velocity into its position, advance the script
+ * and choose between aborting and running the off-screen check. */
+void sub_08071834(void *arg0) {
+    void *actor;
+    void *mover;
+    s32 world;
+
+    actor = *(void **)((u8 *)arg0 + 0x6C);
+    mover = (u8 *)actor + 4;
+    world = *(s32 *)((u8 *)arg0 + 0x38);
+    if (sub_0806D35C(arg0, world, mover) != 0) {
+        return;
+    }
+    {
+        s32 delta = *(s32 *)((u8 *)mover + 0x08) * (*(s32 *)((u8 *)mover + 0x1C) >> 8);
+        if (delta < 0) delta += 0xFF;
+        *(s32 *)((u8 *)actor + 0x04) += delta >> 8;
+        delta = *(s32 *)((u8 *)mover + 0x0C) * (*(s32 *)((u8 *)mover + 0x1C) >> 8);
+        if (delta < 0) delta += 0xFF;
+        *(s32 *)((u8 *)mover + 0x04) += delta >> 8;
+    }
+    sub_0806D588(world, mover);
+    sub_08003740((u8 *)actor + 0x30, world);
+    {
+        void *moveCtrl = *(void **)((u8 *)mover + 0x3C);
+        if (*(u16 *)((u8 *)moveCtrl + 0x14) & 1) {
+            sub_0806E114(*(s32 *)((u8 *)arg0 + 0x28), 8, *(s32 *)((u8 *)actor + 0x04), *(s32 *)((u8 *)mover + 0x04));
+            goto abort;
+        }
+        if (D_02025FF0.field14FC != 0) goto abort;
+        if (D_02025FF0.field173A == 0x1C) goto abort;
+        if (D_02025FF0.field14ED != 0) goto offscreen;
+        if (D_02025FF0.field10 == 0) goto offscreen;
+    abort:
+        sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
+        return;
+    offscreen:
+        sub_0806D2F8(arg0, world);
+    }
+}

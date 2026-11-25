@@ -1,0 +1,51 @@
+extern void sub_08003A6C(void *a, s32 b, void *c);
+extern void sub_080C31E0(void *a, void *b);
+extern void sub_080C31E4(void *a, void *b, void *c);
+extern void sub_0808449C(void);
+
+extern u8 D_084F9458[];
+extern u8 D_084F94A8[];
+extern u32 D_08671BB0;
+
+/* Initialises an entity's state and sprite: clears its timers, installs the
+ * update callback and data tables, sets the sprite parameters, then advances
+ * the script step and dispatches the matching callback. */
+void sub_08083038(void *arg0)
+{
+    u8 *entity = (u8 *)arg0;
+    u8 *state = *(u8 **)(entity + 0x6C);
+    u8 *actor = state + 4;
+    u8 *sprite = *(u8 **)(entity + 0x38);
+
+    *(u32 *)(actor + 0x2C) = 0;
+    *(u32 *)(actor + 0x30) = 0;
+    *(u32 *)(actor + 0x34) = 0;
+    *(u32 *)(actor + 0x38) = 0;
+    *(u32 *)(actor + 0x3C) = 0;
+    *(u32 *)(actor + 0x18) = *(u32 *)(entity + 0x24);
+    *(void **)(entity + 0x24) = sub_0808449C;
+    *(void **)(sprite + 0x24) = D_084F9458;
+    sub_08003A6C(state + 0x20, 0, D_084F94A8);
+    *(u32 *)(sprite + 0x14) = 0x380000;
+    *(u32 *)(sprite + 0x18) = 0xD00000;
+    *(u32 *)(actor + 0x10) = 0x100;
+    *(u32 *)(actor + 0x14) = 1;
+
+    *(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = 0;
+    {
+        u32 *eventPtr = &D_08671BB0;
+        u8 *stepBase = entity + 0x18;
+        sub_080C31E4(stepBase, entity + 0x22, (void *)*eventPtr);
+        {
+            s16 step = *(s16 *)(entity + 0x22);
+            (*(u8 *)(step * 2 + entity + 0x19))++;
+            step = *(s16 *)(entity + 0x22);
+            stepBase += step * 2;
+            {
+                u8 b = *stepBase;
+                void **tbl = *(void ***)(entity + 0x14);
+                sub_080C31E0(entity, tbl[b]);
+            }
+        }
+    }
+}

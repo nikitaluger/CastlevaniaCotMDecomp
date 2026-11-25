@@ -1,0 +1,163 @@
+struct E
+{
+  u8 _0[0x5C];
+  s32 f5C;
+  u8 _60[0x6C - 0x60];
+  s32 f6C;
+  u8 _70[0x7C - 0x70];
+  s32 f7C;
+};
+struct Ctx
+{
+  u8 _0[4];
+  struct E *ptrs[2];
+  u8 _c[0x18 - 0xc];
+  s32 vel[2];
+  u8 _20[0x28 - 0x20];
+  u8 flag28[4];
+  u8 flag2C[1];
+};
+void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
+{
+  u32 i = (u8) arg0;
+  u32 j = (i + 1) & 1;
+  s32 x1;
+  s32 x2;
+  s32 v;
+  s32 delta;
+  int new_var;
+  s32 tmp;
+  if (arg1->flag2C[i] == 0)
+  {
+    goto other;
+  }
+  x1 = arg1->ptrs[i]->f5C;
+  if (x1 < (-0x1000))
+  {
+    goto other;
+  }
+  x2 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
+  if (x2 < (-0x1000))
+  {
+    goto other;
+  }
+  new_var = 0x80 << 1;
+  if (arg1->flag28[j] != 0)
+  {
+    goto other;
+  }
+  delta = 0;
+  v = arg1->vel[j];
+  if (v > 0)
+  {
+    if (arg1->vel[i] < 0)
+    {
+      tmp = (-0x1000) - x1;
+      if (tmp < 0)
+      {
+        tmp = x1 + (0x80 << 5);
+      }
+      x2 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C + (0x80 << 5);
+      if (x2 >= 0)
+      {
+        delta = (tmp + (0x80 << 5)) + (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
+      }
+      else
+      {
+        delta = (tmp - 0x1000) - (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
+      }
+      goto check;
+    }
+  }
+  if (arg1->vel[j] < 0)
+  {
+    if (arg1->vel[i] > 0)
+    {
+      delta = (0x80 << 5) - arg1->ptrs[i]->f5C;
+      if (delta < 0)
+      {
+        delta = arg1->ptrs[i]->f5C - 0x1000;
+      }
+      x2 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
+      tmp = x2 - 0x1000;
+      if (tmp >= 0)
+      {
+        delta = (delta - 0x1000) + x2;
+      }
+      else
+      {
+        delta = (delta + (0x80 << 5)) - x2;
+      }
+    }
+  }
+  check:
+  if (((delta + (0x80 << 5)) - x2) > 0x1FFF)
+  {
+    arg1->flag2C[i] = 0;
+  }
+
+  goto tail;
+  other:
+  arg1->ptrs[i]->f5C += arg1->vel[i];
+
+  v = arg1->vel[i];
+  if (v > 0)
+  {
+    if (arg1->ptrs[i]->f5C > (0x80 << 5))
+    {
+      arg1->ptrs[i]->f5C = 0x80 << 5;
+      arg1->vel[i] = -v;
+      goto tail;
+    }
+  }
+  v = arg1->vel[i];
+  if (v >= 0)
+  {
+    goto tail;
+  }
+  if (arg1->ptrs[i]->f5C < (-0x1000))
+  {
+    arg1->ptrs[i]->f5C = -0x1000;
+    arg1->vel[i] = -v;
+  }
+  tail:
+  x1 = arg1->ptrs[i]->f6C;
+
+  if (x1 < (-0x3800))
+  {
+    arg1->ptrs[i]->f6C = x1 + (0x80 << 1);
+    if (arg1->ptrs[i]->f6C > (-0x3800))
+    {
+      arg1->ptrs[i]->f6C = -0x3800;
+    }
+  }
+  else
+    if (x1 > (-0x3800))
+  {
+    arg1->ptrs[i]->f6C = x1 - (0x80 << 1);
+    if (arg1->ptrs[i]->f6C < (-0x3800))
+    {
+      arg1->ptrs[i]->f6C = -0x3800;
+    }
+  }
+  x1 = arg1->ptrs[i]->f7C;
+  if (x1 > 0x2FFF)
+  {
+    if (x1 > (0xC0 << 6))
+    {
+      arg1->ptrs[i]->f7C = x1 - new_var;
+      if (arg1->ptrs[i]->f7C > 0x2FFF)
+      {
+        arg1->ptrs[i]->f7C = 0xC0 << 6;
+      }
+    }
+  }
+  else
+  {
+    arg1->ptrs[i]->f7C = x1 + new_var;
+    if (arg1->ptrs[i]->f7C > (0xC0 << 6))
+    {
+      arg1->ptrs[i]->f7C = 0xC0 << 6;
+    }
+  }
+}

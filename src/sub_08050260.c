@@ -1,0 +1,44 @@
+extern s32 sub_08013B5C(s32, u16 *);
+extern void sub_08015974();
+
+/* Applies an object's timed display state to its sprite attributes; while the
+ * state is active it also clears two sprite-link flags and drops its effects. */
+s32 sub_08050260(void *obj, s32 spriteAttrs)
+{
+  u16 *flags;
+  s32 flagBits;
+  void *link24;
+  void *link20;
+  void *state;
+  flags = *((u16 **) (((s8 *) obj) + 0x3C));
+  state = flags;
+  state = state + 0x48;
+  if (0xC & (*flags))
+  {
+    link20 = *((void **) (((s8 *) state) + 0x20));
+    *((u8 *) (((s8 *) link20) + 1)) = (u8) (0xFE & (*((u8 *) (((s8 *) link20) + 1))));
+    link24 = *((void **) (((s8 *) state) + 0x24));
+    flagBits = 0;
+    *((u8 *) (((s8 *) link24) + 1)) = (u8) (0xFE & (*((u8 *) (((s8 *) link24) + 1))));
+    if (sub_08013B5C(spriteAttrs, flags) == 0)
+    {
+      return flagBits;
+    }
+    flagBits = 0xC & (*flags);
+    if (flagBits == 0)
+    {
+      if ((*((s32 *) (((s8 *) state) + 0x28))) != 0)
+      {
+        sub_08015974();
+        *((s32 *) (((s8 *) state) + 0x28)) = flagBits;
+      }
+      if ((*((s32 *) (((s8 *) state) + 0x2C))) != 0)
+      {
+        sub_08015974();
+        *((s32 *) (((s8 *) state) + 0x2C)) = flagBits;
+      }
+    }
+    return 1;
+  }
+  return sub_08013B5C(spriteAttrs, flags);
+}

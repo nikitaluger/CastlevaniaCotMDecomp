@@ -1,0 +1,57 @@
+extern void sub_08013C5C(void *, s32);
+extern s32 sub_080141AC(s32, void *);
+extern s32 sub_08013558(s32, void *, void *);
+extern void sub_08013978(void *, void *);
+extern void sub_080142C0(void *, void *);
+extern void sub_08013AC4(void *);
+extern s32 sub_08013B5C(s32, void *);
+extern void sub_08013C8C(void *, s32);
+extern void sub_080C31E0(void *, void *);
+extern void sub_080C31E8(void *, void *, s32, void *);
+extern void *D_08671BDC;
+
+/* Runs an enemy object's AI step: updates its sprite and collision state,
+ * handles player interaction and child objects, and fires a slot-indexed
+ * callback (with a despawn callback on flag 5) when its action timer ends. */
+void sub_0803BE00(u8 *object) {
+    s32 sprite = *(s32 *)(object + 0x38);
+    u8 *state = *(u8 **)(object + 0x3C);
+
+    sub_08013C5C(object, sprite);
+    if (sub_080141AC(sprite, state) == 1) return;
+    if (sub_08013558(sprite, state, *(void **)(state + 0x28)) != 0) {
+        sub_08013978(object, *(void **)(state + 0x28));
+    }
+    sub_080142C0(object, *(void **)(state + 0x28));
+    if (*(u16 *)state & 1) {
+        u8 *slot = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
+        if (*(u8 *)(slot + 0x1A) != 5) {
+            sub_08013AC4(object);
+            {
+                u8 *slot = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
+                u8 zero = 0;
+                *(u8 *)(slot + 0x1B) = zero;
+                { void **callback = &D_08671BDC;
+                  sub_080C31E8(object + 0x18, object + 0x22, 5, *callback); }
+            }
+        }
+    }
+    if (sub_08013B5C(sprite, state) == 0) {
+        *(u32 *)(object + 0x14) = (u32)0x0866DF88;
+        *(u16 *)(object + 0x22) = (u16)(*(u16 *)(object + 0x22) + 1);
+        {
+            u8 *slot = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
+            slot[0x19] = (u8)(slot[0x19] + 1);
+        }
+        {
+            s32 slotIndex = (*(s16 *)(object + 0x22)) * 2;
+            u8 *slotBase = object + 0x18;
+            u8 slotByte = *(slotBase + slotIndex);
+            void **dispatchTable = *(void **)(object + 0x14);
+            void *dispatchFn = dispatchTable[slotByte];
+            sub_080C31E0(object, dispatchFn);
+        }
+        *(u16 *)(object + 0x22) = (u16)(*(u16 *)(object + 0x22) - 1);
+    }
+    sub_08013C8C(object, sprite);
+}

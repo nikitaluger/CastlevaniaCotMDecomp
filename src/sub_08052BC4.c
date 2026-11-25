@@ -1,0 +1,37 @@
+extern u32 D_08671BB0[];
+
+void sub_08011368(s32, void *, u16, u8);
+void sub_080113A8(s32, void *);
+void sub_0801165C(void *, s32);
+void sub_080C31E4(void *, void *, s32);
+
+/* Advances the entity's animation and physics; when the animation ends it sets
+ * the work object's resource bytes, launches the object downward with a new
+ * animation frame and runs the next script step. */
+void sub_08052BC4(u8 *arg0) {
+    u8 *self = arg0;
+    s32 sprite = *(s32 *)(self + 0x38);
+    u8 *work = *(u8 **)(self + 0x3C);
+    u8 *animator = work + 0x34;
+    s32 zero;
+
+    sub_080113A8(sprite, animator);
+    sub_0801165C(work, 0);
+
+    if (*animator & 2) {
+        u8 *block;
+        block = *(u8 **)(work + 0x28);
+        zero = 0;
+        block[2] = 8;
+        block = *(u8 **)(work + 0x28);
+        block[3] = 1;
+        *(s32 *)(work + 0x10) = zero;
+        *(s32 *)(work + 0x14) = 0x2800;
+        sub_08011368(sprite, animator, 0x0F, 1);
+        *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
+        {
+            u32 *scriptHandlers = D_08671BB0;
+            sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);
+        }
+    }
+}

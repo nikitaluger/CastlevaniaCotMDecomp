@@ -1,0 +1,15 @@
+void sub_08011368(void *sprite, void *anim, s32 frame, s32 mode);
+
+struct AnimReq {
+    u8 pad_0x00;
+    s8 frame;               /* +0x01: animation frame to play */
+    u16 unk_0x02;           /* +0x02: copied from the sprite's animation descriptor */
+};
+
+/* Play `frame` on the sprite's animation state and record the frame plus the
+ * sprite's current animation descriptor value in the request record. */
+void sub_08049160(void *sprite, void *anim, struct AnimReq *req, s32 frame) {
+    req->frame = (s8)frame;
+    sub_08011368(sprite, anim, (s16)frame, 1);
+    req->unk_0x02 = *(u16 *)((u8 *)sprite + 0x28);
+}

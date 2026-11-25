@@ -1,0 +1,28 @@
+extern void sub_08061FBC(void);
+extern void sub_08062118(void);
+extern u8 D_02025368[];
+extern u8 D_02027A00[];
+struct S_02021E90 { u8 pad[0x1260]; u16 gfxTileBase; };
+extern struct S_02021E90 D_02021E90;
+static inline u8 zero_b(void) { u8 v = 0; return v; }
+static inline u16 zero_h(void) { u16 v = 0; return v; }
+
+/* Clear the HUD banner timer and state, reload the status graphics and redraw
+ * the HUD; when the mode word at D_02025368+0x94 is 0x300, set the 0x2000
+ * graphics flag. The two inline helpers keep the byte/halfword zeros distinct. */
+void sub_08061F38(void)
+{
+  u8 *stats = D_02025368;
+  u8 *hud = D_02027A00;
+  u16 *bannerTimer = (u16 *) (hud + 0xD8);
+  register u16 halfZero = zero_h();
+  register u8 byteZero = zero_b();
+  *bannerTimer = halfZero;
+  *((u8 *)hud + 0xDA) = byteZero;
+  sub_08061FBC();
+  sub_08062118();
+  if ((*((u16 *) (stats + 0x94))) == 0x300)
+  {
+    D_02021E90.gfxTileBase |= 0x2000;
+  }
+}

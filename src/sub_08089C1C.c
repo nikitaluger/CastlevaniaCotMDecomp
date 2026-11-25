@@ -1,0 +1,36 @@
+extern s32 sub_08003740(void *, void *);
+extern void sub_08003A6C(void *, s32, void *);
+extern void sub_0806D588(void *, void *);
+extern void sub_080C31E4(void *, void *, s32);
+
+/* Low part of the main game state; mode at 0x1C. */
+struct S_02025FF0_1C
+{
+  u8 _0[0x1C];
+  u32 mode;
+};
+extern struct S_02025FF0_1C D_02025FF0;
+
+/* Scripted object update: once the work animation finishes, restart it from
+ * the data at 0x08507DEC, set the game mode to 8, reset the script step and
+ * run the next script command; then copy the work position into the sprite. */
+void sub_08089C1C(void *arg0)
+{
+  s32 *litp;
+  u8 *entity = (u8 *)arg0;
+  u8 *work = *((u8 **)(entity + 0x6C));
+  u8 *pos = work + 4;
+  u8 *obj = *((u8 **)(entity + 0x38));
+  u8 *script = work + 0x20;
+  s32 done = sub_08003740(script, obj);
+  if (done == 0)
+  {
+    sub_08003A6C(script, 0, (void *)0x08507DEC);
+    sub_08003740(script, obj);
+    D_02025FF0.mode = 8;
+    *((u8 *)((entity + ((*((s16 *)(entity + 0x22))) * 2)) + 0x19)) = (u8)done;
+    litp = &(*((s32 *)0x08671BB0));
+    sub_080C31E4(entity + 0x18, entity + 0x22, *litp);
+  }
+  sub_0806D588(obj, pos);
+}
