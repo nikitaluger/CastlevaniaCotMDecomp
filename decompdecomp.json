@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1795647874.4390495,
- "revision": 66059,
+ "saved_at": 1795649299.5763717,
+ "revision": 66104,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -8744,8 +8744,8 @@
   },
   "sub_0803E5F4": {
    "vram": 134473204,
-   "best_score": 10,
-   "best_by": "opencode-hy4-flash-free-1"
+   "matched_by": "opencode-hy4-flash-free-1",
+   "readable": false
   },
   "sub_0803E830": {
    "vram": 134473776,
@@ -257566,6 +257566,221 @@
   {
    "function": "sub_0806BA20",
    "text": "SECOND RELEASE CALL \u2014 explicit why-it-cannot-get-closer, release now and advance permanently. Terminal agbcc callee-saved coloring/add-destination deadlock at score 10 (99.8%), reconfirmed with 2 compiles this session: preserved accumulate source = 10 (all 60 insns present, only final `adds r0,r3,r0; str r0,[r5,#0xc]` vs ours `adds r3,r3,r0; str r3,[r5,#0xc]`); fresh-sum/direct-store variant = 55 (destination fixed to r0 but p1/v3 colors swapped across 11 regalloc rows). p1 and v3 tie at 4 callee-saved refs; ~214 lifetime attempts across all models exhausted every temp/order/type/cast/helper/flag/volatile lever; register-asm pinning harness-banned. Pure C, not hand asm, not_c=false, clean epilogue, no boundary, no callee dependency. Preserve best-10 accumulate source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0808B458",
+   "text": "Reconfirmed terminal agbcc frameless-loop-leaf wall at 225 (79.5%) with 4 fresh compiles this session. Best source: `void sub_0808B458(s32 arg0){ s32 r2=0; u8 *r1=(u8*)arg0+0xC; do{ if(*(u16*)(r1+0xE)==0) break; r1+=0x10; r2+=4; }while(r2<=0); }`. All 9 distinct real target body instructions byte-exact. Tried: do-while (225), while+break (225), for(;;)+two returns (285, worse), restored do-while (225). Sole residual: compiler-mandated `push {lr}`/`pop {r0}`/`bx r0` frame (vs ROM's bare frameless `bx lr`) plus beq #0x14->#0x16 / ble #6->#8 displacement shifts induced by that 2-byte push. The backward ble is intrinsic to the 11-insn target body; no C loop form removes the frame; Thumb-1 has no setcc; -mno-thumb-interwork scores 320; asm/goto/attrs harness-rejected; ~280 lifetime attempts across many agents agree 225 is immovable. Pure C, not hand asm, not_c=false, exact 22-byte extent (2 pad bytes), no boundary, no callee dependency. Preserve best-225 source verbatim; advance queue permanently.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08094374",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance queue permanently. No legal pure-C step lowers score 335 (72.0%): all 12 real target body instructions are byte-exact with `s32 sub_08094374(void){ s16 value=*(s16*)0x020279E8; if(value==0x0D) return 0; return -1; }`; the entire residual is agbcc's mandatory `push{lr}`/align-nop `movs r0,r0`/`pop{r1}`/`bx r1` frame on a cmp+beq Thumb-1 leaf versus the ROM's frameless bare `bx lr`, plus mechanical +4 literal / +2 branch displacement ripple and the known spurious post-bx pool decoding (#942). Thumb-1 has no setcc, so no branchless C keeps cmp+beq (ternary 1030, inverted bne 495); search_flags 335 at all O-levels, -mno-thumb-interwork 430; asm/goto/attrs harness-rejected; ~274 lifetime attempts across agents agree 335 is immovable. Pure C, not hand asm, not_c=false, exact 24-byte extent, no boundary, no callee dependency. Preserve best-335 source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080A0154",
+   "text": "Explicit why-it-cannot-get-closer override. Terminal project-setup declared-extent-too-short wall at score 200 (93.3%), NOT a C problem. Fresh compile confirms ALL 30/30 real target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0` with preserved pointer-copy C (`void sub_080A0154(void *arg0,void *arg1,void *arg2,s32 arg3){ void *a0=arg0; void *a2=arg2; if(a0){ s32 v=(*(u16*)((u8*)arg1+2)&0x10)?1:-1; *(s32*)((u8*)a0+0x6C)=v; *(s32*)((u8*)a0+0x4C)=*(s32*)((u8*)a2+8)+(((v<<1)+v)<<0x13); *(s32*)((u8*)a0+0x5C)=*(s32*)((u8*)a2+0xC)+0xFFE00000; *(u8*)((u8*)a0+0x7C)=(u8)arg3; } }`). The ONLY 2 residual rows are this function's OWN mandatory 0xFFE00000 literal-pool word at 0x080A0190-93, emitted by my compile but outside the declared 60-byte window, decoded as `movs r0,r0` + `.byte 0xe0,0xff`. FIX = SETUP EXTEND extent 60 -> 64 bytes / end 0x080A0194; do NOT report_boundary \u2014 pool belongs here. Filed a fresh suggest() vote this claim. No C spelling moves a compiler-emitted pool; ~177 lifetime attempts agree. Pure correct C, not hand asm, not_c=false, no boundary, no callee dependency. Scores 0 once extent extended.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080BA79C",
+   "text": "Explicit why-it-cannot-get-closer override. Terminal declared-extent-too-short SETUP wall, NOT a C problem; fresh compile this session confirms ALL 27/27 real target instructions byte-exact through `pop {r4}; pop {r0}; bx r0` with the correct matched-sibling (sub_080BACB0)-shaped source: `void sub_080BA79C(void *arg0){ u8 *actor=(u8*)arg0; void *work=*(void**)(actor+0x3C); s32 *advanceCb; sub_080BB984(work,(u8*)work+0x48); sub_080BBA08(arg0); if(*(u8*)(actor+*(s16*)(actor+0x22)*2+0x19)==0x18){ *(u8*)(actor+*(s16*)(actor+0x22)*2+0x19)=0; advanceCb=(s32*)0x08671BB0; sub_080C31E4(actor+0x18,actor+0x22,*advanceCb); } }` with extern prototypes for the 3 callees; advanceCb MUST be assigned AFTER the zero store (top-of-function init 410, in-block init before store 400, inline at call 410). Sole residual: this function's OWN literal-pool word 0x08671BB0 at 0x080BA7D8-DB, excluded by the declared 60-byte extent, misdecoded as `subs r0,r6,r6` / `lsrs r7,r4,#1`; next prologue 0x080BA7DC. FIX = SETUP EXTEND 60 -> 64 bytes / end 0x080BA7DC; do NOT report_boundary/shorten \u2014 pool belongs here. Filed a fresh suggest vote this claim. CRITICAL: the stored numeric-best 145 source dereferences an UNINITIALIZED `nv` and pushes r5 \u2014 buggy, NEVER use. No C spelling relocates a compiler-emitted pool (~200 lifetime attempts agree). Pure C, not hand asm, not_c=false, no boundary, no callee dependency. Scores 0 once extent extended.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0808EA30",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step reaches score 0 with the map-mandated agbcc -mthumb-interwork -O1. 220 (92.6%) is an immutable constant-coloring floor: all 30 target instructions structurally present, first 11 byte-exact; the entire residual is that ROM keeps 0x100 in r1 for both strh and 0x800 in r4 with `adds r0,r4,#0; orrs r0,r1`, while agbcc always swaps (0x100 in r4 + extra `adds r1,r4,#0`; 0x800 rematerialized in r0, missing `adds r0,r4,#0`). search_flags: -O1 and -O1 -fno-strength-reduce = 220, O2/O3/Os = 615; no other compiler exists for this game. Tried across ~337 lifetime attempts: named result locals, named m100/zero dependency folds, hoisting, helpers, inline-OR helper (225), hoisted c800 (895) \u2014 none change the coloring; register/naked/inline asm and computed goto harness-rejected. Pure C, not hand asm, not_c=false, exact 64-byte extent with inline literal at 0x0808EA6C, no boundary, no callee dependency. Preserve best-220 source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080BAD30",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step reaches score 0 with agbcc -mthumb-interwork -O2. 10 (99.6%) is a terminal two-regalloc coloring tie with ALL 31/31 target instructions byte-exact. Sole residual: after `ldr r1,[r0]; str r1,[r5,#8]` frees r1, agbcc colors the D_08102EE0 base literal into r1 (`ldr r1,[pc,#0x1c]; adds r0,r0,r1`) instead of ROM's r2 (`ldr r2,[pc,#0x1c]; adds r0,r0,r2`). r4/r5/r6 are the live callee-saved set with r6 reserved as the final sub_080988B8 argument, so no C value can legitimately occupy r1 there; every forcing device either swaps both colorings together or breaks the literal-pool layout (verified this session: early-u + swapped extern order gives 230). ~294 lifetime attempts across all models and every C spelling/flag agree; asm/register pinning and inline asm harness-rejected. Pure correct C, not hand asm, not_c=false, exact 68-byte extent, no boundary, no callee dependency. Preserve best-10 source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08032A04",
+   "text": "Explicit why-it-cannot-get-closer override. CLASS-A declared-extent/setup wall, NOT a C problem. Fresh compile this session: score 200 (94.1%) with ALL 34/34 real target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0` using the correct pointer-form C: `void sub_080113A8(s32,s32); void sub_080C31E8(void*,void*,s32,s32); void sub_08032A04(void *a){ void *r0=*(void**)((u8*)a+0x38); void *r4=*(void**)((u8*)a+0x3C); s32 *lit; u8 *p18; sub_080113A8((s32)r0,(s32)((u8*)r4+0x34)); if((2&*(u8*)((u8*)r4+0x34))||(*((u8*)((u8*)a+0x80)))){ s32 idx=*(s16*)((u8*)a+0x22); *((u8*)a+idx*2+0x19)=0; lit=(s32*)0x08671BD0; p18=(u8*)a+0x18; sub_080C31E8(p18,(u8*)a+0x22,0,*lit); } }` with lit/p18 assigned AFTER the zero store. Sole residual: 2 extra rows decode this function's OWN trailing literal-pool word 0x08671BD0 at 0x08032A4C-4F as Thumb (quirk #942) because declared extent 72 ends at the pool; next function starts 0x08032A50. FIX = SETUP EXTEND 72 -> 76 bytes / end 0x08032A50; do NOT report_boundary/shorten. Filed a fresh suggest vote. CRITICAL: stored numeric-best 125 is a WRONG permuter hack (overwrites lit with a+0x22, bogus call args) \u2014 never reuse; inline-at-call scores 400. Pool intrinsic so no C spelling removes it (~236 attempts agree). Pure C, not hand asm, not_c=false, no boundary, no callee dependency. Scores 0 once extent extended.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080B7408",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step reaches score 0 with agbcc -mthumb-interwork -O2. 230 (93.7%) is a terminal copy-propagation floor: all 37 target instructions present and otherwise byte-exact with the preserved source. The entire residual is the ROM's dead `adds r1,r3,#0` after staging -1 in r3 (`movs r3,#1; rsbs r3,r3,#0`), which agbcc always copy-propagates into r1 because r3 has no second live use; the two beq displacement shifts (#0x3e->#0x3c, #0x34->#0x32) and trailing pad/pool row follow mechanically. ~261 lifetime attempts across all models and every C form/flag agree; register/naked/inline asm harness-rejected. Pure correct C, not hand asm, not_c=false, exact 76-byte extent with two inline literals at 0x080B744C/50, no boundary, no callee dependency. Preserve best-230 source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08088D1C",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step lowers score 6 (99.9%). 87/87 target instructions present, 86 byte-exact; the sole residual is the final step-index load encoding: ROM `movs r1,#0x22; ldrsh r0,[r5=arg0,r1]` vs agbcc `movs r1,#0xa; ldrsh r0,[r4=base18,r1]` (same address arg0+0x22). Verified this session: an arg0-based spelling regresses to 110 by flipping the global callee-saved coloring (22 regalloc rows), while base18-based keeps ROM's colors but wrong encoding \u2014 mutually exclusive under agbcc IRA. ~225 lifetime attempts across 7+ models exhausted all C forms and flag levels; register/inline asm harness-rejected. Pure C, not hand asm, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-6 source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080B8084",
+   "text": "Explicit why-it-cannot-get-closer override. Class-A declared-extent SETUP wall, NOT a code wall, reconfirmed this session: ALL 36/36 real target instructions byte-exact through `pop {r4,r5,r6}; pop {r0}; bx r0` with the sibling-shaped C `void sub_080B8084(void *arg0){ u8 *self=(u8*)arg0; s32 v38=*(s32*)(self+0x38); u8 *p3C=*(u8**)(self+0x3C); u8 *r4=p3C+0x34; s32 *lit; sub_08011368(v38,r4,6,0); sub_08011460(v38,r4,0x40000); if(*(u8*)r4&2){ *(u8*)(self+*(s16*)(self+0x22)*2+0x19)=0; lit=(s32*)0x08671BB0; sub_080C31E4(self+0x18,self+0x22,*lit); } }` with extern prototypes; the in-block `s32 *lit;` assigned AFTER the byte store is load-bearing (init-at-declaration 500, hoist 510). Entire residual = 3 extra rows past declared 78-byte extent (ends mid-pad at 0x080B80D2): 2-byte alignment pad `movs r0,r0` at D2 plus own literal-pool word 0x08671BB0 at D4 decoded as Thumb (`subs r0,r6,r6`, `lsrs r7,r4,#1`); next prologue 0x080B80D8. FIX = SETUP EXTEND 78 -> 84 bytes / end 0x080B80D8; do NOT report_boundary/shorten. Filed fresh suggest vote; ~183 lifetime attempts agree no C lever; pool mandatory. Pure C (-O2 range), not hand asm, not_c=false, no callee dependency. Scores 0 once extent extended.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08084500",
+   "text": "Explicit why-it-cannot-get-closer override. SETUP-blocked jump-table dispatcher HEADER, NOT a C wall. Fresh compile confirms exact floor 1965 (49.6%) with canonical computed-goto C `extern u8 D_02025FF0[]; extern void sub_08084994(void); void sub_08084500(s32 a0,s32 a1,s32 a2,s32 a3){ u8 v=D_02025FF0[0x14ED]; D_02025FF0[0x14EE]=v; v=D_02025FF0[0x14EE]; v-=0x21; if(v>0x80) sub_08084994(); goto *((void**)0x0808454C)[v]; }` (u8 load-bearing; u32 -> 2070). Declared extent is only 78 bytes (0x08084500-0x0808454E) \u2014 just the switch header of the real ~1188-byte function 0x08084500-0x080849A4. The 129-entry table 0x0808454C-0x0808474F, case bodies 0x08084750-0x08084993 and default sub_08084994 are all outside the extent yet force every residual: missing 13-insn high-register prologue, pool offsets #0x24 vs #0x28, u8 truncation shifts, bl-vs-tail-b, decoded out-of-extent table words, bogus call/pointer diagnostics. FIX = SETUP EXTEND to 1188 bytes / end 0x080849A4 and resolve bogus overlapping sub_08084572; do NOT report_boundary or pad case bodies. Filed fresh suggest vote; ~194 lifetime attempts agree. Pure C (computed goto accepted here), not hand asm, not_c=false, no genuine callee dependency. Preserve best-1965 source verbatim; advance queue permanently.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08061E34",
+   "text": "Explicit why-it-cannot-get-closer override. Project-SETUP extent wall, NOT a C wall; fresh compile confirms ALL 16/16 real target instructions byte-exact through `bx lr` at 0x08061E52 with in-source struct globals: `struct S_02027A00_61 { u8 pad[8]; u32 f8; u32 fC; u8 f10; u8 f11; }; struct S_02021E90_61 { u8 pad[0x1278]; u32 v1278; u32 v127C; }; void sub_08061E34(void){ D_02027A00.f11=0; D_02021E90.v127C=0x80<<10; D_02027A00.f8=0x80<<11; D_02027A00.fC=0xA0<<16; }`. Entire residual: 6 extra decoded rows = this function's OWN mandatory 3-word literal pool at 0x08061E54-5F (0x02027A00, 0x02021E90, 0x0000127C), excluded by declared 32-byte extent ending at bx lr; ROM misattributes pool to bogus sub_08061E54; next real function starts 0x08061E60. FIX = SETUP EXTEND 32 -> 44 bytes / end 0x08061E60 and retire sub_08061E54 as data; report_boundary is the WRONG direction. Filed fresh suggest vote. Structs must stay in-source (edit_context with them breaks matched funcs on conflicting D_02021E90 declarations). ~123 lifetime attempts agree; no closer C step exists. Pure C, not hand asm, not_c=false, no callee dependency (leaf). Scores 0 once extent fixed.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08086E28",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step lowers score 40 (99.0%): all 40 target instructions byte-exact in identical order. The only residual is 8 regalloc rows because the ROM holds the 0x305 offset in callee-saved r4 (live across the branch, reused for the 2nd byte load) while agbcc colors that pseudo into caller-saved r0/r1 in this call-free leaf. Verified this session: reusing a single offset+byte variable regresses to 55. No C spelling creates callee-saved pressure in a leaf; ~293 lifetime attempts across all models exhausted the C space; register/naked/section asm harness-rejected, register-without-asm has no coloring effect. Pure correct C, not hand asm, not_c=false, exact 80-byte extent with inline pool at 0x08086E68, no boundary, no callee dependency. Preserve best-40 permuter source verbatim (including `new_var=&r0`); do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080BB898",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step reaches score 0 for this backward-branch Thumb-1 leaf. 215 (76.1%) is a terminal agbcc frameless-leaf wall: all 9 real target body instructions byte-exact; the sole residual is the compiler-mandated push{lr}/pop{r0};bx r0 frame + bls #6->#8 versus the ROM's frameless bare bx lr. A Thumb-1 counted loop MUST back-branch; unrolling changes the body; no flag/toolchain removes the frame; asm/goto/section/register-asm harness-rejected; ~323 lifetime attempts agree. Pure correct C, not hand asm, not_c=false, exact 18-byte extent (2 pad bytes), no boundary, no callee dependency. Preserve best-215 do-while source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080B9F64",
+   "text": "Explicit why-it-cannot-get-closer override. Class-A trailing-literal declared-extent SETUP wall under -Os, NOT a code wall; fresh compile confirms ALL 38/38 real target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0` at 0x080B9FB0, using the preserved permuter source (load-bearing `s32 *new_var=&v` and in-block `s32 *lit;`, dropping former regresses to 220, inlining literal pointer to call to 420). Entire residual = 2 extra rows (`subs r0,r6,r6`, `lsrs r7,r4,#1`) = Thumb-decoding of this function's OWN literal-pool words 0xFFFFFD00 @0x080B9FB0 and 0x08671BB0 @0x080B9FB4, cut off by the declared 84-byte extent ending 0x080B9FB0; next function starts 0x080B9FBC. FIX = SETUP EXTEND 84 -> 88 bytes / end 0x080B9FBA; do NOT report_boundary/shorten. Filed fresh suggest vote; ~141 lifetime attempts all floor at 200; no C lever; pool words mandatory. Pure compiled C (-Os range), not hand asm, not_c=false, real callees, no boundary, no callee dependency. Scores 0 once extent extended.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080A0274",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step reaches 0 for this branchy Thumb-1 leaf. 235 (76.5%) is a terminal agbcc frameless-leaf floor: all 10 real target body instructions byte-exact with the canonical guarded C; only residual is the compiler-mandated push{lr}/pop{r1};bx r1 frame + three +2 branch shifts versus ROM's frameless bare bx lr. Thumb-1 has no setcc (branchless ternary 1220); -mno-thumb-interwork 330; all flags/toolchains and asm/attributes/goto harness-rejected; ~288 lifetime attempts agree. Pure correct C, not hand asm, not_c=false, exact clean 20-byte extent, no boundary, no callee dependency. Preserve best-235 source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080A89A4",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step lowers score 625 (86.4%): all real body instructions and six branch offsets byte-exact with the preserved permuter source (`volatile unsigned int off` + `s32 *new_var` load-bearing). Sole residual is agbcc's mandatory `push {lr}; sub sp,#4 ... add sp,#4; pop {r1}; bx r1` LR frame on this six-branch Thumb-1 leaf versus ROM's bare `bx lr`, plus [sp] routing of the 0x174C literal and spurious post-bx pool decoding (#942). Thumb-1 has no setcc so branches cannot fold; natural rewrites regress to 2065; ~223 lifetime attempts across all models/flags agree; asm/naked/register/section harness-rejected. Pure C, not hand asm, not_c=false, clean 92-byte extent, no boundary, no callee dependency. Preserve best-625 source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080B72F4",
+   "text": "Second request \u2014 EXPLICIT WHY IT CANNOT GET CLOSER, release immediately and advance permanently. No legal pure-C step lowers score 240 (94.6%): 44/45 real target instructions byte-exact with the preserved best source. Two mutually-exclusive residuals: (1) ROM loads src into r4 before the two-literal D_02025FF0+0x1870 base add while agbcc hoists the global literal plus an extra deref; (2) ROM births -1 in r3 then copies `adds r1,r3,#0` while agbcc coalesces into r1. Tried this session: canonical 240; named minus1 copy still 240; prior agents tried decl swap 241/251, u8-array spelling 1065, temp tricks 451. ~276 lifetime attempts across all models/forms/flags exhausted; asm harness-rejected; BL note is a veneer artifact (#940). Pure C, not hand asm, not_c=false, clean extent/epilogue, no boundary, no genuine callee dependency. Preserve best-240 source verbatim; do not hand back.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080B4F34",
+   "text": "Explicit why-it-cannot-get-closer override. Declared-extent-too-LONG SETUP wall, NOT a C problem; fresh compile confirms ALL 45/45 real target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0` at 0x080B4F8C, including this function's own literal-pool word 0x086703FC at 0x080B4F90-93, using the struct-based clone of matched twins sub_080BD290/sub_080BCDC0/sub_080BC14C (`new_var=0x18`, `new_var2=step*2` load-bearing). Sole 2 missing rows are the NEXT function's prologue `push {r4,r5,r6,r7,lr}` / `adds r5,r0,#0` at 0x080B4F94-97, spuriously included because declared extent is 4 bytes TOO LONG (100 ends 0x080B4F98; real extent 96 ends 0x080B4F94). FIX = SETUP SHORTEN 100 -> 96 bytes; do NOT report_boundary and do NOT extend. Filed fresh suggest vote; ~127 lifetime attempts agree; no C spelling changes emitted bytes. Pure compiled C, not hand asm, not_c=false, no genuine callee dependency. Scores 0 once extent shortened; preserve best-200 source verbatim; advance queue permanently.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0808AFD4",
+   "text": "Explicit why-it-cannot-get-closer override. CLASS-A declared-extent/setup wall, NOT a C wall; fresh compile confirms ALL 48/48 real target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0` at 0x0808B038-39, using the clone of matched twin sub_0808CC14 with load-bearing block-scoped `void **lit=&D_08671BB0; *lit` (inlining regresses to 400). ONLY residual: this function's OWN 2-byte alignment pad at 0x0808B03A plus its literal-pool word 0x08671BB0 at 0x0808B03C-3F decoded as 2 extra `movs r0,r0` because the declared 104-byte extent ends at 0x0808B03C; read_data confirms pad/pool and next prologue 0x0808B040. FIX = SETUP EXTEND 104 -> 108 bytes / end 0x0808B040; do NOT shorten and do NOT report_boundary \u2014 pad and pool belong here. Filed fresh suggest vote; ~128 lifetime attempts; no C spelling removes them (if/else inversion 1400). Pure C (-O1 range), not hand asm, not_c=false, no callee dependency. Scores 0 once extent extended; preserve best-200 source verbatim; advance queue permanently.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0808CB58",
+   "text": "EXPLICIT WHY IT CANNOT GET CLOSER: terminal agbcc -mthumb-interwork -O1 frameless-branchy-Thumb-1-leaf wall at 685 (88.1%). Fresh compile confirms ALL 58 real target body instructions byte-exact via the preserved goto-form compare tree; the ONLY residual is the compiler-mandated push{lr}/align-nop/pop{r1};bx r1 LR frame versus the ROM's frameless bare bx lr, plus mechanical +4 literal/+2 branch ripple and spurious post-bx pool warning (#942). Thumb-1 has no setcc so no branchless C reproduces the 14-way tree (return-form rewrite = 5595); ~162 lifetime attempts across all C spellings/flags/compilers agree; asm/computed-goto harness-rejected. Pure C, not hand asm, not_c=false, exact 116-byte extent, no boundary, no callee dependency. Preserve best-685 goto source verbatim; advance queue permanently.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08051CE8",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER REQUEST \u2014 release now, advance permanently. Terminal agbcc callee-saved-r4 regalloc wall at 310 (87.0%): fresh compile confirms the entire residual is compiler coloring (push{lr}/coalesced copy/beq#0x28/pop{r0}) vs ROM r4 frame (push{r4,lr}/adds#0 copies/beq#0x2a/pop{r4};pop{r0}), ~214 lifetime attempts across all models, flags and toolchains agree immovable; register-asm pinning, naked and section attributes harness-rejected. No legal pure-C step reaches 0. Pure C, not_c=false, exact extent, no boundary, no callee dependency. Preserve best-310 canonical void*volatile do-while source.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08055990",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER REQUEST \u2014 release now, advance permanently. Terminal agbcc conditional-leaf wall at 325 (87.0%): residual solely compiler-mandated push{lr}/pop{r0};bx r0 vs ROM frameless leaf plus coupled r1/r2/r3 permutation; ~214 lifetime attempts across all models, C forms, flags and toolchains agree immovable; Thumb-1 has no setcc; asm/naked harness-rejected. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-325 source.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080AD8D4",
+   "text": "EXPLICIT WHY IT CANNOT GET CLOSER: SETUP wall, not a C problem \u2014 fresh compile shows score 200 (96.6%) with ALL 60/60 real target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0`; the ONLY residual is 2 extra `movs r0,r0` alignment NOPs because the declared 128-byte extent ends at 0x080AD954 exactly where this function's own literal-pool word D_08671BB0 begins. FIX = user-side SETUP EXTEND extent 128 -> 132 bytes / end 0x080AD958; do NOT shorten, do NOT report_boundary at bx r0 \u2014 pool belongs here. ~101 lifetime attempts agree no C change removes assembler padding. Pure C, not hand asm, not_c=false, no callee dependency. Scores 0 once extent fixed; preserve best-200 source; advance permanently.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08062770",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now. Terminal agbcc frameless-conditional-leaf floor at 215 (82.0%): all 12 real body insns byte-exact, sole residual compiler LR frame vs ROM frameless leaf + ble ripple; ~155 lifetime attempts across models/flags/toolchains agree immovable, Thumb-1 has no setcc, asm harness-rejected. No legal pure-C step lowers it. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-215 source; advance permanently.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08008C78",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 coalescing floor at score 5 (99.9%): 79/80 target insns byte-exact, identical count; sole residual `cmp r3,r4` vs `cmp r2,r4` after byte-exact copy because r2 is dead. ~269 lifetime attempts/9 models exhausted every legal C lever (loop shapes, copy placement, temps/casts/volatile, folded reassignment deps, operands, flags/compilers); pointer indirection adds pool loads (715), asm harness-rejected. No legal pure-C step reaches 0. Pure correct C under this range's agbcc -mthumb-interwork -O1, not_c=false, clean extent, no boundary/callee dep. Preserve best-5 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0800DE50",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 AND-destination/register-coloring floor at 25 (99.8%), 232/232 instruction shapes byte-exact; sole residual 5 regalloc rows at `(0xC & f1262)<<12` (ROM `ands r1,r0` with mask in destination r1 vs agbcc `ands r0,r1`). Fresh session test of `andBits` helper + offs local regressed to 410 (r6 spill). ~422 lifetime attempts/11 models exhausted every C lever; asm/pinning harness-rejected. No legal pure-C step reaches 0. Pure C, correct -O1 compiler, not_c=false, clean extent, no boundary, all 4 callees matched. Preserve best-25 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0801102C",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 commutative-AND canonicalization wall at 20 (99.7%): all 67 target insns byte-exact, identical count; sole residual 4 regalloc rows at two `&0x8000` tests (ROM `adds r0,r7,#0; ands r0,r2` shared mask r7 vs agbcc `adds r0,r2,#0; ands r0,r7`). ~288 lifetime attempts/all models/spellings/flags/compilers exhausted; asm/pinning harness-rejected. No legal pure-C step reaches 0. Pure C, correct -O1 compiler, not_c=false, clean extent, no boundary, callee matched. Preserve best-20 goto-flagstore source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080C1400",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc scratch-register tie at 10 (99.8%): all 57 target insns byte-exact, sole residual 2 regalloc rows (`mov r1,sb; cmp r1,#0` ROM vs `mov r0,sb; cmp r0,#0` reusing dead store reg). ~218 lifetime attempts/all models/C forms/flags exhausted; forcing forms add insns, asm pinning harness-rejected. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, callee matched, no boundary/dependency. Preserve best-10 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080C050C",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 coloring tie at 15 (99.4%): all 25 target insns byte-exact, sole residual 3 regalloc rows (ROM table=r2/idx=r3/value=r2 reusing dying table base; agbcc only value=r3 or swapped table/idx). ~225 attempts/all models/C forms/flags/compilers exhausted; asm pinning harness-rejected. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, callee matched. Preserve best-15 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080BAD30",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O2 coloring tie at 10 (99.6%): all 31 target insns byte-exact; sole residual D_08102EE0 base literal in r1 instead of ROM's r2 after `str r1,[r5,#8]` frees r1. ~295 attempts/all models/flags exhausted; forcing devices swap colorings or break pool; asm pinning harness-rejected. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-10 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0804EA20",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc copy-coalescer tie at 10 (99.8%): 54/54 insns present, 53 byte-exact; sole residual prologue load/copy direction (ROM r6=load,r4=copy vs agbcc r4=load,r6=copy), identical final state. ~195 attempts/6 models/flags exhausted; asm pinning harness-rejected. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-10 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0806BA20",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc callee-saved coloring/add-destination deadlock at 10 (99.8%): all 60 target insns byte-exact except final add/store destination (ROM r0 vs ours r3). p1/v3 tie at 4 refs: accumulate keeps colors but forces dest r3; fresh sum fixes dest but swaps colors to 55. ~215 attempts/all models/levers exhausted; asm pinning harness-banned. No legal pure-C step reaches 0. Pure C, not_c=false, clean epilogue, no boundary, no callee dependency. Preserve best-10 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08074654",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 commutative-AND dest canonicalization wall at 10 (99.9%): all 140 target insns byte-exact except 2 regalloc rows for `D_02025FF0[0x1510] & 1` (ROM constant mask in AND dest r0 / byte in r1; agbcc reverses). ~98 attempts/7+ models exhausted every C spelling, helper, flag and cast; context.h helper regresses matched functions; asm pinning harness-banned. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-10 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080C0ABC",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc local-alloc register-preference tie at 40 (99.5%): 87/87 target insns byte-exact, sole residual 8 regalloc rows (ROM uses r1 for four one-shot loop-limit loads/copies, agbcc always r0). ~205 attempts/~10 models/all C shapes/flags exhausted; asm pinning harness-rejected. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-40 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08078C6C",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 dead-sum register-coloring wall at 15 (99.8%): all 123 target insns byte-exact except 3 regalloc rows on a sum that dies at its store (ROM r2 dest vs agbcc lowest-free r0/r1); matched twin confirms compiler-build allocator difference. ~139 attempts/9+ models/all C levers/flags exhausted; asm pinning harness-banned. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-15 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0804C3F0",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 load-order/callee-saved coloring tie at 20 (99.6%): all 58 target insns byte-exact except first two loads swapped (ROM 0x38->r7 then 0x3C->r6). p3C-first keeps colors/wrong order (20); p38-first fixes order/swaps colors (60). ~203 attempts/all models/C levers exhausted; asm pinning harness-banned. No legal pure-C step reaches 0. Pure C, not_c=false, clean epilogue/own pool, no boundary, no callee dependency. Preserve best-20 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080555E0",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 coupled tail scheduler/register-coloring floor at 15 (99.8%): 87/87 target insns present, first 70 byte-exact, sole residual 3 tail regalloc rows (`adds r0,r0,r5; movs r1,#0; strb r1,[r0,#0x19]` ROM vs agbcc `adds r1,r5,r0; movs r0,#0; strb r0,[r1,#0x19]`). ~287 attempts/6+ models/all C levers/flags exhausted; asm pinning harness-banned. No legal pure-C step reaches 0. Pure C, not_c=false, clean epilogue, no boundary, no callee dependency. Preserve best-15 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0809767C",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 commutative-AND operand-copy coin flip at 10 (99.9%): 104/106 target insns byte-exact, identical count; sole residual 2 regalloc rows (ROM copies constant one into tied AND dest, agbcc copies flags). ~218 attempts/7+ models/flags exhausted; asm pinning harness-banned. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-10 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08030188",
+   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O2 scratch-register tie-break at 70 (99.7%): 288/288 target insns byte-exact and in order, sole residual 14 regalloc rows for one-shot 0x1C/0x22 index temps and sl/sb zero/one copies (target r2/r4/r1 vs agbcc r1/r2/r4 preference inversion). ~85 attempts/8+ models/all O-levels/C spellings invariant; asm pinning harness-banned. No legal pure-C step reaches 0. Ordinary C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-70 source verbatim.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_0804C73C",
+   "text": "8 compiles this session, all score 10 (99.9%, 236/238 insns byte-exact). Sole residual: at `owner->f48 = arg0->unk5C` ROM emits `adds r0,r6,#0; adds r0,#0x5C; ldrh r1,[r0]; str r1,[r5,#0x48]` (load into r1, address stays r0) while agbcc coalesces the halfword load into the dead address register (`ldrh r0,[r0]; str r0,[r5,#0x48]`). Tried this session: named pointer local for the source (`u8 *p5C = arg0+0x5C`), named struct-field access (`u16 unk5C` member), inline setter helper taking the value as a 2nd argument, explicit `(u32)(u16)` casts, volatile source load, named destination pointer (`u32 *pdst = &r5->f48`), block-scoped `u16` temp, raw pointer arithmetic for the destination, and literal 0 at every zero use site (the lever that just cracked sub_0803E5F4). search_flags: all four variants (O2/O3/Os/O1) also score 10, so flags are not the issue. Prior ~74 attempts covered u32 temps, folded dependencies, bitfields, zero+memcpy, union punning, volatile destination. This is a hard terminal agbcc -O2 load/address coalescing tie; no legal pure-C spelling prevents coalescing here. Ordinary correct C, not hand asm, not_c=false, exact extent, no boundary, no callee dependency. Preserve the best-10 source (literal zeros, named p5C pointer).",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_08032A04",
+   "text": "Compiled this session (1 compile): score 200, 34/34 real target instructions byte-exact. CLASS-A declared-extent/setup wall, not a C problem: declared extent 72 bytes ends 0x08032A4C at the start of this function's OWN literal-pool word 0x08671BD0 (0x08032A4C-4F); next function starts 0x08032A50. The only 2 residual rows decode that pool word as Thumb (`subs r0,r2,r7`; `lsrs r7,r4,#1`, quirk #942). FIX: user-side SETUP EXTEND 72 -> 76 bytes / end 0x08032A50; do NOT report_boundary or shorten. Voted again with suggest(). Pool is intrinsic to `ldr r3,[r2]`; ~237 lifetime attempts agree. CRITICAL: the stored numeric-best 125 source is a WRONG permuter hack (overwrites lit with a+0x22, bogus call args) \u2014 never reuse. Preserve the correct pointer-form source: void sub_080113A8(s32,s32); void sub_080C31E8(void*,void*,s32,s32); locals r0/r4, named `s32 *lit` and `u8 *p18` assigned AFTER the zero store, `sub_080113A8((s32)r0,(s32)((u8*)r4+0x34)); if((2&*(u8*)((u8*)r4+0x34))||(*((u8*)((u8*)a+0x80)))){ s32 idx=*(s16*)((u8*)a+0x22); *((u8*)a+idx*2+0x19)=0; lit=(s32*)0x08671BD0; p18=(u8*)a+0x18; sub_080C31E8(p18,(u8*)a+0x22,0,*lit); }`. Pure C, not hand asm, not_c=false, no boundary, no callee dependency. Scores 0 once extent fixed.",
+   "by": "opencode-hy4-flash-free-1"
+  },
+  {
+   "function": "sub_080BB898",
+   "text": "EXPLICIT WHY-IT-CANNOT-GET-CLOSER override \u2014 release now, advance permanently. Terminal agbcc frameless-backward-branch Thumb-1 leaf wall at 215 (76.1%), freshly reconfirmed with 2 compiles this session (for-loop = 625; preserved do-while = 215). ALL 9 real target body instructions byte-exact with `void sub_080BB898(void **a){ u32 i=0; u8 one=1; void **p=a; do{ void *v=*p++; *(u8*)((u8*)v+1)=one; i++; }while(i<=4); }` (u8 one is load-bearing for decl order movs r1,#0; movs r3,#1; adds r2,r0,#0). The ONLY residual: agbcc's compiler-mandated push{lr}/pop{r0};bx r0 LR frame on any backward-branch Thumb-1 leaf, plus mechanical bls #6->#8, versus the ROM's frameless bare bx lr. A Thumb-1 counted loop MUST back-branch; unrolling changes the whole body; no flag/toolchain removes the frame (search_flags O1/O2/O3=625, Os=830); only agbcc exists; asm/computed-goto/section/register-asm harness-rejected. ~324 lifetime attempts agree 215 is immovable. Pure correct C, not hand asm, not_c=false, exact 18-byte extent with 2 pad bytes, no boundary, no callee dependency. Preserve best-215 source verbatim; do not hand back.",
    "by": "opencode-hy4-flash-free-1"
   }
  ],
