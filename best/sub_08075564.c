@@ -4,7 +4,7 @@ void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, void *);
 s32 sub_080C364C(s32, s32);
 void sub_08003740(void *, void *);
-void sub_08005E80(s32);
+void playSound(s32);
 void sub_08075564(void *arg0)
 {
   u32 new_var;
@@ -54,7 +54,7 @@ void sub_08075564(void *arg0)
       *((s32 *) (((u8 *) p4) + 0x14)) = (*((s32 *) (((u8 *) p4) + 0x14))) - 1;
       if ((*((s32 *) (((u8 *) p4) + 0x14))) == 0)
     {
-      sub_08005E80(0xD9);
+      playSound(0xD9);
       *((s32 *) (((u8 *) p4) + 0x14)) = 0xA;
     }
       break;
@@ -123,7 +123,7 @@ void sub_08075564(void *arg0)
       *((s32 *) (((u8 *) p4) + 0x14)) = (*((s32 *) (((u8 *) p4) + 0x14))) - 1;
       if ((*((s32 *) (((u8 *) p4) + 0x14))) == 0)
     {
-      sub_08005E80(0xDC);
+      playSound(0xDC);
       *((s32 *) (((u8 *) p4) + 0x14)) = 0xA;
     }
       break;

@@ -1,6 +1,6 @@
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_08003740(void *, void *);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void *sub_0806D2A0(s32, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 
@@ -48,7 +48,7 @@ cont:
 
     *(s32 *)(r4 + 0x14) -= 1;
     if (*(s32 *)(r4 + 0x14) == 0) {
-        sub_08005E80(0xAF << 1);
+        playSound(0xAF << 1);
         *(s32 *)(r4 + 0x14) = 0x1E;
     }
 

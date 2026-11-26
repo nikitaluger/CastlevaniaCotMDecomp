@@ -1,4 +1,4 @@
-void sub_08005E80(s32);
+void playSound(s32);
 void sub_080C31E4(void *, void *, s32);
 extern u8 D_08100818[];
 extern u8 D_081007D0[];

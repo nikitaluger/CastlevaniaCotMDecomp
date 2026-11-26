@@ -2,7 +2,7 @@ extern u8 gTilemapPages[];
 
 extern s32 sub_0806D518(void *, void *, void *);
 extern void sub_08003A6C(void *, s32, void *);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern s32 sub_08007DD8(u32, s32);
 extern void *sub_0806D2A0(s32, s32, s32, s32);
 extern void sub_0806D330(void *, void *);
@@ -70,7 +70,7 @@ void sub_08078534(u8 *self)
         sub_08003A6C(r4, 0, (void *)0x084D96AC);
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 6) = 0xA;
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 8) = 0xA;
-        sub_08005E80(0x144);
+        playSound(0x144);
         for (r2 = 0; r2 <= 7; r2++) {
             new = sub_0806D2A0(*(s32 *)(self + 0x28), 0x46, 0xA, 0x12);
             if (new != NULL) {

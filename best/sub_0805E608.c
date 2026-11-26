@@ -1,5 +1,5 @@
 extern u8 gGameStatus[];
-extern void sub_08005E80(u16, u32);
+extern void playSound(u16, u32);
 extern void sub_08062394(u8, u8, u8, u16);
 extern void sub_080C31E0(void *, void *);
 void sub_0805E608(u8 *arg0)
@@ -24,6 +24,6 @@ void sub_0805E608(u8 *arg0)
   }
  do { if (c <= 0x62) { *((u8 *) q) = v + 1; } } while (0);
   sub_08062394(1, *((u8 *) (p + 0x08)), c, idx);
-  sub_08005E80(0x77, v);
+  playSound(0x77, v);
   sub_080C31E0(arg0, *((void **) (arg0 + 0x24))); } while (0);
 }

@@ -12,6 +12,7 @@ void sub_0806BA20(void *arg0, void *arg1, void *arg2) {
     struct S_02025368 *p = &gGameStatus;
     struct S_02025FF0_A *q = &gMainWorkspace;
     s32 v3;
+    s32 temp;
 
     if (q->flag != 0) {
         if ((q->w & p->w) == 0)
@@ -20,10 +21,13 @@ void sub_0806BA20(void *arg0, void *arg1, void *arg2) {
         if ((gCameraState.w & p->w) == 0)
             *(u32 *)(p1 + 0x50) = 1;
     }
-    v3 = *(s32 *)(p2 + 0x0C);
+    temp = *(s32 *)(p2 + 0x0C);
+    v3 = temp;
     if (v3 < 0 && *(u32 *)(p1 + 0x50) != 0) {
+do {
         u8 *tbl = D_080E03A0;
         v3 += *(u32 *)(tbl + *(u32 *)(p1 + 0x44) * 0x58) * 3;
         *(s32 *)(p2 + 0x0C) = v3;
-    }
+} while (0);
+}
 }

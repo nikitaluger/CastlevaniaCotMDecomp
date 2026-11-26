@@ -1,5 +1,5 @@
 extern s32 sub_08003740(void *, void *);
-extern void sub_08005E80(void);
+extern void playSound(void);
 extern s32 sub_08007DD8(s32, s32, s32);
 extern s32 sub_0806D2F8(void *, void *);
 extern s32 sub_0806D518(void *, void *, void *);
@@ -82,7 +82,7 @@ void sub_0807699C(void *arg0)
       sub_0808DBF8(*((s32 *) (((u8 *) r4) + 0)), *((s32 *) (((u8 *) r4) + 4)), 0);
       if (tbl->f40 != 0)
       {
-        sub_08005E80();
+        playSound();
       }
       goto fail;
     }

@@ -9,7 +9,7 @@ extern u16 sub_08007DD8(s32, s32);
 extern void sub_0806D588(void *, void *);
 extern void sub_08003A6C(void *, s32, void *);
 extern s32 sub_08003740(void *, void *);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void sub_0806D2F8(void *, void *);
 
 void sub_0806F8C8(void *arg0) {
@@ -69,7 +69,7 @@ if (t != 0) goto __repair_rows;
     *(s32 *)((u8 *)r4 + 0x14) = r0b;
 
     if (r0b == 0) {
-        sub_08005E80(0x96);
+        playSound(0x96);
         *(s32 *)((u8 *)r4 + 0x14) = 0x0F;
     }
 

@@ -1,5 +1,5 @@
 extern u32 sub_0806D518(void *, void *, void *);
-extern void sub_08005E80(u32);
+extern void playSound(u32);
 extern void sub_080C31E8(void *, void *, u32, u32);
 extern s16 sub_080C364C(u32, s16);
 extern void sub_08072334(void *, u32, u32, void *);
@@ -55,7 +55,7 @@ void sub_0807B918(u8 *arg0)
   }
   if ((--(*((u32 *) (p10 + 0x14)))) == 0)
   {
-    sub_08005E80(0x144);
+    playSound(0x144);
   }
   new_var6 = p10;
   if ((--(*((u32 *) (p10 + 0x48)))) == 0)

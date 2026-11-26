@@ -1,5 +1,5 @@
 extern void sub_08003A6C(void *, s32, void *);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s16 sub_0806D62C(u16, s32);
@@ -72,7 +72,7 @@ void sub_08079DF0(u8 *arg0) {
         *(s32 *)(r4 + 8) = (*(s32 *)(r4 + 8) * t) / 256;
         *(s32 *)(r4 + 0xC) = (*(s32 *)(r4 + 0xC) * t) / 256;
     }
-    sub_08005E80(0x14B);
+    playSound(0x14B);
     *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = zero;
     {
         s32 *lit = &gMainObjTimerCallback;

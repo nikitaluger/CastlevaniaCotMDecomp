@@ -4,7 +4,7 @@ extern void sub_08007E24(s32);
 extern void sub_080C31E8(u8 *, u8 *, s32, u32);
 extern void sub_080C31E0(u8 *, u32);
 extern void sub_08011344(u32, u32, s32, s32);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
 extern u8 gGameStatus[];
 
@@ -52,7 +52,7 @@ void sub_08096BF8(u8 *arg0) {
             sub_08011344(a38, a3C18, 3, 0);
             z = 0;
             *(s16 *)(a3C + 0x16) = r7;
-            sub_08005E80(0x1B7);
+            playSound(0x1B7);
             *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = z;
             gBB0 = (u32 *)0x08671BB0;
             sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *gBB0);

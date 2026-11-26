@@ -2,7 +2,7 @@ extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 
 s32 sub_0805F9B4(s32 a, s32 b);
-void sub_08005E80(u16 arg0);
+void playSound(u16 arg0);
 void _call_via_r1(void *a, u32 b);
 void _call_via_r3(void *a, void *b, s32 c, u32 d);
 void sub_080119B4(void *a, s32 b, s32 c, s32 d, s32 e);
@@ -81,7 +81,7 @@ void sub_0808F2C0(void *arg0)
                 do { tmp = *(u16*)v8; } while (0);
                 zero = 0;
                 *(u16*)v8 = tmp | 4;
-                sub_08005E80(0x70);
+                playSound(0x70);
                 idx2 = *(s16*)(arg0 + 0x22);
                 ((u8*)arg0)[idx2 * 2 + 0x1B] = zero;
                 g1 = (u32*)0x08671BDC;

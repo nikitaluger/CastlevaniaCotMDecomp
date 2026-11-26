@@ -5,7 +5,7 @@ extern u32 gMainObjTimerCallback;
 extern s32 sub_08005910(s32, s32);
 extern void sub_080988B8(s32, s32);
 extern s32 divideInt(s32, s32);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
 
@@ -124,7 +124,7 @@ void sub_080BA9EC(u8 *self) {
     *(s32 *)(r1 + 0x50) = r0;
     *(s32 *)(r1 + 0x58) = r6;
     r0 = 0x1A8;
-    sub_08005E80(r0);
+    playSound(r0);
 
     *(u8 *)((s16)*(s16 *)(self + 0x22) * 2 + (u32)self + 0x19) = 0;
     {

@@ -7,7 +7,7 @@ volatile unsigned char sub_0809295C(void)
   return -1;
 }
 
-s32 sub_08005E80(s32);
+s32 playSound(s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_08092704(void *arg0);
 s32 sub_080923C0(void);

@@ -6,7 +6,7 @@ extern u8 D_08106E38[];   /* 8-byte song entries: +0 = song header, +4 = player 
 /* Starts song/sound `songId`: if that sound player is already busy with a song
  * of strictly higher priority, leave it alone; otherwise stop the player and
  * start the requested song. */
-void sub_08005E80(u16 songId) {
+void playSound(u16 songId) {
     u16 idx;
     u8 *playerTable;
     u8 *songTable;

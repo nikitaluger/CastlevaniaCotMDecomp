@@ -1,4 +1,4 @@
-void sub_08005E80(s32);
+void playSound(s32);
 void sub_08006044(s32, s32, s32, s32, void *);
 void sub_080060C4(s32, s32, s32, s32);
 unsigned char sub_08007FE0(void);
@@ -107,7 +107,7 @@ void sub_08008864(void *arg0)
   {
     goto loc_8904;
   }
-  sub_08005E80(0x153);
+  playSound(0x153);
   loc_8904:
   q3 = gCameraState;
 
@@ -135,7 +135,7 @@ void sub_08008864(void *arg0)
 
   r6 = 0;
   r4v = 0xC1 << 1;
-  sub_08005E80(r4v);
+  playSound(r4v);
   sub_08006044(0, r4v, 0x06, 0, sub_080C0384);
   *((u32 *) 0x020278D0) = 6;
   r4b = (u8 *) 0x02025FF0;
@@ -151,7 +151,7 @@ void sub_08008864(void *arg0)
   sub_080C31E8(r7 + 0x18, r7 + 0x22, 0x07, *pp2);
   goto loc_89DC;
   loc_899C:
-  sub_08005E80(0x73);
+  playSound(0x73);
 
   sub_08006044(0, 0x73, 0x0C, 0, sub_080C0384);
   sub_080060C4(0, 0x0C, 0, (s32) sub_080C0384);

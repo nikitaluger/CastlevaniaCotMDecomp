@@ -24,7 +24,7 @@ extern u32 gGameStatus[];
 extern void *gMainObjTimerCallback;
 extern void *D_08671BC0;
 
-void sub_08005E80(s32);
+void playSound(s32);
 void sub_0800EDAC(s32);
 void sub_0800EF3C(s32);
 void sub_0800F124(u32);
@@ -89,7 +89,7 @@ void sub_0800D860(u8 *a)
     r &= gCameraState.c1470;
     if (r != 0) {
         u32 t_arm;
-        sub_08005E80(0xA7 * 2);
+        playSound(0xA7 * 2);
         g->c69 = (g->c69 + 1) & 1;
         sub_0800F124((u8)*p6A);
         sub_0800F1D8((u8)*p6A, g->c69);
@@ -134,7 +134,7 @@ D9A4:
             if ((s8)*q == (s8)g->cF3[idx]) *q = *q - 1;
         }
         if (saved != (s8)*q) {
-            sub_08005E80(0x139);
+            playSound(0x139);
             sub_0800EDAC(0);
             sub_0800EF3C(g->c73[idx * 32 + (s8)*q]);
         }
@@ -172,7 +172,7 @@ D9A4:
         void *obj;
         pp = &g->p48;
         obj = *pp;
-        sub_08005E80(0x14F);
+        playSound(0x14F);
         if (obj != 0) sub_080C31E0(obj, *(void **)((u8 *)obj + 0x24));
         *pp = NULL;
         sub_0800EDAC(1);

@@ -17,7 +17,7 @@ extern u32 gMainObjTimerCallback;
 extern s32 sub_0806D518(void *, void *, void *);
 extern s32 sub_08007DD8(s32, s32);
 extern void sub_08003A6C(void *, s32, void *);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_08003740(void *, void *);
@@ -65,7 +65,7 @@ label_0808429A:
     *p6 = 6;
   }
   *((u16 *) ((*((u8 **) (p4 + 0x2C))) + 0x08)) = 6;
-  sub_08005E80(0x88);
+  playSound(0x88);
   i = *((s16 *) (((u8 *) self) + 0x22));
   *((u8 *) (((u8 *) self) + i * 2 + 0x19)) = zero;
   pp = &gMainObjTimerCallback;

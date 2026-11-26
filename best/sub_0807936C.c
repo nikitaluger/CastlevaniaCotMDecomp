@@ -17,7 +17,7 @@ extern u32 D_084DD0AC;
 extern u32 gMainObjTimerCallback;
 void sub_08003740(void *);
 void sub_08003A6C(void *, s32, void *);
-void sub_08005E80(s32);
+void playSound(s32);
 s32 sub_08007DD8(s32, s32);
 void *sub_0806D2A0(s32, s32, s32, s32);
 void sub_0806D330(void *, void *);
@@ -65,7 +65,7 @@ void sub_0807936C(void *arg0)
     new_var = (u8 *) arg0;
     sub_08003A6C(var_r4, 0, (void *) 0x084DD0AC);
     *((u8 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x01)) = 0;
-    sub_08005E80(0x149);
+    playSound(0x149);
     for (i = 0; i <= 7; i++)
     {
       void *t = sub_0806D2A0(*((s32 *) (((u8 *) arg0) + 0x28)), 0x4A, 0x0A, 0x12);

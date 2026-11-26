@@ -16,7 +16,7 @@ extern void *gMainObjTimerCallback;
 /* A two-option Yes/No style prompt. Moves the selection with the prev/next
  * buttons (ignoring both at once), plays a sound when it changes, then acts on
  * confirm or cancel by advancing the menu's script step. */
-void sub_0808C774(void *arg0)
+void updateChoiceMenu(void *arg0)
 {
     u8 *menu = (u8 *)arg0;
     u8 *actionState = *(u8 **)(menu + 0x6C) + 4;

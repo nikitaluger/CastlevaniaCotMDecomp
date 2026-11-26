@@ -17952,14 +17952,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0808C774",
-  "text": "Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.985118,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08060AD8",
   "text": "Releasing.",
   "by": "opencode-free-1",
@@ -41784,14 +41776,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0808C774",
-  "text": "Can't get closer in this session: large complex control-flow/input-dispatch function (244 insns). Best 9057/62.2% with partial logic in place (LR selection, sound on change, confirm/cancel paths, sub_080C31E4 calls). Remaining major diffs are branch structure/order, repeated input-source loads (D_02025FF0+0x24/0x28 vs D_02021E90+0x146C), register allocation, and literal/pool layout. Needs detailed control-flow matching against target. Releasing to continue claim quota.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.1059754,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000D4C",
   "text": "Can't get closer: body is byte-identical to target, only difference is agbcc leaf prologue/epilogue (push{lr}/pop{r0}/bx r0) vs bare bx lr on this branching leaf, which shifts offsets. Not expressible/fixable in C. Releasing.",
   "by": "opencode-iceman-contributor-free-1",
@@ -41836,22 +41820,6 @@
   "text": "Best 110 (98.7%, 87/87 insns). ALL non-regalloc differences fixed: two-zero materialization (`movs r4,#0; movs r2,#0` in the OR delay slot) via `*(vu32*)(obj4+0x0C)=0` plus a literal 0 for the final strb, struct P38 field compound OR (`p38->f2 |= 0x10`), correct constants 0x01080000/0x007F0000/0xFFFE0000, all call operands match. Remaining 22 regalloc diffs are ONE swap: target allocates arg0->r5 and obj+0x20->r4 (then r4 reused as zero for final strb), my build allocates arg0->r4, obj+0x20->r5 (r5 reused as zero). Everything downstream follows from that. Tried: plain u8* self; struct Self typed pointer with correct 0x6C/0x38/0x22/0x14 offsets; declaration reordering (r4 declared before self, r4 computed early); explicit s32 r4 reused as pointer then zero (caused r10 spill, 2545); `register ... asm(\"r5\")` pin rejected by harness (inline asm not allowed). Previous agents tried 8 attempts and also concluded this is a reg-coloring artifact. A C-only way to force arg0 into r5 while obj+0x20 goes to r4 is needed.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1061993,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0808C774",
-  "text": "Matched (244 insns). Winning structure: (1) declare D_02025FF0/D_02021E90 as structs with padding so fields land at 0x24/0x28/0x14B0 and 0x146C \u2014 this makes agbcc emit separate base and offset literals with `adds` instead of folding symbol+offset into one literal. (2) Explicit gotos with SHARED bodies for each action: `if (btn) goto set1; goto check2;` in both arms, then `set1: ...; check2: ...` \u2014 this produces the target's `bne body; b next` pattern instead of `beq next`. (3) CRITICAL: place the confirm block BEFORE the cancel_check block in source order, even though control flow reaches cancel_check first \u2014 this alone took score 4839 -> 5. (4) hoist `&D_08671BB0` into `void **pp` in each epilogue. (5) final cmp needed `if (old != state)` (old on the left) to emit `cmp r2,r0`.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.106238,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0808C774",
-  "text": "MATCHED (244 insns, score 0). Huge structural win: place the confirm block BEFORE the cancel-check block in C source order, matching the ROM's block layout (`confirm` at 0x0808C8A0, `cancel_check` at 0x0808C8F0). Moving `confirm:` above `cancel_check:` took score 4839 -> 5 in one compile. Final fix: write the state-change comparison as `if (old != D_02025FF0.state)` (old FIRST) to get `cmp r2,r0` instead of `cmp r0,r2`. Also needed: struct fields for D_02021E90/D_02025FF0 (gives the two-literal base+offset form), explicit goto labels with shared bodies for LR set/cancel, and `void **pp = &D_08671BB0;` for the hoisted address load.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.106282,
   "score_before": null,
   "score_after": null
  },
@@ -340440,5 +340408,109 @@
   "score_before": 7815,
   "score_after": 5475,
   "handoff_inputs": "fd9f45f67e8e14748929d22155b2d0f48a5c2243cea7aaff409031a7f159a90f:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:089450cc990f56105edc7dba0c0a7459641462df715d31fb2e5439ac78537260"
+ },
+ {
+  "function": "sub_08070290",
+  "text": "Terminal wall at 1370 (92.7%), 56+ prior compiles. Target keeps constant 5 in sl (`movs r0,#5; mov sl,r0` early, `mov r1,sl` at the f16 store); agbcc rematerializes `movs r2,#5` at both uses and allocates sl to another value. Residual is 22 register rows plus the sl move/rematerialize swap; all instructions, offsets and calls otherwise byte-exact. Needs compiler/allocator change, not C spelling.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795715288.49339,
+  "score_before": 8245,
+  "score_after": 1370,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:d8a0ef95a9532bde3daa89b9b7210fd6c48c5beaf8d32385c20fc424e294ce43"
+ },
+ {
+  "function": "selectSceneMode",
+  "text": "Baseline 1120 (95.2%, 236/234, effective -O1). search_flags/compiler_experiments show -O2/-Os score 210 (99.1%) on same C (trials ed224e0189b4fea73de3, b962c170fd7d6613ebdb); -O2 diff only 3 rows: literal-pool pc offset (ldr r0,[pc,#0x38] vs #0x34) and reorder of adds r2,r4,#0. Strong profile-mismatch signal (see DRACULA AGB1 -O1/-O2 switch profile note). suggest() rejected because not exact match. Not not_c/boundary.\nsearch_flags; compiler_experiments -O2/-Os (trials ed224e0189b4fea73de3,b962c170fd7d6613ebdb)\n-O1 1120; -O2/-Os 210 with 3-row diff (pool offset/reorder). No exact -O2 match to suggest.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795715344.0758994,
+  "score_before": 1120,
+  "score_after": 1120,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:efbb6d8e4430b1294f1a732daa6a5d399ea46862b253705f18c3044fdf2d8f97"
+ },
+ {
+  "function": "sub_08074200",
+  "text": "Terminal wall at 45 (99.7%); ~124 prior attempts across 7+ models. Target keeps idx/v3 in r3 and t2=*(arg0+0x28) in r2; agbcc swaps them. All 192 target instructions byte-exact apart from 9 coloring rows. Flags O1=45, O2/O3=761, Os=3896; register asm rejected. Needs compiler/allocator change.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795715406.872869,
+  "score_before": 7140,
+  "score_after": 45,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:c22358a957a3221c572e0c4af667456f6586cdee43af7dd45501fb0850daca7d"
+ },
+ {
+  "function": "updateChoiceMenu",
+  "text": "Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.985118,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateChoiceMenu",
+  "text": "Can't get closer in this session: large complex control-flow/input-dispatch function (244 insns). Best 9057/62.2% with partial logic in place (LR selection, sound on change, confirm/cancel paths, sub_080C31E4 calls). Remaining major diffs are branch structure/order, repeated input-source loads (D_02025FF0+0x24/0x28 vs D_02021E90+0x146C), register allocation, and literal/pool layout. Needs detailed control-flow matching against target. Releasing to continue claim quota.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.1059754,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateChoiceMenu",
+  "text": "Matched (244 insns). Winning structure: (1) declare D_02025FF0/D_02021E90 as structs with padding so fields land at 0x24/0x28/0x14B0 and 0x146C \u2014 this makes agbcc emit separate base and offset literals with `adds` instead of folding symbol+offset into one literal. (2) Explicit gotos with SHARED bodies for each action: `if (btn) goto set1; goto check2;` in both arms, then `set1: ...; check2: ...` \u2014 this produces the target's `bne body; b next` pattern instead of `beq next`. (3) CRITICAL: place the confirm block BEFORE the cancel_check block in source order, even though control flow reaches cancel_check first \u2014 this alone took score 4839 -> 5. (4) hoist `&D_08671BB0` into `void **pp` in each epilogue. (5) final cmp needed `if (old != state)` (old on the left) to emit `cmp r2,r0`.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.106238,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateChoiceMenu",
+  "text": "MATCHED (244 insns, score 0). Huge structural win: place the confirm block BEFORE the cancel-check block in C source order, matching the ROM's block layout (`confirm` at 0x0808C8A0, `cancel_check` at 0x0808C8F0). Moving `confirm:` above `cancel_check:` took score 4839 -> 5 in one compile. Final fix: write the state-change comparison as `if (old != D_02025FF0.state)` (old FIRST) to get `cmp r2,r0` instead of `cmp r0,r2`. Also needed: struct fields for D_02021E90/D_02025FF0 (gives the two-literal base+offset form), explicit goto labels with shared bodies for LR set/cancel, and `void **pp = &D_08671BB0;` for the hoisted address load.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.106282,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08006680",
+  "text": "Best: revision 333aea5f3f78d2913a52, score 4630 (155 target / 153 emitted). Literal 0x7C00 blue masks fixed the hoisted-mask shape; signed s32 channel sums preserve asrs #8. Residual inner loop: target uses an incrementing c0 pointer and one c1 load, while candidate recomputes c0 addressing and reloads c1. Explicit c0 pointer scored 6160; early b or assignment-expression b scored 6470. Linker warnings are artifacts: target calls sub_08000E98 and loads 0x020227EC. Current revision 9a0f4e4dad7c873e9a40 is worse.\nLiteral blue masks and signed sums gave the 4630 best; c0 pointer and alternate b-load forms regressed.\nInner-loop c0 addressing and duplicate c1 load remain.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795715420.9079826,
+  "score_before": 8220,
+  "score_after": 4630,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:a020741f70e56890ab6c2a488426fb384440c93a586e94c7be0f9b1518908f5a"
+ },
+ {
+  "function": "getSpawnBehaviorIndex",
+  "text": "Baseline 455 (62.0%, 12/13). All body insns match; residual is frameless-branchy-leaf ABI artifact: extra push{lr}/pop{r1}/bx r1, beq offset, and -1 encoding (movs r0,#0xff vs movs r0,#1;negs). Not fixable from C. Not not_c/boundary.\ncompile_and_diff baseline\nSame terminal ABI artifact diff; no C lever.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795715505.8601816,
+  "score_before": 455,
+  "score_after": 455,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:c6e94bc0436d6b951c66352abe1596f2602c9d9f3f0c23a6095ff03fededccfa"
+ },
+ {
+  "function": "sub_08001614",
+  "text": "Baseline 200 (71.4%, 7/9 insns). All real instructions byte-exact; only residual is 2 extra trailing `movs r0,r0` from literal-pool/extent wall (pool at 0x08001624 sits inside 16-byte extent; standalone compile emits own pool). 72 prior compiles no improvement. Not fixable from C. Not not_c/boundary.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795715561.4092352,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:0c200189b7cfb428a6b7f70434c4299edf05dae199dbbf27d30932143e2eec9b"
+ },
+ {
+  "function": "sub_08016518",
+  "text": "Baseline 365 (69.5%, 12/14 insns). Diff: extra push{lr}/pop{r0}/bx r0, pc-relative literal offset, beq offset; leaf body matches otherwise. Frameless-leaf ABI/codegen artifact. 12 prior compiles, 2 diffs, stuck. Not fixable from C. Not not_c/boundary.\ncompile_and_diff baseline\nIdentical 365; push/pop wrapper and literal/branch offsets remain.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795715561.8009105,
+  "score_before": 365,
+  "score_after": 365,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:d747b9c7cdf8768ae3f27aea72aba017ab36122fcb659c4d1e929c840489e0cc"
+ },
+ {
+  "function": "sub_0800FEDC",
+  "text": "Baseline 215 (76.1%, 9/11 insns). Diff: extra push{lr}/pop{r0}/bx r0 and beq offset; no calls in body. Looks like frameless-leaf ABI/codegen artifact. 10 prior compiles same diff. Not fixable from C. Not not_c/boundary.\ncompile_and_diff baseline\nIdentical 215; push/pop leaf wrapper and branch offset remain.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795715562.2691948,
+  "score_before": 365,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:a98a058db8a4ed832101ad55910df6747ee23f578c6b1b4149d80fbea3582964"
  }
 ]

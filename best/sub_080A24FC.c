@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
-void sub_08005E80(s32);
+void playSound(s32);
 
 void sub_080A24FC(void *arg0)
 {
@@ -28,7 +28,7 @@ void sub_080A24FC(void *arg0)
             s32 *q = (s32 *)(d + 0x1754);
             if (*q <= 0x40)
                 *q = 0x41;
-            sub_08005E80(0x171);
+            playSound(0x171);
             fl = 1;
             *p4 = 0;
         }

@@ -5,7 +5,7 @@ extern u16 D_020232FE;
 extern u8 D_080E4764[];
 extern u8 D_080E47E8[];
 extern u32 D_0866EB64[];
-extern void sub_08005E80(u32);
+extern void playSound(u32);
 extern u16 sub_08007B3C(u32, u32, u32);
 extern void sub_08061B90(u32, u32);
 extern void sub_0806CD80(u8 *, u8 *, u8 *, u32 *);
@@ -105,8 +105,8 @@ set1:
     if (v == 0x16) {
       if (((((u8)(v18 - 6)) <= 1) || (v18 == 0x25)) || (v18 == 0x2A)) {
         if (inline_fn(*((u32 *)(c + 0x118)), 7) == 0) sub_0808E3B8(d[0], inline_fn(d[1], 0xFFF80000), 0);
-        if ((v18 == 6) || (a[0x18] == 0x25)) { if (((*((u32 *)(c + 0x118))) & 0x1F) == 0) sub_08005E80(0x1BD); }
-        if ((a[0x18] == 7) || (a[0x18] == 0x2A)) { if (((*((u32 *)(c + 0x118))) & 0x0F) == 0) sub_08005E80(0x1BD); }
+        if ((v18 == 6) || (a[0x18] == 0x25)) { if (((*((u32 *)(c + 0x118))) & 0x1F) == 0) playSound(0x1BD); }
+        if ((a[0x18] == 7) || (a[0x18] == 0x2A)) { if (((*((u32 *)(c + 0x118))) & 0x0F) == 0) playSound(0x1BD); }
         (*((u32 *)(c + 0x118)))++;
       } else *((u32 *)(c + 0x118)) = 0;
     } else *((u32 *)(c + 0x118)) = 0; }
@@ -116,7 +116,7 @@ set1:
       if ((*p11C) == 0) { u32 v2 = (d[1] - (*((u32 *)(c + 0x3C)))) & 0xFFF80000;
         if (g[0x3CF] == 0) sub_0808E408(d[0], v2, 0x1000); else sub_0808E408(d[0], v2, 0);
         *p11C = 1;
-        if (((s32)d[3]) >= 0) sub_08005E80(0x1BC); }
+        if (((s32)d[3]) >= 0) playSound(0x1BC); }
     } else *p11C = 0; }
   ploop = (u32 *)(c + 0xE0); pq = (u32 *)(c + 0xD0); pr = (u32 *)(c + 0xF0);
   for (i = 0; ploop <= ((u32 *)(c + 0xEC)); ploop++, pq++, pr++, i += 4) {
@@ -133,7 +133,7 @@ set1:
   { u16 v = *((u16 *)(h + 0x14E2));
     if (v == 0) { *((u32 *)(h + 0x14E4)) = 0; *((u32 *)(h + 0x14E8)) = 0; }
     else { u32 *pE8 = (u32 *)(h + 0x14E8);
-      if ((*pE8) == 0) { sub_08005E80(v); *((u32 *)(h + 0x14E8)) = 0; *pE8 = *((u32 *)(h + 0x14E4)); }
+      if ((*pE8) == 0) { playSound(v); *((u32 *)(h + 0x14E8)) = 0; *pE8 = *((u32 *)(h + 0x14E4)); }
       else (*pE8)--; } }
   *((u16 *)(h + 0x14E2)) = 0;
   sub_0806CD80(a, b, c, d);

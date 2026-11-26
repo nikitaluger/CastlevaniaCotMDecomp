@@ -7,7 +7,7 @@ extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_08016238(void *);
 extern void sub_0800479C(void *, s32, s32, u16);
 extern void sub_08007E24(u16);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *D_08671BDC;
@@ -54,7 +54,7 @@ void sub_08090C78(u8 *arg0)
         sub_08007E24(*((u16 *) ((*((u8 **) (p + 0x14))) + 4)));
         e = (u32 *) ((base + 0xB0) + (((u32) ((*((u16 *) (*((u8 **) (p + 0x14))))) >> 5)) << 2));
         *e |= (u32) (v << ((*((u16 *) (*((u8 **) (p + 0x14))))) & 0x1F));
-        sub_08005E80(0x70);
+        playSound(0x70);
         *((u8 *) (((((u32) (*(new_var = &(*((s16 *) (self + 0x22)))))) * 2) + ((u32) self)) + 0x1B)) = zero;
         sub_080C31E8(r10, self + 0x22, 1, *((s32 *) 0x08671BDC));
       }

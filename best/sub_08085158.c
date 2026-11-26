@@ -2,7 +2,7 @@ extern u32 sub_08061C78(void);
 extern void *sub_0806D2A0(s32, s32, s32, s32);
 extern void sub_0806D77C(s32, s32);
 extern void sub_08086E28(void);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern s32 sub_080C3824(s32, s32);
 
 struct S25FF0 {
@@ -88,7 +88,7 @@ u32 __repair_result_r6;
             arg1->fB8 = 0xC;
             sub_0806D2A0(arg0, 0x38, 0xA, 0x12);
             sub_08086E28();
-            sub_08005E80(0xD8);
+            playSound(0xD8);
         }
         arg1->fB8--;
         return;

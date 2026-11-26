@@ -1,5 +1,5 @@
 extern void sub_08003740(void *, void *);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void *sub_08016A2C(void);
 extern void sub_0806D2F8(void *, void *);
 extern s32 sub_0806D518(void *, void *, void *);
@@ -57,7 +57,7 @@ void sub_0807B784(void *arg0)
   *((s32 *) (((u8 *) r6) + 0x14)) = t;
   if (t == 0)
   {
-    sub_08005E80(0x144);
+    playSound(0x144);
   }
   t = (*((s32 *) (((u8 *) r6) + 0x48))) - 1;
   *((s32 *) (((u8 *) r6) + 0x48)) = t;

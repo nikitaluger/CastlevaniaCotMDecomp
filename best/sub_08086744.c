@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 extern u8 gGameStatus[];
-extern void sub_08005E80(u32);
+extern void playSound(u32);
 
 
 
@@ -44,7 +44,7 @@ void sub_08086744(u8 *a, u8 *b)
       new_var6 = (new_var2 = *new_var20);
     }
     while (0);
-    sub_08005E80(*new_var20);
+    playSound(*new_var20);
   }
   switch (new_var14)
   {
@@ -68,13 +68,13 @@ void sub_08086744(u8 *a, u8 *b)
       if (new_var5 || a)
       {
         new_var5 = 2;
-        sub_08005E80(new_var5);
+        playSound(new_var5);
         break;
       }
       else
       {
         new_var5 = 2;
-        sub_08005E80(new_var5);
+        playSound(new_var5);
         break;
       }
     }
@@ -82,7 +82,7 @@ void sub_08086744(u8 *a, u8 *b)
     {
       if (new_var6)
       {
-        sub_08005E80(2);
+        playSound(2);
         break;
       }
       else
@@ -93,7 +93,7 @@ void sub_08086744(u8 *a, u8 *b)
     }
 
     case 2:
-      sub_08005E80(2);
+      playSound(2);
       new_var17 = ((u8 *) ((new_var16)[(new_var9)]));
       if (new_var6)
     {
@@ -104,7 +104,7 @@ void sub_08086744(u8 *a, u8 *b)
       if (new_var5)
       {
         new_var_arm = (new_var4 = new_var6);
-        sub_08005E80(new_var7);
+        playSound(new_var7);
         ;
         new_var10 = ((u8 *) ((new_var16)[(new_var18)]));
         (void) new_var10;
@@ -116,7 +116,7 @@ void sub_08086744(u8 *a, u8 *b)
       else
       {
         new_var_arm = (new_var4 = new_var6);
-        sub_08005E80(new_var7);
+        playSound(new_var7);
         ;
         new_var10 = ((u8 *) ((new_var16)[(new_var18)]));
         (void) new_var10;
@@ -173,7 +173,7 @@ void sub_08086744(u8 *a, u8 *b)
       new_var4 = 3;
       do
       {
-        sub_08005E80(new_var8);
+        playSound(new_var8);
         break;
       }
       while (new_var6);

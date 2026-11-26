@@ -1,4 +1,4 @@
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern s32 sub_0806C4B4(void *, void *);
 extern void sub_0806C5EC(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
@@ -69,7 +69,7 @@ void sub_080695D4(u8 *arg0)
   *(u32 *)(p96_2 + 0x14B4) = 0x222;
   *(u32 *)(p96_2 + 0x1844) |= 0x6000000;
   *(u16 *)(p96_2 + 0x14D8) = 0xFFFE;
-  sub_08005E80(0x1BA);
+  playSound(0x1BA);
   sub_0806C6B0(arg0, r10, ((*((u8 **) (arg0 + 0x6C))) + 4), sp0);
   *(u8 *)(arg0 + *(s16 *)p22 * 2 + 0x19) = 0;
   sub_080C31E4(p18, p22, gMainObjTimerCallback);

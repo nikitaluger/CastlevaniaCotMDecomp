@@ -33,7 +33,7 @@ extern struct S_02025FF0 gMainWorkspace;
 extern s32 sub_0806D450(void *, u16 *, void *);
 extern void *sub_0806D2A0(s32, s32, s32, s32);
 extern void sub_08003740(void *, u16 *);
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void sub_0806D588(u16 *, void *);
 extern void sub_080C31E0(void *, void *);
 
@@ -69,7 +69,7 @@ void sub_0808154C(struct S_0808154C_arg *arg) {
     sub_08003740(p + 0x1C, p16);
     sub->f14 = sub->f14 - 1;
     if (sub->f14 == 0) {
-        sub_08005E80(0x15E);
+        playSound(0x15E);
         sub->f14 = 0x1E;
     }
     sub_0806D588(p16, sub);
