@@ -37,7 +37,7 @@ struct S_02021E90 { u8 _0[0x1278]; u32 f1278; u32 f127C; };
 extern struct S_02021E90 gCameraState;
 struct TBL { u8 _0[0x10]; u16 f10; u16 f12; u8 _14[0x28-0x14]; };
 extern struct TBL gEffectGfxTable[];
-extern u16 D_080CE5E8[];
+extern u16 gFixedEffectLayerAttrs[];
 extern u8 gSpriteAnimDataTable[];
 
 /* Spawn an animated effect sprite for the entity: allocate the sprite and
@@ -74,10 +74,10 @@ void sub_08019A80(struct Entity *entity) {
     part->effect->f2 = 8;
     part->effect->f3 = 1;
     part->effect->f4 = gEffectGfxTable[part->animId].f10;
-    part->effect->f6 = D_080CE5E8[0];
-    part->effect->f8 = D_080CE5E8[1];
-    part->effect->fA = D_080CE5E8[2];
-    part->effect->fC = D_080CE5E8[3];
+    part->effect->f6 = gFixedEffectLayerAttrs[0];
+    part->effect->f8 = gFixedEffectLayerAttrs[1];
+    part->effect->fA = gFixedEffectLayerAttrs[2];
+    part->effect->fC = gFixedEffectLayerAttrs[3];
     part->effect->fE = gEffectGfxTable[part->animId].f12;
     part->effect->f10 = (u32)sprite;
     part->effect->f14 = zero;

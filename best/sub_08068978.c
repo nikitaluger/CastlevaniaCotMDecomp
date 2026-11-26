@@ -180,12 +180,13 @@ void sub_08068978(u8 *arg0)
     {
       if (gMainWorkspace.f24 != 0)
       {
-        if (!(gMainWorkspace.f28 & gGameStatus.f3C2))
+        if (gMainWorkspace.f28 & gGameStatus.f3C2)
         {
-          goto block_29;
-        }
         goto block_28;
       }
+        else {
+          goto block_29;
+        }}
       if (gCameraState.f146C & gGameStatus.f3C2)
       {
         block_28:

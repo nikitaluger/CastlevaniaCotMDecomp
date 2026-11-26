@@ -26,37 +26,48 @@ s32 sub_0806D35C(void *, void *, void *);
 void sub_0806D588(void *, void *);
 void sub_0808DC40(s32, s32, u32);
 void sub_080C31E0(u32, u32);
-inline u8 *inline_fn(u8 *arg0)
+static inline u8 *inline_fn(u8 *arg0)
 {
   return arg0;
 }
 
+inline static u8 *inline_fn2(u8 *arg0)
+{
+  return arg0 + 4;
+}
+
 void sub_0807BD78(void *arg0)
 {
-  u8 *s = (u8 *) arg0;
-  u8 *p4 = *((u8 **) (s + 0x6C));
-  u8 *p8 = p4 + 4;
+  u8 *s;
+  u8 *p4;
+  u8 *p8;
   int new_var5;
   u8 *new_var;
-  u8 *v38 = *((u8 **) (s + 0x38));
+  u8 *v38;
   u32 new_var2;
   unsigned int new_var8;
-  u8 *p5 = p8;
+  u8 *p5;
   u8 *new_var7;
   u8 *new_var3;
   u32 *new_var6;
-  u8 *g = gGameStatus;
+  u8 *g;
   u8 *r6;
   u8 *new_var4;
   u8 *dEnd;
   s32 idx;
   s32 delta;
+    s32 __repair_delta_1;
   s32 timer;
-
-    s32 __repair_timer_1;
+  s32 __repair_timer_1;
   void *other;
-    void *other_gc;
+  void *other_gc;
   s32 *temp;
+  s = (u8 *) arg0;
+  p4 = *((u8 **) (s + 0x6C));
+  p8 = inline_fn2(p4);
+  do { v38 = *((u8 **) (s + 0x38)); } while (0);
+  p5 = p8;
+  g = gGameStatus;
   if (sub_0806D35C(s, v38, p5) != 0)
   {
     return;
@@ -70,14 +81,14 @@ void sub_0807BD78(void *arg0)
   {
     delta = -delta;
   }
-  __repair_timer_1 = ((*((s32 *) (&gMainWorkspace.f1728))) + delta) - (*((s32 *) (p4 + 4)));
+  __repair_timer_1 = ((*((s32 *) (&gMainWorkspace.f1728))) + delta) - (*((s32 *) inline_fn2(p4)));
   if (__repair_timer_1 < 0)
   {
     __repair_timer_1 += 31;
   }
-  *((s32 *) (p4 + 4)) = (*((s32 *) (p4 + 4))) + (__repair_timer_1 >> 5);
-  temp = (s32 *) ((D_080E4E54 + 4) + idx);
-  delta = ((*((s32 *) (&gMainWorkspace.f172C))) + (*temp)); __repair_timer_1 = delta - (*((s32 *) (p5 + 4)));
+  *((s32 *) inline_fn2(p4)) = (*((s32 *) inline_fn2(p4))) + (__repair_timer_1 >> 5);
+  temp = (s32 *) (inline_fn2(D_080E4E54) + idx);
+  other_gc = (void *) (*((s32 *) (&gMainWorkspace.f172C))); __repair_delta_1 = (u32) other_gc + (*temp); __repair_timer_1 = __repair_delta_1 - (*((s32 *) inline_fn2(p5)));
   if (__repair_timer_1 < 0)
   {
     __repair_timer_1 += 31;
@@ -92,7 +103,7 @@ void sub_0807BD78(void *arg0)
       r6 = new_var;
       if (0 != (*((u32 *) (p8 + 0x54))))
       {
-        goto dec;
+        timer = (*((u32 *) (p8 + 0x54))) - 1; goto dec;
       }
       sub_08003A6C(r6, 0, (u32) D_084E25D4);
       *((u32 *) (p8 + 0x54)) = 0x20;
@@ -114,7 +125,7 @@ void sub_0807BD78(void *arg0)
       r6 = p8 + 0x1C;
       if ((*((u32 *) (p8 + 0x54))) != 0)
       {
-        goto dec;
+        timer = (*((u32 *) (p8 + 0x54))) - 1; goto dec;
       }
       sub_08003A6C(r6, 0, (u32) D_084E25D4);
       *((u32 *) (p8 + 0x54)) = 0x20;
@@ -125,8 +136,8 @@ void sub_0807BD78(void *arg0)
     goto skip;
   }
   dEnd = (u8 *) (&gMainWorkspace);
-  dec:
   timer = (*((u32 *) (p8 + 0x54))) - 1;
+dec:
 
   *((u32 *) (p8 + 0x54)) = timer;
   if (timer == 0x18)
@@ -135,17 +146,16 @@ void sub_0807BD78(void *arg0)
     new_var6 = &(*((u32 *) p5));
     if (other != NULL)
     {
-        other_gc = other;
-        other = NULL;
+      s32 timer_a1;
+      other_gc = other;
+      other = NULL;
       *((u32 *) (((u8 *) other_gc) + 0x7C)) = *new_var6;
       *((u32 *) inline_fn(((u8 *) other_gc) + 0x8C)) = *((u32 *) (p5 + 4));
-      timer = (((*((u8 *) (g + 0x304))) - 1) * 12) + ((idx = (*((u8 *) (g + 0x305))) - 1) * 120);
-      *((u32 *) (gGameStatus + 0x2CC)) -= *((u32 *) ((D_080E47E8 + 4) + timer));
+      timer_a1 = (((*((u8 *) (g + 0x304))) - 1) * 12) + ((idx = (*((u8 *) (g + 0x305))) - 1) * 120);
+      *((u32 *) (gGameStatus + 0x2CC)) -= *((u32 *) (inline_fn2(D_080E47E8) + timer_a1));
     }
   }
   skip:
-  
-
   if ((*((s32 *) p5)) > (*((s32 *) (dEnd + 0x1728))))
   {
     *((u16 *) (v38 + 2)) |= new_var8;
@@ -154,6 +164,7 @@ void sub_0807BD78(void *arg0)
   {
     *((u16 *) (v38 + 2)) &= 0xFFEF;
   }
+
   if (sub_08003740(r6, v38) == 0)
   {
     sub_08003A6C(r6, 0, (u32) D_084E25C0);
@@ -164,6 +175,7 @@ void sub_0807BD78(void *arg0)
   {
     return;
   }
-  sub_0808DC40(*((s32 *) p5), *((s32 *) (p5 + 4)), 0);
+  sub_0808DC40(*((s32 *) p5), *((s32 *) inline_fn2(p5)), 0);
   sub_080C31E0(new_var2, *((u32 *) (s + 0x24)));
 }
+

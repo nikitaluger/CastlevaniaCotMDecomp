@@ -32,6 +32,7 @@ void sub_080B6E58(u8 *arg0) {
     s32 b;
     s32 f10;
     u8 *p2;
+    u16 upd2;
     struct Z z = {0, 0};
 
     obj = allocSpriteObject();
@@ -74,7 +75,9 @@ success:
     *(void **)(*(u8 **)((u8 *)p + 0x28) + 0x10) = obj;
     do { *(u16 *)(arg0 + 0x74) = 0x20;
     *(u32 *)(arg0 + 0x7C) = 0;
-    *(u16 *)(arg0 + 2) |= 0x1000;
+    upd2 = *(u16 *)(arg0 + 2);
+    upd2 |= 0x1000;
+    *(u16 *)(arg0 + 2) = upd2;
     *(u8 *)(arg0 + (u32)(*(s16 *)(arg0 + 0x22)) * 2 + 0x19) = z.b;
     fn = &gMainObjTimerCallback;
     p18 = arg0 + 0x18;

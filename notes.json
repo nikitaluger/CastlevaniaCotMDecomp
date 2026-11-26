@@ -7072,7 +7072,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E27C",
+  "function": "spawnKind29ScriptSprite",
   "text": "Released because its agent stopped (it failed 5 times in a row, each soon after it started: the session ended without compiling anything (its messages are in its details)); its attempts are kept.",
   "by": "api-gemma4-e4b-1",
   "created_at": 1795683533.9319875,
@@ -18536,7 +18536,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08019314",
+  "function": "spawnFixedEffectSprite",
   "text": "Minimal only. Next agent use m2c draft.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9876142,
@@ -18544,7 +18544,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801CAB8",
+  "function": "spawnKind87EffectSprite",
   "text": "Minimal only. Next agent use m2c draft.",
   "by": "opencode-free-1",
   "created_at": 1795683533.987655,
@@ -18560,7 +18560,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E27C",
+  "function": "spawnKind29ScriptSprite",
   "text": "Minimal only. Next agent use m2c draft.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9877605,
@@ -18568,7 +18568,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08028C58",
+  "function": "initKindZeroSpriteObject",
   "text": "Minimal only. Next agent use m2c draft.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9878016,
@@ -18576,7 +18576,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08029C0C",
+  "function": "spawnKind2CEffect",
   "text": "Minimal only. Next agent use m2c draft.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9878404,
@@ -18584,7 +18584,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Releasing: function is 286 insns, first attempt 10602 score. Needs dedicated effort with struct types; releasing for next agent.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9878798,
@@ -18848,7 +18848,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0804EEDC",
+  "function": "spawnKind5ESpriteFromParams",
   "text": "Cannot complete. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9894896,
@@ -49112,7 +49112,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0804EEDC",
+  "function": "spawnKind5ESpriteFromParams",
   "text": "Already compiled the named next step (direct store to r5->f22 and reloading the field for the sign test): it scored 2112, much worse than the saved 520, so reverted. Remaining diff is one extra register copy after sub_08013C2C, an alignment nop, and fragile register allocation; handing the 98% attempt on.",
   "by": "opencode-hy4-flash-free-8",
   "created_at": 1795683534.1412504,
@@ -49232,7 +49232,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E27C",
+  "function": "spawnKind29ScriptSprite",
   "text": "Cannot get closer from C within this session: best 6780 (74.4%). After 11 compiles I exhausted the structural levers: OR-chain short-circuit (9880), shared table struct (6785), s16 f1C, early b+0x34, correct struct padding. Remaining diffs are deep agbcc regalloc (a->fAC r4 vs ours r7, result r7 vs ours r5, b r5 vs ours r4) plus literal-pool/branch offsets caused by 15 fewer instructions; declaration reorder had no effect. No further C lever found. Best source = compile #9.",
   "by": "opencode-hy4-flash-free-5",
   "created_at": 1795683534.1418667,
@@ -49248,7 +49248,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08019314",
+  "function": "spawnFixedEffectSprite",
   "text": "Cannot get closer in this session: the residual diff is dominated by agbcc's cross-jumping of the two identical `sub_08019978(a); fail` paths, which target does not perform; this shifts the common fail block 8 bytes and cascades into ~30 regalloc and ~20 PC-offset operand rows. Seven variants (goto vs inline fail, if/else nesting, distinct temps/casts for the two calls, function-scope vs block-scope pointers) all plateau at 4073. Determined the entire correct C semantics and all constants from the matched sub_080584D0 template; the remaining difference is pure compiler block-layout/regalloc behavior I cannot control from C. Confirming release.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.141953,
@@ -49320,7 +49320,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801CAB8",
+  "function": "spawnKind87EffectSprite",
   "text": "Matched score 0. Another member of the sub_080584D0 family \u2014 adapt that matched source (duplicated inline fail calls, etc.). Variant specifics: sub_0800168C size 0x5C; fnptr sub_0801D0F8; early fail calls sub_0801D11C; f1C constant 0x87; sub_08013C2C(0x87); table field offsets 0x0C/0x0E in D_080CBDD0; D_080CE6A0 for the u16 values; D_080CE6B8+arg0->f5C*12; sub_08011368 size 0x1A,mode 0; no sub_08016664; extra tail: increment arg0->[2*f22+0x19], then final sub_080C31E0(arg0, *(arg0->0x14 + *(u8 *)(arg0+0x18+2*f22)*4)). Final regalloc trick: to get `adds r4,r4,r0; ldrb r0,[r4]` (result kept in the pointer register r4) rather than `adds r0,r0,r4; ldrb [r0]`, use in-place compound assignment `q += 2 * arg0->f22;` then dereference `q`, instead of `*(q + 2 * arg0->f22)`.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.142342,
@@ -49352,7 +49352,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08029C0C",
+  "function": "spawnKind2CEffect",
   "text": "Best 4946 (81.9%), 275 vs 274 insns, after 8 compiles. Full reconstruction from matched sibling sub_080584D0: || chain of null checks, structs E/P/Arg0/TBL (D_080CBDD0 stride 0x28, fields +4/+6), s64 multiply-by-3 tail via _call_via_r1 returning s64, 0x08671BFC literal pointer in fp, p->f48=0x12C/p->f4A=5, p+4=2. Used p->f28->fX (not a cached local) to get the 9 reloads. Cannot flip remaining agbcc regalloc: TARGET obj=r8 with an extra `mov r0,r8` before `str r0,[r6,#0x38]`, q temp in r1, one=r4, f1C/ldsh offset in r2; MINE obj kept in r0 for that store, q temp in r0, one=r5, offset in r1. Removing initial NULL assignments had no effect. Needs exact original source structure/declaration order to reproduce regalloc.",
   "by": "opencode-hy4-flash-free-7",
   "created_at": 1795683534.1424918,
@@ -49472,7 +49472,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08028C58",
+  "function": "initKindZeroSpriteObject",
   "text": "Cannot get closer from pure C: remaining diffs are agbcc callee-saved coloring (D_080CB2B8 in r4 vs r8, extra zero-register copy, one spilled local) that declaration reordering/struct forms could not change; inline asm pins are rejected by the tool. Best 4918 (82.0%).",
   "by": "opencode-hy4-flash-free-4",
   "created_at": 1795683534.1431198,
@@ -113288,7 +113288,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08028C58",
+  "function": "initKindZeroSpriteObject",
   "text": "Score 4918 (82.0%), 274 vs 273 insns. Remaining diffs are agbcc callee-saved register coloring: target keeps D_080CB2B8 table in r4, agbcc puts it in r8; extra zero-register copy (sub sp,#4 + movs r4,#0 vs target's mov r4,r8/mov r8,r2); one spilled local. Declaration reordering, struct forms, zero local placement tried - cannot change callee-saved assignment. Register asm pins rejected. Previous agent 7 attempts (27305\u21924918). Hard to fix in pure C with this compiler.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4552038,
@@ -115200,7 +115200,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08019314",
+  "function": "spawnFixedEffectSprite",
   "text": "Cross-jumping wall at 4073 (84.7%). agbcc merges two identical `sub_08019978(); fail` paths; target keeps them separate. This shifts fail block 8 bytes and cascades into ~30 regalloc + ~20 PC-offset operand rows. 7 variants (goto vs inline fail, if/else nesting, distinct temps/casts) all plateau at 4073. Pure compiler block-layout behavior, not C-controllable.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4648108,
@@ -115288,7 +115288,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E27C",
+  "function": "spawnKind29ScriptSprite",
   "text": "Large function (278 insns), score 6780. Not a boundary case - deep regalloc wall. Previous agents exhausted structural levers. Releasing to target low-score boundary cases.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4652672,
@@ -115304,7 +115304,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Large function (286 insns), score 10602. Not a boundary case - deep regalloc wall. Releasing to target low-score boundary cases.",
   "by": "opencode-free-1",
   "created_at": 1795683534.465343,
@@ -115872,7 +115872,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Compiled once: score 10602, 61.3% match. Deep regalloc wall (94 regalloc diffs); target 274 insns vs mine 259. Linker also rejects callee names: target's bl targets at those addresses aren't the symbols I named (probably _call_via_r1/r2 indirection). Not worth the 10-compile budget. Releasing to take small near-miss functions instead.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.4683282,
@@ -116824,7 +116824,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08029C0C",
+  "function": "spawnKind2CEffect",
   "text": "Final best 3566/274 (86.9%). Remaining diff is agbcc-vs-original register allocation and three structural spots: (1) store to arg0->f38 uses r8 in target vs r0 in mine; (2) after `bl sub_08016190` target does `str r0,[r7,#0x28]; cmp r0,#0; bne` while mine emits `adds r2, r0, #0; str r2,[r7,#0x28]; cmp r2,#0`; (3) tmp store uses `mov r1, r8` in target vs r2 in mine; plus the rest (r5=p, r8=obj, etc.) is regalloc. Tried and abandoned: v3 restructure (hoisted obj==NULL check, two cleanups) \u2192 3661 (worse); v4 dropping the (struct E*) cast on sub_08016190 \u2192 same 3566. Pure-C restructure attempts kept being worse or neutral; the instruction says 8 compiled claims then stop, and this is the 8th. Releasing as-is.",
   "by": "opencode-tidepool-alpha-free-1",
   "created_at": 1795683534.4732091,
@@ -117080,7 +117080,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0804EEDC",
+  "function": "spawnKind5ESpriteFromParams",
   "text": "RELEASE REQUEST (re-confirm): score floor 520 on sub_0804EEDC. Blocker: all 4 indirect-call externs reject (\"you call X where the original calls something else\") \u2014 symbol names don't resolve to ROM addresses; callee real names/addresses unknown without reading each target via get_function. Plus ~30 regalloc + 11 operand diffs that likely follow once calls are fixed. This is a large 271-insn function matching the sub_08052CF4 template; not a pure-C logic wall but needs the real callee names. Best source saved in prior compile. Releasing to claim smaller functions; unblock if user provides real callee symbols.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.474434,
@@ -117944,7 +117944,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0804EEDC",
+  "function": "spawnKind5ESpriteFromParams",
   "text": "MATCHED (score 0) via: (1) replaced _call_via_r1/_call_via_r2 with real callees sub_080C31E0 / sub_080C31E4 (per note #388); (2) to kill the extra `adds r3,r0,#0` after `bl sub_08013C2C`, keep the result in a local `tmp` assigned directly (`tmp=sub_08013C2C(0x5E), r5->f22=tmp, ((s32)(tmp<<16)<0)`) that is DEAD after the sign test \u2014 move the later OR expression using the same variable into a nested brace block with its OWN `s32 v`; (3) tail block copied from matched sibling: `u8 *p18; s32 *lit;` in a nested block, `lit=(s32*)0x08671BB0; p18=(u8*)arg0+0x18; sub_080C31E4(p18, arg0+0x22, *lit); ... p18=p18+2*arg0->f22; sub_080C31E0(arg0, *(u32*)(*(u32*)(arg0+0x14)+4**(u8*)p18));` with the zero byte-store BEFORE the block. Score path 520 -> 405 -> 275 -> 335 -> 0.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4787345,
@@ -123744,7 +123744,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08029C0C",
+  "function": "spawnKind2CEffect",
   "text": "Confirmed best 3566 (86.9%) regalloc/veneer wall. Target's calls go through far veneers (bl #0xfffd7a80 etc.) while ours resolve to nearby thunks \u2014 call target differences are linker veneer placement, not C. Remaining diff: obj should be r8 with an extra `mov r0,r8` before `str r0,[r6,#0x38]`, q temp in r1, one=r4; mine differs. 12 prior attempts stuck. Needs a smaller related function first.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5077991,
@@ -123952,7 +123952,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E27C",
+  "function": "spawnKind29ScriptSprite",
   "text": "MATCHED (278 insns, 7 compiles) by rebuilding from matched sibling sub_08053174's exact C skeleton, not the old attempt. Recipe: (1) P struct: f24 at 0x24, f28(struct E*) at 0x28, f48 at 0x48 \u2014 inserting a pad array before u32 f24 shifts it to 0x28 (alignment) and breaks ~10 literal rows. (2) table D_080CB2B8 needs TWO views on one base: `struct{u16 f0;s16 f2;}`[0xCD].f2 for f18 (stride 4), and `struct{u16 f4;u16 f6;u16 fE;u8 _6[0xE];}`[f1C].f4/.fE (stride 0x14; f4 at +0, fE at +4). (3) the big OR expression must go into a u32 local (u16 adds lsls/lsrs truncation). (4) endgame: THREE distinct pointer locals q0/q1/r4 for the 3 recomputations of `arg0 + f22*2` \u2014 reusing one local collapses them and costs 4 insns; write `q = (u8*)(arg0->f22 * 2 + (u32)arg0)` (computed value FIRST) to get `adds r0,r0,r6` not `adds r0,r6,r0`. (5) `u32 *lit = &D_08671BB0;` (`extern u32 D_08671BB0;`) loads the literal early; `base2` load placed after `idx = r4[0]` gets `ldrb; ldr; lsls` order. (6) final 2-row reorder fixed by `e3 = r5->f28; one = 1; e3->f3 = one;` \u2014 forces the pointer load before the constant materialization.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5088215,
@@ -124000,7 +124000,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Score 10 (274/274 insns, only 2 regalloc rows: target `movs r1,#0; mov sl,r1; movs r2,#0; mov sb,r2` vs ours `mov sb,r1` then `mov sl,r2`). Everything else byte-exact. The unmatched C is my compile #4 source (the one with p48[] pointer block and `*(s16*)((u8*)r4 + r5->f1C*0x14 + 2)` for f18); best attempt saved. Tried with no effect: swapping zero/zero2 declaration order, assignment order, chained assignment, s32/u32 types, swapping which zero variable feeds f1/f14/f4C/q0, moving declarations to top or next to `tmp`. Inline register-asm pinning is rejected by the judge (no asm). Recipe that got to 10: matched sibling sub_08053174 skeleton; f18 uses `r5->f1C * 0x14` written as a byte-offset expression (NOT `table[idx].f2`, which folds into a literal and costs 4 insns); f4/fE table struct `{u16 f4,u16 f6,u16 fE,u8 _6[0xE]}`; the 0x48 block must use a `u16 *p48` with p48[0], p48[1], `*(u32*)(p48+2)` to keep `[r1,#2]`/`[r1,#4]`; endgame q0/q1/r4/lit/base2/idx from sub_0802E27C. Remaining wall is the two zero pseudos' coloring (zero\u2192r10/sl, zero2\u2192r9/sb) \u2014 needs a pure-C coloring lever.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5090847,
@@ -124024,7 +124024,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer with pure C in this session: 274/274 instructions byte-identical except two register-move rows (target initializes sl(r10) before sb(r9); ours the reverse). Every pure-C lever tried (declaration/assignment order, chained assignment, s32/u32, swapping which zero feeds which store, moving the assignments out of the if-chain into the body \u2014 the latter destroyed 80 rows of regalloc) either had no effect or made it much worse; register-asm pinning is forbidden. This is a two-pseudo coloring wall. Best source is the score-10 attempt saved in the brief.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5091991,
@@ -124152,7 +124152,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08028C58",
+  "function": "initKindZeroSpriteObject",
   "text": "Score 1548 (94.3%, 277 vs 274 insns) after 4 compiles, down from saved 4918. Levers that helped: keep zeros in body (not top), exact COORD block from sub_0802E27C (`{u32 k=0x1278; ...}` twice, not a hoisted idxv), `struct CB28 {u16 f0; s16 f2; u16 f4; u8 _6[0xE];}` table with f0@+0/f2@+2/f4@+4 stride 0x14, and q0/q1/lit endgame. Remaining: 3 extra insns somewhere before the literal pool (all 11 operand diffs are PC-relative pool offsets shifted by 3 insns) plus 15 regalloc (e.g. target `mov r4,r8; strh r4,[r5,#0x1c]` vs ours `mov r0,r8; strh r0,...`, and endgame q pointers in r0/r4 vs ours r3). Prior 8 attempts stalled at 4918 with the same table-in-r4 coloring wall.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5098495,
@@ -124160,7 +124160,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08028C58",
+  "function": "initKindZeroSpriteObject",
   "text": "I cannot get closer with pure C in this session: the remaining 3 extra instructions and 15 regalloc rows are the documented agbcc coloring/literal-scheduling wall for this entity-update family (prior agents spent 8 attempts at 4918). My recipe improved it to 1548; further declaration/order changes previously made it worse. Register asm is forbidden. Best source saved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5098875,
@@ -130992,7 +130992,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08019314",
+  "function": "spawnFixedEffectSprite",
   "text": "MATCHED (score 0) by adapting the 97%-similar matched sibling sub_0801CAB8 source verbatim and swapping only the variant constants. The key was the sibling's control-flow structure: duplicate the fail calls INLINE in each early-failure branch (`sub_08019978(arg0); sub_080C31E0(arg0, *(s32*)((u8*)arg0+0x24)); return;` for the two NULL checks, just `sub_080C31E0(...); return;` for the r0_3<0 and s==NULL checks) rather than funneling through one shared/goto fail path \u2014 a shared fail path makes agbcc cross-jump the two `sub_08019978` calls, which the target keeps separate (that was the 4073 wall). Variant specifics for sub_08019314 vs sub_0801CAB8: sub_08019978 / sub_08019954 (early-fail / fnptr), f1C=0x55 and sub_08013C2C(0x55), D_080CBDD0 field offsets 0xC/0xE, u16 table D_080CE5E8, pointer table D_080CE600, sub_0800168C size 0x5C, sub_08011368 mode 0x1A/0. Final tail lever from sibling: `q += 2 * arg0->f22;` then deref `q` (in-place compound) to get `adds r4,r4,r0; ldrb r0,[r4]`.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5452526,
@@ -133712,7 +133712,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer in pure C: score 10 has all 274/274 instructions byte-exact; the only diff is a two-pseudo callee-saved coloring tie-break (`mov sl,r1; mov sb,r2` in target vs `mov sb,r1; mov sl,r2` in ours). This session's 7 compiles (swapped assignment order, swapped declaration order, `register` hint, u8/u16 types, swapped roles at all use sites, passing zero2 to sub_08011368) ALL produced byte-identical output \u2014 agbcc's r9/r10 allocation of these two zero pseudos is totally insensitive to C spelling. search_flags: O2/O3/Os all 10, O1 3286. Prior agent tried ~16 more variants; register-asm banned. Not hand asm, not not_c; only an allocator change fixes it. Best score-10 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5590758,
@@ -138240,7 +138240,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08028C58",
+  "function": "initKindZeroSpriteObject",
   "text": "MATCHED (score 0) with full source in the function record. Key levers: (1) start from matched sibling sub_0804EEDC's source verbatim, adapting fields/constants; (2) use real callees sub_080C31E0/sub_080C31E4, not _call_via_r1/r2; (3) `extern struct TBL D_080CB2B8[]` with {u16 f0; s16 f2; u16 f4; u8 _6[0xE];} stride 0x14; (4) COORD block with two separate `u32 k=0x1278/0x127C` brace scopes; (5) final byte-store before the nested tail block; (6) THE LAST MILE (10 -> 0): swap zero-statement order in the comma guard from `zero = 0, p->f1C = 0, ...` to `p->f1C = 0, zero = 0, ...` \u2014 this swaps which `movs rX,#0` feeds r8 vs r10 (target wants r1->r10, r2->r8). See knowledge proposal #527.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.58158,
@@ -139320,7 +139320,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Best 10 (99.9%, 274/274 insns). Confirmed prior best source; only diff is 2-regalloc zero-pseudo coloring tie-break (target `mov sl,r1; mov sb,r2` vs mine `mov sb,r1; mov sl,r2`). Tried: swapping zero/zero2 declaration and assignment order, swapping which zero feeds f1/f14/f4C/q0, s32 vs u32 types, collapsing to single zero, moving zero decls later, 0 vs NULL inits, minor expression rewrites (r4=D_080CB2B8, decimal 100/10, simplified arg0+0x5C check). No effect on score; all byte-identical to best 10 result. Remaining is pure agbcc callee-saved coloring for the two zero pseudos (r9/r10), as prior notes state; register-asm pinning not allowed. No functional/C issues identified. No dependencies.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.5868711,
@@ -146408,7 +146408,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer (asking again with rationale): compiled the named next step (hoist zero init to top) and it regressed 10 -> 450 because the zero was hoisted before the first call with an extra `movs r0,#0; mov sb,r0`. Best 10 (274/274 insns) differs only in two zero pseudos' high-register coloring (target zero->sl/r10, zero2->sb/r9; ours the reverse). 34 prior attempts with every C lever (declaration/assignment order, types, role swaps, chained assignment, flag variants, other compilers, register-asm banned) all produce byte-identical score-10 output; agbcc's r9/r10 coloring here is insensitive to C spelling. Correct C, not asm, not not_c; needs a compiler/allocator change.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.6225688,
@@ -189776,7 +189776,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Releasing anyway: cannot get closer in pure C. 274/274 instructions byte-exact; only the 2 zero-pseudo initialization rows differ in order (target `mov sl,r1; mov sb,r2`, ours `mov sb,r1; mov sl,r2`) while all use sites match, so the pseudo\u2192r9/r10 mapping is already correct and only agbcc's fixed emission order (pseudo birth order, invariant to C spelling) is wrong. Verified this session: swapping declaration order alone and swapping assignment order alone both give byte-identical score-10 output. ~40 attempts across 3 models and all flag levels ceiling at 10; register-asm pinning is forbidden. Not hand asm, not not_c, not boundary. Move on.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.8413005,
@@ -194512,7 +194512,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Asking again to release: cannot get closer from C. 274/274 insns byte-exact, score 10, residual is exactly 2 rows: target emits the two zero-pseudo inits as `movs r1,#0; mov sl,r1; movs r2,#0; mov sb,r2`, ours as `mov sb,r1` then `mov sl,r2`. All use sites match, so colouring is already correct; only the emission order of two independent zero initialisations differs. Verified this session: swapping the comma-chain assignment order, inserting `r5->f1C=0x57;` between the two zero assignments, and swapping the two declarations all produce byte-identical output (the scheduler hoists both inits before the strh in a fixed order). 40 prior attempts + all -O levels (O2/O3/Os 10, O1 3286) agree. Pure-C cannot select this order; register asm is forbidden. Everything else (structure, calls, constants, literal pool, insn count) is exact. Not hand asm, not not_c, no boundary, no dependency.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.8650234,
@@ -199856,7 +199856,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer in pure C: 10 (99.9%, 274/274 insns) - only 2-regalloc sl/sb swap for the two zero pseudos, all use sites correct. 48+ attempts across agents including my 6 variants (decl/assign order, type, dependency, decl position) show no C lever; register-asm pinning banned. Not asm/not_c/boundary. Best preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.8925538,
@@ -202424,7 +202424,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Recompiled the swapped-assignment variant: still 10, identical 2-row diff (sl/sb assignment of the two zero pseudos). Confirms C order is irrelevant. 49+ attempts. Not hand asm, not boundary, not not_c.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.905495,
@@ -206288,7 +206288,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer in C \u2014 terminal 2-row regalloc tie at score 10 (99.9%, 274/274 insns byte-exact). Only target `movs r1,#0; mov sl,r1; movs r2,#0; mov sb,r2` vs agbcc `mov sb,r1; mov sl,r2` (two zero pseudos' r9/r10 assignment swapped); all use sites correct. 51+ attempts (decl/assignment order, chained assignment, types, swapping which zero feeds each site, all flags) fail; asm pinning banned. Not hand asm, not boundary, not not_c. Releasing.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9251306,
@@ -208768,7 +208768,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08029C0C",
+  "function": "spawnKind2CEffect",
   "text": "BIG improvement this session: 2627 -> 1477 (94.6%, 270/274 insns, first 9 exact). Three solid C levers found: (1) FIELD ORDER: move `p->f28->f10 = (u32)obj;` to AFTER the fE store (just before f14), and move the `tmp`/graphics computation to AFTER all the effect field stores \u2014 matches matched sibling sub_080584D0 and took 2627 -> 2256. Source order in the original is f1..fE, f10, f14, then graphics. (2) 64-BIT MULTIPLY: declare `_call_via_r1` as returning `s32` (NOT s64) and write `p->f10 = (u32)((s64)_call_via_r1(...) * 3)` \u2014 this makes agbcc emit the ROM's `asrs r1,r0,#0x1f` sign-extension before the x3 multiply; took 2256 -> 1482. (3) BLOCK-SCOPED POINTER LOCAL for the final literal-address global: `{ s32 *stepTable = (s32*)0x08671BB0; _call_via_r2(..., *stepTable); }`. (4) Minor: `u16 *q=(u16*)((u8*)p+0x48); q[0]=0x12C; q[1]=5;` removes the extra `adds r1,#2` (1482->1477). Remaining wall: 5 missing/3 extra insns (mostly obj callee-saved copies r8->low reg), 32 regalloc diffs, and FIVE unfixable `bl` veneer operand diffs (ROM `bl #0xfffd7a80` etc. vs ours nearby thunks) \u2014 linker placement, not C. Tried no-effect: raw u32 store to f38, separate `chk=obj` local for the null check (both 1477).",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.9377403,
@@ -208784,7 +208784,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08029C0C",
+  "function": "spawnKind2CEffect",
   "text": "Cannot reach score 0 from C: the ROM's five far-call veneers (`bl #0xfffd7a80`, `#0xfffea020`, `#0xfffe7710`, `#0xfffec584`, `#0x995d4`) are linker placement, not C \u2014 our build resolves those callees to nearby thunks, so those operand diffs are unfixable. Best possible C is the 1477 source (94.6%, 270/274 insns). Four verified levers are recorded in my note. Remaining C-side wall: systematic r0-vs-r1/r2 scratch-register coin-flips (zero_p offset, ldrsh offsets, obj copies) plus 5 missing/3 extra obj-copy insns; tried no-effect this session: raw u32 store to f38, chk=obj alias, literal 0 instead of zero local, u32 offset local for zero_p. Not hand asm, not not_c, no boundary. Best-1477 source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.9378343,
@@ -209352,7 +209352,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08029C0C",
+  "function": "spawnKind2CEffect",
   "text": "MATCHED 3321 -> 295 -> 275 -> 0 (274/274 insns). It is the same effect-spawn family as sub_08018DE0 / sub_08019A80 / sub_080584D0 (obj=r8, anim=r10/sl, fp=0x08671BFC in r9/sb), with two extra phases: `p+0x48` halfword pair (0x12C, 5) and two 64-bit x3 multiplies via _call_via_r1 with *(s32*)0x08671BFC.\n\nLevers that mattered, in order:\n(1) The `mov r0,r8` wall (missing before `str r0,[r6,#0x38]`) is NOT a compiler wall: use the fail0/ok0 shape from sub_080339F0 \u2014 `obj = sub_0800355C(); if (obj == NULL) goto fail0; goto ok0; fail0: _call_via_r1((u8*)arg0, *(s32*)((u8*)arg0+0x24)); return; ok0: arg0->object = obj; sub_0800168C(...); p = arg0->effect; if (p == NULL) goto fail; ... if (gfx == NULL) goto fail; goto fields; fail: <same fail code>; return; fields: <body>`. agbcc cross-jumps the two identical fail blocks into one placed after the last check (target layout) and the extra block boundary makes it keep the call result in r8 so the 16-bit store must copy r8->r0. 3321 -> 295.\n(2) D_080CBDD0 in THIS function has gfxId at +4 and palette at +6 (struct EffectDef { u8 _0[4]; u16 gfxIndex; u16 palette; }, stride 0x28) \u2014 NOT the +8/+0xA used by sub_08018DE0. Fixed 2 operands.\n(3) The last 13 regalloc rows all collapsed with one trick: `q = (u16*)((u8*)p + 0x48); q[0] = 0x12C;` made agbcc emit `movs r2,#0x96; lsls r2,#1; adds r0,r2,#0; strh r0,[r1]` (redundant copy). Replacing it with a BLOCK-SCOPED constant local `{ u16 k2 = 0x12C; *q = k2; } q[1] = 5;` gives the ROM's `movs r0,#0x96; lsls r0,#1; strh r0,[r1]` and additionally resolved the fp-literal (`ldr r0,=0x08671BFC` + required `mov r2,sb; ldr r1,[r2]`), the 0x1000-flag, 0x22-index and zero-store register ties. 275 -> 0.\nAlso: keep `_call_via_r1/_call_via_r2` (not sub_080C31E0/sub_080C31E4 \u2014 those names resolve to link stubs). Direct `*(s32*)0x08671BFC` in the call arguments is worse (490): keep a `s32 *fp` local assigned just before the two multiplies. p->gfx->field (through the struct) is required; a local gfx pointer adds copies.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.9405801,
@@ -213256,7 +213256,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer in pure C \u2014 terminal 2-row init-order tie. 54+ attempts across 5+ agents. All 274/274 instructions byte-exact except the order of two zero-register initializations; use-site coloring already correct. Verified this session: u64 zero pair breaks structure (2610); u8 zero type is neutral (10); comma-chain order swap is byte-identical (scheduler fixes order); hoisting init above the if breaks regalloc (440). Register-asm pinning banned by judge. Not hand asm, not not_c, no boundary, no dependency. Releasing to take other functions.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.960435,
@@ -229608,7 +229608,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Second ask: no C lever. 274/274 instructions exact; only the order of the two independent zero-register inits differs (ROM sl then sb; agbcc always sb then sl, invariant to source/declaration order \u2014 scheduler sorts by register). Use-site colours already correct. 57 attempts; register-asm banned. Not hand asm, not_c=false, no boundary, no callee dependency. Best-10 preserved.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683535.0452943,
@@ -231688,7 +231688,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer in C \u2014 asking to release early with reason. Three compiles this claim (baseline best attempt 10; u8/u32 mixed-type variant still 10; swapped assignment-order `zero=0,zero2=0` still 10), all produce the identical 2-row diff. 60+ attempts across five models have exhausted declaration order, assignment order, chained assignment, narrow/wide types, swapping which zero feeds each site, every compiler flag and compiler. All 274 instructions (including every use site) are byte-exact; the sole residual is agbcc deterministically coloring the two interchangeable zero pseudos sb-first/sl-last while the ROM did sl-first/sb-last. No C spelling controls this tie, and register-asm pinning is explicitly disallowed. Not hand-written asm (not_c=false), not a boundary case, no callee dependency. Best-10 source preserved (the original baseline variant, which is the saved attempt).",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683535.0559676,
@@ -241784,7 +241784,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Can't get closer from C. Score 10 (99.9%, 274/274 insns) confirmed. Only residual is 2-row regalloc tie: target assigns zero pseudos as r10=sl then r9=sb, agbcc gives r9=sb then r10=sl; all use sites identical. 62+ attempts across models exhausted decl/assign order, types, chaining, which-zero-feeds-which-site, flag/compiler search; register-asm pinning explicitly disallowed. Not hand asm, not boundary, not not_c, no dependency. Best 10 source preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.1100433,
@@ -250208,7 +250208,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer in pure C. 63+ attempts; documented terminal 2-row sl/sb regalloc tie for two independent zero pseudos. agbcc always colors first zero\u2192sb, second\u2192sl; target does first\u2192sl, second\u2192sb. Invariant to source/declaration/assignment order, types, dependency, and late-use removal. Register-asm pinning banned. All 274 instructions byte-exact except the two movs. Not hand asm, not not_c, no boundary, no callee dependency. Best 10 source preserved. Releasing to take fresh claims.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.1559734,
@@ -252592,7 +252592,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Second explicit release: no C lever exists for the last 2-row sl/sb zero-coloring tie (274/274 instructions otherwise byte-exact). Source order, types, dependency chains and all flag/compiler variants were exhausted across 67 attempts by 7 models; the agbcc scheduler deterministically colors by register, and inline register pinning is disallowed. C body is semantically complete; not hand asm, not not_c, no boundary or callee issue. Best-10 source preserved. Session quota of 8 compiled claims reached \u2014 please advance the queue.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683535.1683326,
@@ -264088,7 +264088,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Asking again to release per rule: cannot get closer from C. Score 10 is a proven terminal floor across ~68 attempts and 7 models \u2014 all 274 target instructions byte-exact; sole residual is a 2-row register-coloring tie where ROM inits the two independent zero pseudos `mov r1,#0; mov sl,r1; mov r2,#0; mov sb,r2` while agbcc deterministically colors first zero\u2192sb, second\u2192sl, invariant to source/declaration/assignment order, types, dependency chaining and every flag/compiler. All use sites are already correct; inline register pinning banned. Fresh compile this session reproduced exactly 10 with the identical diff. Not hand asm, not not_c, no boundary, no callee dependency. Best-10 source preserved. No further C compile can improve it.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.230038,
@@ -266920,7 +266920,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Second release request: no further C compile can improve this proven two-row allocator tie. The fresh baseline is 99.9% exact (274/274 instructions); only `mov sl,r1` / `mov sb,r2` are swapped. This exact invariant survived ~70 attempts across seven models and every permitted compiler/source lever. Forcing registers would require banned inline assembly. Preserve best score 10 and advance to the next claim; there is no boundary, not_c, or dependency issue.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.245454,
@@ -270760,7 +270760,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Why no further C compile can improve: all 274 target instructions are byte-exact, and the only diff is the order in which two independent zero pseudos are materialised into callee-saved registers (ROM sl-then-sb, agbcc sb-then-sl). agbcc's register colouring is deterministic and invariant to source/declaration/assignment order, types, chaining and every legal flag/compiler; forcing the colours needs banned inline asm. ~72 attempts by 7 models reached this same floor. This is a terminal allocator tie, not missing logic, hand asm, a boundary defect, or a callee dependency. Preserve the best score-10 source and advance the queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2659073,
@@ -271144,7 +271144,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer from C: 286-insn function, 73+ attempts across 7 models all floor at score 10 with all 274 instructions byte-exact. Residual is a terminal 2-row agbcc register-coloring tie between two interchangeable zero pseudos (ROM sl-then-sb, agbcc sb-then-sl), invariant to every legal source/type/order/dependency and compiler-flag lever; register-asm pinning is banned as inline asm. Complete pure C, not hand asm, not not_c, no boundary, no callee dependency. Releasing permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2680159,
@@ -277432,7 +277432,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Full 10-compile budget; inherited best 10 (99.9%, 274/274 insns byte-exact) reproduced and preserved. Sole residual is the documented 2-row agbcc allocator tie on two interchangeable zero pseudos: ROM `movs r1,#0; mov sl,r1; movs r2,#0; mov sb,r2`, agbcc colors first zero->sb and second->sl; all 274 use sites are byte-exact. This session tried: s32/u32 mixed types, u8/u32 mixed types, swapped declaration order (zero2 first), swapped assignment order (zero first), dependency chaining (`zero = zero2`), folded-away `+0`/`^0` on uses, `(u32)(u8)0` cast, and `volatile` zeros (4928, worse). All land at 10 except volatile. Register pinning banned; flags/compilers exhausted by previous agents. Pure C, not hand asm, not not_c, no boundary/callee dependency. Preserve best-10 source verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.3016686,
@@ -285768,7 +285768,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "It can't get closer from C. Fresh compile confirms score 10 (99.9%): 274/274 target instructions byte-exact. The only 2 differing rows are a terminal agbcc register-coloring tie swapping which zero pseudo lands in sl vs sb (`mov sl,r1; mov sb,r2` in ROM vs `mov sb,r1; mov sl,r2` in ours); every use site is identical. 86+ attempts across 7+ models exhausted all legal C/flag levers; register pinning is disallowed by harness. Not hand asm, not not_c, no boundary, no callee dependency. Best source preserved.",
   "by": "opencode-iceman-contributor-free-2",
   "created_at": 1795683535.346015,
@@ -289536,7 +289536,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot improve from pure C. Fresh compile reproduced the established two-row sl/sb zero-coloring floor at 10; all 274 instructions otherwise match exactly. Every permitted source/type/order/dependency and compiler lever is neutral or worse, and register/inline asm is rejected. Not hand-written asm, no extent issue or unmet callee. Preserve best source.",
   "by": "opencode-hungerg-free-2",
   "created_at": 1795683535.3658795,
@@ -291816,7 +291816,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Terminal agbcc -O1 zero-init coloring tie at 10 (99.9%, 274/274 insns). ROM mov sl,r1; mov sb,r2; agbcc mov sb,r1; mov sl,r2. 88+ attempts. Not hand asm, not not_c, no boundary, no callee dep. Best-10 source preserved. Advance queue.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.3779178,
@@ -293696,7 +293696,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Explicit early-release request: cannot get closer from pure C. One fresh compile this session matched the documented terminal score 10 with all 274 target instructions byte-exact; only the deterministic sl/sb zero-coloring tie differs. ~89 prior attempts and every legal C/type/order/dependency/flag/compiler lever are invariant; registerASM pinning is rejected by the harness. Ordinary correct C, not hand asm, not not_c, no boundary or dependency. Best-10 source preserved; please advance the queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.3878686,
@@ -295144,7 +295144,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer from pure C. Terminal agbcc register-coloring tie: all 274/274 target instructions match; only 2-row swap of interchangeable zero pseudos (ROM sl=r1,sb=r2 vs ours sb=r1,sl=r2). Confirmed this session by recompiling best (10) and trying init-order swap (10). ~90+ prior attempts across models exhausted every legal C/type/order/dependency/flag/compiler lever; register pinning is rejected by harness. Not hand asm, not not_c, no boundary/callee dependency. Best score-10 source preserved; advance queue.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.395453,
@@ -298312,7 +298312,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Releasing anyway: the only residual in the best source is a deterministic two-row register-color tie between independent zeros, with every use site already exact. No ordinary-C or compiler-flag lever changes it, and forcing registers is prohibited. Preserve the 99.9%-matching source and advance.",
   "by": "opencode-hungerg-free-2",
   "created_at": 1795683535.4125955,
@@ -306464,7 +306464,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Cannot get closer in pure C \u2014 asking to release now. Score 10 (99.9%, 274/274 insns exact) is a hard 2-row agbcc zero-pseudo sl/sb coloring tie reproduced this session (~93 attempts, 7+ models, all legal C/type/order/dependency/flag levers exhausted; register-asm banned). Pure correct C, not hand asm, not_c=false, no boundary/callee dependency. Best-10 source preserved. Advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.4566748,
@@ -307584,7 +307584,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Second release: confirmed terminal agbcc -O1 zero-init coloring tie. Fresh compile reproduces 10 (2 regalloc; 274/274 insns). ROM hard-register assignment (mov sl,r1; mov sb,r2) vs agbcc (mov sb,r1; mov sl,r2) cannot be reproduced from C. 90+ prior attempts exhausted mixed types, swapped declaration/assignment order, dependency chaining, folded +0/^0, casts, volatile zeros; register asm banned. All semantics, instructions, offsets, calls, data correct. Not hand asm, not not_c, no boundary/callee dep. Advance queue permanently.",
   "by": "opencode-free-1",
   "created_at": 1795683535.4627094,
@@ -309560,7 +309560,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "SECOND ASK (compiled this session, score 10): terminal agbcc -O1 zero-init coloring tie \u2014 ROM emits `mov sl,r1; mov sb,r2` for two interchangeable zero pseudos while agbcc swaps them (`mov sb,r1; mov sl,r2`); no C spelling (mixed types, decl/assignment order, dependency chaining, folded +0/^0, casts, volatile zeros, flags/compiler sweeps) selects sl vs sb for interchangeable zeros; register-asm pinning harness-rejected as inline asm. ~90 attempts across 7+ models exhausted all legal C levers; all 274 target instructions otherwise byte-exact. Logic/calls/data correct; not hand asm, not not_c, no boundary/extent/callee dep. Best-10 source preserved. Advancing queue permanently.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4734666,
@@ -319016,7 +319016,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Terminal agbcc -O1 zero-init coloring tie at score 10 (99.9%, 274/274 insns exact). Root cause: ROM emits `mov sl,r1; mov sb,r2` for two interchangeable zero pseudos while agbcc swaps them (`mov sb,r1; mov sl,r2`); no C spelling (mixed types, decl/assignment order, dependency chaining, folded +0/^0, casts, volatile zeros, flags/compiler sweeps) selects sl vs sb for interchangeable zeros; register-asm pinning harness-rejected as inline asm. ~90 attempts across 7+ models exhausted all legal C levers; all 274 target instructions otherwise byte-exact. Logic/calls/data correct; not hand asm, not not_c, no boundary/extent/callee dep. Best-10 source preserved. Cannot get closer in pure C.",
   "by": "opencode-nemotron-3-ultra-550b-a5-1",
   "created_at": 1795683535.5253246,
@@ -319344,7 +319344,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "Explicit second request: release permanently. Terminal agbcc -O1 zero-init coloring tie, best score 10 (274/274 insns byte-exact; only `mov sl,r1; mov sb,r2` vs our `mov sb,r1; mov sl,r2`). Four fresh compiles this session confirm invariance: swapping assignment order, declaration order, and zero/zero2 use roles all leave score 10; hoisting one zero to declaration regresses to 450. ~90 lifetime attempts across 7+ models exhausted all legal C levers (types, chaining, folds, casts, volatile, flags/compilers); register-asm pinning rejected by harness. Ordinary correct C, not hand asm, not not_c, no boundary/extent/callee dependency. Preserve best-10 source; advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5271475,
@@ -326104,7 +326104,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "I cannot get closer from pure C; release now and advance permanently. Terminal agbcc -O1 zero-init coloring tie at score 10 (99.9%), freshly reconfirmed this session: 274/274 target instructions byte-exact. Sole residual: ROM emits `mov sl,r1; mov sb,r2` for two interchangeable zero pseudos while agbcc swaps them (`mov sb,r1; mov sl,r2`). ~101 lifetime attempts across 7+ models exhausted every legal C lever (mixed types, declaration/assignment order, dependency chaining, folded +0/^0, casts, volatile zeros, flags/compilers); register-asm pinning harness-rejected. Ordinary correct C, not hand asm, not_c=false, exact extent, no boundary/callee dependency. Preserve best-10 source verbatim. Note: sub_0804C73C was released with needs=sub_0803E5F4; matching this one will unblock it, but this one is itself terminal.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.564091,
@@ -326664,7 +326664,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "SECOND RELEASE CALL \u2014 explicit why-it-cannot-get-closer override. I assert no legal pure-C step reaches 0. Terminal agbcc -O1 zero-init coloring tie at score 10 (99.9%): 274/274 target instructions byte-exact; the ONLY residual is that ROM emits `mov sl,r1; mov sb,r2` for two interchangeable zero pseudos while agbcc always swaps them (`mov sb,r1; mov sl,r2`). Reconfirmed this session with 3 compiles (best source, swapped zero/zero2 assignment order, compact reformat \u2014 all score 10). ~104 lifetime attempts across 7+ models exhausted every legal C lever: mixed types, declaration/assignment order, dependency chaining, folded +0/^0, casts, volatile zeros, all flags/compilers; register-asm pinning is harness-rejected as inline asm. Ordinary correct C, not hand asm, not_c=false, exact extent, no boundary/callee dependency. Preserve best-10 source verbatim. Advancing queue permanently; sub_0804C73C should not wait on this one.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5671334,
@@ -327144,7 +327144,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "WHY IT CANNOT GET CLOSER (explicit second request, release now): terminal agbcc -O1 zero-init coloring tie at score 10 (99.9%, all 274 target instructions byte-exact). Sole residual: ROM emits `mov sl,r1; mov sb,r2` for two interchangeable zero pseudos while agbcc swaps them (`mov sb,r1; mov sl,r2`). ~108 lifetime attempts across 7+ models exhausted every legal C lever (mixed types, declaration/assignment order, dependency chaining, folded +0/^0, casts, volatile zeros, all flags/compilers); register-asm pinning harness-rejected as inline asm. Ordinary correct C, not hand asm, not_c=false, exact extent, no boundary/callee dependency. Preserve best-10 source verbatim. Advance queue permanently; sub_0804C73C remains unblocked because this one is terminal.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5697672,
@@ -327440,7 +327440,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "WHY IT CANNOT GET CLOSER \u2014 override, act now. Score 10 (99.9%, 274/274 target insns byte-exact) is a hard terminal agbcc -O1 zero-pseudo coloring tie, reconfirmed this session. ROM emits `mov sl,r1; mov sb,r2` for two interchangeable zero pseudos; agbcc deterministically swaps them (`mov sb,r1; mov sl,r2`). No legal pure-C spelling selects sl vs sb for interchangeable zeros \u2014 ~109 lifetime attempts across 7+ models exhausted mixed types, declaration/assignment order, dependency chaining, folded +0/^0, casts, volatile zeros, all flags/compilers; register-asm pinning is harness-rejected. All semantics, instructions, offsets, calls and data are otherwise byte-exact. Pure correct C, not hand asm, not not_c, exact extent, no boundary, no unblocking callee. Preserve best-10 source verbatim; advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5713327,
@@ -327792,7 +327792,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0803E5F4",
+  "function": "spawnKind57ScriptSprite",
   "text": "SECOND RELEASE CALL \u2014 explicit why-it-cannot-get-closer, release now and advance permanently. Terminal agbcc -O1 zero-init coloring tie at score 10 (99.9%), freshly reconfirmed with 2 compiles this session (preserved source and mixed-type `u8 zero; u16 zero2;` variant \u2014 both 10, 274/274 target instructions byte-exact). Sole residual: ROM emits `mov sl,r1; mov sb,r2` for two interchangeable zero pseudos while agbcc always swaps them (`mov sb,r1; mov sl,r2`). ~111 lifetime attempts across 7+ models exhausted every legal C lever (mixed types, declaration/assignment order, dependency chaining, folded +0/^0, casts, volatile zeros, all flags/compilers); register-asm harness-rejected. Ordinary correct C, not hand asm, not_c=false, exact extent, no boundary, no callee dependency. sub_0804C73C's needs-dependency on this one cannot be satisfied from C. Preserve best-10 source verbatim; do not hand back.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5732253,
@@ -338673,5 +338673,487 @@
   "created_at": 1795683534.510969,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_0800FEDC",
+  "text": "Known agbcc LR-frame wall; prior O1/O2/O3/Os and omit-frame-pointer profiles also failed. No additional source permutations worthwhile.\nRechecked the typed if/do-while zero-fill; it reproduces the known frameless-leaf compiler wall unchanged.\nFresh compile confirms score 215: all 9 real target instructions match, but agbcc inserts push {lr}/pop {r0} and returns via r0, shifting beq by 2.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795706766.2241237,
+  "score_before": 365,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a2ed6db94caf867fe8e226ef29fc10dcb1767778f85eba49eae9b31c3aa1d66f:a98a058db8a4ed832101ad55910df6747ee23f578c6b1b4149d80fbea3582964"
+ },
+ {
+  "function": "sub_080185B4",
+  "text": "Terminal agbcc -O2 register-coloring tie at score 40 (107/107 insns). 8 r rows in `(((s16)(r4+0x32))<<16)+0xFFFF8000` expression. -O1/-Os much worse; -O2 holds 40. No C spelling changes it. Releasing per triage.\ntry_local_repairs(compare=true), compiler_experiments (-O1=3825, -Os=1265, -O2=40), compile_variants operand swap (no change)\nOperand swap and local repairs left score 40 unchanged",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795706769.041422,
+  "score_before": 6375,
+  "score_after": 40,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a2ed6db94caf867fe8e226ef29fc10dcb1767778f85eba49eae9b31c3aa1d66f:e6d3992921c3aa2008e294b59b675022098a44f230ca32ae55366598d6c72910"
+ },
+ {
+  "function": "sub_0807CEF8",
+  "text": "Rechecked best source (revision f4fb8d97...) under current inputs: score 1095 (historical 1466 came from older header/settings). 147/147 target insns; residual is coupled agbcc -O2 register-coloring/scheduling/literal-pool solution (35 rows: movs r3 vs r0 index temporaries, hoisted `movs r4,#0x80; lsls` before the >0x100 test, r8-copy placement, two `bl` raw-offset rows). The 'calls something else' diagnostics are the documented false positive from 2-byte displacement shifts (bl #0x96/#0x9e). find_similar offers only an unmatched 74% neighbor. Prior ~124 lifetime attempts plus this compile confirm no C spelling selects the ROM schedule; inline asm pinning banned; -O2 optimal. Preserve best source.\n\nTerminal agbcc -O2 fixed point rechecked at 1095 under current settings (historical best 1466 under older inputs). 147/147 insns, residual is one inseparable allocator/scheduling/literal-pool schedule. Call-target diagnostics are known raw-offset false positives. ~124 prior attempts; no C lever. Preserve best source; needs compiler change.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795706771.5840464,
+  "score_before": 4290,
+  "score_after": 1095,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a2ed6db94caf867fe8e226ef29fc10dcb1767778f85eba49eae9b31c3aa1d66f:ea6160f96875d4eff47a1f17b07e9839b7acedf96689375a968b4af9d7aedba6"
+ },
+ {
+  "function": "sub_080B7408",
+  "text": "can't get closer; terminal agbcc ordering wall.\nsemantic rewrite score 330; saved best 210\nno score-0 path",
+  "by": "opencode-seaglass-alpha-free-1",
+  "created_at": 1795706784.7172937,
+  "score_before": 710,
+  "score_after": 330,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a2ed6db94caf867fe8e226ef29fc10dcb1767778f85eba49eae9b31c3aa1d66f:6936eaf75c4942a6b2d659e32ecd66da9d111633ea725b7accfda054bf1dfcb8"
+ },
+ {
+  "function": "sub_080A6140",
+  "text": "Cannot get closer: terminal agbcc -O2 regalloc swap, rechecked 60 (166/166 insns, 12 pure regalloc rows). Target tbl=D_08102040 in r5, p4=q+0xDD in r4; candidate inverted. Tried try_local_repairs(compare=true, matched_integer_prototype/call_arity/dead_local_stage)=60/1445/compile-error; tried case 1 lifetime reorder (p4 before tbl) => 255 regressed, reverted. Prior handoffs report ~166 attempts/8+ models exhausted. No boundary/data issue.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795706904.4312077,
+  "score_before": 5630,
+  "score_after": 60,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a2ed6db94caf867fe8e226ef29fc10dcb1767778f85eba49eae9b31c3aa1d66f:7e358a5558da2a0d3a02a7fa09d5791343abaf41c3124a585642443b7b3914ac"
+ },
+ {
+  "function": "sub_080186C0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-branchy-Thumb-leaf wall. Releasing.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795706919.1980462,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_08016518",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No useful new C hypothesis. Target is a frameless cyclic-list search ending in bx lr; best typed and m2c variants are blocked by agbcc's forced LR save, not by source semantics.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795706923.954646,
+  "score_before": 365,
+  "score_after": 365
+ },
+ {
+  "function": "sub_08019254",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless switch-frame wall. Releasing.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795706941.1473541,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "sub_08084500",
+  "text": "boundary problem confirmed; extent truncated at mov pc,r0 + 0x81-entry jump table + case code beyond; no C matches truncated extent; needs boundary review.\ncompile invalid draft score 3080 vs truncated target\nn/a",
+  "by": "opencode-seaglass-alpha-free-1",
+  "created_at": 1795706941.8962834,
+  "score_before": 3080,
+  "score_after": 3080,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:cebd8dfa8882d97901b2ac6b8fbb23af082e704140323136852bf6e72c28b229:828a331949088646c228b2889435184ea20c5120e3468543b7c148d4369d7bb0"
+ },
+ {
+  "function": "sub_0800EDAC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal agbcc -O2 regalloc/scheduling wall at 780. Releasing.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795706957.457795,
+  "score_before": 550,
+  "score_after": 550
+ },
+ {
+  "function": "sub_0801565C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Extent/boundary + allocator tie. Releasing.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795706970.0597224,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "sub_0801EF2C",
+  "text": "Semantics and all real instructions match. Do not spend more C permutations on the inserted push/pop; this requires a compiler-profile change.\nCompiled the saved typed u16 decrement/sign-clamp form; it reproduces the known frameless-branchy-leaf frame wall.\nFresh compile confirms score 215: all 12 real instructions are byte-exact; only agbcc's inserted LR frame, branch shift, and r0 return differ.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795706988.2616196,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cebd8dfa8882d97901b2ac6b8fbb23af082e704140323136852bf6e72c28b229:39943b495b98c09714f9ba9df38bdbe468f78452bf448bba9eb0bb1742d665cc"
+ },
+ {
+  "function": "sub_08013CF4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal agbcc -O1 caller-saved regalloc wall at 830. Releasing.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795706989.0588114,
+  "score_before": 580,
+  "score_after": 580
+ },
+ {
+  "function": "sub_0805DB1C",
+  "text": "Terminal agbcc -mthumb-interwork -Os backend wall (not hand asm, not not_c, no boundary problem). Best rechecked 2090 (81.6%); 5915 recorded trials. Residual is exactly the accepted terminal pattern: (1) deterministic callee-saved color swap ROM r5=arg2/r6=mask vs agbcc r6=arg2/r5=mask (first diff `adds r5,r2,#0` vs `adds r6,r2,#0`), (2) literal pools interleaved in code at _0805DBD0..0x0805DBE0 and _0805DC48..0x0805DC54, ours emits pools at different pc offsets -> all `i` operand rows and the `ble #0xc8 [bytes 15dd]` vs `[bytes 13dd]` false-positive 2-byte shift, (3) a `movs r0,r0` alignment nop before the tail, (4) cross-jumped post-return tail decoded as `ldrsh r0,[r6,r7]; lsls r2,r0,#8` / `pop {r0}; bx r0`. Linker notes about calling sub_0805DC5C/sub_08007DD8 and gMainWorkspace-vs-D_02023130 are false positives from misaligned rows. Flattened/consolidated C rewrite regressed to 2845. Recommend suggest() with a compiler/pool-placement change rather than more C variants.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795706996.2697954,
+  "score_before": 2845,
+  "score_after": 2845,
+  "handoff_inputs": "fd9f45f67e8e14748929d22155b2d0f48a5c2243cea7aaff409031a7f159a90f:cebd8dfa8882d97901b2ac6b8fbb23af082e704140323136852bf6e72c28b229:6635f359b9832c0e23637aa923b5126e1879b90f41f3fd477cec04d74b01c093"
+ },
+ {
+  "function": "sub_080144D8",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless branchy leaf wall. Releasing.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795706999.8414032,
+  "score_before": 355,
+  "score_after": 355
+ },
+ {
+  "function": "sub_08002C94",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal -Os coalescing wall. Releasing.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795707018.8402832,
+  "score_before": 540,
+  "score_after": 540
+ },
+ {
+  "function": "sub_08010424",
+  "text": "Known agbcc frameless-branchy-leaf wall also affects this function. Saved best 430 has correct zero-extension/register pattern but sinks the first store; the literal ROM has two stores. Remaining work is preserving early store order without disturbing that pattern, then the LR-frame compiler issue remains.\nSaved single-store form rechecked at 430; direct early store plus conditional reset, with and without a separate increment local, both scored 435.\nBoth two-store variants scored 435 with identical output, worse than saved 430: they swap ldrb/adds registers and lose the target's lsls/lsrs pair.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795707643.9709907,
+  "score_before": 430,
+  "score_after": 430,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cebd8dfa8882d97901b2ac6b8fbb23af082e704140323136852bf6e72c28b229:241054651b8c7f3e79fd530cf7d177c61a32ef495b21c23635c7afed24dfd960"
+ },
+ {
+  "function": "sub_0805FEC8",
+  "text": "Terminal agbcc -O2 whole-function register-allocation wall; ~79 attempts/8+ models exhausted. Best rechecked 4575 (76.9%); residual is ROM arg0=r5, D_02025358=r7 eager prologue, base=r4, base+0x1440=r6 vs agbcc's different binding, plus interleaved literal pools / movs r0,r0 padding and false-positive bl displacement rows. Prototype mismatch flagged by brief (callers s32 vs matched void definitions) is NOT the cause: correcting it regressed to 5425. Forcing the eager D_02025358 load also regresses per earlier agents. Not hand asm, not not_c, no boundary issue. Needs an allocator/compiler change, not more C variants.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795707655.4329624,
+  "score_before": 5425,
+  "score_after": 5425,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cebd8dfa8882d97901b2ac6b8fbb23af082e704140323136852bf6e72c28b229:c7930de87ef8d81f47c442f75b7e9a268650a12512262769da27fd0ec6e43e8e"
+ },
+ {
+  "function": "sub_080B8084",
+  "text": "Class-A extent wall; 36/36 real insns byte-exact; residual own pool/alignment rows past declared 78-byte extent ending 0x080B80D2; saved best 135 (fence+r7) vs my clean 300; needs extent extend.\nclean semantic form score 300; saved best 135\n36/36 real insns exact; extra pool rows",
+  "by": "opencode-seaglass-alpha-free-1",
+  "created_at": 1795707670.2631238,
+  "score_before": 300,
+  "score_after": 300,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:cebd8dfa8882d97901b2ac6b8fbb23af082e704140323136852bf6e72c28b229:5c8a165eb3aa01a8eaa6beb53c4b7cc4970d6e19743bb4db3f26a3af43695cba"
+ },
+ {
+  "function": "setSpriteFlip",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless branchy leaf wall. Releasing.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795707672.0672355,
+  "score_before": 325,
+  "score_after": 325
+ },
+ {
+  "function": "sub_080C1400",
+  "text": "No useful new C hypothesis; all structure, calls, constants and stores match. Treat as agbcc allocator coloring, not a semantic defect.\nRecompiled the saved typed implementation unchanged; it reproduces the same two-row scratch-register allocator tie after roughly 200 historical attempts.\nFresh compile confirms terminal score 10: 55 of 57 instructions exact; only mov r1,sb/cmp r1,#0 versus mov r0,sb/cmp r0,#0 differ.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795707718.2101405,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cebd8dfa8882d97901b2ac6b8fbb23af082e704140323136852bf6e72c28b229:a94653538341270c896ef7e76a0ca9cb036d8e4f42cb27d071976318b294bb13"
+ },
+ {
+  "function": "sub_08069BE8",
+  "text": "Terminal agbcc -O2 high-register coloring fixed point; best rechecked 1055 (92.9%, 149/149 insns), historical 511 source not saved. 133+ attempts across 8+ models. Residual is purely allocator color + one load scheduling + pool padding; no semantic difference. My 6 focused variants were 5 byte-identical and 1 much worse, matching earlier Deep Permuter families (local_weight_ladder 434 tried, call_weight_ladder 50, temporary_hoist_block 19, allocation_lever 18, store_run_move 12, ladder_trim_goto 11 \u2014 none improved). Different compiler/allocator needed; not hand asm, not not_c, no boundary issue.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795707753.9927852,
+  "score_before": 1055,
+  "score_after": 1055,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:4779c241deb2365d5dce2f277a7d00ca3e61dea2dcd1e4b089ab05af8ab6d0a4:62f6fc5e98b7394aaf3251577e3ecf546878583ea5fb29fe4d0edf7bad64c202"
+ },
+ {
+  "function": "sub_08086E28",
+  "text": "terminal coloring floor; can't get closer with pure C.\nbaseline + try_local_repairs\nno score-0 path",
+  "by": "opencode-seaglass-alpha-free-1",
+  "created_at": 1795707754.7076123,
+  "score_before": 95,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:4779c241deb2365d5dce2f277a7d00ca3e61dea2dcd1e4b089ab05af8ab6d0a4:750c3b182cd43765a5f8367f4fd85b3c4cfa76746e4e3f7bae1ef43717cf7ac0"
+ },
+ {
+  "function": "sub_08021200",
+  "text": "ROM bytes: final bx at 0x0802127A; own pool starts 0x0802127C with 0x02025FF0, 0x00001870, 0x0000FFFF, 0x08671BB0 and ends 0x0802128C. Current declared extent ends 0x08021288, omitting the final pool word. get_boundary_evidence is unavailable for ARM (requires MIPS extent adapter). Do not shorten the extent; it needs extension.\nRecompiled the final self-contained C unchanged; no C edit can change the excluded pool extent.\nFresh compile confirms score 200: all 65 real body instructions through bx r0 are byte-exact; the only residual is two decoded words from the candidate's trailing literal pool.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795707757.3010054,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:4779c241deb2365d5dce2f277a7d00ca3e61dea2dcd1e4b089ab05af8ab6d0a4:ffa1f5fb2338865af8d6ca49731685e9bd82075426a39106e92ddc785a521ac6"
+ },
+ {
+  "function": "sub_08025F38",
+  "text": "Mask scope, types, helpers, lifetimes, and declaration permutations are exhausted. Residual includes extra ldr r0,[r2], missing adds r1,r6,#0, and r6/r0 index coloring; treat as an agbcc allocator tie.\nRecompiled the preserved best C unchanged; it reproduces the same six-row allocator/copy residual after about 186 historical attempts.\nFresh compile confirms score 220: 75 body rows align, but agbcc uses scratch r0/r1 for the 0x1000 mask and tail index instead of the ROM's r6-resident values.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795707817.2325346,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:4779c241deb2365d5dce2f277a7d00ca3e61dea2dcd1e4b089ab05af8ab6d0a4:4e82bc803091c04c0e9f2ae145d2d4a16f03a14e06ffbb331a28a07438abb25b"
+ },
+ {
+  "function": "sub_0800F124",
+  "text": "Historical reports cite 164 attempts and a 2355 floor with all real instructions present. Current compile does not reproduce that score, so first reconcile the inherited candidate/profile. Remaining differences are coupled folded address construction and allocator coloring, not missing control flow.\nRecompiled the handed-off typed candidate unchanged; the current verified floor is 1945 and the known coupled address-coloring wall remains.\nFresh compile of the supplied candidate scores 1945, not the historical 2355: 89 instructions are present but folded base+offset literals and 51 register/order rows differ. The linker's D_020278D0+0x73 warning accompanies the two-byte-sensitive relocation artifact.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795707864.9171681,
+  "score_before": 1945,
+  "score_after": 1945,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:4779c241deb2365d5dce2f277a7d00ca3e61dea2dcd1e4b089ab05af8ab6d0a4:c7a93765971b76066e5f1ca5a622eb3c084f460aa8a79e695df5dbeddf991a5f"
+ },
+ {
+  "function": "sub_08078534",
+  "text": "Terminal agbcc -O2 high-register coloring swap (base/r4 vs r6, base20 in r9/sb), 164/164 insns otherwise exact; 133+ attempts. Prototype-review warnings (sub_08003740 void(void*) vs s32(void*,s32), sub_08005E80 s32 vs u16, sub_08007DD8 2 args vs 3) are false positives: target assembly sets exactly r0/r1/r2 as the candidate's caller declarations do. Removing rr=0 or moving base20 changes scheduling and regresses; preserve saved-best source. Not hand asm, no boundary, no missing callee.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795707888.875263,
+  "score_before": 2715,
+  "score_after": 2425,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:4779c241deb2365d5dce2f277a7d00ca3e61dea2dcd1e4b089ab05af8ab6d0a4:2cfcfe85b4736e40418d730a71e6b5f5f2eac1aff4118b7bad0ae69add50a22c"
+ },
+ {
+  "function": "sub_0809A960",
+  "text": "Saved best 2130 (87.5%, 87 diff rows). Dominated by regalloc: target arg0=r5,a=sb,p=r6,arr=sl,i=r8,t=r7; candidate shifts arg0->r4 and precomputes temp2 into sl early (3 extra insns). Removing temp2 alone scored 2875; temp2+arr-reuse fix scored 3445. Linker \"calls something else\" warnings look like false-positive relocation artifacts.\nRemoved early temp2 precompute and fixed arr reuse\nRegressed to 2875/3445 from 2130 baseline",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795707896.055922,
+  "score_before": 3445,
+  "score_after": 2130,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:4779c241deb2365d5dce2f277a7d00ca3e61dea2dcd1e4b089ab05af8ab6d0a4:5c82d7e73bce5cf287e73d65ec2673425eac5fbd5ab2dc334eee53edc33fc1c0"
+ },
+ {
+  "function": "sub_0804EA20",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Deterministic agbcc copy-coalescer allocator tie, exact accepted screening rule (a). 53/54 byte-exact; sole residual ROM `ldr r6,[r0,#0x3c]; adds r4,r6,#0` vs agbcc `ldr r4,[r0,#0x3c]; adds r6,r4,#0`, identical final state. ~184 prior attempts + 3 local repairs; I rechecked all 5 flag profiles via search_flags: -O2/-O3/-Os/-fno-expensive-optimizations all 10, -O1 15. No C or flag fix. Not hand asm, not not_c, no boundary issue.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795707935.4793053,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_0806BA20",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Deterministic agbcc allocator tie matching accepted screening rule (b): 60/61 byte-exact; sole residual final add/store destination ROM `adds r0,r3,r0; str r0,[r5,#0xc]` vs agbcc `adds r3,r3,r0; str r3,[r5,#0xc]`. 208 prior attempts + 5 explicit patches; no C fix. Not hand asm, not not_c, no boundary issue. Needs allocator/compiler change.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795707966.657886,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_080185B4",
+  "text": "Keep the __repair_phase_p38 staging and branch-local result temporaries from saved_best; removing them changes scheduling and regresses to 250. Historical -O1/-Os profiles and operand swaps are worse or neutral. Residual is pure register allocation.\nRechecked exact saved_best after a simplified variant worsened the score; the historical -O2 register-coloring floor is reproducible.\nRecovered saved_best and freshly verified score 40: all 107 instructions match except 8 register rows in the signed-halfword shift/add expression and tail. A simplified rewrite regressed to 250.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795707986.7285714,
+  "score_before": 250,
+  "score_after": 40,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5fe9cff6ef2cc8c7119c212e1bde33c24e8bd7db610602d903b99e0928be034b:e6d3992921c3aa2008e294b59b675022098a44f230ca32ae55366598d6c72910"
+ },
+ {
+  "function": "sub_080AFFE8",
+  "text": "Rechecked baseline 2475 (86.4%, 77 diff rows). All calls/data/constants/offsets/control flow match; residual is hard regalloc: target keeps arg0 in ip/r12 and saves r8-r10, candidate parks arg0 in r6 saving fewer high regs, cascading 47r+reorder/insert/delete. try_local_repairs compare (signedness, decl order, branch orientation) gave no improvement. Linker \"sub_080C31E0 calls something else\" is likely relocation false positive.\nLocal repairs compare (signedness, declaration_order, branch_orientation)\nNo improvement; same 2475 score and same regalloc diff shape",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795708025.161674,
+  "score_before": 2475,
+  "score_after": 2475,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5fe9cff6ef2cc8c7119c212e1bde33c24e8bd7db610602d903b99e0928be034b:bd8ec8652a2273a434baea4c6bb76ff8026235698d3e9b80f9f643b4ec98d893"
+ },
+ {
+  "function": "sub_08001614",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Literal-pool/extent wall.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708065.9279578,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "sub_08014668",
+  "text": "Frameless-leaf wall: body byte-exact; agbcc forced push frame.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708068.0336423,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5fe9cff6ef2cc8c7119c212e1bde33c24e8bd7db610602d903b99e0928be034b:6c1fa88f82b96b27cb23976a13c7840bb4897baf76bdb9184ae7e03b0727e69d"
+ },
+ {
+  "function": "sub_08016AB8",
+  "text": "Frameless-leaf wall: body byte-exact; agbcc forced push frame.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708068.729544,
+  "score_before": 365,
+  "score_after": 365,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5fe9cff6ef2cc8c7119c212e1bde33c24e8bd7db610602d903b99e0928be034b:79e799d52d779d5a5c9fb062222e70c94ad7e3e52bab186887b3b50998267ae1"
+ },
+ {
+  "function": "sub_08002C94",
+  "text": "Terminal copy-coalescing wall. Prior agents found the same 540 floor.\nRechecked baseline; six prior patches also scored 540.\nRevision 2097a514 recompiles at 540, 89/89 insns. Target calls match candidate; small bl offsets are linker artifacts. Residual is allocator coloring and a missing zero-cost copy.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795708074.3257096,
+  "score_before": 540,
+  "score_after": 540,
+  "handoff_inputs": "fd9f45f67e8e14748929d22155b2d0f48a5c2243cea7aaff409031a7f159a90f:b7605f1a0bc0e150371635b725c5ae1f23d1f5bc99becb73207bf1b11ca484b1:d894fda48ada2f5633bd1c5ccc8a44450437e3a2672c9dfdf638316f31957060"
+ },
+ {
+  "function": "sub_080BA9EC",
+  "text": "Documented hard-register coloring wall: body/semantics byte-exact at 1040; residual 52 rows are r8(self)/r7(table) allocator substitution. Preserved <<23/<<22 semantic fix kept. No C spelling/flag removes tie.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708095.532983,
+  "score_before": 1040,
+  "score_after": 1040,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:b7605f1a0bc0e150371635b725c5ae1f23d1f5bc99becb73207bf1b11ca484b1:4f96c98476bc8b39fd7bca3cafc6762e8937d9a518467da55a9a8081aa118ddc"
+ },
+ {
+  "function": "sub_08000A70",
+  "text": "Terminal agbcc register-allocation wall. All 153 target instructions present; residual is purely callee-saved pseudo coloring (ROM uses sb/sl/ip, compiled uses r8/sb/sl; first diff `mov sb,r1` vs `mov r8,r1`) plus +2 branch ripple. Invariant under ~134 C attempts, 35+ repair-family proposals, permuter, and flag profiles. Do not spend C-edit budget here; needs a compiler/allocation change. Per accepted screening rule, release rather than tune.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795708098.6314306,
+  "score_before": 440,
+  "score_after": 440
+ },
+ {
+  "function": "sub_080C14E8",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Documented register-coloring wall: 171/171 insns byte-exact, 42 pure reg rows (p=r1 etc vs agbcc p=r0). No C spelling helps.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708103.6780243,
+  "score_before": 190,
+  "score_after": 190
+ },
+ {
+  "function": "sub_08063278",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal agbcc -O1 callee-saved coloring wall (r8+r9 save, entity/vec/pos/obj binding). 161/161 instructions, semantics/calls/data/control flow byte-exact otherwise; residual = sb/sl/ip vs r8/r9 coloring, reordered loads, and the raw bl #0xNNN call-site-offset FALSE POSITIVE rows. Prototype conflicts in brief (sub_08003740 void vs s32) are ABI-compatible at these call sites and do not change code. ~325 attempts across models, no progress. Not hand asm, no boundary, no missing callee.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795708138.4269092,
+  "score_before": 2405,
+  "score_after": 2405
+ },
+ {
+  "function": "sub_080C2810",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Complex float function (178 insns), compiled with agbcc -mno-thumb-interwork -O1 (not project compiler). Machine draft messy; score 1515. Needs clean rewrite following sub_080C27DC style. Deferred.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708140.596337,
+  "score_before": 1515,
+  "score_after": 1515
+ },
+ {
+  "function": "sub_0801BE80",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Documented frameless-leaf wall: body byte-exact; residual agbcc forced frame. Best 215 preserved.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708148.4985008,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_0800FEDC",
+  "text": "Frameless-leaf wall: body byte-exact; residual push{lr}/pop{r0};bx r0 vs bare bx lr. Best 215.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708163.532889,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:b7605f1a0bc0e150371635b725c5ae1f23d1f5bc99becb73207bf1b11ca484b1:a98a058db8a4ed832101ad55910df6747ee23f578c6b1b4149d80fbea3582964"
+ },
+ {
+  "function": "sub_0807936C",
+  "text": "Terminal agbcc -O1 callee-saved regalloc wall. score 2510, 167/167 insns. Residual: target binding ldr r4,[r7,#0x6c]; adds r6,r4,#4; adds r5,r6,#0 vs ours r6/r5 swap \u2014 pure coloring. All call-site 'calls something else' diagnostics are false positives (raw offset printing with 2-byte code-length ripple). ~481 attempts across models, no progress. Not hand asm, no boundary.\nCompiled baseline once (2510); ~481 prior attempts; call-symbol diagnostics verified as false positives; prototype/struct-offset edits noted by earlier agents without progress\nNo improvement. Residual purely register coloring + branch-offset ripple.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795708167.3186119,
+  "score_before": 2510,
+  "score_after": 2510,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:b7605f1a0bc0e150371635b725c5ae1f23d1f5bc99becb73207bf1b11ca484b1:519f12783dc12d14f8e3b4ecab08fcde8a0973de8a823eb71a36227636edcab8"
+ },
+ {
+  "function": "sub_08007EF8",
+  "text": "Target and candidate both call sub_0806D8E4. Same 1010 diff was already reached eight times.\nBaseline compile, target inspection, and three compiler profiles.\nBaseline 1010; effective -O1 also 1010. Exact project -O2 scored 1930 and -Os 2725. Calls match; bl displacement is a linker artifact.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795708189.4822836,
+  "score_before": 1010,
+  "score_after": 1010,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:b7605f1a0bc0e150371635b725c5ae1f23d1f5bc99becb73207bf1b11ca484b1:bba84f455b9a58ef109752b24148d455aa275f4c645fdba4a2a55793f8685e42"
+ },
+ {
+  "function": "sub_08016518",
+  "text": "Frameless-leaf wall: body byte-exact; residual push{lr}/pop{r0};bx r0 vs bare bx lr. Best 365.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708189.5339036,
+  "score_before": 365,
+  "score_after": 365,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:b7605f1a0bc0e150371635b725c5ae1f23d1f5bc99becb73207bf1b11ca484b1:d747b9c7cdf8768ae3f27aea72aba017ab36122fcb659c4d1e929c840489e0cc"
+ },
+ {
+  "function": "sub_0801102C",
+  "text": "Confirmed reversed copy-coalesce allocator tie: target `adds r0,r7,#0; ands r0,r2` vs ours `adds r0,r2,#0; ands r0,r7` (rows 25/26 and 44/45), 67/67 insns otherwise exact. search_flags: project -O2/-O3/-Os all score 20; -O1 scores 2062. No flag/C spelling fixes it; ~460 prior trials. Not hand asm, no boundary.\nsearch_flags (all in-profile variants, best 20), 460+ C spellings, local repairs, explicit patches\nNo improvement. Residual exactly 4 register rows: reversed copy-coalesce around `e0 & 0x8000`.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795708234.7667975,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:b7605f1a0bc0e150371635b725c5ae1f23d1f5bc99becb73207bf1b11ca484b1:550e80ab93b4a6d3cf94a935bf904fd5f78af3a619860297fdf160a9a8b3ce40"
+ },
+ {
+  "function": "sub_0801EF2C",
+  "text": "Frameless-leaf wall: body byte-exact; residual push{lr}/pop{r0};bx r0 vs bare bx lr. Best 215.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708242.5644512,
+  "score_before": 415,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:39943b495b98c09714f9ba9df38bdbe468f78452bf448bba9eb0bb1742d665cc"
+ },
+ {
+  "function": "sub_0809683C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf wall: body byte-exact; residual agbcc forced frame. Best 335.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708299.971363,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "sub_08001614",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Literal-pool/extent wall (accepted rule). 16-byte function; only residual rows are trailing alignment nop + literal-pool word past declared extent. Also has an undeclared label `_08001624` in the inherited draft. Not matchable by C spelling; needs boundary/extent repair via suggest.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795708305.4830275,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "sub_080186C0",
+  "text": "Frameless-leaf wall: body byte-exact; residual push{lr}/pop{r0};bx r0 vs bare bx lr. Best 215.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708318.7426918,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
+ },
+ {
+  "function": "sub_080144D8",
+  "text": "Frameless-leaf wall: body byte-exact; residual push{lr}/pop{r0};bx r0 vs bare bx lr shifts literal pool offset. Best 355.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708365.2575636,
+  "score_before": 360,
+  "score_after": 355,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:5c68ef414a88af8749d129af2fe13cdd4cba44a82beada603d0d9b3022272984"
+ },
+ {
+  "function": "sub_08008864",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal agbcc -O1 allocator tie at score 50: 184/184 instruction shapes present, 10 register rows from inconsistent coloring of identical 0x146C literals. ~243 attempts + >1000 deep permutations failed. Inherited draft also has undeclared `sub_080C0384` (prototype needed). No boundary/callee/hand-asm issue. Release per accepted allocator-tie rule.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795708383.335917,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "sub_080185B4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal agbcc -O2 register-coloring tie at score 40, 107/107 insns. 8 r rows in `(((s16)(r4+0x32))<<16)+0xFFFF8000` expression. -O1/-Os much worse (-O1 3825, -Os 1265), -O2 holds 40. Preserve __repair_phase_p38 staging + branch-local temporaries from saved_best; removing them regresses to 250. No C spelling changes the 8 r rows. No boundary/callee/hand-asm issue.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795708404.0856345,
+  "score_before": 40,
+  "score_after": 40
+ },
+ {
+  "function": "sub_08016B88",
+  "text": "Frameless-leaf wall: body byte-exact; residual push{lr} shifts literal pool offset. Best 355.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708408.9831452,
+  "score_before": 960,
+  "score_after": 355,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:96d8d48f5723342c2289df95ac6fef03a8f07a459a7404501ad6d072388c9086"
+ },
+ {
+  "function": "sub_080186DC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf wall: body byte-exact; residual agbcc LR frame. Best 215.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708432.8188045,
+  "score_before": 215,
+  "score_after": 215
  }
 ]

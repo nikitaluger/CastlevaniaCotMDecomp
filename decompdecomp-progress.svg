@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="750" viewBox="0 0 840 750" role="img" aria-labelledby="title desc">
-<title id="title">3,914 / 4,183 functions matched (93.6%)</title>
+<title id="title">3,914 / 4,182 functions matched (93.6%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="750" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">gba</text>
-<text x="20" y="59" font-size="16">3,914 / 4,183 functions matched (93.6%)</text>
+<text x="20" y="59" font-size="16">3,914 / 4,182 functions matched (93.6%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="748.554" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="748.733" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
 <text x="36" y="118" font-size="13">Matched: 3,914</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 269</text>
+<text x="236" y="118" font-size="13">Attempt: 268</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
 <text x="436" y="118" font-size="13">Open: 0</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
-<text x="636" y="118" font-size="13">Aside: 368</text>
+<text x="636" y="118" font-size="13">Aside: 369</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
 <g><title>sub_08000468: {&#x27;matched&#x27;: 1}</title>
 <rect x="20.000" y="160" width="8.000" height="8" fill="#238636"/>
@@ -2015,7 +2015,7 @@
 <g><title>sub_080192CC: {&#x27;matched&#x27;: 1}</title>
 <rect x="270.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08019314: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnFixedEffectSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="280.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08019540: {&#x27;matched&#x27;: 1}</title>
@@ -2036,10 +2036,10 @@
 <g><title>sub_08019928: {&#x27;matched&#x27;: 1}</title>
 <rect x="340.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08019954: {&#x27;matched&#x27;: 1}</title>
+<g><title>releaseEffectObject: {&#x27;matched&#x27;: 1}</title>
 <rect x="350.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08019978: {&#x27;matched&#x27;: 1}</title>
+<g><title>unregisterSpriteEntity: {&#x27;matched&#x27;: 1}</title>
 <rect x="360.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080199B0: {&#x27;matched&#x27;: 1}</title>
@@ -2291,7 +2291,7 @@
 <g><title>sub_0801CA70: {&#x27;matched&#x27;: 1}</title>
 <rect x="390.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0801CAB8: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind87EffectSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="400.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0801CCE4: {&#x27;matched&#x27;: 1}</title>
@@ -2312,7 +2312,7 @@
 <g><title>sub_0801D0CC: {&#x27;matched&#x27;: 1}</title>
 <rect x="460.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0801D0F8: {&#x27;matched&#x27;: 1}</title>
+<g><title>releaseKind87Effect: {&#x27;matched&#x27;: 1}</title>
 <rect x="470.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0801D11C: {&#x27;matched&#x27;: 1}</title>
@@ -3071,7 +3071,7 @@
 <g><title>sub_08028C10: {&#x27;matched&#x27;: 1}</title>
 <rect x="590.000" y="280" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08028C58: {&#x27;matched&#x27;: 1}</title>
+<g><title>initKindZeroSpriteObject: {&#x27;matched&#x27;: 1}</title>
 <rect x="600.000" y="280" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08028E94: {&#x27;matched&#x27;: 1}</title>
@@ -3137,7 +3137,7 @@
 <g><title>sub_08029BC4: {&#x27;matched&#x27;: 1}</title>
 <rect x="810.000" y="280" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08029C0C: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind2CEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="20.000" y="290" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08029E48: {&#x27;matched&#x27;: 1}</title>
@@ -3413,7 +3413,7 @@
 <g><title>sub_0802E234: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802E27C: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind29ScriptSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="140.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802E4A8: {&#x27;matched&#x27;: 1}</title>
@@ -4400,7 +4400,7 @@
 <g><title>sub_0803E5AC: {&#x27;matched&#x27;: 1}</title>
 <rect x="220.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803E5F4: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind57ScriptSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="230.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0803E830: {&#x27;matched&#x27;: 1}</title>
@@ -5462,7 +5462,7 @@
 <g><title>sub_0804EE94: {&#x27;matched&#x27;: 1}</title>
 <rect x="560.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0804EEDC: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind5ESpriteFromParams: {&#x27;matched&#x27;: 1}</title>
 <rect x="570.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0804F114: {&#x27;matched&#x27;: 1}</title>
@@ -8453,8 +8453,8 @@
 <g><title>sub_0808449C: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="510" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08084500: {&#x27;attempt&#x27;: 1}</title>
-<rect x="140.000" y="510" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_08084500: {&#x27;aside&#x27;: 1}</title>
+<rect x="140.000" y="510" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_0808454E: {&#x27;aside&#x27;: 1}</title>
 <rect x="150.000" y="510" width="8.000" height="8" fill="#b54747"/>

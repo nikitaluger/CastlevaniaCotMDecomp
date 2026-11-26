@@ -1,14 +1,14 @@
 s32 sub_080161F0();
-s32 sub_08019978();
+s32 unregisterSpriteEntity();
 void sub_080C31E0(void *, s32);
 
 /* Tears down `obj`: unregisters it, frees the sub-object recorded at data+0x28
  * when present, then hands the +0x24 value to the generic release handler. */
-void sub_08019954(void *obj)
+void releaseEffectObject(void *obj)
 {
     void *data = *(void **)((u8 *)obj + 0x3C);
 
-    sub_08019978();
+    unregisterSpriteEntity();
     if (*(s32 *)((u8 *)data + 0x28) != 0)
     {
         obj++;

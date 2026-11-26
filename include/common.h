@@ -127,3 +127,92 @@ extern void *sub_080015E0(s32 mask, s32 object);
 /* Layout of the state block at Entity+0x3C for the scripted multi-part object:
  * 0x1C kind, 0x22 active slot, 0x24 saved update handler, 0x28/0x48/0x4C pointers
  * to the three render parts, and a graphics-slot init block at 0x34. */
+
+/* Sprite identifiers and entity flag used by the scripted multi-part object
+ * constructor (initScriptedMultiPartGraphics). */
+#define MULTI_PART_SPRITE_KIND 0x19       /* animation/graphics kind index */
+#define MULTI_PART_SPRITE_GFX_ID 0x8000000A
+#define MULTI_PART_SPRITE_READY 0x1000    /* set on the entity once layers are ready */
+
+/* Kind and lifetime fields of the timed effect built by spawnKind2CEffect. */
+#define EFFECT_KIND_TIMED        0x2C
+#define EFFECT_TIMER_INITIAL     0x12C
+#define EFFECT_TIMER_INTERVAL    5
+
+/* Sprite kind spawned by spawnKind57ScriptSprite. */
+#define SPRITE_KIND_SCRIPT_TIMER 0x57
+
+/* Sprite kind built from the entity's spawn parameters. */
+#define SPRITE_KIND_SPAWN_PARAM 0x5E
+
+/* Layouts used by the fixed-effect sprite constructor (spawnFixedEffectSprite).
+ * Unique tags avoid clashing with inline definitions in other matched sources. */
+struct FixedEffectSpriteLayer {
+    u8 mode;         /* 0x00: playback mode */
+    u8 active;       /* 0x01: 0 while spawning */
+    u8 param2;       /* 0x02: 8 */
+    u8 param3;       /* 0x03: 1 */
+    u16 gfxIndex;    /* 0x04: tile id from gEffectGfxTable */
+    u16 anim0;       /* 0x06: affine/OAM params */
+    u16 anim1;       /* 0x08 */
+    u16 anim2;       /* 0x0A */
+    u16 anim3;       /* 0x0C */
+    u16 palette;     /* 0x0E */
+    u32 object;      /* 0x10: owner sprite */
+    u16 timer;       /* 0x14 */
+};
+
+struct FixedEffectState {
+    u8 _0[8];
+    s32 worldX;      /* 0x08: world X, 16.16, from the entity parameter */
+    s32 worldY;      /* 0x0C: world Y, 16.16 */
+    u32 f10;
+    u32 f14;
+    u32 f18;         /* 0x18: set to 1 when spawning */
+    s16 kind;        /* 0x1C: SPRITE_KIND_FIXED_EFFECT here */
+    u8 _1E[4];
+    s16 animSlot;    /* 0x22 */
+    u32 savedHandler;/* 0x24: previous update handler */
+    struct FixedEffectSpriteLayer *spriteLayer; /* 0x28 */
+};
+
+struct FixedEffectEntity {
+    u8 _0[2];
+    u16 flags;       /* 0x02 */
+    u8 _4[0x22 - 4];
+    s16 scriptStep;  /* 0x22 */
+    u8 _24[0x38 - 0x24];
+    u8 *sprite;      /* 0x38 */
+    struct FixedEffectState *state; /* 0x3C */
+    u8 _40[0x4C - 0x40];
+    s16 posX;        /* 0x4C */
+    u8 _4E[6];
+    s16 posY;        /* 0x54 */
+    u8 _56[0x5C - 0x56];
+    s16 effectParam; /* 0x5C: index into gFixedEffectParamTable */
+};
+
+/* Workspace fields read by the fixed-effect spawn path. */
+struct FixedEffectWorkspace {
+    u8 _0[0x18A8];
+    u8 frameCounter; /* 0x18A8: video-frame counter */
+    u8 _18A9[0x19];
+    u16 gfxFlags;    /* 0x18C2: sprite priority/blend bits */
+};
+
+struct FixedEffectScroll {
+    u8 _0[0x1278];
+    u32 scrollX;     /* 0x1278: per-frame BG scroll rows */
+    u32 scrollY;     /* 0x127C */
+};
+
+/* Per-kind effect table entry: tile/palette ids for the render part. */
+struct FixedEffectKindEntry {
+    u8 _0[4];
+    u16 f4;
+    u16 f6;
+    u8 _8[4];
+    u16 gfxIndex;    /* 0x0C */
+    u16 palette;     /* 0x0E */
+    u8 _10[0x18];
+};

@@ -20,7 +20,10 @@ s32 sub_08005910(s32, s32);                         /* extern */
 s32 sub_080059DC(s32, s32);                         /* extern */
 
 void sub_080ACEBC(void *arg0, void *arg1) {
-    s32 sp0[2];
+  s32 *__repair_entry_var_r10;
+    s32 sp0;
+    s32 sp4;
+s32 __repair_phase_sp4;
     void *sp8;
     u32 spC;
     void *sp10;
@@ -38,7 +41,7 @@ void sub_080ACEBC(void *arg0, void *arg1) {
     void *sp40;
     void *sp44;
     void *sp48;
-    s32 sp4C;
+    
     s32 *sp50;
     s32 *sp54;
 s32 *__repair_phase_sp54;
@@ -52,10 +55,11 @@ s32 *__repair_phase_sp54;
     s32 temp_r0_5;
     s32 temp_r0_6;
     s32 temp_r2_6;
-    s32 var_r5;
+    
     s8 *var_r5_2;
     s8 *var_r5_3;
     s8 *var_r7;
+    s8 *var_r7_entry;
     u32 temp_r0;
     u32 temp_r7_2;
     u32 var_r9;
@@ -85,25 +89,25 @@ s32 *__repair_phase_sp54;
     M2C_FIELD(arg0, s32 *, 0x2C) = (s32) M2C_FIELD(temp_r1, s32 *, 0x7C);
     spC = 0;
     temp = arg0 + 0x28;
-    var_r7 = temp;
-    /*__repair_loop_weight*/do { var_r5 = 0; } while (0);
+    var_r7_entry = temp;
+    sp4 = 0;
     do {
         *var_r7 = 0;
         temp2 = arg0 + 0x18;
-        temp_r4 = temp2 + var_r5;
+        temp_r4 = temp2 + sp4;
         temp_r2 = *temp_r4;
-        *(u8 *)(arg0 + 0x1C + var_r5) = sub_08005910(M2C_FIELD(temp_r2, s32 *, 0x6C) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(temp_r2, s32 *, 0x5C) - M2C_FIELD(arg0, s32 *, 0x16C));
+        *(u8 *)(arg0 + 0x1C + sp4) = sub_08005910(M2C_FIELD(temp_r2, s32 *, 0x6C) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(temp_r2, s32 *, 0x5C) - M2C_FIELD(arg0, s32 *, 0x16C));
         temp_r2_2 = *temp_r4;
-        temp_r0_2 = sub_080059DC(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(temp_r2_2, s32 *, 0x5C), M2C_FIELD(arg0, s32 *, 0x170) - M2C_FIELD(temp_r2_2, s32 *, 0x6C));
-        *(u8 *)(arg0 + 0x20 + var_r5) = temp_r0_2;
-        *(u8 *)(arg0 + 0x24 + var_r5) = temp_r0_2;
-        do { var_r7 += 0x14; } while (0);
-        do { var_r5 += 0x14; } while (0);
+        temp_r2_6 = sub_080059DC(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(temp_r2_2, s32 *, 0x5C), M2C_FIELD(arg0, s32 *, 0x170) - M2C_FIELD(temp_r2_2, s32 *, 0x6C));
+        *(u8 *)(arg0 + 0x20 + sp4) = temp_r2_6;
+        *(u8 *)(arg0 + 0x24 + sp4) = temp_r2_6;
+        var_r7 += 0x14;
+        sp4 += 0x14;
         temp_r0 = spC + 1;
         spC = temp_r0;
     } while (temp_r0 <= 1U);
-    sp0[0] = M2C_FIELD(M2C_FIELD(sp8, M2C_UNK **, 4), s32 *, 0x8C);
-    sp4C = M2C_FIELD(M2C_FIELD(sp8, M2C_UNK **, 8), s32 *, 0x8C);
+    sp0 = M2C_FIELD(M2C_FIELD(sp8, M2C_UNK **, 4), s32 *, 0x8C);
+    sp4 = M2C_FIELD(M2C_FIELD(sp8, M2C_UNK **, 8), s32 *, 0x8C);
     spC = 0;
     sp38 = arg0 + 0x40;
     temp_r7 = arg0 + 0x44;
@@ -121,36 +125,35 @@ s32 *__repair_phase_sp54;
     sp28 = temp_r2_3 + 0xC;
     sp14 = arg0 + 0x170;
     sp18 = arg0 + 0x16C;
-    do { sp4C = 0; } while (0);
-    var_r10 = sp0;
+    sp4 = 0;
+    var_r10 = &sp0;
     do {
-        do { var_r9 = 0; } while (0);
-        var_r8 = sp4C + sp44;
-        var_r3 = sp4C + sp40;
-        var_r4 = sp4C + sp38;
-        sp54 = sp4C + sp3C;
-        var_r5_2 = sp4C + (arg0 + 0x50);
-loop_4:
-        *var_r5_2 = 1;
-        temp_r2_4 = *(s32 *)(*var_r10 + (var_r9 * 4));
-        *var_r4 = temp_r2_4;
-        sp50 = var_r3;
-        *sp54 = sub_08005910(M2C_FIELD(temp_r2_4, s32 *, 0x7C) - *sp14, M2C_FIELD(temp_r2_4, s32 *, 0x6C) - *sp18);
-        temp_r2_5 = *var_r4;
-        temp_r2_6 = sub_080059DC(*sp18 - M2C_FIELD(temp_r2_5, s32 *, 0x6C), *sp14 - M2C_FIELD(temp_r2_5, s32 *, 0x7C));
-        *var_r3 = temp_r2_6;
-        *var_r8 = temp_r2_6;
-        do { var_r8 += 0x14; } while (0);
-        do { var_r3 += 0x14; } while (0);
-        do { var_r4 += 0x14; } while (0);
-        do { sp54 += 0x14; } while (0);
-        do { var_r5_2 += 0x14; } while (0);
-        do { var_r9 += 1; } while (0);
-        if (var_r9 <= 3U) {
-            goto loop_4;
-        }
-        do { sp4C += 0x50; } while (0);
-        do { var_r10 += 4; } while (0);
+        __repair_entry_var_r10 = var_r10;
+        var_r9 = 0;
+        var_r8 = sp4 + sp44;
+        var_r3 = sp4 + sp40;
+        var_r4 = sp4 + sp38;
+        sp54 = sp4 + sp3C;
+        var_r5_2 = sp4 + (arg0 + 0x50);
+        do {
+            *var_r5_2 = 1;
+            temp_r2_4 = *(s32 *)(*__repair_entry_var_r10 + ((var_r9 << 2)));
+            *var_r4 = temp_r2_4;
+            do { sp50 = var_r3; } while (0);
+            *sp54 = sub_08005910(M2C_FIELD(temp_r2_4, s32 *, 0x7C) - *sp14, M2C_FIELD(temp_r2_4, s32 *, 0x6C) - *sp18);
+            temp_r2_5 = *var_r4;
+            temp_r0_4 = sub_080059DC(*sp18 - M2C_FIELD(temp_r2_5, s32 *, 0x6C), *sp14 - M2C_FIELD(temp_r2_5, s32 *, 0x7C));
+            *var_r3 = temp_r0_4;
+            *var_r8 = temp_r0_4;
+            var_r8 += 0x14;
+            var_r3 += 0x14;
+            var_r4 += 0x14;
+            sp54 += 0x14;
+            var_r5_2 += 0x14;
+            var_r9 += 1;
+        } while (var_r9 <= 3U);
+        sp4 += 0x50;
+        var_r10 += 4;
         temp_r7_2 = spC + 1;
         spC = temp_r7_2;
     } while (temp_r7_2 <= 1U);
@@ -163,7 +166,7 @@ loop_4:
         *var_r4_2 = M2C_FIELD(temp_r3, M2C_UNK **, 0x6C);
         *(u8 *)(sp2C + temp_r2_6) = M2C_FIELD(temp_r3, s32 *, 0x7C);
         *(u8 *)(arg0 + 0x108 + temp_r2_6) = M2C_FIELD(temp_r3, s32 *, 0x8C);
-        do { var_r9_2 = 0; } while (0);
+        var_r9_2 = 0;
         sp30 = spC + 1;
         var_r8_2 = sp28 + temp_r2_6;
         var_r3_2 = temp_r2_6 + sp24;
@@ -178,12 +181,12 @@ loop_8:
         temp_r0_5 = sub_080059DC(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(temp_r2_8, s32 *, 0x6C), *sp1C - M2C_FIELD(temp_r2_8, s32 *, 0x7C));
         *var_r3_2 = temp_r0_5;
         *var_r8_2 = temp_r0_5;
-        do { var_r8_2 += 0x14; } while (0);
-        do { var_r3_2 += 0x14; } while (0);
-        do { do { do { var_r4_2 += 0x14; } while (0); } while (0); } while (0);
-        do { __repair_phase_sp54 += 0x14; } while (0);
-        do { var_r5_3 += 0x14; } while (0);
-        do { var_r9_2 += 1; } while (0);
+        var_r8_2 += 0x14;
+        var_r3_2 += 0x14;
+        var_r4_2 += 0x14;
+        __repair_phase_sp54 += 0x14;
+        var_r5_3 += 0x14;
+        var_r9_2 += 1;
         if (var_r9_2 <= 2U) {
             goto loop_8;
         }
@@ -192,7 +195,7 @@ loop_8:
     M2C_FIELD(arg0, s32 *, 0x158) = (s32) M2C_FIELD(sp8, s32 *, 0x14);
     M2C_FIELD(arg0, s8 *, 0x168) = 3;
     M2C_FIELD(arg0, s32 *, 0x15C) = sub_08005910(M2C_FIELD(sp10, s32 *, 0xC) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(sp10, s32 *, 8) - M2C_FIELD(arg0, s32 *, 0x16C));
-    sp4C = sub_080059DC(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(sp10, s32 *, 8), M2C_FIELD(arg0, s32 *, 0x170) - M2C_FIELD(sp10, s32 *, 0xC));
-    M2C_FIELD(arg0, s32 *, 0x160) = sp4C;
-    M2C_FIELD(arg0, s32 *, 0x164) = sp4C;
+    __repair_phase_sp4 = sub_080059DC(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(sp10, s32 *, 8), M2C_FIELD(arg0, s32 *, 0x170) - M2C_FIELD(sp10, s32 *, 0xC));
+    M2C_FIELD(arg0, s32 *, 0x160) = __repair_phase_sp4;
+    M2C_FIELD(arg0, s32 *, 0x164) = __repair_phase_sp4;
 }

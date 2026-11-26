@@ -1,8 +1,8 @@
-extern u16 D_080CE5E8[];
+extern u16 gFixedEffectLayerAttrs[];
 
 void sub_08019ED4(void *arg0, void *arg1) {
     u8 *r3 = *(u8 **)((u8 *)arg0 + 0x3C);
-    u16 *r2 = D_080CE5E8;
+    u16 *r2 = gFixedEffectLayerAttrs;
     u16 v = *(u16 *)((u8 *)arg1 + 0x28);
     u16 *dst_1;
     u16 *dst_2;

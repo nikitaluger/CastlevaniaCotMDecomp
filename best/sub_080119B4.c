@@ -6,6 +6,7 @@ extern u8 D_02023130[];
 extern s16 D_080CB278[];
 
 void sub_080119B4(void *entity, s32 b, s32 c, s32 d, s32 e) {
+    int flag;
     s32 sp1C = d;
     s32 probe[5];
     s32 r6;
@@ -21,8 +22,8 @@ void sub_080119B4(void *entity, s32 b, s32 c, s32 d, s32 e) {
     if (*(s32 *)((u8 *)entity + 0x10) == 0) {
         goto D_A0;
     }
-    r6 = *(s32 *)((u8 *)entity + 0x10);
-    *(s32 *)((u8 *)entity + 0x14) = 0;
+    r6 = *(volatile s32 *)((u8 *)entity + 0x10);
+    *(volatile s32 *)((u8 *)entity + 0x14) = 0;
     r8 = 0;
     if (!(*(u16 *)((u8 *)entity + 4) & 0x10)) {
         goto C26;
@@ -54,8 +55,7 @@ void sub_080119B4(void *entity, s32 b, s32 c, s32 d, s32 e) {
         }
     } else {
         /* r6 >= 0 branch */
-        mask = *(u16 *)((u8 *)entity + 6) | 0x400;
-        if (sub_080159BC(x + e, y, r6, 0, mask, probe) == 1) {
+        if (sub_080159BC(x + e, y, r6, 0, (v = *(u16 *)((u8 *)entity + 6) | 0x400), probe) == 1) {
             r6 += probe[1];
             if (*(u16 *)&probe[0] & 1) *(u16 *)((u8 *)entity + 2) |= 0x100;
             if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
@@ -98,12 +98,14 @@ C26:
     if (r6 < 0) v = newX - sp1C;
     t1 = sub_08007D7C((s32)D_02023130 + (gMainWorkspace[0x18A8] << 6), v, y);
     if (D_080CB278[(unsigned short)t1] & 0x0A) {
-        if (r6 > 0) v = (v & 0xFFF80000) + 0xFFFF8000;
+        flag = r6 > 0;
+        if (flag) v = (v & 0xFFF80000) + 0xFFFF8000;
         else v = (v & 0xFFF80000) + 0x88000;
     } else {
         t2 = sub_08007D7C((s32)D_02023130 + (gMainWorkspace[0x18A8] << 6), v, y - c);
         if (D_080CB278[(unsigned short)t2] & 0x0A) {
-            if (r6 > 0) v = (v & 0xFFF80000) + 0xFFFF8000;
+            flag = (v & 0xFFF80000) + 0xFFFF8000;
+            if (r6 > 0) v = flag;
             else v = (v & 0xFFF80000) + 0x88000;
             *(u16 *)((u8 *)entity + 2) |= 0x01;
         }

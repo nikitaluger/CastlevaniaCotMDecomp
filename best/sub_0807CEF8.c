@@ -81,7 +81,7 @@ void sub_0807CEF8(void *arg0)
     *((u16 *) (r7 + new_var2)) = *((u16 *) (((u32) gMainWorkspace) + r2));
     do { sub_08003740(r8 + 0x20, r7); } while (0);
     sub_0806D588(r7, r6);
-    if (((*((u8 *) (((u32) gMainWorkspace) + ((u32) D_0000173A)))) == 0x1C) || (((*((u8 *) (((u32) gMainWorkspace) + ((u32) D_000014ED)))) == 0) && ((*((u32 *) (((u8 *) gMainWorkspace) + 0x10))) != 0)))
+    if (((*((u8 *) (((u32) gMainWorkspace) + ((u32) D_0000173A)))) == 0x1C) || (((*((u8 *) (((u32) gMainWorkspace) + (0x000014ED)))) == 0) && ((*((u32 *) (((u8 *) gMainWorkspace) + 0x10))) != 0)))
     {
       _call_via_r1((u32) r9, *new_var3);
       return;

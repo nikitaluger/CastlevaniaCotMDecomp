@@ -90,7 +90,7 @@ u32 *__repair_phase_new_var;
   copyPoseAttrs(*((void **) p48), (void *) ((D_08102BBC + 8) + sel * 24)); } while (0); } while (0);
   copyPoseAttrs(inline_fn(p48), (void *) ((D_08102BBC + 0x10) + sel * 24));
   *((u8 *) (((u8 *) (*((void **) (p + 0x28)))) + 1)) = D_08102CAC[sel * 3 + 0];
-  *((u8 *) (((u8 *) (*((void **) (p + 0x48)))) + 1)) = D_08102CAC[sel * 3 + 1];
+  *((u8 *) (((u8 *) (*((void **) (p + 0x48)))) + 1)) = (*(u8 *)((sel * 3 + 1) + (u8 *)D_08102CAC));
   *((u8 *) (((u8 *) inline_fn(p48)) + 1)) = D_08102CAC[sel * 3 + 2];
   if ((*((u8 *) p34)) & 0x02)
   {

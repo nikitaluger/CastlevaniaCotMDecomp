@@ -59,12 +59,12 @@ struct ScrollTable { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
 extern struct ScrollTable gCameraState;
 struct EffectDef { u8 _0[0x10]; u16 gfxIndex; u16 palette; u8 _14[0x28-0x14]; };
 extern struct EffectDef gEffectGfxTable[];
-extern u16 D_080CE6A0[];
+extern u16 gKind87EffectAffineParams[];
 extern u8 gSpriteAnimDataTable[];
 extern u32 gMainObjTimerCallback;
 
 /* Spawn a graphics effect from a main object: allocate a free object, build its
-   EffectGfx from gEffectGfxTable/D_080CE6A0, and place it at the object's world coords. */
+   EffectGfx from gEffectGfxTable/gKind87EffectAffineParams, and place it at the object's world coords. */
 void sub_0801D224(struct MainObj *arg0) {
     u8 *effect;
     struct OwnerEffect *owner;
@@ -95,10 +95,10 @@ void sub_0801D224(struct MainObj *arg0) {
     owner->gfx->layer = 8;
     owner->gfx->priority = 1;
     owner->gfx->gfxIndex = gEffectGfxTable[owner->kind].gfxIndex;
-    owner->gfx->anim0 = D_080CE6A0[0];
-    owner->gfx->anim1 = D_080CE6A0[1];
-    owner->gfx->anim2 = D_080CE6A0[2];
-    owner->gfx->anim3 = D_080CE6A0[3];
+    owner->gfx->anim0 = gKind87EffectAffineParams[0];
+    owner->gfx->anim1 = gKind87EffectAffineParams[1];
+    owner->gfx->anim2 = gKind87EffectAffineParams[2];
+    owner->gfx->anim3 = gKind87EffectAffineParams[3];
     owner->gfx->palette = gEffectGfxTable[owner->kind].palette;
     owner->gfx->object = (u32)effect;
     owner->gfx->tail = 0;

@@ -81,7 +81,7 @@ void sub_08067CCC(u8 *arg0)
   {
     return;
   }
-  sub_0806C5EC(arg0, r10, r8, r8);
+  do { do { sub_0806C5EC(arg0, r10, r8, r8); } while (0); } while (0);
   if (gMainWorkspace.f24 != 0)
   {
     if (!(gMainWorkspace.f28 & gGameStatus.f3BC))

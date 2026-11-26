@@ -13,7 +13,7 @@ judge accepted them as matches.
 <!-- decompdecomp:details:end -->
 <!-- decompdecomp:progress:start -->
 - **Progress:** 3914 matching function(s), 271 best attempt(s)
-- **Completion:** 3,914 / 4,183 functions (93.6%). 368 set aside, excluded from completion.
+- **Completion:** 3,914 / 4,182 functions (93.6%). 369 set aside, excluded from completion.
 <!-- decompdecomp:progress:end -->
 
 ## What's in this folder

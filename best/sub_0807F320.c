@@ -26,6 +26,7 @@ void sub_0807F320(u8 *arg0) {
     s16 idx;
     u8 spbuf[8];
     u8 *a18;
+    u32 upd1;
 
     obj = allocEffectPart();
     *(u8 **)(r5 + 0x2C) = obj;
@@ -61,7 +62,9 @@ void sub_0807F320(u8 *arg0) {
             *(u16 *)(r4 + 2) &= 0xFFEF;
             r1v = 0x80000;
         }
-        *(u32 *)(r7 + 4) += r1v;
+        upd1 = *(u32 *)(r7 + 4);
+        upd1 += r1v;
+        *(u32 *)(r7 + 4) = upd1;
         *(u32 *)(r5 + 8) = r1v;
         *(u32 *)(r5 + 0xC) = 0;
         idx = *(s16 *)(arg0 + 0x22);

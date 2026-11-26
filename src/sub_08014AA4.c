@@ -1,11 +1,11 @@
-extern u16 D_080CE5E8[];
+extern u16 gFixedEffectLayerAttrs[];
 s32 sub_08014990(void);
 s32 sub_080059DC(s32, s32);
 void sub_080146D0(void *, s32, s32);
 
 void sub_08019ED4(void *arg0, void *arg1) {
     u8 *r3 = *(u8 **)((u8 *)arg0 + 0x3C);
-    u16 *r2 = D_080CE5E8;
+    u16 *r2 = gFixedEffectLayerAttrs;
     u16 v = *(u16 *)((u8 *)arg1 + 0x28);
     switch (v) {
     case 0x2D: r2 += 8; break;

@@ -1,4 +1,4 @@
-extern u32 postDisplaySprite(u32, void *, void *, u32, u32);
+extern u32 sub_08000E98(u32, void *, void *, u32, u32);
 extern u16 *D_08670760[];
 
 void sub_080BE388(void *arg0)
@@ -44,22 +44,20 @@ void sub_080BE388(void *arg0)
         while (i <= 0x3F)
         {
             s16 rv;
-            idx = *(s32 *)(base + 4);
-            accRBase[off / 4] = accRBase[off / 4] + *(s32 *)(srcRBase + off + (block = (idx + idx * 2) << 8));
+            accRBase[off / 4] = accRBase[off / 4] + *(s32 *)(srcRBase + off + (block = ((idx = *(s32 *)(base + 4)) + idx * 2) << 8));
             accGBase[off / 4] = accGBase[off / 4] + *(s32 *)(srcGBase + off + block);
             accBBase[off / 4] = accBBase[off / 4] + *(s32 *)(srcBBase + off + block);
 
             rv = *(s16 *)((u8 *)&accRBase[off / 4] + 2);
+            i++;
             r = rv & 0x1F;
             block = (accGBase[off / 4] >> 11) & 0x3E0;
-            *(u16 *)(dstBase + i * 2) = (u16)(r | block | ((accBBase[off / 4] >> 6) & 0x7C00));
 
-            /*__repair_update_run*/__repair_rows: { off += 0x0C;
-            i++; }
-if (0) goto __repair_rows;
+            *(u16 *)(dstBase + i * 2) = (u16)(r | block | ((accBBase[off / 4] >> 6) & 0x7C00));
+            off += 0x0C;
         }
 
-        postDisplaySprite(1, dstBase, (void *)0x05000100, 0x80, 0x10);
+        sub_08000E98(1, dstBase, (void *)0x05000100, 0x80, 0x10);
     }
     else
     {
@@ -90,6 +88,6 @@ if (0) goto __repair_rows;
             i++;
         }
 
-        postDisplaySprite(1, src, (void *)0x05000100, 0x80, 0x10);
+        sub_08000E98(1, src, (void *)0x05000100, 0x80, 0x10);
     }
 }

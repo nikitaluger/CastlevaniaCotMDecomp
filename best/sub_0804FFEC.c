@@ -45,17 +45,17 @@ extern struct E *sub_08016238(void *);
 extern u32 sub_0806D5F8(u16, u16);
 extern void sub_0808D7BC(s32, s32, u32, u32);
 extern void sub_080158BC(void *, void *);
-inline u32 *inline_fn(unsigned int arg0)
+static inline u32 *inline_fn(volatile int arg0)
 {
   return (u32 *) ((gCameraState + arg0) + (((&gMainWorkspace)->f18A8 + 1) << 6));
 }
 
-inline u16 inline_fn2(int arg0)
+static inline u16 inline_fn2(int arg0)
 {
   return (u16) arg0;
 }
 
-inline u8 *inline_fn23(u8 *arg0, int arg1, int arg2)
+static inline u8 *inline_fn23(u8 *arg0, int arg1, int arg2)
 {
   return (arg0 - arg1) + arg2;
 }
@@ -135,7 +135,7 @@ void *sub_0804FFEC(void *unused, struct A1 *arg1, struct A23 *arg2, struct A23 *
   new_var = 0x127C;
   if (((s16) var_r8->f30) < ((s16) var_r7->f30))
   {
-    off2 = (((u32) ((s16) var_r7->f30)) << 16); base = off2 + 0x8000;
+    off2 = ((u32) ((s16) var_r7->f30)) << 16; base = off2 + 0x8000;
     var_r2 = (base + (*((u32 *) inline_fn23(gCameraState, -off1, (gMainWorkspace.f18A8 + 1) << new_var4)))) - (((u32) ((s16) var_r7->f26)) << 16);
   }
   else

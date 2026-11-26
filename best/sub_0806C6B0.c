@@ -57,8 +57,8 @@ u32 __repair_phase_idx2;
   if (c[0x122] < g[0x3C6]) { c[0x122] = g[0x3C6]; sub_0806D930(g + 0x2C4); *((u32 *)(c + 0x114)) = 100; }
   idx2 = g[0x305];
   tab = (u8 *)(D_080E4764 + idx2 * 120);
-  idx2 = g[0x304];
-  tab += idx2 * 12;
+  __repair_phase_old = g[0x304];
+  tab += __repair_phase_old * 12;
   if ((h[0x14ED] != 0) && (v18 != 0x30)) {
     old = *((u32 *)(g + 0x2CC)); val = *((u32 *)tab);
     if (old >= val) *((u32 *)(g + 0x2CC)) = old - val;

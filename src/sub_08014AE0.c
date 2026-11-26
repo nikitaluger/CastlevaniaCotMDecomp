@@ -1,4 +1,4 @@
-extern u16 D_080CE5E8[];
+extern u16 gFixedEffectLayerAttrs[];
 s32 sub_08014990(void);
 s32 sub_080059DC(s32, s32);
 void sub_080146D0(void *, s32, s32);
@@ -7,7 +7,7 @@ void sub_080146D0(void *, s32, s32);
  * four values into the block at obj->0x28 + 6. */
 void sub_08019ED4(void *self, void *source) {
     u8 *obj = *(u8 **)((u8 *)self + 0x3C);
-    u16 *speeds = D_080CE5E8;
+    u16 *speeds = gFixedEffectLayerAttrs;
     u16 mode = *(u16 *)((u8 *)source + 0x28);
     switch (mode) {
     case 0x2D: speeds += 8; break;

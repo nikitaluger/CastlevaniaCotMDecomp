@@ -141,9 +141,9 @@ void sub_0806E380(void *arg0)
   else
     if (e->f0 == 1)
   {
-    delta = e->fC;
     new_var = *new_var23;
     new_var26 = *((u16 *) (arg0 + 0x1738));
+    delta = e->fC;
     if (new_var26 & 0x10)
     {
       if (new_var7)

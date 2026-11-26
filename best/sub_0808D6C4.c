@@ -30,17 +30,17 @@ void sub_0808D6C4(s32 a, s32 b)
   {
     gCameraState[0x1460 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 6));
     p3d = (u8 *) b;
-    gCameraState[0x1464 + a] = *((volatile s16 *) ((p3d + (a * 4)) + 0x16));
-    gCameraState[0x1462 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 0x0E));
-    gCameraState[0x1466 + a] = *((volatile s16 *) ((p3d + (a * 4)) + 0x1E));
+    (*(u8 *)((0x1464 + a) + (u8 *)gCameraState)) = *((volatile s16 *) ((p3d + (a * 4)) + 0x16));
+    (*(u8 *)((0x1462 + a) + (u8 *)gCameraState)) = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 0x0E));
+    (*(u8 *)((0x1466 + a) + (u8 *)gCameraState)) = *((volatile s16 *) ((p3d + (a * 4)) + 0x1E));
     gCameraState[0x1468 + a] = 0x31;
   }
   else
   {
     gCameraState[0x1460 + a] = *((volatile s16 *) ((((u8 *) b) - (-(a * 4))) + 6));
     {
-      gCameraState[0x1462 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 0x0E));
-      gCameraState[0x1464 + a] = *((volatile s16 *) ((p3d + (a * 4)) + 0x16));
+      (*(u8 *)((0x1462 + a) + (u8 *)gCameraState)) = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 0x0E));
+      (*(u8 *)((0x1464 + a) + (u8 *)gCameraState)) = *((volatile s16 *) ((p3d + (a * 4)) + 0x16));
       gCameraState[0x1466 + a] = *((volatile s16 *) ((p3d + (a * 4)) + 0x1E));
     }
     gCameraState[0x1468 + a] = *((u8 *) (p3d + 0x38));

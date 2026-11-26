@@ -32,7 +32,6 @@ struct S61340
 };
 void sub_08061340(void *arg0)
 {
-    u8 *__base_D_080D9AA0;
     u8 *__base_D_080D9AC0;
     s32 __index_D_080D9AC0;
   struct S61340 s;
@@ -44,7 +43,7 @@ void sub_08061340(void *arg0)
   u32 d;
   u8 *p;
   u8 new_var5;
-  s32 t;
+  u8 t;
   int new_var3;
   int new_var10;
   u8 t2;
@@ -115,7 +114,8 @@ if (s.f10 <= 0x40) goto __repair_rows;
         switch (t)
         {
           case 1:
-            t7 = (*((u8 *) (D_080DABDC + c))) >> 4;
+            t7 = *((u8 *) (D_080DABDC + c));
+            t7 >>= 4;
             __index_D_080D9AC0 = t7 * 4;
             __base_D_080D9AC0 = D_080D9AC0;
             t5 = *((u8 *) (__base_D_080D9AC0 + __index_D_080D9AC0));
@@ -133,8 +133,7 @@ if (s.f10 <= 0x40) goto __repair_rows;
         }
 
         t5 = (t5 | (t5 << 4)) & 0xFF;
-        __base_D_080D9AA0 = D_080D9AA0;
-        d = *((u32 *) (__base_D_080D9AA0 + s.f24));
+        d = *((u32 *) (D_080D9AA0 + s.f24));
         *((u8 *) (&s.buf[d])) = t5;
         *((u8 *) (&s.buf[d + 1])) = t5;
         *((u8 *) (&s.buf[d + 4])) = t5;
@@ -147,7 +146,7 @@ if (s.f10 <= 0x40) goto __repair_rows;
         new_var2 = &s;
         if (t7 != 0)
         {
-          if ((s.f20 == 2) || (t == 2))
+          do { if ((s.f20 == 2) || (t == 2))
           {
             v = 0x10;
           }
@@ -166,7 +165,7 @@ if (s.f10 <= 0x40) goto __repair_rows;
           else
           {
             s.f1C = 7;
-          }
+          } } while (0);
           if (t7 == 3)
           {
             if ((sub_08061D9C(a, b, 0) == 0) && (t7 == 1))

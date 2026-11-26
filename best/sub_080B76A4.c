@@ -47,6 +47,11 @@ extern u8 gSpriteAnimDataTable[];
 extern struct D20 gMainWorkspace;
 extern void *gMainObjTimerCallback;
 extern void sub_080B8514(void);
+inline static void *inline_fn(u8 *arg0)
+{
+  return sub_0805FAEC(arg0, 0x1CB);
+}
+
 void sub_080B76A4(u8 *arg0)
 {
   u8 *p34;
@@ -121,7 +126,7 @@ void sub_080B76A4(u8 *arg0)
     ((struct B7R *) new_var)->fE = CB2B;
     ((struct B7R *) (*((void **) (p48 + 4))))->f10 = (u32) a;
     sub_080B98B8(arg0, 2, 10, *((u32 *) (((u8 *) a) + 0x1C)));
-    *((void **) (p + 0x48)) = sub_0805FAEC(arg0, 0x1CB);
+    *((void **) (p + 0x48)) = inline_fn(arg0);
     gMainWorkspace.f40 = 0;
     registerScriptObject(arg0, 0);
     *((u16 *) (arg0 + 0x02)) |= 0x1000;

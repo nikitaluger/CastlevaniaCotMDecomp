@@ -22,10 +22,12 @@ s32 sub_08000A70(s32 arg0, s32 arg1, s32 arg2)
   s32 mask;
   int new_var4;
   s32 new_var5;
-  s32 hdr;
-  s32 size;
+  
+  
+s32 __repair_phase_size;
   s32 avail;
   s32 pad;
+s32 __repair_phase_pad;
   s32 ff;
   int new_var2;
   s32 new_var3;
@@ -42,7 +44,7 @@ s32 sub_08000A70(s32 arg0, s32 arg1, s32 arg2)
     return 0;
   }
   ff = 0xFF;
-  hdr = *((u32 *) cur);
+  __repair_phase_size = *((u32 *) cur);
 loop_2:
 
   if ((*((s8 *) cur)) != 0)
@@ -53,7 +55,7 @@ loop_2:
   new_var2 = 0;
   goto align_loop;
 coalesce:
-  p = cur + (size + new_var4);
+  p = cur + (new_var5 + 4);
   if (((u32) p) >= ((u32) end))
   {
     goto split;
@@ -62,8 +64,8 @@ coalesce:
   {
     goto split;
   }
-  pad = *((u32 *) p);
-  do { do { do { new_var3 = (inline_fn(inline_fn(size, 4), pad >> 8) << 8); } while (0); } while (0); } while (0); *((u32 *) cur) = new_var3 | (pad & ff);
+  __repair_phase_pad = *((u32 *) p);
+  do { do { do { new_var3 = (inline_fn(inline_fn(new_var5, 4), __repair_phase_pad >> 8) << 8); } while (0); } while (0); } while (0); *((u32 *) cur) = new_var3 | (__repair_phase_pad & ff);
 align_loop:
   if ((((s32) data) & mask) != 0)
   {
@@ -73,20 +75,22 @@ align_loop:
   {
     pad = new_var2;
   }
-  hdr = *((u32 *) cur);
-  size = hdr >> 8;
-  avail = size - pad;
+  __repair_phase_size = *((u32 *) cur);
+  new_var5 = __repair_phase_size >> 8;
+  (void)&avail;
+  avail = new_var5 - pad;
   if (arg1 > avail)
   {
     goto coalesce;
   }
-  hdr = pad - 4;
+  __repair_phase_size = pad - 4;
   p = cur + pad;
-  if (hdr > new_var2)
+  if (__repair_phase_size > new_var2)
   {
+    s32 new_var3_a1;
     *((u32 *) p) = ((*((u32 *) p)) & ff) | (avail << 8);
-    do { new_var3 = hdr << 8; } while (0);
-    *((u32 *) cur) = ((*((u32 *) cur)) & ff) | new_var3;
+    do { new_var3_a1 = __repair_phase_size << 8; } while (0);
+    *((u32 *) cur) = ((*((u32 *) cur)) & ff) | new_var3_a1;
   }
   else
   {
@@ -97,7 +101,7 @@ align_loop:
   b46:
   p = NULL;
 
-  hdr = *((u32 *) cur);
+  __repair_phase_size = *((u32 *) cur);
   split:
   if (p != NULL)
   {
@@ -106,13 +110,13 @@ align_loop:
 
   {
     s32 leftover;
-    leftover = ((hdr >> 8) - arg1) - 4;
+    leftover = ((__repair_phase_size >> 8) - arg1) - 4;
     if (leftover > new_var2)
     {
       p = cur + (arg1 + new_var4);
       *((u8 *) p) = 0;
-      size = leftover << 8;
-      *((u32 *) p) = ((*((u32 *) p)) & ff) | size;
+      __repair_phase_size = leftover << 8;
+      *((u32 *) p) = ((*((u32 *) p)) & ff) | __repair_phase_size;
       *((u32 *) cur) = (arg1 << 8) | ((*((u32 *) cur)) & ff);
     }
     *((u8 *) cur) = 0x80;
@@ -121,10 +125,10 @@ align_loop:
   advance:
   first = cur;
 
-  cur = cur + inline_fn(hdr >> 8, 4);
+  cur = cur + inline_fn(__repair_phase_size >> 8, 4);
   if (cur == end)
   {
     return new_var2;
   }
-  hdr = *((u32 *) cur); goto loop_2;
+  __repair_phase_size = *((u32 *) cur); goto loop_2;
 }

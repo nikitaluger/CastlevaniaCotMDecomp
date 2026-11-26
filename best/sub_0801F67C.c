@@ -1,9 +1,9 @@
 struct S_02025FF0 { u8 _0[0x174C]; u32 f174C; u8 _1[0x1750-0x1750]; u32 f1750; u8 _2[0x1870-0x1754]; u32 f1870; u8 _3[0x189C-0x1874]; u32 f189C; };
-extern struct S_02025FF0 gMainWorkspace;
+extern struct S_02025FF0 D_02025FF0;
 extern u8 D_080CE7AC[];
 extern u32 D_080CE7C4[];
-extern u32 gMainObjTimerCallback[];
-extern void setAnimationFrame(void*, void*, int, int);
+extern u32 D_08671BB0[];
+extern void sub_08011368(void*, void*, int, int);
 extern int sub_0805FAEC(int, int);
 extern int sub_08014990(void*);
 
@@ -13,11 +13,11 @@ void sub_0801F67C(void *arg0) {
     u8 *r4 = *(u8 **)(r7 + 0x3C);
     u8 *p34 = r4 + 0x34;
     u8 *r6 = r4 + 0x48;
-    setAnimationFrame(r10, p34, 5, 0);
+    sub_08011368(r10, p34, 5, 0);
     if (*(s16 *)(r6 + 0x28) > 0 || *(s16 *)(r6 + 0x08) > 0) goto blockB;
 
     {
-        u32 *sb = gMainObjTimerCallback;
+        u32 *sb = D_08671BB0;
         u8 *r12 = r7 + 0x18;
         u8 *r8 = r7 + 0x22;
         int r6v = 1;
@@ -84,7 +84,7 @@ blockB:
         u32 r0sh2;
         u32 r1val2;
 
-        val = gMainWorkspace.f189C;
+        val = D_02025FF0.f189C;
         r1v = (u32)val >> 31;
         val += r1v;
         r1v = val >> 1;
@@ -100,8 +100,8 @@ blockB:
 
         r1sh = *(s16 *)(r6 + 0x28);
         r9v = 6 - r1sh;
-        r8b = (u8 *)&gMainWorkspace;
-        r0v = gMainWorkspace.f1870;
+        r8b = (u8 *)&D_02025FF0;
+        r0v = D_02025FF0.f1870;
         r0r = sub_0805FAEC((int)r0v, 0x99);
         r1r = r0r;
         r5v2 = r9v * 4;
