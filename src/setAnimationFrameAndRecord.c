@@ -8,7 +8,7 @@ struct AnimReq {
 
 /* Play `frame` on the sprite's animation state and record the frame plus the
  * sprite's current animation descriptor value in the request record. */
-void sub_080409FC(void *sprite, void *anim, struct AnimReq *req, s32 frame) {
+void setAnimationFrameAndRecord(void *sprite, void *anim, struct AnimReq *req, s32 frame) {
     req->frame = (s8)frame;
     setAnimationFrame(sprite, anim, (s16)frame, 1);
     req->unk_0x02 = *(u16 *)((u8 *)sprite + 0x28);

@@ -17,7 +17,7 @@ extern void initSpriteGraphics(void*, void*, void*);
 extern void setAnimationFrame(void*, void*, s16, s32);
 extern void *allocMotionTracker(void);
 extern s32 getSpawnBehaviorIndex(void);
-extern struct S *sub_080954BC(void *);
+extern struct S *getMotionData(void *);
 extern void releaseLinkedThenUpdate(void);
 extern void updateAimAtTrackedTarget(void);
 extern void sub_080C31E0(void*, s32);
@@ -62,7 +62,7 @@ void sub_08094D20(struct A *arg0) {
     if ((s32)idx < 0)
         goto fail;
     initSpriteGraphics(obj, r9, D_081008BC + ((idx * 3) << 2));
-    sub->f20 = sub_080954BC(arg0);
+    sub->f20 = getMotionData(arg0);
     t = allocMotionTracker();
     sub->f04 = t;
     if (t != 0)

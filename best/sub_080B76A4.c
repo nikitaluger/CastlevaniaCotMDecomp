@@ -29,7 +29,7 @@ struct D20
 };
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
-extern void sub_080141F8(void *, void *, void *, u32, u32);
+extern void initWorkStateForKind(void *, void *, void *, u32, u32);
 extern void installUpdateHandler(void *, void *, void *);
 extern void initSpriteGraphics(void *, void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
@@ -84,7 +84,7 @@ void sub_080B76A4(u8 *arg0)
   p34 = p + 0x34;
   p48 = p + 0x48;
   installUpdateHandler(arg0, p, sub_080B8514);
-  sub_080141F8(arg0, a, p, r9v, 0x67);
+  initWorkStateForKind(arg0, a, p, r9v, 0x67);
   initSpriteGraphics(a, p34, gSpriteAnimDataTable + (V1C * 12));
   setAnimationFrame(a, p34, 0, 0);
   loadEffectPalette(0x0841EA84);

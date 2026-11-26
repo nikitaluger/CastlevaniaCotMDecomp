@@ -1,7 +1,7 @@
 extern void *allocSpriteObject(void);
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
-extern void sub_080141F8(void *, void *, void *, void *, s32);
+extern void initWorkStateForKind(void *, void *, void *, void *, s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *sub_0805FAEC(void *, s32);
@@ -59,7 +59,7 @@ void createPairedScriptedEffect(u8 *entity)
   installUpdateHandler(entity, (u8 *) work, (void *) sub_08014290);
   kindTable = gPairedEffectKindTable;
   variantPtr = entity + 0x4C;
-  sub_080141F8(entity, sprite, (u8 *) work, parent, *((s16 *) (kindTable + ((*variantPtr) * 4))));
+  initWorkStateForKind(entity, sprite, (u8 *) work, parent, *((s16 *) (kindTable + ((*variantPtr) * 4))));
   initSpriteGraphics(sprite, gfxInit, ((s32) gSpriteAnimDataTable) + ((*((s16 *) (((u8 *) work) + 0x1C))) * 0xC));
   setAnimationFrame(sprite, gfxInit, 0, 0);
   child = sub_0805FAEC(entity, 0x15E);

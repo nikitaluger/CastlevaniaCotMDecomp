@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795714457.8563106,
- "revision": 67679,
+ "saved_at": 1795714850.5626755,
+ "revision": 67700,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "611352:134829080": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "releaseLinkedThenUpdate",
-   "vram": 134829080
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -4129,7 +4117,7 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_080141F8": {
+  "initWorkStateForKind": {
    "vram": 134300152,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -8749,10 +8737,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_0803F934": {
+  "spawnVariantEffectSprite": {
    "vram": 134478132,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0803FB20": {
    "vram": 134478624,
@@ -8864,7 +8852,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_080409FC": {
+  "setAnimationFrameAndRecord": {
    "vram": 134482428,
    "matched_by": "opencode-free-1",
    "readable": false
@@ -25897,7 +25885,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080141F8",
+   "name": "initWorkStateForKind",
    "vram": 134300152,
    "size": 144,
    "status": "open"
@@ -31771,7 +31759,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0803F934",
+   "name": "spawnVariantEffectSprite",
    "vram": 134478132,
    "size": 492,
    "status": "open"
@@ -31915,7 +31903,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080409FC",
+   "name": "setAnimationFrameAndRecord",
    "vram": 134482428,
    "size": 30,
    "status": "open"
@@ -42247,7 +42235,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080954BC",
+   "name": "getMotionData",
    "vram": 134829244,
    "size": 40,
    "status": "asm"
@@ -50271,6 +50259,12 @@
    "kind": "func"
   },
   {
+   "name": "initWorkStateForKind",
+   "address": 134300152,
+   "size": 144,
+   "kind": "func"
+  },
+  {
    "name": "installUpdateHandler",
    "address": 134300296,
    "size": 8,
@@ -50565,9 +50559,21 @@
    "kind": "func"
   },
   {
+   "name": "spawnVariantEffectSprite",
+   "address": 134478132,
+   "size": 492,
+   "kind": "func"
+  },
+  {
    "name": "initScriptedSinglePartGraphics",
    "address": 134481092,
    "size": 540,
+   "kind": "func"
+  },
+  {
+   "name": "setAnimationFrameAndRecord",
+   "address": 134482428,
+   "size": 30,
    "kind": "func"
   },
   {
@@ -50748,6 +50754,12 @@
    "name": "getSpawnBehaviorIndex",
    "address": 134829220,
    "size": 24,
+   "kind": "func"
+  },
+  {
+   "name": "getMotionData",
+   "address": 134829244,
+   "size": 40,
    "kind": "func"
   },
   {
@@ -51081,8 +51093,26 @@
    "kind": "data"
   },
   {
+   "name": "gEffectLayerAttrTable",
+   "address": 135066704,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gScriptedEffectLayerAttrs",
    "address": 135066712,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gVariantSpawnKindTable",
+   "address": 135066728,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gVariantAnimFrameTable",
+   "address": 135066736,
    "size": 0,
    "kind": "data"
   },
@@ -51213,7 +51243,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct S_02025FF0",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -51233,7 +51263,7 @@
   },
   {
    "address": 135049912,
-   "type": "struct PairedEffectKindEntry[]",
+   "type": "struct AnimDef[]",
    "source": "match"
   },
   {
@@ -51434,6 +51464,21 @@
   {
    "address": 140975024,
    "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 135066704,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135066728,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135066736,
+   "type": "u8[]",
    "source": "match"
   }
  ],
@@ -57159,7 +57204,7 @@
    "asm_code": "3 agents (opencode-beam-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Cannot get closer in pure C: systemic frameless-branched-leaf wall. All 18 body instructions byte-exact (score 245); residual is solely agbcc's mandatory push {lr}/pop {r0}; bx r0 saved-LR frame vs the ROM's bare bx lr, plus +2 shifts of the 4 branch offsets. The logic necessarily contains condition"
   },
   {
-   "name": "sub_080954BC",
+   "name": "getMotionData",
    "vram": 134829244,
    "not_c": {
     "opencode-hy4-flash-free-1": {

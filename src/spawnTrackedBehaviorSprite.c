@@ -102,7 +102,7 @@ extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
 extern void *allocMotionTracker(void);
 extern s32 getSpawnBehaviorIndex(void);
-extern void *sub_080954BC(void *);
+extern void *getMotionData(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_08095418(void);
@@ -155,7 +155,7 @@ extern void sub_08095438(void);
   {
     goto fail;
   }
-  ext->motion = sub_080954BC(arg0);
+  ext->motion = getMotionData(arg0);
   tracker = (TrackerObj *) allocMotionTracker();
   ext->tracker = tracker;
   if (tracker != 0)

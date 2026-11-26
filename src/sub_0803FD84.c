@@ -1,5 +1,5 @@
 s32 sub_080113A8(s32, void *);
-s32 sub_080409FC(s32, void *, void *, u16);
+s32 setAnimationFrameAndRecord(s32, void *, void *, u16);
 s32 sub_08040B34(void *, s32, void *);
 extern void _call_via_r2(void *, void *, s32);
 
@@ -22,7 +22,7 @@ void sub_0803FD84(void *entity)
         u32 base = (u32)D_080CF478;
         u8 variant = *(u8 *)((u8 *)entity + 0x4C);
         u16 shotAnim = *(u16 *)(base + variant * 2);
-        sub_080409FC(sprite, anim, ext, shotAnim);
+        setAnimationFrameAndRecord(sprite, anim, ext, shotAnim);
         *(s32 *)((u8 *)part + 0x0C) += 0x10000;
         if (*(volatile u8 *)((u8 *)entity + 0x4C) != 0) {
             sub_08040B34(entity, sprite, part);

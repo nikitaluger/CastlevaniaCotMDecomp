@@ -1,7 +1,7 @@
 extern void *allocSpriteObject(void);            /* create the sprite object */
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
-extern void sub_080141F8(void *, void *, void *, s32, s32);
+extern void initWorkStateForKind(void *, void *, void *, s32, s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32); /* set animation/frame control */
 extern void *allocEffectPart(void);            /* allocate a part object */
@@ -58,7 +58,7 @@ void sub_0804A6D0(u8 *arg0) {
     entity = *(struct Entity **)(arg0 + 0x3C);
     anim = (u8 *)entity + 0x34;
     installUpdateHandler(arg0, (u8 *)entity, (void *)sub_08014290);
-    sub_080141F8(arg0, sprite, (u8 *)entity, param, 0x10);
+    initWorkStateForKind(arg0, sprite, (u8 *)entity, param, 0x10);
     initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + *(s16 *)((u8 *)entity + 0x1C) * 0xC);
     setAnimationFrame(sprite, anim, 0, 0);
     partParams = D_080CF968;

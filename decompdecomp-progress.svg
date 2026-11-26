@@ -1547,7 +1547,7 @@
 <g><title>sub_080141AC: {&#x27;matched&#x27;: 1}</title>
 <rect x="310.000" y="220" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080141F8: {&#x27;matched&#x27;: 1}</title>
+<g><title>initWorkStateForKind: {&#x27;matched&#x27;: 1}</title>
 <rect x="320.000" y="220" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>installUpdateHandler: {&#x27;matched&#x27;: 1}</title>
@@ -4484,7 +4484,7 @@
 <g><title>sub_0803F8D8: {&#x27;matched&#x27;: 1}</title>
 <rect x="500.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803F934: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnVariantEffectSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="510.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0803FB20: {&#x27;matched&#x27;: 1}</title>
@@ -4556,7 +4556,7 @@
 <g><title>sub_080409D0: {&#x27;matched&#x27;: 1}</title>
 <rect x="740.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080409FC: {&#x27;matched&#x27;: 1}</title>
+<g><title>setAnimationFrameAndRecord: {&#x27;matched&#x27;: 1}</title>
 <rect x="750.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08040A1C: {&#x27;matched&#x27;: 1}</title>
@@ -9722,7 +9722,7 @@
 <g><title>getSpawnBehaviorIndex: {&#x27;attempt&#x27;: 1}</title>
 <rect x="360.000" y="560" width="8.000" height="8" fill="#bf8700"/>
 </g>
-<g><title>sub_080954BC: {&#x27;aside&#x27;: 1}</title>
+<g><title>getMotionData: {&#x27;aside&#x27;: 1}</title>
 <rect x="370.000" y="560" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_080954E4: {&#x27;matched&#x27;: 1}</title>

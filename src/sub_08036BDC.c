@@ -7,7 +7,7 @@ extern struct SpawnSprite *allocSpriteObject(void);
 extern void allocWorkSlot(void *arg0, int a, int b, int c);
 extern void installUpdateHandler(void *a, struct SpawnLogic *b, void (*c)(void));
 extern void sub_08037128(void);
-extern void sub_080141F8(void *a, struct SpawnSprite *b, struct SpawnLogic *c, u32 d, s32 e);
+extern void initWorkStateForKind(void *a, struct SpawnSprite *b, struct SpawnLogic *c, u32 d, s32 e);
 extern void initSpriteGraphics(struct SpawnSprite *a, u8 *b, void *c);
 extern void setAnimationFrame(struct SpawnSprite *a, u8 *b, int c, int d);
 extern void sub_0803AEF0(void *a, struct SpawnLogic *b, struct SpawnSprite *c);
@@ -49,7 +49,7 @@ body:
     installUpdateHandler(arg0, logic, sub_08037128);
     speedTable = D_080CEFCC;
     speed = *(s16 *)(speedTable + U8(arg0, 0x4C) * 4);
-    sub_080141F8(arg0, sprite, logic, savedAC, speed);
+    initWorkStateForKind(arg0, sprite, logic, savedAC, speed);
     zero = 0;
     logic->kind = 8;
     initSpriteGraphics(sprite, animData, (u8 *)gSpriteAnimDataTable + logic->cfgIndex * 12);

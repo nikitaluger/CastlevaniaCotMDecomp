@@ -6,7 +6,7 @@ extern u32 gMainObjTimerCallback[];   /* step-script operation */
 extern void allocWorkSlot(void *, u32, u32, u32);
 extern void *allocSpriteObject(void *);          /* create the sprite object */
 extern void installUpdateHandler(void *, void *, void *);
-extern void sub_080141F8(void *, void *, void *, void *, u32);
+extern void initWorkStateForKind(void *, void *, void *, void *, u32);
 extern void initSpriteGraphics(void *, void *, void *);
 extern void setAnimationFrame(void *, void *, u32, u32); /* set animation/frame control */
 extern void sub_0803AEF0(void *, void *, void *);
@@ -39,7 +39,7 @@ void sub_08032ED0(void *arg0)
     logic = *(u8 **)((u8 *)arg0 + 0x3C);
     animData = logic + 0x34;
     installUpdateHandler(arg0, logic, (void *)sub_08033498);
-    sub_080141F8(arg0, sprite, logic, savedAC, 0x15);
+    initWorkStateForKind(arg0, sprite, logic, savedAC, 0x15);
     *(u16 *)((u8 *)logic + 0x04) = 0x08;
     cfgIndex = *(s16 *)((u8 *)logic + 0x1C);
     initSpriteGraphics(sprite, animData, (void *)((u32)cfgIndex * 12 + (u32)gSpriteAnimDataTable));

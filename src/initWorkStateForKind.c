@@ -8,7 +8,7 @@ extern struct GameState_141F8 gMainWorkspace;
 /* Initialize a work struct for the given kind: copy the kind's base value
  * and table position, look up its attribute index, and write the resulting
  * sprite attribute; bail through the state handler if the kind is unknown. */
-void sub_080141F8(void *self, s16 *attrOut, void *work, void *source, s32 kind) {
+void initWorkStateForKind(void *self, s16 *attrOut, void *work, void *source, s32 kind) {
     u16 kind16 = (u16)kind;
     u32 zero;
     s16 idx;

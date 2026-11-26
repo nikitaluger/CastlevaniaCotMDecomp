@@ -1,7 +1,7 @@
 void sub_080113A8(void *, void *);
-void sub_080409FC(void *, void *, void *, u16);
+void setAnimationFrameAndRecord(void *, void *, void *, u16);
 void sub_080C31E8(void *, void *, s32, s32);
-extern u16 D_080CF470[];
+extern u16 gVariantAnimFrameTable[];
 extern s32 D_08671BD0;
 
 /* Updates the entity's animation; when the animation ends it plays the part's
@@ -22,8 +22,8 @@ void sub_0803FEB0(void *arg0)
     sub_080113A8(sprite, animator);
     if (*animator & 2) {
         u16 frame;
-        frame = D_080CF470[*(u8 *)(self + 0x4C)];
-        sub_080409FC(sprite, animator, part, frame);
+        frame = gVariantAnimFrameTable[*(u8 *)(self + 0x4C)];
+        setAnimationFrameAndRecord(sprite, animator, part, frame);
         *(s32 *)(work + 0x0C) += 0x10000;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {

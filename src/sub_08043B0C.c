@@ -1,7 +1,7 @@
 extern void *allocSpriteObject(void);
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
-extern void sub_080141F8(void *, void *, void *, void *, s32);
+extern void initWorkStateForKind(void *, void *, void *, void *, s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
@@ -65,7 +65,7 @@ void sub_08043B0C(u8 *self) {
     stackTable = D_080CF564;
     {
         s32 stacked = *(s16 *)(stackTable + *(u8 *)(self + 0x4C) * 4);
-        sub_080141F8(self, gfxObj, (u8 *)anim, entry, stacked);
+        initWorkStateForKind(self, gfxObj, (u8 *)anim, entry, stacked);
     }
     initSpriteGraphics(gfxObj, animData, (s32)gSpriteAnimDataTable + *(s16 *)((u8 *)anim + 0x1C) * 0xC);
     setAnimationFrame(gfxObj, animData, 0, 0);
