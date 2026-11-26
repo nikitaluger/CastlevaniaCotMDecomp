@@ -1,6 +1,6 @@
 extern void sub_08005E80(s32);
 extern void sub_080113A8(s32, void *);
-extern void sub_08011674(void *, s32, s32);
+extern void moveObjectHorizontally(void *, s32, s32);
 extern void sub_08013AC4(void *);
 extern void sub_08013C5C(void *, s32);
 extern void sub_08013C8C(void *, void *);
@@ -100,7 +100,7 @@ void sub_0804DFC4(u8 *entity)
       return;
     }
     sub_080113A8(sprite, animState);
-    sub_08011674(motion, 0x200000, 0x200000);
+    moveObjectHorizontally(motion, 0x200000, 0x200000);
   }
   if ((*((u16 *) motion) & 0x0D) == 0)
   {

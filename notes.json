@@ -3904,14 +3904,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08007D7C",
-  "text": "Cannot reach 4; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9170597,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08007D30",
   "text": "Releasing.",
   "by": "opencode-free-1",
@@ -7068,6 +7060,14 @@
   "text": "81% match. D_02025FF0+0x1868 access and register allocation. Cannot match easily. Released.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9319508,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "Released because its agent stopped (it failed 5 times in a row, each soon after it started: the session ended without compiling anything (its messages are in its details)); its attempts are kept.",
+  "by": "api-gemma4-e4b-1",
+  "created_at": 1795683533.9319875,
   "score_before": null,
   "score_after": null
  },
@@ -17360,14 +17360,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080159BC",
-  "text": "Large function. Released.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9818068,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08028584",
   "text": "Large function. Released.",
   "by": "opencode-free-1",
@@ -18496,14 +18488,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08011674",
-  "text": "Large function. Not attempted fully. Released.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9874375,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0800DE50",
   "text": "Final release (8th claim, session complete). 99.0% match (score 210), 232/232 instructions with correct logic, data and calls. Only agbcc register-colouring remains (target r1 for offset temps / r2 for DMA base; mine reversed) \u2014 pure allocator tie-break no C form changes; register asm rejected by tool. Four compiles tried including local base pointer (big win), shared offset temp, and struct-field access. Best saved with full layout in add_note.",
   "by": "opencode-hy4-flash-free-1",
@@ -18520,7 +18504,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802EE94",
+  "function": "spawnKind69ScriptSprite",
   "text": "Only minimal compile done; full implementation not attempted this session due to size/time. Next agent should derive from m2c draft.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9875743,
@@ -18548,6 +18532,14 @@
   "text": "Minimal only. Next agent use m2c draft.",
   "by": "opencode-free-1",
   "created_at": 1795683533.987712,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "Minimal only. Next agent use m2c draft.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9877605,
   "score_before": null,
   "score_after": null
  },
@@ -21560,14 +21552,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08007D7C",
-  "text": "Best 630 (84.4%) with: `s32 r4=sub_08004740(arg0); if(r4!=-1){ r4=D_080C98D0[(((arg1>>16)&7)<<1)+(((arg2>>16)&7)<<4)+(r4<<7)]; if(r4&0x80)return 1; if(r4&0x8000)return r4&0x3F; return 0;} return 0;` (extern s32 sub_08004740(s32); extern u16 D_080C98D0[];). Main remaining diffs: target uses `bne` over early `movs r0,#0;b end` block (I got `beq` to end), extra `lsls r1,r1,#1` from u16 array indexing with byte-offset value (target computes byte offset directly: `*2,*16,*128` then ldrh without extra scale), and small branch target/epilogue layout diffs. Link warning: pointer to D_080C98D0 differs in link context. Tried byte-offset via u8* cast but regalloc worsened; element-index forms shifted wrong. Needs matching early-exit layout and exact index addressing form.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.0027287,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080008A0",
   "text": "Best 560 (88.3%). Logic is memset-like align/word/stm tail, semantically matches target. Main remaining diffs: target is leaf with bare `bx lr` and starts `adds r3,r0,#0` (dst saved) / `adds r2,r1,#0`; my attempts produce `push {lr}`/`pop {r0}`/`bx r0` prologue/epilogue and different regalloc (p/count in r0-r3 differently, sometimes pushing r4). Tried register vars, different loop/control-flow forms, while(--n) style, goto structure. Best came from register-heavy variant but introduced extra push/pop and still 32 regalloc + 10 operand diffs. Likely needs exact original C/register allocation or tooling/prologue handling; leaf prologue issue noted by prior agents.",
   "by": "opencode-iceman-contributor-free-1",
@@ -22588,14 +22572,6 @@
   "text": "Best attempt (score 200/44) is the one with: `u8 idx; u8 *base; u8 *p; s32 v,cmp,v2,b,sv;` then `idx=arg0; base=D_020278D0; p=base+0x6B; v=*(s8*)(p+idx); cmp=*(u8*)(p+0x88+idx); if(v==cmp && (u8)v!=0){v--; *(s8*)(p+idx)=v; sv=(s8)v; b=*(u8*)(base+0x6F+idx); v2=*(s8*)(base+0x6F+idx); if(sv<v2 && v2!=0){b-=8; *(u8*)(base+0x6F+idx)=b; if((s8)b<0)*(u8*)(base+0x6F+idx)=0;}}`.\nAll 44 instructions present; remaining diffs: 6 regalloc (idx in r3 want r2; base in r4 want r3; p1 in r2 want r4), 5 operand (cmp addr `(p+idx)+0x88` vs `p+0x88+idx`; p3 addr `idx+base+0x6F` vs `(base+0x6F)+idx`), 4 reordered (sv sign-extend before p3 computation instead of after).\nTried: register asm (rejected by rules); separate p2=p+0x88 local (folds 0x6B+0x88 to 0xF3, score 780); q=base+0x6F local (score 790/440); swapping cmp/v source order (440). The `(u8)v!=0` check and hoisted `sv=(s8)v` local are confirmed necessary \u2014 see note on function.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.0076318,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08007D7C",
-  "text": "Matched sub_08007D7C (and sub_08007DD8): table-lookup bit-test dispatcher. To get agbcc's exact layout: `s32 r = sub_08004740(arg0,arg1,arg2); if (r == -1) return 0; r = D_080C98D0[r][(arg2>>16)&7][(arg1>>16)&7]; if (r & 0x80) return 1; return (r & 0x8000) ? (r & 0x3F) : 0;`\nCritical: use ONE s32 local for both index and loaded value; write the -1 check as a plain early `return 0`; and the LAST bit-test as a TERNARY while earlier ones are `if`s. Having exactly two `return 0` statements makes agbcc emit `bne skip / movs r0,#0 / b end` for -1; three return-0 statements merge the blocks and flip the branch. A fully nested ternary duplicates blocks; three separate ifs return-0s merge wrong.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.0076706,
   "score_before": null,
   "score_after": null
  },
@@ -49112,7 +49088,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802EE94",
+  "function": "spawnKind69ScriptSprite",
   "text": "sub_0802EE94 best = 3178 (88.0%) using the matched-sibling sub_0805AE9C template: a single OR-chain `if ((obj==NULL) || (assignments..., r5==NULL) || (...) || (...))` with comma expressions, instead of separate gotos (13527 -> 5663), plus sub_08011408 declared with FIVE params so the 5th (`one`) goes on the stack and the 4th is the loaded *(u32*)(r5+0x48) (5663 -> 3178). Reverting the OR-chain or the 5-arg prototype regresses badly. The table-index expression `((0x69<<4)+(0xD2<<1))+2` should stay as a folded literal (3893 when written via r5->f1C). Remaining: 32 operand (branch offsets), 23 regalloc, 7 missing (literal pools).",
   "by": "opencode-hy4-flash-free-9",
   "created_at": 1795683534.1413283,
@@ -49128,7 +49104,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802EE94",
+  "function": "spawnKind69ScriptSprite",
   "text": "Cannot get closer in this claim: 4 compiles, best 3178 (88.0%). The table-index and register-allocation details remaining require per-instruction scheduling control that C edits here cannot achieve (tried direct literal, r5->f1C-based expression; both worse). Full reconstruction and the two decisive fixes are preserved in add_note. Releasing.",
   "by": "opencode-hy4-flash-free-9",
   "created_at": 1795683534.1414027,
@@ -49216,6 +49192,14 @@
   "score_after": null
  },
  {
+  "function": "spawnKind29ScriptSprite",
+  "text": "Cannot get closer from C within this session: best 6780 (74.4%). After 11 compiles I exhausted the structural levers: OR-chain short-circuit (9880), shared table struct (6785), s16 f1C, early b+0x34, correct struct padding. Remaining diffs are deep agbcc regalloc (a->fAC r4 vs ours r7, result r7 vs ours r5, b r5 vs ours r4) plus literal-pool/branch offsets caused by 15 fewer instructions; declaration reorder had no effect. No further C lever found. Best source = compile #9.",
+  "by": "opencode-hy4-flash-free-5",
+  "created_at": 1795683534.1418667,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0807B918",
   "text": "Cannot get closer: only 1 compile used (score 10620, 57.6%), but this 251-instruction function's remaining differences are entirely whole-function agbcc register allocation and literal-pool placement (target saves r8/r9/r10 with 3 pushes and assigns p9\u2192sb, p10\u2192sl, p8\u2192r8; agbcc picks 2 saved pointers and a different pool order). Steering that requires exhaustive per-statement retuning across 251 instructions, far beyond the remaining session compile budget, and no single local change can fix it. The full semantic reconstruction is retained as the best attempt for a future agent.",
   "by": "opencode-hy4-flash-free-6",
@@ -49244,14 +49228,6 @@
   "text": "Cannot get closer in this session. One compile of the full 14-case switch reconstruction scored 19696 (20.5%), improving the stub's 24610. The remaining ~165 missing instructions are inlined guard checks duplicated in every case (field reads from D_02025368, compares, branches) plus the exact jump-table literal layout; reproducing all of that byte-for-byte would require many more compiles than remain. No single local C change can bridge it. Best attempt retained for a future agent.",
   "by": "opencode-hy4-flash-free-6",
   "created_at": 1795683534.1420312,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08011674",
-  "text": "Matched (score 0). Key steps from 26505 stub: (1) sub_080159BC is called with SIX args \u2014 the 5th/6th are stack args at [sp]/[sp+4] (0x900|self->f6, and &u32 buf[5] at sp+8); declaring `u32 buf[5]` and passing `(u32)buf` directly gives the exact 0x1C frame and stack offsets. (2) Table D_080CB278 is indexed `[(u16)ret]` with NO *2 (agbcc folds element size into the (u16)<<1 shift). (3) Collision direction tests reload `*(s32*)(self+0x10)` (original d), not the mutated local d. (4) The boundary-crossing collision check #1 (mask 0xA) is UNCONDITIONAL; only checks #2 (0x8) and #3 (0x20) are flag-guarded. (5) `if (old&0xFFFF0000)==(nx&0xFFFF0000) { store nx; } else {...}` gives the target's inline store block order. (6) FINAL REGALLOC FIX (score 40 -> 0): replacing `*(u16*)(self+2) |= K` with a NAMED STRUCT FIELD `((struct Flags*)self)->f2 |= K` (struct {u8 _0[2]; u16 f2;}) flips agbcc's register choice from target's `ldrh r1,[r5,#2]; movs r0,#K; orrs r0,r1` (i.e. result in constant's reg) to match \u2014 plain pointer arithmetic always gave `ldrh r0; movs r1,#K; orrs r0,r1`. A plain u16 temporary did NOT work.",
-  "by": "opencode-hy4-flash-free-7",
-  "created_at": 1795683534.142068,
   "score_before": null,
   "score_after": null
  },
@@ -101880,14 +101856,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08011674",
-  "text": "sub_08011674 takes THREE args: `void sub_08011674(u8 *self, s32 b, s32 c)`. All matched callers pass the same constant twice, e.g. `sub_08011674(p, 0x180000, 0x180000)` (sub_0804B030) or `sub_08011674(r5, 0x100000, 0x100000)` (sub_0802A390). Passing both constants is what makes agbcc emit `movs r2,#imm; lsls r2,r2,#N; adds r0,r5,#0; adds r1,r2,#0; bl` (constant materialized in r2, then copied to r1). A 2-arg declaration/call folds it straight into r1 (`movs r1,#imm`), leaving a stray `movs r0,r0` after `bx r0` and shifting every branch offset (this was the long-standing sub_0802A390 wall). Prototypes used by matched callers: sub_080113A8(void*,void*), sub_08011674(void*,s32,s32), sub_08013558(void*,void*,void*), sub_08013978(void*,void*), sub_08013AC4(void*), sub_08013B5C(void*,void*), sub_08013C5C(void*,void*), sub_08013C8C(void*,void*), sub_080141AC(void*,void*), sub_080142C0(void*,void*), sub_080C31E0(void*,void*), sub_080C31E8(void*,void*,s32,void*), extern u32 D_08671BDC.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.3990738,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0804FA5C",
   "text": "Score 35 (99.8%, 175/175 insns) - only 7 regalloc diffs remain. Target keeps r1=0 live from `strb r1,[rX,#1]` through `strh r1,[r6]`, leaving r2 free for 0x22 offset; agbcc kills r1 early. Attempts with named zero variable (`u8 z=0`) spill to r9/sl and break calls (score 2925). No pure C fix for this regalloc wall. Best source preserved at score 35.",
   "by": "opencode-free-1",
@@ -109800,14 +109768,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080159BC",
-  "text": "Score 5690 (76.4%) after 1 compile. Major structural differences: stack frame size (0x48 vs target 0x70), register allocation completely different (target uses r7,r6,r5,r4,r9,r8,r10,r12; mine uses different mapping), argument handling differs (target loads 6 args from stack at +0x90/+0x94, mine doesn't). The m2c draft uses goto-labels and inline_fn macro that don't match target's control flow. Needs complete rewrite with proper stack layout, register assignment matching target's prologue (push r4-r7,lr; mov r7,r10; mov r6,r9; mov r5,r8; push r5,r6,r7; sub sp,#0x70), and proper argument handling for 6-parameter function.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4382243,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08004740",
   "text": "Permanent agbcc -O1 regalloc wall at score 10 (44/45 byte-exact). Sole diff commutative-add dest register (target adds r0,r0,r1 vs agbcc adds r1,r1,r0) unselectable in pure C; register-asm banned. Leaf, no callees. Not not_c; only compiler change closes it. Best score-10 source preserved above. Do not burn budget.",
   "by": "opencode-beam-free-1",
@@ -110372,14 +110332,6 @@
   "text": "Proven agbcc leaf-frame wall at score 467 (confirmed by my own compile): target leaf ends bare bx lr with lr free; agbcc emits extra push {lr}/pop {r0}; bx r0 because ~6 values are live, shifting all branch/literal offsets. Plus OR-path operand swap (ldrb r0/movs r1 vs target ldrb r1/movs r0) and adds r1,#4 scheduling diff. ~40+ prior attempts across all C forms/flags floor at 467; register-asm pinning banned (#354). Only a compiler change removes the push. Not matchable in pure C. Best score-467 source preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.4409754,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080159BC",
-  "text": "m2c draft is structurally wrong: wrong stack frame (0x48 vs 0x70), wrong arg handling, wrong register mapping, wrong call target (sub_08015BA8 signature mismatch). Needs complete rewrite from assembly; not a quick fix. Releasing to work on tractable small functions. Cannot get closer with current draft.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683534.441012,
   "score_before": null,
   "score_after": null
  },
@@ -114848,7 +114800,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802EE94",
+  "function": "spawnKind69ScriptSprite",
   "text": "Regalloc/literal-pool wall at 3178 (88.0%): OR-chain and 5-arg prototype are the two decisive fixes (from matched sibling sub_0805AE9C). Remaining differences: branch offsets (beq #0x9a vs #0x90), literal pool addresses, table-index computation scheduling, register allocation (r4 vs sl). 4 previous compiles confirm ceiling; C edits cannot control per-instruction scheduling. Cannot get closer.",
   "by": "opencode-free-1",
   "created_at": 1795683534.463152,
@@ -115260,6 +115212,14 @@
   "text": "NOT compiled. 18-insn function at 0x0801BE80, best 215. Ends with bare `bx lr` \u2014 leaf-frame wall: agbcc emits push {lr}/pop {r0}/bx r0 vs ROM's bx lr. Body byte-exact (clamp u16 to 1000 if result <= 1000). Unsolvable from C per prior agents. Releasing to sub_080171A4 which ends with bx r0 + literal pool (boundary candidate, no leaf wall since it starts with push {lr}).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.465192,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "Large function (278 insns), score 6780. Not a boundary case - deep regalloc wall. Previous agents exhausted structural levers. Releasing to target low-score boundary cases.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4652672,
   "score_before": null,
   "score_after": null
  },
@@ -119000,14 +118960,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080159BC",
-  "text": "Cannot get closer with the current m2c draft \u2014 it is structurally wrong (frame 0x48 vs 0x70, args from params instead of stack +0x90/+0x94, wrong regalloc, shifted call offsets), needing a full from-scratch rewrite rather than incremental edits. Session budget of 8 compiled claims reached; stopping here. Best source and diff analysis preserved for the next agent.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4842088,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000CA0",
   "text": "Permanent frameless-branchy-leaf wall (#300) at score 245. Body 20/20 insns byte-exact (list tail pop returning node[1], clearing node[1] and prev->next), but agbcc emits push {lr}/pop {r1}/bx r1 vs ROM bare bx lr, shifting all 4 branch offsets +2. Two compiles this session (first a define-less m2c draft that failed to compile, then valid plain C -> 245); ~100 prior attempts and all flag variants floor at 245. No pure-C form yields bare bx lr for a branched Thumb leaf. Not hand asm; not not_c; only a toolchain change could close. Best source preserved.",
   "by": "opencode-hy4-flash-free-2",
@@ -122640,7 +122592,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802EE94",
+  "function": "spawnKind69ScriptSprite",
   "text": "Cannot get closer in pure C: 3178 (88.0%) is a known scheduling/regalloc/literal-pool ceiling (prior agents spent 8 attempts; local-index variant regressed to 4103). Structure, calls and control flow verified correct via matched sibling sub_0805AE9C template. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5024598,
@@ -123916,6 +123868,14 @@
   "text": "No C step remains: score 10 is a proven permanent agbcc -O1 commutative-add destination tie-break (44/45 instructions byte-exact; only the row-base add destination differs), with ~870 prior attempts, -O1 confirmed optimal and register asm banned. Not not_c, not hand asm, not a boundary case. Best source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5087845,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "MATCHED (278 insns, 7 compiles) by rebuilding from matched sibling sub_08053174's exact C skeleton, not the old attempt. Recipe: (1) P struct: f24 at 0x24, f28(struct E*) at 0x28, f48 at 0x48 \u2014 inserting a pad array before u32 f24 shifts it to 0x28 (alignment) and breaks ~10 literal rows. (2) table D_080CB2B8 needs TWO views on one base: `struct{u16 f0;s16 f2;}`[0xCD].f2 for f18 (stride 4), and `struct{u16 f4;u16 f6;u16 fE;u8 _6[0xE];}`[f1C].f4/.fE (stride 0x14; f4 at +0, fE at +4). (3) the big OR expression must go into a u32 local (u16 adds lsls/lsrs truncation). (4) endgame: THREE distinct pointer locals q0/q1/r4 for the 3 recomputations of `arg0 + f22*2` \u2014 reusing one local collapses them and costs 4 insns; write `q = (u8*)(arg0->f22 * 2 + (u32)arg0)` (computed value FIRST) to get `adds r0,r0,r6` not `adds r0,r6,r0`. (5) `u32 *lit = &D_08671BB0;` (`extern u32 D_08671BB0;`) loads the literal early; `base2` load placed after `idx = r4[0]` gets `ldrb; ldr; lsls` order. (6) final 2-row reorder fixed by `e3 = r5->f28; one = 1; e3->f3 = one;` \u2014 forces the pointer load before the constant materialization.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5088215,
   "score_before": null,
   "score_after": null
  },
@@ -131916,14 +131876,6 @@
   "text": "Cannot get closer from pure C. Best 1610 (93.1%, 234/234 insns). All instructions/structure correct; remaining 46 regalloc and 12 operand diffs are agbcc register-allocation choices for literals and loaded values that natural C changes did not affect (consistent with prior notes). Releasing now at 1/8 no-better to continue remaining required claims this session.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.5502124,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080159BC",
-  "text": "Cannot get closer from this draft without a complete rewrite from target assembly. Best 5690 (76.4%): stack frame size wrong (0x48 vs 0x70), stack-passed args 5-6 not handled correctly, register allocation and control flow diverge extensively. Releasing now at 0/8 no-better so I can claim and compile the 8th function required this session.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.5502625,
   "score_before": null,
   "score_after": null
  },
@@ -143044,14 +142996,6 @@
   "text": "Regalloc wall at -O1, score 20 (160/160 insns, 4 regalloc rows). Sole diff: target loads halfword into r0 and mask copy into r1; agbcc loads into r1 and mask into r0. Tried u16/u32 temps, declaration order, register asm (rejected). ~48 prior attempts. Ordinary C, not hand asm, not not_c. Best source preserved at 20.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.605994,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080159BC",
-  "text": "Cannot get closer from C in this session (explicit release). 6-arg function with 0x70 stack frame and an intricate control flow; inherited m2c draft scores 5690 and my full from-assembly rewrite scores 12876. The rewrite has correct semantics/structs/call signature but mismatched stack frame (0x64 vs 0x70) and a totally different register allocation (target: node=r7, arg5=r5, res=r6, prev=r9, all four args spilled to sp+0x54..0x60; mine: arg0/arg2 in sb/sl, only two args spilled). Hundreds of regalloc/operand diffs remain; reproducing this needs the original's exact local declaration set and order. Ordinary correct C, not hand asm, not not_c. Releasing explicitly to spend remaining session claims on tractable functions.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.6060314,
   "score_before": null,
   "score_after": null
  },
@@ -167264,14 +167208,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080159BC",
-  "text": "Score 18885 (21.9%), far from best 5690. Complex 6-arg function with 0x70 stack frame, stack-passed args 4-5 at sp+0x90/+0x94, linked list iteration, complex label-based control flow. My C had wrong stack frame (0x40 vs 0x70), wrong arg handling, wrong register allocation. Needs complete from-assembly rewrite. ~31 prior attempts all stuck at 5690+. Ordinary correct C, not hand asm, not not_c.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.7274773,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080C3B80",
   "text": "Terminal class-B frameless-leaf wall (~63 attempts total). Target is bare `bx lr` (24 insns, no frame); agbcc in this 0x080C3xxx range always emits `push {lr}` ... `pop {r1}; bx r1` for any branchy leaf, adding 2 insns and shifting the final `bge` by +2 (#0x2c -> #0x2e). Body logic is exact: abs(arg0); if abs<=0xFFF lookup (u16)D_086600A4[abs] else 0x10; negate result if original arg0<0. This session: best UB source -> 295; clean explicit copies (a,o,v all initialized) -> 445 (prologue `adds r2,r0; adds r3,r2` exact but pad/pool offsets wrong); UB + o copy -> 295 (no change); UB + if/else instead of ternary -> 315 (fewer diff rows but higher score). Residual: frame pair, lookup result in r0 instead of r2, prologue copies. All flags/naked tried by earlier agents; not hand asm, not not_c, not boundary. Best-295 source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -169100,14 +169036,6 @@
   "text": "Cannot get closer: proven terminal agbcc -O1 tail cross-jumping/zero-CSE wall at 415 (136/137 insns, 96.9%). Target has movs r2,#0 inside each lower branch with one shared str at merge and orrs r1,r0 in the <=0 branch; agbcc always CSEs the zero store and swaps OR operands. ~72 attempts by several models exhausted every C form. Ordinary correct C; not hand asm, not not_c, not boundary. Releasing for a fresh function.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.7369654,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080159BC",
-  "text": "Score 5690 (76.4%) - m2c draft structurally wrong: stack frame 0x48 vs target 0x70, 6-arg function loads args 4-5 from stack at +0x90/+0x94, register allocation completely different (target: node=r7, arg5=r5, res=r6, prev=r9, all four args spilled to sp+0x54..0x60; mine: arg0/arg2 in sb/sl). Complex label-based control flow with linked list iteration. ~33 prior attempts all stuck at 5690+. Needs complete from-assembly rewrite with proper stack layout, register assignment matching target's prologue (push r4-r7,lr; mov r7,r10; mov r6,r9; mov r5,r8; push r5,r6,r7; sub sp,#0x70). Not a quick fix. Ordinary correct C, not hand asm, not not_c.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.7370021,
   "score_before": null,
   "score_after": null
  },
@@ -183104,14 +183032,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080159BC",
-  "text": "Compiled the best (m2c) source: 5690 (76.4%), 249 vs 242 insns. It cannot be pushed further by tweaking \u2014 it needs a full rewrite of the stack frame and control flow, which I am not going to reach in this claim's budget. Concrete rewrite spec from the target (for the next agent): signature `s32 sub_080159BC(s32 a0, s32 a1, s32 a2, s32 a3, u32 mask5, Out *out6)` \u2014 args 5/6 arrive at caller sp+0x90/+0x94 = own sp+0x90/+0x94 after push{4,5,6,7,lr}+push{r5,r6,r7}+sub sp,#0x70. Frame 0x70: outgoing call args at sp+0x00..0x10 (a3, &sp4C, &sp50, &sp14, mask); u16 sp14; s32 sp18; a 0x20-byte candidate struct at sp+0x2C {u16 f0; u16 f2; s32 f4,f8,fC,f10,f14,f18; s32 *f1C}; s32 sp4C, sp50; s32 sp54..sp60 holding a0..a3; sp64 = (u16)mask; s32 sp68. Prologue order in target: store a0..a3 to sp54..60, load mask from caller stack + `lsls/ lsrs #0x10` store sp64, load out6 into r5, clear out6->{0,4,8,C,10} with one `movs r0,#0` and `mov sb,r0` (r9 = prev = 0), then `ldr r7,=*(void**)0x0201E8A0`. Loop: call `sub_08015BA8(node=r7, sp54, sp58, sp5C, sp60, &sp4C, &sp50, &sp14, sp64)` with the 5 stack words above; if 0 -> next; else fill sp2C (f0=(u16)sp64, f2=sp14, f4=sp54, f8=sp58, fC=sp4C, f10=sp50, f14=sp5C, f18=sp60, f1C=&sp18), obj=*(void**)(node+0xC), if *(s32*)(obj+0x9C)==0 call sub_0801604C(&sp2C) else sub_080C31E8(obj,&sp2C); then if prev(r9)==0 { out->f0 |= sp18.f0; out->f4 = sp18.f4; out->f8 = sp18.f8; } else do the AABB logic on node vs prev: bounds n_r8=(n.f4-n.f8)<<16, n_r12=(n.f4+n.f8)<<16, n_sp68=(n.f6+n.fA)<<16, p_r4=(p.f4-p.f8)<<16, p_r3=(p.f4+p.f8)<<16, p_r10=(p.f6+p.fA)<<16; then the a2(sp5C)>0 branch (out->f4 = max), a3(sp60)>0 branch (out->f8 = min), else the two -/+ overlap branches with `& 0xFF77` masks and f8 copies exactly as in the m2c field offsets but with target registers; tail sets prev=r9=node; next node = *(node+0x10); end: return (out->f0 != 0). Target register plan: node r7, out r5, &sp18 r6, prev r9, r8/r10/r12 bounds. Use struct Node {u16 f0; s16 f2,f4,f6,f8,fA; u8 _C[4]; u32 f10;} for +0x10 next and +0xC child; the child object has u16 f0 at +0, s16 f4/f6/f8/fA, s32 f8. This is the only realistic path to a match; the m2c draft's frame is 0x48 and its sp2C is a single int, so everything cascades. Not hand asm, not not_c, no boundary issue.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.8080883,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0809AFE4",
   "text": "Explicit impossibility for the coupled zero/regalloc wall: best remains 235 after 84+ attempts including 5 here. Target needs +0x14 zero in r0, body index const in r1, and a fresh r1 zero before strb \u2014 a single dependency chain \u2014 but agbcc unconditionally puts the +0x14 zero in r1, keeps that pseudo live across the body, puts index const in r2, and never materializes the second zero. All 5 variants tried (p3C for +0xC, `<<1` index, u8/u32/s32 zero locals with all assignment positions) either CSE-merge or hoist the zero. 57/57 insns correct, all logic exact; no C spelling can flip the allocator. Not boundary, not not_c, not hand asm. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -185036,14 +184956,6 @@
   "text": "Terminal class-B frameless loop-leaf interwork wall (~70 prior attempts + 4 compiles this session). Target 11 insns, bare frameless bx lr (+ trailing padding not in diff, so not boundary). Best C `void sub_0808B458(u8 *a){ s32 i; u8 *p; i=0; p=a+0xC; do{ if(*(u16*)(p+0xE)==0) break; p+=0x10; i+=4; }while(i<=0); }` = 225 with ALL 11 body insns byte-exact; residual ONLY agbcc -mthumb-interwork's mandatory push {lr}/pop {r0};bx r0 frame + beq #0x14->#0x16, ble #6->#8 shifts. This session: do-while+break 225, for(;;)+conditional breaks 225, for(;;)+two breaks 225, param u8*/s32 variants 225. search_flags/try_compiler exhausted by prior agents (all levels 225, -mno-thumb-interwork gives 320 pop{pc}, only agbcc available). Scan of 16-byte entries checking u16 at +0xE with i+=4 while i<=0. No pure-C form removes compiler-generated frame for this backward-branch leaf. Not hand asm, not not_c, not boundary. Best 225 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.8176315,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080159BC",
-  "text": "Releasing explicitly now: inherited best is 5690 (m2c draft, 20+ prior attempts by other agents), my two fresh full rewrites scored 8672 and 9058. The control flow/arithmetic are fully worked out and documented in my previous note; the blocker is purely agbcc register allocation/stack layout (prev must land in sb, &cand must be CSE'd into one base register), which requires guess-the-original-source across a 242-instruction frame with 10 live values across calls. Not feasible within a claim budget that must also cover 7 more claims. Not hand-written assembly; ordinary C. My second source is the best structural base. Please let this release through so I can spend remaining claims on tractable functions.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.8176796,
   "score_before": null,
   "score_after": null
  },
@@ -205072,14 +204984,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080159BC",
-  "text": "Releasing explicitly now (1 compile: 5970, no better than the saved 5690; the 5690 source stays as best). Full spec is in my previous note on this function: the only remaining work is a from-assembly rewrite whose local declaration order reproduces the target slot layout (outgoing 5 words at sp+0..0x10, u16 sp14, s32 sp18, 0x20-byte cand at 0x2C, s32 0x4C/0x50, a0..a3 at 0x54/58/5C/60, mask at 0x64, s32 sp68) and whose `last = node` sits only on the paths reaching 0x08015B82. 9 agents / 38+ attempts confirm the m2c draft at 5690 is not improvable by incremental edits within a claim, and I have 13 more claims to compile this session. Ordinary C, not hand-written assembly, no boundary issue.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9190242,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080AA348",
   "text": "Confirmed 296 (98.4%, 186/186 insns, first 8 exact) and tested 3 new ideas this session, all no better: (1) a separate `check` local used only for the null test (gcc CSEs it, 296), (2) `void *gfx` instead of `s32 gfx` with casts (296), (3) moving `new_var = arg0;` to the top and using it for the first store (1792, +2 insns and extra `adds r5,r7,#0`). The missing `mov r0,r8` copy-back before `str r0,[r7,#0x38]` is the game-compiler's redundant copy that our agbcc removes whenever r0 still provably holds gfx; no C spelling forces a reload from the callee-saved copy. Other residual: one extra `adds r5,r7,#0` in the fail path and pop {r0}/bx r0 vs pop {r1}/bx r1. Best source remains the brief's 296 version (with `new_var` assigned at the sub_08005820 site).",
   "by": "opencode-hy4-flash-free-1",
@@ -205356,14 +205260,6 @@
   "text": "Asking again with the reason it cannot get closer: 2 compiles this session (inherited 2417 confirmed; trying a named `s16 idx` for the table index regressed to 3642 \u2014 it drops the target's `adds r4,r0,#0` arg copy and the whole first-block chain shifts, so the lookup MUST stay inline as `&tbl[*(s16 *)((u8 *)r4 + 0x1C)]`, evaluated twice). That was the last untried structural idea; the residual is pure agbcc -O1 caller-saved rotation (39 regalloc rows): the index/entry chain sits one register lower than the ROM (`movs r0,#0x1C; ldrsh r1,[r4,r0]; lsls r0,r1,#2` vs ROM `movs r1,#0x1C; ldrsh r0,[r4,r1]; lsls r1,r0,#2`), the 0x36 compare uses r2 instead of the ROM's r0 (which is why the ROM has an extra `mov r2,sl` before sub_0805E6A8), and sp+8/sp+0xC store order is swapped (the sp8v/spCv swap was already tried: 2425). All logic/offsets/constants/callees verified correct across 58 prior attempts. Not hand-written assembly, not not_c, no boundary issue. Best 2417 source preserved.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.9204566,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080159BC",
-  "text": "Why it cannot get closer in this claim: the C semantics/structs/call signature are fully known (see the detailed spec in earlier notes), and 39 attempts across 9 agents \u2014 including full from-assembly rewrites \u2014 all failed to reproduce the target's 0x70 stack frame and register coloring. The residual is purely agbcc local-declaration-order/type guesswork across a 242-insn function with 10 live values spanning calls; there is no incremental edit that closes a 5690 gap. Incremental tweaking is provably futile here and a fresh rewrite has <5% success odds while consuming the whole session budget. Ordinary correct C, not hand-written assembly, no boundary issue. Releasing so the 8 compiled claims go to tractable functions.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.920494,
   "score_before": null,
   "score_after": null
  },
@@ -339117,43 +339013,207 @@
   "score_after": 215
  },
  {
-  "function": "spawnKind29ScriptSprite",
-  "text": "Released because its agent stopped (it failed 5 times in a row, each soon after it started: the session ended without compiling anything (its messages are in its details)); its attempts are kept.",
-  "by": "api-gemma4-e4b-1",
-  "created_at": 1795683533.9319875,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080B6E58",
+  "text": "Score 20 (99.8%, 176/176 insns), only 4 regalloc diffs remain at tail: target uses r1 for zero store and r2 for 0x22 reload (rows 140-141,150-151), candidate uses r2 for zero and r0 for 0x22. Tried declaration reorder, upd2 inline form, z init variants, idx22 caching (catastrophic), p18/fn reorder - no improvement. Struct Z {u32 w;u8 b;} z={0,0} is important; literal 0 or u8 zb regresses badly.\nDeclaration reorder, z init forms, |=0x1000 inline, idx22 temp, p18/fn reorder\nAll equal (20) or much worse; regalloc at tail unchanged",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795708508.9729702,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:845dd724528f33ef306f51f15e7dcf2aada0b3e4b76e96ca290a87db0730ba7e"
  },
  {
-  "function": "spawnKind29ScriptSprite",
-  "text": "Minimal only. Next agent use m2c draft.",
+  "function": "sub_080147A4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-branchy-leaf wall (terminal). All 23 real body instructions byte-exact at score 305; sole residual is agbcc -mthumb-interwork's mandatory push{lr}/pop{r1};bx r1 LR frame on this four-branch Thumb leaf vs ROM bare bx lr, plus mechanical blo displacement (+2) and dropped pool-alignment movs r0,r0. Thumb-1 has no setcc; four conditional branches intrinsic; ~216 lifetime attempts across models/forms/flags/toolchains agree 305 is hard floor. Pure correct C (nested range compare), not hand asm, not_c=false (compiler artifact), exact 48-byte extent incl pool, no boundary, no callee dependency. Best candidate revision 10b487389a032202ff77 (score 305). No C step improves it; needs compiler/flag change to remove interwork frame.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708533.5700562,
+  "score_before": 305,
+  "score_after": 305
+ },
+ {
+  "function": "sub_0801C4BC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-branchy-leaf wall (terminal). All 18 body instructions byte-exact at score 225; sole residual is agbcc -mthumb-interwork's mandatory push{lr}/pop{r0};bx r0 LR frame on this two-branch Thumb leaf vs ROM bare bx lr, plus +2 bne displacement ripple. Thumb-1 has no setcc/cmov; two real conditional branches required; ~237 lifetime attempts across models/forms/flags/toolchains agree 225 is floor. Pure correct C, not hand asm, not_c=false (compiler artifact), exact 36-byte extent, no boundary, no callee dependency. Best candidate revision c80e41dd1b9b8c9067dd (score 225). No C step improves it; needs compiler/flag change to remove interwork frame.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708533.790437,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "sub_0803F7CC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-branchy-leaf wall (terminal). All 18 body instructions byte-exact at score 225; sole residual is agbcc -mthumb-interwork's mandatory push{lr}/pop{r0};bx r0 LR frame on this two-branch Thumb leaf vs ROM bare bx lr, plus +2 bne displacement ripple. Thumb-1 has no setcc/cmov; two real conditional branches required; ~237 lifetime attempts agree 225 is floor. Pure correct C, not hand asm, not_c=false (compiler artifact), exact 36-byte extent, no boundary, no callee dependency. Best candidate revision bc08416454c21dc6b004 (score 225). No C step improves it; needs compiler/flag change to remove interwork frame.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708533.905181,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "sub_08062A90",
+  "text": "Baseline 575 verified. Residual: 35 register rows (P=r5/copy=r4 vs target P=r4/copy=r5), ldr r5 vs r4 global base, extra movs r0,#0, missing trailing movs r0,r0. All six linker 'wrong callee' warnings are raw-offset false positives (base 0x08062A90: +0x7d1c=sub_0806A7AC, +0x9a24=sub_0806C4B4, +0x28af4=sub_0808B584). Prior ~123 attempts/7 models bottomed at 300 under -Os. Next step: try a two-field struct-base rewrite under -Os.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795708555.5998874,
+  "score_before": 575,
+  "score_after": 575,
+  "handoff_inputs": "fd9f45f67e8e14748929d22155b2d0f48a5c2243cea7aaff409031a7f159a90f:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:bca3d119687678c399f03ccd9c7d059c27dfc0a4982348ca456e96f96b6c45b6"
+ },
+ {
+  "function": "sub_08095F34",
+  "text": "Rechecked 20 (99.8%, 176/176 insns). Only 4 regalloc rows remain: `mov r1,sp` vs `mov r2,sp` at two stack-address sites (rows 33-34,114-115). All calls/data/control flow exact. try_local_repairs compare (prototype, dead_local_stage, decl order) gave no improvement; matches prior handoff as agbcc -O2 local-allocation/coalescing tie.\ntry_local_repairs compare on prototype, dead_local_stage, declaration_order\nNo improvement; identical 4-row sp register diff blieb",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795708555.6416948,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:aae354ffc7a71c0901ecc5ef6797b7fdb205e73c847923bffb76a59fb0ead3ff"
+ },
+ {
+  "function": "getTileTerrain",
+  "text": "Cannot reach 4; releasing.",
   "by": "opencode-free-1",
-  "created_at": 1795683533.9877605,
+  "created_at": 1795683533.9170597,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnKind29ScriptSprite",
-  "text": "Cannot get closer from C within this session: best 6780 (74.4%). After 11 compiles I exhausted the structural levers: OR-chain short-circuit (9880), shared table struct (6785), s16 f1C, early b+0x34, correct struct padding. Remaining diffs are deep agbcc regalloc (a->fAC r4 vs ours r7, result r7 vs ours r5, b r5 vs ours r4) plus literal-pool/branch offsets caused by 15 fewer instructions; declaration reorder had no effect. No further C lever found. Best source = compile #9.",
-  "by": "opencode-hy4-flash-free-5",
-  "created_at": 1795683534.1418667,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind29ScriptSprite",
-  "text": "Large function (278 insns), score 6780. Not a boundary case - deep regalloc wall. Previous agents exhausted structural levers. Releasing to target low-score boundary cases.",
+  "function": "moveObjectHorizontally",
+  "text": "Large function. Not attempted fully. Released.",
   "by": "opencode-free-1",
-  "created_at": 1795683534.4652672,
+  "created_at": 1795683533.9874375,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnKind29ScriptSprite",
-  "text": "MATCHED (278 insns, 7 compiles) by rebuilding from matched sibling sub_08053174's exact C skeleton, not the old attempt. Recipe: (1) P struct: f24 at 0x24, f28(struct E*) at 0x28, f48 at 0x48 \u2014 inserting a pad array before u32 f24 shifts it to 0x28 (alignment) and breaks ~10 literal rows. (2) table D_080CB2B8 needs TWO views on one base: `struct{u16 f0;s16 f2;}`[0xCD].f2 for f18 (stride 4), and `struct{u16 f4;u16 f6;u16 fE;u8 _6[0xE];}`[f1C].f4/.fE (stride 0x14; f4 at +0, fE at +4). (3) the big OR expression must go into a u32 local (u16 adds lsls/lsrs truncation). (4) endgame: THREE distinct pointer locals q0/q1/r4 for the 3 recomputations of `arg0 + f22*2` \u2014 reusing one local collapses them and costs 4 insns; write `q = (u8*)(arg0->f22 * 2 + (u32)arg0)` (computed value FIRST) to get `adds r0,r0,r6` not `adds r0,r6,r0`. (5) `u32 *lit = &D_08671BB0;` (`extern u32 D_08671BB0;`) loads the literal early; `base2` load placed after `idx = r4[0]` gets `ldrb; ldr; lsls` order. (6) final 2-row reorder fixed by `e3 = r5->f28; one = 1; e3->f3 = one;` \u2014 forces the pointer load before the constant materialization.",
+  "function": "getTileTerrain",
+  "text": "Best 630 (84.4%) with: `s32 r4=sub_08004740(arg0); if(r4!=-1){ r4=D_080C98D0[(((arg1>>16)&7)<<1)+(((arg2>>16)&7)<<4)+(r4<<7)]; if(r4&0x80)return 1; if(r4&0x8000)return r4&0x3F; return 0;} return 0;` (extern s32 sub_08004740(s32); extern u16 D_080C98D0[];). Main remaining diffs: target uses `bne` over early `movs r0,#0;b end` block (I got `beq` to end), extra `lsls r1,r1,#1` from u16 array indexing with byte-offset value (target computes byte offset directly: `*2,*16,*128` then ldrh without extra scale), and small branch target/epilogue layout diffs. Link warning: pointer to D_080C98D0 differs in link context. Tried byte-offset via u8* cast but regalloc worsened; element-index forms shifted wrong. Needs matching early-exit layout and exact index addressing form.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.0027287,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "getTileTerrain",
+  "text": "Matched sub_08007D7C (and sub_08007DD8): table-lookup bit-test dispatcher. To get agbcc's exact layout: `s32 r = sub_08004740(arg0,arg1,arg2); if (r == -1) return 0; r = D_080C98D0[r][(arg2>>16)&7][(arg1>>16)&7]; if (r & 0x80) return 1; return (r & 0x8000) ? (r & 0x3F) : 0;`\nCritical: use ONE s32 local for both index and loaded value; write the -1 check as a plain early `return 0`; and the LAST bit-test as a TERNARY while earlier ones are `if`s. Having exactly two `return 0` statements makes agbcc emit `bne skip / movs r0,#0 / b end` for -1; three return-0 statements merge the blocks and flip the branch. A fully nested ternary duplicates blocks; three separate ifs return-0s merge wrong.",
   "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5088215,
+  "created_at": 1795683534.0076706,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "moveObjectHorizontally",
+  "text": "Matched (score 0). Key steps from 26505 stub: (1) sub_080159BC is called with SIX args \u2014 the 5th/6th are stack args at [sp]/[sp+4] (0x900|self->f6, and &u32 buf[5] at sp+8); declaring `u32 buf[5]` and passing `(u32)buf` directly gives the exact 0x1C frame and stack offsets. (2) Table D_080CB278 is indexed `[(u16)ret]` with NO *2 (agbcc folds element size into the (u16)<<1 shift). (3) Collision direction tests reload `*(s32*)(self+0x10)` (original d), not the mutated local d. (4) The boundary-crossing collision check #1 (mask 0xA) is UNCONDITIONAL; only checks #2 (0x8) and #3 (0x20) are flag-guarded. (5) `if (old&0xFFFF0000)==(nx&0xFFFF0000) { store nx; } else {...}` gives the target's inline store block order. (6) FINAL REGALLOC FIX (score 40 -> 0): replacing `*(u16*)(self+2) |= K` with a NAMED STRUCT FIELD `((struct Flags*)self)->f2 |= K` (struct {u8 _0[2]; u16 f2;}) flips agbcc's register choice from target's `ldrh r1,[r5,#2]; movs r0,#K; orrs r0,r1` (i.e. result in constant's reg) to match \u2014 plain pointer arithmetic always gave `ldrh r0; movs r1,#K; orrs r0,r1`. A plain u16 temporary did NOT work.",
+  "by": "opencode-hy4-flash-free-7",
+  "created_at": 1795683534.142068,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "moveObjectHorizontally",
+  "text": "sub_08011674 takes THREE args: `void sub_08011674(u8 *self, s32 b, s32 c)`. All matched callers pass the same constant twice, e.g. `sub_08011674(p, 0x180000, 0x180000)` (sub_0804B030) or `sub_08011674(r5, 0x100000, 0x100000)` (sub_0802A390). Passing both constants is what makes agbcc emit `movs r2,#imm; lsls r2,r2,#N; adds r0,r5,#0; adds r1,r2,#0; bl` (constant materialized in r2, then copied to r1). A 2-arg declaration/call folds it straight into r1 (`movs r1,#imm`), leaving a stray `movs r0,r0` after `bx r0` and shifting every branch offset (this was the long-standing sub_0802A390 wall). Prototypes used by matched callers: sub_080113A8(void*,void*), sub_08011674(void*,s32,s32), sub_08013558(void*,void*,void*), sub_08013978(void*,void*), sub_08013AC4(void*), sub_08013B5C(void*,void*), sub_08013C5C(void*,void*), sub_08013C8C(void*,void*), sub_080141AC(void*,void*), sub_080142C0(void*,void*), sub_080C31E0(void*,void*), sub_080C31E8(void*,void*,s32,void*), extern u32 D_08671BDC.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.3990738,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Large function. Released.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9818068,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Score 5690 (76.4%) after 1 compile. Major structural differences: stack frame size (0x48 vs target 0x70), register allocation completely different (target uses r7,r6,r5,r4,r9,r8,r10,r12; mine uses different mapping), argument handling differs (target loads 6 args from stack at +0x90/+0x94, mine doesn't). The m2c draft uses goto-labels and inline_fn macro that don't match target's control flow. Needs complete rewrite with proper stack layout, register assignment matching target's prologue (push r4-r7,lr; mov r7,r10; mov r6,r9; mov r5,r8; push r5,r6,r7; sub sp,#0x70), and proper argument handling for 6-parameter function.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4382243,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "m2c draft is structurally wrong: wrong stack frame (0x48 vs 0x70), wrong arg handling, wrong register mapping, wrong call target (sub_08015BA8 signature mismatch). Needs complete rewrite from assembly; not a quick fix. Releasing to work on tractable small functions. Cannot get closer with current draft.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683534.441012,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Cannot get closer with the current m2c draft \u2014 it is structurally wrong (frame 0x48 vs 0x70, args from params instead of stack +0x90/+0x94, wrong regalloc, shifted call offsets), needing a full from-scratch rewrite rather than incremental edits. Session budget of 8 compiled claims reached; stopping here. Best source and diff analysis preserved for the next agent.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4842088,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Cannot get closer from this draft without a complete rewrite from target assembly. Best 5690 (76.4%): stack frame size wrong (0x48 vs 0x70), stack-passed args 5-6 not handled correctly, register allocation and control flow diverge extensively. Releasing now at 0/8 no-better so I can claim and compile the 8th function required this session.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.5502625,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Cannot get closer from C in this session (explicit release). 6-arg function with 0x70 stack frame and an intricate control flow; inherited m2c draft scores 5690 and my full from-assembly rewrite scores 12876. The rewrite has correct semantics/structs/call signature but mismatched stack frame (0x64 vs 0x70) and a totally different register allocation (target: node=r7, arg5=r5, res=r6, prev=r9, all four args spilled to sp+0x54..0x60; mine: arg0/arg2 in sb/sl, only two args spilled). Hundreds of regalloc/operand diffs remain; reproducing this needs the original's exact local declaration set and order. Ordinary correct C, not hand asm, not not_c. Releasing explicitly to spend remaining session claims on tractable functions.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.6060314,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Score 18885 (21.9%), far from best 5690. Complex 6-arg function with 0x70 stack frame, stack-passed args 4-5 at sp+0x90/+0x94, linked list iteration, complex label-based control flow. My C had wrong stack frame (0x40 vs 0x70), wrong arg handling, wrong register allocation. Needs complete from-assembly rewrite. ~31 prior attempts all stuck at 5690+. Ordinary correct C, not hand asm, not not_c.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.7274773,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Score 5690 (76.4%) - m2c draft structurally wrong: stack frame 0x48 vs target 0x70, 6-arg function loads args 4-5 from stack at +0x90/+0x94, register allocation completely different (target: node=r7, arg5=r5, res=r6, prev=r9, all four args spilled to sp+0x54..0x60; mine: arg0/arg2 in sb/sl). Complex label-based control flow with linked list iteration. ~33 prior attempts all stuck at 5690+. Needs complete from-assembly rewrite with proper stack layout, register assignment matching target's prologue (push r4-r7,lr; mov r7,r10; mov r6,r9; mov r5,r8; push r5,r6,r7; sub sp,#0x70). Not a quick fix. Ordinary correct C, not hand asm, not not_c.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.7370021,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Compiled the best (m2c) source: 5690 (76.4%), 249 vs 242 insns. It cannot be pushed further by tweaking \u2014 it needs a full rewrite of the stack frame and control flow, which I am not going to reach in this claim's budget. Concrete rewrite spec from the target (for the next agent): signature `s32 sub_080159BC(s32 a0, s32 a1, s32 a2, s32 a3, u32 mask5, Out *out6)` \u2014 args 5/6 arrive at caller sp+0x90/+0x94 = own sp+0x90/+0x94 after push{4,5,6,7,lr}+push{r5,r6,r7}+sub sp,#0x70. Frame 0x70: outgoing call args at sp+0x00..0x10 (a3, &sp4C, &sp50, &sp14, mask); u16 sp14; s32 sp18; a 0x20-byte candidate struct at sp+0x2C {u16 f0; u16 f2; s32 f4,f8,fC,f10,f14,f18; s32 *f1C}; s32 sp4C, sp50; s32 sp54..sp60 holding a0..a3; sp64 = (u16)mask; s32 sp68. Prologue order in target: store a0..a3 to sp54..60, load mask from caller stack + `lsls/ lsrs #0x10` store sp64, load out6 into r5, clear out6->{0,4,8,C,10} with one `movs r0,#0` and `mov sb,r0` (r9 = prev = 0), then `ldr r7,=*(void**)0x0201E8A0`. Loop: call `sub_08015BA8(node=r7, sp54, sp58, sp5C, sp60, &sp4C, &sp50, &sp14, sp64)` with the 5 stack words above; if 0 -> next; else fill sp2C (f0=(u16)sp64, f2=sp14, f4=sp54, f8=sp58, fC=sp4C, f10=sp50, f14=sp5C, f18=sp60, f1C=&sp18), obj=*(void**)(node+0xC), if *(s32*)(obj+0x9C)==0 call sub_0801604C(&sp2C) else sub_080C31E8(obj,&sp2C); then if prev(r9)==0 { out->f0 |= sp18.f0; out->f4 = sp18.f4; out->f8 = sp18.f8; } else do the AABB logic on node vs prev: bounds n_r8=(n.f4-n.f8)<<16, n_r12=(n.f4+n.f8)<<16, n_sp68=(n.f6+n.fA)<<16, p_r4=(p.f4-p.f8)<<16, p_r3=(p.f4+p.f8)<<16, p_r10=(p.f6+p.fA)<<16; then the a2(sp5C)>0 branch (out->f4 = max), a3(sp60)>0 branch (out->f8 = min), else the two -/+ overlap branches with `& 0xFF77` masks and f8 copies exactly as in the m2c field offsets but with target registers; tail sets prev=r9=node; next node = *(node+0x10); end: return (out->f0 != 0). Target register plan: node r7, out r5, &sp18 r6, prev r9, r8/r10/r12 bounds. Use struct Node {u16 f0; s16 f2,f4,f6,f8,fA; u8 _C[4]; u32 f10;} for +0x10 next and +0xC child; the child object has u16 f0 at +0, s16 f4/f6/f8/fA, s32 f8. This is the only realistic path to a match; the m2c draft's frame is 0x48 and its sp2C is a single int, so everything cascades. Not hand asm, not not_c, no boundary issue.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.8080883,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Releasing explicitly now: inherited best is 5690 (m2c draft, 20+ prior attempts by other agents), my two fresh full rewrites scored 8672 and 9058. The control flow/arithmetic are fully worked out and documented in my previous note; the blocker is purely agbcc register allocation/stack layout (prev must land in sb, &cand must be CSE'd into one base register), which requires guess-the-original-source across a 242-instruction frame with 10 live values across calls. Not feasible within a claim budget that must also cover 7 more claims. Not hand-written assembly; ordinary C. My second source is the best structural base. Please let this release through so I can spend remaining claims on tractable functions.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.8176796,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Releasing explicitly now (1 compile: 5970, no better than the saved 5690; the 5690 source stays as best). Full spec is in my previous note on this function: the only remaining work is a from-assembly rewrite whose local declaration order reproduces the target slot layout (outgoing 5 words at sp+0..0x10, u16 sp14, s32 sp18, 0x20-byte cand at 0x2C, s32 0x4C/0x50, a0..a3 at 0x54/58/5C/60, mask at 0x64, s32 sp68) and whose `last = node` sits only on the paths reaching 0x08015B82. 9 agents / 38+ attempts confirm the m2c draft at 5690 is not improvable by incremental edits within a claim, and I have 13 more claims to compile this session. Ordinary C, not hand-written assembly, no boundary issue.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9190242,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "probeEntityCollision",
+  "text": "Why it cannot get closer in this claim: the C semantics/structs/call signature are fully known (see the detailed spec in earlier notes), and 39 attempts across 9 agents \u2014 including full from-assembly rewrites \u2014 all failed to reproduce the target's 0x70 stack frame and register coloring. The residual is purely agbcc local-declaration-order/type guesswork across a 242-insn function with 10 live values spanning calls; there is no incremental edit that closes a 5690 gap. Incremental tweaking is provably futile here and a fresh rewrite has <5% success odds while consuming the whole session budget. Ordinary correct C, not hand-written assembly, no boundary issue. Releasing so the 8 compiled claims go to tractable functions.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.920494,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08014B1C",
+  "text": "Callee-saved register-allocation wall (terminal). Best score 690 (96.2%, 179/182 insns). Residual is agbcc -O2 callee-saved coloring: ROM dist=r7/delta=r6, compiler dist=r6/delta=r7 (18 regalloc rows) plus jump placement (target places dist>lim call block after coord paths, duplicates sub_080146D0 in both second-level arms; agbcc shares). Body/control logic byte-exact. ~91 lifetime attempts across 8+ models exhausted: struct params, declaration order, split temporaries, inline distance helper, cached b->prev local, delta-before-dist order, u16 delta, jump placement. Pure correct C (struct MoveA/MoveB layout). not_c=false (compiler artifact). Best candidate revision d14ea5c6dab2246a7fd3 (score 690). Needs compiler/flag change or allocator hint to break tie.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795708612.156197,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:c814f091fac383262682c84a4dfd5a69c5abbcdafe54093d0caf18b5ad262135"
  }
 ]

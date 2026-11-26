@@ -1,5 +1,5 @@
 void sub_080113A8(void *, void *);
-void sub_08011674(void *, u32, u32);
+void moveObjectHorizontally(void *, u32, u32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
@@ -69,7 +69,7 @@ void sub_0802C190(void *self) {
         }
         sub_080113A8(mainObj, state34);
         if (!(*(u16 *)(*(u8 **)((u8 *)owner + 0x04) + 0x06) & 0x10)) {
-            sub_08011674(state, 0x80000, 0x80000);
+            moveObjectHorizontally(state, 0x80000, 0x80000);
         }
     }
     sub_08013C8C(self, mainObj);

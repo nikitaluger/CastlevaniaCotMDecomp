@@ -19,7 +19,7 @@ void sub_080C31E8(void*, void*, s32, u32);
 s32 sub_08013B5C(void*, void*);
 void sub_080C31E0(void*, s32);
 void sub_080113A8(void*, void*);
-void sub_08011674(void*, s32, s32);
+void moveObjectHorizontally(void*, s32, s32);
 void sub_08013C8C(void*, void*);
 
 void sub_08057E94(u8 *entity) {
@@ -82,7 +82,7 @@ void sub_08057E94(u8 *entity) {
         *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) - 1;
         if (!((*(u16 *)(entity + 0x02)) & 0x8000)) {
             sub_080113A8(anim, actorTarget);
-            sub_08011674(actor, 0x100000, 0x100000);
+            moveObjectHorizontally(actor, 0x100000, 0x100000);
         } else {
             return;
         }

@@ -701,7 +701,7 @@
 <g><title>sub_08007D30: {&#x27;matched&#x27;: 1}</title>
 <rect x="690.000" y="180" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08007D7C: {&#x27;matched&#x27;: 1}</title>
+<g><title>getTileTerrain: {&#x27;matched&#x27;: 1}</title>
 <rect x="700.000" y="180" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08007DD8: {&#x27;matched&#x27;: 1}</title>
@@ -1451,7 +1451,7 @@
 <g><title>sub_0801165C: {&#x27;matched&#x27;: 1}</title>
 <rect x="790.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08011674: {&#x27;matched&#x27;: 1}</title>
+<g><title>moveObjectHorizontally: {&#x27;matched&#x27;: 1}</title>
 <rect x="800.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08011898: {&#x27;matched&#x27;: 1}</title>
@@ -1712,7 +1712,7 @@
 <g><title>sub_08015974: {&#x27;matched&#x27;: 1}</title>
 <rect x="60.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080159BC: {&#x27;aside&#x27;: 1}</title>
+<g><title>probeEntityCollision: {&#x27;aside&#x27;: 1}</title>
 <rect x="70.000" y="230" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_08015BA8: {&#x27;attempt&#x27;: 1}</title>
@@ -3458,7 +3458,7 @@
 <g><title>sub_0802EE4C: {&#x27;matched&#x27;: 1}</title>
 <rect x="280.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802EE94: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind69ScriptSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="290.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802F0BC: {&#x27;matched&#x27;: 1}</title>

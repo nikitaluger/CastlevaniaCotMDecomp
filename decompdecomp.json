@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795708457.7908247,
- "revision": 67430,
+ "saved_at": 1795708623.5995185,
+ "revision": 67442,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "189052:134406780": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnKind29ScriptSprite",
-   "vram": 134406780
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -2864,7 +2852,7 @@
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
   },
-  "sub_08007D7C": {
+  "getTileTerrain": {
    "vram": 134249852,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -3989,7 +3977,7 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_08011674": {
+  "moveObjectHorizontally": {
    "vram": 134289012,
    "matched_by": "opencode-hy4-flash-free-7",
    "readable": false
@@ -7022,7 +7010,7 @@
   "spawnKind29ScriptSprite": {
    "vram": 134406780,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0802E4A8": {
    "vram": 134407336,
@@ -7094,10 +7082,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0802EE94": {
+  "spawnKind69ScriptSprite": {
    "vram": 134409876,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0802F0BC": {
    "vram": 134410428,
@@ -24205,7 +24193,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08007D7C",
+   "name": "getTileTerrain",
    "vram": 134249852,
    "size": 92,
    "status": "open"
@@ -25705,7 +25693,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08011674",
+   "name": "moveObjectHorizontally",
    "vram": 134289012,
    "size": 546,
    "status": "open"
@@ -26227,7 +26215,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080159BC",
+   "name": "probeEntityCollision",
    "vram": 134306236,
    "size": 492,
    "status": "asm"
@@ -29719,7 +29707,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802EE94",
+   "name": "spawnKind69ScriptSprite",
    "vram": 134409876,
    "size": 552,
    "status": "open"
@@ -50211,6 +50199,12 @@
    "kind": "func"
   },
   {
+   "name": "getTileTerrain",
+   "address": 134249852,
+   "size": 92,
+   "kind": "func"
+  },
+  {
    "name": "initStatusHud",
    "address": 134267908,
    "size": 620,
@@ -50265,6 +50259,12 @@
    "kind": "func"
   },
   {
+   "name": "moveObjectHorizontally",
+   "address": 134289012,
+   "size": 546,
+   "kind": "func"
+  },
+  {
    "name": "findKindIndex",
    "address": 134298668,
    "size": 46,
@@ -50310,6 +50310,12 @@
    "name": "spawnChildB",
    "address": 134305436,
    "size": 144,
+   "kind": "func"
+  },
+  {
+   "name": "probeEntityCollision",
+   "address": 134306236,
+   "size": 492,
    "kind": "func"
   },
   {
@@ -50460,6 +50466,12 @@
    "name": "spawnKind29ScriptSprite",
    "address": 134406780,
    "size": 556,
+   "kind": "func"
+  },
+  {
+   "name": "spawnKind69ScriptSprite",
+   "address": 134409876,
+   "size": 552,
    "kind": "func"
   },
   {
@@ -50847,6 +50859,12 @@
    "kind": "data"
   },
   {
+   "name": "gKind69LayerAttrs",
+   "address": 135064344,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gSpriteLayerAttrs",
    "address": 135065176,
    "size": 0,
@@ -51023,6 +51041,11 @@
   },
   {
    "address": 135064328,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135064344,
    "type": "u16[]",
    "source": "match"
   },
@@ -53168,7 +53191,7 @@
    "asm_code": "3 agents (opencode-beam-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Releasing: proven permanent wall. 46/46 instructions byte-identical; the only diffs are agbcc's deterministic hard-register tie-breaks in the 6-instruction post-call block (OR destination r0 vs r1, zero store r6 vs r5, return `adds r0,r4,#0` vs `adds r0,r4,r6`). Simultaneously satisfying the target'"
   },
   {
-   "name": "sub_080159BC",
+   "name": "probeEntityCollision",
    "vram": 134306236,
    "not_c": {
     "opencode-deepseek-v4.1-flash-1": {

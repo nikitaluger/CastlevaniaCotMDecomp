@@ -12,7 +12,7 @@ struct Entity {
 extern u32 D_08671BDC;
 extern u8 D_0866DAA0[];
 void sub_080113A8(void *, void *);
-void sub_08011674(void *, s32, s32);
+void moveObjectHorizontally(void *, s32, s32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
@@ -84,7 +84,7 @@ void sub_0802A390(struct Entity *entity)
       return;
     }
     sub_080113A8(sprite, animState);
-    sub_08011674(motion, 0x100000, 0x100000);
+    moveObjectHorizontally(motion, 0x100000, 0x100000);
   }
   sub_0802A7A4(sprite, motion);
   sub_08013C8C(entity, sprite);

@@ -1,5 +1,5 @@
 extern void sub_080113A8(void *, void *);
-extern void sub_08011674(void *, s32, s32);
+extern void moveObjectHorizontally(void *, s32, s32);
 extern s32 sub_08013B5C(void *, void *);
 extern void sub_0804BB7C(void *, void *);
 extern s32 sub_0805F9B4(s32, s32);
@@ -58,7 +58,7 @@ void sub_0804B988(u8 *entity)
     return;
   }
   sub_080113A8(parent, scriptPlayer);
-  sub_08011674(component, 0x80000, 0x80000);
+  moveObjectHorizontally(component, 0x80000, 0x80000);
   common:
   sub_0804BB7C(entity, parent);
 

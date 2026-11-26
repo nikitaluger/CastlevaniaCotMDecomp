@@ -6,7 +6,7 @@ extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
 extern s32 sub_08013B5C(s32, void *);
 extern void sub_080113A8(s32, void *);
-extern void sub_08011674(void *, s32, s32);
+extern void moveObjectHorizontally(void *, s32, s32);
 extern void sub_08013C8C(void *, s32);
 extern void sub_08015974(void);
 extern void sub_080C31E0(void *, void *);
@@ -83,7 +83,7 @@ void sub_0802B51C(u8 *self) {
         *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) - 1);
         if ((*(u16 *)(self + 2) & 0x8000) == 0) {
             sub_080113A8(p38, p34);
-            sub_08011674(p3C, 0x80000, 0x80000);
+            moveObjectHorizontally(p3C, 0x80000, 0x80000);
         } else {
             goto done;
         }

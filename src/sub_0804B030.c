@@ -1,6 +1,6 @@
 extern void sub_08005E80(s32);
 extern void sub_080113A8(s32, void *);
-extern void sub_08011674(void *, s32, s32);
+extern void moveObjectHorizontally(void *, s32, s32);
 extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_08013AC4(void *);
@@ -67,7 +67,7 @@ void sub_0804B030(u8 *entity) {
             return;
         }
         sub_080113A8(sprite, status);
-        sub_08011674(motion, 0x180000, 0x180000);
+        moveObjectHorizontally(motion, 0x180000, 0x180000);
     }
     sub_08013C8C(entity, sprite);
 }

@@ -1,5 +1,5 @@
 void sub_080113A8(void *, void *);
-void sub_08011674(void *, u32, u32);
+void moveObjectHorizontally(void *, u32, u32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
@@ -67,7 +67,7 @@ void sub_0802CF08(void *obj) {
             return;
         }
         sub_080113A8(sprite, ownerWork);
-        sub_08011674(owner, 0x80000, 0x80000);
+        moveObjectHorizontally(owner, 0x80000, 0x80000);
     }
     sub_08013C8C(obj, sprite);
 }

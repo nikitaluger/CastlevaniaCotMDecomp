@@ -4,7 +4,7 @@ struct CurrentRoom { volatile u8 roomIndex; };
 extern struct CurrentRoom D_02027898;
 extern u8 D_02023130[];
 extern u8 D_080CB278[];
-extern s32 sub_08007D7C(s32, s32, s32);
+extern s32 getTileTerrain(s32, s32, s32);
 extern s32 sub_080C364C(s32, s32);
 
 /* Traces a fixed-point line from (x0,y0) by (dx,dy), sampling tiles along the way;
@@ -25,7 +25,7 @@ s32 sub_08012DF4(s32 x0, s32 y0, s32 dx, s32 dy, s32 *outX, s32 *outY, s32 tileM
   s32 offsetX;
   s32 offsetY;
   s32 tileCode;
-  tileCode = sub_08007D7C(D_02023130 + (gMainWorkspace.roomIndex18A8 * 0x40), x0, y0);
+  tileCode = getTileTerrain(D_02023130 + (gMainWorkspace.roomIndex18A8 * 0x40), x0, y0);
   {
     u8 *collisionMaskTable = D_080CB278;
     if ((*((u16 *) (collisionMaskTable + (((u32) (tileCode << 0x10)) >> 0xF)))) & mask)
@@ -102,7 +102,7 @@ s32 sub_08012DF4(s32 x0, s32 y0, s32 dx, s32 dy, s32 *outX, s32 *outY, s32 tileM
       sampleX = endX;
       sampleY = span;
     }
-    tileCode = sub_08007D7C(D_02023130 + ((*roomIndex) * 0x40), sampleX, sampleY);
+    tileCode = getTileTerrain(D_02023130 + ((*roomIndex) * 0x40), sampleX, sampleY);
     {
       u8 *collisionMaskTable = D_080CB278;
       if ((*((u16 *) (collisionMaskTable + (((u32) (tileCode << 0x10)) >> 0xF)))) & mask)
