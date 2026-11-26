@@ -1761,6 +1761,17 @@
     "-O2",
     "-fno-strength-reduce"
    ]
+  },
+  "129700:134347428": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "createFixedKindEntitySprite",
+   "vram": 134347428
   }
  },
  "instructions": "",
@@ -1889,7 +1900,8 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h"
+  "local_source_8589938934": "common_local_source_8589938934.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5565,7 +5577,7 @@
   "createFixedKindEntitySprite": {
    "vram": 134347428,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
-   "readable": true
+   "readable": false
   },
   "sub_0801FC98": {
    "vram": 134347928,
