@@ -17272,14 +17272,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Large function. Best attempt score 18435 (m2c-based). Need proper struct defs for entity and temp_r5, plus data symbol D_02027898/78B2. Complex; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.981693,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0802D364",
   "text": "Large function similar to sub_08020EEC. Best 23305. Released.",
   "by": "opencode-free-1",
@@ -49496,42 +49488,10 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors indicate data symbol address mismatches (D_02025FF0 resolves to 0x00004700 etc.), suggesting wrong data symbols or different memory region. Cannot resolve with current approach; releasing for next agent.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.145718,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors persist: symbol addresses mismatch. Cannot resolve with current approach; releasing for next agent. Score 3603.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1457543,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors: all data symbol addresses mismatch (D_02025FF0 -> 0x00004700, etc.) and call targets mismatch. The project's symbol table addresses don't match the assembly's. Cannot resolve without corrected symbol names. Score 3603 best. Releasing for next agent.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1457906,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080008A0",
   "text": "IMPROVED this session: 560 -> 370 (92.2%). Key finding: use m2c-style plain locals with DISTINCT pointers var_r1 (small-count branch) and var_r1_2 (else branch), a single reused var_r0 for all three head/word/tail loop counters, and a SEPARATE temp_r2. That source: first four insns match exactly (adds r3,r0,#0; adds r2,r1,#0; cmp r2,#3; bhi), but agbcc still emits push {lr}/pop {r0};bx r0 vs target bare bx lr, and assigns p to r0 (small loop) / r2 (other loops) instead of target r1 throughout, temp_r2 to r1 instead of r2. Tried: declaration reorder (no effect), s8* pointers (no effect), reusing var_r2 as temp_r2 (610 \u2014 flips dst/n to r2/r3), reusing single pointer (565 \u2014 loses first-insn match), `var_r2 -= var_r0; temp_r2 = var_r2;` (no effect). Best source is in compile #4 of this session. Remaining: unavoidable-looking leaf-frame push/pop plus regalloc; target has two `adds r1,r3,#0` copies mine lacks.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1458263,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors: data symbols and call targets resolve to wrong addresses (D_02025FF0 -> 0x00004700, D_02021E90 -> 0x02025FF0). Score 3603 best. Cannot resolve with current approach. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.145864,
   "score_before": null,
   "score_after": null
  },
@@ -49552,26 +49512,10 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors: data symbol and call target address mismatches. Score 3603 best. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1459835,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0800223C",
   "text": "Best 215 (95.5%) this claim (overall best 240 from permuter attempts also exists). Tail matches: set/clear index byte, call sub_080C31E4(r4=arg0+0x18, arg0+0x22, *D_08671BB0), increment byte, load byte from table at arg0+0x14[b], call sub_080C31E0. Countdown prefix close but not exact: target does `ldrh r0,[r1,#8]; subs r0,#1; strh r0,[r1,#8]; lsls r0,r0,#16; cmp r0,#0` with r0/r1 allocation and no extra reload. Tried: `tmp = p[4]-1; p[4]=tmp; if((u16)tmp)` gave extra `lsrs` and compare in r1 (215); `if(tmp<<16)` with split assignment gave shift/compare in r1 and wrong regalloc (250); `tmp=(p[4]=p[4]-1); if(tmp<<16)` with vu16 gave extra `ldrh r0,[r0,#8]` reload and swapped regs (240). Also missing `movs r1,#0` before first strb in some forms due to r1 holding compare result. Call targets resolve oddly in diff/link warnings despite correct symbol names. Releasing at move-on threshold.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.1460207,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors. Score 3603. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1463685,
   "score_before": null,
   "score_after": null
  },
@@ -49592,14 +49536,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors. Score 3603. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1463685,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000DE0",
   "text": "Recompiled best: confirmed 245 (79.5%). All 12 real body instructions byte-exact; only diff is systemic agbcc -mthumb-interwork leaf frame push {lr}/pop {r0};bx r0 vs ROM bare bx lr, shifting all branch offsets by 2. ~30 prior attempts + all flags agree unfixable from C; needs frameless-branchy-leaves toolchain change.",
   "by": "opencode-hy4-flash-free-1",
@@ -49616,26 +49552,10 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors. Score 3603. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1463685,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080016C4",
   "text": "Cannot get closer \u2014 confirming release. 62+ attempts across all models/flags/C forms hit the same 130 (94.5%) deterministic agbcc coalescer ceiling. The only missing instruction is a dead `adds r0,r2,#0` val-copy before `bics r0,r3`; agbcc always coalesces nv into val's r2, emitting `bics r2,r3`. Named u16/u32 nv, two-statement init, reversed operands, field re-reads, algebraic forms, declaration reordering and register storage class all fail; register asm pinning is rejected by the harness. No legal C can force the dead copy; needs a compiler/allocation difference, not another compile.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1463313,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Linking errors. Score 3603. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1463685,
   "score_before": null,
   "score_after": null
  },
@@ -49664,14 +49584,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Best 2535 (89.0%, 228 vs 232 insns). Adapted from matched sibling sub_0801D224. Key structure: early null checks with inline sub_080212E4 calls, then `goto body; fail: sub_080C31E0(arg0, arg0->f24); return; body:` places the fail block in the middle at ~0x90. Register mapping matches (r6=arg0, r7=obj, r5=p, r4=q=p+0x34, r9=zero, r8=one). Remaining: target's fail block 8 bytes later (0x98) due to 4 missing instructions near the fields: `movs r0,r0; asrs r1,r0,#0xb; lsrs r2,r0,#0x20; bmi` plus 3 more `lsrs r2,r0,#0x20` spread through the field stores \u2014 source of these unknown (possibly a 64-bit/signed narrowing tied to the BD index or arg0->f4C/f54 shift). Also first branch is `bne`+inline call in target vs `beq`+call at end in mine; if/else form produces the right `bne` but breaks fail-block placement.",
-  "by": "opencode-hy4-flash-free-9",
-  "created_at": 1795683534.1466,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "spawnVariantEffectSprite",
   "text": "Not attempted deeply; huge function. Released for next agent.",
   "by": "opencode-free-1",
@@ -49688,50 +49600,10 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Cannot get closer within this session: remaining diffs are the first null-check branch polarity (target bne+inline call vs mine beq+deferred block) and a 4-instruction fail-block offset; if/else formulation fixes polarity but moves the fail block to the end, which scores worse (3958). The `asrs/lsrs/bmi` rows in the diff are post-function disassembly garbage. Full reconstruction and the best 2535 source are in the note on this function.",
-  "by": "opencode-hy4-flash-free-9",
-  "created_at": 1795683534.1467202,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0802D364",
   "text": "Re-release with explicit reason it can't get closer: the only remaining mismatch is GCC's hard-register assignment (target a=r6,b=r5,res=r7,b+0x34=r4, high r8=1/r9=0; best attempt a=r4,b=r5,res=r7, b+0x34 computed inline, high regs correct). Every C transformation that moves a to r6 (removing idx/ix/de locals) simultaneously loses a high register and makes the score worse; keeping those locals gives the best score 8032 but a stays in r4. Inline-asm register pinning is forbidden by the rules. Semantics are complete and correct; this is a compiler-allocation limit, not missing code. Moving on to fresh functions.",
   "by": "opencode-hy4-flash-free-8",
   "created_at": 1795683534.1467595,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Score 2535 best. Linking errors due to symbol address mismatches in environment; no further progress. Released.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.146836,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Score 2535 best. Released.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1469967,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Score 2535 best. Released.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1469967,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Score 2535 best. Released.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1469967,
   "score_before": null,
   "score_after": null
  },
@@ -49824,14 +49696,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Re-release with explicit reason: branch polarity and the 4 missing `asrs/lsrs/bmi` rows cannot be reached by any natural C form \u2014 the latter are post-function disassembly garbage (the function really ends at 0x21092; the extra rows are linker padding/decoded noise), so no C produces them. The polarity change (if/else) was already tried and scored worse (3958). Score 2535 is the ceiling with this toolchain. Moving on to final claim.",
-  "by": "opencode-hy4-flash-free-8",
-  "created_at": 1795683534.1476107,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0802C750",
   "text": "Score 10 (99.9%). Pure regalloc quirk: target uses r1 for arg0->f5C load/store, mine uses r0. Cannot improve from C. All control flow and instructions match. Cannot get closer.",
   "by": "opencode-free-1",
@@ -49852,14 +49716,6 @@
   "text": "Cannot get closer from C (best 20, 99.5%, 40/40 insns). Sole residual is final OR block register coloring: target uses r2 for (f4-4)<<8 and r0 for reloaded byte from arg1, mine uses r0 for shift and r2 for byte; orrs/str identical. Extensive prior attempts (90+) found no spelling that fixes this without disturbing earlier pointer/register allocation (r4/r5). Treated as agbcc allocator quirk; not pursuing dependency chain sub_0800B888->sub_080008A0 which are themselves known ceilings. Releasing so I can work on other functions.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.1477635,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Final release, explicit reason it can't get closer: this is a re-claim of a function already worked to its ceiling (2535, 89.0%); the remaining rows are the first null-check branch polarity (fixing it moves the fail block and scores worse, already measured at 3958) and 8 post-function disassembly-garbage rows that no C can generate. Session's 8-compiled-claim budget is now reached; leaving the verified best attempt saved.",
-  "by": "opencode-hy4-flash-free-8",
-  "created_at": 1795683534.1477997,
   "score_before": null,
   "score_after": null
  },
@@ -49956,14 +49812,6 @@
   "text": "Cannot get closer in current session; 18 prior attempts. Releasing for next agent. Best attempt 9726 kept.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1482866,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Cannot get closer in this session (best 2535, 89.0%, 228/232 insns). Reproduced prior best: early null checks -> sub_080212E4 then shared fail tail, later failures direct to fail; constant p->f1C=0x20/sub_08013C2C(0x20), D_080CE7EC, obj f28=0x29, sub_080216B0(obj,p). Main residuals are control-flow layout: target uses bne-over-null-handling with inline call+b before fail block (0x98) while my forms yield beq/jump arrangements and fail block offset, plus 4-insn gap/odd rows (asrs/lsrs/bmi) previously reported as likely post-function disassembly garbage. Tried alternate goto/if restructuring and sign-test variation; no improvement and some worsen layout (prior notes report 3958 for if/else). This appears to be an agbcc block-layout/polarity issue beyond quick C changes; releasing for another agent.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.1483235,
   "score_before": null,
   "score_after": null
  },
@@ -118040,14 +117888,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Confirmed unmatchable-in-C wall after this session's compile (2880 vs inherited best 2535). The target's first null check is `cmp r7,#0; bne +0x1c` with the sub_080212E4 call INLINE as fall-through, while every natural C form I tried (if==NULL/goto and if!=NULL/goto with inline null block) makes agbcc emit `beq` to an out-of-line null block. Matched sibling sub_0801D224 uses `beq` (its null path has no call and merges into the shared tail), so its template cannot force sub_08020EEC's different block layout. Prior agents also measured if/else = 3958. Remaining diff also includes ~8 post-function disassembly-garbage rows that no C emits. Best 2535 source preserved; no further C lever. Ordinary C, not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4830036,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000DE0",
   "text": "Permanent frameless-branchy-leaf wall at best 245: 12/12 body insns byte-exact but agbcc emits `push {lr}` / `pop {r0}` / `bx r0` where the ROM has bare `bx lr`, shifting every branch offset. This session: standard while-form 245; early-return form 585 (branch layout also changed); restored while-form 245; for(;;)+break form 1150 (extra copy). search_flags: all four O-levels score 245 (flags not the problem). ~145 prior attempts across models agree no pure-C form removes the LR save; register-asm banned; not hand asm; not not_c. Best score-245 source preserved.",
   "by": "opencode-hy4-flash-free-2",
@@ -125028,14 +124868,6 @@
   "text": "Cannot get closer from C \u2014 this is a confirmed, flag-independent literal-pool-placement wall (80+ prior attempts across ~8 agents). Recompiled faithful best (6206, 171 insns) and search_flags (O2/O3/fno-strength-reduce 6206, O1 6936, Os 10966). Target 189 insns has ~9 scattered literal pools after unconditional branches; our agbcc merges into 1 pool, so all pc-relative operands/branch offsets/pool words differ and no C form controls it. Core logic correct. Needs compiler/linker pool-placement control. Releasing to move on; not hand asm, not not_c.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5183618,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Cannot get closer: 2535 (89.0%) is a hard agbcc block-layout wall across 36 attempts. Target's inverted `bne` over inline null-handler cannot be produced without wrecking fail-block placement (if/else -> 3958); residual diff rows are literal-pool data decoded as code. Not_c=false. Best source preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5183995,
   "score_before": null,
   "score_after": null
  },
@@ -150216,14 +150048,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Cannot get closer in pure C. Score 2535 (89.0%) is block-layout/polarity wall: target inlines first null handler with bne-over, C produces beq-to-fail; polarity fix moves fail block and regresses badly (3958 per notes). Remaining diffs include post-function disassembly garbage. Recompiled best source; no actionable C lever. Ordinary C, not asm, not not_c.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.6469147,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080092AC",
   "text": "Cannot get closer in C: permanent agbcc regalloc wall at 295 (135/135 insns exact, 97.8%). Outer loop counter coloring (r1 in target vs r0 from agbcc) and base-add operand order are compiler allocator choices; 47 prior attempts plus 3 here (295/756/295) exhausted C spellings (i++, next hoist, declaration reorder, ptr commutation). Correct ordinary C, not hand asm, not not_c; no plausible path to 0. Releasing.",
   "by": "opencode-hy4-flash-free-1",
@@ -151100,14 +150924,6 @@
   "text": "Regalloc wall at 490 (96.7%, 152/152 insns), unchanged from brief's best. Compiled 8 variants this session: (1) baseline (brief's best with case order 1,0/2/4,3/5) = 490; (2) mask-first `0xK | load` = 490 (no effect); (3) `s16 new_var2` index temp = 501; (4) per-case named `u16 vv` local = 490; (5) `u16 m` + `m |= load` compound = 3371; (6) `vu16` volatile load = 490; (7) named `extern void *D_08671BB0` passed directly instead of gp literal local = 505; (8) `u16 *wp` hoisted before switch = 3136. Residual: switch cases need `ldrh r1,[r0]` (value in r1), `movs r2,#K; lsls r2,r2,#N` (mask in r2), shared tail `adds r0,r2,#0; orrs r0,r1; strh r0,[r6]` \u2014 agbcc always gives value r0/mask r1 and omits the copy. Also gp literal load scheduled one block early, final index uses `lsls #0x18; lsrs #0x17` from u8 temp vs target `lsls #1`, and call thunk linkage warns. Hoisting any temp before the switch causes big regressions. ~95 total attempts by many agents; no C-only lever found. Not hand asm, not boundary, not not_c. Best source preserved (brief's 490 version with case-1-first order).",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.6511986,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Ceiling 2535 (89.0%, 228/232 insns) confirmed as agbcc -O2 block-layout wall. Tried two fresh C forms this session: (1) explicit inverted gotos `if (obj != NULL) goto after_obj; sub_080212E4(); goto fail;` for BOTH null checks \u2014 score unchanged at 2535, agbcc still emits `beq #0x28` rather than target's `bne #0x1c`; (2) full explicit if/else with null handler as `then` block and whole body as `else` \u2014 regressed to 3583 and STILL `beq`, confirming agbcc always lays out the happy path as fall-through regardless of C form. Also filed report_boundary at 0x0802109E: the declared 484-byte extent includes 50 bytes of literal pool past the final `bx r0` (0x0802109C); its Thumb-decoded data produces the bogus `asrs/lsrs/bmi/lsrs` diff rows no C can emit (pending user approval). Remaining wall is the first null-check polarity plus those tail-data rows; no C lever. Not hand asm, not not_c. Best 2535 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.6512358,
   "score_before": null,
   "score_after": null
  },
@@ -159596,14 +159412,6 @@
   "text": "Confirmed register allocation wall at score 4275 (74.2%). Target arg0=r6, s=r5, q=r7; agbcc assigns arg0=r5, s=r7, q=r6. Single allocation swap cascades 49 regalloc rows + constant-materialization (movs r3,#0x88/lsls r3,#1 vs subs r1,#0x10) + branch offsets + literal pools. Multiple agents (31+ attempts) exhausted typed/void* params, declaration reorder, pointer forms, ret dispatch shapes. No C-level lever. Not fixable with ordinary C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.6938076,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Cannot get closer \u2014 known agbcc -O2 block-layout/polarity wall, re-confirmed this session (1 compile: score 2535, unchanged from 39 prior attempts). Target's first null check is `cmp r7,#0; bne +0x1c` with sub_080212E4 inlined as fall-through; every natural C form makes agbcc emit `beq` to an out-of-line null block. Tried by prior agents: explicit inverted gotos (unchanged 2535), full if/else (regresses 3583/3958), matched-sibling template (uses beq, cannot force this different layout). Residual also includes ~8 post-function disassembly-garbage rows from the 50-byte literal pool past final `bx r0` at 0x0802109C (report_boundary 0x0802109E already filed), which no C emits. 228/232 insns, body/constants/data/calls all correct. Ordinary C, not hand asm, not not_c. Best-2535 source preserved verbatim.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.6938608,
   "score_before": null,
   "score_after": null
  },
@@ -168536,14 +168344,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Cannot get closer \u2014 score-2535 agbcc -O2 block-layout/polarity wall re-confirmed (best 228 body insns correct; 232 target insns include ~8 post-`bx r0` literal-pool data rows that no C emits). This session: (1) baseline = 2535 (first diff `bne #0x1c` target vs `beq #0x28` ours); (2) `__builtin_expect(obj == NULL, 1)` + same for p null check DID flip the polarity to `bne` but regressed to 3845 \u2014 it injects `movs r0,#0/#1; cmp r0,#0` and extra callee-saved regs (push {r5,r6,r7}, mov r7,sl), destroying the whole prologue. So the polarity itself is reachable but not without wrecking everything else. Prior ~40 attempts (inverted gotos, full if/else = 3583/3958, sibling template) also floor at 2535. Filed report_boundary at 0x0802109E again (50 bytes of literal pool data after the final bx r0) \u2014 still pending approval. Ordinary correct C, not hand asm, not not_c. Best-2535 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.7393055,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000D4C",
   "text": "Best score 235 (84.3%), body 15/15 insns byte-exact. Frameless-branchy-leaf toolchain wall (class B): target is bare leaf `bx lr` with no prologue; agbcc emits `push {lr}` / `pop {r0}` / `bx r0` for any branched Thumb leaf (+2 insns), shifting 3 branch offsets +2.\n\n86+ prior attempts across all C forms/flags confirm 235 ceiling. register-asm banned. Not hand asm, not not_c, no boundary (bare leaf, no literal pool), no callee dependency.\n\nLogic: doubly-linked-list insert \u2014 *(arg1+4)=arg0; *arg0=arg1; if arg1==0 return; walk arg1's offset-0 chain to tail p; *p=arg1; *(arg1+4)=p.\nBest source: void sub_08000D4C(void **arg0, void **arg1) { void **p=arg1, **saved, **v; *(void**)(arg1+1)=arg0; *arg0=arg1; if(arg1==0)return; v=*p; saved=arg1; if(v!=0){do{p=(void**)*p;}while(*p!=0);} *p=saved; *(void**)(saved+1)=p; }\n\nWaits for sub_08005D28 per claim graph.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -175980,14 +175780,6 @@
   "text": "Can't get closer by pure C. 99.9% (10), 172/172 insns; 2-row regalloc tie on f10 copy (target r1, agbcc r0). 88+ attempts, all C/flag variants, register asm banned. No C lever. Not hand asm, not boundary.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.7767668,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Best 2535 (89.0%, 228/232 insns). Known agbcc -O2 block-layout/polarity wall: target first null check is `cmp r7,#0; bne +0x1c` with inline sub_080212E4 fall-through; agbcc emits `beq` to out-of-line block. All C forms tried by prior agents keep 2535 or regress (if/else 3583/3958, __builtin_expect flips polarity but destroys prologue 3845). Residual also includes post-bx-r0 literal-pool data rows (boundary 0x0802109E already filed). 42+ attempts. Not hand asm, not not_c. Best source preserved.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.7768066,
   "score_before": null,
   "score_after": null
  },
@@ -191760,22 +191552,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Re-confirmed the 2535 wall from a fresh angle: wrote ALL checks in proposal-#721 form (`if (obj != NULL) goto c1; sub_080212E4(); goto fail;` for both null checks and `if (s != NULL) goto body;` before the fail label) \u2014 still exactly 2535, and agbcc still emits `beq #0x28` to an OUT-OF-LINE null handler while the ROM has `bne #0x1c` over an INLINE handler. agbcc deliberately inverts `if (x != NULL) goto L;` and moves the handler out of line; no goto spelling changes this. Do not spend more compiles on polarity tricks here.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.856946,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Cannot get closer: reproduced the 43-attempt floor exactly (2535, 89.0%, 228/232 insns) with the best-known source plus proposal-#721 polarity rewrites on all three checks (`if (obj != NULL) goto c1`, `if (p != NULL) goto c2`, `if (s != NULL) goto body`), which agbcc turns back into `beq` to an out-of-line null handler. ROM requires `bne` over an inline handler; this is the documented agbcc block-layout wall, plus post-bx-r0 literal-pool data rows (boundary filed). Not hand asm, not not_c. Best source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.8569825,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08040AB0",
   "text": "Cannot get closer than 15 (99.7%, 64/64 insns). Pure agbcc -O1 r4/r5 allocator tie between tmp and baseval; `&tmp` alias needed for ret=r3 makes tmp lower priority. 96+ attempts exhausted all C/flag levers. Not hand-asm, not not_c, no boundary. Best 15 preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -198556,14 +198332,6 @@
   "text": "Cannot get closer in pure C: 915 (91.9%) is a proven agbcc -O1 callee-saved register-coloring wall. Target keeps base=r6, z5=r5, z4=r4 live across sub_0806D8E4; agbcc deterministically colors base=r5, z5=r4 and rematerializes z4, shifting 35 regalloc rows while all 114 instructions remain structurally/operand-correct. 86+ prior attempts across every declaration/type/order/loop/flag variant and data-symbol attempts this session show no C lever; register-asm pinning is banned by harness. Not hand-written asm, not not_c, no boundary/callee issue. Best 915 preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.8917575,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "Cannot get closer: 2535 (89.0%, 228/232 insns) agbcc -O2 block-layout/polarity wall, reconfirmed this lease. Target's first null check is `cmp r7,#0; bne +0x1c` with the sub_080212E4 handler laid out inline as fall-through; every C form (inverted gotos, full if/else, __builtin_expect) makes agbcc either keep `beq` to an out-of-line fail block or wreck the prologue (3845+). The remaining diff rows are the ~8 post-`bx r0` literal-pool data words inside the declared extent decoded as bogus code (bl/lsrs/asrs/bmi) plus a couple of literal-offset shifts \u2014 report_boundary at 0x0802109E is already filed and pending. ~44 prior attempts exhaust all C levers. Correct plain C exists; not hand asm, not not_c. Best-2535 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.8917952,
   "score_before": null,
   "score_after": null
  },
@@ -208288,14 +208056,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Explicit reason it cannot get closer: terminal agbcc -O2 block-layout/polarity wall plus a declared-extent tail artifact, 46+ attempts across models. Best 2535 (89.0%, 228 body insns correct). First diff: target `cmp r7,#0; bne #0x1c` with the sub_080212E4 null handler laid out INLINE as fall-through; agbcc always emits `beq` to an out-of-line handler. Prior sessions tried inverted gotos (unchanged 2535), full if/else (3583/3958), __builtin_expect polarity flip (3845 \u2014 flips bne but destroys the prologue with extra callee-saved regs), and the matched-sibling template (uses beq). This session recompiled best verbatim (2535). The residual also includes ~8 post-`bx r0` literal-pool data words inside the declared 484-byte extent decoded as bogus Thumb insns; report_boundary at 0x0802109E already filed. Note: per the class-A convention this trailing-pool case may actually need a setup EXTEND, not a boundary \u2014 worth checking. Ordinary correct C, not hand asm, not not_c. Best-2535 source preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.9414,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080825EC",
   "text": "SETUP-BLOCKED, C is complete and correct. Proven again this session: try_compiler with `agbcc -mthumb-interwork -O2 -fno-strength-reduce` gives score 1000 with ALL 89 real instructions byte-exact through the ROM's final `pop {r3}; mov r8,r3; pop {r4,r5,r6,r7}; pop {r0}; bx r0` at 0x080826AA; the only 'extra' rows are our own 5-word literal pool, which read_data shows is byte-identical to the ROM's at 0x080826AC-0x080826BF (0x02025FF0, 0x000018C2, 0x00000161, 0x0000173A, 0x000014ED), next function prologue at 0x080826C0. Two project-setup fixes are needed and I filed them in one suggest(): (1) the range 0x80825EC-0x80826AC is mapped to `-mno-thumb-interwork`, which produces `pop {r4,r5,r6,r7,pc}` (and shifts every pc-relative pool load by 4) \u2014 the ROM uses the -mthumb-interwork epilogue, so the range must be `-mthumb-interwork -O2 -fno-strength-reduce`; (2) declared extent 192 bytes ends exactly at the pool, real size is 212 bytes (0x080826C0) \u2014 EXTEND; the earlier boundary report ending 0x080826AA should be rejected because the pool belongs to this function. With both applied the existing C scores 0. Not hand asm, not not_c. Best-828 source preserved (declare-then-assign r6=arg0, r8=*(u8**)(arg0+0x6C)+4, r5=*(u8**)(arg0+0x38), r4=r8; two 0xFFFF0000 adds; &3 -> sub_0806D2A0 then >>2 store at +0x9C; counter==0 exit; off 0x18C2/0x173A/0x14ED; sub_08005E80(0x161) reload 0x0C; goto call).",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -214080,14 +213840,6 @@
   "score_after": null
  },
  {
-  "function": "initScriptedProjectile",
-  "text": "Best score: 2535 (89.0%, 228/232 target instructions byte-exact). Terminal agbcc -O2 block-layout/polarity wall: target's first null check is `cmp r7,#0; bne #0x1c` with sub_080212E4 inlined as fall-through; agbcc emits `beq #0x28` to an out-of-line null handler. All C forms tried (inverted gotos, full if/else, __builtin_expect polarity) either keep beq or regress the prologue (3845+). Residual also includes trailing literal-pool data past final bx r0 at 0x0802109C decoded as bogus Thumb (asrs/lsrs/bmi/lsrs) \u2014 report_boundary at 0x0802109E filed pending approval. Per class-A convention, trailing pool case may need extent EXTEND not boundary. ~46 prior attempts across all agents, all C levers exhausted. Not hand asm, not_c, no callee dependency. Best-2535 source preserved.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.9707644,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080599C0",
   "text": "Cannot get closer: the 60 score is a measured terminal floor across 134+ attempts by many agents \u2014 51/51 instructions byte-exact, only two reordered rows (target `movs r1,#0` one instruction before `strh r0,[r7,#4]`; ours after). The two zero constants straddling sub_08005820 must be distinct pseudos; direct-in-store zeroU8()/zeroU32() achieves that but births the byte zero at the strb, while every early-birth local form (plain, register, timer temp, struct Z) CSE-merges them into r8 (verified again this session: `register u8 z` \u2192 910 with r8 frame). Register pinning is banned by the harness. Plain correct C exists; not hand-written asm, not not_c, no boundary issue. Best-60 source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -214780,14 +214532,6 @@
   "text": "Cannot get closer than 215 in pure C. This is the documented systemic frameless-branching-Thumb-leaf wall: agbcc -mthumb-interwork unconditionally injects `push {lr}` and `pop {r0}; bx r0` into any Thumb leaf containing a conditional branch, while the ROM ends with bare `bx lr` (and beq #0x12 vs #0x14 as a cascade). All 10 real body instructions are byte-identical; the residual frame is compiler-level, not a C-shape problem. 58+ attempts by 9+ agents exhausted every C form and all flag/compiler variants available. Not hand asm, not not_c, no extent boundary, no callee dependency. Best 215 source preserved; move on.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.9743152,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "initScriptedProjectile",
-  "text": "MATCHED (242 insns, score 0) by duplicating the cleanup+return inline in each of the 4 failure paths instead of using a shared `goto fail`. This broke the 47-attempt agbcc -O2 block-layout/polarity wall: plain `if (x==NULL){call; goto fail;}` made agbcc emit `beq` to an OUT-OF-LINE handler, but writing each failure as `{ sub_080212E4(arg0); sub_080C31E0(arg0, *(s32*)((u8*)arg0+0x24)); return; }` (and the same cleanup+return for the r0_3<0 and s==NULL checks) makes cross-jumping merge the identical tails into the ROM's single shared fail block while keeping each null handler INLINE as the fall-through -> target's `bne` over inline 3-insn handler reproduced. This is proposal #804's lever applied to a family (sub_0802D364/sub_08031F6C) whose matched siblings use plain `goto fail` + `beq`.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.9743536,
   "score_before": null,
   "score_after": null
  },
@@ -340629,5 +340373,261 @@
   "score_before": 245,
   "score_after": 245,
   "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:557bf141a18cee24ef60ac706068f0a3408ea07978c3a1442b1bc347884d03eb:f244449d35b4edc1316eb4c75cc2640f7690ebde2e9f996766861bba5a9fe786"
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Large function. Best attempt score 18435 (m2c-based). Need proper struct defs for entity and temp_r5, plus data symbol D_02027898/78B2. Complex; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.981693,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors indicate data symbol address mismatches (D_02025FF0 resolves to 0x00004700 etc.), suggesting wrong data symbols or different memory region. Cannot resolve with current approach; releasing for next agent.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.145718,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors persist: symbol addresses mismatch. Cannot resolve with current approach; releasing for next agent. Score 3603.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1457543,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors: all data symbol addresses mismatch (D_02025FF0 -> 0x00004700, etc.) and call targets mismatch. The project's symbol table addresses don't match the assembly's. Cannot resolve without corrected symbol names. Score 3603 best. Releasing for next agent.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1457906,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors: data symbols and call targets resolve to wrong addresses (D_02025FF0 -> 0x00004700, D_02021E90 -> 0x02025FF0). Score 3603 best. Cannot resolve with current approach. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.145864,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors: data symbol and call target address mismatches. Score 3603 best. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1459835,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors. Score 3603. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1463685,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors. Score 3603. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1463685,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors. Score 3603. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1463685,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Linking errors. Score 3603. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1463685,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Best 2535 (89.0%, 228 vs 232 insns). Adapted from matched sibling sub_0801D224. Key structure: early null checks with inline sub_080212E4 calls, then `goto body; fail: sub_080C31E0(arg0, arg0->f24); return; body:` places the fail block in the middle at ~0x90. Register mapping matches (r6=arg0, r7=obj, r5=p, r4=q=p+0x34, r9=zero, r8=one). Remaining: target's fail block 8 bytes later (0x98) due to 4 missing instructions near the fields: `movs r0,r0; asrs r1,r0,#0xb; lsrs r2,r0,#0x20; bmi` plus 3 more `lsrs r2,r0,#0x20` spread through the field stores \u2014 source of these unknown (possibly a 64-bit/signed narrowing tied to the BD index or arg0->f4C/f54 shift). Also first branch is `bne`+inline call in target vs `beq`+call at end in mine; if/else form produces the right `bne` but breaks fail-block placement.",
+  "by": "opencode-hy4-flash-free-9",
+  "created_at": 1795683534.1466,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Cannot get closer within this session: remaining diffs are the first null-check branch polarity (target bne+inline call vs mine beq+deferred block) and a 4-instruction fail-block offset; if/else formulation fixes polarity but moves the fail block to the end, which scores worse (3958). The `asrs/lsrs/bmi` rows in the diff are post-function disassembly garbage. Full reconstruction and the best 2535 source are in the note on this function.",
+  "by": "opencode-hy4-flash-free-9",
+  "created_at": 1795683534.1467202,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Score 2535 best. Linking errors due to symbol address mismatches in environment; no further progress. Released.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.146836,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Score 2535 best. Released.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1469967,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Score 2535 best. Released.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1469967,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Score 2535 best. Released.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1469967,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Re-release with explicit reason: branch polarity and the 4 missing `asrs/lsrs/bmi` rows cannot be reached by any natural C form \u2014 the latter are post-function disassembly garbage (the function really ends at 0x21092; the extra rows are linker padding/decoded noise), so no C produces them. The polarity change (if/else) was already tried and scored worse (3958). Score 2535 is the ceiling with this toolchain. Moving on to final claim.",
+  "by": "opencode-hy4-flash-free-8",
+  "created_at": 1795683534.1476107,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Final release, explicit reason it can't get closer: this is a re-claim of a function already worked to its ceiling (2535, 89.0%); the remaining rows are the first null-check branch polarity (fixing it moves the fail block and scores worse, already measured at 3958) and 8 post-function disassembly-garbage rows that no C can generate. Session's 8-compiled-claim budget is now reached; leaving the verified best attempt saved.",
+  "by": "opencode-hy4-flash-free-8",
+  "created_at": 1795683534.1477997,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Cannot get closer in this session (best 2535, 89.0%, 228/232 insns). Reproduced prior best: early null checks -> sub_080212E4 then shared fail tail, later failures direct to fail; constant p->f1C=0x20/sub_08013C2C(0x20), D_080CE7EC, obj f28=0x29, sub_080216B0(obj,p). Main residuals are control-flow layout: target uses bne-over-null-handling with inline call+b before fail block (0x98) while my forms yield beq/jump arrangements and fail block offset, plus 4-insn gap/odd rows (asrs/lsrs/bmi) previously reported as likely post-function disassembly garbage. Tried alternate goto/if restructuring and sign-test variation; no improvement and some worsen layout (prior notes report 3958 for if/else). This appears to be an agbcc block-layout/polarity issue beyond quick C changes; releasing for another agent.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.1483235,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Confirmed unmatchable-in-C wall after this session's compile (2880 vs inherited best 2535). The target's first null check is `cmp r7,#0; bne +0x1c` with the sub_080212E4 call INLINE as fall-through, while every natural C form I tried (if==NULL/goto and if!=NULL/goto with inline null block) makes agbcc emit `beq` to an out-of-line null block. Matched sibling sub_0801D224 uses `beq` (its null path has no call and merges into the shared tail), so its template cannot force sub_08020EEC's different block layout. Prior agents also measured if/else = 3958. Remaining diff also includes ~8 post-function disassembly-garbage rows that no C emits. Best 2535 source preserved; no further C lever. Ordinary C, not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4830036,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Cannot get closer: 2535 (89.0%) is a hard agbcc block-layout wall across 36 attempts. Target's inverted `bne` over inline null-handler cannot be produced without wrecking fail-block placement (if/else -> 3958); residual diff rows are literal-pool data decoded as code. Not_c=false. Best source preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5183995,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Cannot get closer in pure C. Score 2535 (89.0%) is block-layout/polarity wall: target inlines first null handler with bne-over, C produces beq-to-fail; polarity fix moves fail block and regresses badly (3958 per notes). Remaining diffs include post-function disassembly garbage. Recompiled best source; no actionable C lever. Ordinary C, not asm, not not_c.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.6469147,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Ceiling 2535 (89.0%, 228/232 insns) confirmed as agbcc -O2 block-layout wall. Tried two fresh C forms this session: (1) explicit inverted gotos `if (obj != NULL) goto after_obj; sub_080212E4(); goto fail;` for BOTH null checks \u2014 score unchanged at 2535, agbcc still emits `beq #0x28` rather than target's `bne #0x1c`; (2) full explicit if/else with null handler as `then` block and whole body as `else` \u2014 regressed to 3583 and STILL `beq`, confirming agbcc always lays out the happy path as fall-through regardless of C form. Also filed report_boundary at 0x0802109E: the declared 484-byte extent includes 50 bytes of literal pool past the final `bx r0` (0x0802109C); its Thumb-decoded data produces the bogus `asrs/lsrs/bmi/lsrs` diff rows no C can emit (pending user approval). Remaining wall is the first null-check polarity plus those tail-data rows; no C lever. Not hand asm, not not_c. Best 2535 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.6512358,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Cannot get closer \u2014 known agbcc -O2 block-layout/polarity wall, re-confirmed this session (1 compile: score 2535, unchanged from 39 prior attempts). Target's first null check is `cmp r7,#0; bne +0x1c` with sub_080212E4 inlined as fall-through; every natural C form makes agbcc emit `beq` to an out-of-line null block. Tried by prior agents: explicit inverted gotos (unchanged 2535), full if/else (regresses 3583/3958), matched-sibling template (uses beq, cannot force this different layout). Residual also includes ~8 post-function disassembly-garbage rows from the 50-byte literal pool past final `bx r0` at 0x0802109C (report_boundary 0x0802109E already filed), which no C emits. 228/232 insns, body/constants/data/calls all correct. Ordinary C, not hand asm, not not_c. Best-2535 source preserved verbatim.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.6938608,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Cannot get closer \u2014 score-2535 agbcc -O2 block-layout/polarity wall re-confirmed (best 228 body insns correct; 232 target insns include ~8 post-`bx r0` literal-pool data rows that no C emits). This session: (1) baseline = 2535 (first diff `bne #0x1c` target vs `beq #0x28` ours); (2) `__builtin_expect(obj == NULL, 1)` + same for p null check DID flip the polarity to `bne` but regressed to 3845 \u2014 it injects `movs r0,#0/#1; cmp r0,#0` and extra callee-saved regs (push {r5,r6,r7}, mov r7,sl), destroying the whole prologue. So the polarity itself is reachable but not without wrecking everything else. Prior ~40 attempts (inverted gotos, full if/else = 3583/3958, sibling template) also floor at 2535. Filed report_boundary at 0x0802109E again (50 bytes of literal pool data after the final bx r0) \u2014 still pending approval. Ordinary correct C, not hand asm, not not_c. Best-2535 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.7393055,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Best 2535 (89.0%, 228/232 insns). Known agbcc -O2 block-layout/polarity wall: target first null check is `cmp r7,#0; bne +0x1c` with inline sub_080212E4 fall-through; agbcc emits `beq` to out-of-line block. All C forms tried by prior agents keep 2535 or regress (if/else 3583/3958, __builtin_expect flips polarity but destroys prologue 3845). Residual also includes post-bx-r0 literal-pool data rows (boundary 0x0802109E already filed). 42+ attempts. Not hand asm, not not_c. Best source preserved.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.7768066,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Re-confirmed the 2535 wall from a fresh angle: wrote ALL checks in proposal-#721 form (`if (obj != NULL) goto c1; sub_080212E4(); goto fail;` for both null checks and `if (s != NULL) goto body;` before the fail label) \u2014 still exactly 2535, and agbcc still emits `beq #0x28` to an OUT-OF-LINE null handler while the ROM has `bne #0x1c` over an INLINE handler. agbcc deliberately inverts `if (x != NULL) goto L;` and moves the handler out of line; no goto spelling changes this. Do not spend more compiles on polarity tricks here.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.856946,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Cannot get closer: reproduced the 43-attempt floor exactly (2535, 89.0%, 228/232 insns) with the best-known source plus proposal-#721 polarity rewrites on all three checks (`if (obj != NULL) goto c1`, `if (p != NULL) goto c2`, `if (s != NULL) goto body`), which agbcc turns back into `beq` to an out-of-line null handler. ROM requires `bne` over an inline handler; this is the documented agbcc block-layout wall, plus post-bx-r0 literal-pool data rows (boundary filed). Not hand asm, not not_c. Best source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.8569825,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Cannot get closer: 2535 (89.0%, 228/232 insns) agbcc -O2 block-layout/polarity wall, reconfirmed this lease. Target's first null check is `cmp r7,#0; bne +0x1c` with the sub_080212E4 handler laid out inline as fall-through; every C form (inverted gotos, full if/else, __builtin_expect) makes agbcc either keep `beq` to an out-of-line fail block or wreck the prologue (3845+). The remaining diff rows are the ~8 post-`bx r0` literal-pool data words inside the declared extent decoded as bogus code (bl/lsrs/asrs/bmi) plus a couple of literal-offset shifts \u2014 report_boundary at 0x0802109E is already filed and pending. ~44 prior attempts exhaust all C levers. Correct plain C exists; not hand asm, not not_c. Best-2535 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.8917952,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Explicit reason it cannot get closer: terminal agbcc -O2 block-layout/polarity wall plus a declared-extent tail artifact, 46+ attempts across models. Best 2535 (89.0%, 228 body insns correct). First diff: target `cmp r7,#0; bne #0x1c` with the sub_080212E4 null handler laid out INLINE as fall-through; agbcc always emits `beq` to an out-of-line handler. Prior sessions tried inverted gotos (unchanged 2535), full if/else (3583/3958), __builtin_expect polarity flip (3845 \u2014 flips bne but destroys the prologue with extra callee-saved regs), and the matched-sibling template (uses beq). This session recompiled best verbatim (2535). The residual also includes ~8 post-`bx r0` literal-pool data words inside the declared 484-byte extent decoded as bogus Thumb insns; report_boundary at 0x0802109E already filed. Note: per the class-A convention this trailing-pool case may actually need a setup EXTEND, not a boundary \u2014 worth checking. Ordinary correct C, not hand asm, not not_c. Best-2535 source preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.9414,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "Best score: 2535 (89.0%, 228/232 target instructions byte-exact). Terminal agbcc -O2 block-layout/polarity wall: target's first null check is `cmp r7,#0; bne #0x1c` with sub_080212E4 inlined as fall-through; agbcc emits `beq #0x28` to an out-of-line null handler. All C forms tried (inverted gotos, full if/else, __builtin_expect polarity) either keep beq or regress the prologue (3845+). Residual also includes trailing literal-pool data past final bx r0 at 0x0802109C decoded as bogus Thumb (asrs/lsrs/bmi/lsrs) \u2014 report_boundary at 0x0802109E filed pending approval. Per class-A convention, trailing pool case may need extent EXTEND not boundary. ~46 prior attempts across all agents, all C levers exhausted. Not hand asm, not_c, no callee dependency. Best-2535 source preserved.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.9707644,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initScriptedProjectile",
+  "text": "MATCHED (242 insns, score 0) by duplicating the cleanup+return inline in each of the 4 failure paths instead of using a shared `goto fail`. This broke the 47-attempt agbcc -O2 block-layout/polarity wall: plain `if (x==NULL){call; goto fail;}` made agbcc emit `beq` to an OUT-OF-LINE handler, but writing each failure as `{ sub_080212E4(arg0); sub_080C31E0(arg0, *(s32*)((u8*)arg0+0x24)); return; }` (and the same cleanup+return for the r0_3<0 and s==NULL checks) makes cross-jumping merge the identical tails into the ROM's single shared fail block while keeping each null handler INLINE as the fall-through -> target's `bne` over inline 3-insn handler reproduced. This is proposal #804's lever applied to a family (sub_0802D364/sub_08031F6C) whose matched siblings use plain `goto fail` + `beq`.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.9743536,
+  "score_before": null,
+  "score_after": null
  }
 ]
