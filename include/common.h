@@ -764,3 +764,34 @@ struct ChoiceMenuMainInput {
     u8 pad2A[0x1486];
     u32 choice;      /* 0x14B0: currently highlighted option */
 };
+
+/* Entity owning a simple scripted projectile: the previous handler lives at
+ * +0x24, the current script step at +0x22 and the work block at +0x3C. */
+struct ProjectileSpawnEntity {
+    u8 _0[2];
+    u16 flags;                       /* 0x02 */
+    u8 _4[0x22 - 4];
+    s16 stateIndex;                  /* 0x22 */
+    u8 _24[0x38 - 0x24];
+    u8 *sprite;                      /* 0x38 */
+    struct ScriptedEffectWork *work; /* 0x3C */
+    u8 _40[0x4C - 0x40];
+    s16 spawnX;                      /* 0x4C */
+    u8 _4E[6];
+    s16 spawnY;                      /* 0x54 */
+    u8 _56[0x5C - 0x56];
+    u32 radius;                      /* 0x5C */
+    u8 _60[0x6C - 0x60];
+    u32 data;                        /* 0x6C */
+};
+
+/* Constants for the scripted-attack sprite constructor (initScriptedAttackSprite). */
+#define SCRIPTED_ATTACK_ANIM_ID        0x20        /* animation/kind index given to findKindIndex */
+#define SCRIPTED_ATTACK_WORK_SLOT_SIZE 0x48        /* size passed to allocWorkSlot */
+#define SCRIPTED_ATTACK_GFX_ID         0x8000000A  /* graphics id installed at sprite+0x1C */
+#define SCRIPTED_ATTACK_ANIM_STEP      0x31        /* animation step written to sprite+0x28 */
+#define SCRIPTED_ATTACK_READY          0x1000      /* bit set on the entity's flags on success */
+
+/* Affine/OAM parameter words (u16[4]) shared by the scripted sprite constructors.
+ * Copied into a render layer's tile0..tile3 fields. */
+extern u16 gScriptedSpriteAffineParams[];

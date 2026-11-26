@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795716205.8684707,
- "revision": 67746,
+ "saved_at": 1795717090.8752565,
+ "revision": 67767,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "134892:134352620": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "initScriptedProjectile",
-   "vram": 134352620
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5707,7 +5695,7 @@
   "initScriptedProjectile": {
    "vram": 134352620,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080210D0": {
    "vram": 134353104,
@@ -5734,10 +5722,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_08021364": {
+  "initScriptedAttackSprite": {
    "vram": 134353764,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_08021548": {
    "vram": 134354248,
@@ -6924,7 +6912,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0802D364": {
+  "spawnAnimatedEntityEffect": {
    "vram": 134402916,
    "matched_by": "opencode-hy4-flash-free-9",
    "readable": false
@@ -14941,8 +14929,8 @@
   },
   "sub_08084348": {
    "vram": 134759240,
-   "best_score": 200,
-   "best_by": "opencode-hy4-flash-free-1"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_080843E0": {
    "vram": 134759392,
@@ -16966,8 +16954,8 @@
   },
   "getSpawnBehaviorIndex": {
    "vram": 134829220,
-   "best_score": 455,
-   "best_by": "permuter-8589937815"
+   "best_score": 325,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_080954E4": {
    "vram": 134829284,
@@ -28015,7 +28003,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08021364",
+   "name": "initScriptedAttackSprite",
    "vram": 134353764,
    "size": 484,
    "status": "open"
@@ -29509,7 +29497,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802D364",
+   "name": "spawnAnimatedEntityEffect",
    "vram": 134402916,
    "size": 484,
    "status": "open"
@@ -39657,14 +39645,8 @@
   {
    "name": "sub_08084348",
    "vram": 134759240,
-   "size": 148,
+   "size": 152,
    "status": "open"
-  },
-  {
-   "name": "sub_080843DC",
-   "vram": 134759388,
-   "size": 4,
-   "status": "asm"
   },
   {
    "name": "sub_080843E0",
@@ -50481,6 +50463,12 @@
    "kind": "func"
   },
   {
+   "name": "initScriptedAttackSprite",
+   "address": 134353764,
+   "size": 484,
+   "kind": "func"
+  },
+  {
    "name": "setAttackHitbox",
    "address": 134354608,
    "size": 176,
@@ -50556,6 +50544,12 @@
    "name": "spawnKind2CEffect",
    "address": 134388748,
    "size": 572,
+   "kind": "func"
+  },
+  {
+   "name": "spawnAnimatedEntityEffect",
+   "address": 134402916,
+   "size": 484,
    "kind": "func"
   },
   {
@@ -51105,6 +51099,12 @@
    "kind": "data"
   },
   {
+   "name": "gScriptedSpriteAffineParams",
+   "address": 135063532,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gSpriteDefaultAttrsAlt",
    "address": 135063592,
    "size": 0,
@@ -51131,6 +51131,12 @@
   {
    "name": "gKind2CLayerAttrs",
    "address": 135063916,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gAnimatedEffectAffineParams",
+   "address": 135064176,
    "size": 0,
    "kind": "data"
   },
@@ -51336,7 +51342,7 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "struct ChoiceMenuCameraInput",
+   "type": "struct GlobalStateB",
    "source": "match"
   },
   {
@@ -51351,7 +51357,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct ChoiceMenuMainInput",
+   "type": "struct GlobalStateA",
    "source": "match"
   },
   {
@@ -51376,7 +51382,7 @@
   },
   {
    "address": 135052752,
-   "type": "struct EffectGfxEntry[]",
+   "type": "struct AnimTable[]",
    "source": "match"
   },
   {
@@ -51426,6 +51432,11 @@
   },
   {
    "address": 135063452,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135063532,
    "type": "u16[]",
    "source": "match"
   },
@@ -56637,28 +56648,6 @@
     }
    },
    "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-free, opencode-hy4-flash-free) said in their notes that no C makes it: Asking again, with why no C can get closer: 65 (99.1%, 79/79 instructions byte-exact) is the uniform r5<->r6 swap of self/obj, an agbcc graph-coloring tie. Verified this session that it is not steered by ref counts (self has ~7 RTL refs vs obj ~5, yet obj gets r5), not by first-def order (the self c"
-  },
-  {
-   "name": "sub_080843DC",
-   "vram": 134759388,
-   "not_c": {
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "\"Data/misaligned literal, not real function. No C form can match; reached move-on threshold.\"",
-     "t": 1794916076.4314268
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "The 4 bytes at 0x080843DC are `ed 14 00 00` = data word 0x000014ED (tail of a literal pool), not executable code. It disassembles to `asrs r5,r5,#0x13; lsls r0,r0,#0` with no `bx lr` / return \u2014 nonsense. Real code begins at 0x080843E0 (`f0 b5` = push {r4-r7,lr}), a separate symbol. read_data confirms the word. Prior agents (opencode-iceman-contributor-free-1 and opencode-free-1, two different models) already concluded this is data misidentified as a function. No C form can reproduce a non-function data word as a code body.",
-     "t": 1794917095.5776942
-    },
-    "opencode-hy4-flash-free-6": {
-     "model": "opencode-hy4-flash-free",
-     "why": "NOT CODE. The 4 bytes at 0x080843DC are the data word 0x000014ED (`ed 14 00 00`), the tail of the literal pool belonging to sub_08084348 (which ends at 0x080843E0). Disassembled as thumb it gives `asrs r5,r5,#0x13; lsls r0,r0,#0` with no prologue, no `bx lr`, and no reachable control flow \u2014 meaningless as a function. Three earlier agents (two different models) already reached the same conclusion. No C can compile to a bare data word with no return; the correct fix is the already-open project suggestion to extend sub_08084348's extent from 148 to 152 bytes (end 0x080843E0), which absorbs these bytes into that function's pool. I compiled the stub once to confirm (score 300, 0%). Setting not_c.",
-     "t": 1794992507.6710026
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free) found no C makes it: NOT CODE. The 4 bytes at 0x080843DC are the data word 0x000014ED (`ed 14 00 00`), the tail of the literal pool belonging to sub_08084348 (which ends at 0x080843E0). Disassembled as thumb it gives `asrs r5,r5,#0x13; lsls r0,r0,#0` with no prologue, no `bx lr`, and no reachable control flow \u2014 meaningless as a function. Three earlier agents (two different models) already reached the same conclusion. No C can compile to a bare data word with no return; the correct fix is the already-open project suggestion to extend sub_08084348's extent from 148 to 152 bytes (end 0x080843E0), which absorbs these bytes into that function's pool. I compiled the stub once to confirm (score 300, 0%). Setting not_c."
   },
   {
    "name": "sub_08084500",

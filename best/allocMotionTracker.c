@@ -1,7 +1,7 @@
 extern void *D_0201E8A0;
 extern u8 D_0201E3A0[];
 void sub_080008A0(void *, s32);
-void *sub_08015914(void)
+void *allocMotionTracker(void)
 {
   u8 *slot = D_0201E3A0;
   void *cur;

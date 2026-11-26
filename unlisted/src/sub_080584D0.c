@@ -3,9 +3,12 @@ extern s32 allocWorkSlot(u8 *, s32, s32, s32);
 extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
-extern void sub_0802D658(void);
-extern void sub_080C31E0(u8 *, s32);
-extern void sub_080C31E4(u8 *, u8 *, s32);
+extern void setAnimationFrame(u8 *, u8 *, s32, s32);
+extern void registerScriptObject(u8 *, s32);
+extern void sub_08058978(u8 *, struct Part *);
+extern void sub_080588E4(void);
+extern s32 _call_via_r1(u8 *, s32);
+extern s32 _call_via_r2(u8 *, u8 *, s32);
 
 /* Small sub-effect allocated from the effect pool. */
 struct SubEffect { u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; u32 f10; u16 f14; };
@@ -25,9 +28,9 @@ struct Entity {
     u8 _4E[6];
     s16 spawnY;                 /* 0x54 */
     u8 _56[0x5C-0x56];
-    s16 extraFlag;              /* 0x5C */
-    u8 _5E[0x6C-0x5E];
-    u16 animId;                 /* 0x6C */
+    u32 x;                      /* 0x5C */
+    u8 _60[0x6C-0x60];
+    u32 y;                      /* 0x6C */
 };
 struct S_02025FF0 { u8 _0[0x18A8]; u8 f18A8; u8 _18A9[0x19]; u16 f18C2; };
 extern struct S_02025FF0 gMainWorkspace;
@@ -35,14 +38,14 @@ struct S_02021E90 { u8 _0[0x1278]; u32 f1278; u32 f127C; };
 extern struct S_02021E90 gCameraState;
 struct TBL { u8 _0[4]; u16 f4; u16 f6; u8 _8[0x28-8]; };
 extern struct TBL gEffectGfxTable[];
-extern u16 D_080CEA70[];
+extern u16 gKind32LayerAttrs[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
 
 /* Spawn an animated effect sprite for the entity: allocate the sprite and
- * sub-effect, set up the animation from the fixed tables, place it relative to
- * the camera, then advance the entity's animation step. */
-void sub_0802D364(struct Entity *entity) {
+ * sub-effect, set up the animation from fixed tables, place it relative to the
+ * camera, then advance the entity's animation step. The chained condition keeps
+ * the original short-circuit order of the allocation and setup checks. */
+void sub_080584D0(struct Entity *entity) {
     u8 *sprite;
     struct Part *part;
     u8 *anim;
@@ -50,45 +53,32 @@ void sub_0802D364(struct Entity *entity) {
     s32 animSlot;
     u32 graphics;
     u32 zero;
-    u32 one;
     u8 *coordBase;
     s32 *stepTable;
 
     sprite = allocSpriteObject();
-    if (sprite == NULL) goto fail;
-    entity->sprite = sprite;
-    allocWorkSlot((u8 *)entity, 0, 0x48, 0);
-    part = entity->part;
-    if (part == NULL) goto fail;
-    anim = (u8 *)part + 0x34;
-    part->script = *(u32 *)((u8 *)entity + 0x24);
-    *(u32 *)((u8 *)entity + 0x24) = (u32)sub_0802D658;
-    part->animId = entity->animId;
+    part = NULL;
+    anim = NULL;
+    animSlot = 0;
+    if ((sprite == NULL) ||
+        (entity->sprite = sprite, allocWorkSlot((u8 *)entity, 0, 0x48, 0), part = entity->part, part == NULL) ||
+        (anim = (u8 *)part + 0x34, part->script = *(u32 *)((u8 *)entity + 0x24), *(u32 *)((u8 *)entity + 0x24) = (u32)sub_080588E4,
+         part->animId = 0x32, part->f18 = 1,
+         part->x = entity->spawnX << 16, part->y = entity->spawnY << 16,
+         animSlot = findKindIndex(0x32), part->animSlot = animSlot, ((s32)(animSlot << 16) < 0)) ||
+        (initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + part->animId * 0xC), effectBytes = allocEffectPart(), part->effect = (struct SubEffect *)effectBytes, effectBytes == NULL)) {
+        _call_via_r1((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
+        return;
+    }
     zero = 0;
-    one = 1;
-    part->f18 = one;
-    part->x = entity->spawnX << 16;
-    part->y = entity->spawnY << 16;
-    animSlot = findKindIndex(part->animId);
-    part->animSlot = animSlot;
-    if ((animSlot << 16) < 0) goto fail;
-    initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + part->animId * 0xC);
-    effectBytes = allocEffectPart();
-    part->effect = (struct SubEffect *)effectBytes;
-    if (effectBytes == NULL) goto fail;
-    goto body;
-fail:
-    sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
-    return;
-body:
     part->effect->f1 = zero;
     part->effect->f2 = 8;
-    part->effect->f3 = one;
+    part->effect->f3 = 1;
     part->effect->f4 = gEffectGfxTable[part->animId].f4;
-    part->effect->f6 = D_080CEA70[0];
-    part->effect->f8 = D_080CEA70[1];
-    part->effect->fA = D_080CEA70[2];
-    part->effect->fC = D_080CEA70[3];
+    part->effect->f6 = gKind32LayerAttrs[0];
+    part->effect->f8 = gKind32LayerAttrs[1];
+    part->effect->fA = gKind32LayerAttrs[2];
+    part->effect->fC = gKind32LayerAttrs[3];
     part->effect->fE = gEffectGfxTable[part->animId].f6;
     part->effect->f10 = (u32)sprite;
     part->effect->f14 = zero;
@@ -97,14 +87,17 @@ body:
            ((*(u16 *)((u8 *)part + 0x22) + 8) << 12));
     *(u16 *)sprite = graphics;
     *(u16 *)sprite = graphics | gMainWorkspace.f18C2;
-    *(u32 *)(sprite + 0x1C) = 0x8000000A;
+    *(u32 *)(sprite + 0x1C) = 0x8000000B;
     coordBase = (u8 *)&gCameraState;
     { u32 k = 0x1278; *(u32 *)(sprite + 0x14) = part->x - ((*(u32 *)(coordBase + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
     { u32 k = 0x127C; *(u32 *)(sprite + 0x18) = part->y - ((*(u32 *)(coordBase + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
-    if (entity->extraFlag > 0) *(u16 *)(sprite + 2) |= 0x10;
-    *(u16 *)(sprite + 0x28) = 0x2C;
+    part->f10 = entity->x;
+    part->f14 = entity->y;
+    setAnimationFrame(sprite, anim, 0x05, 0x01);
+    sub_08058978(sprite, part);
+    registerScriptObject((u8 *)entity, 0);
     entity->flags |= 0x1000;
     *(u8 *)((u8 *)entity + 2 * entity->step + 0x19) = zero;
     stepTable = (s32 *)0x08671BB0;
-    sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *stepTable);
+    _call_via_r2((u8 *)entity + 0x18, (u8 *)entity + 0x22, *stepTable);
 }

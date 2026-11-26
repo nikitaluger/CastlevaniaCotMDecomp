@@ -1,5 +1,5 @@
 extern u16 D_080CE7E4[];
-extern u16 D_080CE7EC[];
+extern u16 gScriptedSpriteAffineParams[];
 extern u16 D_080CE7F4[];
 extern u16 D_080CE7FC[];
 
@@ -24,7 +24,7 @@ void setAttackHitbox(u8 *source, u8 *target) {
         boxParams = D_080CE7E4;
         break;
     case 1:
-        boxParams = D_080CE7EC;
+        boxParams = gScriptedSpriteAffineParams;
         break;
     case 3:
     case 7:
