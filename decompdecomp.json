@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795713634.4583092,
- "revision": 67630,
+ "saved_at": 1795713665.5482442,
+ "revision": 67631,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,6 +1761,17 @@
     "-O2",
     "-fno-strength-reduce"
    ]
+  },
+  "124528:134342256": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "createEntityChildSprite",
+   "vram": 134342256
   }
  },
  "instructions": "",
@@ -1889,7 +1900,8 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h"
+  "local_source_8589938934": "common_local_source_8589938934.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5430,7 +5442,7 @@
   "createEntityChildSprite": {
    "vram": 134342256,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": true
+   "readable": false
   },
   "sub_0801E864": {
    "vram": 134342756,
