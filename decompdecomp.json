@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795713300.254876,
- "revision": 67618,
+ "saved_at": 1795713522.2274978,
+ "revision": 67624,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -13632,10 +13632,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0807536C": {
+  "spawnActionEffect": {
    "vram": 134697836,
    "matched_by": "opencode-iceman-contributor-free-6",
-   "readable": false
+   "readable": true
   },
   "sub_08075564": {
    "vram": 134698340,
@@ -15039,7 +15039,7 @@
   },
   "selectSceneMode": {
    "vram": 134773104,
-   "best_score": 1130,
+   "best_score": 1120,
    "best_by": "opencode-hy4-flash-free-11"
   },
   "loadSceneGraphics": {
@@ -37951,7 +37951,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0807536C",
+   "name": "spawnActionEffect",
    "vram": 134697836,
    "size": 504,
    "status": "open"
@@ -50649,6 +50649,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnActionEffect",
+   "address": 134697836,
+   "size": 504,
+   "kind": "func"
+  },
+  {
    "name": "pad_08075E4C",
    "address": 134700620,
    "size": 4,
@@ -51117,7 +51123,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct ActionWorkspace",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -51332,7 +51338,7 @@
   },
   {
    "address": 140975024,
-   "type": "s32",
+   "type": "u32[]",
    "source": "match"
   }
  ],

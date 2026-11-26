@@ -32,6 +32,7 @@ void selectSceneMode(void)
     case 0x0E03:
     case 0x0E07:
     case 0x0E09:
+    case 0x0E0D:
     case 0x0E11:
     case 0x0E13:
     case 0x0E16:

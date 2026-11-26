@@ -677,3 +677,17 @@ struct ActionCameraState {
 #define ACTION_ALT_KIND_RESET    0x2A   /* actor kind that resets the entity form */
 #define ACTION_ALT_ANIM_NO_DIR   0x084FCA3C  /* sequence used when no direction resolves */
 #define ACTION_ALT_ANIM_FAIL     0x084FCA84  /* sequence used when the step fails */
+
+/* Graphics presets for the effect spawned by spawnActionEffect, keyed by the
+ * kind byte in the workspace. The three kinds scale a stat by 71/100/141%. */
+#define ACTION_EFFECT_KIND_SMALL   0x37
+#define ACTION_EFFECT_KIND_MEDIUM  0x39
+#define ACTION_EFFECT_KIND_LARGE   0x3A
+#define ACTION_EFFECT_SCALE_SMALL  0x47
+#define ACTION_EFFECT_SCALE_MEDIUM 0x64
+#define ACTION_EFFECT_SCALE_LARGE  0x8D
+#define ACTION_EFFECT_ANIM_SMALL   0x33
+#define ACTION_EFFECT_ANIM_MEDIUM  0x34
+#define ACTION_EFFECT_ANIM_LARGE   0x35
+#define ACTION_EFFECT_GFX_STANDARD 0x80000004
+#define ACTION_EFFECT_GFX_LARGE    0x80000006

@@ -18344,7 +18344,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0807536C",
+  "function": "spawnActionEffect",
   "text": "Placeholder only; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9869702,
@@ -340129,5 +340129,14 @@
   "score_before": 2945,
   "score_after": 2945,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:7100f20b5db84b0a61738f03dd7894a2aee8d5563ef1b8af5d4bd7e4e010d006:9b13e2e478f23dee13c1a45f25bbfdb718e740a088ce1e93defc1616b366f9d7"
+ },
+ {
+  "function": "sub_0800807C",
+  "text": "Allocator-coloring tie at score 45 (99.7%, 202/202 insns). Only 9 register rows differ: r2/r3/r8 and r1/r2 around zero init, base+0x1260 staging, and obj index/store sequence. All instructions semantically present. Tried try_local_repairs(compare=true) on 8764834d3750d4fae48a: staged_narrow_store, allocation_initialization_order, staged_call_arguments - no improvement, baseline retained. Prior handoffs report hundreds of permutations and flag profiles exhausted; project-equivalent flags keep 45, -O1/-fno-regmove regress. Not hand asm, not_c=false. Needs compiler/register allocator change.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795713473.6674886,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a5676076c75f8891fbfc053321a608f0bd1c0d2d85fd65fb34481067a1245b06:08dfbc7b8c57a4e47e1ccff905743d692cd7a0e4d906ceeed4a0dab4eff50d9b"
  }
 ]
