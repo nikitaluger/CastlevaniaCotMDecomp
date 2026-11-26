@@ -40,7 +40,7 @@ struct GameState {
   u16 spawnValue;
 };
 extern struct GameState gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 /* Advance the projectile's coordinate, test it against the current room's tile
  * data and the global game-state flags, spawn a hit effect on impact and retire
@@ -59,7 +59,7 @@ void sub_0807DC4C(struct Entity *entity)
       return;
     }
     {
-      u8 *room = D_02023130 + (gMainWorkspace.roomIndex << 6);
+      u8 *room = gTilemapPages + (gMainWorkspace.roomIndex << 6);
       if ((sub_08007DD8((s32) room, newCoord, m->subCoord) << 16) != 0) {
         sub_0808DBF8(motion->coord, m->subCoord, 0);
         sub_080C31E0(entity, entity->handler);

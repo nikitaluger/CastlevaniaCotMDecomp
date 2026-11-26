@@ -1,6 +1,6 @@
 extern s32 sub_08007B78(void *, s32, s32);
 extern u8 gMainWorkspace[];
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 /* Horizontal move with vertical collision resolution: shift x by its 16.16
  * velocity, then, if the new spot is blocked, step y upward until free (return
@@ -22,7 +22,7 @@ s32 sub_0806D6B4(u8 *move) {
     {
         u32 base = (u32)gMainWorkspace;
         u32 off = 0x18A8;
-        mapBase = D_02023130 + (*(u8 *)(base + off) << 6);
+        mapBase = gTilemapPages + (*(u8 *)(base + off) << 6);
     }
 
     x = *(s32 *)(move + 0) + *(s32 *)(move + 8);

@@ -6,7 +6,7 @@ struct S_02025FF0 {
     u8 idx;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 struct Out {
     u16 flags;
@@ -32,7 +32,7 @@ void sub_08012704(s32 arg0, s32 arg1, s32 arg2, s32 arg3, struct Out *out)
         return;
     }
 
-    base = D_02023130 + (gMainWorkspace.idx << 6);
+    base = gTilemapPages + (gMainWorkspace.idx << 6);
     v = sub_08004740(base, r4, arg1);
     if (v == 8)
         goto set2;
@@ -56,7 +56,7 @@ set2:
 after:
     if (arg3 != 0 && !(out->flags & 1))
     {
-        base = D_02023130 + (gMainWorkspace.idx << 6);
+        base = gTilemapPages + (gMainWorkspace.idx << 6);
         v = sub_08004740(base, r4, arg1 - arg3);
         if (v == 1 || v == 12)
         {

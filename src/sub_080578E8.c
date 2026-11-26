@@ -1,6 +1,6 @@
 struct S_02025FF0 { u8 _0[0x18C2]; u16 baseAttr; };
 extern struct S_02025FF0 gMainWorkspace;
-extern s16 D_080CFC98[];
+extern s16 gPairedEffectKindTable[];
 extern u16 D_080CFD40[];
 typedef void (*UpdateFn)(void *);
 
@@ -31,7 +31,7 @@ void sub_080578E8(u8 *entity) {
         return;
     }
     *(void **)(entity + 0x38) = fx;
-    elem = D_080CFC98[*(u8 *)(entity + 0x4C) * 2];
+    elem = gPairedEffectKindTable[*(u8 *)(entity + 0x4C) * 2];
     tableIdx = findKindIndex(elem);
     idxU = ((u32)tableIdx << 16) >> 16;
     if (((s32)(tableIdx << 16)) < 0) {

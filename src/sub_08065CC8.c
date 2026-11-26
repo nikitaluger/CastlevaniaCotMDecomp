@@ -14,7 +14,7 @@ struct S_02025FF0 {
 extern struct S_02025FF0 gMainWorkspace;
 struct S_02021E90 { u8 _0[0x146E]; u16 f146E; };
 extern struct S_02021E90 gCameraState;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 struct S_arg2 {
   u8 _0[0x38];
   s32 f38;
@@ -41,9 +41,9 @@ u16 sub_08065CC8(s32 arg0, s32 arg1, struct S_arg2 *arg2, struct S_arg3 *arg3)
   if (gMainWorkspace.f24 != 0) v = gMainWorkspace.f2A;
   else v = gCameraState.f146E;
   if (and80(v)) goto fail;
-  if ((sub_08007B3C((s32)(D_02023130 + gMainWorkspace.f18A8 * 0x40), arg3->f0, arg3->f4 + 0x10000) & 0x4000) ||
-      (sub_08007B3C((s32)(D_02023130 + gMainWorkspace.f18A8 * 0x40), arg3->f0 - arg2->f38, arg3->f4 + 0x10000) & 0x4000) ||
-      (sub_08007B3C((s32)(D_02023130 + gMainWorkspace.f18A8 * 0x40), arg3->f0 + arg2->f38, arg3->f4 + 0x10000) & 0x4000)) goto fail;
+  if ((sub_08007B3C((s32)(gTilemapPages + gMainWorkspace.f18A8 * 0x40), arg3->f0, arg3->f4 + 0x10000) & 0x4000) ||
+      (sub_08007B3C((s32)(gTilemapPages + gMainWorkspace.f18A8 * 0x40), arg3->f0 - arg2->f38, arg3->f4 + 0x10000) & 0x4000) ||
+      (sub_08007B3C((s32)(gTilemapPages + gMainWorkspace.f18A8 * 0x40), arg3->f0 + arg2->f38, arg3->f4 + 0x10000) & 0x4000)) goto fail;
   arg2->f40 = 1;
   sub_0806C49C(arg1, arg2);
   r = sub_0806B2C8(arg0, arg1, arg2, arg3);

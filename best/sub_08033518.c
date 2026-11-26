@@ -4,7 +4,7 @@ extern void initSpriteGraphics(void *, void *, void *);
 extern void sub_08011344(void *, void *, s32, s32);
 extern s32 findKindIndex(void);
 extern void installUpdateHandler(void *, void *, void *);
-extern void sub_08014290(void);
+extern void updateScriptedEffectObject(void);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -52,7 +52,7 @@ void sub_08033518(u8 *arg0)
   *((s32 *) (sprite + 0x1C)) = 0x8000000A;
   p = *((u8 **) (arg0 + 0x3C));
   p34 = p + 0x34;
-  installUpdateHandler(arg0, p, &sub_08014290);
+  installUpdateHandler(arg0, p, &updateScriptedEffectObject);
   zero = 0;
   *((u16 *) (p + 0x1C)) = 0x15;
   r22 = findKindIndex();

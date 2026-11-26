@@ -8,7 +8,7 @@ struct S_02025FF0_18A8 {
     u8 mapIndex;
 };
 extern struct S_02025FF0_18A8 gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 struct Vec {
     s32 x;
@@ -68,7 +68,7 @@ void sub_0806D77C(struct Vec *pos, s32 amount) {
 /* If the map attribute under pos is set, lifts pos in 1.0 steps (up to eight)
  * until it clears; returns 1 on a successful lift, 0 otherwise. */
 s32 sub_0806D654(struct Vec *pos) {
-    s32 base = (s32)D_02023130 + ((u32)gMainWorkspace.mapIndex << 6);
+    s32 base = (s32)gTilemapPages + ((u32)gMainWorkspace.mapIndex << 6);
     s32 i;
 
     if ((u16)sub_08007B78(base, pos->x, pos->y) == 0)

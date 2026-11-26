@@ -1,6 +1,6 @@
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
-extern u32 D_02023130[];
+extern u32 gTilemapPages[];
 extern u16 D_020232FE;
 extern u8 D_080E4764[];
 extern u8 D_080E47E8[];
@@ -93,14 +93,14 @@ set1:
   }
   *((u32 *)(c + 0x44)) = 0;
   *(c + 0xAC) = 0;
-  { u16 r = sub_08007B3C((u32)(D_02023130 + h[0x18A8] * 0x10), d[0], d[1] - 0x40000);
+  { u16 r = sub_08007B3C((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - 0x40000);
     s32 v = r & 0x3F;
     if (v == 0x0A) *((u32 *)(c + 0x44)) = 1;
     if ((g[0x3CF] == 0) && (g[0x3CC] != 0)) g[0x3CF] = 1;
     if ((h[0x14ED] != 0xA9) && ((j = g[0x3CC]) == 0)) *((u32 *)(c + 0xAC)) = 1; }
   if (h[0x14ED] == 0xA7) *((u32 *)(c + 0x44)) = 4;
   if (*((s16 *)(h + 0x18BC)) != 0) *((u32 *)(c + 0x44)) = 2;
-  { u16 r = sub_08007B3C((u32)(D_02023130 + h[0x18A8] * 0x10), d[0], d[1] - 0x40000);
+  { u16 r = sub_08007B3C((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - 0x40000);
     u32 v = r & 0x3F;
     if (v == 0x16) {
       if (((((u8)(v18 - 6)) <= 1) || (v18 == 0x25)) || (v18 == 0x2A)) {
@@ -110,7 +110,7 @@ set1:
         (*((u32 *)(c + 0x118)))++;
       } else *((u32 *)(c + 0x118)) = 0;
     } else *((u32 *)(c + 0x118)) = 0; }
-  { u16 r = sub_08007B3C((u32)(D_02023130 + h[0x18A8] * 0x10), d[0], d[1] - (*((u32 *)(c + 0x3C))));
+  { u16 r = sub_08007B3C((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - (*((u32 *)(c + 0x3C))));
     u32 *p11C = (u32 *)(c + 0x11C);
     if ((r & 0x3F) == 0x17) {
       if ((*p11C) == 0) { u32 v2 = (d[1] - (*((u32 *)(c + 0x3C)))) & 0xFFF80000;

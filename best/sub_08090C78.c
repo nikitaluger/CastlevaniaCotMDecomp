@@ -1,6 +1,6 @@
 struct S_02025FF0 { u8 _0[0x18A8]; u8 b; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u8 gGameStatus[];
 extern u8 gCameraState[];
 extern s32 sub_0805F9B4(s32, s32);
@@ -50,7 +50,7 @@ void sub_08090C78(u8 *arg0)
         t = *w;
         zero = 0;
         *w = (t | 4) | zero;
-        sub_0800479C(D_02023130 + (((u32) (*(pb + 0x18A8))) << 6), (*((s32 *) (p + 8))) >> 21, (*((s32 *) (p + 0xC))) >> 21, *((u16 *) ((*((u8 **) (p + 0x14))) + 2)));
+        sub_0800479C(gTilemapPages + (((u32) (*(pb + 0x18A8))) << 6), (*((s32 *) (p + 8))) >> 21, (*((s32 *) (p + 0xC))) >> 21, *((u16 *) ((*((u8 **) (p + 0x14))) + 2)));
         sub_08007E24(*((u16 *) ((*((u8 **) (p + 0x14))) + 4)));
         e = (u32 *) ((base + 0xB0) + (((u32) ((*((u16 *) (*((u8 **) (p + 0x14))))) >> 5)) << 2));
         *e |= (u32) (v << ((*((u16 *) (*((u8 **) (p + 0x14))))) & 0x1F));

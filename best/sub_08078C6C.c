@@ -13,7 +13,7 @@ struct S_02025FF0_78C6C
   u16 f18C2;
 };
 extern struct S_02025FF0_78C6C gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern s32 sub_0806D518(void *, void *, void *);
 extern s32 sub_08007DD8(void *, s32);
 extern void sub_0808DBF8(s32, s32, s32);
@@ -44,7 +44,7 @@ void sub_08078C6C(void *arg0)
     *((s32 *) (((u8 *) p6C) + 4)) += *((s32 *) (p4 + 8));
     t = (*((s32 *) (p4 + 4))) + (*((s32 *) (p4 + 0xC)));
     *((s32 *) (p4 + 4)) = t;
-    base = D_02023130 + (gMainWorkspace.f18A8 << 6);
+    base = gTilemapPages + (gMainWorkspace.f18A8 << 6);
     if ((u16)sub_08007DD8(base, *((s32 *) (((u8 *) p6C) + 4))) != 0)
     {
       sub_0808DBF8(*((s32 *) (((u8 *) p6C) + 4)), *((s32 *) (p4 + 4)), 0);

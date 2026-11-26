@@ -2,8 +2,8 @@ s32 getTileTerrain(s32 map, s32 x, s32 y);
 s32 sub_08012A94(s32 x, s32 y, s32 count);
 s32 probeEntityCollision(s32 x, s32 y, s32 velX, s32 velY, s32 mask, void *out);
 extern u8 gMainWorkspace[];
-extern u8 D_02023130[];
-extern s16 D_080CB278[];
+extern u8 gTilemapPages[];
+extern s16 gTileTerrainFlags[];
 
 void sub_080119B4(void *entity, s32 b, s32 c, s32 d, s32 e) {
     int flag;
@@ -82,9 +82,9 @@ void sub_080119B4(void *entity, s32 b, s32 c, s32 d, s32 e) {
 
 C26:
     {
-        s32 map = (s32)D_02023130 + (gMainWorkspace[0x18A8] << 6);
+        s32 map = (s32)gTilemapPages + (gMainWorkspace[0x18A8] << 6);
         t1 = getTileTerrain(map, (x + r6) - sp1C, y + 0x80000);
-        if ((D_080CB278[(unsigned short)t1] & 0x0E) || (D_080CB278[getTileTerrain(map, (x + r6) + e, y + 0x80000)] & 0x0E)) {
+        if ((gTileTerrainFlags[(unsigned short)t1] & 0x0E) || (gTileTerrainFlags[getTileTerrain(map, (x + r6) + e, y + 0x80000)] & 0x0E)) {
             *(u16 *)((u8 *)entity + 2) |= 0x04;
         }
     }
@@ -96,14 +96,14 @@ C26:
     }
     v = newX + e;
     if (r6 < 0) v = newX - sp1C;
-    t1 = getTileTerrain((s32)D_02023130 + (gMainWorkspace[0x18A8] << 6), v, y);
-    if (D_080CB278[(unsigned short)t1] & 0x0A) {
+    t1 = getTileTerrain((s32)gTilemapPages + (gMainWorkspace[0x18A8] << 6), v, y);
+    if (gTileTerrainFlags[(unsigned short)t1] & 0x0A) {
         flag = r6 > 0;
         if (flag) v = (v & 0xFFF80000) + 0xFFFF8000;
         else v = (v & 0xFFF80000) + 0x88000;
     } else {
-        t2 = getTileTerrain((s32)D_02023130 + (gMainWorkspace[0x18A8] << 6), v, y - c);
-        if (D_080CB278[(unsigned short)t2] & 0x0A) {
+        t2 = getTileTerrain((s32)gTilemapPages + (gMainWorkspace[0x18A8] << 6), v, y - c);
+        if (gTileTerrainFlags[(unsigned short)t2] & 0x0A) {
             flag = (v & 0xFFF80000) + 0xFFFF8000;
             if (r6 > 0) v = flag;
             else v = (v & 0xFFF80000) + 0x88000;

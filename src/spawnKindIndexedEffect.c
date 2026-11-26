@@ -1,7 +1,7 @@
 /* Spawns a kind-selected attack/effect entity: allocates the sprite and its descriptor,
  * copies the animation data, sets the world position from the coordinate tables, then
  * advances the parent's state index. */
-struct A
+struct EffectSpawnerEntity
 {
   u8 _0[2];
   u16 flags;
@@ -22,7 +22,7 @@ struct A
   u8 _70[0xC];
   u32 direction;
 };
-struct B
+struct EffectSpawnerWork
 {
   u8 _0[8];
   u32 x;
@@ -37,7 +37,7 @@ struct B
   u8 _2C[8];
   u32 f34;
 };
-struct Obj
+struct EffectSprite
 {
   u16 attrs;
   u8 _02[0x12];
@@ -45,7 +45,7 @@ struct Obj
   u32 y;
   u32 magic;
 };
-struct SpriteDef
+struct EffectSpriteLayer
 {
   u8 f00;
   u8 f01;
@@ -59,7 +59,7 @@ struct SpriteDef
   u16 f0E;
   u32 f10;
 };
-struct Tbl
+struct EffectGfxEntry
 {
   u8 _pad[4];
   u16 gfxA;
@@ -84,10 +84,10 @@ extern u32 D_080CF564[];
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
 extern u32 gMainObjTimerCallback;
-void sub_08044000(struct A *actor)
+void spawnKindIndexedEffect(struct EffectSpawnerEntity *actor)
 {
-  struct Obj *sprite;
-  struct B *state;
+  struct EffectSprite *sprite;
+  struct EffectSpawnerWork *state;
   u8 *scratchBuf;
   u8 *globalState;
   u8 *spriteCfg;
@@ -95,7 +95,7 @@ void sub_08044000(struct A *actor)
   u32 attrs;
   u32 slotIndex;
   s16 stateIndex;
-  sprite = (struct Obj *) allocSpriteObject();
+  sprite = (struct EffectSprite *) allocSpriteObject();
   if (sprite == NULL)
   {
     goto fail;
@@ -107,7 +107,7 @@ void sub_08044000(struct A *actor)
     goto fail;
   }
   sprite->magic = 0x80000009;
-  state = (struct B *) actor->state;
+  state = (struct EffectSpawnerWork *) actor->state;
   scratchBuf = ((u8 *) state) + 0x34;
   installUpdateHandler(actor, state, &sub_08014290);
   state->kind = (s16) D_080CF564[actor->kindIndex];
@@ -148,13 +148,13 @@ void sub_08044000(struct A *actor)
   {
     u8 *defBytes = (u8 *) state->spriteDef;
     spriteTable = gEffectGfxTable;
-    ((struct SpriteDef *) defBytes)->f04 = ((struct Tbl *) (spriteTable + (((s32) state->kind) * 40)))->gfxA;
+    ((struct EffectSpriteLayer *) defBytes)->f04 = ((struct EffectGfxEntry *) (spriteTable + (((s32) state->kind) * 40)))->gfxA;
   }
-  ((struct SpriteDef *) state->spriteDef)->f06 = *((u16 *) (&spriteCfg[0]));
-  ((struct SpriteDef *) state->spriteDef)->f08 = *((u16 *) (&spriteCfg[2]));
-  ((struct SpriteDef *) state->spriteDef)->f0A = *((u16 *) (&spriteCfg[4]));
-  ((struct SpriteDef *) state->spriteDef)->f0C = *((u16 *) (&spriteCfg[6]));
-  ((struct SpriteDef *) state->spriteDef)->f0E = ((struct Tbl *) (spriteTable + (((s32) state->kind) * 40)))->gfxB;
+  ((struct EffectSpriteLayer *) state->spriteDef)->f06 = *((u16 *) (&spriteCfg[0]));
+  ((struct EffectSpriteLayer *) state->spriteDef)->f08 = *((u16 *) (&spriteCfg[2]));
+  ((struct EffectSpriteLayer *) state->spriteDef)->f0A = *((u16 *) (&spriteCfg[4]));
+  ((struct EffectSpriteLayer *) state->spriteDef)->f0C = *((u16 *) (&spriteCfg[6]));
+  ((struct EffectSpriteLayer *) state->spriteDef)->f0E = ((struct EffectGfxEntry *) (spriteTable + (((s32) state->kind) * 40)))->gfxB;
   *((u32 *) (((u8 *) state->spriteDef) + 0x10)) = (u32) sprite;
   {
     u8 *coordTable = gCameraState;

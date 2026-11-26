@@ -5,7 +5,7 @@ void *sub_0805FAEC(u32, s32);
 void sub_080C31E0(s32, s32);
 
 extern u8 gMainWorkspace[];
-extern u8 D_080CEF30[];
+extern u8 gScriptObjectAffineParams[];
 
 /* Updates an entity's sprite animation and pose, clearing a visibility bit as
  * it animates and spawning the result object once the animation completes. */
@@ -54,7 +54,7 @@ void sub_080368E4(void *entity) {
     case 27: break;
     case 28: poseIndex = 9; break;
     }
-    copyPoseAttrs(*(u32 *)(state + 0x28), D_080CEF30 + poseIndex * 8);
+    copyPoseAttrs(*(u32 *)(state + 0x28), gScriptObjectAffineParams + poseIndex * 8);
     if (*(u8 *)(extra + 0x18) == 8) {
         *(u8 *)(extra + 0x18) |= 0x80;
         if ((*(u16 *)extra & 1) == 0) {

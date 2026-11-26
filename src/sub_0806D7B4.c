@@ -8,7 +8,7 @@ struct S_02025FF0_18A8 {
     u8 b;
 };
 extern struct S_02025FF0_18A8 gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 struct Vec {
     s32 x;
@@ -70,7 +70,7 @@ void sub_0806D77C(struct Vec *position, s32 percent)
  * (the pixel at the position itself must be solid), else 0. */
 s32 sub_0806D654(struct Vec *position)
 {
-    s32 map = (s32)D_02023130 + ((u32)gMainWorkspace.b << 6);
+    s32 map = (s32)gTilemapPages + ((u32)gMainWorkspace.b << 6);
     s32 i;
 
     if ((u16)sub_08007B78(map, position->x, position->y) == 0)

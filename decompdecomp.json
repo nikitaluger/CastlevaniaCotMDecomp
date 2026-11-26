@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795708623.5995185,
- "revision": 67442,
+ "saved_at": 1795713300.254876,
+ "revision": 67618,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "192148:134409876": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnKind69ScriptSprite",
-   "vram": 134409876
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -2881,8 +2869,8 @@
   },
   "sub_08007EF8": {
    "vram": 134250232,
-   "best_score": 1010,
-   "best_by": "permuter-8589934825"
+   "best_score": 950,
+   "best_by": "opencode-beam-free-9"
   },
   "sub_08007FE0": {
    "vram": 134250464,
@@ -3129,10 +3117,10 @@
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
    "readable": false
   },
-  "sub_08009D1C": {
+  "initScene": {
    "vram": 134257948,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
-   "readable": false
+   "readable": true
   },
   "sub_08009F28": {
    "vram": 134258472,
@@ -3234,10 +3222,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0800AF0C": {
+  "updateSaveCopyMenu": {
    "vram": 134262540,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_0800B104": {
    "vram": 134263044,
@@ -3396,8 +3384,8 @@
   },
   "sub_0800D4BC": {
    "vram": 134272188,
-   "best_score": 1750,
-   "best_by": "permuter-8589934941"
+   "best_score": 435,
+   "best_by": "opencode-hungerg-free-3"
   },
   "sub_0800D5B8": {
    "vram": 134272440,
@@ -3992,7 +3980,7 @@
   "moveObjectHorizontally": {
    "vram": 134289012,
    "matched_by": "opencode-hy4-flash-free-7",
-   "readable": false
+   "readable": true
   },
   "sub_08011898": {
    "vram": 134289560,
@@ -4139,7 +4127,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08014290": {
+  "updateScriptedEffectObject": {
    "vram": 134300304,
    "matched_by": "opencode-free-1",
    "readable": false
@@ -5609,10 +5597,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080200A0": {
+  "spawnFixedKindEffect": {
    "vram": 134348960,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0802029C": {
    "vram": 134349468,
@@ -5624,7 +5612,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08020478": {
+  "updateFixedKindEffect": {
    "vram": 134349944,
    "matched_by": "autopilot",
    "readable": false
@@ -6284,10 +6272,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08026D38": {
+  "spawnKindSelectedEffect": {
    "vram": 134376760,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_08026F44": {
    "vram": 134377284,
@@ -6349,12 +6337,12 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_080279B4": {
+  "releaseEffectState": {
    "vram": 134379956,
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_080279D8": {
+  "unregisterEffectEntity": {
    "vram": 134379992,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -7374,10 +7362,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08031F6C": {
+  "spawnStateDrivenEffect": {
    "vram": 134422380,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08032180": {
    "vram": 134422912,
@@ -7864,10 +7852,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0803657C": {
+  "spawnScriptedEffectObject": {
    "vram": 134440316,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_0803677C": {
    "vram": 134440828,
@@ -8834,10 +8822,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080404C4": {
+  "initScriptedSinglePartGraphics": {
    "vram": 134481092,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_080406E0": {
    "vram": 134481632,
@@ -9224,10 +9212,10 @@
    "matched_by": "opencode-free-2",
    "readable": false
   },
-  "sub_08044000": {
+  "spawnKindIndexedEffect": {
    "vram": 134496256,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080441F8": {
    "vram": 134496760,
@@ -9569,10 +9557,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08047AAC": {
+  "spawnOwnedEffect": {
    "vram": 134511276,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_08047CA4": {
    "vram": 134511780,
@@ -9746,8 +9734,8 @@
   },
   "sub_0804964C": {
    "vram": 134518348,
-   "best_score": 200,
-   "best_by": "opencode-iceman-contributor-free-1"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_08049694": {
    "vram": 134518420,
@@ -10734,15 +10722,15 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08052CF4": {
+  "spawnKind4FAttackEffect": {
    "vram": 134556916,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08052F10": {
    "vram": 134557456,
-   "best_score": 200,
-   "best_by": "opencode-hy4-flash-free-1"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_08053000": {
    "vram": 134557696,
@@ -10866,8 +10854,8 @@
   },
   "sub_08053DFC": {
    "vram": 134561276,
-   "best_score": 100,
-   "best_by": "opencode-hy4-flash-free-1"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_08053F08": {
    "vram": 134561544,
@@ -10921,8 +10909,8 @@
   },
   "sub_080547E0": {
    "vram": 134563808,
-   "best_score": 200,
-   "best_by": "autopilot"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_08054864": {
    "vram": 134563940,
@@ -11209,10 +11197,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08056F4C": {
+  "createPairedScriptedEffect": {
    "vram": 134573900,
    "matched_by": "deep-permuter",
-   "readable": false
+   "readable": true
   },
   "sub_0805715C": {
    "vram": 134574428,
@@ -12434,10 +12422,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08063F80": {
+  "updatePlayerActionState": {
    "vram": 134627200,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_08064178": {
    "vram": 134627704,
@@ -12724,10 +12712,10 @@
    "best_score": 15855,
    "best_by": "permuter-8589936911"
   },
-  "sub_0806817C": {
+  "runActionStep": {
    "vram": 134644092,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08068378": {
    "vram": 134644600,
@@ -12759,10 +12747,10 @@
    "best_score": 8075,
    "best_by": "permuter-8589936918"
   },
-  "sub_08068E20": {
+  "runActionStepAlt": {
    "vram": 134647328,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08069018": {
    "vram": 134647832,
@@ -14446,8 +14434,8 @@
   },
   "sub_0807F320": {
    "vram": 134738720,
-   "best_score": 3695,
-   "best_by": "permuter-8589937272"
+   "best_score": 3285,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0807F490": {
    "vram": 134739088,
@@ -15051,13 +15039,13 @@
   },
   "selectSceneMode": {
    "vram": 134773104,
-   "best_score": 4435,
-   "best_by": "deep-permuter"
+   "best_score": 1130,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "loadSceneGraphics": {
    "vram": 134773584,
    "matched_by": "opencode-hy4-flash-free-6",
-   "readable": false
+   "readable": true
   },
   "sub_08087D60": {
    "vram": 134774112,
@@ -18306,8 +18294,8 @@
   },
   "sub_080A0154": {
    "vram": 134873428,
-   "best_score": 200,
-   "best_by": "opencode-iceman-contributor-free-1"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_080A0194": {
    "vram": 134873492,
@@ -21096,8 +21084,8 @@
   },
   "sub_080B6E58": {
    "vram": 134966872,
-   "best_score": 20,
-   "best_by": "permuter-8589938685"
+   "matched_by": "permuter",
+   "readable": false
   },
   "sub_080B7060": {
    "vram": 134967392,
@@ -24565,7 +24553,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08009D1C",
+   "name": "initScene",
    "vram": 134257948,
    "size": 524,
    "status": "open"
@@ -24709,7 +24697,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0800AF0C",
+   "name": "updateSaveCopyMenu",
    "vram": 134262540,
    "size": 504,
    "status": "open"
@@ -25909,7 +25897,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08014290",
+   "name": "updateScriptedEffectObject",
    "vram": 134300304,
    "size": 46,
    "status": "open"
@@ -27847,7 +27835,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080200A0",
+   "name": "spawnFixedKindEffect",
    "vram": 134348960,
    "size": 508,
    "status": "open"
@@ -27865,7 +27853,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08020478",
+   "name": "updateFixedKindEffect",
    "vram": 134349944,
    "size": 30,
    "status": "open"
@@ -28711,7 +28699,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08026D38",
+   "name": "spawnKindSelectedEffect",
    "vram": 134376760,
    "size": 524,
    "status": "open"
@@ -28789,13 +28777,13 @@
    "status": "open"
   },
   {
-   "name": "sub_080279B4",
+   "name": "releaseEffectState",
    "vram": 134379956,
    "size": 34,
    "status": "open"
   },
   {
-   "name": "sub_080279D8",
+   "name": "unregisterEffectEntity",
    "vram": 134379992,
    "size": 54,
    "status": "open"
@@ -30055,7 +30043,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08031F6C",
+   "name": "spawnStateDrivenEffect",
    "vram": 134422380,
    "size": 532,
    "status": "open"
@@ -30649,7 +30637,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0803657C",
+   "name": "spawnScriptedEffectObject",
    "vram": 134440316,
    "size": 512,
    "status": "open"
@@ -31879,7 +31867,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080404C4",
+   "name": "initScriptedSinglePartGraphics",
    "vram": 134481092,
    "size": 540,
    "status": "open"
@@ -32359,7 +32347,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08044000",
+   "name": "spawnKindIndexedEffect",
    "vram": 134496256,
    "size": 504,
    "status": "open"
@@ -32779,7 +32767,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08047AAC",
+   "name": "spawnOwnedEffect",
    "vram": 134511276,
    "size": 504,
    "status": "open"
@@ -33009,14 +32997,8 @@
   {
    "name": "sub_0804964C",
    "vram": 134518348,
-   "size": 68,
+   "size": 72,
    "status": "open"
-  },
-  {
-   "name": "sub_08049692",
-   "vram": 134518418,
-   "size": 2,
-   "status": "asm"
   },
   {
    "name": "sub_08049694",
@@ -34255,7 +34237,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08052CF4",
+   "name": "spawnKind4FAttackEffect",
    "vram": 134556916,
    "size": 540,
    "status": "open"
@@ -34263,14 +34245,8 @@
   {
    "name": "sub_08052F10",
    "vram": 134557456,
-   "size": 236,
+   "size": 240,
    "status": "open"
-  },
-  {
-   "name": "sub_08052FFE",
-   "vram": 134557694,
-   "size": 2,
-   "status": "asm"
   },
   {
    "name": "sub_08053000",
@@ -34425,14 +34401,8 @@
   {
    "name": "sub_08053DFC",
    "vram": 134561276,
-   "size": 264,
+   "size": 268,
    "status": "open"
-  },
-  {
-   "name": "sub_08053F06",
-   "vram": 134561542,
-   "size": 2,
-   "status": "asm"
   },
   {
    "name": "sub_08053F08",
@@ -34497,14 +34467,8 @@
   {
    "name": "sub_080547E0",
    "vram": 134563808,
-   "size": 128,
+   "size": 132,
    "status": "open"
-  },
-  {
-   "name": "sub_08054860",
-   "vram": 134563936,
-   "size": 4,
-   "status": "asm"
   },
   {
    "name": "sub_08054864",
@@ -34879,7 +34843,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08056F4C",
+   "name": "createPairedScriptedEffect",
    "vram": 134573900,
    "size": 528,
    "status": "open"
@@ -36445,7 +36409,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08063F80",
+   "name": "updatePlayerActionState",
    "vram": 134627200,
    "size": 504,
    "status": "open"
@@ -36811,7 +36775,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0806817C",
+   "name": "runActionStep",
    "vram": 134644092,
    "size": 508,
    "status": "open"
@@ -36853,7 +36817,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08068E20",
+   "name": "runActionStepAlt",
    "vram": 134647328,
    "size": 504,
    "status": "open"
@@ -43959,14 +43923,8 @@
   {
    "name": "sub_080A0154",
    "vram": 134873428,
-   "size": 60,
+   "size": 64,
    "status": "open"
-  },
-  {
-   "name": "sub_080A0190",
-   "vram": 134873488,
-   "size": 4,
-   "status": "asm"
   },
   {
    "name": "sub_080A0194",
@@ -50151,6 +50109,12 @@
    "kind": "data"
   },
   {
+   "name": "gTilemapPages",
+   "address": 33698096,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gGameStatus",
    "address": 33706856,
    "size": 0,
@@ -50214,6 +50178,18 @@
    "name": "getTileTerrain",
    "address": 134249852,
    "size": 92,
+   "kind": "func"
+  },
+  {
+   "name": "initScene",
+   "address": 134257948,
+   "size": 524,
+   "kind": "func"
+  },
+  {
+   "name": "updateSaveCopyMenu",
+   "address": 134262540,
+   "size": 504,
    "kind": "func"
   },
   {
@@ -50286,6 +50262,12 @@
    "name": "installUpdateHandler",
    "address": 134300296,
    "size": 8,
+   "kind": "func"
+  },
+  {
+   "name": "updateScriptedEffectObject",
+   "address": 134300304,
+   "size": 46,
    "kind": "func"
   },
   {
@@ -50415,6 +50397,18 @@
    "kind": "func"
   },
   {
+   "name": "spawnFixedKindEffect",
+   "address": 134348960,
+   "size": 508,
+   "kind": "func"
+  },
+  {
+   "name": "updateFixedKindEffect",
+   "address": 134349944,
+   "size": 30,
+   "kind": "func"
+  },
+  {
    "name": "scriptCmdSpawnProjectile",
    "address": 134350100,
    "size": 600,
@@ -50463,6 +50457,24 @@
    "kind": "func"
   },
   {
+   "name": "spawnKindSelectedEffect",
+   "address": 134376760,
+   "size": 524,
+   "kind": "func"
+  },
+  {
+   "name": "releaseEffectState",
+   "address": 134379956,
+   "size": 34,
+   "kind": "func"
+  },
+  {
+   "name": "unregisterEffectEntity",
+   "address": 134379992,
+   "size": 54,
+   "kind": "func"
+  },
+  {
    "name": "initKindZeroSpriteObject",
    "address": 134384728,
    "size": 572,
@@ -50487,15 +50499,45 @@
    "kind": "func"
   },
   {
+   "name": "spawnStateDrivenEffect",
+   "address": 134422380,
+   "size": 532,
+   "kind": "func"
+  },
+  {
    "name": "initScriptedMultiPartGraphics",
    "address": 134437268,
    "size": 580,
    "kind": "func"
   },
   {
+   "name": "spawnScriptedEffectObject",
+   "address": 134440316,
+   "size": 512,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind57ScriptSprite",
    "address": 134473204,
    "size": 572,
+   "kind": "func"
+  },
+  {
+   "name": "initScriptedSinglePartGraphics",
+   "address": 134481092,
+   "size": 540,
+   "kind": "func"
+  },
+  {
+   "name": "spawnKindIndexedEffect",
+   "address": 134496256,
+   "size": 504,
+   "kind": "func"
+  },
+  {
+   "name": "spawnOwnedEffect",
+   "address": 134511276,
+   "size": 504,
    "kind": "func"
   },
   {
@@ -50508,6 +50550,12 @@
    "name": "spawnKind5ESpriteFromParams",
    "address": 134541020,
    "size": 568,
+   "kind": "func"
+  },
+  {
+   "name": "spawnKind4FAttackEffect",
+   "address": 134556916,
+   "size": 540,
    "kind": "func"
   },
   {
@@ -50526,6 +50574,12 @@
    "name": "updateAttackObject",
    "address": 134568288,
    "size": 46,
+   "kind": "func"
+  },
+  {
+   "name": "createPairedScriptedEffect",
+   "address": 134573900,
+   "size": 528,
    "kind": "func"
   },
   {
@@ -50568,6 +50622,24 @@
    "name": "drawStatusHud",
    "address": 134619416,
    "size": 636,
+   "kind": "func"
+  },
+  {
+   "name": "updatePlayerActionState",
+   "address": 134627200,
+   "size": 504,
+   "kind": "func"
+  },
+  {
+   "name": "runActionStep",
+   "address": 134644092,
+   "size": 508,
+   "kind": "func"
+  },
+  {
+   "name": "runActionStepAlt",
+   "address": 134647328,
+   "size": 504,
    "kind": "func"
   },
   {
@@ -50781,6 +50853,12 @@
    "kind": "data"
   },
   {
+   "name": "gTileTerrainFlags",
+   "address": 135049848,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gSpriteKindTable",
    "address": 135049912,
    "size": 0,
@@ -50847,8 +50925,26 @@
    "kind": "data"
   },
   {
+   "name": "gFixedAttackAffineParams",
+   "address": 135063452,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gSpriteDefaultAttrsAlt",
    "address": 135063592,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKindEffectAffineParams",
+   "address": 135063824,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKindEffectParamTable",
+   "address": 135063832,
    "size": 0,
    "kind": "data"
   },
@@ -50877,14 +50973,44 @@
    "kind": "data"
   },
   {
+   "name": "gStateEffectAffineParams",
+   "address": 135064488,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gSpriteLayerAttrs",
    "address": 135065176,
    "size": 0,
    "kind": "data"
   },
   {
+   "name": "gScriptObjectAffineParams",
+   "address": 135065392,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gKind57LayerAttrs",
    "address": 135066668,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gScriptedEffectLayerAttrs",
+   "address": 135066712,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gScriptedEffectGfxDataA",
+   "address": 135066752,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gScriptedEffectGfxDataB",
+   "address": 135066760,
    "size": 0,
    "kind": "data"
   },
@@ -50897,6 +51023,24 @@
   {
    "name": "gKind5ELayerAttrs",
    "address": 135068236,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gAttackEffectAffineParams",
+   "address": 135068376,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gPairedEffectKindTable",
+   "address": 135068824,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gPairedEffectLayerAttrs",
+   "address": 135068832,
    "size": 0,
    "kind": "data"
   },
@@ -50958,7 +51102,12 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "struct FixedEffectScroll",
+   "type": "struct ActionCameraState",
+   "source": "match"
+  },
+  {
+   "address": 33698096,
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -50968,7 +51117,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct FixedEffectWorkspace",
+   "type": "struct ActionWorkspace",
    "source": "match"
   },
   {
@@ -50982,13 +51131,18 @@
    "source": "match"
   },
   {
+   "address": 135049848,
+   "type": "s16[]",
+   "source": "match"
+  },
+  {
    "address": 135049912,
-   "type": "u8[]",
+   "type": "struct PairedEffectKindEntry[]",
    "source": "match"
   },
   {
    "address": 135052752,
-   "type": "struct FixedEffectKindEntry[]",
+   "type": "struct EffectDef[]",
    "source": "match"
   },
   {
@@ -51037,8 +51191,23 @@
    "source": "match"
   },
   {
+   "address": 135063452,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 135063592,
    "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135063824,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135063832,
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -51062,13 +51231,38 @@
    "source": "match"
   },
   {
+   "address": 135064488,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 135065176,
    "type": "u8[]",
    "source": "match"
   },
   {
+   "address": 135065392,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 135066668,
    "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135066712,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135066752,
+   "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 135066760,
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -51079,6 +51273,21 @@
   {
    "address": 135068236,
    "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135068376,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135068824,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135068832,
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -51123,7 +51332,7 @@
   },
   {
    "address": 140975024,
-   "type": "u32",
+   "type": "s32",
    "source": "match"
   }
  ],
@@ -54480,28 +54689,6 @@
    "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-iceman-contributor-free) found no C makes it: Not executable code: bytes at 0x08048FC4 are literal pool entry 0x08671BB0 (B0 1B 67 08), mis-disassembled as subs/lsrs. Real function is sub_08048FC8 which is already matched. No C can produce this data-as-code."
   },
   {
-   "name": "sub_08049692",
-   "vram": 134518418,
-   "not_c": {
-    "opencode-deepseek-v4.1-flash-free-1": {
-     "model": "opencode-deepseek-v4.1-flash-free",
-     "why": "Not code at all: the only 2 bytes (0x08049692-0x08049693 = 66 08) are the upper half of sub_0804964C's 4-byte literal-pool word 0x0866E3A0 spanning 0x08049690-0x08049693 (read_data shows `a0 e3 66 08` at 0x08049690; sub_0804964C references it as D_0866E3A0). The disassembler's single `lsrs r6,r4,#1` is that data halfword (0x0866). Real code starts at 0x08049694 (`10 b5` = push {r4,lr}), already split as sub_08049694. Verified this session: an empty C function compiles to `bx lr` (score 200, 1 insn), and no C of >1 instruction can match a lone `lsrs r6,r4,#1` on non-argument registers. report_boundary can't be used because the function's only instruction IS at 0x08049692 and end must be later. Should be dropped/set aside as phantom data overlapping sub_0804964C's pool.",
-     "t": 1794981865.0562282
-    },
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Phantom, not C. read_data at 0x08049690: bytes A0 E3 66 08 = the 4-byte literal-pool word 0x0866E3A0 used by sub_0804964C. The 2 bytes claimed by sub_08049692 (offset +2..+3 = 66 08 = 0x0866) are just the upper half of that literal, decoded as `lsrs r6,r4,#1`. Compiled an empty C function: emits `bx lr`, score 200 \u2014 no C can produce a lone non-returning `lsrs r6,r4,#1` on non-argument registers. Independently confirmed by prior agents (deepseek, hy4). Real code resumes at 0x08049694 (sub_08049694, already matched). Setting this aside as data/non-C may also remove the 2-nop pool padding that sub_0804964C sees.",
-     "t": 1794984139.471346
-    },
-    "opencode-nemotron-3.5-super-vl-12-1": {
-     "model": "opencode-nemotron-3.5-super-vl-12",
-     "why": "not_c=true. sub_08049692 is not code: its 2 bytes (0x08049692-93 = 66 08) are the upper half of sub_0804964C's literal-pool word 0x0866E3A0 (bytes A0 E3 66 08 at 0x08049690-93, confirmed via read_data). The disassembler's lone `lsrs r6,r4,#1` is that data halfword misdecoded as Thumb. Real code starts at 0x08049694 (`10 b5` = push {r4,lr}), already a separate function sub_08049694. No C can compile to a single non-returning `lsrs r6,r4,#1` on non-argument registers with no prologue/epilogue. Independently confirmed by 4 prior agents. Set aside as data/phantom overlapping sub_0804964C's pool; sub_0804964C waits on this symbol.",
-     "t": 1794987732.7991455
-    }
-   },
-   "asm_code": "3 agents (opencode-deepseek-v4.1-flash-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) found no C makes it: not_c=true. sub_08049692 is not code: its 2 bytes (0x08049692-93 = 66 08) are the upper half of sub_0804964C's literal-pool word 0x0866E3A0 (bytes A0 E3 66 08 at 0x08049690-93, confirmed via read_data). The disassembler's lone `lsrs r6,r4,#1` is that data halfword misdecoded as Thumb. Real code starts at 0x08049694 (`10 b5` = push {r4,lr}), already a separate function sub_08049694. No C can compile to a single non-returning `lsrs r6,r4,#1` on non-argument registers with no prologue/epilogue. Independently confirmed by 4 prior agents. Set aside as data/phantom overlapping sub_0804964C's pool; sub_0804964C waits on this symbol."
-  },
-  {
    "name": "sub_0804BB7C",
    "vram": 134527868,
    "not_c": {
@@ -54700,28 +54887,6 @@
    "asm_code": "3 agents (opencode-deepseek-v4.1-flash-free, opencode-free, opencode-iceman-contributor-free) found no C makes it: Not C: 12-byte tail fragment of the preceding function \u2014 `ldsh r0,[r6,r7]` uses callee-saved r6/r7 with no prologue, and it ends mid-instruction in the truncated bl halfword 0xFFC8 (the last real function's `bl` continues past this \"entry\"). No bx lr anywhere, so no standalone C body can produce these bytes; the disassembler boundary needs merging this range into the preceding function. Compiled the simplest C once (score 610) to satisfy the release rule."
   },
   {
-   "name": "sub_08052FFE",
-   "vram": 134557694,
-   "not_c": {
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Boundary artifact, not C. The single halfword at 0x08052FFE (`lsrs r6,r4,#1`, bytes 66 08 = 0x0866) is the HIGH HALFWORD OF A 32-BIT LITERAL POINTER 0x0866xxxx stored at 0x08052FFC \u2014 it disassembles as `lsrs r6,r4,#1` only because the address is 2-byte-aligned. It has no prologue and no `bx lr`; agbcc always emits at least `bx lr` (score 200, 0% match), so no C can reproduce a lone 2-byte data fragment. Split at 0x08053000 was already applied; the real 78-instruction function sub_08053000 matches byte-for-byte. This symbol should be set aside as padding/data, not decompiled.",
-     "t": 1794967803.1541643
-    },
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "2-byte fragment at 0x08052FFE (`lsrs r6,r4,#1`, bytes 0x0866) is the high halfword of a 32-bit literal/pool pointer stored at 0x08052FFC (disassembled as instruction due to alignment), not executable code. No prologue/epilogue; agbcc cannot emit this as a function body (empty function gives bx lr). Real function sub_08053000 at 0x08053000 is already matched. This symbol is a data/boundary artifact, not decompilable C.",
-     "t": 1794968821.7166958
-    },
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Confirmed not C: the 2-byte body at 0x08052FFE is a single halfword `lsrs r6,r4,#1` (bytes 66 08 = 0x0866) which is the high half of a 32-bit literal pointer in the pool at 0x08052FFC; it disassembles as an instruction only because the address is 2-byte aligned. There is no prologue and no `bx lr`. agbcc always emits `bx lr` for any function; compiling an empty body scores 200 (0%) with `bx lr` vs `lsrs`. Split already applied at 0x08053000 (the real 78-instruction function sub_08053000 matches byte-for-byte). No C can reproduce this lone data halfword as a function body. Set aside as data/boundary artifact.",
-     "t": 1794981908.105948
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free) found no C makes it: Confirmed not C: the 2-byte body at 0x08052FFE is a single halfword `lsrs r6,r4,#1` (bytes 66 08 = 0x0866) which is the high half of a 32-bit literal pointer in the pool at 0x08052FFC; it disassembles as an instruction only because the address is 2-byte aligned. There is no prologue and no `bx lr`. agbcc always emits `bx lr` for any function; compiling an empty body scores 200 (0%) with `bx lr` vs `lsrs`. Split already applied at 0x08053000 (the real 78-instruction function sub_08053000 matches byte-for-byte). No C can reproduce this lone data halfword as a function body. Set aside as data/boundary artifact."
-  },
-  {
    "name": "sub_080537AC",
    "vram": 134559660,
    "not_c": {
@@ -54745,53 +54910,6 @@
     }
    },
    "asm_code": "3 agents (opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Best score 2325 (1595 seen earlier but not reproducible). Root blocker: target computes `dat = *(u8***)(arg0+0xAC)` as `adds r0,#0xac; ldr r4,[r0]` (arg0 still in r0, 4 bytes), mine uses `adds r4,r6,#0; adds r4,#0xac; ldr r4,[r4]` (6 bytes). This 2-byte difference cascades to every branch offset (be"
-  },
-  {
-   "name": "sub_08053F06",
-   "vram": 134561542,
-   "not_c": {
-    "opencode-deepseek-v4.1-flash-free-1": {
-     "model": "opencode-deepseek-v4.1-flash-free",
-     "why": "Not code: bytes 0x08053F06-0x08053F07 = `0c 08`, the upper half of the 32-bit literal 0x080CFB0C stored at 0x08053F04-0x08053F07 (read_data shows `0c fb 0c 08` at 0x08053F04, referenced as D_080CFB0C by the previous function's pool). The disassembler's `lsrs r4,r1,#0x20` is that data halfword. Real code starts at 0x08053F08 (`10 b5 04 1c 0f 48 60 61` = push {r4,lr}...), already split as sub_08053F08 (36 insns thunk). Verified: empty C compiles to `bx lr` (score 200, 1 insn); no C can emit a lone `lsrs r4,r1,#0x20` (and shift-by-32 isn't even a legal Thumb shift immediate). report_boundary can't be used (its only instruction is exactly at the start). Should be dropped/set aside as phantom data.",
-     "t": 1794981895.4742527
-    },
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Phantom, not C. Bytes at 0x08053F06-07 (0c 08 = 0x080C) are the upper half of the 32-bit literal 0x080CFB0C at 0x08053F04-07 (`0c fb 0c 08`), referenced as D_080CFB0C by the prior function's pool. The lone `lsrs r4,r1,#0x20` is that data halfword (shift-by-32 isn't even a legal Thumb immediate). Real code starts at 0x08053F08 (sub_08053F08). Compiled empty C: score 200, emits `bx lr`; no C can match a lone non-returning shift on non-argument registers. Multiple prior agents (deepseek, hy4, iceman, free) independently concluded phantom data. Set aside as non-C.",
-     "t": 1794982927.1178656
-    },
-    "opencode-hy4-flash-free-10": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Phantom data, not code. The 2 bytes at 0x08053F06-07 (0c 08) are the upper half of the 32-bit literal 0x080CFB0C at 0x08053F04-07 (read_data: `0c fb 0c 08`), used as a pool word by the preceding function. The lone `lsrs r4,r1,#0x20` is that halfword disassembled as Thumb. Empty C compiles to `bx lr` and scores 200 (the maximum mismatch for 1 insn); no C function can emit a single non-returning shift on non-argument registers. Real code starts at 0x08053F08 (sub_08053F08). Multiple agents (deepseek, hy4, iceman, free) independently reached the same conclusion. Set aside as non-C.",
-     "t": 1794991723.7398558
-    }
-   },
-   "asm_code": "3 agents (opencode-deepseek-v4.1-flash-free, opencode-hy4-flash-free) found no C makes it: Phantom data, not code. The 2 bytes at 0x08053F06-07 (0c 08) are the upper half of the 32-bit literal 0x080CFB0C at 0x08053F04-07 (read_data: `0c fb 0c 08`), used as a pool word by the preceding function. The lone `lsrs r4,r1,#0x20` is that halfword disassembled as Thumb. Empty C compiles to `bx lr` and scores 200 (the maximum mismatch for 1 insn); no C function can emit a single non-returning shift on non-argument registers. Real code starts at 0x08053F08 (sub_08053F08). Multiple agents (deepseek, hy4, iceman, free) independently reached the same conclusion. Set aside as non-C."
-  },
-  {
-   "name": "sub_08054860",
-   "vram": 134563936,
-   "not_c": {
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Not code: bytes at 0x08054860 are literal-pool constant 0x080CFB3C (D_080CFB3C), part of preceding function sub_080547E0's pool (ends 0x0805485F with pop/bx; pool includes this word). Disassembler mis-split as instructions; real code resumes at 0x08054864. No C can emit a bare 32-bit data word as function body. (read_data/notes confirm).",
-     "t": 1794933094.4554431,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Not C: the 4 bytes at 0x08054860-0x08054863 are `3c fb 0c 08` = the 32-bit literal-pool constant 0x080CFB3C (D_080CFB3C), NOT code. read_data at 0x08054840 confirms the preceding function sub_080547E0 ends at 0x0805485F with `10 bc 01 bc 00 47` (pop {r4}; pop {r0}; bx lr), its literal pool continues through 0x08054860, and real code resumes at 0x08054864 with `10 b5` (push {r4,lr}). The disassembler mis-split the pool word into `.2byte 0xFB3C` + `lsrs r4,r1,#0x20`. Compiling an empty body gives `bx lr` vs target's ARM-disassembled data word `smlawb r8,ip,ip,r0` (score 200). No C function body can emit a bare 32-bit data constant; report_boundary rejects end==function start. Two previous agents (opencode-free-2, opencode-iceman-contributor-free-1) independently reached the same conclusion. Please reclassify 0x08054860-0x08054863 as data (D_080CFB3C).",
-     "t": 1794934258.176528,
-     "from": "note"
-    },
-    "opencode-free-2": {
-     "model": "opencode-free",
-     "why": "NOT C \u2014 the 4 bytes at 0x08054860 are the literal-pool constant 0x080CFB3C (D_080CFB3C), not instructions. Confirmed via read_data at 0x08054820: the previous function sub_080547E0 ends at 0x0805485F with `10 bc 01 bc 00 47` (pop {r4}; pop {r0}; bx lr) and its literal pool contains address words D_080CFB24/2C/34/3C, the last (0x080CFB3C) at 0x08054860; real code resumes at 0x08054864 (verified: sub_08054864 starts `push {r4, lr}` = 10 b5). The disassembler split the pool word into `.2byte 0xFB3C` + `lsrs r4, r1, #0x20` and called it a function; no C can compile to a bare 32-bit pool constant, so it can never match. report_boundary cannot express it because the tool rejects end==function start (\"isn't an instruction inside\"). Please reclassify the 4-byte range 0x08054860-0x08054863 as data (D_080CFB3C) so it stops being claimed as a function.",
-     "t": 1794932135.7199304,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Not C: the 4 bytes at 0x08054860-0x08054863 are `3c fb 0c 08` = the 32-bit literal-pool constant 0x080CFB3C (D_080CFB3C), NOT code. read_data at 0x08054840 confirms the preceding function sub_080547E0 ends at 0x0805485F with `10 bc 01 bc 00 47` (pop {r4}; pop {r0}; bx lr), its literal pool continues"
   },
   {
    "name": "pad_08054910",
@@ -57295,28 +57413,6 @@
     }
    },
    "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hy4-flash-free) said in their notes that no C makes it: Second release request with explicit reason: no further C compile can improve this function. 70 prior attempts by many agents plus this session's compile all land on 5653; the gap is entirely agbcc's deterministic callee-saved/stack-frame allocation (target a=r7/b=r6/r8ptr=r8/p94=sb/4 slots/pre-test"
-  },
-  {
-   "name": "sub_080A0190",
-   "vram": 134873488,
-   "not_c": {
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Target is 4 bytes: `lsls r0,r0,#0` (0x0000) followed by raw `.2byte 0xFFE0` (0xE0 0xFF) with no bx lr/return. Tried identity-return and void forms (3 compiles, best 300) but agbcc emits `bx lr` and cannot emit trailing 0xFFE0 data/padding byte. Reported boundary at 0x080A0192; remainder appears non-code/data. No plausible C produces this exact byte sequence.",
-     "t": 1794916190.874745
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "The 4 bytes at 0x080A0190 are `00 00 e0 ff` = data word 0xFFE00000 (a constant referenced by sub_080A0154), not executable code. read_data confirms: the next bytes at 0x080A0194 are `10 b5` (push {r4,lr}) \u2014 real code is a separate symbol. The 2-byte \"function\" has no bx lr; `lsls r0,r0,#0` (0x0000) is a nop and `0xFFE0` is data. No C function compiles to a nop followed by a raw data halfword with no return. agbcc always emits a return (identity form gives score 300, while(1) gives 400). Two other models (opencode-iceman-contributor-free-1, opencode-free-1) already concluded this is non-code data. Set aside as not_c.",
-     "t": 1794918081.0392537
-    },
-    "opencode-nemotron-3.5-super-vl-12-1": {
-     "model": "opencode-nemotron-3.5-super-vl-12",
-     "why": "4-byte region at 0x080A0190 is data not code: `00 00 e0 ff` = `lsls r0,r0,#0` (nop, 0x0000) followed by `.2byte 0xFFE0` (0xFFE0, raw data/constant referenced by sub_080A0154). No prologue/epilogue, no bx lr. Next bytes at 0x080A0194 are `10 b5` (push {r4,lr}) \u2014 real code starts there. agbcc always emits bx lr from C and cannot emit trailing 0xFFE0 data. Score 300 (identity return) is the ceiling; residual is raw data bytes, not code. Multiple models concluded this is non-code data.",
-     "t": 1794992474.9671192
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free, opencode-nemotron-3.5-super-vl-12) found no C makes it: 4-byte region at 0x080A0190 is data not code: `00 00 e0 ff` = `lsls r0,r0,#0` (nop, 0x0000) followed by `.2byte 0xFFE0` (0xFFE0, raw data/constant referenced by sub_080A0154). No prologue/epilogue, no bx lr. Next bytes at 0x080A0194 are `10 b5` (push {r4,lr}) \u2014 real code starts there. agbcc always emits bx lr from C and cannot emit trailing 0xFFE0 data. Score 300 (identity return) is the ceiling; residual is raw data bytes, not code. Multiple models concluded this is non-code data."
   },
   {
    "name": "sub_080A0204",

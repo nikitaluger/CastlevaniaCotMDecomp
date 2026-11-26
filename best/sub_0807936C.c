@@ -12,7 +12,7 @@ struct S_02025FF0
   u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 D_02023130;
+extern u32 gTilemapPages;
 extern u32 D_084DD0AC;
 extern u32 gMainObjTimerCallback;
 void sub_08003740(void *);
@@ -59,7 +59,7 @@ void sub_0807936C(void *arg0)
   *((s32 *) (((u8 *) r6) + 0x04)) = i;
   *((s32 *) (((u8 *) r6) + 0x54)) = (*(&(*((s32 *) (((u8 *) r6) + 0x54))))) - 1;
   new_var6 = ((u8 *) r6) + 0x1C;
-  if ((((*((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x14))) & 1) || ((sub_08007DD8((gMainWorkspace.f18A8 << 6) + ((u32) (&D_02023130)), *((s32 *) (((u8 *) r4) + 0x04))) << 16) != 0)) || ((*new_var3) == 0))
+  if ((((*((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x14))) & 1) || ((sub_08007DD8((gMainWorkspace.f18A8 << 6) + ((u32) (&gTilemapPages)), *((s32 *) (((u8 *) r4) + 0x04))) << 16) != 0)) || ((*new_var3) == 0))
   {
     void *var_r4 = new_var6;
     new_var = (u8 *) arg0;

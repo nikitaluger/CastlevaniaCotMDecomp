@@ -1,5 +1,5 @@
 extern u8 gMainWorkspace[];
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern s32 gMainObjTimerCallback;
 extern s32 sub_08005E80(s32);
 extern s32 sub_08007DD8(s32, s32, s32);
@@ -35,7 +35,7 @@ void sub_0806EB2C(void *behav) {
             sub_080C31E0(behav, *(s32 *)((u8 *)behav + 0x24));
             return;
         }
-        tile = sub_08007DD8((s32)&D_02023130[gMainWorkspace[0x18A8] << 6], *(s32 *)(params + 4), *(s32 *)(point + 4));
+        tile = sub_08007DD8((s32)&gTilemapPages[gMainWorkspace[0x18A8] << 6], *(s32 *)(params + 4), *(s32 *)(point + 4));
         if ((u16)tile != 0) {
             zero = 0;
             ((struct WarpTarget *)target)->x = 0x100;

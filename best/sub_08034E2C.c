@@ -66,7 +66,7 @@ extern struct Unk7 *allocSpriteObject(void);
 extern void allocWorkSlot(void *arg0, int a, int b, int c);
 extern struct Unk5FAEC *sub_0805FAEC(void *arg0, int a);
 extern void installUpdateHandler(void *a, struct Unk6 *b, void (*c)(void));
-extern void sub_08014290(void);
+extern void updateScriptedEffectObject(void);
 extern s32 findKindIndex(int a);
 extern void initSpriteGraphics(struct Unk7 *a, u8 *b, void *c);
 extern void setAnimationFrame(struct Unk7 *a, u8 *b, int c, int d);
@@ -131,7 +131,7 @@ void sub_08034E2C(struct Big *arg0)
   }
   p6 = (struct Unk6 *) U32(arg0, 0x3C);
   p34 = ((u8 *) p6) + 0x34;
-  installUpdateHandler(arg0, p6, sub_08014290);
+  installUpdateHandler(arg0, p6, updateScriptedEffectObject);
   p6->unk1C = 0x18;
   p6->unk8 = U32(arg0, 0x4C);
   p6->unkC = U32(arg0, 0x5C);

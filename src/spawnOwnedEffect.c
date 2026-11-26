@@ -66,7 +66,7 @@ extern u8 gSpriteAnimDataTable[];
 /* Spawn an effect from a main object: allocate a free object, build its
    EffectGfx from gEffectGfxTable/D_080CF8D0, place it at the object's world coords
    and hand it to sub_08014668 before scheduling the audio/command stream. */
-void sub_08047AAC(struct MainObj *arg0) {
+void spawnOwnedEffect(struct MainObj *arg0) {
     u8 *effect;
     struct OwnerEffect *owner;
     u8 *anim;

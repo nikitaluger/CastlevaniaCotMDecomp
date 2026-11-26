@@ -1,5 +1,5 @@
 extern u8 D_02025FF0[];
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u32 D_08472AF0;
 extern u32 D_08671BB0;
 
@@ -40,11 +40,11 @@ void sub_0806F8C8(void *arg0) {
         *(s32 *)((u8 *)r4 + 0x04) += *(s32 *)((u8 *)r4 + 0x0C);
         r7 = (u8 *)r5 + 0x30;
 
-        r0 = sub_08007DD8((D_02025FF0[0x18A8] << 6) + (s32)D_02023130, *(s32 *)((u8 *)r5 + 0x04));
+        r0 = sub_08007DD8((D_02025FF0[0x18A8] << 6) + (s32)gTilemapPages, *(s32 *)((u8 *)r5 + 0x04));
         if ((r0 << 16) != 0) {
             __repair_rows: {
                 *(s32 *)((u8 *)r4 + 0x04) += 0xFFFF0000;
-                t = sub_08007DD8((D_02025FF0[0x18A8] << 6) + (s32)D_02023130, *(s32 *)((u8 *)r4 + 0x00));
+                t = sub_08007DD8((D_02025FF0[0x18A8] << 6) + (s32)gTilemapPages, *(s32 *)((u8 *)r4 + 0x00));
             }
 if (t != 0) goto __repair_rows;
             *(s32 *)((u8 *)r10 + 0x48) = t;

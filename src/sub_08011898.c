@@ -3,8 +3,8 @@ s32 sub_08012A94(s32 x, s32 y, s32 count);
 s32 sub_08012C44(s32 x, s32 y, s32 count);
 s32 probeEntityCollision(s32 x, s32 y, s32 velX, s32 velY, s32 mask, void *out);
 extern u8 gMainWorkspace[];
-extern u8 D_02023130[];
-extern s16 D_080CB278[];
+extern u8 gTilemapPages[];
+extern s16 gTileTerrainFlags[];
 
 /* Partial view of a moving entity: +2 holds the result touch/collision flags. */
 struct Entity { u8 _0[2]; u16 touchFlags; };
@@ -41,8 +41,8 @@ void sub_08011898(void *entity, s32 accel) {
         s32 newX;
         newX = *(s32 *)((u8 *)entity + 0x08) + velX;
         *(s32 *)((u8 *)entity + 0x08) = newX;
-        terrain = getTileTerrain((s32)(D_02023130 + (gMainWorkspace[0x18A8] << 6)), newX, *(s32 *)((u8 *)entity + 0x0C));
-        if ((4 & D_080CB278[(u16)terrain]) || (4 & *(u16 *)((u8 *)entity + 0x04))) {
+        terrain = getTileTerrain((s32)(gTilemapPages + (gMainWorkspace[0x18A8] << 6)), newX, *(s32 *)((u8 *)entity + 0x0C));
+        if ((4 & gTileTerrainFlags[(u16)terrain]) || (4 & *(u16 *)((u8 *)entity + 0x04))) {
             yLimit = sub_08012C44(*(s32 *)((u8 *)entity + 0x08), *(s32 *)((u8 *)entity + 0x0C), 2);
         } else {
             yLimit = sub_08012A94(*(s32 *)((u8 *)entity + 0x08), *(s32 *)((u8 *)entity + 0x0C), 2);

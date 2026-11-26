@@ -17,7 +17,7 @@ inline u8 *inline_fn(u8 *arg0, int arg1)
   return (u8 *) (arg0 + arg1);
 }
 
-void sub_08009D1C(u8 *obj)
+/* Initialises the current scene: allocates its work block, clears the actor pool and camera state, decompresses the scene's graphics into VRAM, sets up the map layers and display sprite, then starts the scene's script. */ void initScene(u8 *obj)
 {
   u8 *base;
   u8 *r8p;

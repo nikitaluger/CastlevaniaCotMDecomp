@@ -1,5 +1,5 @@
-extern u8 D_02023130[];
-extern u8 D_080CB278[];
+extern u8 gTilemapPages[];
+extern u8 gTileTerrainFlags[];
 struct SGlobalsMap { u8 pad[0x18A8]; u8 mapIndex; };
 extern struct SGlobalsMap gMainWorkspace;
 s32 getTileTerrain(u8 *, s32, s32);
@@ -9,8 +9,8 @@ s32 getTileTerrain(u8 *, s32, s32);
 u32 sub_080133A4(s32 x, s32 y) {
     s32 terrain;
     u32 flagsBase;
-    terrain = getTileTerrain(D_02023130 + (gMainWorkspace.mapIndex << 6), x, y);
-    flagsBase = (u32)D_080CB278;
+    terrain = getTileTerrain(gTilemapPages + (gMainWorkspace.mapIndex << 6), x, y);
+    flagsBase = (u32)gTileTerrainFlags;
     if ((0xA & *(u16 *)(flagsBase + ((u32)(terrain << 16) >> 15))) != 0) return 1;
     return 0;
 }

@@ -5,7 +5,7 @@ extern void *allocSpriteObject(void);
 extern s16 findKindIndex(s16);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0805775C(void);
-extern s16 D_080CFC98[];
+extern s16 gPairedEffectKindTable[];
 
 /* Initialize a scripted effect: allocate its body and animation controller,
  * resolve a table index for its sprite attribute, then install the first script callback. */
@@ -26,7 +26,7 @@ void sub_080576A0(void *self)
         return;
     }
     *(void **)((u8 *)self + 0x38) = animCtrl;
-    { s16 *table = D_080CFC98; tableIndex = findKindIndex(table[((u8 *)self)[0x4C] * 2]); index16 = (u16)tableIndex; }
+    { s16 *table = gPairedEffectKindTable; tableIndex = findKindIndex(table[((u8 *)self)[0x4C] * 2]); index16 = (u16)tableIndex; }
     if ((tableIndex << 16) < 0) {
         sub_080C31E0(self, *(void **)((u8 *)self + 0x24));
         return;

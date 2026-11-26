@@ -18,7 +18,7 @@ struct FlagsAt1260 { u8 pad[0x1260]; u16 flags; };
     (dmaRegs)[2] = (((s32)((desc)[5] + ((desc)[5] >> 31))) >> 1) | 0x80000000; (void)(dmaRegs)[2]; \
 } while (0)
 
-void loadSceneGraphics(void) {
+/* Loads the graphics for the current scene: queues one or two graphics-DMA transfers from a descriptor table chosen by the scene id, then sets up the scene's sprite/camera state and spawns its effect objects. */ void loadSceneGraphics(void) {
     u8 *state = D_02025FF0;
     u32 *desc;
     switch (*(s32 *)&state[0x10]) {

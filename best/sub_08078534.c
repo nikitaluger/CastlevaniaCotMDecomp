@@ -1,4 +1,4 @@
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 extern s32 sub_0806D518(void *, void *, void *);
 extern void sub_08003A6C(void *, s32, void *);
@@ -61,7 +61,7 @@ void sub_08078534(u8 *self)
     r2 = andOne(*(u16 *)(*(u8 **)(r5 + 0x2C) + 0x14));
     rr = 0;
     if (!r2) {
-        rr = sub_08007DD8((gMainWorkspace.b18A8 << 6) + (u32)D_02023130,
+        rr = sub_08007DD8((gMainWorkspace.b18A8 << 6) + (u32)gTilemapPages,
                           *(s32 *)(r4 + 4)) << 0x10;
     }
     base20 = r4 + 0x20;

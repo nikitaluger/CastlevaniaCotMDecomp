@@ -17,7 +17,7 @@ struct S_02021E90 { u8 _0[0x1278]; u32 f1278; u32 f127C; };
 extern struct S_02021E90 gCameraState;
 struct TBL { u8 _0[4]; u16 f4; u16 f6; u8 _8[0x28-8]; };
 extern struct TBL gEffectGfxTable[];
-extern u16 D_080CEBA8[];
+extern u16 gStateEffectAffineParams[];
 extern u8 gSpriteAnimDataTable[];
 extern u32 gMainObjTimerCallback;
 
@@ -66,10 +66,10 @@ body:
     p->f28->f2 = 8;
     p->f28->f3 = one;
     p->f28->f4 = gEffectGfxTable[p->f1C].f4;
-    p->f28->f6 = D_080CEBA8[0];
-    p->f28->f8 = D_080CEBA8[1];
-    p->f28->fA = D_080CEBA8[2];
-    p->f28->fC = D_080CEBA8[3];
+    p->f28->f6 = gStateEffectAffineParams[0];
+    p->f28->f8 = gStateEffectAffineParams[1];
+    p->f28->fA = gStateEffectAffineParams[2];
+    p->f28->fC = gStateEffectAffineParams[3];
     p->f28->fE = gEffectGfxTable[p->f1C].f6;
     p->f28->f10 = (u32)obj;
     p->f28->f14 = zero;

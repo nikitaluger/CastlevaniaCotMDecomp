@@ -9,7 +9,7 @@ struct Ent {
 };
 struct Res { u16 f0; s32 f4; s32 f8; };
 extern u8 gMainWorkspace[];
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u8 D_080D0054[];
 extern s32 D_000018A8;
 extern s32 sub_08007DD8(s32, s32, s32);
@@ -54,11 +54,11 @@ l_d9f8:
     if (h < 0)
         goto l_da60;
     {
-        v = sub_08007DD8(((u32)D_02023130) + (((u8 *)((u32)__base_D_02025FF0 + (u32)D_000018A8))[0] << 6), e->x, e->y);
+        v = sub_08007DD8(((u32)gTilemapPages) + (((u8 *)((u32)__base_D_02025FF0 + (u32)D_000018A8))[0] << 6), e->x, e->y);
         do { fl = *(u16 *)(D_080D0054 + ((u32)(u16)v << 1)); } while (0);
         if ((fl & 4) != 0)
             goto l_da60;
-        __repair_phase_v = sub_08007DD8(((u32)D_02023130) + (((u8 *)((u32)__base_D_02025FF0 + (u32)D_000018A8))[0] << 6), e->x + w, e->y);
+        __repair_phase_v = sub_08007DD8(((u32)gTilemapPages) + (((u8 *)((u32)__base_D_02025FF0 + (u32)D_000018A8))[0] << 6), e->x + w, e->y);
         fl = *(u16 *)(D_080D0054 + ((u32)(u16)__repair_phase_v << 1));
         if ((fl & 4) != 0)
             goto l_da60;

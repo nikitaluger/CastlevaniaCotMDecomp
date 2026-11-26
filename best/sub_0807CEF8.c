@@ -1,5 +1,5 @@
 extern u8 gMainWorkspace[];
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u8 D_000018A8[];
 extern u8 D_000018C2[];
 extern u8 D_0000173A[];
@@ -69,7 +69,7 @@ void sub_0807CEF8(void *arg0)
     return;
   }
   r2 = ((u32) gMainWorkspace) + ((u32) D_000018A8);
-  r2 = ((*((u8 *) r2)) << 6) + ((u32) D_02023130);
+  r2 = ((*((u8 *) r2)) << 6) + ((u32) gTilemapPages);
   if ((sub_08007DD8(r2, *((s32 *) (r8 + 4))) << 0x10) != 0)
   {
     do { sub_0808DBF8(*((s32 *) (r8 + 4)), *new_var, 0); } while (0);

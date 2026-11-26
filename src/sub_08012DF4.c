@@ -2,8 +2,8 @@ struct GameState { u8 _0x000[0x18A8]; u8 roomIndex18A8; };
 extern struct GameState gMainWorkspace;
 struct CurrentRoom { volatile u8 roomIndex; };
 extern struct CurrentRoom D_02027898;
-extern u8 D_02023130[];
-extern u8 D_080CB278[];
+extern u8 gTilemapPages[];
+extern u8 gTileTerrainFlags[];
 extern s32 getTileTerrain(s32, s32, s32);
 extern s32 sub_080C364C(s32, s32);
 
@@ -25,9 +25,9 @@ s32 sub_08012DF4(s32 x0, s32 y0, s32 dx, s32 dy, s32 *outX, s32 *outY, s32 tileM
   s32 offsetX;
   s32 offsetY;
   s32 tileCode;
-  tileCode = getTileTerrain(D_02023130 + (gMainWorkspace.roomIndex18A8 * 0x40), x0, y0);
+  tileCode = getTileTerrain(gTilemapPages + (gMainWorkspace.roomIndex18A8 * 0x40), x0, y0);
   {
-    u8 *collisionMaskTable = D_080CB278;
+    u8 *collisionMaskTable = gTileTerrainFlags;
     if ((*((u16 *) (collisionMaskTable + (((u32) (tileCode << 0x10)) >> 0xF)))) & mask)
     {
       *outX = x0;
@@ -102,9 +102,9 @@ s32 sub_08012DF4(s32 x0, s32 y0, s32 dx, s32 dy, s32 *outX, s32 *outY, s32 tileM
       sampleX = endX;
       sampleY = span;
     }
-    tileCode = getTileTerrain(D_02023130 + ((*roomIndex) * 0x40), sampleX, sampleY);
+    tileCode = getTileTerrain(gTilemapPages + ((*roomIndex) * 0x40), sampleX, sampleY);
     {
-      u8 *collisionMaskTable = D_080CB278;
+      u8 *collisionMaskTable = gTileTerrainFlags;
       if ((*((u16 *) (collisionMaskTable + (((u32) (tileCode << 0x10)) >> 0xF)))) & mask)
       {
         s32 prevStep = step - 1;

@@ -31,7 +31,7 @@ struct F0
   u16 f18C2;
 };
 extern struct F0 gMainWorkspace;
-extern s32 D_02023130[];
+extern s32 gTilemapPages[];
 void sub_0807699C(void *arg0)
 {
   struct T *tbl;

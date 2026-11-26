@@ -4,9 +4,9 @@ struct S_02025FF0
   u8 cameraIndex;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 /* Return 1 when the world point (x,y) lies inside the active camera rectangle,
- * whose half-extents come from the record D_02023130[cameraIndex << 6] at +0x10/+0x12.
+ * whose half-extents come from the record gTilemapPages[cameraIndex << 6] at +0x10/+0x12.
  * The four 16.16 margins inset each side; 0 when the point is outside. */
 s32 sub_08015850(s32 x, s32 y, u16 xUpperMargin, s32 xLowerMargin, u16 yUpperMargin, u16 yLowerMargin)
 {
@@ -14,7 +14,7 @@ s32 sub_08015850(s32 x, s32 y, u16 xUpperMargin, s32 xLowerMargin, u16 yUpperMar
   u16 yLowerTmp = yUpperMargin;
   u16 yLower = yLowerMargin;
   u8 recordIndex = gMainWorkspace.cameraIndex;
-  u8 *record = D_02023130 + (recordIndex << 6);
+  u8 *record = gTilemapPages + (recordIndex << 6);
   s16 xExtent = *((s16 *) (record + 0x10));
   s16 yExtent = *((s16 *) (record + 0x12));
   s32 xBound = ((s32) xExtent) << 21;

@@ -4,7 +4,7 @@ extern void sub_08005E80(s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u8 gMainWorkspace[];
 extern s32 D_08671BDC;
 
@@ -32,17 +32,17 @@ void sub_08095640(u8 *entity)
             newFlags |= oldFlags;
             *flags = (u16)newFlags;
 
-            sub_0800479C(D_02023130 + (gMainWorkspace[0x18A8] << 6),
+            sub_0800479C(gTilemapPages + (gMainWorkspace[0x18A8] << 6),
                          *(s32 *)motion >> 0x15,
                          (*(s32 *)(motion + 4) + (s32)0xFFF00000) >> 0x15,
                          *(u16 *)(*(u8 **)(motion + 8) + 0));
 
-            sub_0800479C(D_02023130 + (gMainWorkspace[0x18A8] << 6),
+            sub_0800479C(gTilemapPages + (gMainWorkspace[0x18A8] << 6),
                          *(s32 *)motion >> 0x15,
                          (*(s32 *)(motion + 4) + 0x100000) >> 0x15,
                          *(u16 *)(*(u8 **)(motion + 8) + 2));
 
-            sub_0800479C(D_02023130 + (gMainWorkspace[0x18A8] << 6),
+            sub_0800479C(gTilemapPages + (gMainWorkspace[0x18A8] << 6),
                          *(s32 *)motion >> 0x15,
                          (*(s32 *)(motion + 4) + 0x300000) >> 0x15,
                          *(u16 *)(*(u8 **)(motion + 8) + 4));

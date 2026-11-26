@@ -19,7 +19,7 @@ void sub_0807F320(u8 *arg0) {
     u8 *r7 = *(u8 **)(arg0 + 0x6C);
     u8 *r4 = *(u8 **)(arg0 + 0x38);
     u8 *r5 = r7 + 4;
-    u8 *r9 = gMainWorkspace;
+    u8 *r9;
     u8 *r8 = gGameStatus;
     u8 *obj;
     u32 r1v;

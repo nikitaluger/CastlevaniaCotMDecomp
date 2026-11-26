@@ -7,7 +7,7 @@ struct S_02025FF0_18A8 {
     u8 b;
 };
 extern struct S_02025FF0_18A8 gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 struct Vec {
     s32 x;
@@ -22,7 +22,7 @@ struct Obj {
 
 s32 sub_0806D654(struct Vec *arg0)
 {
-    s32 base = (s32)D_02023130 + ((u32)gMainWorkspace.b << 6);
+    s32 base = (s32)gTilemapPages + ((u32)gMainWorkspace.b << 6);
     s32 i;
 
     if ((u16)sub_08007B78(base, arg0->x, arg0->y) == 0)
@@ -59,7 +59,7 @@ void sub_0806D860(s16 arg0)
  * subtracting the current camera scroll, discarding the fractional bits. */
 void sub_0806D588(struct Obj *obj, struct Vec *pos)
 {
-    u8 *camera = (u8 *)D_02023130 + ((u32)gMainWorkspace.b << 6);
+    u8 *camera = (u8 *)gTilemapPages + ((u32)gMainWorkspace.b << 6);
     obj->field14 = (pos->x & 0xFFFF0000) - *(s32 *)(camera + 0x18);
     obj->field18 = (pos->y & 0xFFFF0000) - *(s32 *)(camera + 0x1C);
 }

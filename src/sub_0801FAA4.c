@@ -20,7 +20,7 @@ struct GlobalStateB { u8 _0[0x1278]; u32 coordX; u32 coordY; };
 extern struct GlobalStateB gCameraState;
 struct AnimTable { u8 _0[4]; u16 baseTile; u16 extra; u8 _8[0x28-8]; };
 extern struct AnimTable gEffectGfxTable[];
-extern u16 D_080CE79C[];
+extern u16 gFixedAttackAffineParams[];
 extern u8 gSpriteAnimDataTable[];
 
 void sub_0801FAA4(struct Entity *arg0) {
@@ -74,10 +74,10 @@ void sub_0801FAA4(struct Entity *arg0) {
     state->attribs->subPriority = 8;
     state->attribs->shape = one;
     state->attribs->baseTile = gEffectGfxTable[state->animId].baseTile;
-    state->attribs->tile0 = D_080CE79C[0];
-    state->attribs->tile1 = D_080CE79C[1];
-    state->attribs->tile2 = D_080CE79C[2];
-    state->attribs->tile3 = D_080CE79C[3];
+    state->attribs->tile0 = gFixedAttackAffineParams[0];
+    state->attribs->tile1 = gFixedAttackAffineParams[1];
+    state->attribs->tile2 = gFixedAttackAffineParams[2];
+    state->attribs->tile3 = gFixedAttackAffineParams[3];
     state->attribs->extra = gEffectGfxTable[state->animId].extra;
     state->attribs->object = (u32)obj;
     zeroB = 0;

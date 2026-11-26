@@ -1,6 +1,6 @@
 struct S_02025FF0 { u8 _0[0x1754]; s32 f1754; u8 _1[0x1770-0x1758]; s32 f1770; s32 f1774; s32 f1778; s32 f177C; u8 _2[0x18A8-0x1780]; u8 f18A8; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 /* Write the current scroll offsets into the active half of the offset table,
  * subtract them from the entity's world position, and apply the fractional
@@ -15,7 +15,7 @@ void sub_0806AA64(void *arg0, void *arg1) {
     u32 off;
 
     off = *page << 6;
-    offsets = D_02023130;
+    offsets = gTilemapPages;
     dst = (s32 *)(off + (u32)offsets);
     dst[6] = state->f1770;
     yOff = state->f1774;

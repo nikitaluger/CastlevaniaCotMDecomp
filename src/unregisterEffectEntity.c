@@ -37,7 +37,7 @@ void sub_08029020(void *arg0) {
 
 // Unregisters this entity from the graphics manager's 5-slot table (unless
 // the flag at +0x64 is set) by clearing its matching entry.
-void sub_080279D8(void *entity)
+void unregisterEffectEntity(void *entity)
 {
     if (!(1 & *(u16 *)((u8 *)entity + 0x64)))
     {

@@ -12,7 +12,7 @@ struct S_02025FF0_7B01C
   u16 f18C2;
 };
 extern struct S_02025FF0_7B01C gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u32 gMainObjTimerCallback;
 extern s32 sub_0806D518(void *, void *, void *);
 extern s32 sub_08007DD8(s32, s32);
@@ -54,7 +54,7 @@ void sub_08084230(void *arg0)
   flags = andOne(*((u16 *) ((*((u8 **) (p4 + 0x2C))) + 0x14)));
   if (flags) goto label_0808429A;
   idx = gMainWorkspace.f18A8;
-  addr = (u32)D_02023130 + (idx << 6);
+  addr = (u32)gTilemapPages + (idx << 6);
   val2 = sub_08007DD8(addr, *((s32 *) (((u8 *) p6C) + 4)));
   if ((val2 << 16) == 0) goto label_080842D2;
 label_0808429A:

@@ -33,7 +33,7 @@ struct ResultObj {
 
 /* Per-frame object update: when the sub-object requests cleanup, run the
  * object-list cleanup, then dispatch this object's script handler at +0x24. */
-void sub_08020478(struct MainObj *arg0) {
+void updateFixedKindEffect(struct MainObj *arg0) {
     struct SubObj *sub = (struct SubObj *)arg0->unk_0x3C;
     if (sub->unk_0x28 != 0) {
         sub_080161F0();

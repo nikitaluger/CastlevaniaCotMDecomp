@@ -8,7 +8,7 @@ struct S_02025FF0_18A8 {
     u8 b;
 };
 extern struct S_02025FF0_18A8 gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 
 struct Vec {
     s32 x;
@@ -20,7 +20,7 @@ struct Vec {
 s32 sub_0806D654(struct Vec *arg0)
 {
     u8 *sceneState = (u8 *)&gMainWorkspace;
-    s32 tileBase = (s32)D_02023130 + ((u32)sceneState[0x18A8] << 6);
+    s32 tileBase = (s32)gTilemapPages + ((u32)sceneState[0x18A8] << 6);
     s32 step;
 
     if ((u16)sub_08007B78(tileBase, arg0->x, arg0->y) != 0)

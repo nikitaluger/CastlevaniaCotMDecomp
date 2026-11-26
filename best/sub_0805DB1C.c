@@ -2,7 +2,7 @@ extern s32 sub_08007DD8(s32, s32, s32);
 extern s32 sub_0805DC5C(s32, s32, s32, s32, s32 *, s32 *, s32);
 struct S_02025FF0b { u8 _0[0x18A8]; u8 v; };
 extern struct S_02025FF0b gMainWorkspace;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u16 D_080D0054[];
 struct Res { u16 f0; u16 _2; s32 f4; s32 f8; };
 

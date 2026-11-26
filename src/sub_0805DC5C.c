@@ -12,7 +12,7 @@ struct LiveMapState
   volatile u8 mapIndex;
 };
 extern struct LiveMapState D_02027898;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u8 D_080D0054[];
 extern s32 sub_08007DD8(s32, s32, s32);
 extern s32 sub_080C364C(s32, s32);
@@ -36,7 +36,7 @@ s32 sub_0805DC5C(s32 startX, s32 startY, s32 deltaX, s32 deltaY, s32 *outX, s32 
   s32 offsetX;
   s32 offsetY;
   s32 tileType;
-  tileType = sub_08007DD8(D_02023130 + (gMainWorkspace.roomIndex * 0x40), startX, startY);
+  tileType = sub_08007DD8(gTilemapPages + (gMainWorkspace.roomIndex * 0x40), startX, startY);
   {
     u8 *tileProps = D_080D0054;
     if ((*((u16 *) (tileProps + (((u32) (tileType << 0x10)) >> 0xF)))) & blockMask)
@@ -113,7 +113,7 @@ s32 sub_0805DC5C(s32 startX, s32 startY, s32 deltaX, s32 deltaY, s32 *outX, s32 
       probeX = targetX;
       probeY = targetY;
     }
-    tileType = sub_08007DD8(D_02023130 + ((*mapIndex) * 0x40), probeX, probeY);
+    tileType = sub_08007DD8(gTilemapPages + ((*mapIndex) * 0x40), probeX, probeY);
     {
       u8 *tileProps = D_080D0054;
       if ((*((u16 *) (tileProps + (((u32) (tileType << 0x10)) >> 0xF)))) & blockMask)

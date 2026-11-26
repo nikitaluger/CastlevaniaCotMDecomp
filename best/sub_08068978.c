@@ -44,7 +44,7 @@ struct G_21E90
 extern struct G_25FF0 gMainWorkspace;
 extern struct G_25368 gGameStatus;
 extern struct G_21E90 gCameraState;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u8 D_084FCA60[];
 extern u8 D_084FCA84[];
 extern void *D_08671BD0;
@@ -135,7 +135,7 @@ void sub_08068978(u8 *arg0)
   {
     new_var3 = (s32 *) (r7 + 4);
     block_16:
-    if (((!(0x1000 & sub_08007B3C(D_02023130 + (gMainWorkspace.f18A8 << 6), *((s32 *) r7), (*new_var3) + 0x10000))) && (!(0x1000 & sub_08007B3C(D_02023130 + (gMainWorkspace.f18A8 << 6), (*((s32 *) r7)) - (*((s32 *) (r7 + 0x38))), (*new_var3) + 0x10000)))) && ((temp_r6 = 0x1000 & sub_08007B3C(D_02023130 + (gMainWorkspace.f18A8 << 6), (*((s32 *) r7)) + (*((s32 *) (r7 + 0x38))), (*new_var3) + 0x10000), temp_r6 == 0)))
+    if (((!(0x1000 & sub_08007B3C(gTilemapPages + (gMainWorkspace.f18A8 << 6), *((s32 *) r7), (*new_var3) + 0x10000))) && (!(0x1000 & sub_08007B3C(gTilemapPages + (gMainWorkspace.f18A8 << 6), (*((s32 *) r7)) - (*((s32 *) (r7 + 0x38))), (*new_var3) + 0x10000)))) && ((temp_r6 = 0x1000 & sub_08007B3C(gTilemapPages + (gMainWorkspace.f18A8 << 6), (*((s32 *) r7)) + (*((s32 *) (r7 + 0x38))), (*new_var3) + 0x10000), temp_r6 == 0)))
     {
       *((s32 *) (r8 + 4)) += 0x20000;
       *((s32 *) (r7 + 0x40)) = temp_r6;
@@ -210,7 +210,7 @@ void sub_08068978(u8 *arg0)
         if (gCameraState.f146E & 0x40)
         {
           block_33:
-          if ((0x3F & sub_08007B78(D_02023130 + (gMainWorkspace.f18A8 << 6), *((s32 *) r7), (*new_var3) + 0x10000)) == 0x15)
+          if ((0x3F & sub_08007B78(gTilemapPages + (gMainWorkspace.f18A8 << 6), *((s32 *) r7), (*new_var3) + 0x10000)) == 0x15)
           {
             *(((u8 *) new_var4) + 0x19) = 0;
             {
@@ -240,7 +240,7 @@ void sub_08068978(u8 *arg0)
           if (gCameraState.f146E & new_var6)
           {
             block_39:
-            if (((0x3F & sub_08007B78(D_02023130 + (gMainWorkspace.f18A8 << 6), *((s32 *) r7), (*new_var5) + 0x10000)) == 0x14) && ((temp_r6 = gMainWorkspace.f14AC, temp_r6 == 0)))
+            if (((0x3F & sub_08007B78(gTilemapPages + (gMainWorkspace.f18A8 << 6), *((s32 *) r7), (*new_var5) + 0x10000)) == 0x14) && ((temp_r6 = gMainWorkspace.f14AC, temp_r6 == 0)))
             {
               *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = (u8) temp_r6;
               {

@@ -19,7 +19,7 @@ struct S_02021E90
   u16 buttons;
 };
 extern struct S_02021E90 gCameraState;
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern s32 D_08671BD0;
 struct Step
 {
@@ -64,7 +64,7 @@ s32 sub_0806B2C8(struct Actor *actor, s32 entity, struct Interaction *interactio
     goto ret0;
   }
   checkTile:
-  attr = sub_08007B78((s32) (D_02023130 + (gMainWorkspace.room * 0x40)), pos->x, pos->y + 0x10000) & 0x3F;
+  attr = sub_08007B78((s32) (gTilemapPages + (gMainWorkspace.room * 0x40)), pos->x, pos->y + 0x10000) & 0x3F;
 
   switch (attr)
   {

@@ -5,7 +5,7 @@ extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void setAnimationFrame(u8 *, u8 *, s16, s32);
 extern void *allocEffectPart(void);
 extern void installUpdateHandler(u8 *, u8 *, void *);
-extern void sub_08014290(void);
+extern void updateScriptedEffectObject(void);
 extern void sub_080C31E0(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *);
 
@@ -113,7 +113,7 @@ void sub_0804006C(struct ScriptedObject *arg0)
   *((u32 *) (((u8 *) sprite) + 0x1C)) = 0x8000000A;
   work = arg0->work;
   animState = ((u8 *) work) + 0x34;
-  installUpdateHandler((u8 *) arg0, (u8 *) work, (void *) sub_08014290);
+  installUpdateHandler((u8 *) arg0, (u8 *) work, (void *) updateScriptedEffectObject);
   zero = 0;
   work->kind = 0x30;
   work->worldX = arg0->worldX;

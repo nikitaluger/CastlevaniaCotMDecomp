@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
-extern u8 D_02023130[];
+extern u8 gTilemapPages[];
 extern u32 D_08671BD0[];
 extern s32 sub_0806C4B4(void *a, void *b);
 extern void sub_0806C5EC(void *a, void *b, void *c, void *d);
@@ -166,7 +166,7 @@ void sub_08062F10(void *a)
     }
   }
   {
-    u8 *map = D_02023130 + (gMainWorkspace[0x18A8] * 0x40);
+    u8 *map = gTilemapPages + (gMainWorkspace[0x18A8] * 0x40);
     s32 off = 0x10000;
     if (sub_08007B78(map, *((s32 *) (r6 + 0)), (*((s32 *) (r6 + 4))) + off) == 0)
     {
