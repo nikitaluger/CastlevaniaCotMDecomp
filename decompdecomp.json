@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795713665.5482442,
- "revision": 67631,
+ "saved_at": 1795713792.9322205,
+ "revision": 67639,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "124528:134342256": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "createEntityChildSprite",
-   "vram": 134342256
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5442,7 +5430,7 @@
   "createEntityChildSprite": {
    "vram": 134342256,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0801E864": {
    "vram": 134342756,
@@ -5472,7 +5460,7 @@
   "createEntityChildSpriteAlt": {
    "vram": 134343476,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_0801ED28": {
    "vram": 134343976,
@@ -5536,7 +5524,7 @@
   },
   "sub_0801F67C": {
    "vram": 134346364,
-   "best_score": 2010,
+   "best_score": 2445,
    "best_by": "permuter-8589935409"
   },
   "sub_0801F838": {
@@ -5574,10 +5562,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0801FAA4": {
+  "createFixedKindEntitySprite": {
    "vram": 134347428,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
-   "readable": false
+   "readable": true
   },
   "sub_0801FC98": {
    "vram": 134347928,
@@ -7954,7 +7942,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080371C0": {
+  "createVariantEntitySprite": {
    "vram": 134443456,
    "matched_by": "autopilot",
    "readable": false
@@ -27805,7 +27793,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801FAA4",
+   "name": "createFixedKindEntitySprite",
    "vram": 134347428,
    "size": 500,
    "status": "open"
@@ -30757,7 +30745,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080371C0",
+   "name": "createVariantEntitySprite",
    "vram": 134443456,
    "size": 496,
    "status": "open"
@@ -50421,6 +50409,12 @@
    "kind": "func"
   },
   {
+   "name": "createFixedKindEntitySprite",
+   "address": 134347428,
+   "size": 500,
+   "kind": "func"
+  },
+  {
    "name": "spawnFixedKindEffect",
    "address": 134348960,
    "size": 508,
@@ -50538,6 +50532,12 @@
    "name": "spawnScriptedEffectObject",
    "address": 134440316,
    "size": 512,
+   "kind": "func"
+  },
+  {
+   "name": "createVariantEntitySprite",
+   "address": 134443456,
+   "size": 496,
    "kind": "func"
   },
   {
@@ -51132,7 +51132,7 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "struct CoordTable",
+   "type": "struct GlobalStateB",
    "source": "match"
   },
   {
@@ -51147,7 +51147,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct GlobalState",
+   "type": "struct GlobalStateA",
    "source": "match"
   },
   {
@@ -51172,7 +51172,7 @@
   },
   {
    "address": 135052752,
-   "type": "struct SpriteDef[]",
+   "type": "struct AnimTable[]",
    "source": "match"
   },
   {

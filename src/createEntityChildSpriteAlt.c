@@ -58,10 +58,9 @@ extern u16 D_080CE740[];
 extern u8 gSpriteAnimDataTable[];
 extern u32 gMainObjTimerCallback;
 
-/* Creates an entity's child sprite: sets up its animation from the animation
- * frame table, fills a ChildSprite record from the sprite-definition tables,
- * places it using the shared coordinate table, and installs a new update
- * callback before advancing the entity's control slot. */
+/* Alternate child-sprite constructor: same flow as createEntityChildSprite, but it
+ * reads the graphic ids from +8/+0xA of the sprite-definition entry and installs
+ * a different starting animation step. */
 void createEntityChildSpriteAlt(struct Entity *entity)
 {
     u8 *obj;
@@ -82,7 +81,7 @@ void createEntityChildSpriteAlt(struct Entity *entity)
         return;
     }
     entity->obj = obj;
-    allocWorkSlot((u8 *)entity, 0, 0x4C, 0);
+    allocWorkSlot((u8 *)entity, 0, CHILD_SPRITE_WORK_SLOT_SIZE, 0);
     state = entity->state;
     if (state == NULL) {
         sub_0801F02C(entity);
@@ -127,7 +126,7 @@ void createEntityChildSpriteAlt(struct Entity *entity)
                ((*(u16 *)((u8 *)state + 0x22) + 8) << 12));
     *(u16 *)obj = gfxAttr;
     *(u16 *)obj = gfxAttr | gMainWorkspace.attrMask;
-    *(u32 *)(obj + 0x1C) = 0x8000000A;
+    *(u32 *)(obj + 0x1C) = CHILD_SPRITE_GFX_ID;
     coordBase = (u8 *)&gCameraState;
     { u32 off = 0x1278; *(u32 *)(obj + 0x14) = state->x - ((*(u32 *)(coordBase + off + ((gMainWorkspace.coordIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
     { u32 off = 0x127C; *(u32 *)(obj + 0x18) = state->y - ((*(u32 *)(coordBase + off + ((gMainWorkspace.coordIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
@@ -136,9 +135,9 @@ void createEntityChildSpriteAlt(struct Entity *entity)
         half[0] = 0xB4;
         half[1] = (u16)zero;
     }
-    *(u16 *)(obj + 0x28) = 0x30;
-    entity->flags |= 0x1000;
+    *(u16 *)(obj + 0x28) = CHILD_SPRITE_ANIM_STEP_ALT;
+    entity->flags |= CHILD_SPRITE_READY;
     *(u8 *)((u8 *)entity + 2 * entity->ctrlIndex + 0x19) = zero;
-    callbackSlot = (s32 *)0x08671BB0;
+    callbackSlot = (s32 *)MAIN_OBJ_TIMER_CALLBACK_TABLE;
     sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callbackSlot);
 }

@@ -1,5 +1,5 @@
-/* Creates and initializes an entity's sprite and animation, positions it
-   relative to the camera, then dispatches the next behavior. */
+/* Creates and initializes an entity's sprite and animation with the fixed kind 0x1E,
+ * positions it relative to the camera, then dispatches the next behavior. */
 extern void *allocSpriteObject(void);
 extern s32 allocWorkSlot(u8 *, s32, s32, s32);
 extern s32 findKindIndex(s32);
@@ -23,7 +23,7 @@ extern struct AnimTable gEffectGfxTable[];
 extern u16 gFixedAttackAffineParams[];
 extern u8 gSpriteAnimDataTable[];
 
-void sub_0801FAA4(struct Entity *arg0) {
+void createFixedKindEntitySprite(struct Entity *entity) {
     u8 *obj;
     struct EntityState *state;
     u8 *anim;
@@ -36,37 +36,37 @@ void sub_0801FAA4(struct Entity *arg0) {
 
     obj = allocSpriteObject();
     if (obj == NULL) {
-        sub_08020020((u8 *)arg0);
-        sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24));
+        sub_08020020((u8 *)entity);
+        sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }
-    arg0->object = obj;
-    allocWorkSlot((u8 *)arg0, 0, 0x54, 0);
-    state = arg0->state;
+    entity->object = obj;
+    allocWorkSlot((u8 *)entity, 0, FIXED_KIND_WORK_SLOT_SIZE, 0);
+    state = entity->state;
     if (state == NULL) {
-        sub_08020020((u8 *)arg0);
-        sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24));
+        sub_08020020((u8 *)entity);
+        sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }
     anim = (u8 *)state + 0x34;
-    state->updateCallback = *(u32 *)((u8 *)arg0 + 0x24);
-    *(u32 *)((u8 *)arg0 + 0x24) = (u32)sub_0801FFFC;
-    state->animId = 0x1E;
+    state->updateCallback = *(u32 *)((u8 *)entity + 0x24);
+    *(u32 *)((u8 *)entity + 0x24) = (u32)sub_0801FFFC;
+    state->animId = FIXED_KIND_SPRITE_ANIM_ID;
     one = 1;
     state->active = one;
-    state->x = arg0->spawnX << 16;
-    state->y = arg0->spawnY << 16;
-    variantRnd = findKindIndex(0x1E);
+    state->x = entity->spawnX << 16;
+    state->y = entity->spawnY << 16;
+    variantRnd = findKindIndex(FIXED_KIND_SPRITE_ANIM_ID);
     state->variant = variantRnd;
     if ((variantRnd << 16) < 0) {
-        sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24));
+        sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }
     initSpriteGraphics(obj, anim, (s32)gSpriteAnimDataTable + state->animId * 0xC);
     attribs = allocEffectPart();
     state->attribs = (struct SpriteAttribs *)attribs;
     if (attribs == NULL) {
-        sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24));
+        sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }
     zeroA = 0;
@@ -90,7 +90,7 @@ void sub_0801FAA4(struct Entity *arg0) {
         *o = gfxAttr;
         *o = gfxAttr | gMainWorkspace.gfxFlag;
     }
-    *(u32 *)(obj + 0x1C) = 0x8000000A;
+    *(u32 *)(obj + 0x1C) = CHILD_SPRITE_GFX_ID;
     coordBase = (u8 *)&gCameraState;
     {
         u32 off = 0x1278;
@@ -105,12 +105,12 @@ void sub_0801FAA4(struct Entity *arg0) {
         extraState[0] = 0xB4;
         extraState[1] = zeroB;
     }
-    *(u16 *)(obj + 0x28) = 0x29;
+    *(u16 *)(obj + 0x28) = CHILD_SPRITE_ANIM_STEP;
     sub_08020498(obj, (void *)state);
-    arg0->flags |= 0x1000;
-    *(u8 *)((u8 *)arg0 + 2 * arg0->index + 0x19) = zeroA;
+    entity->flags |= CHILD_SPRITE_READY;
+    *(u8 *)((u8 *)entity + 2 * entity->index + 0x19) = zeroA;
     {
-        s32 *callbackPtr = (s32 *)0x08671BB0;
-        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *callbackPtr);
+        s32 *callbackPtr = (s32 *)MAIN_OBJ_TIMER_CALLBACK_TABLE;
+        sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callbackPtr);
     }
 }

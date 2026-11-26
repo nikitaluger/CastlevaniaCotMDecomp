@@ -76,7 +76,7 @@ extern u32 gMainObjTimerCallback;
 /* Create a sprite object and its effect part for an entity: pick the animation
  * from the variant table, attach an animation player and a small sub-effect,
  * place it at the entity's coordinates, then advance the animation step. */
-void sub_080371C0(struct Entity *a)
+void createVariantEntitySprite(struct Entity *a)
 {
   struct SpriteObj *sprite;
   struct Part *part;

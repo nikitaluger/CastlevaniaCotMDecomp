@@ -697,3 +697,10 @@ struct ActionCameraState {
 #define CHILD_SPRITE_GFX_ID        0x8000000A
 #define CHILD_SPRITE_ANIM_STEP     0x29
 #define CHILD_SPRITE_READY         0x1000
+
+/* Animation step installed by the alternate child-sprite constructor. */
+#define CHILD_SPRITE_ANIM_STEP_ALT 0x30
+
+/* Fixed animation kind and work-slot size used by createFixedKindEntitySprite. */
+#define FIXED_KIND_SPRITE_ANIM_ID 0x1E
+#define FIXED_KIND_WORK_SLOT_SIZE 0x54
