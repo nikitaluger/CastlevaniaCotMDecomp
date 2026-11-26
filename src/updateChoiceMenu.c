@@ -1,103 +1,96 @@
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void sub_080C31E4(void *, void *, void *);
 
-struct Alt { u8 pad[0x146C]; u16 buttons; };
-struct Sys { u8 p0[0x24]; u32 inputSource; u16 buttons; u8 p1[0x1486]; u32 choice; };
-extern struct Alt gCameraState;
-extern struct Sys gMainWorkspace;
-extern u8 D_080F3DFC[];
+extern struct ChoiceMenuCameraInput gCameraState;
+extern struct ChoiceMenuMainInput gMainWorkspace;
+extern u8 gChoiceMenuOptionTable[];
 extern void *gMainObjTimerCallback;
 
-#define BTN_CONFIRM 1
-#define BTN_CANCEL  2
-#define BTN_PREV    0x10
-#define BTN_NEXT    0x20
-
-/* A two-option Yes/No style prompt. Moves the selection with the prev/next
- * buttons (ignoring both at once), plays a sound when it changes, then acts on
- * confirm or cancel by advancing the menu's script step. */
-void sub_0808C774(void *arg0)
+/* Handles a two-option (confirm/cancel) menu: moves the highlighted option with
+ * the prev/next buttons, plays a cursor sound when it changes, then on confirm
+ * or cancel finishes the menu's current script step. */
+void updateChoiceMenu(void *menuObj)
 {
-    u8 *menu = (u8 *)arg0;
-    u8 *actionState = *(u8 **)(menu + 0x6C) + 4;
-    void **display = *(void ***)(menu + 0x38);
-    u32 *options = (u32 *)(D_080F3DFC + (*(u32 *)(actionState + 0x30) << 4));
-    s32 oldChoice = gMainWorkspace.choice;
+    u8 *menu = (u8 *)menuObj;
+    u8 *workState = *(u8 **)(menu + 0x6C) + 4;
+    void **optionDisplay = *(void ***)(menu + 0x38);
+    u32 *choiceOptions = (u32 *)(gChoiceMenuOptionTable + (*(u32 *)(workState + 0x30) << 4));
+    s32 previousChoice = gMainWorkspace.choice;
 
     if (gMainWorkspace.inputSource != 0) {
-        if (gMainWorkspace.buttons & BTN_NEXT) goto check_both;
+        if (gMainWorkspace.buttons & CHOICE_MENU_NEXT) goto check_both;
         goto do_lr;
     } else {
-        if (gCameraState.buttons & BTN_NEXT) goto check_both;
+        if (gCameraState.buttons & CHOICE_MENU_NEXT) goto check_both;
         goto do_lr;
     }
 
 check_both:
     if (gMainWorkspace.inputSource != 0) {
-        if (gMainWorkspace.buttons & BTN_PREV) goto after_lr;
+        if (gMainWorkspace.buttons & CHOICE_MENU_PREV) goto after_lr;
     } else {
-        if (gCameraState.buttons & BTN_PREV) goto after_lr;
+        if (gCameraState.buttons & CHOICE_MENU_PREV) goto after_lr;
     }
 
 do_lr:
     if (gMainWorkspace.inputSource != 0) {
-        if (gMainWorkspace.buttons & BTN_NEXT) goto set1;
+        if (gMainWorkspace.buttons & CHOICE_MENU_NEXT) goto set1;
         goto check2;
     } else {
-        if (gCameraState.buttons & BTN_NEXT) goto set1;
+        if (gCameraState.buttons & CHOICE_MENU_NEXT) goto set1;
         goto check2;
     }
 set1:
     gMainWorkspace.choice = 1;
-    *(u32 *)((u8 *)display + 0x24) = *(u32 *)((u8 *)options + 8);
+    *(u32 *)((u8 *)optionDisplay + 0x24) = *(u32 *)((u8 *)choiceOptions + 8);
 check2:
     if (gMainWorkspace.inputSource != 0) {
-        if (gMainWorkspace.buttons & BTN_PREV) goto set0;
+        if (gMainWorkspace.buttons & CHOICE_MENU_PREV) goto set0;
         goto after_lr;
     } else {
-        if (gCameraState.buttons & BTN_PREV) goto set0;
+        if (gCameraState.buttons & CHOICE_MENU_PREV) goto set0;
         goto after_lr;
     }
 set0:
     gMainWorkspace.choice = 0;
-    *(u32 *)((u8 *)display + 0x24) = *(u32 *)((u8 *)options + 0xC);
+    *(u32 *)((u8 *)optionDisplay + 0x24) = *(u32 *)((u8 *)choiceOptions + 0xC);
 
 after_lr:
-    if (oldChoice != gMainWorkspace.choice) sub_08005E80(0x153);
+    if (previousChoice != gMainWorkspace.choice) playSound(0x153);
 
     if (gMainWorkspace.inputSource != 0) {
-        if (gMainWorkspace.buttons & BTN_CONFIRM) goto confirm;
+        if (gMainWorkspace.buttons & CHOICE_MENU_CONFIRM) goto confirm;
         goto cancel_check;
     } else {
-        if (gCameraState.buttons & BTN_CONFIRM) goto confirm;
+        if (gCameraState.buttons & CHOICE_MENU_CONFIRM) goto confirm;
         goto cancel_check;
     }
 
 confirm:
-    if (*(u32 *)(actionState + 0x30) == 0 && gMainWorkspace.choice == 1)
-        sub_08005E80(0x96 << 1);
+    if (*(u32 *)(workState + 0x30) == 0 && gMainWorkspace.choice == 1)
+        playSound(0x96 << 1);
     *(u8 *)(menu + *(s16 *)(menu + 0x22) * 2 + 0x19) = 0;
     {
-        void **stepTable = &gMainObjTimerCallback;
-        sub_080C31E4(menu + 0x18, menu + 0x22, *stepTable);
+        void **stepCallback = &gMainObjTimerCallback;
+        sub_080C31E4(menu + 0x18, menu + 0x22, *stepCallback);
     }
     return;
 
 cancel_check:
     if (gMainWorkspace.inputSource != 0) {
-        if (gMainWorkspace.buttons & BTN_CANCEL) goto cancel;
+        if (gMainWorkspace.buttons & CHOICE_MENU_CANCEL) goto cancel;
         return;
     } else {
-        if (gCameraState.buttons & BTN_CANCEL) goto cancel;
+        if (gCameraState.buttons & CHOICE_MENU_CANCEL) goto cancel;
         return;
     }
 
 cancel:
     gMainWorkspace.choice = 0;
-    *(u32 *)((u8 *)display + 0x24) = *(u32 *)((u8 *)options + 0xC);
+    *(u32 *)((u8 *)optionDisplay + 0x24) = *(u32 *)((u8 *)choiceOptions + 0xC);
     *(u8 *)(menu + *(s16 *)(menu + 0x22) * 2 + 0x19) = 0;
     {
-        void **stepTable = &gMainObjTimerCallback;
-        sub_080C31E4(menu + 0x18, menu + 0x22, *stepTable);
+        void **stepCallback = &gMainObjTimerCallback;
+        sub_080C31E4(menu + 0x18, menu + 0x22, *stepCallback);
     }
 }

@@ -15,22 +15,24 @@ void sub_0800D4BC(s32 arg0)
     u32 i;
     s32 zero;
     s32 clearZero = 0;
-    u8 *base;
+    u8 *base_1;
+    u8 *base_2;
+    u8 *base_3;
     void **entry;
 
-    base = D_020278D0;
-    base[0x69] = clearZero;
+    base_1 = D_020278D0;
+    base_1[0x69] = clearZero;
     i = 0;
-    base += 0x48;
+    base_1 += 0x48;
     do {
-        *(u32 *)base = clearZero;
-        base += 4;
+        *(u32 *)base_1 = clearZero;
+        base_1 += 4;
         i++;
     } while (i <= 6);
 
     i = 0;
-    base = D_020278D0;
-    entry = (void **)(base + 0x4C);
+    base_2 = D_020278D0;
+    entry = (void **)(base_2 + 0x4C);
     for (; i <= 3; i++) {
         entry[0] = sub_08001480(arg0, 0x1B);
         ((u8 *)entry[0])[0x3C] = 1;
@@ -38,8 +40,8 @@ void sub_0800D4BC(s32 arg0)
     }
 
     i = 0;
-    base = D_020278D0;
-    entry = (void **)(base + 0x5C);
+    base_3 = D_020278D0;
+    entry = (void **)(base_3 + 0x5C);
     for (; i <= 1; i++) {
         entry[0] = sub_08001480(arg0, 0x1B);
         ((u8 *)entry[0])[0x3C] = 3;

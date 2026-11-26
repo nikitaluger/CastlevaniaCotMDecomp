@@ -3,9 +3,9 @@ extern s32 allocWorkSlot(u8 *, s32, s32, s32);
 extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
-extern void sub_080212E4(u8 *);
-extern void sub_080216B0(u8 *, void *);
-extern void sub_080212C0(void);
+extern void unregisterChildObject(u8 *);
+extern void setAttackHitbox(u8 *, void *);
+extern void releaseEntityState(void);
 extern void sub_080C31E0(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
 
@@ -24,7 +24,7 @@ extern u32 gMainObjTimerCallback;
 
 /* Allocate this object's sprite, work block and render part, initialise their
  * graphics and screen position, then hand control to the entry script. */
-void sub_08020EEC(struct ScriptedObject *arg0) {
+void initScriptedProjectile(struct ScriptedObject *arg0) {
     u8 *sprite;
     struct EffectWork *work;
     u8 *animState;
@@ -37,14 +37,14 @@ void sub_08020EEC(struct ScriptedObject *arg0) {
     s32 *scriptOps;
 
     sprite = allocSpriteObject();
-    if (sprite == NULL) { sub_080212E4((u8 *)arg0); sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24)); return; }
+    if (sprite == NULL) { unregisterChildObject((u8 *)arg0); sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24)); return; }
     arg0->sprite = sprite;
     allocWorkSlot((u8 *)arg0, 0, 0x48, 0);
     work = arg0->work;
-    if (work == NULL) { sub_080212E4((u8 *)arg0); sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24)); return; }
+    if (work == NULL) { unregisterChildObject((u8 *)arg0); sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24)); return; }
     animState = (u8 *)work + 0x34;
     work->updateCb = *(u32 *)((u8 *)arg0 + 0x24);
-    *(u32 *)((u8 *)arg0 + 0x24) = (u32)sub_080212C0;
+    *(u32 *)((u8 *)arg0 + 0x24) = (u32)releaseEntityState;
     zero = 0;
     work->kind = 0x20;
     one = 1;
@@ -80,7 +80,7 @@ void sub_08020EEC(struct ScriptedObject *arg0) {
     { u32 xOff = 0x1278; *(u32 *)(sprite + 0x14) = work->worldX - ((*(u32 *)(scrollTable + xOff + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
     { u32 yOff = 0x127C; *(u32 *)(sprite + 0x18) = work->worldY - ((*(u32 *)(scrollTable + yOff + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     *(u16 *)(sprite + 0x28) = 0x29;
-    sub_080216B0(sprite, work);
+    setAttackHitbox(sprite, work);
     arg0->flags |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * arg0->index + 0x19) = zero;
     scriptOps = (s32 *)0x08671BB0;

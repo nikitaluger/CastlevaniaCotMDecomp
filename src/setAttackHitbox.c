@@ -14,7 +14,7 @@ struct Hitbox {
 /* Pick an attack hitbox table by the source entity's action index, clear the
  * target's active-hit flag for actions with no box, and copy the four box
  * edges into the target's hitbox. */
-void sub_080216B0(u8 *source, u8 *target) {
+void setAttackHitbox(u8 *source, u8 *target) {
     u8 *dst = target;
     u16 *boxParams = D_080CE7E4;
     s32 boxIndex = *(u16 *)(source + 0x28) - 0x31;

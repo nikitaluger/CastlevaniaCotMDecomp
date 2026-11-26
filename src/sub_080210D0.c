@@ -1,7 +1,7 @@
 extern void sub_080113A8(void *, void *);
 extern void sub_0801165C(void *, s32);
 extern s32 sub_08013B5C(void *, void *);
-extern void sub_080216B0(void *, void *);
+extern void setAttackHitbox(void *, void *);
 extern s32 sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern u8 gCameraState[];
@@ -69,7 +69,7 @@ void sub_080210D0(u8 *arg0)
     sub_0801165C(state, 0);
 
 common:
-    sub_080216B0(mainObj, state);
+    setAttackHitbox(mainObj, state);
 
     coordTable = gCameraState;
     camTable = gMainWorkspace;

@@ -4,7 +4,7 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void sub_08021690(void);
-extern void sub_080216B0(u8 *, void *);
+extern void setAttackHitbox(u8 *, void *);
 extern void sub_080C31E0(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
 
@@ -99,7 +99,7 @@ void sub_08021364(struct Entity *entity) {
     }
     *(u16 *)(obj + 0x28) = 0x31;
     state->attribs->kind |= 1;
-    sub_080216B0(obj, (void *)state);
+    setAttackHitbox(obj, (void *)state);
     entity->flags |= 0x1000;
     *(u8 *)((u8 *)entity + 2 * entity->index + 0x19) = zeroA;
     {

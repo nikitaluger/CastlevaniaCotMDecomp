@@ -746,3 +746,21 @@ struct ActionCameraState {
 #define BEHAVIOR_STEP_BASE_OFFSET   0x18
 #define BEHAVIOR_STEP_TIME_OFFSET   0x19
 #define BEHAVIOR_STEP_INDEX_OFFSET  0x22
+
+/* Button masks read by the two-option choice menu. 1/2 are the confirm and
+ * cancel buttons; 0x10/0x20 are the previous/next directions. */
+#define CHOICE_MENU_CONFIRM 1
+#define CHOICE_MENU_CANCEL  2
+#define CHOICE_MENU_PREV    0x10
+#define CHOICE_MENU_NEXT    0x20
+
+/* Input words used by the choice menu: inputSource != 0 selects the main
+ * workspace's word, otherwise the camera's word is read. */
+struct ChoiceMenuCameraInput { u8 pad0[0x146C]; u16 buttons; };
+struct ChoiceMenuMainInput {
+    u8 pad0[0x24];
+    u32 inputSource; /* 0x24 */
+    u16 buttons;     /* 0x28 */
+    u8 pad2A[0x1486];
+    u32 choice;      /* 0x14B0: currently highlighted option */
+};

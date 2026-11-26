@@ -1,7 +1,7 @@
 extern void sub_080113A8(void *, void *);
 extern void sub_0801165C(void *, s32);
 extern s32 sub_08013B5C(void *, void *);
-extern void sub_080216B0(void *, void *);
+extern void setAttackHitbox(void *, void *);
 extern s32 sub_080C31E0(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -52,7 +52,7 @@ void sub_08021548(u8 *self) {
     sub_0801165C(parent, 0);
 
 common:
-    sub_080216B0(child, parent);
+    setAttackHitbox(child, parent);
 
     posTable = gCameraState;
     coordIndexPtr = gMainWorkspace;

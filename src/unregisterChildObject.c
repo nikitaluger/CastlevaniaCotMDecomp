@@ -39,7 +39,7 @@ void *sub_0801C9A0(s32 arg0, s32 arg1)
 /* Release the object's slot in its owner's 3-word list: unless bit 1 of the
  * flags at +0x6C is set, scan the three words at owner+0x58 and NULL any that
  * point back to this object. */
-void sub_080212E4(void *arg0)
+void unregisterChildObject(void *arg0)
 {
     if (!(2 & *(u16 *)((u8 *)arg0 + 0x6C)))
     {

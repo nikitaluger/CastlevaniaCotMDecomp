@@ -2585,7 +2585,7 @@
 <g><title>sub_08020EA4: {&#x27;matched&#x27;: 1}</title>
 <rect x="570.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08020EEC: {&#x27;matched&#x27;: 1}</title>
+<g><title>initScriptedProjectile: {&#x27;matched&#x27;: 1}</title>
 <rect x="580.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080210D0: {&#x27;matched&#x27;: 1}</title>
@@ -2597,10 +2597,10 @@
 <g><title>sub_0802128A: {&#x27;aside&#x27;: 1}</title>
 <rect x="610.000" y="260" width="8.000" height="8" fill="#b54747"/>
 </g>
-<g><title>sub_080212C0: {&#x27;matched&#x27;: 1}</title>
+<g><title>releaseEntityState: {&#x27;matched&#x27;: 1}</title>
 <rect x="620.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080212E4: {&#x27;matched&#x27;: 1}</title>
+<g><title>unregisterChildObject: {&#x27;matched&#x27;: 1}</title>
 <rect x="630.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802131C: {&#x27;matched&#x27;: 1}</title>
@@ -2621,7 +2621,7 @@
 <g><title>sub_08021690: {&#x27;matched&#x27;: 1}</title>
 <rect x="690.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080216B0: {&#x27;matched&#x27;: 1}</title>
+<g><title>setAttackHitbox: {&#x27;matched&#x27;: 1}</title>
 <rect x="700.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08021760: {&#x27;matched&#x27;: 1}</title>

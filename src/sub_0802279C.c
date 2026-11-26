@@ -1,4 +1,4 @@
-/* identical to sub_080212E4 (matched), with its names changed by decompdecomp */
+/* identical to unregisterChildObject (matched), with its names changed by decompdecomp */
 extern void *sub_0805FAEC(s32, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
