@@ -6,7 +6,7 @@ extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void registerScriptObject(u8 *, s32);
 extern void sub_08058978(u8 *, struct Part *);
-extern void updateKind32Effect(void);
+extern void sub_080588E4(void);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
 
@@ -38,14 +38,14 @@ struct S_02021E90 { u8 _0[0x1278]; u32 f1278; u32 f127C; };
 extern struct S_02021E90 gCameraState;
 struct TBL { u8 _0[4]; u16 f4; u16 f6; u8 _8[0x28-8]; };
 extern struct TBL gEffectGfxTable[];
-extern u16 gKind32LayerAttrs[];
+extern u16 D_080CFD60[];
 extern u8 gSpriteAnimDataTable[];
 
 /* Spawn an animated effect sprite for the entity: allocate the sprite and
  * sub-effect, set up the animation from fixed tables, place it relative to the
  * camera, then advance the entity's animation step. The chained condition keeps
  * the original short-circuit order of the allocation and setup checks. */
-void spawnKind32EffectSprite(struct Entity *entity) {
+void sub_080584D0(struct Entity *entity) {
     u8 *sprite;
     struct Part *part;
     u8 *anim;
@@ -62,7 +62,7 @@ void spawnKind32EffectSprite(struct Entity *entity) {
     animSlot = 0;
     if ((sprite == NULL) ||
         (entity->sprite = sprite, allocWorkSlot((u8 *)entity, 0, 0x48, 0), part = entity->part, part == NULL) ||
-        (anim = (u8 *)part + 0x34, part->script = *(u32 *)((u8 *)entity + 0x24), *(u32 *)((u8 *)entity + 0x24) = (u32)updateKind32Effect,
+        (anim = (u8 *)part + 0x34, part->script = *(u32 *)((u8 *)entity + 0x24), *(u32 *)((u8 *)entity + 0x24) = (u32)sub_080588E4,
          part->animId = 0x32, part->f18 = 1,
          part->x = entity->spawnX << 16, part->y = entity->spawnY << 16,
          animSlot = findKindIndex(0x32), part->animSlot = animSlot, ((s32)(animSlot << 16) < 0)) ||
@@ -75,10 +75,10 @@ void spawnKind32EffectSprite(struct Entity *entity) {
     part->effect->f2 = 8;
     part->effect->f3 = 1;
     part->effect->f4 = gEffectGfxTable[part->animId].f4;
-    part->effect->f6 = gKind32LayerAttrs[0];
-    part->effect->f8 = gKind32LayerAttrs[1];
-    part->effect->fA = gKind32LayerAttrs[2];
-    part->effect->fC = gKind32LayerAttrs[3];
+    part->effect->f6 = D_080CFD60[0];
+    part->effect->f8 = D_080CFD60[1];
+    part->effect->fA = D_080CFD60[2];
+    part->effect->fC = D_080CFD60[3];
     part->effect->fE = gEffectGfxTable[part->animId].f6;
     part->effect->f10 = (u32)sprite;
     part->effect->f14 = zero;
