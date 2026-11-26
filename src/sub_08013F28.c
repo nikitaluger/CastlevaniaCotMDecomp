@@ -1,4 +1,4 @@
-void *sub_08015914(void);
+void *allocMotionTracker(void);
 
 struct Sub_08013F28 {
     u16 flags;
@@ -17,7 +17,7 @@ s32 sub_08013F28(void *parent, u16 param1, u16 param2, u16 param3, u16 param4)
 {
     struct Sub_08013F28 *r4 = *(struct Sub_08013F28 **)((u8 *)parent + 0x3C);
     if (r4->effect == NULL) {
-        void *p = sub_08015914();
+        void *p = allocMotionTracker();
         r4->effect = p;
         if (p == NULL) {
             r4->flags = (r4->flags & 0xFFFB) | 1;

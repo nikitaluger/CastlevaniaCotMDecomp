@@ -15,8 +15,8 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void*, s32, s32, s32);
 extern void initSpriteGraphics(void*, void*, void*);
 extern void setAnimationFrame(void*, void*, s16, s32);
-extern void *sub_08015914(void);
-extern s32 sub_080954A4(void);
+extern void *allocMotionTracker(void);
+extern s32 getSpawnBehaviorIndex(void);
 extern struct S *sub_080954BC(void *);
 extern void sub_08095418(void);
 extern void sub_08095438(void);
@@ -57,13 +57,13 @@ void sub_08094D20(struct A *arg0) {
     zero = 0;
     ((struct T *)obj)->f1C = 0x8000000C;
     sub = (struct Sub *)((u8 *)ent + 0x48);
-    idx = sub_080954A4();
+    idx = getSpawnBehaviorIndex();
     sub->f00 = idx;
     if ((s32)idx < 0)
         goto fail;
     initSpriteGraphics(obj, r9, D_081008BC + ((idx * 3) << 2));
     sub->f20 = sub_080954BC(arg0);
-    t = sub_08015914();
+    t = allocMotionTracker();
     sub->f04 = t;
     if (t != 0)
         goto body;

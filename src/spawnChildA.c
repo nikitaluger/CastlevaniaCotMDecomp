@@ -1,4 +1,4 @@
-void *sub_08015914(void);
+void *allocMotionTracker(void);
 
 struct Work_155CC {
     u16 field_0;
@@ -15,7 +15,7 @@ s32 spawnChildA(void *self, void *volatile *subObjPtr, u16 field4, u16 field6, u
 {
     struct Work_155CC *work = *(struct Work_155CC **)((u8 *)self + 0x3C);
     if (*subObjPtr == NULL) {
-        void *allocated = sub_08015914();
+        void *allocated = allocMotionTracker();
         *subObjPtr = allocated;
         if (allocated == NULL) {
             work->field_0 = (work->field_0 & 0xFFFB) | 1;

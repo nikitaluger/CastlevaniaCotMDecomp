@@ -1706,7 +1706,7 @@
 <g><title>sub_080158F4: {&#x27;matched&#x27;: 1}</title>
 <rect x="40.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08015914: {&#x27;aside&#x27;: 1}</title>
+<g><title>allocMotionTracker: {&#x27;aside&#x27;: 1}</title>
 <rect x="50.000" y="230" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_08015974: {&#x27;matched&#x27;: 1}</title>
@@ -9704,7 +9704,7 @@
 <g><title>sub_080950A4: {&#x27;matched&#x27;: 1}</title>
 <rect x="300.000" y="560" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080950EC: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnTrackedBehaviorSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="310.000" y="560" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080952DC: {&#x27;matched&#x27;: 1}</title>
@@ -9719,7 +9719,7 @@
 <g><title>sub_08095438: {&#x27;matched&#x27;: 1}</title>
 <rect x="350.000" y="560" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080954A4: {&#x27;attempt&#x27;: 1}</title>
+<g><title>getSpawnBehaviorIndex: {&#x27;attempt&#x27;: 1}</title>
 <rect x="360.000" y="560" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_080954BC: {&#x27;aside&#x27;: 1}</title>

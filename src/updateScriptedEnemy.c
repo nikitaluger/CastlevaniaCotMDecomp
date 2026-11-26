@@ -37,10 +37,10 @@ extern void sub_08086744(void *, void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 /* Update a scripted enemy: advance its behaviour and animation timers, handle
  * the death/attack transition and dispatch the resulting script action. */
-void updateScriptedEnemy(u8 *arg0)
+void updateScriptedEnemy(u8 *enemy)
 {
-  u8 *work = *((u8 **) (arg0 + 0x6C)) + 4;
-  u8 *target = *((u8 **) (arg0 + 0x38));
+  u8 *work = *((u8 **) (enemy + 0x6C)) + 4;
+  u8 *target = *((u8 **) (enemy + 0x38));
   u8 *workState = work;
   u8 *gameFlags = (u8 *) 0x02025368;
   u8 *paramTable;
@@ -58,11 +58,11 @@ void updateScriptedEnemy(u8 *arg0)
   {
     return;
   }
-  sub_0806C5EC(arg0, target, workState, workState);
+  sub_0806C5EC(enemy, target, workState, workState);
   sub_0806BA20(target, workState, workState);
-  paramTable = (u8 *) 0x080E03A0;
+  paramTable = (u8 *) ENEMY_PARAM_TABLE;
   tableIndex = *((s32 *) (workState + 0x44));
-  entryOffset = tableIndex * 0x58;
+  entryOffset = tableIndex * ENEMY_PARAM_ENTRY_SIZE;
   *((s32 *) (workState + 0x0C)) = (*((s32 *) (workState + 0x0C))) + (*((s32 *) (entryOffset + paramTable)));
   paramTable += 4;
   maxValue = *((s32 *) (entryOffset + paramTable));
@@ -76,9 +76,9 @@ void updateScriptedEnemy(u8 *arg0)
   {
     *((s32 *) (work + 0x70)) = zero70;
   }
-  sub_08086744(arg0, work, workState, 0xC);
+  sub_08086744(enemy, work, workState, 0xC);
   sub_0806B104(target, work, workState);
-  sub_0806AB04(arg0, target, work, workState);
+  sub_0806AB04(enemy, target, work, workState);
   if ((*((s32 *) (work + 0x40))) == 1)
   {
     sub_08005E80(0x67);
@@ -94,11 +94,11 @@ void updateScriptedEnemy(u8 *arg0)
     }
     zero = 0;
     *((s32 *) (workState + 0x08)) = zero;
-    sub_0806E114(arg0, 9, *((s32 *) (workState + 0x00)), *((s32 *) (workState + 0x04)));
-    (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19] = (u8) zero;
+    sub_0806E114(enemy, 9, *((s32 *) (workState + 0x00)), *((s32 *) (workState + 0x04)));
+    (enemy + ((*((s16 *) (enemy + 0x22))) * 2))[0x19] = (u8) zero;
     {
-      s32 *scriptOps = (s32 *) 0x08671BD0;
-      sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0xA, *scriptOps);
+      s32 *scriptOps = (s32 *) SCRIPT_STEP_CALLBACK_TABLE;
+      sub_080C31E8(enemy + 0x18, enemy + 0x22, ENEMY_STEP_DEATH, *scriptOps);
     }
   }
   sub_0806A884(target, workState);
@@ -110,27 +110,27 @@ void updateScriptedEnemy(u8 *arg0)
     animPtr = animScratch;
     if ((moveResult == 0) || (gMainWorkspace.counter != 0))
     {
-      sub_0806A7AC(target, work, 0x10);
+      sub_0806A7AC(target, work, BOSS_FORM_FALLBACK);
       sub_08003740(animPtr, target);
-      (arg0 + ((*((s16 *) (0x22 + arg0))) * 2))[0x19] = 0;
+      (enemy + ((*((s16 *) (0x22 + enemy))) * 2))[0x19] = 0;
       {
-        s32 *scriptOps = (s32 *) 0x08671BD0;
-        sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 3, *scriptOps);
+        s32 *scriptOps = (s32 *) SCRIPT_STEP_CALLBACK_TABLE;
+        sub_080C31E8(enemy + 0x18, enemy + 0x22, ENEMY_STEP_FALLBACK, *scriptOps);
       }
     }
   }
   sub_08086648(target, work, 0xB);
   sub_08086D58(work, 0xC);
-  result = sub_0806BCD8(arg0, target, work, workState);
+  result = sub_0806BCD8(enemy, target, work, workState);
   gameFlags = work;
   gameFlags += (unsigned long long) resultOffset;
   *((s32 *) gameFlags) = (u16) result;
   if (((u16) result) != 0)
   {
     sub_08003740(animPtr, target);
-    (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19] = 0;
-    scriptOpsAddr = 0x08671BD0;
-    sub_080C31E8(arg0 + 0x18, arg0 + 0x22, *((s32 *) gameFlags), *((s32 *) scriptOpsAddr));
+    (enemy + ((*((s16 *) (enemy + 0x22))) * 2))[0x19] = 0;
+    scriptOpsAddr = SCRIPT_STEP_CALLBACK_TABLE;
+    sub_080C31E8(enemy + 0x18, enemy + 0x22, *((s32 *) gameFlags), *((s32 *) scriptOpsAddr));
   }
-  sub_0806C6B0(arg0, target, work, workState);
+  sub_0806C6B0(enemy, target, work, workState);
 }

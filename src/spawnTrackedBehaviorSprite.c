@@ -48,7 +48,7 @@ typedef struct
   s16 f8;
   s16 fA;
 } MotionData;
-/* Small tracker object allocated by sub_08015914. */
+/* Small tracker object allocated by allocMotionTracker. */
 typedef struct
 {
   u8 _0;
@@ -100,8 +100,8 @@ extern u16 D_081008CA[];
 extern u32 gMainObjTimerCallback[];
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
-extern void *sub_08015914(void);
-extern s32 sub_080954A4(void);
+extern void *allocMotionTracker(void);
+extern s32 getSpawnBehaviorIndex(void);
 extern void *sub_080954BC(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
@@ -111,7 +111,7 @@ extern void sub_08095438(void);
 /* Spawn one of the D_0866FAAC behaviours: allocate the sprite and its tracker,
  * copy the spawn coordinates into the behaviour state, then advance the
  * parent's animation step and dispatch the next handler. */
-void sub_080950EC(Entity *arg0)
+void spawnTrackedBehaviorSprite(Entity *arg0)
 {
   SpawnParams *params;
   Sprite *sprite;
@@ -150,13 +150,13 @@ void sub_080950EC(Entity *arg0)
   sprite->graphics = (u16) (sprite->graphics | gMainWorkspace.w18C2);
   sprite->typeFlags = 0x8000000C;
   ext = (Extension *) (((u8 *) state) + 0x48);
-  state->behaviorIndex = sub_080954A4();
+  state->behaviorIndex = getSpawnBehaviorIndex();
   if (state->behaviorIndex < 0)
   {
     goto fail;
   }
   ext->motion = sub_080954BC(arg0);
-  tracker = (TrackerObj *) sub_08015914();
+  tracker = (TrackerObj *) allocMotionTracker();
   ext->tracker = tracker;
   if (tracker != 0)
   {

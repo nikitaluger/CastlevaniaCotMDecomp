@@ -722,3 +722,9 @@ struct ActionCameraState {
 #define BOSS_FORM_ATTACK  9
 #define BOSS_FORM_SECOND  0x1E
 #define BOSS_FORM_FALLBACK 0x10
+
+/* Script steps and per-enemy parameter table used by updateScriptedEnemy. */
+#define ENEMY_STEP_DEATH     0xA
+#define ENEMY_STEP_FALLBACK  3
+#define ENEMY_PARAM_TABLE    0x080E03A0
+#define ENEMY_PARAM_ENTRY_SIZE 0x58

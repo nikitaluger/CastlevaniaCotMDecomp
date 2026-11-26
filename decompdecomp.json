@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795714048.0320227,
- "revision": 67654,
+ "saved_at": 1795714283.0390997,
+ "revision": 67670,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "407028:134624756": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateScriptedBoss",
-   "vram": 134624756
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -12422,7 +12410,7 @@
   "updateScriptedBoss": {
    "vram": 134624756,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08063BD4": {
    "vram": 134626260,
@@ -12442,7 +12430,7 @@
   "updateScriptedEnemy": {
    "vram": 134627704,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_08064504": {
    "vram": 134628612,
@@ -16944,7 +16932,7 @@
    "matched_by": "opencode-free-2",
    "readable": false
   },
-  "sub_080950EC": {
+  "spawnTrackedBehaviorSprite": {
    "vram": 134828268,
    "matched_by": "opencode-deepseek-v4.1-flash-free-1",
    "readable": false
@@ -16964,7 +16952,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080954A4": {
+  "getSpawnBehaviorIndex": {
    "vram": 134829220,
    "best_score": 455,
    "best_by": "permuter-8589937815"
@@ -26215,7 +26203,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08015914",
+   "name": "allocMotionTracker",
    "vram": 134306068,
    "size": 96,
    "status": "asm"
@@ -42211,7 +42199,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080950EC",
+   "name": "spawnTrackedBehaviorSprite",
    "vram": 134828268,
    "size": 496,
    "status": "open"
@@ -42241,7 +42229,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080954A4",
+   "name": "getSpawnBehaviorIndex",
    "vram": 134829220,
    "size": 24,
    "status": "open"
@@ -50319,6 +50307,12 @@
    "kind": "func"
   },
   {
+   "name": "allocMotionTracker",
+   "address": 134306068,
+   "size": 96,
+   "kind": "func"
+  },
+  {
    "name": "probeEntityCollision",
    "address": 134306236,
    "size": 492,
@@ -50721,6 +50715,18 @@
    "kind": "func"
   },
   {
+   "name": "spawnTrackedBehaviorSprite",
+   "address": 134828268,
+   "size": 496,
+   "kind": "func"
+  },
+  {
+   "name": "getSpawnBehaviorIndex",
+   "address": 134829220,
+   "size": 24,
+   "kind": "func"
+  },
+  {
    "name": "initSpawnedObject",
    "address": 134839576,
    "size": 120,
@@ -51117,6 +51123,12 @@
    "kind": "data"
   },
   {
+   "name": "gBehaviorParams",
+   "address": 135268554,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gPairedPoseAttrs",
    "address": 135276940,
    "size": 0,
@@ -51171,7 +51183,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct GameState",
+   "type": "struct S_02025FF0",
    "source": "match"
   },
   {
@@ -51386,7 +51398,7 @@
   },
   {
    "address": 140975024,
-   "type": "u32",
+   "type": "u32[]",
    "source": "match"
   }
  ],
@@ -53441,7 +53453,7 @@
    }
   },
   {
-   "name": "sub_08015914",
+   "name": "allocMotionTracker",
    "vram": 134306068,
    "not_c": {
     "opencode-beam-free-1": {

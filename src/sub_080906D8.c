@@ -1,7 +1,7 @@
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
-extern void *sub_08015914(void);
+extern void *allocMotionTracker(void);
 extern void sub_08015974(void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_0801165C(void *, s32);
@@ -54,7 +54,7 @@ void sub_080906D8(u8 *self) {
         sub_0801491C(*(s32 *)(obj + 0x0C)) <= 0x00400000) {
         oldSprite = ((struct SP *)objState)->p;
         if (oldSprite == 0) {
-            void *sprite = sub_08015914();
+            void *sprite = allocMotionTracker();
             ((struct SP *)objState)->p = sprite;
             if (sprite == 0) {
                 sub_080C31E0((s32)self, *(s32 *)(self + 0x24));
