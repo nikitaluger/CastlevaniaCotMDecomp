@@ -19,59 +19,9 @@ extern u8 D_080CB2B8[];
 extern s16 D_080CBDD0[];
 extern u32 D_02025FF0[];
 extern void *D_08671BB0;
-struct UnkSub
-{
-  u8 pad0[1];
-  u8 b1;
-  u8 b2;
-  u8 b3;
-  u16 h4;
-  u16 h6;
-  u16 h8;
-  u16 hA;
-  u16 hC;
-  u16 hE;
-  void *p10;
-};
-struct Unk5
-{
-  u8 pad0[4];
-  u16 h4;
-  u8 pad6[0x12];
-  s32 f18;
-  s16 f1C;
-  u8 pad1E[0xA];
-  struct UnkSub *f28;
-  u8 pad2C[0x8];
-  void *f34;
-  u8 pad38[0x10];
-  struct UnkSub *f48;
-  u8 pad4C[0x1D];
-  u8 b69;
-};
-struct Arg0
-{
-  u8 pad0[2];
-  u16 h2;
-  s32 f4;
-  u8 pad8[0xC];
-  void **f14;
-  u8 f18[4];
-  u8 pad1C[3];
-  u8 b1F;
-  u8 pad20[2];
-  s16 s22;
-  void *f24;
-  u8 pad28[0x10];
-  void *f38;
-  struct Unk5 *f3C;
-  u8 pad40[0xC];
-  s32 f4C;
-  u8 pad50[0xC];
-  s32 f5C;
-  u8 pad60[0x4C];
-  void *fAC;
-};
+struct UnkSub { u8 pad0[1]; u8 b1; u8 b2; u8 b3; u16 h4; u16 h6; u16 h8; u16 hA; u16 hC; u16 hE; void *p10; };
+struct Unk5 { u8 pad0[4]; u16 h4; u8 pad6[0x12]; s32 f18; s16 f1C; u8 pad1E[0xA]; struct UnkSub *f28; u8 pad2C[0x8]; void *f34; u8 pad38[0x10]; struct UnkSub *f48; u8 pad4C[0x1D]; u8 b69; };
+struct Arg0 { u8 pad0[2]; u16 h2; s32 f4; u8 pad8[0xC]; void **f14; u8 f18[4]; u8 pad1C[3]; u8 b1F; u8 pad20[2]; s16 s22; void *f24; u8 pad28[0x10]; void *f38; struct Unk5 *f3C; u8 pad40[0xC]; s32 f4C; u8 pad50[0xC]; s32 f5C; u8 pad60[0x4C]; void *fAC; };
 void sub_080B3280(struct Arg0 *arg0)
 {
   void *r8_ac;
@@ -83,16 +33,10 @@ void sub_080B3280(struct Arg0 *arg0)
   u8 *cb2b8;
   r8_ac = arg0->fAC;
   obj = sub_0800355C();
-  if (obj == 0)
-  {
-    goto fail;
-  }
+  if (obj == 0) goto fail;
   arg0->f38 = obj;
   sub_0800168C(arg0, 0, 0x70, 0);
-  if ((*((u32 *) (((u8 *) arg0) + 0x3C))) == 0)
-  {
-    goto fail;
-  }
+  if ((*((u32 *) (((u8 *) arg0) + 0x3C))) == 0) goto fail;
   *((s32 *) (((u8 *) obj) + 0x1C)) = 0x8000000A;
   r5 = arg0->f3C;
   r4_34 = ((u8 *) r5) + 0x34;
@@ -103,62 +47,49 @@ void sub_080B3280(struct Arg0 *arg0)
   sub_080114DC(obj, r4_34, 0, 1);
   sub_08097EB4(D_0840E198);
   r8data = D_0810298C;
-  cb2b8 = D_080CB2B8;
   {
     void *t1 = sub_08016190();
     r5->f28 = (struct UnkSub *) t1;
-    if (t1 == 0)
-    {
-      goto fail;
-    }
+    if (t1 == 0) goto fail;
   }
   r5->f28->b1 = 5;
   r5->f28->b2 = 8;
   r5->f28->b3 = 1;
   {
-    u8 *cb = cb2b8;
     struct UnkSub *ch = r5->f28;
-    s32 idx20 = (((s32) r5->f1C) * 5) << 2;
-    ch->h4 = *((u16 *) (cb + idx20));
+    s32 idx20;
+    cb2b8 = D_080CB2B8;
+    idx20 = (((s32) r5->f1C) * 5) << 2;
+    ch->h4 = *((u16 *) (cb2b8 + idx20));
     r5->f28->h6 = r8data[0];
     r5->f28->h8 = r8data[1];
     r5->f28->hA = r8data[2];
     r5->f28->hC = r8data[3];
-    r5->f28->hE = *((u16 *) ((cb2b8 + ((((s32) r5->f1C) * 5) << 2)) + 4));
+    r5->f28->hE = *((u16 *) (cb2b8 + ((((s32) r5->f1C) * 5) << 2) + 4));
     r5->f28->p10 = obj;
   }
   {
     u16 *r4data8 = r8data + 4;
-    u8 *cb = cb2b8;
-    void *t2;
-    t2 = sub_08016190();
-    r5->f48 = (struct UnkSub *) t2;
-    if (t2 != 0)
-    {
-      goto body;
-    }
+    r5->f48 = (struct UnkSub *) sub_08016190();
+    if (r5->f48 != 0) goto body;
     fail:
     sub_080C31E0(arg0, arg0->f24);
-
     goto end;
     body:
+    r5->f48->b1 = 1;
+    r5->f48->b2 = 8;
+    r5->f48->b3 = 1;
     {
       struct UnkSub *ch = r5->f48;
-      ch->b1 = 1;
-      ch->b2 = 8;
-      ch->b3 = 1;
-      {
-        s32 idx20 = (((s32) r5->f1C) * 5) << 2;
-        ch->h4 = *((u16 *) (cb + idx20));
-        r5->f48->h6 = r8data[4];
-        r5->f48->h8 = r4data8[1];
-        r5->f48->hA = r4data8[2];
-        r5->f48->hC = r4data8[3];
-        r5->f48->hE = *((u16 *) ((cb2b8 + ((((s32) r5->f1C) * 5) << 2)) + 4));
-        r5->f48->p10 = obj;
-      }
+      s32 idx20 = (((s32) r5->f1C) * 5) << 2;
+      ch->h4 = *((u16 *) (cb2b8 + idx20));
+      r5->f48->h6 = r8data[4];
+      r5->f48->h8 = r4data8[1];
+      r5->f48->hA = r4data8[2];
+      r5->f48->hC = r4data8[3];
+      r5->f48->hE = *((u16 *) (cb2b8 + ((((s32) r5->f1C) * 5) << 2) + 4));
+      r5->f48->p10 = obj;
     }
-
     *((void **) (r10_base + 4)) = sub_080B7144(arg0, -1);
     *((void **) (r10_base + 8)) = sub_080B7144(arg0, 1);
     *((void **) (r10_base + 12)) = sub_080B7174(arg0);
@@ -166,7 +97,10 @@ void sub_080B3280(struct Arg0 *arg0)
     *((void **) (r10_base + 20)) = sub_0805FAEC(arg0, 0x1C4);
     r5->b69 = 0;
     arg0->f4C = r5->f18;
-    arg0->f5C = (s32) D_080CBDD0[(((s32) r5->f1C) * 20) + 18];
+    {
+      s16 *p = &D_080CBDD0[(((s32) r5->f1C) * 20) + 18];
+      arg0->f5C = p[18];
+    }
     r5->h4 |= 0x10;
     D_02025FF0[16] = 0;
     D_02025FF0[17] = 0;
@@ -189,5 +123,4 @@ void sub_080B3280(struct Arg0 *arg0)
   }
   end:
   return;
-
 }
