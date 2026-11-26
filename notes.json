@@ -340031,6 +340031,15 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:02142a839329fda37098c8fa91e046be62f0a5086d87c88400a817bf134964f2:5631c3afadca45ebd06beb53d0ff7e24d1c6b1cea640b3639b44bd4a8d7e7c81"
  },
  {
+  "function": "sub_08013CF4",
+  "text": "Caller-saved regalloc wall. Best 580 (97.5%, 238/238 insns). Residual 47 rows are register allocation/reorder in entry lookup chains and related temps (target r1/r0 role swaps around 0x1C/0x22 loads and table indexing), no structural/codegen differences. try_local_repairs(compare=true) on fb5e4c2b7be5812df6e1 ran matched_integer_prototype/branch_orientation/callee_parameter_width; no improvement (one variant stopped due to saved-file change). Prior handoffs report terminal wall. Not hand asm, not_c=false.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795713923.3359559,
+  "score_before": 580,
+  "score_after": 580,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:8e4b9a83d8d8e82c77011a904ea5e21ce2233f38bd764d890a7885e124f280ce:5553285a3ee509dc0af6901dc466d0ef17a31cb04580422d0529a215db054a24"
+ },
+ {
   "function": "updateScriptedBoss",
   "text": "sub_080635F4 best 4975 (78.0%, 227/227 insns). Large multi-call function. Structures: arg0 has f22(s16 @0x22), f38(ptr), f6C(ptr); r6=arg0->f6C with f4 @0x04, u16 fD0 @0xD0, fD2 @0xD2; r8=r6+4 with u32 f60@0x60, f68@0x68, f40@0x40, f4C@0x4C, fC4@0xC4, +0x28 passed to sub_08003740. D_02025FF0.f10 compared to 1; D_02025368[0x3CB] byte flag. Call targets _0806AB04/_0806BCD8 must be written `sub_0806AB04`/`sub_0806BCD8` (note #69). sub_080C31E8 takes 4 args (ptr,ptr,imm,*fp with 0x08671BD0). Adding a `u8 *d25368 = D_02025368` local improved 6665\u21924985 (puts D_02025368 base in a high reg). Remaining: target prologue saves r8/r9/r10 (`mov r7,sl; mov r6,sb; mov r5,r8; push {r5,r6,r7}`) with arg0=r4, r8ptr in r8(high), r5=r8 copy, D_02025368 in r10(sl), zero in r9; mine saves only r8/r9 with arg0=r5, r8ptr in low r4, D_02025368 in r9. Could not force the 3rd high register / rotation. A zero local didn't help.",
   "by": "opencode-hy4-flash-free-1",
@@ -340165,14 +340174,5 @@
   "created_at": 1795683535.0808718,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "sub_08013CF4",
-  "text": "Caller-saved regalloc wall. Best 580 (97.5%, 238/238 insns). Residual 47 rows are register allocation/reorder in entry lookup chains and related temps (target r1/r0 role swaps around 0x1C/0x22 loads and table indexing), no structural/codegen differences. try_local_repairs(compare=true) on fb5e4c2b7be5812df6e1 ran matched_integer_prototype/branch_orientation/callee_parameter_width; no improvement (one variant stopped due to saved-file change). Prior handoffs report terminal wall. Not hand asm, not_c=false.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795713923.3359559,
-  "score_before": 580,
-  "score_after": 580,
-  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:8e4b9a83d8d8e82c77011a904ea5e21ce2233f38bd764d890a7885e124f280ce:5553285a3ee509dc0af6901dc466d0ef17a31cb04580422d0529a215db054a24"
  }
 ]

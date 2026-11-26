@@ -36,7 +36,7 @@ struct BossData
 };
 /* Update a scripted boss: run its behavior callbacks, handle attack and state
  * transitions, then dispatch the resulting script action. */
-void updateScriptedBoss(struct ScriptedObject *boss)
+void sub_080635F4(struct ScriptedObject *arg0)
 {
   struct BossData *data;
   u8 *work;
@@ -47,39 +47,39 @@ void updateScriptedBoss(struct ScriptedObject *boss)
   u16 flags16;
   u16 result16;
   s32 count;
-  data = (struct BossData *) boss->data;
+  data = (struct BossData *) arg0->data;
   work = ((u8 *) data) + 4;
-  target = boss->target;
+  target = arg0->target;
   workState = work;
   gameFlags = gGameStatus;
   if (sub_0806C4B4(work, workState) != 0)
   {
     goto end;
   }
-  sub_0806C5EC((u8 *) boss, target, workState, workState);
+  sub_0806C5EC((u8 *) arg0, target, workState, workState);
   if (((*((u32 *) (workState + 0x60))) & 0xF) == 0)
   {
     sub_08005E80(0x69);
   }
   *((u32 *) (workState + 0x60)) = (*((u32 *) (workState + 0x60))) + 1;
-  if (sub_0806B3E8((u8 *) boss, target, workState, workState) != 0) goto mid;
-  if (sub_0806B820((u8 *) boss, target, workState, workState) != 0) goto mid;
-  if (sub_0806BA98((u8 *) boss, target, workState, workState) != 0) goto mid;
+  if (sub_0806B3E8((u8 *) arg0, target, workState, workState) != 0) goto mid;
+  if (sub_0806B820((u8 *) arg0, target, workState, workState) != 0) goto mid;
+  if (sub_0806BA98((u8 *) arg0, target, workState, workState) != 0) goto mid;
   if ((sub_0806B104(target, workState, workState) == 0) || ((*((u32 *) (workState + 0x68))) != 0))
   {
     if (((*((s32 *) (workState + 0x60))) > 0x1F) && (gMainWorkspace.mode != 1))
     {
-      sub_0806A7AC(target, workState, BOSS_FORM_ATTACK);
-      sub_0806E114((u8 *) boss, 4, data->gfxId, *((u32 *) (workState + 4)));
+      sub_0806A7AC(target, workState, 9);
+      sub_0806E114((u8 *) arg0, 4, data->gfxId, *((u32 *) (workState + 4)));
     }
     else
     {
       sub_0806C49C(target, work);
     }
-    *((u8 *) ((((u8 *) boss) + (2 * boss->index)) + 0x19)) = 0;
+    *((u8 *) ((((u8 *) arg0) + (2 * arg0->index)) + 0x19)) = 0;
     {
-      s32 *scriptOps = (s32 *) SCRIPT_STEP_CALLBACK_TABLE;
-      sub_080C31E8(((u8 *) boss) + 0x18, ((u8 *) boss) + 0x22, BOSS_STEP_RESET, *scriptOps);
+      s32 *scriptOps = (s32 *) 0x08671BD0;
+      sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 4, *scriptOps);
     }
   }
   else
@@ -95,42 +95,42 @@ void updateScriptedBoss(struct ScriptedObject *boss)
     if (((*((u16 *) (((u8 *) data) + 0xD2))) & 0x100) != 0)
     {
       *((u32 *) (workState + 0x68)) = 2;
-      sub_0806A7AC(target, workState, BOSS_FORM_SECOND);
-      *((u8 *) ((((u8 *) boss) + (2 * boss->index)) + 0x19)) = zero;
+      sub_0806A7AC(target, workState, 0x1E);
+      *((u8 *) ((((u8 *) arg0) + (2 * arg0->index)) + 0x19)) = zero;
       {
-        s32 *scriptOps = (s32 *) SCRIPT_STEP_CALLBACK_TABLE;
-        sub_080C31E8(((u8 *) boss) + 0x18, ((u8 *) boss) + 0x22, BOSS_STEP_ATTACK, *scriptOps);
+        s32 *scriptOps = (s32 *) 0x08671BD0;
+        sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 6, *scriptOps);
       }
     }
   }
   mid:
-  sub_0806AB04((u8 *) boss, target, work, workState);
+  sub_0806AB04((u8 *) arg0, target, work, workState);
   if ((*((u32 *) (work + 0x40))) == 0)
   {
     count = *((u32 *) (work + 0x4C));
     if (count == 0)
     {
-      sub_0806A7AC(target, work, BOSS_FORM_FALLBACK);
-      *((u8 *) ((((u8 *) boss) + (2 * boss->index)) + 0x19)) = count;
+      sub_0806A7AC(target, work, 0x10);
+      *((u8 *) ((((u8 *) arg0) + (2 * arg0->index)) + 0x19)) = count;
       {
-        s32 *scriptOps = (s32 *) SCRIPT_STEP_CALLBACK_TABLE;
-        sub_080C31E8(((u8 *) boss) + 0x18, ((u8 *) boss) + 0x22, BOSS_STEP_FALLBACK, *scriptOps);
+        s32 *scriptOps = (s32 *) 0x08671BD0;
+        sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 3, *scriptOps);
       }
     }
   }
   sub_0806A884(target, workState);
-  result16 = (*((u32 *) (work + 0xC4)) = sub_0806BCD8((u8 *) boss, target, work, workState));
+  result16 = (*((u32 *) (work + 0xC4)) = sub_0806BCD8((u8 *) arg0, target, work, workState));
   if (result16 != 0)
   {
-    *((u8 *) ((((u8 *) boss) + (2 * boss->index)) + 0x19)) = 0;
+    *((u8 *) ((((u8 *) arg0) + (2 * arg0->index)) + 0x19)) = 0;
     {
-      s32 *scriptOps = (s32 *) SCRIPT_STEP_CALLBACK_TABLE;
-      sub_080C31E8(((u8 *) boss) + 0x18, ((u8 *) boss) + 0x22, *((u32 *) (work + 0xC4)), *scriptOps);
+      s32 *scriptOps = (s32 *) 0x08671BD0;
+      sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, *((u32 *) (work + 0xC4)), *scriptOps);
     }
   }
   offset = 0x28;
   sub_08003740(work + offset, target);
-  sub_0806C6B0((u8 *) boss, target, work, workState);
+  sub_0806C6B0((u8 *) arg0, target, work, workState);
   end:
   ;
 }
