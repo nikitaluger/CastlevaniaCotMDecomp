@@ -340437,38 +340437,6 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:c22358a957a3221c572e0c4af667456f6586cdee43af7dd45501fb0850daca7d"
  },
  {
-  "function": "updateChoiceMenu",
-  "text": "Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.985118,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateChoiceMenu",
-  "text": "Can't get closer in this session: large complex control-flow/input-dispatch function (244 insns). Best 9057/62.2% with partial logic in place (LR selection, sound on change, confirm/cancel paths, sub_080C31E4 calls). Remaining major diffs are branch structure/order, repeated input-source loads (D_02025FF0+0x24/0x28 vs D_02021E90+0x146C), register allocation, and literal/pool layout. Needs detailed control-flow matching against target. Releasing to continue claim quota.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.1059754,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateChoiceMenu",
-  "text": "Matched (244 insns). Winning structure: (1) declare D_02025FF0/D_02021E90 as structs with padding so fields land at 0x24/0x28/0x14B0 and 0x146C \u2014 this makes agbcc emit separate base and offset literals with `adds` instead of folding symbol+offset into one literal. (2) Explicit gotos with SHARED bodies for each action: `if (btn) goto set1; goto check2;` in both arms, then `set1: ...; check2: ...` \u2014 this produces the target's `bne body; b next` pattern instead of `beq next`. (3) CRITICAL: place the confirm block BEFORE the cancel_check block in source order, even though control flow reaches cancel_check first \u2014 this alone took score 4839 -> 5. (4) hoist `&D_08671BB0` into `void **pp` in each epilogue. (5) final cmp needed `if (old != state)` (old on the left) to emit `cmp r2,r0`.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.106238,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateChoiceMenu",
-  "text": "MATCHED (244 insns, score 0). Huge structural win: place the confirm block BEFORE the cancel-check block in C source order, matching the ROM's block layout (`confirm` at 0x0808C8A0, `cancel_check` at 0x0808C8F0). Moving `confirm:` above `cancel_check:` took score 4839 -> 5 in one compile. Final fix: write the state-change comparison as `if (old != D_02025FF0.state)` (old FIRST) to get `cmp r2,r0` instead of `cmp r0,r2`. Also needed: struct fields for D_02021E90/D_02025FF0 (gives the two-literal base+offset form), explicit goto labels with shared bodies for LR set/cancel, and `void **pp = &D_08671BB0;` for the hoisted address load.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.106282,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08006680",
   "text": "Best: revision 333aea5f3f78d2913a52, score 4630 (155 target / 153 emitted). Literal 0x7C00 blue masks fixed the hoisted-mask shape; signed s32 channel sums preserve asrs #8. Residual inner loop: target uses an incrementing c0 pointer and one c1 load, while candidate recomputes c0 addressing and reloads c1. Explicit c0 pointer scored 6160; early b or assignment-expression b scored 6470. Linker warnings are artifacts: target calls sub_08000E98 and loads 0x020227EC. Current revision 9a0f4e4dad7c873e9a40 is worse.\nLiteral blue masks and signed sums gave the 4630 best; c0 pointer and alternate b-load forms regressed.\nInner-loop c0 addressing and duplicate c1 load remain.",
   "by": "opencode-hungerg-free-3",
@@ -340512,5 +340480,37 @@
   "score_before": 365,
   "score_after": 215,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:a98a058db8a4ed832101ad55910df6747ee23f578c6b1b4149d80fbea3582964"
+ },
+ {
+  "function": "updateChoiceMenu",
+  "text": "Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.985118,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateChoiceMenu",
+  "text": "Can't get closer in this session: large complex control-flow/input-dispatch function (244 insns). Best 9057/62.2% with partial logic in place (LR selection, sound on change, confirm/cancel paths, sub_080C31E4 calls). Remaining major diffs are branch structure/order, repeated input-source loads (D_02025FF0+0x24/0x28 vs D_02021E90+0x146C), register allocation, and literal/pool layout. Needs detailed control-flow matching against target. Releasing to continue claim quota.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.1059754,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateChoiceMenu",
+  "text": "Matched (244 insns). Winning structure: (1) declare D_02025FF0/D_02021E90 as structs with padding so fields land at 0x24/0x28/0x14B0 and 0x146C \u2014 this makes agbcc emit separate base and offset literals with `adds` instead of folding symbol+offset into one literal. (2) Explicit gotos with SHARED bodies for each action: `if (btn) goto set1; goto check2;` in both arms, then `set1: ...; check2: ...` \u2014 this produces the target's `bne body; b next` pattern instead of `beq next`. (3) CRITICAL: place the confirm block BEFORE the cancel_check block in source order, even though control flow reaches cancel_check first \u2014 this alone took score 4839 -> 5. (4) hoist `&D_08671BB0` into `void **pp` in each epilogue. (5) final cmp needed `if (old != state)` (old on the left) to emit `cmp r2,r0`.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.106238,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateChoiceMenu",
+  "text": "MATCHED (244 insns, score 0). Huge structural win: place the confirm block BEFORE the cancel-check block in C source order, matching the ROM's block layout (`confirm` at 0x0808C8A0, `cancel_check` at 0x0808C8F0). Moving `confirm:` above `cancel_check:` took score 4839 -> 5 in one compile. Final fix: write the state-change comparison as `if (old != D_02025FF0.state)` (old FIRST) to get `cmp r2,r0` instead of `cmp r0,r2`. Also needed: struct fields for D_02021E90/D_02025FF0 (gives the two-literal base+offset form), explicit goto labels with shared bodies for LR set/cancel, and `void **pp = &D_08671BB0;` for the hoisted address load.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.106282,
+  "score_before": null,
+  "score_after": null
  }
 ]
