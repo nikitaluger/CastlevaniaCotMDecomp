@@ -7,7 +7,7 @@ extern void sub_080160A0(s32, s32, s32, s32, void *);
  * output vector at +0x1C) or, once started, turns the stored aim into a
  * release vector (zero velocity, character-to-target delta); otherwise it
  * keeps updating the aim. */
-void sub_08095438(void *entity, void *controller)
+void updateAimAtTrackedTarget(void *entity, void *controller)
 {
     u8 *work = *(u8 **)((u8 *)entity + 0x3C);
     u8 *aim = work + 0x48;

@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795714283.0390997,
- "revision": 67670,
+ "saved_at": 1795714457.8563106,
+ "revision": 67679,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "610540:134828268": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnTrackedBehaviorSprite",
-   "vram": 134828268
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -16947,19 +16935,19 @@
   "spawnTrackedBehaviorSprite": {
    "vram": 134828268,
    "matched_by": "opencode-deepseek-v4.1-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080952DC": {
    "vram": 134828764,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
    "readable": false
   },
-  "sub_08095418": {
+  "releaseLinkedThenUpdate": {
    "vram": 134829080,
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08095438": {
+  "updateAimAtTrackedTarget": {
    "vram": 134829112,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -42229,13 +42217,13 @@
    "status": "asm"
   },
   {
-   "name": "sub_08095418",
+   "name": "releaseLinkedThenUpdate",
    "vram": 134829080,
    "size": 30,
    "status": "open"
   },
   {
-   "name": "sub_08095438",
+   "name": "updateAimAtTrackedTarget",
    "vram": 134829112,
    "size": 106,
    "status": "open"
@@ -50733,6 +50721,18 @@
    "kind": "func"
   },
   {
+   "name": "releaseLinkedThenUpdate",
+   "address": 134829080,
+   "size": 30,
+   "kind": "func"
+  },
+  {
+   "name": "updateAimAtTrackedTarget",
+   "address": 134829112,
+   "size": 106,
+   "kind": "func"
+  },
+  {
    "name": "getSpawnBehaviorIndex",
    "address": 134829220,
    "size": 24,
@@ -51171,6 +51171,12 @@
    "kind": "data"
   },
   {
+   "name": "gBehaviorHandlerTable",
+   "address": 140966572,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gMainObjTimerCallback",
    "address": 140975024,
    "size": 4,
@@ -51406,6 +51412,11 @@
   {
    "address": 140955428,
    "type": "s32[]",
+   "source": "match"
+  },
+  {
+   "address": 140966572,
+   "type": "u32[]",
    "source": "match"
   },
   {

@@ -10,7 +10,7 @@ struct State {
 };
 
 /* Release the entity's linked object, then run its saved update handler. */
-void sub_08095418(void *entity) {
+void releaseLinkedThenUpdate(void *entity) {
     struct State *state = *(struct State **)((s8 *)entity + 0x3C);
 
     if (state->linked != 0) {

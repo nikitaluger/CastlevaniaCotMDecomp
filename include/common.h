@@ -728,3 +728,21 @@ struct ActionCameraState {
 #define ENEMY_STEP_FALLBACK  3
 #define ENEMY_PARAM_TABLE    0x080E03A0
 #define ENEMY_PARAM_ENTRY_SIZE 0x58
+
+/* Behaviour-driven sprite spawner (spawnTrackedBehaviorSprite). The parent
+ * entity's state at +0x3C carries a work block at +0x48 holding the selected
+ * motion preset and the allocated motion tracker. */
+#define BEHAVIOR_WORK_EXT_OFFSET    0x48        /* state -> behaviour work block */
+#define BEHAVIOR_WORK_SLOT_SIZE     0x6C        /* size passed to allocWorkSlot */
+#define BEHAVIOR_SPRITE_GFX_ID      0x8000000C  /* sprite typeFlags installed on success */
+#define BEHAVIOR_SPRITE_READY       0x1000      /* entity flags bit set on success */
+#define BEHAVIOR_WORKSPACE_COUNTER  0x18A8      /* frame counter in gMainWorkspace */
+#define BEHAVIOR_SCROLL_STEP        0x40        /* scroll-row stride */
+#define BEHAVIOR_SCROLL_X_OFFSET    0x1278
+#define BEHAVIOR_SCROLL_Y_OFFSET    0x127C
+#define BEHAVIOR_SCROLL_BIAS_X      0x8000
+#define BEHAVIOR_SCROLL_BIAS_Y      0xFFFF8000
+#define BEHAVIOR_FRAC_MASK          0xFFFF0000
+#define BEHAVIOR_STEP_BASE_OFFSET   0x18
+#define BEHAVIOR_STEP_TIME_OFFSET   0x19
+#define BEHAVIOR_STEP_INDEX_OFFSET  0x22

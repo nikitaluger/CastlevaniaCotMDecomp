@@ -7072,14 +7072,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08095438",
-  "text": "Best attempt 335 (93.4%). Regalloc off: compiler puts pointer in r3 not r4. Structurally close: missing reload of r2 after strh in else-branch. Last path call resolves to local #0x5c not sub_080160A0 per linker note; needs investigation. Tried declaration reorder, extra reload, no improvement.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.93225,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0808CC14",
   "text": "Best 5 (99.9%). Single regalloc: `adds r1, r5, r1` vs target `adds r1, r1, r5` in the t[0x19]++ line. Tried reordering operands; no change. Essentially matched; release for next agent to tweak.",
   "by": "opencode-free-1",
@@ -17972,6 +17964,14 @@
   "text": "Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.985162,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnTrackedBehaviorSprite",
+  "text": "Complex function. Used D_02025FF0 struct convention (offset 0x18C2 and 0x18A8). Score ~6181, best attempt saved. Linking errors on symbol resolution. Needs more work on regalloc (sb/r9) and call resolution. Releasing to allow other functions.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9851985,
   "score_before": null,
   "score_after": null
  },
@@ -114320,6 +114320,14 @@
   "score_after": null
  },
  {
+  "function": "spawnTrackedBehaviorSprite",
+  "text": "Best 3692 (84.6%, 240 target / 243 mine). Structural fixes: matched COORD block from sub_08026BDC/sub_08028B14 (pb+=0x18A8, idx=((u32)*pb+1)*0x40), corrected R8->f4 offset, restructured sub_08015914 null check to `if(t!=NULL) goto cont; fail-tail; cont:` giving correct bne-to-cont with fallthrough fail. Remaining: early checks emit bne+b / bge+b instead of target beq/beq/blt to shared fail; t-init register/load ordering differs (r1/r3 swaps, ldr r2/r3 order around r4+4 vs r4+0x20), literal/call operand offsets, and end-block regalloc/order for f22 index recompute and final table lookup. Tried alternate D_08671BB0 typing, end-block factoring, and t-access forms; small tweaks regressed to 4572. Needs focused control-flow shaping for first three branches and regalloc nudging in t setup/end sequence.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.4637082,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08002C94",
   "text": "Permanent agbcc -Os register-coalescing wall at 490 (94.4%). 89/89 logic insns byte-exact. Only diff: target pool-loads 0xFFFF8000 into r2 with `adds r0,r2,#0` copies before each `orrs`; agbcc -Os folds mask into OR destination register. Also unlink-branch register allocation differs (r0 vs r1). 143+ prior attempts confirm no C lever. Dependency sub_08005AF8 is hand-written asm. Not C-solvable.",
   "by": "opencode-free-1",
@@ -115092,6 +115100,14 @@
   "text": "Cannot get closer under the assigned -Os: 105/105 instructions are structurally identical; the only diff is a deterministic r2/r3 register-coloring tie (target holds base in r3 and loop temp in r2; agbcc -Os swaps them). Declaration/loop-form variants were exhausted by prior agents. I proved this session with try_compiler that the identical C matches byte-for-byte at score 0 under agbcc -mthumb-interwork -O1 -fno-strength-reduce, and voted for the range change with suggest() (range check #20 started). The fix is the project's flag assignment, not C. Ordinary correct C, not hand asm, not not_c. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4678564,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnTrackedBehaviorSprite",
+  "text": "Stuck at score 1361 (94.3%) after 8 compiles. Core structure matched (COORD block from sub_08026BDC template, control flow with goto fail/cont). Remaining diffs are pure register allocation: cont block target uses r0/r2/r3 for s/t/offset, mine uses r3/r2/r1; end block table lookup load order differs; branch offsets consistently 2 bytes off. Tried declaration reordering, cont block restructuring, removing temp_r1 cache - no effect on regalloc. Inline asm register pinning rejected. Needs different approach or is a regalloc wall.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.467892,
   "score_before": null,
   "score_after": null
  },
@@ -116644,6 +116660,14 @@
   "text": "Callee-saved coloring wall: best 45 (71/71 insns byte-exact except push/pop); target push {r4,r5,lr} reuses zero in r4 as base18, agbcc push {r4,r5,r6,lr} with zero in r6/base in r4 \u2014 flow-dependent register reuse not expressible in C, register-asm banned. 136+ attempts floor at 45. Not C-solvable. My compiles regressed due to indirect-call declaration issues but project best 45 is the ceiling. Releasing claim #3 (compiled) to try sub_08010DF8 (best 20, 60 insns).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.4758759,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnTrackedBehaviorSprite",
+  "text": "Complex 240-insn entity-create function, best 670 (97.2%) from prior agents; 3 compiles this session: 670 (brief source), 2070 (hoisting the two temp_r8->f4 reads into f4val/f6val locals \u2014 regressed badly), 805 (inlining s/tr into the f8/fA expressions \u2014 tr2 became u16 and changed ldrsh to ldrh). The 670 source is the best. Remaining diffs are a deterministic agbcc regalloc wall: target keeps a single `mov r2,r8` copy reused for both `->f4->f0`/`->f4->f2` reads while agbcc emits two separate copies (`mov r1,r8` and `mov r2,r8`); also target loads `ldr r2,[r4,#4]; ldr r0,[r4,#0x20]` (t before f20) where agbcc loads them in the opposite registers, and a couple of 2-byte literal-pool offset shifts. COORD block is already byte-exact from the matched sibling template. Declaration/local-expression changes either regress or have no effect; register-asm pinning banned. Not C logic, not hand asm, not not_c. Best source = brief's 670 attempt.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.475912,
   "score_before": null,
   "score_after": null
  },
@@ -136140,6 +136164,14 @@
   "text": "Cannot get closer from C \u2014 asking to release now. 84/84 insns byte-exact at score 15; sole gap is a 3-row register choice for the sub_08010440 result copy (target r1, agbcc r4). r1 is never free at that definition in any C form tested by ~148 prior attempts (separate result/zero locals, register keyword, copy form, early return, all flags); register-asm pinning banned. Not hand asm, not not_c, not boundary; an allocator change is the only lever.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.575477,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnTrackedBehaviorSprite",
+  "text": "MATCHED (670 -> 620 -> 220 -> 60 -> 0 in 5 compiles). The structure was already there; these four source-level levers closed it, all worth knowing for other agbcc functions:\n\n1) Remove the wrapper: `inline_fn(temp_r8)->f0` made agbcc emit an extra `mov r1,r8` + wrong load order. Writing `temp_r8->f4->f0` / `temp_r8->f4->f2` directly gives target's single `mov r2,r8` + two `ldr r0,[r2,#4]`.\n\n2) Signed halving in one expression: `(s16)(((s32)(((s32)x) + (((u32)x) >> 31))) >> 1)` \u2014 the OUTER `(s32)` cast before `>>` is required; without it the sum is unsigned and agbcc emits `lsrs` instead of the target `asrs` (620 -> 220). Inline `((R4sub *)temp_r4->f20)->f8` twice in the expression so the destination `temp_r4->f4` is loaded before `s` (and CSE merges the two s loads into one ldrsh).\n\n3) ADD OPERAND ORDER via INTEGER arithmetic: for `p = base + idx`, the C front end always canonicalises pointer+int to (plus (reg base) (reg idx)), which emits `adds rD, rBASE, rIDX` with dest = base. Target wants dest = idx (`adds r0, r0, r5`). Cast both sides to u32 and put idx first: `u8 *p = (u8 *)((u32)(arg0->f22 * 2) + (u32)arg0);`. Same trick fixed the final table lookup: `*((void **)(u8 *)((u32)off + (u32)arg0->f14))` (220 -> 60).\n\n4) LOAD ORDER inside `ldrb; shift; ldr base`: target interleaves `ldrb r0,[r4]; ldr r1,[r5,#0x14]; lsls r0,r0,#2; adds r0,r0,r1`. Split the shift onto its own statement and put the base load between: `off = *new_var4; basev = (u32)arg0->f14; off <<= 2;` with a fresh `u32 basev` local declared at the end (a new high-numbered local used only in the last statement does not disturb earlier allocation): 60 -> 0.\n\nAlso: `r7->f24 = D_0866FAAC[temp_r6->f48]` inline (no idx local) loads the base literal before the index as target does; and for D_08671BB0 use `u32 *fp = D_08671BB0; ... *fp` so the base load is hoisted before the arg setup and the deref happens last.",
+  "by": "opencode-deepseek-v4.1-flash-free-1",
+  "created_at": 1795683534.5755146,
   "score_before": null,
   "score_after": null
  },
@@ -340229,43 +340261,46 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:75f725caf19b32c7e89e0227d46f8c90a1f9e06c26ebe44f544bddaec1d1e385:2adc218b9fc4cb27f857a738ff7fe6473bc76acccbe6ff04b536fc41cfbc4c03"
  },
  {
-  "function": "spawnTrackedBehaviorSprite",
-  "text": "Complex function. Used D_02025FF0 struct convention (offset 0x18C2 and 0x18A8). Score ~6181, best attempt saved. Linking errors on symbol resolution. Needs more work on regalloc (sb/r9) and call resolution. Releasing to allow other functions.",
+  "function": "sub_080ACAB4",
+  "text": "Saved best e7dbb14b0a8f8e400df4 = 4575 (81.2%). Confirmed baseline this session. Explicit pointer/base locals rewrite (pi/pj/oi/oj/base) scored 9080 \u2014 compiler CSEs away 37 target instructions, do not repeat. Replacing temp+4 load with (u8*)arg1+4+j*4 scored 4580 (only adds r1,r0,r2 vs target adds r1,r2,r0), no progress. Residual is the known whole-function agbcc -O1 coloring wall plus a few pointer-base scheduling rows; prior agents report 91+ lifetime attempts exhausted. No callee dependency.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795714338.7805789,
+  "score_before": 4580,
+  "score_after": 4575,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:75f725caf19b32c7e89e0227d46f8c90a1f9e06c26ebe44f544bddaec1d1e385:ef004946016fad2974c1ea68445b4c81733e3019e686ce5c64a8b985a7f8bfbd"
+ },
+ {
+  "function": "updateAimAtTrackedTarget",
+  "text": "Best attempt 335 (93.4%). Regalloc off: compiler puts pointer in r3 not r4. Structurally close: missing reload of r2 after strh in else-branch. Last path call resolves to local #0x5c not sub_080160A0 per linker note; needs investigation. Tried declaration reorder, extra reload, no improvement.",
   "by": "opencode-free-1",
-  "created_at": 1795683533.9851985,
+  "created_at": 1795683533.93225,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnTrackedBehaviorSprite",
-  "text": "Best 3692 (84.6%, 240 target / 243 mine). Structural fixes: matched COORD block from sub_08026BDC/sub_08028B14 (pb+=0x18A8, idx=((u32)*pb+1)*0x40), corrected R8->f4 offset, restructured sub_08015914 null check to `if(t!=NULL) goto cont; fail-tail; cont:` giving correct bne-to-cont with fallthrough fail. Remaining: early checks emit bne+b / bge+b instead of target beq/beq/blt to shared fail; t-init register/load ordering differs (r1/r3 swaps, ldr r2/r3 order around r4+4 vs r4+0x20), literal/call operand offsets, and end-block regalloc/order for f22 index recompute and final table lookup. Tried alternate D_08671BB0 typing, end-block factoring, and t-access forms; small tweaks regressed to 4572. Needs focused control-flow shaping for first three branches and regalloc nudging in t setup/end sequence.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.4637082,
-  "score_before": null,
-  "score_after": null
+  "function": "getSpawnBehaviorIndex",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal frameless-conditional-leaf ABI artifact, already documented across many attempts: all 12 real body instructions are byte-exact, but agbcc -mthumb-interwork inserts push {lr}/alignment/pop {r1}/bx r1 where the ROM has a frameless bx lr, with pool/branch ripple. No pure-C spelling or tested profile removes this compiler-mandated frame; inline/naked/register asm is rejected. No new compile spent.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795714414.9330258,
+  "score_before": 455,
+  "score_after": 455
  },
  {
-  "function": "spawnTrackedBehaviorSprite",
-  "text": "Stuck at score 1361 (94.3%) after 8 compiles. Core structure matched (COORD block from sub_08026BDC template, control flow with goto fail/cont). Remaining diffs are pure register allocation: cont block target uses r0/r2/r3 for s/t/offset, mine uses r3/r2/r1; end block table lookup load order differs; branch offsets consistently 2 bytes off. Tried declaration reordering, cont block restructuring, removing temp_r1 cache - no effect on regalloc. Inline asm register pinning rejected. Needs different approach or is a regalloc wall.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.467892,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080B54E4",
+  "text": "Verified baseline 380 (98.1%, 201/201 insns). Diff is 10 tail rows only: callee-saved/register coloring tie around e[0x4C]==0 cleanup (target keeps movs r3,#0 then uses r0/sl/r3/r1; ours shifts to r8/r3/r5/r1, dropping early zero mov). Tried: compile_patch syntax fix (380), search_flags (project -O2/-O3 best at 380; others worse), try_local_repairs(compare=true) on revision 0f79cedeeea4889cc4e8 - signedness/decl_order/paired_call_arg_inline all 380 or worse. Matches prior handoffs: terminal agbcc allocator tie, not fixable from C/source ordering/types in-profile. Not hand asm, not boundary/dependency.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795714415.4840946,
+  "score_before": 380,
+  "score_after": 380,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:75f725caf19b32c7e89e0227d46f8c90a1f9e06c26ebe44f544bddaec1d1e385:27f6150cc716ffa0c0cfe962474512923c9f1891ae831ea2515a780028a25891"
  },
  {
-  "function": "spawnTrackedBehaviorSprite",
-  "text": "Complex 240-insn entity-create function, best 670 (97.2%) from prior agents; 3 compiles this session: 670 (brief source), 2070 (hoisting the two temp_r8->f4 reads into f4val/f6val locals \u2014 regressed badly), 805 (inlining s/tr into the f8/fA expressions \u2014 tr2 became u16 and changed ldrsh to ldrh). The 670 source is the best. Remaining diffs are a deterministic agbcc regalloc wall: target keeps a single `mov r2,r8` copy reused for both `->f4->f0`/`->f4->f2` reads while agbcc emits two separate copies (`mov r1,r8` and `mov r2,r8`); also target loads `ldr r2,[r4,#4]; ldr r0,[r4,#0x20]` (t before f20) where agbcc loads them in the opposite registers, and a couple of 2-byte literal-pool offset shifts. COORD block is already byte-exact from the matched sibling template. Declaration/local-expression changes either regress or have no effect; register-asm pinning banned. Not C logic, not hand asm, not not_c. Best source = brief's 670 attempt.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.475912,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnTrackedBehaviorSprite",
-  "text": "MATCHED (670 -> 620 -> 220 -> 60 -> 0 in 5 compiles). The structure was already there; these four source-level levers closed it, all worth knowing for other agbcc functions:\n\n1) Remove the wrapper: `inline_fn(temp_r8)->f0` made agbcc emit an extra `mov r1,r8` + wrong load order. Writing `temp_r8->f4->f0` / `temp_r8->f4->f2` directly gives target's single `mov r2,r8` + two `ldr r0,[r2,#4]`.\n\n2) Signed halving in one expression: `(s16)(((s32)(((s32)x) + (((u32)x) >> 31))) >> 1)` \u2014 the OUTER `(s32)` cast before `>>` is required; without it the sum is unsigned and agbcc emits `lsrs` instead of the target `asrs` (620 -> 220). Inline `((R4sub *)temp_r4->f20)->f8` twice in the expression so the destination `temp_r4->f4` is loaded before `s` (and CSE merges the two s loads into one ldrsh).\n\n3) ADD OPERAND ORDER via INTEGER arithmetic: for `p = base + idx`, the C front end always canonicalises pointer+int to (plus (reg base) (reg idx)), which emits `adds rD, rBASE, rIDX` with dest = base. Target wants dest = idx (`adds r0, r0, r5`). Cast both sides to u32 and put idx first: `u8 *p = (u8 *)((u32)(arg0->f22 * 2) + (u32)arg0);`. Same trick fixed the final table lookup: `*((void **)(u8 *)((u32)off + (u32)arg0->f14))` (220 -> 60).\n\n4) LOAD ORDER inside `ldrb; shift; ldr base`: target interleaves `ldrb r0,[r4]; ldr r1,[r5,#0x14]; lsls r0,r0,#2; adds r0,r0,r1`. Split the shift onto its own statement and put the base load between: `off = *new_var4; basev = (u32)arg0->f14; off <<= 2;` with a fresh `u32 basev` local declared at the end (a new high-numbered local used only in the last statement does not disturb earlier allocation): 60 -> 0.\n\nAlso: `r7->f24 = D_0866FAAC[temp_r6->f48]` inline (no idx local) loads the base literal before the index as target does; and for D_08671BB0 use `u32 *fp = D_08671BB0; ... *fp` so the base load is hoisted before the arg setup and the deref happens last.",
-  "by": "opencode-deepseek-v4.1-flash-free-1",
-  "created_at": 1795683534.5755146,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08001614",
+  "text": "Fresh compile reproduces score 200: every real target instruction is byte-exact; the only residual is two trailing `movs r0,r0` alignment rows after `bx r1`. The target's own literal pool begins at _08001624 (0x08001624), immediately beyond the declared 16-byte extent ending there. This is the known trailing-literal-pool/too-short-extent wall, not a C mismatch; standalone compilation must place/align its pool inside the judged extent. Do not spend further source compiles. Likely setup fix is to extend the mapped end through the pool word to 0x08001628.\nFresh baseline compile of the inherited best and diff inspection.\nScore 200 unchanged; all real instructions exact, only two trailing alignment NOPs remain.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795714440.9938464,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:75f725caf19b32c7e89e0227d46f8c90a1f9e06c26ebe44f544bddaec1d1e385:0c200189b7cfb428a6b7f70434c4299edf05dae199dbbf27d30932143e2eec9b"
  }
 ]

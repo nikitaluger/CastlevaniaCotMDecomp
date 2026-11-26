@@ -18,8 +18,8 @@ extern void setAnimationFrame(void*, void*, s16, s32);
 extern void *allocMotionTracker(void);
 extern s32 getSpawnBehaviorIndex(void);
 extern struct S *sub_080954BC(void *);
-extern void sub_08095418(void);
-extern void sub_08095438(void);
+extern void releaseLinkedThenUpdate(void);
+extern void updateAimAtTrackedTarget(void);
 extern void sub_080C31E0(void*, s32);
 extern void sub_080C31E4(void*, void*, s32);
 
@@ -48,7 +48,7 @@ void sub_08094D20(struct A *arg0) {
         goto fail;
     r9 = (u8 *)ent + 0x34;
     ent->f24 = arg0->f24;
-    arg0->f24 = (u32)sub_08095418;
+    arg0->f24 = (u32)releaseLinkedThenUpdate;
     c = (s16 *)r8->f4;
     ent->f08 = (s32)c[0] << 16;
     ent->f0C = (s32)c[1] << 16;
@@ -87,7 +87,7 @@ body:
     sub->f14 = ent->f08;
     sub->f18 = ent->f0C;
     sub->f1C = zero;
-    *(void **)((u8 *)arg0 + 0x9C) = (void *)sub_08095438;
+    *(void **)((u8 *)arg0 + 0x9C) = (void *)updateAimAtTrackedTarget;
     tbl = D_081008C8;
     setAnimationFrame(obj, r9, tbl[sub->f00], 1);
     {
