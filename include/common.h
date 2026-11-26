@@ -704,3 +704,21 @@ struct ActionCameraState {
 /* Fixed animation kind and work-slot size used by createFixedKindEntitySprite. */
 #define FIXED_KIND_SPRITE_ANIM_ID 0x1E
 #define FIXED_KIND_WORK_SLOT_SIZE 0x54
+
+/* Constants for createVariantEntitySprite. */
+#define VARIANT_ENTITY_WORK_SLOT_SIZE 0x54
+#define VARIANT_SPRITE_GFX_ID         0x80000009
+#define VARIANT_ANIM_FRAME            0x12
+#define VARIANT_ANIM_FRAME_FLAG       0x01
+#define VARIANT_ANIM_ENTRY_SIZE       40
+
+/* Script-step callback table and script steps dispatched by the boss update. */
+#define SCRIPT_STEP_CALLBACK_TABLE 0x08671BD0
+#define BOSS_STEP_RESET   4
+#define BOSS_STEP_ATTACK  6
+#define BOSS_STEP_FALLBACK 3
+
+/* Form indices passed to the entity-form reinitializer by the boss update. */
+#define BOSS_FORM_ATTACK  9
+#define BOSS_FORM_SECOND  0x1E
+#define BOSS_FORM_FALLBACK 0x10

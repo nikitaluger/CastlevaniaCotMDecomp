@@ -48,7 +48,7 @@ struct SubEffect {
     u16 f04, f06, f08, f0A, f0C, f0E;
     u32 f10;
 };
-/* 40-byte entry of gEffectGfxTable: two graphics parameters. */
+/* Entry of gEffectGfxTable: two graphics parameters. */
 struct AnimEntry {
     u8 _pad[4];
     u16 w0;             /* 0x04 */
@@ -76,7 +76,7 @@ extern u32 gMainObjTimerCallback;
 /* Create a sprite object and its effect part for an entity: pick the animation
  * from the variant table, attach an animation player and a small sub-effect,
  * place it at the entity's coordinates, then advance the animation step. */
-void createVariantEntitySprite(struct Entity *a)
+void createVariantEntitySprite(struct Entity *entity)
 {
   struct SpriteObj *sprite;
   struct Part *part;
@@ -90,17 +90,17 @@ void createVariantEntitySprite(struct Entity *a)
   u8 zero;
   sprite = (struct SpriteObj *) allocSpriteObject();
   if (sprite == NULL) goto fail;
-  a->object = (u32) sprite;
-  allocWorkSlot(a, 0, 0x54, 0);
-  if (a->part == 0) goto fail;
-  sprite->typeFlags = 0x80000009;
-  part = (struct Part *) a->part;
+  entity->object = (u32) sprite;
+  allocWorkSlot(entity, 0, VARIANT_ENTITY_WORK_SLOT_SIZE, 0);
+  if (entity->part == 0) goto fail;
+  sprite->typeFlags = VARIANT_SPRITE_GFX_ID;
+  part = (struct Part *) entity->part;
   anim = ((u8 *) part) + 0x34;
-  installUpdateHandler(a, part, &sub_08014290);
-  part->animId = (s16) D_080CEFCC[a->variant];
+  installUpdateHandler(entity, part, &sub_08014290);
+  part->animId = (s16) D_080CEFCC[entity->variant];
   zero = 0;
-  part->x = a->x;
-  part->y = a->y;
+  part->x = entity->x;
+  part->y = entity->y;
   slot = findKindIndex(part->animId);
   part->animSlot = (u16) slot;
   if (((s16) ((u16) slot)) < 0) goto fail;
@@ -111,24 +111,24 @@ void createVariantEntitySprite(struct Entity *a)
   graphics |= *((u16 *) (state + 0x18C2));
   sprite->graphics = (u16) graphics;
   initSpriteGraphics(sprite, anim, (void *) (gSpriteAnimDataTable + (12 * ((s32) part->animId))));
-  setAnimationFrame(sprite, anim, 0x12, 0x01);
+  setAnimationFrame(sprite, anim, VARIANT_ANIM_FRAME, VARIANT_ANIM_FRAME_FLAG);
   config = (u8 *) D_080CEF98;
   part->subEffect = (u32) allocEffectPart();
   if (part->subEffect == 0) goto fail;
   goto cont;
 fail:
-  sub_080C31E0(a, a->script);
+  sub_080C31E0(entity, entity->script);
   return;
 cont:
   ((u8 *) part->subEffect)[1] = zero;
   ((u8 *) part->subEffect)[2] = 8;
   ((u8 *) part->subEffect)[3] = 1;
-  { u8 *sub = (u8 *) part->subEffect; animTable = gEffectGfxTable; ((struct SubEffect *) sub)->f04 = ((struct AnimEntry *) (animTable + (((s32) part->animId) * 40)))->w0; }
+  { u8 *sub = (u8 *) part->subEffect; animTable = gEffectGfxTable; ((struct SubEffect *) sub)->f04 = ((struct AnimEntry *) (animTable + (((s32) part->animId) * VARIANT_ANIM_ENTRY_SIZE)))->w0; }
   ((struct SubEffect *) part->subEffect)->f06 = *((u16 *) (&config[0]));
   ((struct SubEffect *) part->subEffect)->f08 = *((u16 *) (&config[2]));
   ((struct SubEffect *) part->subEffect)->f0A = *((u16 *) (&config[4]));
   ((struct SubEffect *) part->subEffect)->f0C = *((u16 *) (&config[6]));
-  ((struct SubEffect *) part->subEffect)->f0E = ((struct AnimEntry *) (animTable + (((s32) part->animId) * 40)))->w1;
+  ((struct SubEffect *) part->subEffect)->f0E = ((struct AnimEntry *) (animTable + (((s32) part->animId) * VARIANT_ANIM_ENTRY_SIZE)))->w1;
   *((u32 *) (((u8 *) part->subEffect) + 0x10)) = (u32) sprite;
   {
     u8 *pt = gCameraState;
@@ -142,15 +142,15 @@ cont:
     base2 = pt + 0x127C;
     sprite->y = part->y - ((*(u32 *)(base2 + idx) + 0xFFFF8000) & 0xFFFF0000);
   }
-  a->flags |= 0x1000;
-  step = *((s16 *) (((u8 *) a) + 0x22));
-  *((((u8 *) a) + (((s32) step) * 2)) + 0x19) = zero;
+  entity->flags |= CHILD_SPRITE_READY;
+  step = *((s16 *) (((u8 *) entity) + 0x22));
+  *((((u8 *) entity) + (((s32) step) * 2)) + 0x19) = zero;
   {
     u32 *gptr = &gMainObjTimerCallback;
-    u8 *p18 = ((u8 *) a) + 0x18;
-    u8 *p22 = ((u8 *) a) + 0x22;
+    u8 *p18 = ((u8 *) entity) + 0x18;
+    u8 *p22 = ((u8 *) entity) + 0x22;
     sub_080C31E4(p18, p22, *gptr);
-    { s16 i2 = *((s16 *) p22); u8 *p19 = (u8 *)((((s32) i2) * 2) + (u32) a); p19[0x19] = (u8) (p19[0x19] + 1); }
-    { s16 i3 = *((s16 *) p22); u8 *q = p18 + (((s32) i3) * 2); sub_080C31E0(a, *((u32 *) ((((u32) (*q)) * 4) + a->dispatch))); }
+    { s16 i2 = *((s16 *) p22); u8 *p19 = (u8 *)((((s32) i2) * 2) + (u32) entity); p19[0x19] = (u8) (p19[0x19] + 1); }
+    { s16 i3 = *((s16 *) p22); u8 *q = p18 + (((s32) i3) * 2); sub_080C31E0(entity, *((u32 *) ((((u32) (*q)) * 4) + entity->dispatch))); }
   }
 }

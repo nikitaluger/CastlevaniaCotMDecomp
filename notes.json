@@ -18272,18 +18272,10 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Regalloc heavily off; struct layout guessed. Cannot reach match within budget. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.98667,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "sub_080635F4 best 4975 (78.0%, 227/227 insns). Large multi-call function. Structures: arg0 has f22(s16 @0x22), f38(ptr), f6C(ptr); r6=arg0->f6C with f4 @0x04, u16 fD0 @0xD0, fD2 @0xD2; r8=r6+4 with u32 f60@0x60, f68@0x68, f40@0x40, f4C@0x4C, fC4@0xC4, +0x28 passed to sub_08003740. D_02025FF0.f10 compared to 1; D_02025368[0x3CB] byte flag. Call targets _0806AB04/_0806BCD8 must be written `sub_0806AB04`/`sub_0806BCD8` (note #69). sub_080C31E8 takes 4 args (ptr,ptr,imm,*fp with 0x08671BD0). Adding a `u8 *d25368 = D_02025368` local improved 6665\u21924985 (puts D_02025368 base in a high reg). Remaining: target prologue saves r8/r9/r10 (`mov r7,sl; mov r6,sb; mov r5,r8; push {r5,r6,r7}`) with arg0=r4, r8ptr in r8(high), r5=r8 copy, D_02025368 in r10(sl), zero in r9; mine saves only r8/r9 with arg0=r5, r8ptr in low r4, D_02025368 in r9. Could not force the 3rd high register / rotation. A zero local didn't help.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9867077,
   "score_before": null,
   "score_after": null
  },
@@ -18300,14 +18292,6 @@
   "text": "Placeholder only; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9867861,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "Releasing: 227/227 instructions, all logic/calls/data correct; only agbcc register-colouring remains (target uses 3 high regs r8/r9/r10 with arg0=r4 and r8ptr=r8; mine uses 2 high regs with arg0=r5 and r8ptr in low r4). Four compiles tried: base-pointer local (big win), assignment-order swap, zero local \u2014 none produces the 3rd high register. No further C form available; register asm rejected by tool. Best 4975 saved with full layout in add_note.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9868238,
   "score_before": null,
   "score_after": null
  },
@@ -33004,14 +32988,6 @@
   "text": "Score 3315 (85.9%). Same unfixable agbcc regalloc rotation (arg0=r7/obj=r5/P=r6 vs mine). All logic/calls/data correct. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0614998,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "Score 4975, 78%, regalloc unfixable. Releasing per move-on.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0615394,
   "score_before": null,
   "score_after": null
  },
@@ -112752,14 +112728,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080635F4",
-  "text": "Score 4975 (78.0%) matches previous best. Register allocation: target prologue saves r8/r9/r10; compiler saves only r8/r9. Target uses 3 high regs (arg0=r4, r8ptr=r8, D_02025368=r10, zero=r9); compiler uses 2. Tried base-pointer local, assignment-order swap, zero local - none produces 3rd high register. Fundamental agbcc heuristic wall.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4546304,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080762E0",
   "text": "Cannot get closer. Reproduced the inherited best 1816 this session; the single `self` rewrite regressed to 6039. Target prologue `mov r7,sb; mov r6,r8; push {r6,r7}` saves both r8 and r9 (q->f8 and q->fC live across calls); agbcc -O1 here saves only r8 (`mov r7,r8; push {r7}`) and binds the two fields differently, cascading into 71 regalloc rows and the call/literal relocation mismatches. Tried both known struct/prologue recipes. Ordinary correct C, not hand asm, not not_c. Best 1816 source recompiled and preserved. Releasing for my final claim.",
   "by": "opencode-hy4-flash-free-1",
@@ -113016,7 +112984,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Score 7742 (66%). Structs R7/Arg0 derived from target reads (R7: f0,f4,f8,fC,f40,f44,f4C,f50,f54,f70,fC4; Arg0: f22@0x22 s16, f38@0x38, f6C@0x6C). Semantics verified against target asm (all reads: D_02025FF0+0x24/0x2A/0x14ED/0x1514/0x1754, D_02021E90+0x146E, D_02025FF0+0x1754, D_08671BD0[0]; the condition is sub_08003740(r7+0x28, r8)==0 || *(D_02025FF0+0x1514)!=0). Tried: my C from target asm (v1=9857), claim's best-attempt source transcribed (8765 \u2014 my transcription changed the condition/tail semantics; claim's claimed 5885 not exactly reproducible), local copy of arg0 (no effect). Remaining diffs are pervasive regalloc (target: r5=arg0, r7=R7, r8=f38, r6=R7; ours: r6=arg0, r5=R7, r8=f38, r7=saved r8), literal-pool operand offsets (our code shorter), a few branch offsets, 2 stack diffs. Best kept: my v2 source.",
   "by": "opencode-tidepool-alpha-free-1",
   "created_at": 1795683534.4559982,
@@ -113264,7 +113232,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Best score 5885 (previous agent), my attempts 11788. Fundamental regalloc mismatch: target r5=arg0, r7=R7, r8=f38, r6=R7+4; agbcc allocates r6=arg0, r5=R7, r7=R7+4. Struct layout from previous agent notes but data accesses wrong (target uses halfword loads from D_02025368+0x3BC, D_02021E90+0x146E; my byte array indexing incorrect). Function calls mismatch (_0806AB04, _0806BCD8 need rename_symbol). Prologue saves r8,r9 but regalloc off. Cannot resolve without proper struct layout and regalloc control. Releasing for next agent.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4571989,
@@ -122424,7 +122392,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Move-on budget reached (8/8). Best 1856 down from 5885. Remaining: p28 two-step form (`adds r4,r7,#0; adds r4,#0x28`) not reproducible (tried copy+increment); one extra target `movs r0,#0` before f70 store; u16 truncation of sub_0806BCD8 result scheduled earlier; literal offsets off by 4 due to 2-instruction length difference. Correct C, O1 confirmed, not hand asm, not not_c. Detailed levers in previous note.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.503563,
@@ -130928,14 +130896,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080635F4",
-  "text": "Key fixes found this session (best 3700, from 4975): (1) D_08671BD0 is a plain `extern s32 D_08671BD0;` (the value is at that address), NOT `extern s32 *D_08671BD0;` with `*D_08671BD0` \u2014 the latter adds a spurious `ldr r2,[r2]` at each of the three sub_080C31E8 call sites (\u2212880 points). (2) The `*(u32 *)(r8+0x60) > 0x1F` comparison must be SIGNED (`*(s32 *)`) \u2014 target emits `cmp r0,#0x1f; ble`, not `bls` (\u2212200). (3) Declaring a second alias pointer `u8 *r5 = r8;` and using r5 for the early field accesses/calls while r8 is used for the later ones (\u2212195). Remaining diff is pure register colouring plus 2 fewer instructions: target arg0=r4, r8ptr=r8, copy=r5, D_02025368=r10, zero=r9; agbcc gives arg0=r5, r8ptr in sb, copy=r4, D_02025368=r10. Global `u32 zero=0` forces 3 high regs but adds `movs r0,#0; mov sb,r0` in the prologue (shifts all call targets, 4620); branch-local zero has no effect. `register` qualifiers and declaration-order swaps had no effect.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5474317,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0808039C",
   "text": "Fully matched at the C level: all 94 target instructions byte-exact through the final `bx r0` (compile shows \"first 94 of 94 target instructions match\"). Score 900 is purely the trailing literal-pool/padding artifact: the declared extent includes 2 padding bytes after `bx r0` and my emitted pool (0x02025FF0/0x18C2/0x173A/0x14ED), disassembled as 9 extra halfwords. Verified with read_data(0x0808045C): `08 bc 98 46 f0 bc 01 bc 00 47 00 00 f0 5f 02 02` \u2014 bx r0 at 0x08080464 then padding then the pool. Filed report_boundary(end=0x08080464) this session (a prior agent filed the same proposal). No C change can fix this; any change that shifts code/pool breaks the 94/94 match. Best attempt preserved.",
   "by": "opencode-hy4-flash-free-2",
@@ -130956,22 +130916,6 @@
   "text": "Best score 10 (99.7%). Only 2 regalloc rows differ: target loads base literal 0x02025FF0 into r5 and keeps dead var in r6; mine loads base into r6 and dead var in r5. Everything else (44/46 body instructions) matches byte-exactly including push {r4,r5,r6,lr} via the uninitialized dead-local trick (`if(var_r6){...}else{...}` in loop 2).\n\nTried (all score 10 or worse):\n- Swapping declaration order of var_r6/var_r2 (no change)\n- Changing var_r6 type from void* to u32 (no change)\n- Declaring explicit u8 *base = D_02025FF0 first (score 265, breaks instruction order)\n- Declaring new_var before var_r6 in nested block (score 656, adds copy instr)\n- Register asm pinning (banned)\n- Dead var in both loops (score 40)\n- Assigning new_var at very top (score 755)\n\nThe dead-var trick from matched siblings sub_080BE7D4/sub_080B300C works to get the push/pop {r4,r5,r6,lr} matching. Only remaining issue is base vs dead var register coloring (r5 vs r6). Pure C regalloc wall \u2014 confirmed across multiple agents.",
   "by": "opencode-free-1",
   "created_at": 1795683534.5475647,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "UPDATE \u2014 best now 1860 (91.8%). Further levers beyond the earlier note: (4) In the four late calls, the two alias pointers must be distinguished in the SOURCE: sub_0806C4B4(r8,r5), sub_0806E114(...,*(u32*)(r5+4)), sub_0806AB04(arg0,r7,r8,r5), sub_0806BCD8(arg0,r7,r8,r5), sub_0806C6B0(arg0,r7,r8,r5), sub_0806C49C(r7,r8), and sub_0806A7AC(r7,r8,0x10) in the r8+0x40 block (the other two sub_0806A7AC calls take r5). Passing r8 where the original passes r5 (or vice versa) costs hundreds of points even though the values are identical. (5) Assign `r5 = r8` AFTER `r7 = arg0->f38` (target emits `mov r5,r8` after the r7 load). These two fixes took 3700 -> 1860 and made the register allocation match exactly (arg0=r4, r6ptr=r6, r7ptr=r7, r8ptr=r8, copy=r5, D_02025368=r10). Remaining: 2 fewer instructions (target has `movs r3,#0; mov sb,r3` in the else branch; ours has a spurious `mov sb,r0` after the r5+0x68 load), plus literal-load scheduling before/after arg copies and minor r1/r3 temp coloring.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5476046,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "Cannot get closer with the available C levers. Best 1860 (91.8%), up from the prior 4975. All 227 target instructions are structurally correct and the register allocation now matches exactly (arg0=r4, r6ptr=r6, r7ptr=r7, r8ptr=r8, copy=r5, D_02025368=r10, zero=r9). The remaining 2-instruction deficit comes from agbcc reusing the provably-zero r5+0x68 load in r9 for the zero byte store (`mov sb,r0`) instead of emitting the target's separate `movs r3,#0; mov sb,r3`; attempts with local zero variables (global/branch-local/u8) and a named f68 local all failed (either no effect or 2336). Also remaining: D_08671BD0 literal loads scheduled after the arg copies instead of before, and minor r1/r3 temp coloring on the 0x22-offset byte stores. These are register-allocation/scheduling artifacts of this agbcc, not fixable by C source changes. Best source and all levers recorded in add_note.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5476496,
   "score_before": null,
   "score_after": null
  },
@@ -137456,14 +137400,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080635F4",
-  "text": "Can't get closer with available C levers. Best 1740 (92.3%, 225/227 insns) after 3 compiles this session (baseline + else-branch zero local no effect + C4-arg temp worse). All control flow/calls/data correct and register allocation largely matches target; remaining deltas are agbcc scheduling artifacts: extra `mov sb,r0` after r5+0x68 load in condition path vs target's `movs r3,#0; mov sb,r3` in flag-handling block, D_08671BD0 literal-load placement differences around sub_080C31E8 calls, and argument-load order for final sub_080C31E8 (r2/r3 swapped). Previous agents also reported these as non-C-fixable. Releasing now rather than burning move-on budget.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.580229,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080ADCA0",
   "text": "Best score 2305 (88.3%), 195/198 insns. Sibling style (inline_fn, structs) got adds r1 and ldrsh matching. Remaining gap is regalloc: target saves r8 (one=1) AND r9 (zero=0) in prologue, but agbcc only allocates r8 for `one`; `zero` lands in a low register, so `mov r7, sb`/`mov sb, r1` are missing and literal-pool offsets are off by 4. Inline asm (register pinning) is rejected by the tool. Tried declaration order, volatile reload, removing `one` variable, register keyword. No pure-C fix found for the r9 allocation. Best source preserved. Ordinary C, not hand asm, not not_c.",
   "by": "opencode-beam-free-1",
@@ -137576,7 +137512,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Can't get closer with available C levers. Best 1066 (95.3%, 228/228 insns, O1). Tried: baseline 1066, combined D_08671BD0/zero/f1754 changes (3131, regressed), f1754-only form change (1856), block-local zero for r7->f70 store (1066 no change). Remaining: target emits explicit `movs r0,#0` before storing f70 when v==0 while compiler reuses r0; f1754 comparison form differs (`cmp r0,#8` target vs `subs r0,#1; cmp r0,#7` in best); p28 computed as `adds r4,r7,#0; adds r4,#0x28` in target vs different temp/register form; consequent branch/literal offset diffs and minor regalloc. Logic/calls/data correct; releasing to prioritize remaining session claims.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.5808172,
@@ -145312,7 +145248,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Releasing again: cannot get closer. Best 1066 (95.3%), same as 34 prior attempts. Blocked by target's fresh `movs r0,#0` before `str r0,[r7,#0x70]` which this agbcc coalesces away, causing cascading branch/literal offsets and bl-veneer mismatches. `_call_via_r3` is NOT the right callee name here (regressed). f1754 `<=8` fixes its cmp but needs the missing zero instruction restored first. No C fix; best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.6198187,
@@ -145476,14 +145412,6 @@
   "text": "Cannot get closer in pure C. Class-B frameless-leaf wall: all 9 body insns match exactly; only agbcc -mthumb-interwork emits push{lr}/pop{r0};bx r0 and shifts bls offset. No C form, flag variant, or available compiler removes frame. 42+ attempts confirm. No further C-side action possible.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.6206555,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "Permanent agbcc wall at 1740 (92.3%; logic/calls/data correct, residual is deterministic scheduling/regalloc: spurious `mov sb,r0`, literal-load placement, temp coloring, 2 missing insns). No C form fixes it across ~31 prior attempts; my branch-local u8 zero was a no-op. Ordinary correct C, not hand asm, not not_c; only a compiler change closes it. Best source = brief's 1740 attempt.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.6206965,
   "score_before": null,
   "score_after": null
  },
@@ -148072,7 +148000,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Cannot get closer \u2014 confirmed compiler-version wall, matched by 37 prior attempts across multiple agents. Root cause: target emits a redundant `movs r0,#0` immediately before `str r0,[r7,#0x70]` (after `cmp r0,#0; bne`), because r0 already holds the zero AND result. This agbcc at -O1 always coalesces that zero into r0, so the instruction is unrepresentable in C. Every other diff (bne #0x96 vs #0x94, 4 BL veneer operands, all literal-pool PC offsets, r2/r3 swap) is a pure +2-byte cascade from the single missing instruction. Exhausted plausible levers this session: block-local u32 zero store (1066, no change), (s32)(s64)0 cast (1856), extern data pointer for 0x08671BD0 (3357, wrong GOT loads), and the f1754 `<=8` form (fixes `cmp r0,#8; bgt` but regresses to 1856 alone). No C can force a provably-redundant materialization with this compiler. Not hand asm, not a boundary issue. Keeping the standing best-attempt source (1066).",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.634148,
@@ -174200,14 +174128,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080635F4",
-  "text": "Cannot get closer in pure C: 31 prior attempts plus 4 this session, best 1740 preserved. All logic/calls/data/structure exact (225/227 insns). The residual is the proposal-#634 jump-equiv wall plus a literal-load-order artifact: (a) target `movs r3,#0; mov r9,r3` in the else block vs our single `mov sb,r0` placed after `ldr r0,[r5,#0x68]` \u2014 agbcc always reuses the f68 register (known 0 in the else path) for the zero variable. Tried: function-top `u8 zero` assigned at else start; block-scoped `u8 zero = 0;` at else start; block-scoped zero inside the `if (D2 & 0x100)` block right before the call. ALL THREE compile byte-identically at 1740 (the substitution is hoisted to right after the f68 load no matter where the zero is declared), so this cannot be steered by placement. (b) the `&D_08671BD0` then deref load order at the 4 sub_080C31E8 sites (target evaluates the 4th arg's address first) is a scheduling artifact. search_flags: O2/O3/Os 1740, O1 3011. Not not_c, not boundary; only a compiler change can close it.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.7654607,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0808D640",
   "text": "Pure agbcc -Os register-coloring wall (class C), best 270/93.0%. All 39 insns correct kind; fixed 4-cycle (arg0 r5<->r6, mask r3<->r5, p r1<->r3, sp-base r6<->r1) decided at entry. Target keeps `adds r0,r5,#0` (mask copy before ands) while agbcc folds it, producing trailing `movs r0,r0` pool pad and bne #0x32->#0x30 shift. Tried this session: baseline 270, decl reorder 270, u8* arg + for-loop + folded D_02021E90+0x1260 literal 1096 (literal folding creates wrong 0x4700BC01; must keep base+0x93<<5 separate), s32 i 470 (bls->ble), u8 i with i<4 901 (extra lsls/lsrs zero-extend). 70+ attempts across agents; no C-level lever breaks the cycle. Register pinning banned. Not hand asm, not boundary, no callee dep. Best 270 source preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -188208,14 +188128,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080635F4",
-  "text": "Best score: 1740 (92.3% match), target 227 insns, mine 225. All logic/calls/data correct. Main blocker: agbcc regalloc/scheduling - target uses 3 high regs (r8/r9/r10), mine uses fewer. Residual diffs: branch offsets (2 bytes from missing insn), extra mov sb,r0, literal-load placement around sub_080C31E8 calls, minor temp coloring. Tried: global/branch-local zero variables, named f68 local, alias pointer distinction (r8 vs r5), assignment order - none fixed the regalloc. 31+ prior attempts across all agents couldn't close this wall. Register asm rejected. Not hand-written asm, not not_c. Best source preserved at 1740. Session complete: 9 compiled claims (goal was 8).",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.8364954,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080B6D50",
   "text": "Move-on reached (6/6). Cannot get closer in pure C: deterministic agbcc callee-saved coloring wall at best 940 (58/60 insns, all logic/calls/branches/literals exact). Target: self=r4,p3C=r5,ptr=r6,p38=r7,zero=r8 (`movs r2,#0; mov r8,r2`). agbcc always: self=r4,p38=r8,p3C=r6,ptr=r7,zero=r5. This session: baseline 940; p38-last / p3C-p38-ptr / p3C-ptr-p38 orders gave 1390/1200/1140 (p38\u2192r7 as desired but ptr\u2192r8 and p3C\u2192r6); zero-first 1140; `register` hints 1140; u8 zero at top 1390. 50+ prior attempts across all models, types, placements, flags all floor at 940; register-asm pinning banned. Ordinary C, not hand asm, not not_c, no boundary issue.",
   "by": "opencode-hy4-flash-free-1",
@@ -188224,7 +188136,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Compiled standing source: score 936, 228/228 insns. First real diff: target `cmp r0,#0; bne #0x96; movs r0,#0; str r0,[r7,#0x70]` vs ours `bne #0x94; str r0,[r7,#0x70]` \u2014 agbcc value-numbers r0==0 across the bne and omits the movs; the missing 2 bytes cascade into all bl displacements (#0x225cc vs #0x9c etc.), literal-pool pc offsets, and branch offsets. Fixing that single materialization is the whole game. Tried/failed: block-local u32 zero (no change), (s32)(s64)0 cast, extern data pointer for 0x08671BD0, f1754 <= 8 form. Needs a new zero-materialization lever at the r7->f70 = 0 store. Otherwise structure/calls/data are correct. Source to resume from: the claim's best-attempt source (structs R7/Arg0/S_25FF0/S_21E90, data D_02021E90/D_02025368/D_02025FF0/D_080E03A0/D_08671BD0).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.8365784,
@@ -191288,14 +191200,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080635F4",
-  "text": "Can't get closer with C: the residual is agbcc reusing the compared zero (`mov sb,r0` after `ldr r0,[r5,#0x68]; cmp r0,#0`) for the else-branch step-byte store instead of materialising a fresh 0; any explicit zero local is constant-folded (verified 4 ways, see previous note) and the ROM's fresh `movs r3,#0; mov sb,r3` cannot be induced. Remaining diffs are literal-address CSE across the four sub_080C31E8 sites and one temp register (r3 vs r1). Best 1740 saved. Not hand asm.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.851927,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0803DDF0",
   "text": "Cannot get closer in plain C. Score 416 (94.2%), 72/72 insns. Root diff is agbcc-mandated frame for computed-goto switch: target has no push/pop and ends `bx lr`; agbcc emits `push {lr}`...`pop {r0}; bx r0`, shifting both literal-pool PC offsets (+4) and causing missing NOP/extra reload differences. Switch case mapping and 4 box stores are correct. ~42 prior attempts across agents, all C forms/flags; no lever removes frame. Not hand asm, not not_c, no boundary/callee issue. Best-416 source preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -191368,7 +191272,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Confirmed compiler-version wall; best 936 (inherited). This session: 946 with the mask ternary assigned to rr (mask code byte-exact, first 69 insns), then 1736 when also using `f1754 <= 8` (fixes cmp #8) with that ternary base (2 insns shorter overall). search_flags: 936 is best (O1 and O1 -fno-strength-reduce), O2/O3/Os 986; only compiler 'agbcc' available (no old_agbcc). The blocker is the ROM's `movs r0,#0` before `str r0,[r7,#0x70]`, which this agbcc replaces with the compared known-zero register; putting the ternary directly in the if condition materialises it (2666) but GCC distributes ==0 into the arms. Also target p28 is `adds r4,r7,#0; adds r4,#0x28` (ours movs temp form) and `ldr r2,[pc]` address loads. Best source remains the brief's 936 attempt; the 946 ternary-to-rr variant is the closest structure if someone finds a zero-materialisation lever.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.852334,
@@ -194448,7 +194352,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Release anyway. Correct C, not hand asm: target's bl #0x225cc is sub_08086744 (0x08064178+0x225cc), so call relocs are right in intent; the \"calls something else\" rows come from our object's bl being routed through a local stub (+0x9c) \u2014 a link/segment artifact, plus the known agbcc -O1 wall where the original emits a redundant `movs r0,#0` before `str r0,[r7,#0x70]` (after cmp/bne on the same r0) that this compiler always coalesces, shifting +2 bytes through every later branch, pool offset and bl. 47 prior attempts, 936 best; flags -O1 best (O2/O3/Os 986). Residual C-shape items noted in the prior note (p28 two-adds form, f1754 <=8 cmp). Best source preserved; only a compiler/link-setup change can close it.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.8677826,
@@ -202232,14 +202136,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080635F4",
-  "text": "Asking to release (second call): cannot get closer in pure C. 1 compile this session reproduced inherited best 1740 (92.3%, 225/227 insns); 40+ prior attempts exhausted C levers. Residual is deterministic agbcc scheduling/regalloc: an extra `mov sb,r0` reusing the compared zero instead of the ROM's fresh `movs r3,#0; mov sb,r3`, D_08671BD0 literal-load placement around the four sub_080C31E8 calls, and minor temp coloring; the two-instruction deficit shifts all later branch offsets by 2. Zero-local variants and declaration-order changes were tried with no effect; register pinning is rejected. Ordinary correct C, not hand asm, not not_c, no boundary. Best 1740 source preserved; please advance the queue.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.9077034,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A0FB0",
   "text": "Score 15 (99.8%, 141/141 insns byte-exact). Terminal agbcc phi-pointer coloring tie confirmed by my 1 compile plus 37+ prior attempts across all models. Sole residue: target colors the goto-merge literal-pointer phi (D_08671BD8/D_08671BD0 assigned in two arms, derefed via `ldr r3,[r2]`) as r2; agbcc colors it r3 (`ldr r3,[pc]`/`ldr r3,[r3]`). 3 regalloc rows. Tried: declaration order, pointer-var placement, precomputed deref, hoisted pointers, u32/s32*/u32 types, `register` hint (rejected as inline asm), all -O levels (all 15), duplicating the tail per arm (3975), searching flags. All fail; non-phi pointer locals in same function DO get r2 and match - only the merge-phi gets wrong color. No C-level control over agbcc's phi coalescing. Body logic/calls/constants/offsets all correct. Ordinary correct C, not hand asm, not not_c, not boundary. Best source = score-15 version preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -205528,7 +205424,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "New best 916 (95.9%, 228/228 insns, first 69 exact), improving the on-record 936. Verified lever: replace the function-scope `s32 *g = (s32*)0x08671BD0` + `sub_080C31E8(..., *g)` at each of the three callback sites with a BLOCK-SCOPED `{ s32 *fp = (s32*)0x08671BD0; sub_080C31E8(..., *fp); }` (936 -> 916). Tried without effect/regressing this session: function-scope `u32 z70=0` for the r7->f70 store (1060), `volatile u32 f70` field (916, no change), s32 p28v two-step for r7+0x28 (916, no change), removing the no-op `D_02025FF0.f1514 = D_02025FF0.f1514;` (926), and `f1754 <= 8` form (1711 \u2014 fixes cmp #8 but loses 2 insns and cascades). Residual floor: target's redundant `movs r0,#0` before `str r0,[r7,#0x70]` is coalesced by agbcc -O1, a 2-byte shift that cascades into all bl/branch/pool operands; plus p28 target `adds r4,r7,#0; adds r4,#0x28` vs ours `movs r2,#0x28; adds r2,r2,r7`.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.924573,
@@ -205536,7 +205432,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "Cannot get closer \u2014 full 8-compile budget spent, best 916 (95.9%, 228/228 insns, first 69 exact), improved from the on-record 936 by using block-scoped `s32 *fp=(s32*)0x08671BD0` at all three callback sites. The residual is the documented agbcc -O1 redundant-zero wall: the ROM emits `movs r0,#0` before `str r0,[r7,#0x70]` even though r0 already holds the zero AND result, and this compiler coalesces it; the 2-byte shift cascades into every bl/branch/literal operand. Also p28 is `adds r4,r7,#0; adds r4,#0x28` in the ROM vs `movs r2,#0x28; adds r2,r2,r7` here. Tested and rejected this session: function-scope z70 local (1060), volatile f70 field (916 no change), s32 p28v two-step (916 no change), removing the f1514 no-op self-assign (926), f1754<=8 form (1711). Flags O1 confirmed best by prior agents. Ordinary correct C, not hand asm, not not_c. Best 916 source preserved; details in the function note.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9246092,
@@ -205708,14 +205604,6 @@
   "text": "Best correct source: score 2476 (81% match, 130 vs 131 target insns). Structs: S_02025FF0{u8 _0[0x24]; s32 f24; u16 f28; u16 f2A;}, S_02021E90{u8 _0[0x146C]; u16 f146C; u16 f146E;} with D_02021E90 volatile. Key structure: block-scoped pointer `p=&D_02025FF0` for first f24 check; 3 separate reads of pf->f24 (matching assembly); direct `v & 0x20` (not mask var); success path has `*(u32*)(arg2+0x64)=0x11` unconditionally AFTER base+0x3C9 check.\n\nREMAINING WALL: agbcc assigns arg1 to sb (r9) while ROM uses r8; assigns base to r5 while ROM uses r4; assigns arg3 to r8 while ROM uses r7. All 4 args end up in callee-saved regs but shifted by one (sb replaces r8). The `mov r7, sb` prologue save and `push {r6,r7}` vs target's `push {r7}` are the direct consequence. No C spelling found to force r8 for arg1 (tried: register hints rejected by harness, declaration order swaps, volatile on/off, block-scoped pointers, mask variable vs direct &, 2 vs 3 reads of f24). Attempts: 8 compiles this session (3277, 5620, 3835, 4691, 2476, 3807, 2476, 2476). Prior agents: ~89 attempts total, best correct 1906/1981/1986. Not hand-written asm, not not_c, not boundary. The residual diff is entirely agbcc register coloring \u2014 target uses {r4,r5,r6,r7,r8} as callee-saved, agbcc here uses {r5,r6,r7,r8,sb}.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.925502,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "Asking to release now: best is 670 (97.0%), a 1070-point improvement over the inherited 1740, and the remaining diff is one agbcc CSE artifact with no C lever left. I also tested the last suggestion from my own notes (making the f68 value opaque via `u32 f68 = *((u32*)(r5+0x68));` + `f68 != 0` in the condition): WORSE, 996 \u2014 agbcc then hoists the f68 load to before the `bl sub_0806B104` sequence and compares the register copy (`mov r1,sb; cmp r1,#0`) instead of `ldr r0,[r5,#0x68]; cmp r0,#0`. So the value must stay a direct dereference in the condition, which is exactly what makes agbcc reuse it as the known-zero for the later byte store (`mov sb,r0` where the ROM has `movs r3,#0; mov sb,r3` in the else body). Exhausted: literal `= 0`, branch-local `u8 zero = 0`, function-scope zero assigned in the else block, assignment after the `| 0xC`, and the opaque-pseudo variant; flags -O2/-O3/-Os all 670, -O1 1521.\nThe #771 lever is the big win here (all four `sub_080C31E8(..., *(s32*)0x08671BD0)` sites via block-scoped `s32 *pbd0 = (s32 *)0x08671BD0;`), now agreed game-wide. Full working source is the brief's 670 version in my compile history; a future agent only needs to break the known-zero CSE (e.g. a way to stop agbcc carrying `==0` from `cmp r0,#0; beq` into the else block) and the 6 dependent regalloc rows (r3 vs r1 index temps) should follow.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9255416,
   "score_before": null,
   "score_after": null
  },
@@ -212432,7 +212320,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064178",
+  "function": "updateScriptedEnemy",
   "text": "MATCHED (248 insns, score 0). The winning source is the exact shape of the already-matched sibling sub_08063F80, adapted only for this function's constant/call differences (0xC instead of 0xB for sub_08086744/sub_08086D58, no sub_08086240 call, 0xA for the first sub_080C31E8, `f1754 <= 8`, ternary mask into u16 cond, `u32 z70 = 0;` at TOP used for the r7+0x70 store, raw u8* pointer arithmetic instead of structs, block-scoped `s32 *g = (s32 *)0x08671BD0;` at the two early sub_080C31E8 sites, pre-declared `int new_var2` at the third). Prior best was 916 with a struct-based source that hit the zero-materialization wall; the sibling's raw-pointer + z70-top + ternary combination reproduces the ROM's `movs r0,#0` and mask register exactly. When a function is a near-duplicate of a matched sibling, port that sibling's exact source shape wholesale rather than tweaking the local best.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.9594147,
@@ -212444,14 +212332,6 @@
   "text": "Asking again with why-it-can't-get-closer: this is the documented 60+-attempt agbcc callee-saved coloring wall (best 2465, 70/70 insns, all arithmetic/calls/control flow already correct). This session's only new idea \u2014 hoisting the `f8`/`fc` loads out of arg2 into their own statements before the base loads, to get the ROM's direct `ldr r6,[r2,#8]` \u2014 regressed to 2705 and broke the base spill. Nothing else applies: the add2/add-operand lever from sub_080273E4 is irrelevant here (no `memory + product` sums), and the residual rows are all register coloring of callee-saved r4-r9 (off/sign/f8/arg2/results) plus two downstream artifacts (v2 `ldr [r0,#4]` fold; base2 pc-remat x2). Register-asm pinning is banned. Ordinary correct C; not hand-written asm, not not_c, no boundary issue. Best 2465 source preserved.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.9595573,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "Cannot get closer in pure C \u2014 second request. 46+ attempts across many agents plus my 5 compiles this session all floor at 620. The residual is deterministic agbcc CSE/regalloc: the ROM materialises a fresh zero (`movs r3,#0; mov r9,r3`) in the else block, while agbcc always reuses the f68 register known zero from `cmp r0,#0; beq else` and hoists `mov sb,r3` before the branch. Tested and rejected: literal 0, branch-local u8 zero, function-scope zero, zeroU8 inline helper called directly in each store (destroys coloring, 2298), volatile f68 deref (no change), nested-if/goto restructuring (block order inverted, 5891), _call_via_r3 renaming (670), flags swept by prior agents. Register pinning is rejected by the tool. All logic/calls/data/structure are exact; ordinary correct C, not hand asm, not not_c, no boundary issue. Please advance the queue.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.959606,
   "score_before": null,
   "score_after": null
  },
@@ -230816,14 +230696,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080635F4",
-  "text": "Cannot get closer: 620 is a deterministic agbcc zero-CSE/register-colouring floor \u2014 227/227 instructions are structurally correct and the only substantive residual is the ROM's fresh `movs r3,#0; mov r9,r3` in the else block versus agbcc reusing the f68-known-zero register, with dependent branch-offset/literal-pool shifts. ~52 prior attempts across models tried every C lever (zero locals at all scopes, volatile f68, inline helpers, goto/if restructuring, flags swept) with no improvement; register-asm pinning is disallowed. No structure, data, operand-size or boundary problem. Not hand asm, not not_c. Best 620 source preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683535.0548165,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08016518",
   "text": "Cannot get closer from C: 31+ attempts across models/flags; freshly reconfirmed 226 with 12/12 body insns exact, only the frameless-leaf LR-frame residual. Also verified `-mno-thumb-interwork` is worse (421). Not hand-written asm, not not_c, no extent boundary, pure leaf without callee dependency. Releasing to complete the session's 8 compiled claims.",
   "by": "opencode-hy4-flash-free-1",
@@ -235804,14 +235676,6 @@
   "text": "Terminal, cannot get closer in pure C \u2014 191+ attempts all models. This session re-confirmed: baseline 745 (all 56 insns structurally present, 19 leading byte-exact), `+zero` early-store variants 765, cross-terms-before-stores 2400, all flags 745 (O2/O3/Os), register pinning rejected as asm. Residual is agbcc 2.95 copy-propagation of the union hi field: ROM keeps hi in r7 with early `adds r1,r7,#0; adds r0,r6,#0` and final `adds r1,r7,r2`; our compiler drops the early copies (745) or emits them with a wrong accumulated final add (765/2400). No C spelling controls this; naked/register asm banned. Best-745 source preserved (last compile restored it). Not hand asm, not not_c, no boundary, no callee dependency.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683535.0808342,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080635F4",
-  "text": "MATCHED (0) with the combined lever on sub_080635F4 (was a 620 floor for ~52 attempts). Two changes together are required: (1) The inherited m2c source has a BUG: the first sub_080C31E8 call passes `arg0 + 0x22` where arg0 is `struct Arg0*` (sizeof 0x70), so agbcc emits `movs r3,#0xee; lsls r3,r3,#4; adds r1,r4,r3` (offset 0xEE0) instead of the target's `adds r1,r4,#0; adds r1,#0x22` \u2014 plus a pointer-type warning. Fix it to `((u8 *)arg0) + 0x22`. Fixing ALONE gives 670 (225 insns; exposes target's missing `movs r3,#0` + alignment nop `movs r0,r0`). (2) In the else branch declare `s32 zero = 0;`, write `v = (*(u16*)(r6+0xD0)) | 0xC | zero;` (folded-away dependency) and use `zero` for the else-branch byte store `*(u8*)(...) = zero;`. The bogus pointer arithmetic was a compensating hack that made r3 available; removing it and adding the folded zero lands exactly on 227 insns byte-identical. Applying the folded zero WITHOUT the pointer fix gives 640; pointer fix alone 670; both = 0.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.0808718,
   "score_before": null,
   "score_after": null
  },
@@ -340156,5 +340020,159 @@
   "created_at": 1795683534.6064641,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_08007870",
+  "text": "Near-match allocator/commutative-AND wall. Best 700 (97.0%, 235/235 insns). Main residual: RGB5 loop target `movs r2,#0x1f; ands r2,r1` vs agbcc `movs r0,#0x1f; adds r2,r1,#0; ands r2,r0`, plus small regalloc/reorder in loop tail and end (r4/r1 zero, literal load). sub_080C31E8 bl displacement warning is known false positive. try_local_repairs(compare=true) on 4f5a009ba3e6e17ed45a (signedness, declaration_order, wide_sum_temp) no improvement; manual `b = (c & m2)` swap regressed to 720. Prior handoffs note 762-floor wall; this 700 candidate is better but still not matchable by obvious C tweaks. Not hand asm, not_c=false.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795713832.613108,
+  "score_before": 700,
+  "score_after": 700,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:02142a839329fda37098c8fa91e046be62f0a5086d87c88400a817bf134964f2:5631c3afadca45ebd06beb53d0ff7e24d1c6b1cea640b3639b44bd4a8d7e7c81"
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "sub_080635F4 best 4975 (78.0%, 227/227 insns). Large multi-call function. Structures: arg0 has f22(s16 @0x22), f38(ptr), f6C(ptr); r6=arg0->f6C with f4 @0x04, u16 fD0 @0xD0, fD2 @0xD2; r8=r6+4 with u32 f60@0x60, f68@0x68, f40@0x40, f4C@0x4C, fC4@0xC4, +0x28 passed to sub_08003740. D_02025FF0.f10 compared to 1; D_02025368[0x3CB] byte flag. Call targets _0806AB04/_0806BCD8 must be written `sub_0806AB04`/`sub_0806BCD8` (note #69). sub_080C31E8 takes 4 args (ptr,ptr,imm,*fp with 0x08671BD0). Adding a `u8 *d25368 = D_02025368` local improved 6665\u21924985 (puts D_02025368 base in a high reg). Remaining: target prologue saves r8/r9/r10 (`mov r7,sl; mov r6,sb; mov r5,r8; push {r5,r6,r7}`) with arg0=r4, r8ptr in r8(high), r5=r8 copy, D_02025368 in r10(sl), zero in r9; mine saves only r8/r9 with arg0=r5, r8ptr in low r4, D_02025368 in r9. Could not force the 3rd high register / rotation. A zero local didn't help.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9867077,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Releasing: 227/227 instructions, all logic/calls/data correct; only agbcc register-colouring remains (target uses 3 high regs r8/r9/r10 with arg0=r4 and r8ptr=r8; mine uses 2 high regs with arg0=r5 and r8ptr in low r4). Four compiles tried: base-pointer local (big win), assignment-order swap, zero local \u2014 none produces the 3rd high register. No further C form available; register asm rejected by tool. Best 4975 saved with full layout in add_note.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9868238,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Score 4975, 78%, regalloc unfixable. Releasing per move-on.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0615394,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Score 4975 (78.0%) matches previous best. Register allocation: target prologue saves r8/r9/r10; compiler saves only r8/r9. Target uses 3 high regs (arg0=r4, r8ptr=r8, D_02025368=r10, zero=r9); compiler uses 2. Tried base-pointer local, assignment-order swap, zero local - none produces 3rd high register. Fundamental agbcc heuristic wall.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4546304,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Key fixes found this session (best 3700, from 4975): (1) D_08671BD0 is a plain `extern s32 D_08671BD0;` (the value is at that address), NOT `extern s32 *D_08671BD0;` with `*D_08671BD0` \u2014 the latter adds a spurious `ldr r2,[r2]` at each of the three sub_080C31E8 call sites (\u2212880 points). (2) The `*(u32 *)(r8+0x60) > 0x1F` comparison must be SIGNED (`*(s32 *)`) \u2014 target emits `cmp r0,#0x1f; ble`, not `bls` (\u2212200). (3) Declaring a second alias pointer `u8 *r5 = r8;` and using r5 for the early field accesses/calls while r8 is used for the later ones (\u2212195). Remaining diff is pure register colouring plus 2 fewer instructions: target arg0=r4, r8ptr=r8, copy=r5, D_02025368=r10, zero=r9; agbcc gives arg0=r5, r8ptr in sb, copy=r4, D_02025368=r10. Global `u32 zero=0` forces 3 high regs but adds `movs r0,#0; mov sb,r0` in the prologue (shifts all call targets, 4620); branch-local zero has no effect. `register` qualifiers and declaration-order swaps had no effect.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5474317,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "UPDATE \u2014 best now 1860 (91.8%). Further levers beyond the earlier note: (4) In the four late calls, the two alias pointers must be distinguished in the SOURCE: sub_0806C4B4(r8,r5), sub_0806E114(...,*(u32*)(r5+4)), sub_0806AB04(arg0,r7,r8,r5), sub_0806BCD8(arg0,r7,r8,r5), sub_0806C6B0(arg0,r7,r8,r5), sub_0806C49C(r7,r8), and sub_0806A7AC(r7,r8,0x10) in the r8+0x40 block (the other two sub_0806A7AC calls take r5). Passing r8 where the original passes r5 (or vice versa) costs hundreds of points even though the values are identical. (5) Assign `r5 = r8` AFTER `r7 = arg0->f38` (target emits `mov r5,r8` after the r7 load). These two fixes took 3700 -> 1860 and made the register allocation match exactly (arg0=r4, r6ptr=r6, r7ptr=r7, r8ptr=r8, copy=r5, D_02025368=r10). Remaining: 2 fewer instructions (target has `movs r3,#0; mov sb,r3` in the else branch; ours has a spurious `mov sb,r0` after the r5+0x68 load), plus literal-load scheduling before/after arg copies and minor r1/r3 temp coloring.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5476046,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Cannot get closer with the available C levers. Best 1860 (91.8%), up from the prior 4975. All 227 target instructions are structurally correct and the register allocation now matches exactly (arg0=r4, r6ptr=r6, r7ptr=r7, r8ptr=r8, copy=r5, D_02025368=r10, zero=r9). The remaining 2-instruction deficit comes from agbcc reusing the provably-zero r5+0x68 load in r9 for the zero byte store (`mov sb,r0`) instead of emitting the target's separate `movs r3,#0; mov sb,r3`; attempts with local zero variables (global/branch-local/u8) and a named f68 local all failed (either no effect or 2336). Also remaining: D_08671BD0 literal loads scheduled after the arg copies instead of before, and minor r1/r3 temp coloring on the 0x22-offset byte stores. These are register-allocation/scheduling artifacts of this agbcc, not fixable by C source changes. Best source and all levers recorded in add_note.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5476496,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Can't get closer with available C levers. Best 1740 (92.3%, 225/227 insns) after 3 compiles this session (baseline + else-branch zero local no effect + C4-arg temp worse). All control flow/calls/data correct and register allocation largely matches target; remaining deltas are agbcc scheduling artifacts: extra `mov sb,r0` after r5+0x68 load in condition path vs target's `movs r3,#0; mov sb,r3` in flag-handling block, D_08671BD0 literal-load placement differences around sub_080C31E8 calls, and argument-load order for final sub_080C31E8 (r2/r3 swapped). Previous agents also reported these as non-C-fixable. Releasing now rather than burning move-on budget.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.580229,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Permanent agbcc wall at 1740 (92.3%; logic/calls/data correct, residual is deterministic scheduling/regalloc: spurious `mov sb,r0`, literal-load placement, temp coloring, 2 missing insns). No C form fixes it across ~31 prior attempts; my branch-local u8 zero was a no-op. Ordinary correct C, not hand asm, not not_c; only a compiler change closes it. Best source = brief's 1740 attempt.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.6206965,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Cannot get closer in pure C: 31 prior attempts plus 4 this session, best 1740 preserved. All logic/calls/data/structure exact (225/227 insns). The residual is the proposal-#634 jump-equiv wall plus a literal-load-order artifact: (a) target `movs r3,#0; mov r9,r3` in the else block vs our single `mov sb,r0` placed after `ldr r0,[r5,#0x68]` \u2014 agbcc always reuses the f68 register (known 0 in the else path) for the zero variable. Tried: function-top `u8 zero` assigned at else start; block-scoped `u8 zero = 0;` at else start; block-scoped zero inside the `if (D2 & 0x100)` block right before the call. ALL THREE compile byte-identically at 1740 (the substitution is hoisted to right after the f68 load no matter where the zero is declared), so this cannot be steered by placement. (b) the `&D_08671BD0` then deref load order at the 4 sub_080C31E8 sites (target evaluates the 4th arg's address first) is a scheduling artifact. search_flags: O2/O3/Os 1740, O1 3011. Not not_c, not boundary; only a compiler change can close it.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.7654607,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Best score: 1740 (92.3% match), target 227 insns, mine 225. All logic/calls/data correct. Main blocker: agbcc regalloc/scheduling - target uses 3 high regs (r8/r9/r10), mine uses fewer. Residual diffs: branch offsets (2 bytes from missing insn), extra mov sb,r0, literal-load placement around sub_080C31E8 calls, minor temp coloring. Tried: global/branch-local zero variables, named f68 local, alias pointer distinction (r8 vs r5), assignment order - none fixed the regalloc. 31+ prior attempts across all agents couldn't close this wall. Register asm rejected. Not hand-written asm, not not_c. Best source preserved at 1740. Session complete: 9 compiled claims (goal was 8).",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.8364954,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Can't get closer with C: the residual is agbcc reusing the compared zero (`mov sb,r0` after `ldr r0,[r5,#0x68]; cmp r0,#0`) for the else-branch step-byte store instead of materialising a fresh 0; any explicit zero local is constant-folded (verified 4 ways, see previous note) and the ROM's fresh `movs r3,#0; mov sb,r3` cannot be induced. Remaining diffs are literal-address CSE across the four sub_080C31E8 sites and one temp register (r3 vs r1). Best 1740 saved. Not hand asm.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.851927,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Asking to release (second call): cannot get closer in pure C. 1 compile this session reproduced inherited best 1740 (92.3%, 225/227 insns); 40+ prior attempts exhausted C levers. Residual is deterministic agbcc scheduling/regalloc: an extra `mov sb,r0` reusing the compared zero instead of the ROM's fresh `movs r3,#0; mov sb,r3`, D_08671BD0 literal-load placement around the four sub_080C31E8 calls, and minor temp coloring; the two-instruction deficit shifts all later branch offsets by 2. Zero-local variants and declaration-order changes were tried with no effect; register pinning is rejected. Ordinary correct C, not hand asm, not not_c, no boundary. Best 1740 source preserved; please advance the queue.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.9077034,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Asking to release now: best is 670 (97.0%), a 1070-point improvement over the inherited 1740, and the remaining diff is one agbcc CSE artifact with no C lever left. I also tested the last suggestion from my own notes (making the f68 value opaque via `u32 f68 = *((u32*)(r5+0x68));` + `f68 != 0` in the condition): WORSE, 996 \u2014 agbcc then hoists the f68 load to before the `bl sub_0806B104` sequence and compares the register copy (`mov r1,sb; cmp r1,#0`) instead of `ldr r0,[r5,#0x68]; cmp r0,#0`. So the value must stay a direct dereference in the condition, which is exactly what makes agbcc reuse it as the known-zero for the later byte store (`mov sb,r0` where the ROM has `movs r3,#0; mov sb,r3` in the else body). Exhausted: literal `= 0`, branch-local `u8 zero = 0`, function-scope zero assigned in the else block, assignment after the `| 0xC`, and the opaque-pseudo variant; flags -O2/-O3/-Os all 670, -O1 1521.\nThe #771 lever is the big win here (all four `sub_080C31E8(..., *(s32*)0x08671BD0)` sites via block-scoped `s32 *pbd0 = (s32 *)0x08671BD0;`), now agreed game-wide. Full working source is the brief's 670 version in my compile history; a future agent only needs to break the known-zero CSE (e.g. a way to stop agbcc carrying `==0` from `cmp r0,#0; beq` into the else block) and the 6 dependent regalloc rows (r3 vs r1 index temps) should follow.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9255416,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Cannot get closer in pure C \u2014 second request. 46+ attempts across many agents plus my 5 compiles this session all floor at 620. The residual is deterministic agbcc CSE/regalloc: the ROM materialises a fresh zero (`movs r3,#0; mov r9,r3`) in the else block, while agbcc always reuses the f68 register known zero from `cmp r0,#0; beq else` and hoists `mov sb,r3` before the branch. Tested and rejected: literal 0, branch-local u8 zero, function-scope zero, zeroU8 inline helper called directly in each store (destroys coloring, 2298), volatile f68 deref (no change), nested-if/goto restructuring (block order inverted, 5891), _call_via_r3 renaming (670), flags swept by prior agents. Register pinning is rejected by the tool. All logic/calls/data/structure are exact; ordinary correct C, not hand asm, not not_c, no boundary issue. Please advance the queue.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.959606,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "Cannot get closer: 620 is a deterministic agbcc zero-CSE/register-colouring floor \u2014 227/227 instructions are structurally correct and the only substantive residual is the ROM's fresh `movs r3,#0; mov r9,r3` in the else block versus agbcc reusing the f68-known-zero register, with dependent branch-offset/literal-pool shifts. ~52 prior attempts across models tried every C lever (zero locals at all scopes, volatile f68, inline helpers, goto/if restructuring, flags swept) with no improvement; register-asm pinning is disallowed. No structure, data, operand-size or boundary problem. Not hand asm, not not_c. Best 620 source preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683535.0548165,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedBoss",
+  "text": "MATCHED (0) with the combined lever on sub_080635F4 (was a 620 floor for ~52 attempts). Two changes together are required: (1) The inherited m2c source has a BUG: the first sub_080C31E8 call passes `arg0 + 0x22` where arg0 is `struct Arg0*` (sizeof 0x70), so agbcc emits `movs r3,#0xee; lsls r3,r3,#4; adds r1,r4,r3` (offset 0xEE0) instead of the target's `adds r1,r4,#0; adds r1,#0x22` \u2014 plus a pointer-type warning. Fix it to `((u8 *)arg0) + 0x22`. Fixing ALONE gives 670 (225 insns; exposes target's missing `movs r3,#0` + alignment nop `movs r0,r0`). (2) In the else branch declare `s32 zero = 0;`, write `v = (*(u16*)(r6+0xD0)) | 0xC | zero;` (folded-away dependency) and use `zero` for the else-branch byte store `*(u8*)(...) = zero;`. The bogus pointer arithmetic was a compensating hack that made r3 available; removing it and adding the folded zero lands exactly on 227 insns byte-identical. Applying the folded zero WITHOUT the pointer fix gives 640; pointer fix alone 670; both = 0.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.0808718,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08013CF4",
+  "text": "Caller-saved regalloc wall. Best 580 (97.5%, 238/238 insns). Residual 47 rows are register allocation/reorder in entry lookup chains and related temps (target r1/r0 role swaps around 0x1C/0x22 loads and table indexing), no structural/codegen differences. try_local_repairs(compare=true) on fb5e4c2b7be5812df6e1 ran matched_integer_prototype/branch_orientation/callee_parameter_width; no improvement (one variant stopped due to saved-file change). Prior handoffs report terminal wall. Not hand asm, not_c=false.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795713923.3359559,
+  "score_before": 580,
+  "score_after": 580,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:8e4b9a83d8d8e82c77011a904ea5e21ce2233f38bd764d890a7885e124f280ce:5553285a3ee509dc0af6901dc466d0ef17a31cb04580422d0529a215db054a24"
  }
 ]

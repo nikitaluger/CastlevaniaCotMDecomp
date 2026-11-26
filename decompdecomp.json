@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795713792.9322205,
- "revision": 67639,
+ "saved_at": 1795713984.2461162,
+ "revision": 67651,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "129700:134347428": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "createFixedKindEntitySprite",
-   "vram": 134347428
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5577,7 +5565,7 @@
   "createFixedKindEntitySprite": {
    "vram": 134347428,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
-   "readable": false
+   "readable": true
   },
   "sub_0801FC98": {
    "vram": 134347928,
@@ -7957,7 +7945,7 @@
   "createVariantEntitySprite": {
    "vram": 134443456,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "sub_080373B0": {
    "vram": 134443952,
@@ -12419,10 +12407,10 @@
    "best_score": 2405,
    "best_by": "permuter-8589936845"
   },
-  "sub_080635F4": {
+  "updateScriptedBoss": {
    "vram": 134624756,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08063BD4": {
    "vram": 134626260,
@@ -12439,7 +12427,7 @@
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": true
   },
-  "sub_08064178": {
+  "updateScriptedEnemy": {
    "vram": 134627704,
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
@@ -36397,7 +36385,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_080635F4",
+   "name": "updateScriptedBoss",
    "vram": 134624756,
    "size": 496,
    "status": "open"
@@ -36427,7 +36415,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08064178",
+   "name": "updateScriptedEnemy",
    "vram": 134627704,
    "size": 496,
    "status": "open"
@@ -50661,9 +50649,21 @@
    "kind": "func"
   },
   {
+   "name": "updateScriptedBoss",
+   "address": 134624756,
+   "size": 496,
+   "kind": "func"
+  },
+  {
    "name": "updatePlayerActionState",
    "address": 134627200,
    "size": 504,
+   "kind": "func"
+  },
+  {
+   "name": "updateScriptedEnemy",
+   "address": 134627704,
+   "size": 496,
    "kind": "func"
   },
   {
@@ -51144,7 +51144,7 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "struct GlobalStateB",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -51159,7 +51159,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct GlobalStateA",
+   "type": "struct GameState",
    "source": "match"
   },
   {
@@ -51184,7 +51184,7 @@
   },
   {
    "address": 135052752,
-   "type": "struct AnimTable[]",
+   "type": "u8[]",
    "source": "match"
   },
   {

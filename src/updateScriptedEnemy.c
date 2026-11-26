@@ -37,7 +37,7 @@ extern void sub_08086744(void *, void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 /* Update a scripted enemy: advance its behaviour and animation timers, handle
  * the death/attack transition and dispatch the resulting script action. */
-void sub_08064178(u8 *arg0)
+void updateScriptedEnemy(u8 *arg0)
 {
   u8 *work = *((u8 **) (arg0 + 0x6C)) + 4;
   u8 *target = *((u8 **) (arg0 + 0x38));
