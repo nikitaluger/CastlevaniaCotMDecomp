@@ -18232,22 +18232,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "sub_080589F0 best 3315 (85.9%). Same entity-callback family as sub_08043B0C; same unsolved regalloc rotation: target arg0=r7/obj=r5/P=r6, mine arg0=r6/obj=r7/P=r5. Structures: D_080CB2B8 table stride 0x14 with u16 at +0 (e->f4) and +4 (e->fE) \u2014 struct TB2B8 {u16 f0; u8 _2[2]; u16 f4; u8 _6[0xE];}; D_080CFD70 is s16[] indexed by arg0->f7C; D_080CFD60 u16[4]; sub_08011368(obj, r4, D_080CFD70[arg0->f7C], 1). E setup is CONDITIONAL on arg0->f84 & 2 and uses a combined short-circuit if with `(arg0->f84 & 2) && (e=sub_08016190(), r6->f28=e, e==NULL)` for the fail path, then `if (e != NULL)` for the setup. e->f1=0, e->f14=0. Target keeps a zero in r12(ip) assigned mid-function (after the obj->f2 orrs) and reused at the final strb; using a u32 zero local did not change regalloc. u8* arg0 with raw offsets improved 3455\u21923315.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9865746,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Releasing: same unfixable agbcc register-colouring issue as sub_08043B0C (target arg0=r7/obj=r5/P=r6 vs mine arg0=r6/obj=r7/P=r5 + one CSE'd reload). Five compiles tried: struct fixes, zero local, declaration reorder, u8* raw-offset param \u2014 score only improved via struct/param changes, regalloc never shifted. No C form available to force the register assignment (register asm rejected by tool). Best 3315 saved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9866312,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateScriptedEnemy",
   "text": "Regalloc heavily off; struct layout guessed. Cannot reach match within budget. Releasing.",
   "by": "opencode-free-1",
@@ -32924,14 +32908,6 @@
   "text": "Score 3310, 85.7%, regalloc rotation not controllable from C. Releasing per move-on.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0614629,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Score 3315 (85.9%). Same unfixable agbcc regalloc rotation (arg0=r7/obj=r5/P=r6 vs mine). All logic/calls/data correct. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0614998,
   "score_before": null,
   "score_after": null
  },
@@ -112528,14 +112504,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Score 3315 (85.9%) matches previous best. Register allocation rotation: target arg0=r7, obj=r5, P=r6; compiler arg0=r6, obj=r7, P=r5. Same 3-way callee-saved rotation as sub_08043B0C/sub_0805EC3C family. Tried struct fixes, zero local, declaration reorder, u8* raw-offset param \u2014 score only improved via struct/param changes, regalloc never shifted. No C form forces the register assignment (register asm rejected). Logic/control-flow/calls/data all correct. Fundamental agbcc heuristic wall.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4544413,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0805DE38",
   "text": "Score 1845 (90.9%), 6 compiles. Structure now matches target (goto-fail shape, sibling-modeled structs B/C6/T/U/A/S_02025FF0, sprite init order, COORD blocks, tail). Remaining diffs are codegen-level, not C-expressible: literal-pool operand offsets differ (our code ~2-6 bytes shorter), regalloc (zero materialized in r1 vs target r4; extra ent->f28 reloads between sprite writes f10/f14 vs target's single load), one 4-byte branch-offset diff (b #0x16c vs #0x172), small tail noise. Learned for future: goto-fail shape for entity-setup funcs (fail block before body); struct U = {u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; void *f10; u16 f14}; struct T/A/C6/B/S_02025FF0 layouts as used here. Best v3d source kept; v3e was worse, v3f = v3d.",
   "by": "opencode-tidepool-alpha-free-1",
@@ -129072,22 +129040,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Best 3015 this session (was 3315). KEY IMPROVEMENT: split the P-pointer load into `struct P *tmpP;` used only in the null-check clause `(tmpP = *(struct P **)(arg0+0x3C)) == NULL`, then begin the next short-circuit clause with `((r6 = tmpP), ...)`. This reproduces the target's `adds r6,r0,#0` copy after `beq` and removes ~10 diff rows. Rejected/ineffective: tmpObj copy for obj (coalesced), explicit `u8 *arg0=(void*)a` param copy (coalesced), register asm (tool rejects inline asm entirely). Remaining wall: 3-way callee-saved rotation arg0=r7/obj=r5/P=r6 vs mine arg0=r6/obj=r7/P=r5 (67 r rows), plus `mov ip,r1` zero handling. Matched sibling sub_0802D364 uses struct-param+goto style and has the OPPOSITE (natural) allocation, so it does not help here.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5397155,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Cannot get closer: the entire remaining delta is compiler hard-register allocation (3-way rotation arg0=r7/obj=r5/P=r6 target vs arg0=r6/obj=r7/P=r5 from every C form tried) plus ip-zero scheduling; all logic, control flow, calls, structs and data are byte-exact. register asm is rejected by the tool, declaration/param/copy restructuring does not move the rotation, and the matched sibling has the opposite natural allocation. Best improved to 3015 this session via tmpP split (proposal #475), source in notes. Ordinary correct C, not hand asm, not not_c; only an allocator/compiler change can close it. Releasing to spend remaining budget on fresh functions.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5397525,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08051CE8",
   "text": "Confirmed callee-saved r4 allocation wall (best 310, 22/24 insns). Body logic byte-exact; target puts first-node then val=1 into r4 (`push {r4,lr}`, `pop {r4}; pop {r0}; bx r0`) and keeps two extra `adds` copies, while agbcc uses r2/r1/r0 with only `push {lr}`. This session 4 compiles: reusing `first` as the val constant (310, identical to prior best), separate `addr` local (310, folds the copies), u32 pointer types (310), while/do-without-v3 (520, loses both r3 copy instructions). register asm rejected by tool; prior ~38 attempts across all C shapes and flags confirm no C form forces r4 in this call-free function. Needs compiler/flag investigation for this range. Best C kept (void* first/t0/v3 with volatile +0x2C load and `first=(void*)1` reuse in loop).",
   "by": "opencode-hy4-flash-free-1",
@@ -137008,14 +136960,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.5796888,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08010FA4",
   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
   "by": "opencode-hy4-flash-free-1",
@@ -137076,14 +137020,6 @@
   "text": "Best 235 (preserved, raw u32* do-while form). All 16 real insns byte-exact; only delta is agbcc's `push {lr}` / `pop {r0}; bx r0` vs ROM bare `bx lr` (+2 on pc-relative literal load and both branch offsets). NEW this session: a 3-insn diagnostic loop (`u32 node=*(u32*)(D_020279D0+8); while(node) node=*(u32*)(node+4);`) ALSO emits `push {lr}` (score 1460, 12 insns), so ANY loop in this agbcc forces the LR frame regardless of register pressure or source shape \u2014 not fixable from C (class-B wall #300). try_compiler old_agbcc: no such toolchain for this game (only agbcc). Also filed report_boundary(sub_08016B88 -> 0x08016BA8): the declared 36-byte extent's last 4 bytes are the literal 0x020279D0 decoded as `ldrb r0,[r2,#7]; lsls r2,r0,#8` (the diff shows those two rows matching, which is exactly the literal being byte-identical). After the boundary is approved the residual diff is only the LR frame.",
   "by": "opencode-deepseek-v4.1-flash-free-1",
   "created_at": 1795683534.5799942,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Can't get closer (agbcc hard-register allocation wall). Best 3015 (87.2%), 2 compiles this session: baseline of prior best (3015) and struct-Arg0 param variant (3155, worse). Target register assignment is arg0=r7, obj=r5, p=r6, q=r4; every C form tried in this and prior sessions yields a 3-way rotation (arg0=r6,obj=r7,p=r5) with cascading regalloc/literal-scheduling diffs and no structural mismatches identified. Prior agents exhausted tmpP split, declaration/param restructuring, and confirmed register asm is rejected; no remaining C-level lever apparent. Not a boundary/padding case (score 3015, logic complete). Releasing now to avoid burning move-on budget on an allocator limit.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.5800304,
   "score_before": null,
   "score_after": null
  },
@@ -145084,14 +145020,6 @@
   "text": "Class-A trailing-literal boundary: compiled final C (matched-sibling sub_0801572C shape, mask 0xFFFB) = score 200 with all 28/28 real insns byte-exact through final `bx r0` at 0x08015696. Only diff is trailing 0x0000FFFB literal + NOP, confirmed by read_data 0x08015690 (`...01 bc 00 47 fb ff 00 00 f0 b5 57 46`). report_boundary(end=0x08015696) filed again with byte evidence, pending user approval. Stale needs=sub_0801E0DC is wrong (self-contained; only calls sub_08015974). No C-side fix possible. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.6204484,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Permanent agbcc regalloc wall at 3015 (87.2%; logic/calls/data all correct, only 3-way callee-saved rotation arg0/obj/P plus cascading literal/scheduling diffs). No C form reaches the target coloring across ~19 prior attempts; register asm banned. Ordinary correct C, not hand asm, not not_c; only a compiler change closes it. Best source = brief's 3015 attempt.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.6204884,
   "score_before": null,
   "score_after": null
  },
@@ -180432,14 +180360,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Releasing: only remaining defect class is agbcc's callee-saved rotation (target arg0=r7, obj=r5, P=r6), confirmed across raw-offset (3015), typed-struct (3400) and struct-param (3155) forms and by 18 prior attempts; no pure-C lever. Moving on to spend budget on other functions.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.7990217,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0806FDFC",
   "text": "Releasing on the confirmed compiler-allocator wall (arg0/base/r8-p6C rotation, 2762 floor); no C lever exists and there is no alternative compiler for this game (try_compiler(old_agbcc) -> 'only agbcc'). Moving on to other functions.",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -187760,14 +187680,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Best score: 3015 (87.2% match), target 236 insns, mine 226. All logic/calls/data correct. Main blocker: 3-way callee-saved regalloc rotation (target arg0=r7/obj=r5/P=r6 vs mine arg0=r6/obj=r7/P=r5), same wall as sub_0805EC3C/sub_0806A884. Tried: declaration order reversal, tmpP split, param restructuring - all no effect. Register asm rejected. Not hand-written asm, not not_c. 35+ prior attempts across all agents couldn't fix this regalloc wall. Best source preserved at 3015. This completes my 7th claim; need 8th claim to reach session goal.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.836458,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080B6D50",
   "text": "Move-on reached (6/6). Cannot get closer in pure C: deterministic agbcc callee-saved coloring wall at best 940 (58/60 insns, all logic/calls/branches/literals exact). Target: self=r4,p3C=r5,ptr=r6,p38=r7,zero=r8 (`movs r2,#0; mov r8,r2`). agbcc always: self=r4,p38=r8,p3C=r6,ptr=r7,zero=r5. This session: baseline 940; p38-last / p3C-p38-ptr / p3C-ptr-p38 orders gave 1390/1200/1140 (p38\u2192r7 as desired but ptr\u2192r8 and p3C\u2192r6); zero-first 1140; `register` hints 1140; u8 zero at top 1390. 50+ prior attempts across all models, types, placements, flags all floor at 940; register-asm pinning banned. Ordinary C, not hand asm, not not_c, no boundary issue.",
   "by": "opencode-hy4-flash-free-1",
@@ -190724,14 +190636,6 @@
   "text": "Cannot get closer in C. Class-C regalloc wall (90+ attempts across agents, 3 this session: 15/25/25). 25/25 insns match; only p register differs: target coalesces p with dead table base r2, agbcc coalesces p with dead idx r3. Fixing p/*p (separate p, named addr, t reuse) flips table/idx to r3/r2. No C form, decl order, type, or commutation yields both table->r2/idx->r3 and p->r2/*p->r1. Register pinning rejected; not hand asm, not not_c, no boundary. Best 15 source preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.85142,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "Big improvement this session: 3015 -> 200 (99.1%, 236/236 insns). TWO levers got it there, both verified by score deltas: (1) add a `u32 zero;` local assigned `zero = 0;` AFTER the `tmp = (*(u16*)obj & 0xC00) | ...` graphics expression and before `*(u16*)obj = tmp;`, and store the final step byte with `*(u8*)(arg0 + 2*step + 0x19) = (u8)zero;` -- this lands zero in ip (`movs r1,#0; mov r12,r1`) exactly like the ROM AND fixes the whole callee-saved rotation (arg0=r7, obj=r5, part=r6 now match!): 3015 -> 2670. (2) in the effect body access the sub-effect through the part pointer every time (`r6->f28->f1 = 0; r6->f28->f2 = 8; ... r6->f28->f14 = 0;`) instead of a local `e` -- the ROM reloads `ldr r1,[r6,#0x28]` before each store: 2670 -> 340, and moving the `zero = 0;` line to just before the first strh gives 340 -> 200. Keep `e = sub_08016190(); r6->f28 = e; if (e == NULL)` as the last short-circuit clause. REMAINING: exactly ONE reordered instruction -- the `ldr r1,[pc]` of the D_080CFD70 base in the sub_08011368 value arg. Target order: `adds r0,r7,#0; adds r0,#0x7c; ldr r1,[pc,#0x40]; movs r2,#0; ldrsh r0,[r0,r2]; lsls r0,#1; adds r0,r1`; my compile puts the `ldr r1,[pc,#0x3c]` after the `lsls`. Tried and no change: inline `D_080CFD70[*(s16*)(arg0+0x7C)]` (loads base BEFORE the adds, same 200), a named s32 idx temp (loads after ldrsh, 200), `*(s16*)((u8*)D_080CFD70 + 2*idx)` and `+ (idx<<1)` (200). Only the base-load scheduling differs; everything else is byte-exact. Not a boundary case, not hand asm.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.8514557,
   "score_before": null,
   "score_after": null
  },
@@ -200580,14 +200484,6 @@
   "text": "Proven terminal agbcc -O1 callee-saved tie-break at score 10 (121/121 insns byte-exact). Sole diff: target `ldr r6,[r5,#0x3c]; adds r7,r6,#0; adds r7,#0x34` vs agbcc `ldr r7,[r5,#0x3c]; adds r6,r7,#0; adds r7,#0x34`. Target binds sub_0800355C result\u2192r4 / arg0+0x3C\u2192r6 / component34\u2192r7; agbcc binds result\u2192r6 / pointer\u2192r7 / component34\u2192r6. Cyclic shift of callee-saved pool.\n\nTried (all score 10, none broke the tie):\n- Declaration order, role renaming, void*/s32/struct pointer typing\n- Volatile double-load of arg0+0x3C (needed for second ldr; non-volatile gets CSE'd \u2192 big regress)\n- Moving component34 copy before/after sub_08014288 call (reordered 95, or 350 if call moved before copy+add)\n- `r7=&r4[0]` \u2192 880; explicit second variable \u2192 same 10\n- All flag levels: O2/O3/Os=10, O1=310\n- register asm pinning banned by harness\n\nBody fully solved: entity spawn (sub_0800355C\u2192r6/newObj), store to arg0+0x38, sub_0800168C(arg0,0,0x48,0), volatile double-check arg0+0x3C, 0x8000000B store at newObj+0x1C, sub_08014288 callback 0x08097DC8, 0x44 store at component+0x1C, sub_08013C2C no-arg call, w16<<=6;+0x200;&=0xFC0, D_02025FF0.w OR, sub_0801131C(newObj,component34,0x080CD400+field*0xC), sub_08011368(newObj,component34,9,0), arg0+2 |=0x1000, step table byte=0, D_08671BB0 script table, increment step byte, dispatch via arg0+0x14 table.\n\nNot asm, not not_c, not boundary. Same wall class as sub_0809E860 (mov r1/r2 zero copy tie) and sub_0808371C (commutative AND tie).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.9017217,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind32ScriptedSprite",
-  "text": "MATCHED 200 -> 0 this session (246 insns). The single residual row before the match was the position of `ldr r1,[pc]` for the D_080CFD70 table base inside `sub_08011368(obj, r4, D_080CFD70[*(s16*)(arg0 + 0x7C)], 1)`: the ROM has `adds r0,r7,#0 / adds r0,#0x7C / ldr r1,=D_080CFD70 / movs r2,#0 / ldrsh r0,[r0,r2] / lsls r0,#1 / adds r0,r0,r1` (base load between the address build and the index load), while any inline/assignment-in-subscript form put the `ldr` after the `lsls`.\nTHE FIX: split the array access into three numbered statements in the short-circuit comma chain, with function-scope `s16 *p7C; s16 *tbl; s32 i;`:\n    p7C = (s16 *)(arg0 + 0x7C),      /* adds r0,r7,#0; adds r0,#0x7C */\n    tbl = D_080CFD70,                /* ldr r1,=D_080CFD70  <-- lands exactly there */\n    i = *p7C,                        /* movs r2,#0; ldrsh r0,[r0,r2] */\n    sub_08011368(obj, r4, tbl[i], 1),/* lsls; adds; ... */\ni.e. it is the #742 literal-pool-position lever applied to an ARRAY BASE: hoisting the base into its own named-pointer ASSIGNMENT statement, placed after the address-offset statement and before the index load, reproduces the ROM's load slot. Keep the rest of the 200 source unchanged (the `zero = 0;` after the graphics expr, the repeated `r6->f28->...` reloads, the e==NULL short-circuit clause).",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.9017594,
   "score_before": null,
   "score_after": null
  },
@@ -340431,5 +340327,109 @@
   "score_before": 8750,
   "score_after": 50,
   "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:a90c536f51fb89b0b5366b3ef8b40f8c1e15d43aadb4c89036a69c8c84141758:83bed43b3549abb781e4618d716cc06028f5a024d270ed3d33fe0cd3744f5f84"
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "sub_080589F0 best 3315 (85.9%). Same entity-callback family as sub_08043B0C; same unsolved regalloc rotation: target arg0=r7/obj=r5/P=r6, mine arg0=r6/obj=r7/P=r5. Structures: D_080CB2B8 table stride 0x14 with u16 at +0 (e->f4) and +4 (e->fE) \u2014 struct TB2B8 {u16 f0; u8 _2[2]; u16 f4; u8 _6[0xE];}; D_080CFD70 is s16[] indexed by arg0->f7C; D_080CFD60 u16[4]; sub_08011368(obj, r4, D_080CFD70[arg0->f7C], 1). E setup is CONDITIONAL on arg0->f84 & 2 and uses a combined short-circuit if with `(arg0->f84 & 2) && (e=sub_08016190(), r6->f28=e, e==NULL)` for the fail path, then `if (e != NULL)` for the setup. e->f1=0, e->f14=0. Target keeps a zero in r12(ip) assigned mid-function (after the obj->f2 orrs) and reused at the final strb; using a u32 zero local did not change regalloc. u8* arg0 with raw offsets improved 3455\u21923315.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9865746,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Releasing: same unfixable agbcc register-colouring issue as sub_08043B0C (target arg0=r7/obj=r5/P=r6 vs mine arg0=r6/obj=r7/P=r5 + one CSE'd reload). Five compiles tried: struct fixes, zero local, declaration reorder, u8* raw-offset param \u2014 score only improved via struct/param changes, regalloc never shifted. No C form available to force the register assignment (register asm rejected by tool). Best 3315 saved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9866312,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Score 3315 (85.9%). Same unfixable agbcc regalloc rotation (arg0=r7/obj=r5/P=r6 vs mine). All logic/calls/data correct. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0614998,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Score 3315 (85.9%) matches previous best. Register allocation rotation: target arg0=r7, obj=r5, P=r6; compiler arg0=r6, obj=r7, P=r5. Same 3-way callee-saved rotation as sub_08043B0C/sub_0805EC3C family. Tried struct fixes, zero local, declaration reorder, u8* raw-offset param \u2014 score only improved via struct/param changes, regalloc never shifted. No C form forces the register assignment (register asm rejected). Logic/control-flow/calls/data all correct. Fundamental agbcc heuristic wall.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4544413,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Best 3015 this session (was 3315). KEY IMPROVEMENT: split the P-pointer load into `struct P *tmpP;` used only in the null-check clause `(tmpP = *(struct P **)(arg0+0x3C)) == NULL`, then begin the next short-circuit clause with `((r6 = tmpP), ...)`. This reproduces the target's `adds r6,r0,#0` copy after `beq` and removes ~10 diff rows. Rejected/ineffective: tmpObj copy for obj (coalesced), explicit `u8 *arg0=(void*)a` param copy (coalesced), register asm (tool rejects inline asm entirely). Remaining wall: 3-way callee-saved rotation arg0=r7/obj=r5/P=r6 vs mine arg0=r6/obj=r7/P=r5 (67 r rows), plus `mov ip,r1` zero handling. Matched sibling sub_0802D364 uses struct-param+goto style and has the OPPOSITE (natural) allocation, so it does not help here.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5397155,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Cannot get closer: the entire remaining delta is compiler hard-register allocation (3-way rotation arg0=r7/obj=r5/P=r6 target vs arg0=r6/obj=r7/P=r5 from every C form tried) plus ip-zero scheduling; all logic, control flow, calls, structs and data are byte-exact. register asm is rejected by the tool, declaration/param/copy restructuring does not move the rotation, and the matched sibling has the opposite natural allocation. Best improved to 3015 this session via tmpP split (proposal #475), source in notes. Ordinary correct C, not hand asm, not not_c; only an allocator/compiler change can close it. Releasing to spend remaining budget on fresh functions.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5397525,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.5796888,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Can't get closer (agbcc hard-register allocation wall). Best 3015 (87.2%), 2 compiles this session: baseline of prior best (3015) and struct-Arg0 param variant (3155, worse). Target register assignment is arg0=r7, obj=r5, p=r6, q=r4; every C form tried in this and prior sessions yields a 3-way rotation (arg0=r6,obj=r7,p=r5) with cascading regalloc/literal-scheduling diffs and no structural mismatches identified. Prior agents exhausted tmpP split, declaration/param restructuring, and confirmed register asm is rejected; no remaining C-level lever apparent. Not a boundary/padding case (score 3015, logic complete). Releasing now to avoid burning move-on budget on an allocator limit.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.5800304,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Permanent agbcc regalloc wall at 3015 (87.2%; logic/calls/data all correct, only 3-way callee-saved rotation arg0/obj/P plus cascading literal/scheduling diffs). No C form reaches the target coloring across ~19 prior attempts; register asm banned. Ordinary correct C, not hand asm, not not_c; only a compiler change closes it. Best source = brief's 3015 attempt.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.6204884,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Releasing: only remaining defect class is agbcc's callee-saved rotation (target arg0=r7, obj=r5, P=r6), confirmed across raw-offset (3015), typed-struct (3400) and struct-param (3155) forms and by 18 prior attempts; no pure-C lever. Moving on to spend budget on other functions.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.7990217,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Best score: 3015 (87.2% match), target 236 insns, mine 226. All logic/calls/data correct. Main blocker: 3-way callee-saved regalloc rotation (target arg0=r7/obj=r5/P=r6 vs mine arg0=r6/obj=r7/P=r5), same wall as sub_0805EC3C/sub_0806A884. Tried: declaration order reversal, tmpP split, param restructuring - all no effect. Register asm rejected. Not hand-written asm, not not_c. 35+ prior attempts across all agents couldn't fix this regalloc wall. Best source preserved at 3015. This completes my 7th claim; need 8th claim to reach session goal.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.836458,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "Big improvement this session: 3015 -> 200 (99.1%, 236/236 insns). TWO levers got it there, both verified by score deltas: (1) add a `u32 zero;` local assigned `zero = 0;` AFTER the `tmp = (*(u16*)obj & 0xC00) | ...` graphics expression and before `*(u16*)obj = tmp;`, and store the final step byte with `*(u8*)(arg0 + 2*step + 0x19) = (u8)zero;` -- this lands zero in ip (`movs r1,#0; mov r12,r1`) exactly like the ROM AND fixes the whole callee-saved rotation (arg0=r7, obj=r5, part=r6 now match!): 3015 -> 2670. (2) in the effect body access the sub-effect through the part pointer every time (`r6->f28->f1 = 0; r6->f28->f2 = 8; ... r6->f28->f14 = 0;`) instead of a local `e` -- the ROM reloads `ldr r1,[r6,#0x28]` before each store: 2670 -> 340, and moving the `zero = 0;` line to just before the first strh gives 340 -> 200. Keep `e = sub_08016190(); r6->f28 = e; if (e == NULL)` as the last short-circuit clause. REMAINING: exactly ONE reordered instruction -- the `ldr r1,[pc]` of the D_080CFD70 base in the sub_08011368 value arg. Target order: `adds r0,r7,#0; adds r0,#0x7c; ldr r1,[pc,#0x40]; movs r2,#0; ldrsh r0,[r0,r2]; lsls r0,#1; adds r0,r1`; my compile puts the `ldr r1,[pc,#0x3c]` after the `lsls`. Tried and no change: inline `D_080CFD70[*(s16*)(arg0+0x7C)]` (loads base BEFORE the adds, same 200), a named s32 idx temp (loads after ldrsh, 200), `*(s16*)((u8*)D_080CFD70 + 2*idx)` and `+ (idx<<1)` (200). Only the base-load scheduling differs; everything else is byte-exact. Not a boundary case, not hand asm.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.8514557,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind32ScriptedSprite",
+  "text": "MATCHED 200 -> 0 this session (246 insns). The single residual row before the match was the position of `ldr r1,[pc]` for the D_080CFD70 table base inside `sub_08011368(obj, r4, D_080CFD70[*(s16*)(arg0 + 0x7C)], 1)`: the ROM has `adds r0,r7,#0 / adds r0,#0x7C / ldr r1,=D_080CFD70 / movs r2,#0 / ldrsh r0,[r0,r2] / lsls r0,#1 / adds r0,r0,r1` (base load between the address build and the index load), while any inline/assignment-in-subscript form put the `ldr` after the `lsls`.\nTHE FIX: split the array access into three numbered statements in the short-circuit comma chain, with function-scope `s16 *p7C; s16 *tbl; s32 i;`:\n    p7C = (s16 *)(arg0 + 0x7C),      /* adds r0,r7,#0; adds r0,#0x7C */\n    tbl = D_080CFD70,                /* ldr r1,=D_080CFD70  <-- lands exactly there */\n    i = *p7C,                        /* movs r2,#0; ldrsh r0,[r0,r2] */\n    sub_08011368(obj, r4, tbl[i], 1),/* lsls; adds; ... */\ni.e. it is the #742 literal-pool-position lever applied to an ARRAY BASE: hoisting the base into its own named-pointer ASSIGNMENT statement, placed after the address-offset statement and before the index load, reproduces the ROM's load slot. Keep the rest of the 200 source unchanged (the `zero = 0;` after the graphics expr, the repeated `r6->f28->...` reloads, the e==NULL short-circuit clause).",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.9017594,
+  "score_before": null,
+  "score_after": null
  }
 ]

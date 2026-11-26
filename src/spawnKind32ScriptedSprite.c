@@ -4,7 +4,7 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void setAnimationFrame(u8 *, u8 *, s16, s32);
 extern void *allocEffectPart(void);
-extern void updateScriptedObjectAndCleanup(void);
+extern void sub_08058D40(void);
 extern void sub_080C31E0(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
 
@@ -16,13 +16,13 @@ struct ScrollState { u8 unk0[0x1278]; u32 cameraX; u32 cameraY; };
 extern struct ScrollState gCameraState;
 struct EffectStats { u16 gfxIndex; u8 unk2[2]; u16 palette; u8 unk6[0xE]; };
 extern struct EffectStats gSpriteKindTable[];
-extern u16 gKind32LayerAttrs[];
-extern s16 gKind32AnimTable[];
+extern u16 D_080CFD60[];
+extern s16 D_080CFD70[];
 extern u8 gSpriteAnimDataTable[];
 
 /* Allocate a scripted object's sprite, work block and optional render part,
  * initialise their graphics and position, then run the entry script. */
-void spawnKind32ScriptedSprite(u8 *arg0) {
+void sub_080589F0(u8 *arg0) {
     u8 *sprite;
     struct EffectWork *work;
     struct EffectWork *newWork;
@@ -44,13 +44,13 @@ void spawnKind32ScriptedSprite(u8 *arg0) {
     if ((sprite == NULL) ||
         (*(u8 **)(arg0 + 0x38) = sprite, allocWorkSlot(arg0, 0, 0x48, 0), (newWork = *(struct EffectWork **)(arg0 + 0x3C)) == NULL) ||
         ((work = newWork),
-         animState = (u8 *)work + 0x34, work->updateCb = *(u32 *)(arg0 + 0x24), *(u32 *)(arg0 + 0x24) = (u32)updateScriptedObjectAndCleanup,
+         animState = (u8 *)work + 0x34, work->updateCb = *(u32 *)(arg0 + 0x24), *(u32 *)(arg0 + 0x24) = (u32)sub_08058D40,
          work->kind = 0x32,
          work->worldX = *(s16 *)(arg0 + 0x4C) << 16, work->worldY = *(s16 *)(arg0 + 0x54) << 16,
          kindIndex = findKindIndex(0x32), work->slot = kindIndex, ((s32)(kindIndex << 16) < 0)) ||
         (initSpriteGraphics(sprite, animState, (s32)gSpriteAnimDataTable + work->kind * 0xC),
          animIndexPtr = (s16 *)(arg0 + 0x7C),
-         animTable = gKind32AnimTable,
+         animTable = D_080CFD70,
          animIndex = *animIndexPtr,
          setAnimationFrame(sprite, animState, animTable[animIndex], 1),
          (*(u16 *)(arg0 + 0x84) & 2) && (part = allocEffectPart(), work->gfx = part, part == NULL))) {
@@ -62,10 +62,10 @@ void spawnKind32ScriptedSprite(u8 *arg0) {
         work->gfx->layer = 8;
         work->gfx->priority = 1;
         work->gfx->gfxIndex = gSpriteKindTable[work->kind].gfxIndex;
-        work->gfx->anim0 = gKind32LayerAttrs[0];
-        work->gfx->anim1 = gKind32LayerAttrs[1];
-        work->gfx->anim2 = gKind32LayerAttrs[2];
-        work->gfx->anim3 = gKind32LayerAttrs[3];
+        work->gfx->anim0 = D_080CFD60[0];
+        work->gfx->anim1 = D_080CFD60[1];
+        work->gfx->anim2 = D_080CFD60[2];
+        work->gfx->anim3 = D_080CFD60[3];
         work->gfx->palette = gSpriteKindTable[work->kind].palette;
         work->gfx->object = (u32)sprite;
         work->gfx->tail = 0;
