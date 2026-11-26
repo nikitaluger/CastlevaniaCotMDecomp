@@ -13,8 +13,8 @@ void sub_0801C9F8(u8 *arg0, u8 *arg1)
     struct S_1C9F8 *r2;
     s32 idx;
 
-    r2 = *(struct S_1C9F8 **)(arg0 + 0x3C);
     r3 = D_080CE688;
+    r2 = *(struct S_1C9F8 **)(arg0 + 0x3C);
     idx = *(u16 *)(arg1 + 0x28) - 0x32;
 
     switch (idx) {

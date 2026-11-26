@@ -11,9 +11,9 @@ struct S_02025FF0_7B01C
   u8 _18A9[0x18C2 - 0x18A9];
   u16 f18C2;
 };
-extern struct S_02025FF0_7B01C D_02025FF0;
+extern struct S_02025FF0_7B01C gMainWorkspace;
 extern u8 D_02023130[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern s32 sub_0806D518(void *, void *, void *);
 extern s32 sub_08007DD8(s32, s32);
 extern void sub_08003A6C(void *, s32, void *);
@@ -53,7 +53,7 @@ void sub_08084230(void *arg0)
   *((s32 *) (p4 + 4)) = sum;
   flags = andOne(*((u16 *) ((*((u8 **) (p4 + 0x2C))) + 0x14)));
   if (flags) goto label_0808429A;
-  idx = D_02025FF0.f18A8;
+  idx = gMainWorkspace.f18A8;
   addr = (u32)D_02023130 + (idx << 6);
   val2 = sub_08007DD8(addr, *((s32 *) (((u8 *) p6C) + 4)));
   if ((val2 << 16) == 0) goto label_080842D2;
@@ -68,13 +68,13 @@ label_0808429A:
   sub_08005E80(0x88);
   i = *((s16 *) (((u8 *) self) + 0x22));
   *((u8 *) (((u8 *) self) + i * 2 + 0x19)) = zero;
-  pp = &D_08671BB0;
+  pp = &gMainObjTimerCallback;
   sub_080C31E4(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, *pp);
 label_080842D2:
-  *((u16 *) p38) = D_02025FF0.f18C2;
+  *((u16 *) p38) = gMainWorkspace.f18C2;
   sub_08003740(p8 + 0x1C, p38);
   sub_0806D588(p38, p4);
-  if ((D_02025FF0.f173A == 0x1C) || ((D_02025FF0.f14ED == 0) && (D_02025FF0.f10 != 0)))
+  if ((gMainWorkspace.f173A == 0x1C) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
   {
     sub_080C31E0(self, *((void **) (((u8 *) self) + 0x24)));
   }

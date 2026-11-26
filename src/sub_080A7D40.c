@@ -3,7 +3,7 @@ extern void sub_080A860C(void *, void *);
 extern void sub_080A8940(u16 *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void *D_08671BC0;
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Refresh an actor's sprite attributes, tracker angle and speed from its AI
  * step flags, spawn an effect when flagged, then advance its script step from
@@ -54,7 +54,7 @@ void sub_080A7D40(void *arg0) {
                 stepIndex = *(s16 *)((u8 *)arg0 + 0x22);
                 *(u8 *)((u8 *)arg0 + stepIndex * 2 + 0x19) = 0;
                 {
-                    void **scriptTable = &D_08671BB0;
+                    void **scriptTable = &gMainObjTimerCallback;
                     sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *scriptTable);
                 }
             }

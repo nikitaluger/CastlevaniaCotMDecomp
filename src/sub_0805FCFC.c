@@ -1,15 +1,15 @@
-extern u8 D_02021E90[];
-extern void sub_0805FDF0(void);
-extern void sub_0805FE28(s32, s32);
-extern void sub_0805FE8C(s32, s32, s32);
-extern void sub_080063D4(u32 *, void *);
+extern u8 gCameraState[];
+extern void resetMapRender(void);
+extern void setLayerTilemap(s32, s32);
+extern void setMapLayerParams(s32, s32, s32);
+extern void decompressToVram(u32 *, void *);
 extern void sub_08061048(s32);
 extern void sub_08061084(void);
 extern void sub_080610D0(void);
 
 /* Clears graphics state, loads tiles into VRAM and fills palette memory with DMA. */
 void sub_0805FCFC(void) {
-    u8 *gfxState = D_02021E90;
+    u8 *gfxState = gCameraState;
     u16 fillValue;
     u16 *vramFlags;
     u32 zero;
@@ -23,9 +23,9 @@ void sub_0805FCFC(void) {
         *(u16 *)(gfxState + off) = zero;
         gfxState[off + 3] = zero;
     }
-    sub_0805FDF0();
-    sub_0805FE28(0, 2);
-    sub_0805FE8C(0, 1, 2);
+    resetMapRender();
+    setLayerTilemap(0, 2);
+    setMapLayerParams(0, 1, 2);
     vramFlags = (u16 *)(gfxState + 0x1262);
     {
         u32 dest = 0x06000C80 + ((*vramFlags & 0x1F00) << 3);
@@ -34,7 +34,7 @@ void sub_0805FCFC(void) {
         dma[1] = 0xA0 << 19;
         dma[2] = 0x80000010;
         (void)dma[2];
-        sub_080063D4((u32 *)0x08442670, (void *)dest);
+        decompressToVram((u32 *)0x08442670, (void *)dest);
     }
     fillValue = zero;
     {

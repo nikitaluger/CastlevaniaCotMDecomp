@@ -1,7 +1,7 @@
 extern u8 D_08102EA8[];
 extern u16 D_08102EC8[];
 extern u32 D_08670598[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u32 D_08671BD8;
 extern s32 sub_08005820(u8);
 extern void sub_080BE644(s32);
@@ -91,7 +91,7 @@ dispatch:
         base[0x19] = 0;
     }
     {
-        u32 *pbb0 = &D_08671BB0;
+        u32 *pbb0 = &gMainObjTimerCallback;
         sub_080C31E4((s32)((u8 *)obj + 0x18), (s32)((u8 *)obj + 0x22), (s32)*pbb0);
     }
 }

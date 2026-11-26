@@ -8,7 +8,7 @@ struct S_02025FF0 {
     u8 _3[0x18C2 - 0x173B];
     u16 sprite18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_08003740(void *, void *);
 extern void sub_0806D588(void *, void *);
@@ -31,8 +31,8 @@ void sub_0807A960(u8 *self) {
         return;
     }
     *(s32 *)(sprite + 0x18) = *(s32 *)(sprite + 0x18) + *(s32 *)(pos + 0x0C);
-    gameState = &D_02025FF0;
-    { u16 spriteIndex = D_02025FF0.sprite18C2; *(u16 *)sprite = spriteIndex; }
+    gameState = &gMainWorkspace;
+    { u16 spriteIndex = gMainWorkspace.sprite18C2; *(u16 *)sprite = spriteIndex; }
     {
         s32 countdown = *(s32 *)(pos + 0x10) - 1;
         *(s32 *)(pos + 0x10) = countdown;

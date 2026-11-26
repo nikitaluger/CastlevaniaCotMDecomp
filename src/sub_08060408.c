@@ -1,4 +1,4 @@
-extern void sub_080063D4(void *src, void *dst);
+extern void decompressToVram(void *src, void *dst);
 
 /* Graphics state used by the transition scripts: graphics-header word at
  * +0x1262, the two palette colour indices at +0x143A/+0x143B, the script frame
@@ -14,12 +14,12 @@ struct TransitionState {
     u8 pad_1458[4];
     u8 flags;
 };
-extern struct TransitionState D_02021E90;
+extern struct TransitionState gCameraState;
 
 /* Transition step: advance the script frame and keep going. */
 s32 sub_08060408(void)
 {
-    D_02021E90.frame += 1;
+    gCameraState.frame += 1;
     return 0;
 }
 
@@ -27,10 +27,10 @@ s32 sub_08060408(void)
  * advance the script frame. */
 s32 sub_08060438(void)
 {
-    u8 tmp = D_02021E90.colorB;
-    D_02021E90.colorB = D_02021E90.colorA;
-    D_02021E90.colorA = tmp;
-    D_02021E90.frame += 1;
+    u8 tmp = gCameraState.colorB;
+    gCameraState.colorB = gCameraState.colorA;
+    gCameraState.colorA = tmp;
+    gCameraState.frame += 1;
     return 0;
 }
 
@@ -39,9 +39,9 @@ s32 sub_08060438(void)
  * the frame and report the step as finished. */
 s32 sub_080603B8(void)
 {
-    D_02021E90.frame += 1;
-    D_02021E90.flags |= 8;
-    sub_080063D4((void *)0x084427D8, (void *)(((D_02021E90.header1262 & 0x1F00) << 3) + 0x06000C80));
+    gCameraState.frame += 1;
+    gCameraState.flags |= 8;
+    decompressToVram((void *)0x084427D8, (void *)(((gCameraState.header1262 & 0x1F00) << 3) + 0x06000C80));
     return 2;
 }
 
@@ -49,9 +49,9 @@ s32 sub_080603B8(void)
  * script frame. */
 s32 sub_0806046C(void)
 {
-    u8 tmp = D_02021E90.colorA;
-    D_02021E90.colorA = D_02021E90.colorB;
-    D_02021E90.colorB = tmp;
-    D_02021E90.frame += 1;
+    u8 tmp = gCameraState.colorA;
+    gCameraState.colorA = gCameraState.colorB;
+    gCameraState.colorB = tmp;
+    gCameraState.frame += 1;
     return 0;
 }

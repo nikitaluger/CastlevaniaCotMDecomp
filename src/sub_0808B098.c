@@ -1,4 +1,4 @@
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 void *sub_08001480(void *, s32);
 void sub_080C31E0(void *, s32);
 
@@ -11,7 +11,7 @@ void sub_0808B098(void *arg0)
 {
     u8 *actor = *(u8 **)((u8 *)arg0 + 0x6C);
     struct S_off2C *mover = (struct S_off2C *)(actor + 4);
-    u8 *sys = D_02025368;
+    u8 *sys = gGameStatus;
     mover->frameCounter = mover->frameCounter + 1;
     if ((mover->frameCounter & 3) == 0) {
         void *effect = sub_08001480(arg0, 0x83);

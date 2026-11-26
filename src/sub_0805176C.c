@@ -8,7 +8,7 @@ void sub_080C31E8(void*, void*, s32, s32);
 
 typedef void (*Fn)(void*);
 struct S_02025FF0 { u8 _0[0x1870]; u32 v; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u32 D_08671BDC;
 
 /* Advances one scripted behaviour step for an entity: handles death/contact,
@@ -22,7 +22,7 @@ void sub_0805176C(u8 *entity) {
     sub_08013978(entity, *(void**)(component + 0x28));
     sub_080142C0(*(void**)(entity + 0x28), *(void**)(component + 0x28));
 
-    if (*(void**)(entity + 0x28) == (void*)D_02025FF0.v) {
+    if (*(void**)(entity + 0x28) == (void*)gMainWorkspace.v) {
         u8 *stepPtr = (u8*)((s32)((s16)*(s16*)(entity + 0x22) * 2) + (s32)entity);
         if (*(u8*)(stepPtr + 0x1A) != 1) {
             u32 *callTable;
@@ -53,7 +53,7 @@ void sub_0805176C(u8 *entity) {
     *(u32*)(component + 0x08) = *(u32*)(entity + 0x4C);
     *(u32*)(component + 0x0C) = *(u32*)(entity + 0x5C);
 
-    if (*(void**)(entity + 0x28) != (void*)D_02025FF0.v) {
+    if (*(void**)(entity + 0x28) != (void*)gMainWorkspace.v) {
         *(u16*)parent = *(u16*)(u8*)*(vu32*)((u8*)(*(void**)(entity + 0x28)) + 0x38);
         *(u16*)(parent + 2) = *(u16*)((u8*)*(vu32*)((u8*)*(vu32*)(entity + 0x28) + 0x38) + 2);
     }

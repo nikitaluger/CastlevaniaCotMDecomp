@@ -4,7 +4,7 @@
 extern void sub_08005E80(u16);
 extern void sub_08011528(void *, void *);
 extern void _call_via_r2(void *, void *, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 inline s32 *field0C(u8 *arg0)
 {
   return (s32 *) (arg0 + 0x0C);
@@ -57,7 +57,7 @@ void sub_080B2E84(void *arg0)
         *((u8 *) ((entity + (animIndex[0x11] * 2)) + 0x19)) = zero;
       }
       {
-        s32 *animScript = &D_08671BB0;
+        s32 *animScript = &gMainObjTimerCallback;
         _call_via_r2(entity + 0x18, entity + 0x22, *animScript);
       }
     }

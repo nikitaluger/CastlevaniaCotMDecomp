@@ -1,4 +1,4 @@
-extern void sub_08000E98(s32, s32, s32, s32, s32);
+extern void postDisplaySprite(s32, s32, s32, s32, s32);
 
 struct DmaRegs { vu32 src; vu32 dst; vu32 cnt; };
 
@@ -8,7 +8,7 @@ struct DmaRegs { vu32 src; vu32 dst; vu32 cnt; };
  * cache at 0x020213E0 + index*64 (two stores 0x80 apart). */
 void sub_08097EF4(s32 async, s32 src, s32 paletteIndex, s32 size) {
     if (async != 0) {
-        sub_08000E98(1, src, (paletteIndex << 5) + (s32)0x05000300, size << 5, 0x10);
+        postDisplaySprite(1, src, (paletteIndex << 5) + (s32)0x05000300, size << 5, 0x10);
     } else {
         struct DmaRegs *dma = (struct DmaRegs *)0x040000D4;
         dma->src = (u32)src;

@@ -6,7 +6,7 @@ extern u8 D_080CAABA[];
 extern u16 D_080CAABE[];
 extern void *D_08671BD8;
 struct InputState { u8 _0[0x146C]; u16 buttons146C; u8 _146E[2]; u16 buttons1470; };
-extern struct InputState D_02021E90;
+extern struct InputState gCameraState;
 
 /* Handles directional input for a scripted menu: moves the selection by rows or
  * columns, plays a sound and updates a value table when it changes, then dispatches
@@ -32,7 +32,7 @@ void sub_0800A668(u8 *script) {
     u32 mask10;
     u32 mask01;
 
-    buttons = D_02021E90.buttons1470;
+    buttons = gCameraState.buttons1470;
     if ((buttons & 0xC0) != 0xC0) {
         if (buttons & 0x40) {
             if (selection > 1) *(u8 *)(menu + 0x636) = selection - 2;
@@ -44,7 +44,7 @@ void sub_0800A668(u8 *script) {
             }
         }
     }
-    buttons = D_02021E90.buttons1470;
+    buttons = gCameraState.buttons1470;
     if ((buttons & 0x30) != 0x30) {
         if (buttons & 0x20) {
             selection2 = *(u8 *)(menu + 0x636);
@@ -70,7 +70,7 @@ void sub_0800A668(u8 *script) {
         soundTable = D_080CAABE;
         sub_0800B824(soundTable[*(u8 *)selectionPtr], 0x9C << 2, 0xC0 << 3);
     }
-    pressButtons = D_02021E90.buttons146C;
+    pressButtons = gCameraState.buttons146C;
     selectionFlag = pressButtons & 2;
     if (selectionFlag != 0) {
         sub_08005E80(0x159);

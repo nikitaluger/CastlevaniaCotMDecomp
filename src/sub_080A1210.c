@@ -1,5 +1,5 @@
 s32 sub_080A1904(void *, void *, void *);
-void sub_080114DC(void *, void *, s32, s32);
+void setObjectAnimation(void *, void *, s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
 /* Hit-reaction step: once the work animation's status byte reports the end of
@@ -18,7 +18,7 @@ void sub_080A1210(void *entity) {
         } else {
             *(s32 *)((u8 *)work + 8) = x + 0xFFDA0000;
         }
-        sub_080114DC(sprite, anim, 0, 0);
+        setObjectAnimation(sprite, anim, 0, 0);
         *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = 0;
         {
             s32 *scriptCb = (s32 *)0x08671BD0;

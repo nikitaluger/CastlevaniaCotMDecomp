@@ -14,10 +14,10 @@ struct S02025FF0 {
     u8 _5[0x18BE - 0x1518];
     u16 f18BE;
 };
-extern struct S02025FF0 D_02025FF0;
+extern struct S02025FF0 gMainWorkspace;
 
 struct S02025368 { u32 data[1]; };
-extern struct S02025368 D_02025368;
+extern struct S02025368 gGameStatus;
 
 struct SObj {
     u8 _0[0xCC];
@@ -32,8 +32,8 @@ extern s32 sub_080C364C(s32, s32);
 /* Reset the shared result flags, recompute the stats block, then derive a
  * result code from the current mode and store a masked copy on the object. */
 void sub_0806C5EC(s32 unused0, s32 unused1, struct SObj *obj) {
-    u32 *state = D_02025368.data;
-    struct S02025FF0 *flags = &D_02025FF0;
+    u32 *state = gGameStatus.data;
+    struct S02025FF0 *flags = &gMainWorkspace;
     u8 *modeFlag, *resultFlag;
     u32 *result;
 
@@ -60,5 +60,5 @@ void sub_0806C5EC(s32 unused0, s32 unused1, struct SObj *obj) {
             break;
         }
     }
-    obj->f12C[1] = 5 & D_02025FF0.f1510;
+    obj->f12C[1] = 5 & gMainWorkspace.f1510;
 }

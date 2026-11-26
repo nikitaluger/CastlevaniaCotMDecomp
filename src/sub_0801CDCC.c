@@ -6,8 +6,8 @@ extern s32 sub_080C31E0(s32, s32);
 extern void sub_080113A8(void *, void *);
 extern void sub_0801165C(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866D6FC[];
 extern u32 D_08671BDC;
 
@@ -19,9 +19,9 @@ void sub_0801CDCC(u8 *entity) {
     u8 *motion;        /* physics object at entity+0x3C (world coords, flags) */
     u8 *motionState;   /* animation state at motion+0x34 */
     u8 *animEntry;     /* per-frame data at entity + index*2 */
-    u8 *coordTable;    /* D_02021E90 */
+    u8 *coordTable;    /* gCameraState */
     u8 *xCoordTable;   /* coordTable + 0x1278 */
-    u8 *camState;      /* D_02025FF0 */
+    u8 *camState;      /* gMainWorkspace */
     u32 layer;         /* scroll/camera layer index */
     u32 camX;
     u32 camY;
@@ -72,8 +72,8 @@ void sub_0801CDCC(u8 *entity) {
     sub_0801165C(motion, 0);
 
 common:
-    coordTable = D_02021E90;
-    camState = D_02025FF0;
+    coordTable = gCameraState;
+    camState = gMainWorkspace;
     camState += 0x18A8;
     layer = ((u32)*camState + 1) * 0x40;
     xCoordTable = coordTable + 0x1278;

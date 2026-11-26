@@ -1,8 +1,8 @@
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern s32 sub_08013C2C(void);
-extern void sub_08014288(void *, void *, void *);
-extern void sub_080BE528(void *, void *, s32, s32);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern s32 findKindIndex(void);
+extern void installUpdateHandler(void *, void *, void *);
+extern void initSpriteGfx(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08097D90(void);
@@ -12,8 +12,8 @@ struct S_02025FF0
   u8 _0[0x18C2];
   u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u32 D_08671BB0;
+extern struct S_02025FF0 gMainWorkspace;
+extern u32 gMainObjTimerCallback;
 
 struct Entity
 {
@@ -56,13 +56,13 @@ void sub_080BBE14(struct Entity *arg)
   s16 i;
   u16 *arr;
 
-  gfx = sub_0800355C();
+  gfx = allocSpriteObject();
   if (gfx == NULL)
   {
     goto Lend;
   }
   arg->gfx = (u32) gfx;
-  sub_0800168C(arg, 0, 0x48, 0);
+  allocWorkSlot(arg, 0, 0x48, 0);
   if (arg->child == 0)
   {
     goto Lend;
@@ -71,9 +71,9 @@ void sub_080BBE14(struct Entity *arg)
   gfx->f2A &= 0xBF;
   child = (struct Child *) arg->child;
   childSub = (u8 *)child + 0x34;
-  sub_08014288(arg, child, &sub_08097D90);
+  installUpdateHandler(arg, child, &sub_08097D90);
   child->param = 0x68;
-  value = sub_08013C2C();
+  value = findKindIndex();
   child->result = value;
   if ((value << 16) >= 0)
   {
@@ -83,14 +83,14 @@ Lend:
   sub_080C31E0(arg, arg->handlerArg);
   return;
 Lcont:
-  gfx->flags |= D_02025FF0.f18C2;
-  sub_080BE528(gfx, childSub, 0xAD, 2);
+  gfx->flags |= gMainWorkspace.f18C2;
+  initSpriteGfx(gfx, childSub, 0xAD, 2);
   arg->flags |= 0x1000;
   i = arg->animIdx;
   arr = (u16 *) arg;
   ((u8 *)(&arr[i]))[0x19] = 0;
   {
-    u32 *handlerSlot = &D_08671BB0;
+    u32 *handlerSlot = &gMainObjTimerCallback;
     statePtr = (u8 *)arg + 0x18;
     sub_080C31E4(statePtr, (u8 *)arg + 0x22, *handlerSlot);
   }

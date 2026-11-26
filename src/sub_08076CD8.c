@@ -13,7 +13,7 @@ struct GameState_76CD8 {
     u8 _pad2[0x173A - 0x14EE];
     u8 byte173A;
 };
-extern struct GameState_76CD8 D_02025FF0;
+extern struct GameState_76CD8 gMainWorkspace;
 
 /* Moving spawner: gate on global flags, slide its position with collision,
  * keep its sprite aligned, emit a child object every 5 ticks, then leave via
@@ -45,7 +45,7 @@ void sub_08076CD8(void *self) {
         }
         *(u32 *)((u8 *)pos + 0x54) = 5;
     }
-    gs = &D_02025FF0;
+    gs = &gMainWorkspace;
     if (gs->byte173A == 0x1C || (gs->byte14ED == 0 && gs->field10 != 0))
         goto block_9;
     goto block_5c;

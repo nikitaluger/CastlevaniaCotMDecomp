@@ -1,5 +1,5 @@
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Copy the entity's world position (from its work struct) into the sprite's
  * screen coordinates, offset by the camera's coordinate table entry. */
@@ -12,8 +12,8 @@ void sub_08013C8C(void *entity, void *sprite)
     u8 *yBase;
     u32 coordOffset;
 
-    coordTable = D_02021E90;
-    cameraIndex = D_02025FF0;
+    coordTable = gCameraState;
+    cameraIndex = gMainWorkspace;
     cameraIndex += 0x18A8;
 
     coordOffset = ((u32)*cameraIndex + 1) * 0x40;

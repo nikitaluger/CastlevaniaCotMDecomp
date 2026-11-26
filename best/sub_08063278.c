@@ -19,13 +19,13 @@ struct D02025FF0
   u8 _28[2];
   u16 f2A;
 };
-extern struct D02025FF0 D_02025FF0;
+extern struct D02025FF0 gMainWorkspace;
 struct D02021E90
 {
   u8 _0[0x146E];
   u16 f146E;
 };
-extern struct D02021E90 D_02021E90;
+extern struct D02021E90 gCameraState;
 void sub_08063278(u8 *arg0)
 {
   u32 *new_var;
@@ -39,19 +39,19 @@ void sub_08063278(u8 *arg0)
   {
     return;
   }
-  sub_0806C5EC(arg0, r7, r5, r5);
+  do { sub_0806C5EC(arg0, r7, r5, r5); } while (0);
   if (sub_0806B3E8(arg0, r7, r5, r5) == 0)
   {
     if (sub_0806B820(arg0, r7, r5, r5) == 0)
     {
       u16 val;
-      if (D_02025FF0.f24 != 0)
+      if (gMainWorkspace.f24 != 0)
       {
-        val = D_02025FF0.f2A;
+        val = gMainWorkspace.f2A;
       }
       else
       {
-        val = D_02021E90.f146E;
+        val = gCameraState.f146E;
       }
       if ((val & 0x40) == 0)
       {
@@ -59,7 +59,7 @@ void sub_08063278(u8 *arg0)
         sub_08003740(arg0 + 0x28, r7);
         *((u32 *) (arg0 + 0x48)) = 0;
         *((u8 *) ((arg0 + (((s16) (*((u16 *) (arg0 + 0x22)))) * 2)) + 0x19)) = 0;
-        sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 4, D_08671BD0);
+        { const u32 *D_08671BD0_ptr = &D_08671BD0; sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 4, *D_08671BD0_ptr); }
       }
     }
   }

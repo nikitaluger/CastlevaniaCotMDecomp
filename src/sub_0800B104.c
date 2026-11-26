@@ -9,16 +9,16 @@ struct S_02021E90
   u8 _0[0x146C];
   u16 f146C;
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 extern void *D_08671BC0;
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 /* Entity reaction update: when a global state flag is set, play an effect,
  * spawn the matching graphics, clear the current pose byte and run a script. */
 void sub_0800B104(u8 *entity)
 {
   u8 *dataPtr;
   dataPtr = *((u8 **) (entity + 0x3C));
-  if (D_02021E90.f146C & 2)
+  if (gCameraState.f146C & 2)
   {
     sub_08005E80(0x159);
     sub_0800B824(0x81D7, 0x270, 0x600);
@@ -27,7 +27,7 @@ void sub_0800B104(u8 *entity)
       void **fnaddr = &D_08671BC0;
       sub_080C31E4(entity + 0x18, entity + 0x22, *fnaddr);
     }
-  } else if (D_02021E90.f146C & 1) {
+  } else if (gCameraState.f146C & 1) {
     u8 v50;
     u8 *r4;
     u16 r7 = 0;
@@ -40,7 +40,7 @@ void sub_0800B104(u8 *entity)
     sub_0800B824(0x81D9, 0x270, 0x600);
     *((u8 *) ((entity + ((*((s16 *) (entity + 0x22))) * 2)) + 0x19)) = r7;
     {
-      void **fnaddr = &D_08671BB0;
+      void **fnaddr = &gMainObjTimerCallback;
       sub_080C31E4(entity + 0x18, entity + 0x22, *fnaddr);
     }
   }

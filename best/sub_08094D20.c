@@ -6,15 +6,15 @@ struct Sub { s32 f00; struct U *f04; s32 f08; s32 f0C; s32 f10; s32 f14; s32 f18
 struct C6 { u8 _0[8]; s32 f08; s32 f0C; s32 f10; u8 _14[4]; u32 f18; u8 _1C[8]; u32 f24; u8 _28[0x20]; struct Sub f48; };
 struct A { u8 _0[2]; u16 f2; u8 _4[0x10]; u32 f14; u8 _18[0x0A]; s16 f22; u32 f24; u8 _28[0x10]; u32 f38; u32 f3C; u8 _40[0x6C]; void *fAC; };
 struct S_02025FF0 { u8 _0[0x18A8]; u8 f18A8; u8 _18A9[0x19]; u16 f18C2; };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gCameraState[];
 extern u8 D_081008BC[];
 extern s16 D_081008C8[];
-extern s32 D_08671BB0[];
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void*, s32, s32, s32);
-extern void sub_0801131C(void*, void*, void*);
-extern void sub_08011368(void*, void*, s16, s32);
+extern s32 gMainObjTimerCallback[];
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void*, s32, s32, s32);
+extern void initSpriteGraphics(void*, void*, void*);
+extern void setAnimationFrame(void*, void*, s16, s32);
 extern void *sub_08015914(void);
 extern s32 sub_080954A4(void);
 extern struct S *sub_080954BC(void *);
@@ -38,11 +38,11 @@ void sub_08094D20(struct A *arg0) {
     s32 zero;
 
     r8 = arg0->fAC;
-    obj = sub_0800355C();
+    obj = allocSpriteObject();
     if (obj == 0)
         goto fail;
     arg0->f38 = (u32)obj;
-    sub_0800168C(arg0, 0, 0x6C, 0);
+    allocWorkSlot(arg0, 0, 0x6C, 0);
     ent = (struct C6 *)arg0->f3C;
     if (ent == 0)
         goto fail;
@@ -52,7 +52,7 @@ void sub_08094D20(struct A *arg0) {
     c = (s16 *)r8->f4;
     ent->f08 = (s32)c[0] << 16;
     ent->f0C = (s32)c[1] << 16;
-    p25 = &D_02025FF0;
+    p25 = &gMainWorkspace;
     *(u16 *)obj |= p25->f18C2;
     zero = 0;
     ((struct T *)obj)->f1C = 0x8000000C;
@@ -61,7 +61,7 @@ void sub_08094D20(struct A *arg0) {
     sub->f00 = idx;
     if ((s32)idx < 0)
         goto fail;
-    sub_0801131C(obj, r9, D_081008BC + ((idx * 3) << 2));
+    initSpriteGraphics(obj, r9, D_081008BC + ((idx * 3) << 2));
     sub->f20 = sub_080954BC(arg0);
     t = sub_08015914();
     sub->f04 = t;
@@ -89,16 +89,16 @@ body:
     sub->f1C = zero;
     *(void **)((u8 *)arg0 + 0x9C) = (void *)sub_08095438;
     tbl = D_081008C8;
-    sub_08011368(obj, r9, tbl[sub->f00], 1);
+    setAnimationFrame(obj, r9, tbl[sub->f00], 1);
     {
-        u8 *base = (u8 *)&D_02021E90;
-        { u32 k = 0x1278; *(u32 *)((u8 *)obj + 0x14) = ent->f08 - ((*(u32 *)(base + k + ((D_02025FF0.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
-        { u32 k = 0x127C; *(u32 *)((u8 *)obj + 0x18) = ent->f0C - ((*(u32 *)(base + k + ((D_02025FF0.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
+        u8 *base = (u8 *)&gCameraState;
+        { u32 k = 0x1278; *(u32 *)((u8 *)obj + 0x14) = ent->f08 - ((*(u32 *)(base + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
+        { u32 k = 0x127C; *(u32 *)((u8 *)obj + 0x18) = ent->f0C - ((*(u32 *)(base + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     }
     arg0->f2 = (u16)(arg0->f2 | 0x1000);
     *(u8 *)((u8 *)arg0 + 0x19 + 2 * arg0->f22) = 0;
     {
-        s32 *fp = D_08671BB0;
+        s32 *fp = gMainObjTimerCallback;
         u8 *q = (u8 *)arg0 + 0x18;
         sub_080C31E4(q, &arg0->f22, fp[0]);
         *(u8 *)((u8 *)arg0 + 0x19 + 2 * arg0->f22) = (u8)(*(u8 *)((u8 *)arg0 + 0x19 + 2 * arg0->f22) + 1);

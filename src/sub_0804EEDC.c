@@ -51,26 +51,26 @@ struct Entity
   struct SpawnParams *spawnParams;
 };
 struct S_02025FF0 { u8 _0[0x18A8]; u8 f18A8; u8 _18A9[0x19]; u16 f18C2; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct S_02021E90 { u8 _0[0x1278]; u32 f1278; u32 f127C; };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 struct AttrEntry { u16 attr0; s16 motion; u16 attr1; u8 _6[0x14-6]; };
-extern struct AttrEntry D_080CB2B8[];
+extern struct AttrEntry gSpriteKindTable[];
 extern u16 D_080CFA4C[];
 struct ExtraState { u32 f00, f04, f08; };
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(u8 *, s32, s32, s32);
-extern s32 sub_08013C2C(s32);
-extern void sub_0801131C(u8 *, u8 *, s32);
-extern void *sub_08016190(void);
-extern void sub_08011368(u8 *, u8 *, s32, s32);
-extern void sub_08016664(u8 *, s32);
-extern s32 sub_08014938(s32);
-extern void sub_0801468C(u8 *, u32);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(u8 *, s32, s32, s32);
+extern s32 findKindIndex(s32);
+extern void initSpriteGraphics(u8 *, u8 *, s32);
+extern void *allocEffectPart(void);
+extern void setAnimationFrame(u8 *, u8 *, s32, s32);
+extern void registerScriptObject(u8 *, s32);
+extern s32 signOf(s32);
+extern void setSpriteFlip(u8 *, u32);
 extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 *D_08671BB0;
-extern u8 D_080CD400[];
+extern u32 *gMainObjTimerCallback;
+extern u8 gSpriteAnimDataTable[];
 
 /* Builds an entity's graphics from its spawn parameters: allocates the sprite
  * and state, fills a sprite layer, positions the sprite and updates the entity. */
@@ -84,30 +84,30 @@ void sub_0804EEDC(struct Entity *arg0) {
     u32 zero;
     u8 *coordBase;
 
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     state = NULL;
     layer = NULL;
     if ((sprite == NULL) ||
-        (arg0->sprite = sprite, sub_0800168C((u8 *)arg0, 0, 0x58, 0), state = arg0->state, state == NULL) ||
+        (arg0->sprite = sprite, allocWorkSlot((u8 *)arg0, 0, 0x58, 0), state = arg0->state, state == NULL) ||
         (anim = (u8 *)state + 0x34, state->prevCallback = *(u32 *)((u8 *)arg0 + 0x24), *(u32 *)((u8 *)arg0 + 0x24) = 0x0804F645,
          zero = 0,
          state->spriteType = 0x5E,
-         state->velY = D_080CB2B8[state->spriteType].motion,
+         state->velY = gSpriteKindTable[state->spriteType].motion,
          state->x = spawn->coords[0] << 16, state->y = spawn->coords[1] << 16,
-         spriteIndex = sub_08013C2C(0x5E), state->attrIndex = spriteIndex, ((s32)(spriteIndex << 16) < 0)) ||
-        (sub_0801131C(sprite, anim, (s32)D_080CD400 + state->spriteType * 0xC), layer = sub_08016190(), state->layer = (struct SpriteLayer *)layer, layer == NULL)) {
+         spriteIndex = findKindIndex(0x5E), state->attrIndex = spriteIndex, ((s32)(spriteIndex << 16) < 0)) ||
+        (initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + state->spriteType * 0xC), layer = allocEffectPart(), state->layer = (struct SpriteLayer *)layer, layer == NULL)) {
         sub_080C31E0((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;
     }
     state->layer->byte1 = zero;
     state->layer->byte2 = 8;
     state->layer->byte3 = 1;
-    state->layer->attr0 = D_080CB2B8[state->spriteType].attr0;
+    state->layer->attr0 = gSpriteKindTable[state->spriteType].attr0;
     state->layer->attr1 = D_080CFA4C[0];
     state->layer->attr2 = D_080CFA4C[1];
     state->layer->attr3 = D_080CFA4C[2];
     state->layer->attr4 = D_080CFA4C[3];
-    state->layer->attr5 = D_080CB2B8[state->spriteType].attr1;
+    state->layer->attr5 = gSpriteKindTable[state->spriteType].attr1;
     state->layer->sprite = (u32)sprite;
     state->layer->flags14 = zero;
     {
@@ -115,21 +115,21 @@ void sub_0804EEDC(struct Entity *arg0) {
                 (((*(s16 *)((u8 *)state + 0x22) << 6) + 0x200) |
                  ((*(u16 *)((u8 *)state + 0x22) + 8) << 12));
         *(u16 *)sprite = attr;
-        *(u16 *)sprite = attr | D_02025FF0.f18C2;
+        *(u16 *)sprite = attr | gMainWorkspace.f18C2;
     }
     *(u32 *)(sprite + 0x1C) = 0x8000000A;
-    coordBase = (u8 *)&D_02021E90;
-    { u32 k = 0x1278; *(u32 *)(sprite + 0x14) = state->x - ((*(u32 *)(coordBase + k + ((D_02025FF0.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
-    { u32 k = 0x127C; *(u32 *)(sprite + 0x18) = state->y - ((*(u32 *)(coordBase + k + ((D_02025FF0.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
+    coordBase = (u8 *)&gCameraState;
+    { u32 k = 0x1278; *(u32 *)(sprite + 0x14) = state->x - ((*(u32 *)(coordBase + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
+    { u32 k = 0x127C; *(u32 *)(sprite + 0x18) = state->y - ((*(u32 *)(coordBase + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     {
         struct ExtraState *extra = (struct ExtraState *)((u8 *)state + 0x48);
         extra->f00 = state->y;
         extra->f04 = zero;
-        extra->f08 = sub_08014938(state->x) > 0 ? 0 : 0x8000;
-        sub_08011368(sprite, anim, 0, 1);
-        sub_0801468C(sprite, extra->f08);
+        extra->f08 = signOf(state->x) > 0 ? 0 : 0x8000;
+        setAnimationFrame(sprite, anim, 0, 1);
+        setSpriteFlip(sprite, extra->f08);
     }
-    sub_08016664((u8 *)arg0, 0);
+    registerScriptObject((u8 *)arg0, 0);
     arg0->flags |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * arg0->childIndex + 0x19) = zero;
     {

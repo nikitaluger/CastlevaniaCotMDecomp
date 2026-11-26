@@ -1,7 +1,7 @@
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 s32 sub_0800583C(void);
 void sub_080B089C(s32, s32);
-void sub_080C2F20(s32, s16);
+void divideInt(s32, s16);
 void sub_080C31E4(void *, void *, void *);
 
 /* Updates an effect entity: clears a sprite flag, runs two countdowns, spawns a
@@ -35,14 +35,14 @@ void sub_080ABA48(void *arg0)
     *((u16 *) (sprite + 6)) = (*((u16 *) (sprite + 6))) - 1;
     stepAmount = 6;
     *((u16 *) (sprite + 4)) = (*((u16 *) (sprite + 4))) + stepAmount;
-    sub_080C2F20(0x18000000, *((s16 *) (sprite + 4)));
+    divideInt(0x18000000, *((s16 *) (sprite + 4)));
     step = 0;
     sub_080B089C((*((s32 *) (state + 8))) + sub_0800583C(), 0x00880000);
     if ((*((u8 *) repeatCounter)) == step)
     {
       *((u8 *) ((entity + ((*((s16 *) (entity + 0x22))) * 2)) + 0x19)) = step;
       {
-        void **eventPtr = &D_08671BB0;
+        void **eventPtr = &gMainObjTimerCallback;
         sub_080C31E4(entity + 0x18, entity + 0x22, *eventPtr);
       }
     }

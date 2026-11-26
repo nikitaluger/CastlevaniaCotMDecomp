@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 
 /* Clear the sub-object's second tile index, play animation frame 0x0C, and on
@@ -8,7 +8,7 @@ void sub_08053600(void *entity) {
     u8 *work = *(u8 **)((u8 *)entity + 0x3C);
     u8 *anim = work + 0x34;
     *(u8 *)(*(u8 **)(work + 0x28) + 1) = 0;
-    sub_08011368(sprite, anim, 0x0C, 0);
+    setAnimationFrame(sprite, anim, 0x0C, 0);
     if (2 & *anim) {
         sub_080C31E0(entity, *(void **)((u8 *)entity + 0x24));
     }

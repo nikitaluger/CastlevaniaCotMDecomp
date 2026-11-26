@@ -8,7 +8,7 @@ struct S_02025FF0 {
     u8 _3[0x18C2 - 0x173B];
     u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s32 sub_0806D518(void *, void *, void *);
 extern s32 sub_08003740(void *, void *);
 extern void sub_0806D2F8(void *, void *);
@@ -36,8 +36,8 @@ void sub_08077E18(u8 *entity) {
             return;
         }
     }
-    gs = &D_02025FF0;
-    { u16 initial = D_02025FF0.f18C2; *(u16 *)fxState = initial; }
+    gs = &gMainWorkspace;
+    { u16 initial = gMainWorkspace.f18C2; *(u16 *)fxState = initial; }
     sub_08003740(owner + 0x20, fxState);
     sub_0806D588(fxState, ownerPos);
     if (gs->f173A == 0x1C || (gs->f14ED == 0 && gs->f10 != 0)) {

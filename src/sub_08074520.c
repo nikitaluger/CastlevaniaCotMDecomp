@@ -15,7 +15,7 @@ struct MainObj {
     u32 kindB;          /* 0x8C */
 };
 
-/* Graphics/animation descriptor allocated by sub_08016190. */
+/* Graphics/animation descriptor allocated by allocEffectPart. */
 struct GfxDesc {
     u8 _00;
     u8 type;            /* 0x01 */
@@ -67,10 +67,10 @@ struct Target {
     u32 scriptAddr;     /* 0x24 */
 };
 
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 
 void sub_08003A6C(u32, u32, u32);
-void *sub_08016190(void);
+void *allocEffectPart(void);
 void sub_0806D2D0(void *);
 u16 sub_0806D62C(u16, u32);
 void sub_080C31E4(u32, u32, u32);
@@ -87,12 +87,12 @@ void sub_08074520(struct MainObj *arg0) {
     struct GfxDesc *gfx;
     u32 zero;
     u32 kindBValue;
-    u8 *data = D_02025368;
+    u8 *data = gGameStatus;
     u8 *scriptPtr;
     u8 *source;
     u32 *cmdTable;
 
-    gfx = (struct GfxDesc *)sub_08016190();
+    gfx = (struct GfxDesc *)allocEffectPart();
     state->gfx = gfx;
     if (gfx == 0) {
         sub_0806D2D0(arg0);

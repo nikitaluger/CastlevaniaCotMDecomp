@@ -1,8 +1,8 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 s32 sub_08023F34(s32, s32, s32);
 void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Enter the next state of this object: give it its state-handler table, bump
  * the state index and that index's counter, then dispatch to the handler. */
@@ -10,7 +10,7 @@ void sub_0802349C(void *arg0) {
     u8 *obj = arg0;
     u8 arrOffset;
     s32 entryOff;
-    sub_08011368(*(void **)(obj + 0x38), (u8 *)*(void **)(obj + 0x3C) + 0x34, 0, 0);
+    setAnimationFrame(*(void **)(obj + 0x38), (u8 *)*(void **)(obj + 0x3C) + 0x34, 0, 0);
     *(u32 *)(obj + 0x14) = 0x0866D8B0;
     *(u16 *)(obj + 0x22) = *(u16 *)(obj + 0x22) + 1;
     ((u8 *)(obj + (*(s16 *)(obj + 0x22)) * 2))[0x19]++;
@@ -54,7 +54,7 @@ void sub_08023A7C(void *arg0) {
     }
     *(u16 *)(state + 2) = 9;
     *((u8 *)(obj + (*(s16 *)(obj + 0x22)) * 2) + 0x19) = 0;
-    sub_080C31E4(obj + 0x18, obj + 0x22, D_08671BB0);
+    sub_080C31E4(obj + 0x18, obj + 0x22, gMainObjTimerCallback);
 }
 
 /* Leave this state: clear the busy flags on both animations and, when the

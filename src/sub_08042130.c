@@ -1,4 +1,4 @@
-extern void sub_08014588(void *, void *, void *);
+extern void copyPoseAttrs(void *, void *, void *);
 extern u8 D_080CF4D0[][8];
 
 /* Pick one of four parameter sets from a table according to a state value,
@@ -24,5 +24,5 @@ void sub_08042130(void *source, void *state) {
                 break;
         }
     }
-    sub_08014588(*(void **)((u8 *)source + 4), D_080CF4D0[paramIndex], D_080CF4D0);
+    copyPoseAttrs(*(void **)((u8 *)source + 4), D_080CF4D0[paramIndex], D_080CF4D0);
 }

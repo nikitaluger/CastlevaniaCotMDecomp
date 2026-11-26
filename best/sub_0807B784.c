@@ -7,7 +7,7 @@ extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s16 sub_080C364C(s32, s16);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 void sub_0807B784(void *arg0)
 {
   void *r9;
@@ -129,15 +129,15 @@ void sub_0807B784(void *arg0)
     dp2 = (s32 *) 0x08671BD0;
     sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 3, *dp2);
   }
-  b1 = D_02025FF0[0x173A];
+  b1 = gMainWorkspace[0x173A];
   if (b1 == 0x1C)
   {
     goto do_call2;
   }
-  b2 = D_02025FF0[0x14ED];
+  b2 = gMainWorkspace[0x14ED];
   if (b2 == 0)
   {
-    if ((*((s32 *) (D_02025FF0 + 0x10))) != 0)
+    if ((*((s32 *) (gMainWorkspace + 0x10))) != 0)
     {
       goto do_call2;
     }

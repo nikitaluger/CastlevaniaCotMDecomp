@@ -5,7 +5,7 @@ struct S_02025FF0
   u8 _0[0x189C];
   u32 f189C;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s32 sub_0800583C(s32);
 extern s32 sub_08005820(s32);
 extern s32 sub_080C36E4(s32, s32);
@@ -48,9 +48,9 @@ void sub_0802F2D8(u8 *effect)
     spawnY = ((*((u32 *) (fxState + 0x0C))) + ((*((s16 *) ((*((u8 **) (fxState + 0x28))) + 0x0C))) << 16)) + sub_0800583C(angle);
   }
   while (0);
-  angle = (sub_080C36E4(D_02025FF0.f189C, 7) - 3) << 13;
+  angle = (sub_080C36E4(gMainWorkspace.f189C, 7) - 3) << 13;
   scale = 0x8000 - sub_08005820(0x20000);
-  tick = D_02025FF0.f189C;
+  tick = gMainWorkspace.f189C;
   frame = (s16) (tick % 4);
   sub_0802F604(spawnX, spawnY, angle, scale, frame);
   if ((*((u8 *) ((effect + ((*((s16 *) (effect + 0x22))) * 2)) + 0x19))) > 5)

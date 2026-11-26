@@ -26,19 +26,19 @@ struct S_02025FF0
   u8 _2C[0x1514 - 0x2C];
   u32 f1514;                  /* 0x1514: reset request flag */
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct S_02021E90
 {
   u8 _0[0x146E];
   u16 f146E;                  /* 0x146E: raw key state */
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 struct S_02025368
 {
   u8 _0[0x3BC];
   u16 f3BC;                   /* 0x3BC: allowed-key mask */
 };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 
 inline static u32 zeroU32(void)
 {
@@ -68,19 +68,19 @@ void sub_08063BD4(u8 *entity)
   work = (*((u8 **) (entity + 0x6C))) + 4;   /* action state block */
   sprite = *((s32 *) (entity + 0x38));
   state = work;                              /* alias used for call args */
-  stats = (u8 *) (&D_02025368);
+  stats = (u8 *) (&gGameStatus);
   if (sub_0806C4B4(state, state) != 0)
   {
     return;
   }
   sub_0806C5EC(entity, sprite, state, state);
-  if (D_02025FF0.f24 != 0)
+  if (gMainWorkspace.f24 != 0)
   {
-    keys = D_02025FF0.f2A & (*((u16 *) (stats + 0x3BC)));
+    keys = gMainWorkspace.f2A & (*((u16 *) (stats + 0x3BC)));
   }
   else
   {
-    keys = D_02021E90.f146E & (*((u16 *) (stats + 0x3BC)));
+    keys = gCameraState.f146E & (*((u16 *) (stats + 0x3BC)));
   }
   if (keys == 0)
   {
@@ -103,7 +103,7 @@ void sub_08063BD4(u8 *entity)
   timerBase = work + 0x28;
   timerResult = sub_08003740(timerBase, sprite);
   timer = timerBase;
-  if (((timerResult == 0) && ((*((s32 *) (work + 0x40))) != 0)) || (D_02025FF0.f1514 != 0))
+  if (((timerResult == 0) && ((*((s32 *) (work + 0x40))) != 0)) || (gMainWorkspace.f1514 != 0))
   {
     flag = *((s32 *) (work + 0x70));
     if (flag != 0)

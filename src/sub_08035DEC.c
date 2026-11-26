@@ -1,4 +1,4 @@
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 extern u8 D_080CEE58[];
 
 /* Maps the owner's state at +0x28 to a parameter-table index, stamps that
@@ -24,6 +24,6 @@ void sub_08035DEC(u8 *owner, void **targets) {
     }
     *(u8 *)((u8 *)targets[0] + 1) = indexBytes[0];
     *(u8 *)((u8 *)targets[1] + 1) = indexBytes[1];
-    sub_08014588(targets[0], D_080CEE58 + paramIndex * 0x10);
-    sub_08014588(targets[1], D_080CEE58 + 8 + paramIndex * 0x10);
+    copyPoseAttrs(targets[0], D_080CEE58 + paramIndex * 0x10);
+    copyPoseAttrs(targets[1], D_080CEE58 + 8 + paramIndex * 0x10);
 }

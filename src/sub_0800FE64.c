@@ -1,5 +1,5 @@
-extern s32 sub_080C2F20(s32, s32);
-extern s32 sub_080C2F24(s32, s32);
+extern s32 divideInt(s32, s32);
+extern s32 moduloInt(s32, s32);
 
 /* Write the decimal digits of a value right-aligned into a u16 tile map of
  * digitCount tiles. Each digit is (tileBase + digit) & 0x3FF with the palette
@@ -21,8 +21,8 @@ void sub_0800FE64(s32 initialValue, s32 paletteValue, s32 digitCount, s32 tileOf
   while (digitsLeft != 0)
   {
     s32 digit;
-    digit = sub_080C2F24(value, 10);
-    value = sub_080C2F20(value, 10);
+    digit = moduloInt(value, 10);
+    value = divideInt(value, 10);
  do { if (((notFirst == 0) || (value != 0)) || (digit != 0)) { *dst = ((tileBase + digit) & 0x3FF) | (palette << 12); } else { *dst = (u16) digit; } dst--; digitsLeft--; notFirst = 1; } while (0);
   }
 }

@@ -1,4 +1,4 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
 extern s16 sub_0806D62C(u16, u16);
 extern void sub_08003A6C(void *a, s32 b, s32 c);
@@ -8,8 +8,8 @@ extern void sub_080C31E4(void *a, void *b, s32 c);
 extern void sub_0808449C(void);
 
 struct S_02025FF0 { u8 _0[0x1510]; u8 b1510; };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
 extern u8 D_080E5BFC[];
 extern u8 D_080E5BC8[];
 
@@ -40,7 +40,7 @@ void sub_08081718(u8 *actor) {
     u8 *groupBase = *(u8 **)(actor + 0x6C);
     struct Parent7 *group = (struct Parent7 *)(groupBase + 4);
     u8 *sprite = *(u8 **)(actor + 0x38);
-    u8 *params = D_02025368;
+    u8 *params = gGameStatus;
     struct Child81 *spawn;
     u32 *slotPtr;
     u32 *stepCallbacks;
@@ -48,7 +48,7 @@ void sub_08081718(u8 *actor) {
     u8 *table;
     u8 *animTable;
 
-    spawn = (struct Child81 *)sub_08016190();
+    spawn = (struct Child81 *)allocEffectPart();
     group->f2C = spawn;
     if (spawn == NULL) {
         sub_0806D2D0(actor);
@@ -63,7 +63,7 @@ void sub_08081718(u8 *actor) {
     idx = (*slotPtr & 3) * 0x18;
     table = D_080E5BFC + idx;
 
-    group->f2C->f1 = D_02025FF0.b1510 & 1;
+    group->f2C->f1 = gMainWorkspace.b1510 & 1;
     group->f2C->f2 = 2;
     group->f2C->f3 = 8;
     group->f2C->f4 = params[0xC1 << 2];

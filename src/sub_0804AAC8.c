@@ -1,9 +1,9 @@
 extern void sub_0801165C(void *, s32);
 extern void sub_080113A8(void *, void *);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Falling object update: integrate its motion with no gravity, refresh the
  * animation, and when it finishes (flag 2) switch to animation 7 and run the
@@ -24,13 +24,13 @@ void sub_0804AAC8(void *arg0)
     sub_080113A8(anim, animDesc);
 
     if (animDesc[0] & 2) {
-        sub_08011368(anim, animDesc, 7, 1);
+        setAnimationFrame(anim, animDesc, 7, 1);
 
         scriptIdx = *(s16 *)((u8 *)arg0 + 0x22);
         ((u8 *)arg0)[scriptIdx * 2 + 0x19] = 0;
 
         {
-            void **lit = &D_08671BB0;
+            void **lit = &gMainObjTimerCallback;
             scriptPos = (u8 *)arg0 + 0x18;
             sub_080C31E4(scriptPos, (u8 *)arg0 + 0x22, *lit);
         }

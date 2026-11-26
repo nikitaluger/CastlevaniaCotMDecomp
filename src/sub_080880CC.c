@@ -5,7 +5,7 @@ struct GameState {
     u32 mode;      /* +0x14: current game mode */
     u8 _1[0x1824];
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08003A6C(void *, s32, s32);
@@ -23,7 +23,7 @@ void sub_080880CC(void *entity) {
     u8 *pos = mover + 4;
     u8 *sprite = *(u8 **)(self + 0x38);
     s32 *scriptTable;
-    if (D_02025FF0.mode == 0x17) {
+    if (gMainWorkspace.mode == 0x17) {
         sub_08003A6C(mover + 0x20, 0, 0x08506414);
         *(s32 *)(pos + 8) = 0;
         *(s32 *)(pos + 0xC) = 0;

@@ -1,7 +1,7 @@
 extern s32 sub_0805FEC8(u16);
 extern void sub_0805FCFC(void);
 extern void sub_08061F38(void);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 typedef void (*Fn)(void *);
 
@@ -13,7 +13,7 @@ void sub_0805FC70(void *arg0) {
     u8 *self = (u8 *)arg0;
     s32 sceneResult = sub_0805FEC8(*(u16 *)((u8 *)arg0 + 0x44));
     u32 resultOff = 0x14A4;
-    u8 *resultByte = D_02025FF0 + resultOff;
+    u8 *resultByte = gMainWorkspace + resultOff;
     *resultByte = sceneResult;
     if ((u8)sceneResult == 0) {
         if (self[0x3C] != 0) {

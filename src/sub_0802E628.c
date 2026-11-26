@@ -1,5 +1,5 @@
 extern s32 sub_08011408(s32, s32, s32, s32, s32);
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 extern s32 sub_0802EDF4(s32, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
 
@@ -17,7 +17,7 @@ void sub_0802E628(void *entity)
   *(s32 *)((u8 *)work + 0x48) = 0;
   one = 1;
   sub_08011408((s32)sprite, (s32)anim, 0, 0, one);
-  if (sub_08014938(*(s32 *)((u8 *)work + 8)) > 0) {
+  if (signOf(*(s32 *)((u8 *)work + 8)) > 0) {
     u16 attr1 = *(vu16 *)((u8 *)sprite + 2);
     *(u16 *)((u8 *)sprite + 2) = 0x10 | attr1;
   } else {

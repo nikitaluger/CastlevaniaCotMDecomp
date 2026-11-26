@@ -1,12 +1,12 @@
 extern void *sub_0806D2A0(s32, s32, s32, s32);
 extern void sub_08086E28(void);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 struct GameState
 {
   u8 _0[0x14ED];
   u8 command;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 struct SpawnedEntity
 {
   u8 _0[0x7C];
@@ -17,8 +17,8 @@ struct SpawnedEntity
  * possibly modified value. */
 u32 sub_08084B7C(s32 owner, u8 *state, u32 value, u8 key)
 {
-  u8 *stateBase = D_02025368;
-  u8 command = D_02025FF0.command;
+  u8 *stateBase = gGameStatus;
+  u8 command = gMainWorkspace.command;
   void *spawned;
   u32 *statusPtr;
   u32 *zeroPtr;

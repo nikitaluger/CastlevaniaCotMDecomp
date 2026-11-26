@@ -9,7 +9,7 @@ struct S_02025FF0
   u8 _0x173B[0x18C2 - 0x173B];
   u16 field18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 s32 sub_0806D518(void *, void *, void *);
 s32 sub_08003740(void *, void *);
 void sub_0806D2F8(void *, void *);
@@ -30,17 +30,17 @@ void sub_080773BC(void *actor)
   if (sub_0806D518(actor, child, position) != 0) {
     return;
   }
-  *((u16 *) child) = D_02025FF0.field18C2;
+  *((u16 *) child) = gMainWorkspace.field18C2;
   if (sub_08003740(((s8 *) work) + 0x20, child) == 0) {
     sub_080C31E0(actor, *((s32 *) (((s8 *) actor) + 0x24)));
     return;
   }
   sub_0806D588(child, position);
-  if (D_02025FF0.field173A == 0x1C) {
+  if (gMainWorkspace.field173A == 0x1C) {
     sub_080C31E0(actor, *((s32 *) (((s8 *) actor) + 0x24)));
     return;
   }
-  if (D_02025FF0.field14ED == 0 && D_02025FF0.field10 != 0) {
+  if (gMainWorkspace.field14ED == 0 && gMainWorkspace.field10 != 0) {
     sub_080C31E0(actor, *((s32 *) (((s8 *) actor) + 0x24)));
     return;
   }

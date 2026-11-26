@@ -1,14 +1,14 @@
 struct S_02025FF0 { u8 _0x000[0x18C2]; u16 w; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct T { u16 w; u16 pad[1]; u16 a; u16 b; u16 c; };
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
 extern s32 sub_08007EA8(s32);
 extern void _call_via_r1(void *, s32);
 extern void _call_via_r2(void *, void *, u32);
 
 /* Loads graphics slot 3 and allocates an animation object for the entity,
- * initializes its fields from the global state word at D_02025FF0+0x18C2, then
+ * initializes its fields from the global state word at gMainWorkspace+0x18C2, then
  * runs the animation-slot callback at 0x08671BB0 and dispatches the entity's
  * current action through the callback at entity+0x24. On any failure of the
  * load, the 0xBC flag check or the allocation, only that callback is invoked. */
@@ -17,7 +17,7 @@ void sub_0808ABDC(void *arg0) {
     void *obj;
     s32 flags;
 
-    if (sub_0800168C(arg0, 0, 0x3C, 3) == 0) {
+    if (allocWorkSlot(arg0, 0, 0x3C, 3) == 0) {
         _call_via_r1(arg0, *(s32 *)(entity + 0x24));
         return;
     }
@@ -26,7 +26,7 @@ void sub_0808ABDC(void *arg0) {
         _call_via_r1(arg0, *(s32 *)(entity + 0x24));
         return;
     }
-    obj = sub_0800355C();
+    obj = allocSpriteObject();
     if (obj == 0) {
         _call_via_r1(arg0, *(s32 *)(entity + 0x24));
         return;
@@ -36,7 +36,7 @@ void sub_0808ABDC(void *arg0) {
     *(u32 *)((u8 *)obj + 0x1C) = 0x80000003;
     {
         u32 zero = 0;
-        u16 globalW = D_02025FF0.w;
+        u16 globalW = gMainWorkspace.w;
         struct T *objData = (struct T *)obj;
         objData->w = globalW;
         objData->a = 0x1000;

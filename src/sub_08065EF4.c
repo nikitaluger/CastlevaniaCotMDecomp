@@ -1,7 +1,7 @@
 struct MoveParam { s32 increment; s32 maximum; u8 pad[0x50]; };
 struct MoveParamTable { struct MoveParam entries[1]; };
 extern struct MoveParamTable D_080E03A0;
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern s32 sub_0806C4B4(void *, void *);
 extern void sub_0806C5EC(void *, void *, void *, void *);
 extern void sub_0806AB04(void *, void *, void *, void *);
@@ -40,7 +40,7 @@ void sub_08065EF4(u8 *actor) {
                 *(s32 *)(obj + 0x0C) = timerVal;
                 sub_08003A6C(state + 0x2C, 0, 0x0846FEBC);
                 (actor + *(s16 *)(actor + 0x22) * 2)[0x19] = (u8)timerVal;
-                { void **callback = &D_08671BB0; sub_080C31E4(actor + 0x18, actor + 0x22, *callback); }
+                { void **callback = &gMainObjTimerCallback; sub_080C31E4(actor + 0x18, actor + 0x22, *callback); }
             }
         }
         sub_0806A884(position, obj);

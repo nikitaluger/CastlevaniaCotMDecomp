@@ -49,18 +49,18 @@ struct S_02025FF0
   u8 _1[0x19];
   u16 f18C2;
 };
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_0801131C(void *, void *, s32);
-extern void sub_08011368(void *, void *, s32, s32);
-extern s32 sub_08013C2C(s32);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void initSpriteGraphics(void *, void *, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern s32 findKindIndex(s32);
 extern s32 sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_02021E90[];
-extern struct S_02025FF0 D_02025FF0;
-extern void *D_08671BB0;
+extern u8 gCameraState[];
+extern struct S_02025FF0 gMainWorkspace;
+extern void *gMainObjTimerCallback;
 extern void *D_08671BFC;
-extern u8 D_080CD400[];
+extern u8 gSpriteAnimDataTable[];
 
 /* Builds an entity's graphics: allocates its sprite and state, sets the sprite
  * attributes and screen position, then updates the entity's child bookkeeping. */
@@ -72,13 +72,13 @@ void sub_0801D6F4(struct Entity *arg0)
   s32 spriteIndex;
   u32 animRes;
 
-  sprite = sub_0800355C();
-  if (((sprite == NULL) || ((arg0->sprite = (u32) sprite, sub_0800168C(arg0, 0, 0x58, 0), (state = (struct GfxState *) arg0->gfxState) == NULL))) || ((anim = ((u8 *) state) + 0x34, state->spriteType = 0x87, state->x = (u32) (((s32) arg0->param1) << 16), state->y = (u32) (((s32) arg0->param2) << 16), spriteIndex = sub_08013C2C(0x87), state->attrIndex = spriteIndex, (spriteIndex << 16) < 0)))
+  sprite = allocSpriteObject();
+  if (((sprite == NULL) || ((arg0->sprite = (u32) sprite, allocWorkSlot(arg0, 0, 0x58, 0), (state = (struct GfxState *) arg0->gfxState) == NULL))) || ((anim = ((u8 *) state) + 0x34, state->spriteType = 0x87, state->x = (u32) (((s32) arg0->param1) << 16), state->y = (u32) (((s32) arg0->param2) << 16), spriteIndex = findKindIndex(0x87), state->attrIndex = spriteIndex, (spriteIndex << 16) < 0)))
   {
     sub_080C31E0(arg0, (void *) arg0->callback);
     return;
   }
-  sub_0801131C(sprite, anim, (s32)D_080CD400 + state->spriteType * 12);
+  initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + state->spriteType * 12);
   {
     u32 posOff = 0x22;
     u32 baseAttr = *(u16 *)sprite & 0xC00;
@@ -86,7 +86,7 @@ void sub_0801D6F4(struct Entity *arg0)
     u32 tileY = (*(u16 *)((u8 *)state + 0x22) + 8) << 12;
     sprite->attr = baseAttr | (tileX | tileY);
   }
-  sprite->attr |= D_02025FF0.f18C2;
+  sprite->attr |= gMainWorkspace.f18C2;
   sprite->unk1C = 0x8000000A;
   {
     u8 *extra = ((u8 *) state) + 0x48;
@@ -102,27 +102,27 @@ void sub_0801D6F4(struct Entity *arg0)
   }
   {
     u32 offset = 0x1278;
-    u8 *coordBase = D_02021E90;
-    u32 adjX = *((u32 *) ((coordBase + offset) + ((D_02025FF0.f18A8 + 1) << 6)));
+    u8 *coordBase = gCameraState;
+    u32 adjX = *((u32 *) ((coordBase + offset) + ((gMainWorkspace.f18A8 + 1) << 6)));
     adjX = (adjX + 0x8000) & 0xFFFF0000;
     sprite->screenX = state->x - adjX;
   }
   {
     u32 offset = 0x127C;
-    u8 *coordBase = D_02021E90;
-    u32 adjY = *((u32 *) ((coordBase + offset) + ((D_02025FF0.f18A8 + 1) << 6)));
+    u8 *coordBase = gCameraState;
+    u32 adjY = *((u32 *) ((coordBase + offset) + ((gMainWorkspace.f18A8 + 1) << 6)));
     adjY = adjY + 0xFFFF8000;
     adjY = adjY & 0xFFFF0000;
     sprite->screenY = state->y - adjY;
   }
-  sub_08011368(sprite, anim, 0x1A, 0);
+  setAnimationFrame(sprite, anim, 0x1A, 0);
   arg0->flags |= 0x1000;
   {
     u8 *child = (u8 *) ((((u32) arg0->childIndex) * 2) + ((u32) arg0));
     child[0x19] = 0;
   }
   {
-    void **table = &D_08671BB0;
+    void **table = &gMainObjTimerCallback;
     sub_080C31E4(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, (s32) (*table));
   }
   {

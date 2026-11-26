@@ -2,7 +2,7 @@ void sub_080113A8(void *, void *);
 void sub_08011EE8(void *, s32, s32);
 void sub_080415D4(s32, void *, void *, void *);
 void sub_080C31E4(void *, void *, u32);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Entity update driven by the component's flags: marks the entity and its
  * child active, updates the track pose and plays an action. Flag 4 finishes
@@ -31,7 +31,7 @@ void sub_08041240(void *self)
     *activeFlag = (u8) zero;
     *((u8 *) ((*((u8 **) (((u8 *) self) + 0x30))) + 0x70)) = (u8) zero;
     *((u8 *) ((((u8 *) self) + ((*((s16 *) (((u8 *) self) + 0x22))) * 2)) + 0x19)) = (u8) zero;
-    pd = &D_08671BB0;
+    pd = &gMainObjTimerCallback;
     sub_080C31E4(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, *pd);
   }
   else

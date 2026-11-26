@@ -1,8 +1,8 @@
 extern s32 sub_0805F9B4(s32 a, s32 b);
 extern void sub_080113A8(void *a, void *b);
 extern s32 sub_080C31E0(void *a, void *b);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* If the actor leaves the view or its animation finishes, switch its state;
  * otherwise advance the animation and recompute its screen coordinates from
@@ -30,8 +30,8 @@ CALL:
 
 COORD:
     {
-        u8 *coordTable = D_02021E90;
-        u8 *cameraIndex = D_02025FF0;
+        u8 *coordTable = gCameraState;
+        u8 *cameraIndex = gMainWorkspace;
         u8 *xBase;
         u8 *yBase;
         u32 coordOffset;

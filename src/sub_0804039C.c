@@ -3,11 +3,11 @@ extern void sub_08014460(void *);
 extern s32 sub_08005910(s32, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Large runtime state block (BSS): holds the player/target position near its end. */
 struct GameGlobals { u8 _0[0x174C]; u32 playerX; u32 playerY; };
-extern struct GameGlobals D_02025FF0;
+extern struct GameGlobals gMainWorkspace;
 
 /* Per-entity motion state reached through the +0x3C pointer. */
 struct MotionState {
@@ -54,12 +54,12 @@ void sub_0804039C(struct EntityObj *entity) {
     zero = 0;
     subState[2] = 8;
     state->subState[3] = 1;
-    globals = &D_02025FF0;
+    globals = &gMainWorkspace;
     angle = sub_08005910(globals->playerY - state->posY, globals->playerX - state->posX);
     sub_080146D0(state, angle, 0x30000);
     ((struct SlotState *)((u8 *)entity + entity->slotIndex * 2))->timer = zero;
     {
-        void **fn = &D_08671BB0;
+        void **fn = &gMainObjTimerCallback;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *fn);
     }
 }

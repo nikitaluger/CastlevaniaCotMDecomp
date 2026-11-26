@@ -1,4 +1,4 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_08003A6C(void *, s32, void *);
@@ -15,9 +15,9 @@ struct S_02025FF0 {
     u32 f1728;
     u32 f172C;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02025368[];
-extern s32 D_08671BB0;
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
+extern s32 gMainObjTimerCallback;
 
 struct SubObject {
     u8 _0;
@@ -54,8 +54,8 @@ void sub_08079204(u8 *entity) {
     u8 *params = *(u8 **)(entity + 0x6C);
     struct BehaviorState *state = (struct BehaviorState *)(params + 4);
     u8 *sprite = *(u8 **)(entity + 0x38);
-    u8 *dataTable = D_02025368;
-    struct SubObject *child = sub_08016190();
+    u8 *dataTable = gGameStatus;
+    struct SubObject *child = allocEffectPart();
     u16 spriteFlag;
     u8 one = 1;
     u16 flagMask = 0x10;
@@ -72,7 +72,7 @@ void sub_08079204(u8 *entity) {
     state->handle2 = 0;
     state->handle3 = 0;
 
-    child->active = D_02025FF0.b1510 & one;
+    child->active = gMainWorkspace.b1510 & one;
     state->subObject->type = 2;
     state->subObject->subtype = 8;
     state->subObject->dataWord = dataTable[0xC1 << 2];
@@ -87,7 +87,7 @@ void sub_08079204(u8 *entity) {
     state->cleanupCallback = *(u32 *)(entity + 0x24);
     *(u32 *)(entity + 0x24) = (u32)sub_0808449C;
     {
-        u8 modeFlag = D_02025FF0.b14EF;
+        u8 modeFlag = gMainWorkspace.b14EF;
         *(u8 *)(params + 0x55) = modeFlag;
     }
     *(u32 *)(sprite + 0x24) = 0x084DCFBC;
@@ -95,8 +95,8 @@ void sub_08079204(u8 *entity) {
     sub_08003A6C(params + 0x20, 0, (void *)0x084DD09C);
 
     state->field54 = 0x1C;
-    *(u32 *)(params + 4) = D_02025FF0.f1728;
-    state->oldHandler = D_02025FF0.f172C + 0xFFEC0000;
+    *(u32 *)(params + 4) = gMainWorkspace.f1728;
+    state->oldHandler = gMainWorkspace.f172C + 0xFFEC0000;
 
     spriteFlag = *(u16 *)(sprite + 2) & flagMask;
     offset = 0x28000;
@@ -108,7 +108,7 @@ void sub_08079204(u8 *entity) {
 
     ((struct ScriptStep *)(entity + *(s16 *)(entity + 0x22) * 2))->counter = 0;
     {
-        s32 *cueTable = &D_08671BB0;
+        s32 *cueTable = &gMainObjTimerCallback;
         u8 *scriptPtr = entity + 0x18;
         sub_080C31E4(scriptPtr, entity + 0x22, *cueTable);
         ((struct ScriptStep *)(entity + *(s16 *)(entity + 0x22) * 2))->counter++;

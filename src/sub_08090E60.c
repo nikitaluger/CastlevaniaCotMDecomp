@@ -4,7 +4,7 @@ extern s32 sub_080C36E4(u32, s32);
 extern void sub_0808E05C(s32, s32, s16, s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 /*
  * Spawns a projectile from the entity's stored coordinates, choosing between
@@ -32,11 +32,11 @@ void sub_08090E60(void *arg0)
   r0 += 0x100000;
   r1 = coords[3];
   originY = r1 + r0;
-  r0 = D_02025FF0[0x1898 / 4];
+  r0 = gMainWorkspace[0x1898 / 4];
   r0 = sub_080C36E4(r0, 5) - 2;
   speed = r0 << 15;
   angle = 0x8000 - sub_08005820(0x20000);
-  worldFlags = D_02025FF0[0x1898 / 4];
+  worldFlags = gMainWorkspace[0x1898 / 4];
   if (worldFlags & 1)
   {
     s32 spawnKind = 0x16C1;

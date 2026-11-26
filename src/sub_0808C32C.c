@@ -2,8 +2,8 @@
  * seed the sprite index from the global counter and clear the first animation
  * frame slot, run the first animation command, then dispatch the callback
  * chosen by the animation state. */
-s32 sub_0800168C(void *, s32, s32, s32);
-void *sub_0800355C(void);
+s32 allocWorkSlot(void *, s32, s32, s32);
+void *allocSpriteObject(void);
 void sub_0808C9BC(void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E0(void *, s32);
@@ -12,20 +12,20 @@ struct S_02025FF0 {
     u8 _0x000[0x18C2];
     u16 spriteIndex;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 void sub_0808C32C(void *entity)
 {
     u8 *self = (u8 *)entity;
     void *view;
 
-    if (sub_0800168C(entity, 0, 0x38, 3) == 0)
+    if (allocWorkSlot(entity, 0, 0x38, 3) == 0)
     {
         sub_080C31E0(entity, *(s32 *)(self + 0x24));
         return;
     }
 
-    view = sub_0800355C();
+    view = allocSpriteObject();
     if (view == 0)
     {
         sub_0808C9BC(entity);
@@ -35,7 +35,7 @@ void sub_0808C32C(void *entity)
     *(void **)(self + 0x38) = view;
     *(u32 *)((u8 *)view + 0x1C) = 0x8000000D;
     {
-        u16 spriteIndex = D_02025FF0.spriteIndex;
+        u16 spriteIndex = gMainWorkspace.spriteIndex;
         u32 zero = 0;
         *(u16 *)view = spriteIndex;
 

@@ -1,5 +1,5 @@
 extern s32 sub_08005820(s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 static inline u16 zeroU16(void) { u16 v = 0; return v; }
@@ -21,7 +21,7 @@ void sub_080599C0(void *arg0)
     s32 delay;
     u16 zero;
 
-    sub_08011368(sprite, anim, 0x14, 0);
+    setAnimationFrame(sprite, anim, 0x14, 0);
     *(u32 *)(pose + 8) = zeroU32();
     if ((*anim) & 2) {
         direction = (*(s32 *)(work + 8) > *(s32 *)(work + 0x48)) ? (s32)0xFFFFE000 : 0x2000;

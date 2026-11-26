@@ -3,7 +3,7 @@ void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, u32);
 
 struct S_02025FF0 { u8 _0[0x18C0]; u16 w; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct S_020213DC { s16 v; };
 extern struct S_020213DC D_020213DC;
 
@@ -42,7 +42,7 @@ void sub_08097CF4(void) {
 
 void sub_08097CD4(void *arg0) {
     void *r3 = *(void **)((u8 *)arg0 + 0x3C);
-    D_02025FF0.w = 0;
+    gMainWorkspace.w = 0;
     sub_080C31E0(arg0, *(void **)((u8 *)r3 + 4));
 }
 
@@ -51,7 +51,7 @@ void sub_08097CD4(void *arg0) {
  * script from the token table at 0x08671BB0. */
 void sub_08097C88(void *obj) {
     if (D_020213DC.v <= 0) {
-        D_02025FF0.w = 2;
+        gMainWorkspace.w = 2;
         *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)obj + 0x22)) * 2 + (u32)obj) + 0x19) = 0;
         {
             u32 *tokenTable;

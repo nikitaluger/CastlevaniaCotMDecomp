@@ -6,7 +6,7 @@ struct S_02021E90 {
     u8 _1[0x1443 - 0x1264];
     u8 gfxIndex;
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 
 struct S_02027A00 {
     u8 _0[0xD8];
@@ -24,7 +24,7 @@ extern volatile u32 D_040000D4[];
 void sub_08062394(u8 kind, u8 index) {
     struct S_02021E90 *p;
     D_040000D4[0] = 0x08442570;
-    p = &D_02021E90;
+    p = &gCameraState;
     D_040000D4[1] = 0x06000440 + ((p->gfxFlags & 0x1F00) << 3);
     D_040000D4[2] = 0x80000060;
     (void)D_040000D4[2];

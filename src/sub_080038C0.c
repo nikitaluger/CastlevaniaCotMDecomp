@@ -1,4 +1,4 @@
-void sub_08000E98(s32, s32, s32, u16, s32);
+void postDisplaySprite(s32, s32, s32, u16, s32);
 
 /* Run one step of a script command list: dispatch the current command to the
  * command executor, then advance, restart or stop according to its opcode.
@@ -15,12 +15,12 @@ s32 sub_080038C0(u8 *runner)
                 s32 opcode = *(u16 *)cmd & 0xF;
                 switch (opcode) {
                 case 0:
-                    sub_08000E98(1, *(s32 *)(cmd + 4), *(s32 *)(cmd + 8), *(u16 *)(cmd + 0xC), arg);
+                    postDisplaySprite(1, *(s32 *)(cmd + 4), *(s32 *)(cmd + 8), *(u16 *)(cmd + 0xC), arg);
                     *(u16 *)(runner + 4) = (u16)opcode;
                     result = 0;
                     break;
                 case 1:
-                    sub_08000E98(1, *(s32 *)(cmd + 4), *(s32 *)(cmd + 8), *(u16 *)(cmd + 0xC), arg);
+                    postDisplaySprite(1, *(s32 *)(cmd + 4), *(s32 *)(cmd + 8), *(u16 *)(cmd + 0xC), arg);
                     *(u16 *)(runner + 4) = *(u16 *)(runner + 4) + 1;
                     goto block_12;
                 case 2:
@@ -31,7 +31,7 @@ s32 sub_080038C0(u8 *runner)
                 }
             } else {
                 *(s16 *)(runner + 2) = (s16)(*(u16 *)cmd & 0x1FFF);
-                sub_08000E98(1, *(s32 *)(cmd + 4), *(s32 *)(cmd + 8), *(u16 *)(cmd + 0xC), arg);
+                postDisplaySprite(1, *(s32 *)(cmd + 4), *(s32 *)(cmd + 8), *(u16 *)(cmd + 0xC), arg);
                 *(u16 *)(runner + 4) = *(u16 *)(runner + 4) + 1;
                 result = 1;
             block_12:

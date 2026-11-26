@@ -1,5 +1,5 @@
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Set or clear this object's visibility bit in the coordinate table: kind 0
  * only sets it; otherwise clear it, then store the object's camera-relative X
@@ -12,7 +12,7 @@ void sub_080A054C(unsigned long kind, s32 worldX, s32 worldY)
   u32 camValue;
   if (kind == 0)
   {
-    u8 *coordTable = D_02021E90;
+    u8 *coordTable = gCameraState;
     volatile u16 *p = (volatile u16 *) (coordTable + (0x97 << 5));
     u16 oldBits = *p;
     *p = oldBits | (0x80 << 6);
@@ -20,11 +20,11 @@ void sub_080A054C(unsigned long kind, s32 worldX, s32 worldY)
   }
   else
   {
-    u8 *coordTable = D_02021E90;
+    u8 *coordTable = gCameraState;
     *((volatile u16 *) (coordTable + (0x97 << 5))) &= 0xDFFF;
     {
       u32 cameraOffset;
-      u8 *cameraIndex = D_02025FF0;
+      u8 *cameraIndex = gMainWorkspace;
       cameraIndex = cameraIndex + 0x18A8;
       cameraOffset = ((*cameraIndex) + 1) << 6;
       {

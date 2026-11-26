@@ -1,7 +1,7 @@
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 void _call_via_r2(void *, void *, u32);
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 void sub_080C31E4(void *, void *, u32);
 
 /* Set the object's animation to frame 5, copy over two of its state fields,
@@ -14,7 +14,7 @@ void sub_0801B5B0(void *arg0) {
     u8 *state = field + 0x48;
     void **scriptFn;
 
-    sub_08011368(sprite, anim, 5, 0);
+    setAnimationFrame(sprite, anim, 5, 0);
     *(u32 *)(state + 0x08) = *(u32 *)(field + 0x08);
     *(u32 *)(state + 0x0C) = *(u32 *)(field + 0x0C);
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

@@ -1,15 +1,15 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s32 sub_0806D62C(s32, s32);
 extern void sub_08003A6C(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 struct S_FF0 { u8 _0[0x1510]; u8 f1510; };
-extern struct S_FF0 D_02025FF0;
+extern struct S_FF0 gMainWorkspace;
 extern u8 D_080E574C[];
 extern u8 D_080E576C[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 inline u32 inline_fn(u8 *arg0, u32 arg1) { return ((u32) arg0[arg1]) << 5; }
 static inline u8 and1(u8 b) { u32 m = 1; m &= b; return (u8)m; }
 
@@ -20,8 +20,8 @@ void sub_08080558(void *arg0)
   r8 = *((void **) (((u8 *) arg0) + 0x6C));
   r6 = ((u8 *) r8) + 4;
   r5 = *((void **) (((u8 *) arg0) + 0x38));
-  base = D_02025368;
-  r3 = (s32) sub_08016190();
+  base = gGameStatus;
+  r3 = (s32) allocEffectPart();
   *((s32 *) (((u8 *) r6) + 0x2C)) = r3;
   if (r3 == 0) { sub_0806D2D0(arg0); return; }
   *((s32 *) (((u8 *) r6) + 0x30)) = 0;
@@ -33,7 +33,7 @@ void sub_08080558(void *arg0)
   idx = inline_fn(tbl, idx);
   t4_2 = D_080E576C + idx;
   ptr = (u8 *) r3;
-  ptr[1] = and1(D_02025FF0.f1510);
+  ptr[1] = and1(gMainWorkspace.f1510);
   *((u8 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 2)) = 2;
   *((u8 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 3)) = 8;
   z = 0;
@@ -59,7 +59,7 @@ void sub_08080558(void *arg0)
     pp[0x19] = (u8) z;
   }
   {
-    u32 *script = &D_08671BB0;
+    u32 *script = &gMainObjTimerCallback;
     u8 *t4_3 = ((u8 *) arg0) + 0x18;
     sub_080C31E4(t4_3, ((u8 *) arg0) + 0x22, *script);
     {

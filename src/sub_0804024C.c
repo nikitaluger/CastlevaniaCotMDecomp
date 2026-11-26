@@ -6,7 +6,7 @@ void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u32 D_0866E0D8;
 
 struct ObjFlag { u16 flag; };
@@ -45,7 +45,7 @@ void sub_0804024C(void *arg0) {
             scriptStep = (u8 *)((u32)(*(s16 *)(obj + 0x22)) * 2 + (u32)obj);
             *(u8 *)(scriptStep + 0x19) = 0;
         }
-        litPtr = &D_08671BB0;
+        litPtr = &gMainObjTimerCallback;
         scriptBase = obj + 0x18;
         sub_080C31E4(scriptBase, obj + 0x22, *litPtr);
         {

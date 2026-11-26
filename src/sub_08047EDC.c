@@ -1,9 +1,9 @@
 extern s32 D_08671BD0;
 s32 sub_080059DC(s32, s32);
-void sub_08011368(void *, void *, u16, u8);
+void setAnimationFrame(void *, void *, u16, u8);
 void sub_080C31E8(void *, void *, s32, s32);
 
-extern struct { u8 _0[0x146C]; u16 keyInput; } D_02021E90;
+extern struct { u8 _0[0x146C]; u16 keyInput; } gCameraState;
 typedef struct {
     u8 _0[0x14ED];
     u8 chaseMode;                   /* 0xA9 cancels the chase */
@@ -13,7 +13,7 @@ typedef struct {
     u8 _2[0x18BC - 0x1754];
     u16 chaserCount;                /* effects currently chasing */
 } S_25FF0;
-extern S_25FF0 D_02025FF0;
+extern S_25FF0 gMainWorkspace;
 
 /* Homing-effect state: play pose 0x10, then run the chase countdown (it
  * drains 10 frames extra while a direction key is held). When the countdown
@@ -35,7 +35,7 @@ void sub_08047EDC(u8 *arg0) {
     anim = work + 0x34;
     chase = chase + 0x48;
 
-    sub_08011368(sprite, anim, 0x10, 0);
+    setAnimationFrame(sprite, anim, 0x10, 0);
     if (*(s16 *)(chase + 0x0A) == 0) {
         *(s32 *)(work + 0x14) = 0;
         *(s32 *)(work + 0x10) = 0;
@@ -44,9 +44,9 @@ void sub_08047EDC(u8 *arg0) {
         sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 2, *handlers);
     } else {
         s32 zero;
-        if (D_02021E90.keyInput & 0xF0)
+        if (gCameraState.keyInput & 0xF0)
             *(u16 *)(chase + 8) -= 0x0A;
-        world = &D_02025FF0;
+        world = &gMainWorkspace;
         if (world->chaseMode == 0xA9)
             *(u16 *)(chase + 8) = 0;
         timer = *(u16 *)(chase + 8);

@@ -15,7 +15,7 @@ struct S_02025FF0
   u8 _0x000[0x1870];
   void *currentTarget;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /*
  * Runs one frame of a scripted task that tracks a target: handles a hit,
@@ -44,7 +44,7 @@ void sub_080512FC(u8 *task)
   {
     sub_08013978(task, *((void **) (subject + 0x28)));
     sub_080142C0(*((void **) (task + 0x28)), *((void **) (subject + 0x28)));
-    if ((*((void **) (task + 0x28))) == D_02025FF0.currentTarget)
+    if ((*((void **) (task + 0x28))) == gMainWorkspace.currentTarget)
     {
       stepState = (u8 *) ((((u32) (*((s16 *) (task + 0x22)))) * 2) + ((u32) task));
       if (((u8) (stepState[0x1A] - 1)) > 1)
@@ -69,7 +69,7 @@ void sub_080512FC(u8 *task)
     }
     *((u32 *) (subject + 0x08)) = *((u32 *) (task + 0x4C));
     *((u32 *) (subject + 0x0C)) = *((u32 *) (task + 0x5C));
-    if ((*((void **) (task + 0x28))) != D_02025FF0.currentTarget)
+    if ((*((void **) (task + 0x28))) != gMainWorkspace.currentTarget)
     {
       target = *((void **) (task + 0x28));
       targetActor = *((void **) (((u8 *) target) + 0x38));

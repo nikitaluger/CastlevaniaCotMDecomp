@@ -1,6 +1,6 @@
 extern void *D_08671BD0;
 struct WorldFlags { u8 pad[0x146C]; u16 flags; };
-extern struct WorldFlags D_02021E90;
+extern struct WorldFlags gCameraState;
 
 void sub_0806DD94(void);
 s32 sub_0806A7AC(void *, void *, s32);
@@ -25,7 +25,7 @@ s32 sub_0806BBA4(void *arg0, void *arg1, void *arg2) {
             if ((*(u16 *)(gsState + 0x28) & *(u16 *)(dataTable + 0x3C2)) != 0) goto success;
             goto ret0;
         } else {
-            if ((D_02021E90.flags & *(u16 *)(dataTable + 0x3C2)) == 0) goto ret0;
+            if ((gCameraState.flags & *(u16 *)(dataTable + 0x3C2)) == 0) goto ret0;
         }
 success:
         sub_0806DD94();
@@ -35,7 +35,7 @@ success:
         if ((*(u16 *)(gsState + 0x28) & *(u16 *)(dataTable + 0x3C2)) != 0) goto cont;
         goto ret0;
     } else {
-        if ((D_02021E90.flags & *(u16 *)(dataTable + 0x3C2)) == 0) goto ret0;
+        if ((gCameraState.flags & *(u16 *)(dataTable + 0x3C2)) == 0) goto ret0;
     }
 cont:
     val = *(u8 *)(dataTable + 0x2DB);

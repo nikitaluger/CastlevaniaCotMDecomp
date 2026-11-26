@@ -1,8 +1,8 @@
 extern void sub_08011528(void *, void *);
-extern void sub_080114DC(void *, void *, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_0809C4E0(s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Enemy actor step: apply the current animation frame to the sprite, set a
  * behavior byte from an animation-indexed table, and on the animation's end
@@ -36,12 +36,12 @@ void sub_0809A228(void *actor)
         sub_0809C4E0(*(s32 *)(state + 0x08), 0);
     }
     if ((*(u8 *)anim & 2) != 0) {
-        sub_080114DC(sprite, anim, 0xF, 0);
+        setObjectAnimation(sprite, anim, 0xF, 0);
         sub_0809C4E0(*(s32 *)(state + 0x08), 0);
         animIndex = *(s16 *)(self + 0x22);
         self[animIndex * 2 + 0x19] = 0;
         {
-            void **handlerTable = &D_08671BB0;
+            void **handlerTable = &gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *handlerTable);
         }
     }

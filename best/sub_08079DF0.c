@@ -1,19 +1,19 @@
 extern void sub_08003A6C(void *, s32, void *);
 extern void sub_08005E80(s32);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_080722E0(void *, u8);
 extern void sub_0808449C(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern u32 D_084DE7BC;
 extern u32 D_084DE884;
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 struct S_AEC4 { u8 _0[0x2C]; u8 * volatile res; };
 struct S_FF0 { u8 _0[0x1510]; u8 b1510; };
-extern struct S_FF0 D_02025FF0;
+extern struct S_FF0 gMainWorkspace;
 
 void sub_08079DF0(u8 *arg0) {
     s32 zero;
@@ -21,11 +21,11 @@ void sub_08079DF0(u8 *arg0) {
     u8 *p68 = *(u8 **)(arg0 + 0x6C);
     u8 *r4 = p68 + 4;
     u8 *rp = *(u8 **)(arg0 + 0x38);
-    u8 *base2 = D_02025368;
+    u8 *base2 = gGameStatus;
     void *res;
     struct S_AEC4 *s = (struct S_AEC4 *)r4;
 
-    res = sub_08016190();
+    res = allocEffectPart();
     s->res = res;
     if (res == NULL) {
         sub_0806D2D0(arg0);
@@ -36,7 +36,7 @@ void sub_08079DF0(u8 *arg0) {
     *(u32 *)(r4 + 0x34) = zero;
     *(u32 *)(r4 + 0x38) = zero;
     *(u32 *)(r4 + 0x3C) = zero;
-    *(u8 *)(res + 1) = 1 & D_02025FF0.b1510;
+    *(u8 *)(res + 1) = 1 & gMainWorkspace.b1510;
     *(u8 *)(s->res + 2) = 2;
     {
         u8 eight;
@@ -75,7 +75,7 @@ void sub_08079DF0(u8 *arg0) {
     sub_08005E80(0x14B);
     *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *lit = &D_08671BB0;
+        s32 *lit = &gMainObjTimerCallback;
         u8 *a18 = arg0 + 0x18;
         sub_080C31E4(a18, arg0 + 0x22, *lit);
         *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) + 1;

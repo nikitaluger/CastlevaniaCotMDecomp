@@ -1,9 +1,9 @@
-extern void sub_08000E98(s32, s32, s32, s32, s32);
+extern void postDisplaySprite(s32, s32, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u8 D_080CAFA8[];
 extern u32 D_0866CEF4[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 struct RoomState { u8 _0[0x64]; u8 state, prevState, mirror; };
 extern struct RoomState D_020278D0;
 
@@ -21,9 +21,9 @@ void sub_0800CEB8(u8 *entity) {
 
     if (curValue != prevValue) {
         if (curValue == 0) {
-            sub_08000E98(1, (s32)0x08641588, (s32)0x050000A0, 0x60, 0x10);
+            postDisplaySprite(1, (s32)0x08641588, (s32)0x050000A0, 0x60, 0x10);
         } else {
-            sub_08000E98(1, (s32)0x086415E8, (s32)0x050000A0, 0x60, 0x10);
+            postDisplaySprite(1, (s32)0x086415E8, (s32)0x050000A0, 0x60, 0x10);
         }
     }
     {
@@ -38,7 +38,7 @@ void sub_0800CEB8(u8 *entity) {
             off += (u32)entity;
             *(u8 *)(off + 0x19) = zero;
             {
-                void **scriptCallbacks = &D_08671BB0;
+                void **scriptCallbacks = &gMainObjTimerCallback;
                 u8 *base = entity + 0x18;
                 sub_080C31E4(base, entity + 0x22, *scriptCallbacks);
             }

@@ -2,7 +2,7 @@ extern s32 sub_08005F1C(s32);
 extern void sub_08005E80(u16);
 extern void sub_0800B824(u16, u16, s32);
 extern void _call_via_r3(void *, void *, s32, void *);
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern s32 D_08671BD0[];
 extern s32 D_08671BD8[];
 
@@ -21,7 +21,7 @@ void sub_0800B424(u8 *menu)
   {
     return;
   }
-  scratch = (u32) D_02021E90;
+  scratch = (u32) gCameraState;
   if ((*((u16 *) (scratch + 0x146C))) & 1)
   {
     goto doit;

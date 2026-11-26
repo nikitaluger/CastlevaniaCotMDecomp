@@ -1,7 +1,7 @@
 void sub_08006120(void);
 
 /* Bring the sound players up, then stash the work area's affine scale pair
- * (D_02025FF0 + 0x14DC/+0x14DE) in D_0200A278/D_0200A27A, zero the Y scale and
+ * (gMainWorkspace + 0x14DC/+0x14DE) in D_0200A278/D_0200A27A, zero the Y scale and
  * set the effect field at +0x14E0 to 0x10.  sub_08006234 puts the saved scales
  * back when the scene change completes. */
 void sub_080061CC(void) {

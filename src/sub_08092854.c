@@ -1,5 +1,5 @@
 extern u8 D_0810063C[];
-extern void sub_08011368(void *, void *, s16, s32);
+extern void setAnimationFrame(void *, void *, s16, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* Drive an object's animation from a per-kind action table, nudge its counter when
@@ -21,7 +21,7 @@ void sub_08092854(u8 *effect)
     {
         s32 tableOffset = *(s32 *)work * 4;
         animTable = animTable + 2;
-        sub_08011368(fx, anim, *(s16 *)(animTable + tableOffset), 0);
+        setAnimationFrame(fx, anim, *(s16 *)(animTable + tableOffset), 0);
     }
 
     if (anim[1] == 1 && *(u32 *)(anim + 4) == (u16)(*(u16 *)(anim + 2)) - 1) {
@@ -35,7 +35,7 @@ void sub_08092854(u8 *effect)
     if (anim[0] & 2) {
         u8 *completionTable = D_0810063C;
         s32 tableOffset = *(s32 *)work * 4;
-        sub_08011368(fx, anim, *(s16 *)(completionTable + tableOffset), 0);
+        setAnimationFrame(fx, anim, *(s16 *)(completionTable + tableOffset), 0);
         *(u16 *)(work + 0x0C) = 0;
         stepIdx = *(s16 *)(effect + 0x22);
         effect[stepIdx * 2 + 0x19] = zeroByte;

@@ -2,7 +2,7 @@ struct S_02025FF0_1874 {
     u8 _0x000[0x1874];
     u32 parent;
 };
-extern struct S_02025FF0_1874 D_02025FF0;
+extern struct S_02025FF0_1874 gMainWorkspace;
 
 void *sub_0805FAEC(u32, s32);
 
@@ -16,7 +16,7 @@ void *sub_0802EB5C(s32 xFixed, s32 yFixed, s32 param5C, s32 param6C, u16 param7C
     s32 x;
     s32 y;
 
-    obj = sub_0805FAEC(D_02025FF0.parent, 0xD0);
+    obj = sub_0805FAEC(gMainWorkspace.parent, 0xD0);
     if (obj == 0) {
         return 0;
     }

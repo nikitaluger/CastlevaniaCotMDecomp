@@ -1,6 +1,6 @@
 extern s32 sub_08013B5C(void *);
 extern void sub_08011528(void *, void *);
-extern void sub_080114DC(void *, void *, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
 extern s32 sub_08005820(s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -15,7 +15,7 @@ void sub_080A9B98(void *arg0) {
     if (*animState & 2) {
         s32 *scriptTable;
         u8 randByte;
-        sub_080114DC(sprite, animState, 0x28, 1);
+        setObjectAnimation(sprite, animState, 0x28, 1);
         randByte = (u8)(sub_08005820(0x28) + 0x28);
         {
             u8 *randField = task + 0x70;

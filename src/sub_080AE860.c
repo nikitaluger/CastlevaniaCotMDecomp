@@ -1,13 +1,13 @@
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
-extern void sub_0801131C(void *, void *, void *);
-extern void sub_08011368(void *, void *, s32, s32);
-extern s32 sub_08013C2C(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
+extern void initSpriteGraphics(void *, void *, void *);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern s32 findKindIndex(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 w; };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_080CD400[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gSpriteAnimDataTable[];
 
 /*
  * Spawns and initializes an entity's child sprite: allocates the object, sets
@@ -25,14 +25,14 @@ void sub_080AE860(void *entity)
   void **scriptTable;
   s32 *handlerTable;
   u8 *stepData;
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == NULL)
   {
     sub_080C31E0(entity, *((s32 *)(((char *) entity) + 0x24)));
     return;
   }
   *((void **)(((char *) entity) + 0x38)) = sprite;
-  sub_0800168C(entity, 0, 0x48, 0);
+  allocWorkSlot(entity, 0, 0x48, 0);
   if ((*((vu32 *)(((char *) entity) + 0x3C))) == 0)
   {
     sub_080C31E0(entity, *((s32 *)(((char *) entity) + 0x24)));
@@ -43,7 +43,7 @@ void sub_080AE860(void *entity)
   status = ((char *) motion) + 0x34;
   zero = 0;
   *((s16 *)(((char *) motion) + 0x1C)) = 0x64;
-  spriteBase = sub_08013C2C();
+  spriteBase = findKindIndex();
   *((s16 *)(((char *) motion) + 0x22)) = (s16) spriteBase;
   if (((s32) (((u32) spriteBase) << 16)) < 0)
   {
@@ -55,9 +55,9 @@ void sub_080AE860(void *entity)
   spriteBase += 0x200;
   spriteBase &= 0xFC0;
   *((u16 *) sprite) = (u16) spriteBase;
-  *((u16 *) sprite) = (u16) (spriteBase | (&D_02025FF0)->w);
-  sub_0801131C(sprite, status, (void *) ((((s32) (*((s16 *) (((char *) motion) + 0x1C)))) * 0xC) + 0x080CD400));
-  sub_08011368(sprite, status, 0x0D, 0);
+  *((u16 *) sprite) = (u16) (spriteBase | (&gMainWorkspace)->w);
+  initSpriteGraphics(sprite, status, (void *) ((((s32) (*((s16 *) (((char *) motion) + 0x1C)))) * 0xC) + 0x080CD400));
+  setAnimationFrame(sprite, status, 0x0D, 0);
   *((u16 *)(((char *) sprite) + 2)) |= 0x400;
   *((u8 *)(((char *) entity) + 0x4C)) = (u8) zero;
   *((u16 *)(((char *) entity) + 0x02)) |= 0x1000;

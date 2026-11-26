@@ -3,7 +3,7 @@ void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 s8 sub_08005820(s32);
-void sub_08097EB4(u32, void *);
+void loadEffectPalette(u32, void *);
 extern void sub_0809BEE8(void);
 
 struct S_0807B12C
@@ -56,7 +56,7 @@ extern struct S_08101808 D_08101808;
 void sub_0809BEB0(void *arg0) {
     struct S_08101808 sp;
     sp = D_08101808;
-    sub_08097EB4(*(u32 *)((u8 *)&sp + *(u32 *)((u8 *)arg0 + 0x4C) * 4), (u8 *)&sp + 12);
+    loadEffectPalette(*(u32 *)((u8 *)&sp + *(u32 *)((u8 *)arg0 + 0x4C) * 4), (u8 *)&sp + 12);
     *(void **)((u8 *)arg0 + 0x14) = (void *)sub_0809BEE8;
     *(u16 *)((u8 *)arg0 + 0x22) = 1;
     sub_080C31E0(arg0, (void *)sub_0809BEE8);

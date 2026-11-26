@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct Control { u8 pad[0xE]; u16 timer; };
@@ -15,7 +15,7 @@ void sub_0803F120(void *arg0)
   struct Control *control = (struct Control *)(state + 0x48);
   s32 *stepHandler;
   long long countdown;
-  sub_08011368(gfx, anim, 0x0B, 0);
+  setAnimationFrame(gfx, anim, 0x0B, 0);
   countdown = control->timer - 1;
   control->timer = countdown;
   if (((s16) countdown) < 0)

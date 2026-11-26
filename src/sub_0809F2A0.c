@@ -1,4 +1,4 @@
-extern s32 sub_0800168C(void *, s32, s32, s32);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void *sub_0805FAEC(void *, u16);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_0809F330;
@@ -13,7 +13,7 @@ void sub_0809F2A0(void *arg0) {
     void *child;
     u16 spriteFlags;
     u16 value;
-    sub_0800168C(arg0, 0, 0x14, 0);
+    allocWorkSlot(arg0, 0, 0x14, 0);
     work = *(void **)((u8 *)arg0 + 0x3C);
     if (work == NULL) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));

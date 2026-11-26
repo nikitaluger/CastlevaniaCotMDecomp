@@ -1,10 +1,10 @@
 /* Run the entity's behavior state machine: spawn a queued effect, tick its
  * cooldowns relative to the player, and choose a facing direction. */
 extern s32 sub_08005820(s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 extern s32 sub_08014990(void *);
 extern void sub_080149A4(void *, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
@@ -52,12 +52,12 @@ void sub_08030D18(void *entity)
         }
     }
 
-    sub_08011368(workObj, moverTarget, 0, 1);
+    setAnimationFrame(workObj, moverTarget, 0, 1);
 
     behavior->cooldown--;
     if ((s16)behavior->cooldown <= 0) {
         if (sub_08014900(mover->x) <= 0x180000 && sub_0801491C(mover->y) <= 0x100000) {
-            s32 dirSign = sub_08014938(mover->x);
+            s32 dirSign = signOf(mover->x);
             if (dirSign == sub_08014990(workObj)) {
                 s16 idx2;
                 u8 *p;

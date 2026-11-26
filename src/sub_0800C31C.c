@@ -1,5 +1,5 @@
-extern s32 sub_080C2F20(s8 dividend, s32 divisor); /* BIOS Div: quotient */
-extern s32 sub_080C2F24(s8 dividend, s32 divisor); /* BIOS Div: remainder */
+extern s32 divideInt(s8 dividend, s32 divisor); /* BIOS Div: quotient */
+extern s32 moduloInt(s8 dividend, s32 divisor); /* BIOS Div: remainder */
 extern u16 D_03000830[];
 
 struct S { u8 pad0[2]; u16 flags; u8 pad4[0x26]; u8 highlight; };
@@ -20,6 +20,6 @@ void sub_0800C31C(u8 *arg0) {
         sprite->highlight &= 0xBF;
     }
     *(u32 *)((u8 *)sprite + 0x24) = 0x0863E8A4;
-    *(u32 *)((u8 *)sprite + 0x14) = sub_080C2F24((s8)(*(u8 *)(*(u8 **)(self + 0x28) + 0x5C)), 9) * 0x180000;
-    *(u32 *)((u8 *)sprite + 0x18) = sub_080C2F20((s8)(*(u8 *)(*(u8 **)(self + 0x28) + 0x5C)), 9) * 0x180000;
+    *(u32 *)((u8 *)sprite + 0x14) = moduloInt((s8)(*(u8 *)(*(u8 **)(self + 0x28) + 0x5C)), 9) * 0x180000;
+    *(u32 *)((u8 *)sprite + 0x18) = divideInt((s8)(*(u8 *)(*(u8 **)(self + 0x28) + 0x5C)), 9) * 0x180000;
 }

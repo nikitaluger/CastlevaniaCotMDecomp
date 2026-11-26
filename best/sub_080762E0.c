@@ -9,7 +9,7 @@ struct S_02025FF0
   u8 _3[0x18C2 - 0x173B];
   u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 s32 sub_0806D518(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_0806D330(void *, void *);
@@ -42,9 +42,9 @@ void sub_080762E0(void *arg0)
   }
   *((s32 *) (((u8 *) r5v) + 0x4)) = (*((s32 *) (((u8 *) r5v) + 0x4))) + (*((s32 *) (((u8 *) r4v) + 0x8)));
   *((s32 *) (((u8 *) r4v) + 0x4)) = (*((s32 *) (((u8 *) r4v) + 0x4))) + (*((s32 *) (((u8 *) r4v) + 0xC)));
-  p = &D_02025FF0;
+  p = &gMainWorkspace;
   *((u16 *) r6v) = p->f18C2;
-  *((u16 *) (((u8 *) r6v) + 0x8)) = (*((u16 *) (((u8 *) r6v) + 0x8))) + 0x800;
+  t = (*((u16 *) (((u8 *) r6v) + 0x8))); *((u16 *) (((u8 *) r6v) + 0x8)) = t + 0x800;
   r8v = *((s32 *) (((u8 *) r4v) + 0x8));
   r9v = *((s32 *) (((u8 *) r4v) + 0xC));
   sub_080722E0(r4v, (u8) (0 - ((*((u16 *) (((u8 *) r6v) + 0x8))) >> 8)));
@@ -67,8 +67,8 @@ void sub_080762E0(void *arg0)
     var_r0 += 0xFFFF;
   }
   *((s16 *) (((u8 *) r2) + 0xC)) = (s16) (var_r0 >> 16);
-  r2 = *((void **) (new_var + 0x30));
-  t = *((s32 *) (new_var + 0x8));
+  r2 = *((void **) (((u8 *) r4v) + 0x30));
+  t = *((s32 *) (((u8 *) r4v) + 0x8));
   var_r0 = (t << 1) + t;
   var_r0 = var_r0 << 2;
   if (var_r0 < 0)
@@ -76,8 +76,8 @@ void sub_080762E0(void *arg0)
     var_r0 += 0xFFFF;
   }
   *((s16 *) (((u8 *) r2) + 0xA)) = (s16) (var_r0 >> 16);
-  r2 = *((void **) (new_var + 0x30));
-  t = *((s32 *) (new_var + 0xC));
+  r2 = *((void **) (((u8 *) r4v) + 0x30));
+  t = *((s32 *) (((u8 *) r4v) + 0xC));
   var_r0 = (t << 1) + t;
   var_r0 = var_r0 << 2;
   if (var_r0 < 0)
@@ -85,8 +85,8 @@ void sub_080762E0(void *arg0)
     var_r0 += 0xFFFF;
   }
   *((s16 *) (((u8 *) r2) + 0xC)) = (s16) (var_r0 >> 16);
-  r2 = *((void **) (new_var + 0x38));
-  t = *((s32 *) (new_var + 0x8));
+  r2 = *((void **) (((u8 *) r4v) + 0x38));
+  t = *((s32 *) (((u8 *) r4v) + 0x8));
   var_r0 = (t << 1) + t;
   var_r0 = var_r0 << 2;
   var_r0 = -var_r0;
@@ -95,8 +95,8 @@ void sub_080762E0(void *arg0)
     var_r0 += 0xFFFF;
   }
   *((s16 *) (((u8 *) r2) + 0xA)) = (s16) (var_r0 >> 16);
-  r2 = *((void **) (new_var + 0x38));
-  t = *((s32 *) (new_var + 0xC));
+  r2 = *((void **) (((u8 *) r4v) + 0x38));
+  t = *((s32 *) (((u8 *) r4v) + 0xC));
   var_r0 = (t << 1) + t;
   var_r0 = var_r0 << 2;
   var_r0 = -var_r0;
@@ -105,8 +105,8 @@ void sub_080762E0(void *arg0)
     var_r0 += 0xFFFF;
   }
   *((s16 *) (((u8 *) r2) + 0xC)) = (s16) (var_r0 >> 16);
-  r2 = *((void **) (new_var + 0x3C));
-  t = *((s32 *) (new_var + 0x8));
+  r2 = *((void **) (((u8 *) r4v) + 0x3C));
+  t = *((s32 *) (((u8 *) r4v) + 0x8));
   var_r0 = (t << 1) + t;
   var_r0 = var_r0 << 3;
   var_r0 = -var_r0;
@@ -115,7 +115,7 @@ void sub_080762E0(void *arg0)
     var_r0 += 0xFFFF;
   }
   *((s16 *) (((u8 *) r2) + 0xA)) = (s16) (var_r0 >> 16);
-  r2 = *((void **) (new_var + 0x3C));
+  r2 = *((void **) (((u8 *) r4v) + 0x3C));
   t = *((s32 *) (new_var + 0xC));
   var_r0 = (t << 1) + t;
   var_r0 = var_r0 << 3;
@@ -125,8 +125,8 @@ void sub_080762E0(void *arg0)
     var_r0 += 0xFFFF;
   }
   *((s16 *) (((u8 *) r2) + 0xC)) = (s16) (var_r0 >> 16);
-  *((s32 *) (new_var + 0x8)) = r8v;
-  *((s32 *) (new_var + 0xC)) = r9v;
+  *((s32 *) (((u8 *) r4v) + 0x8)) = r8v;
+  *((s32 *) (((u8 *) r4v) + 0xC)) = r9v;
   sub_0806D588(r6v, r4v);
   sub_0806D330(arg0, r6v);
   if (p->f173A == 0x1C)

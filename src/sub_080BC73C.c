@@ -1,7 +1,7 @@
 /* Project a rotated and scaled point into the target's x/y, advance the
  * animation timer, and set the sprite's facing flag from a second projection. */
 extern u32 D_08671BFC;
-s32 sub_080C2F20(s32 a, s32 b);
+s32 divideInt(s32 a, s32 b);
 s32 sub_080C31E0(u32 a, u32 b);
 
 void sub_080BC73C(void *arg0, void *arg1, void *arg2) {
@@ -49,7 +49,7 @@ void sub_080BC73C(void *arg0, void *arg1, void *arg2) {
     *(s32 *)(out + 0x0C) = baseY;
 
     if (*(s32 *)(src + 0x4C) != 0) {
-        s32 tmp = sub_080C2F20(0x01000000, *(s32 *)(src + 0x5C));
+        s32 tmp = divideInt(0x01000000, *(s32 *)(src + 0x5C));
         *(u16 *)(anim + 0x04) = (u16)tmp;
         *(u16 *)(anim + 0x06) = (u16)tmp;
         if (*(u32 *)(src + 0x5C) > 0xFFFF) {

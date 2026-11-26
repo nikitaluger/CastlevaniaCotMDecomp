@@ -1,7 +1,7 @@
 /* Allocate a sprite resource for the entity, then pick and install its next
  * action callback from the entity's action table; if allocation fails, fall
  * back to the stored callback and return. */
-extern s32 sub_0800168C(void *, s32, s32, s32);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -10,7 +10,7 @@ void sub_0808CC14(void *entity) {
     u8 *entryBase;
     s32 *cbTable;
     s32 entryAddr;
-    if (sub_0800168C(entity, 0, 0x10, 3) == 0) {
+    if (allocWorkSlot(entity, 0, 0x10, 3) == 0) {
         sub_080C31E0(entity, *(s32 *)(self + 0x24));
         return;
     }

@@ -1,5 +1,5 @@
 void sub_08003A6C(s32, s32, s32);
-void *sub_08016190(void *);
+void *allocEffectPart(void *);
 void sub_0806D2D0(void *);
 s16 sub_0806D62C(u16, s32);
 void sub_080722E0(void *, u8);
@@ -46,13 +46,15 @@ struct R5 {
     u8 _4A[0xA];
     u8 f54;
 };
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_00001510[];
 extern u8 D_00001728[];
 extern u32 D_0202771C;
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 
 void sub_0807C3D4(u8 *arg0) {
+int __repair_literal;
+
     struct R8 *r8;
     struct R7 *r7;
     struct R5 *r5;
@@ -62,8 +64,8 @@ void sub_0807C3D4(u8 *arg0) {
     r8 = *(struct R8 **)(arg0 + 0x6C);
     r7 = (struct R7 *)((u8 *)r8 + 4);
     r5 = *(struct R5 **)(arg0 + 0x38);
-    base = D_02025368;
-    r7->f2C = sub_08016190(r8);
+    base = gGameStatus;
+    r7->f2C = allocEffectPart(r8);
     if (r7->f2C == NULL) {
         sub_0806D2D0(arg0);
         return;
@@ -73,7 +75,7 @@ void sub_0807C3D4(u8 *arg0) {
     r7->f34 = z;
     r7->f38 = z;
     r7->f3C = z;
-    ((struct R3 *)r7->f2C)->f01 = *(u8 *)((u32)D_02025FF0 + (u32)D_00001510) & 1;
+    ((struct R3 *)r7->f2C)->f01 = *(u8 *)((u32)gMainWorkspace + (u32)D_00001510) & 1;
     ((struct R3 *)r7->f2C)->f02 = 2;
     ((struct R3 *)r7->f2C)->f03 = 8;
     ((struct R3 *)r7->f2C)->f04 = *(u8 *)(base + 0x304);
@@ -89,13 +91,13 @@ void sub_0807C3D4(u8 *arg0) {
     *(u32 *)(arg0 + 0x24) = 0x0808449D;
     r5->f24 = 0x084E3A38;
     sub_08003A6C((s32)((u8 *)r8 + 0x20), 0, 0x084E3AF8);
-    r8->f04 = *(u32 *)((u32)D_02025FF0 + (u32)D_00001728);
+    r8->f04 = *(u32 *)((u32)gMainWorkspace + (u32)D_00001728);
     z = D_0202771C;
     r7->f04 = z + 0xFF800000;
     z = 0;
     r7->f10 = z;
     r7->f40 = 0x4000;
-    r8->f48 = 0x40;
+    { int repair_store_value = 0x40; r8->f48 = repair_store_value; }
     r8->f49 = 4;
     sub_080722E0(r7, r8->f48);
     r7->f4C = z;
@@ -105,6 +107,8 @@ void sub_0807C3D4(u8 *arg0) {
         u8 *b18 = arg0 + 0x18;
         sub_080C31E4(b18, arg0 + 0x22, *(u32 *)0x08671BB0);
         *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) += 1;
-        sub_080C31E0((s32)arg0, *(s32 *)(*(u8 *)(b18 + *(s16 *)(arg0 + 0x22) * 2) * 4 + *(u32 *)(arg0 + 0x14)));
+__repair_literal = 2;
+
+        sub_080C31E0((s32)arg0, *(s32 *)(*(u8 *)(b18 + *(s16 *)(arg0 + 0x22) * __repair_literal) * 4 + *(u32 *)(arg0 + 0x14)));
     }
 }

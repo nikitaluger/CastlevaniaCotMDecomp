@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014EF4(s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
@@ -14,7 +14,7 @@ void sub_0804E28C(void *arg0)
     body = *(u8 **)((u8 *)arg0 + 0x3C);
     anim = body + 0x34;
 
-    sub_08011368(gfx, anim, 3, 0);
+    setAnimationFrame(gfx, anim, 3, 0);
     *(s32 *)(body + 0x10) = 0;
 
     if (*anim & 2) {

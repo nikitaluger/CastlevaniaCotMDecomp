@@ -1,5 +1,5 @@
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern s32 sub_0800355C(void);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern s32 allocSpriteObject(void);
 extern void sub_0806D2D0(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -15,12 +15,12 @@ void sub_0807102C(void *arg0)
     u8 *stepBase;
     s32 *scriptHandlers;
 
-    if (sub_0800168C(arg0, 0, 0x68, 3) == 0) {
+    if (allocWorkSlot(arg0, 0, 0x68, 3) == 0) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;
     }
 
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     if (sprite == 0) {
         sub_0806D2D0(arg0);
         return;

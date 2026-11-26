@@ -11,8 +11,8 @@ void sub_080C31E0(u8 *, s32);
 void sub_080113A8(void *, void *);
 void sub_0801165C(void *, s32);
 void sub_08013C8C(void *, void *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E498[];
 extern u32 D_08671BDC[];
 
@@ -110,8 +110,8 @@ void sub_0804BF28(u8 *self)
     sub_08013C8C(self, parent);
     {
         s32 worldY = (*((s32 *) (obj + 0x0C))) + (*((s32 *) (objState + 0x18)));
-        coordTable = D_02021E90;
-        basePtr = D_02025FF0;
+        coordTable = gCameraState;
+        basePtr = gMainWorkspace;
         basePtr += 0x18A8;
         slotIndex = (((u32) (*basePtr)) + 1) * 0x40;
         coordTable += 0x127C;

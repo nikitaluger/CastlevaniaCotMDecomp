@@ -1,11 +1,11 @@
 struct S_02025FF0_ab { u8 _0x000[0x1868]; s32 v1868; u8 _pad[0x1874 - 0x186C]; s32 v1874; };
-extern struct S_02025FF0_ab D_02025FF0;
+extern struct S_02025FF0_ab gMainWorkspace;
 void *sub_0805FAEC(s32, s32);
 
 /* Spawns a type-0x207 object under the given root and fills in its position,
  * timer pair and three extra init fields. */
 void *sub_0808E348(s32 x, s32 y, s32 heading, s32 param8C, s32 param9C, u16 duration, u16 timer) {
-    void *object = sub_0805FAEC(D_02025FF0.v1874, 0x207);
+    void *object = sub_0805FAEC(gMainWorkspace.v1874, 0x207);
     if (object == NULL) return NULL;
     *(s32 *)((u8 *)object + 0x4C) = x;
     *(s32 *)((u8 *)object + 0x5C) = y;

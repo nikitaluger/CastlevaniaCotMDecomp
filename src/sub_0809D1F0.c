@@ -1,4 +1,4 @@
-s32 sub_080114DC(s32, s32, s32, s32);
+s32 setObjectAnimation(s32, s32, s32, s32);
 s32 sub_080148D8(s32, s32);
 s32 sub_0809E278(s32, s32, void *, void *);
 s32 sub_0809E3B4(s32, void *);
@@ -20,7 +20,7 @@ void sub_0809D1F0(void *arg0)
     anim = work + 0x34;
     effectState = work + 0x48;
     sub_080148D8(sprite, *(s32 *)((u8 *)work + 8));
-    sub_080114DC(sprite, anim, 0, 1);
+    setObjectAnimation(sprite, anim, 0, 1);
     sub_0809E278(sprite, anim, work, effectState);
     sub_0809E3B4(*(s32 *)((u8 *)effectState + 0x20), work + 0x5C);
     if (*(u8 *)((u8 *)effectState + 0x14) == 4) {

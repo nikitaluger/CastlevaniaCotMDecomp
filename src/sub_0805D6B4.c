@@ -1,7 +1,7 @@
 struct S_02025FF0 { u8 _[0x189C]; u32 f; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s16 D_080D002C[];
-void sub_08011368(void *, s32, s16, s32);
+void setAnimationFrame(void *, s32, s16, s32);
 void sub_080C31E0(void *, s32);
 
 /* Update a timed effect: reset/clamp its counter from state flags, set sprite
@@ -40,7 +40,7 @@ skip:
         *(s32 *)((u8 *)body + 0x10) = zero;
         {
             s16 tableval = D_080D002C[*(u16 *)((u8 *)state16 + 8) & 0xF];
-            sub_08011368(animCtrl, (void *)animState, tableval, 1);
+            setAnimationFrame(animCtrl, (void *)animState, tableval, 1);
         }
     }
     remaining = *(u16 *)((u8 *)render + 0) - 1;
@@ -50,7 +50,7 @@ skip:
         sub_080C31E0(self, *(s32 *)((u8 *)self + 0x24));
         return;
     }
-    if (remaining16 <= 0x77 && (D_02025FF0.f & 1) != 0) {
+    if (remaining16 <= 0x77 && (gMainWorkspace.f & 1) != 0) {
         u8 *p = (u8 *)animCtrl + 0x2A;
         *p = 0xBF & *p;
     }

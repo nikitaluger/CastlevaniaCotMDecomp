@@ -1,4 +1,4 @@
-extern void sub_08014588(s32 arg0, s32 arg1);
+extern void copyPoseAttrs(s32 arg0, s32 arg1);
 extern u32 D_081018F0[];
 struct FrameEntry
 {
@@ -63,6 +63,6 @@ void sub_0809C618(s32 entityId, void *anim, s32 dst)
   pose = 2;
 
   done:
-  sub_08014588(dst, addOffsets(pose * 0x18, ((u32) D_081018F0) + (entityId * 8)));
+  copyPoseAttrs(dst, addOffsets(pose * 0x18, ((u32) D_081018F0) + (entityId * 8)));
 
 }

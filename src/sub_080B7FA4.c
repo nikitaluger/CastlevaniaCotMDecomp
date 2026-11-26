@@ -11,7 +11,7 @@ typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
 M2C_UNK sub_08005E80(s32);
-M2C_UNK sub_08011368(s32, s32, s32, s32);
+M2C_UNK setAnimationFrame(s32, s32, s32, s32);
 M2C_UNK sub_08011460(s32, s32, s32);
 M2C_UNK sub_080C31E4(void *, void *, s32);
 
@@ -26,7 +26,7 @@ void sub_080B7FA4(void *arg0)
   sprite = *((s32 *) (((s8 *) arg0) + 0x38));
   work = *((void **) (((s8 *) arg0) + 0x3C));
   anim = work + 0x34;
-  sub_08011368(sprite, anim, 2, 0);
+  setAnimationFrame(sprite, anim, 2, 0);
   sub_08011460(sprite, anim, 0x40000);
   if (2 & (*((u8 *) (((s8 *) work) + 0x34))))
   {

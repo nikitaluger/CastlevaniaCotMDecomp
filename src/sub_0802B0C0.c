@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014EF4(s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
@@ -15,7 +15,7 @@ void sub_0802B0C0(void *self)
     anim = work + 0x34;
 
     *(s32 *)(work + 0x10) = 0;
-    sub_08011368(gfx, anim, 5, 0);
+    setAnimationFrame(gfx, anim, 5, 0);
 
     if (*anim & 2) {
         s16 stateIndex;

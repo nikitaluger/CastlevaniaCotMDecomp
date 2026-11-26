@@ -1,8 +1,8 @@
 extern void sub_080113A8(void *, void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866FB24[];
 
 struct S2A { u8 flag; };
@@ -50,8 +50,8 @@ void sub_08096A34(u8 *entity) {
         if (*(s16 *)(comp + 0x16) == 1) {
             sub_080113A8(state, compTarget);
         }
-        coordTable = D_02021E90;
-        camBase = D_02025FF0;
+        coordTable = gCameraState;
+        camBase = gMainWorkspace;
         camBase += 0x18A8;
         coordIdx = ((u32)*camBase + 1) * 0x40;
         xBase = coordTable + 0x1278;

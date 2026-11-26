@@ -2,22 +2,22 @@ extern struct
 {
   u8 _0[0x18C2];
   u16 w;
-} D_02025FF0;
-extern u32 D_08671BB0[];
+} gMainWorkspace;
+extern u32 gMainObjTimerCallback[];
 struct Half2
 {
   u8 _0[2];
   u16 f;
 };
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, s32);
-extern s32 sub_08013C2C(void);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, s32);
+extern s32 findKindIndex(void);
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r2(void *, void *, u32);
 void sub_080B943C(u8 *arg0)
 {
-  u8 *alloc = sub_0800355C();
+  u8 *alloc = allocSpriteObject();
   u8 *p;
   u8 *r7;
   u8 *r8;
@@ -31,7 +31,7 @@ void sub_080B943C(u8 *arg0)
     return;
   }
   *((u32 *) (arg0 + 0x38)) = (u32) alloc;
-  sub_0800168C(arg0, 0, 0x120, 0);
+  allocWorkSlot(arg0, 0, 0x120, 0);
   if ((*((u8 **) (arg0 + 0x3C))) == NULL)
   {
     _call_via_r1(arg0, *((void **) (arg0 + 0x24)));
@@ -42,9 +42,9 @@ void sub_080B943C(u8 *arg0)
   *r7 &= 0xBF;
   p = *((u8 **) (arg0 + 0x3C));
   r8 = p + 0x48;
-  sub_08014288(arg0, p, 0x08097DC9);
+  installUpdateHandler(arg0, p, 0x08097DC9);
   *((u16 *) (p + 0x1C)) = 0x67;
-  t = sub_08013C2C();
+  t = findKindIndex();
   *((u16 *) (p + 0x22)) = t;
   if ((t << 16) < 0)
   {
@@ -56,7 +56,7 @@ void sub_080B943C(u8 *arg0)
   t += 0x200;
   t &= 0xFC0;
   *((u16 *) alloc) = (u16) t;
-  *((u16 *) alloc) = (u16) (t | (&D_02025FF0)->w);
+  *((u16 *) alloc) = (u16) (t | (&gMainWorkspace)->w);
   {
     u16 w = *((u16 *) (alloc + 2));
     w |= 0x400;
@@ -66,7 +66,7 @@ void sub_080B943C(u8 *arg0)
   *((u32 *) (r8 + 4)) = (*((u32 *) (arg0 + 0x4C))) - 1;
   *((u32 *) (alloc + 0x24)) = 0x0841EB04;
   i = 0;
-  r8 = (u8 *) (&D_08671BB0);
+  r8 = (u8 *) (&gMainObjTimerCallback);
   alloc = arg0 + 0x18;
   parg = arg0 + 0x22;
   {

@@ -1,6 +1,6 @@
 extern u32 D_08671BD0;
 s32 sub_080113A8(void *a, void *b, void *c, s32 d);
-s32 sub_08014588(void *a, void *b);
+s32 copyPoseAttrs(void *a, void *b);
 s32 sub_080C31E8(void *a, void *b, s32 c, s32 d);
 
 void sub_08037CA4(void *a) {
@@ -62,6 +62,6 @@ void sub_08037CA4(void *a) {
         t = *(void **)(r2 + 0x10);
         *(u8 *)((u8 *)t + 1) = (u8)r6;
         t = *(void **)(r2 + 0x0C);
-        sub_08014588(t, (void *)((u8 *)0x080CEFF4 + r3 * 8));
+        copyPoseAttrs(t, (void *)((u8 *)0x080CEFF4 + r3 * 8));
     }
 }

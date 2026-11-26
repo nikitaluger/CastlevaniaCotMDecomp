@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Play sprite animation 9 on the entity; if the work velocity at +0x14 is
@@ -7,7 +7,7 @@ void sub_0803D960(void *arg0) {
     u8 *self = (u8 *)arg0;
     s32 sprite = *(s32 *)(self + 0x38);
     u8 *work = *(u8 **)(self + 0x3C);
-    sub_08011368(sprite, work + 0x34, 9, 0);
+    setAnimationFrame(sprite, work + 0x34, 9, 0);
     if (*(s32 *)(work + 0x14) >= 0) {
         s16 step = *(s16 *)(self + 0x22);
         s32 *scriptTable;

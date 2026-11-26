@@ -1,16 +1,20 @@
-extern void *sub_0800355C(void);
+extern void *allocSpriteObject(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern u32 D_080CA9E4[];
+
+struct Pair {
+    u32 first;
+    u32 second;
+};
+extern struct Pair D_080CA9E4[];
 
 void sub_08008B98(void *arg0)
 {
     u8 *self = (u8 *)arg0;
-    void *obj = sub_0800355C();
+    void *obj = allocSpriteObject();
     u8 *r4;
     u8 zero;
     u32 v;
-    u32 m;
     u32 w;
 
     if (obj == NULL) {
@@ -18,11 +22,10 @@ void sub_08008B98(void *arg0)
         return;
     }
     *(void **)(self + 0x38) = obj;
-    *(void **)((u8 *)obj + 0x14) = (void *)D_080CA9E4[*(u32 *)(self + 0x4C) * 2];
-    *(void **)((u8 *)obj + 0x18) = (void *)D_080CA9E4[*(u32 *)(self + 0x4C) * 2 + 1];
+    *(void **)((u8 *)obj + 0x14) = (void *)D_080CA9E4[*(u32 *)(self + 0x4C)].first;
+    *(void **)((u8 *)obj + 0x18) = (void *)D_080CA9E4[*(u32 *)(self + 0x4C)].second;
     v = *(u16 *)((u8 *)obj + 2);
-    m = 0x400;
-    w = m;
+    w = 0x400;
     zero = 0;
     w |= v;
     *(u16 *)((u8 *)obj + 2) = (u16)w;

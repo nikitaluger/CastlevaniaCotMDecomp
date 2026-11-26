@@ -3,7 +3,7 @@ void sub_08001480(void *, s32);
 void sub_08061B4C(void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 /* Restores the saved graphics state, then starts one of two transitions based
  * on the global mode byte before clearing the animation frame and playing the
@@ -17,15 +17,15 @@ void sub_08007AAC(void *obj) {
     sub_08006404(obj);
 
     modeOffset = 0x18C4;
-    mode = *(u8 *)((u8 *)D_02025FF0 + modeOffset);
+    mode = *(u8 *)((u8 *)gMainWorkspace + modeOffset);
     switch (mode) {
     case 1: {
         s32 paramA;
         s32 paramB;
         u32 coordsOffset;
         coordsOffset = 0x1728;
-        paramA = *(s32 *)((u8 *)D_02025FF0 + coordsOffset);
-        paramB = *(s32 *)((u8 *)D_02025FF0 + coordsOffset + 4);
+        paramA = *(s32 *)((u8 *)gMainWorkspace + coordsOffset);
+        paramB = *(s32 *)((u8 *)gMainWorkspace + coordsOffset + 4);
         sub_08061B4C(obj, paramA, paramB);
         break;
     }

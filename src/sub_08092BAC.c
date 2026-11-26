@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 s32 sub_08005820(s32);
 s32 sub_0800583C(s32);
@@ -22,7 +22,7 @@ void sub_08092BAC(void *behav)
     posX = *(s32 *)owner + (sub_0800583C(0x10000) << 4);
     posYraw = *(s32 *)((u8 *)owner + 4) + (sub_0800583C(0x10000) << 3);
     countOff = 0x1898;
-    counter = (u32 *)(D_02025FF0 + countOff);
+    counter = (u32 *)(gMainWorkspace + countOff);
     halfCount = *(s32 *)counter / 2;
     countMod = halfCount % 4;
     posY = posYraw + ((countMod - 1) << 20);

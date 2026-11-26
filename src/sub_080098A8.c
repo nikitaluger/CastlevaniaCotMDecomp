@@ -9,9 +9,9 @@ struct S_02021E90 {
     u16 f1470;
 };
 
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 extern u16 D_03000830[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Forces the entity's mode byte (+0x60) from the global state flags, plays a
  * sound when it changes, and on a trigger flag runs the spawn/action sequence. */
@@ -26,7 +26,7 @@ void sub_080098A8(void *entity)
 
     modePos = (s8 *)entity + 0x60;
     oldMode = *modePos;
-    stateFlags = D_02021E90.f1470;
+    stateFlags = gCameraState.f1470;
     if ((stateFlags & 0x30) != 0x30) {
         mask20 = 0x20;
         mask20 &= stateFlags;
@@ -34,7 +34,7 @@ void sub_080098A8(void *entity)
         } else {
             *modePos = 0;
         }
-        if (D_02021E90.f1470 & 0x10) {
+        if (gCameraState.f1470 & 0x10) {
             *modePos = 1;
         }
     }
@@ -43,7 +43,7 @@ void sub_080098A8(void *entity)
         sub_08005E80(0x153);
     }
     {
-        u16 triggerFlags = D_02021E90.f146C;
+        u16 triggerFlags = gCameraState.f146C;
         if (triggerFlags & 3) {
             mask2 = 2;
             mask2 &= triggerFlags;
@@ -64,7 +64,7 @@ void sub_080098A8(void *entity)
                 *((s8 *)entity + stepIndex * 2 + 0x19) = 0;
             }
             {
-                void **callback = &D_08671BB0;
+                void **callback = &gMainObjTimerCallback;
                 sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callback);
             }
         }

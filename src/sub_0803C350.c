@@ -1,18 +1,18 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_08014290(void);
 extern void sub_0803C70C(void *, s32, u32, u32, s32, s32);
-extern s32 sub_08013C2C(s32);
+extern s32 findKindIndex(s32);
 extern void sub_08014668(void *, s32);
-extern void sub_0801131C(void *, void *, s32);
+extern void initSpriteGraphics(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
-extern u8 D_080CD400[];
-extern u32 D_08671BB0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
+extern u8 gSpriteAnimDataTable[];
+extern u32 gMainObjTimerCallback[];
 
 /* Spawns an attack: allocates a sprite and logic state, assigns an animation
  * slot, sets the sprite graphics and world coordinates, and records the attack
@@ -25,12 +25,12 @@ void sub_0803C350(u8 *owner)
     s32 animSlot;
     s32 slotCheck;
 
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     if (sprite == 0)
         goto fail;
 
     *(void **)(owner + 0x38) = sprite;
-    sub_0800168C(owner, 0, 0x48, 0);
+    allocWorkSlot(owner, 0, 0x48, 0);
 
     if (*(u32 *)(owner + 0x3C) == 0)
         goto fail;
@@ -38,7 +38,7 @@ void sub_0803C350(u8 *owner)
     *(u32 *)((u8 *)sprite + 0x1C) = 0x8000000B;
     logic = *(void **)(owner + 0x3C);
     animData = (u8 *)logic + 0x34;
-    sub_08014288(owner, logic, (void *)sub_08014290);
+    installUpdateHandler(owner, logic, (void *)sub_08014290);
 
     *(u16 *)((u8 *)logic + 0x1C) = 0x24;
     *(u32 *)((u8 *)logic + 0x08) = *(u32 *)(owner + 0x4C);
@@ -51,7 +51,7 @@ void sub_0803C350(u8 *owner)
                  *(s32 *)(owner + 0x6C),
                  *(s32 *)(owner + 0x7C));
 
-    animSlot = sub_08013C2C(*(s16 *)((u8 *)logic + 0x1C));
+    animSlot = findKindIndex(*(s16 *)((u8 *)logic + 0x1C));
     slotCheck = animSlot;
     *(s16 *)((u8 *)logic + 0x22) = animSlot;
     if ((slotCheck << 16) >= 0)
@@ -69,15 +69,15 @@ cont:
     }
 
     {
-        u8 *sceneState = D_02025FF0;
+        u8 *sceneState = gMainWorkspace;
         *(u16 *)((u8 *)sprite + 0x00) |= *(u16 *)(sceneState + 0x18C2);
 
         sub_08014668(sprite, *(u32 *)((u8 *)logic + 0x10));
 
-        sub_0801131C(sprite, animData, (s32)D_080CD400 + *(s16 *)((u8 *)logic + 0x1C) * 12);
+        initSpriteGraphics(sprite, animData, (s32)gSpriteAnimDataTable + *(s16 *)((u8 *)logic + 0x1C) * 12);
 
         {
-            u8 *pt = D_02021E90;
+            u8 *pt = gCameraState;
             u8 *pb = sceneState;
             u8 *base1;
             u8 *base2;
@@ -97,7 +97,7 @@ cont:
     *(u8 *)((u32)(*(s16 *)(owner + 0x22) * 2) + (u32)owner + 0x19) = 0;
 
     {
-        u32 *cmdTable = (u32 *)D_08671BB0;
+        u32 *cmdTable = (u32 *)gMainObjTimerCallback;
         u8 *attackLog = owner + 0x18;
         sub_080C31E4(attackLog, owner + 0x22, *cmdTable);
 

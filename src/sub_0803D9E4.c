@@ -1,6 +1,6 @@
-s32 sub_08014938(s32);
+s32 signOf(s32);
 s32 sub_08014990(s32);
-void sub_08011368(s32, s32, s32, s32);
+void setAnimationFrame(s32, s32, s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 struct DirExtra { u8 unk0[2]; u16 choice; u8 unk4[0x36]; };
 
@@ -23,12 +23,12 @@ void sub_0803D9E4(void *arg0)
   arg0 = ((u8 *) state) + 0x34;
   extra = (struct DirExtra *) (((u8 *) state) + 0x48);
   pValue = ((u8 *) state) + 8;
-  sub_08011368((s32) sprite, (s32) arg0, 0x0D, 0);
+  setAnimationFrame((s32) sprite, (s32) arg0, 0x0D, 0);
   zero = 0;
   *((s32 *) (((u8 *) state) + 0x10)) = zero | 0;
   if (((u8 *) arg0)[0] & 2)
   {
-    dirSign = sub_08014938(*((s32 *) pValue));
+    dirSign = signOf(*((s32 *) pValue));
     facingSign = sub_08014990((s32) sprite);
     if (dirSign == facingSign)
     {

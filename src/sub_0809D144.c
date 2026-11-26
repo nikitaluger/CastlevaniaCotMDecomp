@@ -1,4 +1,4 @@
-void sub_080114DC(s32, s32, s32, s32);
+void setObjectAnimation(s32, s32, s32, s32);
 void sub_0809E278(s32, s32, void *, s32);
 void sub_080A01CC(s32, s32);
 s32 sub_080A01D4(s32);
@@ -15,7 +15,7 @@ void sub_0809D144(void *actor)
     u8 *anim = work + 0x34;
     u8 *state = work + 0x48;
 
-    sub_080114DC(sprite, (s32)anim, 7, 1);
+    setObjectAnimation(sprite, (s32)anim, 7, 1);
     sub_0809E278(sprite, (s32)anim, work, (s32)state);
 
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) > 7)

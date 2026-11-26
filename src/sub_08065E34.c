@@ -40,7 +40,7 @@ struct CountdownEntry {
     u8 _8[0x50];
 };
 extern struct CountdownEntry D_080E03A0[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u8 D_0846FEA8[];
 extern s32 sub_0806C4B4(void *, void *);
 extern void sub_0806C5EC(void *, void *, void *, void *);
@@ -81,7 +81,7 @@ void sub_08065E34(struct UpdateCtx *arg0) {
             stepPtr = (u8 *)((u32)(arg0->stepIndex * 2) + (u32)arg0);
             stepPtr[0x19] = posMode;
             {
-                u32 *eventPtr = &D_08671BB0;
+                u32 *eventPtr = &gMainObjTimerCallback;
                 sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *eventPtr);
             }
         }

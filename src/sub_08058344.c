@@ -1,4 +1,4 @@
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 s32 sub_08005820(s32);
 s32 sub_0800583C(s32);
@@ -50,7 +50,7 @@ void sub_08058344(u8 *self)
         if (*(slot + 0x19) > 0x3C)
         {
             *(slot + 0x19) = (u8)zero;
-            argTable = &D_08671BB0;
+            argTable = &gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *argTable);
         }
     }

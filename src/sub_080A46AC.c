@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080113A8(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -12,7 +12,7 @@ void sub_080A46AC(void *arg0) {
         s32 zero = 0;
         *(u16 *)((u8 *)actor + 4) = 0x80;
         *(u16 *)((u8 *)actor + 6) = 0x80;
-        sub_08011368(actor, anim, 0x21, 0);
+        setAnimationFrame(actor, anim, 0x21, 0);
         *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = (u8)zero;
         {
             s32 *lit = (s32 *)0x08671BB0;

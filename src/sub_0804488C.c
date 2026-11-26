@@ -1,10 +1,10 @@
-s32 sub_08011368(s32, s32, s32, s32);
+s32 setAnimationFrame(s32, s32, s32, s32);
 s32 sub_080113A8(s32, s32);
 s32 sub_080148D8(s32, s32);
 s32 sub_080C31E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u32 D_08671BFC;
 
 /* Entity update: offset the enemy's vertical position from a script parameter
@@ -40,11 +40,11 @@ void sub_0804488C(void *arg0) {
     paramIndex = *(s16 *)((u8 *)self + 0x22);
     param = *((u8 *)self + paramIndex * 2 + 0x19);
     if (param == *(u8 *)((u8 *)enemyState + 4)) {
-        sub_08011368(actor, (s32)enemyData, 0x15, 0);
+        setAnimationFrame(actor, (s32)enemyData, 0x15, 0);
         *(s32 *)((u8 *)enemy + 0x14) = 0xFFF9C000;
         paramIndex = *(s16 *)((u8 *)self + 0x22);
         *((u8 *)self + paramIndex * 2 + 0x19) = 0;
-        pCallbackFn = &D_08671BB0;
+        pCallbackFn = &gMainObjTimerCallback;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *pCallbackFn);
     }
 }

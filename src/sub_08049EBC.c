@@ -3,8 +3,8 @@ struct S_02025FF0_49EBC {
     u32 f174C;
     u32 f1750;
 };
-extern struct S_02025FF0_49EBC D_02025FF0;
-extern void *D_08671BB0;
+extern struct S_02025FF0_49EBC gMainWorkspace;
+extern void *gMainObjTimerCallback;
 extern s32 sub_08005910(s32, s32);
 extern void sub_0801165C(void *, s32);
 extern void sub_0804A4D0(void *, void *, void *, s32);
@@ -28,7 +28,7 @@ void sub_08049EBC(u8 *object) {
     if (sub_0804A4F0(sprite, pose, state, ctrl) != 0) {
         firedFlag = *(u8 *)(ctrl + 9);
         if (firedFlag == 0) {
-            angle = sub_08005910(D_02025FF0.f1750 - *(s32 *)(state + 0xC), D_02025FF0.f174C - *(s32 *)(state + 8));
+            angle = sub_08005910(gMainWorkspace.f1750 - *(s32 *)(state + 0xC), gMainWorkspace.f174C - *(s32 *)(state + 8));
             if (*(u16 *)(sprite + 2) & 0x10) {
                 angle = (0x8000 - angle) & 0xFFFF;
             }
@@ -37,7 +37,7 @@ void sub_08049EBC(u8 *object) {
                 sub_0804A4D0(sprite, pose, ctrl, 0xC);
                 (object + *(s16 *)(object + 0x22) * 2)[0x19] = (u8)firedFlag;
                 {
-                    void **callback = &D_08671BB0;
+                    void **callback = &gMainObjTimerCallback;
                     sub_080C31E4(object + 0x18, object + 0x22, *callback);
                 }
             }

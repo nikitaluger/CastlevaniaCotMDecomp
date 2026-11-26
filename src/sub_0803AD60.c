@@ -1,11 +1,11 @@
 extern void sub_080113A8(void *, void *);
 extern void sub_08011344(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 /* Global list head held in the shared work area at offset 0x1870. */
 struct WorkAreaList { u8 pad[0x1870]; void *head; };
-extern struct WorkAreaList D_02025FF0;
+extern struct WorkAreaList gMainWorkspace;
 
 /* When the enemy's animation-control flags signal a spawn, set its fixed-point
  * motion values from script flags, advance the animation, link this object into
@@ -37,15 +37,15 @@ void sub_0803AD60(u8 *self) {
             u8 *first = *(u8 **)(head + 0x30);
             *(u32 *)(first + 0x2C) = zero;
         }
-        listHead = D_02025FF0.head;
+        listHead = gMainWorkspace.head;
         oldFirst = *(void **)((u8 *)listHead + 0x30);
         *(void **)(self + 0x2C) = oldFirst;
         *(void **)((u8 *)listHead + 0x30) = self;
-        *(void **)(self + 0x28) = D_02025FF0.head;
+        *(void **)(self + 0x28) = gMainWorkspace.head;
         *(u32 *)(self + 0x30) = zero;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
         {
-            s32 *pTable = &D_08671BB0;
+            s32 *pTable = &gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *pTable);
         }
     }

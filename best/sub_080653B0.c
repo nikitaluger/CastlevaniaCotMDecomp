@@ -8,7 +8,7 @@ extern u32 sub_0806BCD8(void *arg0, void *arg1, void *arg2, void *arg3);
 extern void sub_080C31E4(void *arg0, void *arg1, s32 arg2);
 extern void sub_080C31E8(void *arg0, void *arg1, s32 arg2, void *arg3);
 extern u8 D_080E03A0[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern void *D_08671BD8;
 void sub_080653B0(u8 *arg0)
 {
@@ -50,7 +50,7 @@ void sub_080653B0(u8 *arg0)
       }
       *((s32 *) (r5 + 8)) = val;
       *((u8 *) ((arg0 + ((*((s16 *) (arg0 + 0x22))) * 2)) + 0x19)) = (u8) tr;
-      pd = &D_08671BB0;
+      pd = &gMainObjTimerCallback;
       sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *pd);
     }
     {

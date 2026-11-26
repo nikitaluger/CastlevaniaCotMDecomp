@@ -1,6 +1,6 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void *sub_08016190(void);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08095CE4(void);
@@ -51,17 +51,17 @@ struct R8_95884 {
     s16 *f4;
 };
 
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern struct {
     u8 _0[0x18A8];
     u8 f18A8;
     u8 _18A9[0x19];
     u16 f18C2;
-} D_02025FF0;
+} gMainWorkspace;
 
 extern u16 D_08100A6C[];
 extern u8 D_08630B98[];
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 /* Spawns a sprite and its logic/child entities from the owner's coordinate
  * config, sets world coordinates from the scroll table and records the action. */
@@ -77,12 +77,12 @@ void sub_08095884(struct Arg95884 *owner)
     u8 *attackLog;
 
     config = owner->fAC;
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     if (sprite == 0)
         goto fail;
 
     owner->f38 = sprite;
-    sub_0800168C(owner, 0, 0x34, 0);
+    allocWorkSlot(owner, 0, 0x34, 0);
     logic = owner->f3C;
     if (logic == 0)
         goto fail;
@@ -95,7 +95,7 @@ void sub_08095884(struct Arg95884 *owner)
     logic->f8 = (s32)coords[0] << 16;
     logic->fC = (s32)coords[1] << 16;
 
-    child = sub_08016190();
+    child = allocEffectPart();
     logic->f28 = child;
     if (child != 0)
         goto cont;
@@ -118,13 +118,13 @@ cont:
     logic->f28->f10 = sprite;
     logic->f28->f14 = 0;
 
-    *(u16 *)sprite |= D_02025FF0.f18C2;
+    *(u16 *)sprite |= gMainWorkspace.f18C2;
     *(u32 *)((u8 *)sprite + 0x1C) = 0x80000007;
 
     {
-        u8 *scrollBase = (u8 *)&D_02021E90;
-        { u32 offset = 0x1278; *(u32 *)((u8 *)sprite + 0x14) = logic->f8 - ((*(u32 *)(scrollBase + offset + ((D_02025FF0.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
-        { u32 offset = 0x127C; *(u32 *)((u8 *)sprite + 0x18) = logic->fC - ((*(u32 *)(scrollBase + offset + ((D_02025FF0.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
+        u8 *scrollBase = (u8 *)&gCameraState;
+        { u32 offset = 0x1278; *(u32 *)((u8 *)sprite + 0x14) = logic->f8 - ((*(u32 *)(scrollBase + offset + ((gMainWorkspace.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
+        { u32 offset = 0x127C; *(u32 *)((u8 *)sprite + 0x18) = logic->fC - ((*(u32 *)(scrollBase + offset + ((gMainWorkspace.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     }
 
     *(u32 *)((u8 *)sprite + 0x24) = (u32)D_08630B98;
@@ -134,7 +134,7 @@ cont:
 
     *(u8 *)((u8 *)owner + owner->f22 * 2 + 0x19) = zero;
 
-    cmdTable = D_08671BB0;
+    cmdTable = gMainObjTimerCallback;
     attackLog = (u8 *)owner + 0x18;
     sub_080C31E4(attackLog, &owner->f22, *cmdTable);
 

@@ -8,7 +8,7 @@ void sub_080C31E4(void *, void *, u32);
 
 extern u16 D_03000830[];
 extern u8 D_080C98A6[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 #define END_BYTE     0x0A
 #define COUNT_START  0x10
@@ -25,7 +25,7 @@ void sub_08005C24(void *arg0) {
             s16 i = *(s16 *)((u8 *)arg0 + 0x22);
             *(u8 *)((u8 *)arg0 + i * 2 + 0x19) = 0;
         }
-        callbackTable = &D_08671BB0;
+        callbackTable = &gMainObjTimerCallback;
         scriptPtr = (u8 *)arg0 + 0x18;
         sub_080C31E4(scriptPtr, (u8 *)arg0 + 0x22, *callbackTable);
         {

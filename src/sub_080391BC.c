@@ -2,7 +2,7 @@ extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_0801165C(void *, s32);
 extern void sub_080113A8(s32, void *);
-extern void sub_08014588(s32, s32);
+extern void copyPoseAttrs(s32, s32);
 
 /* While the work value at +0x20 is zero, set byte +0x80 of the object at
  * (entity+0x30); once the entity's wait byte reaches 0x78, clear it and advance

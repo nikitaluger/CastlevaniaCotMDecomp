@@ -2,13 +2,13 @@ extern void sub_08011EE8(void *, s32, s32);
 extern void sub_080113A8(void *, void *);
 extern void *sub_0805FAEC(s32, s32);
 extern s32 sub_0800583C(s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 
 struct S_02025FF0_1870 { u8 _0[0x1870]; u32 v; };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 extern s32 D_02027860;
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Spawns the entity's particle bursts: a directional one keyed to the script
  * counter, and, when state flags 5 are set, a two-particle burst plus a sound. */
@@ -29,7 +29,7 @@ void sub_0803CEA4(u8 *self) {
     sub_080113A8(parent, body);
 
     if ((*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) & 3) == 0) {
-        particle = sub_0805FAEC((s32)D_02025FF0.v, 0xFD);
+        particle = sub_0805FAEC((s32)gMainWorkspace.v, 0xFD);
         if (particle != 0) {
             s32 x = *(s32 *)(comp + 8);
             if (*(u16 *)(parent + 2) & 0x10)
@@ -47,7 +47,7 @@ void sub_0803CEA4(u8 *self) {
         u32 i;
         s32 param;
 
-        sub_08011368(parent, body, 0x11, 0);
+        setAnimationFrame(parent, body, 0x11, 0);
         i = 0;
         scriptBase = self + 0x18;
         scriptIdx = self + 0x22;
@@ -67,7 +67,7 @@ void sub_0803CEA4(u8 *self) {
 
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            u32 *sound = &D_08671BB0;
+            u32 *sound = &gMainObjTimerCallback;
             sub_080C31E4(scriptBase, scriptIdx, (void *)*sound);
         }
     }

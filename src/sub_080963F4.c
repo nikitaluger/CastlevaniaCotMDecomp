@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C050C(s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s16 D_08100B1C[];      /* animation index per part kind */
@@ -16,7 +16,7 @@ void sub_080963F4(void *arg0)
   u8 *animState = work + 0x34;
   u8 *parts = work + 0x48;
   s16 animIndex = D_08100B1C[*((s32 *) (work + 0x48))];
-  sub_08011368(sprite, animState, animIndex, 1);
+  setAnimationFrame(sprite, animState, animIndex, 1);
   if ((*((s32 *) (work + 0x08))) > 0x024FFFFF) {
     sub_080C050C(0x1BE);
     *((s32 *) (work + 0x08)) = 0x02500000;

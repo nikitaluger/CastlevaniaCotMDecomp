@@ -1,5 +1,5 @@
-extern u8 D_02025FF0[];
-extern u8 D_02021E90[];
+extern u8 gMainWorkspace[];
+extern u8 gCameraState[];
 void sub_08005E80(s32);
 
 void sub_080A24FC(void *arg0)
@@ -13,7 +13,7 @@ void sub_080A24FC(void *arg0)
     u8 b3 = *p4;
     s8 sa = *(s8 *)p4;
     s8 sb = *(s8 *)p5;
-    u8 *d = D_02025FF0;
+    u8 *d = gMainWorkspace;
 
     if (sa != sb)
     {
@@ -45,8 +45,8 @@ void sub_080A24FC(void *arg0)
         }
     }
     {
-        u8 *pt = D_02021E90;
-        u8 *pb = D_02025FF0;
+        u8 *pt = gCameraState;
+        u8 *pb = gMainWorkspace;
         u8 *base1;
         u8 *base2;
         u32 idx;

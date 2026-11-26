@@ -12,7 +12,7 @@ void sub_080180A0(void *arg0)
   u8 *motion = *((u8 **) (script + 0x3C));
   u8 *anim = motion + 0x34;
   u8 *state = motion + 0x48;
-  sub_08011368(parent, motion + 0x34, 5, 0);
+  setAnimationFrame(parent, motion + 0x34, 5, 0);
   if ((*((u8 *) anim)) & 2)
   {
     register u16 zeroHalf = zero_h();

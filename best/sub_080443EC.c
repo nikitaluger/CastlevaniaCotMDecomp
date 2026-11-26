@@ -11,8 +11,8 @@ struct D21E90_443EC
   u8 _p[0x1278];
   u32 vals[1];
 };
-extern struct D25FF0_443EC D_02025FF0;
-extern struct D21E90_443EC D_02021E90;
+extern struct D25FF0_443EC gMainWorkspace;
+extern struct D21E90_443EC gCameraState;
 void sub_080443EC(void *arg0)
 {
   s32 r4 = 0;
@@ -61,8 +61,8 @@ void sub_080443EC(void *arg0)
     return;
   }
   {
-    u8 *p1 = (u8 *) (&D_02021E90);
-    idx = D_02025FF0.idx;
+    u8 *p1 = (u8 *) (&gCameraState);
+    idx = gMainWorkspace.idx;
     off = (idx + 1) << 6;
     q = p1 + 0x1278;
     tmp = *((u32 *) (off + q));

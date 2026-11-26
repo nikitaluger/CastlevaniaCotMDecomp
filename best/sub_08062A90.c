@@ -1,5 +1,5 @@
 extern u8 D_02025358[];
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern void (*D_08671BD0)(void *, void *, s32);
 extern void sub_08003740(void *, s32);
 extern void sub_0806A7AC(void *, void *, s32);
@@ -9,12 +9,12 @@ void sub_08062A90(void *arg0)
 {
   int new_var2;
   u8 *g1;
-  u8 *a = (u8 *) arg0;
-  u8 *r4 = *((u8 **) (a + 0x6C));
-  u8 *r6 = r4 + 4;
-  u8 *r8v = *((u8 **) (a + 0x38));
-  u8 *r5 = r6;
-  u8 *sbv = D_02025358;
+  u8 *a;
+  u8 *r4;
+  u8 *r6;
+  u8 *r8v;
+  u8 *r5;
+  u8 *sbv;
   s32 cnt;
   u8 *new_var;
   u8 *r6n;
@@ -23,6 +23,12 @@ void sub_08062A90(void *arg0)
   u8 *r1b;
   s16 idx;
   u8 *p;
+  a = (u8 *) arg0;
+  r4 = *((u8 **) (a + 0x6C));
+  r6 = r4 + 4;
+  do { r8v = *((u8 **) (a + 0x38)); } while (0);
+  r5 = r6;
+  sbv = D_02025358;
   *((s32 *) (r5 + 0x08)) = 0;
   *((s32 *) (r5 + 0x0C)) = 0;
   *((s32 *) (r5 + 0x64)) = 0x11;
@@ -50,7 +56,7 @@ void sub_08062A90(void *arg0)
   *((s32 *) (r5 + 0x44)) = 0;
   *((s32 *) (r4 + 0xC4)) = 0;
   *((s32 *) (r4 + 0xCC)) = 0;
-  g1 = D_02025FF0;
+  g1 = gMainWorkspace;
   *((s32 *) (g1 + 0x1754)) = 0;
   *((u16 *) (g1 + 0x1506)) = 0;
   *((u16 *) (g1 + 0x1504)) = 0;
@@ -70,7 +76,7 @@ void sub_08062A90(void *arg0)
   while (cnt >= 0);
   sub_0806A7AC(r8v, r6, 0);
   sub_08003740(r6 + 0x28, (s32) r8v);
-  r4 = D_02025FF0;
+  r4 = gMainWorkspace;
   new_var = r4;
   *((u32 *) (new_var + 0x1844)) |= 0x04000000;
   sub_0806C4B4(r6, r5);

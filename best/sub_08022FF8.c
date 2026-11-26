@@ -1,12 +1,12 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014EF4(s32);
 extern s32 sub_08012A94(s32, s32, s32);
 extern s32 sub_080133EC(s32);
 extern void sub_08023F34(s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u8 D_02025FF0[];
-extern u32 D_08671BB0[];
+extern u8 gMainWorkspace[];
+extern u32 gMainObjTimerCallback[];
 extern u32 D_08671BD8[];
 struct Arg
 {
@@ -25,7 +25,8 @@ void sub_08022FF8(struct Arg *arg0)
   s32 bit;
   u32 *new_var;
   s32 res;
-  s32 sum;
+  
+
   s32 c;
   u16 z16;
   u8 z8;
@@ -33,9 +34,9 @@ void sub_08022FF8(struct Arg *arg0)
   p = arg0->f3c;
   r1 = p + 0x34;
   q = p + 0x48;
-  sub_08011368(r0, r1, 5, 0);
+  setAnimationFrame(r0, r1, 5, 0);
   {
-    u8 *base = D_02025FF0;
+    u8 *base = gMainWorkspace;
     bit = ((*((s32 *) (base + 0x189C))) / 2) & 1;
   }
   if (bit != 0)
@@ -54,12 +55,12 @@ void sub_08022FF8(struct Arg *arg0)
   }
   *((s16 *) (q + 0x24)) = (sub_08014EF4(0x1388) != 0) ? (-1) : (1);
   {
-    u8 *base = D_02025FF0;
+    u8 *base = gMainWorkspace;
     *((u32 *) (q + 0x14)) = (*((u32 *) (base + 0x1728))) + ((*((s16 *) (q + 0x24))) << 22);
     base += 0x172C;
     res = sub_08012A94(*((s32 *) (q + 0x14)), *((u32 *) base), 0x11);
-    sum = (*((u32 *) base)) + res;
-    *((u32 *) (q + 0x18)) = sum;
+    bit = (*((u32 *) base)) + res;
+    *((u32 *) (q + 0x18)) = bit;
   }
   if (res > 0x00800000)
   {
@@ -86,12 +87,12 @@ void sub_08022FF8(struct Arg *arg0)
   *((u16 *) (q + 0x24)) = -(*((u16 *) (q + 0x24)));
 
   {
-    u8 *base = D_02025FF0;
+    u8 *base = gMainWorkspace;
     *((u32 *) (q + 0x14)) = (*((u32 *) (base + 0x1728))) + ((*((s16 *) (q + 0x24))) << 22);
     base += 0x172C;
     res = sub_08012A94(*((s32 *) (q + 0x14)), *((u32 *) base), 0x11);
-    sum = (*((u32 *) base)) + res;
-    *((u32 *) (q + 0x18)) = sum;
+    bit = (*((u32 *) base)) + res;
+    *((u32 *) (q + 0x18)) = bit;
   }
   if (res > 0x00800000)
   {
@@ -129,7 +130,7 @@ void sub_08022FF8(struct Arg *arg0)
   sub_08023F34(*((s32 *) (q + 0x14)), *((s32 *) (q + 0x18)), 0);
 
   *((u8 *) ((u32)(arg0->idx << 1) + (u32) arg0) + 0x19) = 0;
-  new_var = D_08671BB0;
+  new_var = gMainObjTimerCallback;
   sub_080C31E4(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, new_var[0]);
   end:
   ;

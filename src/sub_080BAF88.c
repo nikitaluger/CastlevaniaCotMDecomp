@@ -14,7 +14,7 @@ struct S_02021E90_all {
     u8 _pad2[0x1458 - 0x136A];
     u8 f1458;
 };
-extern struct S_02021E90_all D_02021E90;
+extern struct S_02021E90_all gCameraState;
 
 struct S_03000830 { u8 _0x000[4]; u16 a; u8 _pad[2]; u16 b; };
 extern struct S_03000830 D_03000830;
@@ -36,25 +36,25 @@ void sub_080BAF88(void *arg0) {
 }
 
 void sub_080BEDBC(void) {
-    D_02021E90.f1361 = 3;
-    D_02021E90.f1364 = D_03000830.a;
-    D_02021E90.f1366 = D_03000830.b;
-    D_02021E90.f1368 = D_02021E90.f1458;
-    D_02021E90.f1369 = 0x50;
+    gCameraState.f1361 = 3;
+    gCameraState.f1364 = D_03000830.a;
+    gCameraState.f1366 = D_03000830.b;
+    gCameraState.f1368 = gCameraState.f1458;
+    gCameraState.f1369 = 0x50;
     *(vu8 *)0x04000005 = 0xE3;
 }
 
 void sub_080BEE14(void) {
-    D_02021E90.f1361 = 3;
-    D_02021E90.f1364 = D_03000830.a;
-    D_02021E90.f1366 = D_03000830.b;
-    D_02021E90.f1368 = D_02021E90.f1458;
-    D_02021E90.f1369 = 0x48;
+    gCameraState.f1361 = 3;
+    gCameraState.f1364 = D_03000830.a;
+    gCameraState.f1366 = D_03000830.b;
+    gCameraState.f1368 = gCameraState.f1458;
+    gCameraState.f1369 = 0x48;
     *(vu8 *)0x04000005 = 0xE3;
 }
 
 void sub_080BEF60(void) {
-    u8 *base = (u8 *)&D_02021E90;
+    u8 *base = (u8 *)&gCameraState;
     u32 r2;
     base[0x1361] = 7;
     r2 = base[0x1364];

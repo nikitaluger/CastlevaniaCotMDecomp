@@ -1,10 +1,10 @@
-extern vu32 D_02025FF0;
-extern vu32 D_08671BB0;
+extern vu32 gMainWorkspace;
+extern vu32 gMainObjTimerCallback;
 
 void *sub_0805FAEC(s32, s32);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 
 struct MainObj {
     u8 pad_0x00[0x22];
@@ -31,7 +31,7 @@ void *ResultObj_New(s32 arg0, s32 arg1) {
     void *result;
     u8 *worldState;
 
-    worldState = (u8 *)&D_02025FF0;
+    worldState = (u8 *)&gMainWorkspace;
     result = sub_0805FAEC(*(vu32 *)(worldState + 0x1870), 0x89);
     if (result == NULL) {
         return NULL;
@@ -56,12 +56,12 @@ void sub_08019170(struct MainObj *arg0) {
     s16 step;
     u32 stepFn;
 
-    sub_08011368(arg0->unk_0x38, (u8 *)arg0->unk_0x3C + 0x34, 0x2B, 1);
+    setAnimationFrame(arg0->unk_0x38, (u8 *)arg0->unk_0x3C + 0x34, 0x2B, 1);
     step = arg0->unk_0x22;
     stepState = (u8 *)((step << 1) + (u32)arg0);
     if (stepState[0x19] > 0x1E) {
         stepState[0x19] = 0;
-        stepFn = D_08671BB0;
+        stepFn = gMainObjTimerCallback;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, stepFn);
     }
 }

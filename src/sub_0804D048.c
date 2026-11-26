@@ -2,9 +2,9 @@ extern u8 D_080CF9BC[];
 extern u32 D_08671BD0[];
 
 void sub_080113A8(s32, void *);
-void sub_08011368(s32, void *, u16, u8);
+void setAnimationFrame(s32, void *, u16, u8);
 void sub_08014668(void *, s32);
-void sub_08014588(void *, void *);
+void copyPoseAttrs(void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
 
 /* Bounce reaction: update the sprite, and on the 8th frame reverse the target's
@@ -23,8 +23,8 @@ void sub_0804D048(u8 *arg0) {
         s32 velocity = -*(s32 *)(target + 0x10);
         *(s32 *)(target + 0x10) = velocity;
         sub_08014668(sprite, velocity);
-        sub_08011368((s32)sprite, anim, 0, 1);
-        sub_08014588(*(void **)(target + 0x28), D_080CF9BC);
+        setAnimationFrame((s32)sprite, anim, 0, 1);
+        copyPoseAttrs(*(void **)(target + 0x28), D_080CF9BC);
         bounceState = (u16 *)(arg0 + 0x4C);
         zero = 0;
         one = 0x100;

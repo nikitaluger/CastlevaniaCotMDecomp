@@ -2,9 +2,9 @@
  * parent's sprite flip bit and a global display value, clear the current script
  * slot, then dispatch the next command in the table. */
 struct S_02025FF0 { u8 _[0x18C2]; u16 w; };
-extern struct S_02025FF0 D_02025FF0;
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
+extern struct S_02025FF0 gMainWorkspace;
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
 extern void sub_0806D2D0(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -14,11 +14,11 @@ void sub_0807FDC8(void *arg0) {
     u8 *newActor;
     u32 zero;
     u16 spriteFlags;
-    if (sub_0800168C(arg0, 0, 0x68, 3) == 0) {
+    if (allocWorkSlot(arg0, 0, 0x68, 3) == 0) {
         sub_080C31E0(arg0, *(void **)(self + 0x24));
         return;
     }
-    newActor = sub_0800355C();
+    newActor = allocSpriteObject();
     if (newActor == 0) {
         sub_0806D2D0(arg0);
         return;
@@ -28,7 +28,7 @@ void sub_0807FDC8(void *arg0) {
     spriteFlags = (0x10 & *(u16 *)(self + 0x9C)) | *(u16 *)(newActor + 2);
     zero = 0;
     *(u16 *)(newActor + 2) = spriteFlags;
-    *(u16 *)newActor = D_02025FF0.w;
+    *(u16 *)newActor = gMainWorkspace.w;
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     {
         s32 *paramPtr = (s32 *)0x08671BB0;

@@ -1,12 +1,12 @@
 extern s32 sub_0805FEC8(u16);
-extern void sub_0805FDF0(void);
-extern void sub_0805FEB4(u8);
+extern void resetMapRender(void);
+extern void setScreenTransition(u8);
 extern void sub_08000E54(void *a, void *b, void *c, u32 d, u32 e);
 extern void sub_080C31E4(void *a, void *b, u32 c);
 
 extern s8 D_020278D0[];
 extern u8 D_080CB1AE[];
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern u32 D_08671BC0;
 
 /* Resolve a graphics entry from the current state-byte pair; on success set up
@@ -32,10 +32,10 @@ void sub_0800E7EC(u8 *self)
         u16 attrs;
         u32 mask;
 
-        sub_0805FDF0();
-        sub_0805FEB4(0);
+        resetMapRender();
+        setScreenTransition(0);
 
-        gfxBase = (u32)D_02021E90;
+        gfxBase = (u32)gCameraState;
         attrPtr = (vu16 *)(gfxBase + 0x1262);
 
         attrs = *attrPtr;

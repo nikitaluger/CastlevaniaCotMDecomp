@@ -2,18 +2,18 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_08011528(s32, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void sub_080114DC(s32, void *, s32, s32);
+extern void setObjectAnimation(s32, void *, s32, s32);
 extern void sub_08098664(s32, s32, s32);
 
-/* Shared child-object list: D_02025FF0+0x1870 points at the owner object; its
+/* Shared child-object list: gMainWorkspace+0x1870 points at the owner object; its
  * +0x30 is the first live child. Each child starts with an s16 type id, keeps a
  * destroy argument at +0x24 and links to the next child at +0x2C. */
 struct ObjectRoot { u8 _0[0x1870]; u32 owner; };
-extern struct ObjectRoot D_02025FF0;
+extern struct ObjectRoot gMainWorkspace;
 
 /* Kill every live child of type 0x1BA (0xDD << 1) in the shared list. */
 void sub_080B307C(void) {
-    void *owner = (void *)D_02025FF0.owner;
+    void *owner = (void *)gMainWorkspace.owner;
     void *child = *(void **)((u8 *)owner + 0x30);
     if (child != NULL) {
         s32 typeId = 0xDD << 1;
@@ -51,7 +51,7 @@ void sub_080B489C(void *arg0)
   u8 *animState = work + 0x34;
   u8 *spriteData = work + 0x48;
 
-  sub_080114DC(sprite, animState, 0x68, 0);
+  setObjectAnimation(sprite, animState, 0x68, 0);
   if ((*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19))) == 6)
   {
     u8 *workFlag = work + 0x69;

@@ -6,7 +6,7 @@ extern void sub_080C31E0(void *, void *);
 extern s32 D_08671BDC;
 extern u8 D_0866FAF4;
 extern u8 D_02023130[];
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 /* Run one script step: when flagged, spawn the entity's tile effects and call
  * the effect hook, then dispatch the step's handler from the script table. */
@@ -28,12 +28,12 @@ void sub_08095E44(void *arg0) {
             w |= v;
             *flags = (u16)w;
 
-            sub_0800479C(D_02023130 + (D_02025FF0[0x18A8] << 6),
+            sub_0800479C(D_02023130 + (gMainWorkspace[0x18A8] << 6),
                          (*(s32 *)comp + (s32)0xFFF00000) >> 0x15,
                          *(s32 *)((u8 *)comp + 4) >> 0x15,
                          *(u16 *)((u8 *)*(void **)((u8 *)comp + 0x08) + 0));
 
-            sub_0800479C(D_02023130 + (D_02025FF0[0x18A8] << 6),
+            sub_0800479C(D_02023130 + (gMainWorkspace[0x18A8] << 6),
                          (*(s32 *)comp + 0x100000) >> 0x15,
                          *(s32 *)((u8 *)comp + 4) >> 0x15,
                          *(u16 *)((u8 *)*(void **)((u8 *)comp + 0x08) + 2));

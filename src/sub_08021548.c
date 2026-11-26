@@ -3,8 +3,8 @@ extern void sub_0801165C(void *, s32);
 extern s32 sub_08013B5C(void *, void *);
 extern void sub_080216B0(void *, void *);
 extern s32 sub_080C31E0(void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866D830[];
 
 /* Small flag pair at parent+0x28; bit 0 is flagged on entry. */
@@ -12,7 +12,7 @@ struct FlagPair { u8 unused; u8 flag; };
 
 /* Runs one frame of an entity's effect state machine (dispatching through the
  * D_0866D830 handler table) and then snaps the child entity's x/y to the
- * parent's position using the D_02021E90 / D_02025FF0 coordinate tables. */
+ * parent's position using the gCameraState / gMainWorkspace coordinate tables. */
 void sub_08021548(u8 *self) {
     u8 *child;
     u8 *parent;
@@ -54,8 +54,8 @@ void sub_08021548(u8 *self) {
 common:
     sub_080216B0(child, parent);
 
-    posTable = D_02021E90;
-    coordIndexPtr = D_02025FF0;
+    posTable = gCameraState;
+    coordIndexPtr = gMainWorkspace;
     coordIndexPtr += 0x18A8;
     coordIndex = ((u32)*coordIndexPtr + 1) * 0x40;
     coordXTable = posTable + 0x1278;

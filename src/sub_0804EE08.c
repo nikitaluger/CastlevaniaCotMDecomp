@@ -1,4 +1,4 @@
-extern s32 sub_08011368(s32, s32, s32, s32);
+extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
 
 /* Play animation frame 7 forward; once the current script command has been
@@ -9,7 +9,7 @@ void sub_0804EE08(void *entity) {
     s32 *scriptTable;
     s32 slotOffset;
     u8 *slot;
-    sub_08011368(*(s32 *)(obj + 0x38), (s32)(*(void **)(obj + 0x3C) + 0x34), 7, 1);
+    setAnimationFrame(*(s32 *)(obj + 0x38), (s32)(*(void **)(obj + 0x3C) + 0x34), 7, 1);
     slotOffset = *(s16 *)(obj + 0x22);
     slotOffset = slotOffset * 2;
     slot = (u8 *)slotOffset;

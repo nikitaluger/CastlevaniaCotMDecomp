@@ -2,8 +2,8 @@
  * from the entity's state, then convert that position into room-local screen
  * coordinates using the current room's scroll offsets. */
 s32 sub_0805F9B4(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 void sub_08018868(void *entity)
 {
   void *gfx;
@@ -40,8 +40,8 @@ void sub_08018868(void *entity)
   {
     *((u16 *) (((u8 *) gfx) + 2)) = flipBit | (*((u16 *) (((u8 *) gfx) + 2)));
   }
-  roomData = D_02021E90;
-  roomIdx = D_02025FF0;
+  roomData = gCameraState;
+  roomIdx = gMainWorkspace;
   roomIdx += 0x18A8;
   roomOffset = (((u32) (*roomIdx)) + 1) * 0x40;
   scrollX = roomData + 0x1278;

@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 s32 sub_08005820(s32);
 
 /* Each frame set the sprite to animation frame 7 and decrement a counter;
@@ -11,7 +11,7 @@ void sub_08059A2C(void *entity) {
     u8 *state = work + 0x48;
     s32 velocity;
 
-    sub_08011368(sprite, anim, 7, 1);
+    setAnimationFrame(sprite, anim, 7, 1);
 
     if ((s16)(*(u16 *)(state + 4) = *(u16 *)(state + 4) - 1) < 0) {
         if (*(s32 *)(work + 8) > *(s32 *)(work + 0x48)) {

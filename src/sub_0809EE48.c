@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 /* Shrinks the sprite's X/Y scale by 8 per frame; once this step's progress
@@ -21,7 +21,7 @@ void sub_0809EE48(void *arg0) {
 
     if (*(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) > 0x0F) {
         u16 fullScale;
-        sub_08011368(sprite, animator, 9, 0);
+        setAnimationFrame(sprite, animator, 9, 0);
         fullScale = 0x100;
         *(u16 *)((u8 *)sprite + 4) = fullScale;
         *(u16 *)((u8 *)sprite + 6) = fullScale;

@@ -1,7 +1,7 @@
 extern void sub_0800FE08(s32, s32, s32, s32);
 extern void sub_0800EBDC(s32, s32, s32);
 struct Record { s16 lo; s16 hi; };
-extern struct Record D_02025368[];
+extern struct Record gGameStatus[];
 
 /* Draw the record panel: three decimal figures from the record table followed
  * by four comparison markers, each on its own row of tilemap VRAM. */
@@ -9,21 +9,21 @@ void sub_0800ECF8(void) {
     s32 record;
     s16 value;
     record = 0xB1;
-    sub_0800FE08(D_02025368[record].hi, 4, 0x511C, 0x0600706E);
+    sub_0800FE08(gGameStatus[record].hi, 4, 0x511C, 0x0600706E);
     record = 0xB3;
-    sub_0800FE08(D_02025368[record].hi, 4, 0x511C, 0x060070AE);
+    sub_0800FE08(gGameStatus[record].hi, 4, 0x511C, 0x060070AE);
     record = 0xB5;
-    sub_0800FE08(D_02025368[record].lo, 3, 0x511C, 0x060070EE);
+    sub_0800FE08(gGameStatus[record].lo, 3, 0x511C, 0x060070EE);
     record = 0xB8;
-    value = D_02025368[record].lo;
+    value = gGameStatus[record].lo;
     sub_0800EBDC(value, value, 0x0600716E);
     record = 0xBA;
-    value = D_02025368[record].lo;
+    value = gGameStatus[record].lo;
     sub_0800EBDC(value, value, 0x060071AE);
     record = 0xBC;
-    value = D_02025368[record].lo;
+    value = gGameStatus[record].lo;
     sub_0800EBDC(value, value, 0x060071EE);
     record = 0xBE;
-    value = D_02025368[record].lo;
+    value = gGameStatus[record].lo;
     sub_0800EBDC(value, value, 0x0600722E);
 }

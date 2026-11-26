@@ -2,8 +2,8 @@
  * by the script from the table at self+0x14, then rebuild two position fields
  * from the room coordinate table. */
 extern s32 sub_080C31E0(void *a, void *b);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 void sub_080ADF34(void *actor)
 {
@@ -33,8 +33,8 @@ void sub_080ADF34(void *actor)
     sub_080C31E0(actor, (s32) handlerTable[handlerIndex]);
   }
   *((u16 *) (((u8 *) actor) + 0x22)) = (u16) ((*((u16 *) (((u8 *) actor) + 0x22))) - 1);
-  coordTable = D_02021E90;
-  indexPtr = D_02025FF0;
+  coordTable = gCameraState;
+  indexPtr = gMainWorkspace;
   indexPtr += 0x18A8;
   coordOffset = (((u32) (*indexPtr)) + 1) * 0x40;
   xBase = coordTable + 0x1278;

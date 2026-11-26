@@ -1,11 +1,11 @@
-extern vu32 D_02025FF0;
-extern vu32 D_08671BB0;
+extern vu32 gMainWorkspace;
+extern vu32 gMainObjTimerCallback;
 
 void *sub_0805FAEC(s32, s32);
 void sub_080161F0(void);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 
 /* Scripted object header: current command slot index (0x22), the handler run
  * by the command script (0x24), sprite object (0x38) and work/animation state
@@ -56,7 +56,7 @@ void *sub_080191FC(s32 x, s32 y) {
     s32 vy;
     void *obj;
 
-    obj = sub_0805FAEC(*(vu32 *)((u8 *)&D_02025FF0 + 0x1870), 0x89);
+    obj = sub_0805FAEC(*(vu32 *)((u8 *)&gMainWorkspace + 0x1870), 0x89);
     if (obj == NULL) {
         return NULL;
     }
@@ -77,7 +77,7 @@ void *sub_080191FC(s32 x, s32 y) {
  * advance, dispatch this object's script handler at +0x24. */
 void MainObj_CallUpdate2(struct MainObj *arg0) {
     u8 *anim = (u8 *)arg0->work + 0x34;
-    sub_08011368(arg0->sprite, anim, 0x34, 0);
+    setAnimationFrame(arg0->sprite, anim, 0x34, 0);
     if ((anim[0] & 2) != 0) {
         sub_080C31E0(arg0, arg0->updateCb);
     }
@@ -90,11 +90,11 @@ void sub_08019170(struct MainObj *arg0) {
     u8 *step;
     s16 idx;
 
-    sub_08011368(arg0->sprite, (u8 *)arg0->work + 0x34, 0x2B, 1);
+    setAnimationFrame(arg0->sprite, (u8 *)arg0->work + 0x34, 0x2B, 1);
     idx = arg0->slot;
     step = (u8 *)arg0 + idx * 2;
     if (step[0x19] > 0x1E) {
         step[0x19] = 0;
-        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, D_08671BB0);
+        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, gMainObjTimerCallback);
     }
 }

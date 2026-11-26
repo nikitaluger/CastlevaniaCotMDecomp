@@ -1,6 +1,6 @@
 #define V1C (*(s16 *)(p + 0x1C))
-#define CB2X (((struct CB2 *)(D_080CB2B8 + V1C * 20))->f0)
-#define CB2B (((struct CB2 *)(D_080CB2B8 + V1C * 20))->f4)
+#define CB2X (((struct CB2 *)(gSpriteKindTable + V1C * 20))->f0)
+#define CB2B (((struct CB2 *)(gSpriteKindTable + V1C * 20))->f4)
 struct B7R
 {
   u8 f0;
@@ -27,25 +27,25 @@ struct D20
   u8 pad[0x40];
   u32 f40;
 };
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080141F8(void *, void *, void *, u32, u32);
-extern void sub_08014288(void *, void *, void *);
-extern void sub_0801131C(void *, void *, void *);
-extern void sub_08011368(void *, void *, s32, s32);
-extern void sub_08097EB4(u32);
+extern void installUpdateHandler(void *, void *, void *);
+extern void initSpriteGraphics(void *, void *, void *);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern void loadEffectPalette(u32);
 extern void sub_080036C0(s32);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_080B98B8(void *, s32, s32, u32);
 extern void *sub_0805FAEC(void *, u32);
-extern void sub_08016664(void *, s32);
+extern void registerScriptObject(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u16 D_08102DA4[];
-extern u8 D_080CB2B8[];
-extern u8 D_080CD400[];
-extern struct D20 D_02025FF0;
-extern void *D_08671BB0;
+extern u8 gSpriteKindTable[];
+extern u8 gSpriteAnimDataTable[];
+extern struct D20 gMainWorkspace;
+extern void *gMainObjTimerCallback;
 extern void sub_080B8514(void);
 void sub_080B76A4(u8 *arg0)
 {
@@ -63,13 +63,13 @@ void sub_080B76A4(u8 *arg0)
   void **new_var2;
   r9v = *((u32 *) (arg0 + 0xAC));
   eight = 8;
-  a = sub_0800355C();
+  a = allocSpriteObject();
   if (a == NULL)
   {
     goto fail;
   }
   *((void **) (arg0 + 0x38)) = a;
-  sub_0800168C(arg0, 0, 0x54, 0);
+  allocWorkSlot(arg0, 0, 0x54, 0);
   if ((*((u32 * volatile) (arg0 + 0x3C))) == 0)
   {
     goto fail;
@@ -78,14 +78,14 @@ void sub_080B76A4(u8 *arg0)
   p = *((u8 **) (arg0 + 0x3C));
   p34 = p + 0x34;
   p48 = p + 0x48;
-  sub_08014288(arg0, p, sub_080B8514);
+  installUpdateHandler(arg0, p, sub_080B8514);
   sub_080141F8(arg0, a, p, r9v, 0x67);
-  sub_0801131C(a, p34, D_080CD400 + (V1C * 12));
-  sub_08011368(a, p34, 0, 0);
-  sub_08097EB4(0x0841EA84);
+  initSpriteGraphics(a, p34, gSpriteAnimDataTable + (V1C * 12));
+  setAnimationFrame(a, p34, 0, 0);
+  loadEffectPalette(0x0841EA84);
   sub_080036C0(0x0A);
   d1c = (u8 *) D_08102DA4;
-  if ((*((void **) (p + 0x28)) = sub_08016190()) == NULL)
+  if ((*((void **) (p + 0x28)) = allocEffectPart()) == NULL)
   {
     goto fail;
   }
@@ -100,8 +100,8 @@ void sub_080B76A4(u8 *arg0)
   ((struct B7R *) (*((void **) (p + 0x28))))->fE = CB2B;
   ((struct B7R *) (*((void **) (p + 0x28))))->f10 = (u32) a;
   d1c8 = d1c + 8;
-  cb = D_080CB2B8;
-  if ((*((void **) (p48 + 4)) = sub_08016190()) == NULL)
+  cb = gSpriteKindTable;
+  if ((*((void **) (p48 + 4)) = allocEffectPart()) == NULL)
   {
     fail:
     sub_080C31E0(arg0, *((void **) (arg0 + 0x24)));
@@ -122,12 +122,12 @@ void sub_080B76A4(u8 *arg0)
     ((struct B7R *) (*((void **) (p48 + 4))))->f10 = (u32) a;
     sub_080B98B8(arg0, 2, 10, *((u32 *) (((u8 *) a) + 0x1C)));
     *((void **) (p + 0x48)) = sub_0805FAEC(arg0, 0x1CB);
-    D_02025FF0.f40 = 0;
-    sub_08016664(arg0, 0);
+    gMainWorkspace.f40 = 0;
+    registerScriptObject(arg0, 0);
     *((u16 *) (arg0 + 0x02)) |= 0x1000;
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19] = 0;
-    new_var2 = (void **) D_08671BB0;
     p18 = arg0 + 0x18;
+    new_var2 = (void **) gMainObjTimerCallback;
     sub_080C31E4(p18, arg0 + 0x22, *new_var2);
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19]++;
     p18 += (*((s16 *) (arg0 + 0x22))) * 2;

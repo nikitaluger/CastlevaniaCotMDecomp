@@ -1,6 +1,6 @@
 extern void sub_080113A8(void *sprite, void *animTrack);
 extern void sub_080C31E4(void *stepBase, void *stepIndex, s32 handler);
-extern void sub_08014588(void *hitbox, void *record);
+extern void copyPoseAttrs(void *hitbox, void *record);
 extern u8 D_080CEDB4[];             /* 8 hitbox records, four halfwords each */
 
 /* Update an actor's sprite for this frame: step the animation track, restart the
@@ -30,5 +30,5 @@ void sub_08033EB4(u8 *entity) {
     case 235: case 242: case 249: case 256: pose = 6; break;
     case 263: case 270: case 277: case 284: case 291: pose = 7; break;
     }
-    sub_08014588(*(u8 **)(motionState + 0x0C), &D_080CEDB4[pose * 8]);
+    copyPoseAttrs(*(u8 **)(motionState + 0x0C), &D_080CEDB4[pose * 8]);
 }

@@ -14,7 +14,7 @@ struct GameState {
     u8 _173B[0x18C2 - 0x173B];
     u16 scale;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 void sub_08079C68(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -22,12 +22,12 @@ void sub_08079C68(void *arg0) {
     u8 *mover = (u8 *)(actor + 4);
     u16 *scalePtr = *(u16 **)(self + 0x38);
     if (sub_0806D518(arg0, scalePtr, (s32)mover) == 0) {
-        *scalePtr = D_02025FF0.scale;
+        *scalePtr = gMainWorkspace.scale;
         if (sub_08003740(actor + 0x20, scalePtr) == 0) {
             sub_080C31E0(arg0, *(s32 *)(self + 0x24));
         } else {
             sub_0806D588(scalePtr, (s32)mover);
-            if ((D_02025FF0.field173A == 0x1C) || ((D_02025FF0.field14ED == 0) && (D_02025FF0.field10 != 0))) {
+            if ((gMainWorkspace.field173A == 0x1C) || ((gMainWorkspace.field14ED == 0) && (gMainWorkspace.field10 != 0))) {
                 sub_080C31E0(arg0, *(s32 *)(self + 0x24));
             }
         }

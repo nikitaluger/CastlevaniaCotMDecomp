@@ -1,5 +1,5 @@
 extern void sub_08011528(s32, void *);
-extern void sub_08014588(void *, void *, u32 *);
+extern void copyPoseAttrs(void *, void *, u32 *);
 extern void _call_via_r1(void *, s32);
 extern u32 D_08102710[];
 
@@ -44,7 +44,7 @@ void sub_080B2F1C(void *self) {
         default: break;
     }
 
-    sub_08014588(*(void **)((u8 *)component + 0x28), (void *)((u8 *)D_08102710 + (u32)poseIndex * 8), D_08102710);
+    copyPoseAttrs(*(void **)((u8 *)component + 0x28), (void *)((u8 *)D_08102710 + (u32)poseIndex * 8), D_08102710);
     if (*(u8 *)track & 0x02) {
         _call_via_r1(entity, *(s32 *)((u8 *)entity + 0x24));
     }

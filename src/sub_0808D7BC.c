@@ -1,4 +1,4 @@
-extern u32 D_02025FF0;
+extern u32 gMainWorkspace;
 extern u8 D_080F3E7C[];       /* 5-byte parameter records, indexed by definition ID */
 void *sub_080014D0(s32, s32);
 
@@ -13,7 +13,7 @@ s32 sub_0808D7BC(s32 arg0, s32 arg1, u32 arg2, u8 arg3) {
     s32 fieldByte;
     s32 fieldByte2;
     if (arg2 <= 0x270F) {
-        globalBase = (u32 *)&D_02025FF0;
+        globalBase = (u32 *)&gMainWorkspace;
         parent = *(s32 *)((u8 *)globalBase + 0x1878);
         obj = sub_080014D0(parent, 0x205);
         if (obj != NULL) {

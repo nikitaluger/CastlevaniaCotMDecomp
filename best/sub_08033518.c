@@ -1,17 +1,17 @@
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
-extern void sub_0801131C(void *, void *, void *);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
+extern void initSpriteGraphics(void *, void *, void *);
 extern void sub_08011344(void *, void *, s32, s32);
-extern s32 sub_08013C2C(void);
-extern void sub_08014288(void *, void *, void *);
+extern s32 findKindIndex(void);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_08014290(void);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u16 D_080CEC8C[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 struct TBL2
 {
   u8 _0[4];
@@ -19,7 +19,7 @@ struct TBL2
   u16 f6;
   u8 _8[0x20];
 };
-extern struct TBL2 D_080CBDD0[];
+extern struct TBL2 gEffectGfxTable[];
 void sub_08033518(u8 *arg0)
 {
   u8 *p;
@@ -31,13 +31,13 @@ void sub_08033518(u8 *arg0)
   s32 r22;
   u8 *a18;
   u16 *tbl2;
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == NULL)
   {
     goto fail;
   }
   *((u8 **) (arg0 + 0x38)) = sprite;
-  sub_0800168C(arg0, 0, 0x4C, 0);
+  allocWorkSlot(arg0, 0, 0x4C, 0);
   if ((*((u8 **) (arg0 + 0x3C))) == NULL)
   {
     if (p)
@@ -52,19 +52,19 @@ void sub_08033518(u8 *arg0)
   *((s32 *) (sprite + 0x1C)) = 0x8000000A;
   p = *((u8 **) (arg0 + 0x3C));
   p34 = p + 0x34;
-  sub_08014288(arg0, p, &sub_08014290);
+  installUpdateHandler(arg0, p, &sub_08014290);
   zero = 0;
   *((u16 *) (p + 0x1C)) = 0x15;
-  r22 = sub_08013C2C();
+  r22 = findKindIndex();
   *((u16 *) (p + 0x22)) = r22;
   if ((r22 << 16) < 0)
   {
     goto fail;
   }
-  sub_0801131C(sprite, p34, (void *) 0x080CD4FC);
+  initSpriteGraphics(sprite, p34, (void *) 0x080CD4FC);
   sub_08011344(sprite, p34, 0x12, 0);
   tbl2 = D_080CEC8C;
-  res = sub_08016190();
+  res = allocEffectPart();
   *((void **) (p + 0x28)) = res;
   if (res == NULL)
   {
@@ -81,17 +81,17 @@ void sub_08033518(u8 *arg0)
   *((u8 *) ((*((u8 **) (p + 0x28))) + 2)) = 8;
   *((u8 *) ((*((u8 **) (p + 0x28))) + 3)) = 1;
   idx = *((s16 *) (p + 0x1C));
-  *((u16 *) ((*((u8 **) (p + 0x28))) + 4)) = D_080CBDD0[idx].f4;
+  *((u16 *) ((*((u8 **) (p + 0x28))) + 4)) = gEffectGfxTable[idx].f4;
   *((u16 *) ((*((u8 **) (p + 0x28))) + 6)) = *((u16 *) (((u8 *) tbl2) + 0));
   *((u16 *) ((*((u8 **) (p + 0x28))) + 8)) = *((u16 *) (((u8 *) tbl2) + 2));
   *((u16 *) ((*((u8 **) (p + 0x28))) + 0xA)) = *((u16 *) (((u8 *) tbl2) + 4));
   *((u16 *) ((*((u8 **) (p + 0x28))) + 0xC)) = *((u16 *) (((u8 *) tbl2) + 6));
   idx = *((s16 *) (p + 0x1C));
-  *((u16 *) ((*((u8 **) (p + 0x28))) + 0xE)) = D_080CBDD0[idx].f6;
+  *((u16 *) ((*((u8 **) (p + 0x28))) + 0xE)) = gEffectGfxTable[idx].f6;
   *((void **) ((*((u8 **) (p + 0x28))) + 0x10)) = sprite;
   {
-    u8 *pt = D_02021E90;
-    u8 *pb = D_02025FF0;
+    u8 *pt = gCameraState;
+    u8 *pb = gMainWorkspace;
     u8 *base1;
     u8 *base2;
     u32 k;
@@ -122,13 +122,13 @@ void sub_08033518(u8 *arg0)
     q[0x19] = zero;
   }
   {
-    u32 *d = &D_08671BB0;
+    u32 *d = &gMainObjTimerCallback;
     a18 = arg0 + 0x18;
     sub_080C31E4(a18, arg0 + 0x22, *d);
   }
   {
     u8 *q = (u8 *) ((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + arg0);
-    q[0x19] = (u8) (q[0x19] + 1);
+    ((u8 *) ((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + arg0))[0x19] = (u8) (((u8 *) ((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + arg0))[0x19] + 1);
   }
   a18 += (*((s16 *) (arg0 + 0x22))) * 2;
   {

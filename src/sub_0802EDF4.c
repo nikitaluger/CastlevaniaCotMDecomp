@@ -28,7 +28,7 @@ void sub_0802F238(void *arg0) {
 
 extern void *sub_0805FAEC(s32, s32);
 struct S_02025FF0_1874 { u8 _0[0x1874]; s32 v; };
-extern struct S_02025FF0_1874 D_02025FF0;
+extern struct S_02025FF0_1874 gMainWorkspace;
 
 /* Allocate a type-0xD1 effect object owned by the current world state and set
  * its two screen coordinates from 16.16 fixed-point arguments (negatives are
@@ -36,7 +36,7 @@ extern struct S_02025FF0_1874 D_02025FF0;
 void *sub_0802EDF4(s32 arg0, s32 arg1) {
     void *effect;
     s32 x16, y16, coord;
-    effect = sub_0805FAEC(D_02025FF0.v, 0xD1);
+    effect = sub_0805FAEC(gMainWorkspace.v, 0xD1);
     if (effect == NULL) return NULL;
     x16 = arg0;
     if (x16 < 0) x16 += 0xFFFF;

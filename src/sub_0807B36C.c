@@ -1,4 +1,4 @@
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Global run state: offsets are the fields this entity system reads. */
 struct GameState {
@@ -13,7 +13,7 @@ struct GameState {
     u8 _173B[0x18C2 - 0x173B];
     u16 f18C2;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 extern s32 sub_08003740(s32, void *);
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
@@ -39,7 +39,7 @@ void sub_0807B36C(void *entity) {
         sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }
-    state = &D_02025FF0;
+    state = &gMainWorkspace;
     *(u16 *)obj = state->f18C2;
     countdown = *(s32 *)((u8 *)pos + 0x10) - 1;
     *(s32 *)((u8 *)pos + 0x10) = countdown;
@@ -51,7 +51,7 @@ void sub_0807B36C(void *entity) {
         *(s8 *)((u8 *)*(void **)((u8 *)pos + 0x30) + 1) = (s8)(1 & state->f1510);
         *(s8 *)((u8 *)*(void **)((u8 *)pos + 0x34) + 1) = (s8)(1 & state->f1510);
         *((u8 *)entity + ((*(s16 *)((u8 *)entity + 0x22)) * 2) + 0x19) = 0;
-        fxTable = &D_08671BB0;
+        fxTable = &gMainObjTimerCallback;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *fxTable);
     }
     sub_08003740((s32)moveData + 0x20, obj);

@@ -6,8 +6,8 @@ struct S_D {
     u8 _0[0x40];
     s32 effect40;
 };
-extern struct S_D D_02025FF0;
-extern s32 D_08671BB0;
+extern struct S_D gMainWorkspace;
+extern s32 gMainObjTimerCallback;
 extern u8 D_0850969C;
 
 /* Actor tick with a countdown: when the mover's timer runs out, start the
@@ -24,10 +24,10 @@ void sub_08088E94(void *arg0) {
     *(s32 *)(moverPos + 0x10) = timer;
     if (timer == 0) {
         sub_08003A6C(mover + 0x20, 0, &D_0850969C);
-        D_02025FF0.effect40 = 7;
+        gMainWorkspace.effect40 = 7;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (u8)timer;
         {
-            s32 *advanceTable = &D_08671BB0;
+            s32 *advanceTable = &gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *advanceTable);
         }
     }

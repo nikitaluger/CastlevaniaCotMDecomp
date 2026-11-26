@@ -1,4 +1,4 @@
-extern u32 D_02021E90[];
+extern u32 gCameraState[];
 extern u8 D_080CB007[];
 
 /* Set up the status-screen background: store the horizontal scroll offset
@@ -15,8 +15,8 @@ void sub_0800F3C8(u8 arg0, s32 arg1) {
     u8 charBase;
     offset = (arg1 << 24) >> 8;
     stored = offset + 0xFFA80000;
-    *(u32 *)((u8 *)D_02021E90 + scrollOff) = stored;
-    control = (u16 *)((u8 *)D_02021E90 + controlOff);
+    *(u32 *)((u8 *)gCameraState + scrollOff) = stored;
+    control = (u16 *)((u8 *)gCameraState + controlOff);
     cur = *(vu16 *)control;
     masked = cur & 0xFFF3;
     *control = masked;

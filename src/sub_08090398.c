@@ -3,7 +3,7 @@ extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct S_02025FF0_1848 { u8 _0x000[0x1848]; u32 v; };
-extern struct S_02025FF0_1848 D_02025FF0;
+extern struct S_02025FF0_1848 gMainWorkspace;
 
 /* When the work object's trigger flag (bit 2 at +0x20) is set, clear the
  * ability flag named by its linked data, clear its timer, set the global
@@ -19,7 +19,7 @@ void sub_08090398(void *arg0) {
     if (*triggerFlag & 2) {
         sub_08007E50(*(u16 *)(*(u8 **)(work + 0x1C) + 2));
         *(u16 *)(work + 0x14) = 0;
-        D_02025FF0.v |= 0x4D7E0000;
+        gMainWorkspace.v |= 0x4D7E0000;
         *(u16 *)(work + 0x18) = *(u16 *)*(u8 **)(work + 0x1C);
         sub_08005E80(0x1BE);
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;

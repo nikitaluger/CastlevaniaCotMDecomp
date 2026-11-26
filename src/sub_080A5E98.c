@@ -1,8 +1,8 @@
 extern void sub_080983E8(void *);
 extern void sub_080A820C(void *, void *, void *, void *, void *);
 extern s32 sub_080C31E0(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Initializes a weapon entity's state: updates the owner's animation flags,
  * dispatches its slot callback, runs the sub-object setup, then copies the
@@ -44,9 +44,9 @@ void sub_080A5E98(u8 *entity) {
     sub_080A820C(entity, parent, objSub, obj, objState);
     sub_080983E8(parent);
 
-    coordTable = D_02021E90;
+    coordTable = gCameraState;
     stateOffset = 0x18A8;
-    areaState = D_02025FF0 + stateOffset;
+    areaState = gMainWorkspace + stateOffset;
     tableIdx = ((u32)*areaState + 1) * 0x40;
     baseX = coordTable + 0x1278;
     camOffX = *(u32 *)(baseX + tableIdx);

@@ -1,4 +1,4 @@
-extern u32 D_02025368;
+extern u32 gGameStatus;
 extern u16 D_080CB228[];
 
 /* Configure an object's graphics from the character index in self[0x44]: map the

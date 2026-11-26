@@ -3,7 +3,7 @@
 extern void sub_08005E80(s32);
 extern void sub_080B9834(s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 void sub_080B7DF0(void *arg0)
 {
@@ -37,7 +37,7 @@ void sub_080B7DF0(void *arg0)
   if (*(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) == 0x14)
   {
     *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = zeroU;
-    callbackPtr = &D_08671BB0;
+    callbackPtr = &gMainObjTimerCallback;
     sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *callbackPtr);
   }
 }

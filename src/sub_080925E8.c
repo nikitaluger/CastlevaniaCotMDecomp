@@ -1,8 +1,8 @@
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080113A8(u8 *, u8 *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866F9E8[];
 struct SpriteFlags { u8 value; };
 
@@ -51,8 +51,8 @@ void sub_080925E8(u8 *entity)
       sub_080113A8(obj, target);
     }
     *((u16 *) (state + 0x0E)) = 0;
-    coordBase = D_02021E90;
-    indexPtr = D_02025FF0;
+    coordBase = gCameraState;
+    indexPtr = gMainWorkspace;
     indexPtr += 0x18A8;
     coordIdx = (((u32) (*indexPtr)) + 1) * 0x40;
     xTable = coordBase + 0x1278;

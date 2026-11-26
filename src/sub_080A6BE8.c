@@ -1,6 +1,6 @@
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 struct Blk {
     u8 pad[0xEC];
@@ -26,7 +26,7 @@ void sub_080A6BE8(void *arg0) {
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     }
     {
-        s32 *scriptHandlers = D_08671BB0;
+        s32 *scriptHandlers = gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

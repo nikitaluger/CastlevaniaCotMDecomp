@@ -1,5 +1,5 @@
-extern s32 sub_080C2F20(void *, s32);
-extern s32 sub_080C2F24(void *, s32);
+extern s32 divideInt(void *, s32);
+extern s32 moduloInt(void *, s32);
 extern void sub_08098534(s32, s32, s32);
 extern u8 D_081031D8[];
 
@@ -17,8 +17,8 @@ void sub_080BE99C(void *arg0) {
     p10 = sp10;
     do
     {
-        sp0[i] = sub_080C2F20(arg0, 8) - (s32)i;
-        p10[i] = sub_080C2F24(arg0, 8) + (s32)(i * 8);
+        sp0[i] = divideInt(arg0, 8) - (s32)i;
+        p10[i] = moduloInt(arg0, 8) + (s32)(i * 8);
         i++;
     } while (i <= 3);
 

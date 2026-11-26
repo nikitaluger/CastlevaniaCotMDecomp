@@ -10,8 +10,8 @@ s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_08005E80(s32);
 extern void *D_08671BDC;
-extern u8 D_02025FF0[];
-extern u8 D_00001728[];                     /* offset 0x1728 into D_02025FF0 */
+extern u8 gMainWorkspace[];
+extern u8 D_00001728[];                     /* offset 0x1728 into gMainWorkspace */
 
 void sub_08044E6C(u8 *self) {
     void *owner = *(void **)(self + 0x38);
@@ -31,7 +31,7 @@ void sub_08044E6C(u8 *self) {
     if (*(u16 *)params & 1) {
         u8 *stepPtr = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
         if (*(u8 *)(stepPtr + 0x1A) != 1) {
-            if (*(s32 *)((u32)D_00001728 + (u32)D_02025FF0) < *(s32 *)((u8 *)params + 8)) {
+            if (*(s32 *)((u32)D_00001728 + (u32)gMainWorkspace) < *(s32 *)((u8 *)params + 8)) {
                 u16 flags = *(u16 *)((u8 *)owner + 2) & 0xFFEF;
                 *(u16 *)((u8 *)owner + 2) = flags;
             } else {

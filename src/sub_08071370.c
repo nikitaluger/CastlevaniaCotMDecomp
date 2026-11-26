@@ -1,17 +1,17 @@
 /* Spawn/init this entity's AI: allocate a 0x34-byte work slot, fill its state
  * and callbacks from global tables, then run the first state-script step. */
 extern void sub_08003A6C(void *, s32, void *);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_0807199C(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u32 D_08474A7C;
 extern u32 D_08474ABC;
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 struct AIWorkSlot { u8 _0[0x3C]; u8 * volatile resource; };
 
 void sub_08071370(u8 *entity) {
@@ -21,11 +21,11 @@ void sub_08071370(u8 *entity) {
     u8 *work = *(u8 **)(entity + 0x6C);
     u8 *state = work + 4;
     u8 *sprite = *(u8 **)(entity + 0x38);
-    u8 *base2 = D_02025368;
+    u8 *base2 = gGameStatus;
     void *res;
     struct AIWorkSlot *s = (struct AIWorkSlot *)state;
 
-    res = sub_08016190();
+    res = allocEffectPart();
     s->resource = res;
     if (res == NULL) {
         sub_0806D2D0(entity);
@@ -56,7 +56,7 @@ void sub_08071370(u8 *entity) {
     *(u32 *)(sprite + 0x24) = (u32)&D_08474A7C;
     sub_08003A6C(work + 0x30, 0, &D_08474ABC);
     {
-        u8 *base = D_02025FF0;
+        u8 *base = gMainWorkspace;
         *(s32 *)(work + 4) = *(s32 *)(base + 0x1728);
         *(s32 *)(state + 4) = *(s32 *)(base + 0x172C) + 0xFFEC0000;
         *(u32 *)(state + 0x10) = 0x2BF;
@@ -71,7 +71,7 @@ void sub_08071370(u8 *entity) {
     *(u32 *)(state + 0x4C) = *(u32 *)(entity + 0x7C);
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *scriptTable = &D_08671BB0;
+        s32 *scriptTable = &gMainObjTimerCallback;
         u8 *framePtr = entity + 0x18;
         sub_080C31E4(framePtr, entity + 0x22, *scriptTable);
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) + 1;

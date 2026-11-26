@@ -1,4 +1,4 @@
-s32 sub_08011368(s32, s32, s32, s32);
+s32 setAnimationFrame(s32, s32, s32, s32);
 s32 sub_080113A8(s32, s32);
 s32 sub_080148D8(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
@@ -21,7 +21,7 @@ void sub_0803CDA8(void *self) {
     workBytes = (s8 *)body;
     sub_080113A8(sprite, animator);
     if (2 & (*((u8 *)(workBytes + 0x34)))) {
-        sub_08011368(sprite, animator, 0xC, 0);
+        setAnimationFrame(sprite, animator, 0xC, 0);
         *(((s8 *)(((*((s16 *)(((s8 *)self) + 0x22))) * 2) + self)) + 0x19) = 0;
         advanceCmd = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *advanceCmd);

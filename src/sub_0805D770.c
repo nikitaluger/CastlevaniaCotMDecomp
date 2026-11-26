@@ -2,16 +2,16 @@ extern void sub_08005E80(s32);
 extern void sub_0805D968(s32, s32, u16);
 extern void _call_via_r1(void *, void *);
 
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u16 D_080D003A[];
 extern u8 D_080D0044[];
 
-#define CALL968() { u8 *fb = D_02025FF0; sub_0805D968(*(s32 *)(fb + 0x174C), *(s32 *)(fb + 0x1750), D_080D003A[*r6 - 1]); }
+#define CALL968() { u8 *fb = gMainWorkspace; sub_0805D968(*(s32 *)(fb + 0x174C), *(s32 *)(fb + 0x1750), D_080D003A[*r6 - 1]); }
 
 void sub_0805D770(void *arg0)
 {
-    u8 *g = D_02025368;
+    u8 *g = gGameStatus;
     u16 *p = (u16 *)((u8 *)arg0 + 0x4C);
     u8 *r6;
     u8 v;
@@ -61,13 +61,13 @@ void sub_0805D770(void *arg0)
         {
             (*(u16 *)(g + 0x2D4))++;
             {
-                u8 *fb = D_02025FF0;
+                u8 *fb = gMainWorkspace;
                 (*(u16 *)(fb + 0x1504))++;
             }
         }
         v2 = p[4];
         {
-            u8 *fb = D_02025FF0;
+            u8 *fb = gMainWorkspace;
             if (v2 == 6)
             {
                 *(u16 *)(g + 0x2D4) += 5;

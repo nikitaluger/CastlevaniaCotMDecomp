@@ -1,5 +1,5 @@
 extern u8 D_020278D0[];
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern u8 D_0863E89C[];
 void _call_via_r1(void *, void *);
 void sub_0806DD94(void);
@@ -26,7 +26,7 @@ void sub_0800D320(void) {
  * scene id changed, then save a 0x48-byte snapshot of the state. */
 void sub_0800E328(void) {
     u32 i = 0;
-    u8 *workspace = D_02025368;
+    u8 *workspace = gGameStatus;
     u8 *state = D_020278D0;
     void **objPtr = (void **)(state + 0x48);
     void *obj;

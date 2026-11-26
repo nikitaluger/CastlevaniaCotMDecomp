@@ -1,4 +1,4 @@
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 void sub_08060C74(u8 arg0, u8 arg1, u8 arg2, u8 *src, u8 *dst)
 {
@@ -9,10 +9,10 @@ void sub_08060C74(u8 arg0, u8 arg1, u8 arg2, u8 *src, u8 *dst)
     u8 idx;
     s32 out = 0, in = 0;
 
-    t = D_02021E90[0x1439];
+    t = gCameraState[0x1439];
     a = t << 4;
     sp[0] = a | t;
-    t2 = D_02021E90[0x143A];
+    t2 = gCameraState[0x143A];
     sp[1] = a | t2;
     b = t2 << 4;
     sp[2] = b | t;

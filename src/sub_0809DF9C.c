@@ -1,7 +1,7 @@
 s32 sub_08005820(s32);
 s32 sub_0800583C(s32);
 s32 sub_08005FC4(s32, s32, s32, s32, s32 *);
-s32 sub_080114DC(u16 *, s32, s32, s32);
+s32 setObjectAnimation(u16 *, s32, s32, s32);
 s32 sub_08011528(u16 *, s32);
 s32 sub_08014848(s32, s32, s32, s32, s32, s32);
 s32 sub_0808E61C(s32, s32, s32, s32);
@@ -25,7 +25,7 @@ void sub_0809DF9C(void *arg0)
     actor = *(void **)((u8 *)arg0 + 0x3C);
     anim = actor + 0x34;
     *(s32 *)((u8 *)arg0 + 4) = 0;
-    sub_080114DC(spriteAttrs, anim, 0x17, 0);
+    setObjectAnimation(spriteAttrs, anim, 0x17, 0);
     sub_08011528(spriteAttrs, anim);
     if (!(2 & *(u8 *)((u8 *)(*(s16 *)((u8 *)arg0 + 0x22) * 2 + arg0) + 0x19))) {
         *spriteAttrs = (0xFFF & *spriteAttrs) | 0xE000;

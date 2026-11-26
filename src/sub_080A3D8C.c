@@ -1,4 +1,4 @@
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 
 /* Copies two eight-byte blocks of animation parameters from the table at
  * 0x08101C00 into the caller's sprite objects, picking the entry by the
@@ -34,9 +34,9 @@ void sub_080A3D8C(void *arg0, void *arg1, void *arg2) {
     dest1 = *(void **)((u8 *)obj1 + 0x28);
     slot = slot << 4;
     base = 0x08101C00;
-    sub_08014588(dest1, (void *)(base + slot));
+    copyPoseAttrs(dest1, (void *)(base + slot));
     dest2 = *(void **)((u8 *)obj2 + 0x50);
     base += 8;
     slot = slot + base;
-    sub_08014588(dest2, (void *)slot);
+    copyPoseAttrs(dest2, (void *)slot);
 }

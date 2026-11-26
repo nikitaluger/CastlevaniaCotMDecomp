@@ -15,7 +15,7 @@ struct S_02025FF0
   u8 _3[0x18C2 - 0x173B];
   u16 gfxWord;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Script step: copies state and position from the object at self+0x6C into the
  * sprite, updates its tiles, then either bounds-checks the sprite or fires the
@@ -33,9 +33,9 @@ void sub_08076F80(void *arg0)
   sprite = *((u8 **) (self + 0x38));
   if (sub_0806D518(self, sprite, position) == 0)
   {
-    state = &D_02025FF0;
+    state = &gMainWorkspace;
     {
-      u16 word = D_02025FF0.gfxWord;
+      u16 word = gMainWorkspace.gfxWord;
       *((u16 *) sprite) = word;
     }
     if (sub_08003740((void *) (sourceObj + 0x20), (s32) sprite) == 0)

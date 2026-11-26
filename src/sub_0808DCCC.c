@@ -27,12 +27,12 @@ extern struct T_0808DCCC D_08100208;
 extern u8 D_081001FC[];
 
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_0801131C(void *, s32, u8 *);
-extern void sub_08011368(void *, s32, s16, s32);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void initSpriteGraphics(void *, s32, u8 *);
+extern void setAnimationFrame(void *, s32, s16, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0808DDB0(void);
 
@@ -43,7 +43,7 @@ extern void sub_0808DDB0(void);
  */
 void sub_0808DCCC(struct A_0808DCCC *self) {
     struct T_0808DCCC angleTable = D_08100208;
-    struct R_0808DCCC *gfx = sub_0800355C();
+    struct R_0808DCCC *gfx = allocSpriteObject();
     s32 animIndex;
     void *callback;
 
@@ -52,15 +52,15 @@ void sub_0808DCCC(struct A_0808DCCC *self) {
         return;
     }
     self->f38 = gfx;
-    sub_0800168C(self, 0, 0x14, 0);
+    allocWorkSlot(self, 0, 0x14, 0);
     animIndex = self->f3C;
     if (animIndex == 0) {
         sub_080C31E0(self, self->f24);
         return;
     }
 
-    sub_0801131C(gfx, animIndex, D_081001FC);
-    sub_08011368(gfx, animIndex, ((s16 *)angleTable.w)[self->f74 * 2], 0);
+    initSpriteGraphics(gfx, animIndex, D_081001FC);
+    setAnimationFrame(gfx, animIndex, ((s16 *)angleTable.w)[self->f74 * 2], 0);
 
     switch (self->f6C & 0x30) {
     case 0x10:
@@ -75,7 +75,7 @@ void sub_0808DCCC(struct A_0808DCCC *self) {
     }
 
     gfx->f1C = (self->f6C & 0xF) | 0x80000000;
-    gfx->f00 = gfx->f00 | D_02025FF0.f18C2;
+    gfx->f00 = gfx->f00 | gMainWorkspace.f18C2;
     self->f02 = 0x800 | self->f02;
     callback = sub_0808DDB0;
     self->f14 = callback;

@@ -8,7 +8,7 @@ void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
 extern u8 D_084EC108[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 struct S_02025FF0 {
     u8 pad0[0x14ED];
@@ -19,7 +19,7 @@ struct S_02025FF0 {
     s32 field14FC;
     s32 field1500;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Handle an entity driven by the global area behavior: apply the current area
  * action, and when there is none, run its step timer/callback. */
@@ -37,19 +37,19 @@ void sub_0807F934(u8 *entity)
         s32 result = sub_08003740((s32)timer, stateObj);
         if (result == 0) {
             sub_08003A6C((s32)timer, 0, (s32)D_084EC108);
-            D_02025FF0.field14F4 = D_02025FF0.field14F8 << 6;
-            D_02025FF0.field14F8 = result;
+            gMainWorkspace.field14F4 = gMainWorkspace.field14F8 << 6;
+            gMainWorkspace.field14F8 = result;
             *(u8 *)(entity + (s32)*(s16 *)(entity + 0x22) * 2 + 0x19) = (u8)result;
             {
-                s32 *hookSlot = &D_08671BB0;
+                s32 *hookSlot = &gMainObjTimerCallback;
                 sub_080C31E4(entity + 0x18, entity + 0x22, *hookSlot);
             }
         }
         sub_08003740((s32)timer, stateObj);
         sub_0806D588(stateObj, ctx);
-        D_02025FF0.field14FC = *(s32 *)(comp + 4);
-        D_02025FF0.field1500 = *(s32 *)(ctx + 4);
-        if (D_02025FF0.gameMode != 0x8A) {
+        gMainWorkspace.field14FC = *(s32 *)(comp + 4);
+        gMainWorkspace.field1500 = *(s32 *)(ctx + 4);
+        if (gMainWorkspace.gameMode != 0x8A) {
             sub_0808DC40(*(s32 *)(comp + 4), *(s32 *)(ctx + 4), 0);
             sub_080C31E0(entity, *(s32 *)(entity + 0x24));
         }

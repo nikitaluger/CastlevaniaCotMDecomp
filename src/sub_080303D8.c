@@ -50,8 +50,8 @@ extern void sub_0808DBB4(s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *D_08671BDC;
-extern u8 D_02021E90[];
-extern struct GameState D_02025FF0;
+extern u8 gCameraState[];
+extern struct GameState gMainWorkspace;
 
 /* Updates a scripted attack/hit entity: clears transient flags, handles hit and
  * lifetime results, advances the script when the attack is still live, then
@@ -133,16 +133,16 @@ void sub_080303D8(struct ScriptObj *script)
   *((u16 *) (((u8 *) attack->f28) + 0x14)) = zero;
   {
     u32 coordOffset = 0x1278;
-    u8 *coordTable = D_02021E90;
-    u32 coordX = *((u32 *) ((coordTable + coordOffset) + ((D_02025FF0.roomIndex18A8 + 1) << 6)));
+    u8 *coordTable = gCameraState;
+    u32 coordX = *((u32 *) ((coordTable + coordOffset) + ((gMainWorkspace.roomIndex18A8 + 1) << 6)));
     coordX = coordX + 0x8000;
     coordX = coordX & 0xFFFF0000;
     attacker->f14 = attack->f08 - coordX;
   }
   {
     u32 coordOffset = 0x127C;
-    u8 *coordTable = D_02021E90;
-    u32 coordY = *((u32 *) ((coordTable + coordOffset) + ((D_02025FF0.roomIndex18A8 + 1) << 6)));
+    u8 *coordTable = gCameraState;
+    u32 coordY = *((u32 *) ((coordTable + coordOffset) + ((gMainWorkspace.roomIndex18A8 + 1) << 6)));
     coordY = (coordY + 0xFFFF8000) & 0xFFFF0000;
  do { attacker->f18 = attack->f0C - coordY; } while (0);
   }

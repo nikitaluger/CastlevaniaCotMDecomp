@@ -1,12 +1,12 @@
 struct S_02025FF0 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u16 D_08102E10[];
 extern void *sub_0805FAEC(void *a, s32 b);
 
 /* Spawn a projectile whose type is picked from D_08102E10 by index, then store
  * four caller-supplied init parameters on the new object. */
 void sub_080B9834(s32 kind, s32 variant, s32 x, s32 y, s32 direction) {
-    void *manager = (void *)D_02025FF0.v;
+    void *manager = (void *)gMainWorkspace.v;
     u16 typeId = D_08102E10[kind];
     void *obj = sub_0805FAEC(manager, typeId);
     if (obj != NULL) {

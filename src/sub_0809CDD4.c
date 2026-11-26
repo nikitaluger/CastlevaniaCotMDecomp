@@ -13,7 +13,7 @@ struct AimGameState {
     u8 _3E[0x174C - 0x3E];
     s32 targetX;
 };
-extern struct AimGameState D_02025FF0;
+extern struct AimGameState gMainWorkspace;
 
 struct AimWork {
     u16 flags;
@@ -46,10 +46,10 @@ void sub_0809CDD4(u8 *entity) {
     sub_080148D8((s32)gfx, work->posX);
     sub_0809E278((s32)gfx, (s32)anim, (u8 *)work, (u8 *)effect);
 
-    if (D_02025FF0.mode != 0) {
+    if (gMainWorkspace.mode != 0) {
         if (sub_0801459C(work, 0x700000) != 0 || (work->flags & 2) != 0) {
             effect->active = 1;
-            angle = sub_08005910(0x01000000 - work->posY, D_02025FF0.targetX - work->posX);
+            angle = sub_08005910(0x01000000 - work->posY, gMainWorkspace.targetX - work->posX);
             {
                 u8 zero = 0;
                 effect->angle = angle;

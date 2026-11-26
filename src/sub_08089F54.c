@@ -2,7 +2,7 @@ extern s32 sub_08003740(s32, s32);
 extern void sub_08001480(s32, s32);
 extern void sub_0806D588(s32, s32);
 extern void sub_080C31E0(void *, s32);
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 /* Actor step: tick the timer at work+0x20. When it expires, set the game-state
  * word at 0x02025FF0+0x1C to 8, spawn effect 0x82 on the object at state+0x1864
@@ -24,9 +24,9 @@ void sub_08089F54(void *arg0)
     timer = (u8 *)work + 0x20;
     if (sub_08003740((s32)timer, sprite) == 0)
     {
-        D_02025FF0[7] = 8;
+        gMainWorkspace[7] = 8;
         parentOff = 0x1864;
-        parent = *(s32 *)((u8 *)D_02025FF0 + parentOff);
+        parent = *(s32 *)((u8 *)gMainWorkspace + parentOff);
         sub_08001480(parent, 0x82);
         sub_080C31E0(self, *(s32 *)((u8 *)self + 0x24));
         return;

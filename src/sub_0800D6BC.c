@@ -4,10 +4,10 @@
  * closes the menu. */
 extern u8 D_020278D0[];   /* menu state: 0x69 toggle, 0x6A category cursor,
                              0x6B/0x73/0xF3 per-category item tables, 0x48 sub-object */
-extern u8 D_02025368[];   /* game/player data */
-extern u8 D_02021E90[];   /* shared video state (key repeat + pressed keys) */
+extern u8 gGameStatus[];   /* game/player data */
+extern u8 gCameraState[];   /* shared video state (key repeat + pressed keys) */
 extern u32 D_08671BD8;
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 void sub_08005E80(u32);                    /* play sound */
 void sub_0800F1D8(u32, u32);               /* draw category */
 void sub_0800F3C8(u32, u32);               /* draw category footer */
@@ -35,10 +35,10 @@ static inline u32 and1(u16 v)
 
 void sub_0800D6BC(u8 *entity)
 {
-  u8 *playerData = D_02025368;
+  u8 *playerData = gGameStatus;
   int prevCategory = (s8) D_020278D0[0x6A];
   {
-    u8 *video = D_02021E90;
+    u8 *video = gCameraState;
     u16 *repeatKeys = (u16 *) (video + 0x1470);
     u16 dirMask = (*repeatKeys) & 0xC0;
     if (dirMask != 0xC0)
@@ -74,7 +74,7 @@ void sub_0800D6BC(u8 *entity)
     sub_0800F3C8(D_020278D0[0x69], 0);
   }
   {
-    u8 *video = D_02021E90;
+    u8 *video = gCameraState;
     u16 keys = *((u16 *) (video + 0x146C));
     u16 cancelMask = keys & 2;
     if (cancelMask != 0)
@@ -114,7 +114,7 @@ void sub_0800D6BC(u8 *entity)
     }
     entity[((*((s16 *) (entity + 0x22))) * 2) + 0x19] = (u8) cancelMask;
     {
-      u32 *dispatchTable = &D_08671BB0;
+      u32 *dispatchTable = &gMainObjTimerCallback;
       sub_080C31E4(entity + 0x18, entity + 0x22, dispatchTable[0]);
     }
   }

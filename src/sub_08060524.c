@@ -8,7 +8,7 @@ struct S_02021E90_605 {
     u8 pad3[0xE];
     u8 *f1454;
 };
-extern struct S_02021E90_605 D_02021E90;
+extern struct S_02021E90_605 gCameraState;
 s32 sub_080609F0(void);
 void sub_08060A1C(u16);
 
@@ -17,12 +17,12 @@ void sub_08060A1C(u16);
    load, and advance the script cursor; otherwise keep waiting (return 2). */
 s32 sub_08060524(void) {
     if (sub_080609F0() != 0) {
-        u8 *cursor = D_02021E90.f1454;
+        u8 *cursor = gCameraState.f1454;
         u16 gfxId = (u16)((cursor[0] - 0x0C) << 8);
-        D_02021E90.f1454 = cursor + 1;
+        gCameraState.f1454 = cursor + 1;
         gfxId = (u16)(gfxId + cursor[1] - 0x26);
         sub_08060A1C(gfxId);
-        D_02021E90.f1454 += 1;
+        gCameraState.f1454 += 1;
         return 0;
     }
     return 2;

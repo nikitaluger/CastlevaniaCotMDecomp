@@ -4,12 +4,12 @@ struct S_02025FF0_1870
   u8 _0x000[0x1870];
   void *v;
 };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 s32 sub_080144A4(s32 arg0);
 
 /* Unlink the entity from its current list (owner pointer at +0x28, whose list
  * head is at owner+0x30; next pointer at +0x2C), then push it onto the front of
- * the global active list based at D_02025FF0+0x1870. */
+ * the global active list based at gMainWorkspace+0x1870. */
 void sub_08014460(void *arg0)
 {
   void **self = (void **) arg0;
@@ -31,7 +31,7 @@ void sub_08014460(void *arg0)
   }
 
   {
-    void *pool = D_02025FF0.v;
+    void *pool = gMainWorkspace.v;
     *((void **) (((u8 *) arg0) + 0x28)) = pool;
     *((void **) (((u8 *) arg0) + 0x2C)) = *((void **) (((u8 *) pool) + 0x30));
     *((void **) (((u8 *) pool) + 0x30)) = arg0;

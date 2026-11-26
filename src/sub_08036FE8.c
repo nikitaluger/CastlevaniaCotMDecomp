@@ -1,5 +1,5 @@
-extern u8 D_02025FF0[];
-extern s32 D_08671BB0;
+extern u8 gMainWorkspace[];
+extern s32 gMainObjTimerCallback;
 extern void *sub_0805FAEC(s32, s32);
 s32 sub_080113A8(s32, s32);
 s32 sub_080148C0(void *, s32, s32);
@@ -24,7 +24,7 @@ void sub_08036FE8(u8 *behav) {
     if (*(u16 *)((u8 *)target + 0x28) == 0x49 && *(u8 *)(ownerData + 0x18) == 0) {
         *(u8 *)(ownerData + 0x18) = 1;
         {
-            u32 tableBase = (u32)D_02025FF0;
+            u32 tableBase = (u32)gMainWorkspace;
             u32 objectIdOff = 0x1870;
             proj = sub_0805FAEC(*(s32 *)(tableBase + objectIdOff), 0xEB);
         }

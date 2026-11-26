@@ -7,7 +7,7 @@ extern void sub_0808E61C(s32, s32, s32, s32);
 extern void sub_080C2E68(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 extern u8 D_03000830[];
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 inline u16 *flagWord(u8 *p) { return (u16 *) (p + 0x3C); }
 
 /*
@@ -60,7 +60,7 @@ void sub_0809919C(void *entity)
   *((u16 *) (sysState + 0x06)) = (u16) (timer | ((0x10 - timer) << 8));
   if (((u8 *) motionState)[0x23] == 0)
   {
-    *flagWord(D_02025FF0) = 2;
+    *flagWord(gMainWorkspace) = 2;
     sub_0808BB54();
     sub_080C31E0(entity, *((s32 *) (((u8 *) entity) + 0x24)));
   }

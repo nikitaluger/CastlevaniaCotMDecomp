@@ -1,8 +1,8 @@
 struct S_02025FF0b { u8 _0[0x1728]; u32 a; u32 b; };
-extern struct S_02025FF0b D_02025FF0;
+extern struct S_02025FF0b gMainWorkspace;
 extern u8 D_080CF11E[];
 extern s16 D_080CF12E[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 s32 sub_08005910(s32, s32);
 s32 sub_08011344(s32, s32, s32, s32);
 s32 sub_080113A8(s32, s32);
@@ -34,8 +34,8 @@ void sub_08039034(u8 *behav) {
         s32 scriptIdx;
         s32 *callbackTable;
         *flag = 1;
-        dir = sub_08005910((s32)D_02025FF0.b - *(s32 *)((u8 *)owner + 0x0C),
-                           (s32)D_02025FF0.a - *(s32 *)((u8 *)owner + 8));
+        dir = sub_08005910((s32)gMainWorkspace.b - *(s32 *)((u8 *)owner + 0x0C),
+                           (s32)gMainWorkspace.a - *(s32 *)((u8 *)owner + 8));
         *(u8 *)(ownerData + 0x0C) = D_080CF11E[dir >> 12];
         angle = D_080CF12E[*(u8 *)(ownerData + 0x0C)];
         sub_08011344(target, ownerInfo, angle, 0);

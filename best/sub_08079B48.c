@@ -16,10 +16,10 @@ struct S_02025FF0 {
   u8 _3[0x18C2 - 0x173B];
   u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u8 D_080E4DEC[];
 extern u8 D_084DE8B8[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 struct S_A0 {
   u8 _0[0x22];
   s16 f22;
@@ -59,11 +59,11 @@ void sub_08079B48(struct S_A0 *arg0)
   s32 v2;
   s32 b;
   p6C = arg0->f6C;
-  p7 = (struct S_7 *)((u8 *)p6C + 4);
+  do { p7 = (struct S_7 *)((u8 *)p6C + 4);
   p38 = arg0->f38;
-  p7b = p7;
+  p7b = p7; } while (0);
   if (sub_0806D518(arg0, p38, p7) != 0) goto end;
-  p38->f00 = D_02025FF0.f18C2;
+  p38->f00 = gMainWorkspace.f18C2;
   v1 = p7b->f54 - 1;
   p7b->f54 = v1;
   if ((v1 & 7) != 0) goto skip;
@@ -81,14 +81,14 @@ skip:
     sub_08003A6C(p7, 0, (s32)D_084DE8B8);
     ((struct Sub *)((u8 *)arg0 + arg0->f22 * 2))->f19 = (u8)v2;
     {
-      s32 *fn = &D_08671BB0;
+      s32 *fn = &gMainObjTimerCallback;
       sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *fn);
     }
   }
   sub_08003740(p7, p38);
   sub_0806D588(p38, p7b);
-  if ((D_02025FF0.f173A == 0x1C) ||
-      ((D_02025FF0.f14ED == 0) && (D_02025FF0.f10 != 0))) {
+  if ((gMainWorkspace.f173A == 0x1C) ||
+      ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0))) {
     sub_080C31E0(arg0, (s32)arg0->f24);
   } else {
     sub_0806D2F8(arg0, p38);

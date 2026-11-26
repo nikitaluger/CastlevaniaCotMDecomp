@@ -11,7 +11,7 @@ struct PlayerPos {
     u32 x;
     u32 y;
 };
-extern struct PlayerPos D_02025FF0;
+extern struct PlayerPos gMainWorkspace;
 
 void sub_080351B0(u8 *self) {
     void *sprite = *(void **)(self + 0x38);
@@ -22,8 +22,8 @@ void sub_080351B0(u8 *self) {
     sub_080113A8(sprite, animator);
 
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x0F) {
-        s32 dy = D_02025FF0.y - *(s32 *)(work + 0x0C);
-        s32 dx = D_02025FF0.x - *(s32 *)(work + 0x08);
+        s32 dy = gMainWorkspace.y - *(s32 *)(work + 0x0C);
+        s32 dx = gMainWorkspace.x - *(s32 *)(work + 0x08);
         *(s32 *)(move + 4) = sub_08005910(dy, dx);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {

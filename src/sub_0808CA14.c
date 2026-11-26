@@ -5,12 +5,12 @@ void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
 struct S_02025FF0 { u8 _0[0x1848]; u32 f1848; u8 _1[0x18C5 - 0x184C]; u8 f18C5; u8 f18C6; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 struct Dma3 { vu32 src, dst, ctrl; };
 #define REG_DMA3 (*(volatile struct Dma3 *)0x040000D4)
 
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 /* Trigger a one-shot visual effect: set up the graphics layers and DMA the
  * effect gfx into its buffer, mark the global state flags, clear then bump the
@@ -26,12 +26,12 @@ void sub_0808CA14(u8 *self) {
     (void)REG_DMA3.ctrl;
     sub_08006858(0xF, 0xF, (s32)0xFFFF0000);
     sub_08006888(0xF, 0xF, 0x80 << 0x11);
-    D_02025FF0.f1848 |= 0x4DBE0000;
-    D_02025FF0.f18C6 = 1;
-    D_02025FF0.f18C5 = 1;
+    gMainWorkspace.f1848 |= 0x4DBE0000;
+    gMainWorkspace.f18C6 = 1;
+    gMainWorkspace.f18C5 = 1;
     *(u8 *)(self + (s16)*(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        void **effectTable = (void **)&D_08671BB0;
+        void **effectTable = (void **)&gMainObjTimerCallback;
         childPtr = self + 0x18;
         sub_080C31E4(childPtr, self + 0x22, (s32)*effectTable);
     }

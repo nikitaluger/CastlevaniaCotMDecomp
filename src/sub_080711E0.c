@@ -17,7 +17,7 @@ struct S_02025FF0 {
     u8 _1500[0x173A - 0x1500];
     u8 field173A;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Motion state at *(entity + 0x6C) + 4, in 16.16 fixed point. */
 struct ProjectileMotion {
@@ -63,13 +63,13 @@ void sub_080711E0(void *entity)
         *(s32 *)(world + 0x1C) = D_080E00A8[octant];
     }
 
-    if (D_02025FF0.field14FC != 0)
+    if (gMainWorkspace.field14FC != 0)
         goto abort;
-    if (D_02025FF0.field173A == 0x1C)
+    if (gMainWorkspace.field173A == 0x1C)
         goto abort;
-    if (D_02025FF0.field14ED != 0)
+    if (gMainWorkspace.field14ED != 0)
         goto offscreen;
-    if (D_02025FF0.field10 == 0)
+    if (gMainWorkspace.field10 == 0)
         goto offscreen;
 
 abort:

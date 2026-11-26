@@ -12,11 +12,11 @@ extern u16 sub_0806BCD8(u8 *, s32, u8 *, u8 *);
 extern s32 _call_via_r3(u8 *, u8 *, s32, s32);
 extern void sub_0806C6B0(u8 *, s32, u8 *, u8 *);
 struct S_02025FF0 { u8 _0[0x24]; u32 f24; u8 _28[2]; u16 f2A; u8 _2C[0x1514-0x2C]; u32 f1514; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct S_02021E90 { u8 _0[0x146E]; u16 f146E; };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 struct S_02025368 { u8 _0[0x3BC]; u16 f3BC; };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 inline static u32 zeroU32(void) { u32 v = 0; return v; }
 inline static u8 zeroU8(void) { u8 v = 0; return v; }
 void sub_08063DAC(u8 *arg0)
@@ -25,13 +25,13 @@ void sub_08063DAC(u8 *arg0)
   r6 = *(u8 **)(arg0 + 0x6C) + 4;
   r7 = *(s32 *)(arg0 + 0x38);
   r8 = r6;
-  b53 = (u8 *)&D_02025368;
+  b53 = (u8 *)&gGameStatus;
   if (sub_0806C4B4(r8, r8) != 0) return;
   sub_0806C5EC(arg0, r7, r8, r8);
-  if (D_02025FF0.f24 != 0) {
-    if ((D_02025FF0.f2A & *(u16 *)(b53 + 0x3BC)) != 0) goto mask_done;
+  if (gMainWorkspace.f24 != 0) {
+    if ((gMainWorkspace.f2A & *(u16 *)(b53 + 0x3BC)) != 0) goto mask_done;
   } else {
-    if ((D_02021E90.f146E & *(u16 *)(b53 + 0x3BC)) != 0) goto mask_done;
+    if ((gCameraState.f146E & *(u16 *)(b53 + 0x3BC)) != 0) goto mask_done;
   }
   *(u32 *)(r6 + 0x70) = zeroU32();
 mask_done:
@@ -45,7 +45,7 @@ mask_done:
   q28 = r6 + 0x28;
   ret = sub_08003740(q28, r7);
   r9 = q28;
-  if (ret == 0 || D_02025FF0.f1514 != 0) {
+  if (ret == 0 || gMainWorkspace.f1514 != 0) {
     r4 = *(s32 *)(r6 + 0x70);
     if (r4 != 0) {
       sub_0806A7AC(r7, r6, 0x15);

@@ -6,7 +6,7 @@ extern void sub_0808449C(void);
 
 extern u8 D_084F0914[];
 extern u8 D_084F0BB4[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Initializes a multi-part entity: clears its five sub-object slots, installs
  * the cleanup callback and sprite graphics, queues a palette effect, then runs
@@ -40,7 +40,7 @@ void sub_08080EB0(void *arg0)
         *(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = (u8)zero;
     }
     {
-        u32 *eventTable = &D_08671BB0;
+        u32 *eventTable = &gMainObjTimerCallback;
         u8 *scriptStep = entity + 0x18;
         sub_080C31E4(scriptStep, entity + 0x22, (void *)*eventTable);
         {

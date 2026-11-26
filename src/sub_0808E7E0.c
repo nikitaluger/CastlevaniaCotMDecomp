@@ -8,13 +8,13 @@ struct MainObj {
 /* Newly allocated effect object. */
 struct SpawnedObj { u16 flags; u16 flags2; u8 _04[0x10]; u32 worldX; u32 worldY; u32 kind; };
 struct GameState { u8 _0[0x18a8]; u8 scrollIndex; u8 _a9[0x19]; u16 flags; };
-extern struct GameState D_02025FF0;
-extern u8 D_02021E90[];
-extern void *D_08671BB0;
-void *sub_0800355C(void);
-void sub_0800168C(void *, int, int, int);
-void sub_0801131C(void *, void *, void *);
-void sub_08011368(void *, void *, s32, int);
+extern struct GameState gMainWorkspace;
+extern u8 gCameraState[];
+extern void *gMainObjTimerCallback;
+void *allocSpriteObject(void);
+void allocWorkSlot(void *, int, int, int);
+void initSpriteGraphics(void *, void *, void *);
+void setAnimationFrame(void *, void *, s32, int);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -27,25 +27,25 @@ void sub_0808E7E0(struct MainObj *arg0) {
     u8 *scriptPtr;
     u8 *stateBytePtr;
 
-    object = sub_0800355C();
+    object = allocSpriteObject();
     if (object == NULL) goto bad;
     arg0->object = object;
-    sub_0800168C(arg0, 0, 0x14, 0);
+    allocWorkSlot(arg0, 0, 0x14, 0);
     component = arg0->component;
     if (component == NULL) {
 bad:
         sub_080C31E0(arg0, arg0->cleanupCb);
         return;
     }
-    sub_0801131C(object, component, (void *)0x08100258);
-    sub_08011368(object, component, 0x15, 0);
+    initSpriteGraphics(object, component, (void *)0x08100258);
+    setAnimationFrame(object, component, 0x15, 0);
     if (arg0->spawnFlags & 0x10) ((struct SpawnedObj *)object)->flags2 |= 0x10;
     if (arg0->spawnFlags & 0x20) ((struct SpawnedObj *)object)->flags2 |= 0x20;
     ((struct SpawnedObj *)object)->kind = (arg0->spawnFlags & 0x0F) | 0x80000000;
-    ((struct SpawnedObj *)object)->flags |= D_02025FF0.flags;
+    ((struct SpawnedObj *)object)->flags |= gMainWorkspace.flags;
     {
-        u8 *scrollTable = D_02021E90;
-        u8 *gameState = (u8 *)&D_02025FF0;
+        u8 *scrollTable = gCameraState;
+        u8 *gameState = (u8 *)&gMainWorkspace;
         u8 *scrollXAddr;
         u8 *scrollYAddr;
         u32 scrollIdx;
@@ -62,7 +62,7 @@ bad:
     }
     *(u16 *)((u8 *)arg0 + 2) |= 0x1000;
     *(u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0 + 0x19) = 0;
-    cmdTable = &D_08671BB0;
+    cmdTable = &gMainObjTimerCallback;
     scriptPtr = (u8 *)arg0;
     scriptPtr += 0x18;
     sub_080C31E4(scriptPtr, (u8 *)arg0 + 0x22, (s32)*cmdTable);

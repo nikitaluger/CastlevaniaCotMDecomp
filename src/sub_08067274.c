@@ -1,5 +1,5 @@
 struct S_02025FF0_7274 { u8 _0[0x14F4]; u32 f14F4; };
-extern struct S_02025FF0_7274 D_02025FF0;
+extern struct S_02025FF0_7274 gMainWorkspace;
 extern s32 sub_0806A7AC(s32, s32, s32);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
@@ -11,7 +11,7 @@ void sub_08067274(void *entity) {
     u8 *obj = (u8 *)entity;
     s32 spriteId = *(s32 *)(obj + 0x6C) + 4;
     s32 sprite = *(s32 *)(obj + 0x38);
-    D_02025FF0.f14F4 = 0x8C << 2;
+    gMainWorkspace.f14F4 = 0x8C << 2;
     sub_0806A7AC(sprite, spriteId, 0x19);
     {
         void *child = sub_0806D2A0(entity, 0x34, 0x0A, 0x12);

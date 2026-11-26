@@ -1,14 +1,14 @@
-void *sub_0800355C(void);
-void sub_0800168C(void *, s32, s32, s32);
-void sub_080114DC(void *, s32, s32, s32);
-s32 sub_08013C2C(void);
-void sub_08014288(void *, void *, void *);
+void *allocSpriteObject(void);
+void allocWorkSlot(void *, s32, s32, s32);
+void setObjectAnimation(void *, s32, s32, s32);
+s32 findKindIndex(void);
+void installUpdateHandler(void *, void *, void *);
 void sub_0809C2F0(void *, void *, s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
-extern struct S_02025FF0 D_02025FF0;
-extern u32 D_08671BB0;
+extern struct S_02025FF0 gMainWorkspace;
+extern u32 gMainObjTimerCallback;
 struct Obj {
   u8 _0[2]; u16 f02; u8 _1[0x14 - 4]; u32 f14;
   u8 _2[0x22 - 0x18]; s16 f22; u32 f24;
@@ -38,27 +38,27 @@ void sub_0809A750(struct Obj *obj)
   u32 fn;
   s16 stepIndex;
   u8 zeroByte;
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == 0) goto done;
   obj->f38 = (u32) sprite;
-  sub_0800168C(obj, 0, 0x48, 0);
+  allocWorkSlot(obj, 0, 0x48, 0);
   if (obj->f3C == 0) { if (1) { goto done; } }
   sprite->f1C = 8;
   scriptState = (struct R4 *) obj->f3C;
   stateArg = ((u8 *) scriptState) + 0x34;
-  sub_08014288(obj, scriptState, (void *)0x08097D91);
+  installUpdateHandler(obj, scriptState, (void *)0x08097D91);
   zeroByte = 0;
   scriptState->f1C = 0x44;
-  playerIndex = sub_08013C2C();
+  playerIndex = findKindIndex();
   scriptState->f22 = playerIndex;
   if ((playerIndex << 16) >= 0) goto setupDone;
 done:
   sub_080C31E0(obj, obj->f24);
   return;
 setupDone:
-  sprite->f00 = D_02025FF0.f18C2;
+  sprite->f00 = gMainWorkspace.f18C2;
   sub_0809C2F0(sprite, stateArg, 0x20, 4);
-  sub_080114DC(sprite, stateArg, 0x13, 0);
+  setObjectAnimation(sprite, stateArg, 0x13, 0);
   objSelf = obj;
   objSelf->f7C = zeroByte;
   objSelf->f02 = objSelf->f02 | 0x1000;
@@ -67,7 +67,7 @@ setupDone:
   ((u8 *) (&stepIndexPtr[stepIndex]))[0x19] = zeroByte;
   objBytes = (u8 *) objSelf;
   {
-    u32 *pbb0 = &D_08671BB0;
+    u32 *pbb0 = &gMainObjTimerCallback;
     stepTable = objBytes + 0x18;
     sub_080C31E4((s32) stepTable, (s32) (objBytes + 0x22), (s32) (*pbb0));
   }

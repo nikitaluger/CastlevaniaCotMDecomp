@@ -1,5 +1,5 @@
 struct GameGlobals { u8 _0[0x174C]; u32 playerX; u32 playerY; };
-extern struct GameGlobals D_02025FF0;
+extern struct GameGlobals gMainWorkspace;
 void sub_08014DB4(void *, void *, u32, u32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -12,7 +12,7 @@ void sub_0802670C(void *arg0) {
     u8 *body = work + 0xA8;
     u8 *path = work + 0xDC;
     u32 *stepTable;
-    sub_08014DB4(body, path, D_02025FF0.playerX, D_02025FF0.playerY);
+    sub_08014DB4(body, path, gMainWorkspace.playerX, gMainWorkspace.playerY);
     if (4 & *(u16*)(work + 0xF4)) {
         *(u32*)(path + 8) = 0;
         *(u32*)(path + 0xC) = 0x30000;

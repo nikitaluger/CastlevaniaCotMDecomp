@@ -4,7 +4,7 @@
 extern void sub_08013C5C(void *, s32);
 extern s32 sub_080141AC(s32, void *);
 extern s32 sub_08014F14(s32, void *, void *, void *);
-extern void sub_0801534C(void *, void *, void *, void *, void *);
+extern void spawnChildPair(void *, void *, void *, void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
 extern void sub_08005E80(s32);
@@ -38,7 +38,7 @@ void sub_0804754C(u8 *entity) {
     collisionResult = sub_08014F14(sprite, motion, *(void **)(motion + 0x28), *(void **)(targetInfo + 0x10));
     targetState = motion + 0x2C;
     if (collisionResult != 0) {
-        sub_0801534C(entity, *(void **)(motion + 0x28), *(void **)(targetInfo + 0x10), targetState, motion + 0x5C);
+        spawnChildPair(entity, *(void **)(motion + 0x28), *(void **)(targetInfo + 0x10), targetState, motion + 0x5C);
     }
     sub_080142C0(entity, *(void **)(motion + 0x28));
     sub_080142C0(entity, *(void **)(targetInfo + 0x10));

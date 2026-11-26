@@ -1,4 +1,4 @@
-extern u8 D_02025368[];                    /* level/enemy data block */
+extern u8 gGameStatus[];                    /* level/enemy data block */
 extern u8 D_080E03A0[];                     /* per-state value/clamp table (0x58-byte rows) */
 extern void *D_08671BC0;
 extern void *D_08671BD0;
@@ -6,8 +6,8 @@ extern void *D_08671BD8;
 
 struct S_02025FF0 { u8 _0[0x24]; u32 f24; u16 f28; };
 struct S_02021E90 { u8 _0[0x146C]; u16 f146C; };
-extern struct S_02025FF0 D_02025FF0;
-extern struct S_02021E90 D_02021E90;
+extern struct S_02025FF0 gMainWorkspace;
+extern struct S_02021E90 gCameraState;
 
 struct PartState {                          /* state block at header+4 */
     u8 _0[8]; s32 f8; s32 fC; u8 _10[0x40-0x10]; s32 f40; s32 f44;
@@ -78,11 +78,11 @@ void sub_08066D1C(u8 *obj) {
             { s32 *g = (s32 *)0x08671BD8; sub_080C31E8(obj + 0x18, obj + 0x22, 3, *g); }
         }
     }
-    if (D_02025FF0.f24 != 0) {
-        if ((D_02025FF0.f28 & *(u16 *)(bt + 0x3BE)) != 0) goto block;
+    if (gMainWorkspace.f24 != 0) {
+        if ((gMainWorkspace.f28 & *(u16 *)(bt + 0x3BE)) != 0) goto block;
         goto skip;
     } else {
-        if ((D_02021E90.f146C & *(u16 *)(bt + 0x3BE)) == 0) goto skip;
+        if ((gCameraState.f146C & *(u16 *)(bt + 0x3BE)) == 0) goto skip;
     }
 block:
     sub_0806A7AC(sprite, statePtr, 0x10);

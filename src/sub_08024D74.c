@@ -4,8 +4,8 @@ s32 sub_08013B5C(void *, void *);
 void sub_080113A8(void *, void *);
 void sub_0801165C(void *, s32);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Update a view-bound object: drop it when it leaves the active camera area;
  * otherwise advance its display state and animation, then place its sprite at
@@ -35,8 +35,8 @@ void sub_08024D74(u8 *obj)
         sub_0801165C(state, 0);
     }
 
-    scroll = D_02021E90;
-    camState = D_02025FF0;
+    scroll = gCameraState;
+    camState = gMainWorkspace;
     camState += 0x18A8;
 
     {

@@ -1,4 +1,4 @@
-extern s32 sub_08011368(s32, void *, s32, s32);
+extern s32 setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014990(s32);
 extern void sub_08043320(s32, s32, s32, s32, s32);
 extern void sub_080435EC(s32, s32, s32, s32, s32);
@@ -41,7 +41,7 @@ void sub_08042E80(u8 *mainObj)
   s32 facing;
   u8 flags;
   u32 mask;
-  sub_08011368(handle, (u8 *) anim, 3, 0);
+  setAnimationFrame(handle, (u8 *) anim, 3, 0);
   if ((anim->frame == 1) && (anim->counter == 1))
   {
     facing16 = (u16) sub_08014990(handle);

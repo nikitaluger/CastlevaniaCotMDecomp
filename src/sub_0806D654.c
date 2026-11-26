@@ -1,4 +1,4 @@
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern s32 sub_08007B78(s32, s32, s32);   /* tile query at (x, y) */
 extern void sub_080C31E0(void *a, void *b);
 
@@ -7,7 +7,7 @@ struct S_02025FF0_18A8 {
     u8 pad[0x18A8];
     u8 b;
 };
-extern struct S_02025FF0_18A8 D_02025FF0;
+extern struct S_02025FF0_18A8 gMainWorkspace;
 extern u8 D_02023130[];
 
 struct Vec {
@@ -19,7 +19,7 @@ struct Vec {
  * upward for a free tile; return 1 if one is found, else 0. */
 s32 sub_0806D654(struct Vec *arg0)
 {
-    u8 *sceneState = (u8 *)&D_02025FF0;
+    u8 *sceneState = (u8 *)&gMainWorkspace;
     s32 tileBase = (s32)D_02023130 + ((u32)sceneState[0x18A8] << 6);
     s32 step;
 
@@ -47,7 +47,7 @@ s32 sub_0806D654(struct Vec *arg0)
  * stored just after it. */
 void sub_0806D860(s16 delta)
 {
-    u8 *state = D_02025368;
+    u8 *state = gGameStatus;
     s16 *value = (s16 *)(state + 0x2D4);
     s32 raised = (s16)(*value + delta);
     *value = (s16)raised;

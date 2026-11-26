@@ -12,13 +12,13 @@ struct S_02025FF0
   u8 _3[0x18A8 - 0x14B0];
   u8 room;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct S_02021E90
 {
   u8 _0[0x146E];
   u16 buttons;
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 extern u8 D_02023130[];
 extern s32 D_08671BD0;
 struct Step
@@ -51,20 +51,20 @@ struct Position
 s32 sub_0806B2C8(struct Actor *actor, s32 entity, struct Interaction *interaction, struct Position *pos)
 {
   u32 attr;
-  if (D_02025FF0.mode != 0)
+  if (gMainWorkspace.mode != 0)
   {
-    if (D_02025FF0.buttons & 0x40)
+    if (gMainWorkspace.buttons & 0x40)
     {
       goto checkTile;
     }
     goto ret0;
   }
-  if (!(D_02021E90.buttons & 0x40))
+  if (!(gCameraState.buttons & 0x40))
   {
     goto ret0;
   }
   checkTile:
-  attr = sub_08007B78((s32) (D_02023130 + (D_02025FF0.room * 0x40)), pos->x, pos->y + 0x10000) & 0x3F;
+  attr = sub_08007B78((s32) (D_02023130 + (gMainWorkspace.room * 0x40)), pos->x, pos->y + 0x10000) & 0x3F;
 
   switch (attr)
   {
@@ -78,7 +78,7 @@ s32 sub_0806B2C8(struct Actor *actor, s32 entity, struct Interaction *interactio
     return 0x2F;
   case 0x14:
     {
-      s32 pending = D_02025FF0.event;
+      s32 pending = gMainWorkspace.event;
       if (pending == 0)
       {
         sub_0806A7AC(entity, interaction, 0x34);

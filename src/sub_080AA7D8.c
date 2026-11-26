@@ -1,4 +1,4 @@
-s32 sub_08011368(s32, s32, s32, s32);
+s32 setAnimationFrame(s32, s32, s32, s32);
 void sub_080AA8A0(void *, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -18,7 +18,7 @@ void sub_080AA7D8(void *entity)
   sub_080AA8A0(entity, motion);
   if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 4)
   {
-    sub_08011368(sprite, status, 0xA, 0);
+    setAnimationFrame(sprite, status, 0xA, 0);
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     advance = (s32 *)0x08671BB0;
     sub_080C31E4(self + 0x18, self + 0x22, *advance);

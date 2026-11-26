@@ -3,7 +3,7 @@ extern void sub_08003740(s32, s32);
 extern void sub_0806D588(void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 /* Configures an FX object and its child entity for a scripted effect (sprite pointer,
  * effect spawn, movement seeds, position update), then advances the actor's script
@@ -22,7 +22,7 @@ void sub_08087F68(void *arg0) {
     sub_0806D588(fx);
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *msgPtr = D_08671BB0;
+        s32 *msgPtr = gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, *msgPtr);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

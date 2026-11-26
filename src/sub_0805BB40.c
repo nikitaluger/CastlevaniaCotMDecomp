@@ -1,15 +1,15 @@
 s32 sub_08005910(s32 a, s32 b);
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080113A8(void *, void *);
 void sub_080C31E4(void *, void *, void *);
 
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern s32 D_080CFE04[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Entity update: when the animation state at work+0x34 has its bit-2 flag set,
  * refresh it to frame 5 and steer toward the position held in the global at
- * D_02025FF0 (+0x1750/+0x174C): add or subtract a state-indexed speed from
+ * gMainWorkspace (+0x1750/+0x174C): add or subtract a state-indexed speed from
  * D_080CFE04 to the movement state's velocity at +8, depending on the bearing
  * quadrant, then finalize the animation bytes and run the next command step. */
 void sub_0805BB40(void *entity)
@@ -31,8 +31,8 @@ void sub_0805BB40(void *entity)
         u8 *pos;
         s32 angle;
         s32 dir;
-        sub_08011368(sprite, anim, 5, 1);
-        pos = D_02025FF0;
+        setAnimationFrame(sprite, anim, 5, 1);
+        pos = gMainWorkspace;
         angle = sub_08005910(*(s32 *)(pos + 0x1750) - *(s32 *)(work + 0x0C), *(s32 *)(pos += 0x174C) - *(s32 *)(work + 0x08));
         dir = angle & 0xC000;
         if (dir == 0x4000) goto case_sub;
@@ -44,11 +44,11 @@ void sub_0805BB40(void *entity)
         if (dir == 0xC000) goto case_sub;
         goto end_adj;
     case_add:
-        pos = D_02025FF0;
+        pos = gMainWorkspace;
         *(s32 *)(move + 8) = sub_08005910(*(s32 *)(pos + 0x1750) - *(s32 *)(work + 0x0C), *(s32 *)(pos += 0x174C) - *(s32 *)(work + 0x08)) + D_080CFE04[*move];
         goto end_adj;
     case_sub:
-        pos = D_02025FF0;
+        pos = gMainWorkspace;
         *(s32 *)(move + 8) = sub_08005910(*(s32 *)(pos + 0x1750) - *(s32 *)(work + 0x0C), *(s32 *)(pos += 0x174C) - *(s32 *)(work + 0x08)) - D_080CFE04[*move];
     end_adj:
         animState = *(u8 **)(work + 0x28);
@@ -57,7 +57,7 @@ void sub_0805BB40(void *entity)
         animState2 = *(u8 **)(work + 0x28);
         *(u8 *)(animState2 + 3) = 1;
         *(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x19) = zero;
-        handlers = &D_08671BB0;
+        handlers = &gMainObjTimerCallback;
         sub_080C31E4(obj + 0x18, obj + 0x22, *handlers);
     }
 }

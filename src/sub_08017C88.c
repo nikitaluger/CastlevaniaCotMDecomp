@@ -1,6 +1,6 @@
 /* identical to sub_0801B42C (matched), with its names changed by decompdecomp */
 extern s32 sub_0800583C(s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08012A94(s32, s32, s32);
 extern void ResultObj_New(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -25,7 +25,7 @@ void sub_08017C88(u8 *obj)
   scriptState = *((u8 **) (obj + 0x3C));
   stateArg = scriptState + 0x34;
   control = scriptState + 0x48;
-  sub_08011368(sprite, stateArg, 9, 0);
+  setAnimationFrame(sprite, stateArg, 9, 0);
   limitPtr = &maxOffset;
   if ((sub_080C36E4(*((s16 *) (control + 0x16)), 3) << 16) == 0)
   {

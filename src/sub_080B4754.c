@@ -4,7 +4,7 @@
  * velocity impulse; once vertical velocity turns non-negative, set the actor's
  * flag, clear a byte on the parent and dispatch the actor callback.
  */
-extern s32 sub_080114DC(void *, void *, s32, s32);
+extern s32 setObjectAnimation(void *, void *, s32, s32);
 extern void sub_08011528(void *, void *);
 extern void sub_0801165C(void *, s32);
 extern s32 sub_080B7290(s32);
@@ -26,7 +26,7 @@ void sub_080B4754(void *arg0)
   void *actorState = *((void **) (actor + 0x3C));
   u8 *anim = ((u8 *) actorState) + 0x34;
   u8 *auxState = ((u8 *) actorState) + 0x48;
-  sub_080114DC(animOwner, anim, ACTION_FRAME, 0);
+  setObjectAnimation(animOwner, anim, ACTION_FRAME, 0);
   sub_08011528(animOwner, anim);
   frameTablePtr = *((void ***) (anim + 0x08));
   {

@@ -1,9 +1,9 @@
 extern s32 sub_08005910(s32, s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0_174C { u8 _0[0x174C]; u32 x; u32 y; };
-extern struct S_02025FF0_174C D_02025FF0;
-extern void *D_08671BB0;
+extern struct S_02025FF0_174C gMainWorkspace;
+extern void *gMainObjTimerCallback;
 struct Z { u32 w; u8 b; };
 
 /* Drives the sprite's animation and, when flag 1 is set, computes an angle to a
@@ -20,7 +20,7 @@ void sub_08022620(u8 *obj)
   u8 *params;
   if ((*((s16 *) (control + 2))) == 0)
   {
-    sub_08011368(sprite, stateArg, 0x0B, 0);
+    setAnimationFrame(sprite, stateArg, 0x0B, 0);
     if ((*((u8 *) stateArg)) & 2)
     {
       *((u16 *) (control + 2)) = 1;
@@ -28,12 +28,12 @@ void sub_08022620(u8 *obj)
   }
   else
   {
-    sub_08011368(sprite, stateArg, 0x0E, 1);
+    setAnimationFrame(sprite, stateArg, 0x0E, 1);
   }
   flags = (u16 *) (obj + 0x6C);
   if ((*flags) & 1)
   {
-    angle = sub_08005910(((s32) D_02025FF0.y) - (*((s32 *) (scriptState + 0x0C))), ((s32) D_02025FF0.x) - (*((s32 *) (scriptState + 8))));
+    angle = sub_08005910(((s32) gMainWorkspace.y) - (*((s32 *) (scriptState + 0x0C))), ((s32) gMainWorkspace.x) - (*((s32 *) (scriptState + 8))));
     if ((*flags) & 0x20)
     {
       angle += 0xC0 << 7;
@@ -65,7 +65,7 @@ void sub_08022620(u8 *obj)
       *((obj + (stepIndex * 2)) + 0x19) = zeroByte;
     }
     {
-      void **fn = &D_08671BB0;
+      void **fn = &gMainObjTimerCallback;
       sub_080C31E4(obj + 0x18, obj + 0x22, (s32) (*fn));
     }
   }

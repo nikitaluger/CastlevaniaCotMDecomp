@@ -3,10 +3,10 @@ extern void sub_080113A8(void *, void *);
 extern void sub_08047164(void *, void *, void *, void *);
 extern void *sub_0805FAEC(s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_080CF86A[];
 extern u8 D_080CF8A2[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 void sub_080460B4(u8 *self)
 {
@@ -53,7 +53,7 @@ void sub_080460B4(u8 *self)
             *(u8 *)(st + 3) = 1;
             *(s32 *)(obj + 0x10) = 0;
             {
-                u8 *g = D_02025FF0;
+                u8 *g = gMainWorkspace;
                 s32 arg0v = *(s32 *)(g + 0x1870);
                 u8 *tbl2 = D_080CF8A2;
                 u8 idx2 = *(u8 *)p4C;
@@ -79,7 +79,7 @@ void sub_080460B4(u8 *self)
     {
         u32 *pp;
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = 0;
-        pp = D_08671BB0;
+        pp = gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, (void *)*pp);
     }
 }

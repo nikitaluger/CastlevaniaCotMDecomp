@@ -4,9 +4,9 @@ struct S_02025FF0 {
     s32 targetY;
 };
 
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern s32 sub_08005910(s32, s32);
 extern s32 sub_080C31E0(s32, void *);
@@ -29,10 +29,10 @@ void sub_0805C814(void *script)
     anim = (u8 *)body + 0x34;
     extra = (u8 *)body + 0x48;
 
-    sub_08011368(sprite, anim, 0, 1);
+    setAnimationFrame(sprite, anim, 0, 1);
 
     if (sub_08014A04(body, *(s32 *)((u8 *)extra + 8), *(s32 *)((u8 *)extra + 0xC), 0x100000, 0x100000) == 1) {
-        struct S_02025FF0 *p = &D_02025FF0;
+        struct S_02025FF0 *p = &gMainWorkspace;
         s32 angle = sub_08005910(p->targetY - *(s32 *)((u8 *)body + 0x0C),
                                   p->targetX - *(s32 *)((u8 *)body + 0x08));
         void **fpPtr = &D_08671BFC;

@@ -12,7 +12,7 @@ struct S_02025FF0_82ED0
   u8 _173B[0x18C2 - 0x173B];
   u16 f18C2;
 };
-extern struct S_02025FF0_82ED0 D_02025FF0;
+extern struct S_02025FF0_82ED0 gMainWorkspace;
 
 // Updates an attached projectile/effect: runs the special-behavior check,
 // integrates its velocity into the target object, advances its countdown timer
@@ -26,7 +26,7 @@ void sub_08082ED0(void *entity)
   child = *((void **) (((u8 *) self) + 0x6C));
   vec = ((u8 *) child) + 4;
   obj = *((u8 **) (((u8 *) self) + 0x38));
-  if (((sub_0806D450(self, obj, vec) > 0) || ((*((u32 *) (obj + 0x14)) += *((u32 *) (vec + 8)), *((u32 *) (obj + 0x18)) += *((u32 *) (vec + 0xC)), *((u16 *) (obj + 0)) = D_02025FF0.f18C2, sub_08003740(((u8 *) child) + 0x20, obj), D_02025FF0.f173A == 0x1C))) || ((D_02025FF0.f14ED == 0) && (D_02025FF0.f10 != 0)))
+  if (((sub_0806D450(self, obj, vec) > 0) || ((*((u32 *) (obj + 0x14)) += *((u32 *) (vec + 8)), *((u32 *) (obj + 0x18)) += *((u32 *) (vec + 0xC)), *((u16 *) (obj + 0)) = gMainWorkspace.f18C2, sub_08003740(((u8 *) child) + 0x20, obj), gMainWorkspace.f173A == 0x1C))) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
   {
     sub_080C31E0(self, *((void **) (((u8 *) self) + 0x24)));
     return;

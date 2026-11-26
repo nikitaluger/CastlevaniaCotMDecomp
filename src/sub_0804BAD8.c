@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 /* Enemy AI script step: set animation frame 0x1F on the sprite and tick the
@@ -15,7 +15,7 @@ void sub_0804BAD8(void *self) {
     work = *(void **)((u8 *)self + 0x3C);
     animState = (u8 *)work + 0x34;
     moveTimer = (u8 *)work + 0x48;
-    sub_08011368(sprite, animState, 0x1F, 1);
+    setAnimationFrame(sprite, animState, 0x1F, 1);
     timeLeft = *(u16 *)moveTimer - 1;
     *(u16 *)moveTimer = timeLeft;
     if (((timeLeft << 16) < 0) || (1 & *(u16 *)((u8 *)*(void **)((u8 *)work + 0x28) + 0x14))) {

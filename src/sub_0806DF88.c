@@ -4,7 +4,7 @@ extern void sub_0806E154(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u8 D_080E01A0[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 struct P38 { u8 _0[4]; u16 f4; u16 f6; u16 f8; };
 
 /*
@@ -43,7 +43,7 @@ void sub_0806DF88(u8 *arg0)
   zero = 0;
   index = *((s16 *) (arg0 + 0x22));
   *((u8 *) ((arg0 + (index * 2)) + 0x19)) = zero;
-  effectIds = &D_08671BB0;
+  effectIds = &gMainObjTimerCallback;
   base18 = arg0 + 0x18;
   sub_080C31E4(base18, arg0 + 0x22, *effectIds);
   index = *((s16 *) (arg0 + 0x22));

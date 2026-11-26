@@ -1,5 +1,5 @@
 extern s32 sub_08005820(s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s32 D_08671BD0;
@@ -20,7 +20,7 @@ void sub_0803F170(void *arg0) {
     state = *((u8 **)((u8 *)arg0 + 0x3C));
     anim = state + 0x34;
     target = state + 0x48;
-    sub_08011368(mainObj, anim, 7, 0);
+    setAnimationFrame(mainObj, anim, 7, 0);
     remaining = (*(u16 *)(target + 0x0E)) - 1;
     *(u16 *)(target + 0x0E) = (u16)remaining;
     if ((s32)((u16)remaining << 16) < 0) {

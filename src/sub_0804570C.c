@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 s32 sub_080458CC(void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
 extern u32 D_08671BD0;
@@ -28,7 +28,7 @@ void sub_0804570C(void *arg0)
     zero = 0;
     *((u32 *) (((u8 *) work) + 0x14)) = zero;
     *((u32 *) (((u8 *) work) + 0x10)) = 0;
-    sub_08011368(sprite, anim, 5, 0);
+    setAnimationFrame(sprite, anim, 5, 0);
     remaining = ctrl->timer - 1;
   }
   ctrl->timer = remaining;

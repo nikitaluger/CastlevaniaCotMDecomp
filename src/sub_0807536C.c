@@ -1,4 +1,4 @@
-void *sub_08016190(void *);
+void *allocEffectPart(void *);
 void sub_0806D2D0(void *);
 u16 sub_0806D62C(u16, s32);
 void sub_08003A6C(void *, s32, const void *);
@@ -6,15 +6,15 @@ void sub_0808449C(void);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
 
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u8 D_0849DB88[];
 extern u8 D_0849DBE8[];
 extern u8 D_084A0780[];
 extern u8 D_084A0838[];
 extern u8 D_084A1A78[];
 extern u8 D_084A1AF8[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* The parent's action state holds the new effect at +0x2C. It is read back
  * through a volatile slot on every field store, just as the original does. */
@@ -28,10 +28,10 @@ void sub_0807536C(void *parent)
     u8 *action = *(u8 **)((u8 *)parent + 0x6C);
     u8 *actionData = action + 4;
     u8 *child = *(u8 **)((u8 *)parent + 0x38);
-    u8 *stats = D_02025368;
+    u8 *stats = gGameStatus;
     u8 *effect;
 
-    effect = (u8 *)sub_08016190(action);
+    effect = (u8 *)allocEffectPart(action);
     *(u8 **)(actionData + 0x2C) = effect;
     if (effect == 0)
     {
@@ -49,7 +49,7 @@ void sub_0807536C(void *parent)
     *(u32 *)(actionData + 0x18) = *(u32 *)((u8 *)parent + 0x24);
     *(u32 *)((u8 *)parent + 0x24) = (u32)sub_0808449C;
 
-    effect[1] = D_02025FF0[0x1510] & 1;
+    effect[1] = gMainWorkspace[0x1510] & 1;
     EFFECT[2] = 2;
     EFFECT[3] = 8;
     *(u16 *)(EFFECT + 4) = stats[0x304];
@@ -61,7 +61,7 @@ void sub_0807536C(void *parent)
     *(u32 *)(EFFECT + 0x10) = (u32)child;
 
     {
-        u8 kind = D_02025FF0[0x14F0];
+        u8 kind = gMainWorkspace[0x14F0];
         action[0x55] = kind;
     }
     *(u32 *)(actionData + 0x14) = 1;
@@ -120,7 +120,7 @@ void sub_0807536C(void *parent)
         idx = *(s16 *)(self + 0x22);
         *(u8 *)(self + idx * 2 + 0x19) = 0;
 
-        scriptTable = D_08671BB0;
+        scriptTable = gMainObjTimerCallback;
         stepPtr = self + 0x18;
         sub_080C31E4(stepPtr, self + 0x22, (void *)*scriptTable);
 

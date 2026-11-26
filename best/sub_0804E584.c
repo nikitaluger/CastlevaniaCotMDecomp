@@ -1,11 +1,11 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(u8 *, s32, s32, s32);
-extern s32 sub_08013C2C(s32);
-extern void sub_0801131C(u8 *, u8 *, s32);
-extern void *sub_08016190(void);
-extern void sub_08011368(u8 *, u8 *, s32, s32);
-extern void sub_0801468C(u8 *);
-extern void sub_08016664(u8 *, s32);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(u8 *, s32, s32, s32);
+extern s32 findKindIndex(s32);
+extern void initSpriteGraphics(u8 *, u8 *, s32);
+extern void *allocEffectPart(void);
+extern void setAnimationFrame(u8 *, u8 *, s32, s32);
+extern void setSpriteFlip(u8 *);
+extern void registerScriptObject(u8 *, s32);
 extern s16 sub_08005820(s32);
 extern void sub_0804EA20(u8 *);
 extern void sub_0804E9F0(void);
@@ -68,14 +68,14 @@ struct S_02025FF0
   u8 _18A9[0x19];
   u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct S_02021E90
 {
   u8 _0[0x1278];
   u32 f1278;
   u32 f127C;
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 struct TBL
 {
   u16 f0;
@@ -83,9 +83,9 @@ struct TBL
   u16 f4;
   u8 _6[0x14 - 6];
 };
-extern struct TBL D_080CB2B8[];
+extern struct TBL gSpriteKindTable[];
 extern u16 D_080CFA3C[];
-extern u8 D_080CD400[];
+extern u8 gSpriteAnimDataTable[];
 void sub_0804E584(struct Arg0 *arg0)
 {
   struct Arg0 *new_var2;
@@ -103,12 +103,12 @@ void sub_0804E584(struct Arg0 *arg0)
   u8 *base;
   u8 *r4b;
   u8 *r2b;
-  obj = sub_0800355C();
+  obj = allocSpriteObject();
   r5 = NULL;
   new_var3 = &zero;
   s = NULL;
   r0_3 = 0;
-  if ((((obj == NULL) || ((arg0->f38 = obj, sub_0800168C((u8 *) arg0, 0, 0x88, 0), r5 = arg0->f3C, r5 == NULL))) || ((r10 = ((u8 *) r5) + 0x34, r5->f24 = *((u32 *) (((u8 *) arg0) + 0x24)), *((u32 *) (((u8 *) arg0) + 0x24)) = (u32) sub_0804E9F0, zero = 0, r5->f1C = 0x5D, tblv = (u32) D_080CB2B8, r5->f18 = ((struct TBL *) tblv)[r5->f1C].f2, r5->f8 = e->f4[0] << 16, r5->fC = e->f4[1] << 16, r0_3 = sub_08013C2C(0x5D), r5->f22 = r0_3, ((s32) (r0_3 << 16)) < 0))) || ((sub_0801131C(obj, r10, ((s32) D_080CD400) + (r5->f1C * 0xC)), s = sub_08016190(), r5->f28 = (struct E *) s, s == NULL)))
+  if ((((obj == NULL) || ((arg0->f38 = obj, allocWorkSlot((u8 *) arg0, 0, 0x88, 0), r5 = arg0->f3C, r5 == NULL))) || ((r10 = ((u8 *) r5) + 0x34, r5->f24 = *((u32 *) (((u8 *) arg0) + 0x24)), *((u32 *) (((u8 *) arg0) + 0x24)) = (u32) sub_0804E9F0, zero = 0, r5->f1C = 0x5D, tblv = (u32) gSpriteKindTable, r5->f18 = ((struct TBL *) tblv)[r5->f1C].f2, r5->f8 = e->f4[0] << 16, r5->fC = e->f4[1] << 16, r0_3 = findKindIndex(0x5D), r5->f22 = r0_3, ((s32) (r0_3 << 16)) < 0))) || ((initSpriteGraphics(obj, r10, ((s32) gSpriteAnimDataTable) + (r5->f1C * 0xC)), s = allocEffectPart(), r5->f28 = (struct E *) s, s == NULL)))
   {
     if (1)
     {
@@ -130,21 +130,21 @@ void sub_0804E584(struct Arg0 *arg0)
   {
     s32 v = ((*((u16 *) obj)) & 0xC00) | ((((*((s16 *) (((u8 *) r5) + 0x22))) << 6) + 0x200) | (((*((u16 *) (((u8 *) r5) + 0x22))) + 8) << 12));
     *((u16 *) obj) = v;
-    *((u16 *) obj) = v | D_02025FF0.f18C2;
+    *((u16 *) obj) = v | gMainWorkspace.f18C2;
   }
   *((u32 *) (obj + 0x1C)) = 0x8000000A;
-  base = (u8 *) (&D_02021E90);
+  base = (u8 *) (&gCameraState);
   {
     u32 k = 0x1278;
-    u32 coord = *((u32 *) ((base + k) + ((D_02025FF0.f18A8 + 1) << 6)));
+    u32 coord = *((u32 *) ((base + k) + ((gMainWorkspace.f18A8 + 1) << 6)));
     tblv = 0x8000;
     *((u32 *) (obj + 0x14)) = r5->f8 - ((coord + tblv) & 0xFFFF0000);
   }
   {
     u32 k = 0x127C;
-    *((u32 *) (obj + 0x18)) = r5->fC - (((*((u32 *) ((base + (k & 0xFFFF)) + ((D_02025FF0.f18A8 + 1) << 6)))) + 0xFFFF8000) & 0xFFFF0000);
+    *((u32 *) (obj + 0x18)) = r5->fC - (((*((u32 *) ((base + (k & 0xFFFF)) + ((gMainWorkspace.f18A8 + 1) << 6)))) + 0xFFFF8000) & 0xFFFF0000);
   }
-  if (D_080CB2B8)
+  if (gSpriteKindTable)
   {
     r4b = ((u8 *) r5) + 0x48;
     *((s32 *) (((u8 *) r5) + 0x48)) = r5->f8;
@@ -189,16 +189,16 @@ void sub_0804E584(struct Arg0 *arg0)
   new_var2 = arg0;
   *((u32 *) (r2b + 0x10)) = 0x200;
   *((u32 *) (r2b + 0x14)) = 0x200;
-  sub_0801468C(obj);
-  sub_08011368(obj, r10, 0, 1);
-  sub_08016664((u8 *) new_var2, 0);
+  setSpriteFlip(obj);
+  setAnimationFrame(obj, r10, 0, 1);
+  registerScriptObject((u8 *) new_var2, 0);
   arg0->f2 |= 0x1000;
   *((u8 *) ((((u8 *) arg0) + (2 * new_var2->f22)) + 0x19)) = zero;
   {
     u8 *p18;
     s32 *lit;
-    lit = (s32 *) 0x08671BB0;
     p18 = ((u8 *) arg0) + 0x18;
+    lit = (s32 *) 0x08671BB0;
     sub_080C31E4(p18, ((u8 *) arg0) + 0x22, *lit);
     *((u8 *) ((((u8 *) new_var2) + (2 * arg0->f22)) + 0x19)) = (*((u8 *) ((((u8 *) arg0) + (2 * arg0->f22)) + 0x19))) + 1;
     p18 = p18 + (2 * arg0->f22);

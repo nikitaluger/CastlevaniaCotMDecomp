@@ -16,7 +16,7 @@ struct SceneState74B60 {
     u8 _6[0x18C2 - 0x1754];
     u16 spriteAttrMask;
 };
-extern struct SceneState74B60 D_02025FF0;
+extern struct SceneState74B60 gMainWorkspace;
 
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
@@ -46,24 +46,24 @@ void sub_08074B60(void *arg0) {
             u8 *q = *(u8 **)(p + 0x38);
             *(u16 *)(sprite + 2) = (u16)((*(u16 *)(q + 2) & 0x10) | v);
         }
-        *(u32 *)(object + 4) = D_02025FF0.primaryX;
-        *(u32 *)(objectData + 4) = D_02025FF0.primaryY;
-        if (D_02025FF0.enableFlag == 0) {
+        *(u32 *)(object + 4) = gMainWorkspace.primaryX;
+        *(u32 *)(objectData + 4) = gMainWorkspace.primaryY;
+        if (gMainWorkspace.enableFlag == 0) {
             sub_080C31E0(self, *(u32 *)((u8 *)self + 0x24));
             return;
         }
     } else {
-        *(u32 *)(object + 4) = D_02025FF0.secondaryX;
-        *(u32 *)(objectData + 4) = D_02025FF0.secondaryY;
+        *(u32 *)(object + 4) = gMainWorkspace.secondaryX;
+        *(u32 *)(objectData + 4) = gMainWorkspace.secondaryY;
     }
     sub_0806D588(sprite, objectDataSaved);
-    *(u16 *)sprite = (u16)(D_02025FF0.spriteAttrMask | *(u16 *)((u8 *)self + 0x7C));
+    *(u16 *)sprite = (u16)(gMainWorkspace.spriteAttrMask | *(u16 *)((u8 *)self + 0x7C));
     if (sub_08003740(objectData + 0x1C, sprite) == 0) {
         sub_080C31E0(self, *(u32 *)((u8 *)self + 0x24));
         return;
     }
-    if (D_02025FF0.viewMode == 0x1C ||
-        (D_02025FF0.counter == 0 && D_02025FF0.sceneFlags != 0)) {
+    if (gMainWorkspace.viewMode == 0x1C ||
+        (gMainWorkspace.counter == 0 && gMainWorkspace.sceneFlags != 0)) {
         sub_080C31E0(self, *(u32 *)((u8 *)self + 0x24));
     }
 }

@@ -4,7 +4,7 @@
  * sub_080C36E4 is a remainder helper (a % b), so the two tests fire on timer
  * multiples of 6 and 3. */
 extern s32 sub_08005820(s32);
-extern void sub_08011368(u8 *, u8 *, s32, s32);
+extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void sub_08014848(s32, s32, s32, s32, s32, s32);
 extern s32 sub_08014990(u8 *);
 extern void sub_0801A310(s32, s32, s32, s32);
@@ -35,7 +35,7 @@ void sub_0801820C(u8 *self) {
     body = entity + 0x48;
     *(u32 *)(entity + 0x14) = 0;
     *(u32 *)(entity + 0x10) = 0;
-    sub_08011368(work, anim, 0, 0);
+    setAnimationFrame(work, anim, 0, 0);
     *(u32 *)(self + 0x14) = 0x0866D5AC;
     *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) + 1;
     scriptSlot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);

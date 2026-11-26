@@ -1,8 +1,8 @@
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
-extern void sub_0801131C(void *, void *, void *);
-extern void sub_08011368(void *, void *, s32, s32);
-extern s32 sub_08013C2C(s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
+extern void initSpriteGraphics(void *, void *, void *);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern s32 findKindIndex(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0
@@ -10,7 +10,7 @@ struct S_02025FF0
   u8 _0[0x18C2];
   u16 w;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Allocates a new scripted entity, sets its sprite/animation state and then
  * dispatches its first behaviour through the script function table. */
@@ -25,14 +25,14 @@ void sub_080A21A8(void *arg0)
   s32 *behaviorTable;
   u8 *scriptBytePtr;
 
-  newObj = sub_0800355C();
+  newObj = allocSpriteObject();
   if (newObj == NULL)
   {
     sub_080C31E0(arg0, *((s32 *) (((char *) arg0) + 0x24)));
     return;
   }
   *((void **) (((char *) arg0) + 0x38)) = newObj;
-  sub_0800168C(arg0, 0, 0x48, 0);
+  allocWorkSlot(arg0, 0, 0x48, 0);
   if ((*((vu32 *) (((char *) arg0) + 0x3C))) == 0)
   {
     sub_080C31E0(arg0, *((s32 *) (((char *) arg0) + 0x24)));
@@ -44,7 +44,7 @@ void sub_080A21A8(void *arg0)
   *((s16 *) (((char *) component) + 0x1C)) = 0x54;
   *((s32 *) (((char *) component) + 0x08)) = *((s32 *)(((char *) arg0) + 0x4C));
   *((s32 *) (((char *) component) + 0x0C)) = *((s32 *)(((char *) arg0) + 0x5C));
-  gfxIndex = sub_08013C2C(0x54);
+  gfxIndex = findKindIndex(0x54);
   *((s16 *) (((char *) component) + 0x22)) = (s16) gfxIndex;
   if (((s32) (((u32) gfxIndex) << 16)) < 0)
   {
@@ -56,9 +56,9 @@ void sub_080A21A8(void *arg0)
   gfxIndex += 0x200;
   gfxIndex &= 0xFC0;
   *((u16 *) newObj) = (u16) gfxIndex;
-  *((u16 *) newObj) = (u16) (gfxIndex | (&D_02025FF0)->w);
-  sub_0801131C(newObj, component34, (void *) ((((s32) (*((s16 *) (((char *) component) + 0x1C)))) * 0xC) + 0x080CD400));
-  sub_08011368(newObj, component34, 0, 0);
+  *((u16 *) newObj) = (u16) (gfxIndex | (&gMainWorkspace)->w);
+  initSpriteGraphics(newObj, component34, (void *) ((((s32) (*((s16 *) (((char *) component) + 0x1C)))) * 0xC) + 0x080CD400));
+  setAnimationFrame(newObj, component34, 0, 0);
   *((u16 *) (((char *) arg0) + 0x02)) |= 0x1000;
   {
     u8 *stepBase = (u8 *) ((((s16) (*((s16 *) (((char *) arg0) + 0x22)))) * 2) + ((u32) arg0));

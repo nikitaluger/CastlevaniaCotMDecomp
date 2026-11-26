@@ -1,4 +1,4 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void *sub_08016A2C(void);
 extern void sub_0806D2D0(void *);
 extern void sub_0806D588(void *, void *);
@@ -19,10 +19,10 @@ struct R { u8 f0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u
 struct C4 { u32 f0; u32 f4; u32 f8; u32 fC; u32 f10; u32 f14; u32 f18; u32 f1C; u32 f20; u32 f24; u8 _28[0x3C-0x28]; struct R *f3C; u32 f40; };
 struct C { u32 f0; u32 f4; u32 f8; u32 fC; u32 f10; u32 f14; u32 f18; u32 f1C; u32 f20; u8 f24; u8 f25; u8 _26[0x30-0x26]; u32 f30; u8 _34[0x48-0x34]; u8 f48; };
 struct P38 { u16 f0; u8 _2[2]; u16 f4; u16 f6; u16 f8; u16 fA; u8 _C[0x1C-0xC]; u32 f1C; u32 f20; u32 f24; };
-extern struct F0 D_02025FF0;
-extern struct S68 D_02025368;
+extern struct F0 gMainWorkspace;
+extern struct S68 gGameStatus;
 extern u8 D_080E0C90[];
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 extern s32 D_08671BD0[];
 
 void sub_08070290(void *arg0)
@@ -33,14 +33,14 @@ void sub_08070290(void *arg0)
     p6C = *(struct C **)((u8 *)arg0 + 0x6C);
     p6C4 = (struct C4 *)((u8 *)p6C + 4);
     p38 = *(struct P38 **)((u8 *)arg0 + 0x38);
-    r2 = sub_08016190();
+    r2 = allocEffectPart();
     p6C4->f3C = r2;
     if (r2 == NULL) {
         sub_0806D2D0(arg0);
         return;
     }
 
-    f1v = (r10 = 5) & D_02025FF0.f1510;
+    f1v = (r10 = 5) & gMainWorkspace.f1510;
     r9 = 0;
     ((struct R *)r2)->f1 = f1v;
     p6C4->f3C->f2 = 2;
@@ -50,7 +50,7 @@ void sub_08070290(void *arg0)
     p6C4->f3C->f8 = 8;
     p6C4->f3C->fA = r9;
     p6C4->f3C->fC = r9;
-    p6C4->f3C->fE = sub_0806D62C(D_02025368.f2DE, 100);
+    p6C4->f3C->fE = sub_0806D62C(gGameStatus.f2DE, 100);
     p6C4->f3C->f10 = (u32)p38;
     p6C4->f3C->f16 = r10;
     p6C4->f3C->f18 = 0x7B;
@@ -60,13 +60,13 @@ void sub_08070290(void *arg0)
     sub_08003A6C((s32)p6C + 0x30, 0, 0x08473324);
     {
         u32 off = 0x174C;
-        p6C->f4 = *(u32 *)((u8 *)&D_02025FF0 + off);
+        p6C->f4 = *(u32 *)((u8 *)&gMainWorkspace + off);
         off += 4;
-        p6C4->f4 = *(u32 *)((u8 *)&D_02025FF0 + off);
+        p6C4->f4 = *(u32 *)((u8 *)&gMainWorkspace + off);
     }
     sub_0806D588(p38, p6C4);
     p38->f1C = 0x80000004;
-    p38->f0 = D_02025FF0.f18C2;
+    p38->f0 = gMainWorkspace.f18C2;
     p6C4->f1C = 0x60000;
     b = D_080E0C90[*(u32 *)((u8 *)arg0 + 0x7C) & 0x3F];
     p6C->f24 = b;
@@ -87,6 +87,6 @@ void sub_08070290(void *arg0)
         p6C4->f40 = (u32)res;
         p6C->f48 = *(u8 *)((u8 *)res + 1);
         *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = r9;
-        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *D_08671BB0);
+        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *gMainObjTimerCallback);
     }
 }

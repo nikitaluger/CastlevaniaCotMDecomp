@@ -6,7 +6,7 @@ extern s32 sub_0801473C(s32 currentAngle, s32 targetAngle);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct S_02025FF0_B2034 { u8 _0[0x174C]; s32 f174C; s32 f1750; };
-extern struct S_02025FF0_B2034 D_02025FF0;
+extern struct S_02025FF0_B2034 gMainWorkspace;
 
 /* Homing script step: steers the angle at self+0x7C toward the global target
  * point, ramps the speed at self+0x6C, applies the velocity to the mover, and
@@ -19,7 +19,7 @@ void sub_080B2034(u8 *self) {
     s32 angle;
     sub_080113A8(sprite, mover + 0x34);
     angle = *(s32 *)(self + 0x7C);
-    targetAngle = sub_08005910(D_02025FF0.f1750 - *(s32 *)(mover + 0xC), D_02025FF0.f174C - *(s32 *)(mover + 8));
+    targetAngle = sub_08005910(gMainWorkspace.f1750 - *(s32 *)(mover + 0xC), gMainWorkspace.f174C - *(s32 *)(mover + 8));
     *(s32 *)(self + 0x7C) = *(s32 *)(self + 0x7C) + (sub_0801473C(angle, targetAngle) << 9);
     *(s32 *)(self + 0x6C) = *(s32 *)(self + 0x6C) + (0x80 << 4);
     if (*(s32 *)(self + 0x6C) > (0xC0 << 9)) {

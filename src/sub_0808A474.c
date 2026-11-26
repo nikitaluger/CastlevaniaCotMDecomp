@@ -5,15 +5,15 @@ extern void sub_08003740(s32, s32);
 extern void sub_08003A6C(s32, s32, s32);
 extern void sub_0806D588(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0[];
-extern u8 D_02025FF0[];
+extern s32 gMainObjTimerCallback[];
+extern u8 gMainWorkspace[];
 
 void sub_0808A474(void *entity) {
     u8 *self = (u8 *)entity;
     u8 *subObj = *(u8 **)(self + 0x6C);
     u8 *position = subObj + 4;
     s32 sprite = *(s32 *)(self + 0x38);
-    u8 *gameState = D_02025FF0;
+    u8 *gameState = gMainWorkspace;
     s32 *cbTable;
     if (*(s32 *)(gameState + 0x1C) == 1) {
         sub_08003A6C((s32)(subObj + 0x20), 0, (s32)0x08502D50);

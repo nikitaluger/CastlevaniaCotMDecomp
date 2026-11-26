@@ -4,8 +4,8 @@ extern s32 sub_08013B5C(void *, void *);
 extern void sub_0804CC18(void *, void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E4C8[];
 
 struct ActorStatus { u8 unk0; u8 flags; };
@@ -59,8 +59,8 @@ void sub_0804C930(u8 *entity)
 common:
     sub_0804CC18(entity, parent);
 
-    scrollTable = D_02021E90;
-    scrollIndexPtr = D_02025FF0;
+    scrollTable = gCameraState;
+    scrollIndexPtr = gMainWorkspace;
     scrollIndexPtr += 0x18A8;
     tableOffset = ((u32)*scrollIndexPtr + 1) * 0x40;
     xScrollTable = scrollTable + 0x1278;

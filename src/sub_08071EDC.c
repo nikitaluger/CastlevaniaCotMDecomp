@@ -8,18 +8,18 @@ struct S_02025368 {
     u8 pad1[2];
     u32 u300;
 };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 
-extern s32 D_08671BB0[];
-extern u32 D_080E0738[];
+extern s32 gMainObjTimerCallback[];
+extern u32 gLevelExpTable[];
 
 /* Script step: once the global sequence timer reaches the frame threshold for
  * the current stage, set the intro flags, advance the stage and step on. */
 void sub_08071EDC(void *entity)
 {
-    u8 *state = (u8 *)&D_02025368;
+    u8 *state = (u8 *)&gGameStatus;
     u32 *frameCount = (u32 *)(state + 0x300);
-    u32 *thresholds = D_080E0738;
+    u32 *thresholds = gLevelExpTable;
     s32 stage = *(s16 *)(state + 0x2FC) - 1;
 
     if (*frameCount >= thresholds[stage])
@@ -28,7 +28,7 @@ void sub_08071EDC(void *entity)
         sub_08072018(entity);
         *(u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *nv = D_08671BB0;
+            s32 *nv = gMainObjTimerCallback;
             sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *nv);
         }
     }
@@ -46,7 +46,7 @@ void sub_080721A0(void *entity)
     {
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *nv = D_08671BB0;
+            s32 *nv = gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *nv);
         }
     }
@@ -66,7 +66,7 @@ void sub_080721D8(void *entity)
         *(u32 *)(work + 0x2C) = 0x60;
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *nv = D_08671BB0;
+            s32 *nv = gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *nv);
         }
     }
@@ -84,7 +84,7 @@ void sub_08072218(void *entity)
     {
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *nv = D_08671BB0;
+            s32 *nv = gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *nv);
         }
     }

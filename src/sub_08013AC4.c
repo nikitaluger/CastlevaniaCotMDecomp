@@ -2,8 +2,8 @@ extern void sub_08013CF4(void *, s32, s32);
 extern void sub_08013EEC(void *);
 extern void sub_08015974(void);
 extern void sub_08016678(void *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 struct FlagDst { u16 flags; };
 
@@ -25,8 +25,8 @@ void sub_08013AC4(void *arg0) {
 
     worldX = ((s32)((s16 *)tileTable)[0x18] << 16) + 0x8000;
 
-    coordTable = D_02021E90;
-    cameraIndex = D_02025FF0;
+    coordTable = gCameraState;
+    cameraIndex = gMainWorkspace;
     cameraIndex += 0x18A8;
     coordOffset = ((u32)*cameraIndex + 1) * 0x40;
     xBase = coordTable + 0x1278;

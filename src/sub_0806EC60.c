@@ -3,7 +3,7 @@ extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct S_02025368 { u8 _pad[0x2DE]; u16 v; };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 
 struct A_6EC60 {
     u8 _0;
@@ -38,7 +38,7 @@ void sub_0806EC60(void *arg0) {
     self = (u8 *)arg0;
     stateBlock = *(u8 **)(self + 0x6C) + 4;
     animCtrl = *(s32 *)(self + 0x38);
-    base = &D_02025368;
+    base = &gGameStatus;
     ((struct B_6EC60 *)stateBlock)->p->f1 = 0;
     ((struct B_6EC60 *)stateBlock)->p->f2 = 2;
     ((struct B_6EC60 *)stateBlock)->p->f3 = 8;

@@ -6,9 +6,9 @@ struct S_02025368
   u8 _1[0xAC - 0x96];
   u16 placedCount;
 };
-extern struct S_02025368 D_02025368;
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern struct S_02025368 gGameStatus;
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u32 D_0866EB08[];
 s32 sub_08061C9C(s32, s32);
 void sub_08061D30(s32, s32);
@@ -19,11 +19,11 @@ void sub_08061D30(s32, s32);
 void sub_08061B90(s32 x, s32 y)
 {
   u8 **pfPtr;
-  struct S_02025368 *state = &D_02025368;
+  struct S_02025368 *state = &gGameStatus;
   if ((x >= 0) && (y >= 0))
   {
-    u8 *coordTable = D_02021E90;
-    u8 *roomIdx = D_02025FF0;
+    u8 *coordTable = gCameraState;
+    u8 *roomIdx = gMainWorkspace;
     u32 tableIdx;
     roomIdx += 0x18A8;
     tableIdx = (((u32) (*roomIdx)) + 1) << 6;

@@ -1,5 +1,5 @@
 extern void sub_08003A6C(void *, s32, s32);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern u32 sub_0806D62C(u32, u32);
 extern void sub_080C31E0(void *, s32);
@@ -13,12 +13,12 @@ struct S_02025FF0
   u32 f174C;
   u32 f1750;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
 extern void *D_02027740;
 extern u8 D_0849A5F0[];
 extern u8 D_0849A610[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 struct S_r4
 {
   u8 _0;
@@ -97,8 +97,8 @@ void sub_08074D44(struct S_A0 *obj)
   fx = obj->ptr6C;
   state = (struct S_5 *) (((u8 *) fx) + 4);
   owner = obj->ptr38;
-  work = D_02025368;
-  sub = sub_08016190();
+  work = gGameStatus;
+  sub = allocEffectPart();
   state->f2C = sub;
   if (sub == NULL)
   {
@@ -110,7 +110,7 @@ void sub_08074D44(struct S_A0 *obj)
   state->f34 = (u32) zero;
   state->f38 = (u32) zero;
   state->f3C = (u32) zero;
-  gState = (u8 *) &D_02025FF0;
+  gState = (u8 *) &gMainWorkspace;
   sub->f01 = gState[0x1510] & 1;
   state->f2C->f02 = 2;
   state->f2C->f03 = 8;
@@ -134,7 +134,7 @@ void sub_08074D44(struct S_A0 *obj)
   ((struct S_5b *)state)->f10 = 1;
   ((struct Sub *) (((u8 *) obj) + (obj->idx * 2)))->f19 = zero;
   {
-    s32 *fn = &D_08671BB0;
+    s32 *fn = &gMainObjTimerCallback;
     u8 *p18 = ((u8 *) obj) + 0x18;
     sub_080C31E4(p18, ((u8 *) obj) + 0x22, *fn);
     stepSlot = (u8 *) ((s16) obj->idx * 2 + (u32) obj);

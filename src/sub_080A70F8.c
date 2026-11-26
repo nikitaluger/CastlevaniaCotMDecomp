@@ -15,7 +15,7 @@ struct GlobalPos {
     u32 y; /* +0x174C */
     u32 x; /* +0x1750 */
 };
-extern struct GlobalPos D_02025FF0;
+extern struct GlobalPos gMainWorkspace;
 
 /* State block reached from self+0x3C */
 struct EnemyState {
@@ -65,8 +65,8 @@ void sub_080A70F8(u8 *self) {
                            state->curY - *(s32 *)(body + 0x7C));
     tolerance = 0x400;
 
-    dx = (s32)D_02025FF0.x - (state->targetX + *(s32 *)(self + 0x6C));
-    dy = (s32)D_02025FF0.y - (state->curY + *(s32 *)(self + 0x5C));
+    dx = (s32)gMainWorkspace.x - (state->targetX + *(s32 *)(self + 0x6C));
+    dy = (s32)gMainWorkspace.y - (state->curY + *(s32 *)(self + 0x5C));
 
     if (sub_0801476C(heading, tolerance, sub_08005910(dx, dy)) != 0) {
         state->stateFlags = (s32)ACTION(self) << 16;

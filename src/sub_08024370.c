@@ -1,5 +1,5 @@
 s32 sub_080141AC(void *, void *);
-s32 sub_08014938(s32);
+s32 signOf(s32);
 void sub_08013C5C(void *, void *);
 s32 sub_08013558(void *, void *, s32);
 void sub_08013978(void *, s32);
@@ -30,7 +30,7 @@ void sub_08024370(u8 *entity)
     u8 *stepData = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
     if (stepData[0x1A] != 1)
     {
-      if (sub_08014938(*((s32 *) (motion + 8))) > 0)
+      if (signOf(*((s32 *) (motion + 8))) > 0)
       {
         ((struct SpriteFlags *) sprite)->flags |= 0x10;
       }

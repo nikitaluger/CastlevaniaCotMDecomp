@@ -1,12 +1,12 @@
-extern void sub_08011368(u8 *, u8 *, s32, s32);
+extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void sub_0801165C(void *, s32);
-extern void sub_0801468C(u8 *, u32);
+extern void setSpriteFlip(u8 *, u32);
 extern s32 sub_08014A04(u8 *, s32, s32, s32, s32);
 extern void sub_08014B1C(u8 *, u8 *, s32, s32);
 extern void sub_08026954(u8 *, u8 *);
 extern s32 sub_080C31E0(s32, s32);
 struct S_02025FF0_1728 { u8 _0[0x1728]; u32 worldX; u32 worldY; };
-extern struct S_02025FF0_1728 D_02025FF0;
+extern struct S_02025FF0_1728 gMainWorkspace;
 
 /* Updates a tracking entity: sets the target's animation state, combines the
  * shared world origin with local offsets, moves the tracked point when the
@@ -27,14 +27,14 @@ void sub_08026628(u8 *arg0) {
     state = *((u8 **)(arg0 + 0x3C));
     stateTail = state + 0x34;
     ctrl = state + 0x48;
-    sub_08011368(targetObj, stateTail, 0, 1);
-    posX = D_02025FF0.worldX + *((u32 *)(ctrl + 0x08));
-    posY = D_02025FF0.worldY + *((u32 *)(ctrl + 0x0C));
+    setAnimationFrame(targetObj, stateTail, 0, 1);
+    posX = gMainWorkspace.worldX + *((u32 *)(ctrl + 0x08));
+    posY = gMainWorkspace.worldY + *((u32 *)(ctrl + 0x0C));
     if (sub_08014A04(state, posX, posY, 0x80 << 13, 0x80 << 13) == 1) {
         sub_08026954(state + 0x50, state + 0x54);
     }
     sub_08014B1C(state, state + 0x7C, posX, posY);
-    sub_0801468C(targetObj, *((u32 *)(ctrl + 0x38)));
+    setSpriteFlip(targetObj, *((u32 *)(ctrl + 0x38)));
     *(u32 *)((u8 *)arg0 + 0x14) = 0x0866D9A0;
     *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) + 1;
     ((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2)[0x19]++;

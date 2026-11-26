@@ -18,9 +18,9 @@ struct ScrollState {
 /* Flags controlling scroll input. */
 struct ScrollInput { u8 _0[0x10]; u8 scrollXEnabled; u8 scrollYEnabled; };
 extern struct ScreenParams D_03000830;
-extern struct ScrollState D_02021E90;
+extern struct ScrollState gCameraState;
 extern struct ScrollInput D_02027A00;
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 /* Sub-state byte at task + index*2 + 0x19. */
 struct TaskSubState { u8 _0[0x19]; u8 subState; };
@@ -43,11 +43,11 @@ void sub_080619F0(struct ScreenTask *task)
   sub_08061ED0((s32)task->sprite);
   D_03000830.param0 = 0x140;
   D_03000830.param1 = 0x60A;
-  if (D_02021E90.mode & 6) {
+  if (gCameraState.mode & 6) {
     sub_08006210();
     ((struct TaskSubState *)((u8 *)task + task->stateIndex * 2))->subState = 0;
     {
-      s32 *callback = &D_08671BB0;
+      s32 *callback = &gMainObjTimerCallback;
       stateArgs = (u8 *)task + 0x18;
       sub_080C31E4(stateArgs, (u8 *)task + 0x22, *callback);
     }
@@ -57,13 +57,13 @@ void sub_080619F0(struct ScreenTask *task)
     return;
   }
   if (D_02027A00.scrollXEnabled) {
-    if (D_02021E90.inputBits & 0x10) D_02021E90.scrollX += 0x10000;
-    if (D_02021E90.inputBits & 0x20) D_02021E90.scrollX += (s32)0xFFFF0000;
+    if (gCameraState.inputBits & 0x10) gCameraState.scrollX += 0x10000;
+    if (gCameraState.inputBits & 0x20) gCameraState.scrollX += (s32)0xFFFF0000;
     sub_08061E60();
   }
   if (D_02027A00.scrollYEnabled) {
-    if (D_02021E90.inputBits & 0x80) D_02021E90.scrollY += 0x10000;
-    if (D_02021E90.inputBits & 0x40) D_02021E90.scrollY += (s32)0xFFFF0000;
+    if (gCameraState.inputBits & 0x80) gCameraState.scrollY += 0x10000;
+    if (gCameraState.inputBits & 0x40) gCameraState.scrollY += (s32)0xFFFF0000;
     sub_08061E60();
   }
 }

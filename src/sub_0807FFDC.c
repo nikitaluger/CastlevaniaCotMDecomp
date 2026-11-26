@@ -3,7 +3,7 @@ void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 s16 sub_080C364C(s32, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 struct S_02025FF0
 {
   u8 pad0[0x10];
@@ -13,7 +13,7 @@ struct S_02025FF0
   u8 pad14EE[0x173A - 0x14EE];
   u8 field173A;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Shrinks the entity's box each frame, recomputes the scaled target values,
  * resets its action once the box is small, and despawns when required. */
@@ -43,13 +43,13 @@ void sub_0807FFDC(u8 *entity)
     {
       *((u8 *) ((entity + (((s32) (*((s16 *) (entity + 0x22)))) * 2)) + 0x19)) = 0;
       {
-        s32 *pd = &D_08671BB0;
+        s32 *pd = &gMainObjTimerCallback;
         sub_080C31E4(entity + 0x18, entity + 0x22, *pd);
       }
     }
     *((s32 *) (subObj + 4)) += *((s32 *) (obj + 8));
     sub_0806D588(ctx, obj);
-    if ((D_02025FF0.field173A == 0x1C) || ((D_02025FF0.field14ED == 0) && (D_02025FF0.field10 != 0)))
+    if ((gMainWorkspace.field173A == 0x1C) || ((gMainWorkspace.field14ED == 0) && (gMainWorkspace.field10 != 0)))
     {
       sub_080C31E0(entity, *((s32 *) (entity + 0x24)));
     }

@@ -1,7 +1,7 @@
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 void sub_0805B808(void *arg0)
 {
@@ -10,7 +10,7 @@ void sub_0805B808(void *arg0)
     u8 *p;
     s32 zero;
 
-    sub_0800168C(arg0, 0, 0x54, 0);
+    allocWorkSlot(arg0, 0, 0x54, 0);
 
     if (*(u32 *)((u8 *)arg0 + 0x3C) == 0) {
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
@@ -26,7 +26,7 @@ void sub_0805B808(void *arg0)
     ((u8 *)arg0)[idx * 2 + 0x19] = zero;
 
     {
-        void **lit = &D_08671BB0;
+        void **lit = &gMainObjTimerCallback;
         base = (u8 *)arg0 + 0x18;
         sub_080C31E4(base, (u8 *)arg0 + 0x22, *lit);
     }

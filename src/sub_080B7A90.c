@@ -6,7 +6,7 @@ struct S_02025FF0_3C {
     u8 _0[0x3C];
     u16 v;
 };
-extern struct S_02025FF0_3C D_02025FF0;
+extern struct S_02025FF0_3C gMainWorkspace;
 
 /* Refreshes the actor's animation and sprite state; when the global transition
  * flag is set, clears the script action byte and dispatches handler 1 from
@@ -17,7 +17,7 @@ void sub_080B7A90(void *self) {
     void *work = *(void **)(selfBytes + 0x3C);
     sub_080113A8(sprite, (u8 *)work + 0x34);
     sub_080148D8(sprite, *(s32 *)((u8 *)work + 8));
-    if (D_02025FF0.v != 0) {
+    if (gMainWorkspace.v != 0) {
         s32 idx = *(s16 *)(selfBytes + 0x22);
         s32 *handlerTable;
         *(u8 *)(selfBytes + idx * 2 + 0x19) = 0;

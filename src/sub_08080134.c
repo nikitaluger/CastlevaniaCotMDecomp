@@ -13,7 +13,7 @@ struct S_02025FF0 {
     u8 field173A;
 };
 
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /*
  * Applies the entity's velocity, decrements its countdown, updates the scaled
@@ -52,8 +52,8 @@ void sub_08080134(void *arg0) {
         }
         sub_08003740((u8 *)subObj + 0x20, ctx);
         sub_0806D588(ctx, obj);
-        if (D_02025FF0.field173A == 0x1C ||
-            (D_02025FF0.field14ED == 0 && D_02025FF0.field10 != 0)) {
+        if (gMainWorkspace.field173A == 0x1C ||
+            (gMainWorkspace.field14ED == 0 && gMainWorkspace.field10 != 0)) {
             sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
         }
     }

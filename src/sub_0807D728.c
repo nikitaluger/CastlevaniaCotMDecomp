@@ -3,10 +3,10 @@ extern s32 sub_08003740(void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_0808449C(void);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u32 D_084E6478;
 extern u32 D_084E64C0;
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 /* Initialize an actor: clear its motion state, install its update callback
  * and graphics data, seed its position from globals, then dispatch its
@@ -33,7 +33,7 @@ void sub_0807D728(u8 *self) {
         sub_08003740(pos, sprite);
     }
     {
-        u8 *gGame = D_02025FF0;
+        u8 *gGame = gMainWorkspace;
         *(s32 *)(object + 4) = *(s32 *)(gGame + 0x1728);
         *(s32 *)(state + 4) = *(s32 *)(gGame + 0x172C) + 0xFF800000;
     }
@@ -41,7 +41,7 @@ void sub_0807D728(u8 *self) {
     *(u32 *)(state + 0x54) = zero;
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *animCmd = &D_08671BB0;
+        s32 *animCmd = &gMainObjTimerCallback;
         u8 *sequence = self;
         sequence += 0x18;
         sub_080C31E4(sequence, self + 0x22, *animCmd);

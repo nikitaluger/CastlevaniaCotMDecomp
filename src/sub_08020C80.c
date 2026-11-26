@@ -1,8 +1,8 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s32 D_08671BD8[];
 
-/* Advance the actor's model animation by 8 frames (sub_08011368). If the
+/* Advance the actor's model animation by 8 frames (setAnimationFrame). If the
  * animation-restart flag (bit 1 of the anim state) is set, reload the 0x78
  * timer, clear this step's action byte at +0x17 and run the handler stored in
  * D_08671BD8[0] with mode 3. */
@@ -14,7 +14,7 @@ void sub_08020C80(void *arg0) {
     u8 *timers = anim + 0x48;
     s32 *handlerTable;
 
-    sub_08011368(model, animFlags, 8, 0);
+    setAnimationFrame(model, animFlags, 8, 0);
     if (*(u8 *)animFlags & 2) {
         s16 level;
         u8 zero = 0;

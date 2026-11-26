@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_080B9824(s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -24,7 +24,7 @@ void sub_080B837C(void *actor) {
         *flagByte = *flagByte & 0xBF;
     }
     if (sub_080B9824(*((s32 *)((s8 *)work + 0x48))) != 0) {
-        sub_08011368(sprite, anim, 0x0A, 0);
+        setAnimationFrame(sprite, anim, 0x0A, 0);
         *((s32 *)((s8 *)work + 0x08)) = 0x400000;
         idx = *((s16 *)((s8 *)self + 0x22));
         *((u8 *)((s8 *)self + idx * 2 + 0x19)) = 0;

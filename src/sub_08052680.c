@@ -1,5 +1,5 @@
 void sub_080113A8(void *, void *);
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 /* Arms a hit reaction on the target once its hitbox reports contact: shows the
@@ -16,7 +16,7 @@ void sub_08052680(void *self) {
     hitbox = (u8 *)target + 0x34;
     sub_080113A8(view, hitbox);
     if (2 & *hitbox) {
-        sub_08011368(view, hitbox, 3, 0);
+        setAnimationFrame(view, hitbox, 3, 0);
         victim = *(u8 **)((u8 *)target + 0x28);
         zero = 0;
         *(victim + 2) = 8;

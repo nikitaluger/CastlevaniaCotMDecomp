@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_0801165C(void *, s32);
 extern void sub_08044FD4(s32, void *, void *, void *);
 
@@ -15,7 +15,7 @@ void sub_08044BD0(void *arg0) {
     hitState = (u8 *)((u32)projectile + 0x48);
     sub_0801165C(projectile, 0x2D82);
     if (*(s32 *)(projectile + 0x14) > (s32)(0x80 << 8)) {
-        sub_08011368((void *)owner, animator, 0x17, 0);
+        setAnimationFrame((void *)owner, animator, 0x17, 0);
     }
     sub_08044FD4(1, arg0, projectile, hitState);
 }

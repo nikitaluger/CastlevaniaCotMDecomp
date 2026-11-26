@@ -1,7 +1,7 @@
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern void *D_08671BD8;
 struct S_02021E90 { u8 _0[0x146C]; u16 f146C; };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 extern void sub_08005E80(s32);
 extern void sub_0800B824(s32, s32, s32);
 extern s32 sub_0800B8C4(void *, s32);
@@ -21,17 +21,17 @@ void sub_0800B288(u8 *self) {
     if (state != 0) {
         state = sub_0800B8C4(self, 0);
         if (state == 0) {
-            if (D_02021E90.f146C & 1) {
+            if (gCameraState.f146C & 1) {
                 if (sub_080103F0(*(self + 0x50)) != 0) {
                     sub_08005E80(0x157);
                     sub_0800B824(0x81DB, 0x270, 0x600);
                     scriptIndex = *(s16 *)(self + 0x22);
                     *(self + scriptIndex * 2 + 0x19) = state;
-                    { void **fnaddr = &D_08671BB0; sub_080C31E4(self + 0x18, self + 0x22, (s32)*fnaddr); }
+                    { void **fnaddr = &gMainObjTimerCallback; sub_080C31E4(self + 0x18, self + 0x22, (s32)*fnaddr); }
                 }
             }
         }
-    } else if (D_02021E90.f146C & 3) {
+    } else if (gCameraState.f146C & 3) {
         sub_08005E80(0x159);
         *(parent + 0x635) = state;
         scriptIndex = *(s16 *)(self + 0x22);

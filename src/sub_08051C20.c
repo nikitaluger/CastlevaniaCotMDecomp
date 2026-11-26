@@ -1,4 +1,4 @@
-extern void sub_08011368(s32 sprite, s32 anim, s32 animId, s32 arg3);
+extern void setAnimationFrame(s32 sprite, s32 anim, s32 animId, s32 arg3);
 extern void sub_080113A8(s32 sprite, s32 anim);
 extern void sub_080C31E0(void *obj, s32 arg1);
 
@@ -13,7 +13,7 @@ void sub_08051C20(void *obj) {
     sprite = *(s32 *)((u8 *)obj + 0x38);
     work = *(void **)((u8 *)obj + 0x3C);
     animAddr = work + 0x34;
-    sub_08011368(sprite, animAddr, 0x1A, 0);
+    setAnimationFrame(sprite, animAddr, 0x1A, 0);
     sub_080113A8(sprite, animAddr);
     if (2 & *(u8 *)((u8 *)work + 0x34)) {
         sub_080C31E0(obj, *(s32 *)((u8 *)obj + 0x24));

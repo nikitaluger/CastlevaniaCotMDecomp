@@ -4,12 +4,12 @@ struct S_02025FF0
     u32 targetX; /* 0x174C */
     u32 targetY; /* 0x1750 */
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u32 D_08671BFC;
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 s32 sub_08005910(s32, s32);
 void sub_08005E80(s32);
-void sub_080114DC(void *, void *, s32, s32);
+void setObjectAnimation(void *, void *, s32, s32);
 void sub_08011EE8(void *, s32, s32);
 void sub_080148D8(void *, s32);
 void sub_0809C4E0(s32, s32);
@@ -60,7 +60,7 @@ void sub_080996D8(void *arg0)
         if (cmd == 0x3C)
         {
             s32 angle;
-            angle = sub_08005910(D_02025FF0.targetY - (*((s32 *) (((u8 *) base) + 0x0C))), D_02025FF0.targetX - (*((s32 *) (((u8 *) base) + 0x08))));
+            angle = sub_08005910(gMainWorkspace.targetY - (*((s32 *) (((u8 *) base) + 0x0C))), gMainWorkspace.targetX - (*((s32 *) (((u8 *) base) + 0x08))));
             {
                 u32 scaled = (u32) (angle + 0xFFFF5FFF);
                 if (scaled <= 0x3FFE)
@@ -80,11 +80,11 @@ void sub_080996D8(void *arg0)
                 *((s32 *) (((u8 *) base) + 0x10)) = (s32) ((sub_080C31E0(angle + 0x4000, *angleFunc) >> 8) << 11);
                 *((s32 *) (((u8 *) base) + 0x14)) = (s32) ((sub_080C31E0(angle, *angleFunc) >> 8) << 11);
             }
-            sub_080114DC(mainObj, p34, 0x26, 0);
+            setObjectAnimation(mainObj, p34, 0x26, 0);
             sub_08005E80(0x164);
             *((u8 *) ((((u8 *) self) + ((*((s16 *) (((u8 *) self) + 0x22))) * 2)) + 0x19)) = 0;
             {
-                u32 *cmdTable = &D_08671BB0;
+                u32 *cmdTable = &gMainObjTimerCallback;
                 sub_080C31E4(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, *cmdTable);
             }
         }

@@ -16,7 +16,7 @@ typedef struct
   u8 _A0[0x0C];
   void *spawnParams;  /* 0xAC */
 } Entity;
-/* Render object allocated by sub_0800355C. */
+/* Render object allocated by allocSpriteObject. */
 typedef struct
 {
   u16 graphics;       /* 0x00 */
@@ -93,13 +93,13 @@ struct S_02025FF0
   u8 _1[0x18C2 - 0x18A9];
   u16 w18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gCameraState[];
 extern u32 D_0866FAAC[];
 extern u16 D_081008CA[];
-extern u32 D_08671BB0[];
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
+extern u32 gMainObjTimerCallback[];
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
 extern void *sub_08015914(void);
 extern s32 sub_080954A4(void);
 extern void *sub_080954BC(void *);
@@ -129,13 +129,13 @@ void sub_080950EC(Entity *arg0)
   u32 dispatchTable;
   u32 *behaviorTable;
   params = (SpawnParams *) arg0->spawnParams;
-  sprite = (Sprite *) sub_0800355C();
+  sprite = (Sprite *) allocSpriteObject();
   if (sprite == 0)
   {
     goto fail;
   }
   arg0->sprite = sprite;
-  sub_0800168C(arg0, 0, 0x6C, 0);
+  allocWorkSlot(arg0, 0, 0x6C, 0);
   state = (BehaviorState *) arg0->state;
   if (state == 0)
   {
@@ -147,7 +147,7 @@ void sub_080950EC(Entity *arg0)
   px = coord->x;
   state->f8 = (void *) (((s32) px) << 16);
   state->fC = (void *) (((s32) coord->y) << 16);
-  sprite->graphics = (u16) (sprite->graphics | D_02025FF0.w18C2);
+  sprite->graphics = (u16) (sprite->graphics | gMainWorkspace.w18C2);
   sprite->typeFlags = 0x8000000C;
   ext = (Extension *) (((u8 *) state) + 0x48);
   state->behaviorIndex = sub_080954A4();
@@ -193,8 +193,8 @@ void sub_080950EC(Entity *arg0)
   sprite->behaviorParam = D_081008CA[state->behaviorIndex];
   arg0->update = (void (*)(void)) sub_08095438;
   {
-    u8 *pt = D_02021E90;
-    u8 *pb = (u8 *) (&D_02025FF0);
+    u8 *pt = gCameraState;
+    u8 *pb = (u8 *) (&gMainWorkspace);
     u8 *base1;
     u8 *base2;
     u32 cidx;
@@ -211,7 +211,7 @@ void sub_080950EC(Entity *arg0)
     u8 *p = (u8 *) ((u32) (arg0->step * 2) + (u32) arg0);
     p[0x19] = 0;
   }
-  behaviorTable = D_08671BB0;
+  behaviorTable = gMainObjTimerCallback;
   p18 = ((u8 *) arg0) + 0x18;
   sub_080C31E4(p18, ((u8 *) arg0) + 0x22, *behaviorTable);
   {

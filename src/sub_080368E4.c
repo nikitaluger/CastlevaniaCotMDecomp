@@ -1,10 +1,10 @@
 void sub_080113A8(void *, void *);
 void sub_08012704(u32, u32, u32, s32, void *);
-void sub_08014588(u32, void *);
+void copyPoseAttrs(u32, void *);
 void *sub_0805FAEC(u32, s32);
 void sub_080C31E0(s32, s32);
 
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_080CEF30[];
 
 /* Updates an entity's sprite animation and pose, clearing a visibility bit as
@@ -54,12 +54,12 @@ void sub_080368E4(void *entity) {
     case 27: break;
     case 28: poseIndex = 9; break;
     }
-    sub_08014588(*(u32 *)(state + 0x28), D_080CEF30 + poseIndex * 8);
+    copyPoseAttrs(*(u32 *)(state + 0x28), D_080CEF30 + poseIndex * 8);
     if (*(u8 *)(extra + 0x18) == 8) {
         *(u8 *)(extra + 0x18) |= 0x80;
         if ((*(u16 *)extra & 1) == 0) {
             if ((*(u16 *)extra & 2) == 0) {
-                resultObj = sub_0805FAEC(*(u32 *)((u8 *)D_02025FF0 + kindOffset), 0xE9);
+                resultObj = sub_0805FAEC(*(u32 *)((u8 *)gMainWorkspace + kindOffset), 0xE9);
                 if (resultObj != NULL) {
                     u8 resultKind;
                     *(u32 *)(resultObj + 0x4C) = *(u32 *)(extra + 0x04);

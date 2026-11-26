@@ -6,8 +6,8 @@ extern void sub_08015974(void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_0801165C(void *, s32);
 extern void sub_080113A8(void *, void *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 struct S2A { u8 flag; };
 struct SP { u8 _0[4]; void *volatile p; };
@@ -97,8 +97,8 @@ void sub_080906D8(u8 *self) {
         spriteField = (u8 *)((struct SP *)objState)->p + 6;
         highMask = 0xFFFF0000;
         *(u16 *)spriteField = *(u16 *)(obj + 0x0E) + 1;
-        coordTable = D_02021E90;
-        basePtr = D_02025FF0;
+        coordTable = gCameraState;
+        basePtr = gMainWorkspace;
         basePtr += 0x18A8;
         slotIndex = ((u32)*basePtr + 1) * 0x40;
         coordTableX = coordTable + 0x1278;

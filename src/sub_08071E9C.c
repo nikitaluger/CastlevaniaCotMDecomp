@@ -17,7 +17,7 @@ struct S_02025FF0 {
     u8 b18C5;
     u8 b18C6;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 struct S_02025368 {
     u8 pad0[0x2FC];
@@ -25,19 +25,19 @@ struct S_02025368 {
     u8 pad1[2];
     u32 u300;
 };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 
-extern s32 D_08671BB0[];
-extern u32 D_080E0738[];
+extern s32 gMainObjTimerCallback[];
+extern u32 gLevelExpTable[];
 
 /* Set the global 0x08000000 flag, clear the entity's current script-step
  * counter, and advance its command script via the shared advance callback. */
 void sub_08071E9C(void *entity)
 {
-    D_02025FF0.f1844 |= 0x08000000;
+    gMainWorkspace.f1844 |= 0x08000000;
     *(u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2 + 0x19) = 0;
     {
-        s32 *advanceCb = D_08671BB0;
+        s32 *advanceCb = gMainObjTimerCallback;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *advanceCb);
     }
 }

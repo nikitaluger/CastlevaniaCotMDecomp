@@ -3,12 +3,12 @@ extern void sub_080A54C0(s32, s32, s32);
 
 /* Shared player/camera coordinate in 16.16 fixed point (see +0x1750 for the other axis). */
 struct S_02025FF0 { u8 _0x000[0x174C]; s32 pos; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Pick a pseudo-random spawn X in a band around the shared coordinate, clamped
  * into the visible window, then spawn a child effect there at a fixed Y. */
 void sub_080A5504(s32 arg0) {
-    s32 pos = D_02025FF0.pos;
+    s32 pos = gMainWorkspace.pos;
     s32 lo = pos + 0xFFE80000;
     s32 hi = pos + 0x180000;
     s32 rnd;

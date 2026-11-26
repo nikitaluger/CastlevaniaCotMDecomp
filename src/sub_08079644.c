@@ -1,5 +1,5 @@
 #define SUBPTR ( *(u8 * volatile *)((u8 *)state + 0x2C) )
-void *sub_08016190(void *);
+void *allocEffectPart(void *);
 void sub_0806D2D0(void *);
 s16 sub_0806D62C(u16, s32);
 void sub_08003A6C(void *, s32, void *);
@@ -7,11 +7,11 @@ void sub_080722E0(void *, u8);
 void sub_0808449C(void);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u8 D_080E4D84[];
 extern u8 D_080E4DE4[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /*
  * Spawn a sub-object using the actor's 12-byte spawn parameter entry: allocate
@@ -22,14 +22,14 @@ void sub_08079644(void *arg0)
   u8 *actor = *((u8 **) (((u8 *) arg0) + 0x6C));
   u8 *state = 4 + actor;
   u8 *sprite = *((u8 **) (((u8 *) arg0) + 0x38));
-  u8 *config = D_02025368;
+  u8 *config = gGameStatus;
   u8 *params;
   u8 *newObj;
   s32 scaled;
   {
     u8 *tableOffset = (u8 *)(*(u32 *)((u8 *)arg0 + 0x9C) * 12);
     params = D_080E4D84 + (u32)tableOffset;
-    newObj = (u8 *) sub_08016190(tableOffset);
+    newObj = (u8 *) allocEffectPart(tableOffset);
   }
   *((u8 **) (state + 0x2C)) = newObj;
   if (newObj == 0)
@@ -43,7 +43,7 @@ void sub_08079644(void *arg0)
     *((u32 *) (state + 0x34)) = z;
     *((u32 *) (state + 0x38)) = z;
     *((u32 *) (state + 0x3C)) = z;
-    newObj[1] = D_02025FF0[0x1510] & 1;
+    newObj[1] = gMainWorkspace[0x1510] & 1;
   }
   SUBPTR[2] = 2;
   SUBPTR[3] = 8;
@@ -64,7 +64,7 @@ void sub_08079644(void *arg0)
   *((u32 *) (state + 4)) = *((u32 *) (((u8 *) arg0) + 0x8C));
   *((u32 *) (state + 0x40)) = 0x8000;
   {
-    u8 direction = *(u8 *)(params + 4) + D_080E4DE4[*(u32 *)(D_02025FF0 + 0x14F8) & 7];
+    u8 direction = *(u8 *)(params + 4) + D_080E4DE4[*(u32 *)(gMainWorkspace + 0x14F8) & 7];
     *(u8 *)(actor + 0x48) = direction;
     sub_080722E0(state, *(u8 *)(actor + 0x48));
   }
@@ -85,7 +85,7 @@ void sub_08079644(void *arg0)
     u32 *scriptTableArg;
     scriptIdx = *((s16 *) (actorPtr + 0x22));
     *((u8 *) ((actorPtr + (scriptIdx * 2)) + 0x19)) = 0;
-    scriptTableArg = D_08671BB0;
+    scriptTableArg = gMainObjTimerCallback;
     scriptPtr = actorPtr + 0x18;
     sub_080C31E4(scriptPtr, actorPtr + 0x22, (void *) (*scriptTableArg));
     scriptIdx = *((s16 *) (actorPtr + 0x22));

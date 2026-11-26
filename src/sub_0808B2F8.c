@@ -1,4 +1,4 @@
-extern s32 sub_0800168C(void *, s32, s32, s32);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
 
@@ -11,7 +11,7 @@ void sub_0808B2F8(void *self)
     int bufSize;
     s16 *stepPtr;
     bufSize = 0x14;
-    if (sub_0800168C(self, 0, bufSize, 3) == 0) {
+    if (allocWorkSlot(self, 0, bufSize, 3) == 0) {
         self = (s8 *)self;
         sub_080C31E0(self, *((s32 *)(self + 0x24)));
         return;

@@ -4,9 +4,9 @@ struct S_02025FF0_BD84
   s32 targetX;
   s32 targetY;
 };
-extern struct S_02025FF0_BD84 D_02025FF0;
+extern struct S_02025FF0_BD84 gMainWorkspace;
 extern s32 sub_08005910(s32, s32);
-extern void sub_0801468C(void *, s32);
+extern void setSpriteFlip(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -25,13 +25,13 @@ void sub_0805BD84(void *arg0)
   actor = *((void **) (((u8 *) arg0) + 0x38));
   enemy = *((u8 **) (((u8 *) arg0) + 0x3C));
   enemyState = enemy + 0x48;
-  p = &D_02025FF0;
+  p = &gMainWorkspace;
   deltaY = p->targetY - (*((s32 *) (enemy + 0xC)));
   deltaX = p->targetX - (*((s32 *) (enemy + 8)));
   angle = (sub_08005910(deltaY, deltaX) + (0x80 << 8)) & 0xFFFF;
   *((s32 *) (enemyState + 8)) = angle;
   *((s32 *) (enemyState + 4)) = 0x80 << 0xA;
-  sub_0801468C(actor, (angle + (0x80 << 8)) & 0xFFFF);
+  setSpriteFlip(actor, (angle + (0x80 << 8)) & 0xFFFF);
   *((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;
   {
     s32 *lit = (s32 *) 0x08671BB0;

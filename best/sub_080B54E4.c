@@ -2,7 +2,7 @@ extern u32 D_08671BC0[];
 extern u8 D_08102BBC[];
 extern u8 D_08102CAC[];
 void sub_08011528(void *arg0, void *arg1);
-void sub_08014588(void *arg0, void *arg1);
+void copyPoseAttrs(void *arg0, void *arg1);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 inline void *inline_fn(u8 *arg0)
@@ -21,8 +21,9 @@ void sub_080B54E4(void *arg0)
   s16 idx;
   u8 byte;
   u32 val;
-  s16 s;
+  
   u32 *new_var;
+u32 *__repair_phase_new_var;
   u32 *baseptr;
   u32 addr;
   u8 *sp;
@@ -41,15 +42,15 @@ void sub_080B54E4(void *arg0)
     sub_080C31E0((void *) e, (s32) (*((u32 **) (e + 0x14)))[byte]);
     return;
   }
-  sub_08011528(v38, (void *) p34);
+  do { sub_08011528(v38, (void *) p34); } while (0);
   baseptr = *((u32 **) (p34 + 0x08));
-  s = *((s16 *) (p34 + 0x0E));
+  idx = *((s16 *) (p34 + 0x0E));
   byte = *((u8 *) (p34 + 0x01));
   {
-    u32 sum = (u32) (s + byte);
+    u32 sum = (u32) (idx + byte);
     u32 tabval = *baseptr;
     addr = sum * 4;
-    addr = (tabval + addr) - 4;
+    addr = (addr + tabval) - 4;
   }
   val = (*((u16 *) (((u8 *) addr) + 2))) - 0x65;
   if (((u32) val) <= 0x0E)
@@ -85,9 +86,9 @@ void sub_080B54E4(void *arg0)
         break;
     }
   }
-  sub_08014588(*((void **) (p + 0x28)), (void *) (D_08102BBC + sel * 24));
-  sub_08014588(*((void **) (p + 0x48)), (void *) ((D_08102BBC + 8) + sel * 24));
-  sub_08014588(inline_fn(p48), (void *) ((D_08102BBC + 0x10) + sel * 24));
+  do { do { copyPoseAttrs(*((void **) (p + 0x28)), (void *) (D_08102BBC + sel * 24));
+  copyPoseAttrs(*((void **) p48), (void *) ((D_08102BBC + 8) + sel * 24)); } while (0); } while (0);
+  copyPoseAttrs(inline_fn(p48), (void *) ((D_08102BBC + 0x10) + sel * 24));
   *((u8 *) (((u8 *) (*((void **) (p + 0x28)))) + 1)) = D_08102CAC[sel * 3 + 0];
   *((u8 *) (((u8 *) (*((void **) (p + 0x48)))) + 1)) = D_08102CAC[sel * 3 + 1];
   *((u8 *) (((u8 *) inline_fn(p48)) + 1)) = D_08102CAC[sel * 3 + 2];
@@ -96,7 +97,7 @@ void sub_080B54E4(void *arg0)
     e[0x4C] = 0;
     idx = *((s16 *) (e + 0x22));
     *((u8 *) ((e + (idx * 2)) + 0x19)) = 0;
-    new_var = D_08671BC0;
-    sub_080C31E4((void *) (e + 0x18), (void *) (e + 0x22), (s32) new_var[0]);
+    __repair_phase_new_var = D_08671BC0;
+    sub_080C31E4((void *) (e + 0x18), (void *) (e + 0x22), (s32) __repair_phase_new_var[0]);
   }
 }

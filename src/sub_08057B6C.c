@@ -1,4 +1,4 @@
-s32 sub_08014588(void *, void *);
+s32 copyPoseAttrs(void *, void *);
 s32 sub_080C31E0(s32, void *);
 extern void *D_08671BFC;
 extern u8 D_080CFCA0[];
@@ -32,7 +32,7 @@ void sub_08057B6C(void *target, void *state, void *work, void *params)
     }
     gfxState = (void *)workWords[10];
     tableIndex = (s32)(((u32)stateWords[4] + 0x800) & 0xFFFF);
-    sub_08014588(gfxState, D_080CFCA0 + ((tableIndex >> 12) * 8));
+    copyPoseAttrs(gfxState, D_080CFCA0 + ((tableIndex >> 12) * 8));
     out[0x17] = workWords[2];
     out[0x1B] = workWords[3];
     out[0x1F] = paramsWords[3];

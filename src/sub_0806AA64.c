@@ -1,12 +1,12 @@
 struct S_02025FF0 { u8 _0[0x1754]; s32 f1754; u8 _1[0x1770-0x1758]; s32 f1770; s32 f1774; s32 f1778; s32 f177C; u8 _2[0x18A8-0x1780]; u8 f18A8; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u8 D_02023130[];
 
 /* Write the current scroll offsets into the active half of the offset table,
  * subtract them from the entity's world position, and apply the fractional
  * correction when the scroll flag is set; then fill the other half too. */
 void sub_0806AA64(void *arg0, void *arg1) {
-    struct S_02025FF0 *state = &D_02025FF0;
+    struct S_02025FF0 *state = &gMainWorkspace;
     u8 *page = (u8 *)(0x18A8 + (u32)state);
     u8 *offsets;
     s32 *dst;

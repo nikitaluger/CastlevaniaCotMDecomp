@@ -16,10 +16,13 @@ void sub_08014B1C(struct MoveA *a, struct MoveB *b, s32 c, s32 d)
     if (delta == 0) v = 0;
     else {
         s16 s = (s16)delta;
-        s32 t = s < 0 ? -s : s;
+        s32 t = s < 0 ? -((s16)delta) : s;
         v = sub_080C364C(t - 1) + 1;
     }
-    if (v == 1) { b->prev = angle; delta = 0; }
+    if (v == 1) {
+do { b->prev = angle; delta = 0;
+} while (0);
+}
     if (delta == 0) {
         s32 lim = b->cur + b->step;
         if (lim > b->max) lim = b->max;
@@ -54,6 +57,7 @@ void sub_08014B1C(struct MoveA *a, struct MoveB *b, s32 c, s32 d)
                 sub_080146D0(a, angle, target);
             } else sub_080146D0(a, angle, b->cur);
         } else {
+            s32 target;
             target = b->cur - b->step;
             if (target < b->min) target = b->min;
             sub_080146D0(a, angle, target);

@@ -1,8 +1,8 @@
-s32 sub_08011368(s32, s32, s32, s32);
+s32 setAnimationFrame(s32, s32, s32, s32);
 s32 sub_08014990(s32);
 s32 sub_080C31E4(void *, void *, s32);
 
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Enemy lunge update: start the wind-up animation, and when the animation
  * control flags fire, step the enemy in its facing direction with a velocity,
@@ -24,7 +24,7 @@ void sub_08053C10(void *arg0) {
     enemyData = (u8 *)enemy + 0x34;
     enemyState = (u8 *)enemy + 0x48;
 
-    sub_08011368(actor, (s32)enemyData, 4, 0);
+    setAnimationFrame(actor, (s32)enemyData, 4, 0);
     if (!(*(u8 *)enemyData & 2)) return;
 
     if (sub_08014990(actor) < 0) {
@@ -37,9 +37,9 @@ void sub_08053C10(void *arg0) {
     *(s32 *)((u8 *)enemy + 0x0C) += 0xFFEC0000;
     zero = 0;
     *(s16 *)((u8 *)enemyState + 4) = 6;
-    sub_08011368(actor, (s32)enemyData, 8, 0);
+    setAnimationFrame(actor, (s32)enemyData, 8, 0);
     paramIndex = *(s16 *)((u8 *)self + 0x22);
     *((u8 *)self + paramIndex * 2 + 0x19) = (u8)zero;
-    pCallback = &D_08671BB0;
+    pCallback = &gMainObjTimerCallback;
     sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *pCallback);
 }

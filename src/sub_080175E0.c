@@ -25,26 +25,26 @@ void sub_080175E0(void *arg0) {
     }
 }
 
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 s32 sub_0801491C(s32 arg0) {
-    u8 *b = D_02025FF0;
+    u8 *b = gMainWorkspace;
     s32 v = *(s32 *)(b + 0x1750) - arg0;
     if (v < 0) v = -v;
     return v;
 }
 
 s32 sub_08014900(s32 arg0) {
-    u8 *b = D_02025FF0;
+    u8 *b = gMainWorkspace;
     s32 v = *(s32 *)(b + 0x174C) - arg0;
     if (v < 0) v = -v;
     return v;
 }
 
-s32 sub_08014938(s32);
+s32 signOf(s32);
 inline u16 inline_fn(u16 *arg0) { return *arg0; }
 void sub_080148D8(void *arg0, s32 arg1) {
     u16 var_r0;
-    if (sub_08014938(arg1) > 0) {
+    if (signOf(arg1) > 0) {
         var_r0 = 0x10 | inline_fn((u16 *)((s8 *)arg0 + 2));
     } else {
         var_r0 = 0xFFEF & inline_fn((u16 *)((s8 *)arg0 + 2));

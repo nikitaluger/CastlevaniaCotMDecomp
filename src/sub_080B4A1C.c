@@ -4,7 +4,7 @@
  * threshold and the anim-state flag is set, publish two work pointers plus a
  * state code to the global game state, clear the byte and run the next step.
  */
-extern s32 sub_080114DC(void *, void *, s32, s32);
+extern s32 setObjectAnimation(void *, void *, s32, s32);
 extern s32 sub_08011528(void *, void *);
 extern s32 sub_080C31E4(void *, void *, u32);
 
@@ -16,7 +16,7 @@ struct GameState {
     u32 f48;  /* work+8 pointer */
     u32 f4C;  /* work+0xC pointer */
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 #define ACTION_LOW_MAX   0x1D
 #define ACTION_HIGH_MIN  0x1E
@@ -36,16 +36,16 @@ void sub_080B4A1C(void *arg0) {
     animState = (u8 *)work + 0x34;
     actionByte = *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0) + 0x19);
     if (actionByte <= ACTION_LOW_MAX) {
-        sub_080114DC(sprite, animState, FRAME_LOW, 0);
+        setObjectAnimation(sprite, animState, FRAME_LOW, 0);
     } else {
-        sub_080114DC(sprite, animState, FRAME_HIGH, 0);
+        setObjectAnimation(sprite, animState, FRAME_HIGH, 0);
     }
     sub_08011528(sprite, animState);
     actionByte = *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0) + 0x19);
     if (actionByte > ACTION_HIGH_MIN && (*animState & ANIM_FLAG_BUSY)) {
-        D_02025FF0.f48 = *(u32 *)((u8 *)work + 8);
-        D_02025FF0.f4C = *(u32 *)((u8 *)work + 0xC);
-        D_02025FF0.f10 = ACTION_STATE;
+        gMainWorkspace.f48 = *(u32 *)((u8 *)work + 8);
+        gMainWorkspace.f4C = *(u32 *)((u8 *)work + 0xC);
+        gMainWorkspace.f10 = ACTION_STATE;
         *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0) + 0x19) = 0;
         callbackTable = (u32 *)0x08671BB0;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *callbackTable);

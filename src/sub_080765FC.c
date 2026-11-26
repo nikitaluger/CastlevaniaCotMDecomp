@@ -16,7 +16,7 @@ struct S_765FC {
     u8 _pad4[0x18C2 - 0x1754];
     u16 word18C2;
 };
-extern struct S_765FC D_02025FF0;
+extern struct S_765FC gMainWorkspace;
 
 /* Copy the global player/view coordinates into the entity's control object,
  * run its reposition action, and tick a timer; fire the script callback when
@@ -32,7 +32,7 @@ void sub_080765FC(void *arg0) {
     mainObj = *(void **)((u8 *)arg0 + 0x38);
     if (sub_0806D450(arg0, mainObj, pos) != 0)
         return;
-    state = &D_02025FF0;
+    state = &gMainWorkspace;
     *(s32 *)((u8 *)ctrl + 4) = state->word174C;
     *(s32 *)((u8 *)pos + 4) = state->word1750;
     sub_0806D588(mainObj, pos);

@@ -1,10 +1,10 @@
-extern s32 sub_08011368(s32, s32, s32, s32);
-extern void sub_08014588(s32, s32);
+extern s32 setAnimationFrame(s32, s32, s32, s32);
+extern void copyPoseAttrs(s32, s32);
 extern u8 D_080CF4A0[];
 
 /* Readable aliases for the game's symbols (preprocessor-only, no effect on code). */
-#define StartAnimation     sub_08011368
-#define ApplyMotionParams  sub_08014588
+#define StartAnimation     setAnimationFrame
+#define ApplyMotionParams  copyPoseAttrs
 #define sActionParams      D_080CF4A0
 
 /* Enemy action indices; each selects an animation and one 8-byte table entry. */

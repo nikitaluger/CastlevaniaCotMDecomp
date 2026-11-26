@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 extern s32 sub_08005820(s32);
 extern s32 sub_0800583C(s32);
@@ -18,7 +18,7 @@ void sub_0809153C(void *arg0) {
     s32 spawnY = fields[2] + sub_0800583C(spread) + 0xFFF00000;
 
     u32 stateOff = 0x1898;
-    u32 *stateVal = (u32 *)(D_02025FF0 + stateOff);
+    u32 *stateVal = (u32 *)(gMainWorkspace + stateOff);
     s32 motion = (sub_080C36E4(*stateVal, 5) - 2) << 14;
 
     sub_080918B0(spawnX, spawnY, motion, 0x8000 - sub_08005820(0x20000), 0x16C1,

@@ -5,13 +5,13 @@ extern u16 sub_080C3824(u16, s32);
 extern u16 sub_080C389C(u16, s32);
 
 struct S_02025368 { u8 _pad[0xC3 << 2]; u8 data[1]; };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 
 /* Mark this entity's map cell in the visited-flag table, play a sound, clear
  * then bump its script slot, and start the associated script/entity callback. */
 void sub_0805EA90(void *arg0) {
     u8 *self = (u8 *)arg0;
-    struct S_02025368 *base = &D_02025368;
+    struct S_02025368 *base = &gGameStatus;
     u8 *state = self + 0x4C;
     u16 cell = *(u16 *)(state + 8);
     u16 col = sub_080C389C(cell, 0xA);

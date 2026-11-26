@@ -2,9 +2,9 @@
  * an animation from a per-entity id table, and triggers an attack or a message
  * depending on the entity's mode. */
 extern void sub_080114A8(void *, void *, s32, s32);
-extern void sub_080114DC(void *, void *, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_08011528(void *, void *);
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 inline u8 *inline_fn(u8 *arg0)
 {
@@ -51,7 +51,7 @@ void sub_080B5F80(void *entity)
 
   }
 
-  sub_08014588(*((void **) (state + 0x28)), (void *) (0x08102CD4 + (animSlot << 3)));
+  copyPoseAttrs(*((void **) (state + 0x28)), (void *) (0x08102CD4 + (animSlot << 3)));
   if ((*((u8 *) (self + 0x4C))) != 0)
   {
     if ((*((u8 *) (anim + 0))) & 2)
@@ -61,7 +61,7 @@ void sub_080B5F80(void *entity)
   }
   if ((*((u8 *) (self + 0x4C))) == 0)
   {
-    sub_080114DC(target, anim, 0x6A, 0);
+    setObjectAnimation(target, anim, 0x6A, 0);
     if ((*((u8 *) (anim + 0))) & 2)
     {
       u8 *msgArg0;

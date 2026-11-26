@@ -10,7 +10,7 @@ typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
-M2C_UNK sub_08011368(s32, s32, s32, s32);
+M2C_UNK setAnimationFrame(s32, s32, s32, s32);
 M2C_UNK sub_0801165C(void *, s32);
 M2C_UNK sub_08011898(void *, s32);
 M2C_UNK sub_08044FD4(s32, void *, void *, void *);
@@ -38,13 +38,13 @@ void sub_08044980(void *self)
   }
   if (((s32) (*((s32 *) (((s8 *) entity) + 0x14)))) > 0x8000)
   {
-    sub_08011368(gfx, anim, 0x17, 0);
+    setAnimationFrame(gfx, anim, 0x17, 0);
   }
   sub_08044FD4(1, self, entity, state);
   if (4 & (*((u16 *) (((s8 *) entity) + 2))))
   {
     *((u8 *) (((s8 *) state) + 5)) = 0U;
-    sub_08011368(gfx, anim, 5, 0);
+    setAnimationFrame(gfx, anim, 5, 0);
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) self) + 0x22))) * 2) + self)) + 0x19)) = 0;
     ptbl = &(*((s32 *) 0x08671BB0));
     sub_080C31E4(self + 0x18, self + 0x22, *ptbl);

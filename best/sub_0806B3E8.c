@@ -1,6 +1,6 @@
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
-extern u8 D_02021E90[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
+extern u8 gCameraState[];
 extern s32 D_080DFF9C[];
 extern s32 D_080DFFB0[];
 extern u32 D_08671BD0;
@@ -19,11 +19,12 @@ s32 sub_0806B3E8(void *a, void *b, void *c, void *d)
   u8 *r6 = (u8 *) c;
   u8 *new_var5;
   u8 *new_var3;
-  u16 new_var2;
-  u8 *r9 = D_02025368;
+  s32 new_var2;
+  u8 *r9 = gGameStatus;
+  int temp;
   if ((*((u32 *) (r6 + 0x9C))) != 4)
   {
-    u8 *p25 = D_02025FF0;
+    u8 *p25 = gMainWorkspace;
     if ((*((u32 *) (p25 + 0x24))) != 0)
     {
       if (((*((u16 *) (p25 + 0x28))) & (*((u16 *) (r9 + 0x3BC)))) == 0)
@@ -40,8 +41,9 @@ s32 sub_0806B3E8(void *a, void *b, void *c, void *d)
     }
     else
     {
-      u8 *p21 = D_02021E90;
-      if (new_var2 = ((*((u16 *) (p21 + 0x146C))) & (*((u16 *) (r9 + 0x3BC)))) == 0)
+      u8 *p21 = gCameraState;
+      temp = (*((u16 *) (p21 + 0x146C))) & (*((u16 *) (r9 + 0x3BC)));
+      if (new_var2 = temp == 0)
       {
         goto ret0;
       }
@@ -61,7 +63,7 @@ s32 sub_0806B3E8(void *a, void *b, void *c, void *d)
       new_var4 = 1;
       if (new_var2 != 0)
       {
-        s32 val = (*((s16 *) (r9 + 0x2D4))) + (*((s32 *) (D_02025FF0 + 0x150C)));
+        s32 val = (*((s16 *) (r9 + 0x2D4))) + (*((s32 *) (gMainWorkspace + 0x150C)));
         u8 bval = *r7;
         u32 r4 = ((u32) (bval - new_var4)) * 4;
         s16 s1 = *((s16 *) (r9 + 0x8C));

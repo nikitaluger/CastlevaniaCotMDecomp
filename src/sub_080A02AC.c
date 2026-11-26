@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 struct Node_080A02AC {
     s16 id;
@@ -11,7 +11,7 @@ struct Node_080A02AC {
 s32 sub_080A02AC(void) {
     struct Node_080A02AC *node;
     u32 count = 0;
-    node = *(struct Node_080A02AC **)((u8 *)D_02025FF0.v + 0x30);
+    node = *(struct Node_080A02AC **)((u8 *)gMainWorkspace.v + 0x30);
     if (node != NULL) {
         do {
             if (node->id == 0x184) count++;

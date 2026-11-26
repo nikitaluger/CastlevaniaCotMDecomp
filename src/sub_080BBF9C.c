@@ -1,4 +1,4 @@
-void sub_080114DC(void *, void *, s32, s32);
+void setObjectAnimation(void *, void *, s32, s32);
 void sub_08011528(void *, void *);
 
 /* Appearance switch on the entity's form (entity+0x5C): forms 1 and 2 set the
@@ -15,13 +15,13 @@ void sub_080BBF9C(void *entity)
     case 1:
         highlight = 0x40 | *(u8 *)(sprite + 0x2A);
         *(u8 *)(sprite + 0x2A) = (u8)highlight;
-        sub_080114DC(sprite, animator, 0x11, 1);
+        setObjectAnimation(sprite, animator, 0x11, 1);
         sub_08011528(sprite, animator);
         break;
     case 2:
         highlight = 0x40 | *(u8 *)(sprite + 0x2A);
         *(u8 *)(sprite + 0x2A) = (u8)highlight;
-        sub_080114DC(sprite, animator, 0x13, 1);
+        setObjectAnimation(sprite, animator, 0x13, 1);
         sub_08011528(sprite, animator);
         break;
     default:

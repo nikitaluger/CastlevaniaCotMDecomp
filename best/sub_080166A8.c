@@ -18,7 +18,7 @@ void sub_080166A8(void)
     s32 r8;
 
     D_02020BD4 = 0;
-    r8 = 0;
+    do { r8 = 0;
     sub_08016B88();
 
     r6 = D_020279D0.unk4;
@@ -76,7 +76,7 @@ void sub_080166A8(void)
         }
 
         r6 = *(void **)((u8 *)r6 + 4);
-    }
+    } } while (0);
 
     if (D_02020BD4 == 0)
         D_02020BD4 = D_020279D0.unk8;

@@ -1,6 +1,6 @@
-/* Scene id at D_02025FF0+0x14ED identifies the current room. */
+/* Scene id at gMainWorkspace+0x14ED identifies the current room. */
 struct SceneIdFF0 { u8 _[0x14ED]; u8 sceneId; };
-extern struct SceneIdFF0 D_02025FF0;
+extern struct SceneIdFF0 gMainWorkspace;
 
 /* Per-run state: a counter, a base value used to derive entity stats, and the
  * current room-grid cell. */
@@ -13,7 +13,7 @@ struct RunState {
     u8 cellX;
     u8 cellY;
 };
-extern struct RunState D_02025368;
+extern struct RunState gGameStatus;
 
 extern void sub_0806D2A0(s32, s32, s32, s32);
 extern s32 sub_0806D62C(s32, s32);
@@ -24,9 +24,9 @@ extern u8 D_080E47E8[];
  * scales its stats, adjusts the run counter from the room table and marks the
  * room visited; all other rooms only scale one stat. */
 void sub_08085398(s32 spawnArg, u8 *entity) {
-    struct RunState *run = &D_02025368;
+    struct RunState *run = &gGameStatus;
 
-    if (D_02025FF0.sceneId == 0x58) {
+    if (gMainWorkspace.sceneId == 0x58) {
         sub_0806D2A0(spawnArg, 0x41, 0x0A, 0x12);
         *(u16 *)(((u32 *)(entity + 0x130))[0] + 0x0E) = sub_0806D62C(run->baseValue, 0x32);
         *(u16 *)(((u32 *)(entity + 0x130))[0] + 0x18) = 0x4F;

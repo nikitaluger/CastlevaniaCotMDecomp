@@ -14,7 +14,7 @@ struct S {
     u32 dma0Dst;
     u32 dma0Cnt;
 };
-extern struct S D_02021E90;
+extern struct S gCameraState;
 
 /* Periodic sound-engine tick: acknowledge a finished DMA0 transfer, advance
  * the frame/buffer counters (swapping the mixing buffers on wrap), start the
@@ -28,7 +28,7 @@ void sub_08000468(void) {
     volatile u32 *dma;
 
     sub_080BFD7C();
-    audio = &D_02021E90;
+    audio = &gCameraState;
     if (audio->flags & (0x80u << 21)) {
         volatile u16 *dma16 = (volatile u16 *)0x040000B0;
         dmaCtrl = dma16[5];

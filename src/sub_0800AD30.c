@@ -3,7 +3,7 @@ extern void sub_080102F0(u8);
 extern void sub_08010320(u8);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s32 D_08671BD8[];
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 
 /* Actor update: clear a flag on the linked object, then, when its trigger byte
  * is set, play a sound and upload its animation graphics; finally reset the
@@ -11,7 +11,7 @@ extern u8 D_02025368[];
 void sub_0800AD30(void *arg0)
 {
   u8 *self = (u8 *) arg0;
-  u8 *gfxBuffer = D_02025368;
+  u8 *gfxBuffer = gGameStatus;
   u8 *work = *((u8 **) (self + 0x3C));
   u8 *gfxIndexPtr;
   u8 *savedIndexPtr;

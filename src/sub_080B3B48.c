@@ -1,4 +1,4 @@
-extern void sub_080114DC(void *, void *, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_08011528(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s16 D_08102B78[];
@@ -18,7 +18,7 @@ void sub_080B3B48(void *arg0)
   u8 *actor = *((u8 **) (self + 0x3C));
   u8 *anim = actor + 0x34;
   s32 *nextState[2];
-  sub_080114DC(gfx, anim, D_08102B78[*(actor + 0x68)], 0);
+  setObjectAnimation(gfx, anim, D_08102B78[*(actor + 0x68)], 0);
   sub_08011528(gfx, anim);
   if (*(actor + 0x68) == 0)
   {

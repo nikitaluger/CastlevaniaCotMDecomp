@@ -27,7 +27,7 @@ struct ScriptEntity {
 struct ScriptStep { u8 _0[0x19]; u8 counter; };
 
 extern u8 D_08101AD4[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 extern void sub_080113A8(void *, void *);
 extern void sub_0801165C(void *, s32);
@@ -59,7 +59,7 @@ void sub_080A28AC(struct ScriptEntity *entity) {
     if (entity->mode != 0) {
         ((struct ScriptStep *)((u8 *)entity + entity->stepIndex * 2))->counter = 0;
         {
-            void **fnaddr = &D_08671BB0;
+            void **fnaddr = &gMainObjTimerCallback;
             u8 *q;
             p = (u8 *)entity + 0x18;
             q = (u8 *)entity + 0x22;

@@ -1,4 +1,4 @@
-void sub_080114DC(s32, void *, s32, s32);
+void setObjectAnimation(s32, void *, s32, s32);
 void sub_08011528(s32, void *);
 void sub_0801165C(void *, s32);
 
@@ -15,9 +15,9 @@ void sub_080AE52C(void *arg0) {
     sub_08011528(scene, anim);
     if (2 & *(u8 *)((u8 *)body + 0x34)) {
         if (*(s16 *)((u8 *)anim + 0xE) == 0x47) {
-            sub_080114DC(scene, anim, 0x45, 0);
+            setObjectAnimation(scene, anim, 0x45, 0);
         } else {
-            sub_080114DC(scene, anim, 0x47, 0);
+            setObjectAnimation(scene, anim, 0x47, 0);
         }
     }
     sub_0801165C(body, 0);

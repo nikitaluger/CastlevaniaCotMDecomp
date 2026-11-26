@@ -17,15 +17,15 @@ struct Entity {
     void *def;
 };
 struct S_02025FF0 { u8 _0[0x18A8]; u8 f18A8; u8 _18A9[0x19]; u16 f18C2; };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gCameraState[];
 extern s16 D_080D00A0[];
-extern s32 D_08671BB0[];
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void*, s32, s32, s32);
-extern void sub_0801131C(void*, void*, void*);
-extern void sub_08011368(void*, void*, s16, s32);
-extern void *sub_08016190(void);
+extern s32 gMainObjTimerCallback[];
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void*, s32, s32, s32);
+extern void initSpriteGraphics(void*, void*, void*);
+extern void setAnimationFrame(void*, void*, s16, s32);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(void*, s32);
 extern void sub_080C31E4(void*, void*, s32);
 extern void sub_0805E238(void);
@@ -45,11 +45,11 @@ void sub_0805DE38(struct Entity *entity) {
     u8 *work;
 
     def = entity->def;
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     if (sprite == 0)
         goto fail;
     entity->sprite = (u32)sprite;
-    sub_0800168C(entity, 0, 0x48, 0);
+    allocWorkSlot(entity, 0, 0x48, 0);
     gfx = entity->gfxState;
     if (gfx == 0)
         goto fail;
@@ -60,11 +60,11 @@ void sub_0805DE38(struct Entity *entity) {
     coords = (s16*)def->coords;
     gfx->x = (s32)coords[0] << 16;
     gfx->y = (s32)coords[1] << 16;
-    sub_0801131C(sprite, anim, (void*)0x080D0094);
+    initSpriteGraphics(sprite, anim, (void*)0x080D0094);
     poseTable = D_080D00A0;
     poseIndex = *(u16*)((u8*)def->coords + 6) & 0xF;
-    sub_08011368(sprite, anim, poseTable[poseIndex], 1);
-    gfx->layer = sub_08016190();
+    setAnimationFrame(sprite, anim, poseTable[poseIndex], 1);
+    gfx->layer = allocEffectPart();
     if (gfx->layer != 0)
         goto body;
 fail:
@@ -82,16 +82,16 @@ body:
     gfx->layer->attr5 = 0;
     gfx->layer->sprite = sprite;
     gfx->layer->flags14 = 0;
-    *(u16*)sprite |= D_02025FF0.f18C2;
+    *(u16*)sprite |= gMainWorkspace.f18C2;
     ((struct AnimBuf*)sprite)->f1C = 0x80000007;
     {
-        u8 *base = (u8 *)&D_02021E90;
-        { u32 k = 0x1278; *(u32 *)((u8 *)sprite + 0x14) = gfx->x - ((*(u32 *)(base + k + ((D_02025FF0.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
-        { u32 k = 0x127C; *(u32 *)((u8 *)sprite + 0x18) = gfx->y - ((*(u32 *)(base + k + ((D_02025FF0.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
+        u8 *base = (u8 *)&gCameraState;
+        { u32 k = 0x1278; *(u32 *)((u8 *)sprite + 0x14) = gfx->x - ((*(u32 *)(base + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0x8000) & 0xFFFF0000); }
+        { u32 k = 0x127C; *(u32 *)((u8 *)sprite + 0x18) = gfx->y - ((*(u32 *)(base + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     }
     entity->flags = (u16)(entity->flags | 0x1000);
     *(u8*)((u8*)entity + 0x19 + 2*entity->childIndex) = 0;
-    lit = D_08671BB0;
+    lit = gMainObjTimerCallback;
     work = (u8*)entity + 0x18;
     sub_080C31E4(work, &entity->childIndex, *lit);
     *(u8*)((u8*)entity + 0x19 + 2*entity->childIndex) = (u8)(*(u8*)((u8*)entity + 0x19 + 2*entity->childIndex) + 1);

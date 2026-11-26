@@ -2,8 +2,8 @@ extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_0801165C(u8 *, s32);
 extern void sub_080113A8(u8 *, u8 *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866FB08[];
 struct S2A
 {
@@ -69,8 +69,8 @@ void sub_080962C8(u8 *arg0)
       sub_080113A8(v38, p34);
     }
     mask8000 = 0x8000;
-    pt = D_02021E90;
-    pb = D_02025FF0;
+    pt = gCameraState;
+    pb = gMainWorkspace;
     pb += 0x18A8;
     idx = (((u32) (*pb)) + 1) * 0x40;
     pt1 = pt + 0x1278;

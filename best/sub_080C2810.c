@@ -1,6 +1,6 @@
 extern u32 sub_080C2500(void *p);
 extern s64 sub_080C37B4(u32 a, u32 b, u32 c, u32 d);
-extern void _080C25B8(s32 *a, void *b);
+extern void sub_080C25B8(s32 *a, void *b);
 void sub_080C2810(s32 arg0, s32 arg1)
 {
   u32 *new_var2;
@@ -18,11 +18,11 @@ void sub_080C2810(s32 arg0, s32 arg1)
   s32 r6;
   sp[12] = (u32) arg0;
   sp[13] = (u32) arg1;
-  _080C25B8((s32 *) (&sp[12]), (void *) (&sp[0]));
-  _080C25B8((s32 *) (&sp[13]), (void *) (&sp[4]));
+  sub_080C25B8((s32 *) (&sp[12]), (void *) (&sp[0]));
+  sub_080C25B8((s32 *) (&sp[13]), (void *) (&sp[4]));
   r7 = &sp[0];
   ptr4 = &sp[4];
-  r8 = &sp[8];
+  do { do { r8 = &sp[8]; } while (0); } while (0);
   r0 = 0;
   new_var[1] = sp[0];
   new_var3 = new_var[1] <= 1;
@@ -165,8 +165,10 @@ void sub_080C2810(s32 arg0, s32 arg1)
     sp[10] = r4;
     if (r5 < 0)
     {
-      u32 mask = 1;
-      u32 bit = 0x80000000;
+      u32 mask;
+      u32 bit;
+      mask = 1;
+      bit = 0x80000000;
       do
       {
         r4 += 1;
@@ -191,8 +193,10 @@ void sub_080C2810(s32 arg0, s32 arg1)
       goto L_42;
     }
     {
-      u32 r4m = 0x80000000;
-      u32 r3m = 1;
+      u32 r4m;
+      u32 r3m;
+      r4m = 0x80000000;
+      r3m = 1;
       r2 = r0;
       new_var[1] = sp[10];
       do
@@ -236,7 +240,7 @@ void sub_080C2810(s32 arg0, s32 arg1)
     sp[11] = (u32) r5;
 
     r0 = 3;
-    r8[0] = r0;
+    do { do { do { r8[0] = r0; } while (0); } while (0); } while (0);
     ptr0 = (void *) r8;
     goto L_END;
   }
@@ -245,4 +249,3 @@ void sub_080C2810(s32 arg0, s32 arg1)
   sub_080C2500(ptr0);
 
 }
-

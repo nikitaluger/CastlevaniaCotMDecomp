@@ -1,8 +1,8 @@
 void sub_08003740(void *, void *);
 void sub_08003A6C(void *, s32, void *);
 void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
-extern u8 D_02025FF0[];
+extern void *gMainObjTimerCallback;
+extern u8 gMainWorkspace[];
 
 /* Readable aliases for the game's helpers (preprocessor-only, no code effect). */
 #define RunSpriteTimer  sub_08003740
@@ -25,14 +25,14 @@ void sub_0808C460(void *arg0)
     RunSpriteTimer(timer, sprite);
 
     if (*(u16 *)(pos + 0x20) == 1 && *(u16 *)(pos + 0x1E) == 1) {
-        u8 *state = D_02025FF0;
+        u8 *state = gMainWorkspace;
         if (*(s32 *)(state + 0x14AC) == 2) {
             InitFxRequest(timer, 0, (void *)0x0862ED30);
             {
                 s16 idx = *(s16 *)(self + 0x22);
                 self[idx * 2 + 0x19] = 0;
                 {
-                    void **lit = &D_08671BB0;
+                    void **lit = &gMainObjTimerCallback;
                     AdvanceScript(self + 0x18, self + 0x22, *lit);
                 }
             }

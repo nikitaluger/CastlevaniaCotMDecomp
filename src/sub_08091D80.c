@@ -6,8 +6,8 @@ extern void sub_0801165C(void *, void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern void sub_080C31E0(void *, void *);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 void sub_08091D80(void *entity)
 {
@@ -31,8 +31,8 @@ void sub_08091D80(void *entity)
     sub_0801165C(motion, *(s32 *)(velocityPtr + 4));
     sub_080113A8(view, animTable);
 
-    coordTable = D_02021E90;
-    animIndexPtr = D_02025FF0;
+    coordTable = gCameraState;
+    animIndexPtr = gMainWorkspace;
     animIndexPtr += 0x18A8;
 
     {

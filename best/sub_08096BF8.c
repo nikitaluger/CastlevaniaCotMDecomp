@@ -1,4 +1,4 @@
-extern void sub_08011368(u32, u32, s32, s32);
+extern void setAnimationFrame(u32, u32, s32, s32);
 extern s32 sub_08007EA8(s32);
 extern void sub_08007E24(s32);
 extern void sub_080C31E8(u8 *, u8 *, s32, u32);
@@ -6,7 +6,7 @@ extern void sub_080C31E0(u8 *, u32);
 extern void sub_08011344(u32, u32, s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 
 void sub_08096BF8(u8 *arg0) {
     u32 a38;
@@ -23,10 +23,10 @@ void sub_08096BF8(u8 *arg0) {
     u32 *gBB0;
 
     a38 = *(u32 *)(arg0 + 0x38);
-    flagBase = D_02025368;
+    flagBase = gGameStatus;
     a3C = *(u8 **)(arg0 + 0x3C);
     a3C18 = (u32)a3C + 0x18;
-    sub_08011368(a38, a3C18, 0, 1);
+    setAnimationFrame(a38, a3C18, 0, 1);
     flag = flagBase + 0x3CE;
     f = *flag;
     if (f == 0) {

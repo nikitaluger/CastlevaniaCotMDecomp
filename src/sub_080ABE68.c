@@ -1,6 +1,6 @@
 void sub_080AC9B4(u8, void *);
 void sub_080ACCA4(s32, void *, void *, void *);
-s32 sub_08014938(s32);
+s32 signOf(s32);
 void sub_080148D8(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -20,7 +20,7 @@ void sub_080ABE68(void *arg0)
   anim = ((u8 *) entity) + 0x98;
   sub_080ACCA4(0, gfx, entity, anim);
   sub_080ACCA4(1, gfx, entity, anim);
-  direction = sub_08014938(*((s32 *) (((u8 *) entity) + 8)));
+  direction = signOf(*((s32 *) (((u8 *) entity) + 8)));
   *((s8 *) (((u8 *) entity) + 0xC6)) = (s8) direction;
   if ((direction << 17) << 7)
   {

@@ -1,4 +1,4 @@
-void sub_0800168C(void *, s32, s32, s32);
+void allocWorkSlot(void *, s32, s32, s32);
 s32 sub_08005820(s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -14,7 +14,7 @@ void sub_0802A8CC(void *entity) {
     u32 *handlerSlot;
     u8 *stateByte;
     u8 *stateIdxPtr;
-    sub_0800168C(entity, 0, 4, 0);
+    allocWorkSlot(entity, 0, 4, 0);
     workCheck = *(void **)(self + 0x3C);
     if (workCheck == 0) {
         sub_080C31E0(entity, *(void **)(self + 0x24));

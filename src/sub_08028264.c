@@ -1,10 +1,10 @@
 extern s32 sub_0800583C(s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_080C364C(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 D_08671BFC;
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 extern u8 D_0866DA10[];
 
 /* Bob this object sideways: advance its phase timer, offset the sub-object's
@@ -19,7 +19,7 @@ void sub_08029020(void *arg0) {
     s32 *sineFn;
     s32 phase;
 
-    sub_08011368(sprite, anim, 0, 1);
+    setAnimationFrame(sprite, anim, 0, 1);
     sineFn = &D_08671BFC;
     phase = sub_080C364C(*(s32 *)(state + 8) << 16, 0x50);
     *(s32 *)(sub + 0xC) = *(s32 *)(state + 4) + (sub_080C31E0(phase + 0x4000, *sineFn) << 4);
@@ -37,7 +37,7 @@ void sub_08028264(void *arg0) {
     u8 *stateBase;
     u8 *entry;
 
-    sub_08011368(*(s32 *)(self + 0x38), *(u8 **)(self + 0x3C) + 0x34, 3, 1);
+    setAnimationFrame(*(s32 *)(self + 0x38), *(u8 **)(self + 0x3C) + 0x34, 3, 1);
     *(u32 *)(self + 0x14) = (u32)D_0866DA10;
 
     *(u16 *)(self + 0x22) += 1;

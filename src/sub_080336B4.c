@@ -1,8 +1,8 @@
 extern void sub_080142C0(void *, void *);
 extern s32 sub_08014328(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866DD28[];
 
 /* Update the entity's sprite pose from its motion state: set graphic flags,
@@ -52,8 +52,8 @@ void sub_080336B4(u8 *entity)
     }
 
     {
-        u8 *pt = D_02021E90;
-        u8 *pb = D_02025FF0;
+        u8 *pt = gCameraState;
+        u8 *pb = gMainWorkspace;
         u8 *pt1;
         u32 idx;
         u32 v1;

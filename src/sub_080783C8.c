@@ -1,4 +1,4 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_08003A6C(void *a, s32 b, s32 c);
@@ -15,8 +15,8 @@ struct S_02025FF0 {
     u32 f1728;
     u32 f172C;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
 
 struct Child78 {
     u8 f0, f1, f2, f3;
@@ -42,8 +42,8 @@ void sub_080783C8(u8 *entity) {
     u8 *parent = *(u8 **)(entity + 0x6C);
     struct Parent5 *state = (struct Parent5 *)(parent + 4);
     u8 *sprite = *(u8 **)(entity + 0x38);
-    u8 *dataTable = D_02025368;
-    struct Child78 *child = sub_08016190();
+    u8 *dataTable = gGameStatus;
+    struct Child78 *child = allocEffectPart();
     u16 flag;
     s32 v;
     s32 *callbackSlot;
@@ -60,7 +60,7 @@ void sub_080783C8(u8 *entity) {
     state->f38 = 0;
     state->f3C = 0;
 
-    child->f1 = D_02025FF0.b1510 & 1;
+    child->f1 = gMainWorkspace.b1510 & 1;
     state->f2C->f2 = 2;
     state->f2C->f3 = 8;
     state->f2C->f4 = dataTable[0xC1 << 2];
@@ -75,14 +75,14 @@ void sub_080783C8(u8 *entity) {
 
     state->f18 = *(u32 *)(entity + 0x24);
     *(u32 *)(entity + 0x24) = (u32)sub_0808449C;
-    b = D_02025FF0.b14EF;
+    b = gMainWorkspace.b14EF;
     *(u8 *)(parent + 0x55) = b;
     *(u32 *)(sprite + 0x24) = 0x084D962C;
 
     sub_08003A6C(parent + 0x20, 0, 0x084D969C);
 
-    *(u32 *)(parent + 4) = D_02025FF0.f1728;
-    state->f04 = D_02025FF0.f172C + 0xFFEC0000;
+    *(u32 *)(parent + 4) = gMainWorkspace.f1728;
+    state->f04 = gMainWorkspace.f172C + 0xFFEC0000;
 
     flag = *(u16 *)(sprite + 2) & 0x10;
     v = 0x18000;

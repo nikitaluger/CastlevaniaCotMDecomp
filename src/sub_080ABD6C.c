@@ -1,9 +1,9 @@
 extern void sub_0808BB54(void);
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
 
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 extern u8 D_081021CC[];
 
 struct S_03000830 {
@@ -49,7 +49,7 @@ void sub_080ABD6C(void *entity)
         *(u16 *)((u8 *)parent + 2) = newFlags;
         sub_0808BB54();
         *(u8 *)(*(u8 **)((u8 *)component + 0x28) + 1) = 5;
-        sub_08014588(*(void **)((u8 *)component + 0x28), D_081021CC);
+        copyPoseAttrs(*(void **)((u8 *)component + 0x28), D_081021CC);
 
         *(u8 *)(*(u8 **)((u8 *)extras + 0x50) + 0x4C) = 1;
         *(u8 *)(*(u8 **)((u8 *)extras + 0x54) + 0x50) = 1;
@@ -60,7 +60,7 @@ void sub_080ABD6C(void *entity)
         *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = (u8)zero;
 
         {
-            s32 *p = &D_08671BB0;
+            s32 *p = &gMainObjTimerCallback;
             stepPtr = (u8 *)entity + 0x18;
             sub_080C31E4(stepPtr, (u8 *)entity + 0x22, *p);
         }

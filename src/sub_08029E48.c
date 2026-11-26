@@ -10,8 +10,8 @@ extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 struct MoverState { u8 a; u8 flags; u8 pad[0x12]; u16 flags2; };
 struct MoverFlags { u16 flags; };
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 void sub_08029E48(void *arg0) {
     void *workObj; void *mover; void *moverTarget; struct MoverFlags *mFlags; struct MoverState *state;
     workObj = *(void **)((u8 *)arg0 + 0x38);
@@ -60,7 +60,7 @@ else_branch:
         struct MoverState *st2; u8 *pt; u8 *pb; u32 idx; u8 *p1; u8 *p2;
         st2 = *(struct MoverState **)((u8 *)mover + 0x28);
         st2->flags2 = 0;
-        pt = D_02021E90; pb = D_02025FF0; pb += 0x18A8;
+        pt = gCameraState; pb = gMainWorkspace; pb += 0x18A8;
         idx = ((u32)*pb + 1) * 0x40;
         p1 = pt + 0x1278;
         *(u32 *)((u8 *)workObj + 0x14) = *(u32 *)((u8 *)mover + 8) - ((*(s32 *)(p1 + idx) + 0x8000) & 0xFFFF0000);

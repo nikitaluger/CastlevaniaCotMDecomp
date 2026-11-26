@@ -2,9 +2,9 @@ struct S_02025FF0 {
     u8 _0x000[0x18C2];
     u16 w;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* Starts the effect: reserve slot 3, allocate the graphics object, initialise
  * its fields, then run the setup callback and dispatch the first callback.
@@ -14,13 +14,13 @@ void sub_0808A974(void *arg0)
     u8 *self = (u8 *)arg0;
     void *gfx;
 
-    if (sub_0800168C(arg0, 0, 0x3C, 3) == 0)
+    if (allocWorkSlot(arg0, 0, 0x3C, 3) == 0)
     {
         _call_via_r1(arg0, *(s32 *)(self + 0x24));
         return;
     }
 
-    gfx = sub_0800355C();
+    gfx = allocSpriteObject();
     if (gfx == 0)
     {
         _call_via_r1(arg0, *(s32 *)(self + 0x24));
@@ -30,7 +30,7 @@ void sub_0808A974(void *arg0)
     *(void **)(self + 0x38) = gfx;
     *(u32 *)((u8 *)gfx + 0x1C) = 0x80000006;
     {
-        u16 globalWord = D_02025FF0.w;
+        u16 globalWord = gMainWorkspace.w;
         u32 zero = 0;
         *(u16 *)gfx = globalWord;
 

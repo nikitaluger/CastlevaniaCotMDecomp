@@ -3,30 +3,30 @@
  * from the shared effect tables, sets the sprite attributes, then advances the
  * parent's state machine. */
 struct S_02025FF0 { u8 _0[0x18C2]; u16 spriteBits; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u16 D_08102F38[];   /* per-part affine/offset parameters, 4 per part */
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
-/* 0x34-byte effect part record allocated by sub_08016190. */
+/* 0x34-byte effect part record allocated by allocEffectPart. */
 struct EffectPart {
     u8 _0;
     u8 active;   /* 0x01: 0 while spawning */
     u8 param2;   /* 0x02: 8 */
     u8 param3;   /* 0x03: 1 */
-    u16 tile;    /* 0x04: base tile from D_080CBDD0 */
+    u16 tile;    /* 0x04: base tile from gEffectGfxTable */
     u16 p0;      /* 0x06: per-part parameters from D_08102F38 */
     u16 p1;      /* 0x08 */
     u16 p2;      /* 0x0A */
     u16 p3;      /* 0x0C */
-    u16 tile2;   /* 0x0E: second tile from D_080CBDD0 */
+    u16 tile2;   /* 0x0E: second tile from gEffectGfxTable */
     u32 sprite;  /* 0x10: owner sprite */
 };
-extern void *sub_0800355C(void);                     /* alloc sprite */
-extern void sub_0800168C(void *, s32, s32, s32);     /* alloc + clear state */
-extern void sub_08014288(void *, void *, void *);    /* install update handler */
-extern s32 sub_08013C2C(void);                       /* kind -> active slot */
-extern void sub_080BE528(void *, void *, s32, s32);  /* init sprite graphics */
-extern void *sub_08016190(void);                     /* alloc effect part */
+extern void *allocSpriteObject(void);                     /* alloc sprite */
+extern void allocWorkSlot(void *, s32, s32, s32);     /* alloc + clear state */
+extern void installUpdateHandler(void *, void *, void *);    /* install update handler */
+extern s32 findKindIndex(void);                       /* kind -> active slot */
+extern void initSpriteGfx(void *, void *, s32, s32);  /* init sprite graphics */
+extern void *allocEffectPart(void);                     /* alloc effect part */
 extern void sub_080C31E0(void *, void *);            /* indirect call */
 extern void sub_080C31E4(void *, void *, s32);       /* indirect call */
 extern void sub_080BCFA0(void);                      /* effect release handler */
@@ -45,35 +45,35 @@ void sub_080BCC30(u8 *entity)
   u32 i;
   u32 zero;
   s32 slotIndex;
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == NULL) goto fail;
   self = entity;
   *((void **) (entity + 0x38)) = sprite;
-  sub_0800168C(entity, 0, 0x110, 0);
+  allocWorkSlot(entity, 0, 0x110, 0);
   if ((*((void **) (self + 0x3C))) == NULL) goto fail;
   *((u32 *) (sprite + 0x1C)) = 0x8000000A;
   *((u8 *) (sprite + 0x2A)) &= 0xBF;
   state = *((u8 **) (entity + 0x3C));
   ptr = state + 0x34;                              /* embedded gfx-init block */
   partSlots = (struct EffectPart **) (state + 0x48); /* 50 part pointers */
-  sub_08014288(entity, state, sub_080BCFA0);
+  installUpdateHandler(entity, state, sub_080BCFA0);
   *((u16 *) (state + 0x1C)) = 0x68;                /* kind */
-  slotIndex = sub_08013C2C();                      /* kind already in r0 */
+  slotIndex = findKindIndex();                      /* kind already in r0 */
   *((u16 *) (state + 0x22)) = slotIndex;
   if ((slotIndex << 16) >= 0) goto cont;
 fail:
   sub_080C31E0(entity, *((void **) (entity + 0x24)));
   return;
 cont:
-  *((u16 *) sprite) |= D_02025FF0.spriteBits;
-  sub_080BE528(sprite, ptr, 0xA0, 0x14);
+  *((u16 *) sprite) |= gMainWorkspace.spriteBits;
+  initSpriteGfx(sprite, ptr, 0xA0, 0x14);
   i = 0;
   partParams = D_08102F38;
   effectDefs = (u8 *) 0x080CBDD0;
   slot = partSlots;
   do
   {
-    *slot = sub_08016190();
+    *slot = allocEffectPart();
     if ((*slot) == NULL) goto fail;
     zero = 0;
     (*(*slot)).active = zero;

@@ -5,7 +5,7 @@ struct GameState
   u8 _0[0xF0 * 4];
   u16 mode;
 };
-extern struct GameState D_02025368;
+extern struct GameState gGameStatus;
 extern u8 D_08100A7E[];
 
 // Script step: clear a sprite flag and a work byte, spawn the effect whose
@@ -25,7 +25,7 @@ void sub_08095C68(u8 *entity)
   variant = 0;
   *((u8 *) (sprite + 0x2A)) = flags;
   *((u8 *) ((*((u8 **) (work + 0x28))) + 1)) = variant;
-  switch (D_02025368.mode)
+  switch (gGameStatus.mode)
   {
     case 1:
       tableOffset = 0;

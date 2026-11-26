@@ -13,7 +13,7 @@ extern void sub_080C31E8(void *, void *, u32, void *);
 extern u16 sub_0806BCD8(void *, void *, void *, void *);
 
 struct SGlobals { u8 pad[0x1824]; u32 f1824; };
-extern struct SGlobals D_02025FF0;
+extern struct SGlobals gMainWorkspace;
 
 /* Per-frame actor update: refresh camera/mode state and tick the actor's timer;
  * on expiry, clear the current script step, fire the type's callback and spawn
@@ -44,7 +44,7 @@ void sub_080660A4(u8 *actor)
             u16 callbackValue = sub_08065CC8(actor, position, obj, obj);
             sub_080C31E8(cbArgA, cbArgB, callbackValue, *callback);
         }
-        D_02025FF0.f1824 = timerResult;
+        gMainWorkspace.f1824 = timerResult;
         *((u32 *)(state + 0xA0)) = timerResult;
         sub_08084CBC(actor, obj);
         {
@@ -71,7 +71,7 @@ void sub_080660A4(u8 *actor)
             void **callback = &D_08671BD0;
             sub_080C31E8(actor + 0x18, actor + 0x22, *((u32 *)(objTail + 0xC4)), *callback);
         }
-        D_02025FF0.f1824 = 0;
+        gMainWorkspace.f1824 = 0;
         sub_08003740(objTail + 0x28, position);
     }
     sub_0806C6B0(actor, position, objTail, obj);

@@ -1,12 +1,12 @@
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 /* Initialize the 16-byte node pool in work RAM: 64 nodes occupy
- * D_02021E90+0x128..+0x518 and are linked (next at +0xC) into one free list
+ * gCameraState+0x128..+0x518 and are linked (next at +0xC) into one free list
  * whose head pointer lives at +0x528; the four list-head words at +0x52C are
  * then DMA-cleared. */
 void sub_08000D6C(void) {
     u32 prev = 0;
-    u8 *pool = D_02021E90;
+    u8 *pool = gCameraState;
     u32 zero;
     u32 headSlot;
     u32 firstSlot;

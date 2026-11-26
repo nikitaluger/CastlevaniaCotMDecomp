@@ -1,6 +1,6 @@
 /* Load compressed graphics into VRAM, DMA a companion data block into EWRAM,
  * then fill in the sprite-data header's flags and pointers. */
-extern void sub_080063D4(const void *, void *);
+extern void decompressToVram(const void *, void *);
 
 void sub_080A5750(void)
 {
@@ -8,8 +8,8 @@ void sub_080A5750(void)
     u8 *dest;
     u32 zero;
 
-    sub_080063D4((const void *)0x083DDABC, (void *)0x0600A000);
-    sub_080063D4((const void *)0x083DF734, (void *)0x0600C000);
+    decompressToVram((const void *)0x083DDABC, (void *)0x0600A000);
+    decompressToVram((const void *)0x083DF734, (void *)0x0600C000);
 
     dma3 = (volatile u32 *)0x040000D4;
 

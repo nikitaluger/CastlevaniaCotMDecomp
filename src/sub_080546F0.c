@@ -29,7 +29,7 @@ struct S_080546F0 {
     struct S_Obj546F0 *f3C;
 };
 
-extern s32 D_02025FF0[];
+extern s32 gMainWorkspace[];
 
 /* Spawn a particle at a jittered position derived from the object's
  * coordinates, with random velocity/angle parameters, then invoke the
@@ -49,10 +49,10 @@ void sub_080546F0(struct S_080546F0 *self)
     jitterY = sub_0800583C(0x80000);
     cfg = obj->f28;
     spawnY = obj->f0C + ((s32)cfg->f0C << 16) + jitterY;
-    param = sub_080C36E4(D_02025FF0[1575], 7);
+    param = sub_080C36E4(gMainWorkspace[1575], 7);
     velX = (param - 3) << 13;
     velY = 0x8000 - sub_08005820(0x20000);
-    angle = sub_080C36E4(D_02025FF0[1575], 7);
+    angle = sub_080C36E4(gMainWorkspace[1575], 7);
     sp0 = (s32)(s16)angle;
     sub_08054E88(spawnX, spawnY, velX, velY, sp0, (s32)(s16)obj->f1C);
     if (*(u8 *)((u8 *)self + (s32)self->f22 * 2 + 0x19) > 6) {

@@ -1,4 +1,4 @@
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 void sub_080B300C(void);
 void sub_080B307C(void);

@@ -1,13 +1,13 @@
 #define U(p) (*(u32*)(p))
 #define H(p) (*(u16*)(p))
 #define W(p) (*(vu32*)(p))
-void sub_0800168C(u8 *, s32, s32, s32);
-void sub_080035E4(void);
-void sub_080063D4(u32, u32);
-void sub_08000E98(s32, u32, u32, s32, s32);
-void sub_0805FDF0(void);
-void sub_0805FE8C(s32, s32, s32);
-void sub_0805FEB4(s32);
+void allocWorkSlot(u8 *, s32, s32, s32);
+void clearActorPool(void);
+void decompressToVram(u32, u32);
+void postDisplaySprite(s32, u32, u32, s32, s32);
+void resetMapRender(void);
+void setMapLayerParams(s32, s32, s32);
+void setScreenTransition(s32);
 void sub_08010250(void);
 void sub_080C31E4(u8 *, u8 *, u32);
 void sub_080C31E0(u8 *, u32);
@@ -34,7 +34,7 @@ void sub_08009D1C(u8 *obj)
   u8 b;
   u16 buf;
   r8p = (u8 *) 0x02025358;
-  sub_0800168C(obj, 0, 0x63C, 0);
+  allocWorkSlot(obj, 0, 0x63C, 0);
   base = (u8 *) 0x02021E90;
   {
     u8 *q0 = base + 0x125C;
@@ -83,7 +83,7 @@ void sub_08009D1C(u8 *obj)
     U(ptr) = zero;
     U(q2) = zero;
   }
-  sub_080035E4();
+  clearActorPool();
   buf = 0;
   dma = (vu32 *) 0x040000D4;
   W(dma) = (u32) (&buf);
@@ -91,22 +91,22 @@ void sub_08009D1C(u8 *obj)
   W(dma + 1) = dmaDst;
   W(dma + 2) = 0x8100C000;
   tmp = W(dma + 2);
-  sub_080063D4(0x08639F0C, 0x06008000);
-  sub_080063D4(0x0863B158, 0x0600A000);
-  sub_080063D4(0x0863D4CC, dmaDst);
-  sub_080063D4(0x0863D730, 0x06000800);
-  sub_080063D4(0x0863D8C0, 0x06001000);
-  sub_080063D4(0x0863DB80, 0x06001800);
-  sub_080063D4(0x0863DDD8, 0x06002000);
-  sub_080063D4(0x0863E028, 0x06002800);
-  sub_080063D4(0x0863E280, 0x06003000);
-  sub_080063D4(0x0863E588, 0x06003800);
-  sub_08000E98(1, 0x0863D42C, 0x050000A0, 0x60, 0x10);
-  sub_080063D4(0x0863D224, 0x06010000);
-  sub_08000E98(1, 0x0863D48C, 0x05000380, 0x40, 0x10);
-  sub_0805FDF0();
-  sub_0805FE8C(0, 1, 1);
-  sub_0805FEB4(0);
+  decompressToVram(0x08639F0C, 0x06008000);
+  decompressToVram(0x0863B158, 0x0600A000);
+  decompressToVram(0x0863D4CC, dmaDst);
+  decompressToVram(0x0863D730, 0x06000800);
+  decompressToVram(0x0863D8C0, 0x06001000);
+  decompressToVram(0x0863DB80, 0x06001800);
+  decompressToVram(0x0863DDD8, 0x06002000);
+  decompressToVram(0x0863E028, 0x06002800);
+  decompressToVram(0x0863E280, 0x06003000);
+  decompressToVram(0x0863E588, 0x06003800);
+  postDisplaySprite(1, 0x0863D42C, 0x050000A0, 0x60, 0x10);
+  decompressToVram(0x0863D224, 0x06010000);
+  postDisplaySprite(1, 0x0863D48C, 0x05000380, 0x40, 0x10);
+  resetMapRender();
+  setMapLayerParams(0, 1, 1);
+  setScreenTransition(0);
   sub_08010250();
   r8p[0x0C] = (u8) zero2;
   idx = *((s16 *) (obj + 0x22));

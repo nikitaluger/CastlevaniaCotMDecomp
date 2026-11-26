@@ -1,15 +1,15 @@
 struct S_02025FF0 { u8 _0[0x18C2]; u16 w; };
-extern struct S_02025FF0 D_02025FF0;
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
-extern s32 sub_08013C2C(void);
-extern void sub_0801131C(void *, void *, void *);
-extern void sub_08011368(void *, void *, s32, s32);
+extern struct S_02025FF0 gMainWorkspace;
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
+extern s32 findKindIndex(void);
+extern void initSpriteGraphics(void *, void *, void *);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_08097DC8(void);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Spawns and initializes an entity's child sprite: allocates the object, sets
  * up its motion/animation from a definition object, assigns sprite flags and
@@ -27,14 +27,14 @@ void sub_080B8598(u8 *arg0)
     u8 stepByte;
     void **scriptTable;
 
-    sprite = (s32)sub_0800355C();
+    sprite = (s32)allocSpriteObject();
     if (sprite == 0)
     {
         sub_080C31E0(arg0, *((void **)(arg0 + 0x24)));
         return;
     }
     *((u32 *)(arg0 + 0x38)) = sprite;
-    sub_0800168C(arg0, 0, 0x48, 0);
+    allocWorkSlot(arg0, 0, 0x48, 0);
     if ((*((vu32 *)(arg0 + 0x3C))) == 0)
     {
         sub_080C31E0(arg0, *((void **)(arg0 + 0x24)));
@@ -43,10 +43,10 @@ void sub_080B8598(u8 *arg0)
     *((u32 *)(sprite + 0x1C)) = 1;
     motion = *((u8 **)(arg0 + 0x3C));
     status = motion + 0x34;
-    sub_08014288(arg0, motion, sub_08097DC8);
+    installUpdateHandler(arg0, motion, sub_08097DC8);
     zero = 0;
     *((u16 *)(motion + 0x1C)) = 0x67;
-    spriteBase = sub_08013C2C();
+    spriteBase = findKindIndex();
     *((u16 *)(motion + 0x22)) = spriteBase;
     if ((spriteBase << 16) < 0)
     {
@@ -59,15 +59,15 @@ void sub_080B8598(u8 *arg0)
     spriteBase += 0x200;
     spriteBase &= 0xFC0;
     *((u16 *)sprite) = (u16)spriteBase;
-    *((u16 *)sprite) |= D_02025FF0.w;
-    sub_0801131C((void *)sprite, status, (void *)(0x080CD400 + (*((s16 *)(motion + 0x1C)) * 12)));
-    sub_08011368((void *)sprite, status, 0x22, 0);
+    *((u16 *)sprite) |= gMainWorkspace.w;
+    initSpriteGraphics((void *)sprite, status, (void *)(0x080CD400 + (*((s16 *)(motion + 0x1C)) * 12)));
+    setAnimationFrame((void *)sprite, status, 0x22, 0);
     *((u16 *)((u8 *)sprite + 2)) |= 0x400;
     *((u8 *)(arg0 + 0x4C)) = zero;
     *((u16 *)(arg0 + 2)) |= 0x1000;
     *((u8 *)((arg0 + ((*((s16 *)(arg0 + 0x22))) * 2)) + 0x19)) = zero;
-    D_08671BB0++;
-    D_08671BB0--;
+    gMainObjTimerCallback++;
+    gMainObjTimerCallback--;
     scriptTable = (void **)0x08671BB0;
     stepBase = arg0 + 0x18;
     sub_080C31E4(stepBase, arg0 + 0x22, (u32)(*scriptTable));

@@ -4,7 +4,7 @@ extern void sub_0806D588(void *gfx, void *state);
 extern void sub_080C31E4(void *scriptData, void *scriptIndex, s32 handler);
 
 struct S_02025FF0 { u8 _0[0x10]; u32 field10; u32 mode; u8 _1[0x1824]; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Initialises the effect actor for game mode 9: flashes the screen white,
  * resets its animation phase and 0xA0-frame timer, plays sound effect 0x19A,
@@ -16,7 +16,7 @@ void sub_08089A94(void *arg0) {
     u8 *state = work + 4;
     u8 *gfx = *(u8 **)(self + 0x38);
     s32 *handler;
-    if (D_02025FF0.mode == 9) {
+    if (gMainWorkspace.mode == 9) {
         *(vu16 *)0x05000000 = 0x7FFF;
         *(u8 *)(work + 0x34) = 0;
         *(s32 *)(state + 0x2C) = 0xA0;

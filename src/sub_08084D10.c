@@ -18,7 +18,7 @@ typedef struct
     u32 flag181C;
 } GameState;
 
-extern GameState D_02025FF0;
+extern GameState gMainWorkspace;
 extern u8 D_084FC524[];
 extern u8 D_084FCA3C[];
 extern u8 D_084A65BC[];
@@ -33,7 +33,7 @@ extern void sub_08086E28(void);
  * graphic tables depending on the actor's flag byte. */
 s32 sub_08084D10(void *owner, ScriptObj *obj, u8 *actor)
 {
-    s32 stateIndex = D_02025FF0.state - 0x31;
+    s32 stateIndex = gMainWorkspace.state - 0x31;
     SpawnedPart *spawned;
 
     switch (stateIndex)
@@ -131,7 +131,7 @@ s32 sub_08084D10(void *owner, ScriptObj *obj, u8 *actor)
         sub_08086E28();
         break;
     case 120:
-        D_02025FF0.flag181C = 1;
+        gMainWorkspace.flag181C = 1;
         sub_08086E28();
         break;
     case 121:

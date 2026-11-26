@@ -1,6 +1,6 @@
 extern s32 sub_0806C4B4(s32, void *);
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u8 D_080E0AD0[];
 extern u8 *D_0866EB08[];
 
@@ -10,8 +10,8 @@ extern u8 *D_0866EB08[];
  * display flags. */
 void sub_0806D044(s32 arg0, s32 arg1, void *arg2)
 {
-    u32 mapState = (u32)D_02025368;
-    u32 gameState = (u32)D_02025FF0;
+    u32 mapState = (u32)gGameStatus;
+    u32 gameState = (u32)gMainWorkspace;
     void *refPos = arg2;
     u32 *roomIndexPtr = (u32 *)(gameState + 0x000014BC);
     u32 roomEntry = (u32)(D_080E0AD0 + ((*roomIndexPtr) << 4));

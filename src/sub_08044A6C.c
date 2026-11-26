@@ -1,5 +1,5 @@
 void sub_080148D8(void *, void *);
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 /* Enemy script step: refresh the sprite's state flag from the work object, then
@@ -15,7 +15,7 @@ void sub_08044A6C(void *self) {
     animator = (u8 *)work + 0x34;
     sub_080148D8(sprite, *(void **)((u8 *)work + 8));
     if (*(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self) + 0x19) == 0xF) {
-        sub_08011368(sprite, animator, 9, 0);
+        setAnimationFrame(sprite, animator, 9, 0);
         *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self) + 0x19) = 0;
         scriptHandlers = (u32 *)0x08671BB0;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *scriptHandlers);

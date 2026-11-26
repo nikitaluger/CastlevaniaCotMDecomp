@@ -1,5 +1,5 @@
 struct S_02025FF0_1780 { u8 pad[0x1780]; s32 arr[1]; };
-extern struct S_02025FF0_1780 D_02025FF0;
+extern struct S_02025FF0_1780 gMainWorkspace;
 extern void sub_080161F0(void);
 extern void sub_080C31E0(void *, s32);
 
@@ -13,6 +13,6 @@ void sub_0808449C(void *obj) {
     if (*(s32 *)(parts + 0x34)) sub_080161F0();
     if (*(s32 *)(parts + 0x38)) sub_080161F0();
     if (*(s32 *)(parts + 0x3C)) sub_080161F0();
-    D_02025FF0.arr[*(s32 *)((u8 *)obj + 0xAC)] = 0;
+    gMainWorkspace.arr[*(s32 *)((u8 *)obj + 0xAC)] = 0;
     sub_080C31E0(obj, *(s32 *)(partsCopy + 0x18));
 }

@@ -2,7 +2,7 @@
  * initializes a small descriptor and dispatches a message. */
 void *sub_0805FAEC(void *, s32);
 void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 struct ZeroPair { u32 word; u8 byte; };
 void sub_080272F0(void *entity) {
     u8 *state = *(u8 **)((u8 *)entity + 0x3C);
@@ -64,7 +64,7 @@ void sub_080272F0(void *entity) {
         *((u8 *)entity + index * 2 + 0x19) = zeroByte;
     }
     {
-        void **msgTable = &D_08671BB0;
+        void **msgTable = &gMainObjTimerCallback;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *msgTable);
     }
 }

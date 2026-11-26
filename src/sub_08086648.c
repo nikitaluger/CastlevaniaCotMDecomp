@@ -21,11 +21,11 @@ struct S_02025FF0
   u8 _2[0x14FC - 0x14F8];
   u32 flag;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u32 D_0866F0DC[];
 inline u32 inline_fn()
 {
-  return D_02025FF0.subPhase;
+  return gMainWorkspace.subPhase;
 }
 
 /* React to a global game-phase change by retargeting an actor's current action:
@@ -33,7 +33,7 @@ inline u32 inline_fn()
  * that picks character-specific data, then restart the actor's action. */
 void sub_08086648(s32 entity, ActorScriptState *actor)
 {
-  switch (D_02025FF0.phase)
+  switch (gMainWorkspace.phase)
   {
     case 0x17:
       if ((actor->actionState == 0x12) && (actor->active != 0))
@@ -56,20 +56,20 @@ void sub_08086648(s32 entity, ActorScriptState *actor)
     case 0x47:
       if (((inline_fn() == 0) && (actor->active == 0)) && (actor->actionState > 3))
     {
-      D_02025FF0.flag = 1;
+      gMainWorkspace.flag = 1;
       sub_0806DE0C();
-      D_02025FF0.subPhase = 4;
+      gMainWorkspace.subPhase = 4;
       if (((u16) (actor->actionState - 4)) <= 5)
       {
-        D_02025FF0.subPhase = 1;
+        gMainWorkspace.subPhase = 1;
       }
       if (((u16) (actor->actionState - 0x0A)) <= 5)
       {
-        D_02025FF0.subPhase = 2;
+        gMainWorkspace.subPhase = 2;
       }
       if (((u16) (actor->actionState - 0x10)) <= 5)
       {
-        D_02025FF0.subPhase = 3;
+        gMainWorkspace.subPhase = 3;
       }
       sub_08003A6C(((void *) actor) + 0x28, 0, D_0866F0DC[(actor->variant * 5) + inline_fn()]);
     }

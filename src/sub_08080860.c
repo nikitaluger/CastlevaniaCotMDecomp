@@ -4,7 +4,7 @@ extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 extern void sub_0808449C(void);
 
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Initializes an entity's state and sprite: clears its timers, installs the
  * update callback and data tables, sets the palette, then advances the script
@@ -34,7 +34,7 @@ void sub_08080860(void *arg0)
 
     *(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = 0;
     {
-        u32 *eventPtr = &D_08671BB0;
+        u32 *eventPtr = &gMainObjTimerCallback;
         u8 *stepBase = entity + 0x18;
         sub_080C31E4(stepBase, entity + 0x22, (void *)*eventPtr);
         {

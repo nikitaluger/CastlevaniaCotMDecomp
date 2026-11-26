@@ -2,7 +2,7 @@ extern void sub_08003A6C(void *, s32, const void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_0808449C(void);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern const void D_084A3DA4;
 extern const void D_084A3E44;
 extern const void D_084A3E5C;
@@ -44,7 +44,7 @@ void sub_0807654C(void *arg0)
     ((u8 *)arg0)[index * 2 + 0x19] = 0;
 
     {
-        void **effectIds = &D_08671BB0;
+        void **effectIds = &gMainObjTimerCallback;
         paramPtr = (u8 *)arg0 + 0x18;
         sub_080C31E4(paramPtr, (u8 *)arg0 + 0x22, *effectIds);
     }

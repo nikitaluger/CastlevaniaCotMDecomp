@@ -1,6 +1,6 @@
 extern s32 sub_080C31E0(void *a, void *b);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Masks the gfx attributes, advances the script step and dispatches its handler,
  * then stores the actor's position relative to the current coordinate table. */
@@ -33,8 +33,8 @@ void sub_080A4DD0(void *arg0)
     sub_080C31E0(arg0, (s32) handlerTable[handlerIdx]);
   }
   *((u16 *) (((u8 *) arg0) + 0x22)) = (u16) ((*((u16 *) (((u8 *) arg0) + 0x22))) - 1);
-  coordTable = D_02021E90;
-  globals = D_02025FF0;
+  coordTable = gCameraState;
+  globals = gMainWorkspace;
   globals += 0x18A8;
   tableOffset = (((u32) (*globals)) + 1) * 0x40;
   xTable = coordTable + 0x1278;

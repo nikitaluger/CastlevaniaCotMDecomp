@@ -8,8 +8,8 @@ extern s32 sub_08013B5C(void *, void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 struct FlagByte { u8 flag; };
 struct FlagWord { u16 f0; };
@@ -77,8 +77,8 @@ void sub_08019628(u8 *self) {
     sub_0801165C(entity, 0);
 
 syncCoords:
-    coordTable = D_02021E90;
-    globalBase = D_02025FF0;
+    coordTable = gCameraState;
+    globalBase = gMainWorkspace;
     globalBase += 0x18A8;
     coordIdx = ((u32)*globalBase + 1) * 0x40;
     xBase = coordTable + 0x1278;

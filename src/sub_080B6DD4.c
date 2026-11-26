@@ -1,7 +1,7 @@
 extern void *sub_0805FAEC(s32, s32);
 
 /* Spawns a 0x1C1 helper object for this parent and clears its state byte. */
-void *sub_080B7174(s32 parent)
+void *spawnKind1C1Child(s32 parent)
 {
     void *obj = sub_0805FAEC(parent, 0x1C1);
     if (obj == 0) {
@@ -12,7 +12,7 @@ void *sub_080B7174(s32 parent)
 }
 
 /* Spawns a 0x1C0 helper object carrying target in its +0x5C field. */
-void *sub_080B7144(s32 parent, s32 target)
+void *spawnParamChild(s32 parent, s32 target)
 {
     void *obj = sub_0805FAEC(parent, 0x1C0);
     if (obj == 0) {

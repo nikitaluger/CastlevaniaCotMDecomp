@@ -1,21 +1,21 @@
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
-extern void sub_0801131C(void *, void *, void *);
-extern void sub_08011368(void *, void *, u32, u32);
-extern volatile long sub_08013C2C(s16);
-extern void sub_0801468C(void *);
-extern void *sub_08016190(void);
-extern void sub_08016664(void *, u32);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
+extern void initSpriteGraphics(void *, void *, void *);
+extern void setAnimationFrame(void *, void *, u32, u32);
+extern volatile long findKindIndex(s16);
+extern void setSpriteFlip(void *);
+extern void *allocEffectPart(void);
+extern void registerScriptObject(void *, u32);
 extern void sub_080284E8(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080284B8(void);
-extern volatile u32 D_080CB2B8[];
-extern volatile u32 D_080CD400[];
+extern volatile u32 gSpriteKindTable[];
+extern volatile u32 gSpriteAnimDataTable[];
 extern volatile u16 D_080CE940[];
-extern volatile u8 D_02021E90[];
-extern volatile u8 D_02025FF0[];
-extern void *D_08671BB0[];
+extern volatile u8 gCameraState[];
+extern volatile u8 gMainWorkspace[];
+extern void *gMainObjTimerCallback[];
 inline u8 *inline_fn(u8 *arg0, int arg1)
 {
   return arg0 + arg1;
@@ -66,7 +66,7 @@ void sub_08027DFC(u8 *arg0)
   unsigned int new_var13;
   int new_var16;
   arg0 = *((u8 **) inline_fn(arg0, 0xAC));
-  new_var18 = sub_0800355C();
+  new_var18 = allocSpriteObject();
   zero = 0;
   new_var20 = new_var18;
   if (new_var20 == NULL)
@@ -75,7 +75,7 @@ void sub_08027DFC(u8 *arg0)
     return;
   }
   *((void **) inline_fn(arg0, 0x38)) = new_var20;
-  sub_0800168C(arg0, 0, 0x90, 0);
+  allocWorkSlot(arg0, 0, 0x90, 0);
   new_var12 = (u32) ((s32) (*((s16 *) inline_fn(arg0, 2))));
   do
   {
@@ -85,12 +85,12 @@ void sub_08027DFC(u8 *arg0)
       sub_080C31E0(arg0, *((void **) inline_fn(arg0, 0x24)));
       return;
     }
-    new_var6 = D_080CD400;
+    new_var6 = gSpriteAnimDataTable;
     p8 = inline_fn(p6, 0x34);
     *((void **) inline_fn(p6, 0x24)) = *((void **) inline_fn(arg0, 0x24));
     new_var15 = &arg0;
     *((u32 *) inline_fn(*new_var15, 0x24)) = (u32) sub_080284B8;
-    cb2 = (u8 *) D_080CB2B8;
+    cb2 = (u8 *) gSpriteKindTable;
     switch (*((s16 *) inline_fn(arg0, 4)))
     {
       case 0xB3:
@@ -110,7 +110,7 @@ void sub_08027DFC(u8 *arg0)
   *((u32 *) inline_fn(p6, 8)) = ((u32) ((s32) (*((s16 *) inline_fn(arg0, 0))))) << 16;
   *((u32 *) inline_fn(p6, 0xC)) = new_var12;
   *((u32 *) inline_fn(p6, 0xC)) = (*((u32 *) inline_fn(p6, 0xC))) << 16;
-  h = sub_08013C2C(*((s16 *) inline_fn(p6, 0x1C)));
+  h = findKindIndex(*((s16 *) inline_fn(p6, 0x1C)));
   *((u16 *) inline_fn(p6, 0x22)) = (u16) h;
   new_var16 = 16;
   new_var22 = inline_fn(p6, 0x28);
@@ -120,10 +120,10 @@ void sub_08027DFC(u8 *arg0)
     sub_080C31E0(arg0, *((void **) inline_fn(arg0, 0x24)));
     return;
   }
-  sub_0801131C(new_var20, p8, inline_fn((u8 *) new_var6, ((s32) (*((s16 *) inline_fn(p6, 0x1C)))) * 12));
+  initSpriteGraphics(new_var20, p8, inline_fn((u8 *) new_var6, ((s32) (*((s16 *) inline_fn(p6, 0x1C)))) * 12));
   new_var = 1;
   new_var15 = (void **) inline_fn(p6, 0x28);
-  *((void **) inline_fn(p6, 0x28)) = sub_08016190();
+  *((void **) inline_fn(p6, 0x28)) = allocEffectPart();
   new_var19 = (u8 *) inline_fn(*((u8 **) inline_fn(p6, 0x28)), 1);
   if ((*new_var15) == NULL)
   {
@@ -146,7 +146,7 @@ void sub_08027DFC(u8 *arg0)
   *((u16 *) inline_fn(new_var17, 4)) = *((u16 *) inline_fn(cb2, ((s32) (*((s16 *) inline_fn(p6, 0x1C)))) * 0x14));
   *((u16 *) inline_fn(*((u8 **) inline_fn(p6, 0x28)), 6)) = D_080CE940[0];
   new_var21 = (u16 *) inline_fn(*((u8 **) inline_fn(p6, 0x28)), 0xA);
-  new_var7 = D_02025FF0;
+  new_var7 = gMainWorkspace;
   *((u16 *) inline_fn(*((u8 **) inline_fn(p6, 0x28)), 8)) = D_080CE940[new_var];
   new_var8 = D_080CE940[2];
   *new_var21 = new_var8;
@@ -162,15 +162,15 @@ void sub_08027DFC(u8 *arg0)
   t = t | 0x200;
   t |= (u16) (((u32) ((u16) (8 + (*((u16 *) inline_fn(p6, new_var10)))))) << 12);
   t |= new_var13;
-  t |= *((u16 *) inline_fn(D_02025FF0, 0x18C2));
+  t |= *((u16 *) inline_fn(gMainWorkspace, 0x18C2));
   new_var23 = (u32 *) inline_fn(new_var20, 0x14);
   *((u16 *) new_var20) = t;
   new_var11 = inline_fn(p6, 0xC);
   *((u32 *) inline_fn(new_var20, 0x1C)) = 0x8000000A;
   idx = ((u32) ((*((u8 *) inline_fn(new_var7, 0x18A8))) + 1)) << 6;
-  val = inline_fn23(D_02021E90, idx);
+  val = inline_fn23(gCameraState, idx);
   *new_var23 = (*((u32 *) inline_fn(p6, 8))) - ((val + hi) & 0xFFFF0000);
-  val = *((u32 *) inline_fn(inline_fn(D_02021E90, 0x127C), idx));
+  val = *((u32 *) inline_fn(inline_fn(gCameraState, 0x127C), idx));
   *((u32 *) inline_fn(new_var20, 0x18)) = (*((u32 *) inline_fn(p6, 0xC))) - ((0xFFFF8000 + val) & 0xFFFF0000);
   new_var4 = (s16 *) inline_fn(arg0, new_var10);
   *((u32 *) inline_fn(p8, 0x14)) = *((u32 *) inline_fn(p6, 8));
@@ -185,13 +185,13 @@ void sub_08027DFC(u8 *arg0)
   *((u32 *) inline_fn(p8, 0x40)) = 0x1000;
   *((u32 *) inline_fn(p8, 0x44)) = 0x1000;
   new_var20 = arg0;
-  sub_0801468C(new_var20);
-  sub_08011368(new_var20, p8, zero, 1);
-  sub_08016664(new_var20, 0);
+  setSpriteFlip(new_var20);
+  setAnimationFrame(new_var20, p8, zero, 1);
+  registerScriptObject(new_var20, 0);
   *((u16 *) inline_fn(arg0, 2)) |= 0x1000;
   *((u8 *) inline_fn(inline_fn(arg0, ((s32) (*((s16 *) inline_fn(arg0, new_var10)))) * 2), 0x19)) = 0;
-  new_var9 = *D_08671BB0;
-  sub_080C31E4(inline_fn(arg0, 0x18), inline_fn(arg0, new_var10), *D_08671BB0);
+  new_var9 = *gMainObjTimerCallback;
+  sub_080C31E4(inline_fn(arg0, 0x18), inline_fn(arg0, new_var10), *gMainObjTimerCallback);
   new_var14 = ((s32) (*((s16 *) inline_fn(arg0, new_var10)))) * 2;
   ++(*((u8 *) inline_fn(inline_fn(arg0, new_var14), 0x19)));
   sub_080C31E0(arg0, *((void **) ((*((u32 *) inline_fn(arg0, 0x14))) + (((u32) (*((u8 *) inline_fn(inline_fn(arg0, 0x18), ((s32) (*new_var4)) * 2)))) * 4))));

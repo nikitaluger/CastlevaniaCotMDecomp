@@ -8,7 +8,7 @@ struct S_080316BC {
     u32 sprite;
     u32 state;
 };
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *D_08671BD0;
@@ -26,7 +26,7 @@ void sub_08055710(struct S_080316BC *obj)
     state = (u8 *)obj->state;
     animState = state + 0x34;
     state += 0x48;
-    sub_08011368(sprite, animState, 0x09, 1);
+    setAnimationFrame(sprite, animState, 0x09, 1);
     obj->funcTable = 0x0866E758;
     obj->step += 1;
     ((u8 *)obj)[obj->step * 2 + 0x19]++;

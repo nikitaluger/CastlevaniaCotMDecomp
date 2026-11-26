@@ -1,4 +1,4 @@
-void sub_08011368(s32, s32, s32, s32);
+void setAnimationFrame(s32, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 static inline u8 zero_b(void) { u8 v = 0; return v; }
 static inline u16 zero_h(void) { u16 v = 0; return v; }
@@ -13,7 +13,7 @@ void sub_08017E54(void *actor) {
   u8 *work = *((u8 **) (self + 0x3C));
   u8 *animator = work + 0x34;
   u8 *attack = work + 0x48;
-  sub_08011368(sprite, work + 0x34, 5, 0);
+  setAnimationFrame(sprite, work + 0x34, 5, 0);
   *((u32 *) (work + 0x14)) = 0xFFFFA000;
   if ((*((u8 *) animator)) & 2) {
     register u16 zeroHalf = zero_h();

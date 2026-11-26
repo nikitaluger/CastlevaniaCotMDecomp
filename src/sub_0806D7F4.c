@@ -1,10 +1,10 @@
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 
-/* Add delta to the 32-bit stat at D_02025368+0x2C4, clamping it to the
+/* Add delta to the 32-bit stat at gGameStatus+0x2C4, clamping it to the
  * maximum stored at +0x2C8. */
 void sub_0806D7F4(s32 delta)
 {
-    u8 *base = D_02025368;
+    u8 *base = gGameStatus;
     s32 *value = (s32 *)(base + 0x2C4);
     s32 sum = *value + delta;
     *value = sum;
@@ -17,11 +17,11 @@ void sub_0806D7F4(s32 delta)
     }
 }
 
-/* Add delta to the 32-bit stat at D_02025368+0x2CC, clamping it to the
+/* Add delta to the 32-bit stat at gGameStatus+0x2CC, clamping it to the
  * maximum stored at +0x2D0. */
 void sub_0806D81C(s32 delta)
 {
-    u8 *base = D_02025368;
+    u8 *base = gGameStatus;
     s32 *value = (s32 *)(base + 0x2CC);
     s32 sum = *value + delta;
     *value = sum;
@@ -34,10 +34,10 @@ void sub_0806D81C(s32 delta)
     }
 }
 
-/* Subtract amount from the 32-bit stat at D_02025368+0x2CC, flooring at 0. */
+/* Subtract amount from the 32-bit stat at gGameStatus+0x2CC, flooring at 0. */
 void sub_0806D844(s32 amount)
 {
-    u8 *base = D_02025368;
+    u8 *base = gGameStatus;
     s32 *value = (s32 *)(base + 0x2CC);
     s32 diff = *value - amount;
     *value = diff;
@@ -47,11 +47,11 @@ void sub_0806D844(s32 amount)
     }
 }
 
-/* Add delta to the 16-bit stat at D_02025368+0x2D4, clamping it to the
+/* Add delta to the 16-bit stat at gGameStatus+0x2D4, clamping it to the
  * signed maximum stored at +0x2D6. */
 void sub_0806D860(s16 delta)
 {
-    u8 *base = D_02025368;
+    u8 *base = gGameStatus;
     s32 offset = 0x2D4;
     s16 *value = (s16 *)(base + offset);
     s16 sum = (s16)(*value + delta);

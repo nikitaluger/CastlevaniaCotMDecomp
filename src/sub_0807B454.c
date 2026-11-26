@@ -17,7 +17,7 @@ struct GlobalState {
     u8 _4[0x18C2 - 0x173B];
     u16 f18C2;
 };
-extern struct GlobalState D_02025FF0;
+extern struct GlobalState gMainWorkspace;
 
 /* Entity AI callback: update motion, copy a global value, then end or continue the action. */
 void sub_0807B454(u8 *self) {
@@ -32,7 +32,7 @@ void sub_0807B454(u8 *self) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));
         return;
     }
-    gs = &D_02025FF0;
+    gs = &gMainWorkspace;
     gs->f14E2 = 0x14D;
     gs->f14E4 = 0x0F;
     *(s32 *)(actor + 4) += *(s32 *)(work + 8);

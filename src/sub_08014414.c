@@ -1,7 +1,7 @@
 /* Reassign every node of the source list to the global group pointer, append
  * that list to the group's list, then clear the source list head. `scratch`
  * holds the global base first and the next-node link in the append loop. */
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 void sub_08014414(void *sourceList) {
     u32 scratch;
@@ -14,7 +14,7 @@ void sub_08014414(void *sourceList) {
     if (head == 0) return;
     first = head;
     cur = first;
-    scratch = (u32)D_02025FF0;
+    scratch = (u32)gMainWorkspace;
     offset = 0x1870;
     group = *(void **)(scratch + offset);
     do {

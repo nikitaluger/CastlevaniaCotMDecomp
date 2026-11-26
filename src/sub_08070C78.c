@@ -14,7 +14,7 @@ struct GameState_70C78 {
     u8 _0x1500[0x173A - 0x1500];
     u8 field173A;
 };
-extern struct GameState_70C78 D_02025FF0;
+extern struct GameState_70C78 gMainWorkspace;
 
 s32 sub_0806D450(void *, void *, void *);
 void sub_080722E0(void *, u8);
@@ -56,14 +56,14 @@ void sub_08070C78(void *entity)
     sub_08003740((s8 *)state + 0x30, other);
     sub_0806D588(other, work);
     sub_080719EC(entity, work, work);
-    if (D_02025FF0.field14FC == 0) goto Lcheck;
+    if (gMainWorkspace.field14FC == 0) goto Lcheck;
 Lcall1:
     sub_080C31E0(entity, *(s32 *)((s8 *)entity + 0x24));
     return;
 Lcheck:
-    if (D_02025FF0.field173A == 0x1C) goto Lcall2;
-    if (D_02025FF0.field14ED != 0) return;
-    if (D_02025FF0.field10 == 0) return;
+    if (gMainWorkspace.field173A == 0x1C) goto Lcall2;
+    if (gMainWorkspace.field14ED != 0) return;
+    if (gMainWorkspace.field10 == 0) return;
 Lcall2:
     sub_080C31E0(entity, *(s32 *)((s8 *)entity + 0x24));
 }

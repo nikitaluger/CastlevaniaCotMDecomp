@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 _0[0x1870]; u32 v; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u32 D_08671BFC;
 extern void *D_08101A58;
 
@@ -7,7 +7,7 @@ void *sub_080057F8();
 s32 sub_08005820(s32);
 void sub_080113A8(s32, void*);
 void sub_0801165C(void*, s32);
-void sub_08014588(void*, s32);
+void copyPoseAttrs(void*, s32);
 void sub_080A2D30(s32, s32, s32, s32, s32, s32);
 s32 sub_080C31E0(void *, void *);
 
@@ -70,7 +70,7 @@ void sub_080A1DE0(void *arg0) {
     case 17: case 19: animIndex = 2; break;
     case 21: animIndex = 3; break;
     }
-    sub_08014588(*(void ***)((u8 *)p3C + 0x28), animIndex*8 + (s32)&D_08101A58);
+    copyPoseAttrs(*(void ***)((u8 *)p3C + 0x28), animIndex*8 + (s32)&D_08101A58);
     flagPtr = (u8*)arg0 + 0x80;
     if (*flagPtr == 0) {
         if (tableValue == 0x0E) {
@@ -91,7 +91,7 @@ void sub_080A1DE0(void *arg0) {
                 angleSinArg = sub_080C31E0(randomAngle, (void *)*angleFunc);
                 sinScaled = (angleSinArg >> 8) * speedScale;
                 velocityY = *(s32 *)((u8 *)p3C + 0xC) + sinScaled;
-                owner = D_02025FF0.v;
+                owner = gMainWorkspace.v;
                 sub_080A2D30(owner, sp8, 1, velocityX, velocityY, 2);
             }
         }

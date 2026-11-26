@@ -2,7 +2,7 @@ void *sub_08001480(void *, s32);
 void sub_0800F4D4(u8, u8, s32);
 void sub_0800F6BC(void);
 extern u8 D_020278D0[];
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern volatile u32 D_040000D4[3];
 
 typedef struct { u8 pad[0x48]; u32 object; } T_020278D0;
@@ -25,7 +25,7 @@ void sub_0800E55C(void *parent) {
     dmaFillWord = zero;
     D_040000D4[0] = (u32)&dmaFillWord;
     {
-        u32 stateBase = (u32)D_02021E90;
+        u32 stateBase = (u32)gCameraState;
         u32 colorOffset = 0x1262;
         t = (*(u16 *)(stateBase + colorOffset) & 0xC) << 12;
     }

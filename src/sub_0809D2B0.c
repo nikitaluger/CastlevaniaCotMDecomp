@@ -1,5 +1,5 @@
 void sub_08005E80(s32);
-void sub_08014588(void *, s32);
+void copyPoseAttrs(void *, s32);
 void sub_0809E300(void *, void *, void *);
 void sub_080A0340(s32, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -28,7 +28,7 @@ void sub_0809D2B0(void *actor)
   ((struct GfxScale *)gfx)->scale = 0x900;
   *((u16 *) (gfx + 6)) = 0x80;
   *((u8 *) (*((u8 **) (work + 0x28)) + 1)) = zero;
-  sub_08014588(*((void **) (work + 0x28)), 0x081019A4);
+  copyPoseAttrs(*((void **) (work + 0x28)), 0x081019A4);
   sub_080A0340(*((s32 *) (state + 0x20)), 1);
   sub_0809E300(gfx, anim, state);
   sub_08005E80(0x187);

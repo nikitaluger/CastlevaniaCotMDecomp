@@ -1,12 +1,12 @@
-/* Spawns a new object at a position taken from a table indexed by D_02025FF0.idx,
+/* Spawns a new object at a position taken from a table indexed by gMainWorkspace.idx,
  * initialises its state from the parent object, then fires the queued callbacks
  * and clears this object's effect state. */
 struct Rec64 { u32 a; u32 b; u8 pad[0x38]; };
 struct S_02025FF0_AC { u8 _0[0x18A8]; u8 idx; u8 _1[0x13]; u16 f; };
-extern struct S_02025FF0_AC D_02025FF0;
+extern struct S_02025FF0_AC gMainWorkspace;
 struct S_02021E90_AC { u8 _0[0x1278]; struct Rec64 recs[1]; };
-extern struct S_02021E90_AC D_02021E90;
-extern u32 D_08671BB0;
+extern struct S_02021E90_AC gCameraState;
+extern u32 gMainObjTimerCallback;
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080B0934(s32, s32);
@@ -27,11 +27,11 @@ void sub_080AC478(void *obj) {
     u32 *endFuncs;
     s16 idx;
 
-    D_02025FF0.f = 0;
+    gMainWorkspace.f = 0;
     posXPtr = work + 0x234;
-    *(u32 *)posXPtr = D_02021E90.recs[D_02025FF0.idx + 1].a + (0xF1 << 15);
+    *(u32 *)posXPtr = gCameraState.recs[gMainWorkspace.idx + 1].a + (0xF1 << 15);
     posYPtr = work + 0x238;
-    *(u32 *)posYPtr = D_02021E90.recs[D_02025FF0.idx + 1].b + (0x9E << 14);
+    *(u32 *)posYPtr = gCameraState.recs[gMainWorkspace.idx + 1].b + (0x9E << 14);
     *(u32 *)(work + 0xC8) = sub_080B0934(*(u32 *)posXPtr, *(u32 *)posYPtr);
     sub_080ACE78(objBytes, work, work + 0xC8);
     sub_080ACEBC(work + 0xC8, work + 0x98);

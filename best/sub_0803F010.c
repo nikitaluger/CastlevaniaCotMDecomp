@@ -1,12 +1,12 @@
-void sub_0800168C(void *, s32, s32, s32);
-void sub_08011368(s32, s32, s32, s32);
+void allocWorkSlot(void *, s32, s32, s32);
+void setAnimationFrame(s32, s32, s32, s32);
 s16 sub_08014990(s32);
 s32 sub_08016830(s32);
 void *sub_0805FAEC(s32, s32);
 s32 sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
-extern u8 D_02025FF0[];
-extern u8 D_08671BB0[];
+extern u8 gMainWorkspace[];
+extern u8 gMainObjTimerCallback[];
 
 void sub_0803F010(void *arg0)
 {
@@ -32,7 +32,7 @@ void sub_0803F010(void *arg0)
     temp_r6 = *(void **)((u8 *)arg0 + 0x3C);
     temp_r1 = (u8 *)temp_r6 + 0x34;
     temp_r4 = (u8 *)temp_r6 + 0x48;
-    sub_08011368((s32)temp_r0, (s32)temp_r1, 0xB, 0);
+    setAnimationFrame((s32)temp_r0, (s32)temp_r1, 0xB, 0);
     temp_r0_2 = *(u16 *)((u8 *)temp_r4 + 0xE) - 1;
     zero = 0;
     *(u16 *)((u8 *)temp_r4 + 0xE) = temp_r0_2;
@@ -51,16 +51,16 @@ void sub_0803F010(void *arg0)
             *(u16 *)((u8 *)temp_r0_4 + 0x5C) |= 2;
         }
         *(s8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = zero;
-        pBB0 = (s32 *)D_08671BB0;
+        pBB0 = (s32 *)gMainObjTimerCallback;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *pBB0);
         return;
     }
-    base = D_02025FF0;
+    base = gMainWorkspace;
     off = 0x1870;
     temp_r0_5 = sub_0805FAEC(*(s32 *)(base + off), 0x102);
     if (temp_r0_5 != NULL)
     {
-        sub_0800168C(temp_r0_5, 0, 8, 7);
+        allocWorkSlot(temp_r0_5, 0, 8, 7);
         temp_r1_2 = *(void **)((u8 *)temp_r0_5 + 0xAC);
         if (temp_r1_2 == NULL)
         {

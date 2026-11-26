@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_0803010C(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -14,7 +14,7 @@ void sub_0803003C(void *entity) {
     void *animator = (u8 *)work + 0x34;
     work->partA->flags = (u16)(work->partA->flags | 0x20);
     work->partB->flags = (u16)(work->partB->flags | 0x20);
-    sub_08011368(sprite, animator, 0x1F, 0);
+    setAnimationFrame(sprite, animator, 0x1F, 0);
     if (*(s32 *)((u8 *)animator + 0x04) == 1) {
         switch (*(u8 *)((u8 *)animator + 0x01) - 1) {
             case 2:

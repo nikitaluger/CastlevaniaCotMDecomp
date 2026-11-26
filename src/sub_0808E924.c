@@ -1,8 +1,8 @@
 extern void sub_080113A8(void *, void *);
 extern void sub_080C31E0(void *, void *);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 // Updates an object's position relative to the current scroll: after a flag
 // check that can cancel the entity, it indexes two offset tables by the scroll
@@ -24,8 +24,8 @@ void sub_0808E924(void *entity)
         return;
     }
 
-    state = D_02021E90;
-    scrollIdx = D_02025FF0;
+    state = gCameraState;
+    scrollIdx = gMainWorkspace;
     scrollIdx += 0x18A8;
 
     {

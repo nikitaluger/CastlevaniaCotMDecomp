@@ -1,15 +1,15 @@
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern s32 sub_08013C2C(void);
-extern void sub_08014288(void *, void *, void *);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern s32 findKindIndex(void);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_080AA9C8(void *, void *, s32, s32);
-extern void sub_080114DC(void *, void *, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08097D90(void);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
-extern struct S_02025FF0 D_02025FF0;
-extern u32 D_08671BB0;
+extern struct S_02025FF0 gMainWorkspace;
+extern u32 gMainObjTimerCallback;
 extern u8 D_08102124[];
 struct S_Obj {
   u8 _0[2]; u16 flags; u8 _1[0x14 - 4]; u32 handlers; u8 _2[0x22 - 0x18];
@@ -33,32 +33,32 @@ void sub_080A9714(struct S_Obj *entity)
   s16 stepIndex;
   u16 *stepWords;
   u16 *stepEntry;
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == NULL) goto fail;
   entity->sprite = (u32)sprite;
-  sub_0800168C(entity, 0, 0x48, 0);
+  allocWorkSlot(entity, 0, 0x48, 0);
   if (entity->motion == 0) goto fail;
   sprite->flags2A &= 0xBF;
   motion = (struct S_R4 *)entity->motion;
   status = ((u8 *)motion) + 0x34;
-  sub_08014288(entity, motion, &sub_08097D90);
+  installUpdateHandler(entity, motion, &sub_08097D90);
   motion->spriteId = 0x5F;
-  spriteBase = sub_08013C2C();
+  spriteBase = findKindIndex();
   motion->spriteBase = spriteBase;
   if ((spriteBase << 16) >= 0) goto init;
 fail:
   sub_080C31E0(entity, entity->failHandler);
   return;
 init:
-  sprite->attrs = sprite->attrs | D_02025FF0.f18C2;
+  sprite->attrs = sprite->attrs | gMainWorkspace.f18C2;
   sub_080AA9C8(sprite, status, D_08102124[entity->gfxIndex], 2);
-  sub_080114DC(sprite, status, 0x2F, 1);
+  setObjectAnimation(sprite, status, 0x2F, 1);
   entity->flags = entity->flags | 0x1000;
   stepIndex = entity->stepIndex;
   stepWords = (u16 *)entity;
   ((u8 *)(&stepWords[stepIndex]))[0x19] = 0;
   {
-    u32 *pbb0 = &D_08671BB0;
+    u32 *pbb0 = &gMainObjTimerCallback;
     stepBase = ((u8 *)entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *)entity) + 0x22, *pbb0);
   }

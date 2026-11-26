@@ -3,7 +3,7 @@ extern void sub_0806D588(void *, void *);
 extern void sub_08071A20(void *, s32);
 extern void _call_via_r1(void *, u32);
 extern void _call_via_r2(void *, void *, void *);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 void sub_0806FDFC(u8 *g)
 {
@@ -21,7 +21,7 @@ void sub_0806FDFC(u8 *g)
     q = *(u8 **)(g + 0x6C) + 4;
     o = *(u8 **)(g + 0x38);
     p = q;
-    base = D_02025FF0;
+    base = gMainWorkspace;
 
     if ((u8)(base[0x173A] - 0x10) > 1 || base[0x14EC] == 2) {
         _call_via_r1(g, *(u32 *)(g + 0x24));
@@ -31,15 +31,15 @@ void sub_0806FDFC(u8 *g)
     t = (u16 *)(g + 0x84);
     *(u32 *)p = *(u32 *)(base + ((t[0] == 2) ? 0x1744 : 0x1728));
     if (*(u16 *)(g + 0x84) == 2) {
-        table = D_02025FF0;
+        table = gMainWorkspace;
         *(u32 *)(p + 4) = *(u32 *)(table + 0x1748) + 0xFFEC0000;
     } else {
-        table = D_02025FF0;
+        table = gMainWorkspace;
         *(u32 *)(p + 4) = *(u32 *)(table + 0x172C) + 0xFFEC0000;
     }
     sub_0806D588(o, p);
     sub_08003A6C(q + 0x2C, 0, (void *)0x08472A58);
-    base2 = D_02025FF0;
+    base2 = gMainWorkspace;
     {
         s32 value = (base2[0x14ED] != 0xA2) ? 0x2BF : 0x57E;
         *(u32 *)(p + 0x10) = value;

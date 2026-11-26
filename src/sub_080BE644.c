@@ -1,8 +1,8 @@
 struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 
 /* Set bit 0 of the animation flags on every list node of type 0x1D6, walking
- * both the object's list at +0x30 and the global list rooted at D_02025FF0.v. */
+ * both the object's list at +0x30 and the global list rooted at gMainWorkspace.v. */
 void sub_080BE644(void *arg0)
 {
     void *unused;
@@ -20,7 +20,7 @@ void sub_080BE644(void *arg0)
         } while (NULL != node);
     }
     {
-        listRoot = (s8 *)(void *)D_02025FF0.v;
+        listRoot = (s8 *)(void *)gMainWorkspace.v;
         node = *((void **)(listRoot + 0x30));
         if (node != NULL) {
             do {

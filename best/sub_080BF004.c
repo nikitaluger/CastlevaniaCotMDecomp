@@ -1,4 +1,4 @@
-extern u16 sub_080C2F20(s32 a, s32 b);
+extern u16 divideInt(s32 a, s32 b);
 extern s16 D_08103318[];
 
 struct BgIo {
@@ -50,7 +50,7 @@ void sub_080BF004(void)
 
         *p1 = t + *(base + 0x1378);
         *(vu8 *)0x04000005 = *p1 - 1;
-        r3 = sub_080C2F20(0x80, D_08103318[*(base + 0x136F)] * *(base + 0x137A));
+        r3 = divideInt(0x80, D_08103318[*(base + 0x136F)] * *(base + 0x137A));
 
         b = *(base + 0x137B);
         if (b & 1) {

@@ -1,7 +1,7 @@
 struct S_02025FF0_9D34 { u8 _0[0x18C2]; u16 f18C2; };
-extern struct S_02025FF0_9D34 D_02025FF0;
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
+extern struct S_02025FF0_9D34 gMainWorkspace;
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
 extern void sub_0806D2D0(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -12,18 +12,18 @@ void sub_08079D34(void *arg0) {
     u8 *self = (u8 *)arg0;
     u8 *animCtrl;
     u32 delta;
-    if (sub_0800168C((void *)self, 0, 0x68, 3) == 0) {
+    if (allocWorkSlot((void *)self, 0, 0x68, 3) == 0) {
         sub_080C31E0((void *)self, *(void **)(self + 0x24));
         return;
     }
-    animCtrl = sub_0800355C();
+    animCtrl = allocSpriteObject();
     if (animCtrl == 0) {
         sub_0806D2D0((void *)self);
         return;
     }
     *(u8 **)(self + 0x38) = animCtrl;
     *(u32 *)(animCtrl + 0x1C) = 0x80000004;
-    *(u16 *)animCtrl = D_02025FF0.f18C2;
+    *(u16 *)animCtrl = gMainWorkspace.f18C2;
     delta = *(u32 *)(self + 0x9C) - 0x40;
     *(u16 *)(animCtrl + 2) = delta > 0x80 ? (0xFFEF & *(u16 *)(animCtrl + 2)) : (*(u16 *)(animCtrl + 2) | 0x10);
     self[*(s16 *)(self + 0x22) * 2 + 0x19] = 0;

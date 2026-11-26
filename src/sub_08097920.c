@@ -9,7 +9,7 @@ struct S_02025FF0
     u8 byte18C5;
     u8 byte18C6;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s16 D_08100B98[][2];
 extern u32 D_08671BD8;
 
@@ -37,9 +37,9 @@ void sub_08097920(struct ScriptStep *step)
 
     if (step->guard != 0)
         return;
-    D_02025FF0.flags1848 &= 0xB281FFFF;
-    D_02025FF0.byte18C6 = 0;
-    D_02025FF0.byte18C5 = 0;
+    gMainWorkspace.flags1848 &= 0xB281FFFF;
+    gMainWorkspace.byte18C6 = 0;
+    gMainWorkspace.byte18C5 = 0;
     animId = step->animId;
     target = (u32 *)step->targetPtr;
     sub_08011344(animId, (u8 *)target + 0x1C, D_08100B98[*target][1], 0);

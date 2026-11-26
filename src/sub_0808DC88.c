@@ -1,4 +1,4 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 extern void *sub_0805FAEC(void *, s32);
 
 /* Spawn effect object 0x204 for the current owner at (x, y), storing the
@@ -13,7 +13,7 @@ void *sub_0808DC88(s32 x, s32 y, u16 param) {
     s32 scratch;
 
     ownerOff = 0x1874;
-    owner = *(void **)((u8 *)D_02025FF0 + ownerOff);
+    owner = *(void **)((u8 *)gMainWorkspace + ownerOff);
     scratch = 0x81;
     scratch = scratch << 2;
     effect = sub_0805FAEC(owner, scratch);

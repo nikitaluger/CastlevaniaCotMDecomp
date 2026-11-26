@@ -1,5 +1,5 @@
-extern u8 D_02021E90[];
-extern void sub_0805FEB4(u8);
+extern u8 gCameraState[];
+extern void setScreenTransition(u8);
 extern void sub_08061048(void);
 extern void sub_08061084(void);
 extern void sub_080610D0(void);
@@ -34,14 +34,14 @@ struct S6C {
 
 u32 sub_0806056C(void)
 {
-    struct S6C *base = (struct S6C *)&D_02021E90;
+    struct S6C *base = (struct S6C *)&gCameraState;
     u8 *p = base->f1454 + 1;
     u8 cmd;
 
     if (base->f145C & 2) {
-        base->f1444 = p[0] & 0xF;
+        do { base->f1444 = p[0] & 0xF; } while (0);
     } else {
-        sub_0805FEB4(p[0] & 0xF);
+        do { do { setScreenTransition(p[0] & 0xF); } while (0); } while (0);
     }
     cmd = p[0];
     switch (cmd >> 4) {
@@ -51,7 +51,7 @@ u32 sub_0806056C(void)
     case 4:
     case 8: {
         u8 v;
-        base->f145F = cmd >> 4;
+        do { base->f145F = cmd >> 4; } while (0);
         if (p[0] >> 4 == 4) {
             base->f1360 = 3;
             if (base->f145C & 8) goto skip;
@@ -64,8 +64,8 @@ u32 sub_0806056C(void)
             if (base->f145C & 8) goto skip;
             base->f1461 = 8;
             base->f1465 = 0x58;
-            base->f1463 = 0x38;
             base->f1467 = 0x98;
+            base->f1463 = 0x38;
         }
         if (base->f145C & 8) goto skip;
         base->f1469 = 0x3E;
@@ -73,7 +73,7 @@ u32 sub_0806056C(void)
     skip:
         v = base->f1458;
         if (v > 0x21) {
-            base->f1454 = p + 1;
+            do { do { base->f1454 = p + 1; } while (0); } while (0);
             return 0;
         }
         base->f1458 = v + 1;
@@ -106,29 +106,30 @@ u32 sub_0806056C(void)
             return 2;
         }
         base->f1360 = v;
-        base->f1454 = p + 1;
+        do { do { base->f1454 = p + 1; } while (0); } while (0);
         return 0;
     }
     case 1: {
         u8 v;
-        base->f145F = cmd >> 4;
+        do { do { base->f145F = (p[0]) >> 4; } while (0); } while (0);
         base->f1360 = 5;
         v = base->f1458;
         if (v <= 5) {
             base->f1458 = v + 1;
             return 2;
         }
-        base->f1454 = p + 1;
+        do { do { base->f1454 = p + 1; } while (0); } while (0);
         return 0;
     }
     case 2: {
-        u8 v = base->f1458;
+        u8 v;
+        v = base->f1458;
         if (v != 0) {
             base->f1458 = v - 1;
             return 2;
         }
         base->f1360 = v;
-        base->f1454 = p + 1;
+        do { do { base->f1454 = p + 1; } while (0); } while (0);
         return 0;
     }
     }

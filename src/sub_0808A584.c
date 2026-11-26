@@ -4,8 +4,8 @@
 extern void sub_08003A6C(s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
-extern s32 D_08671BB0[];
-extern u8 D_02025FF0[];
+extern s32 gMainObjTimerCallback[];
+extern u8 gMainWorkspace[];
 
 void sub_0808A584(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -17,7 +17,7 @@ void sub_0808A584(void *arg0) {
     sub_08003A6C((s32)(ctrl + 0x20), 0, (s32)0x08502DAC);
 
     {
-        u8 *globals = D_02025FF0;
+        u8 *globals = gMainWorkspace;
         u32 *globalViewX = (u32 *)(globals + 0x1728);
         if (*(s32 *)globalViewX <= 0x00FFFFFF) {
             u32 flipFlags = (u16)(*(u16 *)(actor + 2) | 0x10U);
@@ -30,7 +30,7 @@ void sub_0808A584(void *arg0) {
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *effectData = D_08671BB0;
+        s32 *effectData = gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, *effectData);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

@@ -1,4 +1,4 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 void sub_0806D588(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -9,8 +9,8 @@ void sub_080897EC(void *arg0) {
     u8 *self = (u8 *)arg0;
     u8 *moverPos = *(u8 **)(self + 0x6C) + 4;
     void *sprite = *(void **)(self + 0x38);
-    if (D_02025FF0[5] == 0x10) {
-        D_02025FF0[7] = 4;
+    if (gMainWorkspace[5] == 0x10) {
+        gMainWorkspace[7] = 4;
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = 0;
         {
             s32 *stepTable = (s32 *)0x08671BB0;

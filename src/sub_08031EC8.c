@@ -1,4 +1,4 @@
-extern void sub_08011368(s32 sprite, s32 anim, u16 frame, u8 mode);
+extern void setAnimationFrame(s32 sprite, s32 anim, u16 frame, u8 mode);
 
 struct AnimOwner {
     u8 _0[0x38];
@@ -10,5 +10,5 @@ struct AnimOwner {
 void sub_08031EC8(void *arg0) {
     struct AnimOwner *e = (struct AnimOwner *)arg0;
 
-    sub_08011368(e->sprite, e->state + 0x34, 0x22, 1);
+    setAnimationFrame(e->sprite, e->state + 0x34, 0x22, 1);
 }

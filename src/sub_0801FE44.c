@@ -1,4 +1,4 @@
-s32 sub_08011368(s32, s32, s32, s32);
+s32 setAnimationFrame(s32, s32, s32, s32);
 s32 sub_080146D0(void *, s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -16,7 +16,7 @@ void sub_0801FE44(void *arg0)
   s32 angle;
   if ((*((s32 *)(part + 4))) == 0)
   {
-    sub_08011368(sprite, (s32)anim, 0xB, 0);
+    setAnimationFrame(sprite, (s32)anim, 0xB, 0);
     if (2 & (*anim))
     {
       *((s32 *)(part + 4)) = 1;
@@ -24,7 +24,7 @@ void sub_0801FE44(void *arg0)
   }
   else
   {
-    sub_08011368(sprite, (s32)anim, 0x11, 1);
+    setAnimationFrame(sprite, (s32)anim, 0x11, 1);
   }
   ;
   if (1 & (*((u16 *)(self + 0x5C))))

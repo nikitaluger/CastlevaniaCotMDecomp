@@ -1,5 +1,5 @@
 extern void sub_08011528(void *, void *);
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -74,18 +74,18 @@ void sub_080BD3A4(u8 *arg0)
         u8 *poseTable = (u8 *)0x08102F40;
         u8 *poseEntry;
 
-        sub_08014588(target, poseTable + off);
+        copyPoseAttrs(target, poseTable + off);
 
         {
             void *linked = *(void **)(motionEx + 0);
             poseEntry = poseTable + 8;
-            sub_08014588(linked, poseEntry + off);
+            copyPoseAttrs(linked, poseEntry + off);
         }
 
         {
             void *linked = *(void **)(motionEx + 4);
             poseTable += 0x10;
-            sub_08014588(linked, poseTable + off);
+            copyPoseAttrs(linked, poseTable + off);
         }
     }
 

@@ -1,4 +1,4 @@
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern void sub_08061048(void);
 extern void sub_08061084(void);
 extern void sub_080610D0(void);
@@ -8,7 +8,7 @@ extern void sub_080610D0(void);
 s32 sub_08060020(void) {
     u8 *gameState;
     sub_08061048();
-    gameState = D_02021E90;
+    gameState = gCameraState;
     if (gameState[0x145C] & 8) {
         sub_080610D0();
         sub_08061084();

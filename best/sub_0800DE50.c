@@ -1,6 +1,6 @@
 extern void *sub_08001480(s32, s32);
 extern s32 sub_0800F464(u8);
-extern s32 sub_0805FE28(s32, s32);
+extern s32 setLayerTilemap(s32, s32);
 extern s32 sub_0805FEC8(s32);
 struct S_020278D0
 {
@@ -15,7 +15,7 @@ struct S_02021E90
   u8 _0[0x1262];
   u16 f1262;
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 struct DMA
 {
   volatile u32 src;
@@ -25,7 +25,7 @@ struct DMA
 extern struct DMA D_040000D4;
 inline int inline_fn()
 {
-  return (0xC & D_02021E90.f1262) << 0xC;
+  return (0xC & gCameraState.f1262) << 0xC;
 }
 
 void sub_0800DE50(s32 arg0)
@@ -38,7 +38,7 @@ void sub_0800DE50(s32 arg0)
   u32 temp_r1;
   void *temp_r0;
   d = (u8 *) 0x02025368;
-  sub_0805FE28(0, 0xA8 << 2);
+  setLayerTilemap(0, 0xA8 << 2);
   if (d[0x3C7] != 0)
   {
     sub_0805FEC8(0x8121);
@@ -47,7 +47,7 @@ void sub_0800DE50(s32 arg0)
   {
     sub_0805FEC8(0x8120);
   }
-  sub_0805FE28(0, 0x2AB);
+  setLayerTilemap(0, 0x2AB);
   new_var2 = 2;
   if (d[0xF2 << new_var2] != 0)
   {
@@ -57,7 +57,7 @@ void sub_0800DE50(s32 arg0)
   {
     sub_0805FEC8(0x8120);
   }
-  sub_0805FE28(0, 0x2B6);
+  setLayerTilemap(0, 0x2B6);
   if (d[0x3C9] != 0)
   {
     sub_0805FEC8(0x8123);
@@ -66,7 +66,7 @@ void sub_0800DE50(s32 arg0)
   {
     sub_0805FEC8(0x8120);
   }
-  sub_0805FE28(0, 0xB0 << 2);
+  setLayerTilemap(0, 0xB0 << 2);
   if (d[0x3CA] != 0)
   {
     sub_0805FEC8(0x8124);
@@ -75,7 +75,7 @@ void sub_0800DE50(s32 arg0)
   {
     sub_0805FEC8(0x8120);
   }
-  sub_0805FE28(0, 0x2CB);
+  setLayerTilemap(0, 0x2CB);
   if (d[0x3CB] != 0)
   {
     sub_0805FEC8(0x8125);
@@ -84,7 +84,7 @@ void sub_0800DE50(s32 arg0)
   {
     sub_0805FEC8(0x8120);
   }
-  sub_0805FE28(0, 0x2D6);
+  setLayerTilemap(0, 0x2D6);
   if (d[0xF3 << 2] != 0)
   {
     sub_0805FEC8(0x8127);
@@ -93,7 +93,7 @@ void sub_0800DE50(s32 arg0)
   {
     sub_0805FEC8(0x8120);
   }
-  sub_0805FE28(0, 0xB8 << 2);
+  setLayerTilemap(0, 0xB8 << 2);
   if (d[0x3CD] != 0)
   {
     sub_0805FEC8(0x8128);
@@ -102,7 +102,7 @@ void sub_0800DE50(s32 arg0)
   {
     sub_0805FEC8(0x8120);
   }
-  sub_0805FE28(0, 0x2EB);
+  setLayerTilemap(0, 0x2EB);
   if (d[0x3CE] != 0)
   {
     sub_0805FEC8(0x8129);

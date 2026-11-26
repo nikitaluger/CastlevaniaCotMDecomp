@@ -1,5 +1,5 @@
 extern u32 D_0866E5B8[];
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 
 /* Step the actor's script on the 0x0866E5B8 command table: switch to
  * animation 2, advance the script index and the current step's progress byte,
@@ -10,7 +10,7 @@ void sub_0804FC58(void *actor)
     s16 index;
     u8 command;
 
-    sub_08011368(*(void **)(self + 0x38), *(u8 **)(self + 0x3C) + 0x34, 2, 0);
+    setAnimationFrame(*(void **)(self + 0x38), *(u8 **)(self + 0x3C) + 0x34, 2, 0);
 
     *(u32 *)(self + 0x14) = (u32)D_0866E5B8;
     *(u16 *)(self + 0x22) += 1;

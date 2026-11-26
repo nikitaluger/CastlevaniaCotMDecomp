@@ -1,7 +1,7 @@
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 /* Script-step callback: initialises the companion sprite, flags this entity,
  * resets then advances its script step, redirects the script, and finally
  * dispatches the handler indexed by the new step's byte. No companion -> bail. */
@@ -11,7 +11,7 @@ void sub_080A1F7C(u8 *entity)
   u8 *scriptPtr;
   u8 *spriteState;
   s32 zero;
-  sub_0800168C(entity, 0, 0x48, 0);
+  allocWorkSlot(entity, 0, 0x48, 0);
   if ((*((u32 *) (entity + 0x3C))) == 0)
   {
     sub_080C31E0(entity, *((void **) (entity + 0x24)));
@@ -25,7 +25,7 @@ void sub_080A1F7C(u8 *entity)
   stepIndex = *((s16 *) (entity + 0x22));
   entity[(stepIndex * 2) + 0x19] = zero;
   {
-    void **lit = &D_08671BB0;
+    void **lit = &gMainObjTimerCallback;
     scriptPtr = entity + 0x18;
     sub_080C31E4(scriptPtr, entity + 0x22, *lit);
   }

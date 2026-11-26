@@ -1,5 +1,5 @@
-s32 sub_0800168C(void *, s32, s32, s32);
-void *sub_0800355C(void);
+s32 allocWorkSlot(void *, s32, s32, s32);
+void *allocSpriteObject(void);
 void sub_0806D2D0(void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E0(void *, s32);
@@ -8,9 +8,9 @@ struct GameState {
     u8 _0x000[0x18C2];
     u16 w;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* Spawns a projectile effect: reserves a sprite slot, allocates and initializes
  * the effect object, then fires the end callback and advances the animation. */
@@ -19,13 +19,13 @@ void sub_08075770(void *entity)
     u8 *self = (u8 *)entity;
     void *effect;
 
-    if (sub_0800168C(entity, 0, 0x68, 3) == 0)
+    if (allocWorkSlot(entity, 0, 0x68, 3) == 0)
     {
         sub_080C31E0(entity, *(s32 *)(self + 0x24));
         return;
     }
 
-    effect = sub_0800355C();
+    effect = allocSpriteObject();
     if (effect == 0)
     {
         sub_0806D2D0(entity);
@@ -35,7 +35,7 @@ void sub_08075770(void *entity)
     *(void **)(self + 0x38) = effect;
     *(u32 *)((u8 *)effect + 0x1C) = 0x80000005;
     {
-        u16 w = D_02025FF0.w;
+        u16 w = gMainWorkspace.w;
         u32 z = 0;
         *(u16 *)effect = w;
 

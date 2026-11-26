@@ -11,7 +11,7 @@ struct WorldTarget {
     u32 targetX;
     u32 targetY;
 };
-extern struct WorldTarget D_02025FF0;
+extern struct WorldTarget gMainWorkspace;
 
 /* Movement script step: animate the linked body, count down a remaining-distance
  * value, drive the body's velocity from its heading and speed and integrate its
@@ -32,8 +32,8 @@ void sub_080B1FAC(u8 *arg0)
     sub_0801165C(body, 0);
 
     if (*(s32 *)(arg0 + 0x6C) == 0) {
-        s32 deltaY = (s32)D_02025FF0.targetY - *(s32 *)(body + 0x0C);
-        s32 deltaX = (s32)D_02025FF0.targetX - *(s32 *)(body + 0x08);
+        s32 deltaY = (s32)gMainWorkspace.targetY - *(s32 *)(body + 0x0C);
+        s32 deltaX = (s32)gMainWorkspace.targetX - *(s32 *)(body + 0x08);
         *(s32 *)(arg0 + 0x7C) = sub_08005910(deltaY, deltaX);
         *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = 0;
         {

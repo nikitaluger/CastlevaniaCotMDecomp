@@ -3,8 +3,8 @@ extern void sub_080113A8(void *a, void *b);
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(void *a, void *b);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Entity update: despawn when off-camera or when the animation-control flags
  * signal a removal; otherwise apply the display state and advance the
@@ -31,8 +31,8 @@ void sub_08043818(void *arg0) {
     }
 
     {
-        u8 *coordTable = D_02021E90;
-        u8 *scroll = D_02025FF0;
+        u8 *coordTable = gCameraState;
+        u8 *scroll = gMainWorkspace;
         u8 *xTable;
         u8 *yTable;
         u32 idx;

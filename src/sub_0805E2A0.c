@@ -53,15 +53,15 @@ struct S_02025FF0
   u8 _18A9[0x19];
   u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gCameraState[];
 extern u32 D_080D00EC[];                    /* parameter index table */
 extern u8 D_0865FDF4[];                     /* animation entry table */
 extern u8 D_080D00A8[];
-extern s32 D_08671BB0[];
-extern void *sub_0800355C(void);            /* create the sprite object */
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void *sub_08016190(void);            /* allocate a part object */
+extern s32 gMainObjTimerCallback[];
+extern void *allocSpriteObject(void);            /* create the sprite object */
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocEffectPart(void);            /* allocate a part object */
 extern void sub_0805E688(void);             /* entity cleanup callback */
 extern void sub_080C31E0(void *, s32);      /* cleanup callback */
 extern void sub_080C31E4(void *, void *, s32); /* run a script handler */
@@ -80,14 +80,14 @@ void sub_0805E2A0(struct InitObj *obj)
   u16 z;
   int byteScale;
   params = &obj->f4C;
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == 0)
   {
     goto fail;
  do { } while (0);
   }
   obj->f38 = (u32) sprite;
-  sub_0800168C(obj, 0, 0x38, 0);
+  allocWorkSlot(obj, 0, 0x38, 0);
   ent = obj->f3C;
   if (ent == 0)
   {
@@ -98,7 +98,7 @@ void sub_0805E2A0(struct InitObj *obj)
   ent->f18 = 1;
   ent->f8 = params->f0;
   ent->fC = (u32) params->f4;
-  ent->f28 = sub_08016190();
+  ent->f28 = allocEffectPart();
   if (ent->f28 != 0)
   {
     goto body;
@@ -121,16 +121,16 @@ void sub_0805E2A0(struct InitObj *obj)
   ent->f28->fE = 0;
   ent->f28->f10 = sprite;
   ent->f28->f14 = 0;
-  *((u16 *) sprite) |= D_02025FF0.f18C2;
+  *((u16 *) sprite) |= gMainWorkspace.f18C2;
   ((struct SpriteTail *) sprite)->f1C = 0x80000007;
-  scrollTbl = (u8 *) (&D_02021E90);
+  scrollTbl = (u8 *) (&gCameraState);
   {
     u32 k = 0x1278;
-    *((u32 *) (((u8 *) sprite) + 0x14)) = (*((u32 *) (((u8 *) ent) + 0x08))) - (((*((u32 *) ((scrollTbl + k) + ((D_02025FF0.f18A8 + 1) << 6)))) + 0x8000) & 0xFFFF0000);
+    *((u32 *) (((u8 *) sprite) + 0x14)) = (*((u32 *) (((u8 *) ent) + 0x08))) - (((*((u32 *) ((scrollTbl + k) + ((gMainWorkspace.f18A8 + 1) << 6)))) + 0x8000) & 0xFFFF0000);
   }
   {
     u32 k = 0x127C;
-    *((u32 *) (((u8 *) sprite) + 0x18)) = (*((u32 *) (((u8 *) ent) + 0x0C))) - (((*((u32 *) ((scrollTbl + k) + ((D_02025FF0.f18A8 + 1) << 6)))) + 0xFFFF8000) & 0xFFFF0000);
+    *((u32 *) (((u8 *) sprite) + 0x18)) = (*((u32 *) (((u8 *) ent) + 0x0C))) - (((*((u32 *) ((scrollTbl + k) + ((gMainWorkspace.f18A8 + 1) << 6)))) + 0xFFFF8000) & 0xFFFF0000);
   }
   ent->f14 = 0x20000;
   ent->f34 = 0x258;
@@ -145,7 +145,7 @@ void sub_0805E2A0(struct InitObj *obj)
   }
   obj->f2 = (u16) (obj->f2 | 0x1000);
   *((u8 *) ((((u8 *) obj) + 0x19) + (byteScale * obj->f22))) = 0;
-  scriptOp = D_08671BB0;
+  scriptOp = gMainObjTimerCallback;
   stepPtr = ((u8 *) obj) + 0x18;
   sub_080C31E4(stepPtr, &obj->f22, *scriptOp);
   *((u8 *) ((((u8 *) obj) + 0x19) + (byteScale * obj->f22))) = (u8) ((*((u8 *) ((((u8 *) obj) + 0x19) + (byteScale * obj->f22)))) + 1);

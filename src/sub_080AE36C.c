@@ -1,4 +1,4 @@
-extern void sub_080114DC(void *, void *, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_0809856C(s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -27,7 +27,7 @@ void sub_080AE36C(void *actor) {
         counter = 0x100;
         *((u16 *)((s8 *)sprite + 4)) = counter;
         *((u16 *)((s8 *)sprite + 6)) = counter;
-        sub_080114DC(sprite, anim, 0x47, 0);
+        setObjectAnimation(sprite, anim, 0x47, 0);
         idx = *((s16 *)((s8 *)self + 0x22));
         *((u8 *)((s8 *)self + idx * 2 + 0x19)) = 0;
         handlerTable = (s32 *)0x08671BB0;

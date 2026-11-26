@@ -4,7 +4,7 @@ struct SpriteConfig {
     u32 sprite;
 };
 struct ConfigEntry { u16 value0; u16 pad; u16 value4; };
-struct SpriteConfig *sub_08016190(void);
+struct SpriteConfig *allocEffectPart(void);
 void sub_080C31E0(void *, void *);
 
 /* Allocate the sprite-config record kept in the logic's +0x28 slot and fill it
@@ -12,7 +12,7 @@ void sub_080C31E0(void *, void *);
  * logic+0x1C); if allocation fails, jump to the entity's state handler. */
 void sub_0803AEF0(void *entity, u8 *logic, s32 sprite) {
     u16 *offsets = (u16 *)0x080CF1F0;
-    struct SpriteConfig *config = sub_08016190();
+    struct SpriteConfig *config = allocEffectPart();
     *(struct SpriteConfig **)(logic + 0x28) = config;
     if (config == NULL) {
         sub_080C31E0(entity, *(void **)((u8 *)entity + 0x24));

@@ -1,4 +1,4 @@
-void sub_080114DC(void *, void *, s16, s32);
+void setObjectAnimation(void *, void *, s16, s32);
 void sub_08013C8C(void *, void *);
 
 /* Attach an effect to its owner: set the flip flags from its own direction
@@ -28,7 +28,7 @@ void sub_080BBD00(void *arg0) {
         *(u16 *)(anim + 2) = tmp;
     }
 
-    sub_080114DC(anim, animDesc, *(s16 *)((u8 *)arg0 + 0x4C), 0);
+    setObjectAnimation(anim, animDesc, *(s16 *)((u8 *)arg0 + 0x4C), 0);
     *(u32 *)(motion + 8) = *(u32 *)(owner + 8);
     *(u32 *)(motion + 0xC) = *(u32 *)(owner + 0xC);
     sub_08013C8C(arg0, anim);

@@ -1,4 +1,4 @@
-extern void sub_080114DC(s32, void *, s32, s32);
+extern void setObjectAnimation(s32, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Script step 0x0A: play animation 0x28, clear the step byte and advance
@@ -17,7 +17,7 @@ void sub_08099D18(void *arg0) {
     stepIndex = *(s16 *)((u8 *)arg0 + 0x22);
     stepValue = *(u8 *)((u8 *)arg0 + stepIndex * 2 + 0x19);
     if (stepValue == 0x0A) {
-        sub_080114DC(scene, anim, 0x28, 0);
+        setObjectAnimation(scene, anim, 0x28, 0);
         stepIndex = *(s16 *)((u8 *)arg0 + 0x22);
         *(u8 *)((u8 *)arg0 + stepIndex * 2 + 0x19) = 0;
         stepTable = (s32 *)0x08671BB0;

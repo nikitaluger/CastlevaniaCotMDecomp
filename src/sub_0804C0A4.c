@@ -1,6 +1,6 @@
 void sub_0804C674(void *, void *, void *);
 void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 /* If the pose block is active, re-arm the script step: set a 360-frame delay,
  * give the actor a fresh random bounce direction and velocity, clear the
@@ -19,7 +19,7 @@ void sub_0804C0A4(u8 *obj)
         *(u16 *)(pose + 0x16) = delay;
         sub_0804C674(obj, pose + 0xC, work + 0x58);
         *(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x19) = zero;
-        scriptTable = &D_08671BB0;
+        scriptTable = &gMainObjTimerCallback;
         sub_080C31E4(obj + 0x18, obj + 0x22, *scriptTable);
     }
 }

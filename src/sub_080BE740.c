@@ -1,11 +1,11 @@
 extern s32 sub_08005820(s32);
 extern void sub_080BE70C(s32, s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Spawn a scatter object: derive two coordinates from a random roll and the
- * given kind, add the per-slot offsets from the two tables in D_02021E90
- * indexed by (D_02025FF0[0x18A8] + 1) << 6, then pass them to sub_080BE70C. */
+ * given kind, add the per-slot offsets from the two tables in gCameraState
+ * indexed by (gMainWorkspace[0x18A8] + 1) << 6, then pass them to sub_080BE70C. */
 void sub_080BE740(s32 arg0)
 {
   s32 kind;
@@ -47,8 +47,8 @@ void sub_080BE740(s32 arg0)
   }
   roll = offsetBase;
   sum = x + roll;
-  tableBase = D_02021E90;
-  gameState = D_02025FF0;
+  tableBase = gCameraState;
+  gameState = gMainWorkspace;
   slotByte = gameState[0x18A8];
   slotByte = slotByte + 1;
   slotOffset = slotByte << 6;

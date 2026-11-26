@@ -6,7 +6,7 @@ struct GameState10 {
     u8 _0[0x10];
     u32 state;
 };
-extern struct GameState10 D_02025FF0;
+extern struct GameState10 gMainWorkspace;
 
 /* Action step: face the sprite using work+8; if entity+0x4C is set, also set
  * the sprite's highlight flag (0x40). When the object at work+0x48 reports
@@ -23,7 +23,7 @@ void sub_080B8424(void *arg0) {
     }
     if (sub_080B9824(*(s32 *)((u8 *)work + 0x48)) != 0) {
         s32 *scriptTable;
-        D_02025FF0.state = 0xC;
+        gMainWorkspace.state = 0xC;
         *(u8 *)(entity + (*(s16 *)(entity + 0x22) * 2) + 0x19) = 0;
         scriptTable = (s32 *)0x08671BB0;
         sub_080C31E4(entity + 0x18, entity + 0x22, *scriptTable);

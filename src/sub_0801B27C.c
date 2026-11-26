@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080161F0(void);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -14,7 +14,7 @@ void sub_0801B27C(void *actor) {
     u8 *child;
     void **nextScriptTable;
 
-    sub_08011368(owner, anim, 0xB, 0);
+    setAnimationFrame(owner, anim, 0xB, 0);
     child = *(u8 **)(target + 0x34);
     zero = 0;
     child[1] = zero;

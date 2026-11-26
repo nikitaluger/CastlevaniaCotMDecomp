@@ -1,8 +1,8 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(u8 *, s32, s32, s32);
-extern s32 sub_08013C2C(s32);
-extern void sub_0801131C(u8 *, u8 *, s32);
-extern void *sub_08016190(void);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(u8 *, s32, s32, s32);
+extern s32 findKindIndex(s32);
+extern void initSpriteGraphics(u8 *, u8 *, s32);
+extern void *allocEffectPart(void);
 extern void sub_08021690(void);
 extern void sub_080216B0(u8 *, void *);
 extern void sub_080C31E0(u8 *, s32);
@@ -12,13 +12,13 @@ struct SpriteAttribs { u8 _0; u8 kind; u8 subPriority; u8 shape; u16 baseTile; u
 struct EntityState { u8 _0[8]; s32 x; s32 y; u32 _10; u32 _14; u32 active; s16 animId; u8 _1E[4]; s16 variant; u32 updateCallback; struct SpriteAttribs *attribs; u8 _2C[0x48-0x2C]; s32 lifetime; s32 counter; };
 struct Entity { u8 _0[2]; u16 flags; u8 _4[0x22-4]; s16 index; u8 _24[0x38-0x24]; u8 *object; struct EntityState *state; u8 _40[0x4C-0x40]; s16 spawnX; u8 _4E[6]; s16 spawnY; };
 struct GlobalStateA { u8 _0[0x18A8]; u8 cameraIndex; u8 _18A9[0x19]; u16 gfxFlag; };
-extern struct GlobalStateA D_02025FF0;
+extern struct GlobalStateA gMainWorkspace;
 struct GlobalStateB { u8 _0[0x1278]; u32 coordX; u32 coordY; };
-extern struct GlobalStateB D_02021E90;
+extern struct GlobalStateB gCameraState;
 struct AnimTable { u8 _0[4]; u16 baseTile; u16 extra; u8 _8[0x28-8]; };
-extern struct AnimTable D_080CBDD0[];
+extern struct AnimTable gEffectGfxTable[];
 extern u16 D_080CE7EC[];
-extern u8 D_080CD400[];
+extern u8 gSpriteAnimDataTable[];
 
 /* Creates an entity's sprite and animation: allocates the graphics object and
  * attribute block, fills the attributes from the sprite tables, positions it
@@ -34,13 +34,13 @@ void sub_08021364(struct Entity *entity) {
     u32 one;
     u8 *coordBase;
 
-    obj = sub_0800355C();
+    obj = allocSpriteObject();
     if (obj == NULL) {
         sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }
     entity->object = obj;
-    sub_0800168C((u8 *)entity, 0, 0x48, 0);
+    allocWorkSlot((u8 *)entity, 0, 0x48, 0);
     state = entity->state;
     if (state == NULL) {
         sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
@@ -55,14 +55,14 @@ void sub_08021364(struct Entity *entity) {
     state->active = one;
     state->x = entity->spawnX << 16;
     state->y = entity->spawnY << 16;
-    variantRnd = sub_08013C2C(0x20);
+    variantRnd = findKindIndex(0x20);
     state->variant = variantRnd;
     if ((variantRnd << 16) < 0) {
         sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }
-    sub_0801131C(obj, anim, (s32)D_080CD400 + state->animId * 0xC);
-    attribs = sub_08016190();
+    initSpriteGraphics(obj, anim, (s32)gSpriteAnimDataTable + state->animId * 0xC);
+    attribs = allocEffectPart();
     state->attribs = (struct SpriteAttribs *)attribs;
     if (attribs == NULL) {
         sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
@@ -71,12 +71,12 @@ void sub_08021364(struct Entity *entity) {
     state->attribs->kind = zeroA;
     state->attribs->subPriority = 8;
     state->attribs->shape = one;
-    state->attribs->baseTile = D_080CBDD0[state->animId].baseTile;
+    state->attribs->baseTile = gEffectGfxTable[state->animId].baseTile;
     state->attribs->tile0 = D_080CE7EC[0];
     state->attribs->tile1 = D_080CE7EC[1];
     state->attribs->tile2 = D_080CE7EC[2];
     state->attribs->tile3 = D_080CE7EC[3];
-    state->attribs->extra = D_080CBDD0[state->animId].extra;
+    state->attribs->extra = gEffectGfxTable[state->animId].extra;
     state->attribs->object = (u32)obj;
     state->attribs->timer = 0;
     {
@@ -85,17 +85,17 @@ void sub_08021364(struct Entity *entity) {
                       ((((*(s16 *)((u8 *)state + 0x22) << 6) + 0x200) |
                         ((*(u16 *)((u8 *)state + 0x22) + 8) << 12)));
         *o = gfxAttr;
-        *o = gfxAttr | D_02025FF0.gfxFlag;
+        *o = gfxAttr | gMainWorkspace.gfxFlag;
     }
     *(u32 *)(obj + 0x1C) = 0x8000000A;
-    coordBase = (u8 *)&D_02021E90;
+    coordBase = (u8 *)&gCameraState;
     {
         u32 off = 0x1278;
-        *(u32 *)(obj + 0x14) = state->x - ((*(u32 *)(coordBase + off + ((D_02025FF0.cameraIndex + 1) << 6)) + 0x8000) & 0xFFFF0000);
+        *(u32 *)(obj + 0x14) = state->x - ((*(u32 *)(coordBase + off + ((gMainWorkspace.cameraIndex + 1) << 6)) + 0x8000) & 0xFFFF0000);
     }
     {
         u32 off = 0x127C;
-        *(u32 *)(obj + 0x18) = state->y - ((*(u32 *)(coordBase + off + ((D_02025FF0.cameraIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000);
+        *(u32 *)(obj + 0x18) = state->y - ((*(u32 *)(coordBase + off + ((gMainWorkspace.cameraIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000);
     }
     *(u16 *)(obj + 0x28) = 0x31;
     state->attribs->kind |= 1;

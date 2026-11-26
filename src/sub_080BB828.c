@@ -1,4 +1,4 @@
-extern void sub_08014588(s32, void *);
+extern void copyPoseAttrs(s32, void *);
 extern u8 D_08102E18[];
 
 /* Chooses one of three pose tables from the source's state, then copies the
@@ -32,12 +32,12 @@ set0:
 end:
     first = *(s32 *)(owner + 0x28);
     off = tableIndex * 0x30;
-    sub_08014588(first, D_08102E18 + off);
+    copyPoseAttrs(first, D_08102E18 + off);
     i = 0;
     p = D_08102E18 + off + 8;
     cursor = slotList;
     for (; i <= 4; i++) {
-        sub_08014588(*cursor++, p);
+        copyPoseAttrs(*cursor++, p);
         p += 8;
     }
 }

@@ -8,7 +8,7 @@ struct GameState {
     u8 _pad[0x40];
     u32 actionState;  /* script/effect code, the effect fires at 6 */
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 extern void sub_080148D8(s32, s32);
 extern void sub_0808E9EC(void *, void *);
 extern void sub_080C31E0(void *, void *);
@@ -21,7 +21,7 @@ void sub_080B8484(void *arg0) {
     u8 *scriptEntry;
 
     sub_080148D8(sprite, *(s32 *)(work + 0x08));
-    if (D_02025FF0.actionState == 6) {
+    if (gMainWorkspace.actionState == 6) {
         sub_0808E9EC(arg0, work + 0x0C);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {

@@ -1,4 +1,4 @@
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern void *D_020278D0[];
 void *sub_08001480(void *, s32);
 void sub_0800F4D4(s32, u8, s32);
@@ -10,7 +10,7 @@ void sub_080C2E68(void *, void *, s32);
  * then load their graphics. */
 void sub_0800E2A0(void *parent)
 {
-    u8 *workState = D_02025368;
+    u8 *workState = gGameStatus;
     u32 slotIndex = 0;
     u8 *statusObjects = (u8 *)D_020278D0;
     void **slotPtr;

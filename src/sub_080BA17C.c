@@ -4,7 +4,7 @@ extern void sub_080BE550(s32, s32, void *);
 extern void sub_080BE564(s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Actor script step: reset the actor and its linked work state, load the
  * resource at 0x08440AA8, clear the work's pointer flags, configure two
@@ -32,7 +32,7 @@ void sub_080BA17C(void *arg0)
     sub_080BE564(*(s32 *)(work + 0x1C), 1);
 
     *(s8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (s8)zero;
-    scriptTable = &D_08671BB0;
+    scriptTable = &gMainObjTimerCallback;
     stepData = self + 0x18;
     sub_080C31E4(stepData, self + 0x22, *scriptTable);
 

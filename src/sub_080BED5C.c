@@ -15,17 +15,17 @@ struct SceneState {
     u8 _pad2[0x1458 - 0x136A];
     u8 displayValue;        /* 0x1458 */
 };
-extern struct SceneState D_02021E90;
+extern struct SceneState gCameraState;
 
 /* Gfx/effect state block: +4 highlight color, +8 frame counter. */
 struct GfxState { u8 _0x000[4]; u16 color; u8 _pad[2]; u16 frame; };
 extern struct GfxState D_03000830;
 
 struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 
 void sub_080BE87C(void) {
-    void *r5 = (void *)D_02025FF0.v;
+    void *r5 = (void *)gMainWorkspace.v;
     void *r2 = *(void **)((u8 *)r5 + 0x30);
     while (r2 != 0) {
         if (*(s16 *)r2 == 0x1DA) {
@@ -40,10 +40,10 @@ void sub_080BE87C(void) {
  * the saved display value at 0x1458 into the transition block, clear its second
  * argument and restore the DISPCNT high byte (0xE3 = BG1-BG3, win/OBJ bits). */
 void sub_080BED5C(void) {
-    D_02021E90.transitionStep = 3;
-    D_02021E90.savedColor = D_03000830.color;
-    D_02021E90.savedFrame = D_03000830.frame;
-    D_02021E90.savedValue = D_02021E90.displayValue;
-    D_02021E90.savedArg = 0;
+    gCameraState.transitionStep = 3;
+    gCameraState.savedColor = D_03000830.color;
+    gCameraState.savedFrame = D_03000830.frame;
+    gCameraState.savedValue = gCameraState.displayValue;
+    gCameraState.savedArg = 0;
     *(vu8 *)0x04000005 = 0xE3;
 }

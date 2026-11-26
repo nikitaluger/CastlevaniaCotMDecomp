@@ -11,7 +11,7 @@ void sub_080979C4(void *entity, void *cmd)
     sub_0801604C(cmd);
 }
 
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 /* True when the global 16.16 position (the player) lies within 32 px
  * horizontally and 48 px vertically of the entity's point at +0x0C/+0x10. */
@@ -20,10 +20,10 @@ s32 sub_0808FBB4(void *entity)
     void *state = *(void **)((s8 *)entity + 0x3C);
     s32 pointX = *(s32 *)((s8 *)state + 0x0C);
     s32 pointY = *(s32 *)((s8 *)state + 0x10);
-    if (*(u32 *)(D_02025FF0 + 0x1728) >= pointX + 0xFFE00000 &&
-        *(u32 *)(D_02025FF0 + 0x1728) <= pointX + 0x200000 &&
-        *(u32 *)(D_02025FF0 + 0x172C) >= pointY + 0xFFD00000 &&
-        *(u32 *)(D_02025FF0 + 0x172C) <= pointY + 0x300000) {
+    if (*(u32 *)(gMainWorkspace + 0x1728) >= pointX + 0xFFE00000 &&
+        *(u32 *)(gMainWorkspace + 0x1728) <= pointX + 0x200000 &&
+        *(u32 *)(gMainWorkspace + 0x172C) >= pointY + 0xFFD00000 &&
+        *(u32 *)(gMainWorkspace + 0x172C) <= pointY + 0x300000) {
         return 1;
     }
     return 0;

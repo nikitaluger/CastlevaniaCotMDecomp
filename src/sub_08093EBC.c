@@ -4,7 +4,7 @@ extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s16 sub_080C36E4(s16, s32);
 extern u16 D_08100818[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* Looks up a value from D_08100818 into the FX object, spawns a randomly offset
  * effect when the table check succeeds, and ticks a countdown that, on expiry,
@@ -41,7 +41,7 @@ void sub_08093EBC(u8 *self) {
                 stepOffset += (u32)self;
                 *(u8 *)(stepOffset + 0x19) = 0;
             }
-            msgPtr = (u32 *)D_08671BB0;
+            msgPtr = (u32 *)gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *msgPtr);
         }
     }

@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 s32 sub_08014990(void *);
 void sub_08025A8C(s32, s32, s32, s32, s32);
 void sub_08025728(void *, void *);
@@ -8,7 +8,7 @@ struct S_02025FF0_189C {
     u8 _0[0x189C];
     s32 field189C;
 };
-extern struct S_02025FF0_189C D_02025FF0;
+extern struct S_02025FF0_189C gMainWorkspace;
 
 extern void *D_08671BD0;
 
@@ -26,7 +26,7 @@ void sub_08025548(void *self)
 
     if (*(u8 *)(body + 1) == 1)
     {
-        s32 gameFlags = D_02025FF0.field189C;
+        s32 gameFlags = gMainWorkspace.field189C;
         s32 parity = (s32)(gameFlags + ((u32)gameFlags >> 31));
         if ((parity >> 1) & 1)
             *(s32 *)(fx + 0x14) = 0x10000;
@@ -34,7 +34,7 @@ void sub_08025548(void *self)
             *(s32 *)(fx + 0x14) = 0;
     }
 
-    sub_08011368(parent, body, 5, 0);
+    setAnimationFrame(parent, body, 5, 0);
 
     if (*(u8 *)(body + 1) == 2 && *(s32 *)(body + 4) == 1)
     {

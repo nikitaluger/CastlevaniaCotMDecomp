@@ -3,7 +3,7 @@ void sub_0801565C(u8 *, s32 *, s32 *);
 void sub_0801572C(u8 *, s32 *, s32 *);
 
 struct S_02025FF0 { u8 _0x000[0x189C]; u32 w; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Update an entity's sprite attribute from its kind and countdown, clear a
  * flag on two related objects, then either report it available or run the
@@ -12,11 +12,11 @@ s32 sub_0801576C(u16 *gfx, u8 *entity, u8 *other1, u8 *other2, s32 *held1, s32 *
     if (*(u16 *)(entity + 0) & 1) return 0;
     if (*(u16 *)(entity + 0) & 0xC) {
         if (*(u16 *)(entity + 0) & 4) {
-            if (*(s16 *)(entity + 0x1E) > 0x3C || !(D_02025FF0.w & 2)) {
+            if (*(s16 *)(entity + 0x1E) > 0x3C || !(gMainWorkspace.w & 2)) {
                 *(u16 *)(gfx + 0) = (*(u16 *)(gfx + 0) & 0xFFF) | 0xD000;
             }
         } else {
-            if (*(s16 *)(entity + 0x1E) > 0x3C || !(D_02025FF0.w & 2)) {
+            if (*(s16 *)(entity + 0x1E) > 0x3C || !(gMainWorkspace.w & 2)) {
                 *(u16 *)(gfx + 0) = (*(u16 *)(gfx + 0) & 0xFFF) | 0xC000;
             }
         }

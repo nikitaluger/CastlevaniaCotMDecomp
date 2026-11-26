@@ -1,11 +1,11 @@
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080A0340(void *, s32);
 extern void sub_080A04B4(void);
 extern void sub_080A04E0(void);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Allocates and initializes an FX object for this entity and its component,
  * loads the visual resources, clears the current script step, posts a message
@@ -21,14 +21,14 @@ void sub_0809F014(u8 *self)
   u8 *component;
   s32 zero;
 
-  fxObj = sub_0800355C();
+  fxObj = allocSpriteObject();
   if (fxObj == NULL)
   {
     sub_080C31E0(self, *((void **) (self + 0x24)));
     return;
   }
   *((u8 **) (self + 0x38)) = fxObj;
-  sub_0800168C(self, 0, 0x48, 0);
+  allocWorkSlot(self, 0, 0x48, 0);
   if ((*((u32 *) (self + 0x3C))) == 0)
   {
     sub_080C31E0(self, *((void **) (self + 0x24)));
@@ -49,7 +49,7 @@ void sub_0809F014(u8 *self)
   stepIdx = *((s16 *) (self + 0x22));
   self[(stepIdx * 2) + 0x19] = zero;
   {
-    void **lit = &D_08671BB0;
+    void **lit = &gMainObjTimerCallback;
     stepBase = self + 0x18;
     sub_080C31E4(stepBase, self + 0x22, *lit);
   }

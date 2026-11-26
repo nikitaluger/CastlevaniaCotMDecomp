@@ -1,9 +1,9 @@
-s32 sub_0800168C(void *, s32, s32, s32);
-void *sub_0800355C(void);
+s32 allocWorkSlot(void *, s32, s32, s32);
+void *allocSpriteObject(void);
 void sub_08072270(void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E0(void *, s32);
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 struct T {
     u16 attr0; u8 pad02[2]; u16 attr1; u16 attr2; u16 attr3;
     u8 pad0A[0x14 - 0x0A]; u32 param0; u32 param1; u32 mode;
@@ -17,12 +17,12 @@ void sub_08072094(u8 *entity)
 {
   void *sprite;
   struct T *spriteData;
-  if (sub_0800168C(entity, 0, 0x38, 3) == 0)
+  if (allocWorkSlot(entity, 0, 0x38, 3) == 0)
   {
     sub_080C31E0(entity, *((s32 *) (entity + 0x24)));
     return;
   }
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == 0)
   {
     sub_08072270(entity);

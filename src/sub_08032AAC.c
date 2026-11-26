@@ -46,22 +46,22 @@ struct AnimEntry {
     u16 w1;
     u8 _08[0x20];
 };
-void *sub_0800355C(void);
-void sub_0800168C(void *, u32, u32, u32);
-void sub_08014288(void *, void *, void *);
+void *allocSpriteObject(void);
+void allocWorkSlot(void *, u32, u32, u32);
+void installUpdateHandler(void *, void *, void *);
 void sub_08014290(void);
-u32 sub_08013C2C(s16);
-void sub_0801131C(void *, void *, void *);
-void sub_08011368(void *, void *, u32, u32);
-void *sub_08016190(void);
+u32 findKindIndex(s16);
+void initSpriteGraphics(void *, void *, void *);
+void setAnimationFrame(void *, void *, u32, u32);
+void *allocEffectPart(void);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
-extern u8 D_080CBDD0[];
-extern u8 D_080CD400[];
+extern u8 gEffectGfxTable[];
+extern u8 gSpriteAnimDataTable[];
 extern u16 D_080CEBD0[];
-extern u8 D_02025FF0[];
-extern u8 D_02021E90[];
-extern u32 D_08671BB0;
+extern u8 gMainWorkspace[];
+extern u8 gCameraState[];
+extern u32 gMainObjTimerCallback;
 
 /* Spawns an attack's sprite and effect entity, assigns an animation slot, fills
  * the effect from the sprite/attribute tables, sets world coordinates from the
@@ -77,31 +77,31 @@ void sub_08032AAC(struct Entity *owner)
   u32 graphics;
   u32 animSlotId;
   s16 step;
-  sprite = (struct SpriteObj *) sub_0800355C();
+  sprite = (struct SpriteObj *) allocSpriteObject();
   if (sprite == NULL) goto fail;
   owner->object = (u32) sprite;
-  sub_0800168C(owner, 0, 0x50, 0);
+  allocWorkSlot(owner, 0, 0x50, 0);
   if (owner->part == 0) goto fail;
   sprite->typeFlags = 0x8000000B;
   part = (struct Part *) owner->part;
   animData = ((u8 *) part) + 0x34;
-  sub_08014288(owner, part, &sub_08014290);
+  installUpdateHandler(owner, part, &sub_08014290);
   part->animId = 20;
   part->x = owner->f4C;
   part->y = owner->f5C;
-  animSlotId = sub_08013C2C(20);
+  animSlotId = findKindIndex(20);
   part->animSlot = (u16) animSlotId;
   if (((s16) ((u16) animSlotId)) < 0) goto fail;
   graphics = ((u32) (((s32) ((s16) part->animSlot)) << 6)) + (0x80 << 2);
   graphics |= (animSlotId + 8) << 12;
   sprite->graphics = (u16) graphics;
-  state = D_02025FF0;
+  state = gMainWorkspace;
   graphics |= *((u16 *) (state + 0x18C2));
   sprite->graphics = (u16) graphics;
-  sub_0801131C(sprite, animData, (void *) (D_080CD400 + (12 * ((s32) part->animId))));
-  sub_08011368(sprite, animData, 0x19, 0x01);
+  initSpriteGraphics(sprite, animData, (void *) (gSpriteAnimDataTable + (12 * ((s32) part->animId))));
+  setAnimationFrame(sprite, animData, 0x19, 0x01);
   attrConfig = (u8 *) D_080CEBD0;
-  part->subEffect = (u32) sub_08016190();
+  part->subEffect = (u32) allocEffectPart();
   if (part->subEffect == 0) goto fail;
   goto cont;
 fail:
@@ -111,7 +111,7 @@ cont:
   ((u8 *) part->subEffect)[1] = 5;
   ((u8 *) part->subEffect)[2] = 8;
   ((u8 *) part->subEffect)[3] = 1;
-  { u8 *sub = (u8 *) part->subEffect; spriteTable = D_080CBDD0; ((struct SubEffect *) sub)->f04 = ((struct AnimEntry *) (spriteTable + (((s32) part->animId) * 40)))->w0; }
+  { u8 *sub = (u8 *) part->subEffect; spriteTable = gEffectGfxTable; ((struct SubEffect *) sub)->f04 = ((struct AnimEntry *) (spriteTable + (((s32) part->animId) * 40)))->w0; }
   ((struct SubEffect *) part->subEffect)->f06 = *((u16 *) (&attrConfig[0]));
   ((struct SubEffect *) part->subEffect)->f08 = *((u16 *) (&attrConfig[2]));
   ((struct SubEffect *) part->subEffect)->f0A = *((u16 *) (&attrConfig[4]));
@@ -119,7 +119,7 @@ cont:
   ((struct SubEffect *) part->subEffect)->f0E = ((struct AnimEntry *) (spriteTable + (((s32) part->animId) * 40)))->w1;
   *((u32 *) (((u8 *) part->subEffect) + 0x10)) = (u32) sprite;
   {
-    u8 *pt = D_02021E90;
+    u8 *pt = gCameraState;
     u8 *base1;
     u8 *base2;
     u32 idx;
@@ -134,7 +134,7 @@ cont:
   step = *((s16 *) (((u8 *) owner) + 0x22));
   *((((u8 *) owner) + (((s32) step) * 2)) + 0x19) = 0;
   {
-    u32 *gptr = &D_08671BB0;
+    u32 *gptr = &gMainObjTimerCallback;
     u8 *p18 = ((u8 *) owner) + 0x18;
     u8 *p22 = ((u8 *) owner) + 0x22;
     sub_080C31E4(p18, p22, *gptr);

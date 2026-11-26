@@ -1,15 +1,15 @@
-void *sub_08016190(void);
+void *allocEffectPart(void);
 void sub_0806D2D0(void *);
 u16 sub_0806D62C(u16, s32);
 void sub_080718F4(void);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
 
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u32 D_080E0110[];
 extern u32 D_084748AC;
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 struct Obj {
     u8 f0, f1, f2, f3;
@@ -29,10 +29,10 @@ void sub_08070E34(void *arg0)
     u8 *mgr = (u8 *)arg0;
     u8 *sub = *(u8 **)(mgr + 0x6C) + 4;
     void *owner = *(void **)(mgr + 0x38);
-    u8 *dataTable = D_02025368;
+    u8 *dataTable = gGameStatus;
     void *obj;
 
-    obj = sub_08016190();
+    obj = allocEffectPart();
     *(void **)(sub + 0x3C) = obj;
     if (obj == 0) {
         sub_0806D2D0(arg0);
@@ -40,7 +40,7 @@ void sub_08070E34(void *arg0)
     }
 
     {
-        u8 *gs = D_02025FF0;
+        u8 *gs = gMainWorkspace;
         ((struct Obj *)obj)->f1 = gs[0x1510] & 5;
     }
     ((struct Obj *)(u32)*(vu32 *)(sub + 0x3C))->f2 = 2;
@@ -71,7 +71,7 @@ void sub_08070E34(void *arg0)
     *(void **)(mgr + 0x24) = (void *)sub_080718F4;
 
     {
-        u8 *gs = D_02025FF0;
+        u8 *gs = gMainWorkspace;
         *(u32 *)((u8 *)owner + 0x24) = (u32)&D_084748AC;
         *(u32 *)((u8 *)owner + 0x14) = D_080E0110[(*(u32 *)(gs + 0x14F4) & 0x3C) >> 2];
         *(u32 *)((u8 *)owner + 0x18) = 0xFFE00000;
@@ -82,7 +82,7 @@ void sub_08070E34(void *arg0)
     {
         *(u8 *)(mgr + *(s16 *)(mgr + 0x22) * 2 + 0x19) = 0;
         {
-            void **spawnFunc = &D_08671BB0;
+            void **spawnFunc = &gMainObjTimerCallback;
             u8 *poseBase = mgr + 0x18;
             sub_080C31E4(poseBase, mgr + 0x22, *spawnFunc);
             {

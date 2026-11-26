@@ -1,5 +1,5 @@
 void sub_080C31E4(void *, void *, u32);
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 
 /* Scripted object header: current command slot index (0x22), the callback run
  * by the command script (0x24), sprite object (0x38) and work/animation state
@@ -23,7 +23,7 @@ void sub_0805066C(struct MainObj *entity) {
     void *slotPtr;
     u32 *scriptTable;
 
-    sub_08011368(entity->sprite, (u8 *)entity->work + 0x34, 0x1B, 1);
+    setAnimationFrame(entity->sprite, (u8 *)entity->work + 0x34, 0x1B, 1);
     slotIndex = entity->commandSlot;
     slot = (u8 *)((slotIndex << 1) + (u32)entity);
     if (slot[0x19] > 0x50) {

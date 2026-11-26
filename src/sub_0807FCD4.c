@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u32 D_080E572C[];
 s32 sub_0806D35C(void *, void *, void *);
 void sub_0806D588(void *, void *);
@@ -21,7 +21,7 @@ void sub_0807FCD4(u8 *entity) {
     targetCopy = target;
     if (sub_0806D35C(entity, state, target) != 0) return;
     {
-        u8 *globals = D_02025FF0;
+        u8 *globals = gMainWorkspace;
         u32 value;
         u32 cachedIndex;
         u8 *sourceState;
@@ -56,7 +56,7 @@ void sub_0807FCD4(u8 *entity) {
     }
     sub_0806D588(state, targetCopy);
     {
-        u8 *globalsEnd = D_02025FF0;
+        u8 *globalsEnd = gMainWorkspace;
         *(u32 *)(target + 0x54) = *(u32 *)(globalsEnd + 0x14F8);
     }
 }

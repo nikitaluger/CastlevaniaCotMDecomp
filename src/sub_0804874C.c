@@ -1,6 +1,6 @@
 extern s32 sub_08005910(s32, s32);
 extern void sub_0801165C(void *, s32);
-extern void sub_0801468C(void *, s32);
+extern void setSpriteFlip(void *, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern s32 sub_0801473C(s32, s32);
 extern void sub_08049180(void *, void *, void *, void *);
@@ -22,9 +22,9 @@ struct HomingEntity {
   void *sprite;
   struct HomingMotion *motion;
 };
-extern struct HomingGamePos D_02025FF0;
+extern struct HomingGamePos gMainWorkspace;
 extern s32 D_08671BFC;
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 /* Steers a homing entity toward the target, advances its motion and facing,
  * then stops it and fires a callback once its state byte reaches 0x5A. */
@@ -44,8 +44,8 @@ void sub_0804874C(struct HomingEntity *entity)
   collisionData = (s32)((u8 *)motion + 0x34);
   steer = (struct HomingSteer *)((u8 *)motion + 0x48);
   trigFn = &D_08671BFC;
-  deltaX = D_02025FF0.targetX + ((sub_080C31E0(steer->phase + 0x4000, *trigFn) >> 8) << 14);
-  deltaY = (D_02025FF0.targetY + ((sub_080C31E0(steer->phase, *trigFn) >> 8) << 14)) - motion->y;
+  deltaX = gMainWorkspace.targetX + ((sub_080C31E0(steer->phase + 0x4000, *trigFn) >> 8) << 14);
+  deltaY = (gMainWorkspace.targetY + ((sub_080C31E0(steer->phase, *trigFn) >> 8) << 14)) - motion->y;
   deltaX -= motion->x;
   desiredAngle = sub_08005910(deltaY, deltaX);
   turn = sub_0801473C(steer->angle, desiredAngle);
@@ -57,7 +57,7 @@ void sub_0804874C(struct HomingEntity *entity)
   }
   sub_080146D0(motion, steer->angle, steer->speed);
   sub_0801165C(motion, 0);
-  sub_0801468C(sprite, steer->angle);
+  setSpriteFlip(sprite, steer->angle);
   sub_08049180(sprite, (void *)collisionData, motion, steer);
   if (((struct HomingState *)((u8 *)entity + entity->stateIndex * 2))->state == 0x5A) {
     s32 zero = 0;
@@ -65,7 +65,7 @@ void sub_0804874C(struct HomingEntity *entity)
     sub_080146D0(motion, steer->angle, 0);
     ((struct HomingState *)((u8 *)entity + entity->stateIndex * 2))->state = zero;
     {
-      s32 *callback = &D_08671BB0;
+      s32 *callback = &gMainObjTimerCallback;
       sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callback);
     }
   }

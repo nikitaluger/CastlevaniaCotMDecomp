@@ -1,4 +1,4 @@
-void sub_08000E98(s32 a, void *b, void *c, s32 d, s32 e);
+void postDisplaySprite(s32 a, void *b, void *c, s32 d, s32 e);
 struct Entry
 {
   u16 c0[16];
@@ -67,6 +67,6 @@ void sub_08006680(s32 arg0, s32 arg1)
     while (i <= arg1);
   }
   i = 5;
-  sub_08000E98(1, &tmp[arg0 * 16], (void *) (0x05000000 + (arg0 << i)), ((arg1 - arg0) + (new_var3 = 1)) << i, 0x10);
+  postDisplaySprite(1, &tmp[arg0 * 16], (void *) (0x05000000 + (arg0 << i)), ((arg1 - arg0) + (new_var3 = 1)) << i, 0x10);
 }
 

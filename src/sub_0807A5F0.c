@@ -1,11 +1,11 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_08003A6C(void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_0808449C(void);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 
 /* One child record reserved from the shared 0x34-byte spawn-slot pool. */
 struct ChildSpawnRec {
@@ -34,14 +34,14 @@ void sub_0807A5F0(u8 *entity) {
     u8 *groupBase = *(u8 **)(entity + 0x6C);
     struct EntitySpawnState *state = (struct EntitySpawnState *)(groupBase + 4);
     u8 *sprite = *(u8 **)(entity + 0x38);
-    u8 *params = D_02025368;
+    u8 *params = gGameStatus;
     void *child;
     u32 zero;
     u8 *ctrlBase;
     s32 *callbackSlot;
     s32 i;
 
-    child = sub_08016190();
+    child = allocEffectPart();
     state->spawn = child;
     if (child == NULL) {
         sub_0806D2D0(entity);

@@ -1,8 +1,8 @@
 s32 sub_08014990(s32);
 void *sub_08016238(s32);
 void sub_0808E9AC(s32, s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 inline u8 *inline_fn(void *arg0)
 {
   return (u8 *) arg0;
@@ -34,7 +34,7 @@ s32 sub_080457E0(void *arg0)
   p38 = *((void **) (((u8 *) arg0) + 0x38));
   p3C = t;
   r6 = ((u8 *) p3C) + 0x48;
-  f6 = *((u16 *) (r6 + 6));
+  do { f6 = *((u16 *) (r6 + 6)); } while (0);
   new_var4 = (s32 *) (r6 + 0x0C);
   if (((s32) (*((s16 *) (r6 + 6)))) > 0)
   {
@@ -51,14 +51,14 @@ s32 sub_080457E0(void *arg0)
       return 0;
     }
     r4 = sub_08016238(*new_var4);
-    if (r4 == 0)
+    do { if (r4 == 0)
     {
       return 0;
-    }
+    } } while (0);
     new_var3 = ((u8 *) p3C) + 8;
     if (sub_08014990((s32) p38) < 0)
     {
-      base = D_02025FF0;
+      base = gMainWorkspace;
       new_var2 = base + 0x174C;
       cur = *((s32 *) new_var3);
       if ((*((s32 *) new_var2)) > (cur + ((s32) 0xFFF80000)))
@@ -69,7 +69,7 @@ s32 sub_080457E0(void *arg0)
     }
     else
     {
-      base = D_02025FF0;
+      base = gMainWorkspace;
       new_var5 = (s32 *) (base + 0x174C);
       cur = *((s32 *) new_var3);
       if ((*((s32 *) new_var5)) < (cur + 0x80000))
@@ -80,8 +80,8 @@ s32 sub_080457E0(void *arg0)
     }
     new_var6 = *((s16 *) (inline_fn(r4) + 0x32));
     addr = cur + off;
-    val = (((s32) new_var6) << 16) + ((s32) 0xFFFF8000);
-    t = D_02021E90;
+    cur = (((s32) new_var6) << 16); val = cur + ((s32) 0xFFFF8000);
+    t = gCameraState;
     k = *inline_fn(base + 0x18A8);
     k = k + 1;
     k = k << 6;

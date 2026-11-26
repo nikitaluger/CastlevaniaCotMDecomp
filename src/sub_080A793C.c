@@ -1,7 +1,7 @@
 typedef s32 M2C_UNK;
 M2C_UNK sub_080A845C(void *, void *);
 M2C_UNK sub_080A8B70(void *);
-s16 sub_080C2F20(s32, s32);
+s16 divideInt(s32, s32);
 s32 sub_080C31E0(s32, s32);
 M2C_UNK sub_080C31E8(void *, void *, s32, s32);
 
@@ -43,11 +43,11 @@ void sub_080A793C(void *entity)
   }
   if ((*((s32 *) (((s8 *) motionEx) + 0xEC))) == 0)
   {
-    newStep = sub_080C2F20((*((s16 *) (((s8 *) (*((void **) (((s8 *) motion) + 0x28)))) + 0xE))) * 5, 4);
+    newStep = divideInt((*((s16 *) (((s8 *) (*((void **) (((s8 *) motion) + 0x28)))) + 0xE))) * 5, 4);
     subComp = *((void **) (((s8 *) motion) + 0x28));
     scratch = 0;
     *((s16 *) (((s8 *) subComp) + 0xE)) = newStep;
-    *((s16 *) (((s8 *) (*((void **) (((s8 *) motionEx) + 0x114)))) + 0xE)) = sub_080C2F20((*((s16 *) (((s8 *) (*((void **) (((s8 *) motionEx) + 0x114)))) + 0xE))) * 5, 4);
+    *((s16 *) (((s8 *) (*((void **) (((s8 *) motionEx) + 0x114)))) + 0xE)) = divideInt((*((s16 *) (((s8 *) (*((void **) (((s8 *) motionEx) + 0x114)))) + 0xE))) * 5, 4);
     sub_080A8B70(entity);
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) entity) + 0x22))) * 2) + ((s8 *) entity))) + 0x17)) = scratch;
     {

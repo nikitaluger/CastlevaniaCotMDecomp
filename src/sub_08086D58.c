@@ -4,7 +4,7 @@ struct S_08086D58
   u8 _0[0x14EE];
   u8 v;
 };
-extern struct S_08086D58 D_02025FF0;
+extern struct S_08086D58 gMainWorkspace;
 
 /* Gate on a global progress byte, then apply a preset from the preset table to
  * the object, choosing its variant from the object's state word. */
@@ -14,7 +14,7 @@ void sub_08086D58(u8 *object, s32 selector)
   s32 progress;
   s32 lowBound = 0x11;
   s32 highBound = 0x41;
-  progress = D_02025FF0.v;
+  progress = gMainWorkspace.v;
   if (progress > 0x4A)
   {
     goto big;

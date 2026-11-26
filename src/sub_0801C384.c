@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Play sprite animation 0xF on the entity (animation state lives at work+0x34);
@@ -7,7 +7,7 @@ void sub_080C31E4(void *, void *, s32);
 void sub_0801C384(void *arg0) {
     s32 sprite = *(s32 *)((u8 *)arg0 + 0x38);
     u8 *work = *(u8 **)((u8 *)arg0 + 0x3C);
-    sub_08011368(sprite, work + 0x34, 0xF, 0);
+    setAnimationFrame(sprite, work + 0x34, 0xF, 0);
     if (2 & work[0x34]) {
         void **scriptTable;
         ((u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2))[0x19] = 0;

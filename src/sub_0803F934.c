@@ -1,22 +1,22 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_080141F8(void *, void *, void *, s32, s32);
-extern void sub_0801131C(void *, void *, s32);
+extern void initSpriteGraphics(void *, void *, s32);
 extern void sub_080409FC(void *, void *, void *, u32);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
-extern void sub_08016664(void *, s32);
+extern void registerScriptObject(void *, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_08014290(void);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
-extern u8 D_080CD400[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
+extern u8 gSpriteAnimDataTable[];
 extern u8 D_080CF468[];
 extern u8 D_080CF470[];
 extern u8 D_080CF450[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* Small sub-effect allocated from the effect pool. */
 struct SubEffect {
@@ -35,9 +35,9 @@ struct Part {
     u8 _2C[8];
     u8 animStart;                           /* 0x34 */
 };
-/* 20-byte animation definition in D_080CB2B8. */
+/* 20-byte animation definition in gSpriteKindTable. */
 struct AnimDef { u16 p0; u16 p2; u16 p4; u8 _6[0x0E]; };
-extern struct AnimDef D_080CB2B8[];
+extern struct AnimDef gSpriteKindTable[];
 
 /* Spawn a sprite and its effect part for an entity: initialise the animation
  * from the variant tables, attach a sub-effect, place it relative to the
@@ -57,24 +57,24 @@ void sub_0803F934(u8 *entity) {
     u32 idx;
 
     spawnId = *(s32 *)(entity + 0xAC);
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     if (sprite == NULL) goto fail;
     *(void **)(entity + 0x38) = sprite;
-    sub_0800168C(entity, 0, 0x50, 0);
+    allocWorkSlot(entity, 0, 0x50, 0);
     if (*(u32 *)(entity + 0x3C) == 0) goto fail;
     *(u32 *)(sprite + 0x1C) = 0x8000000A;
     part = *(struct Part **)(entity + 0x3C);
     anim = (u8 *)part + 0x34;
     ext = (u8 *)part + 0x48;
-    sub_08014288(entity, (u8 *)part, (void *)sub_08014290);
+    installUpdateHandler(entity, (u8 *)part, (void *)sub_08014290);
     animTable = D_080CF468;
     variantPtr = entity + 0x4C;
     sub_080141F8(entity, sprite, (u8 *)part, spawnId, *(s16 *)(animTable + *variantPtr * 4));
-    sub_0801131C(sprite, anim, (s32)D_080CD400 + *(s16 *)((u8 *)part + 0x1C) * 0xC);
+    initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + *(s16 *)((u8 *)part + 0x1C) * 0xC);
     animTable2 = D_080CF470;
     sub_080409FC(sprite, anim, ext, *(u16 *)(animTable2 + *variantPtr * 2));
     effectParams = D_080CF450;
-    effect = sub_08016190();
+    effect = allocEffectPart();
     part->effect = effect;
     if (effect == NULL) goto fail;
     goto body;
@@ -89,17 +89,17 @@ body:
     part->effect->f3 = 1;
     {
         spawnId = 0;
-        part->effect->f4 = D_080CB2B8[*(s16 *)((u8 *)part + 0x1C)].p0;
+        part->effect->f4 = gSpriteKindTable[*(s16 *)((u8 *)part + 0x1C)].p0;
         part->effect->f6 = *(u16 *)(effectParams + 0);
         part->effect->f8 = *(u16 *)(effectParams + 2);
         part->effect->fA = *(u16 *)(effectParams + 4);
         part->effect->fC = *(u16 *)(effectParams + 6);
-        part->effect->fE = D_080CB2B8[*(s16 *)((u8 *)part + 0x1C)].p4;
+        part->effect->fE = gSpriteKindTable[*(s16 *)((u8 *)part + 0x1C)].p4;
     }
     part->effect->owner = (u32)sprite;
     {
-        pt = D_02021E90;
-        pb = D_02025FF0;
+        pt = gCameraState;
+        pb = gMainWorkspace;
         pb += 0x18A8;
         idx = ((u32)*pb + 1) * 0x40;
         base1 = pt + 0x1278;
@@ -108,7 +108,7 @@ body:
         base2 = pt + 0x127C;
         *(u32 *)(sprite + 0x18) = *(u32 *)((u8 *)part + 0x0C) - ((*(u32 *)(base2 + idx) + 0xFFFF8000) & 0xFFFF0000);
     }
-    sub_08016664(entity, 0);
+    registerScriptObject(entity, 0);
     {
         u16 flags = *(u16 *)(entity + 2);
         flags |= 0x1000;
@@ -116,7 +116,7 @@ body:
     }
     *(u8 *)((u32)(*(s16 *)(entity + 0x22) * 2) + (u32)entity + 0x19) = (u8)spawnId;
     {
-        u32 *table = (u32 *)D_08671BB0;
+        u32 *table = (u32 *)gMainObjTimerCallback;
         u8 *p18 = entity + 0x18;
         sub_080C31E4(p18, entity + 0x22, *table);
         {

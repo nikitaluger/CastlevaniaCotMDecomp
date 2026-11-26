@@ -4,7 +4,7 @@ void sub_080C31E0(void *, void *);
 void sub_080113A8(void *, void *);
 void sub_0801165C(void *, s32);
 void sub_080C31E4(void *, void *, s32);
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 struct S_0807B12C
 {
@@ -60,7 +60,7 @@ void sub_080B935C(void *arg0) {
 
 void sub_080B97F0(void *arg0) {
     void *p38 = *(void **)((u8 *)arg0 + 0x38);
-    if (D_02025FF0[16] == 7) {
+    if (gMainWorkspace[16] == 7) {
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
         return;
     }

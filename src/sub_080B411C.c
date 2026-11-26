@@ -1,9 +1,9 @@
-s32 sub_080114DC(s32, s32, s32, s32);
+s32 setObjectAnimation(s32, s32, s32, s32);
 s32 sub_080148D8(s32, s32);
 s32 sub_080B7280(s32);
 void sub_080C31E4(void *, void *, s32);
 
-/* Entity update: run animation 0x42 and set the gfx flip bit from sub_08014938.
+/* Entity update: run animation 0x42 and set the gfx flip bit from signOf.
  * When local state reaches 0x1E, switch to animation 0x44, mark the sub-struct
  * at actor+0x48, set a left/right horizontal speed in actor+0x10, clear the
  * related fields and advance to the next state (function at 0x08671BB0). */
@@ -17,11 +17,11 @@ void sub_080B411C(void *arg0) {
     s32 *funcSlot;
     u8 *stateBase;
 
-    sub_080114DC((s32)gfx, (s32)anim, 0x42, 0);
+    setObjectAnimation((s32)gfx, (s32)anim, 0x42, 0);
     sub_080148D8((s32)gfx, *(s32 *)(actor + 8));
     stateSlot = (u8 *)((s32)*(s16 *)(self + 0x22) * 2 + (s32)self);
     if (stateSlot[0x19] == 0x1E) {
-        sub_080114DC((s32)gfx, (s32)anim, 0x44, 1);
+        setObjectAnimation((s32)gfx, (s32)anim, 0x44, 1);
         sub_080B7280(*(s32 *)(actorSub + 0x10));
         {
             s32 hSpeed = (*(u16 *)(gfx + 2) & 0x10) ? (0x80 << 11) : (s32)0xFFFC0000;

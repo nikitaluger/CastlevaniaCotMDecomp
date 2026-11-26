@@ -1,4 +1,4 @@
-extern void sub_08014588(s32, s32);
+extern void copyPoseAttrs(s32, s32);
 
 /* Copy the four-halfword attribute record that matches the sprite kind (3, 5
  * or 6) into the work object's attribute block. The records live at
@@ -11,5 +11,5 @@ void sub_0804ACB0(void *work, void *sprite) {
     case 5: record = 0x080CF978; break;
     case 6: record = 0x080CF980; break;
     }
-    sub_08014588(*(s32 *)((u8 *)work + 0x28), record);
+    copyPoseAttrs(*(s32 *)((u8 *)work + 0x28), record);
 }

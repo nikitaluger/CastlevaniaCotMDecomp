@@ -5,7 +5,7 @@ unsigned char sub_08007FE0(void);
 void sub_080102F0(s32);
 void sub_080C31E8(void *, void *, s32, s32);
 void sub_080C0384(void);
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern u32 D_08671BD0;
 struct S_03000830
 {
@@ -52,7 +52,7 @@ void sub_08008864(void *arg0)
   {
     goto loc_8892;
   }
-  q1 = D_02021E90;
+  q1 = gCameraState;
   q1 = q1 + 0x146C;
   w2 = *((u16 *) q1);
   r0 = 0x08;
@@ -74,7 +74,7 @@ void sub_08008864(void *arg0)
   loc_88CC:
   r3 = *((u32 *) (r7 + 0x4C));
 
-  q2 = D_02021E90;
+  q2 = gCameraState;
   q2 = q2 + 0x1470;
   new_var2 = &(*((u16 *) q2));
   w2 = *new_var2;
@@ -109,7 +109,7 @@ void sub_08008864(void *arg0)
   }
   sub_08005E80(0x153);
   loc_8904:
-  q3 = D_02021E90;
+  q3 = gCameraState;
 
   q3 = q3;
   q3 += 0x146C;

@@ -1,7 +1,7 @@
 extern void sub_08014848(s32,s32,s32,s32,s32,s32);
 extern void sub_080BE99C(void);
 extern void sub_080BEA94(void);
-extern s32 sub_080C2F20(s32,s32);
+extern s32 divideInt(s32,s32);
 extern u16 D_03000830[];
 
 /* Effect tick: nudge the state object left/right from a per-frame direction
@@ -36,7 +36,7 @@ void sub_080BB6AC(void *self) {
         s32 spawnY;
         *count += 1;
         sub_080BE99C();
-        shift = (sub_080C2F20(*count, 8) << 19) + (s32)0xFFC00000;
+        shift = (divideInt(*count, 8) << 19) + (s32)0xFFC00000;
         baseY = *(s32 *)(state + 0xC);
         spawnY = baseY - shift;
         if (spawnY > baseY + (s32)0xFFC00000) {

@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 _0[0x18C2]; u16 w; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct E { u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; u32 f10; };
 struct P {
     u8 _0[8]; u32 f8; u32 fC; u32 f10; u32 f14; u8 _18[4]; s16 f1C; u8 _1E[4]; s16 f22; u8 _24[4];
@@ -12,15 +12,15 @@ struct Sarg {
     u8 _70[0x94-0x70]; u16 f94; u8 _96[0x9C-0x96]; u8 f9C;
 };
 struct CB { u16 f0; u8 _2[2]; u16 f4; u8 _6[0xE]; };
-extern struct CB D_080CB2B8[];
+extern struct CB gSpriteKindTable[];
 extern u16 D_081020F4[];
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
-extern s32 sub_08013C2C(void);
-extern void sub_0801131C(void *, void *, s32);
-extern void sub_08011368(void *, void *, s32, s32);
-extern void *sub_08016190(void);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
+extern s32 findKindIndex(void);
+extern void initSpriteGraphics(void *, void *, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_08097DC8(void);
 
@@ -35,17 +35,17 @@ void sub_080A8BD8(struct Sarg *arg0) {
     s32 off;
     u8 *table;
 
-    a = (s32)sub_0800355C();
+    a = (s32)allocSpriteObject();
     if (a == 0) goto fail;
     arg0->f38 = (void *)a;
-    sub_0800168C(arg0, 0, 0x48, 0);
+    allocWorkSlot(arg0, 0, 0x48, 0);
     if (arg0->f3C == NULL) goto fail;
     *(u32 *)(a + 0x1C) = 0x32 - *(u8 *)((u8 *)arg0 + 0x4C);
     p = (struct P *)arg0->f3C;
     r7a = ((u8 *)p) + 0x34;
-    sub_08014288(arg0, (u8 *)p, sub_08097DC8);
+    installUpdateHandler(arg0, (u8 *)p, sub_08097DC8);
     p->f1C = 0x5F;
-    r = sub_08013C2C();
+    r = findKindIndex();
     p->f22 = r;
     if ((s16)r < 0) goto fail;
     r = p->f22;
@@ -53,14 +53,14 @@ void sub_080A8BD8(struct Sarg *arg0) {
     r = r + 0x200;
     r &= 0xFC0;
     *((u16 *)a) = r;
-    *((u16 *)a) |= D_02025FF0.w;
+    *((u16 *)a) |= gMainWorkspace.w;
     idx = p->f1C;
     off = idx * 3;
     table = (u8 *)0x080CD400 + (off * 4);
-    sub_0801131C((void *)a, r7a, (s32)table);
-    sub_08011368((void *)a, r7a, 0, 0);
+    initSpriteGraphics((void *)a, r7a, (s32)table);
+    setAnimationFrame((void *)a, r7a, 0, 0);
     t = D_081020F4;
-    p->f28 = sub_08016190();
+    p->f28 = allocEffectPart();
     if (p->f28 == NULL) goto fail;
     goto ok;
 fail:
@@ -70,12 +70,12 @@ ok:
     p->f28->f1 = 1;
     p->f28->f2 = 8;
     p->f28->f3 = 1;
-    p->f28->f4 = D_080CB2B8[p->f1C].f0;
+    p->f28->f4 = gSpriteKindTable[p->f1C].f0;
     p->f28->f6 = t[0];
     p->f28->f8 = t[1];
     p->f28->fA = t[2];
     p->f28->fC = t[3];
-    p->f28->fE = D_080CB2B8[p->f1C].f4;
+    p->f28->fE = gSpriteKindTable[p->f1C].f4;
     p->f28->f10 = (u32)a;
     val = *(u16 *)(a + 4);
     arg0->f94 = val;

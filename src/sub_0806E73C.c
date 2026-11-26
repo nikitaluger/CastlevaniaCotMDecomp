@@ -1,5 +1,5 @@
-s32 sub_0800168C(void *, s32, s32, s32);
-void *sub_0800355C(void);
+s32 allocWorkSlot(void *, s32, s32, s32);
+void *allocSpriteObject(void);
 void sub_0806D2D0(void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E0(void *, s32);
@@ -8,9 +8,9 @@ struct S_02025FF0 {
     u8 _0x000[0x18C2];
     u16 w;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* Entity setup: checks a spawn condition, allocates and initializes a display object,
    then runs the entity script and dispatches its handler. */
@@ -19,13 +19,13 @@ void sub_0806E73C(void *entity)
     u8 *obj = (u8 *)entity;
     void *sprite;
 
-    if (sub_0800168C(entity, 0, 0x68, 3) == 0)
+    if (allocWorkSlot(entity, 0, 0x68, 3) == 0)
     {
         sub_080C31E0(entity, *(s32 *)(obj + 0x24));
         return;
     }
 
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     if (sprite == 0)
     {
         sub_0806D2D0(entity);
@@ -35,7 +35,7 @@ void sub_0806E73C(void *entity)
     *(void **)(obj + 0x38) = sprite;
     *(u32 *)((u8 *)sprite + 0x1C) = 0x80000006;
     {
-        u16 globalWord = D_02025FF0.w;
+        u16 globalWord = gMainWorkspace.w;
         u32 zero = 0;
         *(u16 *)sprite = globalWord;
 

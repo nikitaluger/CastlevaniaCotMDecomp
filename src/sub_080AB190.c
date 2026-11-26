@@ -1,7 +1,7 @@
 extern void sub_08098338(void *, void *);
 extern s32 sub_080C31E0(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_081021D8[];
 extern u8 D_08670108[];
 
@@ -45,9 +45,9 @@ void sub_080AB190(u8 *arg0) {
         sub_08098338((void *)tp[b], gfx);
     }
 
-    pt = D_02021E90;
+    pt = gCameraState;
     layerOff = 0x18A8;
-    pb = D_02025FF0 + layerOff;
+    pb = gMainWorkspace + layerOff;
     idx = ((u32)*pb + 1) * 0x40;
     pt1 = pt + 0x1278;
     v1 = *(u32 *)(pt1 + idx);

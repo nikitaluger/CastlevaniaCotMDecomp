@@ -1,13 +1,13 @@
 extern s32 sub_08005820(s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern u32 D_08671BD0;
 struct S_02025FF0 { u8 _[0x174C]; s32 field174C; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /*
  * Companion/attack controller. arg0 is a manager holding an owner handle
@@ -24,7 +24,7 @@ void sub_0802AF88(u8 *mgr)
     u8 *timers = ent + 0x48;
 
     sub_080149A4(owner, ent, timers, 0x5A, 0x78);
-    sub_08011368(owner, anim, 0, 1);
+    setAnimationFrame(owner, anim, 0, 1);
 
     /* attack countdown */
     *(s16 *)(timers + 4) = *(s16 *)(timers + 4) - 1;
@@ -34,7 +34,7 @@ void sub_0802AF88(u8 *mgr)
         if (sub_08014900(*(s32 *)(ent + 8)) <= 0x300000 &&
             sub_0801491C(*(s32 *)(ent + 0xC)) <= 0x200000)
         {
-            s32 dirSign = sub_08014938(*(s32 *)(ent + 8));
+            s32 dirSign = signOf(*(s32 *)(ent + 8));
             if (dirSign == sub_08014990(owner))
             {
                 s16 poseIndex = *(s16 *)(mgr + 0x22);
@@ -66,7 +66,7 @@ void sub_0802AF88(u8 *mgr)
         if (sub_08014900(*(s32 *)(ent + 8)) > 0x280000)
             playerFarX = 1;
 
-        deltaX = D_02025FF0.field174C - *(s32 *)(ent + 8);
+        deltaX = gMainWorkspace.field174C - *(s32 *)(ent + 8);
         if ((deltaX < 0 && *(s32 *)(ent + 0x10) < 0) ||
             (deltaX > 0 && *(s32 *)(ent + 0x10) > 0))
         {

@@ -14,7 +14,7 @@ struct DraculaState {
     u16 f146E;
     u16 f1470;
 };
-extern struct DraculaState D_02021E90;
+extern struct DraculaState gCameraState;
 
 /* Save-file menu entity: +0x50 is the source slot (never selectable) and
  * +0x54 the currently highlighted destination slot. */
@@ -24,7 +24,7 @@ struct Ent {
     u8 _51[3];
     s8 destSlot;
 };
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 extern u32 D_08671BC0[];
 extern u32 D_08671BD0[];
 
@@ -41,9 +41,9 @@ void sub_0800AF0C(struct Ent *arg0)
     s32 t;
     u8 cur;
 
-    if ((0x30 & D_02021E90.f1470) != 0x30)
+    if ((0x30 & gCameraState.f1470) != 0x30)
     {
-        if ((0x20 & D_02021E90.f1470) != 0)
+        if ((0x20 & gCameraState.f1470) != 0)
         {
             t = (u8)arg0->destSlot - 1;
             arg0->destSlot = t;
@@ -58,7 +58,7 @@ void sub_0800AF0C(struct Ent *arg0)
                     arg0->destSlot = 7;
             }
         }
-        if ((0x10 & D_02021E90.f1470) != 0)
+        if ((0x10 & gCameraState.f1470) != 0)
         {
             u8 zero;
             t = (u8)arg0->destSlot + 1;
@@ -75,11 +75,11 @@ void sub_0800AF0C(struct Ent *arg0)
                     arg0->destSlot = zero;
             }
         }
-        if ((0x30 & D_02021E90.f1470) != 0)
+        if ((0x30 & gCameraState.f1470) != 0)
             sub_08005E80(0x154);
     }
 
-    isCancel = (u16)(D_02021E90.f146C & 2);
+    isCancel = (u16)(gCameraState.f146C & 2);
     if (isCancel != 0)
     {
         sub_08005E80(0x159);
@@ -95,7 +95,7 @@ void sub_0800AF0C(struct Ent *arg0)
     }
     if (oldSlot != arg0->destSlot)
         sub_0800B9A8(arg0->destSlot, 2, dataPtr);
-    if ((1 & D_02021E90.f146C) != 0)
+    if ((1 & gCameraState.f146C) != 0)
     {
         itemState = sub_080103F0((u8)arg0->destSlot);
         if (itemState != 0)
@@ -104,7 +104,7 @@ void sub_0800AF0C(struct Ent *arg0)
             sub_0800B824(0x81D8, 0x270, 0x600);
             *((u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19)) = isCancel;
             {
-                u32 *tbl = &D_08671BB0;
+                u32 *tbl = &gMainObjTimerCallback;
                 sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *tbl);
             }
             return;

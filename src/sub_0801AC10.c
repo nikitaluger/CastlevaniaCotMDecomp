@@ -1,5 +1,5 @@
 /* identical to sub_0801746C (matched), with its names changed by decompdecomp */
-s32 sub_08014938(s32);
+s32 signOf(s32);
 s32 sub_08014990(s32);
 s32 sub_08014EF4(s16);
 void sub_0801BE64(s32, s32);
@@ -7,8 +7,8 @@ void sub_0801BE80(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 struct S_02025FF0_174C { u8 _0x000[0x174C]; u32 referenceX; };
-extern struct S_02025FF0_174C D_02025FF0;
-extern u32 D_08671BB0;
+extern struct S_02025FF0_174C gMainWorkspace;
+extern u32 gMainObjTimerCallback;
 
 /* When its countdown expires, flips a patrolling entity's direction and
  * clamps its X position to a bounded range around a reference point. */
@@ -32,21 +32,21 @@ void sub_0801AC10(void *entity) {
             stepSize = 0xF0 << 14;
             sub_0801BE64((s32)(motion + 0x70), 0xFA << 2);
         }
-        if (sub_08014938(*(s32 *)(motion + 0x08)) < 0) {
-            s32 newPos = D_02025FF0.referenceX - stepSize;
+        if (signOf(*(s32 *)(motion + 0x08)) < 0) {
+            s32 newPos = gMainWorkspace.referenceX - stepSize;
             s32 bound;
             *(s32 *)(motion + 0x08) = newPos;
             bound = *(s32 *)(control + 0x00) + (s32)0xFF000000;
             if (newPos < bound) {
-                *(s32 *)(motion + 0x08) = D_02025FF0.referenceX + stepSize;
+                *(s32 *)(motion + 0x08) = gMainWorkspace.referenceX + stepSize;
             }
         } else {
-            s32 newPos = D_02025FF0.referenceX + stepSize;
+            s32 newPos = gMainWorkspace.referenceX + stepSize;
             s32 bound;
             *(s32 *)(motion + 0x08) = newPos;
             bound = *(s32 *)(control + 0x00) + 0x1000000;
             if (newPos > bound) {
-                *(s32 *)(motion + 0x08) = D_02025FF0.referenceX - stepSize;
+                *(s32 *)(motion + 0x08) = gMainWorkspace.referenceX - stepSize;
             }
         }
         if (sub_08014990((s32)sprite) > 0)
@@ -57,7 +57,7 @@ void sub_0801AC10(void *entity) {
         *(u16 *)(control + 0x16) = 5;
         *(u8 *)(self + (s32)*(s16 *)(self + 0x22) * 2 + 0x19) = zero;
         {
-            u32 *scriptTable = &D_08671BB0;
+            u32 *scriptTable = &gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);
         }
     }

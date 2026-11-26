@@ -2,8 +2,8 @@ extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern s32 sub_0801165C(void *, s32);
 extern s32 sub_080113A8(void *, void *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866FAB8[];
 
 static inline void or40p(u8 *q)
@@ -79,8 +79,8 @@ void sub_08094F34(u8 *arg0) {
         sub_0801165C(state, 0);
         sub_080113A8(entity, stateField34);
 
-        stateTable = D_02021E90;
-        shakeCounter = D_02025FF0;
+        stateTable = gCameraState;
+        shakeCounter = gMainWorkspace;
         shakeCounter += 0x18A8;
         tableIndex = ((u32)*shakeCounter + 1) * 0x40;
         tableIndexPtr = stateTable + 0x1278;

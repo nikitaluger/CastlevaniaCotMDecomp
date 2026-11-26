@@ -1,8 +1,8 @@
 void sub_08005E80(s32);
 
 struct S_02025FF0_18A8 { u8 _0[0x18A8]; u8 v; };
-extern struct S_02025FF0_18A8 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct S_02025FF0_18A8 gMainWorkspace;
+extern u8 gCameraState[];
 
 /* Detect a change to the actor's sound trigger, play its sound effect and
  * mirror the flag into the state, then rebuild the sprite's position from the
@@ -32,12 +32,12 @@ void sub_080B052C(void *actor) {
         *(u8 *)(*(u8 **)(state + 0x28) + 1) = (u8)playFlag;
     }
 
-    coordTable = D_02021E90;
-    coordOffset = (D_02025FF0.v + 1) * 0x40;
+    coordTable = gCameraState;
+    coordOffset = (gMainWorkspace.v + 1) * 0x40;
     xBase = coordTable + 0x1278;
     *(s32 *)((u8 *)sprite + 0x14) = *(s32 *)((u8 *)state + 0x08) - ((*(s32 *)(xBase + coordOffset) + 0x8000) & 0xFFFF0000);
 
-    coordOffset = (D_02025FF0.v + 1) * 0x40;
+    coordOffset = (gMainWorkspace.v + 1) * 0x40;
     yBase = coordTable + 0x127C;
     *(s32 *)((u8 *)sprite + 0x18) = *(s32 *)((u8 *)state + 0x0C) - ((*(s32 *)(yBase + coordOffset) + 0xFFFF8000) & 0xFFFF0000);
 }

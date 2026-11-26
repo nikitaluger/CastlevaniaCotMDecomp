@@ -4,7 +4,7 @@ extern void sub_0809E4F8(void *);
 extern void sub_080C31E4(void *, void *, u32);
 typedef struct { s32 v[8]; } S32x8;
 extern const S32x8 D_081019B4;
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Refreshes the actor's animation, then on script step 0x10 picks a direction
  * vector from an eight-entry table using the angle to the player, stores it as
@@ -48,7 +48,7 @@ void sub_0809D9D4(void *arg0)
       *((s32 *) (((u8 *) state) + 0x44)) = zero;
       *((u8 *) ((((u8 *) self) + ((*((s16 *) (((u8 *) self) + 0x22))) * 2)) + 0x19)) = (u8) zero;
     }
-    msgPtr = &D_08671BB0;
+    msgPtr = &gMainObjTimerCallback;
     sub_080C31E4(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, *msgPtr);
   }
 }

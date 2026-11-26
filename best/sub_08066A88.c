@@ -20,9 +20,9 @@ struct R466
   u8 _44[0x08];
   s32 unk4C;
 };
-extern u8 D_02025FF0[];
-extern u8 D_02021E90[];
-extern u8 D_02025368[];
+extern u8 gMainWorkspace[];
+extern u8 gCameraState[];
+extern u8 gGameStatus[];
 extern u32 D_08671BD0;
 extern u32 D_08671BC0;
 extern u32 D_08671BD8;
@@ -53,16 +53,16 @@ void sub_08066A88(struct A66 *arg0)
   u32 *new_var4;
   struct R466 *new_var5;
   s32 rvraw;
-  u16 rv;
   struct R466 *new_var;
   u32 *pd;
+  u32 *pd_1;
+  u32 *pd_2;
   u16 a;
-  u16 b;
   volatile char c;
-  u16 d;
+  s32 d;
   r5 = (struct R8ptr66 *) (*arg0).unk6C;
   r4 = (struct R466 *) (((u8 *) r5) + 4);
-  new_var6 = D_02025368;
+  new_var6 = gGameStatus;
   r8 = arg0->unk38;
   r6res = sub_0806C4B4(r4, r4);
   if (r6res != 0)
@@ -79,8 +79,8 @@ void sub_08066A88(struct A66 *arg0)
     ;
     ((u8 *) (((u32) (arg0->unk22 * 2)) + ((u32) arg0)))[0x19] = 0;
     new_var4 = &D_08671BD0;
-    pd = new_var4;
-    sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 4, *pd);
+    pd_1 = new_var4;
+    sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 4, *pd_1);
   }
   sub_0806A884(r8, new_var5);
   t = sub_08003740(((u8 *) r5) + 0x2C, r8);
@@ -99,20 +99,19 @@ void sub_08066A88(struct A66 *arg0)
     {
       idx = (u8 *) (((u32) (arg0->unk22 * 2)) + ((u32) arg0));
       idx[0x17] = 0;
-      a = *((u16 *) (D_02025FF0 + 0x28));
+      a = *((u16 *) (gMainWorkspace + 0x28));
       p5 = ((u8 *) arg0) + 0x18;
       p6 = ((u8 *) arg0) + 0x22;
-      rvraw = sub_08065CC8((s32) arg0, (s32) r8, new_var5, new_var5);
-      rv = (u16) rvraw;
-      pd = &D_08671BD8;
-      sub_080C31E8(p5, p6, rv, *pd);
+      d = sub_08065CC8((s32) arg0, (s32) r8, new_var5, new_var5);
+      pd_2 = &D_08671BD8;
+      sub_080C31E8(p5, p6, ((u16) d), *pd_2);
     }
   }
   new_var7 = 0x3BE;
-  if ((*((u32 *) (D_02025FF0 + 0x24))) != 0)
+  if ((*((u32 *) (gMainWorkspace + 0x24))) != 0)
   {
-    b = *((u16 *) (new_var7 + new_var6));
-    if ((b & a) == 0)
+    d = *((u16 *) (new_var7 + new_var6));
+    if ((d & a) == 0)
     {
       do
       {
@@ -123,9 +122,9 @@ void sub_08066A88(struct A66 *arg0)
   }
   else
   {
-    new_var8 = *((u16 *) (D_02021E90 + 0x146C));
+    new_var8 = *((u16 *) (gCameraState + 0x146C));
+    d = *((u16 *) (gGameStatus + new_var7));
     c = new_var8;
-    d = *((u16 *) (D_02025368 + new_var7));
     if ((d & c) == 0)
     {
       do
@@ -140,10 +139,9 @@ void sub_08066A88(struct A66 *arg0)
   p5 = ((u8 *) arg0) + 0x18;
   p6 = ((u8 *) arg0) + 0x22;
   rvraw = sub_08065CC8((s32) arg0, (s32) r8, new_var5, new_var5);
-  rv = (u16) rvraw;
   new_var = new_var5;
   pd = &D_08671BD8;
-  sub_080C31E8(p5, p6, rv, *(&D_08671BD8));
+  sub_080C31E8(p5, p6, ((u16) rvraw), *(&D_08671BD8));
   BE0:
   sub_0806C6B0(arg0, r8, new_var, new_var5);
 

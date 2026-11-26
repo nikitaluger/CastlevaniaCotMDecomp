@@ -1,5 +1,5 @@
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0c
@@ -15,8 +15,8 @@ struct S_02025FF0c
   u8 _2[0x1780 - 0x150C];
   s32 f1780[0x20];
 };
-extern struct S_02025FF0c D_02025FF0;
-extern u8 D_02025368;
+extern struct S_02025FF0c gMainWorkspace;
+extern u8 gGameStatus;
 struct DMA3
 {
   vu32 src;
@@ -35,13 +35,13 @@ void sub_08062828(u8 *arg0)
 {
   void *obj;
   s32 **new_var;
-  u8 *p5368 = &D_02025368;
+  u8 *p5368 = &gGameStatus;
   struct DMA3 *dma;
   unsigned int i;
   s32 *g;
   void *new_var2[2];
   s32 zero;
-  if ((sub_0800168C(arg0, 0, 0x138, 3) == 0) || ((obj = sub_0800355C(), obj == 0)))
+  if ((allocWorkSlot(arg0, 0, 0x138, 3) == 0) || ((obj = allocSpriteObject(), obj == 0)))
   {
     sub_080C31E0(arg0, *((void **) (arg0 + 0x24)));
     return;
@@ -52,11 +52,11 @@ void sub_08062828(u8 *arg0)
     u8 *p2a = ((u8 *) obj) + 0x2A;
     *p2a = andBF(*p2a);
   }
-  D_02025FF0.f14ED = 0;
-  D_02025FF0.f14EE = 0;
-  D_02025FF0.f14F0 = 0;
-  D_02025FF0.f14EC = 0;
-  D_02025FF0.f1508 = *((s32 *) (p5368 + 0x300));
+  gMainWorkspace.f14EE = 0;
+  gMainWorkspace.f14ED = 0;
+  gMainWorkspace.f14F0 = 0;
+  gMainWorkspace.f14EC = 0;
+  gMainWorkspace.f1508 = *((s32 *) (p5368 + 0x300));
   dma = &D_040000D4;
   dma->src = 0x084548A4;
   dma->dst = 0x06016000;
@@ -80,14 +80,14 @@ void sub_08062828(u8 *arg0)
   new_var2[1] = arg0 + 0x22;
   zero = 0;
   {
-    s32 *p = (s32 *) (((u8 *) (&D_02025FF0)) + 0x1780);
-    for (; (i + 1) <= 0x20; i++)
+    s32 *p = (s32 *) (((u8 *) (&gMainWorkspace)) + 0x1780);
+    for (; i < 0x20; i++)
     {
-      *(p++) = zero;
+      do { *(p++) = zero; } while (0);
     }
 
   }
-  D_02025FF0.f1780[0] = (s32) arg0;
+  gMainWorkspace.f1780[0] = (s32) arg0;
   *((u8 *) ((arg0 + ((*((s16 *) (arg0 + 0x22))) * 2)) + 0x19)) = 0;
   new_var = &g;
   sub_080C31E4(new_var2[0], new_var2[1], *(*new_var));

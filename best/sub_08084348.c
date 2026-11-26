@@ -22,7 +22,7 @@ struct S_02025FF0_43 {
     u8 _0x73B[0x18C2 - 0x173B];
     u16 field18C2;
 };
-extern struct S_02025FF0_43 D_02025FF0;
+extern struct S_02025FF0_43 gMainWorkspace;
 
 extern s32 sub_0806D518(void *, u16 *, void *);
 extern s32 sub_08003740(void *, u16 *);
@@ -34,7 +34,7 @@ void sub_08084348(struct S_sub_08084348 *arg0) {
     struct S_B_43 *r5 = (struct S_B_43 *)(r7 + 4);
     u16 *r6 = arg0->unk38;
     if (sub_0806D518(arg0, r6, r5) == 0) {
-        struct S_02025FF0_43 *base = &D_02025FF0;
+        struct S_02025FF0_43 *base = &gMainWorkspace;
         *r6 = base->field18C2;
         if (sub_08003740(r7 + 0x20, r6) == 0) {
             sub_080C31E0(arg0, arg0->unk24);

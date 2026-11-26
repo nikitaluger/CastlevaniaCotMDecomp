@@ -2,9 +2,9 @@ extern void sub_08003A6C(s32, s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 struct S_02025FF0_B8 { u8 _0[0x14D8]; u16 f14D8; u8 _1[0x1754 - 0x14DA]; s32 f1754; };
-extern struct S_02025FF0_B8 D_02025FF0;
+extern struct S_02025FF0_B8 gMainWorkspace;
 
 /* Initializes an entity's visual state: installs its sprite data and graphics
  * attributes, clamps a global counter and loads a palette, then advances the
@@ -19,12 +19,12 @@ void sub_080886B8(void *arg0) {
     *(s32 *)(actor + 4) = 0x80 << 16;
     *(s32 *)(actor + 8) = (s32)0xFFFD0000;
     *(s32 *)(actor + 0x0C) = (s32)0xFFFF0000;
-    if (D_02025FF0.f1754 <= 4) D_02025FF0.f1754 = 5;
+    if (gMainWorkspace.f1754 <= 4) gMainWorkspace.f1754 = 5;
     sub_08005E80(0xD0 << 1);
-    D_02025FF0.f14D8 = 0xFFF5;
+    gMainWorkspace.f14D8 = 0xFFF5;
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *eventPtr = D_08671BB0;
+        s32 *eventPtr = gMainObjTimerCallback;
         sub_080C31E4(entity + 0x18, entity + 0x22, *eventPtr);
     }
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) += 1;

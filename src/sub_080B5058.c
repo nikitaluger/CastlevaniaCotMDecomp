@@ -1,5 +1,5 @@
 void sub_08011528(void *, void *);
-void sub_08014588(void *, void *);
+void copyPoseAttrs(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
 /* Runs the actor controller, maps a code read from a per-frame table to a
@@ -50,7 +50,7 @@ void sub_080B5058(void *a0)
             break;
         }
     }
-    sub_08014588(*(void **)(state + 0x28), (void *)(0x08102B84 + variant * 8));
+    copyPoseAttrs(*(void **)(state + 0x28), (void *)(0x08102B84 + variant * 8));
     if (*(u8 *)ctrl & 2) {
         *(u8 *)(entity + 0x4C) = 0;
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = 0;

@@ -27,7 +27,7 @@ struct A_080A1348 {
 
 extern void *D_08671BD8;
 
-extern void sub_080114DC(void *, void *, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_08011528(void *, void *);
 extern void sub_08098598(s32, void *, s32, void *);
 extern void sub_080A2D98(u32);
@@ -44,7 +44,7 @@ void sub_080A1348(struct A_080A1348 *obj) {
     u8 controlByte;
     u8 controlByte2;
 
-    sub_080114DC(sprite, stateArg, 0, 1);
+    setObjectAnimation(sprite, stateArg, 0, 1);
     sub_08011528(sprite, stateArg);
 
     if (((struct S_080A1348 *)((u8 *)obj + obj->f22 * 2))->f19 > 0x5A) {

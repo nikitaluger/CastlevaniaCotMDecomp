@@ -27,7 +27,7 @@ void sub_08051CA0(void *arg0, void *arg1, void *arg2) {
         t = *(u32 *)(p + 0x2C);
         next = (u8 *)t;
         *(u32 *)(p + 0x4C) = *(u32 *)(src);
-        *(u32 *)(p + 0x5C) = *(u32 *)(src + 0x24);
-        src += 4;
+        do { *(u32 *)(p + 0x5C) = *(u32 *)(src + 0x24);
+        src += 4; } while (0);
     } while (t != 0);
 }

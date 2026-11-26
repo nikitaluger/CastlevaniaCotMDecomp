@@ -5,13 +5,13 @@ extern void sub_08007FE0(void);
 extern s32 sub_0800B8C4(void *, s32);
 extern s32 sub_080103F0(u8);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_020278D0[];
 extern volatile u32 D_040000D4[];
 extern u32 D_08671BD8;
 
 struct D02021E90 { u8 pad[0x146C]; u16 flag; };
-extern struct D02021E90 D_02021E90;
+extern struct D02021E90 gCameraState;
 
 struct A84C {
     u8 pad0[0x18];
@@ -35,12 +35,12 @@ void sub_0800A84C(struct A84C *self) {
     u8 *entry;
     s32 check = sub_0800B8C4(self, 0);
     if (check == 0) {
-        if (D_02021E90.flag & 1) {
+        if (gCameraState.flag & 1) {
             s32 choice = sub_080103F0(self->id);
             if (choice != 0) {
                 sub_08005E80(0x15C);
                 sub_08007FE0();
-                D_02025FF0[8] = self->id;
+                gMainWorkspace[8] = self->id;
                 *(s32 *)D_020278D0 = 6;
                 entry = (u8 *)((s32)self->msgIndex * 2 + (u32)self);
                 *(u8 *)(entry + 0x17) = check;

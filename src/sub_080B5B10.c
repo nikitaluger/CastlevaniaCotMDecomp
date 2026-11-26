@@ -3,7 +3,7 @@
  * animation 3, clear the current action byte, then advance the script and
  * dispatch the handler of the next step from the actor's step table.
  */
-extern s32 sub_08011368(s32, s32, s32, s32);
+extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -24,7 +24,7 @@ void sub_080B5B10(void *arg0) {
     *(u8 *)(*(u8 **)(work + 0x28) + 1) = zero;
     *(s32 *)(work + 0x10) = zero;
     *(s32 *)(work + 0x14) = 0xFFFE8000;
-    sub_08011368(sprite, (s32)animator, 3, 1);
+    setAnimationFrame(sprite, (s32)animator, 3, 1);
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
 

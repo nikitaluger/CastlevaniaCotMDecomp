@@ -1,8 +1,8 @@
-extern void sub_0800168C(void *a, s32 b, s32 c, s32 d);
+extern void allocWorkSlot(void *a, s32 b, s32 c, s32 d);
 extern s32 sub_08005820(s32 a);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, u32 c);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 /* First step of an entity's scripted action: allocates its 4-byte work state,
  * restarts its animation with a random delay, clears the current step byte,
  * runs the script interpreter and dispatches the handler for the new step. */
@@ -11,7 +11,7 @@ void sub_08029110(u8 *arg0)
   int zero;
   u8 *work;
   zero = 0;
-  sub_0800168C(arg0, zero, 4, 0);
+  allocWorkSlot(arg0, zero, 4, 0);
   work = *((u8 **) (arg0 + 0x3C));
   if (work == 0)
   {
@@ -26,7 +26,7 @@ void sub_08029110(u8 *arg0)
     *((u8 *) ((arg0 + ((*((s16 *) (arg0 + 0x22))) * 2)) + 0x19)) = clear;
   }
   {
-    u32 *scriptHandlers = &D_08671BB0;
+    u32 *scriptHandlers = &gMainObjTimerCallback;
     u8 *stepBase = arg0 + 0x18;
     u8 *stepIndexPtr = arg0 + 0x22;
     u32 stepHandler = *scriptHandlers;

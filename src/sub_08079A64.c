@@ -8,8 +8,8 @@ struct SceneState {
     u8 _173B[0x18C2 - 0x173B];
     u16 f18C2;
 };
-extern struct SceneState D_02025FF0;
-extern void *D_08671BB0;
+extern struct SceneState gMainWorkspace;
+extern void *gMainObjTimerCallback;
 extern s32 sub_08003740(void *, void *);
 extern void sub_08003A6C(void *, s32, s32);
 extern void sub_0806D2F8(void *, void *);
@@ -39,10 +39,10 @@ void sub_08079A64(u8 *entity) {
         if (countdown == 0) {
             *(s32 *)(state + 0x54) = 0x80;
             (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = (u8)countdown;
-            { void **scriptCallbacks = &D_08671BB0; sub_080C31E4(entity + 0x18, entity + 0x22, (u32)*scriptCallbacks); }
+            { void **scriptCallbacks = &gMainObjTimerCallback; sub_080C31E4(entity + 0x18, entity + 0x22, (u32)*scriptCallbacks); }
         }
         {
-            struct SceneState *scene = &D_02025FF0;
+            struct SceneState *scene = &gMainWorkspace;
             u8 *obj20;
             *sprite = scene->f18C2;
             obj20 = obj + 0x20;

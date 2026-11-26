@@ -13,7 +13,7 @@ struct HomingTargetState {
     u8 _pad2[0x18C2 - 0x1754];
     u16 spriteAttr;
 };
-extern struct HomingTargetState D_02025FF0;
+extern struct HomingTargetState gMainWorkspace;
 
 /* Homing-projectile tick: rotate the angle, ease the actor toward the global
  * target, project it to screen, and abort when its timer expires or the global
@@ -42,7 +42,7 @@ void sub_080751C4(void *arg0) {
     *(u32 *)((u8 *)mover + 0x54) = angle;
     sub_080722E0(mover, angle);
 
-    d = &D_02025FF0;
+    d = &gMainWorkspace;
     targetX = d->worldTargetX + (*(s32 *)((u8 *)mover + 8) << 5);
     targetY = d->worldTargetY + (*(s32 *)((u8 *)mover + 0xC) << 5);
 

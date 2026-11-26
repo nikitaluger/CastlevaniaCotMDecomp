@@ -1,7 +1,7 @@
 /* Allocate a graphics object for the entity and clear its two coordinate fields,
  * then, based on the entity's variant, fire one of two script events and dispatch
  * the resulting handler. */
-extern void *sub_0800355C(void);
+extern void *allocSpriteObject(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 
@@ -12,7 +12,7 @@ void sub_08009B2C(u8 *entity)
     void *gfx;
     void *handler;
 
-    gfx = sub_0800355C();
+    gfx = allocSpriteObject();
     if (gfx == 0)
     {
         handler = *(void **)(entity + 0x24);

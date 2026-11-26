@@ -8,7 +8,7 @@ void sub_08000CE4(void *, void *);
 void sub_08001384(s32);
 void sub_08001448(void);
 
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern u32 D_020223E0;
 
 void sub_08002E34(void) {
@@ -16,8 +16,8 @@ void sub_08002E34(void) {
     void **node;
 
     listOffset = 0xAA;
-    listOffset <<= 3;  /* head of the timed object list at D_02021E90 + 0x550 */
-    node = *(void ***)(D_02021E90 + listOffset);
+    listOffset <<= 3;  /* head of the timed object list at gCameraState + 0x550 */
+    node = *(void ***)(gCameraState + listOffset);
 
     while (node != 0) {
         void **object;

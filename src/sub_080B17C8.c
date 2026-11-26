@@ -9,7 +9,7 @@ extern s32 sub_080C0384;
 
 /* Shared game state block: a state request at 0x10 and the current mode at 0x40. */
 struct S_02025FF0 { u8 _0[0x10]; s32 state; u8 _14[0x2C]; s32 mode; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Update an expanding/rotating effect: drift the linked body sideways, fade its
  * palettes out, and while alive spray particles at random angles around it;
@@ -34,7 +34,7 @@ void sub_080B17C8(void *arg0) {
     if (level < 0) *(s32*)((u8*)fade+0x0C) = 0;
     if (*(s32*)((u8*)fade+0x0C) == 0 && *((u8*)fade+8) == 0) {
         *((u8*)fade+8) = 1;
-        D_02025FF0.state = 8;
+        gMainWorkspace.state = 8;
     }
     if (!(1 & *((u8*)arg0 + *(s16*)((u8*)arg0+0x22)*2 + 0x19))) {
         s32 spread = sub_0800583C(0x380000);
@@ -43,7 +43,7 @@ void sub_080B17C8(void *arg0) {
         s32 x = *(s32*)((u8*)body+8) + ((spread >> 8) * (sub_080C31E0(angle + 0x4000, *sinTable) >> 8));
         sub_0808DC40(x, *(s32*)((u8*)body+0x0C) + ((spread >> 8) * (sub_080C31E0(angle, *sinTable) >> 8)) + 0x100000, 8);
     }
-    if (D_02025FF0.mode == 3) {
+    if (gMainWorkspace.mode == 3) {
         sub_08005FC4(0, 0x186, 3, 0, &sub_080C0384);
         childAnim = (u8*)child + 0x34;
         zero = 0;

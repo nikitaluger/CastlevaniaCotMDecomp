@@ -6,7 +6,7 @@ extern s64 sub_080C1BF0(s64, s64);
 extern s64 sub_080C1C58(s64, s64);
 extern s64 sub_080C237C(s32);
 extern s32 sub_080C23F8(void);
-extern u8 *sub_080C2F24(s32, s32);
+extern u8 *moduloInt(s32, s32);
 extern void (*D_08671BD0)(void *, void *, s32);
 extern s32 D_020278D0;
 extern u8 D_080CAA7C[];
@@ -21,7 +21,7 @@ struct S_03000830
 extern struct S_03000830 D_03000830;
 /* Global game-state control/status flags. */
 struct S_02021E90b { u8 _0[0x146C]; u16 control; u16 status; };
-extern struct S_02021E90b D_02021E90;
+extern struct S_02021E90b gCameraState;
 
 /* Advances the effect's frame counter, samples a 0..16 blend wave into its
  * crossfade weights and the gfx state, then fires the script-step handler
@@ -39,7 +39,7 @@ void sub_0800971C(u8 *self)
     floatVal = sub_080C1BF0(floatVal, 0x0000000041F00000ULL);
   }
   sub_080C1C58(floatVal, 0x000000003FE00000ULL);
-  waveIndex = sub_080C2F24(sub_080C23F8(), 0x2E);
+  waveIndex = moduloInt(sub_080C23F8(), 0x2E);
   zero = 0;
   D_03000830.color = 0xFD << 6;
   blend = *((u8 *) (D_080CAA7C + ((u32) waveIndex)));
@@ -57,9 +57,9 @@ void sub_0800971C(u8 *self)
     D_08671BD0(self + 0x18, self + 0x22, 7);
     return;
   }
-  if (((D_02021E90.status & 0x302) == 0x302) && ((D_02021E90.status & 1) != 0))
+  if (((gCameraState.status & 0x302) == 0x302) && ((gCameraState.status & 1) != 0))
   {
-    if ((D_02021E90.control & 4) != 0)
+    if ((gCameraState.control & 4) != 0)
     {
       one = 1;
       *((u8 *) (self + 0x5C)) = one;
@@ -75,7 +75,7 @@ void sub_0800971C(u8 *self)
     }
   }
   ;
-  if ((D_02021E90.control & 8) != 0)
+  if ((gCameraState.control & 8) != 0)
   {
     D_020278D0 = 3;
     sub_080C050C(0x159);

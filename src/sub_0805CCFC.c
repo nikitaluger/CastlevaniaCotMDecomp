@@ -7,8 +7,8 @@ extern s32 sub_08016238(void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E958[];
 extern s32 D_08671BDC;
 
@@ -58,8 +58,8 @@ void sub_0805CCFC(u8 *script) {
     sub_080113A8(attacker, attackData34);
 
     {
-        u8 *coordTable = D_02021E90;
-        u8 *roomIndexPtr = D_02025FF0;
+        u8 *coordTable = gCameraState;
+        u8 *roomIndexPtr = gMainWorkspace;
         u8 *coordXTable;
         u8 *coordYTable;
         u32 roomOffset;

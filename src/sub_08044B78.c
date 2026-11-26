@@ -1,4 +1,4 @@
-s32 sub_08011368(s32, s32, s32, s32);
+s32 setAnimationFrame(s32, s32, s32, s32);
 s32 sub_080113A8(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -18,7 +18,7 @@ void sub_08044B78(void *actor)
   if (2 & (*((u8 *) (((s8 *) work) + 0x34))))
   {
     *((s32 *) (((s8 *) work) + 0x14)) = 0xFFFE4000;
-    sub_08011368(sprite, state, 0x15, 0);
+    setAnimationFrame(sprite, state, 0x15, 0);
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) actor) + 0x22))) * 2) + actor)) + 0x19)) = 0;
     handlerTable = (s32 *) 0x08671BB0;
     sub_080C31E4(actor + 0x18, actor + 0x22, *handlerTable);

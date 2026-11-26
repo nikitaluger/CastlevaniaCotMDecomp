@@ -2,7 +2,7 @@
  * sets its colour, size and scaled stat, places it above the camera, derives
  * its direction vector from the owner's facing, installs the effect's update
  * handler, then advances the parent's state machine. */
-extern void *sub_08016190(void);              /* alloc effect record */
+extern void *allocEffectPart(void);              /* alloc effect record */
 extern void sub_0806D2D0(void *);             /* bail out / release entity */
 extern s16 sub_0806D62C(u16, s32);            /* scale value by percent */
 extern void sub_08003A6C(void *, s32, void *); /* start one-frame timer record */
@@ -21,11 +21,11 @@ struct S_02025FF0 {
     u32 f1728;     /* 0x1728: camera X */
     u32 f172C;     /* 0x172C: camera Y */
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u8 D_00001728;   /* address constant for the camera X offset */
-extern u8 D_02025368[]; /* game/player data */
+extern u8 gGameStatus[]; /* game/player data */
 
-/* 0x34-byte effect record allocated by sub_08016190. */
+/* 0x34-byte effect record allocated by allocEffectPart. */
 struct EffectPart {
     u8 mode;     /* 0x00 */
     u8 color;    /* 0x01: palette/colour index */
@@ -69,8 +69,8 @@ void sub_0807B5F4(u8 *entity) {
     u8 *parent = *(u8 **)(entity + 0x6C);
     struct GroupState *state = (struct GroupState *)(parent + 4);
     u8 *sprite = *(u8 **)(entity + 0x38);
-    u8 *dataTable = D_02025368;
-    struct EffectPart *child = sub_08016190();
+    u8 *dataTable = gGameStatus;
+    struct EffectPart *child = allocEffectPart();
     u8 prevMode;
     u16 flipMask;
     u16 scale;
@@ -88,7 +88,7 @@ void sub_0807B5F4(u8 *entity) {
     state->part4 = 0;
     state->part5 = 0;
 
-    child->color = D_02025FF0.b1510 & 1;
+    child->color = gMainWorkspace.b1510 & 1;
     state->part->param2 = 2;
     state->part->param3 = 8;
     state->part->p0 = dataTable[0xC1 << 2];
@@ -103,7 +103,7 @@ void sub_0807B5F4(u8 *entity) {
 
     state->updateFn = *(u32 *)(entity + 0x24);
     *(u32 *)(entity + 0x24) = (u32)sub_0808449C;
-    prevMode = D_02025FF0.b14EF;
+    prevMode = gMainWorkspace.b14EF;
     *(u8 *)(parent + 0x55) = prevMode;
 
     scale = 0x400;
@@ -114,8 +114,8 @@ void sub_0807B5F4(u8 *entity) {
 
     sub_08003A6C(parent + 0x20, 0, (void *)0x084E1758);
 
-    *(u32 *)(parent + 4) = *(u32 *)((u8 *)&D_02025FF0 + (u32)&D_00001728);
-    state->y = D_02025FF0.f172C + 0xFFEC0000;
+    *(u32 *)(parent + 4) = *(u32 *)((u8 *)&gMainWorkspace + (u32)&D_00001728);
+    state->y = gMainWorkspace.f172C + 0xFFEC0000;
 
     state->spin = 0x20000;
 

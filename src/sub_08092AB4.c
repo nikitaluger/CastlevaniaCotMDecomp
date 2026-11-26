@@ -10,7 +10,7 @@ extern void sub_080C31E0(void *, void *);
 extern s32 D_08671BDC;
 extern u8 D_0866FA00;
 extern u8 D_02023130[];
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 void sub_08092AB4(void *entity)
 {
@@ -31,12 +31,12 @@ void sub_08092AB4(void *entity)
             newFlags |= oldFlags;
             *flags = (u16)newFlags;
 
-            sub_0800479C(D_02023130 + (D_02025FF0[0x18A8] << 6),
+            sub_0800479C(D_02023130 + (gMainWorkspace[0x18A8] << 6),
                          *(s32 *)motion >> 0x15,
                          (*(s32 *)((u8 *)motion + 4) - 0x100000) >> 0x15,
                          *(u16 *)((u8 *)*(void **)((u8 *)motion + 0x08) + 0));
 
-            sub_0800479C(D_02023130 + (D_02025FF0[0x18A8] << 6),
+            sub_0800479C(D_02023130 + (gMainWorkspace[0x18A8] << 6),
                          *(s32 *)motion >> 0x15,
                          (*(s32 *)((u8 *)motion + 4) + 0x100000) >> 0x15,
                          *(u16 *)((u8 *)*(void **)((u8 *)motion + 0x08) + 2));

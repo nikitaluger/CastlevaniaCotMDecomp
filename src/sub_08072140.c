@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 extern void sub_08072270(void);
 
 /* Switch the entity to its next state: remember the current state handler in
@@ -16,7 +16,7 @@ void sub_08072140(void *arg0)
     *(u32 *)(self + 0x24) = (u32)sub_08072270;
 
     *(u8 *)(self + (s16)*(u16 *)(self + 0x22) * 2 + 0x19) = 0;
-    callback = D_08671BB0;
+    callback = gMainObjTimerCallback;
     script = self + 0x18;
     sub_080C31E4(script, self + 0x22, *callback);
 

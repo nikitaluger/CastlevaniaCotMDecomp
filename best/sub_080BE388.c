@@ -1,4 +1,4 @@
-extern u32 sub_08000E98(u32, void *, void *, u32, u32);
+extern u32 postDisplaySprite(u32, void *, void *, u32, u32);
 extern u16 *D_08670760[];
 
 void sub_080BE388(void *arg0)
@@ -8,8 +8,8 @@ void sub_080BE388(void *arg0)
     s32 count;
     u32 i;
     u32 off;
-    u8 *srcRBase;
     u8 *srcGBase;
+    u8 *srcRBase;
     u8 *srcBBase;
     u8 *dstBase;
     s32 *accRBase;
@@ -18,8 +18,7 @@ void sub_080BE388(void *arg0)
     s32 idx;
     s32 block;
     s32 r;
-    s32 g;
-    s32 b;
+    
 
     if ((f22 & 3) != 0)
     {
@@ -32,7 +31,6 @@ void sub_080BE388(void *arg0)
     *(s32 *)(base + 8) = count;
     if (count != 0)
     {
-        i = 0;
         accRBase = (s32 *)(base + 0x8C);
         accGBase = (s32 *)(base + 0x90);
         accBBase = (s32 *)(base + 0x94);
@@ -42,26 +40,26 @@ void sub_080BE388(void *arg0)
         off = 0;
         srcBBase = base + 0x394;
 
+        i = 0;
         while (i <= 0x3F)
         {
             s16 rv;
             idx = *(s32 *)(base + 4);
-            block = (idx + idx * 2) << 8;
-            accRBase[off / 4] = accRBase[off / 4] + *(s32 *)(srcRBase + off + block);
+            accRBase[off / 4] = accRBase[off / 4] + *(s32 *)(srcRBase + off + (block = (idx + idx * 2) << 8));
             accGBase[off / 4] = accGBase[off / 4] + *(s32 *)(srcGBase + off + block);
             accBBase[off / 4] = accBBase[off / 4] + *(s32 *)(srcBBase + off + block);
 
             rv = *(s16 *)((u8 *)&accRBase[off / 4] + 2);
             r = rv & 0x1F;
-            g = (accGBase[off / 4] >> 11) & 0x3E0;
-            b = (accBBase[off / 4] >> 6) & 0x7C00;
-            *(u16 *)(dstBase + i * 2) = (u16)(r | g | b);
+            block = (accGBase[off / 4] >> 11) & 0x3E0;
+            *(u16 *)(dstBase + i * 2) = (u16)(r | block | ((accBBase[off / 4] >> 6) & 0x7C00));
 
-            off += 0x0C;
-            i++;
+            /*__repair_update_run*/__repair_rows: { off += 0x0C;
+            i++; }
+if (0) goto __repair_rows;
         }
 
-        sub_08000E98(1, dstBase, (void *)0x05000100, 0x80, 0x10);
+        postDisplaySprite(1, dstBase, (void *)0x05000100, 0x80, 0x10);
     }
     else
     {
@@ -79,8 +77,8 @@ void sub_080BE388(void *arg0)
         i = 0;
         accRBase = (s32 *)(base + 0x8C);
         accGBase = (s32 *)(base + 0x90);
-        accBBase = (s32 *)(base + 0x94);
         off = 0;
+        accBBase = (s32 *)(base + 0x94);
 
         while (i <= 0x3F)
         {
@@ -92,6 +90,6 @@ void sub_080BE388(void *arg0)
             i++;
         }
 
-        sub_08000E98(1, src, (void *)0x05000100, 0x80, 0x10);
+        postDisplaySprite(1, src, (void *)0x05000100, 0x80, 0x10);
     }
 }

@@ -1,6 +1,6 @@
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern void *sub_0805FAEC(void *, s32);
-extern s32 sub_080C2F20(s32, s32);
+extern s32 divideInt(s32, s32);
 extern void sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -22,11 +22,11 @@ void sub_080A7B18(u8 *self) {
     *(void **)(body + 0x180) = child;
     if (child != 0) {
         *(s32 *)((u8 *)child + 0x4C) = self[0x4C];
-        *(s32 *)(body + 0x14C) = -sub_080C2F20(*(s32 *)(body + 0xFC), 0xC);
-        *(s32 *)(body + 0x150) = -sub_080C2F20(*(s32 *)(body + 0x100), 0xC);
+        *(s32 *)(body + 0x14C) = -divideInt(*(s32 *)(body + 0xFC), 0xC);
+        *(s32 *)(body + 0x150) = -divideInt(*(s32 *)(body + 0x100), 0xC);
         *(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            void **fnaddr = &D_08671BB0;
+            void **fnaddr = &gMainObjTimerCallback;
             stepBase = self + 0x18;
             sub_080C31E4(stepBase, self + 0x22, (s32)*fnaddr);
         }

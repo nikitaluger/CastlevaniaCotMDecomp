@@ -8,7 +8,7 @@ struct S_02025FF0_x {
     u8 _14EE[0x14FC - 0x14EE]; s32 v14FC;
     u8 _1500[0x173A - 0x1500]; u8 v173A;
 };
-extern struct S_02025FF0_x D_02025FF0;
+extern struct S_02025FF0_x gMainWorkspace;
 struct T8 { u8 pad[4]; s32 val; };
 extern struct T8 D_080E00E8[];
 
@@ -34,9 +34,9 @@ void sub_08070BD0(void *arg0) {
         tablePtr = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *tablePtr);
     }
-    if (D_02025FF0.v14FC != 0) {
+    if (gMainWorkspace.v14FC != 0) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
-    } else if (D_02025FF0.v173A == 0x1C || (D_02025FF0.v14ED == 0 && D_02025FF0.v10 != 0)) {
+    } else if (gMainWorkspace.v173A == 0x1C || (gMainWorkspace.v14ED == 0 && gMainWorkspace.v10 != 0)) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
     }
 }

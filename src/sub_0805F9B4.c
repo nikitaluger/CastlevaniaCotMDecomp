@@ -1,5 +1,5 @@
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 inline int withMargin(s32 arg0)
 {
   return arg0 + 0xFFBF0000;
@@ -9,8 +9,8 @@ inline int withMargin(s32 arg0)
  * rectangle (with fixed margins), 0 when it is inside. */
 s32 sub_0805F9B4(s32 worldX, s32 worldY)
 {
-  u8 *coordTable = D_02021E90;
-  s32 recordOffset = (D_02025FF0[0x18A8] + 1) << 6;
+  u8 *coordTable = gCameraState;
+  s32 recordOffset = (gMainWorkspace[0x18A8] + 1) << 6;
   u8 *xBase = coordTable + 0x1278;
   s32 originX = *((s32 *) (xBase + recordOffset));
   u8 *yBase = coordTable + 0x127C;

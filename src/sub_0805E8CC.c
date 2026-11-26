@@ -5,8 +5,8 @@ extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern s32 sub_080113A8(void *, void *);
 extern s32 sub_08011898(void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E9AC[];
 extern s32 D_08671BDC;
 
@@ -80,8 +80,8 @@ void sub_0805E8CC(u8 *self) {
     if ((*(u16 *)(self + 2) & 0x8000) != 0) return;
     sub_080113A8(gfxObj, animData);
     sub_08011898(anim, 0x16C1);
-    pt = D_02021E90;
-    pb = D_02025FF0;
+    pt = gCameraState;
+    pb = gMainWorkspace;
     pb += 0x18A8;
     idx = ((u32)*pb + 1) * 0x40;
     pt1 = pt + 0x1278;

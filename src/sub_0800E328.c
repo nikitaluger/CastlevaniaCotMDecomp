@@ -10,14 +10,14 @@ struct S_020278D0 {
     void *objects[5];
 };
 extern struct S_020278D0 D_020278D0;
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 void _call_via_r1(void *, void *);
 void sub_0806DD94(void);
 void sub_080C2E68(void *, void *, u32);
 void sub_0806D930(void *);
 
 void sub_0800E328(void) {
-    u8 *state = D_02025368;
+    u8 *state = gGameStatus;
     u32 i = 0;
     void *obj;
     u8 *sync = (u8 *)&D_020278D0;

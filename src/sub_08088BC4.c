@@ -2,8 +2,8 @@ extern void sub_08003740(s32, s32);
 extern void sub_08003A6C(s32, s32, s32);
 extern void sub_0806D588(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0[];
-extern u8 D_02025FF0[];
+extern s32 gMainObjTimerCallback[];
+extern u8 gMainWorkspace[];
 
 struct F02 { u8 pad[2]; u16 f02; };
 static inline s32 zero32(void) { return 0; }
@@ -18,7 +18,7 @@ void sub_08088BC4(void *arg0) {
     u8 *base = *(u8 **)(obj + 0x6C);
     u8 *sprite = base + 4;
     s32 actor = *(s32 *)(obj + 0x38);
-    u8 *statePtr = D_02025FF0;
+    u8 *statePtr = gMainWorkspace;
     s32 mode = *(s32 *)(statePtr + 0x1C);
     s32 *scriptHandlers;
     if (mode == 1) {

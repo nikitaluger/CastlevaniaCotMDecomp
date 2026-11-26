@@ -16,8 +16,8 @@ void sub_0805EA44(void *actor)
         return;
     }
     if (remaining <= 0x77) {
-        extern u8 D_02025FF0[];
-        u8 *flags = D_02025FF0;
+        extern u8 gMainWorkspace[];
+        u8 *flags = gMainWorkspace;
         flags += 0x189C;
         if (*(u32 *)flags & 1) {
             *(u8 *)(other + 0x2A) &= 0xBF;

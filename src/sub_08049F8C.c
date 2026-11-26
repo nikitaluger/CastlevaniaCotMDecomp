@@ -1,5 +1,5 @@
 extern s32 D_08671BD0;
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 extern s32 sub_0801165C(void *, s32);
 extern void sub_0804A4D0(void *, s32, s32, s32);
 extern u32 sub_0804A4F0(void *, s32, void *, s32);
@@ -36,7 +36,7 @@ void sub_08049F8C(u8 *self) {
         }
         return;
     case 2:
-        projectile = sub_0805FAEC(D_02025FF0[0x1870 / 4], 0x12B);
+        projectile = sub_0805FAEC(gMainWorkspace[0x1870 / 4], 0x12B);
         if (projectile != NULL) {
             baseX = *(s32 *)(enemy + 8);
             *(s32 *)(projectile + 0x4C) = baseX + (*(volatile u16 *)(actor + 2) & 0x10 ? 0xC0000 : (s32)0xFFF40000);

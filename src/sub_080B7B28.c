@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080B9818(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
@@ -24,7 +24,7 @@ void sub_080B7B28(void *entity) {
     void *work = *(void **)(self + 0x3C);
     void *animState = (u8 *)work + 0x34;
     void *pose = (u8 *)work + 0x48;
-    sub_08011368(sprite, animState, 0, 0);
+    setAnimationFrame(sprite, animState, 0, 0);
     {
         u8 *part = *(u8 **)((u8 *)work + 0x28);
         u8 zero = 0;

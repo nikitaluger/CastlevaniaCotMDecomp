@@ -2,8 +2,8 @@ extern s32 sub_0805F9B4(s32 x, s32 y); /* 1 when the point is outside the view *
 extern void sub_080113A8(void *sprite, void *animState);
 extern void sub_0801165C(void *work, s32 accelY);
 extern void sub_080C31E0(void *actor, void *handler);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* If the actor leaves the view or its animation finishes, switch its state;
  * otherwise integrate its motion and recompute screen coordinates from the camera. */
@@ -26,8 +26,8 @@ SWITCH_STATE:
 
 SET_COORDS:
     {
-        u8 *coordTable = D_02021E90;
-        u8 *cameraIndex = D_02025FF0;
+        u8 *coordTable = gCameraState;
+        u8 *cameraIndex = gMainWorkspace;
         u8 *xBase;
         u8 *yBase;
         u32 coordOffset;

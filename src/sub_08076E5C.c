@@ -1,15 +1,15 @@
 extern void sub_08003A6C(void *, s32, s32);
 extern void sub_08005E80(s32);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0 { u8 _0[0x14EF]; u8 f14EF; u8 _1[0x1510 - 0x14F0]; u8 f1510; };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
 extern u8 D_084CEC88[];
 extern u8 D_084CECC8[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 struct EffectPart {
   u8 _0;
   u8 f01;
@@ -72,8 +72,8 @@ void sub_08076E5C(struct EffectOwner *self)
   effectObj = self->f6C;
   effectState = (struct EffectState *)((u8 *)effectObj + 4);
   mainObj = self->f38;
-  paramTable = D_02025368;
-  newPart = sub_08016190();
+  paramTable = gGameStatus;
+  newPart = allocEffectPart();
   effectState->f2C = newPart;
   if (newPart == NULL) {
     sub_0806D2D0(self);
@@ -84,7 +84,7 @@ void sub_08076E5C(struct EffectOwner *self)
   effectState->f34 = (void *)zero;
   effectState->f38 = (void *)zero;
   effectState->f3C = (void *)zero;
-  newPart->f01 = D_02025FF0.f1510 & 1;
+  newPart->f01 = gMainWorkspace.f1510 & 1;
   effectState->f2C->f02 = 2;
   effectState->f2C->f03 = 8;
   effectState->f2C->f04 = paramTable[0xC1 * 4];
@@ -97,7 +97,7 @@ void sub_08076E5C(struct EffectOwner *self)
   effectState->f2C->f10 = mainObj;
   effectState->f18 = self->f24;
   self->f24 = (void *)0x0808449D;
-  ((struct EffectGraphic *)effectObj)->f55 = D_02025FF0.f14EF;
+  ((struct EffectGraphic *)effectObj)->f55 = gMainWorkspace.f14EF;
   ((struct EffectPart *)mainObj)->f24 = (void *)D_084CEC88;
   sub_08003A6C((u8 *)effectObj + 0x20, 0, (s32)D_084CECC8);
   ((struct EffectGraphic *)effectObj)->f4 = self->f7C;
@@ -105,7 +105,7 @@ void sub_08076E5C(struct EffectOwner *self)
   sub_08005E80(0x6D);
   ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19 = zero;
   {
-    s32 *cueTable = &D_08671BB0;
+    s32 *cueTable = &gMainObjTimerCallback;
     u8 *scriptPtr = (u8 *)self + 0x18;
     sub_080C31E4(scriptPtr, (u8 *)self + 0x22, *cueTable);
     ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19++;

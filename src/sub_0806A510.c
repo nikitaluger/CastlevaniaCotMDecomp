@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 _pad[0xC]; u32 fieldC; u8 _pad2[0x18C5 - 0x10]; u8 field18C5; u8 field18C6; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct Entry_080E03A0 { s32 value; u8 rest[0x54]; };
 struct S_080E03A0 { u8 _pad[0x44]; struct Entry_080E03A0 entries[1]; };
 extern struct S_080E03A0 D_080E03A0;
@@ -26,7 +26,7 @@ void sub_0806A510(void *arg0) {
     cameraMode = sub_0806C4B4(gfxData, gfxData);
     if (cameraMode == 0) {
         sub_0806C5EC(arg0, sprite, gfxData, gfxData);
-        state = &D_02025FF0;
+        state = &gMainWorkspace;
         state->field18C6 = 1;
         state->field18C5 = 1;
         one = 1;

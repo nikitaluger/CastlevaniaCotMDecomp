@@ -1,5 +1,5 @@
 extern s32 sub_08001480(void *, s32);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern u8 D_02027A00[];
 extern u32 D_0866EB08[];
 
@@ -8,7 +8,7 @@ extern u32 D_0866EB08[];
  * scroll destination (D_02027A00+0x12/+0x13) and spawn the transition object
  * as a child of `parent`. */
 void sub_08061B4C(void *parent, s32 posX, s32 posY) {
-    u8 *state = D_02025368;
+    u8 *state = gGameStatus;
     u8 *patterns = (u8 *)D_0866EB08;
     u8 *scroll;
     u8 *tilePair;

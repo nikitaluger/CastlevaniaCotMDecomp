@@ -4,7 +4,7 @@ extern void sub_0803B140(s32, void *, void *, s32);
 extern void sub_0803B194(void *);
 extern void sub_0805FAEC(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 /* Enemy step: advance animation, spawn a one-shot effect under a state
  * condition, run the next script step when the animation flag is set, then

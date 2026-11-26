@@ -1,11 +1,11 @@
 struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 void sub_080B07EC(void)
 {
-    void *r2 = *(void **)((u8 *)(void *)D_02025FF0.v + 0x30);
+    void *r2 = *(void **)((u8 *)(void *)gMainWorkspace.v + 0x30);
     while (r2 != 0) {
         if (*(s16 *)r2 == 0x1AA) {
             u16 *p = *(u16 **)((u8 *)r2 + 0x3C);

@@ -4,7 +4,7 @@ void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 struct S_02025FF0 {
     u8 pad0[0x10];
@@ -18,7 +18,7 @@ struct S_02025FF0 {
     u8 pad1758[0x18C2 - 0x1758];
     u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Per-frame update for this entity type: when a special camera/scroll mode owns
  * the position, hand off to the entity callback and return; otherwise apply the
@@ -37,19 +37,19 @@ void sub_0807A7DC(u8 *self)
     }
 
     *(s32 *)(view + 0x18) += *(s32 *)(vec + 0x0C);
-    *(u16 *)view = D_02025FF0.f18C2;
+    *(u16 *)view = gMainWorkspace.f18C2;
     {
         s32 countdown = *(s32 *)(vec + 0x10) - 1;
         *(s32 *)(vec + 0x10) = countdown;
         if (countdown == 0) {
             *(s32 *)(vec + 0x10) = 0x40;
-            countdown = D_02025FF0.f1754;
+            countdown = gMainWorkspace.f1754;
             if (countdown <= 4) {
-                D_02025FF0.f1754 = 5;
+                gMainWorkspace.f1754 = 5;
             }
             *(u8 *)(self + (s32)*(s16 *)(self + 0x22) * 2 + 0x19) = 0;
             {
-                s32 *effectData = &D_08671BB0;
+                s32 *effectData = &gMainObjTimerCallback;
                 sub_080C31E4(self + 0x18, self + 0x22, *effectData);
             }
         }
@@ -60,7 +60,7 @@ void sub_0807A7DC(u8 *self)
         sub_0806D588(view, vec);
         *(s32 *)(view + 0x18) = savedX;
     }
-    if (D_02025FF0.f173A == 0x1C || (D_02025FF0.f14ED == 0 && D_02025FF0.f10 != 0)) {
+    if (gMainWorkspace.f173A == 0x1C || (gMainWorkspace.f14ED == 0 && gMainWorkspace.f10 != 0)) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));
     }
 }

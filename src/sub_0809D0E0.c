@@ -1,4 +1,4 @@
-void sub_080114DC(s32, s32, s32, s32);
+void setObjectAnimation(s32, s32, s32, s32);
 void sub_0809E278(s32, s32, void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -11,7 +11,7 @@ void sub_0809D0E0(void *actor) {
     u8 *work = *(u8 **)(self + 0x3C);
     u8 *anim = work + 0x34;
     u8 *body = work + 0x48;
-    sub_080114DC(sprite, (s32)anim, 5, 0);
+    setObjectAnimation(sprite, (s32)anim, 5, 0);
     sub_0809E278(sprite, (s32)anim, work, (s32)body);
     if (*anim & 2) {
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

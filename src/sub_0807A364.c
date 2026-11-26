@@ -1,10 +1,10 @@
 /* The D_0000xxxx symbols are used only for their addresses: byte offsets into
- * D_02025FF0 materialised as link-time literals. */
-extern u8 D_02025FF0[];
+ * gMainWorkspace materialised as link-time literals. */
+extern u8 gMainWorkspace[];
 extern u8 D_000018C2[];
 extern u8 D_0000173A[];
 extern u8 D_000014ED[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 extern void sub_08003740(void *, u16 *);
 extern void sub_08005E80(s32);
@@ -40,7 +40,7 @@ void sub_0807A364(void *arg0) {
     timer = sub_0806D518(arg0, obj, buf);
     if (timer != 0)
         return;
-    gameState = D_02025FF0;
+    gameState = gMainWorkspace;
     stateValue = *(u16 *)((u32)gameState + (u32)D_000018C2);
     zero = 0;
     *obj = stateValue;

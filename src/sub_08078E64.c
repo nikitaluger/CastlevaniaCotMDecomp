@@ -15,7 +15,7 @@ struct MainObj {
     u32 kindB;          /* 0x8C */
 };
 
-/* Graphics/animation descriptor allocated by sub_08016190. */
+/* Graphics/animation descriptor allocated by allocEffectPart. */
 struct GfxDesc {
     u8 _00;
     u8 type;            /* 0x01 */
@@ -65,11 +65,11 @@ struct Target {
     u32 scriptAddr;     /* 0x24 */
 };
 
-extern u8 D_02025368[];
-extern struct { u8 _0[0x1510]; u8 f1510; } D_02025FF0;
+extern u8 gGameStatus[];
+extern struct { u8 _0[0x1510]; u8 f1510; } gMainWorkspace;
 
 void sub_08003A6C(u32, u32, u32);
-void *sub_08016190(void);
+void *allocEffectPart(void);
 void sub_0806D2D0(void *);
 u16 sub_0806D62C(u16, u32);
 void sub_080C31E0(u32, u32);
@@ -84,11 +84,11 @@ void sub_08078E64(struct MainObj *arg0) {
     struct Target *target = (struct Target *)arg0->target;
     struct GfxDesc *gfx;
     u32 zero;
-    u8 *data = D_02025368;
+    u8 *data = gGameStatus;
     u8 *scriptPtr;
     u32 *cmdTable;
 
-    gfx = (struct GfxDesc *)sub_08016190();
+    gfx = (struct GfxDesc *)allocEffectPart();
     state->gfx = gfx;
     if (gfx == 0) {
         sub_0806D2D0(arg0);
@@ -99,7 +99,7 @@ void sub_08078E64(struct MainObj *arg0) {
     state->counter1 = zero;
     state->counter2 = zero;
     state->counter3 = zero;
-    gfx->type = 1 & D_02025FF0.f1510;
+    gfx->type = 1 & gMainWorkspace.f1510;
     state->gfx->layer = 2;
     state->gfx->priority = 8;
     state->gfx->gfxIndex = *(u8 *)(data + (0xC1 << 2));

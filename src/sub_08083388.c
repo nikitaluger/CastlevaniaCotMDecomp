@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 s32 sub_0806D450(void *, void *, void *);
 s32 sub_08003740(void *, void *);
@@ -22,7 +22,7 @@ void sub_08083388(void *actor)
     if (sub_0806D450(actorRef, sprite, position) > 0)
         goto call;
 
-    state = D_02025FF0;
+    state = gMainWorkspace;
     *sprite = *(u16 *)(state + 0x18C2);
     if (sub_08003740(work + 0x20, sprite) != 0)
         goto check;

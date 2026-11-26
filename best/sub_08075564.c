@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 s32 sub_0806D35C(void *, void *, void *);
 void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, void *);
@@ -20,7 +20,7 @@ void sub_08075564(void *arg0)
   {
     return;
   }
-  if (D_02025FF0[0x14ED] != (*((u8 *) (((u8 *) p6c) + 0x55))))
+  if (gMainWorkspace[0x14ED] != (*((u8 *) (((u8 *) p6c) + 0x55))))
   {
     sub_080C31E0(arg0, *((void **) (((u8 *) arg0) + 0x24)));
     return;
@@ -28,7 +28,7 @@ void sub_08075564(void *arg0)
   switch (*((u8 *) (((u8 *) p6c) + 0x55)))
   {
     case 0x37:
-      if (D_02025FF0[0x173A] != 7)
+      if (gMainWorkspace[0x173A] != 7)
     {
       sub_080C31E0(arg0, *((void **) (((u8 *) arg0) + 0x24)));
       return;
@@ -134,7 +134,7 @@ void sub_08075564(void *arg0)
   }
 
   {
-    u8 *d = D_02025FF0;
+    u8 *d = gMainWorkspace;
     s32 off = 0x174C;
     u32 v;
     if (p4)

@@ -1,5 +1,5 @@
-extern u32 D_02025FF0[];
-extern u32 D_08671BB0;
+extern u32 gMainWorkspace[];
+extern u32 gMainObjTimerCallback;
 
 void sub_08003740(void *, void *);
 void sub_0806D588(void *, void *);
@@ -13,7 +13,7 @@ void sub_0808968C(void *entity)
     void *pos = *(u8 **)((u8 *)entity + 0x6C) + 4;
     void *screenObj = *(void **)((u8 *)entity + 0x38);
 
-    if (D_02025FF0[4] == 0)
+    if (gMainWorkspace[4] == 0)
         sub_080C31E0(entity, *(void **)((u8 *)entity + 0x24));
     else
         sub_0806D588(screenObj, pos);
@@ -29,13 +29,13 @@ void sub_08089630(void *entity)
     u8 *pos = animState + 4;
     u8 *screenObj = *(u8 **)(e + 0x38);
 
-    if (D_02025FF0[5] == 0x19)
+    if (gMainWorkspace[5] == 0x19)
     {
         u32 zero = 0;
         *(u16 *)(screenObj + 2) |= 0x10;
-        D_02025FF0[7] = 4;
+        gMainWorkspace[7] = 4;
         *(u8 *)(e + *(s16 *)(e + 0x22) * 2 + 0x19) = zero;
-        sub_080C31E4(e + 0x18, e + 0x22, D_08671BB0);
+        sub_080C31E4(e + 0x18, e + 0x22, gMainObjTimerCallback);
     }
     sub_08003740(animState + 0x20, screenObj);
     sub_0806D588(screenObj, pos);
@@ -49,11 +49,11 @@ void sub_080897EC(void *entity)
     void *pos = *(u8 **)(e + 0x6C) + 4;
     void *screenObj = *(void **)(e + 0x38);
 
-    if (D_02025FF0[5] == 0x10)
+    if (gMainWorkspace[5] == 0x10)
     {
-        D_02025FF0[7] = 4;
+        gMainWorkspace[7] = 4;
         *(u8 *)(e + *(s16 *)(e + 0x22) * 2 + 0x19) = 0;
-        sub_080C31E4(e + 0x18, e + 0x22, D_08671BB0);
+        sub_080C31E4(e + 0x18, e + 0x22, gMainObjTimerCallback);
     }
     sub_0806D588(screenObj, pos);
 }
@@ -67,14 +67,14 @@ void sub_08089834(void *entity)
     void *screenObj = *(void **)(e + 0x38);
     u16 v;
 
-    if ((s32)D_02025FF0[14] < *(s32 *)((u8 *)screenObj + 0x14))
+    if ((s32)gMainWorkspace[14] < *(s32 *)((u8 *)screenObj + 0x14))
         v = 0x10 | *(u16 *)((u8 *)screenObj + 2);
     else
         v = *(u16 *)((u8 *)screenObj + 2) & 0xFFEF;
 
     *(u16 *)((u8 *)screenObj + 2) = v;
 
-    if (D_02025FF0[4] == 0)
+    if (gMainWorkspace[4] == 0)
         sub_080C31E0(e, *(void **)(e + 0x24));
     else
         sub_0806D588(screenObj, pos);

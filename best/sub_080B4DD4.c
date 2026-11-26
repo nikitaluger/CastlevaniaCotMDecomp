@@ -1,39 +1,43 @@
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
-extern s32 sub_080114DC(void *, s32, s32, s32);
-extern s32 sub_08013C2C(void);
-extern s32 sub_08014288(void *, void *, void *);
-extern void *sub_08016190(void);
-extern s32 sub_080B710C(void *, s32, s32, s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
+extern void setObjectAnimation(s32, void *, int, u8);
+extern s32 findKindIndex(void);
+extern void installUpdateHandler(void *);
+extern void *allocEffectPart(void);
+extern void initThreePartSpriteGfx(void *, void *, s32, s32);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
-extern s32 sub_08097D90;
-extern s32 D_08671BB0;
-struct D02025FF0
-{
+extern void sub_08097D90(void);
+extern u32 gMainObjTimerCallback;
+
+struct S_02025FF0 {
   u8 _0[0x18C2];
-  u16 w;
+  u16 f18C2;
 };
-extern struct D02025FF0 D_02025FF0;
-struct Obj6
-{
-  u16 f0;
+extern struct S_02025FF0 gMainWorkspace;
+
+struct Entity {
+  u8 _0[2];
+  u16 flags;
+  u8 _1[0x14 - 4];
+  u32 funcTable;
+  u8 _2[0x22 - 0x18];
+  s16 animIdx;
+  u32 handlerArg;
+  u8 _3[0x38 - 0x28];
+  u32 gfx;
+  u32 child;
+  u8 _4[0x5C - 0x40];
+  s32 f5C;
+};
+struct GfxObj {
+  u16 flags;
   u16 f2;
-  u8 _4[0x1C - 0x4];
-  u32 f1C;
+  u8 _0[0x1C - 4];
+  u32 kind;
 };
-struct Obj4
-{
-  u8 _0[0x1C];
-  u16 f1C;
-  u8 _1[0x22 - 0x1E];
-  u16 f22;
-  u8 _2[0x28 - 0x24];
-  void *f28;
-};
-struct Obj28
-{
-  u8 _0;
+struct Obj28 {
+  u8 f0;
   u8 f1;
   u8 f2;
   u8 f3;
@@ -43,151 +47,66 @@ struct Obj28
   u16 fA;
   u16 fC;
   u16 fE;
-  u32 f10;
+  void *f10;
 };
-struct Arg0
-{
-  u8 _0[0x02];
-  u16 f2;
-  u8 _1[0x14 - 0x04];
-  void *f14;
-  u8 _2[0x22 - 0x18];
-  s16 f22;
-  void *f24;
-  u8 _4[0x38 - 0x28];
-  void *f38;
-  void *f3C;
-  u8 _5[0x5C - 0x40];
-  s32 f5C;
+struct Child {
+  u8 _0[0x1C];
+  u16 param;
+  u8 _1[0x22 - 0x1E];
+  u16 result;
+  u8 _2[0x28 - 0x24];
+  struct Obj28 *obj28;
 };
-struct Table2Ent
-{
-  u8 _0[4];
-  u16 f4;
-  u16 f6;
-  u8 _8[0x28 - 0x8];
-};
-extern struct Table2Ent D_080CBDD0[];
-inline int inline_fn(s16 arg0)
-{
-  return arg0 * 2;
-}
+struct Table2Ent { u8 _0[4]; u16 f4; u16 f6; u8 _8[0x28 - 8]; };
+extern struct Table2Ent gEffectGfxTable[];
 
-void sub_080B4DD4(void *arg0)
+void sub_080B4DD4(struct Entity *arg)
 {
-  int new_var9;
-  struct Arg0 *a = arg0;
-  s16 new_var;
-  struct Obj6 *o6;
-  struct Obj4 *o4;
-  struct Obj28 *o28;
-  struct Arg0 **new_var6[2];
-  struct Arg0 **new_var10;
-  int new_var2;
-  s16 new_var4;
-  u8 *p34;
-  u8 *p18;
-  s16 new_var11;
-  void *new_var8;
-  struct Arg0 **(*new_var7)[2];
+  struct GfxObj *gfx;
+  struct Child *child;
+  u8 *childSub;
+  s32 value;
   u16 *t1;
-  void *new_var3;
-  s32 v;
-  s16 idx;
-  unsigned long b;
-  void *p;
-  u8 *new_var5;
-  o6 = sub_0800355C();
-  if (o6 == NULL)
-  {
-    goto fail;
-    new_var2 = sub_08013C2C();
-  }
-  a->f38 = o6;
-  D_02025FF0.w += 0;
-  sub_0800168C(arg0, 0, 0x48, 0);
-  if (a->f3C == NULL)
-  {
-  }
-  goto fail;
-  o6->f1C = 0x80000009;
-  o4 = a->f3C;
-  p34 = ((u8 *) o4) + 0x34;
-  sub_08014288(new_var8 = arg0, o4, &sub_08097D90);
-  o4->f1C = 0x66;
-  v = new_var2;
-  new_var3 = a->f14;
-  o4->f22 = v;
-  if (((v << 7) << 9) < 0)
-  {
-    goto fail;
-  }
-  new_var2 = a->f5C;
-  new_var2 = new_var2 > 0;
-  if (new_var2)
-  {
-  }
-  sub_080B710C(o6, p34, 0x50, 3);
-  sub_080114DC(o6, p34, 0x70, 0);
-  t1 = (u16 *) 0x08102B84;
-  new_var7 = &new_var6;
-  o4->f28 = o28;
-  D_080CBDD0[idx].f4 = D_080CBDD0[idx].f4;
-  if (o28 == NULL)
-  {
-    new_var6[1] = &a;
-    fail:
-    sub_080C31E0(new_var8, (*(*new_var7)[1])->f24);
+  struct Obj28 *obj28;
+  struct Child *temp;
 
-    o6->f2 |= 0x10;
-    o28 = sub_08016190();
-    goto end;
+  gfx = allocSpriteObject();
+  if (gfx == NULL)
+  {
+    goto Lend;
   }
-  o28->f1 = 1;
-  o28->f2 = 8;
-  o28->f3 = 1;
-  idx = o4->f1C;
-  o28->f4 = D_080CBDD0[idx].f4;
-  new_var9 = 0x19;
-  o28->f6 = t1[0];
-  new_var11 = (*new_var6[0])->f22;
-  o28->f8 = t1[1];
-  o28->fA = t1[2];
-  o28->fC = t1[3];
-  o28->fE = D_080CBDD0[idx].f6;
-  new_var6[0] = &(*new_var6[1]);
-  o28->f10 = o6;
-  o6->f2 |= 0x400;
-  (*new_var6[1])->f2 |= 0x1000;
-  idx = new_var11;
-  *((u8 *) ((((u8 *) new_var8) + (idx * 2)) + 0x19)) = 0;
-  p18 = (u8 *) new_var8;
-  p18 = p18 + 0x18;
-  sub_080C31E4(p18, ((u8 *) new_var8) + 0x22, D_08671BB0);
-  idx = a->f22;
-  *((u8 *) ((((u8 *) new_var8) + inline_fn(idx)) + new_var9)) += 1;
-  new_var4 = a->f22;
-  new_var = new_var4;
-  idx = new_var;
-  new_var10 = new_var6[0];
-  b = *((((u8 *) new_var8) + 0x18) + (idx * 2));
-  p = (void *) (((u8 *) new_var3) + (b * 4));
-  new_var5 = &b;
-  sub_080C31E0(new_var8, *((s32 *) ((void *) (((u8 *) (*new_var10)->f14) + ((*new_var5) * 4)))));
-  end:
-  ;
-
-  ;
-  ;
-  ;
-  ;
-  ;
-  o6->f0 = o6->f0 | D_02025FF0.w;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
+  arg->gfx = (u32)gfx;
+  allocWorkSlot((u8 *)arg, 0, 0x48, 0);
+  if (arg->child == 0)
+  {
+    goto Lend;
+  }
+  gfx->kind = 0x80000009;
+  temp = (struct Child *)arg->child;
+  child = temp;
+  childSub = (u8 *)child + 0x34;
+  installUpdateHandler(arg);
+  child->param = 0x66;
+  value = findKindIndex();
+  child->result = value;
+  if ((value << 16) < 0)
+  {
+    goto Lend;
+  }
+  gfx->flags |= gMainWorkspace.f18C2;
+  if ((s32)arg->f5C > 0)
+  {
+    gfx->f2 |= 0x10;
+  }
+  initThreePartSpriteGfx(gfx, childSub, 0x50, 3);
+  setObjectAnimation((s32)gfx, childSub, 0x70, 0);
+  t1 = (u16 *)0x08102B84;
+  obj28 = allocEffectPart();
+  child->obj28 = obj28;
+  if (obj28 != NULL)
+  {
+    return;
+  }
+Lend:
+  sub_080C31E0(arg, arg->handlerArg);
 }
-

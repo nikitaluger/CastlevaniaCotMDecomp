@@ -6,10 +6,10 @@ extern void sub_080722E0(void *, u8);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_0808449C(void);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u32 D_084E4850;
 extern u32 D_084E48B0;
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 void sub_0807C914(u8 *entity) {
     u32 zero;
@@ -28,7 +28,7 @@ void sub_0807C914(u8 *entity) {
     *(u32 *)(view + 0x24) = (u32)&D_084E4850;
     sub_08003A6C(cam + 0x20, 0, &D_084E48B0);
     {
-        u8 *globals = D_02025FF0;
+        u8 *globals = gMainWorkspace;
         *(s32 *)(cam + 4) = *(s32 *)(globals + 0x1728);
         *(s32 *)(pos + 4) = *(s32 *)(globals + 0x172C) + 0xFF800000;
     }
@@ -44,7 +44,7 @@ void sub_0807C914(u8 *entity) {
     *(u32 *)(pos + 0x54) = zero;
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *callback = &D_08671BB0;
+        s32 *callback = &gMainObjTimerCallback;
         u8 *statePtr = entity;
         statePtr += 0x18;
         sub_080C31E4(statePtr, entity + 0x22, *callback);

@@ -1,6 +1,6 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_08100B98[];
-extern u8 D_08671BB0[];
+extern u8 gMainObjTimerCallback[];
 extern u8 D_08671BD0[];
 extern void sub_08011344(void *, void *, s16, s32);
 extern void sub_080C31E0(void *, s32);
@@ -35,7 +35,7 @@ void sub_0809767C(void *arg0)
     if ((flags & 2) != 0)
     {
         offA = 0xC6 << 5;
-        if (*(s16 *)(D_02025FF0 + offA) != 2)
+        if (*(s16 *)(gMainWorkspace + offA) != 2)
             return;
     }
 
@@ -60,7 +60,7 @@ void sub_0809767C(void *arg0)
         zero = 0;
         *(u16 *)(work + 0x16) = one;
         self[*(s16 *)(self + 0x22) * 2 + 0x19] = zero;
-        hpElse = (s32 *)D_08671BB0;
+        hpElse = (s32 *)gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, *hpElse);
     }
 }

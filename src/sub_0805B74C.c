@@ -1,7 +1,7 @@
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Script step advance: marks the work state's mode byte (offset 0) as 1,
  * resets the step counter, advances the script and dispatches the handler for
@@ -13,7 +13,7 @@ void sub_0805B74C(void *arg0)
     u8 *workAux;
     s32 zero;
 
-    sub_0800168C(arg0, 0, 0x54, 0);
+    allocWorkSlot(arg0, 0, 0x54, 0);
 
     if (*(u32 *)((u8 *)arg0 + 0x3C) == 0) {
         /* No work object: run the fallback handler from the object's aux pointer. */
@@ -30,7 +30,7 @@ void sub_0805B74C(void *arg0)
     ((u8 *)arg0)[stepIndex * 2 + 0x19] = zero;
 
     {
-        void **scriptHandlers = &D_08671BB0;
+        void **scriptHandlers = &gMainObjTimerCallback;
         stepBase = (u8 *)arg0 + 0x18;
         sub_080C31E4(stepBase, (u8 *)arg0 + 0x22, *scriptHandlers);
     }

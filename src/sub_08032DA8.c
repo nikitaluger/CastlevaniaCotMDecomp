@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 extern void sub_0801165C(void *, s32);
 extern void sub_080113A8(void *, void *);
@@ -38,7 +38,7 @@ void sub_08032DA8(u8 *self) {
     if (moveState[0] > 0x80) {
         offScreen = sub_080141AC(sprite, work);
         if (offScreen == 1) {
-            base = D_02025FF0;
+            base = gMainWorkspace;
             parentPtr = (u32 *)(base + 0x1870);
             parent = *(s32 *)(self + 0x28);
             if (parent != *(s32 *)parentPtr) {

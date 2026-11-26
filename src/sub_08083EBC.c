@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 _0[0x10]; u32 v10; u8 _1[0x14ED-0x14]; u8 v14ED; u8 _2[0x173A-0x14EE]; u8 v173A; u8 _3[0x18C2-0x173B]; u16 v18C2; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 void sub_08003740(void *, void *);
 void sub_0806D330(void *, void *);
@@ -45,11 +45,11 @@ void sub_08083EBC(void *entity) {
             sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
             return;
         }
-        *(u16 *)((u8 *)component + 0) = D_02025FF0.v18C2;
+        *(u16 *)((u8 *)component + 0) = gMainWorkspace.v18C2;
         sub_08003740((u8 *)owner + 0x20, component);
         sub_0806D588(component, body);
         sub_0806D330(entity, component);
-        if ((D_02025FF0.v173A == 0x1C) || ((D_02025FF0.v14ED == 0) && (D_02025FF0.v10 != 0))) {
+        if ((gMainWorkspace.v173A == 0x1C) || ((gMainWorkspace.v14ED == 0) && (gMainWorkspace.v10 != 0))) {
             sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
         }
     }

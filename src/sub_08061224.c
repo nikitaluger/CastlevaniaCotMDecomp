@@ -1,7 +1,7 @@
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
 extern s32 sub_08061C9C(u8, u8);
-extern void sub_08000E98(s32, void *, s32, s32, s32);
+extern void postDisplaySprite(s32, void *, s32, s32, s32);
 extern void sub_080C2E68(s32, s32, s32);
 extern void sub_08061E04(void);
 extern void sub_08061E34(void);
@@ -21,7 +21,7 @@ struct S_02021E90
   u8 _4[0x1320 - 0x12E2];
   u16 f1320;       /* effect parameter, cleared */
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 struct S_02027A00
 {
   u8 _0[0x12];
@@ -43,8 +43,8 @@ void sub_08061224(u8 *obj)
   u8 *cbArg0;
   u8 *cbArg1;
   u16 *rampPtr;
-  sub_0800168C(obj, 0, 4, 0);
-  if (((*((u32 *) (obj + 0x3C))) == 0) || ((newObj = sub_0800355C(), newObj == NULL)))
+  allocWorkSlot(obj, 0, 4, 0);
+  if (((*((u32 *) (obj + 0x3C))) == 0) || ((newObj = allocSpriteObject(), newObj == NULL)))
   {
     _call_via_r1((s32) obj, *((s32 *) (obj + 0x24)));
     return;
@@ -55,13 +55,13 @@ void sub_08061224(u8 *obj)
   {
     *((u8 *) (newObj + 0x2A)) = (*((u8 *) (newObj + 0x2A))) & 0xBF;
   }
-  sub_08000E98(1, (void *) 0x080D9B1C, 0x05000000, 0x20, 0x10);
-  D_02021E90.f125C = 0;
-  sub_080C2E68((s32) (&D_02021E90.f1260), 0x080D9ADC, 0x40);
+  postDisplaySprite(1, (void *) 0x080D9B1C, 0x05000000, 0x20, 0x10);
+  gCameraState.f125C = 0;
+  sub_080C2E68((s32) (&gCameraState.f1260), 0x080D9ADC, 0x40);
   *((vu16 *) 0x03000830) &= 0xF0FF;
-  D_02021E90.f1320 = 0;
-  D_02021E90.f12E0 = 0;
-  D_02021E90.f12A0 = 0;
+  gCameraState.f1320 = 0;
+  gCameraState.f12E0 = 0;
+  gCameraState.f12A0 = 0;
   sub_08061E04();
   sub_08061E34();
   i = 0;
@@ -76,7 +76,7 @@ void sub_08061224(u8 *obj)
     i++;
   }
   while (((u32) i) <= limit);
-  sub_08000E98(1, ramp, D_02021E90.f1274, 0xA80, 0x10);
+  postDisplaySprite(1, ramp, gCameraState.f1274, 0xA80, 0x10);
   *((u8 *) (((((u32) ((s16) (*((s16 *) (obj + 0x22))))) * 2) + ((u32) obj)) + 0x19)) = 0;
   _call_via_r2(cbArg0, cbArg1, *((s32 *) 0x08671BB0));
 }

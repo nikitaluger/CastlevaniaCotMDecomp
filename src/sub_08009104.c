@@ -2,11 +2,11 @@
  * script timeline (running the handlers whose time has come), animates the
  * background scroll and the palette fade, and ends the sequence when the script
  * finishes or START is held. */
-extern u8 D_02025368[];      /* game/player data; +0x0A = intro-skip allowed */
-extern u8 D_02021E90[];      /* shared video state (BG scroll buffers, fades) */
+extern u8 gGameStatus[];      /* game/player data; +0x0A = intro-skip allowed */
+extern u8 gCameraState[];      /* shared video state (BG scroll buffers, fades) */
 extern u16 D_080CAA00[];     /* event script: time / handler index pairs */
 extern s32 D_0866CB98[];     /* event script step handlers (thumb pointers) */
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 void sub_08000EDC(s32, u8 *, u32, s32, s32);        /* post display-effect block */
 void sub_080060C4(s32, s32, s32, void *);           /* apply to every sound player */
 void sub_080C31E4(u8 *, u8 *, u32);                 /* indirect call */
@@ -16,7 +16,7 @@ void sub_0800942C(void *);                          /* build scroll wipe row */
 void sub_080C0384(void);                            /* sound player volume */
 void sub_08009104(u8 *entity)
 {
-  u8 *gameData = D_02025368;
+  u8 *gameData = gGameStatus;
   u8 *script = *((u8 **) (entity + 0x3C));   /* script state: frame/pos/fade/scroll */
   s32 scriptPos;
   u8 *fadePtr;
@@ -36,14 +36,14 @@ void sub_08009104(u8 *entity)
   }
   if (D_080CAA00[*((s32 *) (script + 4))] == 0) goto fail;
   skipFlag = gameData[0x0A];
-  video = D_02021E90;
+  video = gCameraState;
   if (skipFlag != 0 && (((*((u16 *) (video + 0x146C))) & 8) != 0)) goto fail;
   goto cont;
 fail:
   sub_080060C4(0, 3, 0, sub_080C0384);
   entity[((*((s16 *) (entity + 0x22))) * 2) + 0x19] = 0;
   {
-    u32 *fp = &D_08671BB0;
+    u32 *fp = &gMainObjTimerCallback;
     sub_080C31E4(entity + 0x18, entity + 0x22, *fp);
   }
   return;
@@ -89,7 +89,7 @@ cont:
       sub_0800942C(script);
       sub_08000EDC(0, script + (((*((s32 *) (script + 0xA4))) * 0x140) + 0xA8), 0x04000016, 2, 0x10);
       {
-        u8 *base2 = D_02021E90;
+        u8 *base2 = gCameraState;
         v = *((s32 *) (script + 0xA0));
         *((u8 *) (base2 + 0x1364)) = (u8) v;
         *((u8 *) (base2 + 0x1360)) = 8;

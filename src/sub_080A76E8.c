@@ -1,6 +1,6 @@
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 D_08102064[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 struct EffectState {
     u8 pad[0xEE];
@@ -30,7 +30,7 @@ void sub_080A76E8(void *entity) {
     if (*(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) == 0x48) {
         s32 *scriptTable;
         *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = 0;
-        scriptTable = &D_08671BB0;
+        scriptTable = &gMainObjTimerCallback;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *scriptTable);
     }
 }

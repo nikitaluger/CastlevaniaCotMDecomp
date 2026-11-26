@@ -1,7 +1,7 @@
 /* Allocate a graphics object for the entity, clear its spawn flag, then based
  * on the entity's variant fire one of four script events and dispatch the
  * resulting handler. */
-extern void *sub_0800355C(void);
+extern void *allocSpriteObject(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *D_08671BD0;
@@ -13,7 +13,7 @@ void sub_0800C044(u8 *entity)
     s32 zero;
     u8 *flagByte;
 
-    gfx = sub_0800355C();
+    gfx = allocSpriteObject();
     if (gfx == 0) {
         handler = *(void **)(entity + 0x24);
         sub_080C31E0(entity, handler);

@@ -3,7 +3,7 @@
  * bounds and close to the player (within 96 units horizontally, 64 vertically),
  * clear the step counter and advance the script.
  */
-void sub_08011368(s32, s32, s32, s32);
+void setAnimationFrame(s32, s32, s32, s32);
 s32 sub_08014114(s32, s32, s32, s32, s32, s32);  /* is a box inside the room bounds */
 s32 sub_08014900(s32);  /* |player X - x| */
 s32 sub_0801491C(s32);  /* |player Y - y| */
@@ -16,7 +16,7 @@ void sub_08055364(void *arg0)
     s32 *stepCallback;
     sprite = *(s32 *)((s8 *)arg0 + 0x38);
     work = *(void **)((s8 *)arg0 + 0x3C);
-    sub_08011368(sprite, (s32)((s8 *)work + 0x34), 0, 0);
+    setAnimationFrame(sprite, (s32)((s8 *)work + 0x34), 0, 0);
     if ((sub_08014114(*(s32 *)((s8 *)work + 8), *(s32 *)((s8 *)work + 0xC), 0, 0, 0, 0) == 1) && (sub_08014900(*(s32 *)((s8 *)work + 8)) <= 0x600000) && (sub_0801491C(*(s32 *)((s8 *)work + 0xC)) <= 0x400000))
     {
         *(s8 *)((s8 *)((*(s16 *)((s8 *)arg0 + 0x22) * 2) + arg0) + 0x19) = 0;

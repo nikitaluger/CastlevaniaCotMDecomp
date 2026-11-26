@@ -11,7 +11,7 @@ struct PlayerPos {
   s32 x;
   s32 y;
 };
-extern struct PlayerPos D_02025FF0;
+extern struct PlayerPos gMainWorkspace;
 
 /* Aim block at +0x48 of the AI data. */
 struct AimState {
@@ -47,7 +47,7 @@ void sub_0809D3E8(void *arg0)
     {
       jitter = -1;
     }
-    angle = sub_08005910(D_02025FF0.y - (*((s32 *) (((u8 *) ai) + 0x0C))), D_02025FF0.x - (*((s32 *) (((u8 *) ai) + 0x08))));
+    angle = sub_08005910(gMainWorkspace.y - (*((s32 *) (((u8 *) ai) + 0x0C))), gMainWorkspace.x - (*((s32 *) (((u8 *) ai) + 0x08))));
     state->angle = angle + (jitter << 14);
     state->flag = zero;
     *((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;

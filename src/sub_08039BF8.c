@@ -7,7 +7,7 @@ struct S_02025FF0_1870
   u8 _0[0x1870];
   void *mgr;
 };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 
 /* For a matching sprite type, spawn a linked effect object that copies this
  * entity's state, link it into the global manager list, then despawn when the
@@ -37,7 +37,7 @@ void sub_08039BF8(u8 *obj)
       int value;
       one = 1;
       *((u8 *) control) = one;
-      spawned = sub_0805FAEC((s32) D_02025FF0.mgr, 0xF1);
+      spawned = sub_0805FAEC((s32) gMainWorkspace.mgr, 0xF1);
       if (spawned != 0)
       {
         value = *((u8 *) (obj + 0x4C));
@@ -59,10 +59,10 @@ void sub_08039BF8(u8 *obj)
       *((u32 *) ((*((u8 **) ((*((u8 **) (obj + 0x28))) + 0x30))) + 0x2C)) = 0;
       {
         u8 *unused;
-        *((u32 *) (obj + 0x2C)) = *((u32 *) (((u8 *) D_02025FF0.mgr) + 0x30));
-        *((u32 *) (((u8 *) D_02025FF0.mgr) + 0x30)) = (u32) obj;
+        *((u32 *) (obj + 0x2C)) = *((u32 *) (((u8 *) gMainWorkspace.mgr) + 0x30));
+        *((u32 *) (((u8 *) gMainWorkspace.mgr) + 0x30)) = (u32) obj;
       }
-      *((u32 *) (obj + 0x28)) = (u32) D_02025FF0.mgr;
+      *((u32 *) (obj + 0x28)) = (u32) gMainWorkspace.mgr;
       *((u32 *) (obj + 0x30)) = 0;
     }
   }

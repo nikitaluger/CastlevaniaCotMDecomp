@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080113A8(s32, void *);
 extern void sub_08051D3C(void *, void *, s32, s32);
 extern void sub_08051F98(void *, void *, s32, s32, s32);
@@ -12,7 +12,7 @@ void sub_08050DF0(void *self) {
     void *work = *(void **)((u8 *)self + 0x3C);
     void *anim = (u8 *)work + 0x34;
     void *body = (u8 *)work + 0x48;
-    sub_08011368(sprite, anim, 0x0A, 0);
+    setAnimationFrame(sprite, anim, 0x0A, 0);
     sub_080113A8(sprite, anim);
     if (((u8 *)self)[(*(s16 *)((u8 *)self + 0x22)) * 2 + 0x19] == 0x14) {
         *(u16 *)body = 0;

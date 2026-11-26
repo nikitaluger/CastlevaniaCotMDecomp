@@ -8,7 +8,7 @@ struct S_D
   u8 _2[0x1824];
   u32 f1844;
 };
-extern struct S_D D_02025FF0;
+extern struct S_D gMainWorkspace;
 void sub_080C31E8(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 
@@ -23,7 +23,7 @@ void sub_08089960(void *arg0)
   *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = 0;
   {
     s32 *advanceTable = (s32 *) 0x08671BD0;
-    sub_080C31E8(arg0 + 0x18, arg0 + 0x22, D_02025FF0.state10 + 1, *advanceTable);
+    sub_080C31E8(arg0 + 0x18, arg0 + 0x22, gMainWorkspace.state10 + 1, *advanceTable);
   }
   {
     u8 *stepByte = (u8 *) ((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) arg0));

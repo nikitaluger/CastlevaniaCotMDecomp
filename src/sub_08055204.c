@@ -1,8 +1,8 @@
 /* Per-frame update for a scripted attack/effect: checks whether it should be removed,
  * handles proximity/target and flag events (optionally firing an event), advances the
  * script step to dispatch a callback, then repositions the sprite's Y on screen. */
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E730[];
 extern u32 D_08671BDC[];
 s32 sub_080141AC(void *, void *);
@@ -86,8 +86,8 @@ void sub_08055204(u8 *arg0)
   sub_08013C8C(arg0, sprite);
   {
     s32 worldY = (*((s32 *) (state + 0x0C))) + (*((s32 *) (extra + 0x00)));
-    coordBase = D_02021E90;
-    scrollPtr = D_02025FF0;
+    coordBase = gCameraState;
+    scrollPtr = gMainWorkspace;
     scrollPtr += 0x18A8;
     scrollOff = (((u32) (*((u8 *) scrollPtr))) + 1) * 0x40;
     coordBase += 0x127C;

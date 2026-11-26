@@ -1,16 +1,16 @@
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern s32 sub_08013C2C(s32);
-extern void sub_08014288(void *, void *, void *);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern s32 findKindIndex(s32);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_08014290(void);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_0801131C(void *, u8 *, s32);
-extern void sub_08011368(void *, u8 *, s32, s32);
+extern void initSpriteGraphics(void *, u8 *, s32);
+extern void setAnimationFrame(void *, u8 *, s32, s32);
 struct CameraInfo { u8 _0[0x18C2]; u16 spriteAttrMask; };
-extern struct CameraInfo D_02025FF0;
-extern u8 D_080CD400[];
-extern u32 D_08671BB0;
+extern struct CameraInfo gMainWorkspace;
+extern u8 gSpriteAnimDataTable[];
+extern u32 gMainObjTimerCallback;
 extern u32 D_08671BFC;
 
 /* The sprite object created for the entity. */
@@ -72,22 +72,22 @@ void sub_0803D088(struct Entity *arg) {
     s16 v22;
     s16 *pf22;
 
-    sprite = (struct Sprite *)sub_0800355C();
+    sprite = (struct Sprite *)allocSpriteObject();
     if (sprite == NULL) goto Lend;
     arg->sprite = (u32)sprite;
-    sub_0800168C(arg, 0, 0x48, 0);
+    allocWorkSlot(arg, 0, 0x48, 0);
     if (arg->actor == 0) goto Lend;
     sprite->flags = 0x8000000B;
     actor = (struct Actor *)arg->actor;
     anim = ((u8 *)actor) + 0x34;
-    sub_08014288(arg, actor, &sub_08014290);
+    installUpdateHandler(arg, actor, &sub_08014290);
     actor->id = 0x2D;
     actor->x = arg->xPos;
     actor->y = arg->yPos;
     pfc = &D_08671BFC;
     actor->scaleX = (arg->param6C >> 8) * (sub_080C31E0(arg->param7C + 0x4000, *pfc) >> 8);
     actor->scaleY = (arg->param6C >> 8) * (sub_080C31E0(arg->param7C, *pfc) >> 8);
-    ret = sub_08013C2C(actor->id);
+    ret = findKindIndex(actor->id);
     actor->dirIndex = ret;
     if ((ret << 16) >= 0) goto Lcont;
 Lend:
@@ -97,15 +97,15 @@ Lcont:
     pf22 = (s16 *)actor;
     v22 = pf22[0x11];
     sprite->gfxAttr = ((v22 << 6) + 0x200) | ((u16)(ret + 8) << 12);
-    sprite->gfxAttr = sprite->gfxAttr | D_02025FF0.spriteAttrMask;
-    sub_0801131C((u8 *)sprite, anim, (s32)D_080CD400 + actor->id * 0xC);
-    sub_08011368((u8 *)sprite, anim, 0x14, 0);
+    sprite->gfxAttr = sprite->gfxAttr | gMainWorkspace.spriteAttrMask;
+    initSpriteGraphics((u8 *)sprite, anim, (s32)gSpriteAnimDataTable + actor->id * 0xC);
+    setAnimationFrame((u8 *)sprite, anim, 0x14, 0);
     arg->flags = arg->flags | 0x1000;
     i = arg->dirIndex;
     arr = (u16 *)arg;
     ((u8 *)(&arr[i]))[0x19] = 0;
     {
-        u32 *scriptData = &D_08671BB0;
+        u32 *scriptData = &gMainObjTimerCallback;
         ctrlBase = ((u8 *)arg) + 0x18;
         sub_080C31E4(ctrlBase, ((u8 *)arg) + 0x22, *scriptData);
     }

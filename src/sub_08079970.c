@@ -8,7 +8,7 @@ struct S02025FF0_79970 {
     u32 f1728;
     u32 f172C;
 };
-extern struct S02025FF0_79970 D_02025FF0;
+extern struct S02025FF0_79970 gMainWorkspace;
 
 extern void sub_08003A6C(void *, s32, void *);
 extern void sub_0808449C(void);
@@ -30,7 +30,7 @@ void sub_08079970(void *arg0) {
     *(u32 *)(state + 0x18) = *(u32 *)((u8 *)arg0 + 0x24);
     *(u32 *)((u8 *)arg0 + 0x24) = (u32)sub_0808449C;
     {
-        struct S02025FF0_79970 *globals = &D_02025FF0;
+        struct S02025FF0_79970 *globals = &gMainWorkspace;
         u8 kindByte = globals->f14EF;
         *(u8 *)(actor + 0x55) = kindByte;
         *(u32 *)(sprite + 0x24) = (u32)0x084DE7BC;

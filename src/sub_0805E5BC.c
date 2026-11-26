@@ -20,8 +20,8 @@ void sub_0805E5BC(void *actor)
   }
   if (countCopy <= 0x77)
   {
-    extern u8 D_02025FF0[];
-    u8 *flags = D_02025FF0;
+    extern u8 gMainWorkspace[];
+    u8 *flags = gMainWorkspace;
     flags += 0x189C;
     if ((*((u32 *) flags)) & 1)
     {

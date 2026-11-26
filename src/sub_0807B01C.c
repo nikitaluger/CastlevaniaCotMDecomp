@@ -9,7 +9,7 @@ struct S_02025FF0_7B01C
   u8 _173B[0x18C2 - 0x173B];
   u16 f18C2;
 };
-extern struct S_02025FF0_7B01C D_02025FF0;
+extern struct S_02025FF0_7B01C gMainWorkspace;
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D2F8(void *, void *);
 extern void sub_08003740(void *, void *);
@@ -57,10 +57,10 @@ void sub_0807B01C(void *arg0)
     ;
 
     ;
-    *((u16 *) stateObj) = D_02025FF0.f18C2;
+    *((u16 *) stateObj) = gMainWorkspace.f18C2;
     sub_08003740(bodyPos + 0x1C, stateObj);
     sub_0806D588(stateObj, vec);
-    if ((D_02025FF0.f173A == 0x1C) || ((D_02025FF0.f14ED == 0) && (D_02025FF0.f10 != 0)))
+    if ((gMainWorkspace.f173A == 0x1C) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
     {
       block_9:
       sub_080C31E0(entity, *((void **) (((u8 *) entity) + 0x24)));

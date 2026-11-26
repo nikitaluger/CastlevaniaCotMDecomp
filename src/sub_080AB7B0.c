@@ -1,5 +1,5 @@
 void sub_080AC908(void *, void *, void *, void *);
-void sub_080114DC(void *, void *, s32, s32);
+void setObjectAnimation(void *, void *, s32, s32);
 void sub_080B0828(s32, s32, s32);
 void sub_080C31E8(void *, void *, s32, void *);
 
@@ -21,7 +21,7 @@ void sub_080AB7B0(u8 *self)
 
     stateIdx = *(s16 *)(self + 0x22);
     if (*(u8 *)(self + stateIdx * 2 + 0x19) == 8) {
-        sub_080114DC(gfx, anim, 4, 0);
+        setObjectAnimation(gfx, anim, 4, 0);
     }
 
     stateIdx = *(s16 *)(self + 0x22);

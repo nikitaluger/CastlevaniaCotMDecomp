@@ -7,7 +7,7 @@ extern void sub_08013C8C(void *, void *);
 extern s32 sub_080141AC(s32, void *);
 extern void sub_080142C0(void *, void *);
 extern s32 sub_08014F14(s32, void *, void *, void *);
-extern void sub_0801534C(void *, void *, void *, void *, void *);
+extern void spawnChildPair(void *, void *, void *, void *, void *);
 extern s32 sub_0801576C(s32, void *, void *, void *, void *, void *);
 extern void sub_0804E470(void *, s32);
 extern void _call_via_r1(void *, s32);
@@ -56,7 +56,7 @@ void sub_0804DFC4(u8 *entity)
   stateB = motionExt + 0x14;
   if (res != 0)
   {
-    sub_0801534C(entity, *((u32 *) (motion + 0x28)), *((u32 *) (motionExt + 0x10)), stateA, stateB);
+    spawnChildPair(entity, *((u32 *) (motion + 0x28)), *((u32 *) (motionExt + 0x10)), stateA, stateB);
   }
   sub_080142C0(entity, *((u32 *) (motion + 0x28)));
   sub_080142C0(entity, *((u32 *) (motionExt + 0x10)));

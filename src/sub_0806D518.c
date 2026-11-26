@@ -8,12 +8,12 @@ struct GameState {
     u8 _pad[0x14B8];
     u32 change;  /* bits 4..7: pending global state change */
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 extern void sub_080C31E0(void *, s32);
 
 s32 sub_0806D518(void *arg0) {
-    u32 change = D_02025FF0.change;
+    u32 change = gMainWorkspace.change;
     if ((change & 0xF0) == 0) return 0;
     if (change & 0x80) return 1;
     if (change & 0x10) {

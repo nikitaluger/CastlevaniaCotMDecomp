@@ -1,4 +1,4 @@
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern u16 D_080E0AC8[];
 extern s32 sub_080C36E4(s32, s32);
 extern void sub_08005E80(void);
@@ -11,7 +11,7 @@ void sub_0806DE0C(void) {
     u16 *soundIds;
     s32 counter;
     s32 soundIndex;
-    state = D_02025368;
+    state = gGameStatus;
     soundIds = D_080E0AC8;
     state += 0x90;
     counter = *(s32 *)state;

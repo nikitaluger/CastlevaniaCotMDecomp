@@ -1,8 +1,8 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_08014DB4(void *, void *, s32, s32);
 
 struct S_02025FF0_174C { u8 _0[0x174C]; u32 a; u32 b; };
-extern struct S_02025FF0_174C D_02025FF0;
+extern struct S_02025FF0_174C gMainWorkspace;
 
 /* Play pose 14 and steer the follow path at body+0x50 toward the global
  * target point; when the path hits its turn limit (dirFlags bit 2), flag the
@@ -14,8 +14,8 @@ void sub_08022708(void *arg0)
     void *anim = body + 0x34;
     u8 *motion = body + 0x48;
 
-    sub_08011368(sprite, anim, 0xE, 1);
-    sub_08014DB4(body, body + 0x50, D_02025FF0.a, D_02025FF0.b);
+    setAnimationFrame(sprite, anim, 0xE, 1);
+    sub_08014DB4(body, body + 0x50, gMainWorkspace.a, gMainWorkspace.b);
     if (4 & *(u16 *)(motion + 0x20))
         *(u16 *)motion = 1;
 }

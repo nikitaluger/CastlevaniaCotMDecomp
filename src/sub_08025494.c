@@ -1,7 +1,7 @@
 /* Steer an entity toward a moving target, then signal completion once it arrives:
  * refresh its animation, and either clear a script sub-state byte and fire the
  * arrival callback, or turn toward the target and latch the sub-state flag. */
-extern s32 sub_08011368(s32, s32, s32, s32);
+extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern s32 sub_08014A04(s32, s32, s32, s32, s32);
 extern s32 sub_08014A6C(s32, s32, s32, s32);
 extern void sub_08014B1C(s32, s32, s32, s32);
@@ -23,7 +23,7 @@ void sub_08025494(void *arg0)
     motion = *(u8 **)(entity + 0x3C);
     animState = motion + 0x34;
     steer = motion + 0x48;
-    sub_08011368((s32)sprite, (s32)animState, 0, 1);
+    setAnimationFrame((s32)sprite, (s32)animState, 0, 1);
     coordBase = 0x02025FF0;
     coordOffset = 0x1728;
     targetX = *(s32 *)(coordBase + coordOffset) + *(s32 *)(steer + 8);

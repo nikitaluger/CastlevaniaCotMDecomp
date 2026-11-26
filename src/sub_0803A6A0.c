@@ -8,7 +8,7 @@ void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u32 D_0866DF44;
 
 /* Updates this entity's sprite and animation state, dispatches the callback
@@ -44,7 +44,7 @@ void sub_0803A6A0(void *arg0) {
             entry = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
             *(u8 *)(entry + 0x19) = 0;
         }
-        callbackTable = &D_08671BB0;
+        callbackTable = &gMainObjTimerCallback;
         callbackArgs = entity + 0x18;
         sub_080C31E4(callbackArgs, entity + 0x22, *callbackTable);
         {

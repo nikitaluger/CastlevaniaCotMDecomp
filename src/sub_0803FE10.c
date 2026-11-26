@@ -1,8 +1,8 @@
 extern void sub_08040AB0(void *actor, void *sprite, void *work);
 extern s32 sub_08040A1C(void *sprite, void *animState, void *work, void *steer);
-extern void sub_08011368(void *sprite, void *animState, s16 animIndex, s32 arg);
+extern void setAnimationFrame(void *sprite, void *animState, s16 animIndex, s32 arg);
 extern void sub_080C31E4(void *scriptData, void *scriptIndex, s32 callback);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 extern s16 D_080CF474[];
 
 /* Spawns a child effect when the trigger is clear, advances the actor's animation,
@@ -26,11 +26,11 @@ void sub_0803FE10(void *arg0)
     if ((*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19))) > 0x78)
     {
       s16 animIndex = D_080CF474[*((u8 *) trigger)];
-      sub_08011368(sprite, animState, animIndex, 0);
+      setAnimationFrame(sprite, animState, animIndex, 0);
       *((s32 *) (work + 0x0C)) += 0x00010000;
       *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = 0;
       {
-        s32 *callbacks = D_08671BB0;
+        s32 *callbacks = gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, *callbacks);
       }
     }

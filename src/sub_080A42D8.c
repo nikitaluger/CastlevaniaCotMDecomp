@@ -1,8 +1,8 @@
 extern void sub_080113A8(s32, s32);
-extern void sub_08011368(s32, s32, s32, s32);
+extern void setAnimationFrame(s32, s32, s32, s32);
 extern s32 sub_08005820(s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 /* Effect update: advances the sprite animation, and when the sprite reaches
  * state 13 applies gravity, switches it to animation 0x11 and gives it a random
@@ -20,7 +20,7 @@ void sub_080A42D8(void *arg0) {
         animDef = *(u8 **)(work + 0x28);
         zero = 0;
         animDef[1] = 5;
-        sub_08011368((s32)sprite, (s32)anim, 0x11, 0);
+        setAnimationFrame((s32)sprite, (s32)anim, 0x11, 0);
         *(s32 *)(work + 0x14) = -(sub_08005820(0xC000) + 0x6000);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
         {

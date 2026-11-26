@@ -7,7 +7,7 @@ extern void sub_08056B58(s32, s32, void *, s32, s32);
 extern void sub_08056BB8(void *, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 struct CameraPos { u8 _0[0x174C]; s32 camX; s32 camY; };
-extern struct CameraPos D_02025FF0;
+extern struct CameraPos gMainWorkspace;
 
 s32 sub_08056C20(u8 *owner, u8 *target, u8 *script, s32 paramA, s32 paramB, u8 *path, s32 mode) {
     s32 done = 0;
@@ -17,7 +17,7 @@ s32 sub_08056C20(u8 *owner, u8 *target, u8 *script, s32 paramA, s32 paramB, u8 *
     switch (*(u8 *)(script + 8)) {
     case 0:
         if (mode == 0) {
-            s32 dist = sub_080059DC(D_02025FF0.camX - *(s32 *)(target + 8), D_02025FF0.camY - *(s32 *)(target + 0xC));
+            s32 dist = sub_080059DC(gMainWorkspace.camX - *(s32 *)(target + 8), gMainWorkspace.camY - *(s32 *)(target + 0xC));
             if (dist <= 0x4FFFFF) {
                 void *child;
                 *(u8 *)(script + 8) = *(u8 *)(script + 8) + 1;

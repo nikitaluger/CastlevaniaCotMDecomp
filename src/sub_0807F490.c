@@ -14,7 +14,7 @@ struct GlobalState {
   u8 _3[0x18C2 - 0x173B];
   u16 f18C2;
 };
-extern struct GlobalState D_02025FF0;
+extern struct GlobalState gMainWorkspace;
 
 /* Entity AI callback: advance position, react to a one-way collision, then end or continue. */
 void sub_0807F490(u8 *self)
@@ -44,7 +44,7 @@ void sub_0807F490(u8 *self)
     sub_0808DBF8(newX, *((u32 *) (body + 4)), 0);
   }
   *((u16 *) ((*((u8 **) (work + 0x2C))) + 0x14)) = 0;
-  gs = &D_02025FF0;
+  gs = &gMainWorkspace;
   *((u16 *) state) = gs->f18C2;
   sub_08003740(work + 0x1C);
   sub_0806D588(state, body);

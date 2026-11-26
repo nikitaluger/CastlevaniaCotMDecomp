@@ -16,7 +16,7 @@ struct MovingActor {
     u8 _0x14[0x34];
     s32 target;
 };
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *D_08671BD0;
@@ -35,7 +35,7 @@ void sub_0802D0E4(struct ScriptActor *arg0)
     source = (void *)arg0->source;
     actor = (struct MovingActor *)arg0->actor;
     status = (u8 *)actor + 0x34;
-    sub_08011368(source, status, 0x5, 0);
+    setAnimationFrame(source, status, 0x5, 0);
     actor->direction = 0;
     arg0->jumpTable = 0x0866DB74;
     arg0->stepIndex += 1;

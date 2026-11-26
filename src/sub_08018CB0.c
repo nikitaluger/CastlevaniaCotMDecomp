@@ -5,7 +5,7 @@ struct S_02025FF0_1870
     u8 _[0x1870];
     u32 v;
 };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 
 inline s16 toS16(s32 value)
 {
@@ -19,7 +19,7 @@ void *sub_08018CB0(void *parent, s32 x, s32 y)
     u32 parentPtr = (u32)parent;
     s32 sx = x;
     s32 sy = y;
-    void *obj = sub_0805FB24(D_02025FF0.v, 0x88);
+    void *obj = sub_0805FB24(gMainWorkspace.v, 0x88);
 
     if (obj == 0)
     {

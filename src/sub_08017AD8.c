@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080161F0(void);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -14,7 +14,7 @@ void sub_08017AD8(void *arg0) {
     u8 *targetObj;
     void **pp;
 
-    sub_08011368(companion, stateArg, 0xB, 0);
+    setAnimationFrame(companion, stateArg, 0xB, 0);
     targetObj = *(u8 **)(control + 0x34);
     zero = 0;
     targetObj[1] = zero;

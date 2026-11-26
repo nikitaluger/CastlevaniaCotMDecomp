@@ -1,4 +1,4 @@
-void sub_08011368(s32, s32, s32, s32);
+void setAnimationFrame(s32, s32, s32, s32);
 void sub_080113A8(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -16,7 +16,7 @@ void sub_080B23AC(void *self) {
     animState = (s32)work + 0x34;
     sub_080113A8(animController, animState);
     if (2 & *(u8 *)((u8 *)work + 0x34)) {
-        sub_08011368(animController, animState, 0x52, 1);
+        setAnimationFrame(animController, animState, 0x52, 1);
         *(s8 *)((s8 *)((*(s16 *)((u8 *)self + 0x22) * 2) + self) + 0x19) = 0;
         handlerTable = (s32 *)0x08671BB0;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *handlerTable);

@@ -12,7 +12,7 @@ struct S_02025FF0_78C6C
   u8 _18A9[0x18C2 - 0x18A9];
   u16 f18C2;
 };
-extern struct S_02025FF0_78C6C D_02025FF0;
+extern struct S_02025FF0_78C6C gMainWorkspace;
 extern u8 D_02023130[];
 extern s32 sub_0806D518(void *, void *, void *);
 extern s32 sub_08007DD8(void *, s32);
@@ -44,7 +44,7 @@ void sub_08078C6C(void *arg0)
     *((s32 *) (((u8 *) p6C) + 4)) += *((s32 *) (p4 + 8));
     t = (*((s32 *) (p4 + 4))) + (*((s32 *) (p4 + 0xC)));
     *((s32 *) (p4 + 4)) = t;
-    base = D_02023130 + (D_02025FF0.f18A8 << 6);
+    base = D_02023130 + (gMainWorkspace.f18A8 << 6);
     if ((u16)sub_08007DD8(base, *((s32 *) (((u8 *) p6C) + 4))) != 0)
     {
       sub_0808DBF8(*((s32 *) (((u8 *) p6C) + 4)), *((s32 *) (p4 + 4)), 0);
@@ -60,10 +60,10 @@ void sub_08078C6C(void *arg0)
       }
       *((s32 *) (p4 + 0x54)) = 4;
     }
-    *((u16 *) p38) = D_02025FF0.f18C2;
+    *((u16 *) p38) = gMainWorkspace.f18C2;
     sub_08003740(p8 + 0x1C, p38);
     sub_0806D588(p38, p4);
-    if ((D_02025FF0.f173A == 0x1C) || ((D_02025FF0.f14ED == 0) && (D_02025FF0.f10 != 0)))
+    if ((gMainWorkspace.f173A == 0x1C) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
     {
       block_9:
       sub_080C31E0(self, *((void **) (self + 0x24)));

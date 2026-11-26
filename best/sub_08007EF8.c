@@ -14,21 +14,21 @@ void sub_08007EF8(void) {
     u32 i, j;
 
     sp0 = z5;
-    dma[0] = (u32)&sp0;
+    do { dma[0] = (u32)&sp0;
     dma[1] = 0x02025FF0;
     dma[2] = 0x85000637;
     (void)dma[2];
 
     base[0x10] = 0xFF;
     base[0x1A] = base[0x0B];
-    p = base + 0xA6;
+    p = base + 0xA6; } while (0);
     {
         s32 one = 1;
         *p = one;
         p += 5; *p = one;
         p += 0xF; *p = one;
 
-        z4 = 0;
+        
         *(u16 *)(base + 0x3CE) = one;
         *(u16 *)(base + shl2(0xF3)) = 2;
         *(u16 *)(base + shl2(0xF4)) = 0x100;
@@ -40,7 +40,7 @@ void sub_08007EF8(void) {
         off -= 1; base[off] = 1;
     }
     off -= 0x40;
-    sub_0806D8E4(base + off);
+    sub_0806D8E4((z4 = 0, base + off));
 
     off = shl2(0xBA);
     base[off] = z4;

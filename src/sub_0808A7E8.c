@@ -5,7 +5,7 @@ extern void sub_08003A6C(s32, s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 void sub_0808A7E8(void *entity) {
     u8 *self = (u8 *)entity;
@@ -21,7 +21,7 @@ void sub_0808A7E8(void *entity) {
     sub_08005E80(0x19D);
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *animScript = D_08671BB0;
+        s32 *animScript = gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, *animScript);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

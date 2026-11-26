@@ -1,9 +1,9 @@
 extern void sub_08003A6C(void *, s32, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
-extern u8 D_02021E90[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
+extern u8 gCameraState[];
 extern u8 D_080E03A0[];
 extern u8 D_084A67F4[];
 extern void *D_08671BD0;
@@ -15,8 +15,8 @@ s32 sub_0806865C(void *arg0, void *arg1, void *arg2, void *arg3) {
     u8 *self = (u8 *)arg0;
     u8 *actor = (u8 *)arg2;
     u8 *outObj = (u8 *)arg3;
-    u32 flagTable = (u32)D_02025368;
-    u32 workBase = (u32)D_02025FF0;
+    u32 flagTable = (u32)gGameStatus;
+    u32 workBase = (u32)gMainWorkspace;
     u32 flagOffset;
     u32 altOffset;
     u32 tableBase, entryOffset, entryPtr;
@@ -28,7 +28,7 @@ s32 sub_0806865C(void *arg0, void *arg1, void *arg2, void *arg3) {
     flagOffset = 0x3BE;
     if (*(s32 *)(workBase + 0x24) != 0 ?
         (*(u16 *)(workBase + 0x28) & *(u16 *)(flagTable + flagOffset)) :
-        (altOffset = 0x146C, *(u16 *)((u32)D_02021E90 + altOffset) & *(u16 *)(flagTable + flagOffset))) {
+        (altOffset = 0x146C, *(u16 *)((u32)gCameraState + altOffset) & *(u16 *)(flagTable + flagOffset))) {
         *(s32 *)(actor + 0x40) = 0;
         tableBase = (u32)D_080E03A0;
         entryIndex = *(s32 *)(actor + 0x44);

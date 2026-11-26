@@ -1,6 +1,6 @@
 /* Per-scanline alpha-blend ramp: waits for a VBlank/HBlank window, sets
  * BLDCNT/BLDALPHA for the current scanline from the eva/evb counters in
- * D_02021E90, steps those counters, then reprograms the DISPSTAT VCOUNT
+ * gCameraState, steps those counters, then reprograms the DISPSTAT VCOUNT
  * compare (current line + 4) for the next scanline. */
 void sub_080BF73C(void)
 {

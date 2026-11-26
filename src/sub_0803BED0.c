@@ -1,6 +1,6 @@
 /* Runs one step of an effect: picks a left/right direction from a target position,
  * stores a speed and its half, then dispatches the routine named by a per-step byte. */
-s32 sub_08014938(s32);
+s32 signOf(s32);
 void sub_08014668(s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -13,7 +13,7 @@ void sub_0803BED0(void *obj)
     s32 speed;
     u8 zero;
 
-    if (sub_08014938(*(s32 *)((u8 *)work + 0x08)) > 0) {
+    if (signOf(*(s32 *)((u8 *)work + 0x08)) > 0) {
         *(s32 *)((u8 *)work + 0x10) = 0x2000;
     } else {
         *(s32 *)((u8 *)work + 0x10) = (s32)0xFFFFE000;

@@ -25,23 +25,27 @@ void sub_080AFFE8(u8 *arg0)
 
     var_r1 = (*(u16 *)(t28_38 + 0x02) & 0x10) ? 1 : -1;
 
-    r4val = andOne(*(u16 *)r8);
-    r10v = var_r1 * 2;
-    pd86 = (u32 *)0x08671BFC;
-
+    do
+    {
+      r4val = andOne(*(u16 *)r8);
+    }
+    while (0);
     i = 0;
-    p = r5;
+    r10v = var_r1 * 2;
+
+    pd86 = (u32 *)0x08671BFC;
+    do { do { p = r5; } while (0); } while (0);
     do {
         u8 *obj = *p;
         *(u8 *)(obj + 0x58) = (u8)var_r1;
         obj = *p;
-        p++;
+        do { p++; } while (0);
         *(u8 *)(obj + 0x54) = (u8)r4val;
         i++;
     } while (i <= 3);
 
     spv[0] = *(s32 *)(arg0 + 0x5C);
-    spv[1] = *(s32 *)(arg0 + 0x6C) + spv[0];
+    do { r4val = *(s32 *)(arg0 + 0x6C); spv[1] = r4val + spv[0];
     spv[2] = *(s32 *)(arg0 + 0x7C) + spv[1];
 
     if (var_r1 == -1) {
@@ -52,13 +56,13 @@ void sub_080AFFE8(u8 *arg0)
         var_r7 = spv[1] + 0x4100;
     }
 
-    *(s32 *)(r5[0] + 0x6C) = *(s32 *)(r8 + 0x08) + ((var_r1 << 16) + (r10v << 16));
+    *(s32 *)(r5[0] + 0x6C) = *(s32 *)(r8 + 0x08) + (((var_r1 <<= 16)) + (r10v << 16));
     *(s32 *)(r5[0] + 0x7C) = *(s32 *)(r8 + 0x0C) + 0xFFFE0000;
 
-    *(s32 *)(r5[1] + 0x6C) = *(s32 *)(r5[0] + 0x6C);
+    *(s32 *)(r5[1] + 0x6C) = *(s32 *)(r5[0] + 0x6C); } while (0);
     *(s32 *)(r5[1] + 0x7C) = *(s32 *)(r5[0] + 0x7C);
 
-    *(s32 *)(r5[2] + 0x6C) = *(s32 *)(r5[1] + 0x6C) + ((sub_080C31E0(var_r6 + 0x4000, *pd86) >> 8) * 0xC00);
+    do { *(s32 *)(r5[2] + 0x6C) = *(s32 *)(r5[1] + 0x6C) + ((sub_080C31E0(var_r6 + 0x4000, *pd86) >> 8) * 0xC00);
     *(s32 *)(r5[2] + 0x7C) = *(s32 *)(r5[1] + 0x7C) + ((sub_080C31E0(var_r6, *pd86) >> 8) * 0xC00);
 
     *(s32 *)(r5[3] + 0x6C) = *(s32 *)(r5[2] + 0x6C) + ((sub_080C31E0(var_r7 + 0x4000, *pd86) >> 8) << 12);
@@ -66,5 +70,5 @@ void sub_080AFFE8(u8 *arg0)
 
     *(s32 *)(r5[1] + 0x8C) = spv[0];
     *(s32 *)(r5[2] + 0x8C) = spv[1];
-    *(s32 *)(r5[3] + 0x8C) = spv[2];
+    *(s32 *)(r5[3] + 0x8C) = spv[2]; } while (0);
 }

@@ -1,4 +1,4 @@
-void sub_08000E98(s32, s32, s32, s32, s32);
+void postDisplaySprite(s32, s32, s32, s32, s32);
 void sub_080BBD80(void *arg0) {
     u8 *self = (u8 *)arg0;
     void *p = *(void **)(self + 0x28);
@@ -10,7 +10,7 @@ void sub_080BBD80(void *arg0) {
         s32 b = (s32)((u32)(x | -x) >> 31);
         s32 *arr;
         arr = (s32 *)0x08670690;
-        sub_08000E98(1, arr[idx + b * 3], 0x0600BF80, 0x80, 0x10);
+        postDisplaySprite(1, arr[idx + b * 3], 0x0600BF80, 0x80, 0x10);
     }
 }
 
@@ -19,7 +19,7 @@ void sub_080BB984(void *arg0, void *arg1) {
     u8 *a1 = (u8 *)arg1;
     u32 c = *(u32 *)(a1 + 0x68) + 1;
     *(u32 *)(a1 + 0x68) = c;
-    if ((c & 0xF) == 0) {
+    if (((*(u32 *)(a1 + 0x68) + 1) & 0xF) == 0) {
         switch (c & 0x30) {
         case 0:
         case 0x10:

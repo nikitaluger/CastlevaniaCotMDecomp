@@ -1,14 +1,14 @@
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern s32 sub_08013C2C(void);
-extern void sub_08014288(void *, void *, void *);
-extern void sub_080BE528(void *, void *, s32, s32);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern s32 findKindIndex(void);
+extern void installUpdateHandler(void *, void *, void *);
+extern void initSpriteGfx(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08097D90(void);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
-extern struct S_02025FF0 D_02025FF0;
-extern u32 D_08671BB0;
+extern struct S_02025FF0 gMainWorkspace;
+extern u32 gMainObjTimerCallback;
 extern u8 D_08102F0C[];
 struct Entity {
   u8 _0[2]; u16 flags; u8 _1[0x14 - 4]; u32 actionTable; u8 _2[0x22 - 0x18];
@@ -33,26 +33,26 @@ void sub_080BC050(struct Entity *entity)
   s16 pcOffset;
   u16 *pcWords;
   u16 *stepEntry;
-  spawnedObj = sub_0800355C();
+  spawnedObj = allocSpriteObject();
   if (spawnedObj == NULL) goto Lend;
   entity->spawnedObj = (u32)spawnedObj;
-  sub_0800168C(entity, 0, 0x48, 0);
+  allocWorkSlot(entity, 0, 0x48, 0);
   if (entity->component == 0) goto Lend;
   spawnedObj->config = 0x80000009;
   spawnedObj->statusFlag &= 0xBF;
   component = (struct Component *)entity->component;
   scriptPlayer = ((u8 *)component) + 0x34;
-  sub_08014288(entity, component, &sub_08097D90);
+  installUpdateHandler(entity, component, &sub_08097D90);
   component->param = 0x68;
-  kind = sub_08013C2C();
+  kind = findKindIndex();
   component->kind = kind;
   if ((kind << 16) >= 0) goto Lcont;
 Lend:
   sub_080C31E0(entity, entity->onFailAction);
   return;
 Lcont:
-  spawnedObj->flags = spawnedObj->flags | D_02025FF0.f18C2;
-  sub_080BE528(spawnedObj, scriptPlayer, D_08102F0C[entity->dataIndex], 2);
+  spawnedObj->flags = spawnedObj->flags | gMainWorkspace.f18C2;
+  initSpriteGfx(spawnedObj, scriptPlayer, D_08102F0C[entity->dataIndex], 2);
   spawnedObj->flags2 = spawnedObj->flags2 | 0x400;
   entity->timer = 0;
   entity->flags = entity->flags | 0x1000;
@@ -60,7 +60,7 @@ Lcont:
   pcWords = (u16 *)entity;
   ((u8 *)(&pcWords[pcOffset]))[0x19] = 0;
   {
-    u32 *pbb0 = &D_08671BB0;
+    u32 *pbb0 = &gMainObjTimerCallback;
     stepPtr = ((u8 *)entity) + 0x18;
     sub_080C31E4(stepPtr, ((u8 *)entity) + 0x22, *pbb0);
   }

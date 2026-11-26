@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, s32, s32, s32);
+extern void setAnimationFrame(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_08005910(s32, s32);
@@ -26,7 +26,7 @@ void sub_080492B8(void *arg0, void *arg1, s32 arg2)
         }
     }
 
-    sub_08011368(arg0, arg2, D_080CF904[(u32)(r6 & 0xF000) >> 12], 0);
+    setAnimationFrame(arg0, arg2, D_080CF904[(u32)(r6 & 0xF000) >> 12], 0);
 }
 
 void sub_08049360(void *arg0)

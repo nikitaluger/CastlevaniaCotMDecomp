@@ -1,10 +1,10 @@
 struct GlobalState { u8 _pad[0x0C]; s32 field_0xC; };
-void sub_080035E4(s32);
+void clearActorPool(s32);
 void sub_080158F4(void);
 void sub_08016160(void);
 void sub_08016530(void);
 void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 static inline u8 zero8(void) { u8 v = 0; return v; }
 static inline u16 zero16(void) { u16 v = 0; return v; }
 
@@ -24,7 +24,7 @@ void sub_08006920(void *actor)
   dma3[0] = (s32) (&dmaFillWord);
   dma3[1] = (s32) (((s8 *) worldState) + (0x93 << 5));
   dma3[2] = 0x85000040;
-  sub_080035E4(dma3[2]);
+  clearActorPool(dma3[2]);
   {
     u16 *gfxState = (u16 *) 0x03000830;
     byteZero = zero16();

@@ -2,7 +2,7 @@
  * current step's action byte is 6, set the work byte at +0x69, clear the
  * linked sprite flag and the step's paired byte at +0x17, then advance the
  * script through the table at 0x08671BD8 with command 3. */
-extern void sub_080114DC(s32, void *, s32, s32);
+extern void setObjectAnimation(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 void sub_080B489C(void *arg0)
@@ -13,7 +13,7 @@ void sub_080B489C(void *arg0)
   u8 *animState = work + 0x34;
   u8 *spriteData = work + 0x48;
 
-  sub_080114DC(sprite, animState, 0x68, 0);
+  setObjectAnimation(sprite, animState, 0x68, 0);
   if ((*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19))) == 6)
   {
     u8 *workFlag = work + 0x69;

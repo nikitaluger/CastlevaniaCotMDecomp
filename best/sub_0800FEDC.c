@@ -10,8 +10,8 @@ void sub_0800FEDC(s32 arg0, u16 *arg1)
     } while (arg0 != 0);
 }
 
-s32 sub_080C2F20(s32, s32);
-s32 sub_080C2F24(s32, s32);
+s32 divideInt(s32, s32);
+s32 moduloInt(s32, s32);
 
 void sub_0800FE08(s32 arg0, s32 arg1, u16 arg2, u16 *arg3)
 {
@@ -23,8 +23,8 @@ void sub_0800FE08(s32 arg0, s32 arg1, u16 arg2, u16 *arg3)
 
     while (count != 0)
     {
-        s32 rem = sub_080C2F24(val, 10);
-        val = sub_080C2F20(val, 10);
+        s32 rem = moduloInt(val, 10);
+        val = divideInt(val, 10);
         if (first != 0 || val != 0 || rem != 0)
             *p = base + rem;
         else
@@ -35,7 +35,7 @@ void sub_0800FE08(s32 arg0, s32 arg1, u16 arg2, u16 *arg3)
     }
 }
 
-void sub_0800FDC8(s32 arg0, s32 arg1, u16 arg2, u16 *arg3)
+void drawPaddedDecimal(s32 arg0, s32 arg1, u16 arg2, u16 *arg3)
 {
     s32 val = arg0;
     s32 count = arg1;
@@ -46,8 +46,8 @@ void sub_0800FDC8(s32 arg0, s32 arg1, u16 arg2, u16 *arg3)
         return;
     do
     {
-        s32 rem = sub_080C2F24(val, 10);
-        val = sub_080C2F20(val, 10);
+        s32 rem = moduloInt(val, 10);
+        val = divideInt(val, 10);
         *p = rem + base;
         p--;
         count--;
@@ -62,8 +62,8 @@ void sub_0800FD84(s32 arg0, s32 arg1, u16 arg2, u16 *arg3)
 
     do
     {
-        s32 rem = sub_080C2F24(val, 10);
-        val = sub_080C2F20(val, 10);
+        s32 rem = moduloInt(val, 10);
+        val = divideInt(val, 10);
         *p = (base + rem) & 0x3FF;
         p--;
     } while (val != 0);

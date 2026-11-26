@@ -1,5 +1,5 @@
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
 extern void sub_080B74C4(void);
 extern void sub_080B74F0(void);
 extern void _call_via_r1(void *, s32);
@@ -10,7 +10,7 @@ static inline u16 zero16(void) { u16 v = 0; return v; }
 /* Initialize an actor's work buffers and dispatch its first action-script handler. */
 void sub_080B60C0(u8 *self)
 {
-  void *work = sub_0800355C();
+  void *work = allocSpriteObject();
   register u8 zeroByte;
   register u16 zeroHalf;
   if (work == 0)
@@ -19,7 +19,7 @@ void sub_080B60C0(u8 *self)
     return;
   }
   *((void **) (self + 0x38)) = work;
-  sub_0800168C(self, 0, 0x48, 0);
+  allocWorkSlot(self, 0, 0x48, 0);
   if ((*((void **) (self + 0x3C))) == 0)
   {
     _call_via_r1(self, *((s32 *) (self + 0x24)));

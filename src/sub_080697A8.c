@@ -1,4 +1,4 @@
-extern struct { u8 _0[0x14ED]; u8 gameMode; } D_02025FF0;
+extern struct { u8 _0[0x14ED]; u8 gameMode; } gMainWorkspace;
 extern s32 D_08671BD8;
 
 s32 sub_0806C4B4(void *, void *);
@@ -17,7 +17,7 @@ void sub_080697A8(u8 *entity) {
 
     if (sub_0806C4B4(out, out) == 0) {
         sub_0806C5EC(entity, state, out, out);
-        if (D_02025FF0.gameMode == 0xAA) {
+        if (gMainWorkspace.gameMode == 0xAA) {
             if (comp[0x12C] != 0) {
                 s32 *hookSlot;
                 entity[*(s16 *)(entity + 0x22) * 2 + 0x17] = 0;

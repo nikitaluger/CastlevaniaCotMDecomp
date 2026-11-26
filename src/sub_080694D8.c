@@ -6,9 +6,9 @@ struct GameState
   u16 faceFlags;
 };
 struct MoveTableEntry { u8 pad[0xC]; s32 value; u8 rest[0x48]; };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 extern struct MoveTableEntry D_080E03A0[];
-extern u16 D_02021E90[];
+extern u16 gCameraState[];
 
 /* Write a facing-dependent table value to the output: the right flag gives
  * +value and clears the flag, the left flag gives -value and sets it. Returns
@@ -23,14 +23,14 @@ s32 sub_080694D8(void *selfArg, void *srcArg, void *outArg)
   u32 newFlags;
   u16 flags;
   *((u32 *) (out + 8)) = 0;
-  mode = D_02025FF0.mode;
-  gs = &D_02025FF0;
+  mode = gMainWorkspace.mode;
+  gs = &gMainWorkspace;
   if (mode != 0)
   {
     if (gs->faceFlags & 0x10) goto right;
     goto check20;
   }
-  else if (!(D_02021E90[0x146E / 2] & 0x10)) goto check20;
+  else if (!(gCameraState[0x146E / 2] & 0x10)) goto check20;
   right:
   *((s32 *) (out + 8)) = D_080E03A0[*((u32 *)(src + 0x44))].value;
   *((u16 *) (self + 2)) &= 0xFFEF;
@@ -41,7 +41,7 @@ s32 sub_080694D8(void *selfArg, void *srcArg, void *outArg)
     if (gs->faceFlags & 0x20) goto left;
     goto ret0;
   }
-  else if (!(D_02021E90[0x146E / 2] & 0x20)) goto ret0;
+  else if (!(gCameraState[0x146E / 2] & 0x20)) goto ret0;
   left:
   *((s32 *) (out + 8)) = -D_080E03A0[*((u32 *)(src + 0x44))].value;
   flags = *((u16 *) (self + 2));

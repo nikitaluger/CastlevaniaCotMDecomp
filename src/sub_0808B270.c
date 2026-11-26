@@ -1,4 +1,4 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 extern void sub_08003740(void *, void *);
 extern void sub_0806D330(void *, void *);
 
@@ -22,7 +22,7 @@ void sub_0808B270(void *entity) {
     *(s32 *)((u8 *)motion + 0x0C) = dy;
     *(s32 *)((u8 *)sprite + 0x18) = *(s32 *)((u8 *)sprite + 0x18) + dy;
     screenWordOffset = 0x18C2;
-    screenWord = *(u16 *)((u8 *)D_02025FF0 + screenWordOffset);
+    screenWord = *(u16 *)((u8 *)gMainWorkspace + screenWordOffset);
     *(u16 *)((u8 *)sprite + 0) = screenWord;
     sub_08003740((u8 *)stateHeader + 0x20, sprite);
     sub_0806D330(self, sprite);

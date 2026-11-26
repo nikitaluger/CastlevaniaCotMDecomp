@@ -1,4 +1,4 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 void sub_080C31E0(void *, void *);
 
@@ -29,8 +29,8 @@ void sub_0808C95C(void *arg0) {
         if (*(s32 *)(work + 0x30) == 0) {
             modeOffset = 0x14AC;
             flagOffset = 0x14B0;
-            mode = (u32 *)((u8 *)D_02025FF0 + modeOffset);
-            flag = *(u32 *)((u8 *)D_02025FF0 + flagOffset);
+            mode = (u32 *)((u8 *)gMainWorkspace + modeOffset);
+            flag = *(u32 *)((u8 *)gMainWorkspace + flagOffset);
             newMode = 0;
             if (flag == 1) newMode = 2;
             *mode = newMode;

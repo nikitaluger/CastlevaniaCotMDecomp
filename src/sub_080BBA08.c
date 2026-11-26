@@ -1,5 +1,5 @@
 s32 sub_080BE550(s32, s32, s32);
-u32 sub_080C2F20(u8, s32);
+u32 divideInt(u8, s32);
 
 /* Pick a phase from the current script slot's byte: divide it by 6, clamp it to
  * 2 and invert it. Store the phase on the object and mirror it into the sprite
@@ -17,7 +17,7 @@ s32 sub_080BBA08(void *arg0)
   {
     return 0;
   }
-  quotient = (unsigned int) sub_080C2F20(*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)), 6);
+  quotient = (unsigned int) divideInt(*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)), 6);
   if (quotient > 2U)
   {
     quotient = 2;

@@ -15,9 +15,9 @@ extern u32 D_0866D78C[];
 struct ActorBits { u8 unk0; u8 flags; };
 struct AnimState { u16 flags; };
 struct CoordTable { u8 _0[0x1278]; u32 camX; u32 camY; };
-extern struct CoordTable D_02021E90;
+extern struct CoordTable gCameraState;
 struct CameraInfo { u8 _0[0x18A8]; u8 index; };
-extern struct CameraInfo D_02025FF0;
+extern struct CameraInfo gMainWorkspace;
 
 void sub_0801ED28(u8 *entity) {
     u8 *anim;
@@ -80,11 +80,11 @@ void sub_0801ED28(u8 *entity) {
 
 common:
     sub_0801EF8C(anim, actor);
-    coordBase = (u8 *)&D_02021E90;
+    coordBase = (u8 *)&gCameraState;
     coordField = 0x1278;
-    *(u32 *)(anim + 0x14) = *(u32 *)(actor + 8) - ((*(u32 *)(coordBase + coordField + ((D_02025FF0.index + 1) << 6)) + 0x8000) & 0xFFFF0000);
+    *(u32 *)(anim + 0x14) = *(u32 *)(actor + 8) - ((*(u32 *)(coordBase + coordField + ((gMainWorkspace.index + 1) << 6)) + 0x8000) & 0xFFFF0000);
     coordField = 0x127C;
-    *(u32 *)(anim + 0x18) = *(u32 *)(actor + 0x0C) - ((*(u32 *)(coordBase + coordField + ((D_02025FF0.index + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000);
+    *(u32 *)(anim + 0x18) = *(u32 *)(actor + 0x0C) - ((*(u32 *)(coordBase + coordField + ((gMainWorkspace.index + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000);
 end:
     ;
 }

@@ -1,7 +1,7 @@
 s32 sub_08005820(s32);
 void sub_080B074C(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Spawn effect 0x1AA at a random point inside the visible area: X in
  * [0x108000, 0x108000+0xD00000] and Y in [0xF8000, 0xF8000+0x180000] above
@@ -15,8 +15,8 @@ void sub_080B0778(void) {
     s32 spawnX;
     s32 spawnY;
 
-    coordTable = D_02021E90;
-    cameraIndex = D_02025FF0;
+    coordTable = gCameraState;
+    cameraIndex = gMainWorkspace;
     cameraIndex += 0x18A8;
     xBase = coordTable + 0x1278;
     spawnX = sub_08005820(0xD00000);

@@ -1,4 +1,4 @@
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 inline u8 *inline_fn(s32 arg0)
 {
   return ((u8 *) arg0) + 0x39;
@@ -6,13 +6,19 @@ inline u8 *inline_fn(s32 arg0)
 
 void sub_0808D6C4(s32 a, s32 b)
 {
-  u8 *p = ((u8 *) b) + 0x3B;
-  u8 *p3d = (p + 2) + a;
-  u8 *p3b = p + a;
-  u8 sum = (*p3d) + (*p3b);
-  u8 *p39 = inline_fn(b) + a;
+  u8 *p;
+  u8 *p3d;
+  u8 *p3b;
+  u8 sum;
+  u8 *p39;
   s32 idx;
-  u8 *new_var;
+  int temp;
+  p = ((u8 *) b) + 0x3B;
+  do { p3d = (p + 2) + a; } while (0);
+  p3b = p + a;
+  temp = (*p3d) + (*p3b);
+  sum = temp;
+  p39 = inline_fn(b) + a;
   p++;
   p--;
   if ((*p39) >= sum)
@@ -22,21 +28,21 @@ void sub_0808D6C4(s32 a, s32 b)
   }
   if ((*p39) < (*p3b))
   {
-    D_02021E90[0x1460 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 6));
-    new_var = (u8 *) b;
-    D_02021E90[0x1464 + a] = *((volatile s16 *) ((new_var + (a * 4)) + 0x16));
-    D_02021E90[0x1462 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 0x0E));
-    D_02021E90[0x1466 + a] = *((volatile s16 *) ((new_var + (a * 4)) + 0x1E));
-    D_02021E90[0x1468 + a] = 0x31;
+    gCameraState[0x1460 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 6));
+    p3d = (u8 *) b;
+    gCameraState[0x1464 + a] = *((volatile s16 *) ((p3d + (a * 4)) + 0x16));
+    gCameraState[0x1462 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 0x0E));
+    gCameraState[0x1466 + a] = *((volatile s16 *) ((p3d + (a * 4)) + 0x1E));
+    gCameraState[0x1468 + a] = 0x31;
   }
   else
   {
-    D_02021E90[0x1460 + a] = *((volatile s16 *) ((((u8 *) b) - (-(a * 4))) + 6));
+    gCameraState[0x1460 + a] = *((volatile s16 *) ((((u8 *) b) - (-(a * 4))) + 6));
     {
-      D_02021E90[0x1462 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 0x0E));
-      D_02021E90[0x1464 + a] = *((volatile s16 *) ((new_var + (a * 4)) + 0x16));
-      D_02021E90[0x1466 + a] = *((volatile s16 *) ((new_var + (a * 4)) + 0x1E));
+      gCameraState[0x1462 + a] = *((volatile s16 *) ((((u8 *) b) + (a * 4)) + 0x0E));
+      gCameraState[0x1464 + a] = *((volatile s16 *) ((p3d + (a * 4)) + 0x16));
+      gCameraState[0x1466 + a] = *((volatile s16 *) ((p3d + (a * 4)) + 0x1E));
     }
-    D_02021E90[0x1468 + a] = *((u8 *) (new_var + 0x38));
+    gCameraState[0x1468 + a] = *((u8 *) (p3d + 0x38));
   }
 }

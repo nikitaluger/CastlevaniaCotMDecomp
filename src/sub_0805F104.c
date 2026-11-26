@@ -1,12 +1,12 @@
 extern void sub_08051F40(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_0800583C(s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
 void *sub_0805FAEC(u32, s32);
 struct S_02025FF0_187C { u8 _p[0x187C]; u32 v; };
-extern struct S_02025FF0_187C D_02025FF0;
+extern struct S_02025FF0_187C gMainWorkspace;
 
 void sub_08051F98(void *arg0, void *arg1, s32 arg2, s16 arg3, s32 arg4) {
     u8 *p = (u8 *)arg1;
@@ -29,7 +29,7 @@ void sub_0805C268(void *arg0) {
     void *p38 = *(void **)(self + 0x38);
     u8 *r6 = *(u8 **)(self + 0x3C);
     u8 *r5 = r6 + 0x48;
-    sub_08011368(p38, r6 + 0x34, 0, 1);
+    setAnimationFrame(p38, r6 + 0x34, 0, 1);
     if (sub_08014A04(r6, *(s32 *)(r5 + 8), *(s32 *)(r5 + 0xC), 0x80000, 0x80000) == 1) {
         s32 v = sub_0800583C(0x200000);
         *(s32 *)(r5 + 8) = *(s32 *)(r6 + 0x48) + v;
@@ -42,7 +42,7 @@ void sub_0805C268(void *arg0) {
  * +0x54) plus the +0x5C flag. Returns the new entity, or NULL on failure. */
 void *sub_0805F104(u16 variantA, u16 variantB) {
     void *obj;
-    obj = sub_0805FAEC(D_02025FF0.v, 0x1E9);
+    obj = sub_0805FAEC(gMainWorkspace.v, 0x1E9);
     if (obj == NULL) return NULL;
     *(u16 *)((u8 *)obj + 0x4C) = variantA;
     *(u16 *)((u8 *)obj + 0x54) = variantB;

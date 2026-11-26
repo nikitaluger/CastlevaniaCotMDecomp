@@ -1,16 +1,16 @@
 extern s32 sub_08005820(s32);
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 extern s32 sub_080C31E0(s32, s32);
 extern s32 sub_08005910(s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern u32 D_08671BFC;
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u32 D_08671BD0;
 
 /* World/player coordinates used as the reference point for aiming. */
 struct S_02025FF0 { u8 _[0x174C]; s32 x174C; s32 x1750; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /*
  * Aims a scripted entity: picks a left/right direction relative to the world
@@ -21,7 +21,7 @@ void sub_0804854C(u8 *task)
 {
     u8 *subject = *(u8 **)(task + 0x3C);
     u8 *stateData = subject + 0x48;
-    s32 direction = sub_08014938(*(s32 *)(subject + 8));
+    s32 direction = signOf(*(s32 *)(subject + 8));
     s32 baseAngle, angle;
     s32 aimX, aimY;
     u32 *angleSrc;
@@ -36,10 +36,10 @@ void sub_0804854C(u8 *task)
 
     angleSrc = &D_08671BFC;
     angle = sub_080C31E0(baseAngle + 0x10000, *angleSrc);
-    aimX = D_02025FF0.x174C + ((angle >> 8) << 14);
+    aimX = gMainWorkspace.x174C + ((angle >> 8) << 14);
 
     angle = sub_080C31E0(*(s32 *)(stateData + 0x0C), *angleSrc);
-    aimY = D_02025FF0.x1750 + ((angle >> 8) << 14);
+    aimY = gMainWorkspace.x1750 + ((angle >> 8) << 14);
 
     if (*(s32 *)(stateData + 4) != 0)
         goto label_end;
@@ -52,7 +52,7 @@ label_end:
     {
         s16 stepIndex = *(s16 *)(task + 0x22);
         *(u8 *)(task + stepIndex * 2 + 0x19) = 0;
-        endCallbacks = &D_08671BB0;
+        endCallbacks = &gMainObjTimerCallback;
         stateEntry = task + 0x18;
         sub_080C31E4(stateEntry, task + 0x22, *endCallbacks);
         stepIndex = *(s16 *)(task + 0x22);

@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *, s32);
 
-/* Set the global state word at D_02025FF0+0x3C to 2, then chain to the
+/* Set the global state word at gMainWorkspace+0x3C to 2, then chain to the
  * entity's saved update callback at +0x24. */
 void sub_080B1908(void *entity) {
     s16 *state = (s16 *)0x02025FF0;

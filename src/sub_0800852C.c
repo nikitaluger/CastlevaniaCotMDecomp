@@ -1,10 +1,10 @@
 /* Load sequence: each u16 of D_080CA8D0 packs two resource ids — the low byte
  * indexes D_0866CA98, the high byte indexes D_0866CAF8. Each 8-byte table entry
- * holds two descriptor pairs that are handed to sub_080063D4. */
+ * holds two descriptor pairs that are handed to decompressToVram. */
 extern u16 D_080CA8D0[];
 extern u8 D_0866CA98[];
 extern u8 D_0866CAF8[];
-extern void sub_080063D4(void *, void *);
+extern void decompressToVram(void *, void *);
 
 /* Advances the load cursor in state[1] and performs both resource loads for
  * that step. */
@@ -34,6 +34,6 @@ void sub_0800852C(u32 *state)
   tableB = D_0866CAF8;
   offB = idB << 3;
   srcB = *((void **) (tableB + offB));
-  sub_080063D4(srcA, srcB);
-  sub_080063D4(*((void **) ((D_0866CA98 + offA) + 4)), *((void **) ((D_0866CAF8 + offB) + 4)));
+  decompressToVram(srcA, srcB);
+  decompressToVram(*((void **) ((D_0866CA98 + offA) + 4)), *((void **) ((D_0866CAF8 + offB) + 4)));
 }

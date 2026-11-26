@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[]; /* memory base; byte 0x14ED holds the current room id */
+extern u8 gMainWorkspace[]; /* memory base; byte 0x14ED holds the current room id */
 extern void *sub_0806D2A0(s32, s32, s32, s32); /* spawn object of a given type */
 extern void sub_08086E28(void); /* notify the room engine of the spawn */
 
@@ -7,7 +7,7 @@ extern void sub_08086E28(void); /* notify the room engine of the spawn */
  * copy the scaled field into +0x8C. */
 void sub_08084CBC(s32 arg0, void *arg1) {
     u8 *room = (u8 *)arg1;
-    if (D_02025FF0[0x14ED] == 0x34) {
+    if (gMainWorkspace[0x14ED] == 0x34) {
         *(s32 *)(room + 0x90) = *(s32 *)(room + 0x90) << 2;
         {
             void *spawn = sub_0806D2A0(arg0, 0x34, 0x0A, 0x12);

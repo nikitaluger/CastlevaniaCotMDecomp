@@ -1,4 +1,4 @@
-extern s32 sub_08011368(void *, void *, s32, s32);
+extern s32 setAnimationFrame(void *, void *, s32, s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_0808DC40(s32, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
@@ -16,7 +16,7 @@ void sub_0804FEE4(void *effect) {
     s32 spawnX;
     s32 spawnY;
     u32 nextFrame;
-    sub_08011368(sprite, anim, 2, 0);
+    setAnimationFrame(sprite, anim, 2, 0);
     sinVal = sub_080C31E0((*frameCount * 0x480) & 0xFFFF, *(s32 *)0x08671BFC);
     spawnX = *(s32 *)(data + 8) + sinVal * 0x14;
     spawnY = *(s32 *)(data + 0xC) - *frameCount * 0x3000 + (0x80 << 0xA);

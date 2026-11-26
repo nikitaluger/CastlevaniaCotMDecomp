@@ -1,5 +1,5 @@
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 s32 sub_0805F9B4(s32 a, s32 b);
 void sub_08005E80(u16 arg0);
@@ -36,15 +36,14 @@ void sub_0808F2C0(void *arg0)
     s16 idx2;
     u8 zero;
     u16 tmp;
+  u16 tmp_web;
     u32 *tbl;
     u32 func;
     s16 idx3;
-    u8 *p2;
     u8 b;
-    u16 flag;
-    u16 r6flag;
+    
     u8 *q;
-    u16 val6;
+    
     u8 *q2;
     u16 valE;
     u8 *pt;
@@ -64,7 +63,7 @@ void sub_0808F2C0(void *arg0)
     cond = sub_0805F9B4(*(s32*)(v6 + 8), *(s32*)(v6 + 0x0C));
     if (cond == 1) {
         p = *(u8**)(v7 + 8);
-        p[1] = 0;
+        { u8 *__fence_p; do { __fence_p = p; } while (0); __fence_p[1] = 0; }
         r2 = (u8*)v10 + 0x2A;
         *r2 = andBF(*r2);
     } else {
@@ -79,7 +78,7 @@ void sub_0808F2C0(void *arg0)
 
         if (val != 1) {
             if (*(s32*)(v7 + 0x0C) == 1) {
-                tmp = *(u16*)v8;
+                do { tmp = *(u16*)v8; } while (0);
                 zero = 0;
                 *(u16*)v8 = tmp | 4;
                 sub_08005E80(0x70);
@@ -93,31 +92,30 @@ void sub_0808F2C0(void *arg0)
         *(u32*)(arg0 + 0x14) = 0x0866F914;
         (*(u16*)(arg0 + 0x22))++;
         idx3 = *(s16*)(arg0 + 0x22);
-        p2 = idx3 * 2 + (u8*)arg0;
-        p2[0x19] = p2[0x19] + 1;
+        (idx3 * 2 + (u8*)arg0)[0x19] = (idx3 * 2 + (u8*)arg0)[0x19] + 1;
         b = r9_var[*(s16*)(arg0 + 0x22) * 2];
         tbl = *(u32**)(arg0 + 0x14);
         func = tbl[b];
         _call_via_r1(arg0, func);
         (*(u16*)(arg0 + 0x22))--;
 
-        flag = *(u16*)(arg0 + 0x02);
-        if (!(flag & 0x8000)) {
-            r6flag = *(u16*)(v6 + 0x02);
-            if (!(r6flag & 4)) {
+        tmp = *(u16*)(arg0 + 0x02);
+        if (!(tmp & 0x8000)) {
+            do { do { do { tmp = *(u16*)(v6 + 0x02); } while (0); } while (0); } while (0);
+            if (!(tmp & 4)) {
                 sub_080119B4(v6, 0x16C1, 0x001F0000, 0x00100000, 0x000F0000);
             }
-            q = *(u8**)(v7 + 4);
-            val6 = *(u16*)(v6 + 0x0A);
-            *(u16*)(q + 4) = val6;
+            do { q = *(u8**)(v7 + 4); } while (0);
+            tmp_web = *(u16*)(v6 + 0x0A);
+            *(u16*)(q + 4) = tmp_web;
             q2 = *(u8**)(v7 + 4);
             valE = *(u16*)(v6 + 0x0E);
             valE = valE - 0x0F;
             *(u16*)(q2 + 6) = valE;
 
             mask32 = 0xFFFF0000;
-            pt = D_02021E90;
-            pb = D_02025FF0;
+            pt = gCameraState;
+            pb = gMainWorkspace;
             pb += 0x18A8;
             idx4 = ((u32)*pb + 1) * 0x40;
             pt1 = pt + 0x1278;

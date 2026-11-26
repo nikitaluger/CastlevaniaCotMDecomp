@@ -1,7 +1,7 @@
 struct FrameEntry { u8 pad[2]; u16 id; };
 
 extern u8 D_08101938[];
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 
 /* Copies one of three 8-byte offset records from D_08101938 into `dst`: the
  * default record, or the variant picked by the mover's current animation frame
@@ -29,5 +29,5 @@ set1:
 set2:
     pose = 2;
 end:
-    sub_08014588(dst, D_08101938 + pose * 8);
+    copyPoseAttrs(dst, D_08101938 + pose * 8);
 }

@@ -13,7 +13,7 @@ struct GameState {
     u8 _pad3[0x18C2 - 0x173B];
     u16 word18C2;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 /* Updates a spawned projectile effect: honors game-state gates, copies the
  * shared value into it, runs its countdown, tweaks a special-case field, and
@@ -29,7 +29,7 @@ void sub_08078240(void *entity) {
     effect = *(void **)((u8 *)entity + 0x38);
     if (sub_0806D518(entity, effect, objData) != 0)
         return;
-    state = &D_02025FF0;
+    state = &gMainWorkspace;
     *(u16 *)effect = state->word18C2;
     if (sub_08003740((u8 *)slotObj + 0x20, effect) == 0) {
         sub_080C31E0(entity, *(void **)((u8 *)entity + 0x24));

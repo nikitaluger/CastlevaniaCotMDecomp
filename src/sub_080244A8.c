@@ -1,5 +1,5 @@
-s32 sub_08011368(void *, void *, s32, s32);
-s32 sub_08014938(s32);
+s32 setAnimationFrame(void *, void *, s32, s32);
+s32 signOf(s32);
 s32 sub_08014114(s32, s32, s32, s32, s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -14,12 +14,12 @@ void sub_080244A8(void *arg0)
     u8 *aimPoint = body + 0x34;
     u8 *state = body + 0x48;
     s32 zero;
-    sub_08011368(target, aimPoint, 0, 1);
+    setAnimationFrame(target, aimPoint, 0, 1);
     {
         s32 countdown = *(u16 *)(state + 0x04) - 1;
         *(u16 *)(state + 0x04) = (u16)countdown;
         if ((s16)countdown == 0x1E) {
-            if (sub_08014938(*(s32 *)(body + 0x08)) > 0) {
+            if (signOf(*(s32 *)(body + 0x08)) > 0) {
                 *(u16 *)(target + 0x02) = *(u16 *)(target + 0x02) | 0x10;
             } else {
                 *(u16 *)(target + 0x02) = *(u16 *)(target + 0x02) & 0xFFEF;

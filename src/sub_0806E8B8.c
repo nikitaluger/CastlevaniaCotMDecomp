@@ -1,7 +1,7 @@
 struct S_02025368 { u8 _pad1[0x8C]; s16 arr8C[1]; u8 _pad2[0x2D9 - 0x8E]; u8 field2D9; u8 _pad3[0x2DE - 0x2DA]; u16 field2DE; };
 struct Obj { u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; void *f10; u8 _pad14[2]; u16 f16; u16 f18; };
 struct Outer { u8 _pad[0x3C]; struct Obj *obj; };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 u16 sub_0806D62C(u16, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -20,7 +20,7 @@ void sub_0806E8B8(void *arg0) {
 
     outer = (struct Outer *)((u8 *)*(void **)((u8 *)arg0 + 0x6C) + 4);
     owner = *(void **)((u8 *)arg0 + 0x38);
-    base = &D_02025368;
+    base = &gGameStatus;
     stateFlag = base->field2D9;
 
     if (stateFlag != 0) {

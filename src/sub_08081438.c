@@ -2,8 +2,8 @@
  * sprite and frame data from the per-effect tables, place it via the active
  * entity's coordinate-table entry, set the palette and game-work counters, then
  * advance its animation and invoke the selected callback. */
-extern u8 D_02021E90[];   /* coordinate-table base */
-extern u8 D_02025FF0[];   /* game-work buffer */
+extern u8 gCameraState[];   /* coordinate-table base */
+extern u8 gMainWorkspace[];   /* game-work buffer */
 extern void sub_08003A6C(void *, u32, void *);  /* init effect descriptor */
 extern void sub_0808BBAC(s32, s32, s32);        /* store effect params in game work */
 extern void sub_080C31E4(void *, void *, u32);  /* start animation frame */
@@ -45,8 +45,8 @@ void sub_08081438(struct EffectEntity *entity)
     *(u32 *)(entityBytes + 0x24) = 0x0808449D; /* Thumb ptr to sub_0808449C */
     *(u32 *)((u8 *)sprite + 0x24) = 0x084F240C; /* sprite data table */
     sub_08003A6C(sub + 0x20, 0, (void *)0x084F24BC); /* frame data */
-    coordTable = D_02021E90;
-    stateBuf = D_02025FF0;
+    coordTable = gCameraState;
+    stateBuf = gMainWorkspace;
     idx = ((u32)stateBuf[0x18A8] + 1) * 0x40;
     baseX = coordTable + 0x1278;
     *(u32 *)(sub + 4) = *(u32 *)(baseX + idx) + 0x780000;

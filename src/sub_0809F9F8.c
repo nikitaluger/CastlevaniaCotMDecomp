@@ -1,4 +1,4 @@
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 
@@ -12,7 +12,7 @@ void sub_0809F9F8(u8 *self) {
     u8 *stepPtr;
     u32 scriptCbAddr;
 
-    sub_0800168C(self, 0, 0x48, 0);
+    allocWorkSlot(self, 0, 0x48, 0);
 
     work = *(u8 **)(self + 0x3C);
     if (work == 0) {

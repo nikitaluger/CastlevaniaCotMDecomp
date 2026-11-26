@@ -7,7 +7,7 @@ struct S_020278D0 {
 extern struct S_020278D0 D_020278D0;
 
 struct Pair { s16 x; s16 y; };
-extern u32 D_02025368[];
+extern u32 gGameStatus[];
 extern u16 D_080CAFF8[];
 
 s32 sub_08001480(s32, s32);       /* spawn an actor of the given type */
@@ -19,14 +19,14 @@ void sub_0800EC20(s32);
 /* Room setup: spawn the five actor slots kept at D_020278D0+0x48 and tag each
  * with its slot index, load the stage-dependent graphics block selected by
  * D_020278D0.stageIndex, then copy the coordinate pairs stored in
- * D_02025368 to their VRAM destinations. */
+ * gGameStatus to their VRAM destinations. */
 void sub_0800D1F0(s32 arg0) {
     u32 *p;
     struct Pair *arr;
     u32 i;
     u8 *d;
 
-    arr = (struct Pair *)D_02025368;
+    arr = (struct Pair *)gGameStatus;
     i = 0;
     d = (u8 *)&D_020278D0;
     p = (u32 *)(d + 0x48);

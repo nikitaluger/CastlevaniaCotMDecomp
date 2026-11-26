@@ -1,4 +1,4 @@
-void sub_080114DC(void *, void *, s32, s32);
+void setObjectAnimation(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Prepare the actor's sprite (work+0x34) with animation 9, set the display
@@ -15,7 +15,7 @@ void sub_080AB320(void *arg0) {
     base = *(u8 **)(obj + 0x3C);
     anim = base + 0x34;
     base = base + 0x48;
-    sub_080114DC(actor, anim, 9, 0);
+    setObjectAnimation(actor, anim, 9, 0);
     zero = 0;
     *(u8 *)(base + 0x1C) = 4;
     *(u8 *)(base + 0x10) = 1;

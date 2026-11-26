@@ -11,7 +11,7 @@ extern struct PathTable D_080CFBF8;
 /* Drive one scripted effect. If the owner's fixed-point point at +0x4C/+0x5C
  * lies inside the camera bounds, advance the script at target+0x48 with the
  * path selected by the script's +9 byte; when the script finishes, clean up,
- * clear the slot timer and dispatch the D_08671BB0 callback. */
+ * clear the slot timer and dispatch the gMainObjTimerCallback callback. */
 void sub_080568A8(void *owner) {
     void *handle;
     void *target;

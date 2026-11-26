@@ -6,7 +6,7 @@ extern void sub_080C31E4(void *a, void *b, void *c);
 
 extern u8 D_08506368[];
 extern u8 D_08506444[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Points the FX object at its sprite data, spawns an effect from the child, seeds
  * the child's movement values, updates the FX position, then advances the actor's
@@ -30,7 +30,7 @@ void sub_080894D0(void *arg0)
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        u32 *msgPtr = &D_08671BB0;
+        u32 *msgPtr = &gMainObjTimerCallback;
         u8 *step = self + 0x18;
         sub_080C31E4(step, self + 0x22, (void *)*msgPtr);
         {

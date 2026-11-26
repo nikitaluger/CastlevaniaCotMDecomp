@@ -8,8 +8,8 @@ extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 struct S28 { u8 a; u8 flag; u8 pad[0x12]; u16 flag2; };
 struct P3C { u16 f0; };
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Per-frame update for one entity: tests collision and active state, handles
  * the death/recycle path through the state's jump table, then repositions the
@@ -66,7 +66,7 @@ void sub_0805B078(void *entity) {
 else_branch:
     {
         u8 *camTable; u8 *camBase; u32 idx; u8 *colX; u8 *colY;
-        camTable = D_02021E90; camBase = D_02025FF0; camBase += 0x18A8;
+        camTable = gCameraState; camBase = gMainWorkspace; camBase += 0x18A8;
         idx = ((u32)*camBase + 1) * 0x40;
         colX = camTable + 0x1278;
         *(u32 *)((u8 *)sprite + 0x14) = *(u32 *)((u8 *)state + 8) - ((*(s32 *)(colX + idx) + 0x8000) & 0xFFFF0000);

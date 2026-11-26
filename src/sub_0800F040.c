@@ -1,4 +1,4 @@
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern u16 D_080CFF2A[];
 extern void sub_0800EB44(u16, s32, s32);
 

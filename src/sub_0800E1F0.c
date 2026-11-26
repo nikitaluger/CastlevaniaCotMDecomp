@@ -2,13 +2,13 @@
  * graphics state, upload two attribute blocks selected by the globals, clear the
  * entity's pose byte and run its behaviour script. */
 extern s32 sub_0805FEC8(u16);
-extern void sub_0805FDF0(void);
-extern void sub_0805FEB4(s32);
+extern void resetMapRender(void);
+extern void setScreenTransition(s32);
 extern void sub_08000E54(s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u16 D_080CB062[];
 extern u8 D_020278D0[];
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 void sub_0800E1F0(u8 *self)
 {
@@ -18,10 +18,10 @@ void sub_0800E1F0(u8 *self)
         u16 *attrPtr;
         s32 attrSize;
         u32 gfxBase, attrOffset;
-        sub_0805FDF0();
-        sub_0805FEB4(0);
+        resetMapRender();
+        setScreenTransition(0);
 
-        gfxBase = (u32)D_02021E90;
+        gfxBase = (u32)gCameraState;
         attrOffset = 0x1262;
         attrPtr = (u16 *)(gfxBase + attrOffset);
         sub_08000E54(1, 0, ((*attrPtr & 0xC) << 12) + 0x06000040, 0xFC0, (attrSize = 0x10));

@@ -6,7 +6,7 @@ s32 sub_08005910(s32, s32);
 s32 sub_0801473C(s32, s32);
 void sub_080146D0(u8 *, s32, s32);
 s32 sub_0801165C(void *, s32);
-void sub_0801468C(u16 *, s32);
+void setSpriteFlip(u16 *, s32);
 void sub_080113A8(s32, void *);
 
 /* Update a homing projectile: advance its timer, steer its heading toward the
@@ -51,6 +51,6 @@ void sub_0805BC78(u8 *self)
 
     sub_080146D0(entity, angle16, *(s32 *)(moving + 4));
     sub_0801165C(entity, 0);
-    sub_0801468C((u16 *)sprite, *(s32 *)(moving + 8));
+    setSpriteFlip((u16 *)sprite, *(s32 *)(moving + 8));
     sub_080113A8((s32)sprite, anim);
 }

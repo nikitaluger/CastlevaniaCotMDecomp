@@ -1,5 +1,5 @@
 void sub_080113A8(s32, void *);
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Animation-end update: clears the work's auxiliary state bytes, steps the
@@ -17,7 +17,7 @@ void sub_0803CD34(void *arg0) {
     sub_080113A8((s32)sprite, anim);
     if (2 & *anim) {
         void **scriptHandlers;
-        sub_08011368((s32)sprite, anim, 4, 0);
+        setAnimationFrame((s32)sprite, anim, 4, 0);
         *(u8 *)(*(u32 *)(work + 0x28) + 2) = 8;
         *(u8 *)(*(u32 *)(work + 0x28) + 3) = 1;
         ((u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2))[0x19] = zero;

@@ -9,7 +9,7 @@ struct S {
     u8 f137A; u8 f137B;
 };
 struct HW { u8 _0[0x20]; u16 f20; u8 _1[2]; u16 f24; u8 _2[2]; u16 f28; u8 _3[2]; u16 f2C; };
-extern struct S D_02021E90;
+extern struct S gCameraState;
 extern struct HW D_03000830;
 extern vu8 D_04000005;
 
@@ -19,32 +19,32 @@ extern vu8 D_04000005;
 void sub_080BEC40(void) {
     u8 duration, hold;
 
-    D_02021E90.f1361 = 2;
-    duration = D_02021E90.f1364;
-    D_02021E90.f1374 = duration;
-    D_02021E90.f1375 = D_02021E90.f1366;
-    D_02021E90.f1376 = D_02021E90.f1367;
-    D_02021E90.f1377 = D_02021E90.f1368;
-    D_02021E90.f1378 = D_02021E90.f1369;
-    D_02021E90.f1379 = D_02021E90.f136A;
-    D_02021E90.f137A = D_02021E90.f136B;
-    D_02021E90.f137B = D_02021E90.f136C;
-    hold = D_02021E90.f1365;
+    gCameraState.f1361 = 2;
+    duration = gCameraState.f1364;
+    gCameraState.f1374 = duration;
+    gCameraState.f1375 = gCameraState.f1366;
+    gCameraState.f1376 = gCameraState.f1367;
+    gCameraState.f1377 = gCameraState.f1368;
+    gCameraState.f1378 = gCameraState.f1369;
+    gCameraState.f1379 = gCameraState.f136A;
+    gCameraState.f137A = gCameraState.f136B;
+    gCameraState.f137B = gCameraState.f136C;
+    hold = gCameraState.f1365;
     if (hold != 0) {
-        D_02021E90.f1365 = hold - 1;
+        gCameraState.f1365 = hold - 1;
     } else {
-        D_02021E90.f1365 = duration;
-        D_02021E90.f136E = D_02021E90.f136E + D_02021E90.f136A;
+        gCameraState.f1365 = duration;
+        gCameraState.f136E = gCameraState.f136E + gCameraState.f136A;
     }
-    D_02021E90.f1370 = D_03000830.f20;
-    D_02021E90.f1371 = D_03000830.f24;
-    D_02021E90.f1372 = D_03000830.f28;
-    D_02021E90.f1373 = D_03000830.f2C;
-    D_02021E90.f136F = D_02021E90.f136E;
-    D_02021E90.f136D = D_02021E90.f1375;
-    if (D_02021E90.f136D == 0) {
+    gCameraState.f1370 = D_03000830.f20;
+    gCameraState.f1371 = D_03000830.f24;
+    gCameraState.f1372 = D_03000830.f28;
+    gCameraState.f1373 = D_03000830.f2C;
+    gCameraState.f136F = gCameraState.f136E;
+    gCameraState.f136D = gCameraState.f1375;
+    if (gCameraState.f136D == 0) {
         D_04000005 = 0xE3;
     } else {
-        D_04000005 = D_02021E90.f136D - 1;
+        D_04000005 = gCameraState.f136D - 1;
     }
 }

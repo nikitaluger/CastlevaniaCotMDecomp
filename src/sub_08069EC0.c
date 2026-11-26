@@ -3,8 +3,8 @@ s32 sub_0806A7AC(void *, void *, s32);
 s32 sub_0808BBAC(s32, s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
-extern u8 D_02025FF0[];
-extern void *D_08671BB0;
+extern u8 gMainWorkspace[];
+extern void *gMainObjTimerCallback;
 
 /*
  * Sets up the entity's effect (id 0x57), copies its position, applies the
@@ -27,7 +27,7 @@ void sub_08069EC0(void *arg0) {
   *((volatile u16 *) 0x05000000) = 0x4210;
   sub_0808BBAC(1, 2, 2);
   {
-    int state = D_02025FF0[0x14EE];
+    int state = gMainWorkspace[0x14EE];
     switch (state) {
     case 0x91: case 0x92: case 0x93: case 0x94: case 0x95:
     case 0x96: case 0x97: case 0x98: case 0x99: case 0x9A:
@@ -37,7 +37,7 @@ void sub_08069EC0(void *arg0) {
   }
   *((u8 *) (((char *) arg0) + (*((s16 *) (((char *) arg0) + 0x22))) * 2 + 0x19)) = 0;
   {
-    void **effectIds = &D_08671BB0;
+    void **effectIds = &gMainObjTimerCallback;
     u8 *paramPtr = ((char *) arg0) + 0x18;
     sub_080C31E4(paramPtr, ((char *) arg0) + 0x22, (s32) *effectIds);
     *((u8 *) (((char *) arg0) + (*((s16 *) (((char *) arg0) + 0x22))) * 2 + 0x19)) += 1;

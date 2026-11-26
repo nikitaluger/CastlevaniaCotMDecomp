@@ -1,9 +1,9 @@
 void sub_08051E94(void *, void *, s32, s32);
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_08011460(void *, void *, s32);
 void sub_080C31E4(void *, void *, void *);
 
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Builds an 8-segment trail with a spread-dependent angle; once the script
  * step passes 0x3B it sets the animation and fires the script callback. */
@@ -37,14 +37,14 @@ void sub_08050E5C(void *arg0)
   step = *(s16 *)(self + 0x22);
   if ((u32)self[step * 2 + 0x19] > 0x3B)
   {
-    sub_08011368(sprite, animState, 0xA, 0);
+    setAnimationFrame(sprite, animState, 0xA, 0);
     sub_08011460(sprite, animState, 0x20000);
     if (animState[0] & 2)
     {
       step = *(s16 *)(self + 0x22);
       self[step * 2 + 0x19] = 0;
       {
-        void **fnaddr = &D_08671BB0;
+        void **fnaddr = &gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, *fnaddr);
       }
     }

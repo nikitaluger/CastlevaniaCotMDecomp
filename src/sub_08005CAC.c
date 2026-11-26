@@ -1,6 +1,6 @@
 void sub_080C31E8(void *, void *, s32, s32);
 
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern u16 D_03000830[];
 
 /* Entity script action: unless game-state flag 8 is set, bail out if the
@@ -12,7 +12,7 @@ void sub_08005CAC(u8 *entity) {
     u8 *gameState;
     s16 stepIndex;
 
-    gameState = D_02021E90;
+    gameState = gCameraState;
     flagOffset = 0x146C;
     if ((*(u16 *)(gameState + flagOffset) & 8) == 0) {
         stepIndex = *(s16 *)(entity + 0x22);

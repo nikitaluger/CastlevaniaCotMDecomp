@@ -1,20 +1,20 @@
 extern void sub_08003A6C(u32, u32, u32);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s32 sub_0806D62C(u16, s32);
 extern void sub_0808449C(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern struct S_FF0
 {
   u8 _0[0x14EF];
   u8 f14EF;
   u8 _1[0x20];
   u8 f1510;
-} D_02025FF0;
+} gMainWorkspace;
 extern u8 D_080E51D4[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 struct R3
 {
   u8 _0;
@@ -105,7 +105,7 @@ void sub_0807678C(u8 *arg0)
   s16 v;
   s16 idx;
   r8 = r5;
-  r3 = sub_08016190();
+  r3 = allocEffectPart();
   r5->f2C = r3;
   if (r3 == 0)
   {
@@ -118,11 +118,11 @@ void sub_0807678C(u8 *arg0)
   r5->f38 = zero;
   r5->f3C = zero;
   t = (struct RT *) (D_080E51D4 + ((*((u32 *) (arg0 + 0x7C))) * 0x4C));
-  r3->f01 = D_02025FF0.f1510 & 1;
+  r3->f01 = gMainWorkspace.f1510 & 1;
   r5->f2C->f02 = 2;
   r5->f2C->f03 = 8;
   rp = r5->f2C;
-  rp->f04 = D_02025368[0xC1 << 2];
+  rp->f04 = gGameStatus[0xC1 << 2];
   r5->f2C->f06 = t->f00;
   r5->f2C->f08 = t->f02;
   r5->f2C->f0A = zero;
@@ -130,7 +130,7 @@ void sub_0807678C(u8 *arg0)
   tmp = (v = t->f04);
   if (v == 0)
   {
-    tmp = sub_0806D62C(*((u16 *) (D_02025368 + 0x2E2)), t->f06);
+    tmp = sub_0806D62C(*((u16 *) (gGameStatus + 0x2E2)), t->f06);
   }
   rp->f0E = tmp;
   r5->f2C->f16 = 5;
@@ -138,10 +138,10 @@ void sub_0807678C(u8 *arg0)
   r5->f2C->f10 = (u32) sl;
   r5->f18 = *((u32 *) (arg0 + 0x24));
   *((u32 *) (arg0 + 0x24)) = (u32) (&sub_0808449C);
-  r7->f55 = D_02025FF0.f14EF;
+  r7->f55 = gMainWorkspace.f14EF;
   *((u32 *) (((u8 *) sl) + 0x24)) = t->f08;
   sub_08003A6C((u32) (((u8 *) r7) + 0x20), zero, t->f0C);
-  arg0 = (u8 *) (&D_02025FF0);
+  arg0 = (u8 *) (&gMainWorkspace);
   r7->f04 = *((u32 *) (arg0 + 0x1728));
   new_var2 = arg0 + 0x14;
   r5->f04 = *((u32 *) (arg0 + 0x172C));
@@ -206,7 +206,7 @@ void sub_0807678C(u8 *arg0)
   *((u8 *) ((arg0 + (idx * 2)) + 0x19)) = zero;
   new_var = &(*((s16 *) (arg0 + 0x22)));
   {
-    s32 *lit = &D_08671BB0;
+    s32 *lit = &gMainObjTimerCallback;
     u8 *a18 = arg0 + 0x18;
     sub_080C31E4(a18, arg0 + 0x22, *lit);
     idx = *new_var;

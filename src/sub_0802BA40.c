@@ -38,13 +38,13 @@ void sub_0802A7A4(void *arg0, void *arg1) {
 }
 
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 void sub_0802A6CC(void *arg0) {
     void *r4 = *(void **)((s8 *)arg0 + 0x3C);
-    sub_08011368(*(s32 *)((s8 *)arg0 + 0x38), (s8 *)r4 + 0x34, 5, 0);
+    setAnimationFrame(*(s32 *)((s8 *)arg0 + 0x38), (s8 *)r4 + 0x34, 5, 0);
     if (2 & *(u8 *)((s8 *)r4 + 0x34)) {
         *(u8 *)((s8 *)arg0 + (s32)(s16)((u16 *)arg0)[0x11] * 2 + 0x19) = 0;
-        sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, D_08671BB0);
+        sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, gMainObjTimerCallback);
     }
 }

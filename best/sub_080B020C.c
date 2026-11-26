@@ -17,7 +17,6 @@ void sub_080B020C(void *arg0)
   s32 sp8;
   int new_var5;
   void *spC;
-  volatile long long pad;
   s32 temp_r4;
   void *new_var;
   s32 temp_r4_2;
@@ -48,8 +47,8 @@ void sub_080B020C(void *arg0)
   *((u8 *) ((((u8 *) temp_r7) + new_var5) + 0x60)) = *((u8 *) (arg0 + 0x54));
   *((u8 *) (temp_r6[1] + 0x60)) = *((u8 *) (arg0 + 0x54));
   *((u8 *) (temp_r6[2] + 0x60)) = *((u8 *) (arg0 + 0x54));
-  var_r9 = -1;
   new_var = arg0;
+  var_r9 = -1;
   new_var8 = (void **) (((u8 *) temp_r0) + 0x38);
   if (0x10 & (*((u16 *) (((u8 *) (*new_var8)) + 2))))
   {
@@ -84,6 +83,7 @@ void sub_080B020C(void *arg0)
   temp_r4_3 = temp_r4_2 + 0xC000;
   *((s32 *) ((*(new_var6 = &temp_r6[1])) + 0x7C)) = (*((s32 *) (temp_r6[0] + 0x7C))) + ((sub_080C31E0(temp_r4_3, *inline_fn2(0x08671BFC)) >> 8) << 0x0C);
   temp_r4_4 = ((0x900000 - ((*((s32 *) (((u8 *) temp_r7) + 0x0C))) + ((sub_080C31E0(temp_r4_3, *new_var7) >> 8) << 0x0C))) >> 6) >> 2;
+new_var7 = 0;
   var_r2_2 = (sub_080C2F4C(0x03100000 - (temp_r4_4 * temp_r4_4)) << 0x10) >> 8;
   if ((*((s32 *) (((u8 *) temp_r7) + 8))) > (*((s32 *) ((temp_r0_2 = *new_var6) + 0x6C))))
   {
@@ -96,4 +96,3 @@ void sub_080B020C(void *arg0)
   *((s32 *) ((new_var4 + new_var5) + 0x8C)) = sp8;
   *((s32 *) ((*new_var6) + 0x8C)) = inline_fn(var_r9, sp4);
 }
-

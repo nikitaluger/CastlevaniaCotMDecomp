@@ -1,4 +1,4 @@
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern u8 D_02023248[];
 extern u8 D_0202324A[];
 extern u32 D_08671164[];
@@ -6,7 +6,7 @@ extern void sub_08060C74(u8, u8, u8, u8 *, u8 *);
 extern void sub_08060D34(void);
 inline u8 *inline_fn(int arg0)
 {
-  return D_02021E90 + arg0;
+  return gCameraState + arg0;
 }
 
 static inline u32 and1(u32 b)
@@ -19,10 +19,10 @@ static inline u32 and1(u32 b)
 void sub_08060AD8(u16 arg0)
 {
   u32 r6 = arg0;
-  u8 *base = D_02021E90;
+  u8 *base = gCameraState;
   u32 r7;
   u32 i;
-  if (and1(D_02021E90[0x1443]))
+  if (and1(gCameraState[0x1443]))
   {
     u8 *src;
     u8 *dst;
@@ -138,7 +138,7 @@ void sub_08060AD8(u16 arg0)
     sub_08060D34();
   }
 
-  D_02021E90[0x1443]++;
+  gCameraState[0x1443]++;
   {
     u32 *counter = (u32 *)inline_fn(0x1448);
     u32 value = *counter;

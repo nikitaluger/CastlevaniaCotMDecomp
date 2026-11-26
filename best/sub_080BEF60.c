@@ -9,15 +9,15 @@ struct S_02021E90_b {
     u8 b1366;
     u8 b1367;
 };
-extern struct S_02021E90_b D_02021E90;
+extern struct S_02021E90_b gCameraState;
 
 void sub_080BEF60(void) {
     u8 r2, r1;
-    D_02021E90.f1361 = 7;
-    r2 = D_02021E90.b1364;
-    D_02021E90.b1366 = r2;
-    r1 = D_02021E90.b1365;
-    D_02021E90.b1367 = r1;
+    gCameraState.f1361 = 7;
+    r2 = gCameraState.b1364;
+    gCameraState.b1366 = r2;
+    r1 = gCameraState.b1365;
+    gCameraState.b1367 = r1;
     if (r2 == 0)
         *(vu8 *)0x04000005 = 0xE2;
     else

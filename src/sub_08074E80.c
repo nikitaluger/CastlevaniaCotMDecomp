@@ -14,7 +14,7 @@ struct S_74E80_Data {
     u8 _pad2[0x18C2 - 0x1754];
     u16 word18C2;
 };
-extern struct S_74E80_Data D_02025FF0;
+extern struct S_74E80_Data gMainWorkspace;
 
 /* Update an orbiting effect: advance its angle/phase, steer it toward a moving
  * target, convert its world position to screen space, run its delay callback and
@@ -41,7 +41,7 @@ void sub_08074E80(void *arg0) {
         step = (phase & 0xFF) >> 4;
     sub_080722E0(cur, (u8)*(s32 *)((u8 *)data + 0x54));
 
-    gameState = &D_02025FF0;
+    gameState = &gMainWorkspace;
     targetX = gameState->word174C + *(s32 *)((u8 *)cur + 8) * (step + 0x18);
     targetY = gameState->word1750 + *(s32 *)((u8 *)cur + 0x0C) * (step + 0x18);
 

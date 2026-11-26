@@ -10,7 +10,7 @@ struct S_080318B0 {
     u32 field_0x38;
     u32 field_0x3C;
 };
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *D_08671BD0;
@@ -27,7 +27,7 @@ void sub_080318B0(struct S_080318B0 *obj)
     work = (u8 *)obj->field_0x3C;
     anim = work + 0x34;
     work += 0x48;
-    sub_08011368(owner, anim, 0x02, 0);
+    setAnimationFrame(owner, anim, 0x02, 0);
     obj->field_0x14 = 0x0866DC98;
     obj->field_0x22 += 1;
     ((u8 *)obj)[obj->field_0x22 * 2 + 0x19]++;

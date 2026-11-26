@@ -1,5 +1,5 @@
 struct GlobalState { u8 _0[0x18C2]; u16 gfxFlags; };
-extern struct GlobalState D_02025FF0;
+extern struct GlobalState gMainWorkspace;
 struct SubObject { u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; u32 f10; };
 struct HostObject {
     u8 _0[8]; u32 f8; u32 fC; u8 _10[0xC]; s16 f1C; u8 _1E[4]; s16 f22; u8 _24[4];
@@ -11,17 +11,17 @@ struct ActorContext {
     u8 _40[0xC]; u32 f4C; u8 _50[0xC]; u32 f5C; u8 _60[0xC]; s32 f6C;
 };
 struct SpawnParams { u8 _0[0x10]; u16 f10; u16 f12; u8 _14[0x14]; };
-extern struct SpawnParams D_080CBDD0[];
+extern struct SpawnParams gEffectGfxTable[];
 extern u16 D_08102FF4[];
-extern u32 D_08671BB0;
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
-extern s32 sub_08013C2C(s32);
+extern u32 gMainObjTimerCallback;
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
+extern s32 findKindIndex(s32);
 extern void sub_08014668(void *, s32);
-extern void sub_0801131C(void *, void *, s32);
-extern void sub_08011368(void *, void *, s32, s32);
-extern void *sub_08016190(void);
+extern void initSpriteGraphics(void *, void *, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08097DC8(void);
@@ -41,18 +41,18 @@ void sub_080BD578(struct ActorContext *actor) {
     void **scriptTablePtr;
     u8 *scriptEntry;
 
-    gfx = (s32)sub_0800355C();
+    gfx = (s32)allocSpriteObject();
     if (gfx == 0) goto fail;
     actor->f38 = (void *)gfx;
-    sub_0800168C(actor, 0, 0x5C, 0);
+    allocWorkSlot(actor, 0, 0x5C, 0);
     if (actor->f3C == NULL) goto fail;
     *((u32 *)(gfx + 0x1C)) = 0x80000009;
     host = (struct HostObject *)actor->f3C;
     animState = ((u8 *)host) + 0x34;
-    sub_08014288(actor, (u8 *)host, sub_08097DC8);
+    installUpdateHandler(actor, (u8 *)host, sub_08097DC8);
     zeroByte = 0;
     host->f1C = 0x68;
-    heading = sub_08013C2C(0x68);
+    heading = findKindIndex(0x68);
     host->f22 = heading;
     if ((s16)heading < 0) goto fail;
     heading = host->f22;
@@ -60,14 +60,14 @@ void sub_080BD578(struct ActorContext *actor) {
     heading = heading + 0x200;
     heading &= 0xFC0;
     *((u16 *)gfx) = heading;
-    *((u16 *)gfx) |= D_02025FF0.gfxFlags;
+    *((u16 *)gfx) |= gMainWorkspace.gfxFlags;
     host->f8 = actor->f4C;
     host->fC = actor->f5C;
     sub_08014668((void *)gfx, -actor->f6C);
-    sub_0801131C((void *)gfx, animState, (s32)0x08102FE8);
-    sub_08011368((void *)gfx, animState, 0, 0);
+    initSpriteGraphics((void *)gfx, animState, (s32)0x08102FE8);
+    setAnimationFrame((void *)gfx, animState, 0, 0);
     defaults = D_08102FF4;
-    attribs = sub_08016190();
+    attribs = allocEffectPart();
     host->f28 = (struct SubObject *)attribs;
     if (attribs == NULL) goto fail;
     goto ok;
@@ -78,12 +78,12 @@ ok:
     host->f28->f1 = zeroByte;
     host->f28->f2 = 8;
     host->f28->f3 = 1;
-    host->f28->f4 = D_080CBDD0[host->f1C].f10;
+    host->f28->f4 = gEffectGfxTable[host->f1C].f10;
     host->f28->f6 = defaults[0];
     host->f28->f8 = defaults[1];
     host->f28->fA = defaults[2];
     host->f28->fC = defaults[3];
-    host->f28->fE = D_080CBDD0[host->f1C].f12;
+    host->f28->fE = gEffectGfxTable[host->f1C].f12;
     host->f28->f10 = (u32)gfx;
     *((u16 *)(gfx + 2)) |= 0x400;
     actor->f2 |= 0x1000;
@@ -91,7 +91,7 @@ ok:
         s16 idx = actor->f22;
         *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = zeroByte;
     }
-    scriptTablePtr = &D_08671BB0;
+    scriptTablePtr = &gMainObjTimerCallback;
     scriptPtr = ((u8 *)actor) + 0x18;
     sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, (s32)(*scriptTablePtr));
     {

@@ -1,10 +1,10 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 s32 sub_08003740(void *, void *);
 void sub_0806D588(void *, void *);
 void sub_080C31E4(void *, void *, u32);
 
 /* Script step: tick the actor's animation timer; when it expires set the
- * global mode word (D_02025FF0+0x1C) to 2 and advance the script, then keep
+ * global mode word (gMainWorkspace+0x1C) to 2 and advance the script, then keep
  * the sprite locked to the actor's position. */
 void sub_080889A4(void *arg0) {
     u8 *self = (u8*)arg0;
@@ -14,7 +14,7 @@ void sub_080889A4(void *arg0) {
     u32 *handlers;
     s32 timer = sub_08003740(actor + 0x20, sprite);
     if (timer == 0) {
-        D_02025FF0[7] = 2;
+        gMainWorkspace[7] = 2;
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = timer;
         handlers = (u32*)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *handlers);

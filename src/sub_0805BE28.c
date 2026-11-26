@@ -9,7 +9,7 @@ struct S_02025FF0 {
   s32 x;
   s32 y;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern void *D_08671BD0;
 
 /* Run down a timer; when it expires, aim at the global (player) position and
@@ -33,8 +33,8 @@ void sub_0805BE28(void *entity)
   {
     if (*(s16 *)(motion + 0x20) == 0)
     {
-      *(s32 *)(extra + 0x08) = sub_08005910(D_02025FF0.y - *(s32 *)(motion + 0x0C),
-                                            D_02025FF0.x - *(s32 *)(motion + 0x08));
+      *(s32 *)(extra + 0x08) = sub_08005910(gMainWorkspace.y - *(s32 *)(motion + 0x0C),
+                                            gMainWorkspace.x - *(s32 *)(motion + 0x08));
       *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
       {
         void **script = &D_08671BD0;

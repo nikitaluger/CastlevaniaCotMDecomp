@@ -1,11 +1,11 @@
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern u16 D_080D0014[];
 extern void sub_0805D92C(s32, s32, u16);
 extern void sub_0808DBF8(s32, s32, u16);
 extern void sub_080C31E0(void *, s32);
 void sub_0805CE28(u8 *arg0)
 {
-  u8 *base = D_02025368;
+  u8 *base = gGameStatus;
   u8 *r7 = *((u8 **) (arg0 + 0xAC));
   u8 *r4 = *((u8 **) (arg0 + 0x3C));
   u16 *p = (u16 *) (*((u8 **) (r7 + 4)));

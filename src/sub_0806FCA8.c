@@ -5,7 +5,7 @@ extern void sub_08003740(void *, void *);
 extern void sub_08005E80(s32);
 extern void sub_0806D588(void *, void *);
 extern void sub_0806D2F8(void *, void *);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 struct StatePair { u32 unused; s32 posX; };
 
@@ -24,7 +24,7 @@ void sub_0806FCA8(void *arg0)
     sub_080719EC(arg0, objectData, objectData);
 
     if (*(s32 *)(objectData + 0x10) == 0) {
-        u8 *base = D_02025FF0;
+        u8 *base = gMainWorkspace;
         s32 *centerXPtr = (s32 *)(base + 0x1728);
         s16 hx = *(s16 *)(base + 0x1734);
         s32 minX = *centerXPtr + ((s32)(hx - *(s16 *)(base + 0x1730)) << 16);

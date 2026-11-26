@@ -5,7 +5,7 @@ struct S_02025FF0_90408
   u8 _0[0x1848];
   u32 flags;
 };
-extern struct S_02025FF0_90408 D_02025FF0;
+extern struct S_02025FF0_90408 gMainWorkspace;
 
 /* Counts down the effect's animation timer; on expiry clears its state, sets
  * up the four halfword animation parameters, plays sound 0x1BE and resets the
@@ -32,7 +32,7 @@ void sub_08090408(void *arg0)
   if ((timer << 0x10) < 0)
   {
     *((u16 *) (anim + 0x16)) = zero;
-    D_02025FF0.flags = D_02025FF0.flags & 0xB281FFFF;
+    gMainWorkspace.flags = gMainWorkspace.flags & 0xB281FFFF;
     *((u16 *) ((*((u8 * volatile *) (anim + 4))) + 6)) = 4;
     *((u16 *) ((*((u8 * volatile *) (anim + 4))) + 8)) = 0xA;
     *((u16 *) ((*((u8 * volatile *) (anim + 4))) + 0xA)) = zero;

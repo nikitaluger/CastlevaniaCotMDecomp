@@ -1,7 +1,7 @@
 extern s32 sub_08014990(void *);
-extern void sub_08011368(s32, s32, s32, s32);
+extern void setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Runs a state check on the object's linked state at +0x3C; when bit 1 is set,
  * writes a facing-dependent +/-0x8000 offset into that state, clears this
@@ -13,7 +13,7 @@ void sub_0802A4E0(void *arg0) {
     u8 *result = target + 0x34;
     void **charData;
 
-    sub_08011368(context, result, 0x0D, 0);
+    setAnimationFrame(context, result, 0x0D, 0);
     if (*result & 2) {
         if (sub_08014990(context) > 0) {
             *(s32 *)(target + 0x10) = 0x8000;

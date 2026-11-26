@@ -1,16 +1,16 @@
 void sub_0800EB44(u16 a, s32 b, s32 c);
 void sub_0800FE08(u32 a, s32 b, s32 c, void *d);
 u8 sub_08086E78(u8 a, u8 b);
-u32 sub_080C2F20(u32 a, u32 b);
-void sub_080063D4(u32 a, void *b);
-void sub_08000E98(s32 a, void *b, void *c, s32 d, s32 e);
+u32 divideInt(u32 a, u32 b);
+void decompressToVram(u32 a, void *b);
+void postDisplaySprite(s32 a, void *b, void *c, s32 d, s32 e);
 struct S25368
 {
   u8 _0[0x30C];
   u8 a[0xA];
   u8 b[0xA];
 };
-extern struct S25368 D_02025368;
+extern struct S25368 gGameStatus;
 extern u8 D_080E47E8[];
 extern u16 D_080CB082[10][10];
 extern u8 D_080CB14A[10][10];
@@ -19,7 +19,7 @@ void sub_0800F584(u8 arg0, u8 arg1)
 {
   u8 *new_var;
   u32 result = 0;
-  if ((D_02025368.a[arg1 - 1] == 0) || (D_02025368.b[arg0 - 1] == 0))
+  if ((gGameStatus.a[arg1 - 1] == 0) || (gGameStatus.b[arg0 - 1] == 0))
   {
     sub_0800EB44(0x816A, 2, 0xFC0);
     sub_0800FE08(0, 3, 0x511C, (void *) 0x0600EB48);
@@ -30,7 +30,7 @@ void sub_0800F584(u8 arg0, u8 arg1)
     u32 off = result = ((arg1 - 1) * 12) + ((arg0 - 1) * 120);
     if ((*((u32 *) (D_080E47E8 + off))) != 0)
     {
-      result = sub_080C2F20(*((u32 *) (D_080E47E8 + off)), 0x444);
+      result = divideInt(*((u32 *) (D_080E47E8 + off)), 0x444);
     }
     else
     {
@@ -46,6 +46,6 @@ void sub_0800F584(u8 arg0, u8 arg1)
     sub_0800EB44(0x8169, 2, 0xFC0);
     sub_0800FE08(0, 3, 0x511C, 0x0600EB48);
   }
- do { sub_080063D4(D_0866CFDC[result], (void *) 0x0600B7E0); } while (0);
-  sub_08000E98(1, (void *) 0x0600B7E0, (void *) 0x0600B740, 0xA0, 0x10);
+ do { decompressToVram(D_0866CFDC[result], (void *) 0x0600B7E0); } while (0);
+  postDisplaySprite(1, (void *) 0x0600B7E0, (void *) 0x0600B740, 0xA0, 0x10);
 }

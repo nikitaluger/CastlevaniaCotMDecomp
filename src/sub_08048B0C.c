@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_0801165C(void *, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_08049180(void *, void *, void *, void *);
@@ -29,7 +29,7 @@ void sub_08048B0C(void *entity) {
         steer->angle = (steer->angle + 0x8000) & 0xFFFF;
         steer->speed = 0x20000;
         sub_080146D0(motion, steer->angle, steer->speed);
-        sub_08011368(sprite, collision, 0xA, 0);
+        setAnimationFrame(sprite, collision, 0xA, 0);
         *(u8 *)((u8 *)entity + ((s32)*(s16 *)((u8 *)entity + 0x22) * 2) + 0x19) = 0;
         callback = (u32 *)0x08671BB0;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callback);

@@ -10,7 +10,7 @@ struct MapScriptState {
     u8 pad3[0xE];
     u8 *cursor;       /* +0x1454: current position in the map script */
 };
-extern struct MapScriptState D_02021E90;
+extern struct MapScriptState gCameraState;
 
 /* Read the second byte of the map-script command under the cursor as a biased
  * parameter value (+3), skipping the two-byte command and advancing the cursor. */
@@ -18,10 +18,10 @@ s32 sub_08060998(void) {
     u8 *cmd;
     u8 *next;
     s32 param;
-    cmd = D_02021E90.cursor;
+    cmd = gCameraState.cursor;
     next = cmd + 1;
-    D_02021E90.cursor = next;
+    gCameraState.cursor = next;
     param = *(u8 *)(cmd + 1);
-    D_02021E90.cursor = next + 1;
+    gCameraState.cursor = next + 1;
     return param + 3;
 }

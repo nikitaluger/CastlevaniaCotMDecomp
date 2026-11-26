@@ -7,7 +7,7 @@ void sub_08072334(void *, s32, s32, void *);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
 
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /*
  * Per-frame update for a projectile-like actor: run the common condition and
@@ -33,7 +33,7 @@ void sub_0806EEC8(void *actor)
     {
         *(u8 *)(a + *(s16 *)(a + 0x22) * 2 + 0x19) = 0;
         {
-            void **scriptTable = &D_08671BB0;
+            void **scriptTable = &gMainObjTimerCallback;
             u8 *scriptPtr = a + 0x18;
             sub_080C31E4(scriptPtr, a + 0x22, *scriptTable);
             {
@@ -59,7 +59,7 @@ void sub_0806EEC8(void *actor)
         {
             *(u8 *)(a + *(s16 *)(a + 0x22) * 2 + 0x19) = 0;
             {
-                void **scriptTable = &D_08671BB0;
+                void **scriptTable = &gMainObjTimerCallback;
                 u8 *scriptPtr = a + 0x18;
                 sub_080C31E4(scriptPtr, a + 0x22, *scriptTable);
                 {

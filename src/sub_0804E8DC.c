@@ -1,11 +1,11 @@
 s32 sub_08005820(s32);
-void sub_08011368(s32, void *, u16, u8);
-void sub_0801468C(void *, s32);
+void setAnimationFrame(s32, void *, u16, u8);
+void setSpriteFlip(void *, s32);
 s32 sub_08014A04(void *, s32, s32, s32, s32);
 void sub_08014B1C(void *, void *, s32, s32);
 void sub_0804EA20(void *);
 void *sub_0805FAEC(s32, s32);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 /* Counts down a timer: on expiry in the right animation state it spawns
  * object 0x13E just above the entity with a fresh random delay, then updates
@@ -17,7 +17,7 @@ void sub_0804E8DC(void *entity) {
     u8 *state = (u8 *)obj + 0x48;
     u32 timer;
 
-    sub_08011368(parent, anim, 0, 1);
+    setAnimationFrame(parent, anim, 0, 1);
     timer = *(u16 *)(state + 0x12);
     timer--;
     *(u16 *)(state + 0x12) = timer;
@@ -27,7 +27,7 @@ void sub_0804E8DC(void *entity) {
             u32 poolOffset = 0x1870;
 
             *(u16 *)(state + 0x12) = (u16)(sub_08005820(0x3D) + 0xB4);
-            spawned = sub_0805FAEC(*(s32 *)(D_02025FF0 + poolOffset), 0x13E);
+            spawned = sub_0805FAEC(*(s32 *)(gMainWorkspace + poolOffset), 0x13E);
             if (spawned != NULL) {
                 s32 x = *(s32 *)((u8 *)obj + 8);
                 if (x < 0)
@@ -53,5 +53,5 @@ void sub_0804E8DC(void *entity) {
         sub_0804EA20(entity);
     }
     sub_08014B1C(obj, state + 0x14, *(s32 *)(state + 8), *(s32 *)(state + 0xC));
-    sub_0801468C((void *)parent, *(s32 *)(state + 0x18));
+    setSpriteFlip((void *)parent, *(s32 *)(state + 0x18));
 }

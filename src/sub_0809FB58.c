@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 pad[0x174C]; u32 camX; u32 camY; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 u16 sub_08005910(s32, s32);
 void sub_0801165C(void *, s32);
 void sub_080146D0(void *, s32, s32);
@@ -25,8 +25,8 @@ void sub_0809FB58(void *actor) {
     if (oldThrust <= 0x17FFF) {
         *thrust = oldThrust + 0x2000;
     }
-    dy = (s32)D_02025FF0.camY - *(s32 *)(work + 0x0C);
-    dx = (s32)D_02025FF0.camX - *(s32 *)(work + 0x08);
+    dy = (s32)gMainWorkspace.camY - *(s32 *)(work + 0x0C);
+    dx = (s32)gMainWorkspace.camX - *(s32 *)(work + 0x08);
     targetAngle = sub_08005910(dy, dx);
     turn = sub_0801473C(*(s32 *)(self + 0x7C), targetAngle);
     turn = turn << 8;

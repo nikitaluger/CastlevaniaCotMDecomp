@@ -8,7 +8,7 @@ void sub_08003740(void *, void *);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
 
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 struct GameState {
     u8 _0[0x10];
@@ -20,7 +20,7 @@ struct GameState {
     u8 _2[0x173A - 0x1500];
     u8 field173A;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 /* One frame of a scripted walking actor: check camera/movement state, advance the
  * script frame counter and timer (re-dispatching the script when either expires),
@@ -44,7 +44,7 @@ void sub_0807041C(void *arg0)
     {
         *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = 0;
         {
-            void **cmdTable = &D_08671BB0;
+            void **cmdTable = &gMainObjTimerCallback;
             u8 *scriptPc = script + 0x18;
             sub_080C31E4(scriptPc, script + 0x22, *cmdTable);
             {
@@ -70,7 +70,7 @@ void sub_0807041C(void *arg0)
         {
             *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = 0;
             {
-                void **cmdTable = &D_08671BB0;
+                void **cmdTable = &gMainObjTimerCallback;
                 u8 *scriptPc = script + 0x18;
                 sub_080C31E4(scriptPc, script + 0x22, *cmdTable);
                 {
@@ -120,10 +120,10 @@ void sub_0807041C(void *arg0)
 
     sub_08003740(mover + 0x2C, world);
 
-    if (D_02025FF0.field14FC != 0) goto L594;
-    if (D_02025FF0.field173A == 0x1C) goto L594;
-    if (D_02025FF0.field14ED != 0) goto L5B0;
-    if (D_02025FF0.field10 != 0) goto L594;
+    if (gMainWorkspace.field14FC != 0) goto L594;
+    if (gMainWorkspace.field173A == 0x1C) goto L594;
+    if (gMainWorkspace.field14ED != 0) goto L5B0;
+    if (gMainWorkspace.field10 != 0) goto L594;
     goto L5B0;
 
 L594:

@@ -1,5 +1,5 @@
 void sub_0808E408(s32, s32, s32);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 
 /* Vertical hit test for projectile arg2 against entity arg1: once the
  * projectile's y crosses the target's y from the side selected by arg0, spawn
@@ -10,7 +10,7 @@ void sub_08044FD4(s32 arg0, void *arg1, void *arg2, void *arg3) {
     u8 *work;
     u8 *p;
     u8 v;
-    work = D_02025368;
+    work = gGameStatus;
     if (*(u8 *)((u8 *)arg3 + 5) == 0) {
         p = work + 0x3CF;
         v = *p;

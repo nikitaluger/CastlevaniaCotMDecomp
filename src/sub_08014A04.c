@@ -32,7 +32,7 @@ s32 sub_08014A04(void *obj, s32 targetX, s32 targetY, s32 maxDx, s32 maxDy) {
 }
 
 extern s32 sub_08005820(s32);
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 void sub_080149A4(void *arg0, void *arg1, u16 *arg2, u16 arg3, s32 arg4) {
     u16 r6 = (u16)arg3;
     u16 r7 = (u16)arg4;
@@ -44,7 +44,7 @@ void sub_080149A4(void *arg0, void *arg1, u16 *arg2, u16 arg3, s32 arg4) {
     *arg2 = t;
     if ((s32)((u16)t << 16) <= 0) {
         u16 f;
-        if (sub_08014938(*(s32 *)((u8 *)arg1 + 8)) > 0) {
+        if (signOf(*(s32 *)((u8 *)arg1 + 8)) > 0) {
             f = *(u16 *)((u8 *)arg0 + 2);
             f = 0x10 | f;
             *(u16 *)((u8 *)arg0 + 2) = f;

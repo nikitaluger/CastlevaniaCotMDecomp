@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern s32 sub_08003740(s32, void *);
 extern s32 sub_0806D450(void *, void *, void *);
 extern s32 sub_0806D588(void *, void *);
@@ -19,7 +19,7 @@ void sub_0807ABFC(u8 *arg0) {
         return;
     }
     {
-        u8 *globalState = D_02025FF0;
+        u8 *globalState = gMainWorkspace;
         s32 countdown;
         *(u16 *)ctx = *(u16 *)(globalState + 0x18C2);
         countdown = *(s32 *)(obj + 0x10) - 1;

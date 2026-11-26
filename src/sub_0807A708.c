@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern s32 sub_08003740(s32, void *);
 extern s32 sub_0806D450(void *, void *, void *);
 extern s32 sub_0806D588(void *, void *);
@@ -18,7 +18,7 @@ void sub_0807A708(u8 *self) {
         return;
     }
     {
-        u8 *gGame = D_02025FF0;
+        u8 *gGame = gMainWorkspace;
         s32 timer;
         *(u16 *)sprite = *(u16 *)(gGame + 0x18C2);
         timer = *(s32 *)(state + 0x10) - 1;

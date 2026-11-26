@@ -1,19 +1,19 @@
-extern u8 D_02021E90[];    /* scroll-offset table */
-extern u8 D_02025FF0[];    /* global game state */
-extern u32 D_080CD400[];   /* frame-control data */
-extern u32 D_08671BB0[];   /* step-script operation */
+extern u8 gCameraState[];    /* scroll-offset table */
+extern u8 gMainWorkspace[];    /* global game state */
+extern u32 gSpriteAnimDataTable[];   /* frame-control data */
+extern u32 gMainObjTimerCallback[];   /* step-script operation */
 
-extern void sub_0800168C(void *, u32, u32, u32);
-extern void *sub_0800355C(void *);          /* create the sprite object */
-extern void sub_08014288(void *, void *, void *);
+extern void allocWorkSlot(void *, u32, u32, u32);
+extern void *allocSpriteObject(void *);          /* create the sprite object */
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_080141F8(void *, void *, void *, void *, u32);
-extern void sub_0801131C(void *, void *, void *);
-extern void sub_08011368(void *, void *, u32, u32); /* set animation/frame control */
+extern void initSpriteGraphics(void *, void *, void *);
+extern void setAnimationFrame(void *, void *, u32, u32); /* set animation/frame control */
 extern void sub_0803AEF0(void *, void *, void *);
 extern void sub_0803AF70(void *, void *, void *, void *);
 extern u32 sub_0805FAEC(void *, u32);
 extern void sub_080338F0(void *, void *, void *);
-extern void sub_08016664(void *, u32);
+extern void registerScriptObject(void *, u32);
 extern void sub_080C31E0(void *, void *);   /* cleanup callback */
 extern void sub_080C31E4(void *, void *, void *); /* run a script handler */
 extern void sub_08033498(void);
@@ -24,7 +24,7 @@ extern void sub_08033498(void);
 void sub_08032ED0(void *arg0)
 {
     u8 *savedAC = *(u8 **)((u8 *)arg0 + 0xAC);
-    u8 *sprite = sub_0800355C(savedAC);
+    u8 *sprite = allocSpriteObject(savedAC);
     u8 *logic;
     u8 *animData;
     s16 cfgIndex;
@@ -33,17 +33,17 @@ void sub_08032ED0(void *arg0)
 
     if (sprite == NULL) goto fail;
     *(u8 **)((u8 *)arg0 + 0x38) = sprite;
-    sub_0800168C(arg0, 0, 0x64, 0);
+    allocWorkSlot(arg0, 0, 0x64, 0);
     if (*(u8 *volatile *)((u8 *)arg0 + 0x3C) == NULL) goto fail;
     *(u32 *)((u8 *)sprite + 0x1C) = 0x8000000A;
     logic = *(u8 **)((u8 *)arg0 + 0x3C);
     animData = logic + 0x34;
-    sub_08014288(arg0, logic, (void *)sub_08033498);
+    installUpdateHandler(arg0, logic, (void *)sub_08033498);
     sub_080141F8(arg0, sprite, logic, savedAC, 0x15);
     *(u16 *)((u8 *)logic + 0x04) = 0x08;
     cfgIndex = *(s16 *)((u8 *)logic + 0x1C);
-    sub_0801131C(sprite, animData, (void *)((u32)cfgIndex * 12 + (u32)D_080CD400));
-    sub_08011368(sprite, animData, 0, 1);
+    initSpriteGraphics(sprite, animData, (void *)((u32)cfgIndex * 12 + (u32)gSpriteAnimDataTable));
+    setAnimationFrame(sprite, animData, 0, 1);
     sub_0803AEF0(arg0, logic, sprite);
     sub_0803AF70(arg0, logic, sprite, (u8 *)logic + 0x54);
 
@@ -54,8 +54,8 @@ fail:
         sub_080338F0(arg0, logic, sprite);
 
         {
-            u8 *pt = D_02021E90;
-            u8 *pb = D_02025FF0;
+            u8 *pt = gCameraState;
+            u8 *pb = gMainWorkspace;
             u8 *base1;
             u8 *base2;
             u32 idx;
@@ -71,7 +71,7 @@ fail:
             *(u32 *)((u8 *)sprite + 0x18) = *(u32 *)((u8 *)logic + 0x0C) - ((*(u32 *)(base2 + idx) + 0xFFFF8000) & 0xFFFF0000);
         }
 
-        sub_08016664(arg0, 0);
+        registerScriptObject(arg0, 0);
         *(u16 *)((u8 *)arg0 + 0x02) |= 0x1000;
         *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = 0;
         {

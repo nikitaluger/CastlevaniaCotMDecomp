@@ -1,4 +1,4 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_08003A6C(void *a, s32 b, s32 c);
@@ -6,8 +6,8 @@ extern void sub_080C31E0(void *a, s32 b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
 extern void sub_0808449C(void);
 struct S_02025FF0 { u8 _0[0x1510]; u8 b1510; };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
 extern u32 D_080E5CE0[];
 
 /* one child spawn record, reserved from the shared pool */
@@ -39,8 +39,8 @@ void sub_08082288(u8 *entity) {
     u8 *groupBase = *(u8 **)(entity + 0x6C);
     struct SpawnGroup *group = (struct SpawnGroup *)(groupBase + 4);
     u8 *sprite = *(u8 **)(entity + 0x38);
-    u8 *params = D_02025368;
-    struct Spawn *spawn = sub_08016190();
+    u8 *params = gGameStatus;
+    struct Spawn *spawn = allocEffectPart();
     s32 slotRaw;
     s32 slotBase;
     s32 slot;
@@ -58,7 +58,7 @@ void sub_08082288(u8 *entity) {
     group->slot2 = 0;
     group->slot3 = 0;
 
-    spawn->active = D_02025FF0.b1510 & 1;
+    spawn->active = gMainWorkspace.b1510 & 1;
     group->spawn->kind = 2;
     group->spawn->variant = 8;
     group->spawn->param4 = params[0xC1 << 2];

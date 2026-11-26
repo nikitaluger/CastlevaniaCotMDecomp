@@ -1,4 +1,4 @@
-void sub_080114DC(s32, void *, s32, s32);
+void setObjectAnimation(s32, void *, s32, s32);
 void sub_08005E80(s32);
 void sub_080B719C(s32);
 void sub_080C31E4(void *, void *, s32);
@@ -17,11 +17,11 @@ void sub_080B437C(void *arg0)
     u8 *anim = actor + 0x34;
     u8 *actorSub = actor + 0x48;
 
-    sub_080114DC(gfx, anim, 0x52, 0);
+    setObjectAnimation(gfx, anim, 0x52, 0);
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x0F)
     {
         sub_08005E80(0x194);
-        sub_080114DC(gfx, anim, 0x54, 0);
+        setObjectAnimation(gfx, anim, 0x54, 0);
         sub_080B719C(*(s32 *)(actorSub + 0x0C));
 
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

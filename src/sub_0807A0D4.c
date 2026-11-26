@@ -1,20 +1,20 @@
 #define SUBPTR ( *(u8 * volatile *)((u8 *)state + 0x2C) )
-void *sub_08016190(void *);
+void *allocEffectPart(void *);
 void sub_0806D2D0(void *);
 u16 sub_0806D62C(u16, s32);
 void sub_08003A6C(void *, s32, void *);
 void sub_0808449C(void);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u32 D_0202771C;
 extern u8 D_084DFB30[];
 extern u8 D_084DFBC0[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 inline u8 inline_fn()
 {
-  return D_02025FF0[0x14EF];
+  return gMainWorkspace[0x14EF];
 }
 
 /*
@@ -28,9 +28,9 @@ void sub_0807A0D4(void *arg0)
   u8 *actor = *((u8 **) (((u8 *) arg0) + 0x6C));
   u8 *state = 4 + actor;
   u8 *sprite = *((u8 **) (((u8 *) arg0) + 0x38));
-  u8 *config = D_02025368;
+  u8 *config = gGameStatus;
   u8 *newObj;
-  newObj = (u8 *) sub_08016190(actor);
+  newObj = (u8 *) allocEffectPart(actor);
   *((u8 **) (state + 0x2C)) = newObj;
   if (newObj == 0)
   {
@@ -41,7 +41,7 @@ void sub_0807A0D4(void *arg0)
   *((u32 *) (state + 0x34)) = 0;
   *((u32 *) (state + 0x38)) = 0;
   *((u32 *) (state + 0x3C)) = 0;
-  newObj[1] = D_02025FF0[0x1510] & 1;
+  newObj[1] = gMainWorkspace[0x1510] & 1;
   SUBPTR[2] = 2;
   SUBPTR[3] = 8;
   *((u16 *) (SUBPTR + 4)) = config[0x304];
@@ -65,7 +65,7 @@ void sub_0807A0D4(void *arg0)
   *((u32 *) (sprite + 0x24)) = (u32) D_084DFB30;
   sub_08003A6C(actor + 0x20, 0, D_084DFBC0);
   {
-    u8 *gGame = D_02025FF0;
+    u8 *gGame = gMainWorkspace;
     *((u32 *) (actor + 4)) = *((u32 *) (gGame + 0x1728));
     *((u32 *) (state + 4)) = *((u32 *) (gGame + 0x172C)) + 0xFFEC0000;
   }
@@ -90,7 +90,7 @@ void sub_0807A0D4(void *arg0)
     u32 *scriptTableArg;
     scriptIdx = *((s16 *) (actorPtr + 0x22));
     *((u8 *) ((actorPtr + (scriptIdx * 2)) + 0x19)) = 0;
-    scriptTableArg = D_08671BB0;
+    scriptTableArg = gMainObjTimerCallback;
     scriptPtr = actorPtr + 0x18;
     sub_080C31E4(scriptPtr, actorPtr + 0x22, (void *) (*scriptTableArg));
     scriptIdx = *((s16 *) (actorPtr + 0x22));

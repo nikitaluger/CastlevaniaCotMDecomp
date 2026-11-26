@@ -9,9 +9,9 @@ struct PartState {
 };
 struct S_02025FF0 { u8 _0[0x24]; u32 f24; u16 f28; };
 struct S_02021E90 { u8 _0[0x146C]; u16 f146C; };
-extern struct S_02025FF0 D_02025FF0;
-extern struct S_02021E90 D_02021E90;
-extern u8 D_02025368[];                     /* level/enemy data block */
+extern struct S_02025FF0 gMainWorkspace;
+extern struct S_02021E90 gCameraState;
+extern u8 gGameStatus[];                     /* level/enemy data block */
 extern u8 D_080E03A0[];                      /* per-state value/clamp table */
 extern void *D_08671BD0;
 
@@ -50,11 +50,11 @@ void sub_080687B8(struct UpdateObj *obj) {
         if (cur > (s32)lim) state->f0C = lim;
     }
     sub_080694D8((void *)sprite, state, state);
-    if (D_02025FF0.f24 != 0) {
-        if ((D_02025FF0.f28 & *(u16 *)(levelData + 0x3BC)) != 0) goto block8;
+    if (gMainWorkspace.f24 != 0) {
+        if ((gMainWorkspace.f28 & *(u16 *)(levelData + 0x3BC)) != 0) goto block8;
         goto block9;
     } else {
-        if ((D_02021E90.f146C & *(u16 *)(levelData + 0x3BC)) == 0) goto block9;
+        if ((gCameraState.f146C & *(u16 *)(levelData + 0x3BC)) == 0) goto block9;
     }
 block8:
     sub_0806926C(stateHdr);

@@ -1,10 +1,10 @@
 extern void sub_08005FC4(s32, s32, s32, s32, void *);
-extern void sub_080114DC(u16 *, s32, s32, s32);
+extern void setObjectAnimation(u16 *, s32, s32, s32);
 extern void sub_08014848(s32, s32, s32, s32, s32, s32);
 extern void sub_0809E278(u16 *, s32, u8 *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080C0384;
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Script-step handler: set and advance the target's sprite animation, then act
  * on the script state bits — clear the graphic's high bits, spawn particles,
@@ -22,7 +22,7 @@ void sub_0809DDC4(u8 *arg0) {
     target = *(u8 **)(arg0 + 0x3C);
     sprite = target + 0x34;
     animState = target + 0x48;
-    sub_080114DC(gfx, (s32)sprite, 5, 0);
+    setObjectAnimation(gfx, (s32)sprite, 5, 0);
     sub_0809E278(gfx, (s32)sprite, target, (s32)animState);
     flag = *((u8 *)((s16)*(s16 *)(arg0 + 0x22) * 2 + (u32)arg0) + 0x19) & 2;
     if (flag == 0) {

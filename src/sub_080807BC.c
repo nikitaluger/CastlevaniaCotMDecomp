@@ -6,9 +6,9 @@ struct S_02025FF0
   u8 _[0x18C2];
   u16 w;
 };
-extern struct S_02025FF0 D_02025FF0;
-s32 sub_0800168C(void *, s32, s32, s32);
-void *sub_0800355C(void);
+extern struct S_02025FF0 gMainWorkspace;
+s32 allocWorkSlot(void *, s32, s32, s32);
+void *allocSpriteObject(void);
 void sub_0806D2D0(void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -18,12 +18,12 @@ void sub_080807BC(void *scriptStep)
   void *newActor;
   u8 zero;
   struct ST *actorFlags;
-  if (sub_0800168C(scriptStep, 0, 0x68, 3) == 0)
+  if (allocWorkSlot(scriptStep, 0, 0x68, 3) == 0)
   {
     sub_080C31E0(scriptStep, *((s32 *) (((u8 *) scriptStep) + 0x24)));
     return;
   }
-  newActor = sub_0800355C();
+  newActor = allocSpriteObject();
   if (newActor == NULL)
   {
     sub_0806D2D0(scriptStep);
@@ -34,7 +34,7 @@ void sub_080807BC(void *scriptStep)
   actorFlags = (struct ST *)newActor;
   actorFlags->f2 |= 0x400;
   zero = 0;
-  *((u16 *) newActor) = D_02025FF0.w;
+  *((u16 *) newActor) = gMainWorkspace.w;
   *((u8 *) ((((u8 *) scriptStep) + ((*((s16 *) (((u8 *) scriptStep) + 0x22))) * 2)) + 0x19)) = zero;
   {
     s32 *paramPtr = (s32 *) 0x08671BB0;

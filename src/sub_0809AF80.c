@@ -1,5 +1,5 @@
 void sub_0809C840(void *, void *);
-void sub_08011368(void *, s32, s32, s32);
+void setAnimationFrame(void *, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Shrinks the actor's sprite by 0x40 (0x100 = 1.0) on each axis per frame;
@@ -24,7 +24,7 @@ void sub_0809AF80(void *arg0) {
         fullScale += 0xFF;
         *(u16 *)(sprite + 4) = fullScale;
         *(u16 *)(sprite + 6) = fullScale;
-        sub_08011368(sprite, (s32)anim, 2, 0);
+        setAnimationFrame(sprite, (s32)anim, 2, 0);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         scriptTable = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);

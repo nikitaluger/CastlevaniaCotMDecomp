@@ -9,7 +9,7 @@ struct KeyState
   u8 pad1[0x149C - 0x1475];
   u16 rawKeys;
 };
-extern struct KeyState D_02021E90;
+extern struct KeyState gCameraState;
 extern vu16 D_04000130;
 
 /* Reads the active-low key register and updates the global key state: raw,
@@ -17,7 +17,7 @@ extern vu16 D_04000130;
  * buttons after a delay. */
 void sub_080007D8(void)
 {
-  struct KeyState *keys = &D_02021E90;
+  struct KeyState *keys = &gCameraState;
   u16 hardwareKeys = ~D_04000130;
   u16 current;
   u16 previous;

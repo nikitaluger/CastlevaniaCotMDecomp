@@ -6,7 +6,7 @@ extern void sub_080C2E68(void *, u8 *, s32);
 extern void sub_080C31E0(void *, s32);
 extern s32 sub_080C36E4(s32, s32);
 extern s32 D_02027888;
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 void sub_08095F34(u8 *arg0)
 {
@@ -69,7 +69,7 @@ void sub_08095F34(u8 *arg0)
     i++;
   }
   while (i <= 1);
-  pb = D_02025FF0;
+  pb = gMainWorkspace;
   pb += 0x1898;
   idx = *((s32 *) pb);
   {

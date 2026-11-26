@@ -9,7 +9,7 @@ struct MapScriptState {
     u8 pad3[0xE];
     u8 *cursor;       /* +0x1454: current position in the map script */
 };
-extern struct MapScriptState D_02021E90;
+extern struct MapScriptState gCameraState;
 s32 sub_080609F0(void);
 void sub_08060A1C(u16);
 
@@ -21,8 +21,8 @@ void sub_08060A1C(u16);
  */
 s32 sub_080609B8(void) {
     if (sub_080609F0() != 0) {
-        sub_08060A1C((u16)(*D_02021E90.cursor - 0x26));
-        D_02021E90.cursor += 1;
+        sub_08060A1C((u16)(*gCameraState.cursor - 0x26));
+        gCameraState.cursor += 1;
         return 0;
     }
     return 2;

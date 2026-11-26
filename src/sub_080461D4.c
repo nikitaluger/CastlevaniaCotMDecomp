@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_08047164(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern s16 D_080CF864[][1]; /* per-variant animation ids */
@@ -20,7 +20,7 @@ void sub_080461D4(void *arg0) {
     aux = work + 0x48;
     *(u8 *)(*(u32 *)(aux + 4) + 1) = 1;
     if (*((u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self) + 0x19) == 0x14) {
-        sub_08011368(view, anim, D_080CF864[*(u8 *)(self + 0x4C)][0], 0);
+        setAnimationFrame(view, anim, D_080CF864[*(u8 *)(self + 0x4C)][0], 0);
         sub_08047164(arg0, work, aux, view);
         *((u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self) + 0x19) = 0;
         scriptHandlers = (s32 *)0x08671BB0;

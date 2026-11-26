@@ -1,9 +1,9 @@
 /* Look up the current element of the actor's sequence, map its category to a
  * config entry, copy that config into the work struct, and fire the callback
  * at self+0x24 if the sequence's flag requests it. */
-void sub_080114DC(void *, void *, s32, s32);
+void setObjectAnimation(void *, void *, s32, s32);
 void sub_08011528(void *, void *);
-void sub_08014588(void *, void *);
+void copyPoseAttrs(void *, void *);
 void sub_080C31E0(void *, void *);
 
 void sub_080A91C4(void *actor) {
@@ -18,7 +18,7 @@ void sub_080A91C4(void *actor) {
     void *elemTable;
     u8 *elem;
     u32 category;
-    sub_080114DC(state, seq, 0x18, 0);
+    setObjectAnimation(state, seq, 0x18, 0);
     sub_08011528(state, seq);
     tableRef = *(void **)(seq + 0x08);
     elemIndex = *(s16 *)(seq + 0x0E);
@@ -41,7 +41,7 @@ void sub_080A91C4(void *actor) {
             case 9: configIndex = 3; break;
         }
     }
-    sub_08014588(*(void **)((u8 *)work + 0x28), (void *)(0x081020FC + configIndex * 8));
+    copyPoseAttrs(*(void **)((u8 *)work + 0x28), (void *)(0x081020FC + configIndex * 8));
     if (*(u8 *)(seq + 0x00) & 0x02) {
         void (*callback)(void *) = *(void (**)(void *))(self + 0x24);
         callback((void *)self);

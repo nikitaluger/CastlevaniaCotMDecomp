@@ -4,7 +4,7 @@ void sub_080C31E4(void *, void *, s32);
 void sub_0806D588(s32, s32);
 
 struct S_02025FF0_891D8 { u8 _0[0x14]; s32 state; u8 _1[0x20]; s32 spriteRef; };
-extern struct S_02025FF0_891D8 D_02025FF0;
+extern struct S_02025FF0_891D8 gMainWorkspace;
 
 /* Actor step: remember the sprite's +0x14 word globally; while the global
  * state is 0x17 start animation set 0x08500D50, tick it, clear the script step
@@ -15,8 +15,8 @@ void sub_080891D8(void *arg0) {
     u8 *pos = mover + 4;
     s32 sprite = *(s32 *)(self + 0x38);
     s32 *callback;
-    D_02025FF0.spriteRef = *(s32 *)(sprite + 0x14);
-    if (D_02025FF0.state == 0x17) {
+    gMainWorkspace.spriteRef = *(s32 *)(sprite + 0x14);
+    if (gMainWorkspace.state == 0x17) {
         mover += 0x20;
         sub_08003A6C((s32)mover, 0, (s32)0x08500D50);
         sub_08003740((s32)mover, sprite);

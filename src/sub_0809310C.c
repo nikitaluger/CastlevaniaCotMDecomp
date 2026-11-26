@@ -44,7 +44,7 @@ struct S_02025FF0_9324C {
     u8 pad[0x3C];
     u16 h3C;
 };
-extern struct S_02025FF0_9324C D_02025FF0;
+extern struct S_02025FF0_9324C gMainWorkspace;
 
 /* Unlink the group's +4 child when present, clear the scene header at +0x3C
  * and dispatch the entity's +8 handler. */
@@ -53,6 +53,6 @@ void sub_0809324C(void *arg0)
     u8 *group = *(u8 **)((u8 *)arg0 + 0x3C);
     if (*(s32 *)(group + 4) != 0)
         sub_08015974();
-    D_02025FF0.h3C = 0;
+    gMainWorkspace.h3C = 0;
     sub_080C31E0(arg0, *(s32 *)(group + 8));
 }

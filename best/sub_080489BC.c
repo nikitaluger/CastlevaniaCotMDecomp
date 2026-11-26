@@ -7,10 +7,11 @@ void sub_080489BC(void *arg0)
   void *sp0;
   void *r7;
   s32 flag;
+  s32 flag_b1;
   s32 r4;
   s32 rr;
   s32 new_var2[2];
-  s8 r6;
+  s32 r6;
   s8 r2;
   u16 *tbl;
   u16 val;
@@ -21,7 +22,8 @@ void sub_080489BC(void *arg0)
   sp0 = ((u8 *) r8) + 0x34;
   r7 = ((u8 *) r8) + 0x48;
   sub_080148D8(r10, *((s32 *) (((u8 *) r8) + 8)));
-  if (sub_08049180(r10, sp0, r8, r7) != 0)
+  do {
+if (sub_08049180(r10, sp0, r8, r7) != 0)
   {
     if ((*((u8 *) (((u8 *) r9) + 0x4C))) != 0)
     {
@@ -46,8 +48,8 @@ void sub_080489BC(void *arg0)
     }
     else
     {
-      flag = (*((u16 *) (((u8 *) r10) + 2))) & 0x10;
-      if (flag)
+      flag_b1 = (*((u16 *) (((u8 *) r10) + 2))) & 0x10;
+      if (flag_b1)
       {
         new_var2[0] = *((s8 *) r7);
       }
@@ -62,6 +64,7 @@ void sub_080489BC(void *arg0)
       }
     }
   }
+  } while (0);
   r2 = *((s8 *) r7);
   r8 = *((void **) (((u8 *) arg0) + 0x3C));
   tbl = (u16 *) 0x080CF900;

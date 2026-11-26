@@ -1,6 +1,6 @@
-extern vu32 D_02025FF0;
+extern vu32 gMainWorkspace;
 
-void sub_08011368(u32 scene, void *anim, u32 frame, u32 mode);
+void setAnimationFrame(u32 scene, void *anim, u32 frame, u32 mode);
 void sub_080C31E0(void *, u32);
 
 struct MainObj {
@@ -20,7 +20,7 @@ void sub_0801C954(struct MainObj *arg0) {
 
     scene = arg0->scene;
     state = (u8 *)arg0->sub + 0x34;
-    sub_08011368(scene, state, 0x34, 0);
+    setAnimationFrame(scene, state, 0x34, 0);
     if ((state[0] & 2) != 0) {
         sub_080C31E0(arg0, arg0->callback);
     }

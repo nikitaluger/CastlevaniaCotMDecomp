@@ -1,4 +1,4 @@
-s32 sub_080C2F24(s32, s32);
+s32 moduloInt(s32, s32);
 void sub_080B0778(void);
 
 struct S3 { u32 a, b, c; };
@@ -10,7 +10,7 @@ void sub_080AC9B4(u32 kind, u32 *state) {
     u32 count;
     intervals = *(struct S3 *)0x0810224C;
     count = ++state[5];
-    if (sub_080C2F24(count, *(u32 *)((u8 *)&intervals + (indexShifted >> 22))) == 0) {
+    if (moduloInt(count, *(u32 *)((u8 *)&intervals + (indexShifted >> 22))) == 0) {
         sub_080B0778();
     }
 }

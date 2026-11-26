@@ -1,7 +1,7 @@
 extern void *sub_0805FAEC(s32 arg0, s32 arg1);
 extern s32 sub_080C31E0(s32 arg0, s32 arg1);
 extern s32 D_08671BFC;
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 /* Spawn an object at an angular offset from another object, setting its
  * position and velocity from a direction lookup and copying over a type byte. */
@@ -13,7 +13,7 @@ void *sub_08049200(void *arg0, void *arg1, s32 arg2, s32 arg3)
     s32 speedBase;
     u32 base;
 
-    base = (u32)D_02025FF0;
+    base = (u32)gMainWorkspace;
     newObj = sub_0805FAEC(*(s32 *)(base + 0x1870), 0x130);
     if (newObj != 0)
     {

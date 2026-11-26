@@ -1,5 +1,5 @@
 extern s32 sub_080057F8(void);
-extern void sub_080114DC(s32, s32, s32, s32);
+extern void setObjectAnimation(s32, s32, s32, s32);
 extern s32 sub_0801459C(void *, s32);
 extern void sub_080148D8(s32, s32);
 extern void sub_080A17B0(s32, s32, void *);
@@ -54,7 +54,7 @@ void sub_080A0C9C(void *arg0)
             if (randomDir != 0)
             {
                 s32 *table;
-                sub_080114DC(scene, track, 0x0E, 0);
+                setObjectAnimation(scene, track, 0x0E, 0);
                 step = *(s16 *)(self + 0x22);
                 self[step * 2 + 0x19] = 0;
                 table = (s32 *)D_08671BD0;

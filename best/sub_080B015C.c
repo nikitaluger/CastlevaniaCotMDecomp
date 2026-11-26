@@ -1,4 +1,4 @@
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *sub_0805FAEC(s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern s32 D_02027860;
@@ -10,8 +10,7 @@ inline u8 inline_fn(u32 arg0)
 void sub_080B015C(u8 *arg0)
 {
   u8 *p;
-  int new_var2;
-  sub_0800168C(arg0, 0, 0x54, 0);
+  allocWorkSlot(arg0, 0, 0x54, 0);
   p = *((u8 **) (arg0 + 0x3C));
   if (p == 0)
   {
@@ -46,8 +45,7 @@ void sub_080B015C(u8 *arg0)
     {
       u16 w = *((u16 *) (arg0 + 2));
       w |= 0x1000;
-      new_var2 = 0x0800;
-      w |= new_var2;
+      w |= 0x0800;
       *((u16 *) (arg0 + 2)) = w;
     }
     {

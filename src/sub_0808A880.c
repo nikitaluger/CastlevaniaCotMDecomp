@@ -4,7 +4,7 @@ extern void sub_08007E24(s32);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, s32);
 struct SFF0 { u8 _0[0x1C]; u32 f1C; u8 _20[0x14B8]; u16 f14D8; u16 f14DA; u8 _14DC[0x278]; s32 f1754; };
-extern struct SFF0 D_02025FF0;
+extern struct SFF0 gMainWorkspace;
 
 /* Runs a temporary entity: counts down its lifetime, and on expiry plays the
  * effects, bumps the global field to at least 5, writes the global state words
@@ -23,7 +23,7 @@ void sub_0808A880(void *arg0) {
     *(s32 *)(motion + 0x10) = remaining;
     if (remaining == 0) {
         sub_08007E24(0x31);
-        base = &D_02025FF0;
+        base = &gMainWorkspace;
         if (base->f1754 <= 4) base->f1754 = 5;
         base->f1C = 0x20;
         base->f14D8 = 0xFFF4;

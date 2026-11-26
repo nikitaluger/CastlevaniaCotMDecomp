@@ -1,21 +1,21 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_080141F8(void *, void *, void *, void *, s32);
-extern void sub_0801131C(void *, void *, s32);
-extern void sub_08011368(void *, void *, s32, s32);
-extern void *sub_08016190(void);
-extern void sub_08016664(void *, s32);
+extern void initSpriteGraphics(void *, void *, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern void *allocEffectPart(void);
+extern void registerScriptObject(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_08014290(void);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
-extern u8 D_080CD400[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
+extern u8 gSpriteAnimDataTable[];
 extern u8 D_080CF564[];
 extern u8 D_080CF554[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* Extra data record allocated for the entity. */
 struct Extra {
@@ -34,7 +34,7 @@ struct Anim {
 };
 struct Entry { u8 _0[4]; void *info; };
 struct GfxDef { u16 f0; u16 f2; u16 f4; u8 _6[0x0E]; };
-extern struct GfxDef D_080CB2B8[];
+extern struct GfxDef gSpriteKindTable[];
 struct ObjFlags { u8 pad[2]; u16 flags; };
 
 /* Creates and initialises a child entity: allocates its graphics and
@@ -53,29 +53,29 @@ void sub_08043B0C(u8 *self) {
     u32 idx;
 
     entry = *(void **)(self + 0xAC);
-    gfxObj = sub_0800355C();
+    gfxObj = allocSpriteObject();
     if (gfxObj == NULL) goto fail;
     *(void **)(self + 0x38) = gfxObj;
-    sub_0800168C(self, 0, 0x4C, 0);
+    allocWorkSlot(self, 0, 0x4C, 0);
     if (*(u32 *)(self + 0x3C) == 0) goto fail;
     *(u32 *)(gfxObj + 0x1C) = 0x8000000A;
     anim = *(struct Anim **)(self + 0x3C);
     animData = (u8 *)anim + 0x34;
-    sub_08014288(self, (u8 *)anim, (void *)sub_08014290);
+    installUpdateHandler(self, (u8 *)anim, (void *)sub_08014290);
     stackTable = D_080CF564;
     {
         s32 stacked = *(s16 *)(stackTable + *(u8 *)(self + 0x4C) * 4);
         sub_080141F8(self, gfxObj, (u8 *)anim, entry, stacked);
     }
-    sub_0801131C(gfxObj, animData, (s32)D_080CD400 + *(s16 *)((u8 *)anim + 0x1C) * 0xC);
-    sub_08011368(gfxObj, animData, 0, 0);
+    initSpriteGraphics(gfxObj, animData, (s32)gSpriteAnimDataTable + *(s16 *)((u8 *)anim + 0x1C) * 0xC);
+    setAnimationFrame(gfxObj, animData, 0, 0);
     if (*(u16 *)((u8 *)((struct Entry *)entry)->info + 6) == 0) {
         *(u16 *)(gfxObj + 2) &= 0xFFEF;
     } else {
         ((struct ObjFlags *)gfxObj)->flags |= 0x10;
     }
     paramTable = D_080CF554;
-    extra = sub_08016190();
+    extra = allocEffectPart();
     anim->extra = extra;
     if (extra == NULL) goto fail;
     goto body;
@@ -90,17 +90,17 @@ body:
     anim->extra->subState = 1;
     {
         zero = 0;
-        anim->extra->gfxIdx = D_080CB2B8[*(s16 *)((u8 *)anim + 0x1C)].f0;
+        anim->extra->gfxIdx = gSpriteKindTable[*(s16 *)((u8 *)anim + 0x1C)].f0;
         anim->extra->param6 = *(u16 *)(paramTable + 0);
         anim->extra->param8 = *(u16 *)(paramTable + 2);
         anim->extra->paramA = *(u16 *)(paramTable + 4);
         anim->extra->paramC = *(u16 *)(paramTable + 6);
-        anim->extra->paramE = D_080CB2B8[*(s16 *)((u8 *)anim + 0x1C)].f4;
+        anim->extra->paramE = gSpriteKindTable[*(s16 *)((u8 *)anim + 0x1C)].f4;
     }
     anim->extra->gfxObj = (u32)gfxObj;
     {
-        pt = D_02021E90;
-        pb = D_02025FF0;
+        pt = gCameraState;
+        pb = gMainWorkspace;
         pb += 0x18A8;
         idx = ((u32)*pb + 1) * 0x40;
         base1 = pt + 0x1278;
@@ -109,7 +109,7 @@ body:
         base2 = pt + 0x127C;
         *(u32 *)(gfxObj + 0x18) = *(u32 *)((u8 *)anim + 0x0C) - ((*(u32 *)(base2 + idx) + 0xFFFF8000) & 0xFFFF0000);
     }
-    sub_08016664(self, 0);
+    registerScriptObject(self, 0);
     {
         u16 h = *(u16 *)(self + 2);
         h |= 0x1000;
@@ -117,7 +117,7 @@ body:
     }
     *(u8 *)((u32)(*(s16 *)(self + 0x22) * 2) + (u32)self + 0x19) = (u8)zero;
     {
-        u32 *wp = (u32 *)D_08671BB0;
+        u32 *wp = (u32 *)gMainObjTimerCallback;
         u8 *slots = self + 0x18;
         sub_080C31E4(slots, self + 0x22, *wp);
         {

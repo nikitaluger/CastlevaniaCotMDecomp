@@ -7,7 +7,7 @@ void sub_08072334(void *, s32, s32, void *);
 void sub_08003740(void *, void *);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 struct GameState {
     u8 _0[0x10];
@@ -19,7 +19,7 @@ struct GameState {
     u8 _2[0x173A - 0x1500];
     u8 field173A;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 /* Updates a child entity: applies camera/scroll adjustment, advances its
  * position and state timer, changes animation state on a mismatch, then
@@ -47,7 +47,7 @@ void sub_080716B8(void *entity)
     tmp = 2;
     *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = check;
     {
-      void **animFn = &D_08671BB0;
+      void **animFn = &gMainObjTimerCallback;
       u8 *slots = self + 0x18;
       sub_080C31E4(slots, self + 0x22, *animFn);
       {
@@ -71,7 +71,7 @@ void sub_080716B8(void *entity)
   {
     *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = remaining;
     {
-      void **animFn = &D_08671BB0;
+      void **animFn = &gMainObjTimerCallback;
       u8 *slots = self + 0x18;
       sub_080C31E4(slots, self + 0x22, *animFn);
       {
@@ -114,19 +114,19 @@ void sub_080716B8(void *entity)
     sub_0806E114(*((void **) (self + 0x28)), 8, *((s32 *) (parent + 0x04)), *((s32 *) (body + 0x04)));
     goto via;
   }
-  if (D_02025FF0.field14FC != 0)
+  if (gMainWorkspace.field14FC != 0)
   {
     goto via;
   }
-  if (D_02025FF0.field173A == 0x1C)
+  if (gMainWorkspace.field173A == 0x1C)
   {
     goto via;
   }
-  if (D_02025FF0.field14ED != 0)
+  if (gMainWorkspace.field14ED != 0)
   {
     goto d2f8;
   }
-  if (D_02025FF0.field10 == 0)
+  if (gMainWorkspace.field10 == 0)
   {
     goto d2f8;
   }

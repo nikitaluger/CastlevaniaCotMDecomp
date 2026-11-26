@@ -23,13 +23,13 @@ struct S_02025FF0_63F80
   u8 _1518[0x1754 - 0x1518];
   s32 f1754;                   /* 0x1754: small slot counter */
 };
-extern struct S_02025FF0_63F80 D_02025FF0;
+extern struct S_02025FF0_63F80 gMainWorkspace;
 struct S_02021E90_63F80
 {
   u8 _0[0x146E];
   u16 f146E;                   /* 0x146E: raw key state */
 };
-extern struct S_02021E90_63F80 D_02021E90;
+extern struct S_02021E90_63F80 gCameraState;
 extern s32 sub_08003740(void *, void *);          /* decrement timer / fire callback */
 extern void sub_08005E80(s32);                    /* play sound */
 extern void sub_0806A7AC(void *, void *, s32);    /* set entity form */
@@ -82,7 +82,7 @@ void sub_08063F80(u8 *entity)
   {
     *((s32 *) (state + 0x0C)) = timerMax;
   }
-  keys = (D_02025FF0.f24 != 0) ? (D_02025FF0.f2A & (*((u16 *) (p + 0x3BC)))) : (D_02021E90.f146E & (*((u16 *) (p + 0x3BC))));
+  keys = (gMainWorkspace.f24 != 0) ? (gMainWorkspace.f2A & (*((u16 *) (p + 0x3BC)))) : (gCameraState.f146E & (*((u16 *) (p + 0x3BC))));
   if (keys == 0)
   {
     *((s32 *) (work + 0x70)) = zero70;
@@ -96,11 +96,11 @@ void sub_08063F80(u8 *entity)
     *((s32 *) (work + 0x4C)) = 0;
     *((s32 *) (work + 0x50)) = 0;
     *((s32 *) (work + 0x54)) = 0;
-    if (D_02025FF0.f14ED == 0x35)
+    if (gMainWorkspace.f14ED == 0x35)
     {
-      if (D_02025FF0.f1754 <= 8)
+      if (gMainWorkspace.f1754 <= 8)
       {
-        D_02025FF0.f1754 = 9;
+        gMainWorkspace.f1754 = 9;
       }
     }
     sub_08086240(work, 9);
@@ -120,7 +120,7 @@ void sub_08063F80(u8 *entity)
     u8 *tmp = p;
     s32 r = sub_08003740(tmp, sprite);
     timer = tmp;
-    if ((r == 0) || (D_02025FF0.f1514 != 0))
+    if ((r == 0) || (gMainWorkspace.f1514 != 0))
     {
       sub_0806A7AC(sprite, work, 0x10);
       sub_08003740(timer, sprite);

@@ -16,8 +16,8 @@ struct S_02025FF0
   u8 _pad4[0x18C2 - 0x18A9];
   u16 unk18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gCameraState[];
 inline s32 *inline_fn(u8 *base, int offset, u32 index)
 {
   return (s32 *) ((base + offset) + index);
@@ -48,8 +48,8 @@ void sub_080806A0(u8 *owner)
             u8 *target = *((u8 **)(state + 0x2C));
             if (((*((u16 *)(target + 0x14))) & 1) && (!((*((u16 *)(target + 0x14))) & 2)))
             {
-                u8 *coordTable = D_02021E90;
-                u8 *indexByte = (u8 *)(&D_02025FF0);
+                u8 *coordTable = gCameraState;
+                u8 *indexByte = (u8 *)(&gMainWorkspace);
                 u8 *xCoordTable;
                 u32 coordOffset;
                 indexByte += 0x18A8;
@@ -60,9 +60,9 @@ void sub_080806A0(u8 *owner)
                 return;
             }
         }
-        *((u16 *)entity) = D_02025FF0.unk18C2;
+        *((u16 *)entity) = gMainWorkspace.unk18C2;
         sub_08003740(state + 0x1C, entity);
-        if ((D_02025FF0.unk173A == 0x1C) || ((D_02025FF0.unk14ED == 0) && (D_02025FF0.unk10 != 0)))
+        if ((gMainWorkspace.unk173A == 0x1C) || ((gMainWorkspace.unk14ED == 0) && (gMainWorkspace.unk10 != 0)))
         {
             sub_080C31E0(owner, *((void **)(owner + 0x24)));
             return;

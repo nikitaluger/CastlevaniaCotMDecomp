@@ -1,4 +1,4 @@
-void sub_08014588(void *, void *);
+void copyPoseAttrs(void *, void *);
 extern u8 D_080CF1F8[];
 extern u8 D_080CF230[];
 extern u8 D_080CF268[];
@@ -22,7 +22,7 @@ void sub_0803B140(u32 count, void *source, void *targets, void *lookup) {
         }
     }
 
-    sub_08014588(dst[0], (void *)((entryIndex << 3) + tableA));
-    sub_08014588(dst[1], (void *)((entryIndex << 3) + D_080CF230));
-    sub_08014588(dst[2], (void *)((entryIndex << 3) + D_080CF268));
+    copyPoseAttrs(dst[0], (void *)((entryIndex << 3) + tableA));
+    copyPoseAttrs(dst[1], (void *)((entryIndex << 3) + D_080CF230));
+    copyPoseAttrs(dst[2], (void *)((entryIndex << 3) + D_080CF268));
 }

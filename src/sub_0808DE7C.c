@@ -10,15 +10,15 @@ struct Entity {
 };
 struct SpawnedObj { u16 flags0; u16 flags2; u8 _04[0x10]; u32 unk14; u32 coordX; u32 param1C; };
 struct GlobalData { u8 _0[0x18a8]; u8 flag18A8; u8 _a9[0x19]; u16 mask18C2; };
-extern struct GlobalData D_02025FF0;
-extern u8 D_02021E90[];
+extern struct GlobalData gMainWorkspace;
+extern u8 gCameraState[];
 extern u32 D_08100218[];
 extern s16 D_08100224[];
-extern void *D_08671BB0;
-void *sub_0800355C(void);
-void sub_0800168C(void *, int, int, int);
-void sub_0801131C(void *, void *, void *);
-void sub_08011368(void *, void *, s16, int);
+extern void *gMainObjTimerCallback;
+void *allocSpriteObject(void);
+void allocWorkSlot(void *, int, int, int);
+void initSpriteGraphics(void *, void *, void *);
+void setAnimationFrame(void *, void *, s16, int);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -30,26 +30,26 @@ void sub_0808DE7C(struct Entity *self) {
     u8 *cmdPtr;
     s16 variant;
 
-    newObj = sub_0800355C();
+    newObj = allocSpriteObject();
     if (newObj == NULL) goto fail;
     self->spawnedObj = newObj;
-    sub_0800168C(self, 0, 0x14, 0);
+    allocWorkSlot(self, 0, 0x14, 0);
     source = self->sourceEnt;
     if (source == NULL) {
 fail:
         sub_080C31E0(self, self->failCallback);
         return;
     }
-    sub_0801131C(newObj, source, D_08100218);
+    initSpriteGraphics(newObj, source, D_08100218);
     variant = self->variant;
-    sub_08011368(newObj, source, D_08100224[variant], 0);
+    setAnimationFrame(newObj, source, D_08100224[variant], 0);
     if (self->spawnFlags & 0x10) ((struct SpawnedObj *)newObj)->flags2 |= 0x10;
     if (self->spawnFlags & 0x20) ((struct SpawnedObj *)newObj)->flags2 |= 0x20;
     ((struct SpawnedObj *)newObj)->param1C = (self->spawnFlags & 0x0F) | 0x80000000;
-    ((struct SpawnedObj *)newObj)->flags0 |= D_02025FF0.mask18C2;
+    ((struct SpawnedObj *)newObj)->flags0 |= gMainWorkspace.mask18C2;
     {
-        u8 *coordTable = D_02021E90;
-        u8 *globalBase = (u8 *)&D_02025FF0;
+        u8 *coordTable = gCameraState;
+        u8 *globalBase = (u8 *)&gMainWorkspace;
         u8 *xBase;
         u8 *yBase;
         u32 coordIdx;
@@ -66,7 +66,7 @@ fail:
     }
     *(u16 *)((u8 *)self + 2) |= 0x1000;
     *(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x19) = 0;
-    cbTable = &D_08671BB0;
+    cbTable = &gMainObjTimerCallback;
     scriptPtr = (u8 *)self;
     scriptPtr += 0x18;
     sub_080C31E4(scriptPtr, (u8 *)self + 0x22, (s32)*cbTable);

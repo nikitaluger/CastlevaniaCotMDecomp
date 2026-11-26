@@ -1,12 +1,12 @@
 extern u8 D_0866D57C[];
 extern u8 D_0866D56C[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u32 D_08671BD8;
 
 void _call_via_r1(void *, void *);
 void _call_via_r2(void *, void *, u32);
 void _call_via_r3(void *, void *, u32, u32);
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 
 /* Switch the script to handler table D_0866D57C: clear the state object's
  * fields, run the current step's handler with its repeat count bumped, then

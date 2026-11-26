@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32); /* set animation frame */
+extern void setAnimationFrame(void *, void *, s32, s32); /* set animation frame */
 extern void _call_via_r1(void *, s32);
 extern void sub_080C31E4(void *, void *, u32); /* _call_via_r2 */
 
@@ -17,7 +17,7 @@ void sub_08053CB4(void *arg0) {
     work = *(u8 **)((u8 *)arg0 + 0x3C);
     anim = work + 0x34;
     timer = work + 0x48;
-    sub_08011368(sprite, anim, 8, 0);
+    setAnimationFrame(sprite, anim, 8, 0);
     count = *(u16 *)(timer + 4) - 1;
     *(u16 *)(timer + 4) = count;
     if (count << 16 < 0) {

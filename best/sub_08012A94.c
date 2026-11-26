@@ -4,7 +4,7 @@ struct S_02025FF0_A8
   u8 _0[0x18A8];
   u8 v;
 };
-extern struct S_02025FF0_A8 D_02025FF0;
+extern struct S_02025FF0_A8 gMainWorkspace;
 extern u8 D_02023130[];
 s32 sub_08012A94(u8 *arg0, s32 arg1, s32 count)
 {
@@ -15,7 +15,7 @@ s32 sub_08012A94(u8 *arg0, s32 arg1, s32 count)
   u32 addr;
   for (; i <= count; i++)
   {
-    ret = sub_08004740((void *) (((u32) D_02023130) + (((u32) D_02025FF0.v) << 6)), arg0, cur) - 1;
+    ret = sub_08004740((void *) (((u32) D_02023130) + (((u32) gMainWorkspace.v) << 6)), arg0, cur) - 1;
     switch (ret)
     {
       case 1:
@@ -90,12 +90,14 @@ s32 sub_08012A94(u8 *arg0, s32 arg1, s32 count)
   cur &= (s32) 0xFFF80000;
 
   addr = 0xFFF88000;
-  goto finish;
+  {
+return cur - (arg1 + ((s32) addr));
+}
   st1:
   cur &= (s32) 0xFFF80000;
 
   addr = 0x8000;
-  finish:
+
   return cur - (arg1 + ((s32) addr));
 
 }

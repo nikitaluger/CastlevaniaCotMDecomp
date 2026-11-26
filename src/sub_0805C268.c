@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_0800583C(s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
@@ -17,7 +17,7 @@ void sub_0805C268(void *script)
     anim = (u8 *)body + 0x34;
     extra = (u8 *)body + 0x48;
 
-    sub_08011368(sprite, anim, 0, 1);
+    setAnimationFrame(sprite, anim, 0, 1);
     if (sub_08014A04(body, *(s32 *)((u8 *)extra + 8), *(s32 *)((u8 *)extra + 0xC), 0x80000, 0x80000) == 1) {
         *(s32 *)((u8 *)extra + 8) = *(s32 *)((u8 *)body + 0x48) + sub_0800583C(0x200000);
         *(s32 *)((u8 *)extra + 0xC) = *(s32 *)((u8 *)extra + 4) + sub_0800583C(0x200000);
@@ -25,10 +25,10 @@ void sub_0805C268(void *script)
     sub_08014B1C(body, (u8 *)body + 0x58, *(s32 *)((u8 *)extra + 8), *(s32 *)((u8 *)extra + 0xC));
 }
 
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 s32 sub_08060370(void) {
-    u8 *base = D_02021E90;
+    u8 *base = gCameraState;
     *(u32 *)(base + 0x1454) += 1;
     {
         u8 t = *(u8 *)(base + 0x145C);

@@ -2,9 +2,9 @@ extern void sub_0808449C(void);
 extern void sub_08003A6C(void *, s32, void *);
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r2(void *, void *, void *);
-extern void *D_08671BB0;
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern void *gMainObjTimerCallback;
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 
 /* Initializes an entity's sub-object and graphics fields (including its
  * update callback), then resets/advances the active action and runs its
@@ -23,7 +23,7 @@ void sub_08075B80(u8 *entity)
     extra = *(u8 **)(entity + 0x6C);
     fields = extra + 4;
     gfx = *(u8 **)(entity + 0x38);
-    gameState = D_02025368;
+    gameState = gGameStatus;
 
     zero = 0;
     *(s32 *)(fields + 0x2C) = zero;
@@ -36,7 +36,7 @@ void sub_08075B80(u8 *entity)
     *(void **)(entity + 0x24) = &sub_0808449C;
 
     {
-        u8 *flags = D_02025FF0;
+        u8 *flags = gMainWorkspace;
         u8 value = *(u8 *)(flags + 0x14F0);
         *(u8 *)(extra + 0x55) = value;
     }
@@ -51,7 +51,7 @@ void sub_08075B80(u8 *entity)
     actionIdx = *(s16 *)(entity + 0x22);
     *(u8 *)(entity + actionIdx * 2 + 0x19) = 0;
 
-    animDef = &D_08671BB0;
+    animDef = &gMainObjTimerCallback;
     animList = entity + 0x18;
     _call_via_r2(animList, entity + 0x22, *animDef);
 

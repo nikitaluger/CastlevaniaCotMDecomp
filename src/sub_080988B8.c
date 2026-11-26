@@ -10,18 +10,18 @@ typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
-s32 sub_08014938(s32);
+s32 signOf(s32);
 inline s8 toS8(s8 value)
 {
   return value;
 }
 
 /* Store the object's facing direction byte at obj+0x35: +1 when `coord` lies
- * before the tracked global coordinate (sub_08014938 > 0), otherwise -1 (0xFF). */
+ * before the tracked global coordinate (signOf > 0), otherwise -1 (0xFF). */
 void sub_080988B8(s32 obj, s32 coord)
 {
   s8 *dir;
-  if (sub_08014938(coord) > 0)
+  if (signOf(coord) > 0)
   {
     dir = obj + 0x35;
     coord = 1;

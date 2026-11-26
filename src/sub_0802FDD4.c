@@ -1,5 +1,5 @@
 extern s32 sub_08005820(s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
@@ -22,7 +22,7 @@ void sub_0802FDD4(u8 *arg0) {
     if (*(u16 *)((u8 *)*(void **)((u8 *)tmp + 4) + 6) & 2) {
         sub_080149A4((s32)r7, r4, r4 + 0x52, 0x3C, 0x5A);
     }
-    sub_08011368((s32)r7, r8, 0, 1);
+    setAnimationFrame((s32)r7, r8, 0, 1);
     v = ((struct Counter *)r6)->value - 1;
     ((struct Counter *)r6)->value = v;
     if ((v << 0x10) < 0) {

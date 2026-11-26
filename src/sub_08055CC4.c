@@ -1,5 +1,5 @@
 struct HeapGlobals { u8 _0[0x1874]; u32 pool; };
-extern struct HeapGlobals D_02025FF0;
+extern struct HeapGlobals gMainWorkspace;
 
 extern void *sub_0805FAEC(u32, s32);
 
@@ -13,7 +13,7 @@ void *sub_08055CC4(s32 xFixed, s32 yFixed, s32 value5C, s32 value6C, u16 value7C
     s32 yRounded;
     s32 xWord, yWord;
 
-    obj = sub_0805FAEC(D_02025FF0.pool, 0x157);
+    obj = sub_0805FAEC(gMainWorkspace.pool, 0x157);
     if (obj == 0) {
         return 0;
     }

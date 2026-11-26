@@ -1,7 +1,7 @@
 extern s32 sub_080057F8(void);
 extern void sub_08005E80(u16);
 extern void sub_080114A8(s32, u8 *, s32, s32);
-extern void sub_080114DC(s32, u8 *, s32, s32);
+extern void setObjectAnimation(s32, u8 *, s32, s32);
 extern void sub_08011528(s32, u8 *);
 extern void sub_080148D8(s32, s32);
 extern void sub_0809A610(void *);
@@ -49,7 +49,7 @@ void sub_080994DC(void *arg0)
             }
             else
             {
-                sub_080114DC(sprite, anim, 0xF, zero);
+                setObjectAnimation(sprite, anim, 0xF, zero);
                 sub_0809C4E0(*((s32 *) (body + 8)), zero);
                 step = 2;
                 actionIndex = *((s16 *) (((u8 *) arg0) + 0x22));
@@ -67,7 +67,7 @@ void sub_080994DC(void *arg0)
             }
             else
             {
-                sub_080114DC(sprite, anim, 0xF, zero);
+                setObjectAnimation(sprite, anim, 0xF, zero);
                 sub_080148D8(sprite, *((s32 *) (state + 8)));
                 *((u8 *) (state + 0x69)) = zero;
                 sub_0809C4E0(*((s32 *) (body + 8)), zero);

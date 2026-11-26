@@ -47,7 +47,7 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   half = (arg3 + inline_fn2(arg3)) >> 1;
   if (arg7 < (0x7FFF + 1))
   {
-    base = half + (arg4 + 0x4000);
+    new_var2 = (arg4 + 0x4000); base = half + new_var2;
   }
   else
   {
@@ -70,11 +70,11 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   new_var2 = 0xFFFF;
   new_var5 = base & new_var2;
   mask = new_var5;
-  t0 = _call_via_r1(half, D_08671BFC);
+  do { t0 = _call_via_r1(half, D_08671BFC); } while (0);
   new_var7 = (((u32) arg2) >> 17) | (inline_fn2(arg2) << 15);
   a0 = arg2 << 15;
   a1 = new_var7;
-  p = D_080C3218(a0, a1, t0, inline_fn2(t0));
+  do { p = D_080C3218(a0, a1, t0, inline_fn2(t0)); } while (0);
   sp8 = inline_fn((u32) p);
   t2 = _call_via_r1(0x4000 + mask, D_08671BFC);
   p2 = sub_080C37B4(t2, inline_fn2(t2), sp8, (sp8 >> 26) >> 5);
@@ -83,7 +83,8 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   new_var4 = inline_fn2(sp8);
   if (((s32) (p2 >> 32)) < 0)
   {
-    u64 t = p2 + 0xFFFF;
+    u64 t;
+    t = p2 + 0xFFFF;
     hi2 = inline_fn(t >> 32);
     lo2 = inline_fn(t);
   }
@@ -96,13 +97,14 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   mask = (lo3 = (s32) p3);
   if (((s32) (p3 >> 32)) < 0)
   {
-    u64 t = p3 + 0xFFFF;
+    u64 t;
+    t = p3 + 0xFFFF;
     hi3 = inline_fn(t >> 32);
     lo3 = (s32) t;
   }
   val2 = 16;
   sp4 = lo3;
-  val2 = (hi3 << val2) | (((u32) sp4) >> 16);
+  do { t0 = (hi3 << val2); } while (0); val2 = t0 | (((u32) sp4) >> 16);
   new_var6 = arg6 - ((char) (arg1 + val2));
   if (sub_080059DC(arg5 - (arg0 + val1), new_var6) < sp8)
   {

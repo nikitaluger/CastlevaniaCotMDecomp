@@ -6,7 +6,7 @@ extern s32 sub_080141AC(s32, void *);
 extern void sub_08013C5C(void *, s32);
 extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
-extern void sub_0801534C(void *, void *, void *, void *, void *);
+extern void spawnChildPair(void *, void *, void *, void *, void *);
 extern s32 sub_0804FFEC(s32, void *, void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
@@ -43,11 +43,11 @@ doHits:
     sub_08013C5C(self, parent);
     if (sub_08013558(parent, obj, *(void **)(obj + 0x28)) != 0) {
         sub_08013978(self, *(void **)(obj + 0x28));
-        sub_0801534C(self, *(void **)(objState + 0x20), *(void **)(objState + 0x24), obj + 0x70, obj + 0x74);
+        spawnChildPair(self, *(void **)(objState + 0x20), *(void **)(objState + 0x24), obj + 0x70, obj + 0x74);
     } else {
         if (sub_0804FFEC(parent, obj, *(void **)(objState + 0x20), *(void **)(objState + 0x24)) != 0) {
             sub_08013978(self, *(void **)(obj + 0x28));
-            sub_0801534C(self, *(void **)(objState + 0x20), *(void **)(objState + 0x24), obj + 0x70, obj + 0x74);
+            spawnChildPair(self, *(void **)(objState + 0x20), *(void **)(objState + 0x24), obj + 0x70, obj + 0x74);
         }
     }
 

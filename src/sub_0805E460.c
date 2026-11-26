@@ -7,8 +7,8 @@ extern s32 sub_08016238(void *);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern s32 sub_08011898(void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E99C[];
 extern s32 D_08671BDC;
 
@@ -73,8 +73,8 @@ void sub_0805E460(u8 *entity) {
     *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) - 1;
     if ((*(u16 *)(entity + 2) & 0x8000) != 0) return;
     sub_08011898(actor, 0x16C1);
-    coordBase = D_02021E90;
-    camIndexPtr = D_02025FF0;
+    coordBase = gCameraState;
+    camIndexPtr = gMainWorkspace;
     camIndexPtr += 0x18A8;
     coordIndex = ((u32)*camIndexPtr + 1) * 0x40;
     coordXField = coordBase + 0x1278;

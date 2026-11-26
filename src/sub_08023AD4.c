@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Script step: decrements the companion's timer; while it is still positive
@@ -22,7 +22,7 @@ void sub_08023AD4(void *arg0) {
             u8 *spriteFlag = (u8 *)sprite + 0x2A;
             u8 flagValue = *spriteFlag | 0x40;
             *spriteFlag = flagValue;
-            sub_08011368(sprite, poseObj, 0x1A, 0);
+            setAnimationFrame(sprite, poseObj, 0x1A, 0);
             *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = zero;
             {
                 s32 *interpreter = (s32 *)0x08671BB0;

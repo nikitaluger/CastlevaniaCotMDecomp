@@ -1,5 +1,5 @@
-extern void sub_08011368(s32, void *, s32, s32);
-extern void sub_0801468C(s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
+extern void setSpriteFlip(s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern s32 sub_08014A6C(void *, s32, s32, s32);
@@ -7,8 +7,8 @@ extern void sub_08014B1C(void *, void *, s32, s32);
 extern s32 sub_080C364C(s32, s32);
 extern s32 _call_via_r1(void *, void *);
 extern void _call_via_r3(void *, void *, s32, void *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /*
  * Updates an entity's movement state: derives a screen-space position from the
@@ -25,10 +25,10 @@ void sub_08022E2C(u8 *entity) {
     u8 *coordBase;
     u32 zero;
 
-    sub_08011368(sprite, status, 0, 1);
-    coordBase = D_02021E90;
+    setAnimationFrame(sprite, status, 0, 1);
+    coordBase = gCameraState;
     {
-        u8 *globalState = D_02025FF0;
+        u8 *globalState = gMainWorkspace;
         u8 *camIndex = globalState + 0x18A8;
         u32 camOffset = (*(u8 *)camIndex + 1) << 6;
         u8 *coordXBase = coordBase + 0x1278;
@@ -71,6 +71,6 @@ void sub_08022E2C(u8 *entity) {
             return;
         }
         sub_08014B1C(motion, motionEx + 0x50, screenX, screenY);
-        sub_0801468C(sprite, *(s32 *)(motionEx + 0x54));
+        setSpriteFlip(sprite, *(s32 *)(motionEx + 0x54));
     }
 }

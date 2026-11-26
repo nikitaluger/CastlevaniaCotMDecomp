@@ -20,7 +20,7 @@ struct S_02025FF0 {
     u8 b18C5;
     u8 b18C6;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 struct S_02025368 {
     u8 pad0[0x2C4];
@@ -30,16 +30,16 @@ struct S_02025368 {
     u8 pad2[2];
     u32 u300;
 };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 
-extern s32 D_08671BB0[];
-extern u32 D_080E0738[];
+extern s32 gMainObjTimerCallback[];
+extern u32 gLevelExpTable[];
 
 void sub_08071EDC(void *arg0)
 {
-    u8 *base = (u8 *)&D_02025368;
+    u8 *base = (u8 *)&gGameStatus;
     u32 cur = *(u32 *)(base + 0x300);
-    u32 *tbl = D_080E0738;
+    u32 *tbl = gLevelExpTable;
     s16 idx = *(s16 *)(base + 0x2FC);
 
     if (cur >= tbl[idx - 1])
@@ -48,7 +48,7 @@ void sub_08071EDC(void *arg0)
         sub_08072018(arg0);
         *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *nv = D_08671BB0;
+            s32 *nv = gMainObjTimerCallback;
             sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *nv);
         }
     }
@@ -58,16 +58,16 @@ void sub_08071EDC(void *arg0)
  * counterpart of sub_08071FA0, which starts them). */
 void sub_08071FDC(void)
 {
-    D_02025FF0.f1848 &= 0xAA01FFFF;
-    D_02025FF0.b18C6 = 0;
-    D_02025FF0.b18C5 = 0;
+    gMainWorkspace.f1848 &= 0xAA01FFFF;
+    gMainWorkspace.b18C6 = 0;
+    gMainWorkspace.b18C5 = 0;
     sub_0800617C();
 }
 
 void sub_08072018(void *arg0)
 {
-    D_02025368.s2FC++;
-    sub_0806D930(&D_02025368.u2C4);
+    gGameStatus.s2FC++;
+    sub_0806D930(&gGameStatus.u2C4);
     sub_08005E80(0x74);
     sub_08001480(arg0, 0x2E);
 }
@@ -82,7 +82,7 @@ void sub_08072140(void *arg0)
     *(u32 *)(self + 0x24) = (u32)sub_08072270;
 
     *(u8 *)(self + (s16)*(u16 *)(self + 0x22) * 2 + 0x19) = 0;
-    lit = D_08671BB0;
+    lit = gMainObjTimerCallback;
     base18 = self + 0x18;
     sub_080C31E4(base18, self + 0x22, *lit);
 

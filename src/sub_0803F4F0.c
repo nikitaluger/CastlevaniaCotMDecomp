@@ -8,8 +8,8 @@ extern void sub_0801165C(void *, s32);
 extern void sub_08016238(void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 struct SpriteFlags { u8 flags; };
 struct AnimState { u16 flags; };
 void sub_0803F4F0(u8 *entity)
@@ -82,9 +82,9 @@ void sub_0803F4F0(u8 *entity)
   sub_080113A8(anim, actorTarget);
   sub_0801165C(actor, 0);
   table:
-  coordBase = D_02021E90;
+  coordBase = gCameraState;
 
-  camIndexPtr = D_02025FF0;
+  camIndexPtr = gMainWorkspace;
   camIndexPtr = camIndexPtr + 0x18A8;
   coordIndex = (((u32) (*camIndexPtr)) + 1) * 0x40;
   coordXField = coordBase + 0x1278;

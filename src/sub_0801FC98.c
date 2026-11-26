@@ -10,8 +10,8 @@ extern void sub_080C31E8(void *, void *, s32, s32);
 struct StateFlags { u16 flags; };
 struct LayerFlags { u8 _0; u8 flags; };
 struct LayerTimer { u8 _0[0x14]; u16 flags; };
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Updates an entity's sprite animation and action state, handles a finished
  * action, and refreshes the sprite's screen position from the coord table. */
@@ -75,8 +75,8 @@ void sub_0801FC98(u8 *entity)
   sub_08020498(sprite, state);
   ((struct LayerTimer *) (*((u8 **) (state + 0x28))))->flags = 0;
   {
-    u8 *coordBase = D_02021E90;
-    u8 *layerBase = D_02025FF0;
+    u8 *coordBase = gCameraState;
+    u8 *layerBase = gMainWorkspace;
     u8 *base1; u8 *base2; u32 idx;
     layerBase += 0x18A8;
     idx = ((u32)*layerBase + 1) * 0x40;

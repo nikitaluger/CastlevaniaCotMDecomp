@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 s32 sub_08012A94(void *, s32, s32);
 void *ResultObj_New(s32, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -14,7 +14,7 @@ void sub_08017BB0(void *arg0)
   s32 offset;
   s32 resultCoord;
   u32 *handler;
-  sub_08011368(sprite, ((u8 *) scriptState) + 0x34, 5, 0);
+  setAnimationFrame(sprite, ((u8 *) scriptState) + 0x34, 5, 0);
   coord = (*((s32 *) (scriptState + 0x08))) + 0x110000;
   offset = sub_08012A94((void *) coord, *((s32 *) (scriptState + 0x0C)), 0x11);
   if (offset <= 0x7FFFFF)

@@ -3,8 +3,8 @@
  * relative Y screen position. */
 #define ACTION_STATE(e) (*(u8 *)((e) + (*(s16 *)((e) + 0x22)) * 2 + 0x1A))
 #define ACTION_FLAG(e) (*(u8 *)((e) + (*(s16 *)((e) + 0x22)) * 2 + 0x1B))
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E804[];
 extern u32 D_08671BDC[];
 
@@ -90,8 +90,8 @@ void sub_08057E94(u8 *entity) {
 
     sub_08013C8C(entity, anim);
 
-    coordBase = D_02021E90;
-    camIndexPtr = D_02025FF0;
+    coordBase = gCameraState;
+    camIndexPtr = gMainWorkspace;
     camIndexPtr += 0x18A8;
     camIndex = *(u8 *)camIndexPtr;
     camIndex = camIndex + 1;

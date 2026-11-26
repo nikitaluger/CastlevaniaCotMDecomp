@@ -4,8 +4,8 @@
 extern void sub_080113A8(void *, void *);
 extern s32 sub_08013B5C(void *, void *);
 extern s32 sub_0805F9B4(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 struct S2A { u8 flag; };
 
@@ -33,8 +33,8 @@ void sub_08027CB0(u8 *effect) {
     *(s32 *)((u8 *)fxState + 0xC) = *(s16 *)(effect + 0x54) << 16;
 
     {
-        u8 *gameState = D_02021E90;
-        u8 *camInfo = D_02025FF0;
+        u8 *gameState = gCameraState;
+        u8 *camInfo = gMainWorkspace;
         u8 *camXBase;
         u8 *camYBase;
         u32 camIndex;

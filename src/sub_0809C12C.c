@@ -3,7 +3,7 @@ void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 s8 sub_08005820(s32);
-void sub_08097EB4(u32, void *);
+void loadEffectPalette(u32, void *);
 extern void sub_0809BEE8(void);
 
 struct S_0807B12C

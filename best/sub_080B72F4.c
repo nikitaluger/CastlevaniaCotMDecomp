@@ -1,5 +1,5 @@
 extern void *sub_0805FAEC(void *, s32);
-extern void *D_02025FF0;
+extern void *gMainWorkspace;
 void sub_080B72F4(void *arg0, s32 arg1)
 {
     u8 *src;
@@ -7,7 +7,7 @@ void sub_080B72F4(void *arg0, s32 arg1)
     u32 flag;
     s32 v;
     void **nv;
-    nv = (void **) (((u8 *) D_02025FF0) + 0x1870);
+    nv = (void **) (((u8 *) gMainWorkspace) + 0x1870);
     src = *(u8 **)((u8 *)arg0 + 0x3C);
     r2 = sub_0805FAEC(*nv, 0xE3 * 2);
     if (r2 != 0)

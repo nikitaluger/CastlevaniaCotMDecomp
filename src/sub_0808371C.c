@@ -1,13 +1,13 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(u8 *, void *, s32);
 
 struct GlobalState { u8 _0[0x1510]; u8 flags; };
-extern struct GlobalState D_02025FF0;
-extern u8 D_02025368[];
-extern s32 D_08671BB0;
+extern struct GlobalState gMainWorkspace;
+extern u8 gGameStatus[];
+extern s32 gMainObjTimerCallback;
 
 struct SpawnParams {
     u8 _0;
@@ -73,8 +73,8 @@ void sub_0808371C(struct Entity *entity)
 
     worker = (struct WorkerState *)((u8 *)entity->workerState + 4);
     linkedObj = entity->linkedObj;
-    globals = D_02025368;
-    params = sub_08016190();
+    globals = gGameStatus;
+    params = allocEffectPart();
     worker->f2C = params;
     if (params == 0) {
         sub_0806D2D0(entity);
@@ -85,7 +85,7 @@ void sub_0808371C(struct Entity *entity)
     worker->f34 = zero;
     worker->f38 = zero;
     worker->f3C = zero;
-    params->f01 = (u8)bitOne(D_02025FF0.flags);
+    params->f01 = (u8)bitOne(gMainWorkspace.flags);
     worker->f2C->f02 = 2;
     worker->f2C->f03 = 8;
     worker->f2C->f04 = globals[0x304];
@@ -103,7 +103,7 @@ void sub_0808371C(struct Entity *entity)
     worker->f10 = zero;
     *(u8 *)((u8 *)entity + entity->scriptIndex * 2 + 0x19) = zero2;
     {
-        s32 *fn = &D_08671BB0;
+        s32 *fn = &gMainObjTimerCallback;
         u8 *scriptPtr = (u8 *)entity + 0x18;
         sub_080C31E4(scriptPtr, &entity->scriptIndex, *fn);
         (*(u8 *)((u8 *)entity + entity->scriptIndex * 2 + 0x19))++;

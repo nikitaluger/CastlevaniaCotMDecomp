@@ -4,7 +4,7 @@ struct RoomState
   u8 _0[0x18A8];
   u8 roomIndex;
 };
-extern struct RoomState D_02025FF0;
+extern struct RoomState gMainWorkspace;
 
 /* Live map index: volatile because a sweep can cross into another map. */
 struct LiveMapState
@@ -36,7 +36,7 @@ s32 sub_0805DC5C(s32 startX, s32 startY, s32 deltaX, s32 deltaY, s32 *outX, s32 
   s32 offsetX;
   s32 offsetY;
   s32 tileType;
-  tileType = sub_08007DD8(D_02023130 + (D_02025FF0.roomIndex * 0x40), startX, startY);
+  tileType = sub_08007DD8(D_02023130 + (gMainWorkspace.roomIndex * 0x40), startX, startY);
   {
     u8 *tileProps = D_080D0054;
     if ((*((u16 *) (tileProps + (((u32) (tileType << 0x10)) >> 0xF)))) & blockMask)

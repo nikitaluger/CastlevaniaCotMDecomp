@@ -1,4 +1,4 @@
-/* Main game state (D_02021E90) fields touched by the map command scripts. */
+/* Main game state (gCameraState) fields touched by the map command scripts. */
 struct S_02021E90_local {
     u8 pad_0[0x1262];
     u16 bgControl;
@@ -10,11 +10,11 @@ struct S_02021E90_local {
     u8 pad_1458[4];
     u8 graphicsFlags;
 };
-extern struct S_02021E90_local D_02021E90;
+extern struct S_02021E90_local gCameraState;
 
 /* Advance the map command script by one step (a do-nothing script command). */
 s32 sub_08060420(void)
 {
-    D_02021E90.scriptPos += 1;
+    gCameraState.scriptPos += 1;
     return 0;
 }

@@ -7,7 +7,7 @@
 extern s32 sub_08005F1C(s32 resource);  /* 1 when the resource is loaded */
 extern s32 sub_08005E80(s32 resource);  /* release a resource */
 extern void _call_via_r3(void *, void *, s32, s32);
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 void sub_0800B1D0(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -20,7 +20,7 @@ void sub_0800B1D0(void *arg0) {
 
     loadResult = sub_08005F1C(0x15B);
     if (loadResult == 0) {
-        input = *(u16 *)(D_02021E90 + inputOffset);
+        input = *(u16 *)(gCameraState + inputOffset);
         if ((1 & input) || (bMask = 2, bMask &= input, bMask)) {
             *(s8 *)(work + 0x635) = loadResult;
             sub_08005E80(0x159);

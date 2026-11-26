@@ -14,7 +14,7 @@ extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *D_08671BDC;
 struct R8 { u16 f0; u16 f2; u8 _4[6]; s16 oneShot; };
 struct S_02025FF0 { u8 _0[0x18BC]; u16 counter; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* One update tick of a weapon entity: run the hit/damage responses, issue the
  * attack-end callback, dispatch the current state handler from the D_0866E888
@@ -73,7 +73,7 @@ void sub_0805A3D4(u8 *arg0) {
     } else {
         if (((struct R8 *)objState)->oneShot == 1) {
             ((struct R8 *)objState)->oneShot = 0;
-            D_02025FF0.counter -= 1;
+            gMainWorkspace.counter -= 1;
         }
     }
     sub_08013C8C(arg0, parent);

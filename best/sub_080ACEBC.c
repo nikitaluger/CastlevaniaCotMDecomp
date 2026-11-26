@@ -1,218 +1,198 @@
-s32 sub_08005910(s32 a, s32 b);
-s32 sub_080059DC(s32 a, s32 b);
-struct Obj
-{
-  u8 pad0[0x5C];
-  s32 x5C;
-  u8 pad60[0x0C];
-  s32 x6C;
-  u8 pad70[0x0C];
-  s32 x7C;
-  u8 pad80[0x0C];
-  s32 x8C;
-};
-struct Sp10
-{
-  u8 pad0[0x08];
-  s32 x08;
-  s32 x0C;
-};
-struct Unk14
-{
-  u8 pad0[0x3C];
-  struct Sp10 *x3C;
-};
-struct Arg1
-{
-  struct Obj *f0;
-  void *f4;
-  void *f8;
-  struct Obj *fC[2];
-  struct Unk14 *f14;
-};
-inline u8 *inline_fn(u8 *arg0)
-{
-  return arg0 + 0x1C;
-}
+/* machine draft (m2c) for agbcc -mthumb-interwork -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_BITS_F32(expr) (m2c_bits = (u32)(expr), *(f32 *)&m2c_bits)
+extern u32 m2c_bits;
+#define M2C_PTR_FROM_F32(type, expr) ((type)(m2c_fbits = (expr), *(u32 *)&m2c_fbits))
+extern f32 m2c_fbits;
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
-inline volatile long long inline_fn2(s32 arg0)
-{
-  return arg0;
-}
+s32 sub_08005910(s32, s32);                         /* extern */
+s32 sub_080059DC(s32, s32);                         /* extern */
 
-inline s32 inline_fn23(s32 *arg0)
-{
-  return *arg0;
-}
+void sub_080ACEBC(void *arg0, void *arg1) {
+    s32 sp0[2];
+    void *sp8;
+    u32 spC;
+    void *sp10;
+    s32 *sp14;
+    s32 *sp18;
+    s32 *sp1C;
+    void *sp20;
+    void *sp24;
+    void *sp28;
+    void *sp2C;
+    u32 sp30;
+    void *sp34;
+    void *sp38;
+    void *sp3C;
+    void *sp40;
+    void *sp44;
+    void *sp48;
+    s32 sp4C;
+    s32 *sp50;
+    s32 *sp54;
+s32 *__repair_phase_sp54;
+    s32 *var_r10;
+    s32 *var_r3;
+    s32 *var_r3_2;
+    s32 *var_r8;
+    s32 *var_r8_2;
+    s32 temp_r0_2;
+    s32 temp_r0_4;
+    s32 temp_r0_5;
+    s32 temp_r0_6;
+    s32 temp_r2_6;
+    s32 var_r5;
+    s8 *var_r5_2;
+    s8 *var_r5_3;
+    s8 *var_r7;
+    u32 temp_r0;
+    u32 temp_r7_2;
+    u32 var_r9;
+    u32 var_r9_2;
+    void **temp_r4;
+    void **var_r4;
+    void **var_r4_2;
+    void *temp_r0_3;
+    void *temp_r1;
+    void *temp_r1_2;
+    void *temp_r2;
+    void *temp_r2_2;
+    void *temp_r2_3;
+    void *temp_r2_4;
+    void *temp_r2_5;
+    void *temp_r2_7;
+    void *temp_r2_8;
+    void *temp_r3;
+    void *temp_r7;
+    void *temp;
+    void *temp2;
 
-inline u8 *inline_fn234(u8 *arg0)
-{
-  return arg0 + 0x18;
-}
-
-void sub_080ACEBC(void *arg0, struct Arg1 *arg1)
-{
-  u8 *new_var6;
-  unsigned int new_var;
-  struct Sp10 *sp10;
-  u8 *new_var12;
-  int new_var10;
-  u8 *new_var9;
-  s32 *base170;
-  struct Arg1 *new_var11;
-  s32 *base16C;
-  u8 *new_var8;
-  u8 *new_var7;
-  s32 i;
-  s32 stk[22];
-  long long new_var2;
-  volatile int pad;
-  u8 *a = (u8 *) arg0;
-  u8 *new_var13;
-  volatile int new_var14;
-  struct Obj *new_var5;
-  s32 *new_var4;
-  u8 *new_var3;
-  stk[0] = (stk[3] = 0);
-  stk[1] = 0;
-  stk[2] = 0;
-  new_var5 = arg1->f0;
-  stk[4] = 0;
-  new_var10 = new_var5->x7C;
-  sp10 = arg1->f14->x3C;
-  *((struct Obj **) (a + 0x18)) = (struct Obj *) ((u32) new_var5->x6C);
-  stk[3] = 0;
-  base170 = (s32 *) (a + 0x170);
-  base16C = (s32 *) (a + 0x16C);
-  for (i = 0; ((i - 1) + 1) <= 1; i++)
-  {
-    s32 off = 10 * (2 * i);
-    struct Obj *b = *((struct Obj **) (inline_fn234(a) + off));
-    if (1)
-    {
-    }
-    *((u8 *) ((a + 0x28) + off)) = 0;
-    new_var4 = base170;
-    new_var = sub_08005910(b->x6C - (*new_var4), b->x5C - (*base16C));
-    *((s32 *) (inline_fn(a) + off)) = new_var;
-    {
-      s32 v = sub_080059DC((*base16C) - b->x5C, (*new_var4) - b->x6C);
-      new_var8 = a + 0x20;
-      *((s32 *) (new_var8 + off)) = v;
-      new_var7 = a + 0x24;
-      *((s32 *) (new_var7 + off)) = v;
-      new_var = 0x44;
-    }
-  }
-
-  new_var11 = arg1;
-  {
-    stk[0] = *((s32 *) (((u8 *) arg1->f4) + 0x8C));
-    stk[19] = 0;
-    new_var6 = (u8 *) arg1->f8;
-    stk[1] = *((s32 *) (new_var6 + 0x8C));
-    if (1)
-    {
-      {
-        unsigned int oi;
-        for (oi = 0; oi <= 1; oi++)
-        {
-          s32 j;
-          new_var10 = stk[19] + 0x50;
-          new_var14 = stk[19];
-          new_var6 = a + 0x50;
-          *((struct Obj **) (a + 0x2C)) = (struct Obj *) ((u32) new_var10);
-          for (j = 0; j <= 3; j++)
-          {
-            s32 eoff = stk[19] + (j * 0x14);
-            struct Obj *b2 = *((struct Obj **) ((((u8 *) ((oi == 0) ? (arg1->f4) : (arg1->f8))) + 0x8C) + (j * 4)));
-            new_var12 = a + 0x4C;
-            *((u8 *) (new_var6 + eoff)) = 1;
-            *((struct Obj **) ((a + 0x40) + eoff)) = b2;
-            *((s32 *) ((new_var3 = a + new_var) + eoff)) = sub_08005910(b2->x7C - (*new_var4), b2->x6C - inline_fn23(base16C));
-            {
-              s32 v2 = sub_080059DC((*base16C) - b2->x6C, (*new_var4) - b2->x7C);
-              if (a)
-              {
-                *((s32 *) ((a + 0x48) + eoff)) = v2;
-                *((s32 *) ((a + 0x4C) + eoff)) = v2;
-              }
-              else
-              {
-                *((a + 0x48) + eoff) = v2;
-                new_var9 = new_var12;
-                *((s32 *) (new_var9 + eoff)) = v2;
-              }
-            }
-          }
-
-          stk[19] = new_var10;
+    sp8 = arg1;
+    sp10 = M2C_FIELD(M2C_FIELD(arg1, M2C_UNK **, 0x14), M2C_UNK **, 0x3C);
+    temp_r1 = M2C_FIELD(arg1, M2C_UNK **, 0);
+    M2C_FIELD(arg0, s32 *, 0x18) = (s32) M2C_FIELD(temp_r1, s32 *, 0x6C);
+    M2C_FIELD(arg0, s32 *, 0x2C) = (s32) M2C_FIELD(temp_r1, s32 *, 0x7C);
+    spC = 0;
+    temp = arg0 + 0x28;
+    var_r7 = temp;
+    /*__repair_loop_weight*/do { var_r5 = 0; } while (0);
+    do {
+        *var_r7 = 0;
+        temp2 = arg0 + 0x18;
+        temp_r4 = temp2 + var_r5;
+        temp_r2 = *temp_r4;
+        *(u8 *)(arg0 + 0x1C + var_r5) = sub_08005910(M2C_FIELD(temp_r2, s32 *, 0x6C) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(temp_r2, s32 *, 0x5C) - M2C_FIELD(arg0, s32 *, 0x16C));
+        temp_r2_2 = *temp_r4;
+        temp_r0_2 = sub_080059DC(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(temp_r2_2, s32 *, 0x5C), M2C_FIELD(arg0, s32 *, 0x170) - M2C_FIELD(temp_r2_2, s32 *, 0x6C));
+        *(u8 *)(arg0 + 0x20 + var_r5) = temp_r0_2;
+        *(u8 *)(arg0 + 0x24 + var_r5) = temp_r0_2;
+        do { var_r7 += 0x14; } while (0);
+        do { var_r5 += 0x14; } while (0);
+        temp_r0 = spC + 1;
+        spC = temp_r0;
+    } while (temp_r0 <= 1U);
+    sp0[0] = M2C_FIELD(M2C_FIELD(sp8, M2C_UNK **, 4), s32 *, 0x8C);
+    sp4C = M2C_FIELD(M2C_FIELD(sp8, M2C_UNK **, 8), s32 *, 0x8C);
+    spC = 0;
+    sp38 = arg0 + 0x40;
+    temp_r7 = arg0 + 0x44;
+    sp3C = temp_r7;
+    temp_r0_3 = arg0 + 0x48;
+    sp40 = temp_r0_3;
+    temp_r1_2 = arg0 + 0x4C;
+    sp44 = temp_r1_2;
+    temp_r2_3 = arg0 + 0xE0;
+    sp48 = temp_r2_3;
+    sp34 = sp8 + 0xC;
+    sp2C = temp_r7 + 0xB0;
+    sp20 = temp_r0_3 + 0x9C;
+    sp24 = temp_r1_2 + 0x9C;
+    sp28 = temp_r2_3 + 0xC;
+    sp14 = arg0 + 0x170;
+    sp18 = arg0 + 0x16C;
+    do { sp4C = 0; } while (0);
+    var_r10 = sp0;
+    do {
+        do { var_r9 = 0; } while (0);
+        var_r8 = sp4C + sp44;
+        var_r3 = sp4C + sp40;
+        var_r4 = sp4C + sp38;
+        sp54 = sp4C + sp3C;
+        var_r5_2 = sp4C + (arg0 + 0x50);
+loop_4:
+        *var_r5_2 = 1;
+        temp_r2_4 = *(s32 *)(*var_r10 + (var_r9 * 4));
+        *var_r4 = temp_r2_4;
+        sp50 = var_r3;
+        *sp54 = sub_08005910(M2C_FIELD(temp_r2_4, s32 *, 0x7C) - *sp14, M2C_FIELD(temp_r2_4, s32 *, 0x6C) - *sp18);
+        temp_r2_5 = *var_r4;
+        temp_r2_6 = sub_080059DC(*sp18 - M2C_FIELD(temp_r2_5, s32 *, 0x6C), *sp14 - M2C_FIELD(temp_r2_5, s32 *, 0x7C));
+        *var_r3 = temp_r2_6;
+        *var_r8 = temp_r2_6;
+        do { var_r8 += 0x14; } while (0);
+        do { var_r3 += 0x14; } while (0);
+        do { var_r4 += 0x14; } while (0);
+        do { sp54 += 0x14; } while (0);
+        do { var_r5_2 += 0x14; } while (0);
+        do { var_r9 += 1; } while (0);
+        if (var_r9 <= 3U) {
+            goto loop_4;
         }
-
-      }
-      do
-      {
-      }
-      while (0);
-    }
-  }
-  {
-    unsigned long k;
-    new_var10 = 0x108;
-    for (k = 0; k <= 1; k++)
-    {
-      s32 off3 = k * 0x3C;
-      struct Obj *b3 = ((0, arg1->fC))[k];
-      *((struct Obj **) ((a + 0xE0) + off3)) = b3;
-      new_var10 = 0xF4;
-      *((s32 *) ((a + new_var10) + off3)) = b3->x7C;
-      do
-      {
-        *((s32 *) ((a + new_var10) + off3)) = inline_fn2(b3->x8C);
-        i = (unsigned int) b3->x6C;
-      }
-      while (0);
-      new_var9 = a + 0x16C;
-      {
-        s32 j2;
-        for (j2 = 0; j2 <= 2; j2++)
-        {
-          s32 eoff3 = off3 + (j2 * 0x14);
-          new_var13 = (a + 0xE0) + off3;
-          new_var2 = b3->x6C - (*((s32 *) new_var9));
-          do
-          {
-            do
-            {
-              new_var10 = 0xE8;
-              *((u8 *) ((a + 0xF0) + eoff3)) = 2;
-              *((s32 *) ((a + 0xE4) + eoff3)) = sub_08005910(b3->x7C - (*((s32 *) (a - (-0x170)))), new_var2);
-              {
-                volatile unsigned char v3 = sub_080059DC((*((s32 *) (a + 0x16C))) - i, (*((s32 *) (a + 0x170))) - b3->x7C);
-                *((s32 *) ((a + 0xEC) + eoff3)) = (*((s32 *) ((a + new_var10) + eoff3)) = v3);
-              }
-            }
-            while (0);
-            do
-            {
-            }
-            while (0);
-          }
-          while (0);
-          b3 = *((struct Obj **) new_var13);
+        do { sp4C += 0x50; } while (0);
+        do { var_r10 += 4; } while (0);
+        temp_r7_2 = spC + 1;
+        spC = temp_r7_2;
+    } while (temp_r7_2 <= 1U);
+    spC = 0;
+    sp1C = arg0 + 0x170;
+    do {
+        temp_r2_6 = spC * 0x3C;
+        var_r4_2 = sp48 + temp_r2_6;
+        temp_r3 = *(u8 *)(sp34 + (spC * 4));
+        *var_r4_2 = M2C_FIELD(temp_r3, M2C_UNK **, 0x6C);
+        *(u8 *)(sp2C + temp_r2_6) = M2C_FIELD(temp_r3, s32 *, 0x7C);
+        *(u8 *)(arg0 + 0x108 + temp_r2_6) = M2C_FIELD(temp_r3, s32 *, 0x8C);
+        do { var_r9_2 = 0; } while (0);
+        sp30 = spC + 1;
+        var_r8_2 = sp28 + temp_r2_6;
+        var_r3_2 = temp_r2_6 + sp24;
+        __repair_phase_sp54 = temp_r2_6 + sp20;
+        var_r5_3 = temp_r2_6 + (arg0 + 0xF0);
+loop_8:
+        *var_r5_3 = 2;
+        temp_r2_7 = *var_r4_2;
+        sp50 = var_r3_2;
+        *__repair_phase_sp54 = sub_08005910(M2C_FIELD(temp_r2_7, s32 *, 0x7C) - *sp1C, M2C_FIELD(temp_r2_7, s32 *, 0x6C) - M2C_FIELD(arg0, s32 *, 0x16C));
+        temp_r2_8 = *var_r4_2;
+        temp_r0_5 = sub_080059DC(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(temp_r2_8, s32 *, 0x6C), *sp1C - M2C_FIELD(temp_r2_8, s32 *, 0x7C));
+        *var_r3_2 = temp_r0_5;
+        *var_r8_2 = temp_r0_5;
+        do { var_r8_2 += 0x14; } while (0);
+        do { var_r3_2 += 0x14; } while (0);
+        do { do { do { var_r4_2 += 0x14; } while (0); } while (0); } while (0);
+        do { __repair_phase_sp54 += 0x14; } while (0);
+        do { var_r5_3 += 0x14; } while (0);
+        do { var_r9_2 += 1; } while (0);
+        if (var_r9_2 <= 2U) {
+            goto loop_8;
         }
-
-      }
-    }
-
-  }
-  *((struct Unk14 **) (a + 0x158)) = new_var11->f14;
-  *((u8 *) (a + 0x168)) = 3;
-  *((s32 *) (a + 0x15C)) = sub_08005910(sp10->x0C - (*((s32 *) (a + 0x170))), sp10->x08 - (*((s32 *) (a + 0x16C))));
-  {
-    s32 vf = sub_080059DC((*((s32 *) (a + 0x16C))) - sp10->x08, (*((s32 *) (a + 0x170))) - (*sp10).x0C);
-    *((s32 *) (a + 0x160)) = vf;
-    *((s32 *) (a + 0x164)) = vf;
-  }
+        spC = sp30;
+    } while (sp30 <= 1U);
+    M2C_FIELD(arg0, s32 *, 0x158) = (s32) M2C_FIELD(sp8, s32 *, 0x14);
+    M2C_FIELD(arg0, s8 *, 0x168) = 3;
+    M2C_FIELD(arg0, s32 *, 0x15C) = sub_08005910(M2C_FIELD(sp10, s32 *, 0xC) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(sp10, s32 *, 8) - M2C_FIELD(arg0, s32 *, 0x16C));
+    sp4C = sub_080059DC(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(sp10, s32 *, 8), M2C_FIELD(arg0, s32 *, 0x170) - M2C_FIELD(sp10, s32 *, 0xC));
+    M2C_FIELD(arg0, s32 *, 0x160) = sp4C;
+    M2C_FIELD(arg0, s32 *, 0x164) = sp4C;
 }
-

@@ -4,7 +4,7 @@ s32 sub_08040B34(void *, s32, void *);
 extern void _call_via_r2(void *, void *, s32);
 
 extern u16 D_080CF478[];
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 /* Tick this enemy's animation; once it finishes, select the next shot animation
  * from the variant table, raise the part a pixel, optionally spawn a projectile

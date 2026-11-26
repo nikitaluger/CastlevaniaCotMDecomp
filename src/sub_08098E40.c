@@ -4,8 +4,8 @@ extern void sub_0809C3F4(void *, void *, void *, void *);
 extern void sub_0809C490(s32, void *, void *, void *);
 extern void sub_080C31E0(void *, s32);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /*
  * Entity AI state update: rebuilds the sprite's pose flags, dispatches the
@@ -52,9 +52,9 @@ void sub_08098E40(u8 *entity) {
     sub_0809C490(*(s32 *)(motionEx + 0x14), sprite, motion, status);
     sub_08098338(3, sprite);
 
-    mapTable = D_02021E90;
+    mapTable = gCameraState;
     mapOff = 0x18A8;
-    mapIndex = D_02025FF0 + mapOff;
+    mapIndex = gMainWorkspace + mapOff;
     idx = ((u32)*mapIndex + 1) * 0x40;
     baseX = mapTable + 0x1278;
     scrollX = *(u32 *)(baseX + idx);

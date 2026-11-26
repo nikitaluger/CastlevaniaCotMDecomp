@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern s32 sub_080C31E0(s32, s32);
@@ -19,7 +19,7 @@ void sub_0804F558(void *arg0) {
     work = *(void **)((u8 *)arg0 + 0x3C);
     animState = (u8 *)work + 0x34;
     steer = (u8 *)work + 0x48;
-    sub_08011368(sprite, animState, 0, 1);
+    setAnimationFrame(sprite, animState, 0, 1);
     remaining = *(u16 *)(steer + 0xC) - 1;
     *(u16 *)(steer + 0xC) = remaining;
     if ((s32)(remaining << 16) < 0) {

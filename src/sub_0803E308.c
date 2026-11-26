@@ -1,7 +1,7 @@
-extern s32 sub_08011368(s32, s32, s32, s32);
+extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 extern s32 sub_08014990(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
@@ -23,7 +23,7 @@ void sub_0803E308(void *self) {
     enemy = *(u8 **)((u8 *)self + 0x3C);
     enemyData = enemy + 0x34;
     enemyState = enemy + 0x48;
-    sub_08011368((s32)actor, (s32)enemyData, 0, 1);
+    setAnimationFrame((s32)actor, (s32)enemyData, 0, 1);
     sub_080149A4((s32)actor, enemy, enemyState, 0x78, 0xF0);
     timer = *(u16 *)(enemyState + 2) - 1;
     *(u16 *)(enemyState + 2) = timer;
@@ -31,7 +31,7 @@ void sub_0803E308(void *self) {
         *(u16 *)(enemyState + 2) = 0x3C;
         if (sub_08014900(*(s32 *)(enemy + 8)) <= 0x300000 &&
             sub_0801491C(*(s32 *)(enemy + 0xC)) <= 0x300000) {
-            coordX = sub_08014938(*(s32 *)(enemy + 8));
+            coordX = signOf(*(s32 *)(enemy + 8));
             if (coordX == sub_08014990((s32)actor)) {
                 s16 scriptIndex = *(s16 *)((u8 *)self + 0x22);
                 *((u8 *)self + scriptIndex * 2 + 0x19) = 0;

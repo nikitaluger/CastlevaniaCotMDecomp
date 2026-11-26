@@ -2,7 +2,7 @@ extern void sub_08003A6C(void *a, s32 b, void *c);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 extern s32 sub_080C36E4(s32 a, s32 b);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u8 D_080E6974[];
 extern u32 D_080E6940[];
 extern u8 D_08453FA0[];
@@ -52,7 +52,7 @@ void sub_0808B1AC(void *entity) {
     actionIdx = *(s16 *)(self + 0x22);
     *(self + actionIdx * 2 + 0x19) = 0;
 
-    pAnimStep = &D_08671BB0;
+    pAnimStep = &gMainObjTimerCallback;
     stepBase = self + 0x18;
     sub_080C31E4(stepBase, self + 0x22, (void *)*pAnimStep);
 

@@ -1,4 +1,4 @@
-extern u8 D_080CB2B8[];
+extern u8 gSpriteKindTable[];
 
 /* One entry of the parameter table: two 16-bit values. */
 struct TblEntry { u16 first; u8 pad[2]; u16 second; u8 rest[0xE]; };
@@ -8,7 +8,7 @@ struct TblEntry { u16 first; u8 pad[2]; u16 second; u8 rest[0xE]; };
 void sub_080BB900(void *component, void **objects)
 {
     u32 i = 0;
-    struct TblEntry *tbl = (struct TblEntry *)D_080CB2B8;
+    struct TblEntry *tbl = (struct TblEntry *)gSpriteKindTable;
     void **p = objects;
     do {
         void *obj;

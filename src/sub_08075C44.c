@@ -1,9 +1,9 @@
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u8 D_084A4C84[];
 extern u8 D_084A4C98[];
 /* These symbols are used only for their addresses: they are byte offsets into
- * D_02025FF0 (0x174C/0x1750/0x18C2/0x14ED) materialised as link-time literals. */
+ * gMainWorkspace (0x174C/0x1750/0x18C2/0x14ED) materialised as link-time literals. */
 extern u8 D_0000174C[];
 extern u8 D_00001750[];
 extern u8 D_000018C2[];
@@ -23,7 +23,7 @@ void sub_08075C44(void *arg0)
   u8 *gameState;
   void *obj = *((void **) (((u8 *) arg0) + 0x38));
   void *bufCopy = buf;
-  u8 *sys = D_02025368;
+  u8 *sys = gGameStatus;
   s16 threshold;
   u8 command;
   void *timer;
@@ -51,7 +51,7 @@ void sub_08075C44(void *arg0)
       break;
   }
 
-  gameState = D_02025FF0;
+  gameState = gMainWorkspace;
   *((s32 *) bufCopy) = *((s32 *) (((u32) gameState) + ((u32) D_0000174C)));
   *((s32 *) (((u8 *) bufCopy) + 4)) = *((s32 *) (((u32) gameState) + ((u32) D_00001750)));
   sub_0806D588(obj, bufCopy);

@@ -37,8 +37,8 @@ extern s32 sub_0805F9B4(s32, s32);          /* entity inside camera bounds? */
 extern void sub_080C31E0(void *, void *);   /* cleanup callback */
 extern void sub_080C31E8(void *, void *, s32, void *); /* run a script handler */
 extern void *D_08671BDC;
-extern u8 D_02021E90[];                     /* scroll-offset table */
-extern struct S_02025FF0 D_02025FF0;
+extern u8 gCameraState[];                     /* scroll-offset table */
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Updates an entity and its sprite: checks collision/death conditions, spawns a death
    effect and runs the step script, then projects the entity into sprite screen space. */
@@ -120,13 +120,13 @@ lab_de:
   sub_0802CB5C((s32)sprite, entity);
   *(u16 *)((u8 *)entity->f28 + 0x14) = 0;
   k = 0x1278;
-  scrollTbl = D_02021E90;
-  scrollX = *((u32 *)((scrollTbl + k) + ((D_02025FF0.f18A8 + 1) << 6)));
+  scrollTbl = gCameraState;
+  scrollX = *((u32 *)((scrollTbl + k) + ((gMainWorkspace.f18A8 + 1) << 6)));
   scrollX = scrollX + 0x8000;
   scrollX = scrollX & 0xFFFF0000;
   sprite->f14 = entity->f08 - scrollX;
   k = 0x127C;
-  scrollY = *((u32 *)((scrollTbl + k) + ((D_02025FF0.f18A8 + 1) << 6)));
+  scrollY = *((u32 *)((scrollTbl + k) + ((gMainWorkspace.f18A8 + 1) << 6)));
   scrollY = scrollY + 0xFFFF8000;
   scrollY = scrollY & 0xFFFF0000;
   sprite->f18 = entity->f0C - scrollY;

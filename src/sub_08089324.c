@@ -1,4 +1,4 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 void sub_08003740(void *, void *);
 void sub_080C31E0(void *, void *);
@@ -12,7 +12,7 @@ void sub_08089324(void *arg0)
     void *state = *(void **)(entity + 0x6C);
     void *sprite = *(void **)(entity + 0x38);
 
-    if (D_02025FF0[4] == 0)
+    if (gMainWorkspace[4] == 0)
         sub_080C31E0(entity, *(void **)(entity + 0x24));
     else
         sub_08003740((u8 *)state + 0x20, sprite);

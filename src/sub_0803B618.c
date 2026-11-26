@@ -1,7 +1,7 @@
 extern void sub_08013C5C(void *, s32);
 extern s32 sub_080141AC(s32, void *);
 extern s32 sub_08014F14(s32, void *, void *, void *);
-extern void sub_0801534C(void *, void *, void *, void *, void *);
+extern void spawnChildPair(void *, void *, void *, void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
 extern void sub_08005E80(s32);
@@ -43,7 +43,7 @@ void sub_0803B618(u8 *self)
     objTail = obj + 0x2C;
     effectState = objState + 0x10;
     if (hitResult != 0) {
-        sub_0801534C(self, *(void **)(obj + 0x28), *(void **)(objState + 0x0C), objTail, effectState);
+        spawnChildPair(self, *(void **)(obj + 0x28), *(void **)(objState + 0x0C), objTail, effectState);
     }
     sub_080142C0(self, *(void **)(obj + 0x28));
     sub_080142C0(self, *(void **)(objState + 0x0C));

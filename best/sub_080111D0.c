@@ -1,6 +1,6 @@
 extern u8 D_080CB238[];
 extern void sub_080C2E68(void *, void *, u32);
-extern volatile int sub_08000E98(void *, void *, void *, u32, u32);
+extern volatile int postDisplaySprite(void *, void *, void *, u32, u32);
 void sub_080111D0(void *arg0, u16 *entries, u32 a2, u32 a3)
 {
   u16 dedupKey[32];
@@ -57,7 +57,7 @@ void sub_080111D0(void *arg0, u16 *entries, u32 a2, u32 a3)
       {
         tbl <<= 1;
       }
-      sub_08000E98((void *) 1, (void *) (a2 + (r7 << 5)), (void *) (a3 + (r10 << 5)), tbl << 5, 0x10);
+      postDisplaySprite((void *) 1, (void *) (a2 + (r7 << 5)), (void *) (a3 + (r10 << 5)), tbl << 5, 0x10);
       r12 = ((a3 + 0xF9FF0000U) >> 5) + r10;
       r10 += tbl;
       dedupKey[count] = r7;

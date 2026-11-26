@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* Play pose 5 with movement stopped; when the animation reports completion,
@@ -10,7 +10,7 @@ void sub_08030E88(void *arg0) {
     u8 *anim = body + 0x34;
     *(s32*)(body + 0x14) = 0;
     *(s32*)(body + 0x10) = 0;
-    sub_08011368(sprite, anim, 5, 0);
+    setAnimationFrame(sprite, anim, 5, 0);
     if (*(u8*)anim & 2) {
         s32 *handlerTable;
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = 0;

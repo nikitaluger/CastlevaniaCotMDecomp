@@ -1,5 +1,5 @@
 extern u32 D_0866E53C[];
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 
 /* Switch this object to the state table at D_0866E53C: reset its animation,
  * push a state slot, advance that slot's substep counter, run the new state's
@@ -10,7 +10,7 @@ void sub_0804E2F4(void *obj)
     s16 slot;
     u8 state;
 
-    sub_08011368(*(void **)(o + 0x38), *(u8 **)(o + 0x3C) + 0x34, 0, 1);
+    setAnimationFrame(*(void **)(o + 0x38), *(u8 **)(o + 0x3C) + 0x34, 0, 1);
 
     *(u32 *)(o + 0x14) = (u32)D_0866E53C;
     *(u16 *)(o + 0x22) += 1;

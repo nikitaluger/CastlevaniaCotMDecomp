@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 void _call_via_r1(void *, void *);
 
@@ -7,7 +7,7 @@ void _call_via_r1(void *, void *);
  * update handler saved in its state block at +0x1C. */
 void sub_08071970(void *arg0) {
     void **state = *(void ***)((u8 *)arg0 + 0x6C);
-    u8 *workspace = D_02025FF0;
+    u8 *workspace = gMainWorkspace;
     u32 tableOff = 0xBC << 5;
     u32 slot = *(u32 *)((u8 *)arg0 + 0xAC);
     *(u32 *)(workspace + tableOff + slot * 4) = 0;

@@ -1,5 +1,5 @@
 s32 sub_08007EA8(u16);
-void sub_08011368(void *, void *, s16, s32);
+void setAnimationFrame(void *, void *, s16, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
 extern s16 D_0810043C[];
@@ -16,7 +16,7 @@ void sub_08090854(void *entity) {
   u8 *part = work + 0x48;
   s32 stepOffset;
 
-  sub_08011368(sprite, animTrack, D_0810043C[*((s32 *) (work + 0x48))], 1);
+  setAnimationFrame(sprite, animTrack, D_0810043C[*((s32 *) (work + 0x48))], 1);
   if (sub_08007EA8(*((u16 *) ((*((u8 **) (part + 0x14))) + 4))))
   {
     void **handlerPtr;

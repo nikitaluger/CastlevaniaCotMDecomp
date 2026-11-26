@@ -1,8 +1,8 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080113A8(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Idle update for a scripted object: refresh its animation and, after a
  * 32-frame delay, play animation 5 and execute the next script command. */
@@ -23,13 +23,13 @@ void sub_0804AA48(void *arg0)
     sub_080113A8(anim, animDesc);
 
     if ((delay[0x0C] = delay[0x0C] + 1) == 0x20) {
-        sub_08011368(anim, animDesc, 5, 0);
+        setAnimationFrame(anim, animDesc, 5, 0);
 
         scriptIdx = *(s16 *)((u8 *)arg0 + 0x22);
         ((u8 *)arg0)[scriptIdx * 2 + 0x19] = 0;
 
         {
-            void **lit = &D_08671BB0;
+            void **lit = &gMainObjTimerCallback;
             scriptPos = (u8 *)arg0 + 0x18;
             sub_080C31E4(scriptPos, (u8 *)arg0 + 0x22, *lit);
         }

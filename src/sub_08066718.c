@@ -12,7 +12,7 @@ void sub_0806C6B0(void *a, void *b, void *c, void *d);
 void sub_080C31E4(void *a, void *b, s32 c);
 
 extern s32 D_080DEA88[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 void sub_08066718(void *entity)
 {
@@ -49,7 +49,7 @@ void sub_08066718(void *entity)
             *(s32 *)((u8 *)pos + 0x10C) = *(s32 *)((u8 *)pos + 0x104);
             *(u8 *)((u8 *)self + *(s16 *)((u8 *)self + 0x22) * 2 + 0x19) = 0;
             {
-                s32 *effectData = &D_08671BB0;
+                s32 *effectData = &gMainObjTimerCallback;
                 sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *effectData);
             }
         }

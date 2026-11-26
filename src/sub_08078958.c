@@ -8,7 +8,7 @@ struct GameState {
     u8 _3[0x18C2 - 0x173B];
     u16 field18C2;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 extern s32 sub_08003740(void *, void *);
 extern s32 sub_0806D2F8(void *, void *);
@@ -47,9 +47,9 @@ void sub_08078958(void *arg0)
       delta += 0xFF;
     }
     *((s32 *) (((char *) mover) + 4)) += delta >> 8;
-    *((u16 *) world) = D_02025FF0.field18C2;
+    *((u16 *) world) = gMainWorkspace.field18C2;
     *((s32 *) (((char *) mover) + 0x48)) -= 1;
-    if ((((*((s32 *) (((char *) mover) + 0x48))) == 0) || ((sub_08003740(((char *) actor) + 0x20, world), sub_0806D588(world, mover), D_02025FF0.field173A == 0x1C))) || ((D_02025FF0.field14ED == 0) && (D_02025FF0.field10 != 0)))
+    if ((((*((s32 *) (((char *) mover) + 0x48))) == 0) || ((sub_08003740(((char *) actor) + 0x20, world), sub_0806D588(world, mover), gMainWorkspace.field173A == 0x1C))) || ((gMainWorkspace.field14ED == 0) && (gMainWorkspace.field10 != 0)))
     {
       sub_080C31E0(arg0, *((s32 *) (((char *) arg0) + 0x24)));
       return;

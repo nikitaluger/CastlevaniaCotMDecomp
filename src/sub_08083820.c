@@ -6,7 +6,7 @@ extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_0806D77C(s32, s32);
 extern s32 D_080E5EA4[8][2];
 extern s32 D_02027710[8][2];
-extern s32 D_02025FF0[];
+extern s32 gMainWorkspace[];
 
 /*
  * Update for a moving attack. Advances its position from a coordinate table,
@@ -63,8 +63,8 @@ void sub_08083820(void *self)
   }
   *((u16 *) (((u8 *) (*((void **) (((u8 *) attack) + 0x2C)))) + 0x14)) = 0;
   ;
-  world = (u8 *) D_02025FF0;
-  if (((*(eventPtr = ((u8 *) D_02025FF0) + 0x173A)) == 0x1C) || (((*((u8 *) (world + 0x14ED))) == 0) && ((*((s32 *) (((u8 *) D_02025FF0) + 0x10))) != 0)))
+  world = (u8 *) gMainWorkspace;
+  if (((*(eventPtr = ((u8 *) gMainWorkspace) + 0x173A)) == 0x1C) || (((*((u8 *) (world + 0x14ED))) == 0) && ((*((s32 *) (((u8 *) gMainWorkspace) + 0x10))) != 0)))
   {
     sub_080C31E0(self, *((s32 *) (((u8 *) self) + 0x24)));
   }

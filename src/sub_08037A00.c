@@ -14,7 +14,7 @@ s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 extern u32 D_0866DE5C;
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 void sub_08037A00(void *entity) {
     void *sprite;
@@ -50,7 +50,7 @@ void sub_08037A00(void *entity) {
             stepData = (u8 *)((u32)(*(s16 *)((u8 *)entity + 0x22)) * 2 + (u32)entity);
             *(u8 *)(stepData + 0x19) = 0;
         }
-        scriptFn = (u32 *)&D_08671BB0;
+        scriptFn = (u32 *)&gMainObjTimerCallback;
         stepTable = (u8 *)entity + 0x18;
         sub_080C31E4(stepTable, (u8 *)entity + 0x22, *scriptFn);
         {

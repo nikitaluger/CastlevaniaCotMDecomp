@@ -1,5 +1,5 @@
 struct S_D { u8 _0[0x10]; u32 f10; u32 f14; u8 _1[0x1824]; };
-extern struct S_D D_02025FF0;
+extern struct S_D gMainWorkspace;
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08003A6C(void *, s32, s32);
 extern void sub_08003740(void *, void *);
@@ -15,7 +15,7 @@ void sub_080895CC(void *actor) {
     u8 *owner = *(u8 **)(self + 0x38);
     s32 *scriptData;
     sub_0806D6B4(bodyDyn);
-    if (D_02025FF0.f14 != 0x11) {
+    if (gMainWorkspace.f14 != 0x11) {
         sub_08003A6C(body + 0x20, 0, 0x08506444);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         scriptData = (s32 *)0x08671BB0;

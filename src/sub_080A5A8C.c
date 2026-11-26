@@ -6,10 +6,10 @@ extern u8 D_08101CF4[];
 extern u8 D_0866FF6C[];
 
 struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 
 void sub_080A56A8(s32 param0, s32 param1) {
-    void *effect = sub_0805FAEC((void *)D_02025FF0.v, 0x195);
+    void *effect = sub_0805FAEC((void *)gMainWorkspace.v, 0x195);
     if (effect != 0) {
         *(s32 *)((u8 *)effect + 0x4C) = param0;
         *(s32 *)((u8 *)effect + 0x5C) = param1;
@@ -17,7 +17,7 @@ void sub_080A56A8(s32 param0, s32 param1) {
 }
 
 void sub_080A56D8(void) {
-    void *effect = *(void **)((u8 *)(void *)D_02025FF0.v + 0x30);
+    void *effect = *(void **)((u8 *)(void *)gMainWorkspace.v + 0x30);
     while (effect != 0) {
         if (*(s16 *)effect == 0x195) {
             u16 *flag = *(u16 **)((u8 *)effect + 0x3C);

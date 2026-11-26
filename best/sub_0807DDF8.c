@@ -3,13 +3,13 @@ struct R2 { u8 _00; u8 f01,f02,f03; u16 f04,f06,f08,f0A,f0C,f0E; u32 f10; u8 _14
 struct R6 { u8 _00[0x04]; u32 f04; u8 _08[8]; u32 f10; u8 _14[4]; u32 f18; u8 _1C[0x10]; struct R2 *f2C; u32 f30,f34,f38,f3C; u32 f40; u8 _44[8]; u32 f4C; };
 struct R8 { u8 _00[0x04]; u32 f04; u8 _08[0x40]; u8 f48,f49; u8 _4A[0xA]; u8 f54; };
 struct R5 { u8 _00[0x04]; u16 f04,f06,f08; u8 _0A[0x1A]; u32 f24; };
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u8 D_00001510[];
 extern u8 D_00001728[];
 extern u32 D_0202771C;
 void sub_08003A6C(u32, u32, u32);
-void *sub_08016190(void);
+void *allocEffectPart(void);
 void sub_0806D2D0(void *);
 u16 sub_0806D62C(u16, u32);
 void sub_080722E0(u32, u8);
@@ -23,17 +23,17 @@ void sub_0807DDF8(struct Arg0 *arg0) {
     struct R5 *r5 = (struct R5 *)arg0->f38;
     struct R2 *r2;
     u32 zero;
-    u8 *base = D_02025368;
+    u8 *base = gGameStatus;
     u8 *r4;
     u32 *g;
 
-    r2 = (struct R2 *)sub_08016190();
+    r2 = (struct R2 *)allocEffectPart();
     r6->f2C = r2;
     if (r2 == 0) { sub_0806D2D0(arg0); return; }
     zero = 0;
     r6->f30 = zero; r6->f34 = zero; r6->f38 = zero; r6->f3C = zero;
     {
-        u32 addr = (u32)D_02025FF0;
+        u32 addr = (u32)gMainWorkspace;
         addr += (u32)D_00001510;
         r2->f01 = 1 & *(u8 *)addr;
     }
@@ -53,8 +53,8 @@ void sub_0807DDF8(struct Arg0 *arg0) {
     r5->f24 = 0x084E7578;
     sub_08003A6C((u32)((u8 *)r8 + 0x20), 0, 0x084E7618);
     {
-        u32 addr = (u32)D_02025FF0;
-        addr += (u32)D_00001728;
+        u32 addr = (u32)gMainWorkspace;
+        addr += 0x00001728;
         r8->f04 = *(u32 *)addr;
     }
     r6->f04 = D_0202771C + 0xFF800000;

@@ -1,4 +1,4 @@
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern s32 sub_080A2E38(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080A2C38(void);
@@ -9,7 +9,7 @@ extern void sub_080A2C38(void);
 void sub_080A2BD0(void *arg0) {
     void *companion;
 
-    sub_0800168C(arg0, 0, 0xA0, 0);
+    allocWorkSlot(arg0, 0, 0xA0, 0);
     companion = *(void **)((u8 *)arg0 + 0x3C);
     if (companion == NULL) {
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));

@@ -1,4 +1,4 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 extern u8 D_0810181C[];
 extern u8 D_08101824[];
 void sub_080C31E0(void *, s32);
@@ -62,7 +62,7 @@ void sub_0809C1CC(void *arg0) {
         *(u8 *)scriptState = 1;
         {
             u32 fieldOffset = 0x1870;
-            u8 *globalBase = D_02025FF0;
+            u8 *globalBase = gMainWorkspace;
             spawned = sub_0805FAEC(*(s32 *)(globalBase + fieldOffset), 0xBF * 2);
         }
         if (spawned != NULL) {

@@ -17,7 +17,7 @@ struct S_02025FF0_189C
   u8 _0[0x189C];
   u32 field189C;
 };
-extern struct S_02025FF0_189C D_02025FF0;
+extern struct S_02025FF0_189C gMainWorkspace;
 s32 sub_08014090(s16);
 void sub_08013FAC(struct Sub08013B5C *);
 void sub_08014060(struct Sub08013B5C *);
@@ -39,14 +39,14 @@ s32 sub_08013B5C(u16 *spriteAttrs, struct Sub08013B5C *state)
       bit4 &= state->unk0;
       if (bit4)
       {
-        if ((state->unk1E > 0x3C) || (!(D_02025FF0.field189C & 2)))
+        if ((state->unk1E > 0x3C) || (!(gMainWorkspace.field189C & 2)))
         {
           *spriteAttrs = ((*spriteAttrs) & 0x0FFF) | 0xD000;
         }
       }
       else
       {
-        if ((state->unk1E > 0x3C) || (!(D_02025FF0.field189C & 2)))
+        if ((state->unk1E > 0x3C) || (!(gMainWorkspace.field189C & 2)))
         {
           *spriteAttrs = ((*spriteAttrs) & 0x0FFF) | 0xC000;
         }

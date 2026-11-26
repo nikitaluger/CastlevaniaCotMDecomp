@@ -1,10 +1,10 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(u8 *, s32, s32, s32);
-extern void sub_08014288(u8 *, u8 *, void *);
-extern s32 sub_08013C2C(s32);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(u8 *, s32, s32, s32);
+extern void installUpdateHandler(u8 *, u8 *, void *);
+extern s32 findKindIndex(s32);
 extern void sub_080B05EC(u8 *, u8 *, s32, s32);
-extern void sub_080114DC(u8 *, u8 *, s32, s32);
-extern void *sub_08016190(void);
+extern void setObjectAnimation(u8 *, u8 *, s32, s32);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(u8 *, u32);
 extern void sub_080AD84C(void);
 extern void sub_080AD6BC(void);
@@ -51,9 +51,9 @@ struct EffectGfx {
     u32 object;
 };
 struct GameState { u8 _0[0x18C2]; u16 flags; };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 struct EffectDef { u8 _0[8]; u16 gfxIndex; u16 palette; u8 _C[0x28 - 0xC]; };
-extern struct EffectDef D_080CBDD0[];
+extern struct EffectDef gEffectGfxTable[];
 struct SpriteEntry { u32 base; };
 extern struct SpriteEntry D_08102288[];
 extern u8 D_08102294[];
@@ -61,7 +61,7 @@ extern s16 D_08102280[];
 extern u8 D_08102268[];
 
 /* Spawn a two-layer graphics effect from a main object: allocate a free object,
-   build both EffectGfx descriptors from D_080CBDD0/D_08102268 and set animations. */
+   build both EffectGfx descriptors from gEffectGfxTable/D_08102268 and set animations. */
 void sub_080AD4DC(struct MainObj *arg0)
 {
     u8 *effect;
@@ -74,14 +74,14 @@ void sub_080AD4DC(struct MainObj *arg0)
     u8 **workRef;
     struct SpriteEntry *spriteTable;
 
-    effect = sub_0800355C();
+    effect = allocSpriteObject();
     if (effect == NULL)
     {
         goto fail;
     }
     workRef = &work;
     arg0->object = effect;
-    sub_0800168C((u8 *)arg0, 0, 0x4C, 0);
+    allocWorkSlot((u8 *)arg0, 0, 0x4C, 0);
     if (arg0->effect == NULL)
     {
         goto fail;
@@ -91,19 +91,19 @@ void sub_080AD4DC(struct MainObj *arg0)
     *((u32 *)(effect + 0x1C)) = spriteTable[*kindPtr].base + arg0->spriteOffset;
     owner = *((struct OwnerEffect * volatile *) (((u8 *)arg0) + 0x3C));
     work = ((u8 *)owner) + 0x34;
-    sub_08014288((u8 *)arg0, (u8 *)owner, sub_080AD84C);
+    installUpdateHandler((u8 *)arg0, (u8 *)owner, sub_080AD84C);
     owner->kind = 0x64;
-    slot = sub_08013C2C(0x64);
+    slot = findKindIndex(0x64);
     owner->slot = slot;
     if ((slot << 16) < 0)
     {
         goto fail;
     }
-    *((u16 *)effect) |= D_02025FF0.flags;
+    *((u16 *)effect) |= gMainWorkspace.flags;
     sub_080B05EC(effect, *workRef, D_08102294[*kindPtr], 2);
-    sub_080114DC(effect, work, D_08102280[*kindPtr], 0);
+    setObjectAnimation(effect, work, D_08102280[*kindPtr], 0);
     work = (u8 *)(0x08102268 + ((*kindPtr) * 8));
-    owner->gfxA = sub_08016190();
+    owner->gfxA = allocEffectPart();
     if (owner->gfxA == NULL)
     {
         goto fail;
@@ -112,15 +112,15 @@ void sub_080AD4DC(struct MainObj *arg0)
     ((struct EffectGfx *)owner->gfxA)->type = one;
     ((struct EffectGfx *)owner->gfxA)->layer = (eight = 8);
     ((struct EffectGfx *)owner->gfxA)->priority = one;
-    ((struct EffectGfx *)owner->gfxA)->gfxIndex = D_080CBDD0[owner->kind].gfxIndex;
+    ((struct EffectGfx *)owner->gfxA)->gfxIndex = gEffectGfxTable[owner->kind].gfxIndex;
     ((struct EffectGfx *)owner->gfxA)->anim0 = *((u16 *)(work + 0));
     ((struct EffectGfx *)owner->gfxA)->anim1 = *((u16 *)(work + 2));
     ((struct EffectGfx *)owner->gfxA)->anim2 = *((u16 *)(work + 4));
     ((struct EffectGfx *)owner->gfxA)->anim3 = *((u16 *)(work + 6));
-    ((struct EffectGfx *)owner->gfxA)->palette = D_080CBDD0[owner->kind].palette;
+    ((struct EffectGfx *)owner->gfxA)->palette = gEffectGfxTable[owner->kind].palette;
     ((struct EffectGfx *)owner->gfxA)->object = (u32)effect;
     work = (u8 *)(0x08102268 + ((*kindPtr) * 8));
-    owner->gfxB = sub_08016190();
+    owner->gfxB = allocEffectPart();
     if (owner->gfxB != NULL)
     {
         goto secondGfx;
@@ -132,12 +132,12 @@ secondGfx:
     ((struct EffectGfx *)owner->gfxB)->type = one;
     ((struct EffectGfx *)owner->gfxB)->layer = eight;
     ((struct EffectGfx *)owner->gfxB)->priority = one;
-    ((struct EffectGfx *)owner->gfxB)->gfxIndex = D_080CBDD0[owner->kind].gfxIndex;
+    ((struct EffectGfx *)owner->gfxB)->gfxIndex = gEffectGfxTable[owner->kind].gfxIndex;
     ((struct EffectGfx *)owner->gfxB)->anim0 = *((u16 *)(work + 0));
     ((struct EffectGfx *)owner->gfxB)->anim1 = *((u16 *)(work + 2));
     ((struct EffectGfx *)owner->gfxB)->anim2 = *((u16 *)(work + 4));
     ((struct EffectGfx *)owner->gfxB)->anim3 = *((u16 *)(work + 6));
-    ((struct EffectGfx *)owner->gfxB)->palette = D_080CBDD0[owner->kind].palette;
+    ((struct EffectGfx *)owner->gfxB)->palette = gEffectGfxTable[owner->kind].palette;
     ((struct EffectGfx *)owner->gfxB)->object = (u32)effect;
     *((u8 *)(((u8 *)arg0) + 0x94)) = 0;
     arg0->flags |= 0x1000;

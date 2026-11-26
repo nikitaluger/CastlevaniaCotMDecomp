@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, s32, s16, s32);
+extern void setAnimationFrame(s32, s32, s16, s32);
 extern void sub_08056BB8(void *, u8, u8);
 
 struct S_8056B58 {
@@ -22,6 +22,6 @@ void sub_08056B58(s32 arg0, s32 arg1, struct S_8056B58 *anim, u8 minDelay, u8 ma
             anim->frame = 0;
             sub_08056BB8(anim, minDelay, maxDelay);
         }
-        sub_08011368(arg0, arg1, anim->durations[(s8)anim->frame], 1);
+        setAnimationFrame(arg0, arg1, anim->durations[(s8)anim->frame], 1);
     }
 }

@@ -1,10 +1,10 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(u8 *, s32, s32, s32);
-extern s32 sub_08013C2C(s32);
-extern void sub_0801131C(u8 *, u8 *, s32);
-extern void sub_08011368(u8 *, u8 *, s16, s32);
-extern void *sub_08016190(void);
-extern void sub_08014288(u8 *, u8 *, void *);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(u8 *, s32, s32, s32);
+extern s32 findKindIndex(s32);
+extern void initSpriteGraphics(u8 *, u8 *, s32);
+extern void setAnimationFrame(u8 *, u8 *, s16, s32);
+extern void *allocEffectPart(void);
+extern void installUpdateHandler(u8 *, u8 *, void *);
 extern void sub_08014290(void);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
@@ -62,14 +62,14 @@ struct GameState
   u8 unk18A9[0x19];
   u16 renderFlags;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 struct ScrollState
 {
   u8 unk0[0x1278];
   u32 cameraX;
   u32 cameraY;
 };
-extern struct ScrollState D_02021E90;
+extern struct ScrollState gCameraState;
 struct EffectTemplate
 {
   u8 unk0[4];
@@ -77,9 +77,9 @@ struct EffectTemplate
   u16 palette;
   u8 unk8[0x28 - 8];
 };
-extern struct EffectTemplate D_080CBDD0[];
+extern struct EffectTemplate gEffectGfxTable[];
 extern u16 D_080CF458[];
-extern u8 D_080CD400[];
+extern u8 gSpriteAnimDataTable[];
 extern u32 D_080CF480[];
 extern u32 D_080CF488[];
 
@@ -124,13 +124,13 @@ void sub_080404C4(struct ScriptedObject *arg0)
   lo = D_080CF488[0];
   gfxFlags[0] = lo;
   gfxFlags[1] = hi;
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == NULL)
   {
     goto fail;
   }
   arg0->sprite = sprite;
-  sub_0800168C((u8 *) arg0, 0, 0x48, 0);
+  allocWorkSlot((u8 *) arg0, 0, 0x48, 0);
   workCheck = *((struct EffectWork * volatile *) (((u8 *) arg0) + 0x3C));
   if (workCheck == NULL)
   {
@@ -140,12 +140,12 @@ void sub_080404C4(struct ScriptedObject *arg0)
   *((u32 *) (((u8 *) sprite) + 0x1C)) = gfxFlags[*((u8 *) scratchPtr)];
   work = arg0->work;
   animState = ((u8 *) work) + 0x34;
-  sub_08014288((u8 *) arg0, (u8 *) work, (void *) sub_08014290);
+  installUpdateHandler((u8 *) arg0, (u8 *) work, (void *) sub_08014290);
   zero = 0;
   work->kind = 0x31;
   work->worldX = arg0->worldX;
   work->worldY = arg0->worldY;
-  kindIndex = sub_08013C2C(0x31);
+  kindIndex = findKindIndex(0x31);
   work->slot = kindIndex;
   if (((s32) (kindIndex << 16)) < 0)
   {
@@ -154,16 +154,16 @@ void sub_080404C4(struct ScriptedObject *arg0)
   gfxFlagsValue = (((s32)work->slot) << 6) + 0x200;
   gfxFlagsValue |= (kindIndex + 8) << 12;
   *((u16 *) sprite) = gfxFlagsValue;
-  statePtr = (u8 *) (&D_02025FF0);
+  statePtr = (u8 *) (&gMainWorkspace);
   *((u16 *) sprite) = gfxFlagsValue | (*((u16 *) (statePtr + 0x18C2)));
-  sub_0801131C(sprite, animState, ((s32) D_080CD400) + (work->kind * 0xC));
+  initSpriteGraphics(sprite, animState, ((s32) gSpriteAnimDataTable) + (work->kind * 0xC));
   variantByte = *((u8 *) scratchPtr);
   flagIndex = variantByte * 4;
   flagBase = &gfxFlags[2];
   animId = *((s16 *) ((u32) flagIndex + (u32) flagBase));
-  sub_08011368(sprite, animState, animId, 0);
+  setAnimationFrame(sprite, animState, animId, 0);
   animTable = (u16 *) 0x080CF458;
-  work->gfx = (struct EffectPart *) sub_08016190();
+  work->gfx = (struct EffectPart *) allocEffectPart();
   if (work->gfx != NULL)
   {
     goto main;
@@ -176,17 +176,17 @@ void sub_080404C4(struct ScriptedObject *arg0)
   work->gfx->kind = 5;
   work->gfx->layer = zero;
   work->gfx->priority = zero;
-  work->gfx->gfxIndex = D_080CBDD0[work->kind].gfxIndex;
+  work->gfx->gfxIndex = gEffectGfxTable[work->kind].gfxIndex;
   work->gfx->anim0 = animTable[0];
   work->gfx->anim1 = animTable[1];
   work->gfx->anim2 = animTable[2];
   work->gfx->anim3 = animTable[index3 = 3];
-  work->gfx->palette = D_080CBDD0[work->kind].palette;
+  work->gfx->palette = gEffectGfxTable[work->kind].palette;
   work->gfx->object = (u32) sprite;
   arg0->initialized = 1;
   {
-    u8 *scrollTable = (u8 *) &D_02021E90;
-    u8 *globalPtr = (u8 *) &D_02025FF0;
+    u8 *scrollTable = (u8 *) &gCameraState;
+    u8 *globalPtr = (u8 *) &gMainWorkspace;
     u8 *scrollXBase;
     u8 *scrollYBase;
     u32 scrollIdx;

@@ -8,7 +8,7 @@ struct ScrollBounds {
 };
 
 extern struct ScrollBounds D_02027A00;
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 /* Clamp the horizontal and vertical scroll positions to the configured
  * min/max bounds whenever that axis's scrolling is enabled. */
@@ -26,7 +26,7 @@ void sub_08061E60(void)
     bounds = (struct ScrollBounds *)boundsBase;
     if (xEnabled != 0) {
         off = 0x1278;
-        value = (u32 *)(D_02021E90 + off);
+        value = (u32 *)(gCameraState + off);
         if (*value > bounds->scrollXMax)
             *value = bounds->scrollXMax;
         v = *value;
@@ -38,7 +38,7 @@ void sub_08061E60(void)
     boundsAlias = (struct ScrollBounds *)boundsBase2;
     if (yEnabled != 0) {
         off = 0x127C;
-        value = (u32 *)(D_02021E90 + off);
+        value = (u32 *)(gCameraState + off);
         if (*value > boundsAlias->scrollYMax)
             *value = boundsAlias->scrollYMax;
         v = *value;

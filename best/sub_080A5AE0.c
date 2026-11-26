@@ -1,5 +1,5 @@
 #define V1C (*(s16 *)(p + 0x1C))
-#define CB2V(o) (*(u16 *)((cb = D_080CB2B8) + V1C * 20 + (o)))
+#define CB2V(o) (*(u16 *)((cb = gSpriteKindTable) + V1C * 20 + (o)))
 struct A5R
 {
   u8 f0;
@@ -14,25 +14,25 @@ struct A5R
   u16 fE;
   u32 f10;
 };
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
-extern void sub_08097D18(void *, void *, void *, u32, u32);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
+extern void initSpawnedObject(void *, void *, void *, u32, u32);
 extern void sub_080AA9C8(void *, void *, u32, s32);
-extern void sub_080114DC(void *, void *, s32, s32);
-extern void *sub_08016190(void);
+extern void setObjectAnimation(void *, void *, s32, s32);
+extern void *allocEffectPart(void);
 extern void sub_080A80B4(void *, void *);
 extern void *sub_0805FAEC(void *, u32);
 extern void sub_080AAD08(void);
-extern void sub_08016664(void *, s32);
+extern void registerScriptObject(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u8 D_0810201C[];
 extern u16 D_08101D1C[];
-extern u8 D_080CB2B8[];
-extern u8 D_080CBDD0[];
-extern u32 D_02025FF0[];
-extern void *D_08671BB0;
+extern u8 gSpriteKindTable[];
+extern u8 gEffectGfxTable[];
+extern u32 gMainWorkspace[];
+extern void *gMainObjTimerCallback;
 extern void sub_080A806C(void);
 void sub_080A5AE0(u8 *arg0)
 {
@@ -46,16 +46,15 @@ void sub_080A5AE0(u8 *arg0)
   u8 *d1c;
   u8 *p18;
   u8 *tbl;
-  void **lit;
   u8 *cbddbase;
   r8v = *((u32 *) (arg0 + 0xAC));
-  a = sub_0800355C();
+  a = allocSpriteObject();
   if (a == NULL)
   {
     goto fail;
   }
   *((void **) (arg0 + 0x38)) = a;
-  sub_0800168C(arg0, 0, 0x188, 0);
+  allocWorkSlot(arg0, 0, 0x188, 0);
   if ((*((void **) (arg0 + 0x3C))) == NULL)
   {
     goto fail;
@@ -64,16 +63,15 @@ void sub_080A5AE0(u8 *arg0)
   p = (u8 *) (*((u32 *) (arg0 + 0x3C)));
   p34 = p + 0x34;
   sp4 = p + 0x48;
-  sub_08014288(arg0, p, sub_080A806C);
-  sub_08097D18(arg0, a, p, r8v, 0x5F);
+  installUpdateHandler(arg0, p, sub_080A806C);
+  initSpawnedObject(arg0, a, p, r8v, 0x5F);
   tbl = D_0810201C;
-  lit = &D_08671BB0;
-  cbddbase = D_080CBDD0;
+  cbddbase = gEffectGfxTable;
   idxp = arg0 + 0x4C;
   sub_080AA9C8(a, p34, tbl[*idxp], 4);
-  sub_080114DC(a, p34, 0, 0);
+  setObjectAnimation(a, p34, 0, 0);
   d1c = (u8 *) D_08101D1C;
-  if ((*((void **) (p + 0x28)) = sub_08016190()) == NULL)
+  if ((*((void **) (p + 0x28)) = allocEffectPart()) == NULL)
   {
     goto fail;
   }
@@ -88,7 +86,7 @@ void sub_080A5AE0(u8 *arg0)
   ((struct A5R *) (*((void **) (p + 0x28))))->fE = *((u16 *) ((cb + (V1C * 20)) + 4));
   ((struct A5R *) (*((void **) (p + 0x28))))->f10 = (u32) a;
   p34 = d1c + 8;
-  if ((*((void **) (p + 0x15C)) = sub_08016190()) == NULL)
+  if ((*((void **) (p + 0x15C)) = allocEffectPart()) == NULL)
   {
     fail:
     sub_080C31E0(arg0, *((void **) (arg0 + 0x24)));
@@ -112,7 +110,8 @@ void sub_080A5AE0(u8 *arg0)
       *((void **) (p + 0x180)) = sub_0805FAEC(arg0, 0x19D);
     }
     {
-      void *t = sub_0805FAEC((void *) D_02025FF0[0x1870 / 4], 0x1A3);
+      void *t;
+      t = sub_0805FAEC((void *) gMainWorkspace[0x1870 / 4], 0x1A3);
       *((void **) (p + 0x184)) = t;
       *((u32 *) (((u8 *) t) + 0x4C)) = *idxp;
     }
@@ -121,14 +120,14 @@ void sub_080A5AE0(u8 *arg0)
     *((u8 *) (arg0 + 0x7C)) = 0;
     *((u32 *) (arg0 + 0x8C)) = *((u32 *) (p + 0x18));
     *((u32 *) ((*((u32 *) (arg0 + 0x28))) + 0x5C)) = *((s16 *) ((cbddbase + (V1C * 40)) + 0x24));
-    sub_08016664(arg0, 0);
+    registerScriptObject(arg0, 0);
     *((u16 *) (arg0 + 0x02)) |= 0x1000;
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19] = 0;
-    p18 = arg0 + 0x18;
-    sub_080C31E4(p18, arg0 + 0x22, *lit);
+    do { p18 = arg0 + 0x18; } while (0);
+    do { sub_080C31E4(p18, arg0 + 0x22, gMainObjTimerCallback); } while (0);
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19]++;
-    p18 += (*((s16 *) (arg0 + 0x22))) * 2;
-    sub_080C31E0(arg0, *((void **) ((*((u32 *) (arg0 + 0x14))) + (p18[0] * 4))));
+    p = (void *) (*((s16 *) (arg0 + 0x22))); p18 += (u32) p * 2;
+    do { sub_080C31E0(arg0, *((void **) ((*((u32 *) (arg0 + 0x14))) + (p18[0] * 4)))); } while (0);
   }
 }
 

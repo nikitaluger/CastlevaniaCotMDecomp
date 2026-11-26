@@ -1,5 +1,5 @@
 extern s32 sub_08007B78(void *, s32, s32);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_02023130[];
 
 /* Horizontal move with vertical collision resolution: shift x by its 16.16
@@ -20,7 +20,7 @@ s32 sub_0806D6B4(u8 *move) {
     steps = (dxAbs + 0xFFFF) >> 16;
 
     {
-        u32 base = (u32)D_02025FF0;
+        u32 base = (u32)gMainWorkspace;
         u32 off = 0x18A8;
         mapBase = D_02023130 + (*(u8 *)(base + off) << 6);
     }

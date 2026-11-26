@@ -12,8 +12,8 @@ extern void sub_080C31E8(void *, void *, s32, s32);
 struct StateFlags { u16 flags; };
 struct SpriteDefFlags { u8 flagsA; u8 flagsB; };
 struct SpriteDefTimer { u8 _0[0x14]; u16 timer; };
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 void sub_08031D64(u8 *self)
 {
@@ -66,8 +66,8 @@ void sub_08031D64(u8 *self)
     }
     ((struct SpriteDefTimer *)(*((u8 **)(state + 0x28))))->timer = 0;
     {
-        u8 *pt = D_02021E90;
-        u8 *pb = D_02025FF0;
+        u8 *pt = gCameraState;
+        u8 *pb = gMainWorkspace;
         u8 *base1;
         u8 *base2;
         u32 idx;

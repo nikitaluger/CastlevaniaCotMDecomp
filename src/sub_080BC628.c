@@ -9,14 +9,14 @@ extern void sub_080146D0(void *, s32, s32);
 extern void sub_080BC73C(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 struct S_02025FF0 {
     u8 pad[0x174C];
     s32 field174C;
     s32 field1750;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 void sub_080BC628(void *arg0) {
     void *script;
@@ -35,8 +35,8 @@ void sub_080BC628(void *arg0) {
         u8 *stepPtr;
         void **scriptTable;
 
-        targetDx = D_02025FF0.field1750 - *(s32 *)(actor + 0x0C);
-        targetDy = D_02025FF0.field174C - *(s32 *)(actor + 0x08);
+        targetDx = gMainWorkspace.field1750 - *(s32 *)(actor + 0x0C);
+        targetDy = gMainWorkspace.field174C - *(s32 *)(actor + 0x08);
         angle = sub_08005910(targetDx, targetDy);
         angle += sub_0800583C(0x1800);
         sub_080146D0(actor, angle, 0x20000);
@@ -45,7 +45,7 @@ void sub_080BC628(void *arg0) {
         stepIndex = *(s16 *)(entity + 0x22);
         *(u8 *)(entity + stepIndex * 2 + 0x19) = 0;
 
-        scriptTable = &D_08671BB0;
+        scriptTable = &gMainObjTimerCallback;
         stepPtr = entity + 0x18;
         sub_080C31E4(stepPtr, entity + 0x22, *scriptTable);
 

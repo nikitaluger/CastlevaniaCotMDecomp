@@ -3,8 +3,8 @@ extern void sub_080113A8(void *actor, void *data);
 extern void sub_0801165C(void *enemy, s32 value);
 extern s32 sub_0805F9B4(s32 a, s32 b);
 extern s32 sub_080C31E0(void *self, void *cmd);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 inline int withAnimBit(u8 *animState)
 {
@@ -44,8 +44,8 @@ void sub_080259C0(void *self)
     sub_080113A8(actor, enemyData);
     sub_0801165C(enemy, 0);
   }
-  coordTable = D_02021E90;
-  camPtr = D_02025FF0;
+  coordTable = gCameraState;
+  camPtr = gMainWorkspace;
   camPtr += 0x18A8;
   coordIndex = (((u32) (*camPtr)) + 1) * 0x40;
   xTable = coordTable + 0x1278;

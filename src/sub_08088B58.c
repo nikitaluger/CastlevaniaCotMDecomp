@@ -6,9 +6,9 @@ extern void sub_08003740(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 extern const void D_084FEC5C;
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 void sub_08088B58(void *entity)
 {
@@ -17,12 +17,12 @@ void sub_08088B58(void *entity)
     u8 *position = subObj + 4;
     u8 *sprite = *(u8 **)(self + 0x38);
 
-    if (D_02025FF0[7] == 1) {
+    if (gMainWorkspace[7] == 1) {
         u32 *cbTable;
         sub_08003A6C(subObj + 0x20, 0, &D_084FEC5C);
-        D_02025FF0[7] = 2;
+        gMainWorkspace[7] = 2;
         *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = 0;
-        cbTable = D_08671BB0;
+        cbTable = gMainObjTimerCallback;
         sub_080C31E4(self + 0x18, self + 0x22, cbTable[0]);
     }
 

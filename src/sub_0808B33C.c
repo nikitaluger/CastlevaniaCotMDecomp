@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 void sub_080C31E4(void *, void *, s32);
 
 /* Clears three words of the sub-object, sets the global flag bit 0x20000000,
@@ -20,7 +20,7 @@ void sub_0808B33C(void *actor) {
     *(s32 *)((u8 *)subObj + 4) = 0;
     *(s32 *)((u8 *)subObjTail + 4) = 0;
     *(s32 *)((u8 *)subObjTail + 8) = 0;
-    flagsBase = D_02025FF0;
+    flagsBase = gMainWorkspace;
     flagOffset = 0x1844;
     flag = (u32 *)(flagsBase + flagOffset);
     *flag |= 0x20000000;

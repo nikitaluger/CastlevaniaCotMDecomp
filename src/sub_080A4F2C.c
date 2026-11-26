@@ -1,4 +1,4 @@
-extern s32 sub_08011368(void *, void *, s16, s32);
+extern s32 setAnimationFrame(void *, void *, s16, s32);
 extern s32 sub_080C31E4(void *, void *, u32);
 
 extern s16 D_08101CDC[];
@@ -25,7 +25,7 @@ void sub_080A4F2C(void *arg0) {
             frameStep = *frameCounterPtr - 1;
         }
         *frameCounterPtr = frameStep;
-        sub_08011368(gfx, animState, D_08101CDC[*(u8 *)((u8 *)arg0 + 0x8C)], 0);
+        setAnimationFrame(gfx, animState, D_08101CDC[*(u8 *)((u8 *)arg0 + 0x8C)], 0);
     }
     frameStep = *(u8 *)((u8 *)arg0 + 0x8C);
     if (frameStep == 0 || frameStep == 4) {

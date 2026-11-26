@@ -1,5 +1,5 @@
 extern u32 D_081020DC[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern s32 sub_08005910(s32 a, s32 b);
 extern u32 sub_08005820(u32 a);
 extern s32 sub_0801473C(s32 a, s32 b);
@@ -62,7 +62,7 @@ void sub_080A7C7C(void *arg0)
   r0 = ((u8 *) entity) + (stepOffset * 2);
   *((u8 *) (r0 + 0x19)) = 0;
   {
-    void **lit = &D_08671BB0;
+    void **lit = &gMainObjTimerCallback;
     void *stepBase = ((u8 *) entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *) entity) + 0x22, *lit);
     actor = stepBase;

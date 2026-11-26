@@ -1,5 +1,5 @@
 struct GameState { u8 _0x000[0x18A8]; u8 roomIndex18A8; };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 struct CurrentRoom { volatile u8 roomIndex; };
 extern struct CurrentRoom D_02027898;
 extern u8 D_02023130[];
@@ -25,7 +25,7 @@ s32 sub_08012DF4(s32 x0, s32 y0, s32 dx, s32 dy, s32 *outX, s32 *outY, s32 tileM
   s32 offsetX;
   s32 offsetY;
   s32 tileCode;
-  tileCode = sub_08007D7C(D_02023130 + (D_02025FF0.roomIndex18A8 * 0x40), x0, y0);
+  tileCode = sub_08007D7C(D_02023130 + (gMainWorkspace.roomIndex18A8 * 0x40), x0, y0);
   {
     u8 *collisionMaskTable = D_080CB278;
     if ((*((u16 *) (collisionMaskTable + (((u32) (tileCode << 0x10)) >> 0xF)))) & mask)

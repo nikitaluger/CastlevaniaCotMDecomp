@@ -1,8 +1,8 @@
 extern void sub_08098338(s32, void *);
 extern void sub_08098764(void *, void *, s32);
 extern s32 sub_080C31E0(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_08670284[];
 
 /* Advance an entity's script step, dispatch the selected handler, then refresh
@@ -42,9 +42,9 @@ void sub_080B0D0C(u8 *entity) {
     sub_08098764(sprite, actor, param4C);
     sub_08098338(0x30, sprite);
 
-    layerTable = D_02021E90;
+    layerTable = gCameraState;
     activeLayerOffset = 0x18A8;
-    activeLayer = D_02025FF0 + activeLayerOffset;
+    activeLayer = gMainWorkspace + activeLayerOffset;
     layerOffset = ((u32)*activeLayer + 1) * 0x40;
     xTable = layerTable + 0x1278;
     centerX = *(u32 *)(xTable + layerOffset);

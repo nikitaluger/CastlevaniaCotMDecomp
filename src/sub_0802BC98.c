@@ -11,8 +11,8 @@ extern void sub_080C31E8(void *, void *, s32, s32);
 struct MoverFlags { u16 flags; };
 struct StateFlags { u8 a; u8 flags; };
 struct StateExt { u8 _0[0x14]; u16 flags2; };
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 void sub_0802BC98(u8 *entity)
 {
   s32 workObj = *((s32 *) (entity + 0x38));
@@ -65,8 +65,8 @@ void sub_0802BC98(u8 *entity)
   }
   ((struct StateExt *) (*((u8 **) (mover + 0x28))))->flags2 = 0;
   {
-    u8 *coordTable = D_02021E90;
-    u8 *framePtr = D_02025FF0;
+    u8 *coordTable = gCameraState;
+    u8 *framePtr = gMainWorkspace;
     u8 *xTable;
     u8 *yTable;
     u32 coordIdx;

@@ -1,4 +1,4 @@
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 struct S_02025FF0
 {
   u8 _0[0x14ED];
@@ -6,14 +6,14 @@ struct S_02025FF0
   u8 _1[0x150C - 0x14EE];
   u32 f150C;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s32 D_080DFFB0[];
 
 /* Advance a scrolling background by the per-room speed in D_080DFFB0,
- * limited to the remaining distance in D_02025FF0.f150C. */
+ * limited to the remaining distance in gMainWorkspace.f150C. */
 void sub_08071A20(u8 *self, s32 speedIndex)
 {
-  u8 *scroll = D_02025368;
+  u8 *scroll = gGameStatus;
   u8 *speedTbl;
   s32 *pRemain;
   s32 colBase;
@@ -25,9 +25,9 @@ void sub_08071A20(u8 *self, s32 speedIndex)
   {
     return;
   }
-  if (D_02025FF0.f14ED == 0xA6)
+  if (gMainWorkspace.f14ED == 0xA6)
   {
-    pRemain = &D_02025FF0.f150C;
+    pRemain = &gMainWorkspace.f150C;
     speedTbl = (u8 *) D_080DFFB0;
     colBase = speedIndex << 2;
     room = *(s16 *)(scroll + 0x8C);

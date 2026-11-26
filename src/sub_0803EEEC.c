@@ -1,7 +1,7 @@
 extern void *D_08671BFC;
 extern void *D_08671BD0;
 
-s32 sub_08011368(void *, void *, s32, s32);
+s32 setAnimationFrame(void *, void *, s32, s32);
 s32 sub_08014990(void *);
 s32 sub_0803F758(void *, s32, s32, s16);
 s32 sub_080C364C(s32, s32);
@@ -27,7 +27,7 @@ void sub_0803EEEC(void *object)
     {
         u8 *pose = state + 0x34;
         ctrl = state + 0x48;
-        sub_08011368(sprite, pose, 7, 0);
+        setAnimationFrame(sprite, pose, 7, 0);
     }
 
     if (*(s16 *)(ctrl + 0x0C) > 0x3C) {

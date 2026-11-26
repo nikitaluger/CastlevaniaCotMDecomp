@@ -1,8 +1,8 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern void sub_0808E05C(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_08671BB0[];
+extern u8 gMainObjTimerCallback[];
 void sub_0803BA14(u8 *self)
 {
   u8 *actor = *((u8 **) (self + 0x38));
@@ -11,7 +11,7 @@ void sub_0803BA14(u8 *self)
   u8 *enemyData = enemy + 0x34;
   u8 stateByte;
   s32 *litPtr;
-  sub_08011368(actor, enemyData, 5, 0);
+  setAnimationFrame(actor, enemyData, 5, 0);
   {
     u32 slotAddr = *((s16 *) (self + 0x22));
     slotAddr <<= 1;
@@ -35,7 +35,7 @@ void sub_0803BA14(u8 *self)
         slotAddr += (u32) self;
         *((u8 *) (slotAddr + 0x19)) = 0;
       }
-      litPtr = (s32 *) D_08671BB0;
+      litPtr = (s32 *) gMainObjTimerCallback;
       sub_080C31E4(self + 0x18, self + 0x22, *litPtr);
     }
   }
@@ -52,7 +52,7 @@ void sub_0803BA14(u8 *self)
         slotAddr += (u32) self;
         *((u8 *) (slotAddr + 0x19)) = 0;
       }
-      litBytes = D_08671BB0;
+      litBytes = gMainObjTimerCallback;
       sub_080C31E4(self + 0x18, self + 0x22, *((s32 *) litBytes));
     }
   }

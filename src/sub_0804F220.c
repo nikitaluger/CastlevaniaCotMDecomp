@@ -1,4 +1,4 @@
-extern s32 sub_08011368(void *, void *, s32, s32);
+extern s32 setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014114(void *, s32, s32, s32, s32, s32);
 extern s32 sub_080146D0(void *, s32, s32);
 extern s32 sub_08014900(s32);
@@ -30,7 +30,7 @@ void sub_0804F220(void *entity)
     motion = *(void **)((u8 *)entity + 0x3C);
     collision = (u8 *)motion + 0x34;
     steer = (struct BobbingSteer *)((u8 *)motion + 0x48);
-    sub_08011368(sprite, collision, 0, 1);
+    setAnimationFrame(sprite, collision, 0, 1);
     phase = steer->phase + 0x800;
     phase &= 0xFFFF;
     steer->phase = phase;

@@ -2,9 +2,9 @@
  * animation, oscillates its angle through the IWRAM sine table, and every few
  * frames spawns a dust/impact object along the trail; when the trail count runs
  * out it advances the entity to the next state. */
-extern u8 D_02025FF0[];   /* scene state (camera index at +0x18A8) */
+extern u8 gMainWorkspace[];   /* scene state (camera index at +0x18A8) */
 extern u8 D_00001870[];   /* address constant for the camera index */
-extern s32 sub_08011368(s32, void *, s32, s32);   /* set animation frame */
+extern s32 setAnimationFrame(s32, void *, s32, s32);   /* set animation frame */
 extern s32 sub_080133EC(s32, s32);                /* terrain has solid flags? */
 extern s32 sub_0805FAEC(s32, s32);                /* spawn budgeted effect object */
 extern s32 sub_080C364C(s32, s32);                /* division */
@@ -41,7 +41,7 @@ void sub_0802318C(void *entity)
   trail = work + 0x48;
   if ((*((s16 *) (trail + 0x10))) == 1)
   {
-    sub_08011368(sprite, gfxInit, 0, 1);
+    setAnimationFrame(sprite, gfxInit, 0, 1);
     if ((gfxInit[1] == 1) && ((*((s32 *) (gfxInit + 0x04))) == 1))
     {
       *((u16 *) (trail + 0x04)) = 0;
@@ -52,7 +52,7 @@ void sub_0802318C(void *entity)
   }
   else
   {
-    sub_08011368(sprite, gfxInit, 8, 0);
+    setAnimationFrame(sprite, gfxInit, 8, 0);
     if (gfxInit[0] & 2)
     {
       *((s16 *) (trail + 0x10)) = 1;
@@ -77,7 +77,7 @@ void sub_0802318C(void *entity)
     spawnY = *((s32 *) (trail + 0x18));
     if ((sub_080133EC(spawnX, spawnY) == 0) && (sub_080133EC(spawnX - ((*((s16 *) (trail + 0x24))) << 20), spawnY + 0x10000) == 1))
     {
-      spawned = (void *) sub_0805FAEC(*((s32 *) ((u32) D_00001870 + (u32) D_02025FF0)), 0xA2);
+      spawned = (void *) sub_0805FAEC(*((s32 *) ((u32) D_00001870 + (u32) gMainWorkspace)), 0xA2);
       slotOffset = index * 4;
       slotBase = trail + 0x28;
       *((void **) (slotBase + slotOffset)) = spawned;

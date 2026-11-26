@@ -1,11 +1,11 @@
 extern void sub_08001480(void *, int);
-extern void sub_08001738(s32);
+extern void updateObjectTree(s32);
 extern void sub_08006234(void);
 extern void sub_0808BB54(void);
 extern u8 sub_0808CB58(void);
 extern void sub_080C31E4(void *, void *, u32);
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 /* Sound-command slots in IWRAM. */
 struct SoundCmd { u8 _pad[4]; u16 id; u16 mode; u16 counter; };
 extern struct SoundCmd D_03000830;
@@ -35,13 +35,13 @@ void sub_08006E0C(void *obj)
   u8 *addr;
   u32 *pB0;
   objPtr = (u8 *) obj;
-  gameState = D_02025368;
-  state = D_02025FF0;
-  sub_08001738(*((s32 *) (state + 0x1854)));
-  sub_08001738(*((s32 *) (state + 0x1860)));
+  gameState = gGameStatus;
+  state = gMainWorkspace;
+  updateObjectTree(*((s32 *) (state + 0x1854)));
+  updateObjectTree(*((s32 *) (state + 0x1860)));
   sp = (s32 *) (state + 0x1894);
   *sp += 1;
-  sub_08001738(*((s32 *) (state + 0x1888)));
+  updateObjectTree(*((s32 *) (state + 0x1888)));
   if ((*((u32 *) (state + 0x14C0)) & 0x40000000) == 0)
   {
     sh = decrementCounter(0, &D_03000830);
@@ -62,7 +62,7 @@ void sub_08006E0C(void *obj)
   }
   L6EAE:
   {
-    u32 r1 = (u32) D_02025FF0;
+    u32 r1 = (u32) gMainWorkspace;
     stateWordAddr = r1 + 0x14C0;
     *((u32 *) stateWordAddr) = 0;
     flagPtr = (u8 *) (r1 + 0x18C4);

@@ -10,7 +10,7 @@ void sub_0801F888(void *obj)
     u8 *fx = work + 0x48;
     u16 zero;
 
-    sub_08011368(owner, anim, 0, 1);
+    setAnimationFrame(owner, anim, 0, 1);
 
     if (*(u8 *)(anim + 1) == 1 && *(s32 *)(anim + 4) == 1)
         *(u16 *)(fx + 4) = 0;

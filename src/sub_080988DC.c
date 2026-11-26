@@ -1,7 +1,7 @@
 /* Propagate an object's state to its two children, then walk the object's entry
  * table from the current index, spawning each entry's object at its offset until
  * a terminating entry is reached; record the next index and return the terminator. */
-void sub_08000E98(s32, s32, s32, s32, s32);
+void postDisplaySprite(s32, s32, s32, s32, s32);
 
 s32 sub_080988DC(void *arg0)
 {
@@ -39,7 +39,7 @@ s32 sub_080988DC(void *arg0)
             entryIndex += 1;
             entry = (u8 *)*(void **)(obj + 0x20) + entryIndex * 0x10;
             callbackSlot = entry + 4;
-            sub_08000E98(1, *(s32 *)(callbackSlot + callbackOffset),
+            postDisplaySprite(1, *(s32 *)(callbackSlot + callbackOffset),
                          *(s32 *)(obj + 0x0C) + ((u32)entry[1] << 5),
                          (u32)*(u16 *)(entry + 2) << 5, 0x10);
             {

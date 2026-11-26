@@ -11,14 +11,14 @@ struct GameState
   u8 unk1518[0x1754 - 0x1518];
   s32 level;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 struct ScrollState
 {
   u8 unk0[0x146E];
   u16 flags;
 };
-extern struct ScrollState D_02021E90;
-extern u8 D_02025368[];
+extern struct ScrollState gCameraState;
+extern u8 gGameStatus[];
 extern s32 sub_0806C4B4(void *, void *);
 extern void sub_0806C5EC(void *, void *, void *, void *);
 extern void sub_0806BA20(void *, void *, void *);
@@ -71,7 +71,7 @@ void sub_08064178(u8 *arg0)
   {
     *((s32 *) (workState + 0x0C)) = maxValue;
   }
-  condition = (D_02025FF0.mode != 0) ? (D_02025FF0.flags & (*((u16 *) (gameFlags + 0x3BC)))) : (D_02021E90.flags & (*((u16 *) (gameFlags + 0x3BC))));
+  condition = (gMainWorkspace.mode != 0) ? (gMainWorkspace.flags & (*((u16 *) (gameFlags + 0x3BC)))) : (gCameraState.flags & (*((u16 *) (gameFlags + 0x3BC))));
   if (condition == 0)
   {
     *((s32 *) (work + 0x70)) = zero70;
@@ -85,11 +85,11 @@ void sub_08064178(u8 *arg0)
     *((s32 *) (work + 0x4C)) = 0;
     *((s32 *) (work + 0x50)) = 0;
     *((s32 *) (work + 0x54)) = 0;
-    if (D_02025FF0.stage == 0x35)
+    if (gMainWorkspace.stage == 0x35)
     {
-      if (D_02025FF0.level <= 8)
+      if (gMainWorkspace.level <= 8)
       {
-        D_02025FF0.level = 9;
+        gMainWorkspace.level = 9;
       }
     }
     zero = 0;
@@ -108,7 +108,7 @@ void sub_08064178(u8 *arg0)
     u8 *animScratch = gameFlags;
     s32 moveResult = sub_08003740(animScratch, target);
     animPtr = animScratch;
-    if ((moveResult == 0) || (D_02025FF0.counter != 0))
+    if ((moveResult == 0) || (gMainWorkspace.counter != 0))
     {
       sub_0806A7AC(target, work, 0x10);
       sub_08003740(animPtr, target);

@@ -1,4 +1,4 @@
-extern void *sub_08016190(void);            /* allocate a part object from the free pool */
+extern void *allocEffectPart(void);            /* allocate a part object from the free pool */
 extern void sub_0806D2D0(void *);           /* abort/cleanup this object */
 extern s16 sub_0806D62C(u16, s32);          /* compute a 16-bit scaled value */
 extern void sub_08003A6C(s32, s32, s32);    /* initialise a small control struct */
@@ -9,9 +9,9 @@ struct S02564A { u16 f0; };
 extern struct S02564A D_0202564A;
 extern u8 D_0202566C;
 struct S25FF0 { u8 _0[0x1510]; u8 f1510; };
-extern struct S25FF0 D_02025FF0;
+extern struct S25FF0 gMainWorkspace;
 extern u32 D_080E5E18;                      /* 16-entry fixed-point value table */
-extern u32 D_08671BB0;                      /* step-script operation */
+extern u32 gMainObjTimerCallback;                      /* step-script operation */
 
 struct Part {                               /* one of the two sub-objects */
     u8 _0, f1, f2, f3;
@@ -56,8 +56,8 @@ void sub_08082D08(struct InitObj *obj) {
     header = obj->f6C;
     state = (struct PartState *)(header + 4);
     target = obj->f38;
-    if (((state->partA = (struct Part *)sub_08016190()) == NULL) ||
-        ((state->partB = (struct Part *)sub_08016190()) == NULL)) {
+    if (((state->partA = (struct Part *)allocEffectPart()) == NULL) ||
+        ((state->partB = (struct Part *)allocEffectPart()) == NULL)) {
         sub_0806D2D0(obj);
         return;
     }
@@ -66,7 +66,7 @@ void sub_08082D08(struct InitObj *obj) {
     state->f38 = 0;
     state->f3C = 0;
 
-    state->partA->f1 = 1 & D_02025FF0.f1510;
+    state->partA->f1 = 1 & gMainWorkspace.f1510;
     state->partA->f2 = 2;
     state->partA->f3 = 8;
     state->partA->f4 = D_0202566C;
@@ -79,7 +79,7 @@ void sub_08082D08(struct InitObj *obj) {
     state->partA->f18 = 0x79;
     state->partA->f10 = (u32)target;
 
-    state->partB->f1 = 1 & D_02025FF0.f1510;
+    state->partB->f1 = 1 & gMainWorkspace.f1510;
     state->partB->f2 = 2;
     state->partB->f3 = 8;
     state->partB->f4 = D_0202566C;

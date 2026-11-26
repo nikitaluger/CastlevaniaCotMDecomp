@@ -1,4 +1,4 @@
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern void *D_0201E8A0;
 s32 sub_08014990(s32);
 void sub_0801843C(void);

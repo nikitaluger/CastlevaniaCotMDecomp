@@ -1,4 +1,4 @@
-s32 sub_080C2F20(s32, s32);
+s32 divideInt(s32, s32);
 s32 sub_080C31E0(void *, s32);
 void sub_08013C8C(void *, void *);
 
@@ -37,7 +37,7 @@ void sub_080AED40(void *arg0)
   callbackTable = (s32 *) 0x08671BFC;
   *((s32 *) (((u8 *) entity) + 0x08)) = (*speedPtr) + (((*((s32 *) (arg0 + 0x6C))) >> 8) * (sub_080C31E0((*((void **) (((u8 *) arg0) + 0x7C))) + 0x4000, *callbackTable) >> 8));
   *((s32 *) (((u8 *) entity) + 0x0C)) = (*((s32 *) (((u8 *) arg0) + 0x5C))) + (((*((s32 *) (((u8 *) arg0) + 0x6C))) >> 8) * (sub_080C31E0(*((void **) (((u8 *) arg0) + 0x7C)), *callbackTable) >> 8));
-  heading = sub_080C2F20(0x50000000, *((s32 *) (((u8 *) arg0) + 0x6C)));
+  heading = divideInt(0x50000000, *((s32 *) (((u8 *) arg0) + 0x6C)));
   *((u16 *) (((u8 *) work) + 0x06)) = (*((u16 *) (((u8 *) work) + 0x04)) = heading);
   sub_08013C8C(arg0, work);
 }

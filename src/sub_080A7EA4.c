@@ -7,13 +7,13 @@ extern void sub_080C050C(s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 struct S_02025FF0 {
     u8 _0[0x1754];
     s32 f1754;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 struct Entity {
     u8 _0[0x18];
@@ -63,12 +63,12 @@ void sub_080A7EA4(struct Entity *arg) {
     sub_080AACCC(arg);
     target = *(struct Target **)((u8 *)scriptState + 0xC2 * 2);
     sub_080C31E0(target, target->f24);
-    if (D_02025FF0.f1754 <= 0x10) D_02025FF0.f1754 = 0x11;
+    if (gMainWorkspace.f1754 <= 0x10) gMainWorkspace.f1754 = 0x11;
     sub_080C050C(0xC3 << 1);
     sub_08005E80(0xBC << 1);
     ((struct ScriptStep *)((u8 *)arg + arg->f22 * 2))->f19 = 0;
     {
-        u32 *pb = &D_08671BB0;
+        u32 *pb = &gMainObjTimerCallback;
         sub_080C31E4((u8 *)arg + 0x18, (u8 *)arg + 0x22, *pb);
     }
 }

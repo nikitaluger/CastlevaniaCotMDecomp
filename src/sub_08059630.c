@@ -12,8 +12,8 @@ extern void sub_08059AD8(s32, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *D_08671BDC;
-extern u8 D_02021E90[];
-extern struct { u8 _0[0x18A8]; u8 f18A8; } D_02025FF0;
+extern u8 gCameraState[];
+extern struct { u8 _0[0x18A8]; u8 f18A8; } gMainWorkspace;
 
 /* Entity script update: refresh contact/combat state, run one script command
  * from the command table, then apply the camera-relative Y correction. */
@@ -69,9 +69,9 @@ cdc:
     sub_08059AD8(parent, comp);
     sub_08013C8C(self, parent);
     worldY = *(s32 *)(comp + 0xC) + *(s32 *)(fx + 0xC);
-    coordBase = (u32)D_02021E90;
+    coordBase = (u32)gCameraState;
     coordOff = 0x127C;
-    coordVal = *(u32 *)(coordBase + coordOff + ((D_02025FF0.f18A8 + 1) << 6));
+    coordVal = *(u32 *)(coordBase + coordOff + ((gMainWorkspace.f18A8 + 1) << 6));
     coordVal = (coordVal + 0xFFFF8000) & 0xFFFF0000;
     *(s32 *)((u8 *)parent + 0x18) = worldY - coordVal;
 done:

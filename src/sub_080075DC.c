@@ -1,8 +1,8 @@
-extern void sub_08001738(void *obj);
+extern void updateObjectTree(void *obj);
 extern void *sub_08001480(void *parent, s32 kind);
 extern void sub_080C31E4(void *stepData, void *stepIndex, s32 callback);
-extern u32 D_02025FF0[];
-extern s32 D_08671BB0;
+extern u32 gMainWorkspace[];
+extern s32 gMainObjTimerCallback;
 
 struct S_03000830 { u8 pad[8]; u16 count; };
 extern struct S_03000830 D_03000830;
@@ -18,10 +18,10 @@ void sub_080075DC(void *arg0) {
     u32 obj4Off = 0x1888;
     u32 gfxCount;
 
-    sub_08001738(*(void **)((u8 *)D_02025FF0 + obj1Off));
-    sub_08001738(*(void **)((u8 *)D_02025FF0 + obj2Off));
-    *(u32 *)((u8 *)D_02025FF0 + obj3Off) += 1;
-    sub_08001738(*(void **)((u8 *)D_02025FF0 + obj4Off));
+    updateObjectTree(*(void **)((u8 *)gMainWorkspace + obj1Off));
+    updateObjectTree(*(void **)((u8 *)gMainWorkspace + obj2Off));
+    *(u32 *)((u8 *)gMainWorkspace + obj3Off) += 1;
+    updateObjectTree(*(void **)((u8 *)gMainWorkspace + obj4Off));
 
     gfxCount = D_03000830.count + 2;
     D_03000830.count = (u16)gfxCount;
@@ -29,11 +29,11 @@ void sub_080075DC(void *arg0) {
         u16 palette = *(u16 *)0x05000000;
         u32 palSlotOff = 0x1768;
         u32 newObjOff = 0x1884;
-        *(u16 *)((u8 *)D_02025FF0 + palSlotOff) = palette;
-        *(u32 *)((u8 *)D_02025FF0 + newObjOff) = (u32)sub_08001480(0, 0x10);
+        *(u16 *)((u8 *)gMainWorkspace + palSlotOff) = palette;
+        *(u32 *)((u8 *)gMainWorkspace + newObjOff) = (u32)sub_08001480(0, 0x10);
         *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = 0;
         {
-            s32 *scriptCb = &D_08671BB0;
+            s32 *scriptCb = &gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *scriptCb);
         }
     }

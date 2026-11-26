@@ -1,7 +1,7 @@
 extern s16 D_080CF858[];
-void sub_08011368(void *, s32, s16, s32);
+void setAnimationFrame(void *, s32, s16, s32);
 void sub_080113A8(void *, s32);
-void sub_08014588(void *, void *);
+void copyPoseAttrs(void *, void *);
 void sub_080148D8(void *, s32);
 void sub_08047164(void *, void *, void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
@@ -27,7 +27,7 @@ void sub_08046248(void *self) {
     if ((*(u8 *)((u8 *)body + 0x34) & 2) != 0) {
         *(u8 *)((u8 *)*(void **)((u8 *)sprite + 4) + 1) = 0;
         frameIndex = D_080CF858[*(u8 *)((u8 *)self + 0x4C)];
-        sub_08011368(animCtrl, (void *)animState, frameIndex, 1);
+        setAnimationFrame(animCtrl, (void *)animState, frameIndex, 1);
         sub_080148D8(animCtrl, *(s32 *)((u8 *)body + 8));
         flag = *(u16 *)((u8 *)animCtrl + 2) & 0x10;
         renderMask = 0xFFFFD000;
@@ -40,7 +40,7 @@ void sub_08046248(void *self) {
             *(u16 *)((u8 *)sprite + 0) = tile;
         }
         *(u8 *)((u8 *)sprite + 2) = 0x18;
-        sub_08014588(*(void **)((u8 *)body + 0x28), (void *)0x080CF5B0);
+        copyPoseAttrs(*(void **)((u8 *)body + 0x28), (void *)0x080CF5B0);
         *(u8 *)((u8 *)self + (*(s16 *)((u8 *)self + 0x22)) * 2 + 0x19) = zero;
         {
             s32 *lit = (s32 *)0x08671BD0;

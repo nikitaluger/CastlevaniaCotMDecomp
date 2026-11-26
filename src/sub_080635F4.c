@@ -15,8 +15,8 @@ extern void sub_080C31E8(u8 *, u8 *, s32, s32);
 extern s32 sub_0806AB04(u8 *, u8 *, u8 *, u8 *);
 extern u16 sub_0806BCD8(u8 *, u8 *, u8 *, u8 *);
 struct GameState { u8 unk0[0x10]; u32 mode; };
-extern struct GameState D_02025FF0;
-extern u8 D_02025368[];
+extern struct GameState gMainWorkspace;
+extern u8 gGameStatus[];
 struct ScriptedObject
 {
   u8 unk0[0x22];
@@ -51,7 +51,7 @@ void sub_080635F4(struct ScriptedObject *arg0)
   work = ((u8 *) data) + 4;
   target = arg0->target;
   workState = work;
-  gameFlags = D_02025368;
+  gameFlags = gGameStatus;
   if (sub_0806C4B4(work, workState) != 0)
   {
     goto end;
@@ -67,7 +67,7 @@ void sub_080635F4(struct ScriptedObject *arg0)
   if (sub_0806BA98((u8 *) arg0, target, workState, workState) != 0) goto mid;
   if ((sub_0806B104(target, workState, workState) == 0) || ((*((u32 *) (workState + 0x68))) != 0))
   {
-    if (((*((s32 *) (workState + 0x60))) > 0x1F) && (D_02025FF0.mode != 1))
+    if (((*((s32 *) (workState + 0x60))) > 0x1F) && (gMainWorkspace.mode != 1))
     {
       sub_0806A7AC(target, workState, 9);
       sub_0806E114((u8 *) arg0, 4, data->gfxId, *((u32 *) (workState + 4)));

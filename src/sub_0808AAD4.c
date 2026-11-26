@@ -2,7 +2,7 @@ extern s32 sub_08003740(void *, void *);
 extern void sub_08003A6C(void *, s32, void *);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0_AAD4 { u8 _0[0x1C]; u32 v1C; u8 _1[0x14D8-0x20]; u16 v14D8; u16 v14DA; };
-extern struct S_02025FF0_AAD4 D_02025FF0;
+extern struct S_02025FF0_AAD4 gMainWorkspace;
 
 /* Runs the entity's current script step; when it finishes, installs the next
  * script, sets up the game-state parameters for it, then advances the step
@@ -17,10 +17,10 @@ void sub_0808AAD4(void *arg0) {
     if (sub_08003740(script, sprite) == 0) {
         sub_08003A6C(script, 0, (void *)0x0850D684);
         sub_08003740(script, sprite);
-        D_02025FF0.v1C = 0x40;
+        gMainWorkspace.v1C = 0x40;
         zero = 0;
-        D_02025FF0.v14D8 = 0xFFFA;
-        D_02025FF0.v14DA = 0x14;
+        gMainWorkspace.v14D8 = 0xFFFA;
+        gMainWorkspace.v14DA = 0x14;
         *((u8 *)((self + ((*((s16 *)(self + 0x22))) * 2)) + 0x19)) = zero;
         handlerTable = &(*((s32 *)0x08671BB0));
         sub_080C31E4(self + 0x18, self + 0x22, *handlerTable);

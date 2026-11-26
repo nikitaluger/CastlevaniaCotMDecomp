@@ -3,8 +3,8 @@ s32 sub_08013B5C(void *, void *);
 void sub_080113A8(void *, void *);
 void sub_0801165C(void *, s32);
 void sub_080C31E0(void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Contact flags hung off the actor at +0x28. */
 struct ScriptContact { u8 unused; u8 flag; };
@@ -51,8 +51,8 @@ void sub_08054AF8(void *arg0)
         sub_0801165C(actor, 0);
     }
     {
-        u8 *scrollBase = D_02021E90;
-        u8 *sceneBase = D_02025FF0;
+        u8 *scrollBase = gCameraState;
+        u8 *sceneBase = gMainWorkspace;
         u32 scrollIdx;
         u8 *baseX;
         u8 *baseY;

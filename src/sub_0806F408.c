@@ -1,5 +1,5 @@
 struct S_02025368 { u8 _pad1[0x8C]; s16 arr8C[1]; u8 _pad2[0x2DE - 0x8E]; u16 field2DE; };
-extern struct S_02025368 D_02025368;
+extern struct S_02025368 gGameStatus;
 struct Obj { u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; void *f10; u8 _pad14[2]; u16 f16; u16 f18; };
 struct Outer { u8 _pad[0x3C]; struct Obj *obj; };
 u16 sub_0806D62C(u16, s32);
@@ -18,7 +18,7 @@ void sub_0806F408(void *arg0) {
 
     gfxData = (struct Outer *)((u8 *)*(void **)((u8 *)arg0 + 0x6C) + 4);
     sprite = *(void **)((u8 *)arg0 + 0x38);
-    params = &D_02025368;
+    params = &gGameStatus;
     gfxData->obj->f1 = 0;
     gfxData->obj->f2 = 2;
     gfxData->obj->f3 = 8;

@@ -1,10 +1,10 @@
-extern void sub_080114DC(void *, void *, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_080148D8(void *, void *);
 extern void *sub_0805FAEC(void *, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 D_081021F4[];
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* Initialises a complex entity: sets up its animation and graphics, spawns a
  * set of child sub-objects, copies table data into them, then dispatches the
@@ -42,7 +42,7 @@ void sub_080ABBBC(u8 *self) {
         typeVal = 2;
         *stateByte = typeVal;
     }
-    sub_080114DC(gfxObj, animData, 0x35, 0);
+    setObjectAnimation(gfxObj, animData, 0x35, 0);
     *(u8 *)(anim + 0x95) = zero;
     *(u32 *)(anim + 0x0C) = 0x700000;
     *(u32 *)(anim + 0x14) = zero;
@@ -97,7 +97,7 @@ void sub_080ABBBC(u8 *self) {
     *(u32 *)(*(u8 *volatile *)(extra + 0x58) + 0x7C) = 0;
     stateIdx = *(s16 *)(self + 0x22);
     *(u8 *)(self + stateIdx * 2 + 0x19) = 0;
-    animFn = D_08671BB0;
+    animFn = gMainObjTimerCallback;
     slots = self + 0x18;
     sub_080C31E4(slots, self + 0x22, *animFn);
     stateIdx = *(s16 *)(self + 0x22);

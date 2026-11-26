@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern void sub_080149A4(void *, void *, void *, s32, s32);
 
@@ -13,7 +13,7 @@ void sub_0803E994(void *self) {
     void *enemy = *(void **)((u8 *)self + 0x3C);
     void *enemyData = (u8 *)enemy + 0x34;
     void *enemyState = (u8 *)enemy + 0x48;
-    sub_08011368(actor, enemyData, 2, 1);
+    setAnimationFrame(actor, enemyData, 2, 1);
     if (*(u16 *)((u8 *)enemy + 2) & 1) {
         *(u16 *)enemyState = *(u16 *)enemyState + 0x64;
         *(u16 *)((u8 *)actor + 2) ^= 0x10;

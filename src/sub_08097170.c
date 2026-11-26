@@ -8,8 +8,8 @@ struct S_02025FF0_18A8
     u8 _0[0x18A8];
     u8 camIndex;
 };
-extern struct S_02025FF0_18A8 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct S_02025FF0_18A8 gMainWorkspace;
+extern u8 gCameraState[];
 void sub_08097170(void *entity)
 {
     void *view;
@@ -34,14 +34,14 @@ void sub_08097170(void *entity)
     }
     sub_080113A8(view, motionData);
     {
-        u8 *scrollTable = D_02021E90;
-        u32 camOffset = (D_02025FF0.camIndex + 1) * 0x40;
+        u8 *scrollTable = gCameraState;
+        u32 camOffset = (gMainWorkspace.camIndex + 1) * 0x40;
         u8 *xScroll = scrollTable + 0x1278;
         *(s32 *)((u8 *)view + 0x14) = (*(s32 *)((u8 *)body + 0x0C)) - ((*(s32 *)(xScroll + camOffset) + 0x8000) & 0xFFFF0000);
     }
     {
-        u8 *scrollTable = D_02021E90;
-        u32 camOffset = (D_02025FF0.camIndex + 1) * 0x40;
+        u8 *scrollTable = gCameraState;
+        u32 camOffset = (gMainWorkspace.camIndex + 1) * 0x40;
         u8 *yScroll = scrollTable + 0x127C;
         *(s32 *)((u8 *)view + 0x18) = (*(s32 *)((u8 *)body + 0x10)) - ((*(s32 *)(yScroll + camOffset) + 0xFFFF8000) & 0xFFFF0000);
     }

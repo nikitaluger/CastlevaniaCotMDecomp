@@ -1,4 +1,4 @@
-extern s32 sub_08001738(void *);
+extern s32 updateObjectTree(void *);
 extern s32 sub_080C31E0(s32, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
 void sub_08007470(u8 *arg0)
@@ -13,13 +13,13 @@ void sub_08007470(u8 *arg0)
   void *t;
   r6 = arg0;
   r4 = (u8 *) 0x02025FF0;
-  sub_08001738(*((void **) (r4 + 0x1854)));
+  updateObjectTree(*((void **) (r4 + 0x1854)));
   r7 = r4 + 0x1860;
-  sub_08001738(*((void **) r7));
+  updateObjectTree(*((void **) r7));
   r5 = r4 + 0x1894;
   *((u32 *) r5) += 1;
   r8 = r4 + 0x1888;
-  sub_08001738(*((void **) r8));
+  updateObjectTree(*((void **) r8));
   if ((*((s32 *) (r4 + 0x14C0))) >= 0)
   {
     struct 
@@ -36,11 +36,11 @@ void sub_08007470(u8 *arg0)
   r2 = r4 + 0x14B8;
   r0 = r4 + 0x14B4;
   *((u32 *) r2) = ((*((u32 *) r0)) & 0x0F) | 0x80;
-  sub_08001738(*((void **) (r4 + 0x184C)));
-  sub_08001738(*((void **) (r4 + 0x185C)));
-  sub_08001738(*((void **) r7));
+  updateObjectTree(*((void **) (r4 + 0x184C)));
+  updateObjectTree(*((void **) (r4 + 0x185C)));
+  updateObjectTree(*((void **) r7));
   *((u32 *) r5) += 1;
-  sub_08001738(*((void **) (r4 + 0x1864)));
+  updateObjectTree(*((void **) (r4 + 0x1864)));
   t = *((void **) (r4 + 0x1858));
   sub_080C31E0((s32) t, *((s32 *) (((u8 *) t) + 0x24)));
   t = *((void **) (r4 + 0x1868));

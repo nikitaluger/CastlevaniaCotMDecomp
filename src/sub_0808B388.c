@@ -2,7 +2,7 @@ struct DemoState { u8 pad[0xC]; u8 flags; };   /* +0xC: bit 7 = recording, low n
 extern struct DemoState D_02025358;
 
 struct InputState { u8 pad[0x10]; s32 scriptedInput; u8 pad2[0x10]; s32 useDemoInput; };
-extern struct InputState D_02025FF0;
+extern struct InputState gMainWorkspace;
 
 extern u32 sub_0808B3EC(u8 *recording);
 extern u32 sub_0808B470(u8 *playback);
@@ -21,11 +21,11 @@ void sub_0808B388(u8 *arg0) {
             sub_0808B470(inputState);
         }
     }
-    if ((D_02025FF0.scriptedInput != 0) || (((demo->flags & 0x80) == 0) && (demo->flags != 0))) {
+    if ((gMainWorkspace.scriptedInput != 0) || (((demo->flags & 0x80) == 0) && (demo->flags != 0))) {
         useDemo = 1;
     } else {
         useDemo = 0;
     }
-    D_02025FF0.useDemoInput = useDemo;
+    gMainWorkspace.useDemoInput = useDemo;
     sub_0808B5D8();
 }

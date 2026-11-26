@@ -1,13 +1,13 @@
 extern void sub_08098664(s32, s32, s32);
 extern void sub_080B3148(void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 struct S_02025FF0_b11c4
 {
   u8 _0[0x1750];
   s32 playerY;
 };
-extern struct S_02025FF0_b11c4 D_02025FF0;
+extern struct S_02025FF0_b11c4 gMainWorkspace;
 
 /* AI script step: at flag 0xF request state 2 on the target object; at flag 0x1E
  * spawn effect 0x1BB, stop motion, aim the heading toward the player's side, then
@@ -31,7 +31,7 @@ void sub_080B11C4(void *entity)
     *((s32 *) (work + 0x10)) = 0;
     yThreshold = *((s32 *) (work + 0x0C));
     yThreshold = yThreshold + 0x2C0000;
-    if (D_02025FF0.playerY > ((*((s32 *) (work + 0x0C))) + 0x2C0000))
+    if (gMainWorkspace.playerY > ((*((s32 *) (work + 0x0C))) + 0x2C0000))
     {
       *((s32 *) (work + 0x14)) = 0x8000;
     }
@@ -41,7 +41,7 @@ void sub_080B11C4(void *entity)
     }
     *((s8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = 0;
     {
-      void **scriptTable = &D_08671BB0;
+      void **scriptTable = &gMainObjTimerCallback;
       sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);
     }
   }

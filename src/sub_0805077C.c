@@ -1,11 +1,11 @@
 extern void *sub_0805FAEC(s32, s32);
 struct S_02025FF0 { u8 pad[0x1870]; u32 v; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Spawn a type-0x142 entity at fixed-point position (x, y) and store arg2 in
  * its field 0x5C. Returns the new entity, or NULL if allocation failed. */
 void *sub_0805077C(s32 x, s32 y, u16 arg2) {
-    void *entity = sub_0805FAEC(D_02025FF0.v, 0x142);
+    void *entity = sub_0805FAEC(gMainWorkspace.v, 0x142);
     s32 fixedX, fixedY, tileX, tileY;
     if (entity == NULL)
         return NULL;

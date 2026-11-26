@@ -27,6 +27,7 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
   s32 delta;
   int new_var;
   s32 tmp;
+  u8 *temp;
   if (arg1->flag2C[i] == 0)
   {
     goto other;
@@ -36,7 +37,8 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
   {
     goto other;
   }
-  x2 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
+  temp = (u8 *) arg1 + j * 4;
+  x2 = (*(struct E **)(temp + 4))->f5C;
   if (x2 < (-0x1000))
   {
     goto other;
@@ -52,19 +54,20 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
   {
     if (arg1->vel[i] < 0)
     {
-      tmp = (-0x1000) - x1;
-      if (tmp < 0)
+      s32 tmp_a1;
+      tmp_a1 = (-0x1000) - x1;
+      if (tmp_a1 < 0)
       {
-        tmp = x1 + (0x80 << 5);
+        tmp_a1 = x1 + (0x80 << 5);
       }
       x2 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C + (0x80 << 5);
       if (x2 >= 0)
       {
-        delta = (tmp + (0x80 << 5)) + (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
+        delta = (tmp_a1 + (0x80 << 5)) + (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
       }
       else
       {
-        delta = (tmp - 0x1000) - (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
+        delta = (tmp_a1 - 0x1000) - (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
       }
       goto check;
     }
@@ -141,7 +144,15 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
     }
   }
   x1 = arg1->ptrs[i]->f7C;
-  if (x1 > 0x2FFF)
+  do { if (x1 <= 0x2FFF)
+  {
+    arg1->ptrs[i]->f7C = x1 + new_var;
+    if (arg1->ptrs[i]->f7C > (0xC0 << 6))
+    {
+      arg1->ptrs[i]->f7C = 0xC0 << 6;
+    }
+  }
+  else
   {
     if (x1 > (0xC0 << 6))
     {
@@ -151,13 +162,5 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
         arg1->ptrs[i]->f7C = 0xC0 << 6;
       }
     }
-  }
-  else
-  {
-    arg1->ptrs[i]->f7C = x1 + new_var;
-    if (arg1->ptrs[i]->f7C > (0xC0 << 6))
-    {
-      arg1->ptrs[i]->f7C = 0xC0 << 6;
-    }
-  }
+  } } while (0);
 }

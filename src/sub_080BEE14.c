@@ -16,7 +16,7 @@ struct SceneState {
     u8 _pad2[0x1458 - 0x136A];
     u8 displayValue;        /* 0x1458 */
 };
-extern struct SceneState D_02021E90;
+extern struct SceneState gCameraState;
 
 /* Gfx/effect state block: +4 highlight color, +8 frame counter. */
 struct GfxState { u8 _0x000[4]; u16 color; u8 _pad[2]; u16 frame; };
@@ -37,27 +37,27 @@ void sub_080BAF88(void *arg0) {
 }
 
 void sub_080BEDBC(void) {
-    D_02021E90.transitionStep = 3;
-    D_02021E90.savedColor = D_03000830.color;
-    D_02021E90.savedFrame = D_03000830.frame;
-    D_02021E90.savedValue = D_02021E90.displayValue;
-    D_02021E90.savedArg = 0x50;
+    gCameraState.transitionStep = 3;
+    gCameraState.savedColor = D_03000830.color;
+    gCameraState.savedFrame = D_03000830.frame;
+    gCameraState.savedValue = gCameraState.displayValue;
+    gCameraState.savedArg = 0x50;
     *(vu8 *)0x04000005 = 0xE3;
 }
 
 /* Start transition step 3 with argument 0x48: snapshot the effect color and
  * frame counter, latch the display value, and restore the control byte. */
 void sub_080BEE14(void) {
-    D_02021E90.transitionStep = 3;
-    D_02021E90.savedColor = D_03000830.color;
-    D_02021E90.savedFrame = D_03000830.frame;
-    D_02021E90.savedValue = D_02021E90.displayValue;
-    D_02021E90.savedArg = 0x48;
+    gCameraState.transitionStep = 3;
+    gCameraState.savedColor = D_03000830.color;
+    gCameraState.savedFrame = D_03000830.frame;
+    gCameraState.savedValue = gCameraState.displayValue;
+    gCameraState.savedArg = 0x48;
     *(vu8 *)0x04000005 = 0xE3;
 }
 
 void sub_080BEF60(void) {
-    u8 *base = (u8 *)&D_02021E90;
+    u8 *base = (u8 *)&gCameraState;
     u32 r2;
     base[0x1361] = 7;
     r2 = base[0x1364];

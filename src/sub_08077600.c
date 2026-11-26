@@ -15,7 +15,7 @@ struct S_02025FF0 {
     u8 pad1[0x18C2 - 0x173A - 1];
     u16 spriteFlags;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /*
  * Script step for a moving sprite: if no special motion override applies, then
@@ -32,7 +32,7 @@ void sub_08077600(void *self) {
     pos = (u8 *)mover + 4;
     sprite = *(void **)((u8 *)self + 0x38);
     if (ApplySpecialMotion(self, sprite, pos) == 0) {
-        state = &D_02025FF0;
+        state = &gMainWorkspace;
         if ((u8)(state->roomState - 0xD) > 1) {
             SwitchState(self, *(void **)((u8 *)self + 0x24));
         } else {

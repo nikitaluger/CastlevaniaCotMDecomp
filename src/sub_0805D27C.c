@@ -1,7 +1,7 @@
 extern s32 sub_080C31E0(s32, s32);
 
 struct S_02025FF0 { u8 _pad[0x189C]; u32 field189C; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Effect update: in one mode, drive the state object's X from a phase counter
  * and a table function; then count down a timer, dispatch this entity's
@@ -36,7 +36,7 @@ void sub_0805D27C(void *self) {
             sub_080C31E0((s32)self, *(s32 *)((u8 *)self + 0x24));
             return;
         }
-        if (timerLeft <= 0x77 && (D_02025FF0.field189C & 1)) {
+        if (timerLeft <= 0x77 && (gMainWorkspace.field189C & 1)) {
             *(u8 *)((u8 *)handle + 0x2A) &= 0xBF;
         }
     }

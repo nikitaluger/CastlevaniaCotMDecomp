@@ -7,7 +7,7 @@ struct GameState {
     u8 _2[0x1824];
     u32 flags;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 void sub_080C31E4(void *, void *, s32); /* _call_via_r2 */
 void sub_08003A6C(void *, s32, s32); /* initialize a sub-script runner */
@@ -19,7 +19,7 @@ void sub_08003740(void *, void *); /* step a sub-script runner */
 void sub_08088010(void *arg0) {
     void *work = *(void **)((u8 *)arg0 + 0x6C);
     void *sprite = *(void **)((u8 *)arg0 + 0x38);
-    if (D_02025FF0.state == 0x11) {
+    if (gMainWorkspace.state == 0x11) {
         void *runner = (u8 *)work + 0x20;
         sub_08003A6C(runner, 0, 0x085063F8);
         sub_08003740(runner, sprite);

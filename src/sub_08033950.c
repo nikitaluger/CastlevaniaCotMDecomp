@@ -1,4 +1,4 @@
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 
 /* Copy a four-halfword attribute record from the table at 0x080CEC8C into the
  * object held at arg1+0x28. The record is chosen from the id at arg0+0x28:
@@ -22,5 +22,5 @@ void sub_08033950(void *arg0, void *arg1) {
         }
     }
     dest = *(u32 *)((u8 *)arg1 + 0x28);
-    sub_08014588((void *)dest, (void *)(0x080CEC8C + recordIndex * 8));
+    copyPoseAttrs((void *)dest, (void *)(0x080CEC8C + recordIndex * 8));
 }

@@ -8,7 +8,7 @@ struct S_02025FF0 {
     u8 _1[0x1844 - 0x14E2];
     u32 flags;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 void sub_080C31E4(void *, void *, s32);
 
 /* Reset the affine screen effect (scroll 0, scale 1) and this object's
@@ -21,14 +21,14 @@ void sub_0808CC80(void *arg0)
 
     work = *(void **)((s8 *)arg0 + 0x6C);
     pos = (s8 *)work + 4;
-    D_02025FF0.scrollX = 0;
-    D_02025FF0.scaleX = 0x100;
-    D_02025FF0.scaleY = 0x100;
-    D_02025FF0.unk14E0 = 1;
+    gMainWorkspace.scrollX = 0;
+    gMainWorkspace.scaleX = 0x100;
+    gMainWorkspace.scaleY = 0x100;
+    gMainWorkspace.unk14E0 = 1;
     *(u16 *)((s8 *)pos + 2) = 0;
     *(u16 *)((s8 *)pos + 4) = 0;
     *(u16 *)((s8 *)work + 4) = 0;
-    D_02025FF0.flags |= 0x10000000;
+    gMainWorkspace.flags |= 0x10000000;
     *(s8 *)(((s8 *)(((*(s16 *)((s8 *)arg0 + 0x22)) * 2) + arg0)) + 0x19) = 0;
     litp = (s32 *)0x08671BB0;
     sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, *litp);

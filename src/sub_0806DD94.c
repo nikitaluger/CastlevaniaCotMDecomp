@@ -1,12 +1,12 @@
 extern s32 sub_080C364C(s32, s32);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_080E0558[];
 
 /* Screen-transition start: when the transition request flag (+0x14ED) is set,
  * clear it together with the two counters, enable the transition, compute the
  * step 0x100 / (size word at D_080E0558+0x5C) and store it at +0x1840. */
 void sub_0806DD94(void) {
-    u8 *state = D_02025FF0;
+    u8 *state = gMainWorkspace;
     u32 zero;
     if (*(u8*)(state + 0x14ED)) {
         zero = 0;

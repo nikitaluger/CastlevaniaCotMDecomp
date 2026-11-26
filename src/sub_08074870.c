@@ -4,7 +4,7 @@ extern s32 sub_0806D518(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_08003740(void *, void *);
 extern void sub_080C31E0(void *, s32);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 void sub_08074870(u8 *self) {
     u8 *actor = *(u8 **)(self + 0x6C);
@@ -19,7 +19,7 @@ void sub_08074870(u8 *self) {
         if (*(s16 *)(sprite + 4) > 0x3FF) {
             sub_080C31E0(self, *(s32 *)(self + 0x24));
         } else {
-            u8 *state = D_02025FF0;
+            u8 *state = gMainWorkspace;
             if ((state[0x173A] == 0x1C) ||
                 ((state[0x14ED] == 0) && (*(u32 *)(state + 0x10) != 0))) {
                 sub_080C31E0(self, *(s32 *)(self + 0x24));

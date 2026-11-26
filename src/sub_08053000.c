@@ -1,5 +1,5 @@
 s32 sub_08005820(s32 bound);
-s32 sub_08011368(s32 sprite, void *animData, s32 anim, s32 flag);
+s32 setAnimationFrame(s32 sprite, void *animData, s32 anim, s32 flag);
 s32 sub_08014990(void *sprite);
 s32 sub_08053678(s32 x, s32 y);
 
@@ -20,7 +20,7 @@ void sub_08053000(void *arg0) {
     work = *(u8 **)((u8 *)arg0 + 0x3C);
     animData = work + 0x34;
     timer = work + 0x48;
-    sub_08011368(sprite, animData, 0, 1);
+    setAnimationFrame(sprite, animData, 0, 1);
     remaining = *(u16 *)timer;
     remaining = remaining - 1;
     *(u16 *)timer = (u16)remaining;

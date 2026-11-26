@@ -3,7 +3,7 @@ struct S_02025FF0
   u8 _0x000[0x1C];
   s32 field1C;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 void sub_08003740(void *, void *);
 void sub_0806D588(void *, void *);
 void sub_0806E114(void *, s32, s32, s32);
@@ -33,7 +33,7 @@ void sub_08088814(void *self)
   if (newY > 0x7FFFFF)
   {
     sub_0806E114(self, 0x20000004, *((s32 *) (((s8 *) motion) + 4)), newY);
-    D_02025FF0.field1C = 2;
+    gMainWorkspace.field1C = 2;
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) self) + 0x22))) * 2) + self)) + 0x19)) = 0;
     handlerTable = (s32 *)0x08671BB0;
     sub_080C31E4(((s8 *) self) + 0x18, ((s8 *) self) + 0x22, *handlerTable);

@@ -32,6 +32,9 @@ struct S61340
 };
 void sub_08061340(void *arg0)
 {
+    u8 *__base_D_080D9AA0;
+    u8 *__base_D_080D9AC0;
+    s32 __index_D_080D9AC0;
   struct S61340 s;
   int new_var9;
   u8 new_var8;
@@ -41,7 +44,7 @@ void sub_08061340(void *arg0)
   u32 d;
   u8 *p;
   u8 new_var5;
-  u8 t;
+  s32 t;
   int new_var3;
   int new_var10;
   u8 t2;
@@ -53,6 +56,9 @@ void sub_08061340(void *arg0)
   int new_var6;
   struct S61340 *new_var2;
   u32 new_var4;
+  u32 temp;
+
+    __base_D_080D9AC0 = 0;
   s.f0C = (u32) arg0;
   s.f1C = 0;
   s.f10 = 0;
@@ -64,8 +70,7 @@ void sub_08061340(void *arg0)
   s.f4C = s.f0C + 0x22;
   s.f10 = (s.f14 = 0);
   new_var10 = 0xF;
-  do
-  {
+  __repair_rows: {
     s.f14 = 0;
     p = (u8 *) (s.f40 + (0x2B * s.f10));
     do
@@ -77,7 +82,7 @@ void sub_08061340(void *arg0)
     while (s.f14 <= 0x2A);
     s.f10++;
   }
-  while (s.f10 <= 0x40);
+if (s.f10 <= 0x40) goto __repair_rows;
   new_var9 = 0x06008000;
   s.f2C = new_var9;
   do
@@ -89,7 +94,8 @@ void sub_08061340(void *arg0)
     do
     {
       s.f20 = 0;
-      s.f38 = s.f18 + 1;
+      temp = s.f18 + 1;
+      s.f38 = temp;
       v = s.f20;
       s.f50 = new_var + 0x20;
       s.f30 = s.f18 * 2;
@@ -101,17 +107,18 @@ void sub_08061340(void *arg0)
         b = s.f14 + (s.f20 >> 1);
         t = *((u8 *) ((s.f40 + b) + a));
         s.f20 = *((u8 *) (((s.f40 + b) + a) + new_var3));
-        new_var5 = D_080D9AC0[0];
+        new_var9 = (u8)(D_080D9AC0[0]);
         v = *((u8 *) (((s.f40 + b) + a) + 1));
-        new_var8 = *(new_var7 = (u8 *) (((s.f40 + b) + a) + 0x2C));
-        s.f28 = new_var8;
+        __index_D_080D9AC0 = (u8)(*(new_var7 = (u8 *) (((s.f40 + b) + a) + 0x2C)));
+        s.f28 = __index_D_080D9AC0;
         c = s.f34 + (*((u32 *) (D_080D9AB0 + s.f24)));
         switch (t)
         {
           case 1:
-            t7 = *((u8 *) (D_080DABDC + c));
-            t7 >>= 4;
-            t5 = *((u8 *) (D_080D9AC0 + (t7 * 4)));
+            t7 = (*((u8 *) (D_080DABDC + c))) >> 4;
+            __index_D_080D9AC0 = t7 * 4;
+            __base_D_080D9AC0 = D_080D9AC0;
+            t5 = *((u8 *) (__base_D_080D9AC0 + __index_D_080D9AC0));
             break;
 
           case 2:
@@ -120,13 +127,14 @@ void sub_08061340(void *arg0)
             break;
 
           default:
-            t5 = new_var5;
+            t5 = new_var9;
             break;
 
         }
 
         t5 = (t5 | (t5 << 4)) & 0xFF;
-        d = *((u32 *) (D_080D9AA0 + s.f24));
+        __base_D_080D9AA0 = D_080D9AA0;
+        d = *((u32 *) (__base_D_080D9AA0 + s.f24));
         *((u8 *) (&s.buf[d])) = t5;
         *((u8 *) (&s.buf[d + 1])) = t5;
         *((u8 *) (&s.buf[d + 4])) = t5;
@@ -137,10 +145,9 @@ void sub_08061340(void *arg0)
         *((u8 *) (&s.buf[d + 0xD])) = t5;
         t7 = ((*((u8 *) (D_080D9B3C - (-c)))) >> 2) & 3;
         new_var2 = &s;
-        new_var6 = t == 2;
         if (t7 != 0)
         {
-          if ((s.f20 == 2) || new_var6)
+          if ((s.f20 == 2) || (t == 2))
           {
             v = 0x10;
           }
@@ -152,13 +159,13 @@ void sub_08061340(void *arg0)
           *((u8 *) (&s.buf[d + 9])) = ((*((u8 *) (&s.buf[d + 9]))) & new_var10) | v;
           *((u8 *) (&s.buf[d + 0xD])) = ((*((u8 *) (&s.buf[d + 0xD]))) & new_var10) | v;
           t2 = ((t + 1) < ((*new_var2).f20 + 1)) ? ((u8) s.f20) : (t);
-          if (t2 == 1)
+          if (t2 != 1)
           {
-            s.f1C = 7;
+            s.f1C = (t2 == 2) ? (3) : (2);
           }
           else
           {
-            s.f1C = (t2 == 2) ? (3) : (2);
+            s.f1C = 7;
           }
           if (t7 == 3)
           {

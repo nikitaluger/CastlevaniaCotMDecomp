@@ -2,11 +2,11 @@ extern void sub_08003A6C(void *, s32, const void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_0808449C(void);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern const void D_084D425C;
 extern const void D_084D4434;
 extern const void D_084D4478;
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 /*
  * Initialises an entity's animation state and callback, copies the global
@@ -34,14 +34,14 @@ void sub_08077534(void *arg0)
     *((u32 *) (obj + 0x18)) = *((u32 *) (((u8 *) arg0) + 0x24));
     *((void **) (((u8 *) arg0) + 0x24)) = sub_0808449C;
 
-    globalState = (u32 *)D_02025FF0;
+    globalState = (u32 *)gMainWorkspace;
     posIndex = 0x1728 / 4;
     *((u32 *)(subObj + 4)) = globalState[posIndex];
     posIndex += 1;
     *((u32 *)(obj + 4)) = globalState[posIndex];
 
     *((const void **) (ctx + 0x24)) = &D_084D425C;
-    switch (*((u8 *) (D_02025FF0 + 0x173A)))
+    switch (*((u8 *) (gMainWorkspace + 0x173A)))
     {
         case 0x0D:
             sub_08003A6C(subObj + 0x20, 0, &D_084D4434);
@@ -54,7 +54,7 @@ void sub_08077534(void *arg0)
     index = *((s16 *) (((u8 *) arg0) + 0x22));
     ((u8 *) arg0)[(index * 2) + 0x19] = 0;
     {
-        void **effectIds = &D_08671BB0;
+        void **effectIds = &gMainObjTimerCallback;
         paramPtr = ((u8 *) arg0) + 0x18;
         sub_080C31E4(paramPtr, ((u8 *) arg0) + 0x22, *effectIds);
     }

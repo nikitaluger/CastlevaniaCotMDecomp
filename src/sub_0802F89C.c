@@ -1,11 +1,11 @@
 extern s32 sub_08014990(void *);
 extern void sub_0808DBB4(s32, s32, s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *sub_0805FAEC(s32, s32);
 
 struct S_02025FF0_1874 { u8 _p[0x1874]; u32 v; };
-extern struct S_02025FF0_1874 D_02025FF0;
+extern struct S_02025FF0_1874 gMainWorkspace;
 
 /* Spawn effect sprite 8 at this actor's position plus a facing-adjusted (x, y)
  * offset taken from the per-kind offset table at 0x080CEB78. */
@@ -36,7 +36,7 @@ void sub_08030E88(void *arg0) {
     s32 zero = 0;
     *(s32*)(work + 0x14) = zero;
     *(s32*)(work + 0x10) = zero;
-    sub_08011368(sprite, anim, 5, 0);
+    setAnimationFrame(sprite, anim, 5, 0);
     if (*(u8*)anim & 2) {
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = 0;
         sub_080C31E8(self + 0x18, self + 0x22, 0, *(s32*)0x08671BD0);
@@ -49,7 +49,7 @@ void *sub_0802F89C(s32 arg0, s32 arg1) {
     void *entity;
     s32 fixedX, fixedY;
     s32 tileX, tileY;
-    entity = sub_0805FAEC(D_02025FF0.v, 0xD4);
+    entity = sub_0805FAEC(gMainWorkspace.v, 0xD4);
     if (entity == 0) return 0;
     fixedX = arg0;
     if (fixedX < 0) fixedX += 0xFFFF;

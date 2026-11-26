@@ -1,8 +1,8 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(u8 *, s32, s32, s32);
-extern s32 sub_0801131C(u8 *, u8 *, s32);
-extern void sub_08011368(u8 *, u8 *, s16, s32);
-extern void *sub_08016190(void);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(u8 *, s32, s32, s32);
+extern s32 initSpriteGraphics(u8 *, u8 *, s32);
+extern void setAnimationFrame(u8 *, u8 *, s16, s32);
+extern void *allocEffectPart(void);
 extern void sub_0805D90C(void);
 extern void sub_080C31E0(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
@@ -50,9 +50,9 @@ struct MainObj {
     u16 kind;
 };
 struct GameState { u8 _0[0x18A8]; u8 scrollIndex; u8 _18A9[0x19]; u16 flags; };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 struct ScrollTable { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
-extern struct ScrollTable D_02021E90;
+extern struct ScrollTable gCameraState;
 extern s16 D_080D002C[];
 
 /* Spawn a graphics effect from a main object's parameter block at +0x4C: allocate
@@ -73,11 +73,11 @@ void sub_0805CF08(struct MainObj *mainObj)
     s32 *audioCmd;
 
     params = ((u8 *)mainObj) + 0x4C;
-    effect = sub_0800355C();
+    effect = allocSpriteObject();
     owner = NULL;
     gfx = NULL;
     anim = NULL;
-    if (((effect == NULL) || ((mainObj->object = effect, sub_0800168C((u8 *)mainObj, 0, 0x54, 0), owner = mainObj->effect, owner == NULL))) || ((anim = ((u8 *)owner) + 0x34, owner->updateCb = *((u32 *)(((u8 *)mainObj) + 0x24)), *((u32 *)(((u8 *)mainObj) + 0x24)) = (u32)sub_0805D90C, owner->f18 = 1, owner->worldX = mainObj->worldX, owner->worldY = *((s32 *)(params + 4)), sub_0801131C(effect, anim, (s32)0x080D0020), sub_08011368(effect, anim, D_080D002C[(*((u16 *)(params + 8))) & 0xF], 1), gfx = sub_08016190(), owner->gfx = (struct EffectGfx *)gfx, gfx == NULL)))
+    if (((effect == NULL) || ((mainObj->object = effect, allocWorkSlot((u8 *)mainObj, 0, 0x54, 0), owner = mainObj->effect, owner == NULL))) || ((anim = ((u8 *)owner) + 0x34, owner->updateCb = *((u32 *)(((u8 *)mainObj) + 0x24)), *((u32 *)(((u8 *)mainObj) + 0x24)) = (u32)sub_0805D90C, owner->f18 = 1, owner->worldX = mainObj->worldX, owner->worldY = *((s32 *)(params + 4)), initSpriteGraphics(effect, anim, (s32)0x080D0020), setAnimationFrame(effect, anim, D_080D002C[(*((u16 *)(params + 8))) & 0xF], 1), gfx = allocEffectPart(), owner->gfx = (struct EffectGfx *)gfx, gfx == NULL)))
     {
         sub_080C31E0((u8 *)mainObj, *((s32 *)(((u8 *)mainObj) + 0x24)));
         return;
@@ -95,10 +95,10 @@ void sub_0805CF08(struct MainObj *mainObj)
     two = 2;
     owner->gfx->object = (u32)effect;
     owner->gfx->tail = zero;
-    *((u16 *)effect) |= D_02025FF0.flags;
+    *((u16 *)effect) |= gMainWorkspace.flags;
     *((u32 *)(effect + 0x1C)) = 0x80000007;
-    gameState = (u8 *)(&D_02025FF0);
-    scrollTable = (u8 *)(&D_02021E90);
+    gameState = (u8 *)(&gMainWorkspace);
+    scrollTable = (u8 *)(&gCameraState);
     {
         u32 k = 0x1278;
         *((u32 *)(effect + 0x14)) = owner->worldX - (((*((u32 *)((scrollTable + k) + (((*((u8 *)(gameState + 0x18A8))) + 1) << 6)))) + 0x8000) & 0xFFFF0000);

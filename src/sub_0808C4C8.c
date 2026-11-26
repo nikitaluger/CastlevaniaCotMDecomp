@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 pad[0x14AC]; s32 state14AC; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 s32 sub_08003740(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -12,7 +12,7 @@ void sub_0808C4C8(void *arg0) {
     s32 *stepTable;
     s32 timerDone = sub_08003740((u8 *)mover + 0x20, sprite);
     if (timerDone == 0) {
-        D_02025FF0.state14AC = 3;
+        gMainWorkspace.state14AC = 3;
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = (u8)timerDone;
         stepTable = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *stepTable);

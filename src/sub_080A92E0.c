@@ -3,8 +3,8 @@ struct SceneFlags
   u8 _0[0x18C2];
   u16 f18C2;
 };
-extern struct SceneFlags D_02025FF0;
-extern u32 D_08671BB0;
+extern struct SceneFlags gMainWorkspace;
+extern u32 gMainObjTimerCallback;
 
 struct ScriptEntity
 {
@@ -35,11 +35,11 @@ struct Actor
   u16 f22;
 };
 
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_080114DC(void *, void *, s32, s32);
-extern s32 sub_08013C2C(void);
-extern void sub_08014288(void *, void *, void *);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void setObjectAnimation(void *, void *, s32, s32);
+extern s32 findKindIndex(void);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_080AA9C8(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -61,13 +61,13 @@ void sub_080A92E0(struct ScriptEntity *entity)
   s16 stepIndex;
   u16 *stepArray;
 
-  sprite = sub_0800355C();
+  sprite = allocSpriteObject();
   if (sprite == NULL)
   {
     goto Lend;
   }
   entity->f38 = (u32) sprite;
-  sub_0800168C(entity, 0, 0x48, 0);
+  allocWorkSlot(entity, 0, 0x48, 0);
   if (entity->f3C == 0)
   {
     goto Lend;
@@ -78,9 +78,9 @@ void sub_080A92E0(struct ScriptEntity *entity)
   sprite->f2A &= 0xBF;
   actor = (struct Actor *) entity->f3C;
   anim = ((u8 *) actor) + 0x34;
-  sub_08014288(entity, actor, &sub_08097D90);
+  installUpdateHandler(entity, actor, &sub_08097D90);
   actor->f1C = 0x5F;
-  roll = sub_08013C2C();
+  roll = findKindIndex();
   actor->f22 = roll;
   if ((roll << 16) >= 0)
   {
@@ -91,16 +91,16 @@ void sub_080A92E0(struct ScriptEntity *entity)
 
   return;
   Lcont:
-  sprite->f00 = sprite->f00 | D_02025FF0.f18C2;
+  sprite->f00 = sprite->f00 | gMainWorkspace.f18C2;
 
   sub_080AA9C8(sprite, anim, 0xE8, 2);
-  sub_080114DC(sprite, anim, 0x1F, 1);
+  setObjectAnimation(sprite, anim, 0x1F, 1);
   entity->f02 = entity->f02 | 0x1000;
   stepIndex = entity->f22;
   stepArray = (u16 *) entity;
   ((u8 *) (&stepArray[stepIndex]))[0x19] = 0;
   {
-    u32 *scriptCallbacks = &D_08671BB0;
+    u32 *scriptCallbacks = &gMainObjTimerCallback;
     stepBase = ((u8 *) entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *) entity) + 0x22, *scriptCallbacks);
   }

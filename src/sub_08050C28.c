@@ -1,11 +1,11 @@
 struct S_02025FF0_174C { u8 _0[0x174C]; u32 v0; u32 v1; };
-extern struct S_02025FF0_174C D_02025FF0;
+extern struct S_02025FF0_174C gMainWorkspace;
 extern void sub_08051D3C(void *, void *, u16, s32);
 extern void sub_080520CC(void *, void *, s32);
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 extern s32 sub_080059DC(s32, s32);
 extern s32 sub_08005910(s32, s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_08051E94(void *, void *, s32, s32);
 extern void sub_08051F98(void *, void *, s32, s16, s32);
 
@@ -46,18 +46,18 @@ void sub_08050C28(void *self)
   poseCount = (poseCount + 1) & 0xFF;
   *((u16 *) body) = poseCount;
   selfBytes = (u8 *) self;
-  if ((poseCount == 0xF0) && (sub_08014938(*((s32 *) (body + 0x58))) == ((s8) (*((u8 *) (selfBytes + 0x6C))))))
+  if ((poseCount == 0xF0) && (signOf(*((s32 *) (body + 0x58))) == ((s8) (*((u8 *) (selfBytes + 0x6C))))))
   {
-    deltaX = D_02025FF0.v0 - (*((s32 *) (body + 0x58)));
-    deltaY = D_02025FF0.v1 - (*((s32 *) (body + 0x5C)));
+    deltaX = gMainWorkspace.v0 - (*((s32 *) (body + 0x58)));
+    deltaY = gMainWorkspace.v1 - (*((s32 *) (body + 0x5C)));
     if (sub_080059DC(deltaX, deltaY) <= 0x3FFFFF)
     {
-      *((s32 *) (body + 0x0C)) = sub_08005910(D_02025FF0.v1 - (*((s32 *) (body + 0x84))), D_02025FF0.v0 - (*((s32 *) (body + 0x60))));
+      *((s32 *) (body + 0x0C)) = sub_08005910(gMainWorkspace.v1 - (*((s32 *) (body + 0x84))), gMainWorkspace.v0 - (*((s32 *) (body + 0x60))));
       sub_08051E94(self, arcTrail, 0xC000 - (((s8) (*((u8 *) (selfBytes + 0x6C)))) * 0x1800), 0);
       sub_08051F98(self, body, 0x3C, 1, 0);
       return;
     }
-    sub_08011368(sprite, anim, 2, 0);
+    setAnimationFrame(sprite, anim, 2, 0);
     sub_08051E94(self, arcTrail, 0xC000 - (((s8) (*((u8 *) (selfBytes + 0x6C)))) * 0x3800), 0x800);
     trail = NULL;
     sub_08051F98(self, body, 0x3C, (float) 3, (s32) trail);

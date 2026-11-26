@@ -1,9 +1,9 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 
 /* Entity state block (the pointer at entity+0x3C). +0x10/+0x14 are step
  * counters cleared when the state restarts; +0x34 is the animation block
- * driven by sub_08011368. */
+ * driven by setAnimationFrame. */
 struct State {
     u8 _0[0x10];
     u32 f10;
@@ -27,7 +27,7 @@ void sub_08021630(struct Entity *entity)
     s32 sprite = entity->sprite;
     struct State *state = entity->state;
     void *anim = (u8 *)state + 0x34;
-    sub_08011368(sprite, anim, 0x26, 0);
+    setAnimationFrame(sprite, anim, 0x26, 0);
     if (2 & *(u8 *)anim)
         sub_080C31E0(entity, entity->update);
 }
@@ -41,7 +41,7 @@ void sub_0802165C(struct Entity *entity)
     void *anim = (u8 *)state + 0x34;
     state->f14 = 0;
     state->f10 = 0;
-    sub_08011368(sprite, anim, 0x2D, 0);
+    setAnimationFrame(sprite, anim, 0x2D, 0);
     if (2 & *(u8 *)anim)
         sub_080C31E0(entity, entity->update);
 }

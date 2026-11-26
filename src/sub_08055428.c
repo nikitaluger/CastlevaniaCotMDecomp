@@ -1,10 +1,10 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_080C364C(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 D_08671BFC;
 extern u8 D_0866E748[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Run one step of a scripted effect: set its animation frame and draw offset,
  * dispatch the current script command through the callback table, and end the
@@ -25,7 +25,7 @@ void sub_08055428(u8 *self) {
     body = *(u8 **)(self + 0x3C);
     animState = body + 0x34;
     render = body + 0x48;
-    sub_08011368(animCtrl, animState, 4, 1);
+    setAnimationFrame(animCtrl, animState, 4, 1);
 
     if (*(u8 *)(animState + 1) == 1 && *(s32 *)(animState + 4) == 1) {
         *(s16 *)(render + 4) = 0;

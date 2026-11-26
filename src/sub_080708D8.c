@@ -11,7 +11,7 @@ struct GameState
   u8 _d[0x18A8 - 0x173B];
   u8 field18A8;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 extern u8 D_02023130[];
 s32 sub_0806D450(void *, void *, void *);
 void sub_0806D588(void *, void *);
@@ -37,12 +37,12 @@ spawnEffect:
   sub_0806E114(*(s32 *)(arg0 + 0x28), 8, *(s32 *)(actor + 4), *(s32 *)(mover + 4));
   goto abort;
 checkCollision:
-  hitType = sub_08007DD8(D_02023130 + (D_02025FF0.field18A8 << 6), *(s32 *)(actor + 4), *(s32 *)(mover + 4));
+  hitType = sub_08007DD8(D_02023130 + (gMainWorkspace.field18A8 << 6), *(s32 *)(actor + 4), *(s32 *)(mover + 4));
   if (hitType != 0) goto spawnEffect;
-  if (D_02025FF0.field14FC != 0) goto abort;
-  if (D_02025FF0.field173A == 0x1C) goto abort;
-  if (D_02025FF0.field14ED != 0) goto offscreen;
-  if (D_02025FF0.field10 == 0) goto offscreen;
+  if (gMainWorkspace.field14FC != 0) goto abort;
+  if (gMainWorkspace.field173A == 0x1C) goto abort;
+  if (gMainWorkspace.field14ED != 0) goto offscreen;
+  if (gMainWorkspace.field10 == 0) goto offscreen;
   goto abort;
 abort:
   sub_080C31E0(arg0, *(s32 *)(arg0 + 0x24));

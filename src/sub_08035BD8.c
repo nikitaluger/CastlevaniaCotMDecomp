@@ -3,8 +3,8 @@ extern void sub_080142C0(s32, s32);
 extern void sub_08014314(void *, s32);
 extern s32 sub_08014328(s32, void *, void *);
 extern void sub_080C31E0(void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 struct MainFlags {
     u16 field0;
@@ -64,8 +64,8 @@ void sub_08035BD8(u8 *arg0)
         sub_08014314(state, *(s32 *)(p48 + 4));
     }
 
-    coordTable = D_02021E90;
-    camTable = D_02025FF0;
+    coordTable = gCameraState;
+    camTable = gMainWorkspace;
     camTable += 0x18A8;
     index = ((u32)*camTable + 1) * 0x40;
     coordXPtr = coordTable + 0x1278;

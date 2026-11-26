@@ -9,7 +9,7 @@ struct S_02025FF0_14
   u8 _0[0x14];
   u32 mode;
 };
-extern struct S_02025FF0_14 D_02025FF0;
+extern struct S_02025FF0_14 gMainWorkspace;
 
 /* Sprite update: in game mode 0x24, restart the actor's animation from the
  * data at 0x085063F8, clear the sprite's 0x10 flag, reset the script step and
@@ -24,7 +24,7 @@ void sub_08088208(void *arg0)
   s32 spriteFlags;
   u16 zero;
   s32 *scriptHandlers;
-  if (D_02025FF0.mode == 0x24)
+  if (gMainWorkspace.mode == 0x24)
   {
     sub_08003A6C(actor + 0x20, 0, (void *)0x085063F8);
     *(u32 *)(actorPos + 8) = 0x20000;

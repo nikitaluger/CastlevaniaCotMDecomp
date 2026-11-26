@@ -8,7 +8,7 @@ struct GameState {
     u8 _3[0x173A - 0x1500];
     u8 field173A;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 s32 sub_08003740(void *, s32);
 s32 sub_0806D2F8(void *, s32);
@@ -47,10 +47,10 @@ void sub_080705C4(void *arg0) {
             sub_0806E114(*(s32 *)((u8 *)arg0 + 0x28), 8, *(s32 *)((u8 *)actor + 0x04), *(s32 *)((u8 *)mover + 0x04));
             goto abort;
         }
-        if (D_02025FF0.field14FC != 0) goto abort;
-        if (D_02025FF0.field173A == 0x1C) goto abort;
-        if (D_02025FF0.field14ED != 0) goto offscreen;
-        if (D_02025FF0.field10 == 0) goto offscreen;
+        if (gMainWorkspace.field14FC != 0) goto abort;
+        if (gMainWorkspace.field173A == 0x1C) goto abort;
+        if (gMainWorkspace.field14ED != 0) goto offscreen;
+        if (gMainWorkspace.field10 == 0) goto offscreen;
     abort:
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;

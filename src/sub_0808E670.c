@@ -6,12 +6,12 @@ struct S_02025FF0_all {
     u8 _p2[0x1874 - 0x14B0];
     s32 particleType; /* 0x1874: scene's particle object kind */
 };
-extern struct S_02025FF0_all D_02025FF0;
+extern struct S_02025FF0_all gMainWorkspace;
 
 /* Spawn a small effect particle of subtype 2 at (x, y) with horizontal speed vx
  * and an upward vertical speed |vy|; returns NULL when no slot is free. */
 void *sub_0808E670(s32 x, s32 y, s32 vx, s32 vy) {
-    void *r = sub_0805FAEC(D_02025FF0.particleType, 0x20C);
+    void *r = sub_0805FAEC(gMainWorkspace.particleType, 0x20C);
     if (r == NULL) return NULL;
     *(s32 *)((u8 *)r + 0x4C) = x;
     *(s32 *)((u8 *)r + 0x5C) = y;

@@ -1,8 +1,8 @@
 extern void *sub_08001480(u32, u32);
 extern void sub_080C31E4(void *, void *, u32);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 /* Workspace slots used here: +0x14B4 = current area/stage value,
  * +0x1844 = mask of effect-object kinds already loaded,
@@ -15,7 +15,7 @@ extern u8 D_02025FF0[];
 void sub_080069A8(void *entity) {
     void *self = entity;
     {
-        u8 *ws = D_02025FF0;
+        u8 *ws = gMainWorkspace;
         u32 stage = *(u32 *)(ws + 0x14B4);
         if (stage == 0) {
             *(u32 *)(ws + 0x184C) = (u32)sub_08001480(0, 7);
@@ -44,7 +44,7 @@ void sub_080069A8(void *entity) {
         u8 *ws;
         void *slotA;
         slotA = sub_08001480(0, 0x0A);
-        ws = D_02025FF0;
+        ws = gMainWorkspace;
         *(u32 *)(ws + 0x1858) = (u32)slotA;
         *(u32 *)(ws + 0x1868) = (u32)sub_08001480(0, 2);
         *(u32 *)(ws + 0x186C) = (u32)sub_08001480(0, 0x0E);
@@ -77,7 +77,7 @@ void sub_080069A8(void *entity) {
         *((u8 *)self + step * 2 + 0x19) = 0;
     }
     {
-        u32 *scriptTable = &D_08671BB0;
+        u32 *scriptTable = &gMainObjTimerCallback;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *scriptTable);
     }
 }

@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* Refresh animation 0xB on the motion state's animator, then clamp the state's
@@ -12,7 +12,7 @@ void sub_0801B784(void *obj) {
     u8 *animState = motion + 0x34;
     u8 *limitState = motion + 0x48;
     s32 *advance;
-    sub_08011368(sprite, animState, 0xB, 0);
+    setAnimationFrame(sprite, animState, 0xB, 0);
     *(u32 *)(motion + 0x14) = 0x6000;
     if (*(s32 *)(motion + 0xC) >= *(s32 *)(limitState + 0xC)) {
         *(s32 *)(motion + 0xC) = *(s32 *)(limitState + 0xC);

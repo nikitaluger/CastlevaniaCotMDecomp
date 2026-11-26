@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08001480(void *, s32);
@@ -9,7 +9,7 @@ void sub_08029A7C(void *arg0) {
     u8 *r4 = (u8 *)arg0;
     u32 idx2;
     u8 *p18;
-    sub_08011368(*(void **)(r4 + 0x38), *(void **)(r4 + 0x3C) + 0x34, 9, 1);
+    setAnimationFrame(*(void **)(r4 + 0x38), *(void **)(r4 + 0x3C) + 0x34, 9, 1);
     *(u32 *)(r4 + 0x14) = 0x0866DA6C;
     *(u16 *)(r4 + 0x22) = (u16)(*(u16 *)(r4 + 0x22) + 1);
     *(u8 *)(r4 + *(s16 *)(r4 + 0x22) * 2 + 0x19) += 1;

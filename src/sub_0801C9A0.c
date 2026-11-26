@@ -1,16 +1,16 @@
 extern void *sub_0805FAEC(s32, s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 
 struct S_02025FF0_1870 { u8 _0[0x1870]; u32 v; };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 
 /* Allocate a type-0x90 result object owned by the current world state and set
  * its two screen coordinates from 16.16 fixed-point arguments (negatives are
  * rounded up by 0xFFFF before the >>16). */
 void *sub_0801C9A0(s32 arg0, s32 arg1)
 {
-    void *result = sub_0805FAEC(D_02025FF0.v, 0x90);
+    void *result = sub_0805FAEC(gMainWorkspace.v, 0x90);
     s32 x16;
     s32 y16;
 
@@ -61,7 +61,7 @@ void sub_080212E4(void *arg0)
 void sub_08021630(void *arg0)
 {
     void *work = *(void **)((u8 *)arg0 + 0x3C);
-    sub_08011368(*(s32 *)((u8 *)arg0 + 0x38), (u8 *)work + 0x34, 0x26, 0);
+    setAnimationFrame(*(s32 *)((u8 *)arg0 + 0x38), (u8 *)work + 0x34, 0x26, 0);
     if (2 & *(u8 *)((u8 *)work + 0x34))
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
 }
@@ -75,7 +75,7 @@ void sub_0802165C(void *arg0)
     void *anim = work + 0x34;
     *(u32 *)(work + 0x14) = 0;
     *(u32 *)(work + 0x10) = 0;
-    sub_08011368(*(s32 *)((u8 *)arg0 + 0x38), anim, 0x2D, 0);
+    setAnimationFrame(*(s32 *)((u8 *)arg0 + 0x38), anim, 0x2D, 0);
     if (2 & *(u8 *)anim)
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
 }

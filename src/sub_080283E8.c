@@ -1,4 +1,4 @@
-s32 sub_08011368(s32, void *, s32, s32);
+s32 setAnimationFrame(s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 s32 sub_080C364C(s32, s32);

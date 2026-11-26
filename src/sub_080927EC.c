@@ -1,8 +1,8 @@
 void sub_08005E80(s32);
 void sub_0805FA88(s32, s32);
 void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
-extern u8 D_02025FF0[];
+extern void *gMainObjTimerCallback;
+extern u8 gMainWorkspace[];
 struct S { u8 pad[0x0C]; s16 started; s16 doneFlag; s16 cooldown; };
 
 /*
@@ -16,7 +16,7 @@ void sub_080927EC(void *arg0)
     struct S *work = *(struct S **)(self + 0x3C);
 
     if (work->cooldown <= 0) {
-        u8 *state = D_02025FF0;
+        u8 *state = gMainWorkspace;
         sub_0805FA88(*(s32 *)(state + 0x1868), 0x1FC);
         work->cooldown = 0x2D0;
     }
@@ -28,7 +28,7 @@ void sub_080927EC(void *arg0)
         idx = *(s16 *)(self + 0x22);
         self[idx * 2 + 0x19] = 0;
         {
-            void **lit = &D_08671BB0;
+            void **lit = &gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, *lit);
         }
     }

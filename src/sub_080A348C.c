@@ -3,8 +3,8 @@
 extern void sub_08098338(s32, void *);
 extern void sub_080C31E0(void *, s32);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 void sub_080A348C(void *arg0)
 {
@@ -39,8 +39,8 @@ void sub_080A348C(void *arg0)
     *(u16 *)((u8 *)self + 0x22) = *(u16 *)((u8 *)self + 0x22) - 1;
     sub_08098338(*(s32 *)(scriptExtra + 0x60), sprite);
 
-    coordTable = D_02021E90;
-    animIndexPtr = D_02025FF0;
+    coordTable = gCameraState;
+    animIndexPtr = gMainWorkspace;
     animIndexPtr += 0x18A8;
     {
         u32 coordIdx;

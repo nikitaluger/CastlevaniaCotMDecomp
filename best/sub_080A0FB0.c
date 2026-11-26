@@ -1,5 +1,5 @@
 extern s32 sub_080057F8(void);
-extern void sub_080114DC(s32, s32, s32, s32);
+extern void setObjectAnimation(s32, s32, s32, s32);
 extern s32 sub_0801459C(void *, s32);
 extern void sub_080148D8(s32, s32);
 extern void sub_080A17B0(s32, s32, void *);
@@ -54,7 +54,7 @@ void sub_080A0FB0(void *arg0)
       temp_r5_2 = (s8)(sub_080057F8() & 3);
       if (temp_r5_2 != 0)
       {
-        sub_080114DC(temp_r7, tp34, 0x0E, 0);
+        setObjectAnimation(temp_r7, tp34, 0x0E, 0);
         p8 = *((void **)((u8 *)tp34 + 0x08));
         h = *((s16 *)((u8 *)tp34 + 0x0E));
         b = *((u8 *)tp34 + 0x01);

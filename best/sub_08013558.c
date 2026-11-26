@@ -1,7 +1,7 @@
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
-extern u8 D_080CB2B8[];
-extern u8 D_080CBDD0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
+extern u8 gSpriteKindTable[];
+extern u8 gEffectGfxTable[];
 s32 sub_080C36E4(s16, s32);
 void *sub_08016238(void *);
 s32 sub_080133EC(u32, u32);
@@ -41,31 +41,39 @@ struct Ent13558
 };
 u32 sub_08013558(struct Ent13558 *b, struct C13558 *c, struct Ent13558 *d)
 {
+    u8 *__base_D_080CBDD0;
   struct Ent13558 *e = 0;
   u8 *new_var3;
   s16 idx;
-  s32 r12;
+  
+s32 __repair_phase_r12;
   s32 r1;
   s32 r6;
-  s32 t;
+  
+s32 __repair_phase_t;
   u16 cf;
   u8 *p;
+u8 *__repair_phase_p;
   int new_var;
   s32 a2a;
   int new_var2;
   s32 d2a;
+  int temp;
+  
   cf = (c->f0 &= 0xFFFD);
   d->f4 &= 0xFDFF;
-  if (cf & 1)
+  __repair_phase_r12 = cf & 1;
+  if (__repair_phase_r12)
   {
     *((u8 *) (((u8 *) d) + 1)) &= 0xFA;
     return 0;
   }
-  if (c->f20 > 0)
+  idx = c->f20;
+  if (idx > 0)
   {
     idx = c->f20;
-    t = (s16) sub_080C36E4(idx, 3);
-    switch (t)
+    __repair_phase_t = (s16) sub_080C36E4(idx, 3);
+    switch (__repair_phase_t)
     {
       case 0:
         b->f0 = (b->f0 & 0x0FFF) | 0xD000;
@@ -86,12 +94,13 @@ u32 sub_08013558(struct Ent13558 *b, struct C13558 *c, struct Ent13558 *d)
   {
     return 0;
   }
-  p = D_02025FF0 + 0x18BE;
+  p = gMainWorkspace + 0x18BE;
   if ((*((s16 *) p)) != 0)
   {
     idx = c->f1C;
-    p = D_080CBDD0 + (((idx * 4) + idx) * 8);
-    if (((*((s16 *) (p + 2))) != 0) && (c->f30 != 0))
+    __base_D_080CBDD0 = gEffectGfxTable;
+    __repair_phase_p = __base_D_080CBDD0 + (((idx * 4) + idx) * 8);
+    if (((*((s16 *) (__repair_phase_p + 2))) != 0) && (c->f30 != 0))
     {
       if (!(c->f4 & 0x200))
       {
@@ -104,34 +113,34 @@ u32 sub_08013558(struct Ent13558 *b, struct C13558 *c, struct Ent13558 *d)
               goto skip;
             }
           }
-          p = D_080CB2B8 + (((idx * 4) + idx) * 4);
-          new_var3 = D_02025FF0 + 0x174C;
-          r12 = (u16) sub_0806D5C4(*((u16 *) (D_02025FF0 + 0x18BE)), *((u16 *) (p + 6)));
+          p = gSpriteKindTable + (((idx * 4) + idx) * 4);
+          new_var3 = gMainWorkspace + 0x174C;
+          __repair_phase_r12 = (u16) sub_0806D5C4(*((u16 *) (gMainWorkspace + 0x18BE)), *((u16 *) (p + 6)));
           do
           {
-            if (((double) r12) <= 0)
+            if (((double) __repair_phase_r12) <= 0)
             {
-              r12 = 1;
+              __repair_phase_r12 = 1;
             }
-            c->f18 = c->f18 - r12;
-            t = *((s32 *) new_var3);
+            c->f18 = c->f18 - __repair_phase_r12;
+            __repair_phase_t = *((s32 *) new_var3);
             idx = d->f30;
-            if (t < idx)
+            if (__repair_phase_t < idx)
             {
-              r6 = (((idx << 16) + 0x8000) + (*((u32 *) ((D_02021E90 + 0x1278) + ((((u8) (*(D_02025FF0 + 0x18A8))) + 1) << 6))))) - (d->f26 << 16);
+              r6 = (((idx << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << 6))))) - (d->f26 << 16);
             }
             else
             {
-              r6 = (((idx << 16) + 0x8000) + (*((u32 *) ((D_02021E90 + 0x1278) + ((((u8) (*(D_02025FF0 + 0x18A8))) + 1) << 6))))) + (d->f26 << 16);
+              r6 = (((idx << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << 6))))) + (d->f26 << 16);
             }
-            r1 = (((d->f32 << 16) + 0xFFFF8000) + (*((u32 *) ((D_02021E90 + 0x127C) + ((((u8) (*(D_02025FF0 + 0x18A8))) + 1) << 6))))) - (d->f28 << 16);
+            r1 = (((d->f32 << 16) + 0xFFFF8000) + (*((u32 *) ((gCameraState + 0x127C) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << 6))))) - (d->f28 << 16);
           }
           while (0);
-          sub_0808D7BC(r6, r1, r12, 0);
+          sub_0808D7BC(r6, r1, __repair_phase_r12, 0);
           if (((s32) c->f18) <= 0)
           {
             c->f18 = 0;
- do { c->f0 |= 1; } while (0);
+ { c->f0 |= 1; }
           }
           else
           {
@@ -160,72 +169,70 @@ u32 sub_08013558(struct Ent13558 *b, struct C13558 *c, struct Ent13558 *d)
   new_var = 0xC;
   new_var2 = 6;
   idx = c->f1C;
-  p = D_080CB2B8 + (2 * (2 * ((idx * 4) + idx)));
+  p = gSpriteKindTable + (2 * (2 * ((idx * 4) + idx)));
   if ((d2a != 0) && (a2a == d2a))
   {
-    r12 = ((u16) sub_0806D5F8(e->f2C, *((u16 *) (p + new_var2)))) >> 1;
+    __repair_phase_r12 = ((u16) sub_0806D5F8(e->f2C, *((u16 *) (p + new_var2)))) >> 1;
   }
   else
   {
-    r12 = (u16) sub_0806D5F8(e->f2C, *((u16 *) (p + new_var2)));
+    __repair_phase_r12 = (u16) sub_0806D5F8(e->f2C, *((u16 *) (p + new_var2)));
   }
-  if (r12 <= 0)
+  if (__repair_phase_r12 <= 0)
   {
-    r12 = 1;
+    __repair_phase_r12 = 1;
   }
-  if (r12 > 9999)
+  if (__repair_phase_r12 > 9999)
   {
-    r12 = 9999;
+    __repair_phase_r12 = 9999;
   }
-  c->f18 = c->f18 - r12;
+  c->f18 = c->f18 - __repair_phase_r12;
   if (e->f30 < d->f30)
   {
-    r6 = (((d->f30 << 16) + 0x8000) + (*((u32 *) ((D_02021E90 + 0x1278) + ((((u8) (*(D_02025FF0 + 0x18A8))) + 1) << new_var2))))) - (d->f26 << 16);
+    r6 = (((d->f30 << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << new_var2))))) - (d->f26 << 16);
   }
   else
   {
     idx = (d->f30 << 16) + 0x8000;
-    r6 = (idx + (*((u32 *) ((D_02021E90 + 0x1278) + ((((u8) (*(D_02025FF0 + 0x18A8))) + 1) << new_var2))))) + (d->f26 << 16);
+    r1 = (idx + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << new_var2))))); r6 = r1 + (d->f26 << 16);
   }
-  r1 = (((d->f32 << 16) + 0xFFFF8000) + (*((u32 *) ((D_02021E90 + 0x127C) + ((((u8) (*(D_02025FF0 + 0x18A8))) + 1) << new_var2))))) - (d->f28 << 16);
-  sub_0808D7BC(r6, r1, r12, 0);
+  r1 = (((d->f32 << 16) + 0xFFFF8000) + (*((u32 *) ((gCameraState + 0x127C) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << new_var2))))) - (d->f28 << 16);
+  sub_0808D7BC(r6, r1, __repair_phase_r12, 0);
   if (c->f30 != 0)
   {
     *((u32 *) (c->f30 + 8)) = (u32) e;
   }
   if (((s32) c->f18) <= 0)
   {
-    if (a2a == 2)
-    {
-      if ((!(c->f0 & 0xC)) && (d2a != 2))
-      {
-        c->f18 = 1;
-        c->f0 |= 4;
-      }
-      else
-      {
-        c->f18 = 0;
-        c->f0 |= 1;
-      }
-    }
-    else
-      if (a2a == 5)
-    {
-      if ((!(c->f0 & new_var)) && (d2a != 5))
-      {
-        c->f18 = 1;
-        c->f0 |= 8;
-      }
-      else
-      {
-        c->f18 = 0;
-        c->f0 |= 1;
-      }
-    }
-    else
-    {
-      c->f18 = 0;
-      c->f0 |= 1;
+    switch (a2a) {
+        case 2:
+            if ((!(c->f0 & 0xC)) && (d2a != 2))
+            {
+              c->f18 = 1;
+              c->f0 |= 4;
+            }
+            else
+            {
+              c->f18 = 0;
+              c->f0 |= 1;
+            }
+            break;
+        case 5:
+            if ((!(c->f0 & new_var)) && (d2a != 5))
+            {
+              c->f18 = 1;
+              c->f0 |= 8;
+            }
+            else
+            {
+              c->f18 = 0;
+              c->f0 |= 1;
+            }
+            break;
+        default:
+            c->f18 = 0;
+            c->f0 |= 1;
+            break;
     }
   }
   else

@@ -1,5 +1,5 @@
 struct S_02025FF0_1870 { u8 _0[0x1870]; s32 v; };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 extern void *sub_0805FAEC(s32, s32);
 
 /* Spawn a type-0xB6 entity at fixed-point position (x, y) and store arg2 in
@@ -7,7 +7,7 @@ extern void *sub_0805FAEC(s32, s32);
 void *sub_08028BAC(s32 x, s32 y, u16 arg2) {
     void *entity;
     s32 fixedX, fixedY, tileX, tileY;
-    entity = sub_0805FAEC(D_02025FF0.v, 0xB6);
+    entity = sub_0805FAEC(gMainWorkspace.v, 0xB6);
     if (entity == NULL) return NULL;
     fixedX = x;
     if (fixedX < 0) fixedX += 0xFFFF;

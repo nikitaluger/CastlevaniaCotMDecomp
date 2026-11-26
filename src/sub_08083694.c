@@ -1,5 +1,5 @@
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern s32 sub_0800355C(void);
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern s32 allocSpriteObject(void);
 extern void sub_0806D2D0(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -15,12 +15,12 @@ void sub_08083694(void *entity)
     u8 *flags;
     s32 *callbackTable;
 
-    if (sub_0800168C(entity, 0, 0x68, 3) == 0) {
+    if (allocWorkSlot(entity, 0, 0x68, 3) == 0) {
         sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }
 
-    obj = sub_0800355C();
+    obj = allocSpriteObject();
     if (obj == 0) {
         sub_0806D2D0(entity);
         return;

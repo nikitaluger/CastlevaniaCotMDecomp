@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 void sub_0806D588(void *, void *);
 void _call_via_r1(void *, void *);
@@ -9,7 +9,7 @@ void _call_via_r1(void *, void *);
  * value, or invokes the entity's callback. Returns a code for the action taken. */
 s32 sub_0806D35C(void *entity, void *obj, void *vec)
 {
-    u8 *state = D_02025FF0;
+    u8 *state = gMainWorkspace;
     u32 flags = *(u32 *)(state + 0x14B8);
 
     if ((flags & 0xF0) == 0)

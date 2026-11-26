@@ -2,8 +2,8 @@ extern s32 sub_080057F8(void);
 extern s32 sub_08005820(s32);
 extern void sub_080A0288(void*, s32);
 extern s32 sub_080A02A4(void*);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* When a spawn timer expires, choose a random target coordinate inside the
  * camera's visible range and assign it to the entity. */
@@ -28,13 +28,13 @@ void sub_0809E3B4(void *arg0, void *arg1) {
     }
     if (sub_080A02A4(arg0) != 0) goto end;
 
-    base = D_02025FF0;
+    base = gMainWorkspace;
     off = 0x174C;
     centerPtr = (u32 *)(base + off);
     lowerBound = *centerPtr + 0xFFF00000;
     upperBound = *centerPtr + 0x100000;
 
-    layerTable = D_02021E90;
+    layerTable = gCameraState;
     activeLayerPtr = base;
     activeLayerPtr += 0x18A8;
     layerOffset = ((u32)*activeLayerPtr + 1) * 0x40;

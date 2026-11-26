@@ -1,5 +1,5 @@
 extern s32 sub_08005820(s32);   /* random in [0, arg) */
-extern s32 sub_08014938(s32);    /* sign(sharedTargetX - arg) */
+extern s32 signOf(s32);    /* sign(sharedTargetX - arg) */
 
 /* Random idle timer: count *timer down; when it expires, flip the sprite's
  * X-facing bit (flags bit 0x10 at sprite+2) according to which side of the
@@ -16,7 +16,7 @@ void sub_080149A4(void *sprite, void *entity, u16 *timer, u16 minDelay, s32 maxD
     *timer = remaining;
     if ((s32)((u16)remaining << 16) <= 0) {
         s32 flags;
-        if (sub_08014938(*(s32 *)((u8 *)entity + 8)) > 0) {
+        if (signOf(*(s32 *)((u8 *)entity + 8)) > 0) {
             flags = 0x10 | *(u16 *)((u8 *)sprite + 2);
             *(u16 *)((u8 *)sprite + 2) = flags;
         } else {

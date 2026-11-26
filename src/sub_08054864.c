@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, s32, s16, s32);
+extern void setAnimationFrame(s32, s32, s16, s32);
 extern s16 D_080CFB4C[];
 
 /* Pick one of five animation frames according to which range a signed
@@ -20,5 +20,5 @@ void sub_08054864(s32 owner, s32 animCtrl, s16 angle) {
     else
         frameIdx = 4;
 
-    sub_08011368(ownerCopy, animCopy, D_080CFB4C[frameIdx], 0);
+    setAnimationFrame(ownerCopy, animCopy, D_080CFB4C[frameIdx], 0);
 }

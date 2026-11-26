@@ -1,4 +1,4 @@
-s32 sub_080C2F20(s32, s32); /* BIOS Div: signed division */
+s32 divideInt(s32, s32); /* BIOS Div: signed division */
 
 /* Per-axis motion path: nine points, each with a start/end position and step. */
 struct MotionPath {
@@ -17,7 +17,7 @@ struct MotionPath {
 void sub_08051F40(struct MotionPath *path, s32 duration) {
     u32 i;
     for (i = 0; i <= 8; i++) {
-        path->xStep[i] = sub_080C2F20(path->xEnd[i] - path->xStart[i], duration);
-        path->yStep[i] = sub_080C2F20(path->yEnd[i] - path->yStart[i], duration);
+        path->xStep[i] = divideInt(path->xEnd[i] - path->xStart[i], duration);
+        path->yStep[i] = divideInt(path->yEnd[i] - path->yStart[i], duration);
     }
 }

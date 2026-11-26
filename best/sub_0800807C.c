@@ -1,8 +1,8 @@
-void sub_0800168C(u8 *p, s32 a, s32 b, s32 c);
-void sub_080035E4(void);
-void sub_080063D4(u32 src, u32 dst);
+void allocWorkSlot(u8 *p, s32 a, s32 b, s32 c);
+void clearActorPool(void);
+void decompressToVram(u32 src, u32 dst);
 void sub_080C2E68(u8 *p, u32 src, s32 n);
-void sub_08000E98(s32 a, u32 b, u32 c, s32 d, s32 e);
+void postDisplaySprite(s32 a, u32 b, u32 c, s32 d, s32 e);
 void sub_080C31E4(u8 *a, u8 *b, u32 c);
 void sub_080C31E0(u8 *a, u32 b);
 
@@ -26,12 +26,12 @@ void sub_0800807C(u8 *obj)
     u32 *q1;
     u32 *q2;
 
-    sub_0800168C(obj, 0, 0x7C, 0);
+    allocWorkSlot(obj, 0, 0x7C, 0);
     base = (u8 *)0x02021E90;
     *(u32 *)(base + 0x125C) = 0;
     zero2 = 0;
     reg = &D_03000830;
-    *reg = (*reg & 0xF0FF) | zero2;
+    off = (*reg & 0xF0FF); *reg = off | zero2;
     ((struct H *)(base + (0x95 << 5)))->v = 0xD800;
     off = (0x97 << 5);
     ((struct H *)(base + off))->v = 0xD800;
@@ -49,7 +49,7 @@ void sub_0800807C(u8 *obj)
     *(u32 *)(base + off) = 0;
     *q2 = 0;
     sub_080C2E68(base + (0x93 << 5), 0x080CA964, 0x40);
-    sub_080035E4();
+    clearActorPool();
     buf = 0;
     dma = (vu32 *)0x040000D4;
     dma[0] = (u32)&buf;
@@ -57,15 +57,15 @@ void sub_0800807C(u8 *obj)
     dma[1] = dmaDst;
     dma[2] = 0x8100C000;
     tmp = dma[2];
-    sub_080063D4(0x086517CC, 0x06008000);
-    sub_080063D4(0x08652D7C, 0x0600A000);
-    sub_080063D4(0x086544BC, 0x0600C000);
-    sub_080063D4(0x08655CB8, 0x0600E000);
-    sub_080063D4(0x086458E4, dmaDst);
-    sub_080063D4(0x086467D8, 0x06004000);
-    sub_080063D4(0x086570E0, 0x06002000);
-    sub_080063D4(0x08657324, 0x06003000);
-    sub_08000E98(1, 0x08645884, 0xA0 << 19, 0x60, 0x10);
+    decompressToVram(0x086517CC, 0x06008000);
+    decompressToVram(0x08652D7C, 0x0600A000);
+    decompressToVram(0x086544BC, 0x0600C000);
+    decompressToVram(0x08655CB8, 0x0600E000);
+    decompressToVram(0x086458E4, dmaDst);
+    decompressToVram(0x086467D8, 0x06004000);
+    decompressToVram(0x086570E0, 0x06002000);
+    decompressToVram(0x08657324, 0x06003000);
+    postDisplaySprite(1, 0x08645884, 0xA0 << 19, 0x60, 0x10);
     ((struct H *)((u8 *)reg + 4))->v = 0x442;
     idx = *(s16 *)(obj + 0x22);
     *(u8 *)(obj + idx * 2 + 0x19) = (u8)zero2;

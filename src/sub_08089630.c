@@ -8,7 +8,7 @@ struct S_D
   u8 _2[0x1824];
   u32 state1844;
 };
-extern struct S_D D_02025FF0;
+extern struct S_D gMainWorkspace;
 void sub_080C31E4(void *, void *, s32);
 void sub_08003740(void *, void *);
 void sub_0806D588(void *, void *);
@@ -21,14 +21,14 @@ void sub_08089630(void *arg0) {
   void *mover = *(void **)((u8 *)arg0 + 0x6C);
   void *moverPos = (u8 *)mover + 4;
   void *sprite = *(void **)((u8 *)arg0 + 0x38);
-  if (D_02025FF0.state14 == 0x19) {
+  if (gMainWorkspace.state14 == 0x19) {
     u16 *flagsPtr = (u16 *)((u8 *)sprite + 2);
     u16 oldFlags = *flagsPtr;
     int newFlags = 0x10;
     u8 zero = 0;
     newFlags |= oldFlags;
     *flagsPtr = (u16)newFlags;
-    D_02025FF0.state1C = 4;
+    gMainWorkspace.state1C = 4;
     *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = zero;
     {
       s32 *advanceTable = (s32 *)0x08671BB0;

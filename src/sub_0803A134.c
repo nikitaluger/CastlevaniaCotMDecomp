@@ -6,7 +6,7 @@ void sub_08014668(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /*
  * Scripted entity setup/update: reset and configure the enemy's state block,

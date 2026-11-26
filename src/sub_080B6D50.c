@@ -1,4 +1,4 @@
-extern s32 sub_08011368(s32, u8 *, s32, s32);
+extern s32 setAnimationFrame(s32, u8 *, s32, s32);
 extern s32 sub_080113A8(s32, u8 *);
 extern s32 sub_08011898(u8 *, s32);
 extern s32 sub_0809856C(s32, u8 *, s32);
@@ -42,7 +42,7 @@ void sub_080B6D50(struct ScriptStepObj *self)
     zero = 0;
     self->countdown = remaining;
     if ((remaining << 16) == 0) {
-        sub_08011368(sprite, animTrack, 0x2F, 0);
+        setAnimationFrame(sprite, animTrack, 0x2F, 0);
         *(u8 *)(*(u8 **)(work + 0x28) + 1) = zero;
         *((u8 *)self + self->stepIndex * 2 + 0x19) = zero;
         handlerTable = (s32 *)0x08671BB0;

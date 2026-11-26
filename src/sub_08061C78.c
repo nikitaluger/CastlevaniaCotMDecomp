@@ -1,15 +1,15 @@
-extern void sub_080C2F20(s32 a, s32 b);
-extern u8 D_02025368[];
-/* Rescale the 16-bit value at D_02025368+0xAC by 1000/980 via BIOS signed
+extern void divideInt(s32 a, s32 b);
+extern u8 gGameStatus[];
+/* Rescale the 16-bit value at gGameStatus+0xAC by 1000/980 via BIOS signed
  * division (swi #6); the quotient is left in r0 for the caller. */
 volatile int sub_08061C78(void)
 {
   u16 scaledValue;
-  u8 *state = D_02025368;
+  u8 *state = gGameStatus;
   u16 value = *((u16 *) (state + 0xAC));
   scaledValue = value;
  do { } while (0);
-  sub_080C2F20(scaledValue * 0x3E8, 0x3D4);
+  divideInt(scaledValue * 0x3E8, 0x3D4);
 }
 
 extern u8 D_080D9B3C[];

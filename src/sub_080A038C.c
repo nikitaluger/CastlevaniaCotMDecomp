@@ -1,12 +1,12 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
-/* Walk the object list rooted at D_02025FF0+0x1870 and set bit 0 of the
+/* Walk the object list rooted at gMainWorkspace+0x1870 and set bit 0 of the
  * animation flags of the first child of every object with id 0x184. */
 void sub_080A038C(void)
 {
     void *unused;
     u32 off = 0x1870;
-    void *list = *(void **)((u8 *)D_02025FF0 + off);
+    void *list = *(void **)((u8 *)gMainWorkspace + off);
     void *obj = *(void **)((u8 *)list + 0x30);
     if (obj != NULL) {
         do {

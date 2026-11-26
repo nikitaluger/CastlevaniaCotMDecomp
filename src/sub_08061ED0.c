@@ -12,7 +12,7 @@ struct S_02021E90
   u32 scrollX;
   u32 scrollY;
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 
 /*
  * Position a scrolling-screen cursor sprite: convert its grid coordinate minus
@@ -28,11 +28,11 @@ void sub_08061ED0(u8 *sprite)
   int tmp;
   u32 bias;
   x = D_02027A00.cursorX << 0x12;
-  sx = D_02021E90.scrollX;
+  sx = gCameraState.scrollX;
   bias = 0xFFFE8000;
   *((s32 *)(sprite + 0x14)) = x - (sx + bias);
   y = D_02027A00.cursorY << 0x12;
-  sy = D_02021E90.scrollY;
+  sy = gCameraState.scrollY;
   *((s32 *)(sprite + 0x18)) = y - (sy + bias);
   *((u32 *)(sprite + 0x24)) = 0x084541A8;
   {

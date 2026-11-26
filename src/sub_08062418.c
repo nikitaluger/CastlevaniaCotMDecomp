@@ -1,8 +1,8 @@
 void sub_080C2E68(void *, const void *, s32);
-void sub_0805FDF0(void);
-void sub_0805FE28(s32, s32);
-void sub_0805FE8C(u8, s32, s32);
-void sub_0805FEB4(s32);
+void resetMapRender(void);
+void setLayerTilemap(s32, s32);
+void setMapLayerParams(u8, s32, s32);
+void setScreenTransition(s32);
 void sub_0805FEC8(u16);
 
 extern const u8 D_080DBE20[];
@@ -20,10 +20,10 @@ void sub_08062418(u8 sceneType, u8 scriptIndex) {
     type = sceneType;
     index = scriptIndex;
     sub_080C2E68(layer, D_080DBE20, 2);
-    sub_0805FDF0();
-    sub_0805FE28(0, 0x89);
-    sub_0805FE8C(layer[type], 1, 1);
-    sub_0805FEB4(0);
+    resetMapRender();
+    setLayerTilemap(0, 0x89);
+    setMapLayerParams(layer[type], 1, 1);
+    setScreenTransition(0);
     if (type != 0) {
         sub_0805FEC8(D_080CFEBC[index]);
     } else {

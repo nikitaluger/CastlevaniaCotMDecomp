@@ -1,12 +1,12 @@
 /* identical to sub_080191DC (matched), with its names changed by decompdecomp */
-extern vu32 D_02025FF0;
-extern vu32 D_08671BB0;
+extern vu32 gMainWorkspace;
+extern vu32 gMainObjTimerCallback;
 
 void *sub_0805FAEC(s32, s32);
 void sub_080161F0(void);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 
 struct MainObj {
     u8 pad_0x00[0x22];
@@ -48,7 +48,7 @@ void *sub_080191FC(s32 arg0, s32 arg1) {
     s32 var_r1;
     void *temp_r0;
 
-    temp_r0 = sub_0805FAEC(*(vu32 *)((u8 *)&D_02025FF0 + 0x1870), 0x89);
+    temp_r0 = sub_0805FAEC(*(vu32 *)((u8 *)&gMainWorkspace + 0x1870), 0x89);
     if (temp_r0 == NULL) {
         return NULL;
     }
@@ -67,7 +67,7 @@ void *sub_080191FC(s32 arg0, s32 arg1) {
 
 void MainObj_CallUpdate2(struct MainObj *arg0) {
     u8 *r4 = (u8 *)arg0->unk_0x3C + 0x34;
-    sub_08011368(arg0->unk_0x38, r4, 0x34, 0);
+    setAnimationFrame(arg0->unk_0x38, r4, 0x34, 0);
     if ((r4[0] & 2) != 0) {
         sub_080C31E0(arg0, arg0->unk_0x24);
     }
@@ -78,11 +78,11 @@ void sub_08019170(struct MainObj *arg0) {
     u8 *temp;
     s16 idx;
 
-    sub_08011368(arg0->unk_0x38, (u8 *)arg0->unk_0x3C + 0x34, 0x2B, 1);
+    setAnimationFrame(arg0->unk_0x38, (u8 *)arg0->unk_0x3C + 0x34, 0x2B, 1);
     idx = arg0->unk_0x22;
     temp = (u8 *)arg0 + idx * 2;
     if (temp[0x19] > 0x1E) {
         temp[0x19] = 0;
-        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, D_08671BB0);
+        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, gMainObjTimerCallback);
     }
 }

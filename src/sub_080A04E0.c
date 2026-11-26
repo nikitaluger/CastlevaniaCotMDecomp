@@ -1,8 +1,8 @@
 /* Load a graphics sheet: decompress tiles into VRAM, fill a VRAM block with
  * 0x8080 through DMA3, copy tile data over it, then upload its palette. */
-extern void sub_080063D4(void *, void *);
+extern void decompressToVram(void *, void *);
 extern void sub_08097DF8(void *);
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 void sub_080A04E0(void)
 {
@@ -12,13 +12,13 @@ void sub_080A04E0(void)
     u32 vramOff;
     u32 vramDst;
 
-    sub_080063D4((void *)0x083C71A4, (void *)0x0600E000);
+    decompressToVram((void *)0x083C71A4, (void *)0x0600E000);
     fillSrc = &fillValue;
     *fillSrc = 0x8080;
     dma3 = (vu32 *)0x040000D4;
     dma3[0] = (u32)fillSrc;
     vramOff = 0x12F4;
-    vramDst = *(u32 *)(D_02021E90 + vramOff);
+    vramDst = *(u32 *)(gCameraState + vramOff);
     dma3[1] = vramDst;
     dma3[2] = 0x81002000;
     (void)dma3[2];

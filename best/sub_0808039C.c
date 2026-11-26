@@ -14,7 +14,7 @@ struct S_02025FF0_8039C {
     u8 _173B[0x18C2 - 0x173B];
     u16 field18C2;
 };
-extern struct S_02025FF0_8039C D_02025FF0;
+extern struct S_02025FF0_8039C gMainWorkspace;
 
 void sub_0808039C(void *arg0)
 {
@@ -43,7 +43,7 @@ void sub_0808039C(void *arg0)
     return;
 
 cont:
-    *(u16 *)(r5 + 0) = D_02025FF0.field18C2;
+    *(u16 *)(r5 + 0) = gMainWorkspace.field18C2;
     sub_08003740(r8 + 0x1C, r5);
 
     *(s32 *)(r4 + 0x14) -= 1;
@@ -52,8 +52,8 @@ cont:
         *(s32 *)(r4 + 0x14) = 0x1E;
     }
 
-    if (D_02025FF0.field173A == 0x1C ||
-        (D_02025FF0.field14ED == 0 && D_02025FF0.field10 != 0)) {
+    if (gMainWorkspace.field173A == 0x1C ||
+        (gMainWorkspace.field14ED == 0 && gMainWorkspace.field10 != 0)) {
         sub_080C31E0(r6, *(void **)(r6 + 0x24));
     }
 }

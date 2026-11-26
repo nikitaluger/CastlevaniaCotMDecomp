@@ -1,14 +1,14 @@
 extern void sub_08003A6C(void *, s32, void *);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern u16 sub_0806D62C(u16, s32);
 extern void sub_0808449C(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern u8 D_0849A844[];
 extern u8 D_0849A864[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 /* Saved-game flags: the byte at 0x1510 holds the player's mirror/flip bit. */
 struct SaveData
@@ -16,7 +16,7 @@ struct SaveData
   u8 _0[0x1510];
   u8 b1510;
 };
-extern struct SaveData D_02025FF0;
+extern struct SaveData gMainWorkspace;
 
 /* Effect part: an animation/sprite object spawned by the actor. */
 struct EffectPart
@@ -53,7 +53,7 @@ void sub_08075088(u8 *actor)
   u8 *groupBase = *((u8 **) (actor + 0x6C));
   struct EffectOwner *group = (struct EffectOwner *) (groupBase + 4);
   u8 *sprite = *((u8 **) (actor + 0x38));
-  u8 *params = D_02025368;
+  u8 *params = gGameStatus;
   struct EffectPart *spawn;
   s32 zero;
   s32 slotZero;
@@ -62,7 +62,7 @@ void sub_08075088(u8 *actor)
   u8 *stepParam;
   u32 *stepCallbacks;
 
-  spawn = (struct EffectPart *) sub_08016190();
+  spawn = (struct EffectPart *) allocEffectPart();
   group->f2C = spawn;
   if (spawn == NULL)
   {
@@ -74,7 +74,7 @@ void sub_08075088(u8 *actor)
   group->f34 = zero;
   group->f38 = zero;
   group->f3C = zero;
-  group->f2C->f1 = D_02025FF0.b1510 & 1;
+  group->f2C->f1 = gMainWorkspace.b1510 & 1;
   group->f2C->f2 = 2;
   group->f2C->f3 = 8;
   slotZero = 0;
@@ -91,8 +91,8 @@ void sub_08075088(u8 *actor)
   *((u32 *) (actor + 0x24)) = (u32) sub_0808449C;
   *((u32 *) (sprite + 0x24)) = (u32) D_0849A844;
   sub_08003A6C(groupBase + 0x20, 0, D_0849A864);
-  *((u32 *) (groupBase + 4)) = *((u32 *) (((u8 *) (&D_02025FF0)) + 0x174C));
-  group->f04 = *((u32 *) (((u8 *) (&D_02025FF0)) + 0x1750));
+  *((u32 *) (groupBase + 4)) = *((u32 *) (((u8 *) (&gMainWorkspace)) + 0x174C));
+  group->f04 = *((u32 *) (((u8 *) (&gMainWorkspace)) + 0x1750));
   group->f54 = *((u32 *) (actor + 0x7C));
   *((u8 *) ((actor + ((*((s16 *) (actor + 0x22))) * 2)) + 0x19)) = slotZero;
   stepCallbacks = (u32 *) 0x08671BB0;

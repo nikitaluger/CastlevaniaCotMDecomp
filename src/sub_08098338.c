@@ -1,4 +1,4 @@
-extern s32 sub_08000E98(s32, s32, s32, s32, s32);
+extern s32 postDisplaySprite(s32, s32, s32, s32, s32);
 
 /* For each set bit of a 16-bit mask, copy a 0x20-byte palette block into
  * object or background PALRAM from the source selected by the mode nibble of
@@ -35,7 +35,7 @@ void sub_08098338(s32 mask, u16 *modeField)
   {
     if (mask & objBit)
     {
-      do { sub_08000E98(1, objSrc, objPal, 0x20, 0x10); } while (0);
+      do { postDisplaySprite(1, objSrc, objPal, 0x20, 0x10); } while (0);
     }
     objSrc += srcStride;
     objPal += 0x20;
@@ -48,7 +48,7 @@ void sub_08098338(s32 mask, u16 *modeField)
   {
     if (mask & bgBit)
     {
-      sub_08000E98(1, bgSrc, bgPal, 0x20, 0x10);
+      postDisplaySprite(1, bgSrc, bgPal, 0x20, 0x10);
     }
     bgSrc += srcStride;
     bgPal += 0x20;

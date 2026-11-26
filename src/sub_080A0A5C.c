@@ -1,8 +1,8 @@
 extern void sub_08098338(s32, void *);
 extern void sub_080C31E0(void *, s32);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Advances the entity's script step, dispatches that step's handler, then
  * updates its camera-relative screen position. */
@@ -35,8 +35,8 @@ void sub_080A0A5C(void *entity)
     *(u16 *)((u8 *)entity + 0x22) = *(u16 *)((u8 *)entity + 0x22) - 1;
     sub_08098338(1, parent);
 
-    pt = D_02021E90;
-    pb = D_02025FF0;
+    pt = gCameraState;
+    pb = gMainWorkspace;
     pb += 0x18A8;
     {
         u32 idx;

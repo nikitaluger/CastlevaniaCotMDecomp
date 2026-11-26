@@ -1,7 +1,7 @@
-void sub_080114DC(void *, void *, s32, s32);
+void setObjectAnimation(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Script step: play animation frame 2 and clear the aim state's +0x10 flag,
  * then clear the step byte, run the script interpreter, advance the step byte
@@ -18,14 +18,14 @@ void sub_080AB748(void *entity)
     aim = *(u8 **)((u8 *)entity + 0x3C);
     anim = aim + 0x34;
     aim += 0x48;
-    sub_080114DC(sprite, anim, 2, 0);
+    setObjectAnimation(sprite, anim, 2, 0);
     aim[0x10] = 0;
 
     stepIndex = *(s16 *)((u8 *)entity + 0x22);
     ((u8 *)entity)[stepIndex * 2 + 0x19] = 0;
 
     {
-        void **interpreter = &D_08671BB0;
+        void **interpreter = &gMainObjTimerCallback;
         stepBase = (u8 *)entity + 0x18;
         sub_080C31E4(stepBase, (u8 *)entity + 0x22, *interpreter);
     }

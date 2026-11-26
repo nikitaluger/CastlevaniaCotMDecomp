@@ -1,9 +1,9 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(u8 *, s32, s32, s32);
-extern s32 sub_08013C2C(s32);
-extern void sub_0801131C(u8 *, u8 *, s32);
-extern void *sub_08016190(void);
-extern void sub_08011368(u8 *, u8 *, s32, s32);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(u8 *, s32, s32, s32);
+extern s32 findKindIndex(s32);
+extern void initSpriteGraphics(u8 *, u8 *, s32);
+extern void *allocEffectPart(void);
+extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void sub_0805B298(void);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
@@ -50,16 +50,16 @@ struct MainObj {
     u16 kind;
 };
 struct GameState { u8 _0[0x18A8]; u8 scrollIndex; u8 _18A9[0x19]; u16 flags; };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 struct ScrollTable { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
-extern struct ScrollTable D_02021E90;
+extern struct ScrollTable gCameraState;
 struct EffectDef { u8 _0[4]; u16 gfxIndex; u16 palette; u8 _8[0x28-8]; };
-extern struct EffectDef D_080CBDD0[];
+extern struct EffectDef gEffectGfxTable[];
 extern u16 D_080CFDDC[];
-extern u8 D_080CD400[];
+extern u8 gSpriteAnimDataTable[];
 
 /* Spawn a graphics effect from a main object: allocate a free object, build its
-   EffectGfx from D_080CBDD0/D_080CFDDC, and place it at the object's world coords. */
+   EffectGfx from gEffectGfxTable/D_080CFDDC, and place it at the object's world coords. */
 void sub_0805AE9C(struct MainObj *arg0) {
     u8 *effect;
     struct OwnerEffect *owner;
@@ -71,17 +71,17 @@ void sub_0805AE9C(struct MainObj *arg0) {
     u8 *scrollTable;
     s32 *audioCmd;
 
-    effect = sub_0800355C();
+    effect = allocSpriteObject();
     owner = NULL;
     gfx = NULL;
     slot = 0;
     if ((effect == NULL) ||
-        (arg0->object = effect, sub_0800168C((u8 *)arg0, 0, 0x48, 0), owner = arg0->effect, owner == NULL) ||
+        (arg0->object = effect, allocWorkSlot((u8 *)arg0, 0, 0x48, 0), owner = arg0->effect, owner == NULL) ||
         (anim = (u8 *)owner + 0x34, owner->updateCb = *(u32 *)((u8 *)arg0 + 0x24), *(u32 *)((u8 *)arg0 + 0x24) = (u32)sub_0805B298,
          owner->kind = 0x51, owner->f18 = 1,
          owner->worldX = arg0->posX << 16, owner->worldY = arg0->posY << 16,
-         slot = sub_08013C2C(0x51), owner->slot = slot, ((s32)(slot << 16) < 0)) ||
-        (sub_0801131C(effect, anim, (s32)D_080CD400 + owner->kind * 0xC), gfx = sub_08016190(), owner->gfx = (struct EffectGfx *)gfx, gfx == NULL)) {
+         slot = findKindIndex(0x51), owner->slot = slot, ((s32)(slot << 16) < 0)) ||
+        (initSpriteGraphics(effect, anim, (s32)gSpriteAnimDataTable + owner->kind * 0xC), gfx = allocEffectPart(), owner->gfx = (struct EffectGfx *)gfx, gfx == NULL)) {
         _call_via_r1((u8 *)arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;
     }
@@ -90,26 +90,26 @@ void sub_0805AE9C(struct MainObj *arg0) {
     owner->gfx->type = zero;
     owner->gfx->layer = 8;
     owner->gfx->priority = 1;
-    owner->gfx->gfxIndex = D_080CBDD0[owner->kind].gfxIndex;
+    owner->gfx->gfxIndex = gEffectGfxTable[owner->kind].gfxIndex;
     owner->gfx->anim0 = D_080CFDDC[0];
     owner->gfx->anim1 = D_080CFDDC[1];
     owner->gfx->anim2 = D_080CFDDC[2];
     owner->gfx->anim3 = D_080CFDDC[3];
-    owner->gfx->palette = D_080CBDD0[owner->kind].palette;
+    owner->gfx->palette = gEffectGfxTable[owner->kind].palette;
     owner->gfx->object = (u32)effect;
     owner->gfx->tail = tailZero;
     flags = (*(u16 *)effect & 0xC00) |
           (((*(s16 *)((u8 *)owner + 0x22) << 6) + 0x200) |
            ((*(u16 *)((u8 *)owner + 0x22) + 8) << 12));
     *(u16 *)effect = flags;
-    *(u16 *)effect = flags | D_02025FF0.flags;
+    *(u16 *)effect = flags | gMainWorkspace.flags;
     *(u32 *)(effect + 0x1C) = 0x80000009;
-    scrollTable = (u8 *)&D_02021E90;
-    { u32 offset = 0x1278; *(u32 *)(effect + 0x14) = owner->worldX - ((*(u32 *)(scrollTable + offset + ((D_02025FF0.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
-    { u32 offset = 0x127C; *(u32 *)(effect + 0x18) = owner->worldY - ((*(u32 *)(scrollTable + offset + ((D_02025FF0.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
+    scrollTable = (u8 *)&gCameraState;
+    { u32 offset = 0x1278; *(u32 *)(effect + 0x14) = owner->worldX - ((*(u32 *)(scrollTable + offset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
+    { u32 offset = 0x127C; *(u32 *)(effect + 0x18) = owner->worldY - ((*(u32 *)(scrollTable + offset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     *(u32 *)((u8 *)owner + 0x14) = zero;
     *(u32 *)((u8 *)owner + 0x10) = zero;
-    sub_08011368(effect, anim, 0xD, 0);
+    setAnimationFrame(effect, anim, 0xD, 0);
     arg0->flags |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * arg0->index + 0x19) = zero;
     audioCmd = (s32 *)0x08671BB0;

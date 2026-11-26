@@ -3,11 +3,11 @@ struct S02025FF0_48654 {
     s32 f174C;
     s32 f1750;
 };
-extern struct S02025FF0_48654 D_02025FF0;
+extern struct S02025FF0_48654 gMainWorkspace;
 
 s32 sub_08005910(s32, s32);
 void sub_0801165C(void *, s32);
-void sub_0801468C(void *, s32);
+void setSpriteFlip(void *, s32);
 void sub_080146D0(void *, ...);
 s32 sub_0801473C(s32, s32);
 void sub_08049180(void *, void *, void *, void *);
@@ -31,8 +31,8 @@ void sub_08048654(void *arg0)
     r7 = (u8 *)r6 + 0x48;
     p = (s32 *)0x08671BFC;
 
-    v5 = D_02025FF0.f174C + (((sub_080C31E0(*(s32 *)((u8 *)r7 + 0x0C) + 0x4000, *p) >> 8) << 14));
-    v1 = D_02025FF0.f1750 + (((sub_080C31E0(*(s32 *)((u8 *)r7 + 0x0C), *p) >> 8) << 14));
+    v5 = gMainWorkspace.f174C + (((sub_080C31E0(*(s32 *)((u8 *)r7 + 0x0C) + 0x4000, *p) >> 8) << 14));
+    v1 = gMainWorkspace.f1750 + (((sub_080C31E0(*(s32 *)((u8 *)r7 + 0x0C), *p) >> 8) << 14));
     v1 -= *(s32 *)((u8 *)r6 + 0x0C);
     v5 -= *(s32 *)((u8 *)r6 + 0x08);
 
@@ -42,7 +42,7 @@ void sub_08048654(void *arg0)
 
     sub_080146D0(r6);
     sub_0801165C(r6, 0);
-    sub_0801468C(r8, *(s32 *)((u8 *)r7 + 0x08));
+    setSpriteFlip(r8, *(s32 *)((u8 *)r7 + 0x08));
     sub_08049180(r8, sp0, r6, r7);
 
     if (*(s32 *)((u8 *)r7 + 0x04) <= 0)

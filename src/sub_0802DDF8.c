@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_0802DEA8(s32, void *, s32);
 void sub_080C31E0(void *, s32);
 
@@ -20,7 +20,7 @@ void sub_0802DDF8(void *entity)
     animFlags = (u8 *)((s8 *)work + 0x34);
     animator = work + 0x34;
     *(s32 *)((s8 *)work + 0x10) = (*(s32 *)((s8 *)work + 0x14) = 0);
-    sub_08011368(sprite, animator, 0xB, 0);
+    setAnimationFrame(sprite, animator, 0xB, 0);
     animFields = (s8 *)(work + 0x34);
     if (*(s32 *)(animFields + 4) == 1) {
         frameCode = *(u8 *)((s8 *)animator + 1) - 1;

@@ -9,7 +9,7 @@ struct GameState_7A8A4
   u8 _173B[0x18C2 - 0x173B];
   u16 spriteAttr;
 };
-extern struct GameState_7A8A4 D_02025FF0;
+extern struct GameState_7A8A4 gMainWorkspace;
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_08003740(void *, void *);
 extern void sub_0806D588(void *, void *);
@@ -31,7 +31,7 @@ void sub_0807A8A4(void *arg0)
     sub_080C31E0(arg0, *((void **) (((u8 *) arg0) + 0x24)));
     return;
   }
-  d = &D_02025FF0;
+  d = &gMainWorkspace;
   *((u16 *) world) = d->spriteAttr;
   zero = 0;
   {

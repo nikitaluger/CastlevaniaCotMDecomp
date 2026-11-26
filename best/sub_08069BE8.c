@@ -1,9 +1,9 @@
 void sub_0806C5EC(void*, void*, void*, void*);
 void sub_0806C6B0(void*, void*, void*, void*);
 void sub_080C31E4(void *, void *, void *);
-extern vu32 D_02025FF0[];
-extern u8 D_02021E90[];
-extern u32 D_08671BB0[];
+extern vu32 gMainWorkspace[];
+extern u8 gCameraState[];
+extern u32 gMainObjTimerCallback[];
 
 struct Arg69 {
     u8 pad0[0x18];
@@ -37,23 +37,23 @@ void sub_08069BE8(struct Arg69 *arg0) {
     sp20 = args.a;
     sub_0806C5EC(arg0, args.b, sp20, sp20);
 
-    cnt = --D_02025FF0[0x52A];
+    do { cnt = --gMainWorkspace[0x52A]; } while (0);
 
     maskG = 0x3E0;
     maskB = 0x7C00;
-    dst = pal;
+    do { cnt = cnt; } while (0);
     src = (u16 *)0x08521F10;
-    factor = cnt;
     i = 15;
+    dst = pal;
     do {
         u16 c = *src;
         u32 r = c & 0x1F;
         u32 g = (maskG & c) >> 5;
         u32 b = (maskB & c) >> 10;
         u32 g5, b10;
-        r = (r * (u32)factor) >> 4;
-        g = (g * (u32)factor) >> 4;
-        b = (b * (u32)factor) >> 4;
+        r = (r * (u32)cnt) >> 4;
+        do { g = (g * (u32)cnt) >> 4; } while (0);
+        do { b = (b * (u32)cnt) >> 4; } while (0);
         if (r > 0x1F) r = 0x1F;
         if (g > 0x1F) g = 0x1F;
         if (b > 0x1F) b = 0x1F;
@@ -70,12 +70,12 @@ void sub_08069BE8(struct Arg69 *arg0) {
     dma[2] = 0x80000010;
     (void)dma[2];
 
-    if (D_02025FF0[0x52A] == 0) {
-        *(u32 *)(D_02021E90 + off3) = 0;
+    if (gMainWorkspace[0x52A] == 0) {
+        *(u32 *)(gCameraState + off3) = 0;
         ((struct Regs *)0x03000830)->reg = 0xBF;
-        D_02025FF0[0x52B] = 4;
+        gMainWorkspace[0x52B] = 4;
         *(u8 *)((u8 *)arg0 + arg0->f22 * 2 + 0x19) = 0;
-        table = D_08671BB0;
+        table = gMainObjTimerCallback;
         sub_080C31E4(&arg0->f18, &arg0->f22, (void *)table[0]);
     }
     sub_0806C6B0(arg0, args.b, args.a, sp20);

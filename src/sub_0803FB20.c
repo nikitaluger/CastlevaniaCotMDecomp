@@ -9,7 +9,7 @@ void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Advances an entity's step script: handles sprite/motion state and target
  * interactions, dispatches the next handler, then updates world coordinates. */

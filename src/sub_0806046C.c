@@ -9,14 +9,14 @@ struct S_02021E90_local {
     u8 pad_1458[4];
     u8 graphicsFlags;
 };
-extern struct S_02021E90_local D_02021E90;
+extern struct S_02021E90_local gCameraState;
 
 /* Swap the two map-layer parameters and advance the map command script by one. */
 s32 sub_0806046C(void)
 {
-    u8 tmp = D_02021E90.layerParamA;
-    D_02021E90.layerParamA = D_02021E90.layerParamB;
-    D_02021E90.layerParamB = tmp;
-    D_02021E90.scriptPos += 1;
+    u8 tmp = gCameraState.layerParamA;
+    gCameraState.layerParamA = gCameraState.layerParamB;
+    gCameraState.layerParamB = tmp;
+    gCameraState.scriptPos += 1;
     return 0;
 }

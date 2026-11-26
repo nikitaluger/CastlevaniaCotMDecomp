@@ -1,5 +1,5 @@
-extern u8 D_02025FF0[];
-extern u8 D_02021E90[];
+extern u8 gMainWorkspace[];
+extern u8 gCameraState[];
 extern u8 D_02023130[];
 extern u32 D_08671BD0[];
 extern s32 sub_0806C4B4(void *a, void *b);
@@ -35,12 +35,12 @@ void sub_08062F10(void *a)
   {
     return;
   }
-  sub_0806C5EC(r4, r8, r6, r6);
+  do { sub_0806C5EC(r4, r8, r6, r6); } while (0);
   {
     u32 *p84 = (u32 *) (r7 + 0x84);
     u32 v = (*p84) + 1;
     *p84 = v;
-    if (D_02025FF0[0x14ED] == 0x33)
+    if (gMainWorkspace[0x14ED] == 0x33)
     {
       if (v == 0x78)
       {
@@ -58,7 +58,7 @@ void sub_08062F10(void *a)
       }
       if ((*((u32 *) ((r7 + 4) + 0x7C))) == 3)
       {
-        *((u32 *) (D_02025FF0 + 0x14FC)) = 1;
+        *((u32 *) (gMainWorkspace + 0x14FC)) = 1;
       }
     }
     else
@@ -67,7 +67,7 @@ void sub_08062F10(void *a)
       sub_0806C49C(r8, r6);
     }
     else
-      if ((*((u32 *) (0x10 + D_02025FF0))) != 0)
+      if ((*((u32 *) (0x10 + gMainWorkspace))) != 0)
     {
       sub_0806A7AC(r8, r6, 0x7F);
       *((u32 *) (r6 + 0x7C)) = 1;
@@ -94,7 +94,7 @@ void sub_08062F10(void *a)
   {
     if ((*((u32 *) (r5 + 0x68))) == 0)
     {
-      sub_0806B280(r4, r8, r5, r6);
+      do { do { do { sub_0806B280(r4, r8, r5, r6); } while (0); } while (0); } while (0);
       {
         s16 idx = *((s16 *) (((u8 *) r4) + 0x22));
         ((u8 *) r4)[(idx * 2) + 0x19] = 0;
@@ -104,9 +104,9 @@ void sub_08062F10(void *a)
     else
     {
       *((u32 *) (r5 + 0x68)) = 1;
-      if (D_02025FF0[0x14ED] != 0x35)
+      if (gMainWorkspace[0x14ED] != 0x35)
       {
-        sub_0806A7AC(r8, r5, 7);
+        do { sub_0806A7AC(r8, r5, 7); } while (0);
       }
       else
       {
@@ -120,11 +120,11 @@ void sub_08062F10(void *a)
     }
     goto lab_6312A;
   }
-  new_var = D_02021E90;
   new_var2 = r5 + 0x40;
-  if ((*((u32 *) (D_02025FF0 + 0x24))) != 0)
+  new_var = gCameraState;
+  if ((*((u32 *) (gMainWorkspace + 0x24))) != 0)
   {
-    if (((*((u16 *) (D_02025FF0 + 0x2A))) & 0x80) == 0)
+    if (((*((u16 *) (gMainWorkspace + 0x2A))) & 0x80) == 0)
     {
       goto check_b2c8;
     }
@@ -166,7 +166,7 @@ void sub_08062F10(void *a)
     }
   }
   {
-    u8 *map = D_02023130 + (D_02025FF0[0x18A8] * 0x40);
+    u8 *map = D_02023130 + (gMainWorkspace[0x18A8] * 0x40);
     s32 off = 0x10000;
     if (sub_08007B78(map, *((s32 *) (r6 + 0)), (*((s32 *) (r6 + 4))) + off) == 0)
     {
@@ -193,8 +193,8 @@ void sub_08062F10(void *a)
     void *p28 = r5 + 0x28;
     if (sub_08003740(p28, r8) == 0)
     {
-      sub_0806C49C(r8, r5);
-      sub_08003740(p28, r8);
+      do { do { sub_0806C49C(r8, r5);
+      sub_08003740(p28, r8); } while (0); } while (0);
     }
   }
   {

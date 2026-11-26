@@ -9,8 +9,8 @@ extern s32 sub_080C31E0(void *, s32);                  /* indirect call */
 extern s32 sub_080C31E8(void *, void *, s32, s32);     /* state machine dispatch */
 extern s32 sub_080113A8(void *, void *);               /* step animation */
 extern s32 sub_0805D9A4(void *, s32);                  /* body terrain collision */
-extern u8 D_02021E90[];   /* shared video state (BG scroll buffers) */
-extern u8 D_02025FF0[];   /* scene state (camera index at +0x18A8) */
+extern u8 gCameraState[];   /* shared video state (BG scroll buffers) */
+extern u8 gMainWorkspace[];   /* scene state (camera index at +0x18A8) */
 extern u8 D_0866E978[];   /* movement state handler table */
 extern s32 D_08671BDC;
 
@@ -86,8 +86,8 @@ void sub_0805D528(u8 *entity) {
     if ((*(u16 *)(entity + 2) & 0x8000) != 0) return;
     sub_080113A8(sprite, gfxInit);
     sub_0805D9A4(body, *(s32 *)((u8 *)parts + 8));
-    video = D_02021E90;
-    globalBase = D_02025FF0;
+    video = gCameraState;
+    globalBase = gMainWorkspace;
     globalBase += 0x18A8;
     coordIdx = ((u32)*globalBase + 1) * 0x40;
     xBase = video + 0x1278;

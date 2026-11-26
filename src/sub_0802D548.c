@@ -2,8 +2,8 @@ void sub_080113A8(void *actor, void *data);
 s32 sub_08013B5C(void *actor, void *enemy);
 void sub_0802D678(void *actor, void *enemy);
 void sub_080C31E0(void *, s32); /* indirect-call thunk (bx r1) */
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 struct S28 { u8 a; u8 flag; };
 
@@ -48,8 +48,8 @@ void sub_0802D548(void *self)
     sub_0802D678(actor, enemy);
     *(u16 *)(*(u8 **)((u8 *)enemy + 0x28) + 0x14) = 0;
     {
-        u8 *coordTable = D_02021E90;
-        u8 *camPtr = D_02025FF0;
+        u8 *coordTable = gCameraState;
+        u8 *camPtr = gMainWorkspace;
         u32 coordIndex;
         u8 *xTable;
         u8 *yTable;

@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 
 // Clears this object from the graphics manager's 6-entry slot table (unless

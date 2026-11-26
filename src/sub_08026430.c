@@ -1,7 +1,7 @@
 /* Update a scripted effect: seed its random horizontal motion, run its
  * animation and script step, then handle the finish branch with a facing-
  * dependent speed and a follow-up script. */
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_08026954(void *, void *);
 extern s32 sub_08014990(void *);
 extern void sub_080269D4(void *, s32);
@@ -13,7 +13,7 @@ struct S_02025FF0
   u8 _0[0x189C];
   u32 v;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 void sub_08026430(void *arg0)
 {
   void *sprite = *((void **) (((u8 *) arg0) + 0x38));
@@ -28,14 +28,14 @@ void sub_08026430(void *arg0)
   randomFlag = motion[1];
   if (randomFlag == 1)
   {
-    u32 globalRand = D_02025FF0.v;
+    u32 globalRand = gMainWorkspace.v;
     do
     {
       *((u32 *) (state48 + 0x14)) = ((((s32) (globalRand + (globalRand >> 31))) >> 1) & randomFlag) ? (0x80 << 9) : 0;
     }
     while (0);
   }
-  sub_08011368(sprite, motion, 5, 0);
+  setAnimationFrame(sprite, motion, 5, 0);
   *((u32 *) (((u8 *) arg0) + 0x14)) = 0x0866D998;
   *((u16 *) (((u8 *) arg0) + 0x22)) = (*((u16 *) (((u8 *) arg0) + 0x22))) + 1;
   (((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2))[0x19]++;

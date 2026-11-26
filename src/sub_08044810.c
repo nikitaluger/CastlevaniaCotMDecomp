@@ -1,4 +1,4 @@
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 s32 sub_08005820(s32);
 void sub_080113A8(s32, void *);
@@ -32,7 +32,7 @@ void sub_08044810(u8 *arg0) {
             *(u8 *)(part + 4) = timer;
             *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
             {
-                u32 *scriptHandlers = D_08671BB0;
+                u32 *scriptHandlers = gMainObjTimerCallback;
                 sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);
             }
         }

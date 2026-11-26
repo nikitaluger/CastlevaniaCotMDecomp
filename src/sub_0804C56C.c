@@ -11,13 +11,13 @@ struct CameraY {
     u8 _pad[0x172C];
     s32 y;
 };
-extern struct CameraY D_02025FF0;
+extern struct CameraY gMainWorkspace;
 
 void sub_0804C56C(u8 *arg0) {
     s32 sprite = *(s32 *)(arg0 + 0x38);
     u8 *work = *(u8 **)(arg0 + 0x3C);
     u8 *pose = work + 0x48;
-    if (*(s32 *)(work + 0x0C) >= D_02025FF0.y + 0x200000) {
+    if (*(s32 *)(work + 0x0C) >= gMainWorkspace.y + 0x200000) {
         sub_0804C674(arg0, (s32 *)(work + 0x54), (s32 *)(work + 0x58));
         {
             s32 facing = sub_08014990(sprite);

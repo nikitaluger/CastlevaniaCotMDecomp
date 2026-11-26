@@ -1,6 +1,6 @@
 /* Spawn/init this entity's AI: allocate a small child record, fill its
  * parameters from global tables, install callbacks and run the first step. */
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_08003A6C(void *a, s32 b, void *c);
@@ -8,9 +8,9 @@ extern void sub_080722E0(void *a, u8 b);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 extern void sub_0808449C(void);
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 struct S25FF0 { u8 pad[0x1510]; u8 b1510; };
-extern struct S25FF0 D_02025FF0;
+extern struct S25FF0 gMainWorkspace;
 extern u8 D_080E4D44[];
 struct AIChild
 {
@@ -23,8 +23,8 @@ void sub_08078804(u8 *entity)
   u8 *work = *((u8 **) (entity + 0x6C));
   u8 *state = work + 4;
   u8 *sprite = *((u8 **) (entity + 0x38));
-  u8 *paramTable = D_02025368;
-  struct AIChild *child = sub_08016190();
+  u8 *paramTable = gGameStatus;
+  struct AIChild *child = allocEffectPart();
   u8 *tbl;
   u8 *variantPtr;
   s32 *g;
@@ -39,7 +39,7 @@ void sub_08078804(u8 *entity)
   *((u32 *) (state + 0x34)) = 0;
   *((u32 *) (state + 0x38)) = 0;
   *((u32 *) (state + 0x3C)) = 0;
-  child->f1 = D_02025FF0.b1510 & 1;
+  child->f1 = gMainWorkspace.b1510 & 1;
   (*((struct AIChild **) (state + 0x2C)))->f2 = 2;
   (*((struct AIChild **) (state + 0x2C)))->f3 = 8;
   {

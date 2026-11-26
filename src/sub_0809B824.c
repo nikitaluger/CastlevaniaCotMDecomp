@@ -13,8 +13,8 @@ struct Motion {
 };
 struct Offset { u32 dx; u32 dy; };
 struct ScrollState { u8 _0[0x18A8]; u8 frame; };
-extern u8 D_02021E90[];
-extern struct ScrollState D_02025FF0;
+extern u8 gCameraState[];
+extern struct ScrollState gMainWorkspace;
 extern s16 D_081017F0[];
 extern struct Offset D_081017F8[];
 void sub_08014668(void *, u32);
@@ -62,11 +62,11 @@ void sub_0809B824(void *a) {
         entity->spawnRequest = 0;
     }
     sub_0809C678(moverTarget, mover->linkData);
-    coordTable = D_02021E90;
-    coordIdx = (D_02025FF0.frame + 1) * 64;
+    coordTable = gCameraState;
+    coordIdx = (gMainWorkspace.frame + 1) * 64;
     xTable = coordTable + 0x1278;
     motion->screenX = mover->x - ((*(u32 *)(xTable + coordIdx) + 0x8000) & 0xFFFF0000);
-    coordIdx = (D_02025FF0.frame + 1) * 64;
+    coordIdx = (gMainWorkspace.frame + 1) * 64;
     yTable = coordTable + 0x127C;
     motion->screenY = mover->y - ((*(u32 *)(yTable + coordIdx) + 0xFFFF8000u) & 0xFFFF0000);
 }

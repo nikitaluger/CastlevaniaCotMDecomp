@@ -12,7 +12,7 @@ struct S_02025FF0b {
     u8 _2[0x173A - 0x14EE];
     u8 f173A;
 };
-extern struct S_02025FF0b D_02025FF0;
+extern struct S_02025FF0b gMainWorkspace;
 
 /* Per-frame update: unless a special scroll mode owns the position, adds the
  * scroll delta to the view, runs a countdown that fires an effect when it
@@ -39,7 +39,7 @@ void sub_080800A0(u8 *self) {
         sub_08003740(base + 0x20, view);
         sub_0806D588(view, vec);
         {
-            struct S_02025FF0b *caps = &D_02025FF0;
+            struct S_02025FF0b *caps = &gMainWorkspace;
             if (caps->f173A == 0x1C || (caps->f14ED == 0 && caps->f10 != 0)) {
                 sub_080C31E0((s32)self, *(s32 *)(self + 0x24));
             }

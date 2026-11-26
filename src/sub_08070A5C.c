@@ -1,17 +1,17 @@
 /* Allocate an AI work buffer for an entity, fill its parameters from the global
  * tuning tables, install the update/destroy callbacks and advance its script. */
 extern void sub_08003A6C(void *, s32, void *);
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_080718F4(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u32 D_084737D4;
 extern u32 D_08473814;
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 struct S_08070A5C { u8 _0[0x3C]; u8 * volatile work; };
 struct S_08070A5C_R7 { u16 f00; };
@@ -23,7 +23,7 @@ void sub_08070A5C(u8 *entity) {
     u8 *brain = *(u8 **)(entity + 0x6C);
     u8 *brainCtx = brain + 4;
     u8 *aux = *(u8 **)(entity + 0x38);
-    u8 *cfg = D_02025368;
+    u8 *cfg = gGameStatus;
     u8 *base;
     void *work;
     s32 percent;
@@ -33,13 +33,13 @@ void sub_08070A5C(u8 *entity) {
     struct S_08070A5C *ctx = (struct S_08070A5C *)brainCtx;
     struct S_08070A5C_R7 *auxHdr = (struct S_08070A5C_R7 *)aux;
 
-    work = sub_08016190();
+    work = allocEffectPart();
     ctx->work = work;
     if (work == NULL) {
         sub_0806D2D0(entity);
         return;
     }
-    base = D_02025FF0;
+    base = gMainWorkspace;
     mode = 5 & *(u8 *)(base + 0x1510);
     zero = 0;
     *(u8 *)(work + 1) = mode;
@@ -87,7 +87,7 @@ void sub_08070A5C(u8 *entity) {
     }
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *scriptTable = &D_08671BB0;
+        s32 *scriptTable = &gMainObjTimerCallback;
         u8 *scriptPtr = entity + 0x18;
         sub_080C31E4(scriptPtr, entity + 0x22, *scriptTable);
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) + 1;

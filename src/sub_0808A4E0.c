@@ -11,7 +11,7 @@ struct S_D {
     u16 offset14D8;
     u16 timer14DA;
 };
-extern struct S_D D_02025FF0;
+extern struct S_D gMainWorkspace;
 
 /* When the global mode (+0x1C) is 1, request the hit effect (effect word +0x40
  * = 2, mode = 0x10, offset/timer pair at +0x14D8) and tail-call the entity's
@@ -23,11 +23,11 @@ void sub_0808A4E0(void *arg0) {
     u8 *moverPos = mover + 4;
     u8 *sprite = *(u8 **)(self + 0x38);
 
-    if (D_02025FF0.state1C == 1) {
-        D_02025FF0.effect40 = 2;
-        D_02025FF0.state1C = 0x10;
-        D_02025FF0.offset14D8 = 0xFFF4;
-        D_02025FF0.timer14DA = 0x0D;
+    if (gMainWorkspace.state1C == 1) {
+        gMainWorkspace.effect40 = 2;
+        gMainWorkspace.state1C = 0x10;
+        gMainWorkspace.offset14D8 = 0xFFF4;
+        gMainWorkspace.timer14DA = 0x0D;
         sub_080C31E0(self, *(void **)(self + 0x24));
     } else {
         sub_08003740(mover + 0x20, sprite);

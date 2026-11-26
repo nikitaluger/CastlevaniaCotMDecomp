@@ -1,8 +1,8 @@
 extern s32 sub_08016238(void *);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E9C0[];
 extern s32 D_08671BDC;
 
@@ -54,8 +54,8 @@ void sub_0805EE0C(u8 *self) {
     sub_080C31E0(self, *(u32 *)(*(u32 *)(self + 0x14) + animState * 4));
     *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
     if ((*(u16 *)(self + 2) & 0x8000) != 0) return;
-    mapBase = D_02021E90;
-    cameraIndex = D_02025FF0;
+    mapBase = gCameraState;
+    cameraIndex = gMainWorkspace;
     cameraIndex += 0x18A8;
     mapOffset = ((u32)*cameraIndex + 1) * 0x40;
     mapX = mapBase + 0x1278;

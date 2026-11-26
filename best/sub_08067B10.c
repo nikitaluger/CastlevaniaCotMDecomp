@@ -36,9 +36,9 @@ struct S_02021E90
   u8 _0[0x146C];
   u16 f146C;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern struct S_02021E90 D_02021E90;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern struct S_02021E90 gCameraState;
+extern u8 gGameStatus[];
 extern u8 D_080E03A0[];
 extern void *D_08671BD0;
 extern void *D_084A67FC;
@@ -63,11 +63,11 @@ void sub_08067B10(struct Arg0 *arg0)
   u8 *base;
   u8 *r9;
   u8 *r4v;
-  g4b = (struct G4 *) (arg0->f6C + 4);
+  u32 temp;
+  do { g4b = (struct G4 *) (arg0->f6C + 4); } while (0);
   a = arg0->f38;
-  g4 = g4b;
-  base = D_02025368;
-  new_var2 = &g4->f44;
+  new_var2 = &(g4 = g4b)->f44;
+  base = gGameStatus;
   if (sub_0806C4B4(g4, g4) != 0)
   {
     return;
@@ -75,34 +75,40 @@ void sub_08067B10(struct Arg0 *arg0)
   sub_0806C5EC(arg0, (void *) a, g4, g4);
   sub_0806BA20((void *) a, g4, g4);
   {
-    u8 *tbl = D_080E03A0;
-    u32 off = (*new_var2) * 0x58;
-    s32 cur = g4->f0C + (*((s32 *) (tbl - (-off))));
+    u8 *tbl;
+    u32 off;
+    s32 cur;
     s32 lim;
-    g4->f0C = cur;
-    lim = *((s32 *) ((tbl + off) + 4));
+    tbl = D_080E03A0;
+    off = (*new_var2) * 0x58;
+    do { do { g4->f0C = (cur = g4->f0C + (*((s32 *) (tbl - (-off))))); } while (0); } while (0);
+    temp = off + 4;
+    lim = *((s32 *) (tbl + temp));
     if (cur > lim)
     {
       g4->f0C = lim;
     }
   }
   sub_08068704((void *) a, g4, g4);
-  if (D_02025FF0.f24 != 0)
+  if (gMainWorkspace.f24 != 0)
   {
-    if ((D_02025FF0.f28 & (*((u16 *) (base + 0x3BC)))) != 0)
+    if ((gMainWorkspace.f28 & (*((u16 *) (base + 0x3BC)))) != 0)
     {
       goto block_bba;
     }
     r4v = ((u8 *) g4b) + 0x28;
-    goto block_bec;
+    r9 = r4v;
+
+  
+    goto block_bee;
   }
   else
   {
-    u16 aa = *((u16 *) (base + 0x3BC));
-    u16 bb = D_02021E90.f146C;
+    s32 aa;
+    aa = *((u16 *) (base + 0x3BC));
     r4v = ((u8 *) g4b) + 0x28;
     r9 = r4v;
-    if ((bb & aa) == 0)
+    if ((gCameraState.f146C & aa) == 0)
     {
       goto block_bee;
     }
@@ -114,7 +120,8 @@ void sub_08067B10(struct Arg0 *arg0)
   *((u32 *) (((u8 *) g4b) + 0xB8)) = 0;
   *((u8 *) (((((u32) arg0->f22) * 2) + ((u32) arg0)) + 0x19)) = 0;
   {
-    void *fn = &D_08671BD0;
+    void *fn;
+    fn = &D_08671BD0;
     sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 0x27, *((void **) fn));
   }
   block_bec:
@@ -131,7 +138,8 @@ void sub_08067B10(struct Arg0 *arg0)
     {
       *((u8 *) (((((u32) arg0->f22) * 2) + ((u32) arg0)) + 0x19)) = 0;
       {
-        void *fn = &D_08671BD0;
+        void *fn;
+        fn = &D_08671BD0;
         sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 0x26, *((void **) fn));
       }
       g4->f08 = 0;
@@ -141,21 +149,25 @@ void sub_08067B10(struct Arg0 *arg0)
       sub_08003A6C(r9, 0, D_084A6814);
       *((u8 *) (((((u32) arg0->f22) * 2) + ((u32) arg0)) + 0x19)) = 0;
       {
-        void *fn = &D_08671BD0;
+        void *fn;
+        fn = &D_08671BD0;
         sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 0x24, *((void **) fn));
       }
     }
   }
   sub_0806A884((void *) a, g4);
   {
-    u32 ret = sub_0806BCD8(arg0, (void *) a, g4b, g4);
-    u32 *pp = (u32 *) (((u8 *) g4b) + 0xC4);
+    u32 ret;
+    u32 *pp;
+    ret = sub_0806BCD8(arg0, (void *) a, g4b, g4);
+    pp = (u32 *) (((u8 *) g4b) + 0xC4);
     *pp = (u16) ret;
     if ((*pp) != 0)
     {
       *((u8 *) (((((u32) arg0->f22) * 2) + ((u32) arg0)) + 0x19)) = 0;
       {
-        void *fn = &D_08671BD0;
+        void *fn;
+        fn = &D_08671BD0;
         sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, *pp, *((void **) fn));
       }
     }

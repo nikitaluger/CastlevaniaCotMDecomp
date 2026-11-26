@@ -17,7 +17,7 @@ struct S_02021E90 {
     u8 _2[0x1470 - 0x146E];
     u16 dirButtons;
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 
 extern u8 D_080CAFF8[];
 extern u8 D_080CB002[];
@@ -34,7 +34,7 @@ void sub_0800D390(void *obj)
     u32 buttonBits;
 
     oldSelection = D_020278D0.selection;
-    dirButtons = D_02021E90.dirButtons;
+    dirButtons = gCameraState.dirButtons;
     {
         u32 bothDirs = 0xC0;
 
@@ -45,7 +45,7 @@ void sub_0800D390(void *obj)
             dirMinus &= dirButtons;
             if (dirMinus != 0) D_020278D0.selection--;
             {
-                u16 dirButtons2 = D_02021E90.dirButtons;
+                u16 dirButtons2 = gCameraState.dirButtons;
                 u32 dirPlus = 0x80;
 
                 dirPlus &= dirButtons2;
@@ -64,7 +64,7 @@ void sub_0800D390(void *obj)
         selection = D_020278D0.selection;
         sub_0800EB44(*(u16 *)(gfxTable + selection * 2), 2, 0xFC0);
     }
-    actionButtons = D_02021E90.actionButtons;
+    actionButtons = gCameraState.actionButtons;
     buttonBits = 0xA;
     buttonBits &= actionButtons;
     if (buttonBits != 0) {

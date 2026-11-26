@@ -5,7 +5,7 @@
  */
 typedef s32 M2C_UNK;
 M2C_UNK sub_08005E80(s32);
-M2C_UNK sub_080114DC(s32, s32, s32, s32);
+M2C_UNK setObjectAnimation(s32, s32, s32, s32);
 M2C_UNK sub_08011528(s32, s32);
 M2C_UNK sub_080C31E4(void *, void *, s32);
 
@@ -37,7 +37,7 @@ void sub_080B3754(void *actor)
     anim = *((s32 *)(((s8 *)actor) + 0x3C)) + 0x34;
     frameTablePtr = *(s32 **)((s8 *)anim + 8);
     propBefore = FRAME_PROP(anim, frameTablePtr);
-    sub_080114DC(animOwner, anim, ACTION_FRAME, 0);
+    setObjectAnimation(animOwner, anim, ACTION_FRAME, 0);
     sub_08011528(animOwner, anim);
     frameTablePtr = *(s32 **)((s8 *)anim + 8);
     propAfter = FRAME_PROP_NOW(anim, frameTablePtr);

@@ -1,7 +1,7 @@
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080148D8(s32, s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_08011460(s32, void *, s32);
 
 void sub_080B7EE4(void *arg0) {
@@ -46,7 +46,7 @@ void sub_080B8084(void *arg0) {
     u8 *p3C = *(u8 **)(self + 0x3C);
     u8 *r4 = p3C + 0x34;
     s32 *lit;
-    sub_08011368(v38, r4, 6, 0);
+    setAnimationFrame(v38, r4, 6, 0);
     sub_08011460(v38, r4, 0x40000);
     if (*(u8*)r4 & 2) {
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = 0;

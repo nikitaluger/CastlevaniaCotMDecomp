@@ -24,16 +24,16 @@ struct PlayerPosition {
     s32 playerX;
     s32 playerY;
 };
-extern struct PlayerPosition D_02025FF0;
+extern struct PlayerPosition gMainWorkspace;
 
 /* Returns 1 while the player is within 32 px horizontally and 56 px
  * vertically of the object's work position (work+0x0C/+0x10), else 0. */
 s32 sub_08096F00(void *arg0) {
     u8 *work = *(u8 **)((u8 *)arg0 + 0x3C);
-    if (D_02025FF0.playerX >= *(s32 *)(work + 0x0C) + (s32)0xFFE00000 &&
-        D_02025FF0.playerX <= *(s32 *)(work + 0x0C) + 0x200000 &&
-        D_02025FF0.playerY >= *(s32 *)(work + 0x10) + (s32)0xFFC80000 &&
-        D_02025FF0.playerY <= *(s32 *)(work + 0x10) + 0x380000) {
+    if (gMainWorkspace.playerX >= *(s32 *)(work + 0x0C) + (s32)0xFFE00000 &&
+        gMainWorkspace.playerX <= *(s32 *)(work + 0x0C) + 0x200000 &&
+        gMainWorkspace.playerY >= *(s32 *)(work + 0x10) + (s32)0xFFC80000 &&
+        gMainWorkspace.playerY <= *(s32 *)(work + 0x10) + 0x380000) {
         return 1;
     }
     return 0;

@@ -1,5 +1,5 @@
 void *sub_08001480(s32 arg0, s32 arg1);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 /* Allocate an entity into the first free slot of a range in the global slot
  * table, recording its slot index on the new entity. */
@@ -9,7 +9,7 @@ void *sub_0806D24C(s32 parent, s32 entityId, u32 startSlot, s32 slotCount)
 
     if (slotIndex < (u32)(startSlot + slotCount))
     {
-        u8 *slotTable = D_02025FF0;
+        u8 *slotTable = gMainWorkspace;
         u32 slotOffset = (slotIndex * 4) + (0xBC << 5);
         void **slot = (void **)(slotTable + slotOffset);
         do

@@ -7,7 +7,7 @@ struct GameState {
     u8 _2[0x1824];
     u32 flags;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 void sub_080C31E4(void *, void *, s32); /* advance the actor's bytecode stream */
 void sub_08003740(void *, void *);      /* step a sub-script runner */
@@ -25,7 +25,7 @@ void sub_08088F9C(void *arg0) {
     s32 x = *(s32 *)(motion + 4) + *(s32 *)(pos + 8);
     *(s32 *)(motion + 4) = x;
     if (x > 0xB3FFFF) {
-        D_02025FF0.subState = 2;
+        gMainWorkspace.subState = 2;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
             u32 *stream = (u32 *)0x08671BB0;

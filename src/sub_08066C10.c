@@ -6,9 +6,9 @@ void sub_080C31E4(void *, void *, u32);
 struct ResourceEntry { u32 first; u32 second; };
 extern struct ResourceEntry D_080DEA88[];
 struct GameStateFlags { u8 _0[0x24]; u32 useAlt; u8 _1[2]; volatile u16 flags; };
-extern struct GameStateFlags D_02025FF0;
+extern struct GameStateFlags gMainWorkspace;
 struct AltGameStateFlags { u8 _pad[0x146E]; volatile u16 flags; };
-extern struct AltGameStateFlags D_02021E90;
+extern struct AltGameStateFlags gCameraState;
 
 /* Runs one step of an actor's behaviour script: triggers its attached effect,
  * follows scroll-direction flags on its parent, then dispatches the next opcode. */
@@ -26,12 +26,12 @@ void sub_08066C10(u8 *arg0) {
         *(u32 *)((u8 *)spawned + 0x7C) = *(u32 *)(state + 0xBC);
     }
 
-    if ((D_02025FF0.useAlt != 0 ? D_02025FF0.flags : D_02021E90.flags) & 0x10) {
+    if ((gMainWorkspace.useAlt != 0 ? gMainWorkspace.flags : gCameraState.flags) & 0x10) {
         if (*(u16 *)(parent + 2) & 0x10)
             *(u16 *)(parent + 2) &= 0xFFEF;
     }
 
-    if ((D_02025FF0.useAlt != 0 ? D_02025FF0.flags : D_02021E90.flags) & 0x20) {
+    if ((gMainWorkspace.useAlt != 0 ? gMainWorkspace.flags : gCameraState.flags) & 0x20) {
         if ((*(u16 *)(parent + 2) & 0x10) == 0)
             *(u16 *)(parent + 2) |= 0x10;
     }

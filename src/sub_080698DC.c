@@ -6,8 +6,8 @@ struct S_02025FF0_698DC {
     u8 f18C5;
     u8 f18C6;
 };
-extern struct S_02025FF0_698DC D_02025FF0;
-extern void *D_08671BB0;
+extern struct S_02025FF0_698DC gMainWorkspace;
+extern void *gMainObjTimerCallback;
 extern void sub_0806C5EC(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void *sub_08001480(void *, s32);
@@ -35,19 +35,19 @@ void sub_080698DC(u8 *arg0) {
     if (spawned != 0) *(s32 *)((u8 *)spawned + 0x7C) = 1;
     spawned = sub_08001480(arg0, 0x30);
     if (spawned != 0) *(s32 *)((u8 *)spawned + 0x7C) = 2;
-    D_02025FF0.f14B0 = 1;
-    D_02025FF0.f14AC = 1;
+    gMainWorkspace.f14B0 = 1;
+    gMainWorkspace.f14AC = 1;
     *(s32 *)((u8 *)subObj + (0x8A << 1)) = 0x64;
     *(s32 *)((u8 *)subObj + (0x8C << 1)) = 0x64;
     sub_0806D894();
     sub_0806D8C0();
     sub_08005E80(0x7C);
-    D_02025FF0.f18C6 = 1;
-    D_02025FF0.f18C5 = 1;
+    gMainWorkspace.f18C6 = 1;
+    gMainWorkspace.f18C5 = 1;
     index = *(s16 *)(arg0 + 0x22);
     (arg0 + index * 2)[0x19] = 0;
     {
-        void **effectIds = &D_08671BB0;
+        void **effectIds = &gMainObjTimerCallback;
         sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *effectIds);
     }
 }

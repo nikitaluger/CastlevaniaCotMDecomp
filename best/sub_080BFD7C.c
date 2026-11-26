@@ -9,7 +9,9 @@ volatile short sub_080BFD7C(void)
     u8 fB;
   };
   struct S_BFD7C *p = *((struct S_BFD7C **) 0x03007FF0);
-  if (((u32) (p->f0 - D_080C001C)) <= 1)
+  u32 temp;
+  temp = p->f0;
+  if (((u32) (temp - D_080C001C)) <= 1)
   {
     char v = (*((struct S_BFD7C **) 0x03007FF0))->f4 - 1;
     (*((struct S_BFD7C **) 0x03007FF0))->f4 = v;

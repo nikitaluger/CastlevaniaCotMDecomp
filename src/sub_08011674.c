@@ -1,6 +1,6 @@
 extern s32 sub_08007D7C(void *, s32, s32);
 extern s32 sub_080159BC(s32, s32, s32, s32, u32, u32);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_02023130[];
 extern s16 D_080CB278[];
 
@@ -37,14 +37,14 @@ void sub_08011674(u8 *obj, s32 probeNeg, s32 probePos)
             else candidateX = newX + probePos;
         } else candidateX = newX;
 
-        tile = sub_08007D7C((void *)(D_02023130 + D_02025FF0[0x18A8] * 0x40), candidateX, *(s32 *)(obj + 0xC));
+        tile = sub_08007D7C((void *)(D_02023130 + gMainWorkspace[0x18A8] * 0x40), candidateX, *(s32 *)(obj + 0xC));
         if (D_080CB278[(u16)tile] & 0xA) {
             if (*(s32 *)(obj + 0x10) > 0) candidateX = (candidateX & 0xFFF80000) - 0x8000;
             else candidateX = (candidateX & 0xFFF80000) + 0x88000;
             ((struct ObjFlags *)obj)->bits |= 1;
         }
         if (*(u16 *)(obj + 4) & 8) {
-            tile = sub_08007D7C((void *)(D_02023130 + D_02025FF0[0x18A8] * 0x40), candidateX, *(s32 *)(obj + 0xC) + 0x80000);
+            tile = sub_08007D7C((void *)(D_02023130 + gMainWorkspace[0x18A8] * 0x40), candidateX, *(s32 *)(obj + 0xC) + 0x80000);
             if (D_080CB278[(u16)tile] & 1) {
                 if (*(s32 *)(obj + 0x10) > 0) candidateX = (candidateX & 0xFFF80000) - 0x8000;
                 else candidateX = (candidateX & 0xFFF80000) + 0x88000;
@@ -52,7 +52,7 @@ void sub_08011674(u8 *obj, s32 probeNeg, s32 probePos)
             }
         }
         if (*(u16 *)(obj + 4) & 0x20) {
-            tile = sub_08007D7C((void *)(D_02023130 + D_02025FF0[0x18A8] * 0x40), candidateX, *(s32 *)(obj + 0xC) - 0x80000);
+            tile = sub_08007D7C((void *)(D_02023130 + gMainWorkspace[0x18A8] * 0x40), candidateX, *(s32 *)(obj + 0xC) - 0x80000);
             if (D_080CB278[(u16)tile] & 1) {
                 if (*(s32 *)(obj + 0x10) > 0) candidateX = (candidateX & 0xFFF80000) - 0x8000;
                 else candidateX = (candidateX & 0xFFF80000) + 0x88000;

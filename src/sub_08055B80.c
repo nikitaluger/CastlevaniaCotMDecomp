@@ -2,8 +2,8 @@ extern s32 sub_0805F9B4(s32, s32);
 extern void sub_080113A8(void *, void *);
 extern void sub_0801165C(void *, s32);
 extern s32 sub_080C31E0(void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866E770[];
 
 /* Advances one scripted behaviour step for an entity, plays a state-dependent
@@ -49,8 +49,8 @@ void sub_08055B80(u8 *entity) {
     } else {
         sub_0801165C(component, 0x16C1);
     }
-    tableBase = D_02021E90;
-    scrollIndexPtr = D_02025FF0;
+    tableBase = gCameraState;
+    scrollIndexPtr = gMainWorkspace;
     scrollIndexPtr += 0x18A8;
     tableOffset = ((u32)*scrollIndexPtr + 1) * 0x40;
     xTable = tableBase + 0x1278;

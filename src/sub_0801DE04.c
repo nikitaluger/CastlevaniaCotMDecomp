@@ -12,8 +12,8 @@ s32 sub_080C31E0(s32, s32);
 void sub_080113A8(void *, void *);
 void sub_0801165C(void *, s32);
 void sub_08013C8C(void *, void *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866D748[];
 extern u32 D_08671BDC[];
 
@@ -102,8 +102,8 @@ void sub_0801DE04(u8 *actor)
   sub_08013C8C(actor, sprite);
   {
     s32 worldPos = (*((s32 *) (player + 0x0C))) + (*((s32 *) (extra + 0x00)));
-    coordTable = D_02021E90;
-    camIndexPtr = D_02025FF0;
+    coordTable = gCameraState;
+    camIndexPtr = gMainWorkspace;
     camIndexPtr += 0x18A8;
     tableIndex = (((u32) (*camIndexPtr)) + 1) * 0x40;
     coordTable += 0x127C;

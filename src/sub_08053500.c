@@ -1,5 +1,5 @@
 extern s32 sub_08005820(s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 
 /* Parameter block written at collision+0x18 when a spawned effect is created. */
@@ -35,7 +35,7 @@ void sub_08053500(void *entity) {
     child = *(void **)((u8 *)motion + 0x28);
     zero = 0;
     *(u8 *)((u8 *)child + 1) = zero;
-    sub_08011368(sprite, collision, 5, zero);
+    setAnimationFrame(sprite, collision, 5, zero);
     if (*collision & 2) {
         params = (struct SpawnEffect *)((u8 *)collision + 0x18);
         *(u32 *)((u8 *)motion + 0x4C) = 0x4800;

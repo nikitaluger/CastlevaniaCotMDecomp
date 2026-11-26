@@ -6,7 +6,7 @@ extern void sub_080C31E4(void *scriptData, void *scriptIndex, s32 handler);
 extern s32 sub_080C364C(s32 dividend, u8 divisor);
 
 struct S_02025FF0 { u8 _0[0x1C]; s32 globalEffect; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Steps an effect actor: advances its timer and animation phase, fires a script
  * command when the phase wraps, then updates the sprite scale, flag and screen position. */
@@ -30,7 +30,7 @@ void sub_0808AE3C(u8 *actor) {
     if ((u8)nextPhase > 0x0F) {
         *phase = 0x10;
         sub_08005E80(0x1C0);
-        D_02025FF0.globalEffect = 0x80;
+        gMainWorkspace.globalEffect = 0x80;
         sub_08007E24(0x34);
         *(u8 *)(actor + *(s16 *)(actor + 0x22) * 2 + 0x19) = 0;
         {

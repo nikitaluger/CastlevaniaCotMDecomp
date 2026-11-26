@@ -3,8 +3,8 @@ s32 sub_08013B5C(void *a, void *b);
 void sub_080113A8(void *a, void *b);
 void sub_08011EE8(void *a, s32 b, s32 c);
 void sub_080C31E0(void *a, void *b);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Update one entity: bail out through its fail callback if it leaves the
  * active area or its display flags say so, otherwise advance its movement/
@@ -42,8 +42,8 @@ void sub_08059FF0(void *entity)
   return;
   calc:
   {
-    u8 *camTbl = D_02021E90;
-    u8 *frame = D_02025FF0;
+    u8 *camTbl = gCameraState;
+    u8 *frame = gMainWorkspace;
     u8 *camX;
     u8 *camY;
     unsigned short camIdx;

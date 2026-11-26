@@ -16,7 +16,7 @@ extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_08003740(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern void *D_08671BD0;
 extern void *D_08671BD8;
 

@@ -4,7 +4,7 @@
 void sub_0804DB7C(void *arg0) {
     void *sprite = *(void **)((u8 *)arg0 + 0x38);
     u8 *work = *(u8 **)((u8 *)arg0 + 0x3C);
-    sub_08011368((s32)sprite, work + 0x34, 0x09, 0);
+    setAnimationFrame((s32)sprite, work + 0x34, 0x09, 0);
     if (2 & work[0x34]) {
         void **scriptTable;
         ((u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2))[0x19] = 0;

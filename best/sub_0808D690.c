@@ -3,8 +3,8 @@ extern void sub_080C31E0(void *);
 extern void *sub_0805FAEC(void *, s32);
 
 struct S_02025FF0_1874 { u8 _pad[0x1874]; u32 v; };
-extern struct S_02025FF0_1874 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct S_02025FF0_1874 gMainWorkspace;
+extern u8 gCameraState[];
 
 void sub_0808D690(u32 arg0, u32 *arg1, u32 arg2) {
     u32 v;
@@ -35,7 +35,7 @@ void sub_0808D640(void *arg0) {
     s32 i;
     u32 mask = 0x80 << 6;
     sub_080C2E68(sp0, (void *)0x080F3E2C, 4);
-    p = (u16 *)(D_02021E90 + (0x93 << 5));
+    p = (u16 *)(gCameraState + (0x93 << 5));
     for (i = 0; i <= 3; i++) {
         if (!(mask & *p)) {
             r4 |= sp0[i];
@@ -56,7 +56,7 @@ void sub_0808D858(void *arg0) {
 }
 
 void *sub_0808DBB4(s32 arg0, s32 arg1, u16 arg2) {
-    void *r = sub_0805FAEC((void *)D_02025FF0.v, 0x201);
+    void *r = sub_0805FAEC((void *)gMainWorkspace.v, 0x201);
     if (r != 0) {
         u8 *p;
         *(s32 *)((u8 *)r + 0x4C) = arg0;

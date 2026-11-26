@@ -1,5 +1,5 @@
 extern void sub_080C31E4(void *a, void *b, s32 c);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 /* Lower the sprite's +6 halfword attribute by 0x80; once it reaches 0x80, arm
  * the 0x60-frame delay on the motion state, clear the script counter and
@@ -13,7 +13,7 @@ void sub_080721D8(void *entity) {
         *(u32 *)(state + 0x2C) = 0x60;
         *(u8 *)(obj + (*(s16 *)(obj + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *scriptTable = D_08671BB0;
+            s32 *scriptTable = gMainObjTimerCallback;
             sub_080C31E4(obj + 0x18, obj + 0x22, *scriptTable);
         }
     }

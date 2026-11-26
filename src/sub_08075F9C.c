@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 _0[0x10]; u32 v10; u8 _1[0x14ED-0x14]; u8 v14ED; u8 _2[0x173A-0x14EE]; u8 v173A; u8 _3[0x18C2-0x173B]; u16 v18C2; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 extern s32 sub_08003740(void *, void *);
 extern s32 sub_0806D330(void *, void *);
@@ -63,7 +63,7 @@ void sub_08075F9C(void *entity)
         }
     }
 
-    state = &D_02025FF0;
+    state = &gMainWorkspace;
     *((u16 *)component) = state->v18C2;
     sub_08003740(((u8 *)owner) + 0x20, component);
     sub_0806D588(component, body);

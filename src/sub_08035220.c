@@ -5,7 +5,7 @@ extern void sub_080146D0(void *work, s32 heading, s32 speed);
 extern void sub_0801165C(void *work, s32 accelY);
 
 struct S_02025FF0_174C { u8 pad[0x174C]; u32 lo; u32 hi; };
-extern struct S_02025FF0_174C D_02025FF0;
+extern struct S_02025FF0_174C gMainWorkspace;
 
 /* Steers a chasing actor: advances its animation and turn phase, nudges its
  * heading toward the target while the turn timer allows, then applies that
@@ -30,8 +30,8 @@ void sub_08035220(u8 *self) {
         *(u8 *)(steer + 8) = *(u8 *)(steer + 8) + 1;
         heading = *(s32 *)(steer + 4);
         {
-            s32 deltaY = (s32)D_02025FF0.hi - *(s32 *)(work + 0x0C);
-            s32 deltaX = (s32)D_02025FF0.lo - *(s32 *)(work + 8);
+            s32 deltaY = (s32)gMainWorkspace.hi - *(s32 *)(work + 0x0C);
+            s32 deltaX = (s32)gMainWorkspace.lo - *(s32 *)(work + 8);
             turnDir = sub_0801473C(heading, sub_08005910(deltaY, deltaX));
         }
         if (turnDir != -1) {

@@ -15,7 +15,7 @@ s32 sub_08000A70(s32 arg0, s32 arg1, s32 arg2)
   s8 *cur;
   s8 *end;
   s32 new_var;
-  s32 align = arg2;
+  s32 align;
   s8 *first;
   s8 *data;
   s8 *p;
@@ -29,6 +29,7 @@ s32 sub_08000A70(s32 arg0, s32 arg1, s32 arg2)
   s32 ff;
   int new_var2;
   s32 new_var3;
+  align = arg2;
 
   arg1 = (s32) ((((u32) inline_fn(arg1, 3)) >> 2) * 4);
   cur = (s8 *) D_02004000[arg0].end;
@@ -41,18 +42,18 @@ s32 sub_08000A70(s32 arg0, s32 arg1, s32 arg2)
     return 0;
   }
   ff = 0xFF;
-  loop_2:
   hdr = *((u32 *) cur);
+loop_2:
 
   if ((*((s8 *) cur)) != 0)
   {
     goto advance;
   }
-  data = cur + 4;
+  { { do { data = cur + 4; } while (0); } }
   new_var2 = 0;
   goto align_loop;
 coalesce:
-  p = (cur + size) + new_var4;
+  p = cur + (size + new_var4);
   if (((u32) p) >= ((u32) end))
   {
     goto split;
@@ -61,13 +62,16 @@ coalesce:
   {
     goto split;
   }
-  hdr = *((u32 *) p);
-  *((u32 *) cur) = (hdr & ff) | (inline_fn(inline_fn(size, 4), hdr >> 8) << 8);
+  pad = *((u32 *) p);
+  do { do { do { new_var3 = (inline_fn(inline_fn(size, 4), pad >> 8) << 8); } while (0); } while (0); } while (0); *((u32 *) cur) = new_var3 | (pad & ff);
 align_loop:
-  pad = new_var2;
   if ((((s32) data) & mask) != 0)
   {
     pad = align - (((s32) data) & mask);
+  }
+  else
+  {
+    pad = new_var2;
   }
   hdr = *((u32 *) cur);
   size = hdr >> 8;
@@ -76,17 +80,18 @@ align_loop:
   {
     goto coalesce;
   }
-  hdr = pad - new_var4;
+  hdr = pad - 4;
   p = cur + pad;
   if (hdr > new_var2)
   {
     *((u32 *) p) = ((*((u32 *) p)) & ff) | (avail << 8);
-    new_var3 = hdr << 8;
+    do { new_var3 = hdr << 8; } while (0);
     *((u32 *) cur) = ((*((u32 *) cur)) & ff) | new_var3;
   }
   else
   {
-    do { if (first != cur) { *((u32 *) p) = ((*((u32 *) p)) & ff) | (avail << 8); new_var5 = pad; hdr = *((u32 *) first); *((u32 *) first) = (inline_fn(hdr >> 8, new_var5) << 8) | (hdr & ff); } else { goto b46; } } while (0);
+    { if (first != cur) {
+                          s32 hdr_a1; new_var3 = (avail << 8); *((u32 *) p) = ((*((u32 *) p)) & ff) | new_var3; new_var5 = pad; hdr_a1 = *((u32 *) first); *((u32 *) first) = (inline_fn(hdr_a1 >> 8, new_var5) << 8) | (hdr_a1 & ff); } else { goto b46; } }
   }
   cur = p;
   b46:
@@ -100,14 +105,15 @@ align_loop:
   }
 
   {
-    s32 leftover = ((hdr >> 8) - arg1) - 4;
+    s32 leftover;
+    leftover = ((hdr >> 8) - arg1) - 4;
     if (leftover > new_var2)
     {
-      p = (cur + arg1) + new_var4;
+      p = cur + (arg1 + new_var4);
       *((u8 *) p) = 0;
-      new_var = leftover << 8;
-      *((u32 *) p) = ((*((u32 *) p)) & ff) | new_var;
-      *((u32 *) cur) = ((*((u32 *) cur)) & ff) | (arg1 << 8);
+      size = leftover << 8;
+      *((u32 *) p) = ((*((u32 *) p)) & ff) | size;
+      *((u32 *) cur) = (arg1 << 8) | ((*((u32 *) cur)) & ff);
     }
     *((u8 *) cur) = 0x80;
     return (s32) (p + 4);
@@ -120,5 +126,5 @@ align_loop:
   {
     return new_var2;
   }
-  goto loop_2;
+  hdr = *((u32 *) cur); goto loop_2;
 }

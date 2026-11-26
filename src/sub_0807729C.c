@@ -18,8 +18,8 @@ struct S_02025FF0 {
     u8 _18A9[0x19];
     u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern s32 D_08671BB0;
+extern struct S_02025FF0 gMainWorkspace;
+extern s32 gMainObjTimerCallback;
 
 /* Advances an entity's motion/animation and checks its collision row; clears
  * its state on a hit, then either dispatches the current handler or applies
@@ -57,7 +57,7 @@ void sub_0807729C(u8 *entity) {
         speed = speed + phaseStep;
         *(s32 *)(state + 4) = speed;
         tableBase = 0x02023130;
-        tableAddr = ((u32)D_02025FF0.f18A8 << 6) + tableBase;
+        tableAddr = ((u32)gMainWorkspace.f18A8 << 6) + tableBase;
         posX = *(s32 *)(motion + 4) + *(s32 *)(state + 8);
         posY = speed + phaseStep;
         collisionResult = sub_08007DD8(tableAddr, posX, posY);
@@ -68,14 +68,14 @@ void sub_0807729C(u8 *entity) {
             stateOffset += (u32)entity;
             stateBytePtr = (u8 *)stateOffset;
             *(u8 *)(stateBytePtr + 0x19) = 0;
-            callbacks = &D_08671BB0;
+            callbacks = &gMainObjTimerCallback;
             sub_080C31E4(entity + 0x18, entity + 0x22, *callbacks);
         }
-        *(u16 *)sprite = D_02025FF0.f18C2;
+        *(u16 *)sprite = gMainWorkspace.f18C2;
         sub_08003740(vector + 0x1C, sprite);
         sub_0806D588(sprite, state);
-        if ((D_02025FF0.f173A == 0x1C) ||
-            ((D_02025FF0.f14ED == 0) && (D_02025FF0.f10 != 0))) {
+        if ((gMainWorkspace.f173A == 0x1C) ||
+            ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0))) {
             sub_080C31E0(entity, *(s32 *)(entity + 0x24));
             return;
         }

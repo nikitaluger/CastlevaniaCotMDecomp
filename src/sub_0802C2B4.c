@@ -2,14 +2,14 @@
  * animation, the other the direction changes. It uses the player's position
  * to decide when to turn around and when to end the current action. */
 extern s32 sub_08005820(s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern u32 D_08671BD0;
 struct GlobalCoord { u8 _[0x174C]; s32 field174C; };
-extern struct GlobalCoord D_02025FF0;
+extern struct GlobalCoord gMainWorkspace;
 
 void sub_0802C2B4(u8 *self)
 {
@@ -24,7 +24,7 @@ void sub_0802C2B4(u8 *self)
         sub_080149A4(work, entity, body, 0x5A, 0x78);
     }
 
-    sub_08011368(work, anim, 0, 1);
+    setAnimationFrame(work, anim, 0, 1);
 
     *(s16 *)(body + 4) = *(s16 *)(body + 4) - 1;
     if (*(s16 *)(body + 4) <= 0)
@@ -65,7 +65,7 @@ void sub_0802C2B4(u8 *self)
             if (sub_08014900(*(s32 *)(entity + 8)) > 0x300000)
                 farX = 1;
 
-            toPlayerX = D_02025FF0.field174C - *(s32 *)(entity + 8);
+            toPlayerX = gMainWorkspace.field174C - *(s32 *)(entity + 8);
             if ((toPlayerX < 0 && *(s32 *)(entity + 0x10) < 0) ||
                 (toPlayerX > 0 && *(s32 *)(entity + 0x10) > 0))
             {

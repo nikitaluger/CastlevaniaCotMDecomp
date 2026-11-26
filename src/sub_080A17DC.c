@@ -36,7 +36,7 @@ struct D_02025FF0_t {
     u8 _0[0x1754];
     s32 field1754;
 };
-extern struct D_02025FF0_t D_02025FF0;
+extern struct D_02025FF0_t gMainWorkspace;
 extern void *D_0866FDEC[];
 
 /* Updates an entity's facing direction and motion velocity from its movement
@@ -67,8 +67,8 @@ s32 sub_080A17DC(struct FlipObj *entity, struct Motion *motion, struct TrackStat
         motion->velX = 0;
     if (direction != facing->prevDir)
     {
-        if ((direction == 1 || direction == 7) && D_02025FF0.field1754 <= 8)
-            D_02025FF0.field1754 = 9;
+        if ((direction == 1 || direction == 7) && gMainWorkspace.field1754 <= 8)
+            gMainWorkspace.field1754 = 9;
         if (facing->prevDir == 1 || facing->prevDir == 7)
         {
             changed = 1;

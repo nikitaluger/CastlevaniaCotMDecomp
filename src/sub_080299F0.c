@@ -1,7 +1,7 @@
-extern s32 sub_08014938(s32); /* sign(target - pos): 1, 0 or -1 */
+extern s32 signOf(s32); /* sign(target - pos): 1, 0 or -1 */
 extern void sub_080C31E4(void *, void *, s32); /* _call_via_r2 */
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void sub_08011368(s32, s32, s32, s32);
+extern void setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern s32 sub_080133A4(s32, s32);
 extern void _08012F88(void *, s32);
@@ -20,7 +20,7 @@ void sub_080299F0(void *arg0)
   u8 *work = *((u8 **) (self + 0x3C));
   if ((*((u16 *) (work + 2))) & 4)
   {
-    s32 dir = sub_08014938(*((s32 *) (work + 8)));
+    s32 dir = signOf(*((s32 *) (work + 8)));
     s32 velX = (dir < 0) ? (0xC000) : ((s32) 0xFFFF4000);
     if (work)
     {

@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014A6C(void *, s32, s32, s32);
 extern void sub_080284E8(void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -19,7 +19,7 @@ void sub_080281F8(void *obj)
     animState = work + 0x34;
     patrol = work + 0x48;
 
-    sub_08011368(sprite, animState, 3, 1);
+    setAnimationFrame(sprite, animState, 3, 1);
     if (sub_08014A6C(work, *(s32 *)(patrol + 0x20), 0x1000, 0) == 1) {
         s16 slot;
         s32 *advance;

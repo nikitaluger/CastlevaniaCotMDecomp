@@ -1,9 +1,9 @@
 struct S_02025FF0 { u8 _0[0x174C]; u32 f174C; u8 _1[0x1750-0x1750]; u32 f1750; u8 _2[0x1870-0x1754]; u32 f1870; u8 _3[0x189C-0x1874]; u32 f189C; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u8 D_080CE7AC[];
 extern u32 D_080CE7C4[];
-extern u32 D_08671BB0[];
-extern void sub_08011368(void*, void*, int, int);
+extern u32 gMainObjTimerCallback[];
+extern void setAnimationFrame(void*, void*, int, int);
 extern int sub_0805FAEC(int, int);
 extern int sub_08014990(void*);
 
@@ -13,11 +13,11 @@ void sub_0801F67C(void *arg0) {
     u8 *r4 = *(u8 **)(r7 + 0x3C);
     u8 *p34 = r4 + 0x34;
     u8 *r6 = r4 + 0x48;
-    sub_08011368(r10, p34, 5, 0);
+    setAnimationFrame(r10, p34, 5, 0);
     if (*(s16 *)(r6 + 0x28) > 0 || *(s16 *)(r6 + 0x08) > 0) goto blockB;
 
     {
-        u32 *sb = D_08671BB0;
+        u32 *sb = gMainObjTimerCallback;
         u8 *r12 = r7 + 0x18;
         u8 *r8 = r7 + 0x22;
         int r6v = 1;
@@ -27,7 +27,6 @@ void sub_0801F67C(void *arg0) {
         u32 *pp;
         u16 *qq;
         s16 off;
-        u8 *ppo;
         void (*fn)(void *, void *);
         do {
             pp = (u32 *)r3p;
@@ -40,8 +39,7 @@ void sub_0801F67C(void *arg0) {
             r2c--;
         } while (r2c >= 0);
         off = *(s16 *)(r7 + 0x22);
-        ppo = r7 + off * 2;
-        ppo[0x19] = 0;
+        (r7 + off * 2)[0x19] = 0;
         fn = (void (*)(void *, void *))sb[0];
         fn(r12, r8);
         goto end;
@@ -71,8 +69,8 @@ blockB:
         u32 r0sh3;
         u32 r1val3;
         s32 r2fin;
-        s16 r1asr;
-        s16 r1asr2;
+        s32 r1asr;
+        s32 r1asr2;
         u32 r0final;
         s32 h28;
         u8 *r1p;
@@ -86,7 +84,7 @@ blockB:
         u32 r0sh2;
         u32 r1val2;
 
-        val = D_02025FF0.f189C;
+        val = gMainWorkspace.f189C;
         r1v = (u32)val >> 31;
         val += r1v;
         r1v = val >> 1;
@@ -102,8 +100,8 @@ blockB:
 
         r1sh = *(s16 *)(r6 + 0x28);
         r9v = 6 - r1sh;
-        r8b = (u8 *)&D_02025FF0;
-        r0v = D_02025FF0.f1870;
+        r8b = (u8 *)&gMainWorkspace;
+        r0v = gMainWorkspace.f1870;
         r0r = sub_0805FAEC((int)r0v, 0x99);
         r1r = r0r;
         r5v2 = r9v * 4;
@@ -114,15 +112,18 @@ blockB:
 
         r0c = sub_08014990(r10);
         if (r0c < 0) {
+          u16 storeval_1;
             r1p = r8b + 0x174C;
             r0p = (u8 *)(0x080CE7AC + r5v2);
             sh = *(s16 *)r0p;
-            r0sh = (u32)sh << 16;
-            r1val = *(u32 *)r1p;
+            r0sh = (u32)sh << 16;/*__repair_loop_weight*/do {
+            r1val = *(u32 *)r1p;} while (0);
             r3v = r1val + r0sh;
             r1q = r4b + 0x5C;
-            storeval = 0x10;
+            storeval_1 = 0x10;
+          *(u16 *)r1q = storeval_1;
         } else {
+          u16 storeval_2;
             r1p2 = r8b + 0x174C;
             r0p3 = (u8 *)(0x080CE7AC + r5v2);
             sh2 = *(s16 *)r0p3;
@@ -130,9 +131,10 @@ blockB:
             r1val2 = *(u32 *)r1p2;
             r3v = r1val2 - r0sh2;
             r1q = r4b + 0x5C;
-            storeval = 0x20;
+            storeval_2 = 0x20;
+          *(u16 *)r1q = storeval_2;
         }
-        *(u16 *)r1q = storeval;
+        
         r1fin = r8b + 0x1750;
         r5v2 = r9v * 4;
         r0p4 = (u8 *)(0x080CE7AC + 2 + r5v2);

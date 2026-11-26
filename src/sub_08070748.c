@@ -2,19 +2,19 @@
  * size and scaled stat parameters, places it at the camera with a horizontal
  * velocity opposite the owner's facing, installs the release handler, plays the
  * effect sound, then advances the parent's state machine. */
-extern void *sub_08016190(void);              /* alloc effect part */
+extern void *allocEffectPart(void);              /* alloc effect part */
 extern void sub_0806D2D0(void *);             /* bail out / release entity */
 extern u16 sub_0806D62C(u16, s32);            /* scale value by percent */
 extern void sub_08005E80(u32);                /* play sound */
 extern void sub_080C31E4(void *, void *, s32); /* indirect call */
 extern void sub_080C31E0(void *, void *);     /* indirect call */
 extern void sub_080718F4(void);               /* release handler */
-extern u8 D_02025368[];    /* game/player data: +0x8C character, +0x2DE stat */
-extern u8 D_02025FF0[];    /* scene state: +0x1510 colour, +0x1728/0x172C camera, +0x18C2 sprite bits */
+extern u8 gGameStatus[];    /* game/player data: +0x8C character, +0x2DE stat */
+extern u8 gMainWorkspace[];    /* scene state: +0x1510 colour, +0x1728/0x172C camera, +0x18C2 sprite bits */
 extern u32 D_080E0098[];   /* per-weapon Y offsets */
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
-/* 0x34-byte effect part object allocated by sub_08016190. */
+/* 0x34-byte effect part object allocated by allocEffectPart. */
 struct EffectPart {
     u8 mode;     /* 0x00 */
     u8 color;    /* 0x01: palette/colour index */
@@ -60,10 +60,10 @@ void sub_08070748(u8 *entity)
     group = *(u8 **)(entity + 0x6C);
     sprite = *(u8 **)(entity + 0x38);
     groupState = (struct GroupState *)(group + 4);
-    playerData = D_02025368;
+    playerData = gGameStatus;
 
     {
-        struct EffectPart *part = sub_08016190();
+        struct EffectPart *part = allocEffectPart();
         groupState->part = part;
         if (part == 0) {
             sub_0806D2D0(entity);
@@ -71,7 +71,7 @@ void sub_08070748(u8 *entity)
         }
     }
 
-    scene = D_02025FF0;
+    scene = gMainWorkspace;
     groupState->part->color = scene[0x1510] & 5;
     groupState->part->param2 = 2;
     groupState->part->param3 = 8;

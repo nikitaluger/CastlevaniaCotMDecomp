@@ -12,7 +12,7 @@ void sub_0801B968(void *arg0)
   int mode;
   u8 *anim = *((u8 **) (obj + 0x3C));
   u8 *animFlags = anim + 0x34;
- mode = 0; sub_08011368(model, animFlags, 0xB, mode); if ((*((u8 *) animFlags)) & 2) {
+ mode = 0; setAnimationFrame(model, animFlags, 0xB, mode); if ((*((u8 *) animFlags)) & 2) {
     ((u8 *) (obj + ((*((s16 *) (obj + 0x22))) * 2)))[0x17] = 0;
     handlerTable = (void **) 0x08671BD8;
     sub_080C31E8(obj + 0x18, obj + 0x22, (void *) 1, *handlerTable);

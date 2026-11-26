@@ -1,5 +1,5 @@
 extern void sub_08005E80(s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Actor step: advance a saturating frame counter on the sprite; once it passes
@@ -27,7 +27,7 @@ void sub_080A4708(void *actor) {
         *((u16 *)((s8 *)sprite + 4)) = counter;
         *((u16 *)((s8 *)sprite + 6)) = counter;
         sub_08005E80(counter + 0x74);
-        sub_08011368(sprite, anim, 0x23, 1);
+        setAnimationFrame(sprite, anim, 0x23, 1);
         *((u8 *)((s8 *)*((void **)((s8 *)work + 0x28)) + 1)) = 1;
         idx = *((s16 *)((s8 *)self + 0x22));
         *((u8 *)((s8 *)self + idx * 2 + 0x19)) = 0;

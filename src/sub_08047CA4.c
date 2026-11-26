@@ -1,7 +1,7 @@
 extern void *D_08671BDC;
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 struct GameState { u8 _0[0x18A8]; u8 roomIndex18A8; u8 _1[0x13]; u16 field18BC; };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 struct SpawnFlags { u8 _0[1]; u8 f; };
 struct HitFlags { u16 f; };
@@ -84,7 +84,7 @@ void sub_08047CA4(u8 *script) {
 db0:
     if (*(s16 *)(state48 + 0xA) == 1) {
         *(s16 *)(state48 + 0xA) = 0;
-        --D_02025FF0.field18BC;
+        --gMainWorkspace.field18BC;
     }
 
 dc8:
@@ -93,11 +93,11 @@ dc8:
         u8 *hitFlags = *(u8 **)(attack + 0x28);
         *(u16 *)(hitFlags + 0x14) = 0;
     }
-    coordTable = (u32)D_02021E90;
+    coordTable = (u32)gCameraState;
     coordOffsetX = 0x1278;
-    *(s32 *)((u8 *)attacker + 0x14) = *(s32 *)(attack + 8) - (s32)(((*(u32 *)(coordTable + coordOffsetX + ((D_02025FF0.roomIndex18A8 + 1) << 6))) + 0x8000) & 0xFFFF0000);
+    *(s32 *)((u8 *)attacker + 0x14) = *(s32 *)(attack + 8) - (s32)(((*(u32 *)(coordTable + coordOffsetX + ((gMainWorkspace.roomIndex18A8 + 1) << 6))) + 0x8000) & 0xFFFF0000);
     coordOffsetY = 0x127C;
-    *(s32 *)((u8 *)attacker + 0x18) = *(s32 *)(attack + 0xC) - (s32)(((*(u32 *)(coordTable + coordOffsetY + ((D_02025FF0.roomIndex18A8 + 1) << 6))) + 0xFFFF8000) & 0xFFFF0000);
+    *(s32 *)((u8 *)attacker + 0x18) = *(s32 *)(attack + 0xC) - (s32)(((*(u32 *)(coordTable + coordOffsetY + ((gMainWorkspace.roomIndex18A8 + 1) << 6))) + 0xFFFF8000) & 0xFFFF0000);
 
 done:
     ;

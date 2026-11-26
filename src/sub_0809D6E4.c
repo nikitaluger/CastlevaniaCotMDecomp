@@ -1,4 +1,4 @@
-s32 sub_080114DC(s32, s32, s32, s32);
+s32 setObjectAnimation(s32, s32, s32, s32);
 s32 sub_08011528(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -18,7 +18,7 @@ void sub_0809D6E4(void *arg0)
   work = *((void **) (((s8 *) arg0) + 0x3C));
   anim = work + 0x34;
   sprite = work + 0x48;
-  sub_080114DC(gfx, anim, 0x11, 0);
+  setObjectAnimation(gfx, anim, 0x11, 0);
   sub_08011528(gfx, anim);
   if (2 & (*((u8 *) (((s8 *) work) + 0x34))))
   {

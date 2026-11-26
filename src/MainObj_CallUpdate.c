@@ -1,11 +1,11 @@
-extern vu32 D_02025FF0;
-extern vu32 D_08671BB0;
+extern vu32 gMainWorkspace;
+extern vu32 gMainObjTimerCallback;
 
 void *sub_0805FAEC(s32, s32);
 void sub_080161F0(void);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 
 struct MainObj {
     u8 pad_0x00[0x22];

@@ -1,4 +1,4 @@
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 void sub_0801BE38(void *, s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -24,7 +24,7 @@ void sub_0801B6FC(void *arg0)
   scriptState = *((void **) (((u8 *) arg0) + 0x3C));
   stateArg = ((u8 *) scriptState) + 0x34;
   control = ((u8 *) scriptState) + 0x48;
-  sub_08011368(sprite, stateArg, 0xB, 0);
+  setAnimationFrame(sprite, stateArg, 0xB, 0);
   if ((*((s16 *) (((u8 *) control) + 0x24))) > 0x3B)
   {
     *((u16 *) (((u8 *) control) + 0x24)) = 0;

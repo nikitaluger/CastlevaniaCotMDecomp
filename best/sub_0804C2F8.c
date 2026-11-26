@@ -6,8 +6,8 @@ struct Obj {
     void *field3C;
 };
 extern u16 D_080CF9B0[];
-extern u32 D_08671BB0;
-extern void sub_08011368(s32, void*, s32, s32);
+extern u32 gMainObjTimerCallback;
+extern void setAnimationFrame(s32, void*, s32, s32);
 extern s32 sub_08014990(s32);
 extern void *sub_0804CBA0(s32, s32, u16, s32, s32);
 extern void sub_080C31E4(void*, void*, s32);
@@ -18,7 +18,7 @@ void sub_0804C2F8(struct Obj *arg0) {
     void *r4 = (u8*)r5 + 0x34;
     void *r7 = (u8*)r5 + 0x48;
     u16 r4v;
-    sub_08011368(r6, r4, 5, 1);
+    setAnimationFrame(r6, r4, 5, 1);
     if (*((u8*)r4 + 1) == 3 && *(s32*)((u8*)r4 + 4) == 1) {
         if (sub_08014990(r6) < 0) {
             u32 base = (u32)D_080CF9B0;
@@ -38,7 +38,7 @@ void sub_0804C2F8(struct Obj *arg0) {
     if (*(s16*)((u8*)r7 + 4) <= 0) {
         u8 *p = (u8*)arg0 + arg0->field22 * 2;
         p[0x19] = 0;
-        { u32 *pd = &D_08671BB0;
+        { u32 *pd = &gMainObjTimerCallback;
           sub_080C31E4((u8*)arg0 + 0x18, (u8*)arg0 + 0x22, *pd); }
     }
 }

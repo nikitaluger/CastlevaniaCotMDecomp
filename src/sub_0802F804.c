@@ -2,8 +2,8 @@ extern s32 sub_08013B5C(void *sprite, void *state);
 extern void sub_080113A8(void *sprite, void *animState);
 extern s32 sub_080C31E0(void *actor, void *handler);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Apply an actor's display state; if the frame was not fully handled, advance
  * its animation and recompute its screen coordinates from the camera table,
@@ -27,8 +27,8 @@ void sub_0802F804(void *actor)
     }
 
     {
-        u8 *coordTable = D_02021E90;
-        u8 *cameraIndex = D_02025FF0;
+        u8 *coordTable = gCameraState;
+        u8 *cameraIndex = gMainWorkspace;
         u8 *xBase;
         u8 *yBase;
         u32 coordOffset;

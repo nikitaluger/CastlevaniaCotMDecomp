@@ -1,5 +1,5 @@
 extern s32 sub_08005820(s32);
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 extern s32 sub_08014990(void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -20,7 +20,7 @@ void sub_0801A768(void *actor)
   {
     {
       struct SpriteAttrs *attrs = (struct SpriteAttrs *)sprite;
-      if (sub_08014938(*((s32 *) (work + 8))) > 0)
+      if (signOf(*((s32 *) (work + 8))) > 0)
         attrs->flags |= 0x10;
       else
         attrs->flags &= 0xFFEF;

@@ -1,5 +1,5 @@
 extern u32 D_081020D4[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Script-step callback: update the control block shared with the companion,
  * then, when a trigger flag is set and its counter is zero, load a mode value
@@ -22,7 +22,7 @@ void sub_080A7678(void *entity) {
         if (triggerValue == 0) {
             *((u32 *)((u8 *)scriptState + 0x130)) = D_081020D4[*((u8 *)((u8 *)entity + 0x4C))];
             *((s8 *)((u8 *)entity + *((s16 *)((u8 *)entity + 0x22)) * 2 + 0x19)) = (s8)triggerValue;
-            tablePtr = &D_08671BB0;
+            tablePtr = &gMainObjTimerCallback;
             sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *tablePtr);
         }
     }

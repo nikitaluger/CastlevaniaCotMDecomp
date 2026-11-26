@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 struct Node_080A02AC {
     s16 id;
@@ -10,7 +10,7 @@ struct Node_080A02AC {
 s32 sub_080A02AC(void) {
     struct Node_080A02AC *node;
     u32 count = 0;
-    node = *(struct Node_080A02AC **)((u8 *)D_02025FF0.v + 0x30);
+    node = *(struct Node_080A02AC **)((u8 *)gMainWorkspace.v + 0x30);
     if (node != NULL) {
         do {
             if (node->id == 0x184) count++;
@@ -27,7 +27,7 @@ extern u16 D_0866FDE8[];
 /* Spawns a type-0x184 effect from the source entity, copying its +0x4C word and
  * filling in +0x5C and +0x6C; returns NULL when no object slot is available. */
 void *sub_080A02EC(void *source) {
-    void *effect = sub_0805FAEC((s32)D_02025FF0.v, 0x184);
+    void *effect = sub_0805FAEC((s32)gMainWorkspace.v, 0x184);
     void *result;
     if (effect != NULL) {
         u16 index;

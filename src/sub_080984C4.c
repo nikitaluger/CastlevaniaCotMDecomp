@@ -1,4 +1,4 @@
-extern s32 sub_08000E98(s32, s32, s32, s32, s32);
+extern s32 postDisplaySprite(s32, s32, s32, s32, s32);
 
 /* Copy the 0x20-byte graphics blocks selected by the bits of blockMask into
  * two destination buffers: bits 0-3 come from one source table, bits 4-7 from
@@ -16,7 +16,7 @@ void sub_080984C4(s32 blockMask) {
     bit0 = 1;
     do {
         if (blockMask & bit0) {
-            sub_08000E98(1, dst0, src0, 0x20, 0x10);
+            postDisplaySprite(1, dst0, src0, 0x20, 0x10);
         }
         dst0 += 0x20;
         src0 += 0x20;
@@ -27,7 +27,7 @@ void sub_080984C4(s32 blockMask) {
     bit1 = 0x10;
     do {
         if (blockMask & bit1) {
-            sub_08000E98(1, dst1, src1, 0x20, 0x10);
+            postDisplaySprite(1, dst1, src1, 0x20, 0x10);
         }
         dst1 += 0x20;
         src1 += 0x20;

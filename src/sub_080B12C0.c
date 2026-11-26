@@ -1,4 +1,4 @@
-extern void sub_080114DC(s32, void *, s32, s32);
+extern void setObjectAnimation(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_08098664(s32, s32, s32);
 

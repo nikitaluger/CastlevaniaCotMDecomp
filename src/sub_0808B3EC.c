@@ -1,5 +1,5 @@
 extern void sub_0808B458(void *);
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 /* Demo/attract-mode input recorder: called once per frame with the recording
  * work block (entry index at +0, active flag at +8, {keys, frames} entries at
@@ -8,7 +8,7 @@ extern u8 D_02021E90[];
  * same keys; when the keys change it moves on to the next entry, starting a
  * fresh entry in the following slot when the index rolls over. */
 void sub_0808B3EC(void *arg0) {
-    u8 *keyState = D_02021E90;
+    u8 *keyState = gCameraState;
     if (*(u16 *)(keyState + 0x146C) & 8) {
         sub_0808B458(arg0);
     } else {

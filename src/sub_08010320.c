@@ -2,10 +2,10 @@ extern s8 sub_08010490(void *a);
 extern void sub_080C3060(void *a, void *b, s32 c);
 extern s32 sub_080C3100(void *a, void *b, s32 c);
 extern u8 *D_02021E80;
-extern u8 D_02025368[];
+extern u8 gGameStatus[];
 extern vu32 D_040000D4[];
 
-/* Copies the 0x3D0-byte data block at D_02025368 into a stack buffer, writes
+/* Copies the 0x3D0-byte data block at gGameStatus into a stack buffer, writes
  * its checksum to byte 9, then copies/verifies it into slot arg0 of the
  * D_02021E80 table, retrying up to ten times. */
 void sub_08010320(u8 slot)
@@ -21,7 +21,7 @@ void sub_08010320(u8 slot)
     offset += 0x10;
     dst = *slotTable + offset;
 
-    src = D_02025368;
+    src = gGameStatus;
     dma = D_040000D4;
     dma[0] = (u32)src;
     dma[1] = (u32)block;

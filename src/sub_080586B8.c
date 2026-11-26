@@ -13,7 +13,7 @@ void sub_08058978(void *, void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
-extern s32 D_02025368[];
+extern s32 gGameStatus[];
 extern s32 D_08671BDC;
 
 struct AnimFlags { u16 f0; };
@@ -48,7 +48,7 @@ void sub_080586B8(void *self)
         struct Flags2 *p30;
         s32 *stateFn;
         sub_08013CF4(anim, *(s32 *)((u8 *)anim + 8), *(s32 *)((u8 *)anim + 0xC));
-        cnt = D_02025368;
+        cnt = gGameStatus;
         cnt[0xC0]++;
         if (cnt[0xC0] > 0x05F5E0FF) {
             cnt[0xC0] = 0x05F5E0FF;

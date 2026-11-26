@@ -1,5 +1,5 @@
 extern void sub_080C2E68(void *, void *, s32);
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 /* Header of a scene object: bit 11 of the u16 flags at +0x02 marks it as set up. */
 struct SceneObjectHeader { u8 pad[2]; u16 flags; };
@@ -27,7 +27,7 @@ void sub_080BDE00(void *scene) {
     *(void **)((u8 *)scene + 0x5C) = *(void **)((u8 *)scene + 0x24);
     *(void **)((u8 *)scene + 0x24) = (void *)0x080BE215;
     {
-        u8 *entry = D_02021E90;
+        u8 *entry = gCameraState;
         s32 entryIndex = 0x99;
         sub_080C2E68((void *)(entry + entryIndex * 32), (void *)0x08102FFC, 0x40);
     }

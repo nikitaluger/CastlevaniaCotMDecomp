@@ -15,7 +15,7 @@ struct GlobalState_83A84 {
     u8 _pad3[0x18C2 - 0x173B];
     u16 word18C2;
 };
-extern struct GlobalState_83A84 D_02025FF0;
+extern struct GlobalState_83A84 gMainWorkspace;
 extern u8 D_084FACEC[];
 
 /* Actor script step: handle special-area movement, tick the animation timer and
@@ -44,7 +44,7 @@ void sub_08083A84(void *actor) {
         }
     }
 
-    globals = &D_02025FF0;
+    globals = &gMainWorkspace;
     *(u16 *)sprite = globals->word18C2;
 
     {

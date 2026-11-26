@@ -1,7 +1,7 @@
 extern void sub_08003A6C(s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 /* Initialises an entity's state and sprite: installs a data table and update
  * params, clears a sprite flag and timer, then advances the script step and
@@ -23,7 +23,7 @@ void sub_08089E60(void *arg0)
   *((s32 *)(actor + 0x04)) = 0x00870000;
   *((u8 *)((self + ((*((s16 *)(self + 0x22))) * 2)) + 0x19)) = zero;
   {
-    s32 *eventPtr = D_08671BB0;
+    s32 *eventPtr = gMainObjTimerCallback;
     sub_080C31E4(self + 0x18, self + 0x22, *eventPtr);
   }
   *((u8 *)((self + ((*((s16 *)(self + 0x22))) * 2)) + 0x19)) += 1;

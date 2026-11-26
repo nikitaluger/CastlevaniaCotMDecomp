@@ -8,7 +8,7 @@ struct S_02025FF0 {
     u32 state1;
     u32 state2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Script command: start the animation described by D_084EBFC4 on the subject,
  * clear two global game-state words, clear the current step's progress byte,
@@ -16,8 +16,8 @@ extern struct S_02025FF0 D_02025FF0;
 void sub_0807F588(void *self, void *subject) {
     u8 *actor = (u8 *)self;
     sub_08003A6C((u8 *)subject + 0x1C, 0, D_084EBFC4);
-    D_02025FF0.state1 = 0;
-    D_02025FF0.state2 = 0;
+    gMainWorkspace.state1 = 0;
+    gMainWorkspace.state2 = 0;
     *(u8 *)(actor + (s32)*(s16 *)(actor + 0x22) * 2 + 0x19) = 0;
     {
         u32 *scriptFnTable = D_08671BD0;

@@ -4,7 +4,7 @@ extern void sub_08005E80(s32);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 D_084FEBF0[];
-extern u8 D_08671BB0[];
+extern u8 gMainObjTimerCallback[];
 struct S_02025FF0
 {
   u8 pad0[0x1C];
@@ -12,7 +12,7 @@ struct S_02025FF0
   u8 pad20[0x1708];
   s32 field_1728;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Homing projectile: advances the child's X by its velocity, ticks a countdown timer,
  * and once within range of the global target X spawns an effect at the child's +0x20
@@ -40,7 +40,7 @@ void sub_080884BC(void *arg0)
       *(s32 *) (childVec + 0x14) = 0x20;
     }
   }
-  targetX = D_02025FF0.field_1728;
+  targetX = gMainWorkspace.field_1728;
   posX = *(s32 *) (child + 4);
   delta = targetX - posX;
   if (delta >= 0)
@@ -72,9 +72,9 @@ void sub_080884BC(void *arg0)
   fxPos = childData + 0x1C;
 
   sub_08003A6C(fxPos, 0, D_084FEBF0);
-  D_02025FF0.field_1C = 2;
+  gMainWorkspace.field_1C = 2;
   *(u8 *) ((self + ((*(s16 *) (self + 0x22)) * 2)) + 0x19) = 0;
-  msgPtr = (s32 *) D_08671BB0;
+  msgPtr = (s32 *) gMainObjTimerCallback;
   sub_080C31E4(self + 0x18, self + 0x22, *msgPtr);
   end:
   sub_08003740(fxPos, fx);

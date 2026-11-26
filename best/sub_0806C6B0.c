@@ -1,5 +1,5 @@
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern u32 D_02023130[];
 extern u16 D_020232FE;
 extern u8 D_080E4764[];
@@ -27,16 +27,23 @@ inline u16 inline_fn2(u16 *arg0) { return arg0[3]; }
 inline u16 inline_fn23(u16 *arg0) { return arg0[6]; }
 void sub_0806C6B0(u8 *a, u8 *b, u8 *c, u32 *d)
 {
-  u8 *g = D_02025368;
-  u8 *h = D_02025FF0;
+  u8 *g = gGameStatus;
+  u8 *h = gMainWorkspace;
   u8 v18;
-  u32 i, j, old;
+  u32 i;
+  u32 j;
+  u32 old;
+u32 __repair_phase_old;
   u32 val;
-  u32 tmp0;
+  
   u32 idx2;
+u32 __repair_phase_idx2;
+  u32 idx2_1;
   u8 *tab;
   u16 *ph;
-  u32 *ploop, *pq, *pr;
+  u32 *ploop;
+  u32 *pq;
+  u32 *pr;
   v18 = a[0x18];
   { u32 *p = (u32 *)(c + 0x8C); if (*p) (*p)--; }
   switch (*((u32 *)(c + 0x9C))) {
@@ -48,8 +55,8 @@ void sub_0806C6B0(u8 *a, u8 *b, u8 *c, u32 *d)
   if (c[0x120] < g[0x3C4]) { c[0x120] = g[0x3C4]; sub_0806D930(g + 0x2C4); sub_0806D860(6); }
   if (c[0x121] < g[0x3C5]) { c[0x121] = g[0x3C5]; sub_0806D930(g + 0x2C4); *((u32 *)(c + 0x110)) = 100; }
   if (c[0x122] < g[0x3C6]) { c[0x122] = g[0x3C6]; sub_0806D930(g + 0x2C4); *((u32 *)(c + 0x114)) = 100; }
-  tmp0 = g[0x305];
-  tab = (u8 *)(D_080E4764 + tmp0 * 120);
+  idx2 = g[0x305];
+  tab = (u8 *)(D_080E4764 + idx2 * 120);
   idx2 = g[0x304];
   tab += idx2 * 12;
   if ((h[0x14ED] != 0) && (v18 != 0x30)) {
@@ -68,16 +75,21 @@ void sub_0806C6B0(u8 *a, u8 *b, u8 *c, u32 *d)
     if ((x * 100) <= ((((s32)(*((u32 *)(g + 0x2C8)))) >> 8) * 25)) flag = 1;
     g[0x2DA] = flag;
     y = 0x2DB;
-    tmp0 = g[0x305] - 1; idx2 = g[0x304] - 1;
-    if (g[0x316 + tmp0] == 0 || g[0x30C + idx2] == 0) goto skip2;
-    tab = (u8 *)(D_080E47E8 + 4 + idx2 * 12 + tmp0 * 120);
-    old = *((u32 *)(g + 0x2CC)); val = *((u32 *)tab);
-    if (old < val) goto set1;
+    idx2 = g[0x305] - 1; __repair_phase_idx2 = g[0x304] - 1;
+    if (g[0x316 + idx2] == 0 || g[0x30C + __repair_phase_idx2] == 0) goto skip2;
+    __repair_phase_old = *((u32 *)(g + 0x2CC)); val = *((u32 *)(tab = (u8 *)(D_080E47E8 + (4 + (__repair_phase_idx2 * 12 + idx2 * 120)))));
+    if (val > __repair_phase_old) goto set1;
 skip2:
-    if (((s32)(*((u32 *)(g + 0x2CC)))) > 0xFFFF) { g[y] = 0; goto done2; }
+    if (!(((s32)(*((u32 *)(g + 0x2CC)))) > 0xFFFF))
+    {
 set1:
     g[0x2DB] = 1; sub_0806DD94();
-done2: ;
+;
+    }
+    else
+    { g[y] = 0;
+      ;
+    }
   }
   *((u32 *)(c + 0x44)) = 0;
   *(c + 0xAC) = 0;
@@ -138,9 +150,9 @@ done2: ;
   *((u32 *)(h + 0x173C)) = *((u32 *)(c + 0x70));
   *((u32 *)(h + 0x1740)) = *((u32 *)(c + 0x40));
   *((u32 *)(h + 0x1508)) = *((u32 *)(g + 0x300));
-  idx2 = (u32)(inline_fn23(ph) << 16);
+  idx2_1 = (u32)(inline_fn23(ph) << 16);
   *((u32 *)(h + 0x174C)) = d[0];
-  *((u32 *)(h + 0x1750)) = d[1] + idx2;
+  *((u32 *)(h + 0x1750)) = d[1] + idx2_1;
   j = *((u32 *)(h + 0x1718));
   *((u32 *)((h + 0x1518) + (j * 4))) = d[0];
   *((u32 *)((h + 0x1618) + (j * 4))) = d[1];

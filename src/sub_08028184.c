@@ -4,10 +4,10 @@
  * the next script step; otherwise steer toward the target and update the
  * sprite's facing flag from the movement angle.
  */
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
-extern void sub_0801468C(void *, s32);
+extern void setSpriteFlip(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s32 D_08671BD0;
 
@@ -21,7 +21,7 @@ void sub_08028184(void *arg0)
 
     animator = work + 0x34;
     move = work + 0x48;  /* move record: target X/Y at +8/+0xC, angle at +0x20 */
-    sub_08011368(sprite, animator, 0, 1);
+    setAnimationFrame(sprite, animator, 0, 1);
     if (sub_08014A04(work, *(s32 *)(move + 8), *(s32 *)(move + 0x0C), 0x80000, 0x80000) == 1) {
         s32 *stepCallback;
         *(s8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = 0;
@@ -30,5 +30,5 @@ void sub_08028184(void *arg0)
         return;
     }
     sub_08014B1C(work, work + 0x64, *(s32 *)(move + 8), *(s32 *)(move + 0x0C));
-    sub_0801468C(sprite, *(s32 *)(move + 0x20));
+    setSpriteFlip(sprite, *(s32 *)(move + 0x20));
 }

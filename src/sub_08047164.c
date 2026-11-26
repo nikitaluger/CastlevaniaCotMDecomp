@@ -1,7 +1,7 @@
 extern u8 D_080CF86A[];
 extern u8 D_080CF5B8[];
 extern u8 D_080CF5D8[];
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 
 struct SlotOwner { u8 pad[0x4C]; u8 slot; };
 struct FirstTarget { u8 pad[0x28]; u32 object; };
@@ -41,6 +41,6 @@ void sub_08047164(struct SlotOwner *owner, struct FirstTarget *first, struct Sec
         firstRecord += 8;
         i++;
     } while (i <= 3);
-    sub_08014588((void *)first->object, record.first);
-    sub_08014588((void *)second->object, record.second);
+    copyPoseAttrs((void *)first->object, record.first);
+    copyPoseAttrs((void *)second->object, record.second);
 }

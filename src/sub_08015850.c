@@ -3,7 +3,7 @@ struct S_02025FF0
   u8 _0x000[0x18A8];
   u8 cameraIndex;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern u8 D_02023130[];
 /* Return 1 when the world point (x,y) lies inside the active camera rectangle,
  * whose half-extents come from the record D_02023130[cameraIndex << 6] at +0x10/+0x12.
@@ -13,7 +13,7 @@ s32 sub_08015850(s32 x, s32 y, u16 xUpperMargin, s32 xLowerMargin, u16 yUpperMar
   u16 xUpper = xUpperMargin;
   u16 yLowerTmp = yUpperMargin;
   u16 yLower = yLowerMargin;
-  u8 recordIndex = D_02025FF0.cameraIndex;
+  u8 recordIndex = gMainWorkspace.cameraIndex;
   u8 *record = D_02023130 + (recordIndex << 6);
   s16 xExtent = *((s16 *) (record + 0x10));
   s16 yExtent = *((s16 *) (record + 0x12));

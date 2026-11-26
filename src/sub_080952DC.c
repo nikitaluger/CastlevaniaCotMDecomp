@@ -1,8 +1,8 @@
 extern s32 sub_0805F9B4(s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0801165C(void *, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u32 D_0866FAC4[];
 
 /* Entity reaction update: set the visibility flag from an off-screen test,
@@ -70,8 +70,8 @@ void sub_080952DC(u8 *arg0)
         *(u32 *)(work + 0x18) = *(u32 *)(motion + 0xC);
         *(u16 *)(work + 0x1C) = hidden;
         sub_0801165C(motion, 0);
-        coords = D_02021E90;
-        roomByte = D_02025FF0;
+        coords = gCameraState;
+        roomByte = gMainWorkspace;
         roomByte += 0x18A8;
         recordOffset = ((u32)*roomByte + 1) * 0x40;
         xCoords = coords + 0x1278;

@@ -7,7 +7,7 @@ extern s32 sub_0806D518(void *, s32, void *);
 extern void sub_0806D588(s32, void *);
 extern void sub_080719EC(void *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 void sub_0806F78C(void *arg0v)
 {
@@ -44,7 +44,7 @@ void sub_0806F78C(void *arg0v)
         velocity += *((s32 *)(p4 + 0x0C));
         *((s32 *)(p4 + 0x04)) = velocity;
         off = 0x18A8;
-        base = (u8 *)(off + ((u32)D_02025FF0));
+        base = (u8 *)(off + ((u32)gMainWorkspace));
         hit = sub_08007DD8((s32)(((u8 *)0x02023130) + ((*base) << 6)), *((s32 *)(P + 4))) << 16;
         p30 = P + 0x30;
         if (hit != 0) {
@@ -64,6 +64,9 @@ void sub_0806F78C(void *arg0v)
     rr2 = sub_08003740(p30, Q);
     if (rr2 == 0) {
         void *res;
+        void *res_b1;
+        void *res_b2;
+        void *res_b3;
         void **fp;
         s32 zero;
         sub_08003A6C(p30, 0, (void *)0x08472AD4);
@@ -71,12 +74,12 @@ void sub_0806F78C(void *arg0v)
         *((s32 *)(p4 + 0x10)) = 0x12C;
         res = *((void * volatile *)(p4b + 0x3C));
         *((s16 *)((u8 *)res + 0x6)) = 0xA | zero;
-        res = *((void * volatile *)(p4b + 0x3C));
-        *((s16 *)((u8 *)res + 0x8)) = 6;
-        res = *((void * volatile *)(p4b + 0x3C));
-        *((s16 *)((u8 *)res + 0xA)) = (s16)rr2;
-        res = *((void * volatile *)(p4b + 0x3C));
-        *((u16 *)((u8 *)res + 0xC)) = new_var2;
+        res_b1 = *((void * volatile *)(p4b + 0x3C));
+        *((s16 *)((u8 *)res_b1 + 0x8)) = 6;
+        res_b2 = *((void * volatile *)(p4b + 0x3C));
+        *((s16 *)((u8 *)res_b2 + 0xA)) = (s16)rr2;
+        res_b3 = *((void * volatile *)(p4b + 0x3C));
+        *((u16 *)((u8 *)res_b3 + 0xC)) = new_var2;
         *((u8 *)((arg0 + (2 * (*((s16 *)(arg0 + 0x22))))) + 0x19)) = (u8)zero;
         fp = (void **)0x08671BB0;
         sub_080C31E4(arg0 + 0x18, arg0 + 0x22, (s32)(*fp));

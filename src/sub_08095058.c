@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s16 D_081008C8[];
 
 /* Moving actor tick: play the pose selected by its pose-step counter, then
@@ -14,7 +14,7 @@ void sub_08095058(void *arg0)
     s32 pose = *(s32 *)(body + 0x48);
     s32 frame = poseTable[pose];
 
-    sub_08011368(sprite, anim, frame, 1);
+    setAnimationFrame(sprite, anim, frame, 1);
 
     if (*(s32 *)(body + 0x10) < 0) {
         if (*(s32 *)(body + 8) <= *(s32 *)(motion + 8))

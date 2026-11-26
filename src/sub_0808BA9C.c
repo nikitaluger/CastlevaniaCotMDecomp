@@ -1,13 +1,13 @@
-extern u32 D_02025FF0[];
-extern u8 D_02021E90[];
+extern u32 gMainWorkspace[];
+extern u8 gCameraState[];
 
 /* Periodic timer in the global state: while its countdown is nonzero it writes a
- * fixed sprite pattern into D_02021E90 when the count reaches a trigger value, clears
+ * fixed sprite pattern into gCameraState when the count reaches a trigger value, clears
  * that pattern when the count runs out, and reloads the timer from a repeat counter.
  */
 void sub_0808BA9C(void) {
   s32 zero;
-  u8 *state = (u8 *)D_02025FF0;
+  u8 *state = (u8 *)gMainWorkspace;
   s32 *timer = (s32 *)(state + 0x1764);
   s32 *trigger;
   s32 *repeat;
@@ -19,7 +19,7 @@ void sub_0808BA9C(void) {
     *timer = count;
     trigger = (s32 *)(state + 0x175C);
     if (count == *trigger) {
-      u8 *sprites = D_02021E90;
+      u8 *sprites = gCameraState;
       u8 *field1468 = sprites + 0x1468;
       zero = 0;
       *field1468 = 0x31;
@@ -31,7 +31,7 @@ void sub_0808BA9C(void) {
     }
     remaining = *timer;
     if (remaining == 0) {
-      u8 *sprites = D_02021E90;
+      u8 *sprites = gCameraState;
       sprites[0x1460] = remaining;
       sprites[0x1464] = remaining;
       sprites[0x1462] = remaining;

@@ -1,17 +1,17 @@
 struct S_02025FF0 {
     u8 _0[0x14F8]; s32 f14F8; u8 _1[0x14]; u8 f1510; u8 _2[0x217]; s32 f1728; s32 f172C;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
 extern s32 D_080E4C98[];
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_08003A6C(void *, s32, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0808449C(void);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 struct E { u8 _0, f1, f2, f3; u16 f4, f6, f8, fA, fC, fE; u8 _10[6]; u16 f16, f18; };
 struct Q { s32 f0, f4, f8, fC; u8 _10[8]; void *f18; u8 _1C[0x10]; struct E *f2C; s32 f30, f34, f38, f3C; };
 static inline u8 and1(u8 b){ u32 m = 1; m &= b; return (u8)m; }
@@ -22,13 +22,13 @@ void sub_08074200(u8 *arg0) {
     g = *(u8 **)(arg0 + 0x6C);
     a = *(u8 **)(arg0 + 0x38);
     q = (struct Q *)(g + 4);
-    base = D_02025368;
-    child = sub_08016190();
+    base = gGameStatus;
+    child = allocEffectPart();
     q->f2C = child;
     if (child == NULL) { sub_0806D2D0(arg0); return; }
     zero = 0;
     q->f30 = zero; q->f34 = zero; q->f38 = zero; q->f3C = zero;
-    d = &D_02025FF0;
+    d = &gMainWorkspace;
     child->f1 = and1(d->f1510);
     q->f2C->f2 = 2;
     q->f2C->f3 = 8;
@@ -55,7 +55,7 @@ void sub_08074200(u8 *arg0) {
     flip = *(u16 *)(*(u8 **)(t2 + 0x38) + 2);
     if (flip & 0x10) q->f0 = idx - ((s32 *)a)[0];
     else q->f0 = idx + ((s32 *)a)[0];
-    q->f4 = D_02025FF0.f172C + ((s32 *)a)[1];
+    q->f4 = gMainWorkspace.f172C + ((s32 *)a)[1];
     { s32 v3 = ((s32 *)a)[2];
       flip = *(u16 *)(*(u8 **)(t2 + 0x38) + 2);
       if (flip & 0x10) v3 = -v3;

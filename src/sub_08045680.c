@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
@@ -22,7 +22,7 @@ void sub_08045680(void *entity)
     *(s32 *)((u8 *)part + 0x14) = 0;
     *(s32 *)((u8 *)part + 0x10) = 0;
     *(u16 *)((u8 *)ext + 4) = *(u16 *)((u8 *)ext + 4) + 1;
-    sub_08011368(sprite, anim, 7, 0);
+    setAnimationFrame(sprite, anim, 7, 0);
     frame = *(u8 *)((u8 *)anim + 1) - 1;
     if (frame > 0 && (s16)*(u16 *)((u8 *)ext + 4) <= 0x31) {
         speed = sub_08014990(sprite);

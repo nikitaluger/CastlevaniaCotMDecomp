@@ -1,7 +1,7 @@
-extern s32 sub_08011368(s32, u8 *, s32, s32);
+extern s32 setAnimationFrame(s32, u8 *, s32, s32);
 extern s32 sub_080113A8(s32, u8 *);
 extern s32 sub_08011898(u8 *, s32);
-extern s32 sub_08014588(s32, s32);
+extern s32 copyPoseAttrs(s32, s32);
 extern s32 sub_0809856C(s32, u8 *, s32);
 extern s32 sub_080B72CC(u8 *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -23,8 +23,8 @@ void sub_080B6CCC(u8 *self) {
         u16 *timerPtr;
         u8 zero;
         u16 duration;
-        sub_08011368(companion, stateArg, 0x28, 1);
-        sub_08014588(*(s32 *)(scriptState + 0x28), 0x08102D2C);
+        setAnimationFrame(companion, stateArg, 0x28, 1);
+        copyPoseAttrs(*(s32 *)(scriptState + 0x28), 0x08102D2C);
         timerPtr = (u16 *)(self + 0x74);
         zero = 0;
         duration = 0x12C;

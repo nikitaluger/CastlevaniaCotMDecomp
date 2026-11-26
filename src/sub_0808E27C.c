@@ -4,8 +4,8 @@ s32 sub_0805F9B4(s32, s32);
 void sub_080C31E0(void *, s32);
 
 struct GameState { u8 _pad[0x10]; u32 mode; };
-extern struct GameState D_02025FF0;
-extern u8 D_02021E90[];
+extern struct GameState gMainWorkspace;
+extern u8 gCameraState[];
 
 /* Keeps an entity updated while it is inside the active region; once it leaves,
  * dispatches the destruction callback stored at self+0x24. While active it
@@ -16,7 +16,7 @@ void sub_0808E27C(void *entity) {
     u8 *body = *(u8 **)(self + 0x3C);
     u8 *motion = body + 0x14;
 
-    if (D_02025FF0.mode == 1) {
+    if (gMainWorkspace.mode == 1) {
         if (sub_08015850(*(s32 *)(body + 0x14), *(s32 *)(motion + 4), -0x10, 0x10, -0x10, 0x10) != 0)
             goto updates;
     } else {
@@ -33,8 +33,8 @@ updates:
     sub_080113A8(gfx, body);
 
     {
-        u8 *pt = D_02021E90;
-        u8 *pb = (u8 *)&D_02025FF0;
+        u8 *pt = gCameraState;
+        u8 *pb = (u8 *)&gMainWorkspace;
         u8 *xTable;
         u8 *yTable;
         u32 idx;

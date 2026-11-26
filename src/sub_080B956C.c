@@ -4,7 +4,7 @@ void sub_080C31E0(void *, void *);
 void sub_080113A8(void *, void *);
 void sub_0801165C(void *, s32);
 void sub_080C31E4(void *, void *, s32);
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 /* Action-script object shared with the command handlers at 0x080B95CC..:
  * 0x14 command-pointer table, 0x18 per-step command bytes, 0x22 step index,
@@ -68,11 +68,11 @@ void sub_080B935C(void *arg0) {
     }
 }
 
-/* In game mode 7 (D_02025FF0 word 16) run this object's mode handler at
+/* In game mode 7 (gMainWorkspace word 16) run this object's mode handler at
  * self+0x24; otherwise just keep the sprite coordinates in sync. */
 void sub_080B97F0(void *arg0) {
     void *sprite = *(void **)((u8 *)arg0 + 0x38);
-    if (D_02025FF0[16] == 7) {
+    if (gMainWorkspace[16] == 7) {
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
         return;
     }

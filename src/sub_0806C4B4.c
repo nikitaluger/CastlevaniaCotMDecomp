@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 struct GameState {
     u8 pad0[0x14B8];
@@ -30,7 +30,7 @@ struct Point { u32 x; u32 y; };
  * (0 = none, 1 = held, 2 = interpolated, 3 = direct).
  */
 s32 sub_0806C4B4(struct Context *ctx, struct Point *out) {
-    struct GameState *gs = (struct GameState *)D_02025FF0;
+    struct GameState *gs = (struct GameState *)gMainWorkspace;
     u32 flags = gs->modeFlags;
     u32 adjX;
     if (!(flags & 0x0F)) return 0;

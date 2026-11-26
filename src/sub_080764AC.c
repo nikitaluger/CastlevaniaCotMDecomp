@@ -1,7 +1,7 @@
 struct S_02025FF0 { u8 _[0x18C2]; u16 w; };
-extern struct S_02025FF0 D_02025FF0;
-s32 sub_0800168C(void *, s32, s32, s32);
-void *sub_0800355C(void);
+extern struct S_02025FF0 gMainWorkspace;
+s32 allocWorkSlot(void *, s32, s32, s32);
+void *allocSpriteObject(void);
 void sub_0806D2D0(void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -13,11 +13,11 @@ void sub_080764AC(void *arg0) {
     void *child;
     u8 zero;
     u16 flags;
-    if (sub_0800168C(arg0, 0, 0x68, 3) == 0) {
+    if (allocWorkSlot(arg0, 0, 0x68, 3) == 0) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;
     }
-    child = sub_0800355C();
+    child = allocSpriteObject();
     if (child == NULL) {
         sub_0806D2D0(arg0);
         return;
@@ -26,7 +26,7 @@ void sub_080764AC(void *arg0) {
     flags = (u16)((*(u16 *)((u8 *)*(void **)((u8 *)*(void **)((u8 *)arg0 + 0x28) + 0x38) + 2) & 0x10) | *(u16 *)((u8 *)child + 2));
     zero = 0;
     *(u16 *)((u8 *)child + 2) = flags;
-    *(u16 *)child = D_02025FF0.w;
+    *(u16 *)child = gMainWorkspace.w;
     *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = zero;
     {
         s32 *nv = (s32 *)0x08671BB0;

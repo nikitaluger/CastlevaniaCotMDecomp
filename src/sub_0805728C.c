@@ -4,7 +4,7 @@ struct S_02025FF0
   u32 field_0x174C;
   u32 field_0x1750;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 s32 sub_080057F8(void);
 s32 sub_08005910(s32 a, s32 b);
 s32 sub_080C31E0(void *arg0, s32 a);
@@ -32,13 +32,13 @@ void sub_0805728C(u8 *entity)
   struct S_48 *stateOut;
   if (sub_080057F8() & 1)
   {
-    angle = sub_08005910(D_02025FF0.field_0x1750 - data->y, D_02025FF0.field_0x174C - data->x);
+    angle = sub_08005910(gMainWorkspace.field_0x1750 - data->y, gMainWorkspace.field_0x174C - data->x);
     state->facing = (angle + 0x3000) & 0xFFFF;
   }
   else
   {
     stateOut = state;
-    angle = sub_08005910(D_02025FF0.field_0x1750 - data->y, D_02025FF0.field_0x174C - data->x);
+    angle = sub_08005910(gMainWorkspace.field_0x1750 - data->y, gMainWorkspace.field_0x174C - data->x);
     stateOut->facing = (angle + 0xFFFFD000) & 0xFFFF;
   }
   state->unk10 = 0;

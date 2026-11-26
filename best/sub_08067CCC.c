@@ -40,14 +40,24 @@ struct G_21E90
   u16 f146C;
   u16 f146E;
 };
-extern struct G_25FF0 D_02025FF0;
-extern struct G_25368 D_02025368;
-extern struct G_21E90 D_02021E90;
+extern struct G_25FF0 gMainWorkspace;
+extern struct G_25368 gGameStatus;
+extern struct G_21E90 gCameraState;
 extern u8 D_02023130[];
 extern u8 D_084A67AC[];
 extern u8 D_084A67C0[];
 extern u8 D_084A67F4[];
 extern void *D_08671BD0;
+inline static u16 inline_fn()
+{
+  return gCameraState.f146E;
+}
+
+inline static s16 *inline_fn2(u8 *arg0)
+{
+  return (s16 *) (arg0 + 0x22);
+}
+
 void sub_08067CCC(u8 *arg0)
 {
   u8 *p = *((u8 **) (arg0 + 0x6C));
@@ -66,48 +76,54 @@ void sub_08067CCC(u8 *arg0)
   u16 temp_r0_3;
   volatile int new_var;
   u8 *new_var2;
+  s16 *temp;
   if (sub_0806C4B4(r8, r8) != 0)
   {
     return;
   }
   sub_0806C5EC(arg0, r10, r8, r8);
-  if (D_02025FF0.f24 != 0)
+  if (gMainWorkspace.f24 != 0)
   {
-    if (!(D_02025FF0.f28 & D_02025368.f3BC))
+    if (!(gMainWorkspace.f28 & gGameStatus.f3BC))
     {
       goto block_7;
     }
     goto block_6;
   }
-  if (D_02021E90.f146C & D_02025368.f3BC)
+  if (gCameraState.f146C & gGameStatus.f3BC)
   {
     block_6:
     var_r4 = r7 + 0x28;
 
-    sub_08003A6C(var_r4, 0, D_084A67C0);
+    do
+    {
+      sub_08003A6C(var_r4, 0, D_084A67C0);
+    }
+    while (0);
     *((s32 *) (r7 + 0xB8)) = 0;
-    *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = 0;
+    temp = (s16 *) (arg0 + 0x22);
+    *(((u8 *) (((*temp) * 2) + ((u32) arg0))) + 0x19) = 0;
     sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x26, D_08671BD0);
     goto end;
   }
   block_7:
-  if (D_02025FF0.f24 != 0)
+  if (gMainWorkspace.f24 != 0)
   {
-    if (!(D_02025FF0.f28 & D_02025368.f3BE))
+    if (!(gMainWorkspace.f28 & gGameStatus.f3BE))
     {
       goto block_20;
     }
     goto block_12;
   }
 
-  if (!(D_02021E90.f146C & D_02025368.f3BE))
+  if (!(gCameraState.f146C & gGameStatus.f3BE))
   {
     goto block_20;
   }
   block_12:
-  if (D_02025FF0.f24 != 0)
+  if (gMainWorkspace.f24 != 0)
   {
-    new_var4 = &D_02025FF0;
+    new_var4 = &gMainWorkspace;
     if (!((*new_var4).f2A & 0x80))
     {
       goto block_20;
@@ -116,21 +132,21 @@ void sub_08067CCC(u8 *arg0)
   }
 
   new_var3 = arg0 + 0x22;
-  if (D_02021E90.f146E & 0x80)
+  if (gCameraState.f146E & 0x80)
   {
     new_var2 = D_02023130;
     new_var2 = new_var2 + ((*new_var4).f18A8 << 6);
     block_16:
-    if (((!(0x1000 & sub_08007B3C(new_var2, *((s32 *) r7), (*((s32 *) (r7 + 4))) + 0x10000))) && (!sub_08007B3C(D_02023130 + (D_02025FF0.f18A8 << 6), (*((s32 *) r7)) - (*((s32 *) (r7 + 0x38))), (*((s32 *) (r7 + 4))) + 0x10000))) && ((temp_r6 = 0x1000 & sub_08007B3C(D_02023130 + (D_02025FF0.f18A8 << 6), (*((s32 *) r7)) + (*((s32 *) (r7 + 0x38))), (*((s32 *) (r7 - (-4)))) + 0x10000), temp_r6 == 0)))
+    if (((!(0x1000 & sub_08007B3C(new_var2, *((s32 *) r7), (*((s32 *) (r7 + 4))) + 0x10000))) && (!sub_08007B3C(D_02023130 + (gMainWorkspace.f18A8 << 6), (*((s32 *) r7)) - (*((s32 *) (r7 + 0x38))), (*((s32 *) (r7 + 4))) + 0x10000))) && ((temp_r6 = 0x1000 & sub_08007B3C(D_02023130 + (gMainWorkspace.f18A8 << 6), (*((s32 *) r7)) + (*((s32 *) (r7 + 0x38))), (*((s32 *) (r7 - (-4)))) + 0x10000), temp_r6 == 0)))
     {
       *((s32 *) (r8 + 4)) += 0x20000;
       *((s32 *) (r7 + 0x40)) = temp_r6;
       *((s32 *) (r7 + 0x4C)) = 1;
       var_r4 = r7 + 0x28;
       sub_08003A6C(var_r4, 0, D_084A67F4);
-      new_var5 = arg0 + 0x18;
       new_var = (u8) temp_r6;
       *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = new_var;
+      new_var5 = arg0 + 0x18;
       sub_080C31E8(new_var5, arg0 + 0x22, 0x23, D_08671BD0);
     }
     else
@@ -154,20 +170,20 @@ void sub_08067CCC(u8 *arg0)
     {
       *((s32 *) (r7 + 0x68)) = 1;
       sub_08003A6C(var_r4, 0, D_084A67AC);
-      *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = (u8) temp_r0_2;
+      *(((u8 *) (((*inline_fn2(arg0)) * 2) + ((u32) arg0))) + 0x19) = (u8) temp_r0_2;
       sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x25, D_08671BD0);
     }
     else
     {
       if ((*new_var4).f24 != 0)
       {
-        if (!(D_02025FF0.f28 & D_02025368.f3C2))
+        if (!(gMainWorkspace.f28 & gGameStatus.f3C2))
         {
           goto block_29;
         }
         goto block_28;
       }
-      if (D_02021E90.f146C & D_02025368.f3C2)
+      if (gCameraState.f146C & gGameStatus.f3C2)
       {
         if (1)
         {
@@ -181,17 +197,17 @@ void sub_08067CCC(u8 *arg0)
         block_29:
         if ((*new_var4).f24 != 0)
         {
-          if (!(D_02025FF0.f2A & 0x40))
+          if (!(gMainWorkspace.f2A & 0x40))
           {
             goto block_35;
           }
           goto block_33;
         }
 
-        if (D_02021E90.f146E & 0x40)
+        if (gCameraState.f146E & 0x40)
         {
           block_33:
-          if ((0x3F & sub_08007B78(D_02023130 + (D_02025FF0.f18A8 << 6), *((s32 *) r7), (*((s32 *) (r7 + 4))) + 0x10000)) == 0x15)
+          if ((0x3F & sub_08007B78(D_02023130 + (gMainWorkspace.f18A8 << 6), *((s32 *) r7), (*((s32 *) (r7 + 4))) + 0x10000)) == 0x15)
           {
             *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = 0;
             sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x2F, D_08671BD0);
@@ -207,14 +223,14 @@ void sub_08067CCC(u8 *arg0)
           block_35:
           if ((*new_var4).f24 != 0)
           {
-            if (!(D_02025FF0.f2A & 0x40))
+            if (!(gMainWorkspace.f2A & 0x40))
             {
               goto block_42;
             }
             goto block_39;
           }
 
-          if (D_02021E90.f146E & 0x40)
+          if (inline_fn() & 0x40)
           {
             block_39:
             if (((0x3F & sub_08007B78(D_02023130 + ((*new_var4).f18A8 << 6), *((s32 *) r7), (*((s32 *) (r7 + 4))) + 0x10000)) == 0x14) && ((temp_r1 = (*new_var4).f14AC, temp_r1 == 0)))
@@ -253,14 +269,26 @@ void sub_08067CCC(u8 *arg0)
     }
   }
   sub_0806A884(r10, r8);
-  temp_r6_3 = D_02025FF0.f14ED;
+  temp_r6_3 = gMainWorkspace.f14ED;
   if ((temp_r6_3 == 0) && ((*((u8 *) (arg0 + 0x18))) == 0x24))
   {
     sub_0806C49C(r10, r7);
     *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = temp_r6_3;
     sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 4, D_08671BD0);
   }
-  sub_08003740(var_r4, r10);
+  do
+  {
+    do
+    {
+      do
+      {
+        sub_08003740(var_r4, r10);
+      }
+      while (0);
+    }
+    while (0);
+  }
+  while (0);
   *((s32 *) (r7 + 0xC4)) = (temp_r0_3 = (u16) sub_0806BCD8(arg0, r10, r7, r8));
   if (temp_r0_3 != 0)
   {

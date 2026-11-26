@@ -1,6 +1,6 @@
-s32 sub_08014938(s32);
+s32 signOf(s32);
 s32 sub_08014990(void *);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_080CF5AC[];
 /* Targeting test: returns 1 when `target` faces the same way as the player
  * relative to this entity (bit 0x10), its flag bit matches, it lies within the
@@ -18,12 +18,12 @@ s32 sub_080458CC(void *entity, void *target)
   u32 globals;
   motion = *((void **) (((u8 *) entity) + 0x3C));
   facingSign = sub_08014990(target);
-  if (facingSign != sub_08014938(*((s32 *) (((u8 *) motion) + 8))))
+  if (facingSign != signOf(*((s32 *) (((u8 *) motion) + 8))))
   {
     return 0;
   }
   flagMask = (*((u16 *) (((u8 *) target) + 2))) & 0x10;
-  globals = (u32) D_02025FF0;
+  globals = (u32) gMainWorkspace;
   if (flagMask != ((*((u16 *) ((*((s32 *) (globals + 0x171C))) + 2))) & 0x10))
   {
     return 0;

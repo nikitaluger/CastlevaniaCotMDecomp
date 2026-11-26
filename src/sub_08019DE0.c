@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Advance the actor's model animation to frame 0x1D and tick the frame timer
@@ -10,7 +10,7 @@ void sub_08019DE0(void *arg0) {
     u8 *anim = field + 0x34;
     u16 *timer = (u16 *)(field + 0x48);
     s32 remaining;
-    sub_08011368((s32)model, anim, 0x1D, 1);
+    setAnimationFrame((s32)model, anim, 0x1D, 1);
     remaining = *timer - 1;
     *timer = remaining;
     if ((s32)(remaining << 0x10) < 0) {

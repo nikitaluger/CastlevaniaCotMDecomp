@@ -1,5 +1,5 @@
 struct GameState { u8 _pad[0x10]; s32 flags; };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 extern void sub_0808BB54(void);
 extern void sub_08097EF4(s32, void *, s32, s32);
@@ -19,7 +19,7 @@ void sub_0809DF30(void *entity) {
     flag = flag & flags;
     if (flag != 0) {
         sub_0808BB54();
-        D_02025FF0.flags = 3;
+        gMainWorkspace.flags = 3;
         sub_080C31E0(entity, *(s32 *)(self + 0x24));
         return;
     }

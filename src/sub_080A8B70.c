@@ -1,4 +1,4 @@
-extern s16 sub_080C2F20(s32, s32);
+extern s16 divideInt(s32, s32);
 
 /* Scale the +0xE motion parameter by 5/4 on every type-0x19B child of an entity. */
 void sub_080A8B70(void *entity) {
@@ -11,7 +11,7 @@ void sub_080A8B70(void *entity) {
             if (*(s16 *)child == 0x19B) {
                 obj = *(u8 **)(child + 0x3C);
                 *(s16 *)(*(u8 **)(obj + 0x28) + 0xE) =
-                    sub_080C2F20(*(s16 *)(*(u8 **)(obj + 0x28) + 0xE) * 5, 4);
+                    divideInt(*(s16 *)(*(u8 **)(obj + 0x28) + 0xE) * 5, 4);
             }
             child = *(u8 **)(child + 0x2C);
         } while (child != NULL);

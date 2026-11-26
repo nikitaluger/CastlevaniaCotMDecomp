@@ -1,10 +1,10 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void sub_080114DC(s32, void *, s32, s32);
+extern void setObjectAnimation(s32, void *, s32, s32);
 extern void sub_08011528(s32, void *);
 extern void sub_080148D8(s32, s32);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 
 void sub_080B3C68(void *arg0) {
     u8 *self = (u8*)arg0;
@@ -50,10 +50,10 @@ void sub_080B36F8(void *arg0) {
     s32 v38 = *(s32 *)(self + 0x38);
     u8 *p3C = *(u8 **)(self + 0x3C);
     u8 *r5 = p3C + 0x34;
-    sub_080114DC(v38, r5, 0, 1);
+    setObjectAnimation(v38, r5, 0, 1);
     sub_08011528(v38, r5);
     sub_080148D8(v38, *(s32 *)(p3C + 8));
-    if (*(u32 *)(D_02025FF0 + 0x40) == 1) {
+    if (*(u32 *)(gMainWorkspace + 0x40) == 1) {
         s32 *lit;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         lit = (s32 *)0x08671BB0;

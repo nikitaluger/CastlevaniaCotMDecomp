@@ -1,7 +1,7 @@
 extern u16 sub_08005910(s32, s32);
-extern void sub_080114DC(s32, s32, s16, s32);
+extern void setObjectAnimation(s32, s32, s16, s32);
 struct S_02025FF0 { u8 _0[0x10]; u32 field10; u8 _14[0x14ED - 0x14]; u8 field14ED; u8 _14EE[0x173A - 0x14EE]; u8 field173A; u8 _173B[0x174C - 0x173B]; s32 f174C; s32 f1750; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct S_A3E8C_2 { u8 _0[8]; s32 f8; s32 fC; };
 struct S_A3E8C_3 { u32 f0; u32 f4; u32 f8; };
 struct S_08101C60 { s16 v; u8 _pad[2]; };
@@ -20,7 +20,7 @@ void sub_080A3E8C(s32 scene, s32 obj, struct S_A3E8C_2 *target, struct S_A3E8C_3
     if (frame == goalFrame) {
         if (timer > 0x4A) {
             state->f8 = 0;
-            angle = sub_08005910(D_02025FF0.f1750 - target->fC, D_02025FF0.f174C - target->f8);
+            angle = sub_08005910(gMainWorkspace.f1750 - target->fC, gMainWorkspace.f174C - target->f8);
             signedAngle = (s16)angle;
             if ((u32)((angle + 0xFFFFAFFF) << 16) <= 0x3FFE0000) state->f4 = 0;
             else if ((u32)((angle + 0xFFFFCFFF) << 16) <= 0x1FFF0000 ||
@@ -32,6 +32,6 @@ void sub_080A3E8C(s32 scene, s32 obj, struct S_A3E8C_2 *target, struct S_A3E8C_3
         state->f8 = 0;
         if (goalFrame > frame) state->f0 = frame + 1; else state->f0 = frame - 1;
         animId = D_08101C60[state->f0].v;
-        sub_080114DC(scene, obj, animId, 0);
+        setObjectAnimation(scene, obj, animId, 0);
     }
 }

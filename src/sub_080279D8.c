@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_080C364C(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -8,10 +8,10 @@ extern void sub_08014DB4(void *, void *, s32, s32);
 extern void sub_08027A4C(void *, s32, s32 *, s32 *);
 
 extern s32 D_08671BFC[];
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 struct S_02025FF0_174C { u8 _0[0x174C]; u32 v174C; u32 v1750; };
-extern struct S_02025FF0_174C D_02025FF0;
+extern struct S_02025FF0_174C gMainWorkspace;
 
 void sub_08029020(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -23,7 +23,7 @@ void sub_08029020(void *arg0) {
     s32 v;
     s32 t;
 
-    sub_08011368(a0, r1, 0, 1);
+    setAnimationFrame(a0, r1, 0, 1);
     lit = D_08671BFC;
     v = sub_080C364C(*(s32 *)(r6 + 8) << 16, 0x50);
     v = sub_080C31E0(v + 0x4000, *lit);
@@ -64,7 +64,7 @@ void sub_0802754C(void *arg0) {
     if (sub_08014A04(temp_r5, sp4, sp8, 0xC0000) == 1) {
         s32 *lit;
         *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = 0;
-        lit = D_08671BB0;
+        lit = gMainObjTimerCallback;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *lit);
         return;
     }
@@ -74,11 +74,11 @@ void sub_0802754C(void *arg0) {
 void sub_080274F0(void *arg0) {
     void *temp_r4;
     temp_r4 = *(void **)((u8 *)arg0 + 0x3C);
-    sub_08014DB4(temp_r4, (u8 *)temp_r4 + 0x74, D_02025FF0.v174C, D_02025FF0.v1750);
+    sub_08014DB4(temp_r4, (u8 *)temp_r4 + 0x74, gMainWorkspace.v174C, gMainWorkspace.v1750);
     if (4 & *(u16 *)((u8 *)temp_r4 + 0x8C)) {
         s32 *lit;
         *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = 0;
-        lit = D_08671BB0;
+        lit = gMainObjTimerCallback;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *lit);
     }
 }

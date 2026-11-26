@@ -1,4 +1,4 @@
-extern s32 sub_08014938(s32);
+extern s32 signOf(s32);
 extern s32 sub_08014990(void *);
 extern void _call_via_r2(void *, void *, u32);
 
@@ -18,7 +18,7 @@ void sub_08017558(void *actor) {
     if (*(s16 *)(animState + 0x16) == 3) {
         {
             struct SpriteAttrs *attrs = (struct SpriteAttrs *)sprite;
-            if (sub_08014938(*(s32 *)(work + 8)) > 0)
+            if (signOf(*(s32 *)(work + 8)) > 0)
                 attrs->flags |= 0x10;
             else
                 attrs->flags &= 0xFFEF;

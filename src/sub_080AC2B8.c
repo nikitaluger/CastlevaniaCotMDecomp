@@ -2,13 +2,13 @@ extern void sub_080AC9B4(u8, void *);
 extern void sub_08005E80(s32);
 extern void sub_080B0908(s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 struct S_02025FF0_1754 {
     u8 _0x000[0x1754];
     s32 nextIndex;
 };
-extern struct S_02025FF0_1754 D_02025FF0;
+extern struct S_02025FF0_1754 gMainWorkspace;
 
 /* Projectile update: runs its effect, moves it and, once it passes its travel
  * limit, raises the global object index to at least 0x11, plays sound 0x171,
@@ -24,8 +24,8 @@ void sub_080AC2B8(void *arg0) {
     newY = *(s32 *)(work + 0xC) + 0x20000;
     *(s32 *)(work + 0xC) = newY;
     if (newY > 0x740000) {
-        if (D_02025FF0.nextIndex <= 0x10) {
-            D_02025FF0.nextIndex = 0x11;
+        if (gMainWorkspace.nextIndex <= 0x10) {
+            gMainWorkspace.nextIndex = 0x11;
         }
         sub_08005E80(0x171);
         sub_080B0908(*(s32 *)(aim + 0x30));

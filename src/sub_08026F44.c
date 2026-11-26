@@ -8,8 +8,8 @@ extern s32 sub_08013B5C(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 struct MoveFlags { u8 _0; u8 flags; };
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 static inline u8 setBit6Byte(u8 value) { u32 mask = 0x40; mask |= value; return (u8)mask; }
 static inline u16 setBit0Half(u16 value) { u32 mask = 1; mask |= value; return (u16)mask; }
@@ -95,8 +95,8 @@ void sub_08026F44(u8 *entity)
       }
     }
     {
-      u8 *coordBase = D_02021E90;
-      u8 *layerBase = D_02025FF0;
+      u8 *coordBase = gCameraState;
+      u8 *layerBase = gMainWorkspace;
       u8 *xBase;
       u8 *yBase;
       u32 layerIdx;

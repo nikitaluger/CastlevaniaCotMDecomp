@@ -7,7 +7,7 @@ struct S_040000D4 {
     vu32 f8;
 };
 extern struct S_040000D4 D_040000D4;
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 extern void sub_0806A7AC(void *, void *, s32);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_0808D2FC(u32);
@@ -37,7 +37,7 @@ void sub_08067544(u8 *entity) {
     sub_0808D2FC(*(u32 *)(view + 0x14));
     (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = (u8)zero;
     {
-        void **callback = &D_08671BB0;
+        void **callback = &gMainObjTimerCallback;
         statePtr = entity + 0x18;
         sub_080C31E4(statePtr, entity + 0x22, *callback);
     }

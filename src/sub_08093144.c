@@ -1,8 +1,8 @@
 extern void sub_08011344(void *, void *, s32, s32);
 extern s64 sub_0809329C(void *);
 extern void sub_080C31E4(void *, void *, u32);
-extern s32 D_08671BB0[];
-extern struct GameState { u8 _0[0x3C]; u16 mode; } D_02025FF0;
+extern s32 gMainObjTimerCallback[];
+extern struct GameState { u8 _0[0x3C]; u16 mode; } gMainWorkspace;
 extern struct FrameEntry { s16 frame; s16 pad; } D_08100684[];
 
 /* AI script step: clear the sprite highlight, then, only while the game mode is
@@ -19,7 +19,7 @@ void sub_08093144(void *self) {
     work = *(u8 **)((u8 *)self + 0x3C);
     animState = work + 0x1C;
     *(u8 *)(sprite + 0x2A) &= 0xBF;
-    if (D_02025FF0.mode == 2) return;
+    if (gMainWorkspace.mode == 2) return;
     if (*(u16 *)(*(u8 **)(work + 0x18)) == 0x2000) return;
     if ((s32)sub_0809329C(self) != 0) return;
     sub_08011344(sprite, animState, D_08100684[*(u32 *)work].frame, 0);

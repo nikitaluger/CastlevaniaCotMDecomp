@@ -1,13 +1,13 @@
-extern void sub_08011368(u8 *, u8 *, s32, s32);
-extern void sub_0801468C(u8 *, u32);
+extern void setAnimationFrame(u8 *, u8 *, s32, s32);
+extern void setSpriteFlip(u8 *, u32);
 extern s32 sub_08014A04(u8 *, s32, s32, s32, s32);
 extern s32 sub_08014A6C(u8 *, u32, s32, s32);
 extern void sub_08014B1C(u8 *, u8 *, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(u8 *, u8 *, s32, u32);
 extern s32 sub_080C364C(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Sub-state byte at entity + index*2 + 0x19. */
 struct WaypointState { u8 _0[0x19]; u8 state; };
@@ -35,9 +35,9 @@ void sub_08020944(u8 *entity)
   motion = *((u8 **) (entity + 0x3C));
   animState = motion + 0x34;
   steer = motion + 0x48;
-  sub_08011368(sprite, animState, 0, 1);
-  coordBase = D_02021E90;
-  indexPtr = D_02025FF0;
+  setAnimationFrame(sprite, animState, 0, 1);
+  coordBase = gCameraState;
+  indexPtr = gMainWorkspace;
   indexPtr += 0x18A8;
   routeIndex = *indexPtr;
   coordEntryRef = &coordEntry;
@@ -81,6 +81,6 @@ void sub_08020944(u8 *entity)
   else
   {
     sub_08014B1C(motion, steer + 0x24, targetX, targetY);
-    sub_0801468C(sprite, *((u32 *) (steer + 0x28)));
+    setSpriteFlip(sprite, *((u32 *) (steer + 0x28)));
   }
 }

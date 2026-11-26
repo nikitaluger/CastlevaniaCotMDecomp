@@ -22,17 +22,17 @@ struct S25368 {
   u8 _306[0x3C7 - 0x306];
   u8 f3C7, f3C8, f3C9, f3CA, f3CB, f3CC, f3CD, f3CE;
 };
-extern struct S25368 D_02025368;
+extern struct S25368 gGameStatus;
 
 struct S_02025FF0 { u8 _0[0x0A]; u8 bA; u8 _B[5]; s32 w10; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Copies the parameter entry selected by a 4-bit index in the word just before
  * the stat block from D_080E6988 into the player's stats, recomputes derived
  * stats, then sets global flags and seeds a global value. */
 void sub_0808B4C8(void)
 {
-  struct S25368 *stats = &D_02025368;
+  struct S25368 *stats = &gGameStatus;
   u8 *header = (u8 *)stats - 0x10;
   s32 entryIndex = header[0xC] & 0xF;
   struct Entry *entry = (struct Entry *)(D_080E6988 + entryIndex * 7 * 4);
@@ -53,7 +53,7 @@ void sub_0808B4C8(void)
   stats->f2D8 = entry->b18;
 
   sub_0806D8E4((u8 *)stats + 0x2C4);
-  D_02025FF0.bA = 1;
+  gMainWorkspace.bA = 1;
   sub_080057C8(0x36F);
-  D_02025FF0.w10 = 0;
+  gMainWorkspace.w10 = 0;
 }

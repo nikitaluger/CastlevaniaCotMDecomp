@@ -1,4 +1,4 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_08003A6C(void *a, s32 b, void *c);
@@ -6,11 +6,11 @@ extern void sub_080722E0(void *a, u8 b);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 extern void sub_0808449C(void);
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 
 /* Piece of a sprite group: the 0x80-byte flag in `flags` marks the slot as
- * allocated in the pool that sub_08016190 hands out. */
+ * allocated in the pool that allocEffectPart hands out. */
 struct SpritePart
 {
   u8 flags;
@@ -51,8 +51,8 @@ void sub_08077B9C(u8 *entity)
   u8 *group = *((u8 **) (entity + 0x6C));
   u8 *record = group + 4;
   struct Sprite *sprite = *((struct Sprite **) (entity + 0x38));
-  u8 *params = D_02025368;
-  struct SpritePart *part = sub_08016190();
+  u8 *params = gGameStatus;
+  struct SpritePart *part = allocEffectPart();
   u8 *game;
   u32 zero;
   u8 *script;
@@ -68,7 +68,7 @@ void sub_08077B9C(u8 *entity)
   *((u32 *) (record + 0x34)) = zero;
   *((u32 *) (record + 0x38)) = zero;
   *((u32 *) (record + 0x3C)) = zero;
-  game = D_02025FF0;
+  game = gMainWorkspace;
   part->variant = game[0x1510] & 1;
   (*((struct SpritePart **) (record + 0x2C)))->unk02 = 2;
   (*((struct SpritePart **) (record + 0x2C)))->unk03 = 8;

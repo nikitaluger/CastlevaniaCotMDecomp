@@ -1,5 +1,5 @@
 struct S_02025FF0_1874 { u8 _0[0x1874]; s32 v; };
-extern struct S_02025FF0_1874 D_02025FF0;
+extern struct S_02025FF0_1874 gMainWorkspace;
 extern void *sub_0805FAEC(s32, s32);
 
 /* Spawn an effect object at fixed-point world coordinates: allocate it, store
@@ -7,7 +7,7 @@ extern void *sub_0805FAEC(s32, s32);
 void *sub_08023F34(s32 x, s32 y, u16 variant) {
     void *effect;
     s32 xRound, yRound, xHi, yHi;
-    effect = sub_0805FAEC(D_02025FF0.v, 0xA3);
+    effect = sub_0805FAEC(gMainWorkspace.v, 0xA3);
     if (effect == NULL) return NULL;
     xRound = x;
     if (xRound < 0) xRound += 0xFFFF;

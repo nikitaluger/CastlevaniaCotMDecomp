@@ -1,12 +1,12 @@
 struct S_02025FF0 { u8 _0[0x18C2]; u16 baseAttr; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s16 D_080CFC98[];
 extern u16 D_080CFD40[];
 typedef void (*UpdateFn)(void *);
 
-void sub_0800168C(void *, s32, s32, s32);
-void *sub_0800355C(void);
-s32 sub_08013C2C(s16);
+void allocWorkSlot(void *, s32, s32, s32);
+void *allocSpriteObject(void);
+s32 findKindIndex(s16);
 extern void sub_080579A8(void);
 
 /* Allocates an entity's secondary effect object, fills in its sprite attributes
@@ -20,19 +20,19 @@ void sub_080578E8(u8 *entity) {
     u32 idxU;
     u32 attr;
     u16 flags;
-    sub_0800168C(entity, 0, 0x14, 0);
+    allocWorkSlot(entity, 0, 0x14, 0);
     if (*(void **)(entity + 0x3C) == 0) {
         ((UpdateFn)*(void **)(entity + 0x24))(entity);
         return;
     }
-    fx = sub_0800355C();
+    fx = allocSpriteObject();
     if (fx == 0) {
         ((UpdateFn)*(void **)(entity + 0x24))(entity);
         return;
     }
     *(void **)(entity + 0x38) = fx;
     elem = D_080CFC98[*(u8 *)(entity + 0x4C) * 2];
-    tableIdx = sub_08013C2C(elem);
+    tableIdx = findKindIndex(elem);
     idxU = ((u32)tableIdx << 16) >> 16;
     if (((s32)(tableIdx << 16)) < 0) {
         ((UpdateFn)*(void **)(entity + 0x24))(entity);
@@ -41,7 +41,7 @@ void sub_080578E8(u8 *entity) {
     idx = (s16)idxU;
     attr = ((idx << 6) + 0x200) | ((idx + 8) << 12);
     *(u16 *)fx = attr;
-    *(u16 *)fx = attr | D_02025FF0.baseAttr;
+    *(u16 *)fx = attr | gMainWorkspace.baseAttr;
     *(s32 *)((u8 *)fx + 0x24) = D_080CFD40[*(u8 *)(entity + 0x7C)] * 8 + 0x083C3B60;
     *(s32 *)((u8 *)fx + 0x1C) = 0x8000000A;
     flags = 0x800 | *(u16 *)(entity + 0x02);

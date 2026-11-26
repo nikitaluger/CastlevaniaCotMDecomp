@@ -20,7 +20,7 @@ struct S_FF0
   u8 _4[0x18C2 - 0x18A9];
   u16 w18C2;
 };
-extern struct S_FF0 D_02025FF0;
+extern struct S_FF0 gMainWorkspace;
 void sub_0807C1D0(void *arg0)
 {
   s32 *new_var2;
@@ -52,19 +52,25 @@ void sub_0807C1D0(void *arg0)
     if (1 & (*((u16 *) (((u8 *) (*((void **) (((u8 *) temp_r7) + 0x2C)))) + 0x14))))
     {
       sub_0808DBF8(temp_r3, *((s32 *) (((u8 *) temp_r7) + 4)), 0);
-      goto block_11;
+      {
+sub_080C31E0(arg0, *((s32 *) (((u8 *) arg0) + 0x24)));
+return;
+}
     }
-    if ((sub_08007DD8(((u32) D_02023130) + (((s32) D_02025FF0.b18A8) << 6), temp_r3, *new_var2) << 16) != 0)
+    if ((sub_08007DD8(((u32) D_02023130) + (((s32) gMainWorkspace.b18A8) << 6), temp_r3, *new_var2) << 16) != 0)
     {
       sub_0808DBF8(*((s32 *) (((u8 *) temp_r0) + 4)), *((s32 *) (((u8 *) temp_r7) + 4)), 0);
-      goto block_11;
+      {
+sub_080C31E0(arg0, *((s32 *) (((u8 *) arg0) + 0x24)));
+return;
+}
     }
-    *((u16 *) (((u8 *) temp_r6) + 0)) = D_02025FF0.w18C2;
+    *((u16 *) (((u8 *) temp_r6) + 0)) = gMainWorkspace.w18C2;
     sub_08003740((void *) (((u8 *) temp_r0) + 0x20), temp_r6);
     sub_0806D588(temp_r6, temp_r7);
-    if ((D_02025FF0.b173A == 0x1C) || ((D_02025FF0.b14ED == 0) && (D_02025FF0.f10 != 0)))
+    if ((gMainWorkspace.b173A == 0x1C) || ((gMainWorkspace.b14ED == 0) && (gMainWorkspace.f10 != 0)))
     {
-      block_11:
+
       sub_080C31E0(arg0, *((s32 *) (((u8 *) arg0) + 0x24)));
 
       return;

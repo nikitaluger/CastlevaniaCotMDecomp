@@ -6,7 +6,7 @@ extern void sub_0805EBB8(s32, s32, u16);
 extern s32 sub_080C364C(s32, s32);
 extern u16 sub_080C3824(u16, s32);
 extern u16 sub_080C389C(u16, s32);
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 struct Entry { u8 pad0[0x0C]; u16 unk0C; s16 unk0E; u16 unk10; s16 unk12; };
 void sub_08013CF4(void *arg0, s32 arg1, s32 arg2)
 {
@@ -25,6 +25,7 @@ void sub_08013CF4(void *arg0, s32 arg1, s32 arg2)
     s32 v1, v2, rnd;
     s32 t0, t1;
     s32 tmp;
+    int temp;
 
     r4 = arg0;
     r8 = arg1;
@@ -74,7 +75,10 @@ void sub_08013CF4(void *arg0, s32 arg1, s32 arg2)
             u16 b = sub_080C3824(t, 10);
             {
                 u8 *bp = sp0;
-                if (*(u8 *)(bp + 0x30C + a + b * 10) == 1 || *(s16 *)(bp + 0x8C) == 3)
+                
+                g2f8 = b * 10;
+                temp = 0x30C + a;
+                if (*(u8 *)((bp + temp) + g2f8) == 1 || *(s16 *)(bp + 0x8C) == 3)
                 {
                     sub_0805D92C(r8, r9, 6);
                     r10v = 0x4B;
@@ -85,7 +89,7 @@ void sub_08013CF4(void *arg0, s32 arg1, s32 arg2)
                 }
             }
         }
-        { u8 *g = D_02025FF0; *(u16 *)(g + 0x1506) = r10v; }
+        { u8 *g = gMainWorkspace; *(u16 *)(g + 0x1506) = r10v; }
     }
     else if (sp4v != 0)
     {
@@ -103,7 +107,7 @@ void sub_08013CF4(void *arg0, s32 arg1, s32 arg2)
                 u16 b = sub_080C3824(t, 10);
                 {
                     u8 *bp = sp0;
-                    if (*(u8 *)(bp + 0x30C + a + b * 10) == 1 || *(s16 *)(bp + 0x8C) == 3)
+                    if (*(u8 *)((bp + b * 10) + (0x30C + a)) == 1 || *(s16 *)(bp + 0x8C) == 3)
                     {
                         sub_0805D92C(r8, r9, 6);
                         sp4v = 0x4B;
@@ -114,7 +118,7 @@ void sub_08013CF4(void *arg0, s32 arg1, s32 arg2)
                     }
                 }
             }
-            { u8 *g = D_02025FF0; *(u16 *)(g + 0x1506) = sp4v; }
+            { u8 *g = gMainWorkspace; *(u16 *)(g + 0x1506) = sp4v; }
         }
     }
 }

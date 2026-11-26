@@ -12,9 +12,9 @@ struct ActionState {
 };
 struct S_02025FF0 { u8 _0[0x24]; u32 f24; u16 f28; u8 _2A[0x14C3]; u8 f14ED; };
 struct S_02021E90 { u8 _0[0x146C]; u16 f146C; };
-extern struct S_02025FF0 D_02025FF0;
-extern struct S_02021E90 D_02021E90;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern struct S_02021E90 gCameraState;
+extern u8 gGameStatus[];
 extern void *D_08671BD0;
 
 extern s32 sub_0806C4B4(void *, void *);
@@ -39,11 +39,11 @@ void sub_08068E20(struct Arg0 *actor) {
     flagBase = (u8 *)0x02025368;
     if (sub_0806C4B4(stateAlias, stateAlias) != 0) return;
     sub_0806C5EC(actor, (void *)a, stateAlias, stateAlias);
-    if (D_02025FF0.f24 != 0) {
-        if ((D_02025FF0.f28 & *(u16 *)(flagBase + 0x3BC)) != 0) goto block8;
+    if (gMainWorkspace.f24 != 0) {
+        if ((gMainWorkspace.f28 & *(u16 *)(flagBase + 0x3BC)) != 0) goto block8;
         goto block9;
     } else {
-        if ((D_02021E90.f146C & *(u16 *)(flagBase + 0x3BC)) == 0) goto block9;
+        if ((gCameraState.f146C & *(u16 *)(flagBase + 0x3BC)) == 0) goto block9;
     }
 block8:
     sub_0806926C(state);
@@ -79,7 +79,7 @@ tail:
         *(u8 *)((u32)actor->f22 * 2 + (u32)actor + 0x19) = 0;
         { void *fn = &D_08671BD0; sub_080C31E8((u8 *)actor + 0x18, (u8 *)actor + 0x22, state->fC4, *(void **)fn); }
     }
-    if (D_02025FF0.f14ED == 0) {
+    if (gMainWorkspace.f14ED == 0) {
         if (actor->f18 == 0x2A) {
             sub_0806C49C((void *)a, state);
             *(u8 *)((u32)actor->f22 * 2 + (u32)actor + 0x19) = 0;

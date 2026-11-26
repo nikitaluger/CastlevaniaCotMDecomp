@@ -1,8 +1,8 @@
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 extern void _call_via_r1(void *, u32);
 extern void _call_via_r2(void *, void *, u32);
-void *sub_08016190(void);
+void *allocEffectPart(void);
 struct Slot
 {
   u8 _00;
@@ -45,7 +45,7 @@ void sub_0806295C(void *arg0)
   u8 *raw;
   u8 *fields = ((u8 *) block) + 4;
   void *sprite = *((void **) (obj + 0x38));
-  u8 *cfg = D_02025368;
+  u8 *cfg = gGameStatus;
   s32 zero;
   u8 *sys;
   u32 offA;
@@ -55,7 +55,7 @@ void sub_0806295C(void *arg0)
   raw = (u8 *) block;
   *((u32 *) (raw + 4)) = 0x780000;
   *((u32 *) (fields + 4)) = 0x7F0000;
-  sys = D_02025FF0;
+  sys = gMainWorkspace;
   *((void **) (sys + 0x171C)) = sprite;
   *((void **) (sys + 0x1720)) = fields;
   *((void **) (sys + 0x1724)) = fields;
@@ -66,7 +66,7 @@ void sub_0806295C(void *arg0)
   block->f124 = cfg[0x3C4];
   block->f125 = cfg[0x3C5];
   block->f126 = cfg[0x3C6];
-  slot = (struct Slot *) sub_08016190();
+  slot = (struct Slot *) allocEffectPart();
   block->f130 = slot;
   if (slot == 0)
   {
@@ -87,7 +87,7 @@ void sub_0806295C(void *arg0)
   block->f130->f0E = 0xA;
   block->f130->f10 = sprite;
   block->f130->f16 = 0x1E;
-  slot = (struct Slot *) sub_08016190();
+  slot = (struct Slot *) allocEffectPart();
   block->f134 = slot;
   if (slot == 0)
   {

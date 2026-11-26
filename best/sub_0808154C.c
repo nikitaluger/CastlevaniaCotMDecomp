@@ -28,7 +28,7 @@ struct S_02025FF0 {
     u8 _173B[0x18C2 - 0x173B];
     u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 extern s32 sub_0806D450(void *, u16 *, void *);
 extern void *sub_0806D2A0(s32, s32, s32, s32);
@@ -65,7 +65,7 @@ void sub_0808154C(struct S_0808154C_arg *arg) {
         return;
     }
 
-    *p16 = D_02025FF0.f18C2;
+    *p16 = gMainWorkspace.f18C2;
     sub_08003740(p + 0x1C, p16);
     sub->f14 = sub->f14 - 1;
     if (sub->f14 == 0) {
@@ -73,8 +73,8 @@ void sub_0808154C(struct S_0808154C_arg *arg) {
         sub->f14 = 0x1E;
     }
     sub_0806D588(p16, sub);
-    if (D_02025FF0.f173A == 0x1C ||
-        (D_02025FF0.f14ED == 0 && D_02025FF0.f10 != 0)) {
+    if (gMainWorkspace.f173A == 0x1C ||
+        (gMainWorkspace.f14ED == 0 && gMainWorkspace.f10 != 0)) {
         sub_080C31E0(arg, arg->f24);
     }
 }

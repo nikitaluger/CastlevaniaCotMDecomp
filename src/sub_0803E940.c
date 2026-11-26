@@ -1,4 +1,4 @@
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 /* Decrement the control countdown; while it is nonzero, set control+4 to
@@ -14,7 +14,7 @@ void sub_0803E940(void *arg0)
   u32 *stepHandler;
   data = (u8 *) arg0;
   gfx = *((void **) (data + 0x38));
- do { state = *((void **) (((u8 *) arg0) + 0x3C)); anim = ((u8 *) state) + 0x34; control = ((u8 *) state) + 0x48; sub_08011368(gfx, anim, 0, 1); countdown = (*((u16 *) (control + 0x02))) - 1; } while (0);
+ do { state = *((void **) (((u8 *) arg0) + 0x3C)); anim = ((u8 *) state) + 0x34; control = ((u8 *) state) + 0x48; setAnimationFrame(gfx, anim, 0, 1); countdown = (*((u16 *) (control + 0x02))) - 1; } while (0);
   *((u16 *) (control + 0x02)) = countdown;
   if ((countdown << 16) != 0)
   {

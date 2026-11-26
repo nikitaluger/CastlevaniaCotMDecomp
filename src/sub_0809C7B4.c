@@ -1,5 +1,5 @@
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 static inline u16 get_8000(void)
 {
@@ -25,8 +25,8 @@ struct Base {
  * into the global state at 0x1314/0x1316/0x1318. */
 void sub_0809C7B4(s32 worldX, s32 worldY, u16 angle)
 {
-    struct Base *coordState = (struct Base *)D_02021E90;
-    u8 *indexPtr = D_02025FF0;
+    struct Base *coordState = (struct Base *)gCameraState;
+    u8 *indexPtr = gMainWorkspace;
     u8 cameraIndex;
     s32 originX, originY;
     u16 half;

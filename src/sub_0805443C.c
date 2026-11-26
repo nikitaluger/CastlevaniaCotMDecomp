@@ -1,5 +1,5 @@
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 struct S {
     s16 angle;
@@ -22,7 +22,7 @@ void sub_0805443C(void *obj)
         angleState->counter = 0x14;
         *(u8 *)((u8 *)obj + *(s16 *)((u8 *)obj + 0x22) * 2 + 0x19) = (u8)0;
         {
-            s32 *p = &D_08671BB0;
+            s32 *p = &gMainObjTimerCallback;
             sub_080C31E4((u8 *)obj + 0x18, (u8 *)obj + 0x22, *p);
         }
     }
@@ -32,7 +32,7 @@ void sub_0805443C(void *obj)
         angleState->counter = 0x14;
         *(u8 *)((u8 *)obj + *(s16 *)((u8 *)obj + 0x22) * 2 + 0x19) = (u8)0;
         {
-            s32 *p = &D_08671BB0;
+            s32 *p = &gMainObjTimerCallback;
             sub_080C31E4((u8 *)obj + 0x18, (u8 *)obj + 0x22, *p);
         }
     }

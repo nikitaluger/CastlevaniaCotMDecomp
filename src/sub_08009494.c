@@ -1,7 +1,7 @@
 extern u16 D_03000830[];
 extern u16 D_080CAA00[]; /* command-script word table */
-void sub_0805FDF0(void);
-void sub_0805FE28(int a, int b);
+void resetMapRender(void);
+void setLayerTilemap(int a, int b);
 extern void (*D_08671BD0[])(void*, void*, int);
 
 /* Script command handler: advance the object's script cursor, copy the next
@@ -20,7 +20,7 @@ void sub_08009494(void *arg0)
     word = D_080CAA00[obj[1]];
     offsetHigh = word >> 8;
     offsetLow = word & 0xFF;
-    sub_0805FDF0();
-    sub_0805FE28(1, offsetHigh + (offsetLow << 5));
+    resetMapRender();
+    setLayerTilemap(1, offsetHigh + (offsetLow << 5));
     obj[1] = obj[1] + 1;
 }

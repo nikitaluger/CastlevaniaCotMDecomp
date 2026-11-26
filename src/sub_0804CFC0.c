@@ -1,8 +1,8 @@
 extern void sub_0801165C(void *, s32);
 extern void sub_080113A8(void *, void *);
 extern s32 sub_080133EC(s32, s32);
-extern void sub_08011368(void *, void *, s32, s32);
-extern void sub_08014588(void *, u32);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern void copyPoseAttrs(void *, u32);
 extern void sub_080C31E4(void *, void *, u32);
 
 /* Advance a patrolling entity. Integrates its motion (state +8/+C position,
@@ -10,7 +10,7 @@ extern void sub_080C31E4(void *, void *, u32);
  * countdown. When the countdown expires or the tile one step ahead -- 0x200000
  * in the direction of vx, via sub_080133EC -- is blocked, switch to animation
  * 5, copy fresh motion parameters from the 0x080CF9C4 table into the +0x28
- * sub-object, clear the slot timer and dispatch the D_08671BB0 callback. */
+ * sub-object, clear the slot timer and dispatch the gMainObjTimerCallback callback. */
 void sub_0804CFC0(void *entity) {
     s32 animHandle;
     void *state;
@@ -31,8 +31,8 @@ void sub_0804CFC0(void *entity) {
     lookAhead = 0x200000;
     if (velX < 0) lookAhead = 0xFFE00000;
     if ((countdown << 16) == 0 || sub_080133EC(*(s32 *)((u8 *)state + 8) + lookAhead, *(s32 *)((u8 *)state + 0xC)) != 0) {
-        sub_08011368((void *)animHandle, status, 5, 0);
-        sub_08014588(*(void **)((u8 *)state + 0x28), 0x080CF9C4);
+        setAnimationFrame((void *)animHandle, status, 5, 0);
+        copyPoseAttrs(*(void **)((u8 *)state + 0x28), 0x080CF9C4);
         *(s8 *)((s8 *)((u32)(*(s16 *)((u8 *)entity + 0x22)) * 2 + (u32)entity) + 0x19) = 0;
         callbackTable = (u32 *)0x08671BB0;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callbackTable);

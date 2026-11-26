@@ -1,6 +1,6 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_02023130[];
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 extern s32 sub_08005E80(s32);
 extern s32 sub_08007DD8(s32, s32, s32);
 extern void sub_0806D2F8(void *, void *);
@@ -35,7 +35,7 @@ void sub_0806EB2C(void *behav) {
             sub_080C31E0(behav, *(s32 *)((u8 *)behav + 0x24));
             return;
         }
-        tile = sub_08007DD8((s32)&D_02023130[D_02025FF0[0x18A8] << 6], *(s32 *)(params + 4), *(s32 *)(point + 4));
+        tile = sub_08007DD8((s32)&D_02023130[gMainWorkspace[0x18A8] << 6], *(s32 *)(params + 4), *(s32 *)(point + 4));
         if ((u16)tile != 0) {
             zero = 0;
             ((struct WarpTarget *)target)->x = 0x100;
@@ -52,7 +52,7 @@ void sub_0806EB2C(void *behav) {
             sub_08005E80(0x90);
             *(u8 *)((u8 *)behav + (*(s16 *)((u8 *)behav + 0x22)) * 2 + 0x19) = zero;
             {
-                s32 *cmdTable = &D_08671BB0;
+                s32 *cmdTable = &gMainObjTimerCallback;
                 sub_080C31E4((u8 *)behav + 0x18, (u8 *)behav + 0x22, *cmdTable);
             }
         }

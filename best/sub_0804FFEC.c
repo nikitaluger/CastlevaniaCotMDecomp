@@ -38,16 +38,16 @@ struct S_02025FF0
   u8 _0[0x18A8];
   u8 f18A8;
 };
-extern struct Tbl D_080CB2B8[];
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02021E90[];
+extern struct Tbl gSpriteKindTable[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gCameraState[];
 extern struct E *sub_08016238(void *);
 extern u32 sub_0806D5F8(u16, u16);
 extern void sub_0808D7BC(s32, s32, u32, u32);
 extern void sub_080158BC(void *, void *);
 inline u32 *inline_fn(unsigned int arg0)
 {
-  return (u32 *) ((D_02021E90 + arg0) + (((&D_02025FF0)->f18A8 + 1) << 6));
+  return (u32 *) ((gCameraState + arg0) + (((&gMainWorkspace)->f18A8 + 1) << 6));
 }
 
 inline u16 inline_fn2(int arg0)
@@ -114,11 +114,11 @@ void *sub_0804FFEC(void *unused, struct A1 *arg1, struct A23 *arg2, struct A23 *
   temp_r1 = 0xF & var_r7->f2A;
   if ((temp_r1 != 0) && (temp_r4 == temp_r1))
   {
-    var_r5 = (sub_0806D5F8(var_r8->f2C, inline_fn2(D_080CB2B8[arg1->f1C].f06 * 8)) << 16) >> 17;
+    var_r5 = (sub_0806D5F8(var_r8->f2C, inline_fn2(gSpriteKindTable[arg1->f1C].f06 * 8)) << 16) >> 17;
   }
   else
   {
-    var_r5 = (sub_0806D5F8(var_r8->f2C, inline_fn2(D_080CB2B8[arg1->f1C].f06 * 8)) << 16) >> 16;
+    var_r5 = (sub_0806D5F8(var_r8->f2C, inline_fn2(gSpriteKindTable[arg1->f1C].f06 * 8)) << 16) >> 16;
   }
   new_var2 = &var_r5;
   if (((s32) var_r5) <= 0)
@@ -135,28 +135,25 @@ void *sub_0804FFEC(void *unused, struct A1 *arg1, struct A23 *arg2, struct A23 *
   new_var = 0x127C;
   if (((s16) var_r8->f30) < ((s16) var_r7->f30))
   {
-    base = (u32) ((s16) var_r7->f30);
-    base = (base << 16) + 0x8000;
-    var_r2 = (base + (*((u32 *) inline_fn23(D_02021E90, -off1, (D_02025FF0.f18A8 + 1) << new_var4)))) - (((u32) ((s16) var_r7->f26)) << 16);
+    off2 = (((u32) ((s16) var_r7->f30)) << 16); base = off2 + 0x8000;
+    var_r2 = (base + (*((u32 *) inline_fn23(gCameraState, -off1, (gMainWorkspace.f18A8 + 1) << new_var4)))) - (((u32) ((s16) var_r7->f26)) << 16);
   }
   else
   {
-    base = (u32) ((s16) var_r7->f30);
-    base = base << 16;
+    base = ((u32) ((s16) var_r7->f30)) << 16;
     base = base + 0x8000;
     var_r0 = *inline_fn(off1);
     var_r2 = (base + var_r0) + (((u32) ((s16) var_r7->f26)) << 16);
   }
   off2 = new_var;
-  base = ((u32) ((s16) var_r7->f32)) << 16;
-  base = base + 0xFFFF8000;
-  sub_0808D7BC(var_r2, (base + (*((u32 *) ((D_02021E90 + off2) + (((D_02025FF0.f18A8 + 1) << 5) << 1))))) - (((u32) ((s16) var_r7->f28)) << 16), var_r5, 0);
+  base = (((u32) ((s16) var_r7->f32)) << 16) + 0xFFFF8000;
+  sub_0808D7BC(var_r2, (base + (*((u32 *) ((gCameraState + off2) + (((gMainWorkspace.f18A8 + 1) << 5) << 1))))) - (((u32) ((s16) var_r7->f28)) << 16), var_r5, 0);
   {
     void *fp = arg1->f30;
     if (fp != NULL)
     {
-      arg1->f18 = 1;
       *((void **) (((u8 *) fp) + 8)) = var_r8;
+      arg1->f18 = 1;
     }
   }
   new_var3 = arg1;

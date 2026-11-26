@@ -1,8 +1,8 @@
 /* Drive an entity's animation from a target object's state: tick the sound
  * counter, play a sound, then on states 2 or 0 update the pose, frame data and
  * animation command. */
-extern void sub_080114DC(s32, s32, s32, s32);
-extern void sub_08014588(void *, s32);
+extern void setObjectAnimation(s32, s32, s32, s32);
+extern void copyPoseAttrs(void *, s32);
 extern void sub_0809856C(s32, void *, s32);
 extern void sub_0809E4F8(void *);
 extern s32 sub_080A041C(s32);
@@ -21,14 +21,14 @@ void sub_0809D93C(void *arg0)
   {
     *(u8 *)(motion + 0x0D) = 1;
     *(s32 *)(body + 0x0C) = *(s32 *)(motion + 0x08) + (s32)0xFFDE0000;
-    sub_080114DC(view, (s32)bodyData, 0x1A, 1);
+    setObjectAnimation(view, (s32)bodyData, 0x1A, 1);
   }
   {
     s32 state = sub_080A041C(*(s32 *)(motion + 0x28));
     if (state == 0)
     {
       *(u8 *)(*(u8 **)(body + 0x28) + 0x01) = 1;
-      sub_08014588(*(u8 **)(body + 0x28), 0x081019AC);
+      copyPoseAttrs(*(u8 **)(body + 0x28), 0x081019AC);
       *(s32 *)(motion + 0x44) = state;
       *(u8 *)((u8 *)entity + ((*(s16 *)((u8 *)entity + 0x22)) * 2) + 0x19) = (u8)state;
       {

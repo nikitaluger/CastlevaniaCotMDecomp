@@ -1,11 +1,11 @@
-extern u32 D_02025FF0[];
+extern u32 gMainWorkspace[];
 
 void sub_08003740(void *, void *);
 void sub_08003A6C(void *, u32, u32);
 void sub_0806D588(void *, void *);
 void sub_080C31E4(void *, void *, u32);
 
-/* Actor step while the global state D_02025FF0[7] is 1: start animation set
+/* Actor step while the global state gMainWorkspace[7] is 1: start animation set
  * 0x0850436C (advancing the script), then tick the animation and copy the
  * mover's position to the sprite. */
 void sub_08089EF4(void *arg0) {
@@ -14,7 +14,7 @@ void sub_08089EF4(void *arg0) {
     u8 *pos = mover + 4;
     u8 *sprite = *(u8 **)(self + 0x38);
     u32 *callback;
-    if (D_02025FF0[7] == 1) {
+    if (gMainWorkspace[7] == 1) {
         sub_08003A6C(mover + 0x20, 0, 0x0850436C);
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = 0;
         callback = (u32*)0x08671BB0;

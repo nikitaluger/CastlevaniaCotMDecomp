@@ -4,7 +4,7 @@
  * threshold while the animation reports "busy", clear the byte and advance
  * the script through the step callback.
  */
-extern s32 sub_080114DC(void *, void *, s32, s32);
+extern s32 setObjectAnimation(void *, void *, s32, s32);
 extern s32 sub_08011528(void *, void *);
 extern s32 sub_080C31E4(void *, void *, s32);
 
@@ -26,9 +26,9 @@ void sub_080B467C(void *arg0)
     work = *(void **)((s8 *)arg0 + 0x3C);
     animState = (s32)((s8 *)work + 0x34);
     if (*(u8 *)((s8 *)((*(s16 *)((s8 *)arg0 + 0x22) * 2) + (u32)arg0) + 0x19) <= ACTION_LOW_MAX) {
-        sub_080114DC(sprite, animState, FRAME_LOW, 0);
+        setObjectAnimation(sprite, animState, FRAME_LOW, 0);
     } else {
-        sub_080114DC(sprite, animState, FRAME_HIGH, 0);
+        setObjectAnimation(sprite, animState, FRAME_HIGH, 0);
     }
     sub_08011528(sprite, animState);
     actionEntry = (*(s16 *)((s8 *)arg0 + 0x22) * 2) + (u32)arg0;

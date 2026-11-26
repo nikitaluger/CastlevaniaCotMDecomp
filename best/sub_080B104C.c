@@ -1,6 +1,6 @@
 extern s32 sub_08005820(u8);
 extern void sub_080C31E8(u8 *, u8 *, s32, s32);
-extern s32 D_02025FF0[];
+extern s32 gMainWorkspace[];
 extern u8 D_081026C8[];
 extern u16 D_081026E8[];
 extern s32 D_08671BD8[];
@@ -17,17 +17,17 @@ void sub_080B104C(u8 *arg0)
     idx = k + d[6] * 4;
     d[4] = tbl[idx];
     if (*(s32 *)(p + 8) > 0x01000000) {
-        if (D_02025FF0[0x5D3] <= 0x002FFFFF) { d[4] = 0; goto after_zero; }
+        if (gMainWorkspace[0x5D3] <= 0x002FFFFF) { d[4] = 0; goto after_zero; }
     }
     if (*(s32 *)(p + 8) <= 0x00FFFFFF) {
-        if (D_02025FF0[0x5D3] > 0x01D00000) { d[4] = 0; goto after_zero; }
+        if (gMainWorkspace[0x5D3] > 0x01D00000) { d[4] = 0; goto after_zero; }
     }
 after_zero:
     if (*(s32 *)(p + 8) <= 0x00FFFFFF) {
-        if (D_02025FF0[0x5D3] <= 0x002FFFFF) { d[4] = 1; goto done; }
+        if (gMainWorkspace[0x5D3] <= 0x002FFFFF) { d[4] = 1; goto done; }
     }
     if (*(s32 *)(p + 8) > 0x01000000) {
-        if (D_02025FF0[0x5D3] > 0x01D00000) d[4] = 1;
+        if (gMainWorkspace[0x5D3] > 0x01D00000) d[4] = 1;
     }
 done:
     v = (1 << d[4]) | d[6];

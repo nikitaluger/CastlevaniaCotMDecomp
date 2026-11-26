@@ -3,7 +3,7 @@ struct ObjFlags { u16 flags; };   /* generic low-word flag field of an object */
 extern s32 sub_08016238(void *);                /* hit-test an object against the global list */
 extern void sub_08023F34(s32, s32, s32);        /* spawn an effect at world coordinates */
 extern void sub_08005E80(s32);                  /* play a sound effect */
-extern void sub_08011368(void *, void *, s32, s32); /* set animation/frame control */
+extern void setAnimationFrame(void *, void *, s32, s32); /* set animation/frame control */
 extern void sub_080113A8(void *, void *);       /* request a frame from frame control */
 extern void sub_0801165C(void *, s32);          /* advance frame control velocity */
 extern s32 sub_08013B5C(void *, void *);        /* advance an actor's own AI */
@@ -11,8 +11,8 @@ extern void sub_08023BDC(void *, void *);       /* extra per-frame processing fo
 extern s32 sub_080C31E0(void *, s32);           /* cleanup callback */
 extern void sub_080C31E8(void *, void *, s32, s32); /* run a step-script handler */
 
-extern u8 D_02021E90[];                         /* scroll-offset table */
-extern u8 D_02025FF0[];                         /* global game state */
+extern u8 gCameraState[];                         /* scroll-offset table */
+extern u8 gMainWorkspace[];                         /* global game state */
 extern u8 D_0866D8C0[];                         /* step-script handler table */
 extern s32 D_08671BDC[];                        /* step-script data table */
 
@@ -74,13 +74,13 @@ void sub_080238A8(u8 *eff)
                 if (spriteState == 0x48) goto case48;
                 goto endsw;
             case45:
-                sub_08011368(sprite, anim, 0x2B, 0);
+                setAnimationFrame(sprite, anim, 0x2B, 0);
                 goto endsw;
             case46:
-                sub_08011368(sprite, anim, 0x27, 0);
+                setAnimationFrame(sprite, anim, 0x27, 0);
                 goto endsw;
             case48:
-                sub_08011368(sprite, anim, 0x22, 0);
+                setAnimationFrame(sprite, anim, 0x22, 0);
             endsw:
                 *(u8 *)(eff + (s32)*(s16 *)(eff + 0x22) * 2 + 0x1B) = 0;
                 scriptData = D_08671BDC;
@@ -109,8 +109,8 @@ void sub_080238A8(u8 *eff)
 
     sub_08023BDC(eff, sprite);
 
-    scrollTbl = D_02021E90;
-    scrollIdxPtr = D_02025FF0;
+    scrollTbl = gCameraState;
+    scrollIdxPtr = gMainWorkspace;
     scrollIdxPtr += 0x18A8;
     scrollIdx = ((u32)*scrollIdxPtr + 1) * 0x40;
     xBase = scrollTbl + 0x1278;

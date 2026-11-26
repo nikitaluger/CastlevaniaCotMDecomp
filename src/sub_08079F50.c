@@ -8,7 +8,7 @@ struct GameState_79F50 {
     u8 _3[0x18C2 - 0x173B];
     u16 w;
 };
-extern struct GameState_79F50 D_02025FF0;
+extern struct GameState_79F50 gMainWorkspace;
 extern s32 sub_08003740(void *, s32);
 extern s32 sub_0806D2F8(void *, void *);
 extern s32 sub_0806D518();
@@ -30,9 +30,9 @@ void sub_08079F50(void *arg0) {
     if (sub_0806D518(self, sprite, pos) == 0) {
         *(s32 *)(mover + 4) = *(s32 *)(mover + 4) + *(s32 *)(pos + 8);
         *(s32 *)(pos + 4) = *(s32 *)(pos + 4) + *(s32 *)(pos + 0x0C);
-        gs = &D_02025FF0;
+        gs = &gMainWorkspace;
         {
-            u16 w = D_02025FF0.w;
+            u16 w = gMainWorkspace.w;
             *(u16 *)sprite = w;
         }
         sub_08003740((void *)(mover + 0x20), (s32)sprite);

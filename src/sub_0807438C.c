@@ -11,7 +11,7 @@ struct S_02025FF0_7438C
   u8 _173B[0x18C2 - 0x173B];
   u16 gfxFlag;
 };
-extern struct S_02025FF0_7438C D_02025FF0;
+extern struct S_02025FF0_7438C gMainWorkspace;
 extern s32 sub_0806D518(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern s32 sub_08003740(void *, void *);
@@ -38,8 +38,8 @@ void sub_0807438C(void *arg0) {
         *(s32 *)(child + 4) += step;
         *(s32 *)(motion + 4) += *(s32 *)(motion + 0xC);
         sub_0806D588(sprite, motion);
-        *(u16 *)sprite = D_02025FF0.gfxFlag;
-        if (sub_08003740(child + 0x20, sprite) == 0 || D_02025FF0.state173A == 0x1C || (D_02025FF0.state14ED == 0 && D_02025FF0.flags10 != 0)) {
+        *(u16 *)sprite = gMainWorkspace.gfxFlag;
+        if (sub_08003740(child + 0x20, sprite) == 0 || gMainWorkspace.state173A == 0x1C || (gMainWorkspace.state14ED == 0 && gMainWorkspace.flags10 != 0)) {
             sub_080C31E0(entity, *((void **)((u8 *)entity + 0x24)));
         } else {
             sub_0806D2F8(entity, sprite);

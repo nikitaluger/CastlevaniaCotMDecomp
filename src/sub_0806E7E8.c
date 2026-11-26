@@ -1,5 +1,5 @@
 typedef s32 M2C_UNK;
-M2C_UNK sub_08016190();
+M2C_UNK allocEffectPart();
 M2C_UNK sub_0806D2D0(void *);
 M2C_UNK sub_0806DE0C();
 M2C_UNK sub_080C31E8(void *, void *, s32, s32);
@@ -19,7 +19,7 @@ void sub_0806E7E8(void *arg0)
   void *child;
 
   child = (*((s32 *) (((s8 *) arg0) + 0x6C))) + 4;
-  allocResult = (*((s32 *) (((s8 *) child) + 0x3C)) = sub_08016190());
+  allocResult = (*((s32 *) (((s8 *) child) + 0x3C)) = allocEffectPart());
   if (allocResult == 0)
   {
     sub_0806D2D0(arg0);

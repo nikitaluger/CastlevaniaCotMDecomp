@@ -2,7 +2,7 @@ void sub_080144D8(void *, void *);
 void sub_080144FC(void *, void *);
 void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08014588(void *, void *);
+extern void copyPoseAttrs(void *, void *);
 
 /* Advance this actor to its next script step (state table 0x0866DD1C): stamp
  * the step on its sprite, bump and mark the step counter, dispatch the step's
@@ -113,5 +113,5 @@ void sub_08033950(void *arg0, void *arg1) {
         }
     }
     view = *(u32 *)((u8 *)arg1 + 0x28);
-    sub_08014588((void *)view, (void *)(0x080CEC8C + entry * 8));
+    copyPoseAttrs((void *)view, (void *)(0x080CEC8C + entry * 8));
 }

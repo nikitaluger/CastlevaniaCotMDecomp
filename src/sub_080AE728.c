@@ -2,7 +2,7 @@ s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
 void _call_via_r1(void *, void *);
 void _call_via_r2(void *, void *, s32);
-void sub_08011368(void *, void *, s32, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 void sub_0801165C(void *, s32);
 extern u16 D_03000830[4];
 struct S_02025FF0_18BC { u8 _0[0x18BC]; u16 v; };
@@ -47,7 +47,7 @@ void sub_080AE728(void *arg0) {
     u8 *anim = work + 0x34;
     s32 *advanceCb;
     if (*(u8 *)(actor + *(s16 *)(actor + 0x22) * 2 + 0x19) == 2) {
-        sub_08011368(sprite, anim, 9, 0);
+        setAnimationFrame(sprite, anim, 9, 0);
         *(u32 *)(work + 0x14) = 0xFFFC0000;
         *(u8 *)(actor + *(s16 *)(actor + 0x22) * 2 + 0x19) = 0;
         advanceCb = (s32 *)0x08671BB0;

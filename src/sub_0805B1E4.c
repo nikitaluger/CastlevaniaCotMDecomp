@@ -1,11 +1,11 @@
 extern s32 sub_08005910(s32, s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Large runtime state block: holds the player/target position near its end. */
 struct GameGlobals { u8 _0[0x174C]; u32 playerX; u32 playerY; };
-extern struct GameGlobals D_02025FF0;
+extern struct GameGlobals gMainWorkspace;
 
 /* Per-entity motion state reached through the entity's +0x3C pointer. */
 struct MotionState {
@@ -41,10 +41,10 @@ void sub_0805B1E4(void *arg0) {
     s32 result;
     s32 *lit;
 
-    sub_08011368(animHandle, status, 0xD, 0);
+    setAnimationFrame(animHandle, status, 0xD, 0);
     if (*status & 2) {
-        a = D_02025FF0.playerY - state->posY;
-        b = D_02025FF0.playerX - state->posX;
+        a = gMainWorkspace.playerY - state->posY;
+        b = gMainWorkspace.playerX - state->posX;
         result = sub_08005910(a, b);
         sub_080146D0(state, result, 0xC000);
         ((struct SlotState *)(self + *(s16 *)(self + 0x22) * 2))->timer = 0;

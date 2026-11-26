@@ -1,6 +1,6 @@
 /* Update an object's world/screen position and state flags for its layer,
  * firing its callback when the state value changes. */
-void sub_08000E98(s32, s32, s32, s32, s32);
+void postDisplaySprite(s32, s32, s32, s32, s32);
 void sub_080988DC(void *);
 
 struct FlagWord { u8 _0[2]; u16 flags; };
@@ -23,12 +23,12 @@ struct Object {
     s8 state;
 };
 struct S_02025FF0 { u8 _0[0x18A8]; u8 activeLayer; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct Entry90 { u32 x; u32 y; u8 _[0x38]; };
 struct FlagRecord { u16 flag; u8 _[0x3E]; };
 struct Flags90 { u8 _0[0x1260]; struct FlagRecord recs[1]; };
 struct Entries90 { u8 _0[0x1278]; struct Entry90 entries[1]; };
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 void sub_08098764(struct FlagWord *flagsOut, struct Position *src, struct Object *obj) {
     u32 t;
@@ -48,12 +48,12 @@ void sub_08098764(struct FlagWord *flagsOut, struct Position *src, struct Object
         ((struct ChildState *)obj->childB)->state = obj->stateByte;
 
     if (obj->stateByte != 0) {
-        u8 *base = D_02021E90;
+        u8 *base = gCameraState;
         ((struct Flags90 *)(base + (obj->layer << 6)))->recs[0].flag |= 0x2000;
         return;
     }
     {
-        u8 *base = D_02021E90;
+        u8 *base = gCameraState;
         ((struct Flags90 *)(base + (obj->layer << 6)))->recs[0].flag &= 0xDFFF;
     }
 
@@ -67,15 +67,15 @@ void sub_08098764(struct FlagWord *flagsOut, struct Position *src, struct Object
                 idx = *(s32 *)(arr + idx);
             }
             if (idx != 0 && obj->callback != NULL) {
-                sub_08000E98(1, idx, (s32)obj->callback, 0x400, 0x10);
+                postDisplaySprite(1, idx, (s32)obj->callback, 0x400, 0x10);
             }
             sub_080988DC(obj);
         }
     }
     *(u8 *)((u8 *)obj + 0x29) = *(u8 *)((u8 *)obj + 0x35);
 
-    ((struct Entries90 *)D_02021E90)->entries[obj->layer].x =
-        (((struct Entries90 *)D_02021E90)->entries[D_02025FF0.activeLayer + 1].x + 0x8000 & 0xFFFF0000) - obj->posX + 0x400000;
-    ((struct Entries90 *)D_02021E90)->entries[obj->layer].y =
-        (((struct Entries90 *)D_02021E90)->entries[D_02025FF0.activeLayer + 1].y + 0xFFFF8000 & 0xFFFF0000) - obj->posY + 0x400000;
+    ((struct Entries90 *)gCameraState)->entries[obj->layer].x =
+        (((struct Entries90 *)gCameraState)->entries[gMainWorkspace.activeLayer + 1].x + 0x8000 & 0xFFFF0000) - obj->posX + 0x400000;
+    ((struct Entries90 *)gCameraState)->entries[obj->layer].y =
+        (((struct Entries90 *)gCameraState)->entries[gMainWorkspace.activeLayer + 1].y + 0xFFFF8000 & 0xFFFF0000) - obj->posY + 0x400000;
 }

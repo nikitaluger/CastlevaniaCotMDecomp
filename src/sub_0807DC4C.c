@@ -39,7 +39,7 @@ struct GameState {
   u8 _4[0x18C2 - 0x18A9];
   u16 spawnValue;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 extern u8 D_02023130[];
 
 /* Advance the projectile's coordinate, test it against the current room's tile
@@ -59,15 +59,15 @@ void sub_0807DC4C(struct Entity *entity)
       return;
     }
     {
-      u8 *room = D_02023130 + (D_02025FF0.roomIndex << 6);
+      u8 *room = D_02023130 + (gMainWorkspace.roomIndex << 6);
       if ((sub_08007DD8((s32) room, newCoord, m->subCoord) << 16) != 0) {
         sub_0808DBF8(motion->coord, m->subCoord, 0);
         sub_080C31E0(entity, entity->handler);
         return;
       }
     }
-    target->id = D_02025FF0.spawnValue;
-    if (((sub_08003740(motion->timer, target), sub_0806D588(target, m), D_02025FF0.levelId == 0x1C)) || ((D_02025FF0.flag14ED == 0) && (D_02025FF0.gameMode != 0))) {
+    target->id = gMainWorkspace.spawnValue;
+    if (((sub_08003740(motion->timer, target), sub_0806D588(target, m), gMainWorkspace.levelId == 0x1C)) || ((gMainWorkspace.flag14ED == 0) && (gMainWorkspace.gameMode != 0))) {
       sub_080C31E0(entity, entity->handler);
       return;
     }

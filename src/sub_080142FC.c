@@ -29,11 +29,11 @@ void sub_080142FC(void *obj, void *arg1) {
     *(u16 *)(state + 0x1C) = 0x57;
 }
 
-extern vu32 D_02025FF0;
+extern vu32 gMainWorkspace;
 
 void sub_08014414(void *arg0) {
     void *head = *(void **)((u8 *)arg0 + 0x30);
-    void *g = *(void **)((u8 *)&D_02025FF0 + 0x1870);
+    void *g = *(void **)((u8 *)&gMainWorkspace + 0x1870);
     void *node = head;
     void *ghead;
     void *tail;

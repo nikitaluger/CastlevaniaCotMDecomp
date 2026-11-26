@@ -13,7 +13,7 @@ void sub_0801B844(void *arg0)
   u8 *anim = *((u8 **) (actor + 0x3C));
   u8 *animFlags = anim + 0x34;
   u8 *timers = anim + 0x48;
-  sub_08011368(model, anim + 0x34, 5, 0);
+  setAnimationFrame(model, anim + 0x34, 5, 0);
   if ((*((u8 *) animFlags)) & 2)
   {
     register u16 zeroH = zero_half();

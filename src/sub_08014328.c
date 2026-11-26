@@ -19,7 +19,7 @@ struct S_02025FF0
   u8 _1[0x189C - 0x1874];
   u32 globalFlags;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 s32 sub_08014090(s16);
 void sub_08013FAC(struct Motion *);
 void sub_08014060(struct Motion *);
@@ -29,7 +29,7 @@ void sub_08014060(struct Motion *);
 s32 sub_08014328(void *entity, u16 *attrFlags, struct Motion *motion)
 {
   struct Motion *p = *((struct Motion **) (((u8 *) entity) + 0x3C));
-  if (entity == D_02025FF0.currentEntity)
+  if (entity == gMainWorkspace.currentEntity)
   {
     return 0;
   }
@@ -39,13 +39,13 @@ s32 sub_08014328(void *entity, u16 *attrFlags, struct Motion *motion)
     {
       if (p->flags & 4)
       {
-        if ((p->age > 0x3C) || (!(D_02025FF0.globalFlags & 2)))
+        if ((p->age > 0x3C) || (!(gMainWorkspace.globalFlags & 2)))
         {
           *attrFlags = ((*attrFlags) & 0x0FFF) | 0xD000;
         }
       }
       else
-        if ((p->age > 0x3C) || (!(D_02025FF0.globalFlags & 2)))
+        if ((p->age > 0x3C) || (!(gMainWorkspace.globalFlags & 2)))
       {
         *attrFlags = ((*attrFlags) & 0x0FFF) | 0xC000;
       }

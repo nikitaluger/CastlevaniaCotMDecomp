@@ -1,10 +1,10 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0806E6BC(void);
-extern u8 D_02025FF0[];
-extern void *D_08671BB0;
+extern u8 gMainWorkspace[];
+extern void *gMainObjTimerCallback;
 void sub_0806E248(void *arg0)
 {
   u8 *r5;
@@ -25,7 +25,7 @@ void sub_0806E248(void *arg0)
   r7 = *((u8 **) (r5 + 0x6C));
   r4 = r7 + 4;
   r6 = *((u8 **) (r5 + 0x38));
-  tmp = sub_08016190();
+  tmp = allocEffectPart();
   *((void **) (r4 + 0x2C)) = tmp;
   if (tmp == 0)
   {
@@ -63,7 +63,7 @@ void sub_0806E248(void *arg0)
   *((u32 *) (r4 + 0x18)) = *((u32 *) (r5 + 0x24));
   *((void **) (r5 + 0x24)) = (void *) sub_0806E6BC;
   {
-    u8 *b = D_02025FF0;
+    u8 *b = gMainWorkspace;
     u32 off1 = 0x1728;
     u32 off2 = 0x172C;
     *((u32 *) (r7 + 4)) = *((u32 *) (b + off1));
@@ -105,7 +105,7 @@ void sub_0806E248(void *arg0)
   idx = *((s16 *) (r5 + 0x22));
   *((u8 *) ((r5 + (idx * 2)) + 0x19)) = 0;
   r4b = r5 + 0x18;
-  sub_080C31E4(r4b, r5 + 0x22, *gp);
+  { void **__fence_gp; do { __fence_gp = gp; } while (0); sub_080C31E4(r4b, r5 + 0x22, *__fence_gp); }
   ;
   *((u8 *) ((r5 + ((*((s16 *) (r5 + 0x22))) * 2)) + 0x19)) += 1;
   idx = *((s16 *) (r5 + 0x22));

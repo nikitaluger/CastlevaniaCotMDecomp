@@ -1,5 +1,5 @@
 extern s32 sub_08005820(s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
@@ -21,7 +21,7 @@ void sub_0802D014(u8 *object) {
     s32 xPos, targetX;
 
     sub_080149A4(sprite, data, data + 0x50, 0x28, 0x3C);
-    sub_08011368(sprite, pose, 0, 1);
+    setAnimationFrame(sprite, pose, 0, 1);
 
     playerCheckTimer = *(u16 *)(ctrl + 0x0C);
     playerCheckTimer = playerCheckTimer - 1;

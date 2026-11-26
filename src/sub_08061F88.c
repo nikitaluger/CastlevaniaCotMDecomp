@@ -1,5 +1,5 @@
 void sub_08061FBC(void);
-void sub_08062118(void);
+void drawStatusHud(void);
 void sub_08062418(u8, u8);
 
 extern u8 D_02027A00[];
@@ -15,7 +15,7 @@ enum {
  * scene type and script index, then clear the pending flag. */
 void sub_08061F88(void) {
     sub_08061FBC();
-    sub_08062118();
+    drawStatusHud();
     if (D_02027A00[HUD_MSG_PENDING] != 0) {
         sub_08062418(D_02027A00[HUD_MSG_SCENE], D_02027A00[HUD_MSG_SCRIPT]);
         D_02027A00[HUD_MSG_PENDING] = 0;

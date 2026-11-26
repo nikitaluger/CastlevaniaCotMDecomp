@@ -1,8 +1,8 @@
 struct Global18C2 { u8 pad[0x18C2]; u16 initialValue; };
-extern struct Global18C2 D_02025FF0;
-extern void *D_08671BB0;
-extern s32 sub_0800168C(void *, s32, s32, s32);
-extern void *sub_0800355C(void);
+extern struct Global18C2 gMainWorkspace;
+extern void *gMainObjTimerCallback;
+extern s32 allocWorkSlot(void *, s32, s32, s32);
+extern void *allocSpriteObject(void);
 extern void sub_0806D2D0(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -15,17 +15,17 @@ void sub_0806DEB0(u8 *actor) {
     u32 flags;
     u8 *cbParam;
 
-    if (sub_0800168C(actor, 0, 0x34, 3) == 0) {
+    if (allocWorkSlot(actor, 0, 0x34, 3) == 0) {
         sub_080C31E0(actor, *(s32 *)(actor + 0x24));
         return;
     }
-    newObj = sub_0800355C();
+    newObj = allocSpriteObject();
     if (newObj == 0) {
         sub_0806D2D0(actor);
         return;
     }
     *(void **)(actor + 0x38) = newObj;
-    *(u16 *)newObj = D_02025FF0.initialValue;
+    *(u16 *)newObj = gMainWorkspace.initialValue;
     flags = *(u32 *)(actor + 0x7C) & 0xF0000000;
     switch (flags) {
     case 0:
@@ -39,7 +39,7 @@ void sub_0806DEB0(u8 *actor) {
         break;
     }
     (actor + *(s16 *)(actor + 0x22) * 2)[0x19] = 0;
-    { void **callback = &D_08671BB0;
+    { void **callback = &gMainObjTimerCallback;
       cbParam = actor + 0x18;
       sub_080C31E4(cbParam, actor + 0x22, (s32)*callback); }
     (actor + *(s16 *)(actor + 0x22) * 2)[0x19]++;

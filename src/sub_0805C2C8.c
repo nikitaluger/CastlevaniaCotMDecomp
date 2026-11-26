@@ -1,8 +1,8 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 
 /* Entity state block (the pointer at entity+0x3C). +0x10/+0x14 are step
- * counters, +0x34 is the sprite/animation descriptor driven by sub_08011368. */
+ * counters, +0x34 is the sprite/animation descriptor driven by setAnimationFrame. */
 struct State {
     u8 _0[0x10];
     u32 f10;
@@ -26,7 +26,7 @@ void sub_0805C2C8(struct Entity *entity)
     s32 spriteId = entity->sprite;
     struct State *state = entity->state;
     void *sprite = (u8 *)state + 0x34;
-    sub_08011368(spriteId, sprite, 5, 0);
+    setAnimationFrame(spriteId, sprite, 5, 0);
     if (2 & *(u8 *)sprite) {
         sub_080C31E0(entity, entity->update);
     }

@@ -5,11 +5,11 @@ extern void sub_0809856C(s32, void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct S_02025FF0_174C { u8 pad[0x174C]; u32 targetX; u32 targetY; };
-extern struct S_02025FF0_174C D_02025FF0;
+extern struct S_02025FF0_174C gMainWorkspace;
 
 /* Entity update: periodically plays sound 0x17A, advances the actor's
  * animation, and in state 0x18 stores at actor+0x48 the angle from the actor
- * (actor+8/+0xC) toward the current target (D_02025FF0) before moving to the
+ * (actor+8/+0xC) toward the current target (gMainWorkspace) before moving to the
  * next state.  sub_08005910 is atan2(deltaY, deltaX). */
 void sub_080AE3D0(u8 *self) {
     s32 gfx = *(s32 *)(self + 0x38);
@@ -25,8 +25,8 @@ void sub_080AE3D0(u8 *self) {
         sub_080114A8(gfx, anim, 0x47, 0);
     }
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x18) {
-        deltaY = D_02025FF0.targetY - *(s32 *)(actor + 0xC);
-        deltaX = D_02025FF0.targetX - *(s32 *)(actor + 8);
+        deltaY = gMainWorkspace.targetY - *(s32 *)(actor + 0xC);
+        deltaX = gMainWorkspace.targetX - *(s32 *)(actor + 8);
         angle = sub_08005910(deltaY, deltaX);
         *(s32 *)(actor + 0x48) = angle;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

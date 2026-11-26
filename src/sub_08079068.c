@@ -8,7 +8,7 @@ struct S_02025FF0 {
     u8 _3[0x18C2 - 0x173B];
     u16 f18C2;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s32 sub_0806D518(void *, void *, void *);
 extern s32 sub_08003740(void *, void *);
 extern void sub_0806D2F8(void *, void *);
@@ -38,8 +38,8 @@ void sub_08079068(u8 *entity) {
     }
     *(s32 *)(component + 4) = *(s32 *)(component + 4) + *(s32 *)(motion + 8);
     *(s32 *)(motion + 4) = *(s32 *)(motion + 4) + *(s32 *)(motion + 0x0C);
-    dp = &D_02025FF0;
-    { u16 stateWord = D_02025FF0.f18C2; *(u16 *)state = stateWord; }
+    dp = &gMainWorkspace;
+    { u16 stateWord = gMainWorkspace.f18C2; *(u16 *)state = stateWord; }
     sub_08003740(component + 0x20, state);
     sub_0806D588(state, motion);
     if (dp->f173A == 0x1C || (dp->f14ED == 0 && dp->f10 != 0)) {

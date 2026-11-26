@@ -3,7 +3,7 @@ struct S_02025FF0
   u8 _0[0x18C2];
   u16 w;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 struct E
 {
   u8 _0;
@@ -59,17 +59,17 @@ struct BD
   u16 f6;
   u8 _8[0x20];
 };
-extern struct BD D_080CBDD0[];
+extern struct BD gEffectGfxTable[];
 extern u16 D_08102700[];
-extern void *D_08671BB0;
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
-extern s32 sub_08013C2C(void);
+extern void *gMainObjTimerCallback;
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
+extern s32 findKindIndex(void);
 extern void sub_08014668(void *, s32);
-extern void sub_0801131C(void *, void *, s32);
-extern void sub_08011368(void *, void *, s32, s32);
-extern void *sub_08016190(void);
+extern void initSpriteGraphics(void *, void *, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08097DC8(void);
@@ -89,13 +89,13 @@ void sub_080B2780(struct Sarg *parent)
   void **callbackTable;
   u8 *slot;
 
-  mainObj = (s32) sub_0800355C();
+  mainObj = (s32) allocSpriteObject();
   if (mainObj == 0)
   {
     goto fail;
   }
   parent->f38 = (void *) mainObj;
-  sub_0800168C(parent, 0, 0x48, 0);
+  allocWorkSlot(parent, 0, 0x48, 0);
   if (parent->f3C == NULL)
   {
     goto fail;
@@ -103,9 +103,9 @@ void sub_080B2780(struct Sarg *parent)
   *((u32 *) (mainObj + 0x1C)) = (double) 0x8000000A;
   subObj = (struct P *) parent->f3C;
   auxPtr = ((u8 *) subObj) + 0x34;
-  sub_08014288(parent, (u8 *) subObj, sub_08097DC8);
+  installUpdateHandler(parent, (u8 *) subObj, sub_08097DC8);
   subObj->f1C = 0x65;
-  animIndex = sub_08013C2C();
+  animIndex = findKindIndex();
   subObj->f22 = animIndex;
   if (((s16) animIndex) < 0)
   {
@@ -117,12 +117,12 @@ void sub_080B2780(struct Sarg *parent)
   subObjAlias = subObj;
   animIndex &= 0xFC0;
   *((u16 *) mainObj) = animIndex;
-  *((u16 *) mainObj) |= D_02025FF0.w;
+  *((u16 *) mainObj) |= gMainWorkspace.w;
   sub_08014668((void *) mainObj, parent->f4C);
-  sub_0801131C((void *) mainObj, auxPtr, (subObj->f1C * 0xC) + ((u32) 0x080CD400));
-  sub_08011368((void *) mainObj, auxPtr, 0x42, 0x01);
+  initSpriteGraphics((void *) mainObj, auxPtr, (subObj->f1C * 0xC) + ((u32) 0x080CD400));
+  setAnimationFrame((void *) mainObj, auxPtr, 0x42, 0x01);
   auxPtr = (u8 *) D_08102700;
-  subObj->f28 = sub_08016190();
+  subObj->f28 = allocEffectPart();
   if (subObj->f28 == NULL)
   {
     goto fail;
@@ -137,12 +137,12 @@ void sub_080B2780(struct Sarg *parent)
 
   subObj->f28->f2 = 8;
   subObj->f28->f3 = 1;
-  subObj->f28->f4 = D_080CBDD0[subObj->f1C].f4;
+  subObj->f28->f4 = gEffectGfxTable[subObj->f1C].f4;
   subObj->f28->f6 = *((u16 *) auxPtr);
   subObj->f28->f8 = *((u16 *) (auxPtr + 2));
   subObj->f28->fA = *((u16 *) (auxPtr + 4));
   subObj->f28->fC = *((u16 *) (auxPtr + 6));
-  subObj->f28->fE = D_080CBDD0[subObj->f1C].f6;
+  subObj->f28->fE = gEffectGfxTable[subObj->f1C].f6;
   subObjAlias->f28->f10 = (void *) mainObj;
   *((u16 *) (mainObj + 2)) |= 0x400;
   parent->f2 |= 0x1000;
@@ -150,7 +150,7 @@ void sub_080B2780(struct Sarg *parent)
     s16 stateIdx = parent->f22;
     *((u8 *) (((((u32) stateIdx) * 2) + ((u32) parent)) + 0x19)) = 0;
   }
-  callbackTable = &D_08671BB0;
+  callbackTable = &gMainObjTimerCallback;
   slotArea = ((u8 *) parent) + 0x18;
   sub_080C31E4(slotArea, ((u8 *) parent) + 0x22, (s32) (*callbackTable));
   {

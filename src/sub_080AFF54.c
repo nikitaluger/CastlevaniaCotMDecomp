@@ -1,5 +1,5 @@
 extern u32 D_02027860;
-void sub_0800168C(void *, s32, s32, s32);
+void allocWorkSlot(void *, s32, s32, s32);
 s32 sub_0805FAEC(s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080AFFE8(void);
@@ -17,7 +17,7 @@ void sub_080AFF54(void *arg0) {
     u32 i;
     u32 flags;
 
-    sub_0800168C(self, 0, 0x58, 0);
+    allocWorkSlot(self, 0, 0x58, 0);
     childList = *(u8 ***)(self + 0x3C);
     if (childList == 0) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));

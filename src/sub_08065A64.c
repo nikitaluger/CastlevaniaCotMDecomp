@@ -10,7 +10,7 @@ void sub_0806C6B0(void *, void *, void *, void *);
 void sub_08084CBC(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 extern s32 D_08671BD8;
 
 /* Advance a spawned effect's motion from its profile table at 0x080E03A0 and,

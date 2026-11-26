@@ -3,8 +3,8 @@ extern void sub_08007E24(s32 a);
 extern void sub_0808BB54(void);
 extern void sub_080AAB74(u8 a);
 extern void sub_080C31E4(void *a, void *b, void *c);
-extern u8 D_02025FF0[];
-extern u8 D_08671BB0[];
+extern u8 gMainWorkspace[];
+extern u8 gMainObjTimerCallback[];
 
 /* Per-frame update for a two-part entity: mirror two input flags onto its child
  * objects, count down a random timer that toggles the active phase (firing a
@@ -32,12 +32,12 @@ void sub_080A59C4(void *arg0) {
       if (*(u8 *)(self + 0x4C) != 0 && *(u8 *)flagBPtr != 0) {
         u8 *world;
         sub_08007E24(0xB7);
-        world = D_02025FF0;
+        world = gMainWorkspace;
         { s32 zero = 0;
           *(u16 *)(world + 0x3C) = 2;
           sub_0808BB54();
           *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
-          { u8 *effectTable = D_08671BB0;
+          { u8 *effectTable = gMainObjTimerCallback;
             sub_080C31E4(self + 0x18, self + 0x22, (void *)*(u32 *)effectTable); } }
       }
       skip_tail: ; }

@@ -11,7 +11,7 @@ struct S_08002C94 {
     struct { void *p; u8 pad[12]; } f3C[8];
 };
 struct S_base { u8 pad[0x554]; u16 val; };
-extern struct S_base D_02021E90;
+extern struct S_base gCameraState;
 s32 sub_080035AC(void *);
 void sub_080035DC(void *);
 void sub_08002DB4(void *, u16);
@@ -24,8 +24,10 @@ void sub_08002C94(struct S_08002C94 *arg0)
     void *saved, *f38;
     s32 i, mask;
     u32 m0, t0;
+    vu16 *temp;
 
-    t0 = *(vu16 *)&arg0->f00;
+    temp = (vu16 *)&arg0->f00;
+    t0 = *temp;
     m0 = mask_f00();
     arg0->f00 = m0 | t0;
     arg0->f02 = 0x8000 | arg0->f02;
@@ -40,8 +42,8 @@ void sub_08002C94(struct S_08002C94 *arg0)
         } else {
             struct S_08002C94 *w = p->f30;
             while (arg0 != w->f2C) w = w->f2C;
-            q = w;
             r = arg0->f30;
+            q = w;
             if (!r) r = arg0->f2C;
             q->f2C = r;
         }
@@ -64,5 +66,5 @@ void sub_08002C94(struct S_08002C94 *arg0)
         mask <<= 1;
         i++;
     } while (i <= 7);
-    sub_08002DB4(arg0, D_02021E90.val);
+    sub_08002DB4(arg0, gCameraState.val);
 }

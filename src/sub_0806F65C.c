@@ -7,10 +7,10 @@ extern s32 sub_0806D518(void *, s32, void *);
 extern void sub_0806D588(s32, void *);
 extern void sub_0806E114(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 struct TileState { u8 _0[0x18A8]; u8 tileIndex; };
-extern struct TileState D_02025FF0;
+extern struct TileState gMainWorkspace;
 struct SceneState { u8 _0[4]; s32 coordX; u8 _8[0x2C]; u8 anim; };
 struct BodyState { u8 _0[4]; s32 coordY; s32 offsetX; s32 offsetY; u8 _10[0x2C]; void *effect; u8 _40[8]; s32 aux48; };
 struct EffectFlags { u8 _0[0x14]; u16 flags; };
@@ -27,7 +27,7 @@ void sub_0806F65C(u8 *arg0) {
     s32 collision;
     if (busy != 0) return;
 
-    collision = (u16)sub_08007DD8(0x02023130 + (D_02025FF0.tileIndex << 6),
+    collision = (u16)sub_08007DD8(0x02023130 + (gMainWorkspace.tileIndex << 6),
                        ((struct SceneState *)sceneState)->coordX + ((struct BodyState *)body)->offsetX,
                        ((struct BodyState *)body)->coordY + ((struct BodyState *)body)->offsetY);
     if (collision != 0) {

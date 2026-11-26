@@ -3,7 +3,7 @@ struct GameGlobals {
     u8 _0[0x20];
     u32 stateFlags;   /* bit 2: force the query result to 1; bit 1: off-map default */
 };
-extern struct GameGlobals D_02025FF0;
+extern struct GameGlobals gMainWorkspace;
 
 /* Per-tile-id 8x8 grid of tile attribute words (y within grid, then x). */
 extern u16 D_080C98D0[];
@@ -20,7 +20,7 @@ u16 sub_08007BC8(s32 arg0, s32 arg1, s32 arg2)
     u32 result;
     u16 *table;
 
-    globals = &D_02025FF0;
+    globals = &gMainWorkspace;
     if (globals->stateFlags & 4) {
         return 1;
     }

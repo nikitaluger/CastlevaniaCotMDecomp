@@ -1,9 +1,9 @@
-extern void *sub_0800355C(void);
-extern s32 sub_0800168C(u8 *, s32, s32, s32);
-extern s32 sub_08013C2C(s32);
-extern void sub_0801131C(u8 *, u8 *, s32);
-extern void *sub_08016190(void);
-extern void sub_08011368(u8 *, u8 *, s32, s32);
+extern void *allocSpriteObject(void);
+extern s32 allocWorkSlot(u8 *, s32, s32, s32);
+extern s32 findKindIndex(s32);
+extern void initSpriteGraphics(u8 *, u8 *, s32);
+extern void *allocEffectPart(void);
+extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void sub_08014668(u8 *, s32);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
@@ -52,13 +52,13 @@ struct MainObj {
     u32 tablePtr;
 };
 struct GameState { u8 unk0[0x18A8]; u8 scrollIndex; u8 unk18A9[0x19]; u16 renderFlags; };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 struct ScrollTable { u8 unk0[0x1278]; u32 cameraX; u32 cameraY; };
-extern struct ScrollTable D_02021E90;
+extern struct ScrollTable gCameraState;
 struct EffectDef { u8 unk0[4]; u16 gfxIndex; u16 palette; u8 unk8[0x20]; };
-extern struct EffectDef D_080CBDD0[];
+extern struct EffectDef gEffectGfxTable[];
 extern u16 D_080CE96C[];
-extern u8 D_080CD400[];
+extern u8 gSpriteAnimDataTable[];
 
 /* Spawn an effect for an object: allocate its sprite and work block, set up the
  * single render part, place it in world/screen space and schedule its update. */
@@ -74,7 +74,7 @@ void sub_08029C0C(struct MainObj *arg0) {
     s32 *distanceFn;
     u16 *timerPtr;
 
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     if (sprite == NULL) goto fail0;
     goto ok0;
 fail0:
@@ -82,7 +82,7 @@ fail0:
     return;
 ok0:
     arg0->object = sprite;
-    sub_0800168C((u8 *)arg0, 0, 0x4C, 0);
+    allocWorkSlot((u8 *)arg0, 0, 0x4C, 0);
     effect = arg0->effect;
     if (effect == NULL) goto fail;
     animState = (u8 *)effect + 0x34;
@@ -92,11 +92,11 @@ ok0:
     effect->state = 1;
     effect->worldX = arg0->x << 16;
     effect->worldY = arg0->y << 16;
-    kindIndex = sub_08013C2C(0x2C);
+    kindIndex = findKindIndex(0x2C);
     effect->slot = kindIndex;
     if ((s32)(kindIndex << 16) < 0) goto fail;
-    sub_0801131C(sprite, animState, (s32)D_080CD400 + effect->kind * 0xC);
-    part = sub_08016190();
+    initSpriteGraphics(sprite, animState, (s32)gSpriteAnimDataTable + effect->kind * 0xC);
+    part = allocEffectPart();
     effect->gfx = part;
     if (part == NULL) goto fail;
     goto fields;
@@ -107,23 +107,23 @@ fields:
     effect->gfx->type = 0;
     effect->gfx->layer = 8;
     effect->gfx->priority = 1;
-    effect->gfx->gfxIndex = D_080CBDD0[effect->kind].gfxIndex;
+    effect->gfx->gfxIndex = gEffectGfxTable[effect->kind].gfxIndex;
     effect->gfx->anim0 = D_080CE96C[0];
     effect->gfx->anim1 = D_080CE96C[1];
     effect->gfx->anim2 = D_080CE96C[2];
     effect->gfx->anim3 = D_080CE96C[3];
-    effect->gfx->palette = D_080CBDD0[effect->kind].palette;
+    effect->gfx->palette = gEffectGfxTable[effect->kind].palette;
     effect->gfx->object = (u32)sprite;
     effect->gfx->tail = 0;
     gfxFlags = (*(u16 *)sprite & 0xC00) |
           (((*(s16 *)((u8 *)effect + 0x22) << 6) + 0x200) |
            ((*(u16 *)((u8 *)effect + 0x22) + 8) << 12));
     *(u16 *)sprite = gfxFlags;
-    *(u16 *)sprite = gfxFlags | D_02025FF0.renderFlags;
+    *(u16 *)sprite = gfxFlags | gMainWorkspace.renderFlags;
     *(u32 *)(sprite + 0x1C) = 0x8000000A;
-    scrollTable = (u8 *)&D_02021E90;
-    { u32 xOff = 0x1278; *(u32 *)(sprite + 0x14) = effect->worldX - ((*(u32 *)(scrollTable + xOff + ((D_02025FF0.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
-    { u32 yOff = 0x127C; *(u32 *)(sprite + 0x18) = effect->worldY - ((*(u32 *)(scrollTable + yOff + ((D_02025FF0.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
+    scrollTable = (u8 *)&gCameraState;
+    { u32 xOff = 0x1278; *(u32 *)(sprite + 0x14) = effect->worldX - ((*(u32 *)(scrollTable + xOff + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
+    { u32 yOff = 0x127C; *(u32 *)(sprite + 0x18) = effect->worldY - ((*(u32 *)(scrollTable + yOff + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     timerPtr = (u16 *)((u8 *)effect + 0x48);
     { u16 initialTimer = 0x12C; *timerPtr = initialTimer; }
     timerPtr[1] = 5;
@@ -132,7 +132,7 @@ fields:
     effect->radiusB = (u32)((s64)_call_via_r1((u8 *)arg0->tablePtr, *scriptOps) * 3);
     *(u16 *)((u8 *)effect + 4) = 2;
     sub_08014668(sprite, effect->radiusA);
-    sub_08011368(sprite, animState, 0x0B, 1);
+    setAnimationFrame(sprite, animState, 0x0B, 1);
     arg0->flags |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * arg0->index + 0x19) = 0;
     distanceFn = (s32 *)0x08671BB0;

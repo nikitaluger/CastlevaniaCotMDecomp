@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32); /* set animation frame */
+void setAnimationFrame(s32, void *, s32, s32); /* set animation frame */
 void sub_080C31E4(void *, void *, s32); /* _call_via_r2 */
 struct WorkFlags { u8 pad[4]; u16 flags; };
 
@@ -11,7 +11,7 @@ void sub_080553D4(void *arg0)
   s32 sprite = *(s32 *)(actor + 0x38);
   u8 *work = *(u8 **)(actor + 0x3C);
   u8 *anim = work + 0x34;
-  sub_08011368(sprite, anim, 2, 0);
+  setAnimationFrame(sprite, anim, 2, 0);
   if (*anim & 2) {
     s32 zero = 0;
     void **stream;

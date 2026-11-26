@@ -1,12 +1,12 @@
 void sub_080B0860(void);
 void sub_080B07EC(void);
 void sub_080B06A4(s32);
-s32 sub_080114DC(s32, s32, s32, s32);
+s32 setObjectAnimation(s32, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 // Init/reset step: zero the pose and linked-state bytes, set work bytes
 // (+0x95=0x10, +0x94=8), run the global resets, pass the three words at
-// work+0x68..0x70 to sub_080B06A4, set up the animator via sub_080114DC,
+// work+0x68..0x70 to sub_080B06A4, set up the animator via setObjectAnimation,
 // clear the script-step byte and advance to the next step.
 void sub_080AB8A8(void *arg0)
 {
@@ -38,7 +38,7 @@ void sub_080AB8A8(void *arg0)
         sub_080B06A4(word);
         slot++;
     } while (slot <= 2);
-    sub_080114DC(sprite, (s32)animator, 6, 0);
+    setObjectAnimation(sprite, (s32)animator, 6, 0);
     *(s8 *)(((s8 *)(((*(s16 *)((s8 *)arg0 + 0x22)) * 2) + arg0)) + 0x19) = 0;
     scriptTable = (s32 *)0x08671BB0;
     sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, *scriptTable);

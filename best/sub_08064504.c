@@ -8,9 +8,9 @@ extern u16 sub_0806BCD8(void *, void *, void *, void *);
 extern s32 sub_08003740(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
-extern u8 D_02021E90[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
+extern u8 gCameraState[];
 extern u16 D_080DFC3C[];
 extern s32 D_08671BD0[];
 void sub_08064504(u8 *arg0)
@@ -32,7 +32,7 @@ void sub_08064504(u8 *arg0)
   if (((*((u32 *) (r7 + 0x74))) & 7) == 0)
   {
     s32 off = 0x14EE;
-    u8 val = *((u8 *) (D_02025FF0 + off));
+    u8 val = *((u8 *) (gMainWorkspace + off));
     s32 s = 0x6C;
     if (val == 0x58)
     {
@@ -50,10 +50,10 @@ void sub_08064504(u8 *arg0)
     *((u16 *) ((*pp) + 0x0C)) = tbl[3];
     {
       s32 off1510 = 0x1510;
-      *((u8 *) ((*pp) + 0x01)) = (*((u8 *) (D_02025FF0 + off1510))) & 1;
+      *((u8 *) ((*pp) + 0x01)) = (*((u8 *) (gMainWorkspace + off1510))) & 1;
     }
   }
-  if (((*((u32 *) (D_02025FF0 + 0x24))) != 0) ? (((*((u16 *) (D_02025FF0 + 0x2A))) & (*((u16 *) (r5base + 0x3BC)))) == 0) : (((*((u16 *) (D_02021E90 + off146E))) & (*((u16 *) (r5base + 0x3BC)))) == 0))
+  if (((*((u32 *) (gMainWorkspace + 0x24))) != 0) ? (((*((u16 *) (gMainWorkspace + 0x2A))) & (*((u16 *) (r5base + 0x3BC)))) == 0) : (((*((u16 *) (gCameraState + off146E))) & (*((u16 *) (r5base + 0x3BC)))) == 0))
   {
     s32 *nv;
     sub_0806A7AC(r8ptr, r6, 5);

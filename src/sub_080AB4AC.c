@@ -3,7 +3,7 @@ void sub_080146D0(void *, s32, s32);
 void sub_0801165C(void *, s32);
 void sub_080AC9B4(u8, void *);
 void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0;
+extern s32 gMainObjTimerCallback;
 
 /* Wind down a moving effect: advance its aim/step sequence, lower its speed by
  * 0x800 a frame down to zero, turn angle+speed into velocity, integrate the
@@ -31,7 +31,7 @@ void sub_080AB4AC(void *arg0) {
     sub_080AC9B4(*(u8 *)(work + 0x244), work + 0x68);
     if (*(s32 *)(aim + 0x18) == 0) {
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = 0;
-        lit = &D_08671BB0;
+        lit = &gMainObjTimerCallback;
         sub_080C31E4(entity + 0x18, entity + 0x22, *lit);
     }
 }

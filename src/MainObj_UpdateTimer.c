@@ -1,5 +1,5 @@
 void sub_080C31E4(void *, void *, u32);
-void sub_08011368(u32, void *, u32, u32);
+void setAnimationFrame(u32, void *, u32, u32);
 
 struct MainObj {
     u8 pad_0x00[0x22];
@@ -20,7 +20,7 @@ void MainObj_UpdateTimer(struct MainObj *arg0) {
     void *b;
     u32 *p;
 
-    sub_08011368(arg0->sprite, (u8 *)arg0->work + 0x34, 0x2B, 1);
+    setAnimationFrame(arg0->sprite, (u8 *)arg0->work + 0x34, 0x2B, 1);
     idx = arg0->slot;
     step = (u8 *)((idx << 1) + (u32)arg0);
     if (step[0x19] > 0x1E) {

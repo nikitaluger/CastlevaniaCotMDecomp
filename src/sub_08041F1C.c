@@ -1,4 +1,4 @@
-extern s32 sub_08011368(s32, s32, s32, s32);
+extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -19,7 +19,7 @@ void sub_08041F1C(void *arg0) {
     zero = 0;
     *(s32 *)(body + 0x10) = zero;
     *(s32 *)(body + 0x14) = zero;
-    sub_08011368(sprite, (s32)anim, 5, 0);
+    setAnimationFrame(sprite, (s32)anim, 5, 0);
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     handlerTable = (const u32 *)0x08671BB0;
     statePtr = self + 0x18;

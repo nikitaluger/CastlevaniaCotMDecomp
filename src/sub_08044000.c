@@ -66,24 +66,24 @@ struct Tbl
   u16 gfxB;
   u8 _08[0x20];
 };
-void *sub_0800355C(void);
-void sub_0800168C(void *, u32, u32, u32);
-void sub_08014288(void *, void *, void *);
+void *allocSpriteObject(void);
+void allocWorkSlot(void *, u32, u32, u32);
+void installUpdateHandler(void *, void *, void *);
 void sub_08014290(void);
-u32 sub_08013C2C(s16);
-void sub_0801131C(void *, void *, void *);
-void sub_08011368(void *, void *, u32, u32);
+u32 findKindIndex(s16);
+void initSpriteGraphics(void *, void *, void *);
+void setAnimationFrame(void *, void *, u32, u32);
 void sub_08014668(void *, u32);
-void *sub_08016190(void);
+void *allocEffectPart(void);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
-extern u8 D_080CBDD0[];
+extern u8 gEffectGfxTable[];
 extern u16 D_080CF55C[];
-extern u8 D_080CD400[];
+extern u8 gSpriteAnimDataTable[];
 extern u32 D_080CF564[];
-extern u8 D_02025FF0[];
-extern u8 D_02021E90[];
-extern u32 D_08671BB0;
+extern u8 gMainWorkspace[];
+extern u8 gCameraState[];
+extern u32 gMainObjTimerCallback;
 void sub_08044000(struct A *actor)
 {
   struct Obj *sprite;
@@ -95,13 +95,13 @@ void sub_08044000(struct A *actor)
   u32 attrs;
   u32 slotIndex;
   s16 stateIndex;
-  sprite = (struct Obj *) sub_0800355C();
+  sprite = (struct Obj *) allocSpriteObject();
   if (sprite == NULL)
   {
     goto fail;
   }
   actor->sprite = (u32) sprite;
-  sub_0800168C(actor, 0, 0x48, 0);
+  allocWorkSlot(actor, 0, 0x48, 0);
   if (actor->state == 0)
   {
     goto fail;
@@ -109,12 +109,12 @@ void sub_08044000(struct A *actor)
   sprite->magic = 0x80000009;
   state = (struct B *) actor->state;
   scratchBuf = ((u8 *) state) + 0x34;
-  sub_08014288(actor, state, &sub_08014290);
+  installUpdateHandler(actor, state, &sub_08014290);
   state->kind = (s16) D_080CF564[actor->kindIndex];
   state->x = actor->x;
   state->y = actor->y;
   state->direction = actor->direction;
-  slotIndex = sub_08013C2C(state->kind);
+  slotIndex = findKindIndex(state->kind);
   state->slot = (u16) slotIndex;
   if (((s16) ((u16) slotIndex)) < 0)
   {
@@ -123,14 +123,14 @@ void sub_08044000(struct A *actor)
   attrs = ((u32) (((s32) ((s16) state->slot)) << 6)) + (0x80 << 2);
   attrs |= (slotIndex + 8) << 12;
   sprite->attrs = (u16) attrs;
-  globalState = D_02025FF0;
+  globalState = gMainWorkspace;
   attrs |= *((u16 *) (globalState + 0x18C2));
   sprite->attrs = (u16) attrs;
-  sub_0801131C(sprite, scratchBuf, (void *) (D_080CD400 + (12 * ((s32) state->kind))));
-  sub_08011368(sprite, scratchBuf, 0x13, 0);
+  initSpriteGraphics(sprite, scratchBuf, (void *) (gSpriteAnimDataTable + (12 * ((s32) state->kind))));
+  setAnimationFrame(sprite, scratchBuf, 0x13, 0);
   sub_08014668(sprite, state->direction);
   spriteCfg = (u8 *) D_080CF55C;
-  state->spriteDef = (u32) sub_08016190();
+  state->spriteDef = (u32) allocEffectPart();
   if (state->spriteDef == 0)
   {
     goto fail;
@@ -147,7 +147,7 @@ void sub_08044000(struct A *actor)
   ((u8 *) state->spriteDef)[3] = 1;
   {
     u8 *defBytes = (u8 *) state->spriteDef;
-    spriteTable = D_080CBDD0;
+    spriteTable = gEffectGfxTable;
     ((struct SpriteDef *) defBytes)->f04 = ((struct Tbl *) (spriteTable + (((s32) state->kind) * 40)))->gfxA;
   }
   ((struct SpriteDef *) state->spriteDef)->f06 = *((u16 *) (&spriteCfg[0]));
@@ -157,8 +157,8 @@ void sub_08044000(struct A *actor)
   ((struct SpriteDef *) state->spriteDef)->f0E = ((struct Tbl *) (spriteTable + (((s32) state->kind) * 40)))->gfxB;
   *((u32 *) (((u8 *) state->spriteDef) + 0x10)) = (u32) sprite;
   {
-    u8 *coordTable = D_02021E90;
-    u8 *sceneState = D_02025FF0;
+    u8 *coordTable = gCameraState;
+    u8 *sceneState = gMainWorkspace;
     u8 *base1;
     u8 *base2c;
     u32 coordIndex;
@@ -174,7 +174,7 @@ void sub_08044000(struct A *actor)
   stateIndex = *((s16 *) (((u8 *) actor) + 0x22));
   *((((u8 *) actor) + (((s32) stateIndex) * 2)) + 0x19) = 0;
   {
-    u32 *callbackTable = &D_08671BB0;
+    u32 *callbackTable = &gMainObjTimerCallback;
     u8 *extra = ((u8 *) actor) + 0x18;
     u8 *stateIndexPtr = ((u8 *) actor) + 0x22;
     sub_080C31E4(extra, stateIndexPtr, *callbackTable);

@@ -12,7 +12,7 @@ struct S_02025FF0_x {
     u8 _173B[0x18C2 - 0x173B];
     u16 v18C2;
 };
-extern struct S_02025FF0_x D_02025FF0;
+extern struct S_02025FF0_x gMainWorkspace;
 
 /* Poll the actor's special behavior and timer: copy/derive its result, snap it to the grid, and end the state via callback when done. */
 void sub_08083B50(void *arg0) {
@@ -31,13 +31,13 @@ void sub_08083B50(void *arg0) {
             *(u32 *)(pos + 4) = *(u32 *)(src + 0x10);
         }
     }
-    *result = D_02025FF0.v18C2;
+    *result = gMainWorkspace.v18C2;
     if (sub_08003740(actor + 0x20, result) == 0) {
         sub_080C31E0(arg0, *(s32 *)(self + 0x24));
         return;
     }
     sub_0806D588(result, pos);
-    if ((D_02025FF0.v173A == 0x1C) || ((D_02025FF0.v14ED == 0) && (D_02025FF0.v10 != 0))) {
+    if ((gMainWorkspace.v173A == 0x1C) || ((gMainWorkspace.v14ED == 0) && (gMainWorkspace.v10 != 0))) {
         sub_080C31E0(arg0, *(s32 *)(self + 0x24));
     }
 }

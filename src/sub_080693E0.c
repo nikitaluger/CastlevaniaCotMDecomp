@@ -1,7 +1,7 @@
 struct GlobalFlagState { u8 pad[0x24]; u32 f24; u16 f28; };
-extern struct GlobalFlagState D_02025FF0;
-extern u8 D_02025368[];
-extern u8 D_02021E90[];
+extern struct GlobalFlagState gMainWorkspace;
+extern u8 gGameStatus[];
+extern u8 gCameraState[];
 struct SpawnEntry { void *p0; void *p1; u8 rest[0x58 - 8]; };
 struct SpawnEntryTable { u8 pad[0x18]; struct SpawnEntry entries[1]; };
 extern struct SpawnEntryTable D_080E03A0;
@@ -14,12 +14,12 @@ void sub_080C31E8(void *, void *, s32, s32);
    holds: bind the matching entry pointer to the target and play a cue sound. */
 s32 sub_080693E0(void *obj, void *unused, u8 *effect, void *target) {
     s32 phase;
-    u32 stateTable = (u32)D_02025368;
+    u32 stateTable = (u32)gGameStatus;
     u32 wordOffset;
 
-    if (D_02025FF0.f24 != 0 ?
-        (D_02025FF0.f28 & *(u16 *)(stateTable + 0x3BE)) :
-        (wordOffset = 0x146C, *(u16 *)((u32)D_02021E90 + wordOffset) & *(u16 *)(stateTable + 0x3BE))) {
+    if (gMainWorkspace.f24 != 0 ?
+        (gMainWorkspace.f28 & *(u16 *)(stateTable + 0x3BE)) :
+        (wordOffset = 0x146C, *(u16 *)((u32)gCameraState + wordOffset) & *(u16 *)(stateTable + 0x3BE))) {
         phase = *(s32 *)(effect + 0x4C);
         switch (phase) {
         case 0: {

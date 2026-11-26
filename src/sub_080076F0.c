@@ -1,4 +1,4 @@
-extern void sub_08001738(void *p);
+extern void updateObjectTree(void *p);
 extern void sub_080C31E0(void *a, void *b);
 
 /* Advances a global phase counter and, when it wraps to 0x10, despawns the
@@ -9,10 +9,10 @@ void sub_080076F0(void *obj)
     u8 *reg;
     u32 phase;
 
-    sub_08001738(*(void**)(state + 0x1854));
-    sub_08001738(*(void**)(state + (0xC3 << 5)));
+    updateObjectTree(*(void**)(state + 0x1854));
+    updateObjectTree(*(void**)(state + (0xC3 << 5)));
     (*(u32*)(state + 0x1894))++;
-    sub_08001738(*(void**)(state + 0x1888));
+    updateObjectTree(*(void**)(state + 0x1888));
 
     if (*(s32*)(state + 0x0C) == 2) {
         *(u32*)(state + 0x14A8) += 0x40;

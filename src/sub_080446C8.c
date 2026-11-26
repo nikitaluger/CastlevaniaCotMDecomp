@@ -9,7 +9,7 @@ void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 extern u32 D_0866E238;
 
 /* Runs the hit/damage responses for a weapon entity's owner and hitbox
@@ -44,7 +44,7 @@ void sub_080446C8(void *entity) {
             slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
             *(u8 *)(slot + 0x19) = 0;
         }
-        argTable = &D_08671BB0;
+        argTable = &gMainObjTimerCallback;
         slots = self + 0x18;
         sub_080C31E4(slots, self + 0x22, *argTable);
         {

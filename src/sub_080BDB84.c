@@ -1,4 +1,4 @@
-extern void sub_0800168C(void *self, s32 kind, s32 id, s32 slot);
+extern void allocWorkSlot(void *self, s32 kind, s32 id, s32 slot);
 extern void sub_080C31E0(void *arg, void *func);
 extern void sub_080C31E4(void *stepData, void *stepIndex, s32 callback);
 
@@ -12,7 +12,7 @@ void sub_080BDB84(void *arg0) {
     s32 *scriptCb;
     u32 flagAddr, flagAddr2, stepOffset;
     s32 zero;
-    sub_0800168C(self, 0, 0x48, 0);
+    allocWorkSlot(self, 0, 0x48, 0);
     body = *(u8 **)(self + 0x3C);
     if (body == NULL) {
         sub_080C31E0(self, *(void **)(self + 0x24));

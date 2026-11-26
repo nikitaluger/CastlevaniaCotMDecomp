@@ -1,4 +1,4 @@
-s32 sub_08011368(s32, s32, s32, s32);
+s32 setAnimationFrame(s32, s32, s32, s32);
 s32 sub_08014848(s32, s32, s32, s32, s32, s32);
 s32 sub_080C31E0(void *, s32);
 u8 sub_080C389C(u8, s32);
@@ -11,7 +11,7 @@ void sub_08025694(void *arg0) {
     s8 *subObj;
     animOwner = *(s32 *)((s8 *)arg0 + 0x38);
     subObj = *(s8 **)((s8 *)arg0 + 0x3C);
-    sub_08011368(animOwner, (s32)(subObj + 0x34), 9, 0);
+    setAnimationFrame(animOwner, (s32)(subObj + 0x34), 9, 0);
     if (sub_080C389C(*(u8 *)((s8 *)arg0 + (*(s16 *)((s8 *)arg0 + 0x22) * 2) + 0x19), 6) == 1) {
         sub_08014848(1, 1, *(s32 *)((s8 *)subObj + 8), *(s32 *)((s8 *)subObj + 0xC) + 0xC0000, 0x40000, 0x40000);
     }

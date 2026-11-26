@@ -1,5 +1,5 @@
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern s32 sub_08057AB8();
 
 /* Advances an entity's falling motion, converts its world position into screen
@@ -24,8 +24,8 @@ void sub_08057A0C(u8 *entity) {
     posX = *(s32 *)(data + 0x00) + *(s32 *)(data + 0x08);
     *(s32 *)(data + 0x00) = posX;
     *(s32 *)(data + 0x04) = *(s32 *)(data + 0x04) + velY;
-    coordTable = D_02021E90;
-    roomIdx = D_02025FF0;
+    coordTable = gCameraState;
+    roomIdx = gMainWorkspace;
     roomIdx += 0x18A8;
     {
         tableIdx = ((u32)*roomIdx + 1) * 0x40;

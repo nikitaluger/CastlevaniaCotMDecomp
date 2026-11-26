@@ -6,7 +6,7 @@ struct S_02021E90 {
     u8 scanline;    /* 0x1368 */
     u8 mode;        /* 0x1369 */
 };
-extern struct S_02021E90 D_02021E90;
+extern struct S_02021E90 gCameraState;
 
 /*
  * VBlank raster effect: waits for VBlank, sets BG0's horizontal/vertical
@@ -19,7 +19,7 @@ void sub_080BF34C(void) {
 
     while (!(*(vu8 *)0x04000004 & 2)) { }
     *(vu16 *)0x04000000 &= 0xFEFF;
-    mode = D_02021E90.mode;
+    mode = gCameraState.mode;
     switch (mode) {
     case 0:
         *(vu16 *)0x04000010 = mode;
@@ -34,18 +34,18 @@ void sub_080BF34C(void) {
         *(vu16 *)0x04000012 = 0x19C;
         break;
     }
-    scanlineWord = D_02021E90.scanline;
+    scanlineWord = gCameraState.scanline;
     scanline = (u8)scanlineWord;
     if (scanline == 0) {
-        D_02021E90.active = scanline;
+        gCameraState.active = scanline;
         return;
     }
-    D_02021E90.active = 4;
-    modeAgain = D_02021E90.mode;
+    gCameraState.active = 4;
+    modeAgain = gCameraState.mode;
     switch (modeAgain) {
     case 0:
     case 0x50:
-        *(vu8 *)0x04000005 = D_02021E90.mode + 0x26 - D_02021E90.scanline - 1;
+        *(vu8 *)0x04000005 = gCameraState.mode + 0x26 - gCameraState.scanline - 1;
         break;
     case 0x48:
         *(vu8 *)0x04000005 = ~(u8)scanlineWord + 0x4E;

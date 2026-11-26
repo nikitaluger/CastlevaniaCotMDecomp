@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Reset the actor's model animation to frame 0; if its restart flag is set,
@@ -9,7 +9,7 @@ void sub_0804C2A8(void *arg0) {
     u8 *anim = *(u8 **)((u8 *)arg0 + 0x3C);
     u8 *animFlags = anim + 0x34;
     u16 *timers = (u16 *)(anim + 0x48);
-    sub_08011368((s32)model, animFlags, 0, 0);
+    setAnimationFrame((s32)model, animFlags, 0, 0);
     if (2 & *animFlags) {
         s32 zero = 0;
         void **handlerTable;

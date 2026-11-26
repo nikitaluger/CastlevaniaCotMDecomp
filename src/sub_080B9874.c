@@ -1,11 +1,11 @@
 struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0_1870 D_02025FF0;
+extern struct S_02025FF0_1870 gMainWorkspace;
 
-/* Walk the object list at D_02025FF0+0x1870 and set bit 0 of the flags word
+/* Walk the object list at gMainWorkspace+0x1870 and set bit 0 of the flags word
  * (node+0x3C) of every node whose type is in 0x1CC..0x1CE. */
 void sub_080B9874(void) {
     void *deadR5; /* never initialised: only its liveness forces the dead r5 save */
-    void *node = *(void **)((u8 *)(void *)D_02025FF0.v + 0x30);
+    void *node = *(void **)((u8 *)(void *)gMainWorkspace.v + 0x30);
     if (node != NULL) {
         do {
             do {

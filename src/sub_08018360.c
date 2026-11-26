@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* Entity update: arm a 90-unit timer in the work area, notify the linked
  * object, then reset the current command slot's counter and dispatch the

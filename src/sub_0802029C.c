@@ -44,14 +44,14 @@ extern u32 sub_0805F9B4(u32, u32);       /* actor inside camera bounds? */
 extern s32 sub_080C36E4(u32, u32);       /* integer divide */
 extern u32 sub_08016238(u32);            /* hit-test actor against global list */
 extern void sub_08005E80(u32);           /* play sound effect */
-extern void sub_08011368(u32, u32, u32, u32); /* set animation/frame control */
+extern void setAnimationFrame(u32, u32, u32, u32); /* set animation/frame control */
 extern u32 sub_08013B5C(u32, u32);       /* advance actor's own AI */
 extern void sub_080113A8(u32, u32);      /* request frame from frame control */
 extern void sub_0801165C(u32, u32);      /* advance frame control velocity */
 extern void sub_080C31E0(u32, u32);      /* cleanup / run script handler */
 
-extern u8 D_02021E90[];                  /* scroll-offset table */
-extern u8 D_02025FF0[];                  /* global game state */
+extern u8 gCameraState[];                  /* scroll-offset table */
+extern u8 gMainWorkspace[];                  /* global game state */
 
 /* Updates a scripted effect: advances the actor's pose/timer, handles its death and
    sound cues, runs one step of the effect's script, then projects the actor's world
@@ -85,7 +85,7 @@ after:
         if (sub_08016238((u32)actor->owner) != 0) {
             actor->timer = 30;
             actor->life--;
-            sub_08011368((u32)sprite, (u32)anim, 0x17, 0);
+            setAnimationFrame((u32)sprite, (u32)anim, 0x17, 0);
             sub_08005E80(0x189);
             if ((s32)actor->life <= 0) actor->flags |= 1;
         }
@@ -113,7 +113,7 @@ fail:
     }
     {
         u8 *scrollTbl; u8 *scrollIdxPtr; u32 scrollIdx; u8 *xBase; u8 *yBase;
-        scrollTbl = D_02021E90; scrollIdxPtr = D_02025FF0; scrollIdxPtr += 0x18A8;
+        scrollTbl = gCameraState; scrollIdxPtr = gMainWorkspace; scrollIdxPtr += 0x18A8;
         scrollIdx = ((u32)*scrollIdxPtr + 1) * 0x40;
         xBase = scrollTbl + 0x1278;
         sprite->screenX = actor->worldX - ((*(s32 *)(xBase + scrollIdx) + 0x8000) & 0xFFFF0000);

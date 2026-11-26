@@ -12,9 +12,9 @@ struct S02025FF0
   u8 pad1730[8];
   u16 f1738;
 };
-extern struct S02025FF0 D_02025FF0;
-extern u8 D_02025368[];
-extern u8 D_02021E90[];
+extern struct S02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
+extern u8 gCameraState[];
 extern u8 D_080E4E54[];
 extern u8 D_080E47E8[];
 extern u8 D_084E25C0[];
@@ -45,14 +45,18 @@ void sub_0807BD78(void *arg0)
   u8 *new_var7;
   u8 *new_var3;
   u32 *new_var6;
-  u8 *g = D_02025368;
+  u8 *g = gGameStatus;
   u8 *r6;
   u8 *new_var4;
   u8 *dEnd;
   s32 idx;
   s32 delta;
   s32 timer;
+
+    s32 __repair_timer_1;
   void *other;
+    void *other_gc;
+  s32 *temp;
   if (sub_0806D35C(s, v38, p5) != 0)
   {
     return;
@@ -62,27 +66,28 @@ void sub_0807BD78(void *arg0)
   new_var4 = D_080E4E54;
   idx = ((timer >> 6) & 0xF) * 8;
   delta = *((s32 *) (new_var4 + idx));
-  if (D_02025FF0.f1738 & 0x10)
+  if (gMainWorkspace.f1738 & 0x10)
   {
     delta = -delta;
   }
-  timer = ((*((s32 *) (&D_02025FF0.f1728))) + delta) - (*((s32 *) (p4 + 4)));
-  if (timer < 0)
+  __repair_timer_1 = ((*((s32 *) (&gMainWorkspace.f1728))) + delta) - (*((s32 *) (p4 + 4)));
+  if (__repair_timer_1 < 0)
   {
-    timer += 31;
+    __repair_timer_1 += 31;
   }
-  *((s32 *) (p4 + 4)) = (*((s32 *) (p4 + 4))) + (timer >> 5);
-  timer = ((*((s32 *) (&D_02025FF0.f172C))) + (*((s32 *) ((D_080E4E54 + 4) + idx)))) - (*((s32 *) (p5 + 4)));
-  if (timer < 0)
+  *((s32 *) (p4 + 4)) = (*((s32 *) (p4 + 4))) + (__repair_timer_1 >> 5);
+  temp = (s32 *) ((D_080E4E54 + 4) + idx);
+  delta = ((*((s32 *) (&gMainWorkspace.f172C))) + (*temp)); __repair_timer_1 = delta - (*((s32 *) (p5 + 4)));
+  if (__repair_timer_1 < 0)
   {
-    timer += 31;
+    __repair_timer_1 += 31;
   }
-  *((s32 *) (p5 + 4)) += timer >> 5;
+  *((s32 *) (p5 + 4)) += __repair_timer_1 >> 5;
   new_var = p8 + 0x1C;
   new_var8 = 0x10;
-  if (D_02025FF0.f24 != 0)
+  if (gMainWorkspace.f24 != 0)
   {
-    if (D_02025FF0.f2A & (*((u16 *) (D_02025368 + 0x3BC))))
+    if (gMainWorkspace.f2A & (*((u16 *) (gGameStatus + 0x3BC))))
     {
       r6 = new_var;
       if (0 != (*((u32 *) (p8 + 0x54))))
@@ -100,7 +105,11 @@ void sub_0807BD78(void *arg0)
   else
   {
     new_var5 = 0x146E;
-    if ((*((u16 *) (D_02021E90 + new_var5))) & (*((u16 *) (g + 0x3BC))))
+    if (!((*((u16 *) (gCameraState + new_var5))) & (*((u16 *) (g + 0x3BC)))))
+    {
+      r6 = p4 + 0x20;
+    }
+    else
     {
       r6 = p8 + 0x1C;
       if ((*((u32 *) (p8 + 0x54))) != 0)
@@ -110,16 +119,12 @@ void sub_0807BD78(void *arg0)
       sub_08003A6C(r6, 0, (u32) D_084E25D4);
       *((u32 *) (p8 + 0x54)) = 0x20;
     }
-    else
-    {
-      r6 = p4 + 0x20;
-    }
   }
   if ((*((u32 *) (p8 + 0x54))) == 0)
   {
     goto skip;
   }
-  new_var3 = (u8 *) (&D_02025FF0);
+  dEnd = (u8 *) (&gMainWorkspace);
   dec:
   timer = (*((u32 *) (p8 + 0x54))) - 1;
 
@@ -130,14 +135,16 @@ void sub_0807BD78(void *arg0)
     new_var6 = &(*((u32 *) p5));
     if (other != NULL)
     {
-      *((u32 *) (((u8 *) other) + 0x7C)) = *new_var6;
-      *((u32 *) inline_fn(((u8 *) other) + 0x8C)) = *((u32 *) (p5 + 4));
+        other_gc = other;
+        other = NULL;
+      *((u32 *) (((u8 *) other_gc) + 0x7C)) = *new_var6;
+      *((u32 *) inline_fn(((u8 *) other_gc) + 0x8C)) = *((u32 *) (p5 + 4));
       timer = (((*((u8 *) (g + 0x304))) - 1) * 12) + ((idx = (*((u8 *) (g + 0x305))) - 1) * 120);
-      *((u32 *) (D_02025368 + 0x2CC)) -= *((u32 *) ((D_080E47E8 + 4) + timer));
+      *((u32 *) (gGameStatus + 0x2CC)) -= *((u32 *) ((D_080E47E8 + 4) + timer));
     }
   }
   skip:
-  dEnd = new_var3;
+  
 
   if ((*((s32 *) p5)) > (*((s32 *) (dEnd + 0x1728))))
   {

@@ -10,11 +10,11 @@ struct T2 { u32 w[2]; };
 extern struct T2 D_08100250;
 extern u8 D_08100244[];
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
-extern struct S_02025FF0 D_02025FF0;
-extern struct R *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_0801131C(void *, s32, u8 *);
-extern void sub_08011368(void *, s32, s16, s32);
+extern struct S_02025FF0 gMainWorkspace;
+extern struct R *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void initSpriteGraphics(void *, s32, u8 *);
+extern void setAnimationFrame(void *, s32, s16, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0808E544(void);
 
@@ -22,18 +22,18 @@ extern void sub_0808E544(void);
  * entity's update callback. */
 void sub_0808E458(struct A *arg) {
     struct T2 paramTable = D_08100250;
-    struct R *res = sub_0800355C();
+    struct R *res = allocSpriteObject();
     s32 objectId;
     void *fp;
 
     if (res == NULL) { sub_080C31E0(arg, arg->altCallback); return; }
     arg->object = res;
-    sub_0800168C(arg, 0, 0x14, 0);
+    allocWorkSlot(arg, 0, 0x14, 0);
     objectId = arg->objectId;
     if (objectId == 0) { sub_080C31E0(arg, arg->altCallback); return; }
 
-    sub_0801131C(res, objectId, D_08100244);
-    sub_08011368(res, objectId, ((s16 *)paramTable.w)[arg->tableIndex * 2], 0);
+    initSpriteGraphics(res, objectId, D_08100244);
+    setAnimationFrame(res, objectId, ((s16 *)paramTable.w)[arg->tableIndex * 2], 0);
 
     switch (arg->modeFlags & 0x30) {
     case 0x10: res->flags2 = 0x10 | res->flags2; break;
@@ -42,7 +42,7 @@ void sub_0808E458(struct A *arg) {
     }
 
     res->state = (arg->modeFlags & 0xF) | 0x80000000;
-    res->flags = res->flags | D_02025FF0.f18C2;
+    res->flags = res->flags | gMainWorkspace.f18C2;
     res->flags2 = res->flags2 | 0x400;
     arg->flags = 0x800 | arg->flags;
     fp = sub_0808E544;

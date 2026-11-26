@@ -1,4 +1,4 @@
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
 extern s16 sub_0806D62C(u16, s32);
 extern void sub_08003A6C(void *a, s32 b, s32 c);
@@ -15,8 +15,8 @@ struct S_02025FF0 {
     u32 f174C;
     u32 f1750;
 };
-extern struct S_02025FF0 D_02025FF0;
-extern u8 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u8 gGameStatus[];
 
 struct Child78 {
     u8 f0, f1, f2, f3;
@@ -41,8 +41,8 @@ void sub_0807710C(u8 *owner) {
     u8 *basePtr = *(u8 **)(owner + 0x6C);
     u8 *sprite = *(u8 **)(owner + 0x38);
     struct Parent5 *state = (struct Parent5 *)(basePtr + 4);
-    u8 *dataBase = D_02025368;
-    struct Child78 *child = sub_08016190();
+    u8 *dataBase = gGameStatus;
+    struct Child78 *child = allocEffectPart();
     u16 flipFlag;
     u8 *attackLog;
     u8 flagByte;
@@ -57,7 +57,7 @@ void sub_0807710C(u8 *owner) {
     state->f38 = 0;
     state->f3C = 0;
 
-    child->f1 = D_02025FF0.b1510 & 1;
+    child->f1 = gMainWorkspace.b1510 & 1;
     state->f2C->f2 = 2;
     state->f2C->f3 = 8;
     state->f2C->f4 = dataBase[0xC1 << 2];
@@ -72,14 +72,14 @@ void sub_0807710C(u8 *owner) {
 
     state->f18 = *(u32 *)(owner + 0x24);
     *(u32 *)(owner + 0x24) = (u32)sub_0808449C;
-    flagByte = D_02025FF0.b14EF;
+    flagByte = gMainWorkspace.b14EF;
     *(u8 *)(basePtr + 0x55) = flagByte;
     *(u32 *)(sprite + 0x24) = 0x084D24D8;
 
     sub_08003A6C(basePtr + 0x20, 0, 0x084D271C);
 
     {
-        s32 baseX = D_02025FF0.f174C;
+        s32 baseX = gMainWorkspace.f174C;
         flipFlag = *(u16 *)(sprite + 2) & 0x10;
         if (flipFlag) {
             baseX += 0xFFF40000;
@@ -88,7 +88,7 @@ void sub_0807710C(u8 *owner) {
         }
         state->f00 = baseX;
     }
-    state->f04 = D_02025FF0.f1750 + 0xFFF00000;
+    state->f04 = gMainWorkspace.f1750 + 0xFFF00000;
 
     {
         s32 mask;

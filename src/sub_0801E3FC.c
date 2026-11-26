@@ -1,4 +1,4 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* Play animation 8 on the parent; if the animation status has bit 2 set, set
@@ -10,7 +10,7 @@ void sub_0801E3FC(void *arg0) {
     u8 *anim = motion + 0x34;
     u8 *state = motion + 0x48;
     s32 *advanceFunc;
-    sub_08011368(parent, anim, 8, 0);
+    setAnimationFrame(parent, anim, 8, 0);
     if (*(u8 *)anim & 2) {
         s16 stepIndex;
         u8 zero = 0;

@@ -1,5 +1,5 @@
 extern u32 D_0866E898[];
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 
 /* Run one script command out of line: start animation 0x14, swap in the
  * command table at D_0866E898, temporarily advance the step and its progress
@@ -10,7 +10,7 @@ void sub_0805A764(void *self)
     s16 step;
     u8 command;
 
-    sub_08011368(*(void **)(actor + 0x38), *(u8 **)(actor + 0x3C) + 0x34, 0x14, 1);
+    setAnimationFrame(*(void **)(actor + 0x38), *(u8 **)(actor + 0x3C) + 0x34, 0x14, 1);
 
     *(u32 *)(actor + 0x14) = (u32)D_0866E898;
     *(u16 *)(actor + 0x22) += 1;

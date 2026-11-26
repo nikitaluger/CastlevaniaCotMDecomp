@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 D_08671BB0[];
+extern u32 gMainObjTimerCallback[];
 
 /* Fill the work state's four-slot coordinate arrays (+0x48..+0x54 and
  * +0x58..+0x64) with the actor's x/y from +0x4C/+0x5C, then clear this
@@ -9,7 +9,7 @@ void sub_080352C0(void *obj) {
     u8 *actor = (u8 *)obj;
     u32 workAddr = *(u32 *)(actor + 0x3C);
     u32 slot = 0;
-    const u32 *advance = D_08671BB0;
+    const u32 *advance = gMainObjTimerCallback;
     u32 *dest;
     u8 *entry;
     dest = (u32 *)(workAddr + 0x48);

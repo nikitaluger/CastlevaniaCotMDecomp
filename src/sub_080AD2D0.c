@@ -1,15 +1,15 @@
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern s32 sub_08013C2C(void);
-extern void sub_08014288(void *, void *, void *);
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern s32 findKindIndex(void);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_080B05EC(void *, void *, s32, s32);
-extern void sub_080114DC(void *, void *, s16, s32);
+extern void setObjectAnimation(void *, void *, s16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08097D90(void);
 struct GameState { u8 _0[0x18C2]; u16 flags; };
-extern struct GameState D_02025FF0;
-extern u32 D_08671BB0;
+extern struct GameState gMainWorkspace;
+extern u32 gMainObjTimerCallback;
 extern u32 D_0810225C[];
 extern s16 D_08102258[];
 extern u8 D_08102264[];
@@ -45,34 +45,34 @@ void sub_080AD2D0(struct MainObj *arg)
   u16 *arr;
   u16 *new_var;
   u32 *gfxTable;
-  sprite = (struct EffectSprite *) sub_0800355C();
+  sprite = (struct EffectSprite *) allocSpriteObject();
   if (sprite == NULL) goto Lend;
   arg->sprite = (u32) sprite;
-  sub_0800168C(arg, 0, 0x48, 0);
+  allocWorkSlot(arg, 0, 0x48, 0);
   if (arg->owner == 0) goto Lend;
   gfxTable = D_0810225C;
   kindPtr = (u8 *)arg + 0x4C;
   sprite->gfxBase = gfxTable[*kindPtr];
   owner = (struct OwnerEffect *) arg->owner;
   work = ((u8 *) owner) + 0x34;
-  sub_08014288(arg, owner, &sub_08097D90);
+  installUpdateHandler(arg, owner, &sub_08097D90);
   owner->kind = 0x64;
-  slot = sub_08013C2C();
+  slot = findKindIndex();
   owner->slot = slot;
   if ((slot << 16) >= 0) goto Lcont;
 Lend:
   sub_080C31E0(arg, arg->failCb);
   return;
 Lcont:
-  sprite->gfxFlags = sprite->gfxFlags | D_02025FF0.flags;
+  sprite->gfxFlags = sprite->gfxFlags | gMainWorkspace.flags;
   sub_080B05EC(sprite, work, D_08102264[*kindPtr], 6);
-  sub_080114DC(sprite, work, D_08102258[*kindPtr], 0);
+  setObjectAnimation(sprite, work, D_08102258[*kindPtr], 0);
   arg->flags = arg->flags | 0x1000;
   i = arg->counter;
   arr = (u16 *)arg;
   ((u8 *)(&arr[i]))[0x19] = 0;
   {
-    u32 *pbb0 = &D_08671BB0;
+    u32 *pbb0 = &gMainObjTimerCallback;
     stepBase = ((u8 *)arg) + 0x18;
     sub_080C31E4(stepBase, ((u8 *)arg) + 0x22, *pbb0);
   }

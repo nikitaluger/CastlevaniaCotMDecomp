@@ -1,4 +1,4 @@
-extern u8 D_02025FF0[];
+extern u8 gMainWorkspace[];
 extern u8 D_080E06C0[];
 void sub_0806D588(void *, void *);
 unsigned short _call_via_r1(void *, void *);
@@ -139,11 +139,11 @@ void sub_0806E380(void *arg0)
     *((s32 *) (r8 + 4)) = *((s32 *) (new_var19 - (-(v * 4))));
   }
   else
-    if (((double) (*e).f0) == 1)
+    if (e->f0 == 1)
   {
     delta = e->fC;
-    new_var26 = *((u16 *) (arg0 + 0x1738));
     new_var = *new_var23;
+    new_var26 = *((u16 *) (arg0 + 0x1738));
     if (new_var26 & 0x10)
     {
       if (new_var7)
@@ -263,4 +263,3 @@ void sub_0806E380(void *arg0)
   _call_via_r1(arg0, new_var28);
 
 }
-

@@ -12,24 +12,24 @@ struct D02025FF0_S_850B4 {
     u8 _p3[0x1780 - 0x1758];
     u32 arr_1780[1];
 };
-extern struct D02025FF0_S_850B4 D_02025FF0;
-extern u8 D_02025368[];
+extern struct D02025FF0_S_850B4 gMainWorkspace;
+extern u8 gGameStatus[];
 extern u8 D_0845806C[];
 s32 sub_0806D2A0(s32, s32, s32, s32);
 void sub_08086E28(void);
 
 void sub_080850B4(s32 actor, void *ctrl) {
-    u32 *globals = (u32 *)D_02025368;
+    u32 *globals = (u32 *)gGameStatus;
     u32 animPtr;
     u32 frameCounter;
     s32 trail;
-    if (D_02025FF0.a_14ED != 0x35) {
+    if (gMainWorkspace.a_14ED != 0x35) {
         animPtr = *(u32 *)((u8 *)ctrl + 0x30);
         if (animPtr == (u32)D_0845806C) {
             *(u32 *)((u8 *)ctrl + 0x30) = animPtr - 0x28;
         }
     }
-    switch (D_02025FF0.a_14ED) {
+    switch (gMainWorkspace.a_14ED) {
     case 0x25:
         frameCounter = (*(u32 *)((u8 *)ctrl + 0xB8) + 1) & 0x3F;
         *(u32 *)((u8 *)ctrl + 0xB8) = frameCounter;
@@ -47,8 +47,8 @@ void sub_080850B4(s32 actor, void *ctrl) {
             u16 animState = *(u16 *)((u8 *)ctrl + 0x2C);
             if (animState == 1 || animState == 3) {
                 if (*(u16 *)((u8 *)ctrl + 0x2A) == 1) {
-                    if (D_02025FF0.a_1754 <= 4) {
-                        D_02025FF0.a_1754 = 5;
+                    if (gMainWorkspace.a_1754 <= 4) {
+                        gMainWorkspace.a_1754 = 5;
                     }
                 }
             }

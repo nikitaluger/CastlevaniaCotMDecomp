@@ -1,11 +1,11 @@
 extern void sub_080113A8(void *actor, void *data);
 extern s32 sub_08013B5C(void *actor, void *enemy);
 extern void sub_080C31E0(void *self, s32 cmd);
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 /* The byte at +0x18A8 selects a row of the camera/coordinate table. */
 struct CameraCoord { u8 _pad[0x18A8]; u8 camRow; };
-extern struct CameraCoord D_02025FF0;
+extern struct CameraCoord gMainWorkspace;
 
 /*
  * Entity script update: force the enemy's animation flag, run one display step
@@ -44,12 +44,12 @@ void sub_08023E88(void *self)
     }
   }
 
-  coordTable = D_02021E90;
-  coordIndex = (D_02025FF0.camRow + 1) * 0x40;
+  coordTable = gCameraState;
+  coordIndex = (gMainWorkspace.camRow + 1) * 0x40;
   xTable = coordTable + 0x1278;
   *((s32 *) (((u8 *) actor) + 0x14)) = (*((s32 *) (((u8 *) enemy) + 0x08))) - ((*((s32 *) (xTable + coordIndex)) + 0x8000) & 0xFFFF0000);
 
-  coordIndex = (D_02025FF0.camRow + 1) * 0x40;
+  coordIndex = (gMainWorkspace.camRow + 1) * 0x40;
   yTable = coordTable + 0x127C;
   *((s32 *) (((u8 *) actor) + 0x18)) = (*((s32 *) (((u8 *) enemy) + 0x0C))) - ((*((s32 *) (yTable + coordIndex)) + 0xFFFF8000) & 0xFFFF0000);
 }

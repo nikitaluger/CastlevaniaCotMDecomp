@@ -1,5 +1,5 @@
-extern u8 D_02025FF0[];
-extern u32 D_08671BB0[];
+extern u8 gMainWorkspace[];
+extern u32 gMainObjTimerCallback[];
 extern u32 D_08671BD8[];
 
 s32 sub_0806C4B4(void*, void*);
@@ -56,7 +56,7 @@ label_BC:
     *(u32 *)(body + 0x08) = 0;
     *(u32 *)(body + 0x0C) = 0;
     counterAddr = 0x1754;
-    counterAddr = counterAddr + (s32)D_02025FF0;
+    counterAddr = counterAddr + (s32)gMainWorkspace;
     playerCounter = *(s32 *)counterAddr;
     if (playerCounter <= 4) {
         *(s32 *)counterAddr = 5;
@@ -70,7 +70,7 @@ label_BC:
         *(u8 *)(ptr + 0x19) = 0;
     }
     {
-        u32 *callback = D_08671BB0;
+        u32 *callback = gMainObjTimerCallback;
         u8 *scriptArgs = self + 0x18;
         u8 *scriptIndex = self + 0x22;
         sub_080C31E4(scriptArgs, scriptIndex, *callback);

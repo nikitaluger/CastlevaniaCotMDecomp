@@ -1,5 +1,5 @@
-void sub_08000E98(u32, void *, u32, u32, u32);
-s32 sub_080C2F20(s32, s32);
+void postDisplaySprite(u32, void *, u32, u32, u32);
+s32 divideInt(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Darkens a sprite's 4x16 palette by the current script step's counter, uploads
@@ -44,11 +44,11 @@ void sub_080092AC(void *entity) {
             u32 blue = (shifted >> 26) & colorMask;
             u8 fade;
             fade = *(u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2 + 0x19);
-            red = red - sub_080C2F20(fade * red, 0x18);
+            red = red - divideInt(fade * red, 0x18);
             fade = *(u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2 + 0x19);
-            green = green - sub_080C2F20(fade * green, 0x18);
+            green = green - divideInt(fade * green, 0x18);
             fade = *(u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2 + 0x19);
-            blue = blue - sub_080C2F20(fade * blue, 0x18);
+            blue = blue - divideInt(fade * blue, 0x18);
             red &= colorMask;
             green &= colorMask;
             green <<= 5;
@@ -62,7 +62,7 @@ void sub_080092AC(void *entity) {
         } while (col <= 0x0F);
         row = nextRow;
     } while (row <= 0x03);
-    sub_08000E98(1, palette, 0x050000E0, 0x80, 0x10);
+    postDisplaySprite(1, palette, 0x050000E0, 0x80, 0x10);
     {
         u32 slotOffset = (*(s16 *)((u8 *)entity + 0x22)) * 2;
         u8 *cmdSlot = (u8 *)(slotOffset + (u32)entity);

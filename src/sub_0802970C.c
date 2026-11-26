@@ -1,5 +1,5 @@
 extern s32 sub_08005820(s32);
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
@@ -8,7 +8,7 @@ extern void *D_08671BD0;
 struct P48u { u8 _0[2]; u16 timer2; u16 timer4; };
 struct P48s { u8 _0[4]; s16 timer4; };
 struct S_02025FF0 { u8 _0[0x174C]; s32 targetX; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 /* Timer-driven effect update: advance the facing and animation timers, return
    to the script when both coordinates are close to the target, and reverse the
@@ -22,7 +22,7 @@ void sub_0802970C(u8 *arg0) {
     s32 timer4, timer2, newTimer;
 
     sub_080149A4(mainObj, state, p48, 0x5A, 0x78);
-    sub_08011368(mainObj, p34, 0, 1);
+    setAnimationFrame(mainObj, p34, 0, 1);
 
     timer4 = ((struct P48u *)p48)->timer4 - 1;
     ((struct P48u *)p48)->timer4 = timer4;
@@ -54,7 +54,7 @@ void sub_0802970C(u8 *arg0) {
     if (sub_08014900(*(s32 *)(state + 8)) > 0x400000) {
         farFromTarget = 1;
     }
-    toTargetX = D_02025FF0.targetX - *(s32 *)(state + 8);
+    toTargetX = gMainWorkspace.targetX - *(s32 *)(state + 8);
     if ((toTargetX < 0 && *(s32 *)(state + 0x10) < 0) || (toTargetX > 0 && *(s32 *)(state + 0x10) > 0)) {
         if (farFromTarget != 0) goto check5;
         goto set15;

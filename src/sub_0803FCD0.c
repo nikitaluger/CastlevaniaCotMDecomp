@@ -2,10 +2,10 @@ extern void sub_0801165C(s32, s32);
 extern void sub_080146D0(s32, s32, s32);
 extern s32 sub_080148D8(s32, s32);
 extern s32 sub_08040A1C(s32, s32, s32, s32);
-extern void sub_08011368(s32, s32, s32, s32);
+extern void setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s16 D_080CF474[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 /* One frame of a scripted projectile: integrate its heading-driven velocity,
  * add gravity, resolve a ground collision, and after a delay play an effect,
@@ -29,11 +29,11 @@ void sub_0803FCD0(void *script) {
     if (collided != 0) {
         if (*(u8*)((char*)script + *(s16*)((char*)script+0x22)*2 + 0x19) > 0xA0) {
             s16 effect = D_080CF474[*(u8*)((char*)script+0x4C)];
-            sub_08011368(sprite, anim, effect, 0);
+            setAnimationFrame(sprite, anim, effect, 0);
             *(s32*)((char*)body+0x0C) += 0x10000;
             *(u8*)((char*)script + *(s16*)((char*)script+0x22)*2 + 0x19) = 0;
             {
-                u32 *pd = &D_08671BB0;
+                u32 *pd = &gMainObjTimerCallback;
                 sub_080C31E4((char*)script+0x18, (char*)script+0x22, *pd);
             }
         }

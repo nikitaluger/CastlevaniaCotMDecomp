@@ -1,8 +1,8 @@
 extern s32 sub_080141AC(void *, void *);
 extern s32 sub_08013B5C(void *, void *);
 extern void sub_080C31E0(void *, void *);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u8 D_0866DDFC[];
 /* Updates the entity's pose and script, then applies table-driven coordinate
  * offsets to its owner's fields. */
@@ -38,8 +38,8 @@ void sub_0803677C(u8 *entity)
     *((u16 *) posePtr) = (*((u16 *) posePtr)) - 1;
   }
   {
-    u8 *pt = D_02021E90;
-    u8 *pb = D_02025FF0;
+    u8 *pt = gCameraState;
+    u8 *pb = gMainWorkspace;
     u8 *pt1;
     u32 idx;
     u32 v1;

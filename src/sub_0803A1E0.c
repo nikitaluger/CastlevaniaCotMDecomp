@@ -2,7 +2,7 @@ s32 sub_08011344(s32, s32, s32, s32);
 s32 sub_080113A8(s32, s32);
 s32 sub_08011EE8(void *, s32, s32);
 s32 sub_08014668(s32, s32);
-s32 sub_08014938(s32);
+s32 signOf(s32);
 u32 sub_08005820(u32);
 s32 sub_0803B0D8(void *, void *, s32);
 s32 sub_0803B0F8(void *, s32, void *, s32);
@@ -34,7 +34,7 @@ void sub_0803A1E0(void *arg0)
   sub_08014668(parent, *((s32 *) (((u8 *) comp) + 0x10)));
   if ((*((u8 *) (((u8 *) tracker) + 4))) == 2)
   {
-    if (sub_08014938(*((s32 *) xPos)) == 1)
+    if (signOf(*((s32 *) xPos)) == 1)
     {
       *((u16 *) (((u8 *) parent) + 2)) = (flags = 0x10 | (*((u16 *) (((u8 *) parent) + 2))));
     }

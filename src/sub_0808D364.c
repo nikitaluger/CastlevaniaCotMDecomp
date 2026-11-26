@@ -31,7 +31,7 @@ struct A_0808D364 {
     void *f6C;
 };
 
-struct D_02021E90 {
+struct gCameraState {
     u8 _0[0x1460];
     s8 f1460;
     u8 _1461;
@@ -45,10 +45,10 @@ struct D_02021E90 {
     s8 f1469;
     s8 f146A;
 };
-extern struct D_02021E90 D_02021E90;
+extern struct gCameraState gCameraState;
 extern vu32 D_040000D4[];
 
-extern void sub_0800168C(void *, s32, s32, s32);
+extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_0808D640(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0808D454(void);
@@ -60,7 +60,7 @@ extern void sub_0808D454(void);
 void sub_0808D364(struct A_0808D364 *entity) {
     u16 scaleValue = 0x7FFF;
     struct R_0808D364 *fx;
-    struct D_02021E90 *angleTable;
+    struct gCameraState *angleTable;
     s32 zero;
     s32 angle;
 
@@ -69,7 +69,7 @@ void sub_0808D364(struct A_0808D364 *entity) {
     D_040000D4[2] = 0x80000001;
     (void)D_040000D4[2];
 
-    sub_0800168C(entity, 0, 0x40, 3);
+    allocWorkSlot(entity, 0, 0x40, 3);
 
     fx = entity->f6C;
     if (fx == NULL) {
@@ -91,7 +91,7 @@ void sub_0808D364(struct A_0808D364 *entity) {
     fx->f3E = 1;
     sub_0808D640(fx);
 
-    angleTable = &D_02021E90;
+    angleTable = &gCameraState;
     angle = *(s16 *)((u8 *)fx + 0x06);
     angleTable->f1460 = (s8)angle;
     angle = *(s16 *)((u8 *)fx + 0x16);

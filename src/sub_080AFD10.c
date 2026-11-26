@@ -1,5 +1,5 @@
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 struct S2 { u8 pad[2]; u16 f2; };
 
@@ -40,8 +40,8 @@ void sub_080AFD10(void *arg0) {
         *(u8 *)((u8 *)stateSub + 1) = *(u8 *)((u8 *)parentSub + 1);
     }
     {
-        u8 *pt = D_02021E90;
-        u8 *pb = D_02025FF0;
+        u8 *pt = gCameraState;
+        u8 *pb = gMainWorkspace;
         u8 *base1;
         u8 *base2;
         u32 idx;

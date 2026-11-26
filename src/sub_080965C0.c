@@ -5,7 +5,7 @@ s16 sub_080C364C(s16, s32);
 s16 sub_080C36E4(s16, s32);
 void sub_080C31E4(void *, void *, void *);
 extern u8 D_08100B1E[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Periodic entity update: occasionally spawns an effect/projectile, counts down
  * a timer, and on expiry resets it and advances to the next script step. */
@@ -34,7 +34,7 @@ void sub_080965C0(void *self)
     *(s16 *)(state + 0x14) = 3;
     *((u8 *)self + ((*(s16 *)(self + 0x22)) * 2) + 0x19) = 0;
     {
-      void **pBB0 = &D_08671BB0;
+      void **pBB0 = &gMainObjTimerCallback;
       sub_080C31E4(self + 0x18, self + 0x22, *pBB0);
     }
   }

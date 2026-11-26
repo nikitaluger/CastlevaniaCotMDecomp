@@ -1,6 +1,6 @@
 extern u8 D_02025358[];
-extern u8 D_02021E90[];
-extern u16 D_02025FF0[];
+extern u8 gCameraState[];
+extern u16 gMainWorkspace[];
 extern u8 D_020232C9[];
 extern u8 D_084428E0[];
 struct E600
@@ -31,16 +31,17 @@ s32 sub_0806005C(void)
   u16 tmp;
   u8 b6;
   u8 buf[0x20];
+  u32 temp;
   s = D_02025358;
-  eb = D_02021E90;
-  if ((*(u8 *) (eb + 0x145C) & 1) == 0)
+  if ((*(u8 *) ((eb = gCameraState) + 0x145C) & 1) == 0)
   {
     *(u8 *) (eb + 0x145C) |= 1;
     return 2;
   }
   e = (struct E600 *) eb;
+  temp = e->f4 & 0x10;
   b6 = s[0x0C];
-  if (e->f4 & 0x10)
+  if (temp)
   {
     goto do_fill;
   }
@@ -52,7 +53,7 @@ s32 sub_0806005C(void)
   {
     goto chk_146c;
   }
-  if (D_02025FF0[0x14] & 1)
+  if (gMainWorkspace[0x14] & 1)
   {
     goto do_fill;
   }
@@ -68,7 +69,7 @@ s32 sub_0806005C(void)
   {
     volatile u32 *dma;
     u8 v = e->f1439;
-    tmp = (u16) ((v << 4) | v);
+    tmp = (u16) ((v << 4) | (e->f1439));
     dma = (volatile u32 *) 0x040000D4;
     dma[0] = (u32) (&tmp);
     dma[1] = 0x06000020 + ((e->f1262 & 0xC) << 12);
@@ -131,7 +132,7 @@ s32 sub_0806005C(void)
     }
   }
   else
-    if ((D_02025FF0[0x14] & 1) == 0)
+    if ((gMainWorkspace[0x14] & 1) == 0)
   {
     return 2;
   }

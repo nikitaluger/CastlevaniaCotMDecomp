@@ -1,4 +1,4 @@
-void sub_08011368(s32, void *, s32, s32);
+void setAnimationFrame(s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Start the actor's model animation at frame 0x1D; if its low status bits
@@ -10,7 +10,7 @@ void sub_080198B4(void *arg0) {
     u8 *anim = *(u8 **)(self + 0x3C) + 0x34;
     void **scriptFn;
 
-    sub_08011368(model, anim, 0x1D, 1);
+    setAnimationFrame(model, anim, 0x1D, 1);
     if (2 & *(u16 *)(self + 0x64)) {
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         scriptFn = (void **)0x08671BB0;

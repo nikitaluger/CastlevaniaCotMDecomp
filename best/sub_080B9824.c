@@ -1,5 +1,5 @@
 struct S_02025FF0 { u8 _0x000[0x1870]; u32 v; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern void *sub_0805FAEC(void *a, s32 b);
 
 s32 sub_080B9824(void *arg0) {
@@ -8,7 +8,7 @@ s32 sub_080B9824(void *arg0) {
 }
 
 void sub_080B9834(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    void *r = sub_0805FAEC((void *)D_02025FF0.v, *(u16 *)(0x08102E10 + arg0 * 2));
+    void *r = sub_0805FAEC((void *)gMainWorkspace.v, *(u16 *)(0x08102E10 + arg0 * 2));
     if (r != NULL) {
         *(s32 *)((u8 *)r + 0x4C) = arg1;
         *(s32 *)((u8 *)r + 0x5C) = arg2;
@@ -18,7 +18,7 @@ void sub_080B9834(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 
 void sub_080B9874(void) {
-    void *r2 = *(void **)((u8 *)&D_02025FF0.v - 0x1870 + 0x30); /* placeholder */
+    void *r2 = *(void **)((u8 *)&gMainWorkspace.v - 0x1870 + 0x30); /* placeholder */
 }
 
 void sub_080B98B8(void *arg0, u32 arg1, s32 arg2, s32 arg3) {

@@ -1,7 +1,7 @@
 /* Enemy script step: start animation 0x10, tick the timer at moveState+8 and
  * steer at speed 0x20000 along the heading at moveState+0x18; once the timer
  * underflows and the animation has ended, clear the action and advance the script. */
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern s32 D_08671BD0[];
@@ -15,7 +15,7 @@ void sub_0805A6F0(void *arg0) {
     s32 *scriptTable;
     s32 countdown;
 
-    sub_08011368(sprite, animState, 0x10, 0);
+    setAnimationFrame(sprite, animState, 0x10, 0);
     countdown = *(u16 *)(moveState + 8) - 1;
     *(u16 *)(moveState + 8) = countdown;
     if ((countdown << 16) < 0 && (*(u8 *)animState & 2)) {

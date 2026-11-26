@@ -1,4 +1,4 @@
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *D_08671BD0;
@@ -17,7 +17,7 @@ void sub_0805AC68(void *arg0)
     obj = *((u8 **) (entity + 0x3C));
     anim = obj + 0x34;
     bounds = obj + 0x48;
-    sub_08011368(mainObj, anim, 0, 1);
+    setAnimationFrame(mainObj, anim, 0, 1);
     if ((*((s32 *) (obj + 0x10))) < 0)
     {
         if ((*((s32 *) (obj + 0x08))) <= (*((s32 *) (bounds + 0x04))))

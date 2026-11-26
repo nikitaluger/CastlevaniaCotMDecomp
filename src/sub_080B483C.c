@@ -1,4 +1,4 @@
-s32 sub_080114DC(s32, s32, s32, s32);
+s32 setObjectAnimation(s32, s32, s32, s32);
 s32 sub_08011528(s32, s32);
 s32 sub_0801165C(void *, s32);
 s32 sub_080C31E4(void *, void *, s32);
@@ -17,7 +17,7 @@ void sub_080B483C(void *arg0)
   sprite = *((s32 *) (((s8 *) arg0) + 0x38));
   work = *((void **) (((s8 *) arg0) + 0x3C));
   animator = work + 0x34;
-  sub_080114DC(sprite, animator, 0x65, 1);
+  setObjectAnimation(sprite, animator, 0x65, 1);
   sub_08011528(sprite, animator);
   sub_0801165C(work, 0);
   velocityY = (*((s32 *) (((s8 *) work) + 0x14))) + 0xFFFFFE00;

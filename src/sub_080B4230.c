@@ -1,4 +1,4 @@
-void sub_080114DC(s32, s32, s32, s32);
+void setObjectAnimation(s32, s32, s32, s32);
 void sub_08011528(s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -16,7 +16,7 @@ void sub_080B4230(void *self) {
     selfBytes = (s8 *)self;
     work = *(void **)(selfBytes + 0x3C);
     animState = (s32)work + 0x34;
-    sub_080114DC(animController, animState, 0x11, 0);
+    setObjectAnimation(animController, animState, 0x11, 0);
     sub_08011528(animController, animState);
     if (2 & *(u8 *)((u8 *)work + 0x34)) {
         *(s8 *)((s8 *)((*(s16 *)(selfBytes + 0x22) * 2) + self) + 0x17) = 0;

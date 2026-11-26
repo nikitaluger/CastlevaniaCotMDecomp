@@ -1,8 +1,8 @@
 extern void sub_080113A8(void *a, void *b);
 extern s32 sub_080C31E0(void *a, void *b);
 
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Tick the animation; when it ends, dispatch the next script step. Otherwise
  * recompute the sprite's screen coordinates from the camera table. */
@@ -29,8 +29,8 @@ void sub_08059D54(void *entity)
         u8 *yBase;
         u32 coordOffset;
 
-        coordTable = D_02021E90;
-        cameraIndex = D_02025FF0;
+        coordTable = gCameraState;
+        cameraIndex = gMainWorkspace;
         cameraIndex += 0x18A8;
 
         coordOffset = ((u32)*cameraIndex + 1) * 0x40;

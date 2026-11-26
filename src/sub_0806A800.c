@@ -5,7 +5,7 @@ struct ActorDef { void *coords; void *spriteCfg; void *miscCfg; };
 extern struct ActorDef D_080DF598[];
 
 struct ResultFlags { u8 _0[0x1510]; u8 mask; };
-extern struct ResultFlags D_02025FF0;
+extern struct ResultFlags gMainWorkspace;
 
 struct SpriteCfgSrc { u16 p0, p2, p4, p6; };
 struct SpriteCfgDst { u8 _0[6]; u16 p6, p8, pA, pC; };
@@ -32,7 +32,7 @@ void sub_0806A800(struct WorkState *work, s32 defIndex) {
     work->spriteCfg->p8 = spriteSrc->p2;
     work->spriteCfg->pA = spriteSrc->p4;
     work->spriteCfg->pC = spriteSrc->p6;
-    work->miscCfg->flags = miscSrc->flags & D_02025FF0.mask;
+    work->miscCfg->flags = miscSrc->flags & gMainWorkspace.mask;
     work->miscCfg->p18 = miscSrc->p2;
     work->miscCfg->p6 = miscSrc->p4;
     work->miscCfg->p8 = miscSrc->p6;

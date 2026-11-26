@@ -4,7 +4,7 @@ void sub_080AAC58(void);
 void sub_080C31E4(void *, void *, s32);
 
 struct S_02025FF0 { u8 _0[0x1754]; s32 phase; };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 extern s32 D_081020AC[];
 
 /* Enemy actor step: advance a clamped aim accumulator by a per-index step;
@@ -24,7 +24,7 @@ void sub_080A69D8(u8 *self) {
     }
     if (sub_080A8784(self, state) != 0) {
         sub_08005E80(0x178);
-        if (D_02025FF0.phase <= 0x10) D_02025FF0.phase = 0x11;
+        if (gMainWorkspace.phase <= 0x10) gMainWorkspace.phase = 0x11;
         sub_080AAC58();
         *(u8 *)(self + (s32)*(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {

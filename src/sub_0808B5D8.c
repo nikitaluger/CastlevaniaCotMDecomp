@@ -8,13 +8,13 @@ struct InputButtonState {
     u8 pad2[3];
     u16 currentKeys;  /* +0x34: current button state (from demo playback) */
 };
-extern struct InputButtonState D_02025FF0;
+extern struct InputButtonState gMainWorkspace;
 
 /* Refresh the button state: publish the buttons pressed this frame and re-emit
  * the held buttons as an auto-repeat once they have been stable for 30 frames. */
 void sub_0808B5D8(void)
 {
-    struct InputButtonState *in = &D_02025FF0;
+    struct InputButtonState *in = &gMainWorkspace;
     u16 keys = in->currentKeys;
     u16 prevKeys = in->prevKeys;
     u16 pressed;

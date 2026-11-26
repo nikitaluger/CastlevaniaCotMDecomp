@@ -12,7 +12,7 @@ struct S_02025FF0 {
     u8 _14EE[0x173A - 0x14EE];
     u8 f173A;
 };
-extern struct S_02025FF0 D_02025FF0;
+extern struct S_02025FF0 gMainWorkspace;
 
 struct S_inner { u8 _0[4]; u16 f04; u16 f06; };
 struct S_arg0 {
@@ -42,7 +42,7 @@ void sub_0807BB2C(struct S_arg0 *actor) {
     child->f06 += 0x40;
     sub_0806D588(child, position);
     sub_08003740((u8 *)(work + 0x20), child);
-    globals = &D_02025FF0;
+    globals = &gMainWorkspace;
     if (globals->f173A == 0x1C) goto fail;
     if (globals->f14ED != 0) goto ok;
     if (globals->f10 == 0) goto ok;

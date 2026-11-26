@@ -1,5 +1,5 @@
 extern s32 sub_0800583C(s32);
-extern void sub_08011368(void *, void *, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080113A8(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -19,7 +19,7 @@ void sub_080BD8B8(void *arg0)
     sub_080113A8(gfx, anim);
     if (anim[0] & 2) {
         *(s32 *)(actorSub + 0x10) = sub_0800583C(0x8000) + 0x10000;
-        sub_08011368(gfx, anim, 5, 1);
+        setAnimationFrame(gfx, anim, 5, 1);
         {
             s32 xPos = *(s32 *)(actor + 8);
             if (*(u16 *)(gfx + 2) & 0x10) {

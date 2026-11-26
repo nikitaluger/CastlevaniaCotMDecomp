@@ -1,11 +1,11 @@
 extern s32 sub_08014990(void *);
 extern void sub_0808DBB4(s32, s32, s32);
-extern void sub_08011368(s32, s32, s32, s32);
+extern void setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 D_080CEA40[];
 extern u8 D_080CEAA8[];
 extern u8 D_080CEAE0[];
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 void sub_0802C6D4(void *arg0, void *arg1, s32 arg2) {
     u8 *base;
@@ -64,7 +64,7 @@ void sub_0802A4E0(void *arg0) {
     u8 *r4 = q + 0x34;
     void **pp;
 
-    sub_08011368(v38, r4, 0x0D, 0);
+    setAnimationFrame(v38, r4, 0x0D, 0);
     if (*r4 & 2) {
         if (sub_08014990(v38) > 0) {
             *(s32 *)(q + 0x10) = 0x8000;

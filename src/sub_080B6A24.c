@@ -1,5 +1,5 @@
 struct AttackGlobalFlags { u8 _0[0x18C2]; u16 flags; };
-extern struct AttackGlobalFlags D_02025FF0;
+extern struct AttackGlobalFlags gMainWorkspace;
 struct AttackEntity {
     u8 _0, active, kind, variant;
     u16 gfxId, extra0, extra1, extra2, extra3;
@@ -14,17 +14,17 @@ struct AttackState {
 };
 struct SpriteCfgRow { u8 _0[0x1C]; u16 gfxId; u16 gfxId2; u8 _20[0x08]; };
 struct VelRow { s32 vx; s32 vy; };
-extern struct SpriteCfgRow D_080CBDD0[];
+extern struct SpriteCfgRow gEffectGfxTable[];
 extern struct VelRow D_08102D34[];
 extern u16 D_08102D24[];
-extern u32 D_08671BB0;
-extern void *sub_0800355C(void);
-extern void sub_0800168C(void *, s32, s32, s32);
-extern void sub_08014288(void *, void *, void *);
+extern u32 gMainObjTimerCallback;
+extern void *allocSpriteObject(void);
+extern void allocWorkSlot(void *, s32, s32, s32);
+extern void installUpdateHandler(void *, void *, void *);
 extern void sub_08014668(void *, s32);
 extern void sub_080B7134(void *, void *);
-extern void sub_08011368(void *, void *, s32, s32);
-extern void *sub_08016190(void);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern void *allocEffectPart(void);
 extern void sub_080C31E0(u8 *, u32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
 extern void sub_08097DC8(void);
@@ -40,26 +40,26 @@ void sub_080B6A24(u8 *owner) {
     s32 *cmdTable;
     u8 *logEntry;
 
-    sprite = sub_0800355C();
+    sprite = allocSpriteObject();
     if (sprite == NULL) goto fail;
     *(u32 *)(owner + 0x38) = (u32)sprite;
-    sub_0800168C(owner, 0, 0x48, 0);
+    allocWorkSlot(owner, 0, 0x48, 0);
     if (*(u32 *)(owner + 0x3C) == 0) goto fail;
     *(u32 *)(sprite + 0x1C) = 0x8000000B;
     attack = (struct AttackState *)*(u32 *)(owner + 0x3C);
     animData = (u8 *)attack + 0x34;
-    sub_08014288(owner, attack, sub_08097DC8);
+    installUpdateHandler(owner, attack, sub_08097DC8);
     attack->configIndex = 0x66;
-    *(u16 *)sprite |= D_02025FF0.flags;
+    *(u16 *)sprite |= gMainWorkspace.flags;
     attack->spawnX = *(u32 *)(owner + 0x4C);
     attack->spawnY = *(u32 *)(owner + 0x5C);
     attack->velX = D_08102D34[*(u8 *)(owner + 0x70)].vx * (s8)*(u8 *)(owner + 0x6C);
     attack->velY = D_08102D34[*(u8 *)(owner + 0x70)].vy;
     sub_08014668(sprite, -attack->velX);
     sub_080B7134(sprite, animData);
-    sub_08011368(sprite, animData, 0x1A, 1);
+    setAnimationFrame(sprite, animData, 0x1A, 1);
     attrTable = D_08102D24;
-    attack->entity = sub_08016190();
+    attack->entity = allocEffectPart();
     if (attack->entity == NULL) goto fail;
     goto cont;
 fail:
@@ -69,12 +69,12 @@ cont:
     attack->entity->active = 1;
     attack->entity->kind = 8;
     attack->entity->variant = 1;
-    attack->entity->gfxId = D_080CBDD0[attack->configIndex].gfxId;
+    attack->entity->gfxId = gEffectGfxTable[attack->configIndex].gfxId;
     attack->entity->extra0 = attrTable[0];
     attack->entity->extra1 = attrTable[1];
     attack->entity->extra2 = attrTable[2];
     attack->entity->extra3 = attrTable[3];
-    attack->entity->gfxId2 = D_080CBDD0[attack->configIndex].gfxId2;
+    attack->entity->gfxId2 = gEffectGfxTable[attack->configIndex].gfxId2;
     attack->entity->sprite = (u32)sprite;
     attack->flags |= 0x10;
     {
@@ -84,7 +84,7 @@ cont:
     *(u32 *)(owner + 0x7C) = 0;
     *(u16 *)(owner + 2) |= 0x1000;
     *(u8 *)(owner + (u32)(*(s16 *)(owner + 0x22)) * 2 + 0x19) = 0;
-    cmdTable = &D_08671BB0;
+    cmdTable = &gMainObjTimerCallback;
     attackLog = owner + 0x18;
     sub_080C31E4(attackLog, owner + 0x22, *cmdTable);
     *(u8 *)(owner + (u32)(*(s16 *)(owner + 0x22)) * 2 + 0x19) += 1;

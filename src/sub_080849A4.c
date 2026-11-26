@@ -11,7 +11,7 @@ struct GameState {
     u8 _p1[0x14F8 - 0x14EF];
     u32 commandCounter;
 };
-extern struct GameState D_02025FF0;
+extern struct GameState gMainWorkspace;
 
 void sub_080849A4(void *actor, void *state)
 {
@@ -28,7 +28,7 @@ void sub_080849A4(void *actor, void *state)
         flagBytePtr = (u8 *)flagPtr;
         if (flag == 0)
         {
-            command = D_02025FF0.commandByte;
+            command = gMainWorkspace.commandByte;
             command -= 0x61;
             if (command <= 9)
             {
@@ -58,7 +58,7 @@ void sub_080849A4(void *actor, void *state)
                 case 5:
                     sub_0806D2A0(actor, 0x49, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
-                    D_02025FF0.commandCounter++;
+                    gMainWorkspace.commandCounter++;
                     sub_08005E80(0x148);
                     sub_0806DE0C();
                     break;

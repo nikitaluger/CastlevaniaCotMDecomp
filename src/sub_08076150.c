@@ -1,11 +1,11 @@
 struct S_02025FF0 { u8 _0[0x174C]; u32 v174C; u32 v1750; };
-extern struct S_02025FF0 D_02025FF0;
-extern u32 D_02025368[];
+extern struct S_02025FF0 gMainWorkspace;
+extern u32 gGameStatus[];
 extern u8 D_02027500[];
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 struct Obj { u8 _0, f1, f2, f3; u16 f4, f6, f8, fA, fC, fE; u32 f10; u8 _14[2]; u16 f16, f18; };
 struct Base { u8 _0[0x18]; u32 f18; u8 _1C[0x10]; struct Obj *arr[5]; };
-extern void *sub_08016190(void);
+extern void *allocEffectPart(void);
 extern void sub_080161F0(void);
 extern void sub_0806D2D0(void *);
 extern void sub_08003A6C(void *, s32, s32);
@@ -20,11 +20,11 @@ void sub_08076150(u8 *owner) {
     struct Base *base = (struct Base *)(*(u8 **)(owner + 0x6C) + 4);
     void *sprite = *(void **)(owner + 0x38);
     u8 *baseBytes = (u8 *)base;
-    u32 *dataBase = D_02025368;
+    u32 *dataBase = gGameStatus;
     s32 i = 0;
     u16 zero = 0;
     for (; i < 5; i++) {
-        base->arr[i] = sub_08016190();
+        base->arr[i] = allocEffectPart();
         if (base->arr[i] == NULL) {
             if (base->arr[0]) sub_080161F0();
             if (base->arr[1]) sub_080161F0();
@@ -59,8 +59,8 @@ void sub_08076150(u8 *owner) {
     base = (struct Base *)((u8 *)base + 0x1C);
     sub_08003A6C((u8 *)base, 0, 0x084A680C);
     sub_08003740((u8 *)base, sprite);
-    *(u32 *)(baseBytes + 0) = D_02025FF0.v174C;
-    *(u32 *)(baseBytes + 4) = D_02025FF0.v1750;
+    *(u32 *)(baseBytes + 0) = gMainWorkspace.v174C;
+    *(u32 *)(baseBytes + 4) = gMainWorkspace.v1750;
     {
         u32 cond = *(u16 *)((u8 *)sprite + 2) & 0x10;
         u32 mask = 0x20000;
@@ -73,7 +73,7 @@ void sub_08076150(u8 *owner) {
         *(u8 *)((u32)(*(s16 *)(owner + 0x22)) * 2 + (u32)owner + 0x19) = zeroVal;
         {
             u8 *attackLog;
-            u32 *cmdTable = (u32 *)&D_08671BB0;
+            u32 *cmdTable = (u32 *)&gMainObjTimerCallback;
             attackLog = owner + 0x18;
             sub_080C31E4(attackLog, owner + 0x22, (s32)*cmdTable);
             *(u8 *)((u32)(*(s16 *)(owner + 0x22)) * 2 + (u32)owner + 0x19) += 1;

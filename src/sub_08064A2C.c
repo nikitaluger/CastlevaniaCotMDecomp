@@ -18,7 +18,7 @@ struct FF0
   u8 _1[0x1754 - 0x14EE];
   s32 f1754;
 };
-extern struct FF0 D_02025FF0;
+extern struct FF0 gMainWorkspace;
 struct Actor
 {
   u8 _0[8];
@@ -75,11 +75,11 @@ void sub_08064A2C(u8 *arg0)
     ((struct Actor *) obj)->f4C = 0;
     ((struct Actor *) obj)->f50 = 0;
     ((struct Actor *) obj)->f54 = 0;
-    if (D_02025FF0.f14ED == 0x35)
+    if (gMainWorkspace.f14ED == 0x35)
     {
-      if (D_02025FF0.f1754 <= 8)
+      if (gMainWorkspace.f1754 <= 8)
       {
-        D_02025FF0.f1754 = 9;
+        gMainWorkspace.f1754 = 9;
       }
     }
     ((struct Actor *) obj)->f8 = 0;

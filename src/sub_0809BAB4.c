@@ -1,7 +1,7 @@
 extern void sub_08014668(void *a, s32 b);
 extern void sub_080114A8(void *a, void *b, s32 c, s32 d);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 
 /* Updates an entity's facing and world position from its state byte, then
  * converts that position into camera-relative screen coordinates. */
@@ -43,8 +43,8 @@ void sub_0809BAB4(void *arg0) {
 
 COORD:
     {
-        u8 *pt = D_02021E90;
-        u8 *pb = D_02025FF0;
+        u8 *pt = gCameraState;
+        u8 *pb = gMainWorkspace;
         u8 *base1;
         u8 *base2;
         u32 idx;

@@ -4,7 +4,7 @@ struct S_02021E90_Check
   u8 pad[0x146C];
   u16 field;
 };
-extern struct S_02021E90_Check D_02021E90;
+extern struct S_02021E90_Check gCameraState;
 struct S_03000830
 {
   u8 pad[4];
@@ -19,7 +19,7 @@ extern struct S_03000830 D_03000830;
 void sub_08005DC8(void *obj)
 {
   u8 *bytes;
-  if (((8 & D_02021E90.field) != 0) || ((*((u8 *) (((u8 *) ((((u32) (*((s16 *) (((u8 *) obj) + 0x22)))) * 2) + ((u32) obj))) + 0x19))) == 0x88))
+  if (((8 & gCameraState.field) != 0) || ((*((u8 *) (((u8 *) ((((u32) (*((s16 *) (((u8 *) obj) + 0x22)))) * 2) + ((u32) obj))) + 0x19))) == 0x88))
   {
     u8 zero;
     s32 *charData;

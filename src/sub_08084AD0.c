@@ -1,7 +1,7 @@
 struct Obj84 { u8 _0[0x7C]; u16 spriteId; u8 _7E[0x6]; u16 kind; };
 
-extern u8 D_02025368[];
-extern u8 D_02025FF0[];
+extern u8 gGameStatus[];
+extern u8 gMainWorkspace[];
 
 void *sub_0806D2A0(void *a0, s32 a1, s32 a2, s32 a3);
 void sub_08086E28(void);
@@ -12,10 +12,10 @@ void sub_08086E28(void);
  * also recorded in the global spawn table by sub_08086E28. */
 void sub_08084AD0(void *spawner)
 {
-    u8 *gameState = D_02025368;
+    u8 *gameState = gGameStatus;
     struct Obj84 *spawned;
 
-    switch (D_02025FF0[0x14ED]) {
+    switch (gMainWorkspace[0x14ED]) {
     case 0xA2:
         spawned = sub_0806D2A0(spawner, 0x25, 0x0A, 0x12);
         sub_08086E28();

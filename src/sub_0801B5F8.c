@@ -1,4 +1,4 @@
-void sub_08011368(s32, s32, s32, s32);
+void setAnimationFrame(s32, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 static inline u8 zeroU8(void) { u8 v = 0; return v; }
 static inline u16 zeroU16(void) { u16 v = 0; return v; }
@@ -13,7 +13,7 @@ void sub_0801B5F8(void *arg0) {
   u8 *work = *((u8 **) (obj + 0x3C));
   u8 *anim = work + 0x34;
   u8 *pose = work + 0x48;
-  sub_08011368(sprite, work + 0x34, 5, 0);
+  setAnimationFrame(sprite, work + 0x34, 5, 0);
   *((u32 *) (work + 0x14)) = 0xFFFFA000;
   if ((*((u8 *) anim)) & 2) {
     register u16 z0 = zeroU16();

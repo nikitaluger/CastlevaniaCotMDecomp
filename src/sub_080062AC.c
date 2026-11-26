@@ -1,7 +1,7 @@
-/* Fold the raw coordinate pairs at D_02021E90+0x1460 into the virtual input
+/* Fold the raw coordinate pairs at gCameraState+0x1460 into the virtual input
  * word at D_03000830: copy the id/pressure fields, then set or clear the two
  * direction flags along with their coordinate values. */
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 extern u16 D_03000830[];
 
 static inline u16 flagBit(int n) {
@@ -11,7 +11,7 @@ static inline u16 flagBit(int n) {
 
 void sub_080062AC(void) {
     u16 *input = D_03000830;
-    u8 *raw = D_02021E90;
+    u8 *raw = gCameraState;
     u16 word, upper;
 
     input[9] = raw[0x1468] | (raw[0x1469] << 8);

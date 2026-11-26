@@ -5,8 +5,8 @@ extern u16 D_080CE5E0[];
 struct Node { u8 pad[0x28]; u8 * volatile field28; };
 
 void sub_08019254(void *arg0, void *arg1) {
-    struct Node *o = *(struct Node **)((u8 *)arg0 + 0x3C);
     u16 *tbl = D_080CE5D0;
+    struct Node *o = *(struct Node **)((u8 *)arg0 + 0x3C);
     u16 val = *(u16 *)((u8 *)arg1 + 0x28);
     switch (val - 0x32) {
     case 0:

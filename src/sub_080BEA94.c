@@ -1,11 +1,11 @@
-/* An entry of the shared D_02021E90 state array. Each entry is 0x20 bytes:
+/* An entry of the shared gCameraState state array. Each entry is 0x20 bytes:
  * a 16-bit flag word followed by command parameters. */
 struct MenuEntry { u16 flags; u8 param[0x1E]; };
-extern struct MenuEntry D_02021E90[];
+extern struct MenuEntry gCameraState[];
 
 /* Mark state entry 0x95 complete by setting its 0x2000 completion flag. */
 void sub_080BEA94(void) {
-    D_02021E90[0x95].flags |= (0x80 << 6);
+    gCameraState[0x95].flags |= (0x80 << 6);
 }
 
 /* Dispatch the command selected by state entry 0x9B from the jump table at
@@ -13,11 +13,11 @@ void sub_080BEA94(void) {
 extern void sub_080C31DC(void *);
 void sub_080BEAB0(void) {
     u8 *table = (u8 *)0x0867078C;
-    if (D_02021E90[0x9B].param[0] == 0) {
+    if (gCameraState[0x9B].param[0] == 0) {
         *(vu8 *)0x04000004 &= 0xDF;
     } else {
         *(vu8 *)0x04000004 |= 0x20;
-        sub_080C31DC(*(void **)(table + D_02021E90[0x9B].param[0] * 4));
+        sub_080C31DC(*(void **)(table + gCameraState[0x9B].param[0] * 4));
     }
 }
 

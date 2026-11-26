@@ -4,7 +4,7 @@ extern s32 sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 
 extern u32 D_08671BFC;
-extern u32 D_08671BB0;
+extern u32 gMainObjTimerCallback;
 
 void sub_0809EEC0(void *arg0)
 {
@@ -31,7 +31,7 @@ void sub_0809EEC0(void *arg0)
     *(object + *(s16 *)(object + 0x22) * 2 + 0x19) = 0;
 
     {
-        u32 *behaviorFn = &D_08671BB0;
+        u32 *behaviorFn = &gMainObjTimerCallback;
         u8 *args = object + 0x18;
         sub_080C31E4(args, object + 0x22, (void *)*behaviorFn);
         {

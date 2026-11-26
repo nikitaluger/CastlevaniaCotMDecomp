@@ -13,7 +13,7 @@ struct GlobalTarget {
     u32 targetX;
     u32 targetY;
 };
-extern struct GlobalTarget D_02025FF0;
+extern struct GlobalTarget gMainWorkspace;
 
 void sub_08040908(void *entity) {
     void *gfx;
@@ -36,8 +36,8 @@ void sub_08040908(void *entity) {
 
     if (*(s32 *)((u8 *)entity + 0x8C) != 0) {
         angleVal = *(void **)((u8 *)entity + 0x6C);
-        targetAngle = sub_08005910(D_02025FF0.targetY - *(s32 *)((u8 *)motion + 0x0C),
-                                   D_02025FF0.targetX - *(s32 *)((u8 *)motion + 0x08));
+        targetAngle = sub_08005910(gMainWorkspace.targetY - *(s32 *)((u8 *)motion + 0x0C),
+                                   gMainWorkspace.targetX - *(s32 *)((u8 *)motion + 0x08));
         turnDir = sub_0801473C(angleVal, targetAngle);
         turnDir = turnDir << 9;
         newAngle = *(s32 *)((u8 *)entity + 0x6C);

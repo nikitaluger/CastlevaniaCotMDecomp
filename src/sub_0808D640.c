@@ -1,5 +1,5 @@
 extern void sub_080C2E68(void *, void *, u32);
-extern u8 D_02021E90[];
+extern u8 gCameraState[];
 
 /* Build the option mask stored at out+0x38: OR the bit values {1,2,4,8} from
  * a table into 0x30 for each of four global flag words whose 0x2000 bit is
@@ -14,7 +14,7 @@ void sub_0808D640(void *out) {
 
     sub_080C2E68(optionBits, (void *)0x080F3E2C, 4);
     i = 0;
-    state = D_02021E90;
+    state = gCameraState;
     disableMask = 0x80 << 6;
     flag = (u16 *)(state + (0x93 << 5));
     do {

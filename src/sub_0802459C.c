@@ -1,6 +1,6 @@
-extern void sub_08011368(s32, void *, s32, s32);
+extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BB0[];
+extern s32 gMainObjTimerCallback[];
 
 struct Control { u16 timer; };
 
@@ -16,14 +16,14 @@ void sub_0802459C(void *arg0)
   struct Control *control = (struct Control *)(state + 0x48);
   s32 *stepHandler;
   long long countdown;
-  sub_08011368(gfx, anim, 3, 0);
+  setAnimationFrame(gfx, anim, 3, 0);
   countdown = control->timer - 1;
   control->timer = countdown;
   if (((s16)countdown) < 0)
   {
     control->timer = 0;
     *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0) + 0x19) = 0;
-    stepHandler = D_08671BB0;
+    stepHandler = gMainObjTimerCallback;
     sub_080C31E4(obj + 0x18, obj + 0x22, *stepHandler);
   }
 }

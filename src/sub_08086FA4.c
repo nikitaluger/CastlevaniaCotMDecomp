@@ -10,9 +10,9 @@ struct S_02025FF0_Low {
     u32 sceneData;
     u32 sceneEnd;
 };
-extern struct S_02025FF0_Low D_02025FF0;
+extern struct S_02025FF0_Low gMainWorkspace;
 extern s32 D_0866F534[]; /* per-scene data block pointers */
-extern void *D_08671BB0;
+extern void *gMainObjTimerCallback;
 
 /* Script step: switch to the data block of the current scene, reset the scene
  * cursors and the actor's position, then advance the entity's script and tail
@@ -23,9 +23,9 @@ void sub_08086FA4(u8 *arg0) {
     u8 opcode;
     u8 *base18;
 
-    D_02025FF0.sceneCursor = 0;
-    D_02025FF0.sceneEnd = 0;
-    D_02025FF0.sceneData = D_0866F534[D_02025FF0.sceneIndex - 1];
+    gMainWorkspace.sceneCursor = 0;
+    gMainWorkspace.sceneEnd = 0;
+    gMainWorkspace.sceneData = D_0866F534[gMainWorkspace.sceneIndex - 1];
     *(u32 *)(actor + 4) = 0;
 
     off = *(s16 *)(arg0 + 0x22);
@@ -34,7 +34,7 @@ void sub_08086FA4(u8 *arg0) {
     *(u8 *)(off + 0x19) = 0;
 
     {
-        void **fnaddr = &D_08671BB0;
+        void **fnaddr = &gMainObjTimerCallback;
         base18 = arg0 + 0x18;
         sub_080C31E4(base18, arg0 + 0x22, *fnaddr);
     }

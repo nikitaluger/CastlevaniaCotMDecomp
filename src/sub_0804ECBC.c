@@ -6,8 +6,8 @@ void sub_080C31E0(void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 struct Target { u8 unk0; u8 hitFlags; u8 pad[0x12]; u16 stateFlags; };
 struct Comp { u16 flags; };
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern u32 D_08671BDC;
 extern u32 D_0866E55C;
 
@@ -81,8 +81,8 @@ void sub_0804ECBC(void *self) {
         u8 *p2;
         t = *(struct Target **)((u8 *)comp + 0x28);
         t->stateFlags = 0;
-        pt = D_02021E90;
-        pb = D_02025FF0;
+        pt = gCameraState;
+        pb = gMainWorkspace;
         pb += 0x18A8;
         idx = ((u32)*pb + 1) * 0x40;
         p1 = pt + 0x1278;

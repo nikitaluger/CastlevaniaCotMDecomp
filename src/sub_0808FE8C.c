@@ -2,8 +2,8 @@ extern void sub_080113A8(void *, void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern u8 *sub_08016238(u8 *);
 extern s32 sub_080C31E0(s32, s32);
-extern u8 D_02021E90[];
-extern u8 D_02025FF0[];
+extern u8 gCameraState[];
+extern u8 gMainWorkspace[];
 extern s16 D_081003F0[];
 extern u8 D_0866F948[];
 struct SpriteFlag { u8 flag; };
@@ -90,8 +90,8 @@ void sub_0808FE8C(u8 *entity)
     {
       sub_080113A8(sprite, animTrack);
     }
-    coordTable = D_02021E90;
-    cameraIndex = D_02025FF0;
+    coordTable = gCameraState;
+    cameraIndex = gMainWorkspace;
     cameraIndex += 0x18A8;
     coordOffset = (((u32) (*cameraIndex)) + 1) * 0x40;
     xBase = coordTable + 0x1278;

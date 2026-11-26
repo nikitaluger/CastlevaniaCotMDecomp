@@ -7,7 +7,7 @@ extern s32 sub_080C36E4(s32, s32);
 
 /* Global frame counter; this system reads it at offset 0x1898 to phase effects. */
 struct FrameState { u8 pad[0x1898]; s32 value; };
-extern struct FrameState D_02025FF0;
+extern struct FrameState gMainWorkspace;
 
 /* Spawns a visual effect around an entity's origin using fixed-point sine
  * phases and a frame-driven spread, then removes the entity once its indexed
@@ -27,16 +27,16 @@ void sub_08095754(u8 *entity) {
     origin = *(u8 **)(entity + 0x3C);
     posX = *(s32 *)(origin + 0) + (sub_0800583C(0x10000) << 4);
     posY = *(s32 *)(origin + 4) + sub_0800583C(0x10000) * 14;
-    frame = D_02025FF0.value;
+    frame = gMainWorkspace.value;
     rounded = frame;
     if (frame < 0) rounded = frame + 3;
     frameMod4 = frame - ((rounded >> 2) << 2);
     posYFinal = posY + ((frameMod4 - 1) * 3) * 0x80000 + 0x180000;
     sine = sub_08005820(0x2000);
-    spread = sub_080C36E4(D_02025FF0.value, 5) - 2;
+    spread = sub_080C36E4(gMainWorkspace.value, 5) - 2;
     spreadX = (sine + 0x4000) * spread;
     spreadY = 0x8000 - sub_08005820(0x20000);
-    frameParity = D_02025FF0.value;
+    frameParity = gMainWorkspace.value;
     if ((frameParity & 1) == 0) {
         sub_080918B0(posX, posYFinal, spreadX, spreadY, 0x16C1,
             (s16)(((s32)(frameParity + (s32)((u32)frameParity >> 31)) >> 1) - (((((s32)(frameParity + (s32)((u32)frameParity >> 31)) >> 1) + (s32)((u32)(frameParity + (s32)((u32)frameParity >> 31)) >> 31)) >> 1) << 1) + 1));
