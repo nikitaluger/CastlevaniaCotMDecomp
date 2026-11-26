@@ -50,7 +50,7 @@ extern struct S_02021E90_2E gCameraState;
 struct Attr16 { u16 f0; s16 motion; };
 struct Attr14 { u16 attr0; u16 attr1; u16 attr2; u8 _6[0xE]; };
 extern u8 gSpriteKindTable[];
-extern u16 gKind29LayerAttrs[];
+extern u16 D_080CEB08[];
 extern u8 gSpriteAnimDataTable[];
 extern void *allocSpriteObject(void);
 extern s32 allocWorkSlot(u8 *, s32, s32, s32);
@@ -67,7 +67,7 @@ extern u32 gMainObjTimerCallback;
 
 /* Builds an entity's graphics from its spawn parameters: allocates the sprite
  * and state, fills a sprite layer, positions the sprite and updates the entity. */
-void spawnKind29ScriptSprite(struct Entity *arg0) {
+void sub_0802E27C(struct Entity *arg0) {
     void *spawnParams;
     u8 *sprite;
     struct GfxState *state;
@@ -108,10 +108,10 @@ void spawnKind29ScriptSprite(struct Entity *arg0) {
     one = 1;
     layer3->byte3 = one;
     state->layer->attr0 = ((struct Attr14 *)attrTable)[state->spriteType].attr0;
-    state->layer->attr1 = gKind29LayerAttrs[0];
-    state->layer->attr2 = gKind29LayerAttrs[1];
-    state->layer->attr3 = gKind29LayerAttrs[2];
-    state->layer->attr4 = gKind29LayerAttrs[3];
+    state->layer->attr1 = D_080CEB08[0];
+    state->layer->attr2 = D_080CEB08[1];
+    state->layer->attr3 = D_080CEB08[2];
+    state->layer->attr4 = D_080CEB08[3];
     state->layer->attr5 = ((struct Attr14 *)attrTable)[state->spriteType].attr2;
     state->layer->sprite = (u32)sprite;
     state->layer->flags14 = 0;

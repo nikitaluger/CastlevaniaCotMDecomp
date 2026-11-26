@@ -1761,6 +1761,17 @@
     "-O2",
     "-fno-strength-reduce"
    ]
+  },
+  "189052:134406780": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "spawnKind29ScriptSprite",
+   "vram": 134406780
   }
  },
  "instructions": "",
@@ -1889,7 +1900,8 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h"
+  "local_source_8589938934": "common_local_source_8589938934.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7010,7 +7022,7 @@
   "spawnKind29ScriptSprite": {
    "vram": 134406780,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": true
+   "readable": false
   },
   "sub_0802E4A8": {
    "vram": 134407336,

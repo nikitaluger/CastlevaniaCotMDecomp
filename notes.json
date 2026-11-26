@@ -7072,14 +7072,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind29ScriptSprite",
-  "text": "Released because its agent stopped (it failed 5 times in a row, each soon after it started: the session ended without compiling anything (its messages are in its details)); its attempts are kept.",
-  "by": "api-gemma4-e4b-1",
-  "created_at": 1795683533.9319875,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0808FAC8",
   "text": "Best score 1000 (79%), but structurally only ~4 real differences; 4 extra insns come from using 5 callee-saved regs vs target's 4. Target register plan: r5=arg0, r7=*(a+0x38), r6=*(a+0x3C) (live across calls), r4=r6+0x18 (short-lived, REUSED as zero later via `movs r4,#0` for the final strb). Mine swaps the last two: r4=0x3C ptr (still live at the end), r6=+0x18 ptr, so the zero needs a 5th callee-saved reg r8 -> extra `push {r4,r5,r6,r7,lr}; mov r7,r8; push {r7}` and `mov r8,r0` (reuses sub_0808FBB4's 0 result), `mov r1,r8` at the strb, plus extra prologue/epilogue = +4 insns. Need an agbcc trick to get r4=short-lived +0x18 pointer and r6=long-lived 0x3C pointer. Also table read: target `ldr r1,=0x081003AC; ldr r0,[r6]; lsls #2; adds r1,#2; adds r0,r0,r1; movs r1,#0; ldrsh r2,[r0,r1]` \u2014 my `u8 *base=(u8*)0x081003AC+2` folds +2 into the literal 0x081003AE (missing `adds r1,#2` and the literal-load/index-load order is reversed); a struct `{u8 pad[2]; s16 v;}` array folds +2 into the ldrsh offset instead. Tried: literal+2, global `extern u8 D_081003AC[]` +2, struct array, s32/u8/void* pointer types, struct-for-arg0, inline v into call \u2014 none changed the regalloc. register-asm pinning is rejected (no inline assembly allowed).",
   "by": "opencode-hy4-flash-free-1",
@@ -18556,14 +18548,6 @@
   "text": "Minimal only. Next agent use m2c draft.",
   "by": "opencode-free-1",
   "created_at": 1795683533.987712,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind29ScriptSprite",
-  "text": "Minimal only. Next agent use m2c draft.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9877605,
   "score_before": null,
   "score_after": null
  },
@@ -49228,14 +49212,6 @@
   "text": "Cannot get closer in this claim: best 3680 (84.7%) after 4 compiles, up from the 24005 stub. Running offset variable + named v + direct data-symbol access are recorded in add_note. Remaining ~49 regalloc/15 stack differences come from one extra callee-saved register push; matching it needs register-level control. Releasing; session complete (8 compiled claims).",
   "by": "opencode-hy4-flash-free-9",
   "created_at": 1795683534.1418302,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind29ScriptSprite",
-  "text": "Cannot get closer from C within this session: best 6780 (74.4%). After 11 compiles I exhausted the structural levers: OR-chain short-circuit (9880), shared table struct (6785), s16 f1C, early b+0x34, correct struct padding. Remaining diffs are deep agbcc regalloc (a->fAC r4 vs ours r7, result r7 vs ours r5, b r5 vs ours r4) plus literal-pool/branch offsets caused by 15 fewer instructions; declaration reorder had no effect. No further C lever found. Best source = compile #9.",
-  "by": "opencode-hy4-flash-free-5",
-  "created_at": 1795683534.1418667,
   "score_before": null,
   "score_after": null
  },
@@ -115288,14 +115264,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind29ScriptSprite",
-  "text": "Large function (278 insns), score 6780. Not a boundary case - deep regalloc wall. Previous agents exhausted structural levers. Releasing to target low-score boundary cases.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4652672,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080171A4",
   "text": "NOT compiled. 34-insn function at 0x080171A4, best 285. Ends with bx r0 + literal pool 0x08671BB0 (boundary element present) but is primarily a regalloc wall: target uses push {lr} with r2/r1 base/q regs; agbcc emits push {r4,lr} with r4 base. ~11 regalloc rows differ. Not a pure boundary case; would burn move-on budget. Releasing to check sub_0801534C for boundary pattern.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -123948,14 +123916,6 @@
   "text": "No C step remains: score 10 is a proven permanent agbcc -O1 commutative-add destination tie-break (44/45 instructions byte-exact; only the row-base add destination differs), with ~870 prior attempts, -O1 confirmed optimal and register asm banned. Not not_c, not hand asm, not a boundary case. Best source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5087845,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind29ScriptSprite",
-  "text": "MATCHED (278 insns, 7 compiles) by rebuilding from matched sibling sub_08053174's exact C skeleton, not the old attempt. Recipe: (1) P struct: f24 at 0x24, f28(struct E*) at 0x28, f48 at 0x48 \u2014 inserting a pad array before u32 f24 shifts it to 0x28 (alignment) and breaks ~10 literal rows. (2) table D_080CB2B8 needs TWO views on one base: `struct{u16 f0;s16 f2;}`[0xCD].f2 for f18 (stride 4), and `struct{u16 f4;u16 f6;u16 fE;u8 _6[0xE];}`[f1C].f4/.fE (stride 0x14; f4 at +0, fE at +4). (3) the big OR expression must go into a u32 local (u16 adds lsls/lsrs truncation). (4) endgame: THREE distinct pointer locals q0/q1/r4 for the 3 recomputations of `arg0 + f22*2` \u2014 reusing one local collapses them and costs 4 insns; write `q = (u8*)(arg0->f22 * 2 + (u32)arg0)` (computed value FIRST) to get `adds r0,r0,r6` not `adds r0,r6,r0`. (5) `u32 *lit = &D_08671BB0;` (`extern u32 D_08671BB0;`) loads the literal early; `base2` load placed after `idx = r4[0]` gets `ldrb; ldr; lsls` order. (6) final 2-row reorder fixed by `e3 = r5->f28; one = 1; e3->f3 = one;` \u2014 forces the pointer load before the constant materialization.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5088215,
   "score_before": null,
   "score_after": null
  },
@@ -339155,5 +339115,45 @@
   "created_at": 1795708432.8188045,
   "score_before": 215,
   "score_after": 215
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "Released because its agent stopped (it failed 5 times in a row, each soon after it started: the session ended without compiling anything (its messages are in its details)); its attempts are kept.",
+  "by": "api-gemma4-e4b-1",
+  "created_at": 1795683533.9319875,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "Minimal only. Next agent use m2c draft.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9877605,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "Cannot get closer from C within this session: best 6780 (74.4%). After 11 compiles I exhausted the structural levers: OR-chain short-circuit (9880), shared table struct (6785), s16 f1C, early b+0x34, correct struct padding. Remaining diffs are deep agbcc regalloc (a->fAC r4 vs ours r7, result r7 vs ours r5, b r5 vs ours r4) plus literal-pool/branch offsets caused by 15 fewer instructions; declaration reorder had no effect. No further C lever found. Best source = compile #9.",
+  "by": "opencode-hy4-flash-free-5",
+  "created_at": 1795683534.1418667,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "Large function (278 insns), score 6780. Not a boundary case - deep regalloc wall. Previous agents exhausted structural levers. Releasing to target low-score boundary cases.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4652672,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind29ScriptSprite",
+  "text": "MATCHED (278 insns, 7 compiles) by rebuilding from matched sibling sub_08053174's exact C skeleton, not the old attempt. Recipe: (1) P struct: f24 at 0x24, f28(struct E*) at 0x28, f48 at 0x48 \u2014 inserting a pad array before u32 f24 shifts it to 0x28 (alignment) and breaks ~10 literal rows. (2) table D_080CB2B8 needs TWO views on one base: `struct{u16 f0;s16 f2;}`[0xCD].f2 for f18 (stride 4), and `struct{u16 f4;u16 f6;u16 fE;u8 _6[0xE];}`[f1C].f4/.fE (stride 0x14; f4 at +0, fE at +4). (3) the big OR expression must go into a u32 local (u16 adds lsls/lsrs truncation). (4) endgame: THREE distinct pointer locals q0/q1/r4 for the 3 recomputations of `arg0 + f22*2` \u2014 reusing one local collapses them and costs 4 insns; write `q = (u8*)(arg0->f22 * 2 + (u32)arg0)` (computed value FIRST) to get `adds r0,r0,r6` not `adds r0,r6,r0`. (5) `u32 *lit = &D_08671BB0;` (`extern u32 D_08671BB0;`) loads the literal early; `base2` load placed after `idx = r4[0]` gets `ldrb; ldr; lsls` order. (6) final 2-row reorder fixed by `e3 = r5->f28; one = 1; e3->f3 = one;` \u2014 forces the pointer load before the constant materialization.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5088215,
+  "score_before": null,
+  "score_after": null
  }
 ]
