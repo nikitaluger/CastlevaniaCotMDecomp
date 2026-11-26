@@ -18344,14 +18344,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActionEffect",
-  "text": "Placeholder only; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9869702,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "runActionStep",
   "text": "Placeholder only; releasing.",
   "by": "opencode-free-1",
@@ -340138,5 +340130,13 @@
   "score_before": 45,
   "score_after": 45,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a5676076c75f8891fbfc053321a608f0bd1c0d2d85fd65fb34481067a1245b06:08dfbc7b8c57a4e47e1ccff905743d692cd7a0e4d906ceeed4a0dab4eff50d9b"
+ },
+ {
+  "function": "spawnActionEffect",
+  "text": "Placeholder only; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9869702,
+  "score_before": null,
+  "score_after": null
  }
 ]

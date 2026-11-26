@@ -23,7 +23,7 @@ extern u32 gMainObjTimerCallback[];
 /* Spawn an animated effect from the free effect pool and attach it to the
  * parent's action state; configure one of three graphic variants according to
  * the action's effect kind, then advance the parent's animation step. */
-void spawnActionEffect(void *parent)
+void sub_0807536C(void *parent)
 {
     u8 *action = *(u8 **)((u8 *)parent + 0x6C);
     u8 *actionData = action + 4;
@@ -68,9 +68,9 @@ void spawnActionEffect(void *parent)
 
     switch (action[0x55])
     {
-    case ACTION_EFFECT_KIND_SMALL:
-        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_SMALL);
-        *(u16 *)(EFFECT + 0x18) = ACTION_EFFECT_ANIM_SMALL;
+    case 0x37: /* first graphic variant */
+        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), 0x47);
+        *(u16 *)(EFFECT + 0x18) = 0x33;
         {
             u16 v = 0x400;
             *(u16 *)(child + 4) = v;
@@ -79,11 +79,11 @@ void spawnActionEffect(void *parent)
         *(u16 *)(child + 8) = 0;
         *(u32 *)(child + 0x24) = (u32)D_0849DB88;
         sub_08003A6C(action + 0x20, 0, D_0849DBE8);
-        *(u32 *)(child + 0x1C) = ACTION_EFFECT_GFX_STANDARD;
+        *(u32 *)(child + 0x1C) = 0x80000004;
         break;
-    case ACTION_EFFECT_KIND_MEDIUM:
-        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_MEDIUM);
-        *(u16 *)(EFFECT + 0x18) = ACTION_EFFECT_ANIM_MEDIUM;
+    case 0x39: /* second graphic variant */
+        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), 0x64);
+        *(u16 *)(EFFECT + 0x18) = 0x34;
         *(u16 *)(child + 4) = 0x40;
         {
             u16 v = 0x1C0;
@@ -92,12 +92,12 @@ void spawnActionEffect(void *parent)
         *(u16 *)(child + 8) = 0;
         *(u32 *)(child + 0x24) = (u32)D_084A0780;
         sub_08003A6C(action + 0x20, 0, D_084A0838);
-        *(u32 *)(child + 0x1C) = ACTION_EFFECT_GFX_STANDARD;
+        *(u32 *)(child + 0x1C) = 0x80000004;
         *(u32 *)(actionData + 0x54) = 0;
         break;
-    case ACTION_EFFECT_KIND_LARGE:
-        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_LARGE);
-        *(u16 *)(EFFECT + 0x18) = ACTION_EFFECT_ANIM_LARGE;
+    case 0x3A: /* third graphic variant */
+        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), 0x8D);
+        *(u16 *)(EFFECT + 0x18) = 0x35;
         {
             u16 v = 0x400;
             *(u16 *)(child + 4) = v;
@@ -106,7 +106,7 @@ void spawnActionEffect(void *parent)
         *(u16 *)(child + 8) = 0;
         *(u32 *)(child + 0x24) = (u32)D_084A1A78;
         sub_08003A6C(action + 0x20, 0, D_084A1AF8);
-        *(u32 *)(child + 0x1C) = ACTION_EFFECT_GFX_LARGE;
+        *(u32 *)(child + 0x1C) = 0x80000006;
         break;
     }
 
