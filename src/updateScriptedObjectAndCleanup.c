@@ -40,7 +40,7 @@ struct ResultObj {
 
 /* Per-frame object update: when the work block requests cleanup, run the
  * object-list cleanup, then dispatch this object's script handler at +0x24. */
-void sub_08058D40(struct MainObj *arg0) {
+void updateScriptedObjectAndCleanup(struct MainObj *arg0) {
     struct SubObj *sub = (struct SubObj *)arg0->work;
     if (sub->cleanupFlag != 0) {
         sub_080161F0();

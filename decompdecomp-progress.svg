@@ -4760,7 +4760,7 @@
 <g><title>sub_08043AB0: {&#x27;matched&#x27;: 1}</title>
 <rect x="620.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08043B0C: {&#x27;matched&#x27;: 1}</title>
+<g><title>createChildEntitySprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="630.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08043CF8: {&#x27;matched&#x27;: 1}</title>
@@ -6125,13 +6125,13 @@
 <g><title>sub_080589A8: {&#x27;matched&#x27;: 1}</title>
 <rect x="370.000" y="410" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080589F0: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind32ScriptedSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="380.000" y="410" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08058D0C: {&#x27;matched&#x27;: 1}</title>
 <rect x="390.000" y="410" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08058D40: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateScriptedObjectAndCleanup: {&#x27;matched&#x27;: 1}</title>
 <rect x="400.000" y="410" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08058D60: {&#x27;matched&#x27;: 1}</title>

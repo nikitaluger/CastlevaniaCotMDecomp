@@ -80,7 +80,7 @@ void sub_080C31E4(void *, void *, u32);
 extern u8 gEffectGfxTable[];
 extern u16 D_080CF55C[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 D_080CF564[];
+extern u32 gChildSpriteKindTable[];
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
 extern u32 gMainObjTimerCallback;
@@ -110,7 +110,7 @@ void spawnKindIndexedEffect(struct EffectSpawnerEntity *actor)
   state = (struct EffectSpawnerWork *) actor->state;
   scratchBuf = ((u8 *) state) + 0x34;
   installUpdateHandler(actor, state, &sub_08014290);
-  state->kind = (s16) D_080CF564[actor->kindIndex];
+  state->kind = (s16) gChildSpriteKindTable[actor->kindIndex];
   state->x = actor->x;
   state->y = actor->y;
   state->direction = actor->direction;

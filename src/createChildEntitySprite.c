@@ -13,8 +13,8 @@ extern void sub_08014290(void);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 gSpriteAnimDataTable[];
-extern u8 D_080CF564[];
-extern u8 D_080CF554[];
+extern u8 gChildSpriteKindTable[];
+extern u8 gChildSpriteLayerAttrs[];
 extern u32 gMainObjTimerCallback[];
 
 /* Extra data record allocated for the entity. */
@@ -40,7 +40,7 @@ struct ObjFlags { u8 pad[2]; u16 flags; };
 /* Creates and initialises a child entity: allocates its graphics and
  * animation records, wires up animation data and an extra data record,
  * places it in the world and advances its initial state callback. */
-void sub_08043B0C(u8 *self) {
+void createChildEntitySprite(u8 *self) {
     u8 *gfxObj;
     struct Anim *anim;
     u8 *animData;
@@ -62,7 +62,7 @@ void sub_08043B0C(u8 *self) {
     anim = *(struct Anim **)(self + 0x3C);
     animData = (u8 *)anim + 0x34;
     installUpdateHandler(self, (u8 *)anim, (void *)sub_08014290);
-    stackTable = D_080CF564;
+    stackTable = gChildSpriteKindTable;
     {
         s32 stacked = *(s16 *)(stackTable + *(u8 *)(self + 0x4C) * 4);
         initWorkStateForKind(self, gfxObj, (u8 *)anim, entry, stacked);
@@ -74,7 +74,7 @@ void sub_08043B0C(u8 *self) {
     } else {
         ((struct ObjFlags *)gfxObj)->flags |= 0x10;
     }
-    paramTable = D_080CF554;
+    paramTable = gChildSpriteLayerAttrs;
     extra = allocEffectPart();
     anim->extra = extra;
     if (extra == NULL) goto fail;
