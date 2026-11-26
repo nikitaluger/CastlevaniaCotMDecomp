@@ -18504,14 +18504,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind69ScriptSprite",
-  "text": "Only minimal compile done; full implementation not attempted this session due to size/time. Next agent should derive from m2c draft.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9875743,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "spawnFixedEffectSprite",
   "text": "Minimal only. Next agent use m2c draft.",
   "by": "opencode-free-1",
@@ -49088,26 +49080,10 @@
   "score_after": null
  },
  {
-  "function": "spawnKind69ScriptSprite",
-  "text": "sub_0802EE94 best = 3178 (88.0%) using the matched-sibling sub_0805AE9C template: a single OR-chain `if ((obj==NULL) || (assignments..., r5==NULL) || (...) || (...))` with comma expressions, instead of separate gotos (13527 -> 5663), plus sub_08011408 declared with FIVE params so the 5th (`one`) goes on the stack and the 4th is the loaded *(u32*)(r5+0x48) (5663 -> 3178). Reverting the OR-chain or the 5-arg prototype regresses badly. The table-index expression `((0x69<<4)+(0xD2<<1))+2` should stay as a folded literal (3893 when written via r5->f1C). Remaining: 32 operand (branch offsets), 23 regalloc, 7 missing (literal pools).",
-  "by": "opencode-hy4-flash-free-9",
-  "created_at": 1795683534.1413283,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000DE0",
   "text": "Score-245 wall (79.5%) confirmed: all 12 real body instructions byte-exact and in order; only diff is systemic agbcc -mthumb-interwork leaf prologue (push {lr}/pop {r0}; bx r0) vs ROM bare bx lr, shifting branch offsets by 2. ~29 prior attempts + all flag variants agree unfixable from C. Needs frameless-branchy-leaves toolchain change. Best source retained. Waits for sub_080016C4.",
   "by": "opencode-hy4-flash-free-3",
   "created_at": 1795683534.1413662,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind69ScriptSprite",
-  "text": "Cannot get closer in this claim: 4 compiles, best 3178 (88.0%). The table-index and register-allocation details remaining require per-instruction scheduling control that C edits here cannot achieve (tried direct literal, r5->f1C-based expression; both worse). Full reconstruction and the two decisive fixes are preserved in add_note. Releasing.",
-  "by": "opencode-hy4-flash-free-9",
-  "created_at": 1795683534.1414027,
   "score_before": null,
   "score_after": null
  },
@@ -114800,14 +114776,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind69ScriptSprite",
-  "text": "Regalloc/literal-pool wall at 3178 (88.0%): OR-chain and 5-arg prototype are the two decisive fixes (from matched sibling sub_0805AE9C). Remaining differences: branch offsets (beq #0x9a vs #0x90), literal pool addresses, table-index computation scheduling, register allocation (r4 vs sl). 4 previous compiles confirm ceiling; C edits cannot control per-instruction scheduling. Cannot get closer.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.463152,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0800971C",
   "text": "Register-coloring wall at best 410, not compiled by me this claim. 186/186 target insns byte-exact; sole diff is r2/r3 binding swap (target: base D_02021E90=r2, f146E=r3, adds r6,r2,#0, one=1 in r2; agbcc: base=r3, f146E=r2, one=r6) plus reordered movs r0,r0 literal-pool rows. ~31 prior attempts exhausted all C levers (declaration order, pointer types, operand swaps, struct helpers); register-asm banned (#354). Body: HUD/cursor update with s64 math (sub_080C1BF0/sub_080C1C58 + 64-bit literals), counter with unsigned >0x2EE compare, D_03000830 struct f04/f06/f08, D_08671BD0 indirect call via gaddr. Ordinary correct C, not hand asm, not not_c \u2014 only a compiler colouring change fixes. Best 410 source saved. Handing off to sub_0801534C (best 310, 320 insns) to check for end-boundary case.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -122588,14 +122556,6 @@
   "text": "sub_080A88EC best score 155 (96%). Base form: arg2+0xA4 -> u16* p_a4 forced to r4; arg1+2 -> u16 v in r3; 0x10 held in r5 (pushed callee-saved); ldrh v then movs r5,#0x10 then ands. Diff vs target: (1) target emits `movs r5,#0x10; adds r1,r5,#0; ands r1,r0` (copies mask 0x10 into r1 THEN ands v) \u2014 my `ands r0,r5` does it inline, missing the `adds r1,r5,#0` copy; target keeps *p_a4 in r0 and mask&v in r1 for `cmp r0,r1` (mine reverses: cmp r1,r0). (2) branch beq #0x2e vs #0x2c. (3) linker call targets: original BLs go to different symbols than sub_080A857C/sub_0801473C prototypes I declared \u2014 callee symbols may need renaming. Tried: mask-local `u16 m=0x10` -> score 290 (worse); left-first `a=*p_a4; if(a != (u16)(0x10&v))` -> 350 (worse). Best source kept at score 155. Regalloc/order only; logic/call sequence matches. Needs: force mask-copy-before-AND pattern (proposal #423-style fresh result local with constant first), correct callee symbol names, branch offset.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.5024185,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind69ScriptSprite",
-  "text": "Cannot get closer in pure C: 3178 (88.0%) is a known scheduling/regalloc/literal-pool ceiling (prior agents spent 8 attempts; local-index variant regressed to 4103). Structure, calls and control flow verified correct via matched sibling sub_0805AE9C template. Best source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5024598,
   "score_before": null,
   "score_after": null
  },
@@ -339215,5 +339175,45 @@
   "score_before": 690,
   "score_after": 690,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:bf03540c385309758ab19502359eda6a4a488b00b1fc5e6334d37be1c3537020:c814f091fac383262682c84a4dfd5a69c5abbcdafe54093d0caf18b5ad262135"
+ },
+ {
+  "function": "spawnKind69ScriptSprite",
+  "text": "Only minimal compile done; full implementation not attempted this session due to size/time. Next agent should derive from m2c draft.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9875743,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind69ScriptSprite",
+  "text": "sub_0802EE94 best = 3178 (88.0%) using the matched-sibling sub_0805AE9C template: a single OR-chain `if ((obj==NULL) || (assignments..., r5==NULL) || (...) || (...))` with comma expressions, instead of separate gotos (13527 -> 5663), plus sub_08011408 declared with FIVE params so the 5th (`one`) goes on the stack and the 4th is the loaded *(u32*)(r5+0x48) (5663 -> 3178). Reverting the OR-chain or the 5-arg prototype regresses badly. The table-index expression `((0x69<<4)+(0xD2<<1))+2` should stay as a folded literal (3893 when written via r5->f1C). Remaining: 32 operand (branch offsets), 23 regalloc, 7 missing (literal pools).",
+  "by": "opencode-hy4-flash-free-9",
+  "created_at": 1795683534.1413283,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind69ScriptSprite",
+  "text": "Cannot get closer in this claim: 4 compiles, best 3178 (88.0%). The table-index and register-allocation details remaining require per-instruction scheduling control that C edits here cannot achieve (tried direct literal, r5->f1C-based expression; both worse). Full reconstruction and the two decisive fixes are preserved in add_note. Releasing.",
+  "by": "opencode-hy4-flash-free-9",
+  "created_at": 1795683534.1414027,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind69ScriptSprite",
+  "text": "Regalloc/literal-pool wall at 3178 (88.0%): OR-chain and 5-arg prototype are the two decisive fixes (from matched sibling sub_0805AE9C). Remaining differences: branch offsets (beq #0x9a vs #0x90), literal pool addresses, table-index computation scheduling, register allocation (r4 vs sl). 4 previous compiles confirm ceiling; C edits cannot control per-instruction scheduling. Cannot get closer.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.463152,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind69ScriptSprite",
+  "text": "Cannot get closer in pure C: 3178 (88.0%) is a known scheduling/regalloc/literal-pool ceiling (prior agents spent 8 attempts; local-index variant regressed to 4103). Structure, calls and control flow verified correct via matched sibling sub_0805AE9C template. Best source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5024598,
+  "score_before": null,
+  "score_after": null
  }
 ]
