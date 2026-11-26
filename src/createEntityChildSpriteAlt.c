@@ -62,7 +62,7 @@ extern u32 gMainObjTimerCallback;
  * frame table, fills a ChildSprite record from the sprite-definition tables,
  * places it using the shared coordinate table, and installs a new update
  * callback before advancing the entity's control slot. */
-void sub_0801EB34(struct Entity *entity)
+void createEntityChildSpriteAlt(struct Entity *entity)
 {
     u8 *obj;
     struct EntityState *state;

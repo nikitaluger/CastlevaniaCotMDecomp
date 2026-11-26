@@ -691,3 +691,9 @@ struct ActionCameraState {
 #define ACTION_EFFECT_ANIM_LARGE   0x35
 #define ACTION_EFFECT_GFX_STANDARD 0x80000004
 #define ACTION_EFFECT_GFX_LARGE    0x80000006
+
+/* Constants used while an entity creates its child sprite. */
+#define CHILD_SPRITE_WORK_SLOT_SIZE 0x4C
+#define CHILD_SPRITE_GFX_ID        0x8000000A
+#define CHILD_SPRITE_ANIM_STEP     0x29
+#define CHILD_SPRITE_READY         0x1000

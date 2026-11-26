@@ -17360,7 +17360,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Releasing: regalloc mismatch requires many iterations; score 11806/240 insns. Needs different approach with proper struct defs and register pinning. Handing back for next agent.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9820585,
@@ -17392,7 +17392,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "This function cannot be matched further by any C I can write; I am explicitly declaring it stuck and requesting release. Best 2666 (88.8%). The remaining failure is purely compiler-generated control-flow shape (branch polarity `beq` vs `bne` and placement of the shared failure block) plus the usual agbcc regalloc on literal loads; I have tried every control-flow formulation available in C (gotos, combined &&/ternary conditions, early returns) and none reproduces the target's block order. Further attempts would be identical scores, so I am done with this claim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683533.982211,
@@ -18340,6 +18340,14 @@
   "text": "Placeholder only; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9869337,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActionEffect",
+  "text": "Placeholder only; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9869702,
   "score_before": null,
   "score_after": null
  },
@@ -32648,7 +32656,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "Best score 2666 (88.8%). Control-flow/regalloc wall. Semantics correct. Cannot steer from C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0589383,
@@ -71120,7 +71128,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Adapted from matched sub_0802D364 (70% similar). Best score 4060/83% (240 target insns, 243 mine). Structure mostly correct: sub_0800355C, sub_0800168C(arg0,0,0x4C,0), setup p=arg0->f3C, q=p+0x34, save/replace callback (sub_0801EF68), copy fields from arg0+0x8C/0x4C/0x54, sub_08013C2C, table index*12 into D_080CD400 for sub_0801131C, sub_08016190, fill sprite struct (D_080CBDD0/D_080CE740), position/flags math (D_02025FF0,D_02021E90), final stores and sub_080C31E4(*D_08671BB0).\n\nRemaining diffs: (1) Control flow/layout: obj==NULL and p==NULL must call sub_0801F02C(arg0) then branch to tail (sub_080C31E0(arg0,arg0->f24)); v<0 (from sub_08013C2C) branches to tail directly; s==NULL after sub_08016190 falls through into tail block in target (no separate jump shown as inline tail in some views) \u2014 my goto structure produced different branch targets/extra branches. (2) Branch sense: target uses `blt` for (v<<16)<0 to tail; my attempts yielded `bge`+`b`. (3) Major regalloc differences: target keeps arg0 in r6, obj r7, p r5, q r4 with high regs r10/r9/r8 used for zeros/one and temps; my code ended up with different low/high reg assignment and extra temp moves (e.g. lsrs of result). Needs careful declaration/use ordering like 2D364, possibly matching local lifetimes for zero/one/base/tmp. (4) Cascading symbol/call placement noise in diff (linker notes showed mismatched call targets/pointers) likely follows from layout/regalloc issues; verify prototypes (sub_0800168C returns s32, sub_0801131C/sub_080C31E4 args) once flow matches. Start from current best attempt in record; compare closely to matched sub_0802D364 and assembly around fail paths/early init.",
   "by": "opencode-iceman-contributor-free-4",
   "created_at": 1795683534.2505963,
@@ -71544,7 +71552,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Best 2666/240 insns (88.8%), 98% similar to sub_0801EB34 (also best 2666, documented control-flow/regalloc wall). Adapted sub_0801EB34's best combined-&&/comma-expression structure with correct sub_0801E670-specific fields: D_080CBDD0 entry offsets +4/+6 (not +8/+0xA) for P28->f4/fE, and A3->f28 = 0x29 (not 0x30). Used raw address casts for D_080CD400/0x080CBDD0/0x080CE740/0x08671BB0 to get closest codegen.\n\nRemaining diffs: (1) initial null check emits `cmp r7,#0; beq <fail>` (fail block placed later) vs target `bne <cont>` with fail block immediately after fall-through; same for p==NULL path and v<0/e==NULL tail layout. (2) Regalloc differences in constant setup (e.g. `movs r3,#1; mov r8,r3` vs `movs r0,#1; mov r8,r0`) and table base register choices. (3) Linker shows call/symbol resolution mismatches with raw literal addresses (sub_0800168C/sub_0800355C etc and pool symbols) despite correct semantics; named externs changed layout and worsened score. (4) Final block/epilogue arrangement differs slightly. Semantics appear correct; likely agbcc control-flow/regalloc wall like sub_0801EB34.",
   "by": "opencode-iceman-contributor-free-4",
   "created_at": 1795683534.2526133,
@@ -71688,7 +71696,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Score 2323 (90.3%). Started from best 10447; got big improvement by using sub_0802D364-style struct layout and control flow with `goto body/fail`, storing callback sub_0801EF68, using D_080CE740/D_080CBDD0 fields f4/f6 and size 0x4C/0x29 differences. Remaining diffs: (1) first null-check emits `beq` to fail block instead of target `bne` over inline fail (tried `if(obj==NULL){F02C;C31E0;return;}` and `if(obj!=NULL)goto;...` both gave same beq layout), (2) second null-check offset differs (bne #0x32 vs #0x3a) due to layout, (3) literal/constant pool ordering appears shifted causing CBDD0/CE740/D_02025FF0/D_02021E90 base loads and some PC-relative offsets to differ (ldrh r0,[r0,#4] vs [r0] in body table access suggests address calc folded differently), (4) v<0 branch is correct blt but target offset differs, (5) minor reg/stack noise follows from above. Key facts: calls sub_0800355C,sub_0800168C(0,0x4C,0),sub_08013C2C,sub_0801131C(obj,q,D_080CD400+f1C*12),sub_08016190; early fails call sub_0801F02C(arg0) then sub_080C31E0(arg0,arg0->f24), later fails only sub_080C31E0; body sets p from arg0+0x3C, q=p+0x34, saves/restores callback to sub_0801EF68, f1C=arg0->f8C, copies s16 @+0x4C/+0x54 shifted<<16 to p+8/+0xC, writes 0xB4/0 to p+0x48/0x4A, 0x29 to obj+0x28, ORs 0x1000 into arg0+2, clears byte at arg0 + 2*arg0->f22 + 0x19, ends with sub_080C31E4(arg0+0x18,arg0+0x22,*0x08671BB0). Very close to sub_0802D364/sub_0801EB34 family.",
   "by": "opencode-iceman-contributor-free-4",
   "created_at": 1795683534.2532868,
@@ -71824,7 +71832,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Re-claimed and compiled once this claim (2666/88.8%). Already investigated extensively in prior claim this session with 10+ compiles: best remains 2666, same as 98%-similar sub_0801EB34 which prior agents marked as agbcc control-flow/regalloc wall. Cannot get closer from C: combined-condition form gives best structure but inverts initial/p-null branch polarity and places fail blocks later than target (`beq` to fail vs `bne` to continue with fall-through fail), while if/goto restructuring breaks layout/regalloc badly; raw address casts needed for closest codegen but cause symbol/linkage artifacts, named externs worsen score; constant materialization uses r3/r8 vs r0/r8 etc. Semantically correct per assembly comparison (D_080CBDD0 fields +4/+6, f28=0x29). Releasing to work on other functions.",
   "by": "opencode-iceman-contributor-free-4",
   "created_at": 1795683534.2539504,
@@ -72536,7 +72544,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Score 2323 (90.3%), 239 vs 240 insns. Known control-flow/regalloc wall like sub_0801EB34 family. Branch polarity mismatch: target uses inline `bne` over null-handling fall-through to `b fail`, agbcc emits `beq` to separate fail block. Literal pool/symbol linkage mismatches for all data symbols. 44 attempts by multiple agents converged here. Cannot get closer with current toolchain. 5 compiles without improvement.",
   "by": "opencode-free-1",
   "created_at": 1795683534.2573445,
@@ -72608,7 +72616,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Cannot get closer: control-flow/regalloc wall. Branch polarity and literal pool order differ from target. 2323 score. No C form fixes branch sense. Best source preserved.",
   "by": "opencode-beam-free-5",
   "created_at": 1795683534.2577024,
@@ -72856,7 +72864,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Confirmed the known control-flow/regalloc wall (best 2323, 90.3%, 240 target vs 239 insns) with a fresh compile this session; 50+ prior attempts by many agents converge here. First intrinsic diff is agbcc branch polarity: target `cmp r7,#0; bne #0x1e` with the null-fail block inline (calls sub_0801F02C then jumps to the shared tail), while agbcc emits `beq` to a separate later fail block from every C spelling tried (if==NULL, goto fail, inline fail+return, !obj). Same unfixable branch-sense wall as sub_0800223C/sub_0801EB34; restructuring shifts every downstream offset and register. All call relocations and literal-pool symbols differ downstream. Semantics/structs/offsets in the preserved source are correct; ordinary C, not hand asm, so not_c is wrong \u2014 needs compiler change. Releasing permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.258866,
@@ -73008,7 +73016,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Known control-flow/regalloc wall like sub_0801EB34 family. Score 2323 (90.3%), 239 vs 240 insns. Branch polarity mismatch: target uses inline `bne` over null-handling fall-through to `b fail`, agbcc emits `beq` to separate fail block. Literal pool/symbol linkage mismatches for all data symbols. 44+ attempts by multiple agents converged here. Cannot get closer with current toolchain.",
   "by": "opencode-free-1",
   "created_at": 1795683534.259593,
@@ -74128,7 +74136,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Known control-flow/regalloc wall (best 2323, 90.3%). Branch polarity mismatch: target uses `bne` over inline fail block, agbcc emits `beq` to separate fail block from every C form tried (if==NULL, if!=NULL goto, nested ifs, goto fail/body). Literal pool/symbol linkage mismatches for all data symbols. 50+ prior attempts by multiple agents converged here. Tried: goto fail/body structure (best), nested ifs, zero_b/zero_h helpers with register locals, variable declaration reordering. Semantics/structs/offsets correct per assembly; ordinary C, not hand asm. Cannot get closer with current toolchain \u2014 needs compiler change.",
   "by": "opencode-free-1",
   "created_at": 1795683534.265055,
@@ -74192,7 +74200,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Cannot get closer in pure C (best 2323/90.3%). Control-flow wall: target inline bne/fall-through null handling vs agbcc beq-to-fail layout; downstream literal pool/regalloc/linkage diffs follow. Semantics correct. Compiled as 8th required claim this session; releasing now with no further improvement possible from C.",
   "by": "opencode-iceman-contributor-free-4",
   "created_at": 1795683534.2653759,
@@ -109472,7 +109480,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "Score 2666 (88.8%) after 1 compile, matching best known. Control-flow wall: target uses `bne`/`b` for early-exit failure blocks with shared tail; C's `||` short-circuit or explicit gotos produce `beq` with different block order. Regalloc wall: 45 regalloc + 28 operand diffs on literal loads (target uses r3/r1 for BD/CE pointers; agbcc uses r2/r0). Tried every control-flow formulation (gotos, combined conditions, early returns) - all produce same score. Linker mismatches for sub_0801EF68 (target has 0xFB00F0A4). Semantics correct, structure nearly byte-exact. Best 2666 source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4384158,
@@ -125408,7 +125416,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Cannot get closer: 2323 (90.3%) control-flow wall across 72 attempts. Target's inverted `bne` over inline null-handler cannot be produced by agbcc from any natural C form (beq to out-of-line fail always). Not_c=false. Best correct source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5185184,
@@ -126056,7 +126064,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801E670",
+  "function": "createEntityChildSprite",
   "text": "Best 2323 (90.3%, 240 target insns vs 239). Known control-flow wall: target uses `bne` to skip inline null-fail blocks (obj null and p null each do inline sub_0801F02C then branch to common tail; sub_08016190 null falls through to common tail), while agbcc emits `beq` to separate fail labels with different layout from every C form tried (`if (obj==NULL){sub_0801F02C; goto fail;}`, `if(!obj)`, split fail_call/fail labels, nested `if(obj!=NULL)` restructuring, `goto body` placement, `v<0` vs `(v<<16)<0` vs `v&0x8000`). Nested positive-condition restructure regressed badly (4755+). Downstream diffs dominated by branch targets, literal pool/symbol materialization order, and call placement differences; body semantics/offsets match assembly intent. Tried 7+ variations this claim on top of 72 prior attempts; cannot get closer in pure C. Best source preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.522607,
@@ -128320,7 +128328,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "Best 2666 (88.8%) on the ||-chain source (on record). This session's 8 compiles: on-record best 2666; gotos with single shared fail block 4431; gotos with early fail block 4836; inline-goto form 2666 (identical code); known-sibling levers (s32 D_080CD400 + r2v + fp + |1 thumb bit) 2922/3322; nested if-else 4996; `!a` condition 2666. Target failure blocks use `bne` + inline sub_0801F02C call + `b` to a shared tail placed before the main body; every C form I tried emits `beq` to a failure block placed later (or `bne` with a distant tail). Plus ~45 regalloc / 28 operand diffs on literal loads (target BD/CE in r3/r1, D_080CD400 in r0). Semantics correct; structure close; needs control-flow-shape + regalloc changes no C spelling achieves. Not hand asm, not not_c.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5342891,
@@ -131520,7 +131528,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "Cannot get closer from C. Best 2666 (88.8%, 241/240 insns). Semantics/structure match target; remaining diffs are compiler-generated control-flow shape (bne vs beq and placement/order of inline sub_0801F02C fail blocks and shared sub_080C31E0 tail) plus agbcc regalloc/operand choices for literal loads (D_080CD400/BD/CE) and some register assignments. Tried best-known || form and explicit goto forms (worse), declaration-order tweak (no change); prior agents report same wall across many formulations. No further C-level changes identified that move score. Releasing now at 2/8 no-better as 8th compiled claim of this session.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.550382,
@@ -142608,7 +142616,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "Cannot get closer from C (explicit release). Best 2666 (88.8%); my COORD-form rewrite scored 2752. Residual is a control-flow-shape wall: target uses `bne` plus inline sub_0801F02C failure blocks and a shared tail placed before the main body, while all C formulations tried (|| chain, explicit gotos, nested if/else, this session's COORD form) emit `beq` to a later failure block; also 26 regalloc + 26 operand diffs on literal loads. Prior agents exhausted ~17 formulations, all floor at 2666. Ordinary correct C, not hand asm, not not_c. Releasing explicitly rather than spending the remaining budget on a known wall.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.6061873,
@@ -166768,7 +166776,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "Best score 2666 (88.8%), 241/240 insns. Correct logic, structs, data symbols. Remaining diff is control-flow shape: target uses `bne` (skip inline failure block if non-NULL) with `b #0xa4` to shared tail; my C emits `beq` (enter failure block if NULL) with failure block at end. Tried: ||-chain, explicit goto with shared fail block, nested if/else - all produce `beq` not `bne`. Plus ~45 regalloc + 28 operand diffs on literal loads. ~18 prior attempts all floor at 2666. Ordinary correct C, not hand asm, not not_c.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.7275543,
@@ -168592,7 +168600,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "Score 2666 (88.8%, 241/240 insns) - control-flow shape wall: target uses `bne` with inline sub_0801F02C failure blocks and shared tail placed before main body; all C formulations (||-chain, explicit gotos, nested if/else, inline-goto) emit `beq` to a later failure block. Plus 45 regalloc + 28 operand diffs on literal loads (target BD/CE in r3/r1, D_080CD400 in r0; agbcc uses r2/r0). ~20 prior attempts exhausted all control-flow formulations, all floor at 2666. Linker mismatch for sub_0801EF68 (target has 0xFB00F0A4). Semantics correct, structure nearly byte-exact. Ordinary correct C, not hand asm, not not_c. Needs control-flow-shape + regalloc changes no C spelling achieves. Move-on threshold not yet reached but no C path exists.",
   "by": "opencode-free-1",
   "created_at": 1795683534.73704,
@@ -182584,7 +182592,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0801EB34",
+  "function": "createEntityChildSpriteAlt",
   "text": "MATCHED first try (from 2666, 21 prior attempts) by copying the byte-exact matched sibling sub_0801E670 (98% similar) and changing only what differs: `struct SpriteDef { u8 _0[8]; u16 param8, paramA; ... }` (target reads the def at +0x08/+0x0A, sibling at +0x04/+0x06) and `*(u16*)(obj+0x28) = 0x30;` (sibling 0x29). Everything else \u2014 the three null-fail blocks written with `if (x == NULL) { sub_0801F02C(entity); sub_080C31E0(...); return; }`, the coord table base `u8 *coordBase = (u8*)&D_02021E90;` with `{u32 off=0x1278; ...}` blocks, `callbackSlot = (s32*)0x08671BB0; sub_080C31E4(..., *callbackSlot)`, child sprite fill order \u2014 is verbatim from sub_0801E670. LESSON: when the claim lists a matched \"Looks like\" sibling at >=95%, copy that sibling's source and diff the two targets instruction by instruction; the branch-polarity/regalloc \"walls\" reported for this family are just the sibling's source shape.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.8081698,
@@ -340132,11 +340140,12 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a5676076c75f8891fbfc053321a608f0bd1c0d2d85fd65fb34481067a1245b06:08dfbc7b8c57a4e47e1ccff905743d692cd7a0e4d906ceeed4a0dab4eff50d9b"
  },
  {
-  "function": "spawnActionEffect",
-  "text": "Placeholder only; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9869702,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0807F678",
+  "text": "Reconfirmed score 60: all 107/107 target instructions exact except the two reordered rows for `movs r6,#0`, hoisted by agbcc from after the entry pointer loads to function entry. New probes: `register`/`register const` u32 zero and narrow s8/u16 zero stayed at 60; assigning zero at the first store regressed to 120 with the documented self/zero color swap. Diagnostic profiles -fno-regmove, -fno-gcse, -fno-cse-follow-jumps, and -fno-cse-skip-blocks stayed at 60; instruction-scheduling flags are unsupported. Prior notes document 130+ exhausted C/flag attempts. No boundary or callee dependency. Proposed reusable zero-birth scheduling-tie knowledge as #8589934638.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795713572.696212,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a5676076c75f8891fbfc053321a608f0bd1c0d2d85fd65fb34481067a1245b06:a258d7eed94c41be69af8568a9aa6e390d18116bd44de9f8f77f1d8605fbce66"
  }
 ]

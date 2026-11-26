@@ -2417,7 +2417,7 @@
 <g><title>sub_0801E628: {&#x27;matched&#x27;: 1}</title>
 <rect x="810.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0801E670: {&#x27;matched&#x27;: 1}</title>
+<g><title>createEntityChildSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="20.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0801E864: {&#x27;matched&#x27;: 1}</title>
@@ -2435,7 +2435,7 @@
 <g><title>sub_0801EAEC: {&#x27;matched&#x27;: 1}</title>
 <rect x="70.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0801EB34: {&#x27;matched&#x27;: 1}</title>
+<g><title>createEntityChildSpriteAlt: {&#x27;matched&#x27;: 1}</title>
 <rect x="80.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0801ED28: {&#x27;matched&#x27;: 1}</title>
