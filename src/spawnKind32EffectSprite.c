@@ -6,7 +6,7 @@ extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void registerScriptObject(u8 *, s32);
 extern void sub_08058978(u8 *, struct Part *);
-extern void sub_080588E4(void);
+extern void updateKind32Effect(void);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
 
@@ -45,7 +45,7 @@ extern u8 gSpriteAnimDataTable[];
  * sub-effect, set up the animation from fixed tables, place it relative to the
  * camera, then advance the entity's animation step. The chained condition keeps
  * the original short-circuit order of the allocation and setup checks. */
-void sub_080584D0(struct Entity *entity) {
+void spawnKind32EffectSprite(struct Entity *entity) {
     u8 *sprite;
     struct Part *part;
     u8 *anim;
@@ -62,7 +62,7 @@ void sub_080584D0(struct Entity *entity) {
     animSlot = 0;
     if ((sprite == NULL) ||
         (entity->sprite = sprite, allocWorkSlot((u8 *)entity, 0, 0x48, 0), part = entity->part, part == NULL) ||
-        (anim = (u8 *)part + 0x34, part->script = *(u32 *)((u8 *)entity + 0x24), *(u32 *)((u8 *)entity + 0x24) = (u32)sub_080588E4,
+        (anim = (u8 *)part + 0x34, part->script = *(u32 *)((u8 *)entity + 0x24), *(u32 *)((u8 *)entity + 0x24) = (u32)updateKind32Effect,
          part->animId = 0x32, part->f18 = 1,
          part->x = entity->spawnX << 16, part->y = entity->spawnY << 16,
          animSlot = findKindIndex(0x32), part->animSlot = animSlot, ((s32)(animSlot << 16) < 0)) ||

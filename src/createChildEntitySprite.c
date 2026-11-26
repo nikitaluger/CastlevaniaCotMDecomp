@@ -17,67 +17,67 @@ extern u8 gChildSpriteKindTable[];
 extern u8 gChildSpriteLayerAttrs[];
 extern u32 gMainObjTimerCallback[];
 
-/* Extra data record allocated for the entity. */
+/* Effect layer allocated for the child sprite. */
 struct Extra {
-    u8 _0; u8 kind; u8 state; u8 subState;
-    u16 gfxIdx; u16 param6; u16 param8; u16 paramA; u16 paramC; u16 paramE;
-    u32 gfxObj;
+    u8 mode; u8 kind; u8 layer; u8 priority;                              /* 0x00-0x03 */
+    u16 gfxIndex; u16 anim0; u16 anim1; u16 anim2; u16 anim3; u16 palette; /* 0x04-0x0E */
+    u32 object;                                                          /* 0x10 */
 };
-/* Animation/actor record held at self+0x3C. */
+/* Work state held at self+0x3C. */
 struct Anim {
     u8 _0[8];
-    u32 x; u32 y;
+    u32 x; u32 y;                           /* 0x08, 0x0C */
     u8 _10[0x0C];
-    s16 animIndex;
+    s16 kind;                               /* 0x1C: sprite kind selecting the graphics */
     u8 _1E[0x0A];
-    struct Extra *extra;
+    struct Extra *layer;                    /* 0x28 */
 };
 struct Entry { u8 _0[4]; void *info; };
-struct GfxDef { u16 f0; u16 f2; u16 f4; u8 _6[0x0E]; };
+struct GfxDef { u16 gfxIndex; u16 _2; u16 palette; u8 _6[0x0E]; };
 extern struct GfxDef gSpriteKindTable[];
 struct ObjFlags { u8 pad[2]; u16 flags; };
 
-/* Creates and initialises a child entity: allocates its graphics and
- * animation records, wires up animation data and an extra data record,
- * places it in the world and advances its initial state callback. */
+/* Create and initialise a child entity's sprite, work state and effect layer:
+ * select its kind from the variant table, apply the facing flag, place it in
+ * screen space from the camera scroll, mark it ready and dispatch its script. */
 void createChildEntitySprite(u8 *self) {
-    u8 *gfxObj;
-    struct Anim *anim;
-    u8 *animData;
-    struct Extra *extra;
-    void *entry;
-    s32 zero;
-    u8 *stackTable;
-    u8 *paramTable;
-    u8 *pt, *pb, *base1, *base2;
-    u32 idx;
+    u8 *sprite;
+    struct Anim *work;
+    u8 *animator;
+    struct Extra *layer;
+    void *source;
+    s32 zeroByte;
+    u8 *kindTable;
+    u8 *layerAttrs;
+    u8 *camera, *frameCounterPtr, *scrollX, *scrollY;
+    u32 scrollIdx;
 
-    entry = *(void **)(self + 0xAC);
-    gfxObj = allocSpriteObject();
-    if (gfxObj == NULL) goto fail;
-    *(void **)(self + 0x38) = gfxObj;
+    source = *(void **)(self + 0xAC);
+    sprite = allocSpriteObject();
+    if (sprite == NULL) goto fail;
+    *(void **)(self + 0x38) = sprite;
     allocWorkSlot(self, 0, 0x4C, 0);
     if (*(u32 *)(self + 0x3C) == 0) goto fail;
-    *(u32 *)(gfxObj + 0x1C) = 0x8000000A;
-    anim = *(struct Anim **)(self + 0x3C);
-    animData = (u8 *)anim + 0x34;
-    installUpdateHandler(self, (u8 *)anim, (void *)sub_08014290);
-    stackTable = gChildSpriteKindTable;
+    *(u32 *)(sprite + 0x1C) = 0x8000000A;
+    work = *(struct Anim **)(self + 0x3C);
+    animator = (u8 *)work + 0x34;
+    installUpdateHandler(self, (u8 *)work, (void *)sub_08014290);
+    kindTable = gChildSpriteKindTable;
     {
-        s32 stacked = *(s16 *)(stackTable + *(u8 *)(self + 0x4C) * 4);
-        initWorkStateForKind(self, gfxObj, (u8 *)anim, entry, stacked);
+        s32 kind = *(s16 *)(kindTable + *(u8 *)(self + 0x4C) * 4);
+        initWorkStateForKind(self, sprite, (u8 *)work, source, kind);
     }
-    initSpriteGraphics(gfxObj, animData, (s32)gSpriteAnimDataTable + *(s16 *)((u8 *)anim + 0x1C) * 0xC);
-    setAnimationFrame(gfxObj, animData, 0, 0);
-    if (*(u16 *)((u8 *)((struct Entry *)entry)->info + 6) == 0) {
-        *(u16 *)(gfxObj + 2) &= 0xFFEF;
+    initSpriteGraphics(sprite, animator, (s32)gSpriteAnimDataTable + *(s16 *)((u8 *)work + 0x1C) * 0xC);
+    setAnimationFrame(sprite, animator, 0, 0);
+    if (*(u16 *)((u8 *)((struct Entry *)source)->info + 6) == 0) {
+        *(u16 *)(sprite + 2) &= 0xFFEF;
     } else {
-        ((struct ObjFlags *)gfxObj)->flags |= 0x10;
+        ((struct ObjFlags *)sprite)->flags |= 0x10;
     }
-    paramTable = gChildSpriteLayerAttrs;
-    extra = allocEffectPart();
-    anim->extra = extra;
-    if (extra == NULL) goto fail;
+    layerAttrs = gChildSpriteLayerAttrs;
+    layer = allocEffectPart();
+    work->layer = layer;
+    if (layer == NULL) goto fail;
     goto body;
 
 fail:
@@ -85,50 +85,50 @@ fail:
     return;
 
 body:
-    extra->kind = 5;
-    anim->extra->state = 8;
-    anim->extra->subState = 1;
+    layer->kind = 5;
+    work->layer->layer = 8;
+    work->layer->priority = 1;
     {
-        zero = 0;
-        anim->extra->gfxIdx = gSpriteKindTable[*(s16 *)((u8 *)anim + 0x1C)].f0;
-        anim->extra->param6 = *(u16 *)(paramTable + 0);
-        anim->extra->param8 = *(u16 *)(paramTable + 2);
-        anim->extra->paramA = *(u16 *)(paramTable + 4);
-        anim->extra->paramC = *(u16 *)(paramTable + 6);
-        anim->extra->paramE = gSpriteKindTable[*(s16 *)((u8 *)anim + 0x1C)].f4;
+        zeroByte = 0;
+        work->layer->gfxIndex = gSpriteKindTable[*(s16 *)((u8 *)work + 0x1C)].gfxIndex;
+        work->layer->anim0 = *(u16 *)(layerAttrs + 0);
+        work->layer->anim1 = *(u16 *)(layerAttrs + 2);
+        work->layer->anim2 = *(u16 *)(layerAttrs + 4);
+        work->layer->anim3 = *(u16 *)(layerAttrs + 6);
+        work->layer->palette = gSpriteKindTable[*(s16 *)((u8 *)work + 0x1C)].palette;
     }
-    anim->extra->gfxObj = (u32)gfxObj;
+    work->layer->object = (u32)sprite;
     {
-        pt = gCameraState;
-        pb = gMainWorkspace;
-        pb += 0x18A8;
-        idx = ((u32)*pb + 1) * 0x40;
-        base1 = pt + 0x1278;
-        *(u32 *)(gfxObj + 0x14) = *(u32 *)((u8 *)anim + 0x08) - ((*(u32 *)(base1 + idx) + 0x8000) & 0xFFFF0000);
-        idx = ((u32)*pb + 1) * 0x40;
-        base2 = pt + 0x127C;
-        *(u32 *)(gfxObj + 0x18) = *(u32 *)((u8 *)anim + 0x0C) - ((*(u32 *)(base2 + idx) + 0xFFFF8000) & 0xFFFF0000);
+        camera = gCameraState;
+        frameCounterPtr = gMainWorkspace;
+        frameCounterPtr += 0x18A8;
+        scrollIdx = ((u32)*frameCounterPtr + 1) * 0x40;
+        scrollX = camera + 0x1278;
+        *(u32 *)(sprite + 0x14) = *(u32 *)((u8 *)work + 0x08) - ((*(u32 *)(scrollX + scrollIdx) + 0x8000) & 0xFFFF0000);
+        scrollIdx = ((u32)*frameCounterPtr + 1) * 0x40;
+        scrollY = camera + 0x127C;
+        *(u32 *)(sprite + 0x18) = *(u32 *)((u8 *)work + 0x0C) - ((*(u32 *)(scrollY + scrollIdx) + 0xFFFF8000) & 0xFFFF0000);
     }
     registerScriptObject(self, 0);
     {
-        u16 h = *(u16 *)(self + 2);
-        h |= 0x1000;
-        *(u16 *)(self + 2) = h;
+        u16 flags = *(u16 *)(self + 2);
+        flags |= 0x1000;
+        *(u16 *)(self + 2) = flags;
     }
-    *(u8 *)((u32)(*(s16 *)(self + 0x22) * 2) + (u32)self + 0x19) = (u8)zero;
+    *(u8 *)((u32)(*(s16 *)(self + 0x22) * 2) + (u32)self + 0x19) = (u8)zeroByte;
     {
-        u32 *wp = (u32 *)gMainObjTimerCallback;
-        u8 *slots = self + 0x18;
-        sub_080C31E4(slots, self + 0x22, *wp);
+        u32 *scriptOps = (u32 *)gMainObjTimerCallback;
+        u8 *scriptSlots = self + 0x18;
+        sub_080C31E4(scriptSlots, self + 0x22, *scriptOps);
         {
-            u8 *statePtr = (u8 *)((u32)(*(s16 *)(self + 0x22) * 2) + (u32)self + 0x19);
-            *statePtr = (u8)(*statePtr + 1);
-            statePtr = slots;
-            statePtr += *(s16 *)(self + 0x22) * 2;
+            u8 *stepTimePtr = (u8 *)((u32)(*(s16 *)(self + 0x22) * 2) + (u32)self + 0x19);
+            *stepTimePtr = (u8)(*stepTimePtr + 1);
+            stepTimePtr = scriptSlots;
+            stepTimePtr += *(s16 *)(self + 0x22) * 2;
             {
-                u8 stateIndex = *statePtr;
-                void *nextFn = ((void **)*(void **)(self + 0x14))[stateIndex];
-                sub_080C31E0(self, nextFn);
+                u8 opcode = *stepTimePtr;
+                void *nextHandler = ((void **)*(void **)(self + 0x14))[opcode];
+                sub_080C31E0(self, nextHandler);
             }
         }
     }

@@ -21,7 +21,7 @@ struct SubObj {
 
 /* Per-frame actor update: free the sub-object's auxiliary objects when flagged,
  * update its animation, then run the sub-object's update handler. */
-void sub_080588E4(struct MainObj *actor) {
+void updateKind32Effect(struct MainObj *actor) {
     struct SubObj *r4 = (struct SubObj *)actor->sub;
     if (r4->attachedA != 0) {
         sub_080161F0();

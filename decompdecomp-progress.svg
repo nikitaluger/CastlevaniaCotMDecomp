@@ -6098,7 +6098,7 @@
 <g><title>sub_08058488: {&#x27;matched&#x27;: 1}</title>
 <rect x="280.000" y="410" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080584D0: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind32EffectSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="290.000" y="410" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080586B8: {&#x27;matched&#x27;: 1}</title>
@@ -6113,7 +6113,7 @@
 <g><title>sub_080588C4: {&#x27;matched&#x27;: 1}</title>
 <rect x="330.000" y="410" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080588E4: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateKind32Effect: {&#x27;matched&#x27;: 1}</title>
 <rect x="340.000" y="410" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08058914: {&#x27;matched&#x27;: 1}</title>

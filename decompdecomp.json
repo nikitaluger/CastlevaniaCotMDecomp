@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795715158.455316,
- "revision": 67711,
+ "saved_at": 1795715236.9621415,
+ "revision": 67715,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1761,17 +1761,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "362992:134580720": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnKind32ScriptedSprite",
-   "vram": 134580720
   }
  },
  "instructions": "",
@@ -1900,8 +1889,7 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -11324,7 +11312,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080584D0": {
+  "spawnKind32EffectSprite": {
    "vram": 134579408,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -11349,7 +11337,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_080588E4": {
+  "updateKind32Effect": {
    "vram": 134580452,
    "matched_by": "autopilot",
    "readable": false
@@ -11367,7 +11355,7 @@
   "spawnKind32ScriptedSprite": {
    "vram": 134580720,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_08058D0C": {
    "vram": 134581516,
@@ -34999,7 +34987,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080584D0",
+   "name": "spawnKind32EffectSprite",
    "vram": 134579408,
    "size": 488,
    "status": "open"
@@ -35029,7 +35017,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080588E4",
+   "name": "updateKind32Effect",
    "vram": 134580452,
    "size": 46,
    "status": "open"
@@ -50646,6 +50634,18 @@
    "name": "createPairedScriptedEffect",
    "address": 134573900,
    "size": 528,
+   "kind": "func"
+  },
+  {
+   "name": "spawnKind32EffectSprite",
+   "address": 134579408,
+   "size": 488,
+   "kind": "func"
+  },
+  {
+   "name": "updateKind32Effect",
+   "address": 134580452,
+   "size": 46,
    "kind": "func"
   },
   {
