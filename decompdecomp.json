@@ -1761,6 +1761,17 @@
     "-O2",
     "-fno-strength-reduce"
    ]
+  },
+  "610540:134828268": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "spawnTrackedBehaviorSprite",
+   "vram": 134828268
   }
  },
  "instructions": "",
@@ -1889,7 +1900,8 @@
   "": "common.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h"
+  "local_source_8589938934": "common_local_source_8589938934.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
