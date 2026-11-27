@@ -1,6 +1,6 @@
 extern s32 sub_0806D450(void *, void *, void *);
 extern void stepDelayTimer(void *, void *);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 struct S_02025FF0
@@ -67,6 +67,6 @@ void sub_080806A0(u8 *owner)
             sub_080C31E0(owner, *((void **)(owner + 0x24)));
             return;
         }
-        sub_0806D330(owner, entity);
+        releaseEntityIfOffscreen(owner, entity);
     }
 }

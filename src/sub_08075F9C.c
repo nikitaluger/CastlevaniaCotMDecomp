@@ -2,7 +2,7 @@ struct S_02025FF0 { u8 _0[0x10]; u32 v10; u8 _1[0x14ED-0x14]; u8 v14ED; u8 _2[0x
 extern struct S_02025FF0 gMainWorkspace;
 
 extern s32 stepDelayTimer(void *, void *);
-extern s32 sub_0806D330(void *, void *);
+extern s32 releaseEntityIfOffscreen(void *, void *);
 extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern s32 spawnKind2CEntity(s32, s32, s32, s32);
@@ -67,7 +67,7 @@ void sub_08075F9C(void *entity)
     *((u16 *)component) = state->v18C2;
     stepDelayTimer(((u8 *)owner) + 0x20, component);
     sub_0806D588(component, body);
-    sub_0806D330(entity, component);
+    releaseEntityIfOffscreen(entity, component);
 
     if (state->v173A == 0x1C)
     {

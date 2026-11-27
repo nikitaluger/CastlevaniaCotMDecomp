@@ -2693,3 +2693,30 @@ struct TilePageWorkspace { u8 _0[0x18A8]; u8 pageIndex; };
 #define LARGE_EFFECT_SCRIPT_BASE      0x18
 #define LARGE_EFFECT_STEP_INDEX_OFFSET 0x22
 #define LARGE_EFFECT_ANIM_SEQUENCE    0x0841EB04
+
+/* Workspace fields read by the scripted-motion entity updater. Offsets are
+ * absolute from gMainWorkspace (0x02025FF0). */
+struct MotionObjectWorkspace {
+    u8 _0[0x10];
+    s32 activeForm;        /* 0x10: nonzero while an active form is held */
+    u8 _14[0x14ED-0x14];
+    u8 actionState;        /* 0x14ED */
+    u8 _14EE[0x173A-0x14EE];
+    u8 sceneState;         /* 0x173A: 0x1C requests entity cleanup */
+    u8 _173B[0x1754-0x173B];
+    s32 formIndex;         /* 0x1754: raised to at least 9 on a motion hit */
+    u8 _1758[0x18A8-0x1758];
+    u8 frameCounter;       /* 0x18A8: indexes the tilemap page table */
+    u8 _18A9[0x19];
+    u16 gfxFlags;          /* 0x18C2: copied to sprite OAM attribute 0 */
+};
+
+/* Phase, terrain and effect constants used by the scripted-motion updater. */
+#define MOTION_OBJ_PHASE_STEP      0x4000       /* per-frame phase increment */
+#define MOTION_OBJ_PHASE_MAX       0x80000      /* phase clamp */
+#define MOTION_OBJ_TILEMAP_BASE    0x02023130   /* base of gTilemapPages */
+#define MOTION_OBJ_HIT_FORM_MIN    9            /* formIndex floor after a hit */
+#define MOTION_OBJ_HIT_ANIM        8            /* animation fields set on a hit */
+#define MOTION_OBJ_HIT_SFX         0x142        /* playSound id on a hit */
+#define MOTION_OBJ_CLEANUP_SCENE   0x1C         /* sceneState that releases the entity */
+#define MOTION_OBJ_HIT_EFFECT_DATA 0x084D8DF4   /* timer payload of the hit effect */

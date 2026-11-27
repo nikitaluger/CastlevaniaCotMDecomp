@@ -21,7 +21,7 @@ extern void *spawnEntity(s32, s32, s32, s32);
 extern void stepDelayTimer(void *, void *);
 extern void setSpriteScreenPosition(void *, void *);
 extern void sub_080C31E0(void *, void *);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 
 void sub_08078C6C(void *arg0)
 {
@@ -70,7 +70,7 @@ void sub_08078C6C(void *arg0)
     }
     else
     {
-      sub_0806D330(self, p38);
+      releaseEntityIfOffscreen(self, p38);
     }
   }
 }

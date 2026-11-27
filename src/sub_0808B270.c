@@ -1,6 +1,6 @@
 extern u32 gMainWorkspace[];
 extern void stepDelayTimer(void *, void *);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 
 /* Advance the object's vertical motion (position plus bob offset) on both the
  * motion state and its sprite, latch the current screen word at
@@ -25,5 +25,5 @@ void sub_0808B270(void *entity) {
     screenWord = *(u16 *)((u8 *)gMainWorkspace + screenWordOffset);
     *(u16 *)((u8 *)sprite + 0) = screenWord;
     stepDelayTimer((u8 *)stateHeader + 0x20, sprite);
-    sub_0806D330(self, sprite);
+    releaseEntityIfOffscreen(self, sprite);
 }

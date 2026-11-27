@@ -39,7 +39,7 @@ void sub_08038438(void *entity) {
         if (result != NULL) {
             *(u8 *)(result + 0x4C) = *(u8 *)(entityBytes + 0x4C);
             *(u32 *)(result + 0x5C) = sub_080148C0(state, sprite, -0xC00);
-            *(u32 *)(result + 0x6C) = *(u32 *)(state + 0xC) + 0xFFFFD700;
+            *(u32 *)(result + 0x6C) = *(u32 *)(state + 0xC) + 0xFFD70000;
             *(u32 *)(result + 0x7C) = sub_080148AC(sprite, D_080CF07C[*(u8 *)(poseState + 0x11)].param);
             *(u32 *)(result + 0x8C) = D_080CF07C[*(u8 *)(poseState + 0x11)].kind;
             *(u8 *)(result + 0xA0) = savedFlag;

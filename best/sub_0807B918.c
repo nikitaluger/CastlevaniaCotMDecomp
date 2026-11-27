@@ -8,7 +8,7 @@ extern void sub_080168C4(void);
 extern void *sub_080168F8(void);
 extern void stepDelayTimer(void *);
 extern void setSpriteScreenPosition(void *, void *);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 extern void sub_080C31E0(void *, u32);
 extern u8 gMainWorkspace[];
 extern u32 gScriptStepCallbacks[];
@@ -136,7 +136,7 @@ void sub_0807B918(u8 *arg0)
       }
       else
       {
-        sub_0806D330(self, p8);
+        releaseEntityIfOffscreen(self, p8);
       }
     }
   }

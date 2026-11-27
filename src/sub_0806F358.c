@@ -1,7 +1,7 @@
 s32 checkGlobalStateChange(void *, void *, void *);
 s32 sub_0806D588(void *, void *);
 s32 sub_080719EC(void *, void *, void *);
-s32 sub_0806D330(void *, void *);
+s32 releaseEntityIfOffscreen(void *, void *);
 
 /* Advance a thrown projectile: apply gravity (capped at terminal fall speed),
  * integrate its x/y motion, push the result into the sprite view and despawn
@@ -20,6 +20,6 @@ void sub_0806F358(void *self) {
         *(s32 *)((u8 *)pos + 4) = *(s32 *)((u8 *)pos + 4) + *(s32 *)((u8 *)pos + 0xC);
         *(u16 *)((u8 *)view + 8) = (u16)(*(u16 *)((u8 *)view + 8) - 0xC00);
         sub_0806D588(view, pos);
-        sub_0806D330(self, view);
+        releaseEntityIfOffscreen(self, view);
     }
 }

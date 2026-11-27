@@ -12,7 +12,7 @@ struct S_02025FF0
 extern struct S_02025FF0 gMainWorkspace;
 s32 checkGlobalStateChange(void *, void *, void *);
 extern void setSpriteScreenPosition(void *, void *);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 extern void setDirectionVector(void *, u8);
 extern void sub_080C31E0(void *, s32);
 void sub_080762E0(void *arg0)
@@ -128,7 +128,7 @@ void sub_080762E0(void *arg0)
   *((s32 *) (((u8 *) r4v) + 0x8)) = r8v;
   *((s32 *) (((u8 *) r4v) + 0xC)) = r9v;
   setSpriteScreenPosition(r6v, r4v);
-  sub_0806D330(arg0, r6v);
+  releaseEntityIfOffscreen(arg0, r6v);
   if (p->f173A == 0x1C)
   {
     goto call;

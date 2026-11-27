@@ -7418,7 +7418,7 @@
 <g><title>cullOffscreenEntity: {&#x27;matched&#x27;: 1}</title>
 <rect x="680.000" y="460" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0806D330: {&#x27;matched&#x27;: 1}</title>
+<g><title>releaseEntityIfOffscreen: {&#x27;matched&#x27;: 1}</title>
 <rect x="690.000" y="460" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0806D35C: {&#x27;matched&#x27;: 1}</title>
@@ -7988,7 +7988,7 @@
 <g><title>spawnActorChildEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="180.000" y="490" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08078110: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateScriptedMotionObject: {&#x27;matched&#x27;: 1}</title>
 <rect x="190.000" y="490" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08078240: {&#x27;matched&#x27;: 1}</title>

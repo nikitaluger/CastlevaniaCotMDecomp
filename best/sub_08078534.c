@@ -5,7 +5,7 @@ extern void startEffectTimer(void *, s32, void *);
 extern void playSound(s32);
 extern s32 getTileTerrainB(u32, s32);
 extern void *spawnEntity(s32, s32, s32, s32);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 extern void stepDelayTimer(void *);
 extern void setSpriteScreenPosition(void *, void *);
 extern void _call_via_r1(u32, u32);
@@ -91,5 +91,5 @@ void sub_08078534(u8 *self)
         _call_via_r1((u32)self, *(u32 *)(self + 0x24));
         return;
     }
-    sub_0806D330(self, r8);
+    releaseEntityIfOffscreen(self, r8);
 }

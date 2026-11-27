@@ -20,7 +20,7 @@ void startEffectTimer(void *, s32, void *);
 void playSound(s32);
 s32 getTileTerrainB(s32, s32);
 void *spawnEntity(s32, s32, s32, s32);
-void sub_0806D330(void *, void *);
+void releaseEntityIfOffscreen(void *, void *);
 s32 checkGlobalStateChange(void *, void *, void *);
 void setSpriteScreenPosition(void *, void *);
 s32 sub_080C31E0(void *, s32);
@@ -91,7 +91,7 @@ void sub_0807936C(void *arg0)
   }
   else
   {
-    sub_0806D330(arg0, r8);
+    releaseEntityIfOffscreen(arg0, r8);
   }
 }
 

@@ -2,7 +2,7 @@ extern s32 checkGlobalStateChange(void *, void *, void *);
 extern s32 getTileTerrainB(u32, s32, s32);
 extern void startEffectTimer(void *, s32, u32);
 extern void stepDelayTimer(void *, void *);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -33,7 +33,7 @@ static inline u32 bitOne(u16 v) {
 /* One step of an entity's scripted motion: advance/clamp its phase, spawn and
  * announce an event when the phase or world-position test fires, refresh the
  * attached sprite, then dispatch the next callback. */
-void sub_08078110(u8 *obj) {
+void updateScriptedMotionObject(u8 *obj) {
     void *self;
     void *script;
     void *stateBase;
@@ -71,5 +71,5 @@ void sub_08078110(u8 *obj) {
         sub_080C31E0(self, *(s32 *)((u8 *)self + 0x24));
         return;
     }
-    sub_0806D330(self, sprite);
+    releaseEntityIfOffscreen(self, sprite);
 }

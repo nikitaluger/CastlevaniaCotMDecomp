@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795810209.7403717,
- "revision": 70931,
+ "saved_at": 1795810479.5168676,
+ "revision": 70946,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "627932:134845660": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "enemyScriptStepCycleAnimation",
-   "vram": 134845660
   }
  },
  "instructions": "",
@@ -2131,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -4842,8 +4830,8 @@
   },
   "sub_08017888": {
    "vram": 134314120,
-   "best_score": 4415,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "best_score": 1805,
+   "best_by": "opencode-hy4-flash-free-64"
   },
   "sub_0801797C": {
    "vram": 134314364,
@@ -8607,8 +8595,8 @@
   },
   "sub_08038438": {
    "vram": 134448184,
-   "best_score": 770,
-   "best_by": "opencode-hy4-flash-free-71"
+   "best_score": 420,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_08038554": {
    "vram": 134448468,
@@ -13675,7 +13663,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0806D330": {
+  "releaseEntityIfOffscreen": {
    "vram": 134665008,
    "matched_by": "autopilot",
    "readable": false
@@ -14610,7 +14598,7 @@
    "matched_by": "autopilot",
    "readable": true
   },
-  "sub_08078110": {
+  "updateScriptedMotionObject": {
    "vram": 134709520,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
    "readable": false
@@ -38412,7 +38400,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0806D330",
+   "name": "releaseEntityIfOffscreen",
    "vram": 134665008,
    "size": 44,
    "status": "open"
@@ -39552,7 +39540,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08078110",
+   "name": "updateScriptedMotionObject",
    "vram": 134709520,
    "size": 302,
    "status": "open"
@@ -53516,6 +53504,12 @@
    "kind": "func"
   },
   {
+   "name": "releaseEntityIfOffscreen",
+   "address": 134665008,
+   "size": 44,
+   "kind": "func"
+  },
+  {
    "name": "checkGlobalStateChange",
    "address": 134665496,
    "size": 112,
@@ -53699,6 +53693,12 @@
    "name": "spawnActorChildEffect",
    "address": 134709156,
    "size": 364,
+   "kind": "func"
+  },
+  {
+   "name": "updateScriptedMotionObject",
+   "address": 134709520,
+   "size": 302,
    "kind": "func"
   },
   {

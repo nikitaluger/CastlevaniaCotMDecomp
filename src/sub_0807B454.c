@@ -1,7 +1,7 @@
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void stepDelayTimer(void *, void *);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 extern void sub_080C31E0(void *, s32);
 
 struct GlobalState {
@@ -43,6 +43,6 @@ void sub_0807B454(u8 *self) {
     if (gs->f173A == 0x1C || (gs->f14ED == 0 && gs->f0010 != 0)) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));
     } else {
-        sub_0806D330(self, state);
+        releaseEntityIfOffscreen(self, state);
     }
 }

@@ -22,7 +22,7 @@ extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E0(void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void setSpriteScreenPosition(void *, void *);
-extern void sub_0806D330(void *, void *);
+extern void releaseEntityIfOffscreen(void *, void *);
 static inline s32 sum2(s32 a, s32 b) { s32 r = b + a; return r; }
 static inline u32 andOne(u16 f) { u32 m = 1; m &= f; return m; }
 void sub_08084230(void *arg0)
@@ -80,6 +80,6 @@ label_080842D2:
   }
   else
   {
-    sub_0806D330(self, p38);
+    releaseEntityIfOffscreen(self, p38);
   }
 }

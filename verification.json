@@ -156714,7 +156714,7 @@
    "unit": "rom",
    "mode": "rom"
   },
-  "sub_0806D330": {
+  "releaseEntityIfOffscreen": {
    "format": 1,
    "verdict": "exact",
    "abi": {
@@ -169676,7 +169676,7 @@
    "unit": "rom",
    "mode": "rom"
   },
-  "sub_08078110": {
+  "updateScriptedMotionObject": {
    "format": 1,
    "verdict": "exact",
    "abi": {
