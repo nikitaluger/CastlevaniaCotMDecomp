@@ -14640,14 +14640,6 @@
   "score_after": null
  },
  {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "Cannot get closer under agbcc -O2 with natural C: the target's fixed register assignment (arg0=r5, f38=r8, f3C=r6, f3C+0x10=r9) is not reproducible. Best score 3555 (struct-based source saved); swapping assignment order scores 3565, adding a zero local 3835. All remaining diffs are register allocation/literal-pool consequences of this one register swap. This is the 8th compiled claim of the session; stopping here as instructed.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.972242,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08074654",
   "text": "Cannot get closer with natural C; register allocation issues require tricks. Best 3690/140 insns. Releasing.",
   "by": "opencode-free-1",
@@ -29848,14 +29840,6 @@
   "score_after": null
  },
  {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "Giving up; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0551558,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08062828",
   "text": "Giving up; releasing.",
   "by": "opencode-free-1",
@@ -40044,14 +40028,6 @@
   "text": "Best stays 330 (89.3%): logic/loop fully correct, all differences are regalloc. Target's six live values: key r3, p r2, mask r1->r5, end r0->r4, using `adds r3,r0,#0` (arg0 copy) + `adds r2,r1,#0` (arg1 copy) at top, then `adds r5,r1,#0; adds r4,r0,#0` after guard, and `adds r0,r5,#0; ands r0,r1` in loop. My C (and all variants) allocates key r2, p r1, mask r3->r4, end r0->r3, pushes only r4, saves one insn (29 vs 31). Crucial observation: if key lands in r3 (not r2), then r2 is free for p, mask can load into r1, and end/mask copies must go into TWO callee-saved regs r4/r5 \u2014 exactly the target. Tried: separate `mask/key/p/end` locals, extra `u8 *base = arg1` / `u32 a = arg0` copies, `p = arg1; ...; p += 0xBC` split assignment \u2014 all compile identically to 330. Need a construct that makes agbcc allocate key to r3 (e.g. occupying r2 earlier) while still emitting the `adds r2,r1,#0` arg1 copy.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.1092246,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "Cannot get closer this session: linking calls wrong, regalloc off, pointer constants wrong. Score 3555. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1092641,
   "score_before": null,
   "score_after": null
  },
@@ -113704,14 +113680,6 @@
   "score_after": null
  },
  {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "Can't get closer within reasonable effort. Best 1545 (88.9%, 143/140 insns). Correct overall structure: early sub_0805F9B4==1 -> sub_080C31E0(arg0,arg0[0x24]); middle block conditional on f1A!=1 and sub_08016238(v3C+0x0C) doing f0C[1]=0, sub_08005E80(0x6E), f1B=0, sub_080C31E8(base18,arg0+0x22,1,D_08671BDC); table dispatch via D_0866E958 with f22++/f19++/sub_080C31E0/f22--; 0x8000 early out; sub_080113A8(v38,v3C+0x10); COORD block matching sub_08026BDC exactly. Main blockers: (1) regalloc swap - target keeps v38 in r8 (`ldr r0,[r5,#0x38]; mov r8,r0`) and base18 in r7 set mid-block (`adds r7,r5,#0; adds r7,#0x18`), all my attempts put v38 in r7 and base18 in r8 or generate extra moves/branches; (2) control flow in middle: best form set base18 in both if/else branches but caused duplicated tail/extra branches (beq #0x74/#0x78, extra block) vs target's single unconditional base18 set before cmp; setting base18 unconditionally in target-like position regressed to 2100 due to register/ordering; (3) literal pool order shifted (D_08671BDC/D_0866E958/D_02021E90/D_02025FF0/0x18A8) causing many pc-relative load diffs. Calls follow matched sub_0805D0E4 convention. 12 compiles this session; remaining gap is regalloc/layout.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.4996648,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0807E710",
   "text": "Best 3812 (81.4%). Cannot get closer this session. Flags confirmed optimal (search_flags: O1 best). Tried: raw-pointer version with all p+0x2C reloads and declaration permutations (best 3812); typed-struct version (4096 \u2014 regalloc mostly fixed but field accesses wrong); hybrid struct-type/raw-access version (4602 \u2014 ternary in base init added instructions). The remaining 4-cycle low-reg permutation (arg0/base/p/f38) plus the alloc-result r3 copy and 4-byte stack slot do not respond to declaration order, and the typed-struct rewrite that fixed regalloc in sub_0804A6D0 breaks this function's mixed byte/halfword field accesses. Notes have the exact diffs. Releasing to work on a different function.",
   "by": "opencode-hy4-flash-free-1",
@@ -129644,14 +129612,6 @@
   "text": "Forcing release: proven deterministic agbcc final-OR regalloc tie-break wall at score 20 (40/40 insns byte-exact). ~800+ prior attempts, all C spellings and flags floor at 20; operand swaps/accumulators only flip the load-bearing prologue to 255. Needs compiler/regalloc change; ordinary correct leaf C, not hand asm, not not_c. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.583405,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "MATCHED (0) from best 1545. Levers that closed the gap: (1) keep `base18` assigned in BOTH arms of the if/else \u2014 assigning it unconditionally before the if swaps callee-saved regs (v38 moves from r8 to r7, base18 to r8, score 1900-2100); (2) SWAP THE BRANCHES: write `if (*(u8*)(arg0+idx*2+0x1A) == 1) { base18 = arg0+0x18; } else { base18 = arg0+0x18; if (sub_08016238(...)) {...} }`. This gives the target's single `cmp r0,#1; beq` with both beq targets at the same label and NO duplicated tail; (3) `lp = &D_08671BDC;` assigned just before sub_080C31E8 gives the early `ldr r0,[pc]`; (4) `b = *(u8 *)((u32)base18 + (u32)idx2)` (integer addition, base first) gives `adds r0,r7,r0`; (5) `*(s16*)... * 2` inline with integer add to arg0 gives `lsls; adds r0,r0,r5`.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5834415,
   "score_before": null,
   "score_after": null
  },
@@ -358749,5 +358709,45 @@
   "score_before": 200,
   "score_after": 200,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c54258c83e7b6a40251a7a08924a5783b418d5bd7444d22aa0f4f25472ebae3b:caff088c0927a191ae73d593d2e6ee0c7d2a0a20623730fff0be8daacd24cca1"
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "Cannot get closer under agbcc -O2 with natural C: the target's fixed register assignment (arg0=r5, f38=r8, f3C=r6, f3C+0x10=r9) is not reproducible. Best score 3555 (struct-based source saved); swapping assignment order scores 3565, adding a zero local 3835. All remaining diffs are register allocation/literal-pool consequences of this one register swap. This is the 8th compiled claim of the session; stopping here as instructed.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.972242,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "Giving up; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0551558,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "Cannot get closer this session: linking calls wrong, regalloc off, pointer constants wrong. Score 3555. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1092641,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "Can't get closer within reasonable effort. Best 1545 (88.9%, 143/140 insns). Correct overall structure: early sub_0805F9B4==1 -> sub_080C31E0(arg0,arg0[0x24]); middle block conditional on f1A!=1 and sub_08016238(v3C+0x0C) doing f0C[1]=0, sub_08005E80(0x6E), f1B=0, sub_080C31E8(base18,arg0+0x22,1,D_08671BDC); table dispatch via D_0866E958 with f22++/f19++/sub_080C31E0/f22--; 0x8000 early out; sub_080113A8(v38,v3C+0x10); COORD block matching sub_08026BDC exactly. Main blockers: (1) regalloc swap - target keeps v38 in r8 (`ldr r0,[r5,#0x38]; mov r8,r0`) and base18 in r7 set mid-block (`adds r7,r5,#0; adds r7,#0x18`), all my attempts put v38 in r7 and base18 in r8 or generate extra moves/branches; (2) control flow in middle: best form set base18 in both if/else branches but caused duplicated tail/extra branches (beq #0x74/#0x78, extra block) vs target's single unconditional base18 set before cmp; setting base18 unconditionally in target-like position regressed to 2100 due to register/ordering; (3) literal pool order shifted (D_08671BDC/D_0866E958/D_02021E90/D_02025FF0/0x18A8) causing many pc-relative load diffs. Calls follow matched sub_0805D0E4 convention. 12 compiles this session; remaining gap is regalloc/layout.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.4996648,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "MATCHED (0) from best 1545. Levers that closed the gap: (1) keep `base18` assigned in BOTH arms of the if/else \u2014 assigning it unconditionally before the if swaps callee-saved regs (v38 moves from r8 to r7, base18 to r8, score 1900-2100); (2) SWAP THE BRANCHES: write `if (*(u8*)(arg0+idx*2+0x1A) == 1) { base18 = arg0+0x18; } else { base18 = arg0+0x18; if (sub_08016238(...)) {...} }`. This gives the target's single `cmp r0,#1; beq` with both beq targets at the same label and NO duplicated tail; (3) `lp = &D_08671BDC;` assigned just before sub_080C31E8 gives the early `ldr r0,[pc]`; (4) `b = *(u8 *)((u32)base18 + (u32)idx2)` (integer addition, base first) gives `adds r0,r7,r0`; (5) `*(s16*)... * 2` inline with integer add to arg0 gives `lsls; adds r0,r0,r5`.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5834415,
+  "score_before": null,
+  "score_after": null
  }
 ]
