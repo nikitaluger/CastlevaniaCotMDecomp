@@ -357965,14 +357965,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:39943b495b98c09714f9ba9df38bdbe468f78452bf448bba9eb0bb1742d665cc"
  },
  {
-  "function": "updateObjectKindEffectSteps",
-  "text": "Cannot complete now; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9723876,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0803925C",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 20; 94 differing rows (8 opcode, 32 register, 8 branch target, 20 operand, 7 reordered, 6 inserted, 13 deleted; advisory).\nTarget: ldr r0, [pc, #0xcc]\nCandidate: ldr r0, [pc, #0xc8]\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = cmp r0, #0\n  = beq #0xee\ni T: ldr r0, [pc, #0xcc] | C: ldr r0, [pc, #0xc8]\n  = str r0, [r7, #0x1c]\n  = ldr r5, [r6, #0x3c]\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest verified score 6240 (76.5%), 258 insns vs 266 target; saved C revision ec0fb0106f6fd08db9c8. Rebuild from get_candidate(base=\"saved_best\").\n\nSTRUCTURE THAT WORKED (do not undo): use EffectPart/EffectWork/ScriptedObject/EffectTemplate structs like matched spawnKind30ScriptEffect; work->gfx at +0x28, work->gfx2 at +0x48 (pad2C[0x1C]); fail block placed between the second alloc check and part2 init by writing:\n  work->gfx = allocEffectPart();\n  if (work->gfx == NULL) goto fail;\n  ...part1 init...\n  work->gfx2 = allocEffectPart();\n  if (work->gfx2 != NULL) goto main;\nfail: _call_via_r1(arg0, *(s32 *)((u8 *)arg0+0x24)); goto end;\nmain: ...part2 init, camera, script...\nend: ;\n\nREMAINING DIFFS (~94 rows, mostly regalloc/operand):\n1. Literal-pool offsets 4-8 bytes short (target ldr [pc,#0xcc] vs ours #0xc8): code before pool is 2-4 insns shorter; fix by matching the camera section exactly.\n2. animTable (D_080CF0C4) lands in r4; target keeps it in r8 (`mov r8,r4` right after the first alloc). layer=8 lands in r8; target has layer in sl (`movs r2,#8; mov sl,r2; mov r4,sl; strb r4,[part,#2]`), priority in sb.\n3. agbcc hoists a zero into sl (`movs r1,#0; mov sl,r1` before findKindIndex); target materializes `movs r1,#0; strb r1,[part,#1]` at each of the three zero stores (part1 kind, part2 kind, scriptByte).\n4. Camera section: target splits `workspace = &gMainWorkspace; workspace += 0x18A8;` into two statements and uses scrollX/scrollY locals (`camera+0x1278`, `camera+0x127C`). Current C folds the constant into one relocation. Use the exact twin spelling from initScriptedSinglePartGraphics/spawnKind30ScriptEffect.\n\nTRIED, NO GAIN: u8/s32 layer+priority; declaration-order swaps; removing workCheck; `(u8)(0)` casts; kind store before layer assignment (regional gain, overall worse); workCheck removed; search_flags (all O-levels identical 6240); try_local_repairs (3 families, no change); moving `goto end` to `return` (much worse, 9290); `goto main` with fail right after first check (8775).\n\nNext step: patch the camera block to split gMainWorkspace + 0x18A8 and add scrollX/scrollY locals (twin spelling), compile, then tackle the zero-hoist and animTable/layer register swap.",
   "by": "opencode-hy4-flash-free-11",
@@ -357980,5 +357972,13 @@
   "score_before": 16550,
   "score_after": 6240,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:8694afff4e64d1f433422f6be9c7e1425d5461ba821130006d11aae987c43352"
+ },
+ {
+  "function": "updateObjectKindEffectSteps",
+  "text": "Cannot complete now; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9723876,
+  "score_before": null,
+  "score_after": null
  }
 ]
