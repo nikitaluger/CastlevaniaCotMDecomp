@@ -359464,6 +359464,24 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:d8944ad3986dba9561928c803dedac5cae128d0b4f17b5275b8e92b03550474e"
  },
  {
+  "function": "sub_08037604",
+  "text": "Improved 280 -> 275 -> 220 -> 70 (137/137 insns) this session. Key fixes: (1) dedicated `u8 *self = arg0;` local declared AFTER sprite/work, used for both args of `_call_via_r1` \u2014 fixed the callback staging block; (2) `s32 t` temp for the byte counter with `(u8)t` casts on BOTH comparisons. Remaining sole residual is 4 backend rows: `mov r8,r0` scheduled later (rows 3/10 reordered) and OR operand order (`ldrb r1,[r2]; movs r0,#0x40` vs ours `ldrb r0,[r2]; movs r1,#0x40`). Tested and REJECTED (2520): declaring self first, using self for sprite/work loads, direct `arg0+0x24` in the call (2575). Tested neutral: 3 OR spellings, 6 local repairs, 3 variants of self usage. Do not repeat those.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816410.8974006,
+  "score_before": 280,
+  "score_after": 70,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:7062276b08810cbfad990b8de25ad62fb96b6117267330a073a27a89223b93de"
+ },
+ {
+  "function": "sub_0802A974",
+  "text": "Structural rebuild needed; best 15940 (36.9%, 176 target insns vs 253 reported). Verified via resolve_addresses that ALL callee symbols are correct (0x805F9B4=isOutsideCameraBounds, 0x8005820=scaleByRandom, 0x8014900=absXFromFocus, 0x805FAEC=spawnBudgetedEffect, 0x800168C=allocWorkSlot, 0x8016830=sub_08016830, 0x8014090=sub_08014090, 0x80C31E0=_call_via_r1); the linker warnings are misalignment false positives. Target prologue saves 6 callee-saved regs (r4,r5,r6,r7,r8,sb) vs candidate 3, so the C needs more simultaneously live locals. Target computes data addresses as runtime base+offset literal loads (known agbcc relocation-folding wall). No matched twin. Correcting callee prototypes to the matched definitions (s32 allocWorkSlot(u8*,...), u32 scaleByRandom(u32), s32 sub_08014090(u16), s32 sub_08016830(u16)) made it WORSE: 15940 -> 16315; do not repeat.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795816436.985957,
+  "score_before": 15940,
+  "score_after": 15940,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:7fe1b3d50709e83a1a13c30c9a0948470c3fe5e2ced0b1e77e9be0412705dc16"
+ },
+ {
   "function": "updateTimerDrivenEffectObject",
   "text": "Cannot reach 0 with current attempts; regalloc differs (r5/r6 swap, r7/r8 spill on p34). Releasing.",
   "by": "opencode-free-1",
@@ -359494,23 +359512,5 @@
   "created_at": 1795683534.3820562,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "sub_08037604",
-  "text": "Improved 280 -> 275 -> 220 -> 70 (137/137 insns) this session. Key fixes: (1) dedicated `u8 *self = arg0;` local declared AFTER sprite/work, used for both args of `_call_via_r1` \u2014 fixed the callback staging block; (2) `s32 t` temp for the byte counter with `(u8)t` casts on BOTH comparisons. Remaining sole residual is 4 backend rows: `mov r8,r0` scheduled later (rows 3/10 reordered) and OR operand order (`ldrb r1,[r2]; movs r0,#0x40` vs ours `ldrb r0,[r2]; movs r1,#0x40`). Tested and REJECTED (2520): declaring self first, using self for sprite/work loads, direct `arg0+0x24` in the call (2575). Tested neutral: 3 OR spellings, 6 local repairs, 3 variants of self usage. Do not repeat those.",
-  "by": "opencode-hy4-flash-free-64",
-  "created_at": 1795816410.8974006,
-  "score_before": 280,
-  "score_after": 70,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:7062276b08810cbfad990b8de25ad62fb96b6117267330a073a27a89223b93de"
- },
- {
-  "function": "sub_0802A974",
-  "text": "Structural rebuild needed; best 15940 (36.9%, 176 target insns vs 253 reported). Verified via resolve_addresses that ALL callee symbols are correct (0x805F9B4=isOutsideCameraBounds, 0x8005820=scaleByRandom, 0x8014900=absXFromFocus, 0x805FAEC=spawnBudgetedEffect, 0x800168C=allocWorkSlot, 0x8016830=sub_08016830, 0x8014090=sub_08014090, 0x80C31E0=_call_via_r1); the linker warnings are misalignment false positives. Target prologue saves 6 callee-saved regs (r4,r5,r6,r7,r8,sb) vs candidate 3, so the C needs more simultaneously live locals. Target computes data addresses as runtime base+offset literal loads (known agbcc relocation-folding wall). No matched twin. Correcting callee prototypes to the matched definitions (s32 allocWorkSlot(u8*,...), u32 scaleByRandom(u32), s32 sub_08014090(u16), s32 sub_08016830(u16)) made it WORSE: 15940 -> 16315; do not repeat.",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795816436.985957,
-  "score_before": 15940,
-  "score_after": 15940,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:7fe1b3d50709e83a1a13c30c9a0948470c3fe5e2ced0b1e77e9be0412705dc16"
  }
 ]
