@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795770747.3280134,
- "revision": 69025,
+ "saved_at": 1795770945.717531,
+ "revision": 69028,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "636964:134854692": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateEntityMotionAndSpawn",
-   "vram": 134854692
   }
  },
  "instructions": "",
@@ -2067,8 +2056,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -18056,7 +18044,7 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_0809C678": {
+  "copyPoseOffsetForFrame": {
    "vram": 134858360,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -43481,7 +43469,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809C678",
+   "name": "copyPoseOffsetForFrame",
    "vram": 134858360,
    "size": 72,
    "status": "open"
@@ -51928,6 +51916,12 @@
    "name": "spawnKind44Effect",
    "address": 134856620,
    "size": 384,
+   "kind": "func"
+  },
+  {
+   "name": "copyPoseOffsetForFrame",
+   "address": 134858360,
+   "size": 72,
    "kind": "func"
   },
   {

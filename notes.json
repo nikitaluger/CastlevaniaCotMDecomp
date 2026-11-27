@@ -6272,14 +6272,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0809C678",
-  "text": "Switch layout; score 566 best.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.929434,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080BEAF8",
   "text": "Body solved: `u32 *table=(u32*)0x086707B0; sub_080C31DC((void*)table[D_02021E90.v]);` with `struct S_1361 { u8 pad[0x1361]; u8 v; } extern struct S_1361 D_02021E90;` (score 615, 19 insns = target length). ONLY remaining diff: target loads the table-base literal into r1 as the FIRST instruction (`ldr r1,=0x086707B0; ldr r0,=0x02021E90; ldr r2,=0x1361; adds; ldrb; lsls #2; adds r0,r0,r1`), while agbcc always emits that literal load late, right before the `adds r0,r0,r1`. Tried u8* with table+idx*4 and u32* table[idx], declaration order, and operand swap; all give 615. The rest of the function is byte-identical. Needs an agbcc literal-scheduling trick.",
   "by": "opencode-hy4-flash-free-1",
@@ -16680,6 +16672,14 @@
   "score_after": null
  },
  {
+  "function": "updateEntityMotionAndSpawn",
+  "text": "IDIOMS FROM THE MATCHED SIBLING sub_0809B824 (same family as sub_0808DE7C / sub_080AD2D0; byte-identical by applying these):\n1. REASSOCIATION WALL SOLVED: for `*(u32 *)(base + 0x1278 + idx)`, write `u8 *q1 = pE + 0x1278;` as a separate statement, then `*(u32 *)(q1 + idx)` \u2014 the local breaks the (idx+base)+lit reassociation; the target keeps the E base in a callee-saved reg and adds idx last.\n2. `u8 *pE = D_BASE;` local \u2192 base lives in a callee-saved reg across both accesses.\n3. Struct-global FIELD ACCESS `D_02025FF0.a8` (extern struct with big _0 padding) \u2192 the two-literal adds for the high offset. But `&D_02025FF0.a8` FOLDS base+offset into a single pool entry \u2014 avoid when target pool shows two literals + adds.\n4. Write `idx = (D_02025FF0.a8 + 1) * 64;` TWICE (once per access) so the byte reload survives across the intervening store.\n5. switch (u8_local) for 1/2 small-int cases \u2192 the target's `cmp/beq forward-body; b end` layout (if/else-if emits bne-fallthrough; wrong).\n6. `u32 p34 = 0x34 + (u32)s;` constant FIRST \u2192 the movs+adds detour shape.\n7. Hoist a base loaded ONCE before an if/else into its own local (v8 = s->unk8), then `r5 = v8 \u00b1 table[i].a;` fresh assignment per branch; do NOT use `r5 = s->unk8; r5 += ...`.\n8. Direct field access (arg0->unk8C), NOT u8 locals, when the target re-reads the field 3+ times \u2014 locals pin values and inflate pressure (mine earlier spilled p34 to the stack and saved a third high register).\n9. `struct P { u32 a; u32 b; } arr[]` models +0/+4 pair tables at base+8*i.\n10. (x + 0x8000) & 0xFFFF0000 and (x + 0xFFFF8000u) & 0xFFFF0000 matched as written; the u on 0xFFFF8000u matters.",
+  "by": "opencode-free-2",
+  "created_at": 1795683533.9804306,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080018B8",
   "text": "Best 27 (99.4%), 46/46 insns \u2014 only first ~6 instructions' register assignment differs. Rest of body (field +0x19 clear/increment, sub_080C31E4 with 0x08671BB0, final sub_080C31E0, arg0 in r4, base18 in r5) is byte-identical. Target's prologue: `ldr r2,=0x03000830; movs r3,#0 (z); movs r1,#0 (zero); movs r0,#0xBF; strh r0,[r2,#4]; strh r1,[r2,#8]`. Best C (score 27) is the exact permuter attempt from the brief with `new_var3=0xBF; reg[4]=0; reg[2]=new_var3;` \u2014 mine emits `movs r0,#0; movs r1,#0xBF; movs r3,#0; strh r0,[r2,#8]; strh r1,[r2,#4]`. Tried: swapping store order (score 235), literal 0xBF without local (230), zero local, z declared uninitialized and assigned early (50). All change global regalloc and get worse. Looks like an agbcc scheduling quirk around the u16 pointer stores; needs a fresh approach. Sibling functions sub_0805B400/sub_0805B4A4 are matched with the same common tail.",
   "by": "opencode-hy4-flash-free-1",
@@ -23724,14 +23724,6 @@
   "text": "Best 205/34. Matches logic: if sub_08007EA8(*(u16*)(*(u8**)(r6+0x14)+4))==0 set *(s32*)(r5+0x14)=0x8000, *(u16*)(r6+0x10)=1, *(u8*)(arg0+(*(s16*)(arg0+0x22))*2+0x19)=0, call sub_080C31E4(arg0+0x18,arg0+0x22,*0x08671BB0). Only diff: compiler reuses call result as zero (`adds r1,r0,#0; cmp r1,#0`) instead of `cmp r0,#0; ... movs r1,#0`. Tried declaring/storing zero in different places/forms and if/else structure; constant propagation persists. Needs compiler/flag trick or way to hide zero from propagation.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.019111,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0809C678",
-  "text": "Best 566/35. Correct value extraction and call (sub_08014588(arg1, 0x08101938 + r3*8) with r3 1 for 0x7D, 2 for 0x83 else 0). Diffs: target uses r4=arg1,r5=0x0E,r3=result with push {r4,r5,lr} and loads table ptr into r2 early; mine allocates offset to r4 and omits r5 from push. Target addressing `subs r1,#4; ldrh r0,[r1,#2]` vs my forms gave either subs #2/ldrh [r1] or reg shifts; tried q+2 form. Compare chain differs from target's redundant 0x77 checks/branch layout. Needs regalloc and branch-shape tuning.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.0191472,
   "score_before": null,
   "score_after": null
  },
@@ -348814,11 +348806,54 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
  },
  {
-  "function": "updateEntityMotionAndSpawn",
-  "text": "IDIOMS FROM THE MATCHED SIBLING sub_0809B824 (same family as sub_0808DE7C / sub_080AD2D0; byte-identical by applying these):\n1. REASSOCIATION WALL SOLVED: for `*(u32 *)(base + 0x1278 + idx)`, write `u8 *q1 = pE + 0x1278;` as a separate statement, then `*(u32 *)(q1 + idx)` \u2014 the local breaks the (idx+base)+lit reassociation; the target keeps the E base in a callee-saved reg and adds idx last.\n2. `u8 *pE = D_BASE;` local \u2192 base lives in a callee-saved reg across both accesses.\n3. Struct-global FIELD ACCESS `D_02025FF0.a8` (extern struct with big _0 padding) \u2192 the two-literal adds for the high offset. But `&D_02025FF0.a8` FOLDS base+offset into a single pool entry \u2014 avoid when target pool shows two literals + adds.\n4. Write `idx = (D_02025FF0.a8 + 1) * 64;` TWICE (once per access) so the byte reload survives across the intervening store.\n5. switch (u8_local) for 1/2 small-int cases \u2192 the target's `cmp/beq forward-body; b end` layout (if/else-if emits bne-fallthrough; wrong).\n6. `u32 p34 = 0x34 + (u32)s;` constant FIRST \u2192 the movs+adds detour shape.\n7. Hoist a base loaded ONCE before an if/else into its own local (v8 = s->unk8), then `r5 = v8 \u00b1 table[i].a;` fresh assignment per branch; do NOT use `r5 = s->unk8; r5 += ...`.\n8. Direct field access (arg0->unk8C), NOT u8 locals, when the target re-reads the field 3+ times \u2014 locals pin values and inflate pressure (mine earlier spilled p34 to the stack and saved a third high register).\n9. `struct P { u32 a; u32 b; } arr[]` models +0/+4 pair tables at base+8*i.\n10. (x + 0x8000) & 0xFFFF0000 and (x + 0xFFFF8000u) & 0xFFFF0000 matched as written; the u on 0xFFFF8000u matters.",
-  "by": "opencode-free-2",
-  "created_at": 1795683533.9804306,
+  "function": "sub_080BB898",
+  "text": "Frameless Thumb leaf wall (score 265). 9-instruction loop storing 1 at [ptr+1] for 5 pointers. Residual push{lr}/pop{r0};bx r0 vs bare bx lr. Compiler/backend change required.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795770764.8435225,
+  "score_before": 285,
+  "score_after": 285,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:38f76738a214c13bdf8551d6208c0b9f6b85c2999ec3003b567f776f343f7b6f"
+ },
+ {
+  "function": "copyPoseOffsetForFrame",
+  "text": "Switch layout; score 566 best.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.929434,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "copyPoseOffsetForFrame",
+  "text": "Best 566/35. Correct value extraction and call (sub_08014588(arg1, 0x08101938 + r3*8) with r3 1 for 0x7D, 2 for 0x83 else 0). Diffs: target uses r4=arg1,r5=0x0E,r3=result with push {r4,r5,lr} and loads table ptr into r2 early; mine allocates offset to r4 and omits r5 from push. Target addressing `subs r1,#4; ldrh r0,[r1,#2]` vs my forms gave either subs #2/ldrh [r1] or reg shifts; tried q+2 form. Compare chain differs from target's redundant 0x77 checks/branch layout. Needs regalloc and branch-shape tuning.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.0191472,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_080A0274",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall (score 215). 10-instruction predicate returning arg0 && arg0[0x6C]. Residual push{lr}/pop{r0};bx r0 vs bare bx lr. Compiler/backend change required.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795770851.669565,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_0803DB08",
+  "text": "Recovered score-10 baseline this session and confirmed residual is exactly the dead-load register swap: target `movs r1,#0x1c; ldrsh r0,[r5,r1]` (r0 immediately clobbered by 0x4000, so r1=0x1C at the call) vs candidate `movs r0,#0x1c; ldrsh r1,[r5,r0]` (passes v). Historical ~1356 attempts agree this is a terminal agbcc dead-load allocation/scheduling wall. Volatile + variable-offset forms regress to 260/2605; non-volatile forms emit the right pair but schedule it after the 0x4000 materialization (311). No pure-C spelling yields offset in r1 + value in r0 + constant in r0 simultaneously.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795770852.139482,
+  "score_before": 2135,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:949377948269ddcd793a3a1bfcc9daa95c9905d3dd8a09ea2366d3e17060f2bc"
+ },
+ {
+  "function": "sub_0809B4D4",
+  "text": "Compiling candidate revision 1f840ed5a2ff3721d064 is required before trusting it: it is the current best score-10 source. The two differing rows are the same terminal callee-saved register swap reported by prior agents. Correct declarations are sub_08011368(void *, void *, s32, s32) and sub_080C31E4(void *, void *, s32).\nRestored the score-10 candidate by fixing its m2c pointer declarations and two missing cast parentheses; recompiled successfully; probed declaration/allocation/copy-register local repairs around the second [arg0+0x3C] load, but no untried applicable variants were generated.\nFresh compile confirms score 10: all 121 instructions match except ROM ldr r6,[r5,#0x3c] / adds r7,r6,#0 versus candidate ldr r7 / adds r6. No improvement.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795770931.484164,
+  "score_before": 2105,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:e204924c4f0465acb98bad6c2521cffef50fd8bf0fd46c1df19669fb4ce3fb9f"
  }
 ]

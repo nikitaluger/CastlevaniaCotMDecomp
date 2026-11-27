@@ -15,15 +15,15 @@ struct Offset { u32 dx; u32 dy; };
 struct ScrollState { u8 _0[0x18A8]; u8 frame; };
 extern u8 gCameraState[];
 extern struct ScrollState gMainWorkspace;
-extern s16 D_081017F0[];
-extern struct Offset D_081017F8[];
+extern s16 gPoseFrameIndices[];
+extern struct Offset gSpawnOffsets[];
 void setSpriteFlipForDirection(void *, u32);
 void sub_080114A8(void *, u32, s16, u32);
-void sub_0809C678(u32, u32);
-void sub_0809C87C(u32, u32);
+void copyPoseOffsetForFrame(u32, u32);
+void spawnPositionedEffect(u32, u32);
 void sub_0809C8A8(u32, u32, u16, s32);
 
-void sub_0809B824(void *a) {
+void updateEntityMotionAndSpawn(void *a) {
     struct Entity *entity = a;
     struct Motion *motion = entity->motion;
     struct Mover *mover = entity->mover;
@@ -41,19 +41,19 @@ void sub_0809B824(void *a) {
     setSpriteFlipForDirection(motion, mover->facing);
     if ((s8)entity->currentPose != (s8)entity->requestedPose) {
         entity->currentPose = entity->requestedPose;
-        sub_080114A8(motion, moverTarget, D_081017F0[(s32)(s8)entity->requestedPose], 0);
+        sub_080114A8(motion, moverTarget, gPoseFrameIndices[(s32)(s8)entity->requestedPose], 0);
     }
     if (entity->spawnRequest != 0) {
         baseX = mover->x;
         if ((motion->flags & 0x10) != 0) {
-            spawnX = baseX + D_081017F8[entity->spawnRequest - 1].dx;
+            spawnX = baseX + gSpawnOffsets[entity->spawnRequest - 1].dx;
         } else {
-            spawnX = baseX - D_081017F8[entity->spawnRequest - 1].dx;
+            spawnX = baseX - gSpawnOffsets[entity->spawnRequest - 1].dx;
         }
-        spawnY = mover->y + D_081017F8[entity->spawnRequest - 1].dy;
+        spawnY = mover->y + gSpawnOffsets[entity->spawnRequest - 1].dy;
         switch (entity->spawnRequest) {
         case 1:
-            sub_0809C87C(spawnX, spawnY);
+            spawnPositionedEffect(spawnX, spawnY);
             break;
         case 2:
             sub_0809C8A8(spawnX, spawnY, (u16)(0x1000 + entity->pose), (motion->flags & 0x10) ? 1 : -1);
@@ -61,7 +61,7 @@ void sub_0809B824(void *a) {
         }
         entity->spawnRequest = 0;
     }
-    sub_0809C678(moverTarget, mover->linkData);
+    copyPoseOffsetForFrame(moverTarget, mover->linkData);
     coordTable = gCameraState;
     coordIdx = (gMainWorkspace.frame + 1) * 64;
     xTable = coordTable + 0x1278;
