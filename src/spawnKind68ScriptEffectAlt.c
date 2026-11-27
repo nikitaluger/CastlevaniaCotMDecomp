@@ -12,7 +12,7 @@ struct ActorContext {
 };
 struct SpawnParams { u8 _0[0x10]; u16 f10; u16 f12; u8 _14[0x14]; };
 extern struct SpawnParams gEffectGfxTable[];
-extern u16 D_08102FF4[];
+extern u16 gKind68AltLayerAttrs[];
 extern u32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
@@ -29,7 +29,7 @@ extern void updateActorEffectSubObject(void);
 /* Build the graphics/sub-object pair for an actor, set up its animation and
  * rotation from heading 0x68, copy in the spawn defaults, then advance the
  * actor's script index. */
-void sub_080BD578(struct ActorContext *actor) {
+void spawnKind68ScriptEffectAlt(struct ActorContext *actor) {
     s32 gfx;
     struct HostObject *host;
     u8 *animState;
@@ -66,7 +66,7 @@ void sub_080BD578(struct ActorContext *actor) {
     sub_08014668((void *)gfx, -actor->f6C);
     initSpriteGraphics((void *)gfx, animState, (s32)0x08102FE8);
     setAnimationFrame((void *)gfx, animState, 0, 0);
-    defaults = D_08102FF4;
+    defaults = gKind68AltLayerAttrs;
     attribs = allocEffectPart();
     host->f28 = (struct SubObject *)attribs;
     if (attribs == NULL) goto fail;

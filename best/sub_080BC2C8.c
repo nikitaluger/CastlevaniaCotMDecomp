@@ -158,7 +158,7 @@ void sub_080BC2C8(u8 *arg0)
     *((u16 *) (r5 + 2)) = flags | 0x1000;
     i = *((s16 *) (r5 + 0x22));
     *((u8 *) (r5 + i * 2 + 0x19)) = 0;
-    fp = (s32)&gScriptStepCallbackTable;
+    fp = *(u32 *)&gScriptStepCallbackTable;
     base = r5 + 0x18;
     sub_080C31E4(base, r5 + 0x22, fp);
     i = *((s16 *) (r5 + 0x22));

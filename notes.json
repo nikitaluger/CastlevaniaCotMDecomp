@@ -17144,6 +17144,14 @@
   "score_after": null
  },
  {
+  "function": "spawnKind68ScriptEffect",
+  "text": "stub compiled; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9826257,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08066A88",
   "text": "stub compiled; releasing.",
   "by": "opencode-free-1",
@@ -17160,7 +17168,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "stub compiled; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9827442,
@@ -50616,7 +50624,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "196-insn sprite setup function. Best score 6225 (66.3%). Similar to sub_080AF390 but simpler. Regalloc differs (target r7=self/r6=ptr/r8=0/r7->0x08102FF4; mine r7/r6/r8). Stack not used (all registers). Link errors are desync. Best attempt saved with correct control flow, calls, and data references (D_02025FF0+0x18C2, D_080CBDD0 stride 0x28, D_08102FF4). Needs register-allocation tuning.",
   "by": "opencode-beam-free-5",
   "created_at": 1795683534.1575828,
@@ -51268,6 +51276,14 @@
   "text": "Best score 1520 (89%). Remaining diffs are register allocation (base/zero/indirect call) and instruction count; exact match not achieved. Code structure matches control flow and DMA. Register pinning unavailable. Releasing.",
   "by": "opencode-beam-free-4",
   "created_at": 1795683534.1608493,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind68ScriptEffect",
+  "text": "Best score 6900 (combined-if structure). Core blocker: register allocation (arg0 in r4 vs target r5; sprite r7 vs r6; inner r5 vs r4) and missing 'adds r1,r0,#0' copy + inner load. Tried struct fixes, t13 s32, base as integer/volatile/extern, goto (worse), decl reordering, dummy var, reload-based sign check. Combined if is correct. Cannot get closer without register-pinning (register asm not allowed) or a different variable-liveness pattern. Base folding also single load vs target two. Releasing.",
+  "by": "opencode-beam-free-5",
+  "created_at": 1795683534.1608932,
   "score_before": null,
   "score_after": null
  },
@@ -111104,6 +111120,14 @@
   "score_after": null
  },
  {
+  "function": "spawnKind68ScriptEffect",
+  "text": "Can't get closer: register-allocation wall at score 6900 (best so far). Target keeps arg0 in r5, sprite in r6, inner in r4 across the whole body; any C I write assigns them to r4/r7/r5 and the diff is pure regalloc plus a few missing copy insns \u2014 no pure-C form changes which register holds a live value across calls. Confirmed floor by prior agent (beam-free-5, 6900). Called-symbols also don't link to ROM call sites. This is a regalloc wall, not a C wall; not worth burning the 8-compile move-on budget. Releasing to match small near-misses instead.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.4558887,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0802128A",
   "text": "Real body from 0x0802128C onward matches in structure/C form (best 130), but target starts at 0x0802128A with leading `lsrs r7,r4,#1` (tail of preceding non_word_aligned function) causing missing first insn and shifted branch/call offsets. `report_boundary` can only trim end, not move start, so cannot fix start alignment; effectively blocked by function boundary. Pure C, not not_c. Best source preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -111256,7 +111280,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "Best score 5625 (69.5%). Fundamental register allocation mismatch: target uses r5=self, r6=entity_ptr, r4=struct_ptr, r7=struct_ptr+0x34, r8=zero; agbcc allocates r4->r6, r6->r7, r7ptr->r8. Volatile trick forces r8 save in prologue (matching first 3 insns) but adds 'sub sp, #4' and sign extension spill/reload. Without volatile, no r8 save. Sign extension: target does copy-then-shift (adds r1,r0; strh r1; lsls r0,r1), compiler does shift-then-recover or spill. Literal pool offsets differ due to code size. Cannot resolve regalloc without inline asm (forbidden). Next agent should try different variable pressure or accept regalloc diff.",
   "by": "opencode-free-1",
   "created_at": 1795683534.456708,
@@ -111848,7 +111872,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "Cannot get closer: deterministic agbcc regalloc tie-break at best 1425 (92.2%, improved 5625 -> 1425 this session). All logic/calls/data byte-exact; target 185 vs mine 183 insns due to redundant register copies the compiler never emits: `adds r1,r0,#0` after `bl sub_08013C2C`, and `adds r1,r2,#0` after the 0x400/0x1000 constant materialization. Tried explicit copy locals (s32 v) and explicit constant locals (u16 h1/m1) at this function's -O1 \u2014 both had zero effect on generated code. Remaining ~19 operand rows are literal-pool/branch offsets shifted by the 2-insn deficit. Ordinary correct C, not hand asm, not not_c; needs a compiler/regalloc change. Best source = compile #1.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4598382,
@@ -130160,7 +130184,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "Can't get closer in pure C (agbcc -mthumb-interwork -O2, range). Best 220 (98.8%, 185/185 insns), improved from prior 240 by using D_080CBDD0[p->f1C].f10/f12 indexing. Remaining: missing `adds r1,r0,#0` after `sub_08013C2C` (target copies return to r1 for store/sign-test; compiler elides copy) and extra `adds r0,r2,#0` in 0xFC0 mask setup (target materializes mask directly in r0; compiler uses r2 then moves), yielding 4 regalloc rows total. All logic, calls, data refs, and control flow match. Tried sign-test/val/type/order/struct-access variants with no improvement. Not hand asm, not boundary; compiler/regalloc tie-break wall. Releasing now.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.5553794,
@@ -140752,7 +140776,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "Cannot get closer within budget: 185-insn function at 220 (98.8%) after 33 prior attempts by 5 agents plus 3 this session. Instruction count exact, all logic/calls/data correct. The only remaining rows are agbcc's deterministic tie-break: it will not emit `adds r1,r0,#0` after bl sub_08013C2C, and it materializes the 0xFC0 mask in r2 then copies to r0. Both explicit-C attempts to force them (call-result reload form, split mask statements) regressed to 1200/265 because they perturb shift fusion and literal layout. Register pins are forbidden. No further C lever; preserve the 220 source.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.6094127,
@@ -164776,7 +164800,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "196-insn Thumb at 0x080BD578 (agbcc -O2 range). Best score 220 (98.8%), 185/185 insns byte-exact, all logic/calls/data/control flow correct. Residual: 1 missing `adds r1,r0,#0` after `bl sub_08013C2C` (target copies the s32 return into r1 for `strh r1,[r4,#0x22]` + sign test `lsls r0,r1,#0x10; cmp r0,#0; blt`; agbcc stores r0 directly and tests r0), plus 4 regalloc rows in the 0xFC0 mask setup (target materializes mask in r0 directly; agbcc uses r2 then `adds r0,r2,#0`). Tried 36 attempts across 5 agents: call-result-into-local with sign test on the local (best 220), split mask statements, explicit constants, declaration orders \u2014 no C form forces the redundant copy or the direct mask materialization; both regressed to 1200/2650 when they perturbed shift fusion. Register pins forbidden. Not hand asm, not not_c, no boundary (clean epilogue). Best source preserved: regalloc tie-break wall needing a compiler change. Compiled once this session (score 220 confirmed). Requesting release: full budget unnecessary; no C lever remains.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.7311904,
@@ -166128,7 +166152,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "Score 220 (98.8%, 185/185 insns byte-exact). Only 5 diff rows remain: (1) missing `adds r1,r0,#0` after `bl sub_08013C2C` \u2014 target copies return to r1 for store+sign-test; agbcc uses r0 directly. (2) 4 regalloc rows in 0xFC0 mask: target materializes mask directly in r0; agbcc uses r2 then `adds r0,r2,#0`. All logic/calls/data/control flow correct. 37 attempts by 6 agents stuck at 220. No pure-C fix for agbcc's deterministic register coloring tie-breaks.",
   "by": "opencode-free-1",
   "created_at": 1795683534.738764,
@@ -179912,7 +179936,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BD578",
+  "function": "spawnKind68ScriptEffectAlt",
   "text": "MATCHED on the first compile (from 220, 38 prior attempts) by copying matched sibling sub_080BC878's source shape almost verbatim. The \"impossible\" diff rows all dissolve:\n1) THE MISSING `adds r1,r0,#0` AND THE MISSING `movs r2,#0x22; ldsh r1,[r4,r2]` RELOAD are both produced by the literal statement sequence `value = sub_08013C2C(0x68); host->f22 = value; if ((s16)value < 0) goto fail; value = host->f22; value = value << 6; value = value + 0x200; value &= 0xFC0; *((u16 *)gfx) = value;`. The explicit re-read `value = host->f22;` assigned back to the SAME variable is what forces agbcc to emit the fresh `ldsh` (a single expression `(p->f22 << 6) + 0x200` gets CSE'd from the just-stored value \u2014 this is the wall reported on this function and on sub_0801D6F4). Splitting the shift/add/and into separate assignments also gives the ROM's `movs r0,#0x80; lsls r0,#2; adds r1,r1,r0; movs r0,#0xFC; lsls r0,#4; ands r1,r0` register use (no extra `adds r0,r2,#0`).\n2) Control-flow shape: copy sub_080BC878 exactly \u2014 early `if (gfx == 0) goto fail;`, `if (actor->f3C == NULL) goto fail;` with f3C declared `void * volatile` (forces the second `ldr r4,[r5,#0x3c]`), then after the sub_08016190: `attribs = sub_08016190(); host->f28 = attribs; if (attribs == NULL) goto fail; goto ok; fail: sub_080C31E0(actor, actor->f24); return; ok: <body>`. The fail label is placed in the source BETWEEN the checks and the body, so agbcc emits the ROM's inline shared fail block at 0x080BD61C followed by `b end`, and no branch is inverted. (A bottom fail label inverts all checks.)\n3) Use a local `attribs` for the sub_08016190 result and compare the local \u2014 the sibling compared the struct field, which emits an extra `adds r1,r0,#0` that THIS ROM does not have.\n4) D_080CBDD0 here is a 0x28-stride struct with the tile at +0x10 and extra at +0x12 (`struct SpawnParams { u8 _0[0x10]; u16 f10; u16 f12; u8 _14[0x14]; }`), and `host->f28->f4 = D_080CBDD0[host->f1C].f10; ... .f12`.\n5) Tail verbatim from the sibling: `{ s16 idx = actor->f22; *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = zero; }` then scriptTablePtr/scriptPtr, then one block that does `+= 1`, re-reads `idx = actor->f22`, computes `scriptEntry = scriptPtr + idx*2` and dispatches.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.8093748,
@@ -344434,27 +344458,118 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:7c4f5f39f68b51e9a4adb9649db691e602c3ba5f03a4091d9267941fd0486611"
  },
  {
-  "function": "spawnKind68ScriptEffect",
-  "text": "stub compiled; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9826257,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080A2D80",
+  "text": "Correct guarded C (null-check + two stores to +0x4C/+0x5C) scores 215 (rev dfabad9c313845877254); body logic matches target exactly but agbcc -mthumb-interwork inserts push{lr}/pop{r0};bx r0 vs target bare bx lr (frameless Thumb leaf ABI wall). Saved best 200 is invalid C: omits NULL guard and would store through NULL. Next step: requires frameless Thumb-leaf compiler/backend mode; keep guarded C, do not use unguarded 200.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739640.052407,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:097e7755d7b1c37ab8a53ee49070cfb22e0540741d6271eebb9b4ffc8eea51ae"
  },
  {
-  "function": "spawnKind68ScriptEffect",
-  "text": "Best score 6900 (combined-if structure). Core blocker: register allocation (arg0 in r4 vs target r5; sprite r7 vs r6; inner r5 vs r4) and missing 'adds r1,r0,#0' copy + inner load. Tried struct fixes, t13 s32, base as integer/volatile/extern, goto (worse), decl reordering, dummy var, reload-based sign check. Combined if is correct. Cannot get closer without register-pinning (register asm not allowed) or a different variable-liveness pattern. Base folding also single load vs target two. Releasing.",
-  "by": "opencode-beam-free-5",
-  "created_at": 1795683534.1608932,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080B020C",
+  "text": "Best saved score 5330. Target and candidate still diverge from the prologue onward, largely register allocation plus real source-shape differences. The ROM dereferences object+0x48 for the first part pointer and again for the final +0x8C store; the saved best has the final store corrected but still stores the first +0x60 through object+0xA8. Correcting that first store alone scored 5570, and correcting both stores scored 5425. I also tested hoisting `*(u16 *)spC & 1` out of the four-part loop and changing the first velocity-table index from a 32-bit load to signed s8; together they regressed to 6535. The loop source remains void-pointer based, so the compiler reloads the aliased flag instead of keeping the target's precomputed r3 value. Linker warnings naming the three math callees are the known relocation false positive; target and candidate call the same symbols.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795739647.978605,
+  "score_before": 5425,
+  "score_after": 5425,
+  "handoff_inputs": "fd9f45f67e8e14748929d22155b2d0f48a5c2243cea7aaff409031a7f159a90f:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:089450cc990f56105edc7dba0c0a7459641462df715d31fb2e5439ac78537260"
  },
  {
-  "function": "spawnKind68ScriptEffect",
-  "text": "Can't get closer: register-allocation wall at score 6900 (best so far). Target keeps arg0 in r5, sprite in r6, inner in r4 across the whole body; any C I write assigns them to r4/r7/r5 and the diff is pure regalloc plus a few missing copy insns \u2014 no pure-C form changes which register holds a live value across calls. Confirmed floor by prior agent (beam-free-5, 6900). Called-symbols also don't link to ROM call sites. This is a regalloc wall, not a C wall; not worth burning the 8-compile move-on budget. Releasing to match small near-misses instead.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.4558887,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0804D7C4",
+  "text": "Best 10/250 insns, pure regalloc: after subs r0,r0,r1; str r0,[r7,#0x18] both r0/r1 dead; ROM reuses just-killed r1 for ldr r1,[r6,#0x5c]; str r1,[r5,#0x10], agbcc reuses r0. Making r0 unavailable re-prioritizes y-scroll block (50+). Local repairs 6 trials no improvement. Terminal agbcc -O1 tie. Next agent: declaration order or compiler_passes allocation priority; likely wall.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795739655.7002425,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:10aa158a974ed25d33c9712f86ecc27afc7c0b459c6bf9685d7463a61ad41038"
+ },
+ {
+  "function": "sub_0808F61C",
+  "text": "Verified this session (435). s16 switch dispatch on D_020279E8, frameless Thumb leaf with literal pool at 0x0808F630. Accepted frameless-leaf + pool wall. The `volatile unsigned long long pad` is load-bearing for pool alignment (removing it raised score to 485); keep it. Requires compiler/backend emitting frameless Thumb leaves.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795739664.4224482,
+  "score_before": 435,
+  "score_after": 435,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:d2d8b53296ec6541e8584bd3f13c93672c21347194893ecaec82ef59b58abda9"
+ },
+ {
+  "function": "sub_080B318C",
+  "text": "Frameless Thumb loop-leaf ABI wall. Correct linked-list scan over arg0+0x30, checking s16==0x1BE, next at +0x2C, returns 0/1. Score 215 (rev adce88009f7caa12f296) matches body exactly; only push{lr}/pop{r1};bx r1 and b-offset ripple vs target bare bx lr. 7+ prior compiles at same wall. Next step: requires frameless Thumb-leaf compiler/backend mode; no C-source fix in-profile. Keep only sub_080B318C in source (saved best included unrelated functions).",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739664.7940664,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:f60b32245a7ffb3a087ea0698fe63ec586b85293ffbdcab55e7c232e1845be52"
+ },
+ {
+  "function": "sub_08093B10",
+  "text": "Small frameless Thumb leaf (30B, bx lr, inline pool). Logic: read s16 0x020279E8; return 0 if in [4,5], else -1. Saved best 305; my attempt regressed to 655 due to compare form (`v<4` emitted `cmp #3;ble` vs target `cmp #4;blt`) and frame insertion. Likely frameless-leaf ABI wall once compare shape is right. Next step: restore saved best / try `if (v == 4 || v == 5) return 0; return -1;` or positive-range form, then expect push/pop+offset wall; needs frameless Thumb-leaf compiler/backend for exact match.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739664.8568497,
+  "score_before": 655,
+  "score_after": 655,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:b1d34ff952124869da38ed6df93eb8ce26fbc86e77d9878e5ec401d629c10a74"
+ },
+ {
+  "function": "sub_08090A7C",
+  "text": "Frameless Thumb leaf (32B, bx lr, inline pool). Target logic: s16 0x020279E8 ==0 -> 0, ==2 -> 1, else -1. Saved best 455; my if-else attempt regressed to 1105 (wrong branch/control shape). Score 455 consistent with frame/inline-pool ABI wall. Next step: restore saved best (switch/if shape), verify body, then hand off as frameless Thumb-leaf/inline-pool wall; no C-source fix in-profile.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739665.016149,
+  "score_before": 1105,
+  "score_after": 1105,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:6ac70a43e02019d7437b497cd78e34401bf7d18a3f54761d1cf205d6bde6c21e"
+ },
+ {
+  "function": "sub_0807678C",
+  "text": "Best historical 1455 (258 insns) but current recheck 2425; pure regalloc wall (ROM keeps allocEffectPart result in r3 and zero in r2 with sb copy-backs; agbcc uses r2/r1). 97 lifetime attempts. Candidate reassigns arg0 to &gMainWorkspace and uses it in final script dispatch (semantically questionable). Next agent: separate self/globals pointers; likely still wall. Terminal agbcc -O2 coloring.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795739694.6564803,
+  "score_before": 2425,
+  "score_after": 2425,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:aa5da9de3b4deed06e4591faa9d6f1add447c300a435bd33d3232cf033ca8532"
+ },
+ {
+  "function": "sub_0804E584",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Best 1100 (292/294 insns), terminal agbcc allocator/scheduling trade: fresh movs r1,#0 at two zero stores vs agbcc mov r1,sb via new_var3=&zero. Removing address-of adds extra copy of sub_08016190 result and shifts branch displacements by 2. 83+ lifetime attempts. Local repairs 3 trials no improvement. Next agent likely wall.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795739700.345626,
+  "score_before": 1150,
+  "score_after": 1150
+ },
+ {
+  "function": "sub_0808D690",
+  "text": "Verified this session (225, 91.3%). Frameless Thumb leaf switch (0/1/2/3) adjusting a 32-bit value with saturation at 0xF00000. No literal pool. Accepted DRACULA AGB1 frameless-Thumb-leaf ABI wall; requires compiler/backend that emits frameless Thumb leaves. C is correct.\nFresh compile 225 (24 real target insns byte-exact); search_flags O1/O2/O3/Os/-fno-expensive-optimizations all 225 or worse; 7 historical compiles at 225\nOnly residual: `push {lr}` at entry, `pop {r0}; bx r0` at exit vs bare `bx lr`, plus two `b` displacements shifted by 2 bytes. No source spelling or in-profile flag removes it.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795739701.377852,
+  "score_before": 225,
+  "score_after": 225,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:6f38ee1aa23dc596f5044cf937f07640f81a347b52f0c52a0d4dc69f6f3a15af"
+ },
+ {
+  "function": "sub_080A2E74",
+  "text": "Correct guarded C `if(arg0){ *(u8*)((u8*)arg0+0x54)=1; }` scores 215 (rev f6d12febc61ad7bfe192). Body exact; agbcc -mthumb-interwork inserts push{lr}/pop{r0};bx r0 vs target bare bx lr (frameless Thumb leaf ABI wall). Saved best 210 is invalid (unguarded store through NULL, volatile long return, empty if). Next step: requires frameless Thumb-leaf compiler/backend mode; keep guarded void C.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739705.6825624,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:53844f18ba4adcf3aaea30de82f9ec380253c8966ce4dcf3960fb73bd139402f"
+ },
+ {
+  "function": "sub_080A3044",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Best terminal wall: ROM arg0=r6/p=r7 with sub sp,#4 vs agbcc arg0=r7/p=r6 with sub sp,#8; all 74 regalloc/40 operand rows cascade. Only C shape reaching sp,#4 loses r10 table coloring and regresses to 4270. 48 lifetime attempts. Terminal allocator trade. Next agent likely wall.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795739728.7087486,
+  "score_before": 5242,
+  "score_after": 5242
+ },
+ {
+  "function": "sub_080B9824",
+  "text": "Frameless Thumb leaf ABI wall. Correct C `if (*(u8*)((u8*)arg0+0x4C)==0) return 1; return 0;` scores 215 (rev 978dc662cd27204fcd29). Body exact; agbcc inserts push{lr}/pop{r1};bx r1 vs target bare bx lr, branch ripple. Saved best included unrelated functions in source; ignore. Next step: requires frameless Thumb-leaf compiler/backend mode; no C-source fix in-profile.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739749.1861827,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:9327340e9c5b17300ef3641191418d699548f84d7ff7cfe711ad02a936bacd71"
  }
 ]

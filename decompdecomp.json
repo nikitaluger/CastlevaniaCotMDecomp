@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795739629.2731247,
- "revision": 68559,
+ "saved_at": 1795739769.5628083,
+ "revision": 68569,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "772216:134989944": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnKind68ScriptEffect",
-   "vram": 134989944
   }
  },
  "instructions": "",
@@ -1956,8 +1945,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -22047,8 +22035,8 @@
   },
   "sub_080BC2C8": {
    "vram": 134988488,
-   "best_score": 895,
-   "best_by": "permuter-8589938869"
+   "best_score": 870,
+   "best_by": "opencode-hungerg-free-3"
   },
   "sub_080BC574": {
    "vram": 134989172,
@@ -22083,7 +22071,7 @@
   "spawnKind68ScriptEffect": {
    "vram": 134989944,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080BCA00": {
    "vram": 134990336,
@@ -22165,7 +22153,7 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_080BD578": {
+  "spawnKind68ScriptEffectAlt": {
    "vram": 134993272,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": false
@@ -48682,7 +48670,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080BD578",
+   "name": "spawnKind68ScriptEffectAlt",
    "vram": 134993272,
    "size": 392,
    "status": "open"
@@ -51660,6 +51648,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind68ScriptEffectAlt",
+   "address": 134993272,
+   "size": 392,
+   "kind": "func"
+  },
+  {
    "name": "initSpriteGfx",
    "address": 134997288,
    "size": 40,
@@ -52376,6 +52370,18 @@
   {
    "name": "gEffectPartParams",
    "address": 135278400,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind68AltAnimDataTable",
+   "address": 135278568,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind68AltLayerAttrs",
+   "address": 135278580,
    "size": 0,
    "kind": "data"
   },
