@@ -14,10 +14,10 @@ extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void *allocEffectPart(void);
-extern void sub_080B98B8(void *, s32, s32, s32);
+extern void spawnChainedEffectObjects(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void updateActorEffectSubObject(void);
@@ -77,7 +77,7 @@ void setupEnemyObject(u8 *self)
   pos = *(u32 *)addr1;
   pos += scale;
   sub_080146D0((void *) work, pos, 0x40000);
-  sub_08014668((void *) sprite, *((s32 *) (((u8 *) work) + 0x10)));
+  setSpriteFlipForDirection((void *) sprite, *((s32 *) (((u8 *) work) + 0x10)));
   paletteData = D_08102DF0;
   work->f28 = allocEffectPart();
   if (work->f28 != NULL) goto setupSubObj;
@@ -96,7 +96,7 @@ setupSubObj:
   handlerTable = self + 0x14;
   work->f28->fE = gEffectGfxTable[work->f1C].fA;
   work->f28->f10 = (u32) sprite;
-  sub_080B98B8(self, 1, 4, *((u32 *) (sprite + 0x1C)));
+  spawnChainedEffectObjects(self, 1, 4, *((u32 *) (sprite + 0x1C)));
   *(u16 *) (self + 2) |= 0x1000;
   {
     s16 idx = *((s16 *) (self + 0x22));

@@ -18,7 +18,7 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(s32);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
@@ -63,7 +63,7 @@ void spawnKind68ScriptEffectAlt(struct ActorContext *actor) {
     *((u16 *)gfx) |= gMainWorkspace.gfxFlags;
     host->f8 = actor->f4C;
     host->fC = actor->f5C;
-    sub_08014668((void *)gfx, -actor->f6C);
+    setSpriteFlipForDirection((void *)gfx, -actor->f6C);
     initSpriteGraphics((void *)gfx, animState, (s32)0x08102FE8);
     setAnimationFrame((void *)gfx, animState, 0, 0);
     defaults = gKind68AltLayerAttrs;

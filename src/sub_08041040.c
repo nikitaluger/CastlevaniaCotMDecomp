@@ -1,7 +1,7 @@
 extern void stepAnimationTrack(s32, void *);
 extern void moveEntityWithCollision(void *, s32);
 extern s32 sub_0801459C(void *, s32);
-extern void sub_08014668(s32, s32);
+extern void setSpriteFlipForDirection(s32, s32);
 extern s32 sub_080148AC(s32, s32);
 extern void sub_080148D8(s32, s32);
 extern void sub_080415D4(u8, s32, void *, s32);
@@ -22,7 +22,7 @@ void sub_08041040(void *arg0) {
     if (sub_0801459C(motion, 0x600000) != 0) {     /* player within range */
         vx = sub_080148AC(anim, 0xFFFD0000);       /* lunge speed, toward player */
         *(s32 *)(motion + 0x10) = vx;
-        sub_08014668(anim, vx);
+        setSpriteFlipForDirection(anim, vx);
         sub_080415D4(1, anim, motion, (s32)animDesc);
         *(u8 *)(entity + (*(s16 *)(entity + 0x22) * 2) + 0x19) = 0;
         {

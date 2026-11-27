@@ -36,7 +36,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void loadEffectPalette(u32);
 extern void sub_080036C0(s32);
 extern void *allocEffectPart(void);
-extern void sub_080B98B8(void *, s32, s32, u32);
+extern void spawnChainedEffectObjects(void *, s32, s32, u32);
 extern void *spawnBudgetedEffect(void *, u32);
 extern void registerScriptObject(void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -125,7 +125,7 @@ void sub_080B76A4(u8 *arg0)
     ((struct B7R *) new_var)->fC = *((u16 *) (d1c8 + 6));
     ((struct B7R *) new_var)->fE = CB2B;
     ((struct B7R *) (*((void **) (p48 + 4))))->f10 = (u32) a;
-    sub_080B98B8(arg0, 2, 10, *((u32 *) (((u8 *) a) + 0x1C)));
+    spawnChainedEffectObjects(arg0, 2, 10, *((u32 *) (((u8 *) a) + 0x1C)));
     *((void **) (p + 0x48)) = inline_fn(arg0);
     gMainWorkspace.f40 = 0;
     registerScriptObject(arg0, 0);

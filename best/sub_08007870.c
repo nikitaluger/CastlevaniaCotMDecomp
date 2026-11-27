@@ -4,7 +4,7 @@ extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern u8 gMainWorkspace[];
 extern u16 D_085244B4[];
-extern u32 gScriptStepCallbacks;
+extern u32 gScriptStepCallbacks[];
 void sub_08007870(Arg0 *arg0)
 {
     u16 buf[16];

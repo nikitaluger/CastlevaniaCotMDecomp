@@ -37,7 +37,7 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(void);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
@@ -91,7 +91,7 @@ void initScriptedEffectSprite(u8 *actor)
   value &= 0xFC0;
   *((u16 *) sprite) = value;
   *((u16 *) sprite) |= gMainWorkspace.gfxFlags;
-  sub_08014668((void *) sprite, *((u32 *) (actor + 0x4C)));
+  setSpriteFlipForDirection((void *) sprite, *((u32 *) (actor + 0x4C)));
   initSpriteGraphics((void *) sprite, anim, ((*((s16 *) (((u8 *) work) + 0x1C))) * 0xC) + 0x080CD400);
   setAnimationFrame((void *) sprite, anim, 0, 0);
   {

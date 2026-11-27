@@ -22,7 +22,7 @@ void sub_0802349C(void *arg0) {
 
 /* Free the ten companion-effect slots held by this object's sub-object:
  * flag each live one as finished and clear its slot. */
-void sub_080235C0(void *arg0) {
+void releaseProjectileSlotsStep5(void *arg0) {
     s32 count;
     void **slot;
     void *effect;

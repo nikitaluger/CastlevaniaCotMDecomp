@@ -1,7 +1,7 @@
 s32 sub_08011344(s32, s32, s32, s32);
 s32 stepAnimationTrack(s32, s32);
 s32 sub_08011EE8(void *, s32, s32);
-s32 sub_08014668(s32, s32);
+s32 setSpriteFlipForDirection(s32, s32);
 s32 signOf(s32);
 u32 scaleByRandom(u32);
 s32 sub_0803B0D8(void *, void *, s32);
@@ -31,7 +31,7 @@ void sub_0803A1E0(void *arg0)
   sub_08011EE8(comp, 0x16C1, 0);
   stepAnimationTrack(parent, body);
   xPos = ((u8 *) comp) + 8;
-  sub_08014668(parent, *((s32 *) (((u8 *) comp) + 0x10)));
+  setSpriteFlipForDirection(parent, *((s32 *) (((u8 *) comp) + 0x10)));
   if ((*((u8 *) (((u8 *) tracker) + 4))) == 2)
   {
     if (signOf(*((s32 *) xPos)) == 1)

@@ -1370,3 +1370,30 @@ struct ProjectedKind68GfxEntry {
 
 /* Project actor motion using its sprite animation state and work output. */
 extern void sub_080BC73C(void *, void *, void *);
+
+/* Directional multi-part projectile, updated by updateDirectionalMultiPartProjectile
+ * (whose graphics are built by initScriptedMultiPartGraphics).
+ * Entity: +0x02 flags (0x8000 skips animation/motion), +0x14 active step-handler
+ * table, +0x18 script stream (per-step timer at +1A, event byte at +1B), +0x22
+ * step index, +0x24 cleanup callback, +0x38 sprite, +0x3C work state, +0x6C
+ * direction flags (bit 1 re-aims the child layers).
+ * Work state: +0x00 hit flag (bit 0), +0x08/+0x0C fixed-point world X/Y,
+ * +0x10 X velocity, +0x14 Y velocity (random kick), +0x28 first render part,
+ * +0x34 animation track, +0x48 part block (its s16 word at +0: 1 = special, its
+ * s32 at +4: fall speed 0x16C1, its pointers at +0x34/+0x38: the other parts).
+ * Render parts carry their active flag in byte +1; a hit clears all three and
+ * dispatches event callback index 2 from sScriptStepCallbacks. */
+extern u32 sMultiPartProjectileStepTable[];
+#define MULTI_PART_PROJ_DIR_FLAG 2  /* entity+0x6C bit: re-aim child layers from direction */
+
+/* Kind-0x15 scripted sprite built by spawnKind15ScriptSprite. The caller's +0xAC
+ * holds the spawn parameters; the allocated work state at the entity's +0x3C has
+ * its kind at +0x1C, animation track at +0x34 and three sub-object pointers at +0x54.
+ * The sprite gets a config part at work+0x28 and three render sub-objects. */
+#define KIND15_SPRITE_KIND       0x15
+#define KIND15_WORK_SLOT         0x64
+#define KIND15_SPRITE_GFX_ID     0x8000000A
+#define KIND15_ANIM_STRIDE       12
+#define KIND15_INIT_VALUE        8
+#define KIND15_SPAWN_EFFECT      0xE1
+#define KIND15_SPRITE_READY      0x1000

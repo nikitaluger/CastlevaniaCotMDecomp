@@ -4,7 +4,7 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
-extern void sub_08014668(u8 *);
+extern void setSpriteFlipForDirection(u8 *);
 extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, u32);
 extern u32 *gScriptStepCallbackTable;
@@ -127,7 +127,7 @@ void sub_0804D7C4(struct Arg0 *arg0)
   }
   *((u32 *) (((u8 *) r5) + 0x10)) = arg0->f5C;
   *((u32 *) (((u8 *) r5) + 0x14)) = arg0->f6C;
-  sub_08014668(obj);
+  setSpriteFlipForDirection(obj);
   setAnimationFrame(obj, r9, 9, 0);
   arg0->f2 |= 0x1000;
   *((u8 *) ((((u8 *) arg0) + (2 * arg0->f22)) + 0x19)) = zero;

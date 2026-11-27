@@ -4,7 +4,7 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
-extern void sub_08014668(u8 *, s32);
+extern void setSpriteFlipForDirection(u8 *, s32);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
 extern void sub_0802A030(void);
@@ -133,7 +133,7 @@ fields:
     effect->radiusA = (u32)((s64)_call_via_r1((u8 *)owner->scriptTable + 0x4000, *valueTable) * 3);
     effect->radiusB = (u32)((s64)_call_via_r1((u8 *)owner->scriptTable, *valueTable) * 3);
     *(u16 *)((u8 *)effect + 4) = 2;
-    sub_08014668(sprite, effect->radiusA);
+    setSpriteFlipForDirection(sprite, effect->radiusA);
     setAnimationFrame(sprite, animState, 0x0B, 1);
     owner->flags |= 0x1000;
     *(u8 *)((u8 *)owner + 2 * owner->scriptStep + 0x19) = 0;

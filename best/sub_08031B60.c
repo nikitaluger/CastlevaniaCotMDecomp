@@ -3,7 +3,7 @@ extern s32 allocWorkSlot(u8 *, s32, s32, s32);
 extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
-extern void sub_08014668(u8 *);
+extern void setSpriteFlipForDirection(u8 *);
 extern void sub_08031F04(void);
 extern void sub_080C31E0(u8 *, void *);
 extern void sub_080C31E4(u8 *, u8 *, void *);
@@ -85,7 +85,7 @@ body:
     t5c = arg0->f5C;
     p->f10 = t5c;
     p->f14 = arg0->f6C;
-    sub_08014668(obj);
+    setSpriteFlipForDirection(obj);
     *(u16 *)(obj + 0x28) = 0x45;
     arg0->f2 |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * arg0->f22 + 0x19) = zero;

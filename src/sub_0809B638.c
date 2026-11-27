@@ -1,4 +1,4 @@
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -18,7 +18,7 @@ void sub_0809B638(void *arg0)
         *(s32 *)(ctrl + 0x10) = (s32)(s8)dir;
     }
     *(u16 *)(sprite + 0x08) = *(u16 *)((u8 *)arg0 + 0x6C);
-    sub_08014668(sprite, *(vu32 *)(ctrl + 0x10));
+    setSpriteFlipForDirection(sprite, *(vu32 *)(ctrl + 0x10));
     stepAnimationTrack(sprite, anim);
     if (*(u8 *)anim & 2)
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));

@@ -6,7 +6,7 @@ void sub_0809C5F4(s32);
 void sub_0809C4E0(s32, s32);
 void sub_0809C5E4(s32);
 void sub_08011EE8(void *, s32, s32);
-void sub_08014668(void *, s32);
+void setSpriteFlipForDirection(void *, s32);
 
 void sub_0809A610(void *entity)
 {
@@ -73,7 +73,7 @@ void sub_0809A610(void *entity)
     }
     
     v1 = *((s32 *)(state + 0x10));
-    sub_08014668(target, v1);
+    setSpriteFlipForDirection(target, v1);
     
     v1 = *((s32 *)(state + 0x08));
     if (v1 <= 0x3FFFFF)

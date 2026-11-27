@@ -18,7 +18,7 @@ void sub_0802349C(void *arg0) {
     *(u16 *)(obj + 0x22) = *(u16 *)(obj + 0x22) - 1;
 }
 
-void sub_080235C0(void *arg0) {
+void releaseProjectileSlotsStep5(void *arg0) {
     s32 var_r3;
     void **var_r2;
     void *temp_r1;

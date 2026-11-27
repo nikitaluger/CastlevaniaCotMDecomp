@@ -1,6 +1,6 @@
 extern s32 updateObjectDisplayState(void *, void *);
 extern void syncSpriteToWorldPosition(void *, void *);
-extern void sub_08014668(void *, s8);
+extern void setSpriteFlipForDirection(void *, s8);
 
 extern s32 D_086706B0[];
 
@@ -46,7 +46,7 @@ void sub_080BBEF4(void *arg0)
     s8 direction = *((s8 *)((s8 *)parentState + 0x35));
     *((s32 *)((s8 *)entity + 0x08)) = *((s32 *)((s8 *)parentEntity + 0x08)) + (direction * 0xE0000);
     *((s32 *)((s8 *)entity + 0x0C)) = *((s32 *)((s8 *)parentEntity + 0x0C)) + 0xFFEB0000;
-    sub_08014668(work, *((s8 *)((s8 *)parentState + 0x35)));
+    setSpriteFlipForDirection(work, *((s8 *)((s8 *)parentState + 0x35)));
   }
   syncSpriteToWorldPosition(arg0, work);
 }

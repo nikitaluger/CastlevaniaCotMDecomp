@@ -4,7 +4,7 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
-extern void sub_08014668(u8 *);
+extern void setSpriteFlipForDirection(u8 *);
 extern void sub_08047FF0(void);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
@@ -65,7 +65,7 @@ extern u8 gSpriteAnimDataTable[];
 
 /* Spawn an effect from a main object: allocate a free object, build its
    EffectGfx from gEffectGfxTable/D_080CF8D0, place it at the object's world coords
-   and hand it to sub_08014668 before scheduling the audio/command stream. */
+   and hand it to setSpriteFlipForDirection before scheduling the audio/command stream. */
 void spawnOwnedEffect(struct MainObj *arg0) {
     u8 *effect;
     struct OwnerEffect *owner;
@@ -120,7 +120,7 @@ void spawnOwnedEffect(struct MainObj *arg0) {
     extra = arg0->spawnX;
     owner->spawnX = extra;
     owner->spawnY = arg0->spawnY;
-    sub_08014668(effect);
+    setSpriteFlipForDirection(effect);
     setAnimationFrame(effect, anim, 0x0B, 0);
     arg0->flags |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * arg0->index + 0x19) = zero;

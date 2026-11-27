@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795741575.4146054,
- "revision": 68625,
+ "saved_at": 1795742744.6788054,
+ "revision": 68697,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "137832:134355560": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateProjectileActorAlt",
-   "vram": 134355560
   }
  },
  "instructions": "",
@@ -1979,8 +1968,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -2890,8 +2878,8 @@
   },
   "sub_08007870": {
    "vram": 134248560,
-   "best_score": 700,
-   "best_by": "permuter-8589934808"
+   "best_score": 640,
+   "best_by": "opencode-hungerg-free-3"
   },
   "sub_08007A64": {
    "vram": 134249060,
@@ -4283,7 +4271,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08014668": {
+  "setSpriteFlipForDirection": {
    "vram": 134301288,
    "best_score": 305,
    "best_by": "opencode-hy4-flash-free-7"
@@ -5480,8 +5468,13 @@
   },
   "sub_0801E0DC": {
    "vram": 134340828,
-   "best_score": 200,
-   "best_by": "opencode-hy4-flash-free-1"
+   "matched_by": "autopilot",
+   "readable": false
+  },
+  "sub_0801E12A": {
+   "vram": 134340908,
+   "matched_by": "restored",
+   "readable": false
   },
   "sub_0801E3FC": {
    "vram": 134341628,
@@ -5795,8 +5788,13 @@
   },
   "sub_08021200": {
    "vram": 134353408,
-   "best_score": 200,
-   "best_by": "opencode-iceman-contributor-free-1"
+   "matched_by": "autopilot",
+   "readable": false
+  },
+  "sub_0802128A": {
+   "vram": 134353548,
+   "matched_by": "restored",
+   "readable": false
   },
   "releaseEntityState": {
    "vram": 134353600,
@@ -5861,7 +5859,7 @@
   "updateProjectileActorAlt": {
    "vram": 134355560,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08021BEC": {
    "vram": 134355948,
@@ -5918,10 +5916,10 @@
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
    "readable": false
   },
-  "sub_08022470": {
+  "updateDirectionalMultiPartProjectile": {
    "vram": 134358128,
-   "best_score": 3265,
-   "best_by": "permuter-8589935476"
+   "matched_by": "opencode-hungerg-free-3",
+   "readable": true
   },
   "sub_08022620": {
    "vram": 134358560,
@@ -5963,10 +5961,10 @@
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": true
   },
-  "sub_08022C50": {
+  "updateProjectileActorStep5": {
    "vram": 134360144,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08022DD4": {
    "vram": 134360532,
@@ -7558,10 +7556,10 @@
    "matched_by": "opencode-free-2",
    "readable": false
   },
-  "sub_08032ED0": {
+  "spawnKind15ScriptSprite": {
    "vram": 134426320,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
-   "readable": false
+   "readable": true
   },
   "sub_08033054": {
    "vram": 134426708,
@@ -7628,7 +7626,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080338F0": {
+  "syncChildObjectParams": {
    "vram": 134428912,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -8363,12 +8361,12 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_0803AEF0": {
+  "allocSpriteConfigPart": {
    "vram": 134459120,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0803AF70": {
+  "initThreeSubObjects": {
    "vram": 134459248,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": false
@@ -11750,8 +11748,8 @@
   },
   "sub_0805B808": {
    "vram": 134592520,
-   "best_score": 300,
-   "best_by": "opencode-hy4-flash-free-1"
+   "matched_by": "opencode-hy4-flash-free-44",
+   "readable": false
   },
   "sub_0805BA44": {
    "vram": 134593092,
@@ -12585,8 +12583,8 @@
   },
   "sub_080653B0": {
    "vram": 134632368,
-   "best_score": 200,
-   "best_by": "opencode-hy4-flash-free-1"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_08065628": {
    "vram": 134633000,
@@ -21578,10 +21576,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_080B905C": {
+  "spawnKind67ChainedEffect": {
    "vram": 134975580,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080B91E0": {
    "vram": 134975968,
@@ -21663,7 +21661,7 @@
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
   },
-  "sub_080B98B8": {
+  "spawnChainedEffectObjects": {
    "vram": 134977720,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -26077,7 +26075,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08014668",
+   "name": "setSpriteFlipForDirection",
    "vram": 134301288,
    "size": 34,
    "status": "open"
@@ -27657,14 +27655,14 @@
   {
    "name": "sub_0801E0DC",
    "vram": 134340828,
-   "size": 76,
+   "size": 80,
    "status": "open"
   },
   {
    "name": "sub_0801E12A",
-   "vram": 134340906,
-   "size": 54,
-   "status": "asm"
+   "vram": 134340908,
+   "size": 52,
+   "status": "open"
   },
   {
    "name": "sub_0801E3FC",
@@ -28065,14 +28063,14 @@
   {
    "name": "sub_08021200",
    "vram": 134353408,
-   "size": 136,
+   "size": 140,
    "status": "open"
   },
   {
    "name": "sub_0802128A",
-   "vram": 134353546,
-   "size": 54,
-   "status": "asm"
+   "vram": 134353548,
+   "size": 52,
+   "status": "open"
   },
   {
    "name": "releaseEntityState",
@@ -28213,7 +28211,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802217C",
+   "name": "releaseProjectileSlotsAlt",
    "vram": 134357372,
    "size": 44,
    "status": "asm"
@@ -28231,7 +28229,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_08022470",
+   "name": "updateDirectionalMultiPartProjectile",
    "vram": 134358128,
    "size": 432,
    "status": "open"
@@ -28285,7 +28283,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08022C50",
+   "name": "updateProjectileActorStep5",
    "vram": 134360144,
    "size": 388,
    "status": "open"
@@ -28357,7 +28355,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080235C0",
+   "name": "releaseProjectileSlotsStep5",
    "vram": 134362560,
    "size": 44,
    "status": "asm"
@@ -30259,7 +30257,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08032ED0",
+   "name": "spawnKind15ScriptSprite",
    "vram": 134426320,
    "size": 388,
    "status": "open"
@@ -30343,7 +30341,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080338F0",
+   "name": "syncChildObjectParams",
    "vram": 134428912,
    "size": 96,
    "status": "open"
@@ -31249,13 +31247,13 @@
    "status": "open"
   },
   {
-   "name": "sub_0803AEF0",
+   "name": "allocSpriteConfigPart",
    "vram": 134459120,
    "size": 128,
    "status": "open"
   },
   {
-   "name": "sub_0803AF70",
+   "name": "initThreeSubObjects",
    "vram": 134459248,
    "size": 352,
    "status": "open"
@@ -35481,13 +35479,13 @@
   {
    "name": "sub_0805B808",
    "vram": 134592520,
-   "size": 110,
+   "size": 116,
    "status": "open"
   },
   {
    "name": "sub_0805B878",
-   "vram": 134592632,
-   "size": 460,
+   "vram": 134592636,
+   "size": 456,
    "status": "asm"
   },
   {
@@ -36567,13 +36565,13 @@
   {
    "name": "sub_080653B0",
    "vram": 134632368,
-   "size": 240,
+   "size": 244,
    "status": "open"
   },
   {
    "name": "sub_080654A0",
-   "vram": 134632608,
-   "size": 392,
+   "vram": 134632612,
+   "size": 388,
    "status": "asm"
   },
   {
@@ -47941,7 +47939,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080B905C",
+   "name": "spawnKind67ChainedEffect",
    "vram": 134975580,
    "size": 388,
    "status": "open"
@@ -48043,7 +48041,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080B98B8",
+   "name": "spawnChainedEffectObjects",
    "vram": 134977720,
    "size": 48,
    "status": "open"
@@ -50439,6 +50437,12 @@
    "kind": "func"
   },
   {
+   "name": "setSpriteFlipForDirection",
+   "address": 134301288,
+   "size": 34,
+   "kind": "func"
+  },
+  {
    "name": "setSpriteFlip",
    "address": 134301324,
    "size": 66,
@@ -50751,6 +50755,18 @@
    "kind": "func"
   },
   {
+   "name": "releaseProjectileSlotsAlt",
+   "address": 134357372,
+   "size": 44,
+   "kind": "func"
+  },
+  {
+   "name": "updateDirectionalMultiPartProjectile",
+   "address": 134358128,
+   "size": 432,
+   "kind": "func"
+  },
+  {
    "name": "configureChildMotionFromDirection",
    "address": 134358996,
    "size": 468,
@@ -50763,9 +50779,21 @@
    "kind": "func"
   },
   {
+   "name": "updateProjectileActorStep5",
+   "address": 134360144,
+   "size": 388,
+   "kind": "func"
+  },
+  {
    "name": "updateArcingTrailAttack",
    "address": 134361484,
    "size": 392,
+   "kind": "func"
+  },
+  {
+   "name": "releaseProjectileSlotsStep5",
+   "address": 134362560,
+   "size": 44,
    "kind": "func"
   },
   {
@@ -50907,6 +50935,18 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind15ScriptSprite",
+   "address": 134426320,
+   "size": 388,
+   "kind": "func"
+  },
+  {
+   "name": "syncChildObjectParams",
+   "address": 134428912,
+   "size": 96,
+   "kind": "func"
+  },
+  {
    "name": "spawnLargeAttackEntity",
    "address": 134429168,
    "size": 476,
@@ -50934,6 +50974,18 @@
    "name": "createVariantEntitySprite",
    "address": 134443456,
    "size": 496,
+   "kind": "func"
+  },
+  {
+   "name": "allocSpriteConfigPart",
+   "address": 134459120,
+   "size": 128,
+   "kind": "func"
+  },
+  {
+   "name": "initThreeSubObjects",
+   "address": 134459248,
+   "size": 352,
    "kind": "func"
   },
   {
@@ -51729,6 +51781,18 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind67ChainedEffect",
+   "address": 134975580,
+   "size": 388,
+   "kind": "func"
+  },
+  {
+   "name": "spawnChainedEffectObjects",
+   "address": 134977720,
+   "size": 48,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind68ScriptEffect",
    "address": 134989944,
    "size": 392,
@@ -52461,6 +52525,12 @@
    "kind": "data"
   },
   {
+   "name": "gKind67ChainedLayerAttrs",
+   "address": 135278088,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gKind68AnimDataTable",
    "address": 135278372,
    "size": 0,
@@ -52559,6 +52629,18 @@
   {
    "name": "sProjectileAltScriptStepTable",
    "address": 140957768,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "sMultiPartProjectileStepTable",
+   "address": 140957816,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "sProjectileStep5ScriptStepTable",
+   "address": 140957836,
    "size": 0,
    "kind": "data"
   },
@@ -52669,7 +52751,7 @@
   },
   {
    "address": 33710064,
-   "type": "u8[]",
+   "type": "struct FixedEffectWorkspace",
    "source": "match"
   },
   {
@@ -52724,12 +52806,12 @@
   },
   {
    "address": 135052752,
-   "type": "struct SpawnParams[]",
+   "type": "struct Kind67ChainedGfxEntry[]",
    "source": "match"
   },
   {
    "address": 135058432,
-   "type": "char[]",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -53163,6 +53245,11 @@
    "source": "match"
   },
   {
+   "address": 135278088,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 135278372,
    "type": "char[]",
    "source": "match"
@@ -53234,6 +53321,21 @@
   },
   {
    "address": 140957680,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140957768,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140957816,
+   "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 140957836,
    "type": "u8[]",
    "source": "match"
   },
@@ -55700,31 +55802,6 @@
    "asm_code": "3 agents (opencode-beam-free, opencode-deepseek-v4.1-flash) found no C makes it: Frameless-branched-leaf wall: agbcc emits push {lr}/pop {r0};bx r0 for any conditional branch, ROM uses bare bx lr. Body byte-exact. 45+ attempts. Not producible by agbcc. Marking not_c."
   },
   {
-   "name": "sub_0801E12A",
-   "vram": 134340906,
-   "not_c": {
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Boundary artifact floor at score 110. All 25 real instructions (from 0x0801E12C push {lr} onward) are byte-exact; sole diffs are the leading 2-byte orphan `lsrs r6,r4,#1` at 0x0801E12A (high halfword of previous function's literal pool word 0x0866D75C) and the BL displacement shifted by 2 that follows. Recompiled best attempt this session (110). No C emits that prefix; needs boundary fix extending sub_0801E0DC to 0x0801E12C / shifting this function's start. Ordinary correct C, not hand asm, not not_c. Best attempt preserved.",
-     "t": 1795073625.5591786,
-     "from": "note"
-    },
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Tried same body as matched sub_0801F648 pattern (4 compiles, best 110). All 25 real instructions match structurally; remaining diffs: (1) target has leading `lsrs r6,r4,#1` at 0x0801E12A (2 bytes) before push {lr} \u2014 likely tail of previous function, real function starts at 0x0801E12C per prior agent; no C emits this prefix. (2) linker/call target differs (`bl #0xa50ba` vs `bl #0x26` to sub_080C31E4) though asm labels same. Body: sets *(q+8)=0xA, *(q+0x28)=6 where q=*(arg0+0x3C)+0x48; stores 0 to arg0 + *(s16*)(arg0+0x22)*2 + 0x19; calls sub_080C31E4(arg0+0x18,arg0+0x22,*(u32*)0x08671BB0). Needs boundary/symbol fix rather than C changes.",
-     "t": 1794904538.9444714,
-     "from": "note"
-    },
-    "opencode-free-1": {
-     "model": "opencode-free",
-     "why": "Boundary artifact floor at score 110. All 25 real instructions (from 0x0801E12C push {lr} onward) are byte-exact; sole diffs are the leading 2-byte orphan `lsrs r6,r4,#1` at 0x0801E12A (high halfword of previous function's literal pool word 0x0866D75C) and the BL displacement shifted by 2 that follows. No C emits that prefix; needs boundary fix extending sub_0801E0DC to 0x0801E12C / shifting this function's start. Ordinary correct C, not hand asm, not not_c. Best attempt preserved.",
-     "t": 1795074867.0796735,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Boundary artifact floor at score 110. All 25 real instructions (from 0x0801E12C push {lr} onward) are byte-exact; sole diffs are the leading 2-byte orphan `lsrs r6,r4,#1` at 0x0801E12A (high halfword of previous function's literal pool word 0x0866D75C) and the BL displacement shifted by 2 that follo"
-  },
-  {
    "name": "releaseActorSlots",
    "vram": 134342140,
    "not_c": {
@@ -55825,32 +55902,7 @@
    "asm_code": "3 agents (opencode-beam-free, opencode-hy4-flash-free) said in their notes that no C makes it: Terminal dead-unused-r6 save + constant-colouring ABI wall, re-confirmed with 4 compiles this session (best dead-local 105; `dead=1; if(dead==2) p=p;` 105; `dead += ctr` 115 worse; restored best 105). All 22 target body instructions byte-exact; only residual is the ROM's dead unused-r6 `push {r4,r5,"
   },
   {
-   "name": "sub_0802128A",
-   "vram": 134353546,
-   "not_c": {
-    "opencode-nemotron-3.5-super-vl-12-1": {
-     "model": "opencode-nemotron-3.5-super-vl-12",
-     "why": "Start-alignment boundary wall: score 130, never compiled. Target's first insn `lsrs r7,r4,#1` at 0x0802128A is the tail of the preceding `non_word_aligned` function (uses uninitialized r4, not C-producible); real body starts 0x0802128C (24 insns byte-exact). report_boundary only trims END, cannot move START. Unwinnable in C as declared \u2014 not a C logic problem, a function-start boundary error. Releasing without compiling (doesn't count as a compiled claim).",
-     "t": 1795154893.46319,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Confirmed start-alignment boundary wall at score 130: real body (24 insns from 0x0802128C) byte-exact; sole missing row is leading `lsrs r7,r4,#1` at 0x0802128A, the tail of the preceding non_word_aligned function (uses uninitialized r4/r7, not C-producible), plus 3 operand diffs that are the 2-byte branch/call offset shift it causes. report_boundary trims only END, cannot move START. Ordinary correct C, not hand asm, not not_c. Best source preserved.",
-     "t": 1795153491.3164067,
-     "from": "note"
-    },
-    "opencode-free-1": {
-     "model": "opencode-free",
-     "why": "Score 130 (94.8%), real body 24/25 insns byte-exact from 0x0802128C. Only diff: leading `lsrs r7,r4,#1` at 0x0802128A (tail of previous non_word_aligned function, uses uninitialized r4/r7, not C-producible). The 3 operand diffs (bl offsets, beq) are 2-byte shift from that extra instruction. report_boundary only trims END, cannot move START alignment. Boundary case filed by prior agents. Not C-fixable. Pure C, not asm/not_c.",
-     "t": 1795153258.7763271,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Start-alignment boundary wall: score 130, never compiled. Target's first insn `lsrs r7,r4,#1` at 0x0802128A is the tail of the preceding `non_word_aligned` function (uses uninitialized r4, not C-producible); real body starts 0x0802128C (24 insns byte-exact). report_boundary only trims END, cannot mo"
-  },
-  {
-   "name": "sub_0802217C",
+   "name": "releaseProjectileSlotsAlt",
    "vram": 134357372,
    "not_c": {
     "opencode-hy4-flash-free-1": {
@@ -55900,7 +55952,7 @@
    "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hy4-flash-free) said in their notes that no C makes it: Releasing anyway \u2014 terminal, cannot get closer in C. Score 5026 (304/310 insns) is a stable floor across 52+ attempts by many models; this session's folded-`| zero` early-birth lever changed nothing. Every real target instruction is present; the sole residual is agbcc's deterministic 8-callee-saved "
   },
   {
-   "name": "sub_080235C0",
+   "name": "releaseProjectileSlotsStep5",
    "vram": 134362560,
    "not_c": {
     "opencode-hy4-flash-free-1": {
@@ -56932,7 +56984,7 @@
   },
   {
    "name": "sub_0805B878",
-   "vram": 134592632,
+   "vram": 134592636,
    "not_c": {
     "opencode-hy4-flash-free-6": {
      "model": "opencode-hy4-flash-free",
@@ -57299,7 +57351,7 @@
   },
   {
    "name": "sub_080654A0",
-   "vram": 134632608,
+   "vram": 134632612,
    "not_c": {
     "opencode-beam-free-4": {
      "model": "opencode-beam-free",

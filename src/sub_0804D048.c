@@ -3,7 +3,7 @@ extern u32 gScriptStepCallbacks[];
 
 void stepAnimationTrack(s32, void *);
 void setAnimationFrame(s32, void *, u16, u8);
-void sub_08014668(void *, s32);
+void setSpriteFlipForDirection(void *, s32);
 void copyPoseAttrs(void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -22,7 +22,7 @@ void sub_0804D048(u8 *arg0) {
     if (*(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) == 8) {
         s32 velocity = -*(s32 *)(target + 0x10);
         *(s32 *)(target + 0x10) = velocity;
-        sub_08014668(sprite, velocity);
+        setSpriteFlipForDirection(sprite, velocity);
         setAnimationFrame((s32)sprite, anim, 0, 1);
         copyPoseAttrs(*(void **)(target + 0x28), D_080CF9BC);
         bounceState = (u16 *)(arg0 + 0x4C);

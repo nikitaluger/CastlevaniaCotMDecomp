@@ -6,7 +6,7 @@
  */
 extern void stepAnimationTrack(s32, void *);
 extern s32 sub_080148AC(s32, s32);   /* -speed when the sprite faces left */
-extern void sub_08014668(s32, s32);  /* set the sprite's facing flag from a direction */
+extern void setSpriteFlipForDirection(s32, s32);  /* set the sprite's facing flag from a direction */
 extern void sub_080415D4(u8, s32, void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -21,7 +21,7 @@ void sub_080411D0(void *arg0) {
         speedX = sub_080148AC(sprite, 0xFFF90000);
         *(s32 *)(work + 0x10) = speedX;
         *(s32 *)(work + 0x14) = 0xFFFF0000;
-        sub_08014668(sprite, speedX);
+        setSpriteFlipForDirection(sprite, speedX);
         sub_080415D4(3, sprite, work, animator);
         *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = 0;
         {

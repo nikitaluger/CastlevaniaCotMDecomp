@@ -1,5 +1,5 @@
 s32 setAnimationFrame(s32, s32, s32, s32);
-void sub_08014668(s32, s32);
+void setSpriteFlipForDirection(s32, s32);
 
 /* Play animation 0xC; when the entity's turn flag is set, reverse its
  * horizontal velocity, then update the sprite's facing from the velocity. */
@@ -13,5 +13,5 @@ void sub_08058890(void *entity) {
     if (1 & *(u16 *)((u8 *)work + 2)) {
         *(s32 *)((u8 *)work + 0x10) = (s32) (0 - *(s32 *)((u8 *)work + 0x10));
     }
-    sub_08014668(sprite, *(s32 *)((u8 *)work + 0x10));
+    setSpriteFlipForDirection(sprite, *(s32 *)((u8 *)work + 0x10));
 }

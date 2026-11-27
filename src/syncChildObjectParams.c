@@ -17,7 +17,7 @@ struct O338F0 {
 };
 /* Copies state and position data from the two source buffers into the object
  * referenced by owner->f30, then sets a flag byte from the owner's frame state. */
-void sub_080338F0(u8 *owner, u8 *source, u8 *params)
+void syncChildObjectParams(u8 *owner, u8 *source, u8 *params)
 {
     struct S338F0 *self;
     u8 *target;

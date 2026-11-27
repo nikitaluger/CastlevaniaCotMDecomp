@@ -4,7 +4,7 @@
 extern s32 sub_0800583C(s32);
 extern s32 sub_08005910(s32, s32);
 extern void stepAnimationTrack(void *, void *);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_080BC73C(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
@@ -40,7 +40,7 @@ void sub_080BC628(void *arg0) {
         angle = sub_08005910(targetDx, targetDy);
         angle += sub_0800583C(0x1800);
         sub_080146D0(actor, angle, 0x20000);
-        sub_08014668(script, *(s32 *)(actor + 0x10));
+        setSpriteFlipForDirection(script, *(s32 *)(actor + 0x10));
 
         stepIndex = *(s16 *)(entity + 0x22);
         *(u8 *)(entity + stepIndex * 2 + 0x19) = 0;

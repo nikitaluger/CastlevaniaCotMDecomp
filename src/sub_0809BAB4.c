@@ -1,4 +1,4 @@
-extern void sub_08014668(void *a, s32 b);
+extern void setSpriteFlipForDirection(void *a, s32 b);
 extern void sub_080114A8(void *a, void *b, s32 c, s32 d);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -26,7 +26,7 @@ void sub_0809BAB4(void *arg0) {
     }
     *(u16 *)((u8 *)parent + 0x08) = flipFlags;
 
-    sub_08014668(parent, *(s32 *)(component + 0x10));
+    setSpriteFlipForDirection(parent, *(s32 *)(component + 0x10));
 
     if ((s8)self[0x7C] != (s8)self[0x80]) {
         self[0x80] = self[0x7C];

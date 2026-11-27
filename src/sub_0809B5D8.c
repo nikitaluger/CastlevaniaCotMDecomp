@@ -2,7 +2,7 @@ s32 updateObjectDisplayState(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 void stepAnimationTrack(void *, void *);
-void sub_08014668(void *, s32);
+void setSpriteFlipForDirection(void *, s32);
 void advanceMotion(void *, s32);
 void sub_0809C840(void *, void *);
 void sub_0809BEB0(void);

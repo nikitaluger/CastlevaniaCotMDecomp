@@ -1,7 +1,7 @@
 s32 sub_08011344(s32, s32, s32, s32);
 s32 stepAnimationTrack(s32, s32);
 s32 sub_08011EE8(void *, s32, s32);
-s32 sub_08014668(s32, s32);
+s32 setSpriteFlipForDirection(s32, s32);
 s32 sub_0803B0D8(void *, void *, s32);
 s32 sub_0803B0F8(void *, s32, void *, s32);
 s32 sub_080C31E4(void *, void *, s32);
@@ -27,7 +27,7 @@ void sub_08036278(void *entity) {
     sub_0803B0F8(component, sprite, pose, 0x080CEF80);
     sub_08011EE8(component, 0x16C1, 0);
     stepAnimationTrack(sprite, animator);
-    sub_08014668(sprite, *(s32 *)((u8 *)component + 0x10));
+    setSpriteFlipForDirection(sprite, *(s32 *)((u8 *)component + 0x10));
     if (*(u8 *)((u8 *)pose + 4) == 3) {
         sub_08011344(sprite, animator, 9, 0);
         idx = *(s16 *)((u8 *)self + 0x22) * 2 + (s32)self;

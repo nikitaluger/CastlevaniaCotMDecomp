@@ -1,7 +1,7 @@
 void sub_0803B0D0(void *moveState);
 void sub_0803B0D8(void *work, void *moveState, s32 speed);
 void sub_08011344(void *sprite, void *animState, s32 frame, s32 flag);
-void sub_08014668(void *sprite, void *direction);
+void setSpriteFlipForDirection(void *sprite, void *direction);
 void sub_080C31E0(void *actor, void *handler);
 void sub_080C31E4(void *actionList, void *scriptIndex, s32 scriptId);
 
@@ -21,7 +21,7 @@ void sub_08033D28(void *arg0) {
     sub_0803B0D8(work, moveState, 0x4000);
     *(void **)((u8 *)work + 0x10) = *(void **)((u8 *)work + 0x48);
     sub_08011344(sprite, animState, 0, 1);
-    sub_08014668(sprite, *(void **)((u8 *)work + 0x10));
+    setSpriteFlipForDirection(sprite, *(void **)((u8 *)work + 0x10));
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     scriptTable = (u32 *)0x08671BB0;
     actionList = self + 0x18;

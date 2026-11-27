@@ -66,7 +66,7 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(void);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
@@ -118,7 +118,7 @@ void sub_080B2780(struct Sarg *parent)
   animIndex &= 0xFC0;
   *((u16 *) mainObj) = animIndex;
   *((u16 *) mainObj) |= gMainWorkspace.w;
-  sub_08014668((void *) mainObj, parent->f4C);
+  setSpriteFlipForDirection((void *) mainObj, parent->f4C);
   initSpriteGraphics((void *) mainObj, auxPtr, (subObj->f1C * 0xC) + ((u32) 0x080CD400));
   setAnimationFrame((void *) mainObj, auxPtr, 0x42, 0x01);
   auxPtr = (u8 *) D_08102700;

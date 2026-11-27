@@ -14,8 +14,8 @@ extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_08014668(void *, s32);
-extern void sub_080B98B8(void *, s32, s32, s32);
+extern void setSpriteFlipForDirection(void *, s32);
+extern void spawnChainedEffectObjects(void *, s32, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -58,7 +58,7 @@ void spawnKind67ScriptEffect(u8 *script) {
   *(u16 *)sprite |= gMainWorkspace.gfxFlags;
   initSpriteGraphics((void *)sprite, anim, (work->kind * 0xC) + (u32)gSpriteAnimDataTable);
   setAnimationFrame((void *)sprite, anim, 0x0C, 1);
-  sub_08014668((void *)sprite, *(s32 *)(script + 0x7C));
+  setSpriteFlipForDirection((void *)sprite, *(s32 *)(script + 0x7C));
   animDefaults = gScriptEffectAnimDefaults;
   work->renderPart = allocEffectPart();
   if (work->renderPart == NULL) goto fail;
@@ -77,7 +77,7 @@ ok:
   work->renderPart->anim3 = animDefaults[3];
   work->renderPart->palette = gEffectGfxTable[work->kind].palette;
   work->renderPart->sprite = sprite;
-  sub_080B98B8(script, 1, 5, *(u32 *)(sprite + 0x1C));
+  spawnChainedEffectObjects(script, 1, 5, *(u32 *)(sprite + 0x1C));
   *(u32 *)((u8 *)work + 0x10) = *(u32 *)(script + 0x7C) << 17;
   *(u32 *)((u8 *)work + 0x14) = gScriptEffectParams[*(u32 *)(script + 0x4C)];
   *(u16 *)(script + 2) |= 0x1000;

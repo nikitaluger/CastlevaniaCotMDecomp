@@ -1,4 +1,4 @@
-void sub_08014668(s32, s32);
+void setSpriteFlipForDirection(s32, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -16,7 +16,7 @@ void sub_08032D30(void *arg0) {
     s32 launchSpeed;
     launchSpeed = *(s32 *)(self + 0x6C);
     *(s32 *)(target + 0x10) = launchSpeed;
-    sub_08014668(gfx, launchSpeed);
+    setSpriteFlipForDirection(gfx, launchSpeed);
     v = *(s32 *)(target + 0x10);
     *(s32 *)(animState + 4) = (v < 0) ? 0xC00 : 0xFFFFF400;
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

@@ -8,7 +8,7 @@ void sub_0803B1A4(void *);
 s32 sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 s32 updateObjectDisplayState(void *, void *);
-void sub_080338F0(void *, void *, void *);
+void syncChildObjectParams(void *, void *, void *);
 void sub_0803B1B4(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 
@@ -71,7 +71,7 @@ void sub_08033054(void *task)
       return;
     }
   }
-  sub_080338F0(task, subject, actor);
+  syncChildObjectParams(task, subject, actor);
   if (updateObjectDisplayState(actor, subject) == 0)
   {
     *((u32 *) (((u8 *) task) + 0x14)) = 0x0866DD08;

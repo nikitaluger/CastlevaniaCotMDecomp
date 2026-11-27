@@ -21,7 +21,7 @@ void sub_080B9874(void) {
     void *r2 = *(void **)((u8 *)&gMainWorkspace.v - 0x1870 + 0x30); /* placeholder */
 }
 
-void sub_080B98B8(void *arg0, u32 arg1, s32 arg2, s32 arg3) {
+void spawnChainedEffectObjects(void *arg0, u32 arg1, s32 arg2, s32 arg3) {
     u32 r5 = 0;
     s32 r4 = arg3 + 1;
     if (arg1 > 0) {

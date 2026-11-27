@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="750" viewBox="0 0 840 750" role="img" aria-labelledby="title desc">
-<title id="title">3,941 / 4,185 functions matched (94.2%)</title>
+<title id="title">3,948 / 4,187 functions matched (94.3%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="750" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">gba</text>
-<text x="20" y="59" font-size="16">3,941 / 4,185 functions matched (94.2%)</text>
+<text x="20" y="59" font-size="16">3,948 / 4,187 functions matched (94.3%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="753.357" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="754.335" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 3,941</text>
+<text x="36" y="118" font-size="13">Matched: 3,948</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 244</text>
+<text x="236" y="118" font-size="13">Attempt: 239</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
 <text x="436" y="118" font-size="13">Open: 0</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
-<text x="636" y="118" font-size="13">Aside: 342</text>
+<text x="636" y="118" font-size="13">Aside: 340</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
 <g><title>sub_08000468: {&#x27;matched&#x27;: 1}</title>
 <rect x="20.000" y="160" width="8.000" height="8" fill="#238636"/>
@@ -1592,7 +1592,7 @@
 <g><title>sub_08014620: {&#x27;matched&#x27;: 1}</title>
 <rect x="460.000" y="220" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08014668: {&#x27;attempt&#x27;: 1}</title>
+<g><title>setSpriteFlipForDirection: {&#x27;attempt&#x27;: 1}</title>
 <rect x="470.000" y="220" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>setSpriteFlip: {&#x27;attempt&#x27;: 1}</title>
@@ -2381,11 +2381,11 @@
 <g><title>sub_0801DFBC: {&#x27;matched&#x27;: 1}</title>
 <rect x="690.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0801E0DC: {&#x27;attempt&#x27;: 1}</title>
-<rect x="700.000" y="250" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_0801E0DC: {&#x27;matched&#x27;: 1}</title>
+<rect x="700.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0801E12A: {&#x27;aside&#x27;: 1}</title>
-<rect x="710.000" y="250" width="8.000" height="8" fill="#b54747"/>
+<g><title>sub_0801E12A: {&#x27;matched&#x27;: 1}</title>
+<rect x="710.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0801E3FC: {&#x27;matched&#x27;: 1}</title>
 <rect x="720.000" y="250" width="8.000" height="8" fill="#238636"/>
@@ -2585,11 +2585,11 @@
 <g><title>sub_080210D0: {&#x27;matched&#x27;: 1}</title>
 <rect x="570.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08021200: {&#x27;attempt&#x27;: 1}</title>
-<rect x="580.000" y="260" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_08021200: {&#x27;matched&#x27;: 1}</title>
+<rect x="580.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802128A: {&#x27;aside&#x27;: 1}</title>
-<rect x="590.000" y="260" width="8.000" height="8" fill="#b54747"/>
+<g><title>sub_0802128A: {&#x27;matched&#x27;: 1}</title>
+<rect x="590.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>releaseEntityState: {&#x27;matched&#x27;: 1}</title>
 <rect x="600.000" y="260" width="8.000" height="8" fill="#238636"/>
@@ -2660,7 +2660,7 @@
 <g><title>sub_08022148: {&#x27;matched&#x27;: 1}</title>
 <rect x="20.000" y="270" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802217C: {&#x27;aside&#x27;: 1}</title>
+<g><title>releaseProjectileSlotsAlt: {&#x27;aside&#x27;: 1}</title>
 <rect x="30.000" y="270" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_080221A8: {&#x27;matched&#x27;: 1}</title>
@@ -2669,8 +2669,8 @@
 <g><title>sub_080221F0: {&#x27;aside&#x27;: 1}</title>
 <rect x="50.000" y="270" width="8.000" height="8" fill="#b54747"/>
 </g>
-<g><title>sub_08022470: {&#x27;attempt&#x27;: 1}</title>
-<rect x="60.000" y="270" width="8.000" height="8" fill="#bf8700"/>
+<g><title>updateDirectionalMultiPartProjectile: {&#x27;matched&#x27;: 1}</title>
+<rect x="60.000" y="270" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08022620: {&#x27;matched&#x27;: 1}</title>
 <rect x="70.000" y="270" width="8.000" height="8" fill="#238636"/>
@@ -2696,7 +2696,7 @@
 <g><title>scriptCmdSpawnAtCoords: {&#x27;matched&#x27;: 1}</title>
 <rect x="140.000" y="270" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08022C50: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateProjectileActorStep5: {&#x27;matched&#x27;: 1}</title>
 <rect x="150.000" y="270" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08022DD4: {&#x27;matched&#x27;: 1}</title>
@@ -2732,7 +2732,7 @@
 <g><title>sub_0802358C: {&#x27;matched&#x27;: 1}</title>
 <rect x="260.000" y="270" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080235C0: {&#x27;aside&#x27;: 1}</title>
+<g><title>releaseProjectileSlotsStep5: {&#x27;aside&#x27;: 1}</title>
 <rect x="270.000" y="270" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_080235EC: {&#x27;matched&#x27;: 1}</title>
@@ -3683,7 +3683,7 @@
 <g><title>sub_08032E88: {&#x27;matched&#x27;: 1}</title>
 <rect x="230.000" y="310" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08032ED0: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind15ScriptSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="240.000" y="310" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08033054: {&#x27;matched&#x27;: 1}</title>
@@ -3725,7 +3725,7 @@
 <g><title>sub_080338B4: {&#x27;matched&#x27;: 1}</title>
 <rect x="370.000" y="310" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080338F0: {&#x27;matched&#x27;: 1}</title>
+<g><title>syncChildObjectParams: {&#x27;matched&#x27;: 1}</title>
 <rect x="380.000" y="310" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08033950: {&#x27;matched&#x27;: 1}</title>
@@ -4178,10 +4178,10 @@
 <g><title>sub_0803AEC8: {&#x27;matched&#x27;: 1}</title>
 <rect x="280.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803AEF0: {&#x27;matched&#x27;: 1}</title>
+<g><title>allocSpriteConfigPart: {&#x27;matched&#x27;: 1}</title>
 <rect x="290.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803AF70: {&#x27;matched&#x27;: 1}</title>
+<g><title>initThreeSubObjects: {&#x27;matched&#x27;: 1}</title>
 <rect x="300.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0803B0D0: {&#x27;matched&#x27;: 1}</title>
@@ -6293,8 +6293,8 @@
 <g><title>sub_0805B7C0: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="420" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0805B808: {&#x27;attempt&#x27;: 1}</title>
-<rect x="140.000" y="420" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_0805B808: {&#x27;matched&#x27;: 1}</title>
+<rect x="140.000" y="420" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0805B878: {&#x27;aside&#x27;: 1}</title>
 <rect x="150.000" y="420" width="8.000" height="8" fill="#b54747"/>
@@ -6836,8 +6836,8 @@
 <g><title>sub_08065368: {&#x27;matched&#x27;: 1}</title>
 <rect x="340.000" y="440" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080653B0: {&#x27;attempt&#x27;: 1}</title>
-<rect x="350.000" y="440" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_080653B0: {&#x27;matched&#x27;: 1}</title>
+<rect x="350.000" y="440" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080654A0: {&#x27;aside&#x27;: 1}</title>
 <rect x="360.000" y="440" width="8.000" height="8" fill="#b54747"/>
@@ -12524,7 +12524,7 @@
 <g><title>sub_080B9014: {&#x27;matched&#x27;: 1}</title>
 <rect x="100.000" y="680" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080B905C: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind67ChainedEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="110.000" y="680" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080B91E0: {&#x27;matched&#x27;: 1}</title>
@@ -12575,7 +12575,7 @@
 <g><title>sub_080B9874: {&#x27;matched&#x27;: 1}</title>
 <rect x="270.000" y="680" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080B98B8: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnChainedEffectObjects: {&#x27;matched&#x27;: 1}</title>
 <rect x="280.000" y="680" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080B98E8: {&#x27;matched&#x27;: 1}</title>

@@ -2,7 +2,7 @@
  * mark several sub-states active, and advance its script by firing the next
  * callback; otherwise just clear the sprite flag. */
 extern s32 sub_080114A8(void *, void *, s32, s32);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void *gScriptStepCallbackTable;
@@ -35,7 +35,7 @@ void sub_080BD2F0(void *arg0)
         *(u8 *)(*(u8 **)(motion + 0x28) + 1) = 1;
         *(u8 *)(*steerPtr + 1) = 1;
         *(u8 *)(steerPtr[1] + 1) = 1;
-        sub_08014668(sprite, *(s32 *)((u8 *)arg0 + 0x6C));
+        setSpriteFlipForDirection(sprite, *(s32 *)((u8 *)arg0 + 0x6C));
         *(s32 *)(motion + 8) = *(s32 *)((u8 *)arg0 + 0x5C);
         scriptIndex = *(s16 *)((u8 *)arg0 + 0x22);
         ((u8 *)arg0)[scriptIndex * 2 + 0x19] = zero;

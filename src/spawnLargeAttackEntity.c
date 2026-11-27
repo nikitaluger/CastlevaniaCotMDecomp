@@ -24,7 +24,7 @@ extern void sub_0803443C(void);
 extern void initWorkStateForKind(void *a, struct SpawnSprite *b, struct SpawnLogic *c, u32 d, u32 e);
 extern void initSpriteGraphics(struct SpawnSprite *a, u8 *b, void *c);
 extern void setAnimationFrame(struct SpawnSprite *a, u8 *b, int c, int d);
-extern void sub_0803AEF0(void *a, struct SpawnLogic *b, struct SpawnSprite *c);
+extern void allocSpriteConfigPart(void *a, struct SpawnLogic *b, struct SpawnSprite *c);
 extern struct SpawnEntity *allocEffectPart(void);
 extern void sub_080C31E0(void *a, u32 b);
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
@@ -60,7 +60,7 @@ ok0:
     logic->kind = 8;
     initSpriteGraphics(sprite, animData, (u8 *)gSpriteAnimDataTable + logic->cfgIndex * 12);
     setAnimationFrame(sprite, animData, 0, 1);
-    sub_0803AEF0(owner, logic, sprite);
+    allocSpriteConfigPart(owner, logic, sprite);
     attrTable = gLargeAttackAffineParams;
     entityRef->entity = allocEffectPart();
     if (entityRef->entity == NULL) goto fail;

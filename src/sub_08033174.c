@@ -66,7 +66,7 @@ struct O338F0 {
 };
 /* Copy this actor's state (position, action parameters, facing) into the view
  * object at owner->f30, then flag it for a re-draw. */
-void sub_080338F0(u8 *owner, u8 *source, u8 *params)
+void syncChildObjectParams(u8 *owner, u8 *source, u8 *params)
 {
     struct S338F0 *self;
     u8 *view;

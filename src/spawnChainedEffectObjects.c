@@ -3,7 +3,7 @@ extern void *spawnBudgetedEffect(s32, s32);
 /* Spawns `count` type-0x1CF objects, each parented by the previously spawned
  * one, tagging them with `group` at +0x4C and consecutive ids starting at
  * `idBase` + 1 at +0x5C; stops early if the spawn budget is exhausted. */
-void sub_080B98B8(s32 parent, u32 count, s32 group, s32 idBase) {
+void spawnChainedEffectObjects(s32 parent, u32 count, s32 group, s32 idBase) {
     s32 nextId;
     u32 i;
     void *obj;

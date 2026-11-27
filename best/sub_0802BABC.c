@@ -4,7 +4,7 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void sub_0802BE44(void);
-extern void sub_08014668(void *);
+extern void setSpriteFlipForDirection(void *);
 extern void sub_080C31E0(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
 
@@ -81,7 +81,7 @@ body:
     { u32 k = 0x127C; *(u32 *)(obj + 0x18) = p->fC - ((*(u32 *)(base + k + ((gMainWorkspace.f18A8 + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     p->f10 = arg0->f5C;
     p->f14 = arg0->f6C;
-    sub_08014668(obj);
+    setSpriteFlipForDirection(obj);
     *(u16 *)(obj + 0x28) = 0x1F;
     arg0->f2 |= 0x1000;
     *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = zero;

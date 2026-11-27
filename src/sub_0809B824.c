@@ -17,7 +17,7 @@ extern u8 gCameraState[];
 extern struct ScrollState gMainWorkspace;
 extern s16 D_081017F0[];
 extern struct Offset D_081017F8[];
-void sub_08014668(void *, u32);
+void setSpriteFlipForDirection(void *, u32);
 void sub_080114A8(void *, u32, s16, u32);
 void sub_0809C678(u32, u32);
 void sub_0809C87C(u32, u32);
@@ -38,7 +38,7 @@ void sub_0809B824(void *a) {
     mover->y = entity->worldY;
     mover->facing = entity->facing;
     motion->pose = entity->pose;
-    sub_08014668(motion, mover->facing);
+    setSpriteFlipForDirection(motion, mover->facing);
     if ((s8)entity->currentPose != (s8)entity->requestedPose) {
         entity->currentPose = entity->requestedPose;
         sub_080114A8(motion, moverTarget, D_081017F0[(s32)(s8)entity->requestedPose], 0);

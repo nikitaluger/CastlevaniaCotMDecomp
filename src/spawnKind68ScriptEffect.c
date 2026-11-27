@@ -66,7 +66,7 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(void);
-extern void sub_08014668(void *, s32); /* set the sprite's X-flip from a signed value */
+extern void setSpriteFlipForDirection(void *, s32); /* set the sprite's X-flip from a signed value */
 extern s32 sub_0800583C(s32);          /* pseudo-random offset in [-range, range) */
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
@@ -112,7 +112,7 @@ void spawnKind68ScriptEffect(struct Kind68ScriptThread *actor) {
     *((u16 *)sprite) |= gMainWorkspace.gfxFlags;
     work->x = actor->spawnX;
     work->y = actor->spawnY;
-    sub_08014668((void *)sprite, -actor->motion);
+    setSpriteFlipForDirection((void *)sprite, -actor->motion);
     {
         s32 scale = sub_0800583C(KIND68_SCALE_JITTER) + KIND68_SCALE_BASE;
         work->motion = actor->motion * scale;

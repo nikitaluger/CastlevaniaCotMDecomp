@@ -2,7 +2,7 @@ extern void setAnimationFrame(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_08005910(s32, s32);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern s16 D_080CF904[];
 
 void sub_080492B8(void *arg0, void *arg1, s32 arg2)
@@ -15,7 +15,7 @@ void sub_080492B8(void *arg0, void *arg1, s32 arg2)
 
     tmp = sub_08005910(*(s32 *)(a1 + 0x14), *(s32 *)(a1 + 0x10));
     r6 = tmp + 0x800;
-    sub_08014668(arg0, *(s32 *)(a1 + 0x10));
+    setSpriteFlipForDirection(arg0, *(s32 *)(a1 + 0x10));
 
     v = *(s32 *)(a1 + 0x14);
     if (v != 0) {

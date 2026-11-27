@@ -1,7 +1,7 @@
 /* Runs one step of an effect: picks a left/right direction from a target position,
  * stores a speed and its half, then dispatches the routine named by a per-step byte. */
 s32 signOf(s32);
-void sub_08014668(s32, s32);
+void setSpriteFlipForDirection(s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -18,7 +18,7 @@ void sub_0803BED0(void *obj)
     } else {
         *(s32 *)((u8 *)work + 0x10) = (s32)0xFFFFE000;
     }
-    sub_08014668(owner, *(s32 *)((u8 *)work + 0x10));
+    setSpriteFlipForDirection(owner, *(s32 *)((u8 *)work + 0x10));
 
     speed = *(s32 *)((u8 *)work + 0x18);
     zero = 0;

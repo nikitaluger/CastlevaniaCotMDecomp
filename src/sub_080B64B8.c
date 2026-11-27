@@ -14,7 +14,7 @@ extern u32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void sub_080B7134(void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
@@ -50,7 +50,7 @@ void sub_080B64B8(u8 *parent) {
     subObj->fC = *(u32 *)(parent + 0x5C);
     subObj->f10 = D_08102CFC[*(u8 *)(parent + 0x70)].a * (s8)*(u8 *)(parent + 0x6C);
     subObj->f14 = D_08102CFC[*(u8 *)(parent + 0x70)].b;
-    sub_08014668(mainObj, -subObj->f10);
+    setSpriteFlipForDirection(mainObj, -subObj->f10);
     sub_080B7134(mainObj, subState);
     setAnimationFrame(mainObj, subState, 7, 1);
     spriteParams = D_08102CF4;

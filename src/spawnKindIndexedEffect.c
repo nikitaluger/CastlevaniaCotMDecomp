@@ -73,7 +73,7 @@ void sub_08014290(void);
 u32 findKindIndex(s16);
 void initSpriteGraphics(void *, void *, void *);
 void setAnimationFrame(void *, void *, u32, u32);
-void sub_08014668(void *, u32);
+void setSpriteFlipForDirection(void *, u32);
 void *allocEffectPart(void);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
@@ -128,7 +128,7 @@ void spawnKindIndexedEffect(struct EffectSpawnerEntity *actor)
   sprite->attrs = (u16) attrs;
   initSpriteGraphics(sprite, scratchBuf, (void *) (gSpriteAnimDataTable + (12 * ((s32) state->kind))));
   setAnimationFrame(sprite, scratchBuf, 0x13, 0);
-  sub_08014668(sprite, state->direction);
+  setSpriteFlipForDirection(sprite, state->direction);
   spriteCfg = (u8 *) D_080CF55C;
   state->spriteDef = (u32) allocEffectPart();
   if (state->spriteDef == 0)

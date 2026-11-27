@@ -4,7 +4,7 @@ extern void installUpdateHandler(void *, void *, void *);
 extern void sub_08014290(void);
 extern void sub_0803C70C(void *, s32, u32, u32, s32, s32);
 extern s32 findKindIndex(s32);
-extern void sub_08014668(void *, s32);
+extern void setSpriteFlipForDirection(void *, s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -72,7 +72,7 @@ cont:
         u8 *sceneState = gMainWorkspace;
         *(u16 *)((u8 *)sprite + 0x00) |= *(u16 *)(sceneState + 0x18C2);
 
-        sub_08014668(sprite, *(u32 *)((u8 *)logic + 0x10));
+        setSpriteFlipForDirection(sprite, *(u32 *)((u8 *)logic + 0x10));
 
         initSpriteGraphics(sprite, animData, (s32)gSpriteAnimDataTable + *(s16 *)((u8 *)logic + 0x1C) * 12);
 

@@ -17,7 +17,7 @@ struct S_0809FD70
 };
 s32 updateObjectDisplayState(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
-void sub_08014668(void *);
+void setSpriteFlipForDirection(void *);
 void sub_080C31E0(void *, void *);
 void sub_0809FD70(struct S_0809FD70 *arg0)
 {
@@ -31,7 +31,7 @@ void sub_0809FD70(struct S_0809FD70 *arg0)
   *((u32 *) (((u8 *) r4) + 0x0C)) = new_var3->field_0x5C;
   new_var2 = new_var3->field_0x6C;
   *((u32 *) (((u8 *) r4) + 0x10)) = new_var2;
-  sub_08014668(r6);
+  setSpriteFlipForDirection(r6);
   if (updateObjectDisplayState(r6, r4) == 0)
   {
     new_var3->field_0x14 = 0x0866FDC8;
