@@ -13,7 +13,7 @@ struct CaEntity {
     u32 f4C;           /* 0x4C */
     u8 _50[0xC];
     u32 f5C;           /* 0x5C */
-    u8 _60[0x50];
+    u8 _60[0x4C];
     u32 savedAC;       /* 0xAC */
 };
 struct CaWork {

@@ -6,15 +6,13 @@ struct Work { u8 pad0[0x1c]; s16 kind; u8 pad1e[4]; s16 gfxIndex; u8 pad24[4]; v
 extern struct SpawnSprite *allocSpriteObject(void);
 extern void allocWorkSlot(void *arg0, int a, int b, int c);
 extern void installUpdateHandler(void *a, void *b, void (*c)(void));
-extern void sub_08014290(void);
+extern void sub_0803A9CC(void);
 extern s16 findKindIndex(s16 kind);
 extern void initSpriteGraphics(struct SpawnSprite *a, u8 *b, void *c);
 extern void *allocEffectPart(void);
 extern void _call_via_r1(void *a, u32 b);
 extern void _call_via_r2(u8 *a, s16 *b, u32 c);
 extern void registerScriptObject(void *a, u32 b);
-extern u8 gSpriteAnimDataTable[];
-extern u16 gEffectAnimTable[];
 extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u32 gMainObjTimerCallbacks;
 
 void sub_0803A478(void *arg0) {
@@ -26,6 +24,7 @@ void sub_0803A478(void *arg0) {
     u32 idx;
     u8 *scriptData;
     u32 *audioCmd;
+    u16 *attr;
 
     sprite = allocSpriteObject();
     if (sprite == 0) goto fail;
@@ -35,11 +34,12 @@ void sub_0803A478(void *arg0) {
     sprite->typeId = 0x8000000A;
     work = (struct Work *)U32(arg0, 0x3c);
     anim = (u8 *)work + 0x34;
-    installUpdateHandler(arg0, work, sub_08014290);
+    installUpdateHandler(arg0, work, sub_0803A9CC);
     work->kind = *(s16 *)(0x080CD400 + U8(arg0, 0x4c) * 4);
     work->gfxIndex = findKindIndex(work->kind);
     if (work->gfxIndex < 0) goto fail;
-    initSpriteGraphics(sprite, anim, (u8 *)gSpriteAnimDataTable + work->kind * 12);
+    initSpriteGraphics(sprite, anim, (u8 *)0x080CF190 + work->kind * 12);
+    attr = (u16 *)0x080CF190;
     part = allocEffectPart();
     work->part1 = part;
     if (part == 0) goto fail;
@@ -47,12 +47,13 @@ void sub_0803A478(void *arg0) {
     ((u8 *)part)[2] = 8;
     ((u8 *)part)[3] = 1;
     *(u16 *)((u8 *)part + 4) = *(u16 *)(0x080CBDD0 + work->kind * 40 + 4);
-    *(u16 *)((u8 *)part + 6) = gEffectAnimTable[0];
-    *(u16 *)((u8 *)part + 8) = gEffectAnimTable[1];
-    *(u16 *)((u8 *)part + 10) = gEffectAnimTable[2];
-    *(u16 *)((u8 *)part + 12) = gEffectAnimTable[3];
+    *(u16 *)((u8 *)part + 6) = attr[0];
+    *(u16 *)((u8 *)part + 8) = attr[1];
+    *(u16 *)((u8 *)part + 10) = attr[2];
+    *(u16 *)((u8 *)part + 12) = attr[3];
     *(u16 *)((u8 *)part + 14) = *(u16 *)(0x080CBDD0 + work->kind * 40 + 6);
     *(u32 *)((u8 *)part + 16) = (u32)sprite;
+    attr = (u16 *)0x080CF198;
     part = allocEffectPart();
     work->part2 = part;
     if (part == 0) goto fail;
@@ -60,10 +61,10 @@ void sub_0803A478(void *arg0) {
     ((u8 *)part)[2] = 8;
     ((u8 *)part)[3] = 1;
     *(u16 *)((u8 *)part + 4) = *(u16 *)(0x080CBDD0 + work->kind * 40 + 4);
-    *(u16 *)((u8 *)part + 6) = gEffectAnimTable[4];
-    *(u16 *)((u8 *)part + 8) = gEffectAnimTable[5];
-    *(u16 *)((u8 *)part + 10) = gEffectAnimTable[6];
-    *(u16 *)((u8 *)part + 12) = gEffectAnimTable[7];
+    *(u16 *)((u8 *)part + 6) = attr[0];
+    *(u16 *)((u8 *)part + 8) = attr[1];
+    *(u16 *)((u8 *)part + 10) = attr[2];
+    *(u16 *)((u8 *)part + 12) = attr[3];
     *(u16 *)((u8 *)part + 14) = *(u16 *)(0x080CBDD0 + work->kind * 40 + 6);
     *(u32 *)((u8 *)part + 16) = (u32)sprite;
     cam = gCameraState;

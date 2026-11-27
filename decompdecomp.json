@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795807765.8107014,
- "revision": 70772,
+ "saved_at": 1795807902.0599897,
+ "revision": 70782,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "135376:134353104": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateScriptedProjectileActor",
-   "vram": 134353104
   }
  },
  "instructions": "",
@@ -2131,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -8625,6 +8613,11 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
+  "sub_080385EC": {
+   "vram": 134448620,
+   "best_score": 26850,
+   "best_by": "opencode-iceman-contributor-free-12"
+  },
   "sub_0803887C": {
    "vram": 134449276,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -8707,7 +8700,7 @@
   },
   "sub_0803925C": {
    "vram": 134451804,
-   "best_score": 15955,
+   "best_score": 8775,
    "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_08039484": {
@@ -8807,7 +8800,7 @@
   },
   "sub_0803A478": {
    "vram": 134456440,
-   "best_score": 15330,
+   "best_score": 14735,
    "best_by": "opencode-iceman-contributor-free-12"
   },
   "sub_0803A6A0": {
@@ -8839,6 +8832,11 @@
    "vram": 134457860,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_0803AA4C": {
+   "vram": 134457932,
+   "best_score": 9135,
+   "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_0803AC94": {
    "vram": 134458516,
@@ -9057,7 +9055,7 @@
   },
   "sub_0803CA24": {
    "vram": 134466084,
-   "best_score": 12281,
+   "best_score": 12131,
    "best_by": "opencode-hy4-flash-free-64"
   },
   "sub_0803CBEC": {
@@ -9125,6 +9123,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0803D310": {
+   "vram": 134468368,
+   "best_score": 6885,
+   "best_by": "opencode-iceman-contributor-free-10"
+  },
   "sub_0803D588": {
    "vram": 134469000,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -9132,7 +9135,7 @@
   },
   "sub_0803D694": {
    "vram": 134469268,
-   "best_score": 6920,
+   "best_score": 5530,
    "best_by": "opencode-iceman-contributor-free-11"
   },
   "sub_0803D85C": {
@@ -9329,6 +9332,11 @@
    "vram": 134476400,
    "matched_by": "opencode-free-1",
    "readable": false
+  },
+  "sub_0803F2B8": {
+   "vram": 134476472,
+   "best_score": 13385,
+   "best_by": "opencode-hy4-flash-free-65"
   },
   "updateScriptedActorFrame": {
    "vram": 134477040,
@@ -10875,10 +10883,10 @@
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": true
   },
-  "sub_0804E15C": {
+  "updateTimerDrivenEffectAlt": {
    "vram": 134537564,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0804E28C": {
    "vram": 134537868,
@@ -34854,7 +34862,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0804E15C",
+   "name": "updateTimerDrivenEffectAlt",
    "vram": 134537564,
    "size": 304,
    "status": "open"
@@ -52904,6 +52912,12 @@
    "kind": "func"
   },
   {
+   "name": "updateTimerDrivenEffectAlt",
+   "address": 134537564,
+   "size": 304,
+   "kind": "func"
+  },
+  {
    "name": "updateScriptedKind5EObject",
    "address": 134540476,
    "size": 332,
@@ -55824,7 +55838,7 @@
   },
   {
    "address": 33710064,
-   "type": "u8[]",
+   "type": "struct S_02025FF0",
    "source": "match"
   },
   {

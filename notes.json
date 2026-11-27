@@ -13792,6 +13792,14 @@
   "score_after": null
  },
  {
+  "function": "updateScriptedProjectileActor",
+  "text": "Best score 210 (98.5%). Remaining diff is pure register allocation: target loads D_08671BDC into r2 then reads r3 after computing arg0+0x18/0x22; mine loads into r0/r2 at a different pc offset. Instruction count and control flow match. Likely needs register-pinning or statement reordering beyond source tweaks. Cannot get closer with source tweaks.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9672542,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "updateTimerDrivenEffect",
   "text": "Complex function with many branches. Score 2500 (82%). Linking errors indicate D_08671BD0/D_02025FF0+0x174C symbol resolution issues and call mismatches. Needs more careful work; releasing for next agent.",
   "by": "opencode-free-1",
@@ -39236,6 +39244,14 @@
   "text": "Complex regalloc; best 3365. Draft regalloc swapped r8/sb. Did not improve. Leaving for others.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1046999,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedProjectileActor",
+  "text": "MATCHED (score 0). Two changes took the old 210 best to 0: (1) `s32 *lp; ... lp = D_08671BDC; sub_080C31E8(arg0+0x18, arg0+0x22, 1, *lp);` \u2014 a named pointer assigned after the `strb` hoists `ldr r2,=0x08671BDC` to before the `adds r0,#0x18`/`adds r1,#0x22` computation (inline `D_08671BDC[0]` sinks it); (2) `((struct S3C *)p3C)->f0 |= 0x01;` with `struct S3C { u16 f0; };` instead of `*(u16 *)(p3C + 0) |= 0x01;` gives the target's `ldrh r1,[r5]; movs r0,#1; orrs r0,r1` (plain pointer form gives the mirrored r0/r1). Rest of the body is the saved source.",
+  "by": "opencode-deepseek-v4.1-flash-free-1",
+  "created_at": 1795683534.1047404,
   "score_before": null,
   "score_after": null
  },
@@ -357806,6 +357822,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:9c05207e3c637f091367e80a315d0655dfb2ae0204cb53d93efca735a84e28f9"
  },
  {
+  "function": "updateScriptedProjectileActor",
+  "text": "Readable pass (was sub_080210D0, 0x080210D0). Sibling of sub_08021548 and updateScriptedProjectileHit/Contact: self+0x38 sprite, +0x3C work, work+0x28 AttackTargetState (bit0 |= SCRIPT_OBJ_HIT_FLAG), work+0x00 AttackHitFlags latched when actor+0x6C bit SCRIPT_PROJ_ATTACK_FLAG is set; step stream at +0x18 with +0x1A event id / +0x1B timer bytes, callback id SCRIPT_PROJ_HIT_EVENT through gScriptEventCallbacks. Dispatches gProjectileScriptStepTable (0x0866D820) at self+0x14, then camera-scroll reposition identical to sub_08021548 (frame counter at gMainWorkspace+0x18A8, stride 0x40, scroll at gCameraState+0x1278/+0x127C, X bias 0x8000 / Y bias 0xFFFF8000, frac mask 0xFFFF0000). Kept the goto common label and exact statement order; header v195 adds SCRIPT_STEP_*_OFFSET / SCRIPT_PROJ_* defines.",
+  "by": "opencode-hy4-flash-free-13",
+  "created_at": 1795807385.4608014,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ace4313abae1ac37f05be0a2775bfcf17664f6a0bb20916c2ff2124de260c553:65e0d98a7fdd54572b43034a81e0c119dbf161723d4b65daed1a417ba0ae8012"
+ },
+ {
   "function": "sub_08039604",
   "text": "[Released without compiling it once; notes not checked by a compile.] Best is revision 56fb8902b4da9f1cd742 at score 575 (96.3%, 158 insns exact). Residual: (1) ROM keeps `self` in r4 and reuses r4 as the pose pointer in the state cases; candidate uses r3 for self and r4 for pose. (2) ROM materializes a long-lived zero as `movs r3,#0` at instruction [79] (between `ldrh r0,[r0,#2]` and `strh r0,[r5,#2]`) and uses r3 for both `strb r3,[r0,#1]` zero writes; candidate emits `movs r1,#0` at [88] just before first use. (3) Three call sites: ROM loads `ldr r0,[r6,#0x28]` (dst) BEFORE `ldr r4,[pc]` (pose); candidate does the reverse. (4) Final attr block: ROM `mov r0,r8; ldrb r1,[r0]; movs r0,#0x40; orrs r0,r1; mov r1,r8; strb r0,[r1]`; candidate uses r1/r2. The `bl #0xfffdaf84` / `bl #0xda` and PC-pool offset differences are likely display/misalignment artifacts (callee is copyPoseAttrs at 0x08014588, verified). Tried and rejected: hoisting `pose` to function scope (690, converts `adds r4,#8` into `adds r1,#8`); using an unused/used `u32 zero` at function top (825/895); removing zero (575, same); local repair families declaration_order, narrow_sum_unsigned_constant, default_neighbour_case (no improvement over 630). Twin sub_0803A820 (87% same) is still open and may be a better place to establish the exact C shape.",
   "by": "opencode-hy4-flash-free-11",
@@ -357859,28 +357884,39 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:7de439b88ee56fd8eef92d6fc0207dd7b463eeb8af157c4bb6689553d208c4ce"
  },
  {
-  "function": "updateScriptedProjectileActor",
-  "text": "Best score 210 (98.5%). Remaining diff is pure register allocation: target loads D_08671BDC into r2 then reads r3 after computing arg0+0x18/0x22; mine loads into r0/r2 at a different pc offset. Instruction count and control flow match. Likely needs register-pinning or statement reordering beyond source tweaks. Cannot get closer with source tweaks.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9672542,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0803AA4C",
+  "text": "Score 9135 (278/238 insns) from 80% twin createVariantEntitySprite - structural differences. Target has different control flow (bne/b path at start), allocWorkSlot 0x48 (not 0x54), many call/symbol mismatches (installUpdateHandler/findKindIndex/initSpriteGraphics/setAnimationFrame/allocEffectPart/sub_080C31E0/sub_080C31E4 all different, pool symbols shifted). Needs raw-byte reconstruction or closer twin. Use createVariantEntitySprite/spawnAttackEffectSprite as loose reference.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795807823.4847112,
+  "score_before": 9135,
+  "score_after": 9135,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:1812a2bffc3445f2a76e17a39a3ad8e5dcad370c22a27685eb35f457cf009719"
  },
  {
-  "function": "updateScriptedProjectileActor",
-  "text": "MATCHED (score 0). Two changes took the old 210 best to 0: (1) `s32 *lp; ... lp = D_08671BDC; sub_080C31E8(arg0+0x18, arg0+0x22, 1, *lp);` \u2014 a named pointer assigned after the `strb` hoists `ldr r2,=0x08671BDC` to before the `adds r0,#0x18`/`adds r1,#0x22` computation (inline `D_08671BDC[0]` sinks it); (2) `((struct S3C *)p3C)->f0 |= 0x01;` with `struct S3C { u16 f0; };` instead of `*(u16 *)(p3C + 0) |= 0x01;` gives the target's `ldrh r1,[r5]; movs r0,#1; orrs r0,r1` (plain pointer form gives the mirrored r0/r1). Rest of the body is the saved source.",
-  "by": "opencode-deepseek-v4.1-flash-free-1",
-  "created_at": 1795683534.1047404,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0803A478",
+  "text": "Rough draft 44.6% (247/266 insns). Structural guess only. Key facts from asm: allocSpriteObject, store at arg0+0x38, allocWorkSlot(arg0,0,0x4c,0), typeId=0x8000000A, installUpdateHandler with sub_0803A9CC (0x0803A9CD), kind from *(s16*)(0x080CD400 + U8(arg0,0x4c)*4) stored to work+0x1c, gfxIndex=findKindIndex(kind) stored to work+0x22, blt fail if <0, initSpriteGraphics(sprite,work+0x34,0x080CF190+kind*12), allocEffectPart -> work+0x28 with attrs from 0x080CF190 and gfx from gEffectGfxTable(0x080CBDD0, stride 40) fields +4/+6, second part at work+0x48 with attrs from 0x080CF198, camera scroll positioning, registerScriptObject(0), flags|=0x1000, script step clear/inc, _call_via_r2/_call_via_r1 tail. My draft has wrong control flow/symbols/structure in many places; use createPairedScriptedEffect as loose template but verify against target asm.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795807827.938733,
+  "score_before": 15330,
+  "score_after": 14735,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:018f063e0033a311576581f9760c5c7734657114209e564a29741ba4411ddf40"
  },
  {
-  "function": "updateScriptedProjectileActor",
-  "text": "Readable pass (was sub_080210D0, 0x080210D0). Sibling of sub_08021548 and updateScriptedProjectileHit/Contact: self+0x38 sprite, +0x3C work, work+0x28 AttackTargetState (bit0 |= SCRIPT_OBJ_HIT_FLAG), work+0x00 AttackHitFlags latched when actor+0x6C bit SCRIPT_PROJ_ATTACK_FLAG is set; step stream at +0x18 with +0x1A event id / +0x1B timer bytes, callback id SCRIPT_PROJ_HIT_EVENT through gScriptEventCallbacks. Dispatches gProjectileScriptStepTable (0x0866D820) at self+0x14, then camera-scroll reposition identical to sub_08021548 (frame counter at gMainWorkspace+0x18A8, stride 0x40, scroll at gCameraState+0x1278/+0x127C, X bias 0x8000 / Y bias 0xFFFF8000, frac mask 0xFFFF0000). Kept the goto common label and exact statement order; header v195 adds SCRIPT_STEP_*_OFFSET / SCRIPT_PROJ_* defines.",
-  "by": "opencode-hy4-flash-free-13",
-  "created_at": 1795807385.4608014,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ace4313abae1ac37f05be0a2775bfcf17664f6a0bb20916c2ff2124de260c553:65e0d98a7fdd54572b43034a81e0c119dbf161723d4b65daed1a417ba0ae8012"
+  "function": "sub_0803D310",
+  "text": "Score 6885 (302/300 insns) from 87% twin scriptCmdSpawnReferencedSprite. Key diffs: allocWorkSlot 0x50 (not 0x58); refType switch values differ (target compares 0xff/0x100 region vs C9/CA); many call/symbol mismatches (findKindIndex/initSpriteGraphics/allocEffectPart/_call_via_r1/sub_080149A4/getSpriteFacingSign/setAnimationFrame/registerScriptObject/_call_via_r2 differ; pool symbols shifted: gSpriteKindTable/gSpriteAnimDataTable/gSpriteAffineParams/gMainWorkspace/gCameraState map to different addresses). Needs per-call identification from raw bytes and correct ref type constants.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795807887.1077495,
+  "score_before": 6885,
+  "score_after": 6885,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:3fa39e9e3adf4f4e2729320379f9196ccb14610674758c30aa1e02b06b8d4824"
+ },
+ {
+  "function": "sub_080385EC",
+  "text": "Stub only (14.2%, 75/313 insns). Very large function. Prologue copies 8 bytes from pool to stack (memcpy-like bl 0x80c2e68), allocSpriteObject, allocWorkSlot(0,0x48,0), typeId=0x8000000A, installUpdateHandler with sub_08014290, kind from 0x080CD400 table indexed by arg0+0x4c, copies arg0+0x5c/6c/7c/8c into work+8/c/10/14, findKindIndex, initSpriteGraphics. Rest of function not decompiled - needs full asm read. Use initScriptedSinglePartGraphics/createPairedScriptedEffect as structural references but verify closely against target.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795807891.1260116,
+  "score_before": 26850,
+  "score_after": 26850,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:17db8cc012f19a628173eb680909178ac0317460dc74439f7cdeb61360b14dd4"
  }
 ]

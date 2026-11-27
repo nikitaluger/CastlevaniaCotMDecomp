@@ -11,9 +11,9 @@
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
 <text x="36" y="118" font-size="13">Matched: 3,983</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 300</text>
+<text x="236" y="118" font-size="13">Attempt: 304</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
-<text x="436" y="118" font-size="13">Open: 13</text>
+<text x="436" y="118" font-size="13">Open: 9</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
 <text x="636" y="118" font-size="13">Aside: 318</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
@@ -4223,8 +4223,8 @@
 <g><title>sub_080385A4: {&#x27;matched&#x27;: 1}</title>
 <rect x="430.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080385EC: {&#x27;open&#x27;: 1}</title>
-<rect x="440.000" y="330" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_080385EC: {&#x27;attempt&#x27;: 1}</title>
+<rect x="440.000" y="330" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803887C: {&#x27;matched&#x27;: 1}</title>
 <rect x="450.000" y="330" width="8.000" height="8" fill="#238636"/>
@@ -4367,8 +4367,8 @@
 <g><title>sub_0803AA04: {&#x27;matched&#x27;: 1}</title>
 <rect x="110.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803AA4C: {&#x27;open&#x27;: 1}</title>
-<rect x="120.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803AA4C: {&#x27;attempt&#x27;: 1}</title>
+<rect x="120.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803AC94: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4553,8 +4553,8 @@
 <g><title>sub_0803D2C8: {&#x27;matched&#x27;: 1}</title>
 <rect x="730.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803D310: {&#x27;open&#x27;: 1}</title>
-<rect x="740.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803D310: {&#x27;attempt&#x27;: 1}</title>
+<rect x="740.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803D588: {&#x27;matched&#x27;: 1}</title>
 <rect x="750.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4688,8 +4688,8 @@
 <g><title>sub_0803F270: {&#x27;matched&#x27;: 1}</title>
 <rect x="380.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803F2B8: {&#x27;open&#x27;: 1}</title>
-<rect x="390.000" y="350" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803F2B8: {&#x27;attempt&#x27;: 1}</title>
+<rect x="390.000" y="350" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>updateScriptedActorFrame: {&#x27;matched&#x27;: 1}</title>
 <rect x="400.000" y="350" width="8.000" height="8" fill="#238636"/>
@@ -5654,7 +5654,7 @@
 <g><title>updateMoverEntity: {&#x27;matched&#x27;: 1}</title>
 <rect x="400.000" y="390" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0804E15C: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateTimerDrivenEffectAlt: {&#x27;matched&#x27;: 1}</title>
 <rect x="410.000" y="390" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0804E28C: {&#x27;matched&#x27;: 1}</title>

@@ -13,7 +13,7 @@ extern struct S_02025FF0 gMainWorkspace;
 /* Timer-driven effect update: advance the facing and animation timers, return
    to the script when both coordinates are close to the target, and reverse the
    horizontal velocity when the effect moves away from it. */
-void sub_0804E15C(u8 *arg0) {
+void updateTimerDrivenEffectAlt(u8 *arg0) {
     s32 mainObj = *(s32 *)(arg0 + 0x38);
     u8 *state = *(u8 **)(arg0 + 0x3C);
     u8 *p34 = state + 0x34;
