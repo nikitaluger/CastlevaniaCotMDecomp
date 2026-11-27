@@ -1,4 +1,4 @@
-s32 sub_08011344(s32, s32, s32, s32);
+s32 setObjectAnimationFrame(s32, s32, s32, s32);
 s32 checkActorViewBounds(s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -20,11 +20,11 @@ void sub_08032858(void *arg0)
     s32 *scriptHandlers;
     if (0x10 & (*((u8 *) (((s8 *) workCtl) + 0xD))))
     {
-      sub_08011344(fields[1], anim, 9, 0);
+      setObjectAnimationFrame(fields[1], anim, 9, 0);
     }
     else
     {
-      sub_08011344(fields[1], anim, 0x11, 0);
+      setObjectAnimationFrame(fields[1], anim, 0x11, 0);
     }
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)) = 0;
     scriptHandlers = (s32 *)0x08671BB0;

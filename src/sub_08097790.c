@@ -1,4 +1,4 @@
-extern void sub_08011344(void *, void *, s32, s32);
+extern void setObjectAnimationFrame(void *, void *, s32, s32);
 extern s64 sub_080979EC(void *);
 extern void sub_080C31E4(void *, void *, u32);
 extern s16 D_08100B98[][2];
@@ -33,7 +33,7 @@ void sub_08097790(void *self) {
     frameTable = (s16 *)D_08100B98;
     tmp = *(s32 *)work;
     frame = frameTable[tmp * 2];
-    sub_08011344(sprite, animState, frame, 0);
+    setObjectAnimationFrame(sprite, animState, frame, 0);
     zero = 0;
     *(u16 *)(work + 0x16) = 1;
     *(u8 *)(*(u8 **)(work + 4) + 1) = 7;

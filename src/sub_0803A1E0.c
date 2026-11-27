@@ -1,4 +1,4 @@
-s32 sub_08011344(s32, s32, s32, s32);
+s32 setObjectAnimationFrame(s32, s32, s32, s32);
 s32 stepAnimationTrack(s32, s32);
 s32 sub_08011EE8(void *, s32, s32);
 s32 setSpriteFlipForDirection(s32, s32);
@@ -46,7 +46,7 @@ void sub_0803A1E0(void *arg0)
     zero = 0;
     *((u8 *) (((u8 *) tracker) + 0xC)) = (u8) randByte;
     animId = D_080CF1D2[*((u8 *) (((u8 *) tracker) + 0xC))];
-    sub_08011344(parent, body, animId, 0);
+    setObjectAnimationFrame(parent, body, animId, 0);
     stepOffset = ((*((s16 *) (((u8 *) self) + 0x22))) * 2) + ((s32) self);
     *((u8 *) (stepOffset + 0x19)) = zero;
     lit = (s32 *) 0x08671BB0;

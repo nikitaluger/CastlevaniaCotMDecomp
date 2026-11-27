@@ -1,5 +1,5 @@
 extern u8 D_08634A4C[];
-void *sub_08007EA8(u32);
+void *isGameStatusFlagSet(u32);
 void sub_08005E80(u32);
 void startEffectTimer(void *, u32, void *);
 void sub_080C31E8(void *, void *, u32, u32);
@@ -28,7 +28,7 @@ void sub_0808AC88(void *entity)
     *(u32 *)(motion + 0x18) = *(u32 *)(self + 0x24);
     *(u32 *)(self + 0x24) = 0x0808AF6D;
 
-    helper = sub_08007EA8(0x34);
+    helper = isGameStatusFlagSet(0x34);
     if (helper != 0) {
         s16 idx;
         u8 *stepBase;

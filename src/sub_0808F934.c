@@ -16,7 +16,7 @@ struct AIParams {
 };
 struct AIStep { u8 _0[0x19]; u8 stepFlag; };
 extern s32 sub_0808FBB4(void *);
-extern void sub_08011344(u32, u32, s32, s32);
+extern void setObjectAnimationFrame(u32, u32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s16 D_081003AC[];
@@ -42,7 +42,7 @@ void sub_0808F934(struct AIEntity *entity)
         table = D_081003AC;
         tableOffset = params->mode * 4;
         table += 1;
-        sub_08011344(owner, params18, *(s16 *)((u8 *)table + tableOffset), 0);
+        setObjectAnimationFrame(owner, params18, *(s16 *)((u8 *)table + tableOffset), 0);
         *(u8 *)(params->statusAddr + 1) = 0;
         params->unk14 = (u16)result;
         ((struct AIStep *)((u8 *)entity + entity->scriptIndex * 2))->stepFlag = 0;
@@ -57,7 +57,7 @@ void sub_0808F934(struct AIEntity *entity)
     } else {
         u8 *script; u8 *opcodePtr; u8 opcode; u32 handler; u32 *callTable;
         s16 stepIndex;
-        sub_08011344(owner, params18, D_081003AC[params->mode * 2], 0);
+        setObjectAnimationFrame(owner, params18, D_081003AC[params->mode * 2], 0);
         stepIndex = entity->scriptIndex;
         ((struct AIStep *)((u8 *)entity + stepIndex * 2))->stepFlag = 0;
         callTable = &gScriptStepCallbacks;

@@ -1,5 +1,5 @@
 void sub_08005E80(s32);
-void sub_08011344(void *, void *, s32, s32);
+void setObjectAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -20,7 +20,7 @@ void sub_0803AE4C(void *arg0)
     animator = work + 0x34;
     sub_08005E80(0xC5 << 1);
     *(u8 *)(*(u8 **)(work + 0x28) + 1) = 0;
-    sub_08011344(sprite, animator, 0x28, 0);
+    setObjectAnimationFrame(sprite, animator, 0x28, 0);
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     scriptHandlers = (s32 *)0x08671BB0;

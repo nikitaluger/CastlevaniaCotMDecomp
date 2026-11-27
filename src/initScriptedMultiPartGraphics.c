@@ -60,7 +60,7 @@ void allocWorkSlot(void *, u32, u32, u32);
 void installUpdateHandler(void *, void *, void *);
 s32 findKindIndex(void);
 void initSpriteGraphics(void *, void *, void *);
-void sub_08011344(void *, void *, u32, u32);
+void setObjectAnimationFrame(void *, void *, u32, u32);
 void *allocEffectPart(void);
 void sub_08035D6C(void);
 void sub_080C31E0(void *, u32);
@@ -116,7 +116,7 @@ void initScriptedMultiPartGraphics(struct Entity *entity)
   }
   sprite->oamAttr = (u16)spriteAttr;
   initSpriteGraphics(sprite, animState, (void *)gMultiPartAnimData);
-  sub_08011344(sprite, animState, 0x11, 0);
+  setObjectAnimationFrame(sprite, animState, 0x11, 0);
   layerAttrs = gSpriteLayerAttrs;
   gfxState->part1 = (u32)allocEffectPart();
   if (gfxState->part1 == 0)

@@ -1,7 +1,7 @@
 /* Entity attack update: when the current animation frame registers a hit, sets
  * the parent's hit flag, spawns contact effects along the entity's body, plays
  * a sound and starts a script step; then dispatches the current step handler. */
-extern s32 sub_08007EA8(u16);
+extern s32 isGameStatusFlagSet(u16);
 extern void sub_0800479C(void *, s32, s32, u16);
 extern void sub_08005E80(s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -22,7 +22,7 @@ void sub_08092AB4(void *entity)
     motion = *(void **)((u8 *)entity + 0x3C);
 
     if (*(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x1A) != 1) {
-        if (sub_08007EA8(*(u16 *)((u8 *)*(void **)((u8 *)motion + 0x08) + 4)) != 0) {
+        if (isGameStatusFlagSet(*(u16 *)((u8 *)*(void **)((u8 *)motion + 0x08) + 4)) != 0) {
             u32 oldFlags;
             u32 newFlags;
             oldFlags = *flags;

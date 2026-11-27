@@ -1,4 +1,4 @@
-extern s32 sub_08007EA8(u16);
+extern s32 isGameStatusFlagSet(u16);
 extern void sub_08011344(u32, u32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -9,7 +9,7 @@ struct S_Obj { u8 _0[0x14]; u32 f14; u8 _1[0x22-0x18]; s16 f22; u8 _2[0x38-0x24]
 struct S_Params { s32 f00; u32 f04; u8 _p[0x1c-8]; u32 f1c; u32 f20; };
 struct S_Sub { u8 _0[0x19]; u8 f19; };
 
-void sub_0808FFD4(struct S_Obj *obj)
+void updateFlaggedAiStep(struct S_Obj *obj)
 {
     u32 animChannel;
     struct S_Params *params;
@@ -19,7 +19,7 @@ void sub_0808FFD4(struct S_Obj *obj)
     animChannel = obj->f38;
     params = (struct S_Params *)obj->f3C;
     animInfo = 0x20 + (u32)params;
-    r6 = sub_08007EA8(*(u16 *)(*(u32 *)((u8 *)params + 0x1c) + 2));
+    r6 = isGameStatusFlagSet(*(u16 *)(*(u32 *)((u8 *)params + 0x1c) + 2));
     if (r6 != 0) {
         u8 *stepData; u8 *cursor; u8 step; u32 callback; u32 *cmdTable;
         s16 *actionTable; u32 tableOff; u32 zero; u32 v; u8 *p;

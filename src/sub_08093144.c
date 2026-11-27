@@ -1,4 +1,4 @@
-extern void sub_08011344(void *, void *, s32, s32);
+extern void setObjectAnimationFrame(void *, void *, s32, s32);
 extern s64 sub_0809329C(void *);
 extern void sub_080C31E4(void *, void *, u32);
 extern s32 gMainObjTimerCallbacks[];
@@ -22,7 +22,7 @@ void sub_08093144(void *self) {
     if (gMainWorkspace.mode == 2) return;
     if (*(u16 *)(*(u8 **)(work + 0x18)) == 0x2000) return;
     if ((s32)sub_0809329C(self) != 0) return;
-    sub_08011344(sprite, animState, D_08100684[*(u32 *)work].frame, 0);
+    setObjectAnimationFrame(sprite, animState, D_08100684[*(u32 *)work].frame, 0);
     zero = 0;
     *(u16 *)(work + 0x16) = 1;
     *(u8 *)(*(u8 **)(work + 4) + 1) = 7;

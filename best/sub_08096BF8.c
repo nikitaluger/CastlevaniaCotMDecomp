@@ -1,9 +1,9 @@
 extern void setAnimationFrame(u32, u32, s32, s32);
-extern s32 sub_08007EA8(s32);
+extern s32 isGameStatusFlagSet(s32);
 extern void sub_08007E24(s32);
 extern void sub_080C31E8(u8 *, u8 *, s32, u32);
 extern void sub_080C31E0(u8 *, u32);
-extern void sub_08011344(u32, u32, s32, s32);
+extern void setObjectAnimationFrame(u32, u32, s32, s32);
 extern void playSound(s32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
 extern u8 gGameStatus[];
@@ -33,7 +33,7 @@ void sub_08096BF8(u8 *arg0) {
         val = *(s16 *)(a3C + 0x14);
         if (val == 1) {
             *(s16 *)(a3C + 0x14) = f;
-            if (sub_08007EA8(0x32) == 0) {
+            if (isGameStatusFlagSet(0x32) == 0) {
                 sub_08007E24(0x32);
                 z = 0;
                 *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = z;
@@ -49,7 +49,7 @@ void sub_08096BF8(u8 *arg0) {
         u8 *a3C2 = *(u8 **)(arg0 + 0x3C);
         r7 = *(s16 *)(a3C2 + 0x14);
         if (r7 == 1) {
-            sub_08011344(a38, a3C18, 3, 0);
+            setObjectAnimationFrame(a38, a3C18, 3, 0);
             z = 0;
             *(s16 *)(a3C + 0x16) = r7;
             playSound(0x1B7);

@@ -2,7 +2,7 @@ extern u8 gMainWorkspace[];
 extern u8 D_08100B98[];
 extern u8 gMainObjTimerCallbacks[];
 extern u8 gScriptStepCallbacks[];
-extern void sub_08011344(void *, void *, s16, s32);
+extern void setObjectAnimationFrame(void *, void *, s16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -56,7 +56,7 @@ void sub_0809767C(void *arg0)
         tbl = D_08100B98;
         offB = *(s32 *)work * 4;
         tbl += 2;
-        sub_08011344(sprite, work1c, *(s16 *)(tbl + offB), 0);
+        setObjectAnimationFrame(sprite, work1c, *(s16 *)(tbl + offB), 0);
         zero = 0;
         *(u16 *)(work + 0x16) = one;
         self[*(s16 *)(self + 0x22) * 2 + 0x19] = zero;

@@ -1,5 +1,5 @@
 extern void sub_08005E80(s32 resourceId);
-extern void sub_08011344(void *sprite, void *animState, s32 animIndex, s32 zero);
+extern void setObjectAnimationFrame(void *sprite, void *animState, s32 animIndex, s32 zero);
 extern void sub_080C31E0(void *actor, s32 handler);
 extern void sub_080C31E4(void *scriptData, void *scriptIndex, s32 callback);
 
@@ -25,7 +25,7 @@ void sub_080B8718(u8 *arg0) {
         u8 zero;
         spriteFlags->f2A |= 0x40;
         zero = zero8();
-        sub_08011344(sprite, animState, 0x22, 0);
+        setObjectAnimationFrame(sprite, animState, 0x22, 0);
         *(s32 *)(motion + 8) = *(s32 *)(arg0 + 0x5C);
         *(s32 *)(motion + 0xC) = 0x870000;
         sub_08005E80(0x185);

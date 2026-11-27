@@ -1,6 +1,6 @@
 void sub_0803B0D0(void *);
 void sub_0803B0D8(void *, void *, s32);
-void sub_08011344(void *, void *, s32, s32);
+void setObjectAnimationFrame(void *, void *, s32, s32);
 void setSpriteFlipForDirection(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -25,7 +25,7 @@ void sub_08038304(void *arg0)
   *((u8 *) (((u8 *) enemyState) + 0x11)) = zeroCounter;
   sub_0803B0D8(enemy, enemyState, 0x3000);
   *((void **) (((u8 *) enemy) + 0x10)) = *((void **) (((u8 *) enemy) + 0x48));
-  sub_08011344(actor, enemyData, 0, 1);
+  setObjectAnimationFrame(actor, enemyData, 0, 1);
   setSpriteFlipForDirection(actor, *((void **) (((u8 *) enemy) + 0x10)));
   *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = zeroCounter;
   pScriptParam = (u32 *) 0x08671BB0;

@@ -1,6 +1,6 @@
 extern s64 sub_0808FBB4(void);
 extern void sub_08005E80(s32);
-extern void sub_08011344(s32, s32, s16, s32);
+extern void setObjectAnimationFrame(s32, s32, s16, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 D_081003AC[]; /* animation frames: u16 id at +2, stride 4 */
 
@@ -25,7 +25,7 @@ void sub_0808FAC8(void *arg0)
     frameOffset = (*((s32 *) body)) * 4;
     frameTable += 2;
     frameId = *((s16 *) (frameTable + frameOffset));
-    sub_08011344((s32) view, (s32) anim, frameId, 0);
+    setObjectAnimationFrame((s32) view, (s32) anim, frameId, 0);
     zero = 0;
     *((u16 *) (body + 0x16)) = 1;
     *((u8 *) ((*((u8 **) (body + 4))) + 1)) = 7;

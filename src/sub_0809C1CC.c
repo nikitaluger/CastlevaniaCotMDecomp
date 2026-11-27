@@ -2,7 +2,7 @@ extern u32 gMainWorkspace[];
 extern u8 D_0810181C[];
 extern u8 D_08101824[];
 void sub_080C31E0(void *, s32);
-void sub_08011344(void *, void *, s32, s32);
+void setObjectAnimationFrame(void *, void *, s32, s32);
 s32 nextRandomWord(void);
 void *spawnBudgetedEffect(s32, s32);
 
@@ -39,7 +39,7 @@ void sub_0809C1CC(void *arg0) {
             tableIdx += *(u8 *)(scriptState + 1) * 4;
             dirIndex = indexTable[tableIdx];
             direction = *(s16 *)(dirTable + dirIndex * 2);
-            sub_08011344(entity, stateField34, direction, 0);
+            setObjectAnimationFrame(entity, stateField34, direction, 0);
             val = nextRandomWord() & resetCount;
             switch (val) {
             case 0: *(u16 *)(entity + 2) = 0xFFCF & *(u16 *)(entity + 2); break;

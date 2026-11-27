@@ -8,7 +8,7 @@ struct S_Obj { u8 _0[0x14]; u32 f14; u8 _1[0x22-0x18]; s16 f22; u8 _2[0x38-0x24]
 struct S_Params { s32 f00; u32 f04; u8 _p[0x14-8]; u16 f14; u16 f16; };
 struct S_Sub { u8 _0[0x19]; u8 f19; };
 extern s32 sub_0809329C(void *);       /* is the object inside the active region? */
-extern void sub_08011344(u32, u32, s32, s32); /* start an animation/action */
+extern void setObjectAnimationFrame(u32, u32, s32, s32); /* start an animation/action */
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32); /* begin a script action */
 extern s16 D_08100684[];               /* action animation table */
@@ -25,7 +25,7 @@ void sub_08092F7C(struct S_Obj *obj)
     inZone = sub_0809329C(obj);
     if (inZone == 1) {
         u8 *stepData; u8 *cursor; u8 step; u32 callback; u32 *cmdTable;
-        sub_08011344(animChannel, animInfo, D_08100684[params->f00 * 2], 0);
+        setObjectAnimationFrame(animChannel, animInfo, D_08100684[params->f00 * 2], 0);
         *(u8 *)(params->f04 + 1) = 0;
         params->f14 = (u16)inZone;
         ((struct S_Sub *)((u8 *)obj + obj->f22 * 2))->f19 = 0;
@@ -54,7 +54,7 @@ void sub_08092F7C(struct S_Obj *obj)
         actionTable = D_08100684;
         tableOff = params->f00 * 4;
         actionTable += 1;
-        sub_08011344(animChannel, animInfo, *(s16 *)((u8 *)actionTable + tableOff), 0);
+        setObjectAnimationFrame(animChannel, animInfo, *(s16 *)((u8 *)actionTable + tableOff), 0);
         stepIndex = obj->f22;
         ((struct S_Sub *)((u8 *)obj + stepIndex * 2))->f19 = zero;
         cmdTable = &gScriptStepCallbacks;

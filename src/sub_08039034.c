@@ -4,7 +4,7 @@ extern u8 D_080CF11E[];
 extern s16 D_080CF12E[];
 extern s32 gMainObjTimerCallbacks;
 s32 getAngleFromDelta(s32, s32);
-s32 sub_08011344(s32, s32, s32, s32);
+s32 setObjectAnimationFrame(s32, s32, s32, s32);
 s32 stepAnimationTrack(s32, s32);
 s32 sub_08011EE8(void *, s32, s32);
 s32 setSpriteFlipForDirection(s32, s32);
@@ -38,7 +38,7 @@ void sub_08039034(u8 *behav) {
                            (s32)gMainWorkspace.a - *(s32 *)((u8 *)owner + 8));
         *(u8 *)(ownerData + 0x0C) = D_080CF11E[dir >> 12];
         angle = D_080CF12E[*(u8 *)(ownerData + 0x0C)];
-        sub_08011344(target, ownerInfo, angle, 0);
+        setObjectAnimationFrame(target, ownerInfo, angle, 0);
         scriptIdx = *(s16 *)(self + 0x22);
         *(u8 *)(self + scriptIdx * 2 + 0x19) = zero;
         callbackTable = (s32 *)0x08671BB0;

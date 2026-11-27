@@ -1,4 +1,4 @@
-s32 sub_08007EA8(u16);
+s32 isGameStatusFlagSet(u16);
 void setAnimationFrame(void *, void *, s16, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
@@ -17,7 +17,7 @@ void sub_08090854(void *entity) {
   s32 stepOffset;
 
   setAnimationFrame(sprite, animTrack, D_0810043C[*((s32 *) (work + 0x48))], 1);
-  if (sub_08007EA8(*((u16 *) ((*((u8 **) (part + 0x14))) + 4))))
+  if (isGameStatusFlagSet(*((u16 *) ((*((u8 **) (part + 0x14))) + 4))))
   {
     void **handlerPtr;
     *((u32 *) (work + 0x0C)) = *((u32 *) (part + 0x0C));

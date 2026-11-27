@@ -1,4 +1,4 @@
-extern s32 sub_08007EA8(u16);
+extern s32 isGameStatusFlagSet(u16);
 extern void sub_0800479C(void *, s32, s32, u16);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
@@ -19,7 +19,7 @@ void sub_08095E44(void *arg0) {
     comp = *(void **)((u8 *)arg0 + 0x3C);
 
     if (*(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x1A) != 1) {
-        if (sub_08007EA8(*(u16 *)((u8 *)*(void **)((u8 *)comp + 0x08) + 4)) != 0) {
+        if (isGameStatusFlagSet(*(u16 *)((u8 *)*(void **)((u8 *)comp + 0x08) + 4)) != 0) {
             u32 v;
             u32 w;
             v = *flags;

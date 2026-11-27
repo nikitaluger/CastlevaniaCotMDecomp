@@ -1,7 +1,7 @@
 /* Enemy AI step: when the script action is 0x1E or the move-state flag at +0x10
  * is set, refresh the animation (frame 0x22 when flagged, 9 otherwise), then
  * clear the action byte and advance the script. */
-s32 sub_08011344(s32, s32, s32, s32);
+s32 setObjectAnimationFrame(s32, s32, s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 void sub_08033E40(void *self)
 {
@@ -18,11 +18,11 @@ void sub_08033E40(void *self)
   {
     if (1 & (*((u8 *) (((s8 *) moveState) + 0x10))))
     {
-      sub_08011344(sprite, animState, 0x22, 0);
+      setObjectAnimationFrame(sprite, animState, 0x22, 0);
     }
     else
     {
-      sub_08011344(sprite, animState, 9, 0);
+      setObjectAnimationFrame(sprite, animState, 9, 0);
     }
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) self) + 0x22))) * 2) + self)) + 0x19)) = 0;
     scriptTable = (s32 *) 0x08671BB0;

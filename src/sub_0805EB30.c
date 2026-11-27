@@ -1,4 +1,4 @@
-extern s32 sub_08007EA8(s32);
+extern s32 isGameStatusFlagSet(s32);
 extern void sub_08007E24(s32);
 extern void sub_0805F0C8(u16);
 extern void sub_0805F104(u16, s32);
@@ -19,7 +19,7 @@ void sub_0805EB30(u8 *arg0)
     zero = 0;
     *sprite = newFlags;
     *(u8 *)(*(u8 **)(body + 0x28) + 1) = zero;
-    if (sub_08007EA8(0xB1) == 0) {
+    if (isGameStatusFlagSet(0xB1) == 0) {
         sub_0805F104(D_080D00BC[*(u16 *)(entry + 8)], 0x821D);
         sub_08007E24(0xB1);
     } else {

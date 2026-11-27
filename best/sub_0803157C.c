@@ -34,7 +34,7 @@ void sub_0803157C(u8 *self) {
         slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
         *(u8 *)(slot + 0x19) = 0;
         callbackTable = (s32 *)0x08671BD0;
-        sub_080C31E8(self + 0x18, self + 0x22, 1, *callbackTable);
+        sub_080C31E8(self + 0x18, self + 0x22, 2, *callbackTable);
         return;
     }
     if (absXFromFocus(x) > 0x600000 || absYFromFocus(*(s32 *)(obj + 0xC)) > 0x400000) {
@@ -47,7 +47,7 @@ void sub_0803157C(u8 *self) {
         slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
         *(u8 *)(slot + 0x19) = 0;
         callbackTable = (s32 *)0x08671BD0;
-        sub_080C31E8(self + 0x18, self + 0x22, 1, *callbackTable);
+        sub_080C31E8(self + 0x18, self + 0x22, 2, *callbackTable);
         return;
     }
     kind = *(s16 *)(obj + 0x1C);
@@ -59,5 +59,5 @@ void sub_0803157C(u8 *self) {
     slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
     *(u8 *)(slot + 0x19) = 0;
     callbackTable = (s32 *)0x08671BD0;
-    sub_080C31E8(self + 0x18, self + 0x22, 2, *callbackTable);
+    sub_080C31E8(self + 0x18, self + 0x22, 1, *callbackTable);
 }

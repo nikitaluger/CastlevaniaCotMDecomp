@@ -1,6 +1,6 @@
 void sub_0803B194(void *);
 void stepAnimationTrack(void *, void *);
-void sub_08011344(void *, void *, s32, s32);
+void setObjectAnimationFrame(void *, void *, s32, s32);
 void sub_0803B140(s32, void *, void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -21,7 +21,7 @@ void sub_0803333C(void *self)
             *(s32 *)((u8 *)work + 0x10) = 0x40000;
         else
             *(s32 *)((u8 *)work + 0x10) = (s32)0xFFFC0000;
-        sub_08011344(sprite, animState, 0xF, 0);
+        setObjectAnimationFrame(sprite, animState, 0xF, 0);
         *(u8 *)((u8 *)moveState + 0x18) = 0;
         *(u8 *)((u8 *)self + (*(s16 *)((u8 *)self + 0x22)) * 2 + 0x19) = 0;
         {

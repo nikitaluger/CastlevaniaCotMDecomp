@@ -3,7 +3,7 @@ extern struct S_02025FF0 gMainWorkspace;
 struct T { u16 w; u16 pad[1]; u16 a; u16 b; u16 c; };
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
-extern s32 sub_08007EA8(s32);
+extern s32 isGameStatusFlagSet(s32);
 extern void _call_via_r1(void *, s32);
 extern void _call_via_r2(void *, void *, u32);
 
@@ -21,7 +21,7 @@ void sub_0808ABDC(void *arg0) {
         _call_via_r1(arg0, *(s32 *)(entity + 0x24));
         return;
     }
-    flags = sub_08007EA8(0xBC);
+    flags = isGameStatusFlagSet(0xBC);
     if (flags != 0) {
         _call_via_r1(arg0, *(s32 *)(entity + 0x24));
         return;

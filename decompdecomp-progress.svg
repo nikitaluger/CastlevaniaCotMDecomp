@@ -713,7 +713,7 @@
 <g><title>sub_08007E50: {&#x27;aside&#x27;: 1}</title>
 <rect x="730.000" y="180" width="8.000" height="8" fill="#b54747"/>
 </g>
-<g><title>sub_08007EA8: {&#x27;aside&#x27;: 1}</title>
+<g><title>isGameStatusFlagSet: {&#x27;aside&#x27;: 1}</title>
 <rect x="740.000" y="180" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_08007ED0: {&#x27;matched&#x27;: 1}</title>
@@ -1418,7 +1418,7 @@
 <g><title>initSpriteGraphics: {&#x27;matched&#x27;: 1}</title>
 <rect x="680.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08011344: {&#x27;matched&#x27;: 1}</title>
+<g><title>setObjectAnimationFrame: {&#x27;matched&#x27;: 1}</title>
 <rect x="690.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>setAnimationFrame: {&#x27;matched&#x27;: 1}</title>
@@ -9560,7 +9560,7 @@
 <g><title>updateTargetedScriptedAttack: {&#x27;matched&#x27;: 1}</title>
 <rect x="620.000" y="550" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0808FFD4: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateFlaggedAiStep: {&#x27;matched&#x27;: 1}</title>
 <rect x="630.000" y="550" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080901D4: {&#x27;matched&#x27;: 1}</title>

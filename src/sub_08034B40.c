@@ -1,4 +1,4 @@
-extern void sub_08011344(s32, void *, s32, s32);
+extern void setObjectAnimationFrame(s32, void *, s32, s32);
 extern void setSpriteFlipForDirection(s32, s32);
 extern void sub_0803B0D0(void *);
 extern void sub_0803B0D8(void *, void *, s32);
@@ -27,7 +27,7 @@ void sub_08034B40(void *arg0) {
     *(u8 *)(motion + 0x18) = zero;
     sub_0803B0D8(data, motion, 0x4000);
     *(s32 *)(data + 0x10) = *(s32 *)(data + 0x48);
-    sub_08011344(param, anim, 0, 1);
+    setObjectAnimationFrame(param, anim, 0, 1);
     setSpriteFlipForDirection(param, *(s32 *)(data + 0x10));
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     scriptTable = (s32 *)0x08671BB0;

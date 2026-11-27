@@ -1,6 +1,6 @@
 void stepAnimationTrack(void *, void *);
 void *spawnBudgetedEffect(s32, s32);
-void sub_08011344(s32, s32, s32, s32);
+void setObjectAnimationFrame(s32, s32, s32, s32);
 void _call_via_r3(void *, void *, s32, s32);
 void _call_via_r2(void *, void *, s32);
 extern u32 gScriptStepCallbacks;
@@ -65,8 +65,8 @@ void sub_080328CC(u8 *self)
         if ((u8)(stepState[0xE]) == 0x80)
         {
             if (stepState[0xD] & 0x10)
-                sub_08011344((s32)sprite, (s32)animState, 0xD, 0);
-            sub_08011344((s32)sprite, (s32)animState, 0x15, 0);
+                setObjectAnimationFrame((s32)sprite, (s32)animState, 0xD, 0);
+            setObjectAnimationFrame((s32)sprite, (s32)animState, 0x15, 0);
             idx = *(s16 *)((u8 *)self + 0x22) * 2 + (s32)self;
             *(u8 *)(idx + 0x19) = 0;
             {

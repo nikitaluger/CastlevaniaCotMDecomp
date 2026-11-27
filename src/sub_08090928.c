@@ -1,4 +1,4 @@
-s32 sub_08007EA8(u16);
+s32 isGameStatusFlagSet(u16);
 void _call_via_r2(void *, void *, s32);
 
 /* Scripted-actor step: when the flag test on the actor's movement state reports
@@ -9,7 +9,7 @@ void sub_08090928(void *self) {
     void *work = *(void **)((u8 *)self + 0x3C);
     void *moveState = (u8 *)work + 0x48;
     u8 zero;
-    if (sub_08007EA8(*(u16 *)((u8 *)*(void **)((u8 *)moveState + 0x14) + 4)) != 0) {
+    if (isGameStatusFlagSet(*(u16 *)((u8 *)*(void **)((u8 *)moveState + 0x14) + 4)) != 0) {
         *(s32 *)((u8 *)work + 0x14) = (s32)0xFFFF8000;
         zero = 0;
         *(s16 *)((u8 *)moveState + 0x10) = 1;

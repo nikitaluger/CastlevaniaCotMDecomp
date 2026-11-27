@@ -1,4 +1,4 @@
-extern s32 sub_08011344(s32, s32, s32, s32); /* force animation frame */
+extern s32 setObjectAnimationFrame(s32, s32, s32, s32); /* force animation frame */
 extern s32 setAnimationFrame(s32, s32, s32, s32); /* set animation frame if changed */
 extern s32 sub_080C31E4(void *, void *, s32); /* _call_via_r2 */
 
@@ -19,7 +19,7 @@ void sub_0804D5C4(void *arg0)
   stepOff = 0x19;
   if (2 & (*((u8 *) (((s8 *) work) + 0x34))))
   {
-    sub_08011344(sprite, anim, 2, 0);
+    setObjectAnimationFrame(sprite, anim, 2, 0);
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + stepOff)) = 0;
     stream = (s32 *) 0x08671BB0;
     sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *stream);

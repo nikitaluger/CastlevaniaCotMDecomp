@@ -1,4 +1,4 @@
-s32 sub_08011344(s32, s32, s32, s32);
+s32 setObjectAnimationFrame(s32, s32, s32, s32);
 s32 stepAnimationTrack(s32, s32);
 s32 sub_08011EE8(void *, s32, s32);
 s32 setSpriteFlipForDirection(s32, s32);
@@ -27,7 +27,7 @@ void sub_080383AC(void *entity) {
     stepAnimationTrack(sprite, animator);
     setSpriteFlipForDirection(sprite, *(s32 *)((u8 *)component + 0x10));
     if (*(u8 *)((u8 *)pose + 4) == 2) {
-        sub_08011344(sprite, animator, 9, 0);
+        setObjectAnimationFrame(sprite, animator, 9, 0);
         *(s8 *)((s8 *)(*(s16 *)((u8 *)entity + 0x22) * 2 + entity) + 0x19) = 0;
         soundTable = (s32 *)0x08671BB0;
         sub_080C31E4(entity + 0x18, entity + 0x22, *soundTable);

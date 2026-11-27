@@ -19,7 +19,7 @@ struct S_080921A4_Step {
     u8 _0[0x19];
     u8 subStep;         /* 0x19: action sub-step counter */
 };
-extern s32 sub_08007EA8(u16);
+extern s32 isGameStatusFlagSet(u16);
 extern void sub_08011344(u32, u32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -39,7 +39,7 @@ void sub_080921A4(struct S_080921A4_Obj *action)
     field38 = action->field38;
     params = (struct S_080921A4_Params *)action->params;
     param24 = 0x24 + (u32)params;
-    flagSet = sub_08007EA8(*params->flagId);
+    flagSet = isGameStatusFlagSet(*params->flagId);
     if (flagSet != 0) {
         u8 *stepBase; u8 *step; u8 animIndex; u32 nextAction; u32 *effectArg;
         s16 *values;

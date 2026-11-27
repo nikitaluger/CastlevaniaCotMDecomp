@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795813127.6005244,
- "revision": 71076,
+ "saved_at": 1795813471.573358,
+ "revision": 71095,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1783,24 +1783,13 @@
   },
   "589780:134807508": {
    "vram": 134807508,
-   "function": "sub_0808FFD4",
+   "function": "updateFlaggedAiStep",
    "toolchain": "agbcc",
    "flags": [
     "-mthumb-interwork",
     "-O1",
     "-fno-strength-reduce"
    ]
-  },
-  "594592:134812320": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateRoomAnchoredScriptedAttackAlt",
-   "vram": 134812320
   }
  },
  "instructions": "",
@@ -2142,8 +2131,7 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h",
-  "rom": "common_rom.h"
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -4191,7 +4179,7 @@
    "matched_by": "opencode-hy4-flash-free-8",
    "readable": false
   },
-  "sub_08011344": {
+  "setObjectAnimationFrame": {
    "vram": 134288196,
    "matched_by": "autopilot",
    "readable": false
@@ -7808,7 +7796,7 @@
   },
   "sub_0803157C": {
    "vram": 134419836,
-   "best_score": 3280,
+   "best_score": 3120,
    "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_080316BC": {
@@ -17116,7 +17104,7 @@
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
    "readable": true
   },
-  "sub_0808FFD4": {
+  "updateFlaggedAiStep": {
    "vram": 134807508,
    "matched_by": "opencode-hy4-flash-free-64",
    "readable": false
@@ -23617,7 +23605,7 @@
   "updateScaledMainObjectEffect": "local_source_8589937090",
   "runActionStepResponse": "local_source_8589937398",
   "sub_0808EA30": "local_source_8589937664",
-  "sub_0808FFD4": "local_source_8589939150",
+  "updateFlaggedAiStep": "local_source_8589939150",
   "sub_080BE99C": "local_source_8589938934"
  },
  "layout": [
@@ -25014,7 +25002,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_08007EA8",
+   "name": "isGameStatusFlagSet",
    "vram": 134250152,
    "size": 40,
    "status": "asm"
@@ -26424,7 +26412,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08011344",
+   "name": "setObjectAnimationFrame",
    "vram": 134288196,
    "size": 34,
    "status": "open"
@@ -42708,7 +42696,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0808FFD4",
+   "name": "updateFlaggedAiStep",
    "vram": 134807508,
    "size": 300,
    "status": "open"
@@ -51518,6 +51506,12 @@
    "kind": "func"
   },
   {
+   "name": "isGameStatusFlagSet",
+   "address": 134250152,
+   "size": 40,
+   "kind": "func"
+  },
+  {
    "name": "initSceneFromSave",
    "address": 134252104,
    "size": 352,
@@ -51653,6 +51647,12 @@
    "name": "initSpriteGraphics",
    "address": 134288156,
    "size": 40,
+   "kind": "func"
+  },
+  {
+   "name": "setObjectAnimationFrame",
+   "address": 134288196,
+   "size": 34,
    "kind": "func"
   },
   {
@@ -53957,6 +53957,12 @@
    "name": "updateTargetedScriptedAttack",
    "address": 134807180,
    "size": 328,
+   "kind": "func"
+  },
+  {
+   "name": "updateFlaggedAiStep",
+   "address": 134807508,
+   "size": 300,
    "kind": "func"
   },
   {
@@ -58110,7 +58116,7 @@
    "asm_code": "3 agents (opencode-beam-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Callee-saved-r4 leaf-frame wall (re-confirmed this session, score 615). All 16 real body insns byte-exact. Sole delta is agbcc frame choice for a 4-pseudo leaf. 47+ prior attempts floor at 615. register-asm rejected. Not hand-written asm, not not_c. Cannot get closer."
   },
   {
-   "name": "sub_08007EA8",
+   "name": "isGameStatusFlagSet",
    "vram": 134250152,
    "not_c": {
     "opencode-hy4-flash-free-1": {

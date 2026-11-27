@@ -1,5 +1,5 @@
 extern void stepAnimationTrack(void *, void *);
-extern void sub_08011344(s32, void *, u16, u8);
+extern void setObjectAnimationFrame(s32, void *, u16, u8);
 extern void *spawnBudgetedEffect(u32, s32);
 extern s32 sub_080148C0(void *, void *, s32);
 extern s32 sub_080148AC(void *, s32);
@@ -27,7 +27,7 @@ void sub_08038438(void *entity) {
     if (animFlags != 0) {
         if (*(u8 *)(poseState + 0x11) <= 2) {
             *(u8 *)(poseState + 0x10) = 0;
-            sub_08011344((s32)sprite, animTrack, 9, 0);
+            setObjectAnimationFrame((s32)sprite, animTrack, 9, 0);
         } else {
             *(u8 *)(entityBytes + (s32)(s16)(*(s16 *)(entityBytes + 0x22)) * 2 + 0x19) = 0;
             gScriptStepCallbacks(entityBytes + 0x18, entityBytes + 0x22, 0);

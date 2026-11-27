@@ -1,4 +1,4 @@
-extern void sub_08011344(void *, void *, s32, s32);
+extern void setObjectAnimationFrame(void *, void *, s32, s32);
 extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 gMainObjTimerCallbacks;
@@ -21,9 +21,9 @@ void sub_080342E8(void *entity) {
     ((struct FlagByte *)(*(u8 **)(ctrl + 0xC)))->flag = 1;
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0xC) {
         if (1 & *(u8 *)(ctrl + 0x10)) {
-            sub_08011344(gfx, anim, 0x38, 0);
+            setObjectAnimationFrame(gfx, anim, 0x38, 0);
         } else {
-            sub_08011344(gfx, anim, 0x1F, 0);
+            setObjectAnimationFrame(gfx, anim, 0x1F, 0);
         }
         ((struct FlagByte *)(*(u8 **)(ctrl + 0xC)))->flag = 0;
         newObj = spawnBudgetedEffect((s32)gMainWorkspace.v, 0xE3);

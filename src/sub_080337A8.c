@@ -1,4 +1,4 @@
-void sub_08011344(void *, void *, s16, s32);
+void setObjectAnimationFrame(void *, void *, s16, s32);
 void stepAnimationTrack(void *, void *);
 void sub_08033950(void *, void *);
 void copyBytes(void *, void *, u32);
@@ -52,7 +52,7 @@ void sub_080337A8(void *entity) {
     offset = index * 4;
     velTableNext = velTable + 1;
     *(s32 *)((u8 *)state + 0x0C) = *(s32 *)((u8 *)entity + 0x5C) + *(s32 *)((u8 *)velTableNext + offset);
-    sub_08011344(sprite, animTrack, frameSeq[*step], 0);
+    setObjectAnimationFrame(sprite, animTrack, frameSeq[*step], 0);
     stepAnimationTrack(sprite, animTrack);
     sub_08033950(sprite, state);
     nextStep = *step + 1;

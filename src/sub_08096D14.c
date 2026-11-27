@@ -1,5 +1,5 @@
 s64 sub_08096F00(void *);
-void sub_08011344(void *, void *, s32, s32);
+void setObjectAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 /* When the player is out of range (sub_08096F00 returns 0), switch the
@@ -16,7 +16,7 @@ void sub_08096D14(void *self) {
     work = *(u8 **)((u8 *)self + 0x3C);
     animState = work + 0x18;
     if ((s32)sub_08096F00(self) != 0) return;
-    sub_08011344(animator, animState, 7, 0);
+    setObjectAnimationFrame(animator, animState, 7, 0);
     zero = 0;
     *(u16 *)(work + 0x16) = 1;
     *(u8 *)(*(u8 **)(work + 4) + 1) = 7;

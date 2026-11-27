@@ -1,5 +1,5 @@
 extern s32 sub_08096F00(void *);
-extern void sub_08011344(u32, u32, s32, s32);
+extern void setObjectAnimationFrame(u32, u32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern u32 gScriptStepCallbacks;
@@ -49,7 +49,7 @@ void sub_08096B20(struct ActorObj *arg)
         u8 cmdIndex;
         u32 *pbd0;
 
-        sub_08011344(soundId, soundTarget, 7, 0);
+        setObjectAnimationFrame(soundId, soundTarget, 7, 0);
         *(u8 *)(target->flagArray + 1) = 0;
         target->status = (u16)inRange;
 

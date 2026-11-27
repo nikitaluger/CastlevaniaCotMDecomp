@@ -1,4 +1,4 @@
-extern s32 sub_08007EA8(u16);
+extern s32 isGameStatusFlagSet(u16);
 extern void sub_080C31E4(void *, void *, s32);
 struct Work { u8 pad[0x14]; s32 velocity; };
 struct MoveState { u8 pad[0x10]; s16 active; };
@@ -10,7 +10,7 @@ void sub_080909B0(void *entity) {
     struct Work *work = *(struct Work **)((u8 *)entity + 0x3C);
     struct MoveState *moveState = (struct MoveState *)((u8 *)work + 0x48);
     u8 zero = 0;
-    if (sub_08007EA8(*(u16 *)((u8 *)*(void **)((u8 *)moveState + 0x14) + 4)) == 0) {
+    if (isGameStatusFlagSet(*(u16 *)((u8 *)*(void **)((u8 *)moveState + 0x14) + 4)) == 0) {
         work->velocity = 0x8000;
         moveState->active = 1;
         ((u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2))[0x19] = zero;

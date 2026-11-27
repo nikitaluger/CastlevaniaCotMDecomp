@@ -3,7 +3,7 @@ extern s32 sub_08010D50(s32, void *, s32, u8);
 /* Selects animation frame `frame` for `obj`: records the frame index in the
  * animation state at +0xE, then configures the state from the matching entry
  * of its frame table using `mode`. */
-void sub_08011344(s32 obj, void *anim, u16 frame, u8 mode) {
+void setObjectAnimationFrame(s32 obj, void *anim, u16 frame, u8 mode) {
     u16 frameIndex;
 
     frameIndex = frame;

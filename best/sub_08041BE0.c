@@ -4,7 +4,7 @@ extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern s32 absXFromFocus(s32);
 extern s32 sub_080145D8(s32, s32, s32, s32);
-extern void sub_08011344(s32, void *, u16, u8);
+extern void setObjectAnimationFrame(s32, void *, u16, u8);
 
 void sub_08041BE0(void *arg0)
 {
@@ -43,7 +43,7 @@ void sub_08041BE0(void *arg0)
         if (sub_080145D8(*(s32 *)(work + 8), *(s32 *)(work + 0xC) + 0x100000, 0x300000, 0x200000) == 0
             || (flag != 0 && (saved & 1) != 0))
         {
-            sub_08011344((s32)sprite, animTrack, 0, 0);
+            setObjectAnimationFrame((s32)sprite, animTrack, 0, 0);
             *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
             {
                 void **timerTable = (void **)0x08671BB0;

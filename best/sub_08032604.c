@@ -2,7 +2,7 @@ extern s32 checkActorViewBounds(s32, s32);
 extern s32 getAngleFromDelta(s32, s32);
 extern s32 sub_080147D4(s32);
 extern void setSpriteFlipForDirection(s32, s32);
-extern void sub_08011344(s32, void *, s32, s32);
+extern void setObjectAnimationFrame(s32, void *, s32, s32);
 extern void sub_0803B7E4(void *, void *, void *);
 extern void sub_0803B7E0(void *, void *);
 extern u8 gMainWorkspace[];
@@ -67,7 +67,7 @@ void sub_08032604(void *arg0) {
     default:
         break;
     }
-    sub_08011344((s32)sprite, animTrack, 0, 1);
+    setObjectAnimationFrame((s32)sprite, animTrack, 0, 1);
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     sub_0803B7E4(self + 0x18, self + 0x22, gMainObjTimerCallbacks);
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

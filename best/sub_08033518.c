@@ -1,7 +1,7 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
 extern void initSpriteGraphics(void *, void *, void *);
-extern void sub_08011344(void *, void *, s32, s32);
+extern void setObjectAnimationFrame(void *, void *, s32, s32);
 extern s32 findKindIndex(void);
 extern void installUpdateHandler(void *, void *, void *);
 extern void updateScriptedEffectObject(void);
@@ -62,7 +62,7 @@ void sub_08033518(u8 *arg0)
     goto fail;
   }
   initSpriteGraphics(sprite, p34, (void *) 0x080CD4FC);
-  sub_08011344(sprite, p34, 0x12, 0);
+  setObjectAnimationFrame(sprite, p34, 0x12, 0);
   tbl2 = D_080CEC8C;
   res = allocEffectPart();
   *((void **) (p + 0x28)) = res;

@@ -1,5 +1,5 @@
 extern void stepAnimationTrack(void *, void *);
-extern void sub_08011344(void *, void *, s32, s32);
+extern void setObjectAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 gMainObjTimerCallbacks;
 
@@ -28,7 +28,7 @@ void sub_0803AD60(u8 *self) {
         if (*(u8 *)(self + 0x7C) == 2) {
             *(s32 *)(enemy + 0x14) = 0xFFFD0000;
         }
-        sub_08011344(actor, enemyData, 0x23, 1);
+        setObjectAnimationFrame(actor, enemyData, 0x23, 1);
         animData = *(u8 **)(enemy + 0x28);
         zero = 0;
         *(u8 *)(animData + 1) = 1;

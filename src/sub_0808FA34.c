@@ -1,5 +1,5 @@
 extern void sub_08005E80(s32);
-extern void sub_08011344(void *, void *, s32, s32);
+extern void setObjectAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 struct FrameValue { s16 frame; u16 pad; };
 extern struct FrameValue D_081003AC[];
@@ -18,7 +18,7 @@ void sub_0808FA34(void *entity)
   if (phase == 1)
   {
     s32 frame = D_081003AC[*((u32 *) work)].frame;
-    sub_08011344(animEntity, anim, frame, 0);
+    setObjectAnimationFrame(animEntity, anim, frame, 0);
     zero = 0;
     *((s16 *) (work + 0x16)) = phase;
     sub_08005E80(0x72);

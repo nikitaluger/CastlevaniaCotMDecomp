@@ -1,4 +1,4 @@
-void sub_08011344(s32, void *, s16, s32);
+void setObjectAnimationFrame(s32, void *, s16, s32);
 void sub_080C31E8(void *, void *, s32, u32);
 
 struct S_02025FF0
@@ -42,7 +42,7 @@ void sub_08097920(struct ScriptStep *step)
     gMainWorkspace.byte18C5 = 0;
     animId = step->animId;
     target = (u32 *)step->targetPtr;
-    sub_08011344(animId, (u8 *)target + 0x1C, D_08100B98[*target][1], 0);
+    setObjectAnimationFrame(animId, (u8 *)target + 0x1C, D_08100B98[*target][1], 0);
     *(u16 *)((u8 *)target + 0x16) = 1 | zero;
     *(u8 *)((u8 *)step + step->index * 2 + 0x17) = (u8)zero;
     scriptArg = &gMenuScriptCallback;

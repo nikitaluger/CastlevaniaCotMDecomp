@@ -1,4 +1,4 @@
-extern s32 sub_08007EA8(s32);
+extern s32 isGameStatusFlagSet(s32);
 extern void sub_080014D0(s32, s32);
 extern u8 D_02025358[];
 extern u8 gMainWorkspace[];
@@ -15,7 +15,7 @@ void selectSceneMode(void)
     p2 = p;
     switch ((s32)(((u32)*(volatile u8 *)&p[0x50] << 8) + p[0x51])) {
     case 0x0715:
-        if (sub_08007EA8(0xB6) != 0 && sub_08007EA8(0xBD) == 0) {
+        if (isGameStatusFlagSet(0xB6) != 0 && isGameStatusFlagSet(0xBD) == 0) {
             *(u32 *)&p[0x10] = 6;
             sub_080014D0(*(s32 *)&p[0x1864], 0x7B);
         }
@@ -24,7 +24,7 @@ void selectSceneMode(void)
         *(u32 *)&p[0x10] = 0x0F;
         break;
     case 0:
-        if (q[0x0C] == 0 && sub_08007EA8(0x31) == 0)
+        if (q[0x0C] == 0 && isGameStatusFlagSet(0x31) == 0)
             *(u32 *)&p[0x10] = 1;
         break;
     case 0x0E01:
