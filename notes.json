@@ -348815,22 +348815,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:38f76738a214c13bdf8551d6208c0b9f6b85c2999ec3003b567f776f343f7b6f"
  },
  {
-  "function": "copyPoseOffsetForFrame",
-  "text": "Switch layout; score 566 best.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.929434,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "copyPoseOffsetForFrame",
-  "text": "Best 566/35. Correct value extraction and call (sub_08014588(arg1, 0x08101938 + r3*8) with r3 1 for 0x7D, 2 for 0x83 else 0). Diffs: target uses r4=arg1,r5=0x0E,r3=result with push {r4,r5,lr} and loads table ptr into r2 early; mine allocates offset to r4 and omits r5 from push. Target addressing `subs r1,#4; ldrh r0,[r1,#2]` vs my forms gave either subs #2/ldrh [r1] or reg shifts; tried q+2 form. Compare chain differs from target's redundant 0x77 checks/branch layout. Needs regalloc and branch-shape tuning.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.0191472,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A0274",
   "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall (score 215). 10-instruction predicate returning arg0 && arg0[0x6C]. Residual push{lr}/pop{r0};bx r0 vs bare bx lr. Compiler/backend change required.",
   "by": "opencode-beam-free-9",
@@ -348855,5 +348839,21 @@
   "score_before": 2105,
   "score_after": 10,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:e204924c4f0465acb98bad6c2521cffef50fd8bf0fd46c1df19669fb4ce3fb9f"
+ },
+ {
+  "function": "copyPoseOffsetForFrame",
+  "text": "Switch layout; score 566 best.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.929434,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "copyPoseOffsetForFrame",
+  "text": "Best 566/35. Correct value extraction and call (sub_08014588(arg1, 0x08101938 + r3*8) with r3 1 for 0x7D, 2 for 0x83 else 0). Diffs: target uses r4=arg1,r5=0x0E,r3=result with push {r4,r5,lr} and loads table ptr into r2 early; mine allocates offset to r4 and omits r5 from push. Target addressing `subs r1,#4; ldrh r0,[r1,#2]` vs my forms gave either subs #2/ldrh [r1] or reg shifts; tried q+2 form. Compare chain differs from target's redundant 0x77 checks/branch layout. Needs regalloc and branch-shape tuning.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.0191472,
+  "score_before": null,
+  "score_after": null
  }
 ]

@@ -6,7 +6,7 @@ extern void copyPoseAttrs(void *, void *);
 /* Copies one of three 8-byte offset records from D_08101938 into `dst`: the
  * default record, or the variant picked by the mover's current animation frame
  * (0x7D -> variant 1, 0x83 -> variant 2). */
-void copyPoseOffsetForFrame(void *anim, void *dstArg)
+void sub_0809C678(void *anim, void *dstArg)
 {
     void *dst = dstArg;
     s32 pose = 0;
