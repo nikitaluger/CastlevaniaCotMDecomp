@@ -27648,14 +27648,6 @@
   "score_after": null
  },
  {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Cannot get closer from C within this session's budget: 6 compiles all scored 3582-4755, never beating autopilot's 3195. Tried s32 sp[20], u8 buf[0x50], correct 7-arg sub_0808E348 prototype, reload-count vs named-count, u16 tail, and declaration-order swaps; all keep the same blockers. The target's agbcc allocation keeps q in r9/sb, r=q+0x34 in r6, i in r8 and reloads count from [r6+0xc] each loop, giving a 0x50 frame and buffer at sp+0xc; every C form I tried spills r and count (frame 0x68, buffer at sp+0x18, pointer slot sp+0x58). This needs a different local/struct formulation or compiler behaviour, not another small tweak. Left best attempt (autopilot 3195) unchanged.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.0441163,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080C3AC0",
   "text": "Same systemic SDK-range leaf-frame barrier as sub_080C39A8, sub_080C3A48, sub_080C13E0, sub_080C02B0: target is a bare `bx lr` leaf (19 insns), agbcc -mthumb-interwork -O2 emits `push {lr}` ... `pop {r0}; bx r0` (21 insns), shifting bhs/blo offsets by 2. Body is byte-exact (p = arg0 + arg1[0]; (*p)--; *(u8*)p = 0; p++; if (p < (u16*)arg1) do { *p=0; p++; } while (p < (u16*)arg1);) \u2014 score 225. Tried u8*/u16* args, while/for/do-while, early return, u32-cast comparisons \u2014 identical 225. Needs a compiler build that omits the frame for small leaf functions; no C form fixes it. Session complete (8 claims compiled, 2 matched).",
   "by": "opencode-hy4-flash-free-1",
@@ -32028,14 +32020,6 @@
   "text": "Score 25. Regalloc minor. Cannot get closer. Best source saved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0676374,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Cannot get closer within budget; documented regalloc/spill issue. Release.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0676785,
   "score_before": null,
   "score_after": null
  },
@@ -111176,14 +111160,6 @@
   "score_after": null
  },
  {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Confirming release: sub_08094188 is a callee-saved-register function (r8/r9/r10 via r5/r6/r7 push, 0x50 frame) scoring 1736, not C-progressing within budget. Target keeps q in sb/r9, r in r6, i in r8, buffer at sp+0xc, pointer slot sp+0x4c; my C spills to frame 0xc with buffer at sp+8. No C local/struct formulation selects callee-saved regs; register-asm blocked; declaration-order swaps exhausted. Low yield to keep burning compiles. Released unmatched to preserve budget for claim #8.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.4864275,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000BF0",
   "text": "Cannot get closer in pure C: known frameless-branchy-leaf wall (#300). Target has bare `bx lr` with no prologue; agbcc always emits `push {lr}`/`pop {r0}`/`bx r0` for this backward-branch Thumb leaf, causing structural diff (score 445) despite equivalent loop body. Exhausted across ~100+ prior attempts and all flag variants; no C-level fix. Not hand asm. Best source preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -120220,14 +120196,6 @@
   "text": "Best 2378 (78.9%, 113/113 insns, structure/calls/prologue/r8/struct literals correct). Hard agbcc callee-saved coloring wall: target r5=*(arg0+0x3C) base and r6=base+0x48; every C variant gives the inverse (base in r6, +0x48 ptr in r5), cascading into 19 regalloc diffs, wrong [r5+8]/[r5+0xC] dx/dy operands, interleaved f174C/f1750 loads (target r4/r7 before subtractions), literal pool +4 and sub_080059DC call-target mismatch. Tried this session: declaration-order swap (2393), struct-typed object pointer with named 0x34/0x48 fields (2378), void* base (2378), swapping 0x38/0x3C load order (2393), struct-typed self (2583), integer-offset pointer casts (2378). Prior agents tried all declaration/name/order permutations, separate loads, integer-cast pointer arithmetic, volatile, offset locals. Ordinary correct C; not hand asm, not not_c. Need a source shape that flips the two callee-saved register assignments.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5351307,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Deep agbcc callee-saved regalloc wall, best 1736 (autopilot source, unchanged this session). 8 compiles this session: struct pad/data/ptr -> 2928 (frame 0x5c); u8 buf[0x50] -> 2928; u8 buf[0x44] + ptr at buf+0x40 -> 2286 -> 2131 (fixed off formula to (idx-((idx<0?idx+7:idx)>>3)*8)*8) -> 2066 (restored best-attempt expression forms) -> 2066 (slot local) -> 2066 (decl order swap). buf[0x44] exactly reproduces the 0x50 frame with data at sp+0xc and pointer at sp+0x4c (first 10 prologue insns match), but regalloc still derails: target r=q+0x34 in r6 / computed x in r7, agbcc picks r7 for r and r6 for x (41 regalloc rows), plus outgoing-arg stores to [sp+0xc..0x14] where target writes them directly. Decl order, struct/named locals, ternary/if, 7-arg prototype all tried. ~13 prior attempts by other models all floor 1736-4755. register-asm blocked; not hand asm, not not_c, not boundary. No C formulation selects the target allocation; needs compiler-level change. Best source (1736) preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5351672,
   "score_before": null,
   "score_after": null
  },
@@ -131392,22 +131360,6 @@
   "score_after": null
  },
  {
-  "function": "updateJitteredParticleSpawner",
-  "text": "sub_08094188: a `struct Frame94188 { u8 pad[0xC]; u32 data[0x10]; u32 ptr; };` local gives the exact target frame (sub sp,#0x50, data at sp+0xc, ptr at sp+0x4c) and the first 10 prologue insns match, but scores 2072 (worse than the autopilot 1736) because regalloc still puts q+0x34 in r7 instead of target r6 and derails the loop. Declaration order of temp_r6 is neutral. The 1736 best uses plain s32 sp0/sp4/sp8/spC + sp4C pointer (frame 0xc). Remaining wall is purely agbcc callee-saved r6/r7 allocation.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5934265,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Session complete (8th claim). Can't get closer: best 1736 (87.6%) with all structure/calls/control flow correct. Tried exact-frame struct (2072 \u2014 prologue matches but regalloc worse) and declaration-order swap (neutral). Remaining is a pure agbcc callee-saved regalloc wall (q+0x34 in r7 vs target r6; ~20 regalloc rows) that 22+ prior attempts across models failed to close. Not hand asm; best source and a note preserved. Releasing again as instructed.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.593465,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080C04B8",
   "text": "Best score: 25 (99.3% match). Instruction-perfect body (39/39 insns, identical order). Only 5 regalloc rows differ: target loads D_08106DCC table literal into r2 and ldrh'd idx into r3; agbcc consistently gives table\u2192r3, idx\u2192r2 (then `adds r1,r1,r3` vs target `adds r1,r1,r2`). Same systematic regalloc difference as siblings sub_080C0440 (25) and sub_080C050C (20) \u2014 library-range register coloring quirk for 0x80C0440-0x80C050C.\n\nBest source: `void sub_080C04B8(u32 arg0){u32 off;u8*t;u8*e;u16 idx;s32*p;s32 f4; off=arg0<<16;t=D_08106DCC;e=D_08106E38;off>>=13;idx=*(u16*)(e+off+4);p=*(s32**)(t+idx*12); if(*p!=*(s32*)(e+off))sub_080C0ABC(p,*(s32*)(e+off));else{f4=*(s32*)((u8*)p+4); if(*(u16*)((u8*)p+4)==0)sub_080C0ABC(p,*p); else if(f4<0)sub_080C0368(p);}}`\n\nTried exhaustively: decl order swaps (t/e), s32** for t, u16/u32/s32 idx types, off as u32/s32/u16, arg0 as u32/s32, merged inline deref chains (catastrophic), const qualifiers, compute idx before t/e (905), all -O flags via search_flags (25 best), try_compiler all (only agbcc). Core wall: agbcc register coloring \u2014 first literal load \u2192 r3 instead of r2, idx \u2192 r2 instead of r3. No pure C construct found to flip this coloring. Needs compiler/toolchain fix or suggest() for user.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -134804,14 +134756,6 @@
   "text": "Force-release: 2442 (88.3%) -O1 agbcc regalloc/literal wall. Explicit 0x136F offset reuse via C variable had zero effect. Same wall as twin sub_080BF1A8. Best source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.6115863,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Cannot get closer from C: deep agbcc -O1 callee-saved regalloc wall. Best 1736 (87.6%) unchanged; 22+ prior attempts by multiple agents tried frame structs, buf[0x44], declaration order, prototypes, index forms - all worse or equal. Target needs q+0x34 in r6 and i in r8 with 0x50 frame; no C formulation selects these. Not hand asm, not not_c, not boundary. Best attempt preserved.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.6116247,
   "score_before": null,
   "score_after": null
  },
@@ -139880,26 +139824,10 @@
   "score_after": null
  },
  {
-  "function": "updateJitteredParticleSpawner",
-  "text": "CRITICAL: sub_08094188's target code is identical (instruction-for-instruction) to twin sub_08093924 at 0x08093924, which lives OUTSIDE any special range and therefore builds with the project's default -O2. This function's range 0x8094188-0x80942B0 is incorrectly set to -O1. Verified: with the verbatim twin C (only the table literal D_08100820 instead of D_081007D8), -O1 scores 115 (23 regalloc rows, p34 in r7 instead of target r6), -O2 and -O3 score 35 (all 141 insns structurally identical, only 2 deterministic regalloc ties: loop increment `movs r0,#1/add r8,r0/mov r1,r8` vs ours `movs r2,#1/.../mov r0,r8`, and tail `mov r2,sl; movs r1,#0x22` vs ours `mov r1,sl; movs r2,#0x22`). Best recorded attempt is now the twin C at -O1 score 115 (was 1736). Do not redo the 30+ failed regalloc experiments; a setup change to -O2 is needed before score 0 is possible.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.6380966,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08014114",
   "text": "Cannot get closer in pure C. Score 930 is a proven pure regalloc wall (75/75 insns identical): target x=r5,y=ip,w=r6,lo=r8,hi=r9 with 0x127C loaded late into r7; agbcc loads 0x127C early, rotating arg regs. 38+ prior attempts and this session's baseline confirm ceiling; no declaration/order/type/volatile/flag variant moves it, register asm banned. No actionable C lever.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.6381338,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Cannot get closer from C within this session: the setup itself is wrong (range flagged -O1 while target is -O2-shaped, proven by the byte-identical twin sub_08093924 built at default -O2). At -O2 the best source reaches 35 with only two deterministic agbcc register ties that ~34 attempts on the twin never broke; at -O1 no C formulation puts p34 in r6 (30+ prior attempts). This needs a project flags change, not more compiles. Best attempt improved to 115 and preserved; full finding is in the function note.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.6381707,
   "score_before": null,
   "score_after": null
  },
@@ -180312,14 +180240,6 @@
   "score_after": null
  },
  {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Asking to release again explicitly: it cannot get closer from C. 141/141 instructions byte-exact at score 35; the only residual is two agbcc -O2 backend tie-breaks among equally-free registers (loop-increment literal/copy r0/r1 vs r2/r0; tail s16 base/offset r2/r1 vs r1/r2). 3 compiles this session plus search_flags, and 55 attempts on the byte-identical twin sub_08093924, all floor at 35; register asm pinning is rejected. This is a compiler tie, not a C-form issue. Ordinary correct C, not hand asm, not not_c, no boundary or dependency; further compiles cannot improve 35.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.8484888,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080960F4",
   "text": "Asking again with the reason it cannot get closer: the only remaining difference is the callee-saved register *rotation* (ROM owner=r5, logic=r6, sprite=r7; agbcc sprite=r5, owner=r6, logic=r7) \u2014 a pure allocation-order artifact of exactly the kind 25 earlier attempts hit; all 222/222 instructions, all operands/struct offsets/constants/data refs, both high registers (sb=zero, sl=D_02025FF0), r4=sub and r8=coords already match. I already took it 3016 -> 735 this session by rewriting it in the typed-struct style of the MATCHED sibling sub_08095884 and by removing the live `child` local (reload `sub->f4->field` per store instead); the remaining rows are that rotation's 53 regalloc rows plus one constant's register (`ldr r0,[pc]` vs `ldr r3,[pc]`) and the zero `movs` position. Declaration-order permutations and moving `zero = 0` before the `|=` both regress (935/956), so the next lever is a different one from any I can construct. Best source is saved; needs no other function.",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -183468,14 +183388,6 @@
   "text": "Reproduced the 7907 floor and measured three more variants, all worse: (1) `e = 0` initialised at declaration, first local -> no change (7907). (2) replacing the goto-based early-outs with flat `if (...) goto skip;` plus reading the 0x18BE via a dedicated saved pointer `q` -> 9846 (fewer insns, loses the structure). (3) the same but keeping the best source's shape, changing ONLY `r1 = sub_080C2F24(idx,3); switch(r1)` into `switch (sub_080C2F24(idx,3))` -> 9056 (the cmp-on-r0 row matches now but branch offsets/insn count regress 449->447). Best remains the stored source at 7907. Remaining real gaps named in my previous note (params b/d swapped r6<->r7; the spare r9 save \u2014 target saves only r8; target keeps D_02025FF0 in r4 and reuses it with `adds r6,r4,#0` x10 while ours reloads literal bases). 69 attempts across models. Not not_c, no boundary, no missing callee.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.8647513,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Releasing at 4 compiles: cannot get closer from C. 141/141 instructions byte-exact, score 35, only two deterministic agbcc -O2 allocator tie-breaks: (1) loop-increment constant/low-reg copy of i(r8): target r0/r1 vs ours r2/r0; (2) tail `mov r?,sl; movs r?,#0x22; ldrsh r0,[..]`: target base r2/offset r1 vs ours r1/r2. Flags verified optimal (search_flags: -O2, -O3, -O2 -fno-strength-reduce all 35; -O1 75, -Os 1235). This session tried `i=i+1` (35 unchanged), explicit copy `j=i; while(j<=1)` (35, coalesced away), and a named tail index/offset (`off2=0x22; idx=*(s16*)(self+off2)`) which regressed to 515 by consuming r3. Prior 58 attempts on the byte-identical twin sub_08093924 floor at 35 with every loop form, declaration order, dummy local, prototype and -O level \u2014 these are backend free-register picks, not C-form. Nothing left to act on: structure, calls, constants, literal pool and instruction count all exact. Not hand asm, not not_c, no boundary, no dependency.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.8647914,
   "score_before": null,
   "score_after": null
  },
@@ -187436,14 +187348,6 @@
   "text": "Body is byte-exact (48/48 target insns match through bx r0 at 0x0808B038, score 200). Sole residual is 2 extra `movs r0,r0` rows from this function's own literal-pool word 0x08671BB0 at 0x0808B03C being decoded past the declared 104-byte extent (end 0x0808B03C). read_data/notes confirm: pad at 0x0808B03A, literal 0x08671BB0 at 0x0808B03C, next prologue at 0x0808B040. This is a setup extent-too-short issue (project already has open suggestions to extend); not fixable in C. report_boundary is the wrong direction. Best source preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.8859096,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Why it cannot get closer in this session (second request): 141/141 instructions are byte-exact at score 35 and all four variants I compiled this session are no-ops at 35 (i=i+1, i declared first, r3/var1 block-scoped, plus a full-block-scope variant that fixes the latch but costs 165 points by rotating p34 r6->r7). The remaining 7 rows are two pure free-register tie-breaks in agbcc -O2 local-alloc (latch constant 1 -> r0 target vs r2 ours; tail sl-copy/0x22 pair r2/r1 vs r1/r2), i.e. the same floor the byte-identical twin sub_08093924 hits after 58 attempts. No C-level lever left that I can see within this budget; flags verified optimal earlier (O2/O3 35, O1 75, Os 1235). Not hand asm, not not_c, no boundary. Releasing to work the remaining functions of the session.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.8859513,
   "score_before": null,
   "score_after": null
  },
@@ -195068,14 +194972,6 @@
   "text": "Final explicit release \u2014 cannot get closer from C. 2 compiles this session both regressed (1403 mask-as-pointer role reuse, 780 guard literal + const loop mask); inherited best 325 (95.0%, 64/66 insns byte-exact) stands. Residual: agbcc CSEs the 0x8000 mask straight into r6, omitting the target's `adds r6,r2,#0` mask copy and `adds r2,r5,#0` pointer reinit; every C spelling that separates those pseudos destroys the callee-saved allocation. ~180 prior attempts agree; asm pinning banned. Ordinary correct C, not hand asm, not not_c, no boundary or dependency. Best 325 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9257886,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Asking again to release: it cannot get closer in C. All 141 instructions are the target's in order; the only 7 differing rows are two local-alloc free-register tie-breaks (latch `i++` constant+compare copy: ROM r0/r1 vs ours r2/r0; tail index pair: ROM r2/r1 vs ours r1/r2). I tested the two plausible C handles this session (`for`-loop form -> 450 worse, so do/while + `i = 0;` before `sp4C = buf + 4;` is required; named `s16 idx` for the tail -> identical 35). Combined with the 43 prior attempts (frame struct, buf sizes, declaration order, prototypes, index forms, block scoping) and flags (O2/O3 35, O1 75, Os 1235), no source form selects these two register pairs. Not hand-written asm, not a boundary, no missing callee.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9258718,
   "score_before": null,
   "score_after": null
  },
@@ -202724,14 +202620,6 @@
   "text": "Terminal class-B frameless-branched-leaf wall, best 435 (68.9%). Best: `extern u8 D_02025358[]; void sub_08010424(void){ u8 v=D_02025358[0xC]; D_02025358[0xC]=v+1; if(v>3) D_02025358[0xC]=1; }`. Residual: agbcc push{lr}...pop{r0};bx r0 vs ROM bare bx lr, redundant lsls/lsrs #24 folded away, r0/r1 swap, bls +2. This session: 435 (v>3), 625 (post-increment u32 v), 435 (v>=4), 435 (recompile). 100+ attempts all models/flags/shapes; only agbcc available. Not hand asm, not not_c, no boundary/dependency. Best source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.9655488,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Score 35, 141/141 instructions, only 7 regalloc rows in TWO spots: (1) latch: target `movs r0,#1; add r8,r0; mov r1,r8; cmp r1,#1` vs ours `movs r2,#1; add r8,r2; mov r0,r8; cmp r0,#1`; (2) tail: target `mov r2,sl; movs r1,#0x22; ldrsh r0,[r2,r1]` then `movs r1,#0; strb r1,[r0,#0x17]` vs ours `mov r1,sl; movs r2,#0x22; ldrsh r0,[r1,r2]` then `movs r2,#0; strb r2`. Additional experiments this session (beyond the 46 prior): `i = 1 + i` -> identical 35; `*((s16*)(0x22 + self))` -> identical 35; inline helper `ldsh_off(s32 off, u8 *p)` + `iadd(s32,s32)` -> 515 and broke the `mov r0,sp; adds r0,#0x10; str r0,[sp,#0x4c]` prologue; block-scoped constant locals (`s32 one = 1;` before the increment, `s32 off22 = 0x22;` before the tail load) -> also 515, because the constant local changes the sp4C address pseudo to r3 and makes `self+off22` a register add (`adds r1,#0x22`) instead of folding. The best source must be preserved EXACTLY: `inline int inline_fn(u8 *arg0){return *((u32*)(arg0+8)) + sub_0800583C(0x80<<11);}`, i = 0 before sp4C = buf + 4, buf[0x40], do/while (`i++`, `while (i <= 1)`), the r0v/r0c/asr-3/lsl-3 offset expression, all the new_var temps in that exact order. Flags: O2/O3 35, O1 75, Os 1235 (range is correctly O2). Not hand asm, not not_c, no boundary, no callee dep. Two local-alloc tie-breaks remain.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.965587,
   "score_before": null,
   "score_after": null
  },
@@ -221160,14 +221048,6 @@
   "score_after": null
  },
  {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Cannot get closer \u2014 terminal agbcc free-register tie-break wall. All 141 target instructions are byte-exact; the entire 35-point residual is two local-alloc tie-breaks (latch `movs r0,#1 / add r8,r0 / mov r1,r8` vs ours r2/r0, and tail `mov r2,sl / movs r1,#0x22` vs ours r1/r2) that no C spelling selects after 50+ attempts (loop forms, named constants, block scope, inline helpers, structs, declaration orders, all flags). Register pinning is rejected; not hand-written asm, not not_c, no boundary, no missing callee. Best 35 source preserved exactly \u2014 please advance the queue.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683535.062938,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0807699C",
   "text": "Asking again to release at the 190 floor: cannot get closer from C. Full details in the previous release note (2-swap arg0<->p6C only; new_var pins tbl/p6C and its removal gives a 3-cycle at 210; p6C ref-count rewrites have zero effect; priorities/ref counts do not predict the colouring, it is a graph-colouring artifact of allocno numbering that no C spelling I found reaches). 41 earlier attempts by other models hit the same 190; instructions are 185/185 and only register names differ. Not hand asm, not_c false, no boundary.",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -224140,14 +224020,6 @@
   "text": "Release anyway, second explicit override request: this cannot get closer in C within budget. Best remains 2321 (92.3%, 302/305 target insns) from deep-permuter's preserved source; my one compile this session altered a source line and scored 11586, confirming no progress. At 2321 all logic, calls, struct offsets and control flow are correct; the residual is an agbcc -O1 coloring/scheduling wall: the volatile off1 `sub sp,#4` frame and COORD block's four `mov ip,r2` base saves are compiler artifacts (non-volatile off1 fixes the prologue but regresses to 2840). ~49 prior attempts across models all floor here; register pinning banned. Not hand asm, not not_c, no boundary, no callee dependency. Best-2321 source preserved verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.078936,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Ask again to release now: this cannot get closer from C under the range's agbcc -O2. 141/141 target instructions, all structure/calls/data correct; residual is only 7 regalloc rows = two local-alloc free-register tie-breaks (latch const/copy pair r0/r1 vs r2/r0; tail base/const/zero triple r2/r1/r1 vs r1/r2/r2). 56 attempts total across models. Tested this session (free probes): `u8 zero=0` local at function or block scope flips the tail to the target's r2/r1 but costs the loop 15 rows (135, worse); `s32 idx` tail form and `<<1` instead of `*2` both identical 35. No statement/decl/type/expression/flag spelling selects the pairs; register pinning rejected. 35-point source preserved exactly, please advance the queue. Not hand asm, not not_c, not a boundary, no callee dependency.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683535.0789754,
   "score_before": null,
   "score_after": null
  },
@@ -228832,14 +228704,6 @@
   "score_after": null
  },
  {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Explicit terminal reasoning, asking again: no C step exists that lowers 35. All 141 target instructions are already emitted byte-for-byte; the only diff is two agbcc local-alloc tie-breaks (latch constant/copy r0/r1 vs r2/r0; tail base/const r2/r1 vs r1/r2) that are selected inside the register allocator, not by any source construct. ~56 prior attempts covering every plausible source spelling (loop shape, declaration order, block-scoped/inline constants, helper functions, struct frame, prototypes, index expressions) and every flag level agree; register-asm pinning is banned, so there is no remaining C lever. The C is final and correct. Pure C, not hand asm, not not_c, no extent boundary, no callee dependency. Best-35 source preserved. Advance the queue.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683535.104719,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08058978",
   "text": "Terminal frameless branchy leaf \u2014 cannot get closer in pure C. Score 215 confirmed this session: all 23 body instructions byte-exact (table select 0x080CFD60/+8 via (u32)(u16)(*(u16*)(arg0+0x28)-4)<=3; four volatile-reloaded dst stores to *(arg1+0x28)+{6,8,A,C} from tbl+{0,2,4,6}); literal pool word inside extent; clean bx lr. Sole residual: agbcc's mandatory push {lr} / pop {r0}; bx r0 frame vs ROM's frameless bx lr, shifting bhi #0x12->#0x14. Exhausted by 8+ agents over ~90 attempts: every C shape (canonical volatile, u16*-tbl+index, ternary, goto, switch, ands-mask), all flags (-O2/-O1/-O3/-Os), other compilers (455-840). Not boundary, not hand asm, not not_c, no callee dep; needs frameless conditional Thumb leaf support from toolchain.",
   "by": "opencode-free-1",
@@ -233500,14 +233364,6 @@
   "text": "All body instructions present but frame/regalloc mismatch; score 430 (69.2%). Residual: agbcc -mthumb-interwork inserts push{lr}/pop{r0};bx r0 frame vs ROM bare bx lr for this conditional-branch Thumb leaf, plus +2 branch displacement and 4 regalloc/2 missing-store rows. Best 430 uses `u8 v=D[0xC]; u8 n=v+1; if(v>3)n=1; D[0xC]=n;` (keeps redundant lsls/lsrs). Early-store variants 435 (folds zero-extend, cmp r1,#3), post-increment u32 625 (body byte-exact but alignment nops/pool shift). ~163 attempts; no pure-C lever removes compiler LR frame. Not hand asm, not_c, no boundary, no callee dep. Best-430 source preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.1313176,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Second explicit ask, reason: the code is final - 141/141 target instructions in the target's order, all calls/constants/frame/control flow byte-exact; the only 7 differing rows are two local-alloc free-register choices (latch: constant-1/add/copy pair r0,r1 vs r2,r0; tail: base-copy/index pair r2,r1 vs r1,r2) picked inside agbcc's allocator after RTL generation, not by any source construct. My 3 compiles this claim confirm the floor and close the remaining cheap levers (`++i` = 35 identical; block-scoped tail index pointer = 515 because it adds a copy). ~56 earlier attempts across models covered every loop shape, constant/declaration scoping, helpers, frame struct, buf sizes, index spellings and flags. Register-asm pinning is banned, so there is no remaining C lever. Not hand asm, not_c false, no boundary, no callee dependency. Best-35 source preserved exactly.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683535.1313622,
   "score_before": null,
   "score_after": null
  },
@@ -240392,14 +240248,6 @@
   "score_after": null
  },
  {
-  "function": "updateJitteredParticleSpawner",
-  "text": "148-insn -O2 function. 35 floor, regalloc wall. Releasing.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683535.1683705,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080457E0",
   "text": "Cannot get closer from pure C. Score 120 (98.9%, 112/112 insns) is a terminal agbcc callee-saved register-rotation wall: target p3C=r5/call-result=r4 (`ldr r1,[r6,#0xc]`), agbcc p3C=r4/result=r5 (`ldr r1,[r4,#0x54]`, same addr). 22 regalloc rows from pseudo-birth priority; all logic/calls/constants correct. 138+ attempts exhausted all C levers; register-asm banned. Not hand asm, not_c, no boundary, no callee dep. Best source preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -241572,14 +241420,6 @@
   "text": "Cannot get closer from C: terminal frameless-branchy-leaf wall. All 8 body insns byte-exact (225); only LR frame and +2 branch shifts differ. No C/flag/compiler fix possible; 129+ attempts. Not hand asm/boundary/callee dep. Advance queue.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.1746721,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Explicit release override, why it cannot get closer: score 35 is a terminal allocator tie-break floor, not a C problem. All 141 target instructions are already emitted byte-for-byte; the only 7 differing rows are two free-register choices (latch r0/r1 vs r2/r0; tail r2/r1 vs r1/r2) selected inside agbcc's register allocator, not by any source construct. ~57 attempts across models/forms/flags, register pinning banned. Pure C, not hand asm, not not_c, no boundary, no callee dependency. Best-35 source preserved. Advance queue permanently.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.1747122,
   "score_before": null,
   "score_after": null
  },
@@ -247524,14 +247364,6 @@
   "text": "Terminal, cannot get closer from pure C: 240 (94.6%) is a hard floor with all 45 instruction slots present. Residual (1) src/global load order and residual (2) the `adds r1,r3,#0` -1 copy are mutually exclusive under agbcc with the required raw `movs r0,#0x10; ands r0,r1; cmp r0,#0` test; 166 attempts across 7+ models and all flag levels exhausted every C spelling. Struct/one-neg variants resolve one residual at the cost of larger score regressions. No next C step exists; no compiler-side change available. Not boundary, not hand asm, not not_c, no callee dependency. Best-240 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2065158,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateJitteredParticleSpawner",
-  "text": "Matched byte-for-byte by correcting the inherited twin source's data symbol from D_081007D8 to D_08100820. The only score-1 residual was that linking pointer; all 141 instructions were already exact. A shared-header extern addition for D_08100820 was rejected because it perturbed three unrelated matched functions, so keep the declaration in this function's source.",
-  "by": "opencode-hungerg-free-1",
-  "created_at": 1795683535.2065544,
   "score_before": null,
   "score_after": null
  },
@@ -359080,5 +358912,173 @@
   "score_before": 15,
   "score_after": 15,
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:79d4c2eb78f0dd33f02dce7bd3018c9020eb0a26ea23d3d645b3d577b70f7d1f:f0de2c37cf9ea1d34d20e39d5036f039f1f7aa734878fa9cb3ccdf83fc92ee3f"
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Cannot get closer from C within this session's budget: 6 compiles all scored 3582-4755, never beating autopilot's 3195. Tried s32 sp[20], u8 buf[0x50], correct 7-arg sub_0808E348 prototype, reload-count vs named-count, u16 tail, and declaration-order swaps; all keep the same blockers. The target's agbcc allocation keeps q in r9/sb, r=q+0x34 in r6, i in r8 and reloads count from [r6+0xc] each loop, giving a 0x50 frame and buffer at sp+0xc; every C form I tried spills r and count (frame 0x68, buffer at sp+0x18, pointer slot sp+0x58). This needs a different local/struct formulation or compiler behaviour, not another small tweak. Left best attempt (autopilot 3195) unchanged.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.0441163,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Cannot get closer within budget; documented regalloc/spill issue. Release.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0676785,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Confirming release: sub_08094188 is a callee-saved-register function (r8/r9/r10 via r5/r6/r7 push, 0x50 frame) scoring 1736, not C-progressing within budget. Target keeps q in sb/r9, r in r6, i in r8, buffer at sp+0xc, pointer slot sp+0x4c; my C spills to frame 0xc with buffer at sp+8. No C local/struct formulation selects callee-saved regs; register-asm blocked; declaration-order swaps exhausted. Low yield to keep burning compiles. Released unmatched to preserve budget for claim #8.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.4864275,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Deep agbcc callee-saved regalloc wall, best 1736 (autopilot source, unchanged this session). 8 compiles this session: struct pad/data/ptr -> 2928 (frame 0x5c); u8 buf[0x50] -> 2928; u8 buf[0x44] + ptr at buf+0x40 -> 2286 -> 2131 (fixed off formula to (idx-((idx<0?idx+7:idx)>>3)*8)*8) -> 2066 (restored best-attempt expression forms) -> 2066 (slot local) -> 2066 (decl order swap). buf[0x44] exactly reproduces the 0x50 frame with data at sp+0xc and pointer at sp+0x4c (first 10 prologue insns match), but regalloc still derails: target r=q+0x34 in r6 / computed x in r7, agbcc picks r7 for r and r6 for x (41 regalloc rows), plus outgoing-arg stores to [sp+0xc..0x14] where target writes them directly. Decl order, struct/named locals, ternary/if, 7-arg prototype all tried. ~13 prior attempts by other models all floor 1736-4755. register-asm blocked; not hand asm, not not_c, not boundary. No C formulation selects the target allocation; needs compiler-level change. Best source (1736) preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5351672,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "sub_08094188: a `struct Frame94188 { u8 pad[0xC]; u32 data[0x10]; u32 ptr; };` local gives the exact target frame (sub sp,#0x50, data at sp+0xc, ptr at sp+0x4c) and the first 10 prologue insns match, but scores 2072 (worse than the autopilot 1736) because regalloc still puts q+0x34 in r7 instead of target r6 and derails the loop. Declaration order of temp_r6 is neutral. The 1736 best uses plain s32 sp0/sp4/sp8/spC + sp4C pointer (frame 0xc). Remaining wall is purely agbcc callee-saved r6/r7 allocation.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5934265,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Session complete (8th claim). Can't get closer: best 1736 (87.6%) with all structure/calls/control flow correct. Tried exact-frame struct (2072 \u2014 prologue matches but regalloc worse) and declaration-order swap (neutral). Remaining is a pure agbcc callee-saved regalloc wall (q+0x34 in r7 vs target r6; ~20 regalloc rows) that 22+ prior attempts across models failed to close. Not hand asm; best source and a note preserved. Releasing again as instructed.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.593465,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Cannot get closer from C: deep agbcc -O1 callee-saved regalloc wall. Best 1736 (87.6%) unchanged; 22+ prior attempts by multiple agents tried frame structs, buf[0x44], declaration order, prototypes, index forms - all worse or equal. Target needs q+0x34 in r6 and i in r8 with 0x50 frame; no C formulation selects these. Not hand asm, not not_c, not boundary. Best attempt preserved.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.6116247,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "CRITICAL: sub_08094188's target code is identical (instruction-for-instruction) to twin sub_08093924 at 0x08093924, which lives OUTSIDE any special range and therefore builds with the project's default -O2. This function's range 0x8094188-0x80942B0 is incorrectly set to -O1. Verified: with the verbatim twin C (only the table literal D_08100820 instead of D_081007D8), -O1 scores 115 (23 regalloc rows, p34 in r7 instead of target r6), -O2 and -O3 score 35 (all 141 insns structurally identical, only 2 deterministic regalloc ties: loop increment `movs r0,#1/add r8,r0/mov r1,r8` vs ours `movs r2,#1/.../mov r0,r8`, and tail `mov r2,sl; movs r1,#0x22` vs ours `mov r1,sl; movs r2,#0x22`). Best recorded attempt is now the twin C at -O1 score 115 (was 1736). Do not redo the 30+ failed regalloc experiments; a setup change to -O2 is needed before score 0 is possible.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.6380966,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Cannot get closer from C within this session: the setup itself is wrong (range flagged -O1 while target is -O2-shaped, proven by the byte-identical twin sub_08093924 built at default -O2). At -O2 the best source reaches 35 with only two deterministic agbcc register ties that ~34 attempts on the twin never broke; at -O1 no C formulation puts p34 in r6 (30+ prior attempts). This needs a project flags change, not more compiles. Best attempt improved to 115 and preserved; full finding is in the function note.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.6381707,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Asking to release again explicitly: it cannot get closer from C. 141/141 instructions byte-exact at score 35; the only residual is two agbcc -O2 backend tie-breaks among equally-free registers (loop-increment literal/copy r0/r1 vs r2/r0; tail s16 base/offset r2/r1 vs r1/r2). 3 compiles this session plus search_flags, and 55 attempts on the byte-identical twin sub_08093924, all floor at 35; register asm pinning is rejected. This is a compiler tie, not a C-form issue. Ordinary correct C, not hand asm, not not_c, no boundary or dependency; further compiles cannot improve 35.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.8484888,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Releasing at 4 compiles: cannot get closer from C. 141/141 instructions byte-exact, score 35, only two deterministic agbcc -O2 allocator tie-breaks: (1) loop-increment constant/low-reg copy of i(r8): target r0/r1 vs ours r2/r0; (2) tail `mov r?,sl; movs r?,#0x22; ldrsh r0,[..]`: target base r2/offset r1 vs ours r1/r2. Flags verified optimal (search_flags: -O2, -O3, -O2 -fno-strength-reduce all 35; -O1 75, -Os 1235). This session tried `i=i+1` (35 unchanged), explicit copy `j=i; while(j<=1)` (35, coalesced away), and a named tail index/offset (`off2=0x22; idx=*(s16*)(self+off2)`) which regressed to 515 by consuming r3. Prior 58 attempts on the byte-identical twin sub_08093924 floor at 35 with every loop form, declaration order, dummy local, prototype and -O level \u2014 these are backend free-register picks, not C-form. Nothing left to act on: structure, calls, constants, literal pool and instruction count all exact. Not hand asm, not not_c, no boundary, no dependency.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.8647914,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Why it cannot get closer in this session (second request): 141/141 instructions are byte-exact at score 35 and all four variants I compiled this session are no-ops at 35 (i=i+1, i declared first, r3/var1 block-scoped, plus a full-block-scope variant that fixes the latch but costs 165 points by rotating p34 r6->r7). The remaining 7 rows are two pure free-register tie-breaks in agbcc -O2 local-alloc (latch constant 1 -> r0 target vs r2 ours; tail sl-copy/0x22 pair r2/r1 vs r1/r2), i.e. the same floor the byte-identical twin sub_08093924 hits after 58 attempts. No C-level lever left that I can see within this budget; flags verified optimal earlier (O2/O3 35, O1 75, Os 1235). Not hand asm, not not_c, no boundary. Releasing to work the remaining functions of the session.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.8859513,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Asking again to release: it cannot get closer in C. All 141 instructions are the target's in order; the only 7 differing rows are two local-alloc free-register tie-breaks (latch `i++` constant+compare copy: ROM r0/r1 vs ours r2/r0; tail index pair: ROM r2/r1 vs ours r1/r2). I tested the two plausible C handles this session (`for`-loop form -> 450 worse, so do/while + `i = 0;` before `sp4C = buf + 4;` is required; named `s16 idx` for the tail -> identical 35). Combined with the 43 prior attempts (frame struct, buf sizes, declaration order, prototypes, index forms, block scoping) and flags (O2/O3 35, O1 75, Os 1235), no source form selects these two register pairs. Not hand-written asm, not a boundary, no missing callee.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9258718,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Score 35, 141/141 instructions, only 7 regalloc rows in TWO spots: (1) latch: target `movs r0,#1; add r8,r0; mov r1,r8; cmp r1,#1` vs ours `movs r2,#1; add r8,r2; mov r0,r8; cmp r0,#1`; (2) tail: target `mov r2,sl; movs r1,#0x22; ldrsh r0,[r2,r1]` then `movs r1,#0; strb r1,[r0,#0x17]` vs ours `mov r1,sl; movs r2,#0x22; ldrsh r0,[r1,r2]` then `movs r2,#0; strb r2`. Additional experiments this session (beyond the 46 prior): `i = 1 + i` -> identical 35; `*((s16*)(0x22 + self))` -> identical 35; inline helper `ldsh_off(s32 off, u8 *p)` + `iadd(s32,s32)` -> 515 and broke the `mov r0,sp; adds r0,#0x10; str r0,[sp,#0x4c]` prologue; block-scoped constant locals (`s32 one = 1;` before the increment, `s32 off22 = 0x22;` before the tail load) -> also 515, because the constant local changes the sp4C address pseudo to r3 and makes `self+off22` a register add (`adds r1,#0x22`) instead of folding. The best source must be preserved EXACTLY: `inline int inline_fn(u8 *arg0){return *((u32*)(arg0+8)) + sub_0800583C(0x80<<11);}`, i = 0 before sp4C = buf + 4, buf[0x40], do/while (`i++`, `while (i <= 1)`), the r0v/r0c/asr-3/lsl-3 offset expression, all the new_var temps in that exact order. Flags: O2/O3 35, O1 75, Os 1235 (range is correctly O2). Not hand asm, not not_c, no boundary, no callee dep. Two local-alloc tie-breaks remain.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.965587,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Cannot get closer \u2014 terminal agbcc free-register tie-break wall. All 141 target instructions are byte-exact; the entire 35-point residual is two local-alloc tie-breaks (latch `movs r0,#1 / add r8,r0 / mov r1,r8` vs ours r2/r0, and tail `mov r2,sl / movs r1,#0x22` vs ours r1/r2) that no C spelling selects after 50+ attempts (loop forms, named constants, block scope, inline helpers, structs, declaration orders, all flags). Register pinning is rejected; not hand-written asm, not not_c, no boundary, no missing callee. Best 35 source preserved exactly \u2014 please advance the queue.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683535.062938,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Ask again to release now: this cannot get closer from C under the range's agbcc -O2. 141/141 target instructions, all structure/calls/data correct; residual is only 7 regalloc rows = two local-alloc free-register tie-breaks (latch const/copy pair r0/r1 vs r2/r0; tail base/const/zero triple r2/r1/r1 vs r1/r2/r2). 56 attempts total across models. Tested this session (free probes): `u8 zero=0` local at function or block scope flips the tail to the target's r2/r1 but costs the loop 15 rows (135, worse); `s32 idx` tail form and `<<1` instead of `*2` both identical 35. No statement/decl/type/expression/flag spelling selects the pairs; register pinning rejected. 35-point source preserved exactly, please advance the queue. Not hand asm, not not_c, not a boundary, no callee dependency.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683535.0789754,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Explicit terminal reasoning, asking again: no C step exists that lowers 35. All 141 target instructions are already emitted byte-for-byte; the only diff is two agbcc local-alloc tie-breaks (latch constant/copy r0/r1 vs r2/r0; tail base/const r2/r1 vs r1/r2) that are selected inside the register allocator, not by any source construct. ~56 prior attempts covering every plausible source spelling (loop shape, declaration order, block-scoped/inline constants, helper functions, struct frame, prototypes, index expressions) and every flag level agree; register-asm pinning is banned, so there is no remaining C lever. The C is final and correct. Pure C, not hand asm, not not_c, no extent boundary, no callee dependency. Best-35 source preserved. Advance the queue.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683535.104719,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Second explicit ask, reason: the code is final - 141/141 target instructions in the target's order, all calls/constants/frame/control flow byte-exact; the only 7 differing rows are two local-alloc free-register choices (latch: constant-1/add/copy pair r0,r1 vs r2,r0; tail: base-copy/index pair r2,r1 vs r1,r2) picked inside agbcc's allocator after RTL generation, not by any source construct. My 3 compiles this claim confirm the floor and close the remaining cheap levers (`++i` = 35 identical; block-scoped tail index pointer = 515 because it adds a copy). ~56 earlier attempts across models covered every loop shape, constant/declaration scoping, helpers, frame struct, buf sizes, index spellings and flags. Register-asm pinning is banned, so there is no remaining C lever. Not hand asm, not_c false, no boundary, no callee dependency. Best-35 source preserved exactly.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683535.1313622,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "148-insn -O2 function. 35 floor, regalloc wall. Releasing.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683535.1683705,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Explicit release override, why it cannot get closer: score 35 is a terminal allocator tie-break floor, not a C problem. All 141 target instructions are already emitted byte-for-byte; the only 7 differing rows are two free-register choices (latch r0/r1 vs r2/r0; tail r2/r1 vs r1/r2) selected inside agbcc's register allocator, not by any source construct. ~57 attempts across models/forms/flags, register pinning banned. Pure C, not hand asm, not not_c, no boundary, no callee dependency. Best-35 source preserved. Advance queue permanently.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.1747122,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateJitteredParticleSpawner",
+  "text": "Matched byte-for-byte by correcting the inherited twin source's data symbol from D_081007D8 to D_08100820. The only score-1 residual was that linking pointer; all 141 instructions were already exact. A shared-header extern addition for D_08100820 was rejected because it perturbed three unrelated matched functions, so keep the declaration in this function's source.",
+  "by": "opencode-hungerg-free-1",
+  "created_at": 1795683535.2065544,
+  "score_before": null,
+  "score_after": null
  }
 ]
