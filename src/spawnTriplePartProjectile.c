@@ -10,17 +10,17 @@ extern void sub_08037128(void);
 extern void initWorkStateForKind(void *a, struct SpawnSprite *b, struct SpawnLogic *c, u32 d, s32 e);
 extern void initSpriteGraphics(struct SpawnSprite *a, u8 *b, void *c);
 extern void setAnimationFrame(struct SpawnSprite *a, u8 *b, int c, int d);
-extern void allocSpriteConfigPart(void *a, struct SpawnLogic *b, struct SpawnSprite *c);
-extern void initThreeSubObjects(void *a, struct SpawnLogic *b, struct SpawnSprite *c, u8 *d);
+extern void sub_0803AEF0(void *a, struct SpawnLogic *b, struct SpawnSprite *c);
+extern void sub_0803AF70(void *a, struct SpawnLogic *b, struct SpawnSprite *c, u8 *d);
 extern void sub_080C31E0(void *a, u32 b);
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
 extern void registerScriptObject(void *a, u32 b);
-extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u8 gProjectileSpeedTable[]; extern u8 gScriptStepCallbackTable[];
+extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u8 D_080CEFCC[]; extern u8 gScriptStepCallbackTable[];
 
 /* Spawn and initialise a scripted projectile/sprite: allocate the sprite,
  * set up its movement logic and animation, align its world position to the
  * scene's scroll offset, then start its script at the first handler. */
-void spawnTriplePartProjectile(void *arg0) {
+void sub_08036BDC(void *arg0) {
     struct SpawnSprite *sprite; struct SpawnLogic *logic;
     u32 savedAC; s32 zero, speed;
     u8 *animData; u8 *coordTable, *scrollState, *xBase, *yBase;
@@ -47,15 +47,15 @@ body:
     logic = (struct SpawnLogic *)U32(arg0, 0x3C);
     animData = (u8 *)logic + 0x34;
     installUpdateHandler(arg0, logic, sub_08037128);
-    speedTable = gProjectileSpeedTable;
+    speedTable = D_080CEFCC;
     speed = *(s16 *)(speedTable + U8(arg0, 0x4C) * 4);
     initWorkStateForKind(arg0, sprite, logic, savedAC, speed);
     zero = 0;
     logic->kind = 8;
     initSpriteGraphics(sprite, animData, (u8 *)gSpriteAnimDataTable + logic->cfgIndex * 12);
     setAnimationFrame(sprite, animData, 0, 1);
-    allocSpriteConfigPart(arg0, logic, sprite);
-    initThreeSubObjects(arg0, logic, sprite, (u8 *)logic + 0x54);
+    sub_0803AEF0(arg0, logic, sprite);
+    sub_0803AF70(arg0, logic, sprite, (u8 *)logic + 0x54);
     coordTable = gCameraState;
     scrollState = gMainWorkspace;
     scrollState += 0x18A8;
