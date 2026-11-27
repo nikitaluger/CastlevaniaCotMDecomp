@@ -1,4 +1,4 @@
-extern s32 sub_08014990(s32);
+extern s32 getSpriteFacingSign(s32);
 extern s32 sub_080C31E0(void *, s32);
 struct ScriptHolder { u8 pad[0x18]; u8 frameBytes[0x200]; };
 
@@ -11,7 +11,7 @@ void sub_0804B354(u8 *arg0) {
     u32 *handlerTable;
     u8 handlerIndex;
     s32 frameOffset;
-    if (sub_08014990((s32)owner) > 0)
+    if (getSpriteFacingSign((s32)owner) > 0)
         *(s32 *)(attached + 0x10) = 0x3000;
     else
         *(s32 *)(attached + 0x10) = 0xFFFFD000;

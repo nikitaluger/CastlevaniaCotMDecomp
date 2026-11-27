@@ -1,4 +1,4 @@
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_0808DBB4(s32, s32, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -19,7 +19,7 @@ void sub_08030F90(void *arg0, void *arg1, s32 arg2) {
     offX = *(s32 *)(table + idx);
     table += 4;
     offY = *(s32 *)(table + idx);
-    if (sub_08014990(arg0) > 0) {
+    if (getSpriteFacingSign(arg0) > 0) {
         offX = -offX;
     }
     sub_0808DBB4(((s32 *)arg1)[2] + offX, ((s32 *)arg1)[3] + offY, 8);

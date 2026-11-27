@@ -4,7 +4,7 @@
  * the bounce angle from its facing, clear the step flag and go to step 1.
  */
 extern void sub_0804C674(void *, s32 *, s32 *);  /* random bounce velocities */
-extern s32 sub_08014990(s32);  /* +1 when the sprite faces right, -1 when left */
+extern s32 getSpriteFacingSign(s32);  /* +1 when the sprite faces right, -1 when left */
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 struct CameraY {
@@ -20,7 +20,7 @@ void sub_0804C56C(u8 *arg0) {
     if (*(s32 *)(work + 0x0C) >= gMainWorkspace.y + 0x200000) {
         sub_0804C674(arg0, (s32 *)(work + 0x54), (s32 *)(work + 0x58));
         {
-            s32 facing = sub_08014990(sprite);
+            s32 facing = getSpriteFacingSign(sprite);
             s32 angle = 0xE000;
             if (facing < 0)
                 angle = 0xA000;

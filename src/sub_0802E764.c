@@ -1,5 +1,5 @@
 extern s32 sub_08011408(s32, void *, s32, s32, s32);
-extern s32 sub_08014990(s32);
+extern s32 getSpriteFacingSign(s32);
 extern void *sub_0802EDF4(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *gScriptStepCallbacks;
@@ -25,7 +25,7 @@ void sub_0802E764(u8 *entity) {
         zero = 0;
         sub_08011408(ownerRef, actionData, 9, step, zero);
     }
-    if (sub_08014990(ownerRef) < 0) {
+    if (getSpriteFacingSign(ownerRef) < 0) {
         offset = *(s32 *)(data + 0x10);
         offset = offset + 0x1800;
         *(s32 *)(data + 0x10) = offset;

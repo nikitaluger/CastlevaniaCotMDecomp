@@ -2,7 +2,7 @@ extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern s32 absXFromFocus(s32);
 extern s32 absYFromFocus(s32);
 extern s32 signOf(s32);
-extern s32 sub_08014990(s32);
+extern s32 getSpriteFacingSign(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
 
@@ -32,7 +32,7 @@ void sub_0803E308(void *self) {
         if (absXFromFocus(*(s32 *)(enemy + 8)) <= 0x300000 &&
             absYFromFocus(*(s32 *)(enemy + 0xC)) <= 0x300000) {
             coordX = signOf(*(s32 *)(enemy + 8));
-            if (coordX == sub_08014990((s32)actor)) {
+            if (coordX == getSpriteFacingSign((s32)actor)) {
                 s16 scriptIndex = *(s16 *)((u8 *)self + 0x22);
                 *((u8 *)self + scriptIndex * 2 + 0x19) = 0;
                 {
@@ -43,7 +43,7 @@ void sub_0803E308(void *self) {
             }
         }
     }
-    if (sub_08014990((s32)actor) > 0) {
+    if (getSpriteFacingSign((s32)actor) > 0) {
         *(s32 *)(enemy + 0x10) = 0x4000;
     } else {
         *(s32 *)(enemy + 0x10) = (s32)0xFFFFC000;

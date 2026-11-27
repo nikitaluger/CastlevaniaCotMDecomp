@@ -1,5 +1,5 @@
 extern u16 gFixedEffectLayerAttrs[];
-s32 sub_08014990(void);
+s32 getSpriteFacingSign(void);
 s32 sub_080059DC(s32, s32);
 void sub_080146D0(void *, s32, s32);
 
@@ -23,7 +23,7 @@ void sub_08019ED4(void *self, void *source) {
  * bit, clamping it at the limit on the far side and returning 1 when it hits. */
 s32 sub_08014AE0(s32 self, void *pos, s32 step, s32 limit) {
     s32 value;
-    if (sub_08014990() < 0) {
+    if (getSpriteFacingSign() < 0) {
         value = *(s32 *)((u8 *)pos + 0x10) + step;
         *(s32 *)((u8 *)pos + 0x10) = value;
         if (value >= -limit) {
@@ -45,7 +45,7 @@ s32 sub_08014AE0(s32 self, void *pos, s32 step, s32 limit) {
  * ±limit in the direction given by self's facing bit, returns 1 on clamping. */
 s32 sub_08014AA4(s32 self, void *pos, s32 step, s32 limit) {
     s32 value;
-    if (sub_08014990() < 0) {
+    if (getSpriteFacingSign() < 0) {
         value = *(s32 *)((u8 *)pos + 0x10) - step;
         *(s32 *)((u8 *)pos + 0x10) = value;
         if (value <= -limit) {

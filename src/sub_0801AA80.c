@@ -1,4 +1,4 @@
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 void sub_0801BBE0(void);
 void sub_080C31E4(void *, void *, u32);
 void sub_080008A0(void *, s32);
@@ -17,7 +17,7 @@ void sub_0801AA80(void *arg0)
   void **scriptCb;
   u8 zero;
   sub_0801BBE0();
-  if (sub_08014990(sprite) > 0)
+  if (getSpriteFacingSign(sprite) > 0)
   {
     *((s32 *) (work + 0x10)) = 0x60000;
   }

@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *gScriptStepCallbacks;
 
@@ -23,7 +23,7 @@ void sub_0805AC68(void *arg0)
         if ((*((s32 *) (obj + 0x08))) <= (*((s32 *) (bounds + 0x04))))
         {
             *((u16 *) (mainObj + 0x02)) ^= 0x10;
-            if (sub_08014990(mainObj) > 0)
+            if (getSpriteFacingSign(mainObj) > 0)
             {
                 *((s32 *) (obj + 0x10)) = 0x6000;
             }
@@ -41,7 +41,7 @@ void sub_0805AC68(void *arg0)
         if ((*((s32 *) (obj + 0x08))) >= (*((s32 *) (bounds + 0x08))))
         {
             *((u16 *) (mainObj + 0x02)) ^= 0x10;
-            if (sub_08014990(mainObj) > 0)
+            if (getSpriteFacingSign(mainObj) > 0)
             {
                 *((s32 *) (obj + 0x10)) = 0x6000;
             }

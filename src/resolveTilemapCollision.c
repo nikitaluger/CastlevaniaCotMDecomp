@@ -1,91 +1,86 @@
-extern s32 sub_08004740(void *, s32, s32);
+extern s32 getMetatileAttribute(void *, s32, s32);
 extern s32 sub_08012A94(s32, s32, s32);
 
-struct S_02025FF0 {
+struct TilemapWorkspace {
     u8 _0[0x18A8];
-    u8 idx;
+    u8 pageIndex;   /* 0x18A8: index of the active map page */
 };
-extern struct S_02025FF0 gMainWorkspace;
+extern struct TilemapWorkspace gMainWorkspace;
 extern u8 gTilemapPages[];
 
-struct Out {
-    u16 flags;
-    u16 pad;
-    s32 x;
-    s32 y;
-};
-
-void resolveTilemapCollision(s32 arg0, s32 arg1, s32 arg2, s32 arg3, struct Out *out)
+/* Resolve a 16.16 movement step against the tilemap: probe the destination
+ * metatile (and one above it), snap X to the tile centre when a wall is hit,
+ * and report the vertical clearance together with the collision flags. */
+void resolveTilemapCollision(s32 x, s32 y, s32 dx, s32 probeDy, struct TilemapCollision *out)
 {
-    s32 r4;
-    s32 y;
-    s32 h;
-    s32 v;
-    void *base;
-
+    s32 newX;
+    s32 clearance;
+    s32 step;
+    s32 attr;
+    void *page;
     out->flags = 0;
-    r4 = arg0 + arg2;
-    if ((arg0 & 0xFFFF0000) == (r4 & 0xFFFF0000))
+    newX = x + dx;
+    if ((x & FIXED_POINT_FRAC_MASK) == (newX & FIXED_POINT_FRAC_MASK))
     {
-        out->x = r4;
-        out->y = arg1;
+        out->x = newX;
+        out->y = y;
         return;
     }
 
-    base = gTilemapPages + (gMainWorkspace.idx << 6);
-    v = sub_08004740(base, r4, arg1);
-    if (v == 8)
+    page = gTilemapPages + (gMainWorkspace.pageIndex << 6);
+    attr = getMetatileAttribute(page, newX, y);
+    if (attr == 8)
         goto set2;
-    if (v > 8)
+    if (attr > 8)
         goto check12;
-    if (v == 1)
+    if (attr == 1)
         goto set1;
     goto after;
 check12:
-    if (v != 12)
+    if (attr != 12)
         goto after;
 set1:
-    if (arg2 > 0)
-        r4 = (r4 & 0xFFF80000) + 0xFFFF8000;
+    if (dx > 0)
+        newX = (newX & TILEMAP_TILE_MASK) + TILEMAP_CENTER_DOWN;
     else
-        r4 = (r4 & 0xFFF80000) + 0x88000;
-    out->flags |= 1;
+        newX = (newX & TILEMAP_TILE_MASK) + TILEMAP_CENTER_UP;
+    out->flags |= TILEMAP_HIT_X;
     goto after;
 set2:
-    out->flags |= 2;
+    out->flags |= TILEMAP_HIT_Y;
 after:
-    if (arg3 != 0 && !(out->flags & 1))
+    if (probeDy != 0 && !(out->flags & TILEMAP_HIT_X))
     {
-        base = gTilemapPages + (gMainWorkspace.idx << 6);
-        v = sub_08004740(base, r4, arg1 - arg3);
-        if (v == 1 || v == 12)
+        page = gTilemapPages + (gMainWorkspace.pageIndex << 6);
+        attr = getMetatileAttribute(page, newX, y - probeDy);
+        if (attr == 1 || attr == 12)
         {
-            if (arg2 > 0)
-                r4 = (r4 & 0xFFF80000) + 0xFFFF8000;
+            if (dx > 0)
+                newX = (newX & TILEMAP_TILE_MASK) + TILEMAP_CENTER_DOWN;
             else
-                r4 = (r4 & 0xFFF80000) + 0x88000;
-            out->flags |= 1;
+                newX = (newX & TILEMAP_TILE_MASK) + TILEMAP_CENTER_UP;
+            out->flags |= TILEMAP_HIT_X;
         }
     }
 
-    y = sub_08012A94(r4, arg1, 2);
-    h = arg2;
-    if (arg2 < 0)
-        h = -arg2;
-    h &= 0xFFFF0000;
-    if (y > ((h + 0x10000) * 2) || (out->flags & 2))
+    clearance = sub_08012A94(newX, y, 2);
+    step = dx;
+    if (dx < 0)
+        step = -dx;
+    step &= FIXED_POINT_FRAC_MASK;
+    if (clearance > ((step + 0x10000) * 2) || (out->flags & TILEMAP_HIT_Y))
     {
-        if (arg2 > 0)
-            r4 = (r4 & 0xFFF80000) + 0xFFFF8000;
+        if (dx > 0)
+            newX = (newX & TILEMAP_TILE_MASK) + TILEMAP_CENTER_DOWN;
         else
-            r4 = (r4 & 0xFFF80000) + 0x88000;
-        out->flags |= 2;
-        y = sub_08012A94(r4, arg1, 1);
+            newX = (newX & TILEMAP_TILE_MASK) + TILEMAP_CENTER_UP;
+        out->flags |= TILEMAP_HIT_Y;
+        clearance = sub_08012A94(newX, y, 1);
     }
 
     {
-        s32 ry = arg1 + y;
-        out->x = r4;
+        s32 ry = y + clearance;
+        out->x = newX;
         out->y = ry;
     }
 }

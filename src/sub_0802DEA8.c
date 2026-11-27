@@ -1,4 +1,4 @@
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_0808DBB4(s32, s32, s32);
 extern void setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -17,7 +17,7 @@ void sub_0802C6D4(void *arg0, void *arg1, s32 arg2) {
     r4 = *(u32 *)(base + idx);
     base += 4;
     r5 = *(u32 *)(base + idx);
-    if (sub_08014990(arg0) > 0) {
+    if (getSpriteFacingSign(arg0) > 0) {
         r4 = -r4;
     }
     sub_0808DBB4(((s32 *)arg1)[2] + r4, ((s32 *)arg1)[3] + r5, 8);
@@ -33,7 +33,7 @@ void sub_0802D2E8(void *arg0, void *arg1, s32 arg2) {
     r4 = *(u32 *)(base + idx);
     base += 4;
     r5 = *(u32 *)(base + idx);
-    if (sub_08014990(arg0) > 0) {
+    if (getSpriteFacingSign(arg0) > 0) {
         r4 = -r4;
     }
     sub_0808DBB4(((s32 *)arg1)[2] + r4, ((s32 *)arg1)[3] + r5, 8);
@@ -51,7 +51,7 @@ void sub_0802DEA8(void *arg0, void *arg1, s32 arg2) {
     dx = *(u32 *)(table + idx);
     table += 4;
     dy = *(u32 *)(table + idx);
-    if (sub_08014990(arg0) > 0) {
+    if (getSpriteFacingSign(arg0) > 0) {
         dx = -dx;
     }
     sub_0808DBB4(((s32 *)arg1)[2] + dx, ((s32 *)arg1)[3] + dy, 8);
@@ -66,7 +66,7 @@ void sub_0802A4E0(void *arg0) {
 
     setAnimationFrame(v38, r4, 0x0D, 0);
     if (*r4 & 2) {
-        if (sub_08014990(v38) > 0) {
+        if (getSpriteFacingSign(v38) > 0) {
             *(s32 *)(q + 0x10) = 0x8000;
         } else {
             *(s32 *)(q + 0x10) = (s32)0xFFFF8000;

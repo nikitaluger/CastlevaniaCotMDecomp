@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_080149A4(void *, void *, void *, s32, s32);
 
 /*
@@ -21,7 +21,7 @@ void sub_0803E994(void *self) {
     if (*(u16 *)((u8 *)enemy + 2) & 4) {
         sub_080149A4(actor, enemy, enemyState, 0x64, 0xA0);
     }
-    if (sub_08014990(actor) > 0) {
+    if (getSpriteFacingSign(actor) > 0) {
         *(s32 *)((u8 *)enemy + 0x10) = 0x3000;
     } else {
         *(s32 *)((u8 *)enemy + 0x10) = (s32)0xFFFFD000;

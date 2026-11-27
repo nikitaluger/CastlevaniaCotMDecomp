@@ -1,6 +1,6 @@
 void allocWorkSlot(void *, s32, s32, s32);
 void setAnimationFrame(s32, s32, s32, s32);
-s16 sub_08014990(s32);
+s16 getSpriteFacingSign(s32);
 s32 sub_08016830(s32);
 void *spawnBudgetedEffect(s32, s32);
 s32 sub_080C31E0(void *, s32);
@@ -78,6 +78,6 @@ void sub_0803F010(void *arg0)
         if (var_r0 < 0) var_r0 += 0xFFFF;
         v2 = (var_r0 >> 0x10) + 0x17;
         *(s16 *)((u8 *)temp_r0_5 + 0x54) = v2;
-        *(s16 *)((u8 *)temp_r0_5 + 0x5C) = sub_08014990((s32)temp_r0);
+        *(s16 *)((u8 *)temp_r0_5 + 0x5C) = getSpriteFacingSign((s32)temp_r0);
     }
 }

@@ -1,7 +1,7 @@
 void sub_080144D8(void *, void *);
 void sub_080144FC(void *, void *);
 void sub_080C31E4(void *, void *, s32);
-s32 sub_08014990(void *);
+s32 getSpriteFacingSign(void *);
 void sub_080C31E0(void *, void *);
 
 /* Run one step of an entity's phased AI: set up its view sprite, dispatch the

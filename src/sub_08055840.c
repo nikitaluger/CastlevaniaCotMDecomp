@@ -2,7 +2,7 @@ void sub_08011368(s32, void *, s32, s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 s16 sub_08014938(s32);
-s16 sub_08014990(s32);
+s16 getSpriteFacingSign(s32);
 
 void sub_080554E4(void *arg0) {
     u8 *p = *(u8 **)((u8 *)arg0 + 0x3C);
@@ -40,7 +40,7 @@ void sub_08055840(void *arg0) {
     void **pp;
     q[3] = 6;
     q[7] = sub_08014938(*(s32 *)(p + 8));
-    q[6] = sub_08014990(v38);
+    q[6] = getSpriteFacingSign(v38);
     ((u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2))[0x19] = zero;
     pp = (void **)0x08671BB0;
     sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, (s32)*pp);

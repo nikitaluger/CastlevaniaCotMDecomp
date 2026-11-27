@@ -1,6 +1,6 @@
 extern void *gScriptStepCallbacks;
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_0808E05C(s32, s32, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
@@ -24,7 +24,7 @@ void sub_0803B828(void *entity) {
     if (stepKind == 1) {
         sub_0808E05C(*(s32*)((u8*)obj + 0x08), *(s32*)((u8*)obj + 0x0C), 1, 8);
     }
-    if (sub_08014990(parent) < 0) {
+    if (getSpriteFacingSign(parent) < 0) {
         newPos = *(s32*)((u8*)obj + 0x10) + (0xC0 << 5);
         *(s32*)((u8*)obj + 0x10) = newPos;
         if (newPos >= 0) {

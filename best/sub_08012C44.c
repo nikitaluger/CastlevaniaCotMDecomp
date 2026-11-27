@@ -1,4 +1,4 @@
-extern s32 sub_08004740(void *, void *, s32);
+extern s32 getMetatileAttribute(void *, void *, s32);
 struct S_02025FF0_A8
 {
   u8 _0[0x18A8];
@@ -15,7 +15,7 @@ s32 sub_08012C44(u8 *arg0, s32 arg1, s32 count)
   u32 addr;
   for (; i <= count; i++)
   {
-    ret = sub_08004740((void *) (((u32) gTilemapPages) + (((u32) gMainWorkspace.v) << 6)), arg0, cur) - 1;
+    ret = getMetatileAttribute((void *) (((u32) gTilemapPages) + (((u32) gMainWorkspace.v) << 6)), arg0, cur) - 1;
     switch (ret)
     {
       case 1:

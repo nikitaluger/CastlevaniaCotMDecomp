@@ -1,5 +1,5 @@
 extern s32 signOf(s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void _call_via_r2(void *, void *, u32);
 
 struct SpriteAttrs { u8 pad[2]; u16 flags; };
@@ -25,7 +25,7 @@ void sub_08017558(void *actor) {
         }
     }
     zeroWord = 0;
-    if (sub_08014990(sprite) > zeroWord)
+    if (getSpriteFacingSign(sprite) > zeroWord)
         *(s32 *)(work + 0x10) = 0xC0 << 11;
     else
         *(s32 *)(work + 0x10) = (s32)0xFFFA0000;

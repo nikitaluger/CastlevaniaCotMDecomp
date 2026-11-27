@@ -1,6 +1,6 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080146D0(void *, s32, s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 
@@ -25,7 +25,7 @@ void sub_0804F558(void *arg0) {
     if ((s32)(remaining << 16) < 0) {
         s32 speed;
         u32 *callbacks;
-        facing = sub_08014990(sprite);
+        facing = getSpriteFacingSign(sprite);
         speed = 0;
         if (facing <= 0)
             speed = 0x8000;

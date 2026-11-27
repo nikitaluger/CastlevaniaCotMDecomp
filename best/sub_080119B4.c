@@ -1,3 +1,14 @@
+struct Movement119B4 {
+    u8 _0[2];
+    u16 touchFlags;
+    u16 flags;
+    u16 collisionMask;
+    s32 x;
+    s32 y;
+    s32 velX;
+    s32 velY;
+};
+
 s32 getTileTerrain(s32 map, s32 x, s32 y);
 s32 sub_08012A94(s32 x, s32 y, s32 count);
 s32 probeEntityCollision(s32 x, s32 y, s32 velX, s32 velY, s32 mask, void *out);
@@ -5,175 +16,122 @@ extern u8 gMainWorkspace[];
 extern u8 gTilemapPages[];
 extern s16 gTileTerrainFlags[];
 
-void sub_080119B4(void *entity, s32 b, s32 c, s32 d, s32 e) {
-    int flag;
-    s32 sp1C = d;
+void sub_080119B4(struct Movement119B4 *entity, s32 accel, s32 height, s32 halfWidth, s32 width) {
     s32 probe[5];
-    s32 r6;
-    s32 r8 = 0;
-    s32 x = *(s32 *)((u8 *)entity + 8);
-    s32 y = *(s32 *)((u8 *)entity + 0xC);
-    s32 mask;
-    s32 v;
+    s32 probeHit;
+    s32 yLimit;
+    s32 rightLimit;
+    s32 velX;
+    s32 velY;
+    s32 terrain;
     s32 newX;
-    s32 t1, t2;
+    s32 edge;
 
-    *(u16 *)((u8 *)entity + 2) = 0;
-    if (*(s32 *)((u8 *)entity + 0x10) == 0) {
-        goto D_A0;
-    }
-    r6 = *(volatile s32 *)((u8 *)entity + 0x10);
-    *(volatile s32 *)((u8 *)entity + 0x14) = 0;
-    r8 = 0;
-    if (!(*(u16 *)((u8 *)entity + 4) & 0x10)) {
-        goto C26;
-    }
-    if (r6 < 0) {
-        /* r6 < 0 branch */
-        if (probeEntityCollision(x - sp1C, y, r6, 0, (mask = *(u16 *)((u8 *)entity + 6) | 0x200), probe) == 1) {
-            r6 += probe[1];
-            if (*(u16 *)&probe[0] & 1) *(u16 *)((u8 *)entity + 2) |= 0x100;
-            if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
-        }
-        if (c != 0) {
-            if (probeEntityCollision(x - sp1C, y - c, r6, 0, (mask = *(u16 *)((u8 *)entity + 6) | 0x300), probe) == 1) {
-                r6 += probe[1];
-                if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
-                if (*(u16 *)&probe[0] & 8) *(u16 *)((u8 *)entity + 2) |= 0x400;
-            }
-        }
-        if (probeEntityCollision(x + e, y, r6, 0, (mask = *(u16 *)((u8 *)entity + 6) | 0x400), probe) == 1 && (*(u16 *)&probe[0] & 1)) {
-            *(u16 *)((u8 *)entity + 2) |= 0x100;
-        }
-        if (c != 0) {
-            s32 v_a1;
-            s32 mask_a1;
-            v_a1 = *(u16 *)((u8 *)entity + 6); mask_a1 = v_a1 | 0x500;
-            if (probeEntityCollision(x + e, y - c, r6, 0, mask_a1, probe) == 1 && (*(u16 *)&probe[0] & 8)) {
-                *(u16 *)((u8 *)entity + 2) |= 0x400;
-            }
-        }
-    } else {
-        /* r6 >= 0 branch */
-        if (probeEntityCollision(x + e, y, r6, 0, (v = *(u16 *)((u8 *)entity + 6) | 0x400), probe) == 1) {
-            r6 += probe[1];
-            if (*(u16 *)&probe[0] & 1) *(u16 *)((u8 *)entity + 2) |= 0x100;
-            if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
-        }
-        if (c != 0) {
-            mask = *(u16 *)((u8 *)entity + 6) | 0x500;
-            if (probeEntityCollision(x + e, y - c, r6, 0, mask, probe) == 1) {
-                r6 += probe[1];
-                if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
-                if (*(u16 *)&probe[0] & 8) *(u16 *)((u8 *)entity + 2) |= 0x400;
-            }
-        }
-        mask = *(u16 *)((u8 *)entity + 6) | 0x200;
-        if (probeEntityCollision(x - sp1C, y, r6, 0, mask, probe) == 1 && (*(u16 *)&probe[0] & 1)) {
-            *(u16 *)((u8 *)entity + 2) |= 0x100;
-        }
-        if (c != 0) {
-            mask = *(u16 *)((u8 *)entity + 6) | 0x300;
-            if (probeEntityCollision(x - sp1C, y - c, r6, 0, mask, probe) == 1 && (*(u16 *)&probe[0] & 8)) {
-                *(u16 *)((u8 *)entity + 2) |= 0x400;
-            }
-        }
-    }
-
-C26:
-    {
-        s32 map = (s32)gTilemapPages + (gMainWorkspace[0x18A8] << 6);
-        t1 = getTileTerrain(map, (x + r6) - sp1C, y + 0x80000);
-        if ((gTileTerrainFlags[(unsigned short)t1] & 0x0E) || (gTileTerrainFlags[getTileTerrain(map, (x + r6) + e, y + 0x80000)] & 0x0E)) {
-            *(u16 *)((u8 *)entity + 2) |= 0x04;
-        }
-    }
-    (void)&newX;
-    newX = x + r6;
-    if ((x & 0xFFFF0000) == (newX & 0xFFFF0000)) {
-        *(s32 *)((u8 *)entity + 8) = newX;
-        goto END;
-    }
-    v = newX + e;
-    if (r6 < 0) v = newX - sp1C;
-    t1 = getTileTerrain((s32)gTilemapPages + (gMainWorkspace[0x18A8] << 6), v, y);
-    if (gTileTerrainFlags[(unsigned short)t1] & 0x0A) {
-        flag = r6 > 0;
-        newX = (v & 0xFFF80000); if (flag) v = newX + 0xFFFF8000;
-        else v = (v & 0xFFF80000) + 0x88000;
-    } else {
-        t2 = getTileTerrain((s32)gTilemapPages + (gMainWorkspace[0x18A8] << 6), v, y - c);
-        if (gTileTerrainFlags[(unsigned short)t2] & 0x0A) {
-            flag = (v & 0xFFF80000) + 0xFFFF8000;
-            if (r6 > 0) v = flag;
-            else v = (v & 0xFFF80000) + 0x88000;
-            *(u16 *)((u8 *)entity + 2) |= 0x01;
-        }
-    }
-    /* Wait: |=1 should happen on either hit. Need to restructure. */
-    goto END;
-
-D_A0:
-    {
-        s32 r6v = *(s32 *)((u8 *)entity + 0x14);
-        r6v += b;
-        *(s32 *)((u8 *)entity + 0x14) = r6v;
-        if (*(u16 *)((u8 *)entity + 4) & 0x10) {
-            mask = *(u16 *)((u8 *)entity + 6) | 0x200;
-            sp1C_unused: (void)0;
-            /* probe at x - d, y, mask 0x200, velX=0, velY=r6v */
-            v = 1;
-            if (probeEntityCollision(x - sp1C, y, 0, r6v, mask, probe) == v) {
-                r6v += probe[2]; /* dy at sp+0x10 = probe[2] */
-                if (*(u16 *)&probe[0] & 1) *(u16 *)((u8 *)entity + 2) |= 0x100;
-                if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
-            }
-            /* probe at x + e, y, mask 0x400 */
-            mask = *(u16 *)((u8 *)entity + 6) | 0x400;
-            if (probeEntityCollision(x + e, y, 0, r6v, mask, probe) == 1) {
-                r6v += probe[2];
-                if (*(u16 *)&probe[0] & 1) *(u16 *)((u8 *)entity + 2) |= 0x100;
-                if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
-                if (*(u16 *)&probe[0] & 8) *(u16 *)((u8 *)entity + 2) |= 0x400;
-            }
-        } else {
-            mask = *(u16 *)((u8 *)entity + 6) | 0x200;
-            v = 1;
-            if (probeEntityCollision(x - sp1C, y, 0, r6v, mask, probe) == v) {
-                r6v += probe[2];
-                if (*(u16 *)&probe[0] & 1) *(u16 *)((u8 *)entity + 2) |= 0x100;
-                if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
-            }
-            mask = *(u16 *)((u8 *)entity + 6) | 0x400;
-            if (probeEntityCollision(x + e, y, 0, r6v, mask, probe) == 1) {
-                r6v += probe[2];
-                if (*(u16 *)&probe[0] & 1) *(u16 *)((u8 *)entity + 2) |= 0x100;
-                if (*(u16 *)&probe[0] & 6) *(u16 *)((u8 *)entity + 2) |= 0x200;
-                if (*(u16 *)&probe[0] & 8) *(u16 *)((u8 *)entity + 2) |= 0x400;
-            }
-        }
-        /* x/y update */
-        do { {
-            s32 dx = x - sp1C;
-            s32 r5r = sub_08012A94(dx, y, 2);
-            s32 r1r;
-            v = x + e;
-            r1r = sub_08012A94(v, y, 2);
-            if (r1r > r5r) r1r = r5r;
-            if (r1r <= r6v) {
-                y += r6v;
+    entity->touchFlags = 0;
+    if (entity->velX != 0) {
+        s32 velY;
+        velX = entity->velX;
+        entity->velY = 0;
+        velY = entity->velY;
+        if (entity->flags & 0x10) {
+            if (velX < 0) {
+                probeHit = probeEntityCollision(entity->x - halfWidth, entity->y, velX, velY, entity->collisionMask | 0x200, probe);
+                if (probeHit == 1) {
+                    velX += probe[1];
+                    if (*(u16 *)&probe[0] & 1) entity->touchFlags |= 0x100;
+                    if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
+                }
+                if (height != 0) {
+                    if (probeEntityCollision(entity->x - halfWidth, entity->y - height, velX, velY, entity->collisionMask | 0x300, probe) == 1) {
+                        velX += probe[1];
+                        if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
+                        if (*(u16 *)&probe[0] & 8) entity->touchFlags |= 0x400;
+                    }
+                }
+                probeHit = probeEntityCollision(entity->x + width, entity->y, velX, velY, entity->collisionMask | 0x400, probe);
+                if ((probeHit == 1) && (*(u16 *)&probe[0] & 1)) entity->touchFlags |= 0x100;
+                if (height != 0) {
+                    probeHit = probeEntityCollision(entity->x + width, entity->y - height, velX, velY, entity->collisionMask | 0x500, probe);
+                    if ((probeHit == 1) && (*(u16 *)&probe[0] & 8)) entity->touchFlags |= 0x400;
+                }
             } else {
-                y += r1r;
-                *(u16 *)((u8 *)entity + 2) |= 0x04;
-                *(s32 *)((u8 *)entity + 0x14) = 0;
+                probeHit = probeEntityCollision(entity->x + width, entity->y, velX, velY, entity->collisionMask | 0x400, probe);
+                if (probeHit == 1) {
+                    velX += probe[1];
+                    if (*(u16 *)&probe[0] & 1) entity->touchFlags |= 0x100;
+                    if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
+                }
+                if (height != 0) {
+                    if (probeEntityCollision(entity->x + width, entity->y - height, velX, velY, entity->collisionMask | 0x500, probe) == 1) {
+                        velX += probe[1];
+                        if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
+                        if (*(u16 *)&probe[0] & 8) entity->touchFlags |= 0x400;
+                    }
+                }
+                probeHit = probeEntityCollision(entity->x - halfWidth, entity->y, velX, velY, entity->collisionMask | 0x200, probe);
+                if ((probeHit == 1) && (*(u16 *)&probe[0] & 1)) entity->touchFlags |= 0x100;
+                if (height != 0) {
+                    probeHit = probeEntityCollision(entity->x - halfWidth, entity->y - height, velX, velY, entity->collisionMask | 0x300, probe);
+                    if ((probeHit == 1) && (*(u16 *)&probe[0] & 8)) entity->touchFlags |= 0x400;
+                }
             }
-            if (*(u16 *)((u8 *)entity + 2) & 0x100) {
-                *(s32 *)((u8 *)entity + 0x14) = 0;
+        }
+        terrain = getTileTerrain(gTilemapPages + (gMainWorkspace[0x18A8] << 6), entity->x + velX - halfWidth, entity->y + 0x80000);
+        if ((gTileTerrainFlags[(u16)terrain] & 0xE) || (gTileTerrainFlags[(u16)getTileTerrain(gTilemapPages + (gMainWorkspace[0x18A8] << 6), entity->x + velX + width, entity->y + 0x80000)] & 0xE)) {
+            entity->touchFlags |= 4;
+        }
+        newX = entity->x + velX;
+        if ((entity->x & 0xFFFF0000) == (newX & 0xFFFF0000)) {
+            entity->x = newX;
+            return;
+        }
+        edge = newX + width;
+        if (velX < 0) edge = newX - halfWidth;
+        terrain = getTileTerrain(gTilemapPages + (gMainWorkspace[0x18A8] << 6), edge, entity->y);
+        if (gTileTerrainFlags[(u16)terrain] & 0xA) {
+            if (velX > 0) edge = (edge & 0xFFF80000) + 0xFFFF8000;
+            else edge = (edge & 0xFFF80000) + 0x88000;
+            entity->touchFlags |= 1;
+        } else {
+            terrain = getTileTerrain(gTilemapPages + (gMainWorkspace[0x18A8] << 6), edge, entity->y - height);
+            if (gTileTerrainFlags[(u16)terrain] & 0xA) {
+                if (velX > 0) edge = (edge & 0xFFF80000) + 0xFFFF8000;
+                else edge = (edge & 0xFFF80000) + 0x88000;
+                entity->touchFlags |= 1;
             }
-        } } while (0);
-        *(s32 *)((u8 *)entity + 0xC) = y;
+        }
+        if (velX < 0) entity->x = edge + halfWidth;
+        else entity->x = edge - width;
+        return;
     }
 
-END:
-    return;
+    velY = entity->velY;
+    entity->velY = velY + accel;
+    if (entity->flags & 0x10) {
+        probeHit = probeEntityCollision(entity->x - halfWidth, entity->y, 0, velY, entity->collisionMask | 0x200, probe);
+        if (probeHit == 1) {
+            velY += probe[2];
+            if (*(u16 *)&probe[0] & 1) entity->touchFlags |= 0x100;
+            if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
+            if (*(u16 *)&probe[0] & 8) entity->touchFlags |= 0x400;
+        }
+        probeHit = probeEntityCollision(entity->x + width, entity->y, 0, velY, entity->collisionMask | 0x400, probe);
+        if (probeHit == 1) {
+            velY += probe[2];
+            if (*(u16 *)&probe[0] & 1) entity->touchFlags |= 0x100;
+            if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
+            if (*(u16 *)&probe[0] & 8) entity->touchFlags |= 0x400;
+        }
+    }
+    yLimit = sub_08012A94(entity->x - halfWidth, entity->y, 2);
+    rightLimit = sub_08012A94(entity->x + width, entity->y, 2);
+    if (rightLimit > yLimit) yLimit = rightLimit;
+    if (yLimit > velY) {
+        entity->y = entity->y + velY;
+    } else {
+        entity->y = entity->y + yLimit;
+        entity->touchFlags |= 4;
+        entity->velY = 0;
+    }
+    if (entity->touchFlags & 0x100) entity->velY = 0;
 }

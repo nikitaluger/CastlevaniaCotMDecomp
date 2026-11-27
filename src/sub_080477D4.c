@@ -1,7 +1,7 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 absXFromFocus(s32);
 extern s32 signOf(s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_08048074(s32, s32, s32, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
@@ -27,7 +27,7 @@ void sub_080477D4(void *self) {
     *(s32 *)((u8 *)state + 0x10) = 0;
     setAnimationFrame(mainObj, state34, 8, 0);
     if (*(u8 *)((u8 *)state34 + 1) == 2 && *(s32 *)((u8 *)state34 + 4) == 1) {
-        facing = sub_08014990(mainObj);
+        facing = getSpriteFacingSign(mainObj);
         if (facing == signOf(*(s32 *)((u8 *)state + 8))) {
             distance = absXFromFocus(*(s32 *)((u8 *)state + 8));
             if (distance < 0) distance += 0x1F;
@@ -40,7 +40,7 @@ void sub_080477D4(void *self) {
         } else {
             speed = 0x6000;
         }
-        if (sub_08014990(mainObj) < 0) {
+        if (getSpriteFacingSign(mainObj) < 0) {
             sub_08048074(*(s32 *)((u8 *)state + 8) + 0xFFE80000, *(s32 *)((u8 *)state + 0x0C) + 0xFFDC0000, -speed, 0xFFFFE000, *(s16 *)((u8 *)state + 0x1C));
         } else {
             sub_08048074(*(s32 *)((u8 *)state + 8) + 0x180000, *(s32 *)((u8 *)state + 0x0C) + 0xFFDC0000, speed, 0xFFFFE000, *(s16 *)((u8 *)state + 0x1C));

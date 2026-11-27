@@ -1,4 +1,4 @@
-s32 sub_08014990(void *);
+s32 getSpriteFacingSign(void *);
 void sub_080C31E4(void *, void *, s32);
 
 /* Dash horizontally toward the target; after 20 frames stop, reset the step
@@ -6,7 +6,7 @@ void sub_080C31E4(void *, void *, s32);
 void sub_0803F64C(void *obj) {
     s32 gfx = *(s32 *)((u8 *)obj + 0x38);
     void *state = *(void **)((u8 *)obj + 0x3C);
-    if (sub_08014990(gfx) > 0)
+    if (getSpriteFacingSign(gfx) > 0)
         *(s32 *)((u8 *)state + 0x10) = 0x80 << 9;
     else
         *(s32 *)((u8 *)state + 0x10) = (s32)0xFFFF0000;

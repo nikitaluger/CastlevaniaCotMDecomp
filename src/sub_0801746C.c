@@ -1,5 +1,5 @@
 s32 signOf(s32);
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 s32 sub_08014EF4(s16);
 void sub_080186C0(s32, s32);
 void sub_080186DC(s32, s32);
@@ -48,7 +48,7 @@ void sub_0801746C(void *entity) {
                 *(s32 *)(motion + 0x08) = gMainWorkspace.referenceX - stepSize;
             }
         }
-        if (sub_08014990((s32)sprite) > 0)
+        if (getSpriteFacingSign((s32)sprite) > 0)
             *(s32 *)(motion + 0x10) = 0xC0 << 11;
         else
             *(s32 *)(motion + 0x10) = 0xFFFA0000;

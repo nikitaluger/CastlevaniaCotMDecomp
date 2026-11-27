@@ -1,6 +1,6 @@
 /* twin of sub_080180F0 (both matched) */
 void setAnimationFrame(void *, void *, s32, s32);
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 void sub_0801D618(s32, s32, s32, s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -30,7 +30,7 @@ void sub_0801B894(u8 *entity)
   if ((sub_080C36E4((s16) (*((s16 *) (spawnState + 0x16))), 6) << 16) == 0)
   {
     zero = 0;
-    if (sub_08014990(parent) < zero)
+    if (getSpriteFacingSign(parent) < zero)
     {
       spawnX = (*((u8 **) (obj + 0x08))) + 0xFFE00000;
       spawnY = (*((u8 **) (obj + 0x0C))) + 0xFFD80000;

@@ -1,4 +1,4 @@
-s32 sub_08014990(void *);
+s32 getSpriteFacingSign(void *);
 s32 sub_080C31E0(s32, s32);
 void sub_08014848(s32, s32, s32, s32, s32, s32);
 
@@ -24,7 +24,7 @@ void sub_0805923C(void *script)
     phase &= 3;
     if (phase == 1) {
         *(u16 *)((u8 *)sprite + 2) ^= 0x10;
-        if (sub_08014990(sprite) < 0)
+        if (getSpriteFacingSign(sprite) < 0)
             *(s32 *)((u8 *)body + 0x48) = 0x20000;
         else
             *(s32 *)((u8 *)body + 0x48) = 0xFFFE0000;

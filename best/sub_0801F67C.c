@@ -5,7 +5,7 @@ extern u32 D_080CE7C4[];
 extern u32 D_08671BB0[];
 extern void sub_08011368(void*, void*, int, int);
 extern int spawnBudgetedEffect(int, int);
-extern int sub_08014990(void*);
+extern int getSpriteFacingSign(void*);
 
 void sub_0801F67C(void *arg0) {
     u8 *r7 = (u8 *)arg0;
@@ -110,7 +110,7 @@ blockB:
         *(u32 *)dst = (u32)r4b;
         if (r4b == 0) goto FE;
 
-        r0c = sub_08014990(r10);
+        r0c = getSpriteFacingSign(r10);
         if (r0c < 0) {
           u16 storeval_1;
             r1p = r8b + 0x174C;

@@ -1,4 +1,4 @@
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 void *hitTestEntities(s32);
 void sub_0808E9AC(s32, s32, s32);
 extern u8 gCameraState[];
@@ -56,7 +56,7 @@ s32 sub_080457E0(void *arg0)
       return 0;
     } } while (0);
     new_var3 = ((u8 *) p3C) + 8;
-    if (sub_08014990((s32) p38) < 0)
+    if (getSpriteFacingSign((s32) p38) < 0)
     {
       base = gMainWorkspace;
       new_var2 = base + 0x174C;

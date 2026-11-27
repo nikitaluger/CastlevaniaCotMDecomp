@@ -3,7 +3,7 @@
  * dependent speed and a follow-up script. */
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_08026954(void *, void *);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_080269D4(void *, s32);
 extern void sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, void *);
@@ -53,7 +53,7 @@ void sub_08026430(void *arg0)
   if (motion[0] & 2)
   {
     sub_08026954(state48 + 8, state48 + 0x0C);
-    facing = sub_08014990(sprite);
+    facing = getSpriteFacingSign(sprite);
     {
       u32 speed = 0xE0 << 8;
       if (facing < 0)

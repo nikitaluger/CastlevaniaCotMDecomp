@@ -6,7 +6,7 @@
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void sub_08014848(s32, s32, s32, s32, s32, s32);
-extern s32 sub_08014990(u8 *);
+extern s32 getSpriteFacingSign(u8 *);
 extern void sub_0801A310(s32, s32, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern s32 sub_080C36E4(s16, s32);
@@ -47,7 +47,7 @@ void sub_0801820C(u8 *self) {
     sub_080C31E0((s32)self, *(u32 *)(*(u32 *)(self + 0x14) + cmdId * 4));
     *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
 
-    facing = sub_08014990(work);
+    facing = getSpriteFacingSign(work);
     xOffset = 0xFFFC0000;
     if (facing < 0) {
         xOffset = 0x80 << 11;

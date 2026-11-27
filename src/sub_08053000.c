@@ -1,6 +1,6 @@
 s32 scaleByRandom(s32 bound);
 s32 setAnimationFrame(s32 sprite, void *animData, s32 anim, s32 flag);
-s32 sub_08014990(void *sprite);
+s32 getSpriteFacingSign(void *sprite);
 s32 sub_08053678(s32 x, s32 y);
 
 /* Entity updater: plays animation 0 and counts down the timer at work+0x48;
@@ -32,7 +32,7 @@ void sub_08053000(void *arg0) {
     offsetTable = (u8 *)0x080CFAE8;
     offset = offsetTable;
     do {
-        if (sub_08014990((void *)sprite) < 0) {
+        if (getSpriteFacingSign((void *)sprite) < 0) {
             x = *(s32 *)(work + 8) + (((s16 *)offset)[0] << 16);
             y = *(s32 *)(work + 0xC) + (((s16 *)offset)[1] << 16);
         } else {

@@ -1,5 +1,5 @@
 /* twin of sub_080184E0 (both matched) */
-s16 sub_08014990(void *);
+s16 getSpriteFacingSign(void *);
 
 /* Shifts the four-slot position/facing history, records the current position,
  * then copies the segment coordinates into the two linked follower objects. */
@@ -40,7 +40,7 @@ void sub_0801BC84(void *arg0) {
         if (coord < 0) coord += 0xFFFF;
         *dst = (u16)(coord >> 16);
     }
-    *(u16 *)(dirHist + off) = sub_08014990(parent);
+    *(u16 *)(dirHist + off) = getSpriteFacingSign(parent);
 
     {
         u8 *follower = *(u8 **)(self + 0x30);

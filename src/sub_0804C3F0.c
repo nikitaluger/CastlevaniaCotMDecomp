@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_0804C674(void *, void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *gMenuScriptCallback;
@@ -25,7 +25,7 @@ void sub_0804C3F0(void *arg0)
 
         sub_0804C674(arg0, r6 + 0x54, r6 + 0x58);
 
-        res = sub_08014990(r7);
+        res = getSpriteFacingSign(r7);
         v = 0xE000;
         if (res < 0) {
             v = 0xA000;

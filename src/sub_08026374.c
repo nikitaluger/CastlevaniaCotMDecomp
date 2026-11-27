@@ -4,7 +4,7 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080269A8(void *, s32);
 extern void sub_08026954(void *, void *);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_080269D4(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *gScriptStepCallbacks;
@@ -35,7 +35,7 @@ void sub_08026374(u8 *effect) {
         s32 speed;
         s32 facing;
         sub_08026954(state48 + 8, state48 + 0xC);
-        facing = sub_08014990(sprite);
+        facing = getSpriteFacingSign(sprite);
         speed = 0xE0 << 8;
         if (facing < 0)
             speed = 0xA0 << 8;

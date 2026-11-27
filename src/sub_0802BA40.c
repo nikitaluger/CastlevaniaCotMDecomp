@@ -1,4 +1,4 @@
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_0808DBB4(s32, s32, s32);
 extern u8 D_080CE9F8[];
 
@@ -14,7 +14,7 @@ void sub_0802BA40(void *arg0, void *arg1, s32 arg2) {
     dx = *(u32 *)(table + idx);
     table += 4;
     dy = *(u32 *)(table + idx);
-    if (sub_08014990(arg0) > 0) {
+    if (getSpriteFacingSign(arg0) > 0) {
         dx = -dx;
     }
     sub_0808DBB4(((s32 *)arg1)[2] + dx, ((s32 *)arg1)[3] + dy, 8);

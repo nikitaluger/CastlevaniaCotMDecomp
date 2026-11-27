@@ -1,6 +1,6 @@
 /* identical to sub_0801746C (matched), with its names changed by decompdecomp */
 s32 signOf(s32);
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 s32 sub_08014EF4(s16);
 void sub_0801BE64(s32, s32);
 void sub_0801BE80(s32, s32);
@@ -49,7 +49,7 @@ void sub_0801AC10(void *entity) {
                 *(s32 *)(motion + 0x08) = gMainWorkspace.referenceX - stepSize;
             }
         }
-        if (sub_08014990((s32)sprite) > 0)
+        if (getSpriteFacingSign((s32)sprite) > 0)
             *(s32 *)(motion + 0x10) = 0xC0 << 11;
         else
             *(s32 *)(motion + 0x10) = 0xFFFA0000;

@@ -1,4 +1,4 @@
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 gScriptStepCallbackTable;
@@ -15,7 +15,7 @@ void sub_0802A4E0(void *arg0) {
 
     setAnimationFrame(context, result, 0x0D, 0);
     if (*result & 2) {
-        if (sub_08014990(context) > 0) {
+        if (getSpriteFacingSign(context) > 0) {
             *(s32 *)(target + 0x10) = 0x8000;
         } else {
             *(s32 *)(target + 0x10) = (s32)0xFFFF8000;

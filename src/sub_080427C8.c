@@ -1,5 +1,5 @@
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 // Halts movement, chooses a facing-dependent speed for some poses, sets frame 5 and runs a step callback.
@@ -19,7 +19,7 @@ void sub_080427C8(void *arg0)
   frameId = 5;
   if (((u16) (pose - 0x10)) <= 4)
   {
-    if (sub_08014990(sprite) > 0)
+    if (getSpriteFacingSign(sprite) > 0)
     {
       speed = *((s32 *) ((*((void **) (otherState + 0x10))) + 4));
     }

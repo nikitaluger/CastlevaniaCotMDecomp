@@ -1,4 +1,4 @@
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -41,7 +41,7 @@ void sub_0802A630(void *arg0) {
             u8 *stepPtr;
             s32 direction;
             *(u16 *)(motion + 0x02) = 0;
-            direction = sub_08014990((s32)source);
+            direction = getSpriteFacingSign((s32)source);
             if (direction > 0)
                 direction = 0x8000;
             else

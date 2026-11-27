@@ -8,7 +8,7 @@ struct Obj {
 extern u16 D_080CF9B0[];
 extern u32 gScriptStepCallbackTable;
 extern void setAnimationFrame(s32, void*, s32, s32);
-extern s32 sub_08014990(s32);
+extern s32 getSpriteFacingSign(s32);
 extern void *sub_0804CBA0(s32, s32, u16, s32, s32);
 extern void sub_080C31E4(void*, void*, s32);
 
@@ -20,7 +20,7 @@ void sub_0804C2F8(struct Obj *arg0) {
     u16 r4v;
     setAnimationFrame(r6, r4, 5, 1);
     if (*((u8*)r4 + 1) == 3 && *(s32*)((u8*)r4 + 4) == 1) {
-        if (sub_08014990(r6) < 0) {
+        if (getSpriteFacingSign(r6) < 0) {
             u32 base = (u32)D_080CF9B0;
             s32 idx = 6 - *(s16*)((u8*)r7 + 4);
             u16 val = *(u16*)(base + idx * 2);

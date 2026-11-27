@@ -1,6 +1,6 @@
 extern void setAnimationFrame(void *a, void *b, s32 c, s32 d);
 extern s32 scaleByRandom(s32 a);
-extern s32 sub_08014990(void *a);
+extern s32 getSpriteFacingSign(void *a);
 typedef void (*Fn)(void *, void *, s32);
 void sub_0803DBE8(u8 *arg0)
 {
@@ -26,7 +26,7 @@ void sub_0803DBE8(u8 *arg0)
     }
     else
     {
-      if (sub_08014990(r7) > 0)
+      if (getSpriteFacingSign(r7) > 0)
       {
         *((s32 *) (r6 + 0x10)) = 0xFFFEA000;
       }

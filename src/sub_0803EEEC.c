@@ -2,7 +2,7 @@ extern void *gTrigFuncPtr;
 extern void *gScriptStepCallbacks;
 
 s32 setAnimationFrame(void *, void *, s32, s32);
-s32 sub_08014990(void *);
+s32 getSpriteFacingSign(void *);
 s32 sub_0803F758(void *, s32, s32, s16);
 s32 divInt32(s32, s32);
 s32 sub_080C31E0(s32, void *);
@@ -51,7 +51,7 @@ void sub_0803EEEC(void *object)
         *(s32 *)(state + 0x10) = zero;
         xPos = *(s32 *)(state + 0x08);
         yPos = *(s32 *)(state + 0x0C);
-        *(s32 *)(ctrl + 0x14) = sub_0803F758(object, xPos, yPos, (s16)sub_08014990(sprite));
+        *(s32 *)(ctrl + 0x14) = sub_0803F758(object, xPos, yPos, (s16)getSpriteFacingSign(sprite));
         *(u16 *)(ctrl + 0x0E) = 0x14;
         *(s32 *)(ctrl + 0x08) = zero;
         idx = *(s16 *)((u8 *)object + 0x22);
@@ -62,7 +62,7 @@ void sub_0803EEEC(void *object)
             sub_080C31E8((u8 *)object + 0x18, (u8 *)object + 0x22, 1, *callback);
         }
     } else {
-        if (sub_08014990(sprite) > 0) {
+        if (getSpriteFacingSign(sprite) > 0) {
             *(s32 *)(state + 0x10) = 0x4000;
         } else {
             *(s32 *)(state + 0x10) = 0xFFFFC000;

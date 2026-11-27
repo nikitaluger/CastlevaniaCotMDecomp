@@ -1,5 +1,5 @@
 s32 setAnimationFrame(s32, s32, s32, s32);
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 extern u32 gScriptStepCallbackTable;
@@ -27,7 +27,7 @@ void sub_08053C10(void *arg0) {
     setAnimationFrame(actor, (s32)enemyData, 4, 0);
     if (!(*(u8 *)enemyData & 2)) return;
 
-    if (sub_08014990(actor) < 0) {
+    if (getSpriteFacingSign(actor) < 0) {
         *(s32 *)((u8 *)enemy + 8) += 0xFFEC0000;
         *(s32 *)((u8 *)enemy + 0x10) = 0xFFFF0000;
     } else {

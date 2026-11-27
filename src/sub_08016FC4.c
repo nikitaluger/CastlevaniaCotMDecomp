@@ -1,6 +1,6 @@
 extern s32 scaleByRandom(s32);
 extern s32 signOf(s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct SpriteAttrs { u8 pad[2]; u16 flags; };
@@ -27,7 +27,7 @@ void sub_08016FC4(void *actor)
     }
     *((u16 *) (animState + 0x1A)) = (u16) (scaleByRandom(0x29) + 0x64);
     zeroWord = 0;
-    if (sub_08014990(sprite) > zeroWord)
+    if (getSpriteFacingSign(sprite) > zeroWord)
       *((s32 *) (work + 0x10)) = 0x80 << 7;
     else
       *((s32 *) (work + 0x10)) = (s32) 0xFFFFC000;

@@ -8,7 +8,7 @@ extern struct GameGlobals gMainWorkspace;
 /* Per-tile-id 8x8 grid of tile attribute words (y within grid, then x). */
 extern u16 D_080C98D0[];
 
-s32 sub_08004740(s32, s32, s32);
+s32 getMetatileAttribute(s32, s32, s32);
 
 /* Return the low 6 bits of the attribute word at bit 0x100 of the map tile
  * under the given 16.16 position; an off-map lookup (-1) falls back to bit 1
@@ -25,7 +25,7 @@ u16 sub_08007BC8(s32 arg0, s32 arg1, s32 arg2)
         return 1;
     }
 
-    result = sub_08004740(arg0, arg1, arg2);
+    result = getMetatileAttribute(arg0, arg1, arg2);
     if ((s32)result == -1) {
         result = (globals->stateFlags >> 1) & 1;
     } else {

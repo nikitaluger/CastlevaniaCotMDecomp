@@ -1116,6 +1116,19 @@ struct AttackHitFlags {
 #define TILE_CENTER_BIAS         0x8000
 #define FIXED_POINT_FRAC_MASK    0xFFFF0000
 
+/* Result written by resolveTilemapCollision: resolved 16.16 X/Y and hit flags. */
+struct TilemapCollision {
+    u16 flags;   /* OR of TILEMAP_HIT_X / TILEMAP_HIT_Y */
+    u16 pad;
+    s32 x;
+    s32 y;
+};
+#define TILEMAP_HIT_X        1        /* blocked along the movement axis */
+#define TILEMAP_HIT_Y        2        /* blocked along the vertical probe */
+#define TILEMAP_TILE_MASK    0xFFF80000  /* keep only the whole-tile X bits */
+#define TILEMAP_CENTER_DOWN  0xFFFF8000  /* snap X back one tile */
+#define TILEMAP_CENTER_UP    0x88000     /* snap X forward one tile */
+
 /* DSS card-combination menu (updateCardCombinationMenu). gMenuState is a shared
  * work buffer; this screen uses the fields below. Cards hold values 1..10. */
 #define CARD_MENU_SLOT_A        0x40  /* card value in slot A */
@@ -1559,3 +1572,42 @@ struct MotionSpawnOffset { u32 dx; u32 dy; };
 #define FORMATION_SLOT_COUNT  6
 #define FORMATION_ANGLE_STEP  0xD9
 #define FORMATION_KIND_ACTIVE 4
+
+/* ----- Scripted-entity per-frame update family (updateScriptedMover and siblings). -----
+ * An entity's +0x3C slot points at a work state.  Its +0x00 halfword carries
+ * transient hit flags; its +0x28 field points at a sensor/collision target
+ * whose hit byte (+0x01) and status word (+0x14) drive the script's hit path.
+ * Its +0x34 field is an animation track and +0x48 holds per-step state. */
+struct ScriptedHitTarget {
+    u8 _0;
+    u8 hitBits;      /* 0x01: transient hit bits; 0x05 while probing */
+    u8 _2[0x12];
+    u16 status;      /* 0x14: cleared when the target is recycled */
+};
+
+struct ScriptedWorkFlags {
+    u16 hitFlags;    /* work+0x00: bit 0 = a hit was registered this frame */
+};
+
+/* Constants used by the scripted-entity update path. */
+#define SCRIPT_HIT_PROBE_BITS   5        /* bits set on the target while probing */
+#define SCRIPT_HIT_BIT_CLEAR    0xFB     /* clears bit 2 of the target hit byte */
+#define SCRIPT_WORK_HIT_BIT     1        /* bit 0 of the work flags */
+#define SCRIPT_STEP_SKIP_ANIM   0x8000   /* entity flags bit 0x8000 skips the tail */
+#define SCRIPT_DEATH_SFX        0x189
+#define SCRIPT_SCROLL_STRIDE    0x40
+#define SCRIPT_SCROLL_PB_OFFSET 0x18A8   /* frame counter inside the main workspace */
+#define SCRIPT_SCROLL_X_OFFSET  0x1278
+#define SCRIPT_SCROLL_Y_OFFSET  0x127C
+#define SCRIPT_SCROLL_BIAS_X    0x8000
+#define SCRIPT_SCROLL_BIAS_Y    0xFFFF8000
+#define SCRIPT_FIXED_FRAC_MASK  0xFFFF0000
+
+/* Step-handler table used by updateScriptedAttack (0x0805B078). Its Thumb
+ * entries are indexed by the current script step's opcode. */
+#define SCRIPTED_ATTACK_STEP_TABLE 0x0866E8BC
+
+/* Extra fields consumed by updateScriptedEnemyWithOffset: the table entry's
+ * X-offset word and the form installed on the mirrored target. */
+#define ENEMY_PARAM_X_OFFSET 0x54
+#define ENEMY_MIRROR_FORM    0x10

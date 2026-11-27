@@ -21,7 +21,7 @@ void sub_08085158(s32 arg0, struct Arg1 *arg1, s32 arg2) {
 u32 __repair_result_r6;
     void *o;
     u32 t_1;
-    u32 t_2;
+    s32 t_2;
     
     u32 off;
     u8 cmd;
@@ -98,16 +98,17 @@ u32 __repair_result_r6;
         gMainWorkspace.f1810 = 1;
         gMainWorkspace.f180C = 0;
         return;
-    case 0xA1:
-        arg2 = gMainWorkspace.f14F4;
-        if (arg2 != 0) {
-            arg2--;
-            gMainWorkspace.f14F4 = arg2;
-            if ((arg2 <= 0x1FF) && !(arg2 & 3)) {
+    case 0xA1: {
+        u32 timer = gMainWorkspace.f14F4;
+        if (timer != 0) {
+            timer--;
+            gMainWorkspace.f14F4 = timer;
+            if (((s32)timer <= 0x1FF) && !(timer & 3)) {
                 sub_0806D2A0(arg0, 0x29, 0xA, 0x12);
             }
         }
         return;
+    }
     case 0xA3:
         r6 = p68->f300;
         if (r6 > (u32)gMainWorkspace.f1508) {

@@ -1,5 +1,5 @@
 void setAnimationFrame(void *, void *, s32, s32);
-s32 sub_08014990(void *);
+s32 getSpriteFacingSign(void *);
 void sub_08025A8C(s32, s32, s32, s32, s32);
 void sub_08025728(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
@@ -38,7 +38,7 @@ void sub_08025548(void *self)
 
     if (*(u8 *)(body + 1) == 2 && *(s32 *)(body + 4) == 1)
     {
-        if (sub_08014990(parent) < 0)
+        if (getSpriteFacingSign(parent) < 0)
         {
             sub_08025A8C(*(s32 *)(comp + 8), *(s32 *)(comp + 0xC), 0x8000, 0x30000, *(s16 *)(comp + 0x1C));
             sub_08025A8C(*(s32 *)(comp + 8), *(s32 *)(comp + 0xC), 0x6000, 0x30000, *(s16 *)(comp + 0x1C));
@@ -58,7 +58,7 @@ void sub_08025548(void *self)
         u32 *soundTab;
 
         sub_08025728(fx + 8, fx + 0xC);
-        if (sub_08014990(parent) < 0)
+        if (getSpriteFacingSign(parent) < 0)
             impulse = 0xA000;
         else
             impulse = 0xE000;

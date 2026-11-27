@@ -2,7 +2,7 @@ s32 absXFromFocus(s32);
 s32 absYFromFocus(s32);
 s32 signOf(s32);
 s32 sub_08014964(s32);
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 /* If the view entity faces the target and the target lies within range of the
@@ -19,7 +19,7 @@ void sub_0804F310(void *self)
   target = *((void **) (((s8 *) self) + 0x3C));
   if (sub_08014964(*((s32 *) (((s8 *) target) + 0xC))) >= 0)
   {
-    facing = sub_08014990(view);
+    facing = getSpriteFacingSign(view);
     if (facing == signOf(*((s32 *) (((s8 *) target) + 8))))
     {
       yPtr = ((s8 *) target) + 0xC;

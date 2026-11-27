@@ -1,4 +1,4 @@
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 s32 sub_0808DC40(s32, s32, s32);
 s32 sub_080C31E0(void *, s32);
 
@@ -13,7 +13,7 @@ void sub_0804E3C0(void *arg0)
 
   gfx = *((s32 *) (((u8 *) arg0) + 0x38));
   work = *((u8 **) (((u8 *) arg0) + 0x3C));
-  if (sub_08014990(gfx) < 0)
+  if (getSpriteFacingSign(gfx) < 0)
   {
     sub_0808DC40((*((s32 *) (work + 8))) + 0xFFF80000, (*((s32 *) (work + 0xC))) + 0xFFF80000, 8);
   }

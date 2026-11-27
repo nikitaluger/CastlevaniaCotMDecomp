@@ -1,5 +1,5 @@
 s32 signOf(s32);
-s32 sub_08014990(void *);
+s32 getSpriteFacingSign(void *);
 extern u8 gMainWorkspace[];
 extern u8 D_080CF5AC[];
 /* Targeting test: returns 1 when `target` faces the same way as the player
@@ -17,7 +17,7 @@ s32 sub_080458CC(void *entity, void *target)
   s32 i;
   u32 globals;
   motion = *((void **) (((u8 *) entity) + 0x3C));
-  facingSign = sub_08014990(target);
+  facingSign = getSpriteFacingSign(target);
   if (facingSign != signOf(*((s32 *) (((u8 *) motion) + 8))))
   {
     return 0;

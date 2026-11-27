@@ -1,6 +1,6 @@
 /* Draft from identical target sub_0801797C, retargeted and judged independently. */
 void setAnimationFrame(void *, void *, s32, s32);
-s32 sub_08014990(void *);
+s32 getSpriteFacingSign(void *);
 s32 divInt32(s32, s32);
 s32 sub_080C31E0(s32, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -21,7 +21,7 @@ void sub_0801B120(void *arg0) {
     setAnimationFrame(v38, p34, 9, 0);
     if (0x78 - *(s16 *)(r5 + 0x16) > 0x11)
         *(u8 *)(*(u32 *)(r5 + 0x34) + 1) = 5;
-    if (sub_08014990(v38) < 0) {
+    if (getSpriteFacingSign(v38) < 0) {
         p = 0x02025FF0;
         if (*(s32 *)(p + 0x174C) > *(s32 *)(v3C + 8) + (s32)0xFFDC0000)
             *(u16 *)(r5 + 0x16) = 0;

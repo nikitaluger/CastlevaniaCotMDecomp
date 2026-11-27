@@ -48,6 +48,8 @@ extern u8 D_084A67AC[];
 extern u8 D_084A67C0[];
 extern u8 D_084A67F4[];
 extern void *gScriptStepCallbacks;
+#define sub_080C31E8(a, b, c, d) do { void **nv = &gScriptStepCallbacks; sub_080C31E8((a), (b), (c), *nv); } while (0)
+
 inline static u16 inline_fn()
 {
   return gCameraState.f146E;

@@ -4,7 +4,7 @@ extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern s32 absXFromFocus(s32);
 extern s32 absYFromFocus(s32);
 extern s32 signOf(s32);
-extern s32 sub_08014990(s32);
+extern s32 getSpriteFacingSign(s32);
 extern s32 sub_080458CC(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
@@ -35,7 +35,7 @@ void sub_08045574(void *self) {
         if (absXFromFocus(*(s32 *)(motion + 8)) <= 0x380000 &&
             absYFromFocus(*(s32 *)(motion + 0xC)) <= 0x200000) {
             side = signOf(*(s32 *)(motion + 8));
-            if (side == sub_08014990((s32)actor)) {
+            if (side == getSpriteFacingSign((s32)actor)) {
                 {
                     struct Z z = {0, 0};
                     s16 scriptIndex;
@@ -74,7 +74,7 @@ void sub_08045574(void *self) {
         t += 0x3C;
         *(u16 *)(state + 0) = t;
     }
-    if (sub_08014990((s32)actor) > 0) {
+    if (getSpriteFacingSign((s32)actor) > 0) {
         *(s32 *)(motion + 0x10) = 0x6000;
     } else {
         *(s32 *)(motion + 0x10) = (s32)0xFFFFA000;

@@ -3,7 +3,7 @@
  * still targets it, set the work position to an offset from the carrier's
  * position (left or right depending on facing) plus a move-record offset.
  */
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 
 void sub_0801C4E0(void *actor) {
     u8 *carrier;
@@ -21,7 +21,7 @@ void sub_0801C4E0(void *actor) {
         carrierWork = *(u8 **)(carrier + 0x3C);
         carrierMove = carrierWork + 0x48;
         if (*(s32 *)(carrierMove + 0x30) == (s32)actor) {
-            if (sub_08014990(facingRef) < 0) {
+            if (getSpriteFacingSign(facingRef) < 0) {
                 *(s32 *)(work + 8) = *(s32 *)(carrierWork + 8) + (s32)0xFFDC0000;
             } else {
                 *(s32 *)(work + 8) = *(s32 *)(carrierWork + 8) + 0x240000;

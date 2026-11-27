@@ -1,4 +1,4 @@
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 void sub_08014848(s32, s32, s32, s32, s32, s32);
 void sub_0808DC40(s32, s32, s32);
 void sub_080C31E0(void *, s32);
@@ -31,7 +31,7 @@ void sub_0803B8FC(void *arg0) {
         u32 entryOffset = (u32)(((s16)*(u16 *)((u8 *)arg0 + 0x22)) * 2);
         u8 *entry = (u8 *)(entryOffset + (u32)arg0);
         if (sub_080C389C(entry[0x19], 6) == 1) {
-            if (sub_08014990(handle) < 0) {
+            if (getSpriteFacingSign(handle) < 0) {
                 sub_08014848(1, 1, *(s32 *)((u8 *)state + 0x08) + 0xFFF80000, *(s32 *)((u8 *)state + 0x0C) + 0xFFF00000, 0xA0000, 0x140000);
             } else {
                 sub_08014848(1, 1, *(s32 *)((u8 *)state + 0x08) + 0x80000, *(s32 *)((u8 *)state + 0x0C) + 0xFFF00000, 0xA0000, 0x140000);
@@ -42,7 +42,7 @@ void sub_0803B8FC(void *arg0) {
         u32 entryOffset = (u32)(((s16)*(u16 *)((u8 *)arg0 + 0x22)) * 2);
         u8 *entry = (u8 *)(entryOffset + (u32)arg0);
         if ((u32)entry[0x19] > 0x3C) {
-            if (sub_08014990(handle) < 0) {
+            if (getSpriteFacingSign(handle) < 0) {
                 sub_0808DC40(*(s32 *)((u8 *)state + 0x08) + 0xFFF40000, *(s32 *)((u8 *)state + 0x0C) + 0xFFEC0000, 8);
             } else {
                 sub_0808DC40(*(s32 *)((u8 *)state + 0x08) + 0xC0000, *(s32 *)((u8 *)state + 0x0C) + 0xFFEC0000, 8);

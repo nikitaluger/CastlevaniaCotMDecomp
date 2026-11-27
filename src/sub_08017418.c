@@ -1,5 +1,5 @@
 /* identical to sub_080172DC (matched), with its names changed by decompdecomp */
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 void sub_0801843C(void);
 void sub_080C31E4(void *, void *, u32);
 void sub_080008A0(void *, s32);
@@ -15,7 +15,7 @@ void sub_08017418(void *arg0)
   void **pp;
   u8 zero;
   sub_0801843C();
-  if (sub_08014990(facing) > 0)
+  if (getSpriteFacingSign(facing) > 0)
   {
     *((s32 *) (info + 0x10)) = 0x60000;
   }

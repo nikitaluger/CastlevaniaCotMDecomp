@@ -1,6 +1,6 @@
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014990(void *);
+extern s32 getSpriteFacingSign(void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s32 gScriptStepCallbacks;
 
@@ -24,7 +24,7 @@ void sub_0803F170(void *arg0) {
     remaining = (*(u16 *)(target + 0x0E)) - 1;
     *(u16 *)(target + 0x0E) = (u16)remaining;
     if ((s32)((u16)remaining << 16) < 0) {
-        if (sub_08014990(mainObj) < 0) {
+        if (getSpriteFacingSign(mainObj) < 0) {
             if (*(s32 *)(state + 0x08) < (*(s32 *)(state + 0x48) + (s32)0xFFE00000)) {
                 *(u16 *)((u8 *)mainObj + 2) = *(u16 *)((u8 *)mainObj + 2) | 0x10;
             }

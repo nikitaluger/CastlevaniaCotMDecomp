@@ -1,4 +1,4 @@
-extern u16 sub_08014990(s32);
+extern u16 getSpriteFacingSign(s32);
 extern void *spawnBudgetedEffect(void *, s32);
 
 /* Three parallel 5-entry u16 arrays in the entity's data block: x at +0, y at
@@ -33,7 +33,7 @@ void sub_0801BBE0(u8 *self) {
     s32 objX, objY, childX, childY;
 
     base = *(u8 **)(self + 0x3C);
-    dir = sub_08014990(param);
+    dir = getSpriteFacingSign(param);
     p = (struct Fill *)(base + 0xA8);
     i = 4;
 

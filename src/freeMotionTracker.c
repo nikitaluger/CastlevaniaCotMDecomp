@@ -1,6 +1,6 @@
 extern u32 gScriptStepCallbackTable;
 extern void *D_0201E8A0;
-s32 sub_08014990(s32);
+s32 getSpriteFacingSign(s32);
 void sub_0801843C(void);
 void sub_080C31E4(void *, void *, u32);
 void sub_080008A0(void *, s32);
@@ -14,7 +14,7 @@ void sub_080172DC(void *arg0) {
     u8 zero;
 
     sub_0801843C();
-    if (sub_08014990(v38) > 0) {
+    if (getSpriteFacingSign(v38) > 0) {
         *(s32 *)(field + 0x10) = 0x60000;
     } else {
         *(s32 *)(field + 0x10) = (s32)0xFFFA0000;

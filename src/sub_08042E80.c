@@ -1,5 +1,5 @@
 extern s32 setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_08014990(s32);
+extern s32 getSpriteFacingSign(s32);
 extern void sub_08043320(s32, s32, s32, s32, s32);
 extern void sub_080435EC(s32, s32, s32, s32, s32);
 extern void sub_080438BC(s32, s32, s16, s16);
@@ -44,7 +44,7 @@ void sub_08042E80(u8 *mainObj)
   setAnimationFrame(handle, (u8 *) anim, 3, 0);
   if ((anim->frame == 1) && (anim->counter == 1))
   {
-    facing16 = (u16) sub_08014990(handle);
+    facing16 = (u16) getSpriteFacingSign(handle);
     if (((s32) (facing16 << 0x10)) > 0)
     {
       baseX = st->x + 0x120000;
@@ -61,7 +61,7 @@ void sub_08042E80(u8 *mainObj)
   }
   if ((anim->frame == 3) && (anim->counter == 1))
   {
-    facing = sub_08014990(handle);
+    facing = getSpriteFacingSign(handle);
     if (facing > 0)
     {
       velX2 = st->x + 0x80000;

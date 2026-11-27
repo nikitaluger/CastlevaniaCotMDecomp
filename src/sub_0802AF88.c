@@ -35,7 +35,7 @@ void sub_0802AF88(u8 *mgr)
             absYFromFocus(*(s32 *)(ent + 0xC)) <= 0x200000)
         {
             s32 dirSign = signOf(*(s32 *)(ent + 8));
-            if (dirSign == sub_08014990(owner))
+            if (dirSign == getSpriteFacingSign(owner))
             {
                 s16 poseIndex = *(s16 *)(mgr + 0x22);
                 u32 *attackFunc;
