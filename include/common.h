@@ -1611,3 +1611,11 @@ struct ScriptedWorkFlags {
  * X-offset word and the form installed on the mirrored target. */
 #define ENEMY_PARAM_X_OFFSET 0x54
 #define ENEMY_MIRROR_FORM    0x10
+
+/* Step-handler table at 0x0866E518 used by updateScriptedMoverAlt and the
+ * nearby mover script-step helpers (each Thumb handler entry is one word). */
+#define SCRIPTED_MOVER_ALT_STEP_TABLE 0x0866E518
+
+/* Step-handler table used by updateScriptedMoverVariant (Thumb handler words
+ * for the scripted entity family around 0x08053xxx). */
+#define SCRIPTED_MOVER_VARIANT_STEP_TABLE 0x0866E690

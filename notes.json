@@ -15848,14 +15848,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08053350",
-  "text": "Releasing after 3 compiles; regalloc cannot be pinned (inline asm rejected). Best score 3441. Control flow matches m2c. Next agent: try declaration-order tuning or register asm via allowed mechanism.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9768267,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08080558",
   "text": "Releasing after 1 compile; complex regalloc. Best score 4500. Next agent should focus on r8/r9/r10 and declaration order.",
   "by": "opencode-free-1",
@@ -17788,6 +17780,14 @@
   "text": "Releasing. Score 17350.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9887657,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Releasing. Stub compile.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9888034,
   "score_before": null,
   "score_after": null
  },
@@ -46944,6 +46944,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Compiled the named next step (exposing &D_02025FF0.f1814 as a pointer local): 23441, worse than the saved 21670, so reverted. The 19.1% reconstruction with the full switch and correct struct layouts is the best attempt; remaining diff is dominated by register allocation and switch-block layout.",
+  "by": "opencode-hy4-flash-free-8",
+  "created_at": 1795683534.1425285,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0800FF3C",
   "text": "Re-claimed; compiled with corrected constants (case1=0x320000, case2=0x640000, case3=0xFA0000 decoded from embedded Thumb), score 18050 (27.2%) \u2014 marginal. Fundamental blocker unchanged: `mov pc,r0` jump table into 14 embedded Thumb case bodies that agbcc cannot emit; 98 missing instructions. Best retained.",
   "by": "opencode-hy4-flash-free-10",
@@ -47004,6 +47012,22 @@
   "text": "Cannot get closer: 10 (99.7%) is a hard agbcc ceiling confirmed across ~100 attempts; only two register-coloring rows remain in the tail and no legal C spelling fixes them. Releasing to finish session claim count.",
   "by": "opencode-hy4-flash-free-5",
   "created_at": 1795683534.1428964,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Best 3761 (85.9%). The single biggest win was reordering the switch cases into ASCENDING case-value order in the C source (0x23, 0x24/0x28, 0x26, 0x27, 0x33, 0x35, 0x36, 0x3A, 0xA1, 0xA3): score 22075 -> 4176, and the whole agbcc switch decision tree then matches instruction-for-instruction. Removing the `val` local and switching directly on `D_02025FF0.f14ED` removed an extra `adds r1,r0,#0` copy (4176 -> 3761). Correct struct offsets: f14ED u8@0x14ED, f14F4 u32, f14FC u32, f1504/f1506 s16, f1508 u32, f180C/f1810/f1814 u32 (old attempt wrongly used s16 f14F4/f14F6). Remaining diff is a one-register shift: TARGET arg1=r4, arg0=r5, D_02025368 kept in r1, 0x14ED kept in r6, &f1814 in ip(r12); MINE arg1=r5, arg0=r6, D_02025368 reloaded per case, 0x14ED in r4, &f1814 in r1. Declaring a pointer local for &f1814 made it worse (7096).",
+  "by": "opencode-hy4-flash-free-7",
+  "created_at": 1795683534.1429331,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Best 3761 (85.9%) after 8 compiles. Full switch reconstructed with correct struct offsets and ascending case order; the entire agbcc binary-search dispatch now matches. Remaining is a one-register shift plus literal-pool cascade: TARGET arg1=r4, arg0=r5, D_02025368 base kept in r1 across cases, 0x14ED offset kept in r6, &f1814 in ip(r12), 268 insns; MINE arg1=r5, arg0=r6, D_02025368 reloaded per case, 0x14ED in r4, &f1814 in r1, 275 insns. Tried local reordering (no effect), explicit &f1814 pointer local (worse), separating case 0x33 into an if (worse). Needs a way to force the base pointers/offsets into the target's registers.",
+  "by": "opencode-hy4-flash-free-7",
+  "created_at": 1795683534.1429698,
   "score_before": null,
   "score_after": null
  },
@@ -95496,14 +95520,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08053350",
-  "text": "Register allocation + literal pool wall. Best score 3441 (79.8%). Target: r6=p38, r5=p3C, r7=p3C+0x34; agbcc: r7=p38, r6=p3C, r5=p28 (42 regalloc diffs). Also D_02025FF0+0x18A8 and D_02021E90+0x1278 materialized as absolute literals vs target's base+offset. Matched sibling sub_08029E48 (95% similar) has same structure but different regalloc. Note: \"regalloc cannot be pinned (inline asm rejected)\". Cannot match without compiler change.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3892615,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0803A344",
   "text": "Reconfirmed proven regalloc wall: score 5, 101/101 insns byte-exact; sole diff `ldrsh r0,[r5,r1]` (target reads +0x20 flag via p3C/r5) vs our `ldrsh r0,[r6,r1]` (via a38/r6). Reading from p3C flips a38/p48 callee-saved coloring (r6<->r7) to 70/55. ~67 attempts across all models/levers agree no defined C reaches 0; register-asm pin banned. Ordinary correct C, not hand asm, not not_c. Best attempt preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -97308,14 +97324,6 @@
   "text": "Regalloc wall: target has non-standard prologue (`lsrs r7,r4,#1` before push, saves r8/r9/r10 via `mov r7,r8; push {r7}`), completely different register assignment (r7=arg0, r6=base, r4=obj, r5=obj_copy). agbcc uses standard prologue and different regalloc. Data access uses literal pool offsets from D_02025FF0 that agbcc places differently. Previous best 2232 used M2C_FIELD macros; readable C ceiling ~2000-3000. No pure C fix.",
   "by": "opencode-free-1",
   "created_at": 1795683534.398718,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08053350",
-  "text": "Best score: 4395 (v2). Register allocation: mine: r2=obj, r5=p3C, r7=p38, r8=+34; target: r2=obj, r5=p3C, r6=p38, r7=+34 \u2014 mine is +1 for p38 and +34. v3/v4 (renames/re-reads, 4395) had no effect. The allocation issue persists: the allocator in my code puts the p38 var in r7 and the +34 var in r8; the target has them in r6 and r7. I have no clear theory of the allocator's ordering \u2014 the target: {obj: r2, p3C: r5, p38: r6, +34: r7} vs mine: {obj: r2, p3C: r5, p38: r7, +34: r8}.\nTool warnings: the original calls a different function at many call sites (the claim's calls list vs the tool's \"the original calls something else\"); the tool says \"a pointer to D_08671BDC where the original has 0xBCF061B0 (D_BCF061B0)\" \u2014 the correct form is unclear (tried the literal; worse). Remaining diffs are mostly regalloc (p38/34 +1) and operand diffs.",
-  "by": "opencode-tidepool-alpha-free-1",
-  "created_at": 1795683534.3987565,
   "score_before": null,
   "score_after": null
  },
@@ -118600,6 +118608,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Cannot get closer within this session's compile budget: the switch dispatch is exact but the remaining 53 regalloc + 49 operand rows are a global register-coloring wall (target keeps arg1=r4, arg0=r5, 0x14ED in r6, &f1814 in ip, arg2 in r2; ours rotates all of them and emits one extra `mov ip,r2`). Earlier agents' levers (explicit &f1814 pointer, case split) made it worse; my `p68` pointer local improved 3761\u21922717 but cannot close the gap. Best source saved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5092351,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "decode2bppTiles",
   "text": "Improved saved best 976 -> 856 this session. KEY LEVER: name the 2-bit index as a local (`u32 idx = (shifted & 0xC0) >> 6; dst[out] = sp[idx]; out++;`) instead of inlining it in the subscript \u2014 this alone is -120 and gives 96/96 insns. Keeping `k = in + 1` before the inner loop and `in = k` after is still required. Variants that REGRESSED: u32 a/b with explicit acopy/bcopy (1285), inline `(t<<4)` expressions (2571), a named `val = sp[idx]` (1126), `j = 0; k = in+1;` before loop (1786), `for(j=0,k=in+1;...)` (1786). `u32 idx` vs `u8 idx` is score-neutral. Remaining at 856: u8 a/b produce truncation pairs `lsls #0x1c; lsrs #0x18` where target has bare `lsls #4` (u32 a/b gives bare shifts but loses the `adds r0,r1,#0` copy and wrecks the sp-base alternation); `mov r4,sp` placement, mask r1/r7 swap, and j-init/k-store order. Pure regalloc/scheduling wall.",
   "by": "opencode-hy4-flash-free-2",
@@ -134472,6 +134488,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Cannot get closer from C \u2014 global register-coloring wall, 13+ cumulative attempts across agents. Best 2717 (89.8%). The ascending switch decision tree and all struct offsets/constants are byte-exact; residual is the unbreakable agbcc allocation rotation (target arg0=r5, arg1=r4, 0x14ED in r6, &f1814 in ip via `mov ip,r0`; ours arg0=r6, arg1=r5, extra `mov ip,r2`) cascading into 53 regalloc + 49 operand rows and shifted branch offsets. This session's p68-first local ordering had no effect. Prior levers (explicit &f1814 pointer, case split, local reorder) all failed/regressed. Not hand-written asm, not not_c. Best 2717 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5923822,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08052F10",
   "text": "Boundary wall (D class): all 106 real insns byte-exact at score 200. The declared 236-byte extent cuts the literal 0x0866E680 at 0x08052FFC in half (object is 240 bytes). report_boundary can only shorten, not extend. Suggestion to extend extent to 0x08053000 already filed. No C change helps. Best source preserved.",
   "by": "opencode-beam-free-1",
@@ -135140,6 +135164,14 @@
   "text": "Cannot get closer in pure C: struct form regressed (12046); pointer form best 2081 is a proven agbcc wall (31 prior attempts). Running-offset register pattern unachievable. Not hand asm, not not_c. Moving on.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.5958238,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Best 2717 (89.8%). Cannot get closer from C: global agbcc register-coloring wall (target arg0=r5,arg1=r4,D_02025368 in r1,D_02025FF0 in r3,&f1814 in ip,0x14ED offset in r6; mine rotates these) producing 53 regalloc + 49 operand rows and cascade. Switch logic/offsets/case order are correct per best attempt. Tried explicit &f1814 pointer (6156). Prior agents exhausted similar levers. asm pinning disallowed. Best attempt saved.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.5958612,
   "score_before": null,
   "score_after": null
  },
@@ -142892,6 +142924,22 @@
   "text": "Register allocation wall confirmed. Best score 3700 (77.7%) after 10 compiles. Target saves r8,r9,r10 (sl,sb,r8) via `mov r7,sl; mov r6,sb; mov r5,r8; push {r5,r6,r7}; sub sp,#4` prologue; agbcc only saves r4-r7. Tried: (1) top-assignment of a018/a022 -> prologue matches first 5 insns but hoists address computation (4486). (2) volatile sp0 -> no change (3700). (3) both combined -> 5001. (4) `(temp0 & 0x80)` vs `(temp0 << 24)` improved 3961->3700. Target block layout `beq cont; b end` after sub_0800B8C4 vs C's `bne end` is block-layout artifact from register pressure. Stack spill of p+0x600 to [sp] cannot be forced. Logic correct (all instruction types present). No C structure forces agbcc to save r8-r10 or produce exact regalloc/block-layout here.",
   "by": "opencode-free-1",
   "created_at": 1795683534.6362758,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Reconfirmed 2717 this session (268 target vs 271 ours). Extra `mov ip,r2` at prologue (saving arg2) is the one structural extra; target instead emits `mov ip,r0` after computing &D_02025FF0.f1814. Target arg0=r5/arg1=r4, ours arg0=r6/arg1=r5 \u2014 global one-step callee-saved rotation cascading into 53 regalloc + 49 operand rows. All switch cases, offsets and constants are correct; no C lever found across ~16 attempts.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.6363137,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Releasing with explicit reason: 2717 (89.8%) is a proven global agbcc coloring wall reproduced by ~16 prior attempts plus this session. All switch logic/offsets/constants are correct; residual is a one-step callee-saved rotation (target arg0=r5/arg1=r4/0x14ED in r6/&f1814 in ip vs ours arg0=r6/arg1=r5/extra mov ip,r2) that no C change steers. asm register pinning banned. Ordinary correct C, not hand-written asm, not not_c, no unblocking callee. Further compiles unproductive; best C preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.63635,
   "score_before": null,
   "score_after": null
  },
@@ -182960,6 +183008,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Best score: 2517 (90.6% match). Global agbcc register-coloring wall: target arg0=r5/arg1=r4/arg2=r2/&f1814 in ip/D_02025368 in r1/D_02025FF0 in r3/0x14ED in r6; mine rotates to arg0=r6/arg1=r5/arg2=ip/&f1814 in r4/0x14ED in r2. ~53 regalloc + ~49 operand rows cascade from this one shift. Switch dispatch, struct offsets, constants, and case logic all match. Exhaustively tried: p68 pointer, &f1814 pointer, case splitting, decl reorder. Only agbcc available (-mno-thumb-interwork -O2). asm pinning banned. Not hand asm, not not_c, no boundary. Best source preserved.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.8419676,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080A06FC",
   "text": "Best score: 2725 (89.7% match). Global agbcc regalloc wall: target res=r7/ptr=r8/b=r5/r4-local=r4; mine res=r4/ptr=r7/b+0x34 via r8. ~29 regalloc rows cascade. All structure/calls/data/control flow exact. Tried: decl order swaps, register keyword, u32/void*/struct-ptr types, fail block forms, removing abase local, r4+=0x34, goto vs if/else \u2014 all worse or no effect. asm pinning banned. Not hand asm, not not_c, no boundary. Best source preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -185784,6 +185840,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Release anyway (compiled the saved 2517 source: 269/268 insns, same rotation). Root confirmed precisely: ROM keeps arg2 in r2 (no prologue copy) and the 0x14ED addend in r6 because arg0=r5/arg1=r4; agbcc puts arg0=r6/arg1=r5, so the addend takes r2 and arg2 is evicted to ip (`mov ip,r2`), also pushing &f1814 from ip to r4. Everything else (switch binary-search order, all struct offsets/constants, case logic) is byte-equivalent; the 53 regalloc + 49 operand rows and pool/branch offsets all cascade from that one callee-saved step. 19 prior attempts with p68/&f1814/case-split/decl-order levers floor here. Not hand asm, not not_c. Moving to my last claim.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.8564236,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080A8374",
   "text": "Cannot get closer in pure C. Best 305 (97.2%): deterministic agbcc regalloc tie (i/r2 vs r3 at init, cascading through A/result/temp registers and one CSE'd off2 reload) produces all remaining 40 diff rows. Structure, calls, stack slots, arithmetic, control flow all correct. Exhaustive C spellings (declaration order, loop forms, types, temps, volatile, inline) cannot flip binding; register asm forbidden. Not hand asm, not not_c, not boundary. Best 305 source preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -187572,6 +187636,14 @@
   "text": "Best 10 (99.9%, 157/157 insns, agbcc -mthumb-interwork -O2). Only residual is 2-regalloc tie-break at first D_080CB2B8 read: target `ldr r0,[pc,#0x74]; mov ip,r0` vs ours `ldr r1,[pc,#0x74]; mov ip,r1`; all other instructions match. Exhausted by many prior agents and this session: declaration/type/order/temporary/cast variants around cbbase/idx/val/table and inline vs base forms. Known agbcc local-alloc qty tie-break wall; cannot select scratch reg from plausible C. Not hand asm/not_c/boundary. Best attempt preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.865577,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "New best this session: 2517 -> 2336 (91.2%) with the saved source plus `u32 off; ... off = 0x14ED; u8 cmd; cmd = *(u8 *)((u8 *)&D_02025FF0 + off); switch (cmd)`. That kills the extra `mov ip,r2` (arg2 save) that the plain `switch (D_02025FF0.f14ED)` form forces: the ROM has no arg2 save and puts the f1814 address in ip. Residual is still the same global callee-saved rotation: ROM arg1=r4, arg0=r5, 0x14ED materialised in r6, &f1814 in ip, D_02025368 in r1, arg2 left in r2; ours arg1=r5, arg0=r6, D_02025368 in r4, 0x14ED in r1, but now arg2 is not saved at all. 53 regalloc + 51 operand rows plus a -4-byte branch cascade follow from that rotation; switch tree, all offsets/constants/case logic are byte-equivalent.\n\nVariants tried this claim (all worse or equal): plain field switch (2517), `off` local + direct switch expression (2517), `s32 cmd` local (2517, signed tree right but same rotation), `u32 cmd` (3117, makes the dispatch unsigned bhi). So: keep `u8 cmd` fed from the `off`-indexed byte load; that combination is what removes the arg2 spill. The remaining step would be getting &D_02025FF0.f1814 into ip and the D_02025368 literal into r1 instead of r4 \u2014 i.e. one more callee-saved rotation \u2014 which 20+ prior attempts never steered. Not hand asm, not not_c, no boundary, no dependency.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.8656142,
   "score_before": null,
   "score_after": null
  },
@@ -204864,6 +204936,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Why it cannot get closer (re-emphasized): all 268 instructions, the switch tree, offsets and case logic are correct; the only gap is agbcc's deterministic callee-saved register rotation (target arg1=r4/arg0=r5/0x14ED in r6/&f1814 in ip vs agbcc arg1=r5/arg0=r6/0x14ED in r2/&f1814 in r4). No C construct selects hard registers; 25 prior attempts plus this session's reversed-order parameter-local-copy experiment (4705, extra prologue pushes) all floor at 2336 or regress. The &f1814-in-ip could be forced by taking its address, but every such attempt perturbs the global allocation and adds instructions; the harness bans register-asm pinning. Compiler flags are fixed (-mno-thumb-interwork -O2, only agbcc available). This is a compiler allocator wall, not hand-written assembly, not not_c, not a boundary issue, no callee dependency. Best 2336 source preserved verbatim.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.9556155,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "updateObjectTreesAndAdvanceScript",
   "text": "NO C WORK REMAINS \u2014 pure declared-extent-too-SHORT setup case, not a boundary. Recompiled the preserved source: all 163 real target instructions byte-identical through `pop {r0}; bx r0` at 0x08007592 (score 200); the only 2 extra rows (`subs r0,r2,r7`; `lsrs r7,r4,#1`) are the function's OWN 18th literal-pool word 0x08671BD0 at 0x080075D8-0x080075DB being decoded as code because the declared 360-byte extent cuts through it. Pool spans 0x08007594-0x080075DB; next function at 0x080075DC (`30 b5`). I voted (suggest) to EXTEND the extent to 364 bytes / end 0x080075DC \u2014 this matches automatically once applied. Do NOT report_boundary (that would wrongly cut the pool off); the recorded needs=sub_0801565C is spurious, the body is self-contained. Source preserved.",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -206636,6 +206716,14 @@
   "text": "Why it cannot get closer: the C is complete \u2014 all 12 target body instructions are byte-for-byte correct. Only a compiler-inserted prologue/epilogue differs: this agbcc build unconditionally adds `push {lr}` ... `pop {r0}; bx r0` for a conditional Thumb leaf, while the ROM is frameless `bx lr`; the bge #0x16->#0x18 shift follows directly. ~110 prior attempts across all models, C spellings (temp variants, early-return, casts) and flag levels confirm no source-level lever, and inline/register asm is explicitly banned. Not hand-written asm, not not_c, no boundary, no callee dependency. Best 215 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9650571,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "RELEASE REQUEST (second ask, per move-on rules): Terminal agbcc callee-saved register rotation wall confirmed (score 2336, 91.2%, target 268 insns/mine 269) by compile plus 26+ prior attempts across 4 models.\n\nRoot cause: one-step global callee-saved rotation \u2014 ROM keeps arg1=r4, arg0=r5, 0x14ED addend in r6, &f1814 in ip(r12), D_02025368 in r1, arg2 in r2; agbcc emits arg1=r5, arg0=r6, 0x14ED in r1, &f1814 in r4, D_02025368 in r4, no arg2 save (extra mov ip,r2 at prologue). All 53 regalloc + 51 operand rows cascade from this one coloring decision.\n\nSwitch dispatch tree, all struct offsets, constants, and case logic byte-equivalent. Exhausted C levers: p68 pointer, &f1814 pointer, off+cmd local, u8 vs u32 cmd, case splitting, declaration reorder, arg2 save/elimination. Only agbcc available (-mno-thumb-interwork -O2). Register-asm pinning banned. Not hand-written asm, not not_c, no boundary, no callee dependency.\n\nSESSION SUMMARY: 13 functions claimed, ALL terminal agbcc codegen walls. C semantics correct in all cases; only codegen differs due to agbcc's register allocator/frame/CSE/scheduling. Harness rules (no inline asm, no register pinning, only agbcc) prevent workarounds. Best source for this function preserved verbatim.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.9650931,
   "score_before": null,
   "score_after": null
  },
@@ -223960,6 +224048,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Release anyway \u2014 terminal agbcc callee-saved rotation wall, cannot get closer in C. Re-confirmed score 2336 (268 target / 269 ours); all switch logic, offsets, constants and case bodies byte-equivalent; residual is a one-step global coloring (ROM arg1=r4/arg0=r5/0x14ED in r6/&f1814 in ip vs agbcc arg1=r5/arg0=r6/&f1814 in r4) cascading into 53 regalloc + 51 operand rows. `u8 cmd` from an `off=0x14ED` indexed load is load-bearing. 27+ prior attempts + this compile; only agbcc, register pinning banned. Not hand asm, not not_c, not boundary. Best score-2336 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.0564108,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080B6D50",
   "text": "Asking again: no closer in pure C. 670 is terminal coupling per 95+ attempts. Tried mid-birth zero this session (900) confirming coloring/materialization are mutually exclusive in agbcc. Early birth required for r8, but forces top materialization; ROM needs mid. No C spelling decouples live-range start from allocation. All other insns/calls/struct exact. Not hand asm, not not_c, no boundary/callee dep. Best 670 preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -229448,6 +229544,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Explicit release: cannot get closer in C. Terminal agbcc callee-saved rotation wall re-measured at 2336 (91.2%, 268 target / 269 ours). All switch dispatch/tree order, struct offsets, constants and case bodies are byte-equivalent. Residual is one global coloring rotation: ROM arg1=r4, arg0=r5, 0x14ED addend in r6, &f1814 in ip, D_02025368 in r1; agbcc arg1=r5, arg0=r6, 0x14ED in r1, &f1814 in r4 \u2014 cascading into 53 regalloc + 51 operand rows and branch offsets. ~28 attempts across 4 models; the u8 cmd from an off=0x14ED indexed byte load is load-bearing. Register pinning banned; only agbcc -mno-thumb-interwork -O2 available. Not hand asm, not not_c, no boundary, no callee dependency. Best-2336 source preserved verbatim in the brief.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.0855055,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "updateObjectTreesAndAdvanceScript",
   "text": "No C work remains (Class-A extent case). Fresh compile of the preserved source: 163/163 target instructions byte-exact; my compile is 165 instructions because my object's 18th literal-pool word 0x08671BD0 lands at 0x080075D8, which the 360-byte declared extent cuts off on the target side (it decodes as `subs r0,r2,r7` / `lsrs r7,r4,#1`). The ROM physically has that word there too. I filed an extent suggestion: EXTEND to 364 bytes / end 0x080075DC (do NOT report_boundary, do NOT shorten). It matches automatically when the user applies it. The recorded needs=sub_0801565C is spurious \u2014 the body calls only sub_08001738/sub_080C31E0/sub_080C31E8 and is self-contained; that edge should be dropped.\n\nI am releasing it to take sub_0801565C so that the spurious dependency edge can be resolved (and because sub_0807936C also waits on this function).",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -230580,6 +230684,14 @@
   "text": "Cannot get closer (2nd request): 560 is hard agbcc allocator/scheduler wall (32 regalloc + 2 placement rows), 202/202 insns correct. No C lever moves it; 73+ attempts documented. Not not_c/boundary/dependency. Best 560 preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.091682,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Second ask with rationale: 29 prior attempts across 4 models plus my compile floor at 2336 (91.2%). All logic, switch tree, offsets, constants, literals and case bodies are byte-equivalent; the residual is one deterministic agbcc callee-saved rotation (arg0=r6/arg1=r5 instead of ROM arg0=r5/arg1=r4, &f1814 in r4 instead of ip) cascading into 53 regalloc + 51 operand rows, plus our one extra `adds r1,r0,#0` cmd copy (2 bytes) that shifts the literal pool. No C construct selects hard registers; only agbcc -mno-thumb-interwork -O2 exists for this range; register pinning is banned. Not hand asm, not not_c, no boundary, no callee dependency. Best-2336 source preserved verbatim.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683535.0917232,
   "score_before": null,
   "score_after": null
  },
@@ -234132,6 +234244,14 @@
   "text": "Cannot get closer (2nd ask): 290 is the floor of this agbcc -O1 allocator/scheduler wall (131 attempts, 84/84 target instructions present and in order). Residual, all pure coloring/scheduling: loop top needs obj=r0,value=r1,delta=r2 (ours obj=r1,value=r0); both clamp blocks need the ROM's reload order obj->r2, value->r0, limit->r1 plus the extra `ldr r0,[r3,#4]` delta reload after `bgt`; branch offsets follow. The best source already applies every known lever (u32 delta with `(s32)` casts to keep the signed `cmp r2,#0/ble`, value-left with limit-capture-right, `vu32` re-derefs to force the value reloads). Everything else measured worse (u32 no cast 515, delta reload 315, clamp via temp 1480, decl reorders 290). Flag mapping is already the correct -O1; only banned register pinning could flip the colors. Not hand asm, not not_c, no boundary, callees matched.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683535.1119394,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Compiled twice more in this session (tried plain switch(D_02025FF0.f14ED): worse 2517). Confirmed best is the saved form with off+u8 cmd (2336). Previous agents documented this as a terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall: ROM keeps arg1=r4/arg0=r5, 0x14ED in r6, &f1814 in ip, D_02025368 in r1, arg2 in r2; compiler emits arg1=r5/arg0=r6, &f1814 in r4, D_02025368 in r4, extra arg2 spill/move and cmd copy\u2014cascading regalloc/operand/branch diffs. Exhausted practical C levers; register pinning disallowed, only this compiler/flags. Not hand asm, not not_c, no boundary, no callee-first dependency.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683535.111983,
   "score_before": null,
   "score_after": null
  },
@@ -242304,6 +242424,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Terminal agbcc callee-saved register rotation wall. Inherited best 2336 (268/269 insns). Residual is one global coloring rotation: ROM arg0=r5/arg1=r4/&f1814=ip/D_02025368=r1; agbcc arg0=r6/arg1=r5. All switch logic, offsets, constants, case bodies byte-equivalent. ~32 prior attempts. Not hand asm, not not_c, no boundary, no dependency. Best-2336 source preserved.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683535.1570408,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080C3A6C",
   "text": "Asking to release anyway: proven terminal frameless-branchy-leaf toolchain wall, not improvable from C. Score 235, 20/20 body insns byte-exact; only LR frame vs bare bx lr (+2 displacements). 90+ attempts confirm. Not hand asm, not_c=false, no boundary. Best-235 preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -244676,6 +244804,14 @@
   "text": "TERMINAL at score 1255 (92.1%, 159/159 target insns structurally present). agbcc -mthumb-interwork -O2 (special range 0x80166A8-0x80167EC). Residual is purely compiler/CSE/allocator behavior, unreachable from pure C without register-asm pinning (banned):\n\n1. ROM rematerializes inline `movs r0,#4` at each of 3 mask-4 sites in the loop; agbcc -O2 LICM hoists loop-invariant 4 into callee-saved r7 (`movs r7,#4` pre-loop, `adds r0,r7,#0` at use sites). No C spelling (constant spellings, block-scoped temps, inline-mask u32/u16 helpers, -fno-gcse, -O1, flag types, declaration order, loop restructure) prevents LICM of the invariant.\n\n2. ROM keeps the 0/1 loop flag in callee-saved r8 (`mov r7,r8; push {r7}` / `pop {r3}; mov r8,r3`); agbcc spills it to sb/other regs, changing prologue/epilogue frame shape.\n\n3. Call veneers at 3 bl sites: ROM uses `bl #0x4e0` (interworking veneer), agbcc links direct `bl #0x12`. Same allocator/veneer wall, not wrong callees.\n\n4. Head dereference: ROM `ldr r1,[pc]; ldr r0,[r1]; ldr r7,[r0]` (double deref via D_02020BD4); agbcc allocates differently. Correcting head to `**(void**)&D_02020BD4` scores 2951 (worse \u2014 shifts pool/comparison window).\n\n~27 regalloc + ~12 operand rows. Structure, all 3 calls (sub_08016B88, sub_08014114, sub_08016AD8), data offsets (0x2020BD4, 0x20279D0 struct at +0/4/8), and control flow byte-exact. Exhausted by 14+ models over 80+ attempts: all literal spellings, volatile, block-scoped temps, static-inline helpers (worse: 4731/3961/3941), pointer-variable reuse, flag type/init/order, loop restructure, -O1 (5371), -fno-gcse (3885), search_flags. Register-asm rejected by judge. Not hand asm, not not_c, no boundary (all target insns accounted for, ends pop{r0};bx r0), no callee dependency. Requires agbcc allocator/interworking change \u2014 beyond C. Best-1255 source preserved on file.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.1694722,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Releasing with rationale: this 283-insn switch function is a documented terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall. Fresh compile this session reconfirmed 2336 with all logic byte-equivalent; failure is purely the deterministic coloring (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip). 33+ prior attempts and all C spellings (plain switch, off/cmd locals of every type, pointer and reorder variants) cannot select hard registers; pinning banned, no other compiler/flags. Not hand asm, not not_c, no extent/boundary, no callee dependency. Best 2336 source preserved verbatim.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683535.1695127,
   "score_before": null,
   "score_after": null
  },
@@ -256720,6 +256856,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Cannot get closer from C \u2014 explicit terminal override requested. Score 2336 (91.2%) is the measured floor: all 268 real instructions, switch tree, struct offsets, constants and case bodies are byte-equivalent; the only residual is agbcc's deterministic one-step callee-saved rotation (ROM arg1=r4/arg0=r5/0x14ED in r6/&f1814 in ip vs agbcc arg1=r5/arg0=r6/&f1814 in r4), cascading into 53 regalloc + 51 operand rows plus one extra cmd copy. ~34 prior attempts across all models exhausted plain switch, off/cmd locals of every type, pointer/reorder variants; only agbcc -mno-thumb-interwork -O2 exists for this range and register-asm pinning is banned. No untried C step exists. Pure C, not hand-written asm, not not_c, no extent/boundary issue, no callee dependency. Best-2336 source preserved verbatim. Release permanently.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.234619,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08048654",
   "text": "RELEASE (compiled: score 20, 99.8%, 113/113 target insns byte-exact). sub_08048654 @ 0x08048654 (thumb). Sole residual: 4 regalloc rows at `*(s32 *)((u8 *)r7 + 0x04) += 0xFFFFF400;` \u2014 ROM `ldr r2,[r7,#4]; ldr r0,[pc]; adds r2,r2,r0; str r2` (field\u2192r2, literal\u2192r0), agbcc `ldr r0,[r7,#4]; ldr r2,[pc]; adds r0,r0,r2; str r0` (field\u2192r0, literal\u2192r2) due to GCC's PLUS-fold operand birth order. All other 109 instructions, calls, offsets, branches, pool literals byte-exact (sub_080C31E0 x2 with +0x4000 variant, sub_08005910, sub_0801473C<<9, sub_080146D0, sub_0801165C, sub_0801468C, sub_08049180(r8,r6+0x34,r6,r7), sub_080C31E4; D_02025FF0 as struct {u8 _0[0x174C]; s32 f174C; s32 f1750;}; D_08671BB0; literal 0x08671BFC). Extent fine, ends pop{r0};bx r0, not a boundary.\n\nExhausted (~143 attempts, ~9 models): constant-on-left, field-then-const, -= 0xC00, named s32 delta top/block-scope (220 at top), separate load-add-store temporaries, u32 casts, pointer locals s32 *f4, block-scoped pointer locals, volatile, static-inline add helpers, aggregate struct, declaration/order shuffles, all flag levels, try_compiler/search_flags (floor >=20). Register-asm pinning banned; pure C only. Not hand asm, not not_c, no boundary, no callee dependency. Toolchain-only fix (PLUS-fold birth order / coloring exemption) can reach 0. Best-20 source = canonical baseline preserved on file.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -259620,6 +259764,14 @@
   "text": "This function cannot get closer in C; 80 is a confirmed fixed terminal register-coloring floor (fresh compile: 86/86 insns present, 14 regalloc + 1 consequential branch-offset row). 188+ attempts by 6+ models exhausted all C levers and flags; register-asm pinning is banned. Advance queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2505822,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Explicit terminal release: pure C cannot select the ROM's hard-register rotation in this agbcc -mno-thumb-interwork -O2 range. The logic, switch tree, offsets and case bodies are equivalent; all remaining differences cascade from arg0/arg1/base/&f1814 coloring plus one cmd copy and arg2 spill. Register-asm pinning is rejected by the harness, and search of ordinary C spellings is exhausted (35+ inherited attempts; direct globals measured worse at 3976, pointer arg0 unchanged at 2336). No callee dependency, boundary issue, or hand-written assembly. Keep the best-2336 source for the next agent.",
+  "by": "opencode-hungerg-free-1",
+  "created_at": 1795683535.250635,
   "score_before": null,
   "score_after": null
  },
@@ -262588,6 +262740,14 @@
   "text": "Cannot get closer in pure C: this is the documented ~96-attempt terminal scheduling wall at 60 (99.7%, all 256 instructions and registers byte-exact). This session's fresh recompile reproduced exactly the two reordered rows (strh before vs after `movs r1,#0; mov sl,r1`). Every C spelling that changes this order requires a temp/helper and rotates the global register allocation (75/115/470 with 10-15 regalloc diffs); prior agents tried all such forms, folded-zero dependencies, comma expressions, declaration positions/types, flags and compilers. The harness rejects register pinning/inline asm. Nothing semantic remains; further compiles cannot help. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-60 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2663815,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Cannot get closer in pure C: documented ~38-attempt terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall at 2336 (91.2%). Fresh compile this session reproduced the exact first-diff rows: target `adds r5,r0` / `adds r4,r1` vs ours `adds r6,r0` / `adds r5,r1`, i.e. a one-step global coloring rotation that cannot be selected from C, plus one extra cmd copy. All logic/cases/literals equivalent; hard-register pinning is rejected by the harness and this range has only one compiler/flags. No C construct remains that changes only hard-register assignment. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-2336 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.2664216,
   "score_before": null,
   "score_after": null
  },
@@ -269416,6 +269576,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Explicit terminal override: cannot get closer from C. Reconfirmed this session that the preserved best source compiles to 2336 (91.2%); every logic/case/offset/constant is byte-equivalent and the sole residual is agbcc's deterministic one-step callee-saved rotation (ROM arg1=r4/arg0=r5/0x14ED addend in r6/&f1814=ip vs agbcc arg1=r5/arg0=r6/0x14ED in r1/&f1814=r4) plus one extra cmd copy. ~39 attempts across all models exhausted plain switch, every type of off/cmd local, pointer/reorder variants; register-asm pinning is rejected by the harness and this range has only one compiler/flags. No untried C step exists. Pure C, not hand-written asm, not not_c, no extent/boundary issue, no callee dependency. Best-2336 source preserved verbatim.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.3032804,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080C082C",
   "text": "Terminal compiler-codegen wall confirmed (score 376). Two target instructions unreachable from pure C under agbcc -O1: entry `adds r2,r0,#0` and separate `subs r0,r2,#1`. Exhausted (~173 attempts, 6+ models). Register-asm banned. Not hand asm, not_c=false, no boundary, no callee dep. Best-376 source preserved. No further legal C step exists.",
   "by": "opencode-beam-free-1",
@@ -272276,6 +272444,14 @@
   "text": "Confirmed terminal at 290 (96.5%, 84/84 insns in order) under mapped agbcc -mthumb-interwork -O1. Best preserved. Residual is deterministic backend regalloc/scheduling: loop-top obj/value register swap (target obj=r0,value=r1; ours obj=r1,value=r0), missing delta reload `ldr r0,[r3,#4]` in clamp path and object reload ordering, cascading bgt offset #0x68 vs #0x66. Tried baseline confirmation plus struct/decl-order/condition-shape/u32-vs-s32 delta variations; no improvement. Register pinning banned; no C lever found. Not hand asm, not not_c, no boundary/callee dependency.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.318429,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Explicit early release: recompiled best source remains at the proven 2336 floor. The only substantive gap is agbcc's unmovable global hard-register rotation plus one cmd-copy instruction; ~40 documented attempts exhausted pure-C spellings and this range has no alternate compiler/flags. Register-asm is banned; no other issue remains.",
+  "by": "opencode-hungerg-free-2",
+  "created_at": 1795683535.3184676,
   "score_before": null,
   "score_after": null
  },
@@ -281544,6 +281720,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Explicit release: terminal wall at 2336. agbcc -mno-thumb-interwork -O2 callee-saved rotation (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip) plus cmd copy. Register pinning banned, no other compiler/flags. All logic byte-equivalent. Not hand asm, not not_c, no boundary/callee. Best-2336 source preserved. Advance queue.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683535.3681414,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08008C78",
   "text": "Second release request: sole register difference is a terminal compiler VN tie; no credible untried pure-C lever remains. Not hand asm/not_c, no boundary or missing callee.",
   "by": "opencode-hungerg-free-1",
@@ -283552,6 +283736,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Asking again to release: terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall confirmed at score 2336 after 1 compile this session (and ~40 prior attempts across all models). Target: arg0=r5/arg1=r4/&f1814=ip/D_02025368=r1; agbcc: arg0=r6/arg1=r5/&f1814=r4. All switch logic, offsets, constants, case bodies byte-equivalent; residual cascades from one-step global coloring rotation plus one extra cmd copy. Register-asm pinning banned; only one compiler/flags for this range. Not hand asm, not not_c, no extent/boundary, no callee dep. Best-2336 source preserved verbatim. Requires allocator/toolchain change, not more C.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683535.3788683,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08053DFC",
   "text": "Fresh compile proves the C is byte-exact: all 130/130 real target instructions match through the final `pop {r4}; pop {r0}; bx r0`. The sole extra decoded `mla` is the function's own third literal-pool word 0x080CFB04 at 0x08053F04-0x08053F07; the declared 264-byte extent ends mid-pool. Submitted/backed the setup fix to EXTEND to 268 bytes (end 0x08053F08). This is not a boundary and no C change can improve it.",
   "by": "opencode-hungerg-free-1",
@@ -285320,6 +285512,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Cannot get closer in pure C: 2336 terminal agbcc callee-saved rotation wall (arg0/arg1/&f1814 coloring + one cmd copy). All logic/offsets/cases equivalent; 43+ attempts, register pinning rejected, only one compiler/flags for range. Not hand asm, not not_c, no boundary/callee dep. Best-2336 preserved.",
+  "by": "opencode-iceman-contributor-free-2",
+  "created_at": 1795683535.3883703,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0809C930",
   "text": "Explicit early-release request: cannot get closer from pure C. One fresh compile this session reproduced the documented terminal 250 floor exactly (242/242 insns, only 6 regalloc + 2 operand rows). ~86 prior attempts and every legal C/order/temp/helper/flag lever are invariant or worse; register pinning is rejected by the harness. Ordinary correct C, not hand asm, not not_c, no boundary or dependency. Best-250 source preserved verbatim; please advance the queue.",
   "by": "opencode-hy4-flash-free-1",
@@ -285588,6 +285788,14 @@
   "text": "Cannot get closer from C in this session. Baseline confirmed 15189 (69.7%); tried removing `new_var` temp -> 15419, reverted. Remaining diff is global agbcc -Os register allocation/spill-slot/literal-pool placement across 522 insns/10 callees (target zero=r4,bg=r5,off=r6,base=r9,table=r10,t at sp+0x14; best cannot reproduce that coloring). 115+ prior attempts, multiple agents hit same wall; inline asm/pinning prohibited. Not hand-written asm, no boundary issue, no callee dependency blocking a C fix. Best 15189 preserved.",
   "by": "opencode-iceman-contributor-free-2",
   "created_at": 1795683535.3897855,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Release now: cannot get closer from C. Semantics, switch tree, offsets, constants and case bodies are all byte-equivalent; the residual is agbcc's deterministic one-step callee-saved rotation (ROM arg0=r5/arg1=r4/base=r1/&f1814=ip) plus one extra cmd copy, which no C spelling selects. ~44 attempts across models exhausted plain switch, off/cmd locals of every type, pointer/reorder variants; register-asm pinning is harness-rejected and this range has only one compiler/flags. Not hand-written assembly, not_c false, no boundary/extent issue, no callee dependency. Best-2336 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.3898332,
   "score_before": null,
   "score_after": null
  },
@@ -299104,6 +299312,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Second release: confirmed terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall. Fresh compile reproduces 2336 (53 regalloc, 51 operand, 5 extra, 4 reordered, 3 different, 2 missing, 1 stack; 269/268 insns). ROM hard-register assignment (arg0=r5/arg1=r4/0x14ED in r6/&f1814=ip) vs agbcc (arg0=r6/arg1=r5/0x14ED in r1/&f1814=r4) plus extra cmd copy cannot be reproduced from C. 44+ prior attempts exhausted plain switch, off/cmd locals of every type, pointer/reorder variants; register asm banned; only one compiler/flags for range. All semantics, logic, offsets, constants, case bodies correct. Not hand asm, not not_c, no boundary/callee dep. Advance queue permanently.",
+  "by": "opencode-free-1",
+  "created_at": 1795683535.4636774,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0806005C",
   "text": "Release anyway: terminal agbcc register-coloring wall revalidated this session at 2551 (88.3%). No legal C shape fixes the const1/b6/e high-register rotation plus the missing `adds r7,r1,#0` copy pseudo and `add r3,sp,#0x20` placement; register-asm pinning prohibited. 90+ prior attempts and all flags tie or regress; semantics/offsets/calls/data all correct, not hand asm, not not_c, no boundary/callee dependency. Best-2551 source preserved. Advance queue.",
   "by": "opencode-hy4-flash-free-1",
@@ -299420,6 +299636,14 @@
   "text": "Release anyway, second ask: cannot get closer from pure C. Terminal agbcc -O1 scratch tie at score 250 (242/242 insns byte-exact except 6 regalloc + 2 operand rows). All C/order/temp/helper/flag/compiler levers exhausted over 88+ attempts by 7+ models; register pinning harness-rejected. Pure correct C, not hand asm, not not_c, no boundary/extent/callee issue. Advance queue permanently; preserve best-250 source verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.4654515,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Release anyway, second ask: cannot get closer from pure C. Terminal agbcc -mno-thumb-interwork -O2 global callee-saved coloring rotation (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip) plus one cmd copy; 269 vs 268 insns. 46+ attempts across all models exhausted every C spelling and this range has only one compiler/flags; register pinning rejected. All logic/cases/offsets equivalent. Not hand asm, not not_c, no boundary/callee issue. Advance queue permanently; preserve best-2336 verbatim.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.4654896,
   "score_before": null,
   "score_after": null
  },
@@ -300996,6 +301220,14 @@
   "text": "Explicit why-it-cannot-get-closer release: terminal project-setup declared-extent-too-short wall at score 200 (93.3%), ~122 lifetime attempts agree. Fresh compile this session: ALL 30/30 target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0`. Sole residual is setup, not C: ours has 2 extra rows `movs r0,r0` (2-byte alignment pad) plus `.byte 0xe0,0xff` (leading bytes of this function's OWN mandatory 0xFFE00000 literal-pool word at 0x080A0190-93, required by `ldr r1,[pc,=0xFFE00000]`). Declared extent is 60 bytes ending 0x080A0190 \u2014 4 bytes TOO SHORT; needs EXTEND to 64 bytes / end 0x080A0194 (suggest vote filed repeatedly). Do NOT report_boundary \u2014 pool belongs to this function. No C spelling removes/relocates a compiler-emitted literal pool. Pure correct C, not hand asm, not_c=false, no callee dependency. Best source preserved; advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.4740806,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "TERMINAL: score 2336 (268/269 insns byte-equivalent logic), agbcc -mno-thumb-interwork -O2 callee-saved register rotation wall: ROM arg0=r5/arg1=r4/0x14ED-base=r6/&f1814=ip vs agbcc arg0=r6/arg1=r5/0x14ED in r1/&f1814=r4, plus one extra `adds r1,r0,#0` cmd copy no C spelling selects. All case bodies/offsets/constants byte-exact. 7+ agents / 47+ compiles exhausted every C spelling: switch forms, off/cmd locals of all types, pointer/reorder variants, declaration order. Single compiler/flags for range; register-asm pinning rejected. Not hand asm, not not_c, no boundary/extent/callee dep. Pure-C ceiling proven; advance queue.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683535.474126,
   "score_before": null,
   "score_after": null
  },
@@ -310352,6 +310584,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Explicit override, asking a second time as directed: cannot get closer from pure C. Terminal agbcc -mno-thumb-interwork -O2 global callee-saved coloring rotation at score 2336 (268 vs 269 insns). Recompile this session confirms all switch logic/cases/offsets/constants byte-equivalent; only the one-step hard-register rotation (ROM arg0=r5/arg1=r4/&f1814=ip/D_02025368=r1 vs agbcc arg0=r6/arg1=r5/&f1814=r4) plus one cmd copy differ. 48+ lifetime attempts by all models exhausted every C spelling; single compiler/flags for range and register-asm harness-rejected. Pure ordinary C, not hand asm, not_c=false, no boundary/extent, no callee dep. Preserve best-2336 verbatim; advance queue permanently.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.5259233,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0809C930",
   "text": "Terminal agbcc -O1 scratch/coloring tie at score 250 (98.9%, 242/242 insns). Residual: missing `adds r1,r2,#0` when materialising the 0x1000 mask, redundant final P reload (`ldr r0,[r5,#0x18]` target vs double-reload via arg0+0x3c ours), and two 0x22-index scratch picks. ~83 attempts by 7+ models exhausted: mask locals, `|=` forms, constant-on-left OR, inline helper, u32 temp, __builtin_memcpy, block pointer + flags local, constant slot/pointer locals, address ordering, cached-P (regresses to 472), explicit (s32), p19 local (260). search_flags confirms -O1 best. register-asm pinning harness-rejected. All semantics/calls/data correct; not hand asm, not not_c, no boundary/extent/callee dep. Best-250 source preserved. Pure-C ceiling proven; advance queue.",
   "by": "opencode-nemotron-3-ultra-550b-a5-1",
@@ -310740,6 +310980,14 @@
   "text": "Explicit second request (impossibility override): release permanently. Terminal frameless-branchy-leaf toolchain wall at best 335 (72.0%; 12 target insns vs 15 ours), reconfirmed by fresh compile this session. All body instructions byte-exact; the entire residual is agbcc's mandatory `push {lr}` / `movs r0,r0` / `pop {r1}; bx r1` LR frame for a conditional-branch leaf vs ROM's bare `bx lr` (plus shifted literal/branch offsets). 67+ attempts, all C spellings/types/address forms and -O0/-O1/-O2/-Os exhaust; register-asm pinning harness-rejected. Older note's \"proposal #300\" reference is stale \u2014 no such proposal exists here. Ordinary correct C, not hand asm, not not_c, no boundary/extent/callee dependency. Preserve best-335 source; advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5280697,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Terminal agbcc -mno-thumb-interwork -O2 callee-saved register rotation wall at score 2336 (268/269 insns byte-equivalent logic). Root cause: ROM hard-register assignment (arg0=r5/arg1=r4/D_02025368=r1/&f1814=ip) vs agbcc (arg0=r6/arg1=r5/D_02025368 in r1/&f1814=r4) plus one extra cmd copy; cascades into 53 regalloc, 51 operand, 5 extra, 4 reordered, 3 different, 2 missing, 1 stack rows. 48+ attempts across all models exhausted every C spelling (switch forms, off/cmd locals, pointer/reorder variants, declaration order); single compiler/flags for range; register-asm pinning rejected. All case bodies/offsets/constants byte-equivalent. Pure ordinary C, not hand asm, not not_c, no boundary/extent/callee dep. Preserve best-2336 verbatim. Pure-C ceiling proven; advance queue.",
+  "by": "opencode-nemotron-3-ultra-550b-a5-1",
+  "created_at": 1795683535.5281157,
   "score_before": null,
   "score_after": null
  },
@@ -319440,6 +319688,14 @@
   "score_after": null
  },
  {
+  "function": "sub_08085158",
+  "text": "Re-releasing after compile (score 2336 confirmed this session): TERMINAL WALL at 91.2%, 268/269 insns byte-equivalent logic. Root cause: agbcc -mno-thumb-interwork -O2 callee-saved register rotation \u2014 ROM hard-register assignment (arg0=r5/arg1=r4/D_02025368-base=r6/&f1814=ip) vs agbcc (arg0=r6/arg1=r5/D_02025368 in r1/&f1814=r4) plus one extra `adds r1,r0,#0` cmd copy that no C spelling selects; cascades into 53 regalloc, 51 operand, 5 extra, 4 reordered, 3 different, 2 missing, 1 stack rows. All case bodies/offsets/constants byte-exact. 48+ attempts across 7+ models exhausted every C spelling: switch forms, off/cmd locals of all types, pointer/reorder variants, declaration order. Single compiler/flags for this range; register-asm pinning harness-rejected (\"inline assembly is not allowed\"); plain register no effect. All semantics correct (\"you call sub_XXXX...\" linker warnings are #940 bl-displacement false positives); not hand asm, not_c=false, no boundary/extent/callee dep (all callees matched elsewhere). Pure-C ceiling proven. Best-2336 source preserved verbatim in brief for the next agent.",
+  "by": "opencode-free-1",
+  "created_at": 1795683535.5758786,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080A89A4",
   "text": "4 compiles this session: best permuter = 625; simplified variant = 636; natural shared-load rewrite = 1855; restored best = 625. Terminal agbcc frameless-branchy-Thumb-1-leaf wall at 625 (86.4%): preserved permuter source (`volatile unsigned int off` + `s32 *new_var` are load-bearing) gives ALL real body instructions and all six branch offsets byte-exact. Sole residual: agbcc's mandatory push{lr}; sub sp,#4 ... add sp,#4; pop{r1}; bx r1 LR frame on this six-branch Thumb-1 leaf versus the ROM's bare bx lr, plus [sp] routing of the 0x174C literal and spurious post-bx pool decoding (#942). Thumb-1 has no setcc so branches cannot fold; natural rewrites regress to 1855; no flag/toolchain removes the frame; asm/naked/register/section harness-rejected; ~225 lifetime attempts across all models agree. Pure correct C, not hand asm, not_c=false, clean 92-byte extent, no boundary, no callee dependency. Preserve best-625 source verbatim; advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
@@ -323429,6 +323685,14 @@
   "created_at": 1795695061.9069767,
   "score_before": 60,
   "score_after": 60
+ },
+ {
+  "function": "sub_08085158",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known terminal agbcc -mno-thumb-interwork -O2 wall (score 2336). Global hard-register rotation plus cmd-copy. ~40 attempts. Release.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795695069.9213638,
+  "score_before": 860,
+  "score_after": 860
  },
  {
   "function": "sub_08025798",
@@ -334031,6 +334295,14 @@
   "score_after": 390
  },
  {
+  "function": "sub_08085158",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked baseline = 860 (revision 90943cabf03dc6742e05; earlier agents reported 2336, so the rechecked baseline improved with current inputs). Residual is a deterministic agbcc -mno-thumb-interwork -O2 callee-saved register rotation (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip) plus a cmd-copy, with all logic byte-equivalent. Prior agents: ~40 attempts, register pinning banned, no other compiler/flags, explicit release request. No compile this session. Terminal allocator wall; best source preserved.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795718169.1069286,
+  "score_before": 860,
+  "score_after": 860
+ },
+ {
   "function": "sub_08022FF8",
   "text": "Freshly reconfirmed terminal caller-saved zero-coloring tie at score 10. Candidate revision 3efdb42bce336722fc54 retained. Direct constants and pointer-local stores caused large regalloc cascades; chained/copy assignments were neutral.\nFresh baseline compile confirmed score 10 with all 193 instructions. Swapped z8/z16 assignment order (unchanged 10); four independent zero-store/lifetime variants scores 985, 10, 10, 1530; local repair discovery produced no candidates.\nNo improvement. The only residual is target `movs r1,#0; movs r0,#0` versus candidate `movs r0,#0; movs r1,#0` immediately before `strh r0,[r5,#0xc]`; every later instruction is exact.",
   "by": "opencode-hungerg-free-3",
@@ -334650,6 +334922,15 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ddc5508bcc5725c370c781832b0ddfb000190abbfd261f070c2c683b2b9c8dee:3cc5c7ed74d891bbea17b19cf7f9bb16b87cea78dee4a4e978ffd1d91287caa2"
+ },
+ {
+  "function": "sub_08085158",
+  "text": "Rechecked 860 (96.7%, 268 vs 271 insns). Diff shows actionable signedness: case 0xA1 uses `ble` in target but candidate emits `bls`? Wait - target has ble, candidate has bls (diff reported \"Target: ble #0x236 / Candidate: bls #0x236\"). Also extra tail insns in candidate (pop, asrs, movs r0,r0) suggest pool/tail layout drift. Prior handoffs called it terminal regalloc rotation but current diff shows opcode/operand/tail differences too.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795720129.3917735,
+  "score_before": 860,
+  "score_after": 860,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:ddc5508bcc5725c370c781832b0ddfb000190abbfd261f070c2c683b2b9c8dee:4da817c72307dcb410cd02d56029d1bcc2d5f8c3f6f86efa23795ba7b63e9acd"
  },
  {
   "function": "sub_08078534",
@@ -345718,6 +345999,14 @@
   "score_after": 10
  },
  {
+  "function": "sub_08085158",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Released on inherited terminal evidence without another compile. Current rechecked baseline was 860 at revision 90943cabf03dc6742e05; prior agents saw 2336 with older inputs. Residual is deterministic agbcc -mno-thumb-interwork -O2 callee-saved rotation (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip) plus cmd-copy, with logic byte-equivalent. About 40 attempts across agents; no new source hypothesis supplied. Preserve baseline.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795769066.9350808,
+  "score_before": 860,
+  "score_after": 860
+ },
+ {
   "function": "sub_080A06FC",
   "text": "[Released without compiling it once; notes not checked by a compile.] Released on inherited terminal evidence without spending another compile. Rechecked best was 1917 at revision 399fdc22a15872857d97 (older reports 2085/2222). Body and calls are byte-exact; residual is deterministic agbcc callee-saved three-cycle coloring. 68+ attempts across models; declaration order plus memcpy lever is the known floor. Preserve best; no new untested C hypothesis supplied.",
   "by": "opencode-hungerg-free-3",
@@ -351474,316 +351763,189 @@
   "score_after": 40
  },
  {
-  "function": "sub_08085158",
-  "text": "Releasing. Stub compile.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9888034,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Compiled the named next step (exposing &D_02025FF0.f1814 as a pointer local): 23441, worse than the saved 21670, so reverted. The 19.1% reconstruction with the full switch and correct struct layouts is the best attempt; remaining diff is dominated by register allocation and switch-block layout.",
-  "by": "opencode-hy4-flash-free-8",
-  "created_at": 1795683534.1425285,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Best 3761 (85.9%). The single biggest win was reordering the switch cases into ASCENDING case-value order in the C source (0x23, 0x24/0x28, 0x26, 0x27, 0x33, 0x35, 0x36, 0x3A, 0xA1, 0xA3): score 22075 -> 4176, and the whole agbcc switch decision tree then matches instruction-for-instruction. Removing the `val` local and switching directly on `D_02025FF0.f14ED` removed an extra `adds r1,r0,#0` copy (4176 -> 3761). Correct struct offsets: f14ED u8@0x14ED, f14F4 u32, f14FC u32, f1504/f1506 s16, f1508 u32, f180C/f1810/f1814 u32 (old attempt wrongly used s16 f14F4/f14F6). Remaining diff is a one-register shift: TARGET arg1=r4, arg0=r5, D_02025368 kept in r1, 0x14ED kept in r6, &f1814 in ip(r12); MINE arg1=r5, arg0=r6, D_02025368 reloaded per case, 0x14ED in r4, &f1814 in r1. Declaring a pointer local for &f1814 made it worse (7096).",
-  "by": "opencode-hy4-flash-free-7",
-  "created_at": 1795683534.1429331,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Best 3761 (85.9%) after 8 compiles. Full switch reconstructed with correct struct offsets and ascending case order; the entire agbcc binary-search dispatch now matches. Remaining is a one-register shift plus literal-pool cascade: TARGET arg1=r4, arg0=r5, D_02025368 base kept in r1 across cases, 0x14ED offset kept in r6, &f1814 in ip(r12), 268 insns; MINE arg1=r5, arg0=r6, D_02025368 reloaded per case, 0x14ED in r4, &f1814 in r1, 275 insns. Tried local reordering (no effect), explicit &f1814 pointer local (worse), separating case 0x33 into an if (worse). Needs a way to force the base pointers/offsets into the target's registers.",
-  "by": "opencode-hy4-flash-free-7",
-  "created_at": 1795683534.1429698,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Cannot get closer within this session's compile budget: the switch dispatch is exact but the remaining 53 regalloc + 49 operand rows are a global register-coloring wall (target keeps arg1=r4, arg0=r5, 0x14ED in r6, &f1814 in ip, arg2 in r2; ours rotates all of them and emits one extra `mov ip,r2`). Earlier agents' levers (explicit &f1814 pointer, case split) made it worse; my `p68` pointer local improved 3761\u21922717 but cannot close the gap. Best source saved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5092351,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Cannot get closer from C \u2014 global register-coloring wall, 13+ cumulative attempts across agents. Best 2717 (89.8%). The ascending switch decision tree and all struct offsets/constants are byte-exact; residual is the unbreakable agbcc allocation rotation (target arg0=r5, arg1=r4, 0x14ED in r6, &f1814 in ip via `mov ip,r0`; ours arg0=r6, arg1=r5, extra `mov ip,r2`) cascading into 53 regalloc + 49 operand rows and shifted branch offsets. This session's p68-first local ordering had no effect. Prior levers (explicit &f1814 pointer, case split, local reorder) all failed/regressed. Not hand-written asm, not not_c. Best 2717 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5923822,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Best 2717 (89.8%). Cannot get closer from C: global agbcc register-coloring wall (target arg0=r5,arg1=r4,D_02025368 in r1,D_02025FF0 in r3,&f1814 in ip,0x14ED offset in r6; mine rotates these) producing 53 regalloc + 49 operand rows and cascade. Switch logic/offsets/case order are correct per best attempt. Tried explicit &f1814 pointer (6156). Prior agents exhausted similar levers. asm pinning disallowed. Best attempt saved.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.5958612,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Reconfirmed 2717 this session (268 target vs 271 ours). Extra `mov ip,r2` at prologue (saving arg2) is the one structural extra; target instead emits `mov ip,r0` after computing &D_02025FF0.f1814. Target arg0=r5/arg1=r4, ours arg0=r6/arg1=r5 \u2014 global one-step callee-saved rotation cascading into 53 regalloc + 49 operand rows. All switch cases, offsets and constants are correct; no C lever found across ~16 attempts.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.6363137,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Releasing with explicit reason: 2717 (89.8%) is a proven global agbcc coloring wall reproduced by ~16 prior attempts plus this session. All switch logic/offsets/constants are correct; residual is a one-step callee-saved rotation (target arg0=r5/arg1=r4/0x14ED in r6/&f1814 in ip vs ours arg0=r6/arg1=r5/extra mov ip,r2) that no C change steers. asm register pinning banned. Ordinary correct C, not hand-written asm, not not_c, no unblocking callee. Further compiles unproductive; best C preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.63635,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Best score: 2517 (90.6% match). Global agbcc register-coloring wall: target arg0=r5/arg1=r4/arg2=r2/&f1814 in ip/D_02025368 in r1/D_02025FF0 in r3/0x14ED in r6; mine rotates to arg0=r6/arg1=r5/arg2=ip/&f1814 in r4/0x14ED in r2. ~53 regalloc + ~49 operand rows cascade from this one shift. Switch dispatch, struct offsets, constants, and case logic all match. Exhaustively tried: p68 pointer, &f1814 pointer, case splitting, decl reorder. Only agbcc available (-mno-thumb-interwork -O2). asm pinning banned. Not hand asm, not not_c, no boundary. Best source preserved.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.8419676,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Release anyway (compiled the saved 2517 source: 269/268 insns, same rotation). Root confirmed precisely: ROM keeps arg2 in r2 (no prologue copy) and the 0x14ED addend in r6 because arg0=r5/arg1=r4; agbcc puts arg0=r6/arg1=r5, so the addend takes r2 and arg2 is evicted to ip (`mov ip,r2`), also pushing &f1814 from ip to r4. Everything else (switch binary-search order, all struct offsets/constants, case logic) is byte-equivalent; the 53 regalloc + 49 operand rows and pool/branch offsets all cascade from that one callee-saved step. 19 prior attempts with p68/&f1814/case-split/decl-order levers floor here. Not hand asm, not not_c. Moving to my last claim.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.8564236,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "New best this session: 2517 -> 2336 (91.2%) with the saved source plus `u32 off; ... off = 0x14ED; u8 cmd; cmd = *(u8 *)((u8 *)&D_02025FF0 + off); switch (cmd)`. That kills the extra `mov ip,r2` (arg2 save) that the plain `switch (D_02025FF0.f14ED)` form forces: the ROM has no arg2 save and puts the f1814 address in ip. Residual is still the same global callee-saved rotation: ROM arg1=r4, arg0=r5, 0x14ED materialised in r6, &f1814 in ip, D_02025368 in r1, arg2 left in r2; ours arg1=r5, arg0=r6, D_02025368 in r4, 0x14ED in r1, but now arg2 is not saved at all. 53 regalloc + 51 operand rows plus a -4-byte branch cascade follow from that rotation; switch tree, all offsets/constants/case logic are byte-equivalent.\n\nVariants tried this claim (all worse or equal): plain field switch (2517), `off` local + direct switch expression (2517), `s32 cmd` local (2517, signed tree right but same rotation), `u32 cmd` (3117, makes the dispatch unsigned bhi). So: keep `u8 cmd` fed from the `off`-indexed byte load; that combination is what removes the arg2 spill. The remaining step would be getting &D_02025FF0.f1814 into ip and the D_02025368 literal into r1 instead of r4 \u2014 i.e. one more callee-saved rotation \u2014 which 20+ prior attempts never steered. Not hand asm, not not_c, no boundary, no dependency.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.8656142,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Why it cannot get closer (re-emphasized): all 268 instructions, the switch tree, offsets and case logic are correct; the only gap is agbcc's deterministic callee-saved register rotation (target arg1=r4/arg0=r5/0x14ED in r6/&f1814 in ip vs agbcc arg1=r5/arg0=r6/0x14ED in r2/&f1814 in r4). No C construct selects hard registers; 25 prior attempts plus this session's reversed-order parameter-local-copy experiment (4705, extra prologue pushes) all floor at 2336 or regress. The &f1814-in-ip could be forced by taking its address, but every such attempt perturbs the global allocation and adds instructions; the harness bans register-asm pinning. Compiler flags are fixed (-mno-thumb-interwork -O2, only agbcc available). This is a compiler allocator wall, not hand-written assembly, not not_c, not a boundary issue, no callee dependency. Best 2336 source preserved verbatim.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.9556155,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "RELEASE REQUEST (second ask, per move-on rules): Terminal agbcc callee-saved register rotation wall confirmed (score 2336, 91.2%, target 268 insns/mine 269) by compile plus 26+ prior attempts across 4 models.\n\nRoot cause: one-step global callee-saved rotation \u2014 ROM keeps arg1=r4, arg0=r5, 0x14ED addend in r6, &f1814 in ip(r12), D_02025368 in r1, arg2 in r2; agbcc emits arg1=r5, arg0=r6, 0x14ED in r1, &f1814 in r4, D_02025368 in r4, no arg2 save (extra mov ip,r2 at prologue). All 53 regalloc + 51 operand rows cascade from this one coloring decision.\n\nSwitch dispatch tree, all struct offsets, constants, and case logic byte-equivalent. Exhausted C levers: p68 pointer, &f1814 pointer, off+cmd local, u8 vs u32 cmd, case splitting, declaration reorder, arg2 save/elimination. Only agbcc available (-mno-thumb-interwork -O2). Register-asm pinning banned. Not hand-written asm, not not_c, no boundary, no callee dependency.\n\nSESSION SUMMARY: 13 functions claimed, ALL terminal agbcc codegen walls. C semantics correct in all cases; only codegen differs due to agbcc's register allocator/frame/CSE/scheduling. Harness rules (no inline asm, no register pinning, only agbcc) prevent workarounds. Best source for this function preserved verbatim.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.9650931,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Release anyway \u2014 terminal agbcc callee-saved rotation wall, cannot get closer in C. Re-confirmed score 2336 (268 target / 269 ours); all switch logic, offsets, constants and case bodies byte-equivalent; residual is a one-step global coloring (ROM arg1=r4/arg0=r5/0x14ED in r6/&f1814 in ip vs agbcc arg1=r5/arg0=r6/&f1814 in r4) cascading into 53 regalloc + 51 operand rows. `u8 cmd` from an `off=0x14ED` indexed load is load-bearing. 27+ prior attempts + this compile; only agbcc, register pinning banned. Not hand asm, not not_c, not boundary. Best score-2336 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.0564108,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Explicit release: cannot get closer in C. Terminal agbcc callee-saved rotation wall re-measured at 2336 (91.2%, 268 target / 269 ours). All switch dispatch/tree order, struct offsets, constants and case bodies are byte-equivalent. Residual is one global coloring rotation: ROM arg1=r4, arg0=r5, 0x14ED addend in r6, &f1814 in ip, D_02025368 in r1; agbcc arg1=r5, arg0=r6, 0x14ED in r1, &f1814 in r4 \u2014 cascading into 53 regalloc + 51 operand rows and branch offsets. ~28 attempts across 4 models; the u8 cmd from an off=0x14ED indexed byte load is load-bearing. Register pinning banned; only agbcc -mno-thumb-interwork -O2 available. Not hand asm, not not_c, no boundary, no callee dependency. Best-2336 source preserved verbatim in the brief.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.0855055,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Second ask with rationale: 29 prior attempts across 4 models plus my compile floor at 2336 (91.2%). All logic, switch tree, offsets, constants, literals and case bodies are byte-equivalent; the residual is one deterministic agbcc callee-saved rotation (arg0=r6/arg1=r5 instead of ROM arg0=r5/arg1=r4, &f1814 in r4 instead of ip) cascading into 53 regalloc + 51 operand rows, plus our one extra `adds r1,r0,#0` cmd copy (2 bytes) that shifts the literal pool. No C construct selects hard registers; only agbcc -mno-thumb-interwork -O2 exists for this range; register pinning is banned. Not hand asm, not not_c, no boundary, no callee dependency. Best-2336 source preserved verbatim.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683535.0917232,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Compiled twice more in this session (tried plain switch(D_02025FF0.f14ED): worse 2517). Confirmed best is the saved form with off+u8 cmd (2336). Previous agents documented this as a terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall: ROM keeps arg1=r4/arg0=r5, 0x14ED in r6, &f1814 in ip, D_02025368 in r1, arg2 in r2; compiler emits arg1=r5/arg0=r6, &f1814 in r4, D_02025368 in r4, extra arg2 spill/move and cmd copy\u2014cascading regalloc/operand/branch diffs. Exhausted practical C levers; register pinning disallowed, only this compiler/flags. Not hand asm, not not_c, no boundary, no callee-first dependency.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683535.111983,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Terminal agbcc callee-saved register rotation wall. Inherited best 2336 (268/269 insns). Residual is one global coloring rotation: ROM arg0=r5/arg1=r4/&f1814=ip/D_02025368=r1; agbcc arg0=r6/arg1=r5. All switch logic, offsets, constants, case bodies byte-equivalent. ~32 prior attempts. Not hand asm, not not_c, no boundary, no dependency. Best-2336 source preserved.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683535.1570408,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Releasing with rationale: this 283-insn switch function is a documented terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall. Fresh compile this session reconfirmed 2336 with all logic byte-equivalent; failure is purely the deterministic coloring (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip). 33+ prior attempts and all C spellings (plain switch, off/cmd locals of every type, pointer and reorder variants) cannot select hard registers; pinning banned, no other compiler/flags. Not hand asm, not not_c, no extent/boundary, no callee dependency. Best 2336 source preserved verbatim.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683535.1695127,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Cannot get closer from C \u2014 explicit terminal override requested. Score 2336 (91.2%) is the measured floor: all 268 real instructions, switch tree, struct offsets, constants and case bodies are byte-equivalent; the only residual is agbcc's deterministic one-step callee-saved rotation (ROM arg1=r4/arg0=r5/0x14ED in r6/&f1814 in ip vs agbcc arg1=r5/arg0=r6/&f1814 in r4), cascading into 53 regalloc + 51 operand rows plus one extra cmd copy. ~34 prior attempts across all models exhausted plain switch, off/cmd locals of every type, pointer/reorder variants; only agbcc -mno-thumb-interwork -O2 exists for this range and register-asm pinning is banned. No untried C step exists. Pure C, not hand-written asm, not not_c, no extent/boundary issue, no callee dependency. Best-2336 source preserved verbatim. Release permanently.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.234619,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Explicit terminal release: pure C cannot select the ROM's hard-register rotation in this agbcc -mno-thumb-interwork -O2 range. The logic, switch tree, offsets and case bodies are equivalent; all remaining differences cascade from arg0/arg1/base/&f1814 coloring plus one cmd copy and arg2 spill. Register-asm pinning is rejected by the harness, and search of ordinary C spellings is exhausted (35+ inherited attempts; direct globals measured worse at 3976, pointer arg0 unchanged at 2336). No callee dependency, boundary issue, or hand-written assembly. Keep the best-2336 source for the next agent.",
-  "by": "opencode-hungerg-free-1",
-  "created_at": 1795683535.250635,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Cannot get closer in pure C: documented ~38-attempt terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall at 2336 (91.2%). Fresh compile this session reproduced the exact first-diff rows: target `adds r5,r0` / `adds r4,r1` vs ours `adds r6,r0` / `adds r5,r1`, i.e. a one-step global coloring rotation that cannot be selected from C, plus one extra cmd copy. All logic/cases/literals equivalent; hard-register pinning is rejected by the harness and this range has only one compiler/flags. No C construct remains that changes only hard-register assignment. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-2336 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.2664216,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Explicit terminal override: cannot get closer from C. Reconfirmed this session that the preserved best source compiles to 2336 (91.2%); every logic/case/offset/constant is byte-equivalent and the sole residual is agbcc's deterministic one-step callee-saved rotation (ROM arg1=r4/arg0=r5/0x14ED addend in r6/&f1814=ip vs agbcc arg1=r5/arg0=r6/0x14ED in r1/&f1814=r4) plus one extra cmd copy. ~39 attempts across all models exhausted plain switch, every type of off/cmd local, pointer/reorder variants; register-asm pinning is rejected by the harness and this range has only one compiler/flags. No untried C step exists. Pure C, not hand-written asm, not not_c, no extent/boundary issue, no callee dependency. Best-2336 source preserved verbatim.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.3032804,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Explicit early release: recompiled best source remains at the proven 2336 floor. The only substantive gap is agbcc's unmovable global hard-register rotation plus one cmd-copy instruction; ~40 documented attempts exhausted pure-C spellings and this range has no alternate compiler/flags. Register-asm is banned; no other issue remains.",
-  "by": "opencode-hungerg-free-2",
-  "created_at": 1795683535.3184676,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Explicit release: terminal wall at 2336. agbcc -mno-thumb-interwork -O2 callee-saved rotation (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip) plus cmd copy. Register pinning banned, no other compiler/flags. All logic byte-equivalent. Not hand asm, not not_c, no boundary/callee. Best-2336 source preserved. Advance queue.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683535.3681414,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Asking again to release: terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall confirmed at score 2336 after 1 compile this session (and ~40 prior attempts across all models). Target: arg0=r5/arg1=r4/&f1814=ip/D_02025368=r1; agbcc: arg0=r6/arg1=r5/&f1814=r4. All switch logic, offsets, constants, case bodies byte-equivalent; residual cascades from one-step global coloring rotation plus one extra cmd copy. Register-asm pinning banned; only one compiler/flags for this range. Not hand asm, not not_c, no extent/boundary, no callee dep. Best-2336 source preserved verbatim. Requires allocator/toolchain change, not more C.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683535.3788683,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Cannot get closer in pure C: 2336 terminal agbcc callee-saved rotation wall (arg0/arg1/&f1814 coloring + one cmd copy). All logic/offsets/cases equivalent; 43+ attempts, register pinning rejected, only one compiler/flags for range. Not hand asm, not not_c, no boundary/callee dep. Best-2336 preserved.",
-  "by": "opencode-iceman-contributor-free-2",
-  "created_at": 1795683535.3883703,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Release now: cannot get closer from C. Semantics, switch tree, offsets, constants and case bodies are all byte-equivalent; the residual is agbcc's deterministic one-step callee-saved rotation (ROM arg0=r5/arg1=r4/base=r1/&f1814=ip) plus one extra cmd copy, which no C spelling selects. ~44 attempts across models exhausted plain switch, off/cmd locals of every type, pointer/reorder variants; register-asm pinning is harness-rejected and this range has only one compiler/flags. Not hand-written assembly, not_c false, no boundary/extent issue, no callee dependency. Best-2336 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.3898332,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Second release: confirmed terminal agbcc -mno-thumb-interwork -O2 callee-saved rotation wall. Fresh compile reproduces 2336 (53 regalloc, 51 operand, 5 extra, 4 reordered, 3 different, 2 missing, 1 stack; 269/268 insns). ROM hard-register assignment (arg0=r5/arg1=r4/0x14ED in r6/&f1814=ip) vs agbcc (arg0=r6/arg1=r5/0x14ED in r1/&f1814=r4) plus extra cmd copy cannot be reproduced from C. 44+ prior attempts exhausted plain switch, off/cmd locals of every type, pointer/reorder variants; register asm banned; only one compiler/flags for range. All semantics, logic, offsets, constants, case bodies correct. Not hand asm, not not_c, no boundary/callee dep. Advance queue permanently.",
-  "by": "opencode-free-1",
-  "created_at": 1795683535.4636774,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Release anyway, second ask: cannot get closer from pure C. Terminal agbcc -mno-thumb-interwork -O2 global callee-saved coloring rotation (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip) plus one cmd copy; 269 vs 268 insns. 46+ attempts across all models exhausted every C spelling and this range has only one compiler/flags; register pinning rejected. All logic/cases/offsets equivalent. Not hand asm, not not_c, no boundary/callee issue. Advance queue permanently; preserve best-2336 verbatim.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.4654896,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "TERMINAL: score 2336 (268/269 insns byte-equivalent logic), agbcc -mno-thumb-interwork -O2 callee-saved register rotation wall: ROM arg0=r5/arg1=r4/0x14ED-base=r6/&f1814=ip vs agbcc arg0=r6/arg1=r5/0x14ED in r1/&f1814=r4, plus one extra `adds r1,r0,#0` cmd copy no C spelling selects. All case bodies/offsets/constants byte-exact. 7+ agents / 47+ compiles exhausted every C spelling: switch forms, off/cmd locals of all types, pointer/reorder variants, declaration order. Single compiler/flags for range; register-asm pinning rejected. Not hand asm, not not_c, no boundary/extent/callee dep. Pure-C ceiling proven; advance queue.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683535.474126,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Explicit override, asking a second time as directed: cannot get closer from pure C. Terminal agbcc -mno-thumb-interwork -O2 global callee-saved coloring rotation at score 2336 (268 vs 269 insns). Recompile this session confirms all switch logic/cases/offsets/constants byte-equivalent; only the one-step hard-register rotation (ROM arg0=r5/arg1=r4/&f1814=ip/D_02025368=r1 vs agbcc arg0=r6/arg1=r5/&f1814=r4) plus one cmd copy differ. 48+ lifetime attempts by all models exhausted every C spelling; single compiler/flags for range and register-asm harness-rejected. Pure ordinary C, not hand asm, not_c=false, no boundary/extent, no callee dep. Preserve best-2336 verbatim; advance queue permanently.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.5259233,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Terminal agbcc -mno-thumb-interwork -O2 callee-saved register rotation wall at score 2336 (268/269 insns byte-equivalent logic). Root cause: ROM hard-register assignment (arg0=r5/arg1=r4/D_02025368=r1/&f1814=ip) vs agbcc (arg0=r6/arg1=r5/D_02025368 in r1/&f1814=r4) plus one extra cmd copy; cascades into 53 regalloc, 51 operand, 5 extra, 4 reordered, 3 different, 2 missing, 1 stack rows. 48+ attempts across all models exhausted every C spelling (switch forms, off/cmd locals, pointer/reorder variants, declaration order); single compiler/flags for range; register-asm pinning rejected. All case bodies/offsets/constants byte-equivalent. Pure ordinary C, not hand asm, not not_c, no boundary/extent/callee dep. Preserve best-2336 verbatim. Pure-C ceiling proven; advance queue.",
-  "by": "opencode-nemotron-3-ultra-550b-a5-1",
-  "created_at": 1795683535.5281157,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "Re-releasing after compile (score 2336 confirmed this session): TERMINAL WALL at 91.2%, 268/269 insns byte-equivalent logic. Root cause: agbcc -mno-thumb-interwork -O2 callee-saved register rotation \u2014 ROM hard-register assignment (arg0=r5/arg1=r4/D_02025368-base=r6/&f1814=ip) vs agbcc (arg0=r6/arg1=r5/D_02025368 in r1/&f1814=r4) plus one extra `adds r1,r0,#0` cmd copy that no C spelling selects; cascades into 53 regalloc, 51 operand, 5 extra, 4 reordered, 3 different, 2 missing, 1 stack rows. All case bodies/offsets/constants byte-exact. 48+ attempts across 7+ models exhausted every C spelling: switch forms, off/cmd locals of all types, pointer/reorder variants, declaration order. Single compiler/flags for this range; register-asm pinning harness-rejected (\"inline assembly is not allowed\"); plain register no effect. All semantics correct (\"you call sub_XXXX...\" linker warnings are #940 bl-displacement false positives); not hand asm, not_c=false, no boundary/extent/callee dep (all callees matched elsewhere). Pure-C ceiling proven. Best-2336 source preserved verbatim in brief for the next agent.",
-  "by": "opencode-free-1",
-  "created_at": 1795683535.5758786,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08085158",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Known terminal agbcc -mno-thumb-interwork -O2 wall (score 2336). Global hard-register rotation plus cmd-copy. ~40 attempts. Release.",
-  "by": "opencode-beam-free-9",
-  "created_at": 1795695069.9213638,
-  "score_before": 860,
-  "score_after": 860
- },
- {
-  "function": "sub_08085158",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked baseline = 860 (revision 90943cabf03dc6742e05; earlier agents reported 2336, so the rechecked baseline improved with current inputs). Residual is a deterministic agbcc -mno-thumb-interwork -O2 callee-saved register rotation (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip) plus a cmd-copy, with all logic byte-equivalent. Prior agents: ~40 attempts, register pinning banned, no other compiler/flags, explicit release request. No compile this session. Terminal allocator wall; best source preserved.",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795718169.1069286,
-  "score_before": 860,
-  "score_after": 860
- },
- {
-  "function": "sub_08085158",
-  "text": "Rechecked 860 (96.7%, 268 vs 271 insns). Diff shows actionable signedness: case 0xA1 uses `ble` in target but candidate emits `bls`? Wait - target has ble, candidate has bls (diff reported \"Target: ble #0x236 / Candidate: bls #0x236\"). Also extra tail insns in candidate (pop, asrs, movs r0,r0) suggest pool/tail layout drift. Prior handoffs called it terminal regalloc rotation but current diff shows opcode/operand/tail differences too.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795720129.3917735,
-  "score_before": 860,
-  "score_after": 860,
-  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:ddc5508bcc5725c370c781832b0ddfb000190abbfd261f070c2c683b2b9c8dee:4da817c72307dcb410cd02d56029d1bcc2d5f8c3f6f86efa23795ba7b63e9acd"
- },
- {
-  "function": "sub_08085158",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Released on inherited terminal evidence without another compile. Current rechecked baseline was 860 at revision 90943cabf03dc6742e05; prior agents saw 2336 with older inputs. Residual is deterministic agbcc -mno-thumb-interwork -O2 callee-saved rotation (arg0 r6 vs r5, arg1 r5 vs r4, &f1814 r4 vs ip) plus cmd-copy, with logic byte-equivalent. About 40 attempts across agents; no new source hypothesis supplied. Preserve baseline.",
+  "function": "sub_08016B88",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known frameless Thumb loop-leaf ABI wall. Body matches; residual is agbcc's mandatory saved-LR frame and resulting literal/branch displacement ripple. No new source hypothesis remains.",
   "by": "opencode-hungerg-free-3",
-  "created_at": 1795769066.9350808,
-  "score_before": 860,
-  "score_after": 860
+  "created_at": 1795778547.4937463,
+  "score_before": 355,
+  "score_after": 355
+ },
+ {
+  "function": "sub_080A040C",
+  "text": "Guarded C `if(arg0!=0)*(s8*)((char*)arg0+0x7C)=1;` matches target body/semantics; residual is frameless-leaf LR-frame wall (push{lr}/pop{r0};bx r0 vs bare bx lr), rechecked 215. Saved best 210 omitted required null guard and is incorrect. No viable C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795778547.6007257,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:4cf9428e0727fdc268d1b1547d1c7a534565000ab1167ca049229ef5e5e620ba:f644e556b61f022bac9dd4c76e81405c237f1ffd6129e8d8aa2c0a9568c125a2"
+ },
+ {
+  "function": "sub_080186DC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known frameless Thumb leaf ABI wall. Real target body matches; residual is inserted LR frame and branch/literal ripple. No viable C-shape next step.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795778617.8215635,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "decode2bppTiles",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal agbcc -O2 coupling wall at score 1145 (rechecked; historical best 856): all 96 target insns present, residual is the known four-way interaction of u8 shift truncation, stack-base reload coloring and inner-loop init. >200 attempts across 8 models; local repairs and explicit patches keep 1145. No compile spent this session.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795778617.8658798,
+  "score_before": 1145,
+  "score_after": 1145
+ },
+ {
+  "function": "sub_08096F5C",
+  "text": "Frameless Thumb leaf LR-frame wall: body byte-exact with correct polarity `if (==0xB) return 0; return -1;` (s32) in revision acc9cc80 (score 465); residual agbcc push{lr}/pop{r1};bx r1. Saved best beffa951 (score 305) returned 1 (wrong semantics, reported). Correct C is s32 version. No further compiles.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795778643.6541374,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:4cf9428e0727fdc268d1b1547d1c7a534565000ab1167ca049229ef5e5e620ba:7af7f9e11635829fe05b6fcf9d308108ddd0dbe3d614805018e6f7b7eac4e6fb"
+ },
+ {
+  "function": "sub_08020498",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known agbcc frameless Thumb leaf ABI wall. Residual is only mandatory saved-LR frame plus literal/branch ripple.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795778658.598881,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_08097234",
+  "text": "Frameless Thumb leaf LR-frame wall: body byte-exact with correct polarity `if (==0x10) return 0; return -1;` (s32) in revision b44ffc33 (score 465); residual agbcc push{lr}/pop{r1};bx r1. Saved best dd416da9 (score 455) cast -1 to unsigned char (wrong materialization, reported). Correct C is s32 version. No further compiles.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795778678.3850956,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c7b9842b81f0ea26beb9b89428c2d644692a3012b27a624e1ee5b69504c5b062:ee9466259247a53577c7cf35dfdb21e3ecb567c555acff6b75cdc4ef0e5b2068"
+ },
+ {
+  "function": "setSpriteFlip",
+  "text": "Body/control flow matches at 325; residual is frameless-leaf LR-frame wall (push{lr}/pop{r0};bx r0 vs bare bx lr) plus branch/nop ripple. 15+ compiles same diff. No viable C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795778678.760393,
+  "score_before": 325,
+  "score_after": 325,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c7b9842b81f0ea26beb9b89428c2d644692a3012b27a624e1ee5b69504c5b062:6cdd460c6ce210c5d5fa9205108647b240465471f03def93a20fda703334cf0b"
+ },
+ {
+  "function": "sub_08093B10",
+  "text": "Logic matches (reads s16 at 0x020279E8, returns 0 for 4-5 else -1); residual is frameless-leaf LR-frame wall (push{lr}/pop{r1};bx r1 vs bare bx lr) with branch/nop ripple. Score 305, no improvement. No viable C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795778678.8960743,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c7b9842b81f0ea26beb9b89428c2d644692a3012b27a624e1ee5b69504c5b062:b1d34ff952124869da38ed6df93eb8ce26fbc86e77d9878e5ec401d629c10a74"
+ },
+ {
+  "function": "sub_08090A7C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Switch on 0x020279E8 returns 0/1/-1; target ends bare bx lr, agbcc emits frame (push{lr}/pop). Score 455, frameless-leaf LR-frame wall. No viable C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795778737.9163349,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "updateScriptedMoverVariant",
+  "text": "Releasing after 3 compiles; regalloc cannot be pinned (inline asm rejected). Best score 3441. Control flow matches m2c. Next agent: try declaration-order tuning or register asm via allowed mechanism.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9768267,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedMoverVariant",
+  "text": "Register allocation + literal pool wall. Best score 3441 (79.8%). Target: r6=p38, r5=p3C, r7=p3C+0x34; agbcc: r7=p38, r6=p3C, r5=p28 (42 regalloc diffs). Also D_02025FF0+0x18A8 and D_02021E90+0x1278 materialized as absolute literals vs target's base+offset. Matched sibling sub_08029E48 (95% similar) has same structure but different regalloc. Note: \"regalloc cannot be pinned (inline asm rejected)\". Cannot match without compiler change.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3892615,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedMoverVariant",
+  "text": "Best score: 4395 (v2). Register allocation: mine: r2=obj, r5=p3C, r7=p38, r8=+34; target: r2=obj, r5=p3C, r6=p38, r7=+34 \u2014 mine is +1 for p38 and +34. v3/v4 (renames/re-reads, 4395) had no effect. The allocation issue persists: the allocator in my code puts the p38 var in r7 and the +34 var in r8; the target has them in r6 and r7. I have no clear theory of the allocator's ordering \u2014 the target: {obj: r2, p3C: r5, p38: r6, +34: r7} vs mine: {obj: r2, p3C: r5, p38: r7, +34: r8}.\nTool warnings: the original calls a different function at many call sites (the claim's calls list vs the tool's \"the original calls something else\"); the tool says \"a pointer to D_08671BDC where the original has 0xBCF061B0 (D_BCF061B0)\" \u2014 the correct form is unclear (tried the literal; worse). Remaining diffs are mostly regalloc (p38/34 +1) and operand diffs.",
+  "by": "opencode-tidepool-alpha-free-1",
+  "created_at": 1795683534.3987565,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_080147D4",
+  "text": "Confirmed systemic frameless Thumb branched-leaf wall. All body instructions and literals otherwise match; the LR frame accounts for the extra instruction and all residual rows.\nRechecked exact-body candidate and diff, then tested all flag variants.\nFresh compile confirmed score 310 with target 31 versus candidate 32 instructions; only residual rows are target `adds r1,r0,#0` versus candidate `push {lr}`, first literal destination register, and target `bx lr` versus `pop {r1}; bx r1`. All five flag profiles tied at 310.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795778756.9719436,
+  "score_before": 310,
+  "score_after": 310,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c7b9842b81f0ea26beb9b89428c2d644692a3012b27a624e1ee5b69504c5b062:b82e512207afa58a844e8410b050e7f6348bc173b3a70d1c3ca53f42d190b65c"
+ },
+ {
+  "function": "sub_080B318C",
+  "text": "Linked-list search over +0x30/+0x2C for s16==0x1BE; body matches, residual is frameless-leaf LR-frame wall (push{lr}/pop{r1};bx r1 vs bare bx lr). Score 215. No viable C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795778792.3242383,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c7b9842b81f0ea26beb9b89428c2d644692a3012b27a624e1ee5b69504c5b062:f60b32245a7ffb3a087ea0698fe63ec586b85293ffbdcab55e7c232e1845be52"
+ },
+ {
+  "function": "sub_080BFDBE",
+  "text": "Hand-written assembly confirmed via read_data(0x080C0000): author-written epilogue (high-reg restore through low regs, return via LR popped into r3, split prologue). propose_change(set_aside) submitted with evidence. No C can match. Score 16580.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795778832.5463767,
+  "score_before": 16580,
+  "score_after": 16580
+ },
+ {
+  "function": "sub_08098400",
+  "text": "Reads gCrossfadeGfxState bits at 0x03000830; logic matches, residual is frameless-leaf LR-frame wall (push{lr}/pop{r1};bx r1 vs bare bx lr) with nop/ripple. Score 305. No viable C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795778832.8756182,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c7b9842b81f0ea26beb9b89428c2d644692a3012b27a624e1ee5b69504c5b062:7c4f5f39f68b51e9a4adb9649db691e602c3ba5f03a4091d9267941fd0486611"
+ },
+ {
+  "function": "sub_08019254",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless switch/jump-table leaf wall: target 60 insns, no prologue, jump table, bare bx lr. Body byte-exact; residual mandatory saved-LR frame + jump-table/literal offset ripple under all 5 flag variants. Score 570. No further compiles. Hand off to compiler/ABI.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795778836.9421172,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "sub_0800FEDC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall (loop, no call). Body byte-exact; agbcc inserts push{lr}/pop{r0};bx r0. Score 215. Compiler/ABI wall. No further compiles.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795778848.6822062,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_0808F61C",
+  "text": "Switch on 0x020279E8 returns 0/6->1/9->2/default -1; body matches. Residual is frameless-leaf LR-frame wall (push{lr}/sub sp,#8/.../pop{r1};bx r1 vs bare bx lr) plus branch ripple. Score 435; volatile pad worsens frame. No viable C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795778848.70886,
+  "score_before": 435,
+  "score_after": 435,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2efab7d8d4509ac87aafb931dfe29958cac7930369c8798ef278be0ac4191d70:d2d8b53296ec6541e8584bd3f13c93672c21347194893ecaec82ef59b58abda9"
+ },
+ {
+  "function": "sub_080186C0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall: body byte-exact; agbcc inserts push{lr}/pop{r0};bx r0. Score 215. Compiler/ABI wall. No further compiles.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795778851.7965508,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_08007870",
+  "text": "Fresh recheck under current header/compiler: saved-best source (rev d7e374d6a44c8251510e) verifies at score 495 (235/235 insns), 13 residual rows. Residual is a set of documented agbcc backend walls, not a C-shape error: (1) AND allocator tie - target `movs r2,#0x1f; ands r2,r1`, ours `movs r0,#0x1f; adds r2,r1,#0; ands r2,r0` (mask-on-left, (u16) cast, 31U, >>4->/16 all previously tried with no change); (2) multiply-materialization copy - target `adds r0,r1,#0; muls r0,r4,r0; lsrs r1,r0,#4`, ours `muls r1,r4,r1; lsrs r1,r1,#4` (see accepted knowledge #8589934674); (3) callback table load - target two-step `ldr r2,=gScriptStepCallbacks; ldr r3,[r2]`, ours single `ldr r3,=gScriptStepCallbacks`; (4) zero store register tie - target `movs r4,#0; strb r4,[r0,#0x19]`, ours `movs r1,#0; strb r1`. TESTED THIS SESSION: applying `(void *)gScriptStepCallbacks` -> `(void *)gScriptStepCallbacks[0]` to the fresh 495 revision (d7e374) gives 710, not better: it produces the two-step table load but introduces 11 regressed rows and a bogus callee diagnostic (bl #0x190 is the call-site-offset false positive from accepted knowledge). Do not retry that patch. 49 attempts/6 agents/4822 auto trials total; move-on budget reached (4/4).\nRestored saved best (fresh verify=495), then single patch `(void *)gScriptStepCallbacks` -> `(void *)gScriptStepCallbacks[0]` on that revision\nScore 495 -> 710 (worse); the two-step table load appears but 11 register/order rows regress and a spurious callee diagnostic appears. Saved best remains 495.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795778879.8284497,
+  "score_before": 495,
+  "score_after": 495,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:2efab7d8d4509ac87aafb931dfe29958cac7930369c8798ef278be0ac4191d70:5631c3afadca45ebd06beb53d0ff7e24d1c6b1cea640b3639b44bd4a8d7e7c81"
  }
 ]

@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795778644.4834566,
- "revision": 69384,
+ "saved_at": 1795778900.3042936,
+ "revision": 69394,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1779,8 +1779,7 @@
     "-mthumb-interwork",
     "-O2",
     "-fno-strength-reduce"
-   ],
-   "timeout": 20
+   ]
   }
  },
  "instructions": "",
@@ -2093,9 +2092,9 @@
   "": "common.h",
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
+  "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589937398": "common_local_source_8589937398.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -3010,8 +3009,8 @@
   },
   "sub_08007870": {
    "vram": 134248560,
-   "best_score": 640,
-   "best_by": "opencode-hungerg-free-3"
+   "best_score": 495,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_08007A64": {
    "vram": 134249060,
@@ -10403,6 +10402,11 @@
    "best_score": 10,
    "best_by": "opencode-deepseek-v4.1-flash-2"
   },
+  "updateScriptedMoverAlt": {
+   "vram": 134535628,
+   "matched_by": "opencode-hy4-flash-free-1",
+   "readable": true
+  },
   "sub_0804DB34": {
    "vram": 134535988,
    "matched_by": "opencode-iceman-contributor-free-1",
@@ -10993,10 +10997,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_08053350": {
+  "updateScriptedMoverVariant": {
    "vram": 134558544,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080534B8": {
    "vram": 134558904,
@@ -23117,16 +23121,12 @@
    "vram": 135019440,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
-  },
-  "updateScriptedMoverAlt": {
-   "vram": 134535628,
-   "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
   }
  },
  "function_headers": {
   "sub_0801565C": "local_source_8589935146",
   "sub_08074654": "local_source_8589937090",
+  "sub_08085158": "local_source_8589937398",
   "sub_0808EA30": "local_source_8589937664",
   "sub_080BE99C": "local_source_8589938934"
  },
@@ -33806,6 +33806,12 @@
    "status": "open"
   },
   {
+   "name": "updateScriptedMoverAlt",
+   "vram": 134535628,
+   "size": 360,
+   "status": "open"
+  },
+  {
    "name": "sub_0804DB34",
    "vram": 134535988,
    "size": 72,
@@ -34544,7 +34550,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08053350",
+   "name": "updateScriptedMoverVariant",
    "vram": 134558544,
    "size": 360,
    "status": "open"
@@ -50238,12 +50244,6 @@
    "vram": 135019440,
    "size": 60,
    "status": "open"
-  },
-  {
-   "name": "updateScriptedMoverAlt",
-   "vram": 134535628,
-   "size": 360,
-   "status": "open"
   }
  ],
  "symbols": [
@@ -51475,6 +51475,12 @@
    "name": "spawnKind4FEffect",
    "address": 134558068,
    "size": 476,
+   "kind": "func"
+  },
+  {
+   "name": "updateScriptedMoverVariant",
+   "address": 134558544,
+   "size": 360,
    "kind": "func"
   },
   {
@@ -53473,7 +53479,7 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "struct FixedEffectScroll",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -53493,12 +53499,12 @@
   },
   {
    "address": 33706856,
-   "type": "u8[]",
+   "type": "struct S25368",
    "source": "match"
   },
   {
    "address": 33710064,
-   "type": "struct ActorChildWorkspace",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -54273,7 +54279,7 @@
   },
   {
    "address": 140975068,
-   "type": "s32[]",
+   "type": "u32[]",
    "source": "match"
   },
   {

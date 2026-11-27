@@ -70,6 +70,7 @@ void sub_08007870(Arg0 *arg0)
         sub_080C31E0(*(void **)(base2 + 0x1880), *(void **)(*(u32 *)(base2 + 0x1880) + 0x24));
         sub_080C31E0(*(void **)(base2 + 0x1888), *(void **)(*(u32 *)(base2 + 0x1888) + 0x24));
         *((u8 *)arg0 + 2 * arg0->f22 + 0x19) = 0;
-        sub_080C31E8(arg0->f18, &arg0->f22, 1, (void *)gScriptStepCallbacks);
+        { void *cb = (void *)gScriptStepCallbacks;
+          sub_080C31E8(arg0->f18, &arg0->f22, 1, cb); }
     }
 }
