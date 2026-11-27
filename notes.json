@@ -14632,14 +14632,6 @@
   "score_after": null
  },
  {
-  "function": "updateCompanionBossAlt",
-  "text": "Cannot get closer in this session; agbcc CSEs pc-literal reloads and regalloc differs. Moving on.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9722056,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateRoomAnchoredScriptedAttack",
   "text": "Cannot get closer under agbcc -O2 with natural C: the target's fixed register assignment (arg0=r5, f38=r8, f3C=r6, f3C+0x10=r9) is not reproducible. Best score 3555 (struct-based source saved); swapping assignment order scores 3565, adding a zero local 3835. All remaining diffs are register allocation/literal-pool consequences of this one register swap. This is the 8th compiled claim of the session; stopping here as instructed.",
   "by": "opencode-hy4-flash-free-1",
@@ -40028,14 +40020,6 @@
   "text": "Body fully solved at score 325 (89.5%, 31 target insns, 32 yours) \u2014 same systemic branchy-leaf frame blocker. Best C: `s32 sub_080147D4(u32 arg0){ u32 v=arg0&0xFFFF; if (v==(0x80<<7) || v==(0xC0<<8)) return 0; if ((u32)(v+0xFFFFBFFF)<=0x7FFE) return -1; return 1; }`. All real instructions (adds r1,r0; ldr r0,=0xFFFF; ands; movs/lsls #0x80<<7; cmp; beq; movs/lsls #0xC0<<8; bne; adds r1,r0,=0xFFFFBFFF; ldr r0,=0x7FFE; cmp; bls; movs #-1; movs #1) match byte-for-byte. Sole diffs: agbcc emits `push {lr}` ... `pop {r1}; bx r1` vs target's frameless `bx lr`; this shifts the literal loads ([pc,#0x14] vs [pc,#0x18]), the `beq` offset (#0x18 vs #0x16), and the target has TWO `movs r0,r0` pool-alignment nops/two literal pools where this agbcc dumps one pool. Tried this session: two separate `if` returns (325, identical), ternary return (1550, much worse). Prior agents tried single-return ret var (1360) and ret=1 init (1360). Same family as sub_08014964/08014938/08014990 \u2014 this agbcc always adds a frame to leaf functions with conditional branches; the ROM compiler did not. Needs toolchain/epilogue change; not fixable from C.",
   "by": "opencode-hy4-flash-free-4",
   "created_at": 1795683534.1091506,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateCompanionBossAlt",
-  "text": "Cannot get closer this session: linking calls wrong, pc-literal reloads CSE'd, regalloc fundamentally off. Score 2215 vs best 1615. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.109188,
   "score_before": null,
   "score_after": null
  },
@@ -92448,14 +92432,6 @@
   "score_after": null
  },
  {
-  "function": "updateCompanionBossAlt",
-  "text": "Cannot improve: best 1615 (previous agent), my compiles 2820-4010. Fundamental register allocation mismatch: target uses r6=*(arg0+0x6C), r5=sb=base+4, r9=D_08671BD0. Compiler assigns r5=*(arg0+0x6C), r6=sb=base+4. Target's double-push with r6=ptr1, r9=sb=base+4 not replicable via C declaration order. Linking errors for all 11 callees and D_08671BD0 - project symbol table mismatched. These are project-level issues (register allocation strategy, symbol table) not fixable via C changes.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3831477,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0803B8FC",
   "text": "Cannot get closer: proven permanent agbcc commutative-add regalloc coin-flip wall at score 15 (99.8%, 126/126 insns byte-exact). Sole diff is 3 operand orders in the `t = arg0 + i*2` pointer adds (target `adds r1,r1,r4`, agbcc `adds r1,r4,r1`). This session compiled the best attempt (15) and an offset-first integer-add variant (425 \u2014 regressed, shifted literal pool and broke the distinctive second-block `adds r0,r4,#0; adds r0,#0x18`). No pure-C spelling flips agbcc's deterministic operand order here. Ordinary correct C, not hand-written assembly, not not_c; only a compiler/regalloc change fixes it. Best attempt (15) preserved. Moving on.",
   "by": "opencode-hy4-flash-free-1",
@@ -96364,22 +96340,6 @@
   "text": "Ceiling reached at 480 (96.1%). All structural matches achieved. Remaining diffs are pure compiler backend: register allocation, sub_08013C2C return handling, missing fresh reload (CSE), branch offsets, literal pool scheduling, call relocations. Twin function sub_0809B2E0 has EXACT same diffs confirming agbcc limitation. Exhausted all C-level approaches.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4045107,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateCompanionBossAlt",
-  "text": "Best attempt 120 (99.0%, 133/133 insns, first 95 byte-exact). Improved from 1615 via: (1) distinct pointer locals p1/p2/p3 = (s32*)0x08671BD0 assigned just before each sub_080C31E8 call and dereferenced in the call argument \u2014 this gives target's `ldr r2,=addr; adds r0,...; adds r1,...; ldr r3,[r2]` (would be wrong if a single shared pointer local is used: r3 instead of r2). (2) Pass r9 (not r5) as arg2 of sub_0806BCD8 and sub_0806C6B0 to get target's `mov r2,sb` (r5 and r9 hold the same address but allocate differently). (3) Store the u16 return to a u32 field via `u32 *pt; u16 t2; *pt = t2;` so the lsls/lsrs conversion exists and the store is `str` not `strh`.\nSOLE REMAINING DIFF (4 reordered rows): target computes the store address BEFORE the zero-extension (`bl sub_0806BCD8; mov r6,sb; adds r6,#0xc4; lsls r0,#0x10; lsrs r0,#0x10; str r0,[r6]`), agbcc always emits the lsls/lsrs immediately after the call, before `mov r6,sb; adds r6,#0xc4`. Tried: u32 direct assignment, u16 intermediate + separate u32 conversion, struct-field store (regresses to 940), volatile-style variants. search_flags: O1/O2/O3/Os all give exactly 120 \u2014 flags aren't the problem. Likely a permanent agbcc scheduling wall; needs a compiler change.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4045937,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateCompanionBossAlt",
-  "text": "Cannot get closer by any further compile \u2014 proven permanent agbcc scheduling wall at score 120. The only difference (4 reordered rows out of 133 insns, first 95 byte-exact) is that target emits `mov r6,sb; adds r6,#0xc4` BEFORE the u16\u2192u32 zero-extension `lsls r0,#0x10; lsrs r0,#0x10`, whereas agbcc deterministically emits the lsls/lsrs right after the call. No pure-C spelling (u32 direct, u16+u32 two-step, struct field, store-attached cast, volatile) moves the conversion later; search_flags O1/O2/O3/Os all give exactly 120, so flags aren't the issue. Ordinary correct C, not hand asm, not not_c. Only a compiler/scheduler change closes it. Best attempt (120) and detailed findings saved in my note.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4046462,
   "score_before": null,
   "score_after": null
  },
@@ -113728,14 +113688,6 @@
   "score_after": null
  },
  {
-  "function": "updateCompanionBossAlt",
-  "text": "Can't get closer in pure C: best 120 (99.0%), 4 reordered instructions only. Target computes store address (r9+0xC4 in r6) before u16->u32 zero-extension of sub_0806BCD8 return; agbcc emits lsls/lsrs immediately after call regardless of attempted forms (precomputed pt, u16+u32 temp, direct assign, struct field). Previous notes confirm all search_flags variants give 120 and no pure-C spelling moves the conversion - agbcc instruction scheduling wall. All logic, calls, register choices, and D_08671BDC reload pattern match. Releasing for scheduler/compiler-level fix.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.499779,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A0340",
   "text": "Best score 80 (97.7%) with array-based source (u8 *new_var2[2]). Remaining diffs: (1) push/pop {r4,r5,r6,lr} vs target {r4,r5,lr} \u2014 table entry address lands in callee-saved r6 instead of r4. Target keeps table entry address in r4 (initialized from arg1), base in r5. Array forces both pointers into callee-saved regs. (2) Reordering: target does `adds r5,#4` AFTER `lsls r0,r0,#4` (between calls), mine does it before second ldrh. Tried: separate variables (loses r5 for base across call, scores 1410), single-element array for base (same), declaring idx first (doesn't force r4 for table entry). Core tension: need base in callee-saved r5 across call (array achieves this) but table entry address in r4 (array puts it in r6). Next idea: struct with two pointers, or pin table address via global while retaining array for base. Best 80 source preserved.",
   "by": "opencode-free-1",
@@ -129576,14 +129528,6 @@
   "score_after": null
  },
  {
-  "function": "updateCompanionBossAlt",
-  "text": "Permanent agbcc instruction-scheduling wall, cannot get closer by C: score 120 = 133/133 insns, first 95 byte-exact, sole 4 reordered rows are the u16->u32 lsls/lsrs of sub_0806BCD8's return vs the r9+0xC4 address computation. 17 earlier attempts covered u32 direct, u16+u32 temps, struct-field stores, volatile variants and every O1/O2/O3/Os flag (all 120). No C spelling changes the scheduler; compiler change required. I compiled once to reconfirm.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5831072,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0806B104",
   "text": "Cannot get closer: fixed literal-pool-placement wall at score 6206. Target scatters ~9 literal pools across basic blocks (189 insns); agbcc merges them into a single pool (171 insns), so all pc-relative operands, branch offsets and pool words differ. Flag-independent (O2/O3 6206, O1 6936, Os 10966), ~84 prior attempts. No C spelling controls pool placement; not hand asm, not not_c, not boundary. Releasing to advance the queue.",
   "by": "opencode-hy4-flash-free-1",
@@ -129732,14 +129676,6 @@
   "text": "Class-A boundary artifact, re-verified this session (1 compile): score 200, 60/60 real body insns byte-exact; only 2 trailing `movs r0,r0` alignment NOPs after final bx r0 at 0x0805485C. read_data 0x08054850 confirms `01 bc 00 47` then shared pool word `3c fb 0c 08`=0x080CFB3C at 0x08054860 (head of next function). Re-filed report_boundary(end=0x0805485E) with byte evidence, pending approval. No C form removes linker padding (20 prior attempts, all flags/extern order/sizes/case order). Correct C saved. Not hand asm, not not_c.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5838313,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateCompanionBossAlt",
-  "text": "MATCHED (0) from 120 using the u32-return trick: declare `extern u32 sub_0806BCD8(...)`, `u32 t = sub_0806BCD8(...)`, `u32 *pt = (u32 *)((u8 *)r9 + 0xC4); *pt = (u16)t; if ((u16)t != 0)`. The explicit `(u16)` cast at the store produces the target's post-address-computation `lsls #0x10; lsrs #0x10`; a u16 return prototype folds the truncation into the call and schedules it early (the old 120 wall). Same lever as sub_08064BAC.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5838664,
   "score_before": null,
   "score_after": null
  },
@@ -358776,5 +358712,69 @@
   "score_before": 3295,
   "score_after": 3200,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e0fb28fda56a3ed1c21607ba1916e6bd9c9b59e0de15589501f7948182996cbd:b07c53181311011021d0b9dc36b5fff023a58395e20e81ef8ffa4fa5e3e5775f"
+ },
+ {
+  "function": "updateCompanionBossAlt",
+  "text": "Cannot get closer in this session; agbcc CSEs pc-literal reloads and regalloc differs. Moving on.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9722056,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCompanionBossAlt",
+  "text": "Cannot get closer this session: linking calls wrong, pc-literal reloads CSE'd, regalloc fundamentally off. Score 2215 vs best 1615. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.109188,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCompanionBossAlt",
+  "text": "Cannot improve: best 1615 (previous agent), my compiles 2820-4010. Fundamental register allocation mismatch: target uses r6=*(arg0+0x6C), r5=sb=base+4, r9=D_08671BD0. Compiler assigns r5=*(arg0+0x6C), r6=sb=base+4. Target's double-push with r6=ptr1, r9=sb=base+4 not replicable via C declaration order. Linking errors for all 11 callees and D_08671BD0 - project symbol table mismatched. These are project-level issues (register allocation strategy, symbol table) not fixable via C changes.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3831477,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCompanionBossAlt",
+  "text": "Best attempt 120 (99.0%, 133/133 insns, first 95 byte-exact). Improved from 1615 via: (1) distinct pointer locals p1/p2/p3 = (s32*)0x08671BD0 assigned just before each sub_080C31E8 call and dereferenced in the call argument \u2014 this gives target's `ldr r2,=addr; adds r0,...; adds r1,...; ldr r3,[r2]` (would be wrong if a single shared pointer local is used: r3 instead of r2). (2) Pass r9 (not r5) as arg2 of sub_0806BCD8 and sub_0806C6B0 to get target's `mov r2,sb` (r5 and r9 hold the same address but allocate differently). (3) Store the u16 return to a u32 field via `u32 *pt; u16 t2; *pt = t2;` so the lsls/lsrs conversion exists and the store is `str` not `strh`.\nSOLE REMAINING DIFF (4 reordered rows): target computes the store address BEFORE the zero-extension (`bl sub_0806BCD8; mov r6,sb; adds r6,#0xc4; lsls r0,#0x10; lsrs r0,#0x10; str r0,[r6]`), agbcc always emits the lsls/lsrs immediately after the call, before `mov r6,sb; adds r6,#0xc4`. Tried: u32 direct assignment, u16 intermediate + separate u32 conversion, struct-field store (regresses to 940), volatile-style variants. search_flags: O1/O2/O3/Os all give exactly 120 \u2014 flags aren't the problem. Likely a permanent agbcc scheduling wall; needs a compiler change.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4045937,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCompanionBossAlt",
+  "text": "Cannot get closer by any further compile \u2014 proven permanent agbcc scheduling wall at score 120. The only difference (4 reordered rows out of 133 insns, first 95 byte-exact) is that target emits `mov r6,sb; adds r6,#0xc4` BEFORE the u16\u2192u32 zero-extension `lsls r0,#0x10; lsrs r0,#0x10`, whereas agbcc deterministically emits the lsls/lsrs right after the call. No pure-C spelling (u32 direct, u16+u32 two-step, struct field, store-attached cast, volatile) moves the conversion later; search_flags O1/O2/O3/Os all give exactly 120, so flags aren't the issue. Ordinary correct C, not hand asm, not not_c. Only a compiler/scheduler change closes it. Best attempt (120) and detailed findings saved in my note.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4046462,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCompanionBossAlt",
+  "text": "Can't get closer in pure C: best 120 (99.0%), 4 reordered instructions only. Target computes store address (r9+0xC4 in r6) before u16->u32 zero-extension of sub_0806BCD8 return; agbcc emits lsls/lsrs immediately after call regardless of attempted forms (precomputed pt, u16+u32 temp, direct assign, struct field). Previous notes confirm all search_flags variants give 120 and no pure-C spelling moves the conversion - agbcc instruction scheduling wall. All logic, calls, register choices, and D_08671BDC reload pattern match. Releasing for scheduler/compiler-level fix.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.499779,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCompanionBossAlt",
+  "text": "Permanent agbcc instruction-scheduling wall, cannot get closer by C: score 120 = 133/133 insns, first 95 byte-exact, sole 4 reordered rows are the u16->u32 lsls/lsrs of sub_0806BCD8's return vs the r9+0xC4 address computation. 17 earlier attempts covered u32 direct, u16+u32 temps, struct-field stores, volatile variants and every O1/O2/O3/Os flag (all 120). No C spelling changes the scheduler; compiler change required. I compiled once to reconfirm.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5831072,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCompanionBossAlt",
+  "text": "MATCHED (0) from 120 using the u32-return trick: declare `extern u32 sub_0806BCD8(...)`, `u32 t = sub_0806BCD8(...)`, `u32 *pt = (u32 *)((u8 *)r9 + 0xC4); *pt = (u16)t; if ((u16)t != 0)`. The explicit `(u16)` cast at the store produces the target's post-address-computation `lsls #0x10; lsrs #0x10`; a u16 return prototype folds the truncation into the call and schedules it early (the old 120 wall). Same lever as sub_08064BAC.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5838664,
+  "score_before": null,
+  "score_after": null
  }
 ]
