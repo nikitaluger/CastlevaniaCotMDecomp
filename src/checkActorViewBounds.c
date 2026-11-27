@@ -3,7 +3,7 @@ s32 isOutsideCameraBounds(s32, s32);
 /* Movement bounds check: when the destination lies outside the camera view,
  * drop the entity's on-screen flag and stop the mover; report whether none of
  * the blocking bits (0xD) are set. While inside the view, keep the flag. */
-s32 sub_080141AC(void *arg0, void *arg1)
+s32 checkActorViewBounds(void *arg0, void *arg1)
 {
   void *mover;
   u8 *viewFlags;

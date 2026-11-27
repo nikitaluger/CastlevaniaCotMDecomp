@@ -1,6 +1,6 @@
 void sub_08097F88(s32, void *, void *, void *);
-void sub_080142C0(void *, void *);
-void sub_08013AC4(void *);
+void uploadPendingSpriteGraphic(void *, void *);
+void updateActorWorldPosition(void *);
 void sub_08007E24(s32);
 s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
@@ -33,14 +33,14 @@ void sub_0809CB48(u8 *entity) {
     zero = 0;
     *(u16 *)sprite = spriteAttr;
     sub_08097F88(3, sprite, motion, *(void **)((u8 *)motion + 0x28));
-    sub_080142C0(entity, *(void **)((u8 *)motion + 0x28));
+    uploadPendingSpriteGraphic(entity, *(void **)((u8 *)motion + 0x28));
 
     if (*(u16 *)motion & 1) {
         u32 *scriptFn;
         u8 *stepTable;
         u8 stepByte;
         s32 stepOffset;
-        sub_08013AC4(entity);
+        updateActorWorldPosition(entity);
         sub_08007E24(0xB4);
         *(u8 *)(*(u8 **)((u8 *)motion + 0x28) + 1) = zero;
         {

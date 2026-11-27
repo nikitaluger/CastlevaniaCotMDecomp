@@ -11,7 +11,7 @@ struct S_0807B12C
 };
 
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 
 void sub_080B4F34(struct S_0807B12C *arg0) {
@@ -28,5 +28,5 @@ void sub_080B4F34(struct S_0807B12C *arg0) {
         sub_080C31E0(arg0, *((void **) ((((u32) (*((u8 *) ((((u8 *) arg0) + new_var) + new_var2)))) * 4) + arg0->field_0x14)));
         arg0->field_0x22 -= 1;
     }
-    sub_08013C8C(arg0, r5);
+    syncSpriteToWorldPosition(arg0, r5);
 }

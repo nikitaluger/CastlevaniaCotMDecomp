@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void stepAnimationTrack(s32, void *);
 void advanceMotion(void *, s32);
 void sub_080146D0(void *, s32, s32);
@@ -25,7 +25,7 @@ void sub_080B53B8(struct S_B53B8 *arg0) {
         sub_080C31E0(arg0, *(void **)((*(u8 *)(((u8 *)arg0) + 0x18 + (arg0->field_22 * 2)) * 4) + arg0->field_14));
         arg0->field_22 -= 1;
     }
-    sub_08013C8C(arg0, r5);
+    syncSpriteToWorldPosition(arg0, r5);
 }
 
 void sub_080B59C0(void *arg0) {

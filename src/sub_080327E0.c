@@ -1,4 +1,4 @@
-extern s32 sub_080141AC(void *, void *);
+extern s32 checkActorViewBounds(void *, void *);
 extern void sub_0803B0F8(void *, void *, void *, void *);
 extern void sub_08011EE8(void *, s32, s32);
 extern void stepAnimationTrack(void *, void *);
@@ -19,7 +19,7 @@ void sub_080327E0(void *entity) {
     work = *(void **)((u8 *)entity + 0x3C);
     animator = (u8 *)work + 0x34;
     pose = (u8 *)work + 0x48;
-    if (sub_080141AC(sprite, work) != 1) {
+    if (checkActorViewBounds(sprite, work) != 1) {
         sub_0803B0F8(work, sprite, pose, (void *)0x080CEBD8);
         sub_08011EE8(work, 0x16C1, 0);
         stepAnimationTrack(sprite, animator);

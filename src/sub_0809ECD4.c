@@ -1,5 +1,5 @@
 extern s32 updateObjectDisplayState(void *, void *);
-extern void sub_08013C8C(void *, void *);
+extern void syncSpriteToWorldPosition(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern u32 sScriptStepCallbacks[];
@@ -48,5 +48,5 @@ void sub_0809ECD4(u8 *self)
     sub_080C31E0(self, *((void **) ((*((u32 *) (self + 0x14))) + ((*((u8 *) ((self + cmdArrayOff) + cmdOffset))) * 4))));
     *((u16 *) pScriptIndex) -= 1;
   }
-  sub_08013C8C(self, actor);
+  syncSpriteToWorldPosition(self, actor);
 }

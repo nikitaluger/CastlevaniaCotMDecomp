@@ -13,7 +13,7 @@ struct ActionScript
   u32 work;
 };
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* Wait for the current step's sprite animation to finish; when it has, step the
@@ -35,7 +35,7 @@ void sub_080BCDC0(struct ActionScript *arg0)
     sub_080C31E0(arg0, *((void **) ((((u32) (*((u8 *) ((((u8 *) arg0) + cmdArrayOffset) + stepOffset)))) * 4) + arg0->commandTable)));
     arg0->stepIndex -= 1;
   }
-  sub_08013C8C(arg0, sprite);
+  syncSpriteToWorldPosition(arg0, sprite);
 }
 
 /* Same "advance the script when the current animation ends" handler for the
@@ -55,5 +55,5 @@ void sub_080BD290(struct ActionScript *arg0)
     sub_080C31E0(arg0, *((void **) ((((u32) (*((u8 *) ((((u8 *) arg0) + cmdArrayOffset) + stepOffset)))) * 4) + arg0->commandTable)));
     arg0->stepIndex -= 1;
   }
-  sub_08013C8C(arg0, sprite);
+  syncSpriteToWorldPosition(arg0, sprite);
 }

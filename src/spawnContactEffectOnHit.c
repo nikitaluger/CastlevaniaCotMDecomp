@@ -4,7 +4,7 @@ extern void sub_08013FDC(void *, s16, s16, s16, s16);
 /* On a hit, spawn a contact effect at the midpoint between the entity's 0x3C
  * component and its target (variant chosen by the component's flag 4/8); with
  * no target, clear that component's active flags. */
-void sub_08013978(u8 *self, u8 *target) {
+void spawnContactEffectOnHit(u8 *self, u8 *target) {
     u8 *comp = *(u8 **)(self + 0x3C);
 
     if (target == NULL) {

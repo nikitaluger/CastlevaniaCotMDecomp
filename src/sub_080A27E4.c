@@ -1,4 +1,4 @@
-extern void sub_08013C8C(void *, void *);
+extern void syncSpriteToWorldPosition(void *, void *);
 extern s32 sub_08013B5C(void *, void *);
 extern s32 hitTestEntities(void *);
 extern void sub_080C31E0(void *, void *);
@@ -48,5 +48,5 @@ void sub_080A27E4(u8 *behav) {
     sub_080C31E0(behav, *(void **)(*(u32 *)(behav + 0x14) + *(u8 *)((behav + cmdOff) + scriptOff) * 4));
     *(u16 *)idxPtr -= 1;
   }
-  sub_08013C8C(behav, target);
+  syncSpriteToWorldPosition(behav, target);
 }

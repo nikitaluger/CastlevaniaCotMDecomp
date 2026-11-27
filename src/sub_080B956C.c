@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 void stepAnimationTrack(void *, void *);
 void advanceMotion(void *, s32);
@@ -40,7 +40,7 @@ void sub_080B956C(struct ActionScript *arg0)
     sub_080C31E0(arg0, *((void **) ((((u32) (*((u8 *) ((((u8 *) arg0) + cmdArrayOffset) + stepOffset)))) * 4) + arg0->field_0x14)));
     arg0->field_0x22 -= 1;
   }
-  sub_08013C8C(arg0, sprite);
+  syncSpriteToWorldPosition(arg0, sprite);
 }
 
 /* Animate the linked body, accelerate it horizontally by the fixed-point value
@@ -76,5 +76,5 @@ void sub_080B97F0(void *arg0) {
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
         return;
     }
-    sub_08013C8C(arg0, sprite);
+    syncSpriteToWorldPosition(arg0, sprite);
 }

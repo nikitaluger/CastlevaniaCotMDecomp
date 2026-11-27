@@ -1,4 +1,4 @@
-extern s32 sub_080141AC(void *, void *);
+extern s32 checkActorViewBounds(void *, void *);
 extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern u8 gCameraState[];
@@ -16,7 +16,7 @@ void sub_0803677C(u8 *entity)
   u8 *posePtr;
   ownerRef = *((u8 **) (entity + 0x38));
   data = *((u8 **) (entity + 0x3C));
-  if (sub_080141AC(ownerRef, data) == 1)
+  if (checkActorViewBounds(ownerRef, data) == 1)
   {
     sub_080C31E0(entity, *((void **) (entity + 0x24)));
     return;

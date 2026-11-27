@@ -2,7 +2,7 @@
  * dispatch the current state callback, or run the normal script step and then
  * update the entity's position from the camera coordinate table. */
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -66,5 +66,5 @@ void sub_080A1B38(void *arg0) {
         sub_080C31E0((s32)arg0, *(s32 *)((u32)(stateByte * 4) + *(u32 *)((u8 *)arg0 + 0x14)));
         *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) - 1;
     }
-    sub_08013C8C(arg0, script);
+    syncSpriteToWorldPosition(arg0, script);
 }

@@ -2,13 +2,13 @@ extern void sub_08005E80(s32);
 extern void stepAnimationTrack(s32, void *);
 extern void advanceMotion(void *, s32);
 extern s32 sub_08013558(s32, void *, void *);
-extern void sub_08013978(void *, void *);
-extern void sub_08013AC4(void *);
+extern void spawnContactEffectOnHit(void *, void *);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(s32, void *);
-extern void sub_08013C5C(void *, s32);
+extern void applySpritePaletteVariant(void *, s32);
 extern void sub_08013C8C(void *, void *);
-extern s32 sub_080141AC(s32, void *);
-extern void sub_080142C0(void *, void *);
+extern s32 checkActorViewBounds(s32, void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
 extern void sub_0805CA00(void *, void *);
 extern void _call_via_r1(void *, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
@@ -43,22 +43,22 @@ void sub_0805C6D8(u8 *entity)
     part = *(partPtr++);
     part[1] = normal;
   }
-  if (sub_080141AC(sprite, motion) == 1)
+  if (checkActorViewBounds(sprite, motion) == 1)
   {
     return;
   }
-  sub_08013C5C(entity, sprite);
+  applySpritePaletteVariant(entity, sprite);
   if (sub_08013558(sprite, motion, *((s32 *) (motion + 0x28))) != 0)
   {
-    sub_08013978(entity, *((s32 *) (motion + 0x28)));
+    spawnContactEffectOnHit(entity, *((s32 *) (motion + 0x28)));
   }
-  sub_080142C0(entity, *((s32 *) (motion + 0x28)));
+  uploadPendingSpriteGraphic(entity, *((s32 *) (motion + 0x28)));
   if ((*((u16 *) motion) & 1) != 0)
   {
     u8 *scriptSlot = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
     if (scriptSlot[0x1A] != 1)
     {
-      sub_08013AC4(entity);
+      updateActorWorldPosition(entity);
       sub_08005E80(0x85);
       {
         u8 *scriptSlot2 = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);

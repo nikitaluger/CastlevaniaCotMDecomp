@@ -1,14 +1,14 @@
-extern void sub_08013C5C(void *, void *);
+extern void applySpritePaletteVariant(void *, void *);
 extern void sub_08035DB4(void *, void *, void *);
-extern s32 sub_080141AC(void *, void *);
+extern s32 checkActorViewBounds(void *, void *);
 extern s32 sub_08013558(void *, void *, void *);
-extern void sub_08013978(void *, void *);
-extern void sub_08013AC4(void *);
+extern void spawnContactEffectOnHit(void *, void *);
+extern void updateActorWorldPosition(void *);
 extern void sub_0803B1A4(void *);
 extern void sub_0803B1B4(void *, void *);
 extern void sub_0803B1F4(void *, void *, void *);
 extern s32 updateObjectDisplayState(void *, void *);
-extern void sub_08013C8C(void *, void *);
+extern void syncSpriteToWorldPosition(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -26,15 +26,15 @@ void sub_08035590(void *task) {
     u8 *subject = *(u8 **)(self + 0x3C);
     u8 *stateData;
 
-    sub_08013C5C(task, actor);
+    applySpritePaletteVariant(task, actor);
     sub_08035DB4(task, subject, actor);
-    if (sub_080141AC(actor, subject) == 1) return;
+    if (checkActorViewBounds(actor, subject) == 1) return;
     if (sub_08013558(actor, subject, *(void **)(subject + 0x28)) != 0)
-        sub_08013978(task, *(void **)(subject + 0x28));
+        spawnContactEffectOnHit(task, *(void **)(subject + 0x28));
     stateData = subject + 0x54;
     sub_0803B1F4(task, subject, stateData);
     if (*(u16 *)subject & 1) {
-        sub_08013AC4(self);
+        updateActorWorldPosition(self);
         sub_0803B1A4(stateData);
         {
             s32 stepOffset;
@@ -75,5 +75,5 @@ void sub_08035590(void *task) {
     } else {
         sub_0803B1B4(subject, stateData);
     }
-    sub_08013C8C(self, actor);
+    syncSpriteToWorldPosition(self, actor);
 }

@@ -1,5 +1,5 @@
-extern s32 sub_080141AC(void *, void *);
-extern void sub_080142C0(s32, s32);
+extern s32 checkActorViewBounds(void *, void *);
+extern void uploadPendingSpriteGraphic(s32, s32);
 extern void sub_08014314(void *, s32);
 extern s32 sub_08014328(s32, void *, void *);
 extern void sub_080C31E0(void *, s32);
@@ -42,12 +42,12 @@ void sub_08035BD8(u8 *arg0)
         ((struct MainFlags *)mainObj)->flag &= 0xFFEF;
     *(u16 *)mainObj = (*(u16 *)mainObj & 0xFFF) | ((*(u16 *)(state + 0x22) + 8) << 12);
 
-    if (sub_080141AC(mainObj, state) == 1) {
+    if (checkActorViewBounds(mainObj, state) == 1) {
         sub_080C31E0((void *)arg0, *(s32 *)(arg0 + 0x24));
         return;
     }
-    sub_080142C0(*(s32 *)(arg0 + 0x28), *(s32 *)p48);
-    sub_080142C0(*(s32 *)(arg0 + 0x28), *(s32 *)(p48 + 4));
+    uploadPendingSpriteGraphic(*(s32 *)(arg0 + 0x28), *(s32 *)p48);
+    uploadPendingSpriteGraphic(*(s32 *)(arg0 + 0x28), *(s32 *)(p48 + 4));
     if (sub_08014328(*(s32 *)(arg0 + 0x28), mainObj, state) == 0) {
         *(u32 *)(arg0 + 0x14) = 0x0866DDD0;
         *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) + 1;

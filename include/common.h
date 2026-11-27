@@ -1303,3 +1303,70 @@ struct ArcTrailState {
 #define KIND68_EFFECT_LAYER_PRI  1
 #define KIND68_SCALE_JITTER      0x8000  /* random offset range */
 #define KIND68_SCALE_BASE        0x40000 /* centres the scale near 1.0 */
+
+/* Alternate kind-0x68 script effect (spawnKind68ScriptEffectAlt): same kind,
+ * graphics id and ready flag as the primary variant, but a 0x5C work block,
+ * the +0x10/+0x12 graphics pair, and no random scale. */
+#define KIND68_ALT_WORK_SIZE 0x5C
+
+/* Projected kind-0x68 script effect: actor +0x3C work state and +0x38 sprite.
+ * The constructor randomizes +0x6C/+0x7C/+0x8C, then sub_080BC73C projects
+ * the work state's motion into world coordinates. */
+struct ProjectedKind68Layer {
+    u8 mode;         /* 0x00 */
+    u8 kind;         /* 0x01 */
+    u8 layer;        /* 0x02 */
+    u8 priority;     /* 0x03 */
+    u16 gfxIndex;    /* 0x04 */
+    u16 anim0;       /* 0x06 */
+    u16 anim1;       /* 0x08 */
+    u16 anim2;       /* 0x0A */
+    u16 anim3;       /* 0x0C */
+    s16 palette;     /* 0x0E */
+    u32 sprite;      /* 0x10 */
+};
+
+struct ProjectedKind68Work {
+    u8 _0[8];
+    u32 f8;
+    u32 fC;
+    u32 f10;
+    u32 f14;
+    u8 _18[4];
+    s16 kind;        /* 0x1C: 0x68 */
+    u8 _1E[4];
+    s16 animSlot;    /* 0x22 */
+    u8 _24[4];
+    struct ProjectedKind68Layer *layer; /* 0x28 */
+};
+
+struct ProjectedKind68Actor {
+    u16 f0;
+    u16 flags;       /* 0x02 */
+    u8 _4[0x14 - 4];
+    void *scriptTable; /* 0x14 */
+    u8 _18[0x22 - 0x18];
+    s16 step;        /* 0x22 */
+    void *cleanup;   /* 0x24 */
+    u8 _28[0x38 - 0x28];
+    void *sprite;    /* 0x38 */
+    void * volatile work; /* 0x3C */
+    u8 _40[0x5C - 0x40];
+    u32 f5C;
+    u8 _60[0x6C - 0x60];
+    s32 f6C;
+    u8 _70[0x7C - 0x70];
+    u32 f7C;
+    u8 _80[0x8C - 0x80];
+    s32 f8C;
+};
+
+struct ProjectedKind68GfxEntry {
+    u8 _0[4];
+    u16 gfxIndex;    /* 0x04 */
+    u16 palette;     /* 0x06 */
+    u8 _8[0x28 - 8];
+};
+
+/* Project actor motion using its sprite animation state and work output. */
+extern void sub_080BC73C(void *, void *, void *);

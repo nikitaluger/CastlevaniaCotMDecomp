@@ -8,12 +8,12 @@ extern u8 gMainWorkspace[];
 extern u8 D_0866E804[];
 extern u32 sScriptStepCallbacks[];
 
-s32 sub_080141AC(void*, void*);
-void sub_08013C5C(void*, void*);
+s32 checkActorViewBounds(void*, void*);
+void applySpritePaletteVariant(void*, void*);
 s32 sub_08013558(void*, void*, void*);
-void sub_08013978(void*, void*);
-void sub_080142C0(void*, void*);
-void sub_08013AC4(void*);
+void spawnContactEffectOnHit(void*, void*);
+void uploadPendingSpriteGraphic(void*, void*);
+void updateActorWorldPosition(void*);
 void sub_08005E80(u32);
 void sub_080C31E8(void*, void*, s32, u32);
 s32 updateObjectDisplayState(void*, void*);
@@ -43,24 +43,24 @@ void sub_08057E94(u8 *entity) {
     actorTarget = actor + 0x34;
     actorEx = actor + 0x48;
 
-    if (sub_080141AC(anim, actor) == 1) {
+    if (checkActorViewBounds(anim, actor) == 1) {
         return;
     }
 
-    sub_08013C5C(entity, anim);
+    applySpritePaletteVariant(entity, anim);
 
     if (sub_08013558(anim, actor, *(void **)(actor + 0x28)) != 0) {
-        sub_08013978(entity, *(void **)(actor + 0x28));
+        spawnContactEffectOnHit(entity, *(void **)(actor + 0x28));
         if (((*(u16 *)actor) & 0x0D) == 0) {
             *(u16 *)(actorEx + 0x04) = 0x0A;
         }
     }
 
-    sub_080142C0(entity, *(void **)(actor + 0x28));
+    uploadPendingSpriteGraphic(entity, *(void **)(actor + 0x28));
 
     if ((*(u16 *)actor & 0x01)) {
         if (ACTION_STATE(entity) != 1) {
-            sub_08013AC4(entity);
+            updateActorWorldPosition(entity);
             sub_08005E80(0x85);
             ACTION_FLAG(entity) = 0;
             actionData = sScriptStepCallbacks;

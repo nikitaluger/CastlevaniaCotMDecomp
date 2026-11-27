@@ -1,7 +1,7 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 void sub_080C31E0(void *, void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
 extern void *sScriptStepCallbacks;
 
@@ -11,7 +11,7 @@ void sub_0803AC94(u8 *entity) {
     void *ownerRef = *(void **)(entity + 0x38);
     u8 *data = *(u8 **)(entity + 0x3C);
     u8 flag84;
-    if (sub_080141AC(ownerRef, data) == 1 || (flag84 = *(u8 *)(entity + 0x84)) != 0) {
+    if (checkActorViewBounds(ownerRef, data) == 1 || (flag84 = *(u8 *)(entity + 0x84)) != 0) {
         sub_080C31E0(entity, *(void **)(entity + 0x24));
         return;
     }
@@ -46,5 +46,5 @@ void sub_0803AC94(u8 *entity) {
         }
         *(u16 *)(entity + 0x22) = (u16)(*(u16 *)(entity + 0x22) - 1);
     }
-    sub_08013C8C(entity, ownerRef);
+    syncSpriteToWorldPosition(entity, ownerRef);
 }

@@ -1,5 +1,5 @@
 extern s32 updateObjectDisplayState(void *, void *);
-extern void sub_08013C8C(void *, void *);
+extern void syncSpriteToWorldPosition(void *, void *);
 extern void sub_080C31E0(void *, void *);
 /* Positions a trail slot relative to its parent object, applies its display
  * state, and if that doesn't consume the frame switches it to the follow
@@ -36,5 +36,5 @@ void sub_080B28FC(void *arg0)
     }
     *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) - 1;
   }
-  sub_08013C8C(arg0, sprite);
+  syncSpriteToWorldPosition(arg0, sprite);
 }

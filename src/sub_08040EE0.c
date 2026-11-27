@@ -1,11 +1,11 @@
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C5C(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 void sub_08013C8C(void *, void *);
-s32 sub_080141AC(void *, void *);
-void sub_080142C0(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 void sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, u32, u32);
 
@@ -24,7 +24,7 @@ void sub_08040EE0(void *obj) {
 
     mainObj = *(void **)((u8 *)obj + 0x38);
     state = *(void **)((u8 *)obj + 0x3C);
-    sub_08013C5C(obj, mainObj);
+    applySpritePaletteVariant(obj, mainObj);
     *(u32 *)((u8 *)obj + 0x4C) = *(u32 *)((u8 *)state + 8);
     *(u32 *)((u8 *)obj + 0x5C) = *(u32 *)((u8 *)state + 0x0C);
     dirFlag = 0x10 & *(u16 *)((u8 *)mainObj + 2);
@@ -33,15 +33,15 @@ void sub_08040EE0(void *obj) {
     } else {
         *(u8 *)((u8 *)obj + 0x6C) = (s8)dirFlag;
     }
-    if (sub_080141AC(mainObj, state) == 1) {
+    if (checkActorViewBounds(mainObj, state) == 1) {
         return;
     }
     if (sub_08013558(mainObj, state, *(void **)((u8 *)state + 0x28)) != 0)
-        sub_08013978(obj, *(void **)((u8 *)state + 0x28));
-    sub_080142C0(obj, *(void **)((u8 *)state + 0x28));
+        spawnContactEffectOnHit(obj, *(void **)((u8 *)state + 0x28));
+    uploadPendingSpriteGraphic(obj, *(void **)((u8 *)state + 0x28));
     if (*(u16 *)state & 1) {
         if (*(u8 *)(2 * (u32)(s16)*(u16 *)((u8 *)obj + 0x22) + (u32)obj + 0x1A) != 7) {
-            sub_08013AC4(obj);
+            updateActorWorldPosition(obj);
             *(u8 *)(2 * (u32)(s16)*(u16 *)((u8 *)obj + 0x22) + (u32)obj + 0x1B) = 0;
             {
                 u32 *litPtr = (u32 *)0x08671BDC;

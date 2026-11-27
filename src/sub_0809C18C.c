@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 s8 scaleByRandom(s32);
@@ -32,7 +32,7 @@ void sub_0809C12C(struct S_0807B12C *arg0)
     sub_080C31E0(arg0, *((void **) ((((u32) (*((u8 *) ((((u8 *) arg0) + new_var) + new_var2)))) * 4) + arg0->field_0x14)));
     arg0->field_0x22 -= 1;
   }
-  sub_08013C8C(arg0, r5);
+  syncSpriteToWorldPosition(arg0, r5);
 }
 
 /* Initialise the work area's effect state (+0x48): set flags 1/0xFF and a

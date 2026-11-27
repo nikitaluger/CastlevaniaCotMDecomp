@@ -1,7 +1,7 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 void sub_080C31E0(void *, void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 
 /* Entity update: leave to the state handler when off-camera or flagged;
  * otherwise, if this frame was not handled by updateObjectDisplayState, dispatch the next
@@ -11,7 +11,7 @@ void sub_08039B78(void *arg0) {
     u8 *self = arg0;
     void *sprite = *(void **)(self + 0x38);
     void *work = *(void **)(self + 0x3C);
-    if (sub_080141AC(sprite, work) == 1 || *(u8 *)(self + 0x88) != 0) {
+    if (checkActorViewBounds(sprite, work) == 1 || *(u8 *)(self + 0x88) != 0) {
         sub_080C31E0(arg0, *(void **)(self + 0x24));
         return;
     }
@@ -32,5 +32,5 @@ void sub_08039B78(void *arg0) {
         }
         *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) - 1);
     }
-    sub_08013C8C(arg0, sprite);
+    syncSpriteToWorldPosition(arg0, sprite);
 }

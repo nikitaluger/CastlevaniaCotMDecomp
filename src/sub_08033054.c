@@ -1,16 +1,16 @@
-void sub_08013C5C(void *, void *);
-s32 sub_080141AC(void *, void *);
+void applySpritePaletteVariant(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 sub_08013558(void *, void *, s32);
-void sub_08013978(void *, s32);
+void spawnContactEffectOnHit(void *, s32);
 void sub_0803B1F4(void *, void *, void *);
-void sub_08013AC4(void *);
+void updateActorWorldPosition(void *);
 void sub_0803B1A4(void *);
 s32 sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 s32 updateObjectDisplayState(void *, void *);
 void sub_080338F0(void *, void *, void *);
 void sub_0803B1B4(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 
 /* Sub-state byte at task + index*2 + 0x19. */
 struct TaskState { u8 _0[0x19]; u8 state; };
@@ -22,15 +22,15 @@ void sub_08033054(void *task)
   u8 *stateEntry;
   void *actor = *((void **) (((u8 *) task) + 0x38));
   void *subject = *((void **) (((u8 *) task) + 0x3C));
-  sub_08013C5C(task, actor);
-  if (sub_080141AC(actor, subject) == 1)
+  applySpritePaletteVariant(task, actor);
+  if (checkActorViewBounds(actor, subject) == 1)
   {
     *((u8 *) (((u8 *) (*((void **) (((u8 *) task) + 0x30)))) + 0x80)) = 0;
     return;
   }
   if (sub_08013558(actor, subject, *((s32 *) (((u8 *) subject) + 0x28))) != 0)
   {
-    sub_08013978(task, *((s32 *) (((u8 *) subject) + 0x28)));
+    spawnContactEffectOnHit(task, *((s32 *) (((u8 *) subject) + 0x28)));
   }
   {
     void *stateData = ((u8 *) subject) + 0x54;
@@ -39,7 +39,7 @@ void sub_08033054(void *task)
     {
       u8 *stateArgs;
       s32 *callbacks;
-      sub_08013AC4(task);
+      updateActorWorldPosition(task);
       sub_0803B1A4(stateData);
       {
         void *parent = *((void **) (((u8 *) task) + 0x30));
@@ -100,5 +100,5 @@ void sub_08033054(void *task)
     void *stateData = ((u8 *) subject) + 0x54;
     sub_0803B1B4(subject, stateData);
   }
-  sub_08013C8C(task, actor);
+  syncSpriteToWorldPosition(task, actor);
 }

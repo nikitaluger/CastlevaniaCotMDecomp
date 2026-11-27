@@ -2,12 +2,12 @@
  * overlap/search hit is found, perform the one-time start action (facing the
  * owner based on the player's x position), then dispatch the current script step's
  * callback while logic allows. */
-s32 sub_080141AC(void *, void *);          /* visibility/validity check */
+s32 checkActorViewBounds(void *, void *);          /* visibility/validity check */
 void sub_080C31E0(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
 void *hitTestEntities(void *);                /* find an overlapping entity */
 s32 sub_08013B5C(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_08005E80(s32);
 extern void *sScriptStepCallbacks;
 extern u8 gMainWorkspace[];
@@ -16,7 +16,7 @@ extern u8 D_00001728[];                     /* offset 0x1728 into gMainWorkspace
 void sub_08044E6C(u8 *self) {
     void *owner = *(void **)(self + 0x38);
     u8 *params = *(u8 **)(self + 0x3C);
-    if (sub_080141AC(owner, params) == 1) {
+    if (checkActorViewBounds(owner, params) == 1) {
         sub_080C31E0(self, *(void **)(self + 0x24));
         return;
     }
@@ -65,5 +65,5 @@ void sub_08044E6C(u8 *self) {
         }
         *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) - 1);
     }
-    sub_08013C8C(self, owner);
+    syncSpriteToWorldPosition(self, owner);
 }

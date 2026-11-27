@@ -2,8 +2,8 @@
  * part's display state, upload pending part graphics, then either run the death
  * sequence (state + 1) or perform the per-part hit/collision checks. */
 extern void sub_08097F88(s32, void *, void *, void *); /* update one render part */
-extern void sub_080142C0(void *, void *);              /* upload part graphics */
-extern void sub_08013AC4(void *);                      /* final actor position/score update */
+extern void uploadPendingSpriteGraphic(void *, void *);              /* upload part graphics */
+extern void updateActorWorldPosition(void *);                      /* final actor position/score update */
 extern void sub_08007E24(s32);                         /* play sound */
 extern s32 updateObjectDisplayState(void *, void *);   /* apply part display state */
 extern void sub_0809C618(s32, void *, void *);         /* register part collision */
@@ -39,10 +39,10 @@ void updateCompositeEnemy(u8 *entity)
   sub_08097F88(1, sprite, work, *((void **) ((*((u8 **) ((*((u8 **) (parts + 8))) + 0x3C))) + 0x28)));
   sub_08097F88(1, sprite, work, *((void **) (work + 0x48)));
   sub_08097F88(2, sprite, work, *((void **) (parts + 4)));
-  sub_080142C0(entity, *((void **) (work + 0x28)));
-  sub_080142C0(entity, *((void **) ((*((u8 **) ((*((u8 **) (parts + 8))) + 0x3C))) + 0x28)));
-  sub_080142C0(entity, *((void **) (work + 0x48)));
-  sub_080142C0(entity, *((void **) (parts + 4)));
+  uploadPendingSpriteGraphic(entity, *((void **) (work + 0x28)));
+  uploadPendingSpriteGraphic(entity, *((void **) ((*((u8 **) ((*((u8 **) (parts + 8))) + 0x3C))) + 0x28)));
+  uploadPendingSpriteGraphic(entity, *((void **) (work + 0x48)));
+  uploadPendingSpriteGraphic(entity, *((void **) (parts + 4)));
   if ((*((u16 *) (work + zero))) & 1)
   {
     void **timerCallback;
@@ -50,7 +50,7 @@ void updateCompositeEnemy(u8 *entity)
     s32 stepOffset;
     u8 stateId;
     u8 *subObjectWork;
-    sub_08013AC4(entity);
+    updateActorWorldPosition(entity);
     sub_08007E24(0xB3);
     *((u8 *) ((*((u8 **) (work + 0x28))) + 1)) = zero32;
     *((u8 *) ((*((u8 **) (work + 0x48))) + 1)) = zero32;

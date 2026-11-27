@@ -1,7 +1,7 @@
-s32 sub_080141AC(void *, void *);
-void sub_08013C5C(void *, void *);
-void sub_08013978(void *, void *);
-void sub_080142C0(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void applySpritePaletteVariant(void *, void *);
+void spawnContactEffectOnHit(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_08014328(void *, void *, void *);
 void sub_080C31E0(s32, s32);
@@ -39,11 +39,11 @@ void sub_080512FC(u8 *task)
 
   actor = *((u8 **) (task + 0x38));
   subject = *((u8 **) (task + 0x3C));
-  sub_08013C5C(task, actor);
-  if ((sub_080141AC(actor, subject) != 1) || ((*((u8 *) (task + 0x70))) != 0))
+  applySpritePaletteVariant(task, actor);
+  if ((checkActorViewBounds(actor, subject) != 1) || ((*((u8 *) (task + 0x70))) != 0))
   {
-    sub_08013978(task, *((void **) (subject + 0x28)));
-    sub_080142C0(*((void **) (task + 0x28)), *((void **) (subject + 0x28)));
+    spawnContactEffectOnHit(task, *((void **) (subject + 0x28)));
+    uploadPendingSpriteGraphic(*((void **) (task + 0x28)), *((void **) (subject + 0x28)));
     if ((*((void **) (task + 0x28))) == gMainWorkspace.currentTarget)
     {
       stepState = (u8 *) ((((u32) (*((s16 *) (task + 0x22)))) * 2) + ((u32) task));

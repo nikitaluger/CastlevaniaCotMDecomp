@@ -1,7 +1,7 @@
 s32 hitTestEntities(void *);
 void sub_08005E80(s32);
 s32 sub_08013B5C(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -62,5 +62,5 @@ void sub_080A4134(void *arg0) {
         sub_080C31E0(self, *(void **)(slotByte * 4 + *(u32 *)(self + 0x14)));
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
     }
-    sub_08013C8C(self, parent);
+    syncSpriteToWorldPosition(self, parent);
 }

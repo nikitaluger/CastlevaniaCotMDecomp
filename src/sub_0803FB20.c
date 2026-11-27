@@ -1,9 +1,9 @@
-void sub_08013C5C(void *, void *);
-s32 sub_080141AC(void *, void *);
+void applySpritePaletteVariant(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_080142C0(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
@@ -21,20 +21,20 @@ void sub_0803FB20(void *entity) {
 
     sprite = *(void **)(self + 0x38);
     motion = *(void **)(self + 0x3C);
-    sub_08013C5C(self, sprite);
-    if (sub_080141AC(sprite, motion) == 1)
+    applySpritePaletteVariant(self, sprite);
+    if (checkActorViewBounds(sprite, motion) == 1)
         return;
 
     if (sub_08013558(sprite, motion, *(void **)((u8 *)motion + 0x28)) != 0)
-        sub_08013978(self, *(void **)((u8 *)motion + 0x28));
-    sub_080142C0(self, *(void **)((u8 *)motion + 0x28));
+        spawnContactEffectOnHit(self, *(void **)((u8 *)motion + 0x28));
+    uploadPendingSpriteGraphic(self, *(void **)((u8 *)motion + 0x28));
 
     if (*(u16 *)motion & 1) {
         u32 *scriptTable;
         u8 *stepBase;
         u8 stepValue;
         s32 stepOffset;
-        sub_08013AC4(self);
+        updateActorWorldPosition(self);
         {
             u8 *base;
             base = (u8 *)((u32)(*(s16 *)((u8 *)entity + 0x22)) * 2 + (u32)entity);

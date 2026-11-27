@@ -10,7 +10,7 @@ struct FlagDst { u16 flags; };
 /* Actor update: derive world X/Y from the work's tile indices and the camera
  * coordinate table, apply the position/score updates, set the owner's flag,
  * release a pending work callback and run the tail handler. */
-void sub_08013AC4(void *arg0) {
+void updateActorWorldPosition(void *arg0) {
     void *self = arg0;
     void *ownerFlags = *(void **)((u8 *)self + 0xAC);
     void *work = *(void **)((u8 *)self + 0x3C);

@@ -5,7 +5,7 @@ void sub_080C31E4(void *, void *, u32);
 
 /* Detach every child held in the owner's three slots at work+0x58: mark each one
  * for deletion (bit 1 of its flags at +0x6C) and clear the slot pointer. */
-void sub_08020E78(void *arg0) {
+void releaseProjectileSlots(void *arg0) {
     u8 *work = *(u8 **)((u8 *)arg0 + 0x3C);
     u32 **slot = (u32 **)(work + 0x58);
     s32 remaining = 2;

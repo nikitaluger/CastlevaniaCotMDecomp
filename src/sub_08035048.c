@@ -1,6 +1,6 @@
-s32 sub_080141AC(s32, void *);
+s32 checkActorViewBounds(s32, void *);
 s32 updateObjectDisplayState(s32, void *);
-void sub_08013C8C(void *, s32);
+void syncSpriteToWorldPosition(void *, s32);
 void sub_080C31E0(void *, s32);
 
 /* Script tick for a MainObj: let the per-frame state checks decide whether to
@@ -23,7 +23,7 @@ void sub_08035048(void *arg0)
   void *handler;
   if ((*modeFlag) == 0)
   {
-    if (sub_080141AC((s32) sprite, state) == 1)
+    if (checkActorViewBounds((s32) sprite, state) == 1)
     {
       sub_080C31E0(obj, *((void **) (((u8 *) obj) + 0x24)));
       return;
@@ -66,5 +66,5 @@ checkState:
   pcTmp = pcTmp - 1;
   *((u16 *) (((u8 *) obj) + 0x22)) = pcTmp;
   refresh:
-  sub_08013C8C(obj, (s32) sprite);
+  syncSpriteToWorldPosition(obj, (s32) sprite);
 }

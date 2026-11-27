@@ -1,9 +1,9 @@
-extern void sub_08013C5C(void *, s32);
-extern s32 sub_080141AC(s32, void *);
+extern void applySpritePaletteVariant(void *, s32);
+extern s32 checkActorViewBounds(s32, void *);
 extern s32 sub_08013558(s32, void *, void *);
-extern void sub_08013978(void *, void *);
-extern void sub_080142C0(void *, void *);
-extern void sub_08013AC4(void *);
+extern void spawnContactEffectOnHit(void *, void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(s32, void *);
 extern void stepAnimationTrack(s32, void *);
 extern void moveObjectHorizontally(void *, s32, s32);
@@ -23,17 +23,17 @@ void sub_0802B51C(u8 *self) {
     u8 *p34 = p3C + 0x34;
     u8 *p48 = p3C + 0x48;
 
-    if (sub_080141AC(p38, p3C) == 1) {
+    if (checkActorViewBounds(p38, p3C) == 1) {
         *(u16 *)p48 = 0;
         return;
     }
 
-    sub_08013C5C(self, p38);
+    applySpritePaletteVariant(self, p38);
     if (sub_08013558(p38, p3C, *(void **)(p3C + 0x28)) != 0) {
-        sub_08013978(self, *(void **)(p3C + 0x28));
+        spawnContactEffectOnHit(self, *(void **)(p3C + 0x28));
     }
     if (*(u16 *)(*(u8 **)(pAC + 4) + 6) == 0) {
-        sub_080142C0(self, *(void **)(p3C + 0x28));
+        uploadPendingSpriteGraphic(self, *(void **)(p3C + 0x28));
     }
     if (*(u16 *)p3C & 1) {
         u8 *script = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
@@ -41,7 +41,7 @@ void sub_0802B51C(u8 *self) {
             u8 *scriptPtr;
             s32 *soundTab;
             if (*(u16 *)(*(u8 **)(pAC + 4) + 6) == 0) {
-                sub_08013AC4(self);
+                updateActorWorldPosition(self);
             } else {
                 if (pAC != NULL) {
                     ((struct FlagBits *)pAC)->lo |= 4;

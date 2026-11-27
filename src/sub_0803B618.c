@@ -1,9 +1,9 @@
-extern void sub_08013C5C(void *, s32);
-extern s32 sub_080141AC(s32, void *);
+extern void applySpritePaletteVariant(void *, s32);
+extern s32 checkActorViewBounds(s32, void *);
 extern s32 sub_08014F14(s32, void *, void *, void *);
 extern void spawnChildPair(void *, void *, void *, void *, void *);
-extern void sub_080142C0(void *, void *);
-extern void sub_08013AC4(void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
+extern void updateActorWorldPosition(void *);
 extern void sub_08005E80(s32);
 extern s32 sub_0801576C(s32, void *, void *, void *, void *, void *);
 extern void stepAnimationTrack(s32, void *);
@@ -33,27 +33,27 @@ void sub_0803B618(u8 *self)
     hit0 = *(u8 **)(objState + 8);
     zero = 0;
     *(u8 *)(hit0 + 1) = zero;
-    if (sub_080141AC(parent, obj) == 1) {
+    if (checkActorViewBounds(parent, obj) == 1) {
         *(u8 *)(*(u8 **)(objState + 0x0C) + 1) = zero;
     } else {
         *(u8 *)(*(u8 **)(objState + 0x0C) + 1) = 5;
     }
-    sub_08013C5C(self, parent);
+    applySpritePaletteVariant(self, parent);
     hitResult = sub_08014F14(parent, obj, *(void **)(obj + 0x28), *(void **)(objState + 0x0C));
     objTail = obj + 0x2C;
     effectState = objState + 0x10;
     if (hitResult != 0) {
         spawnChildPair(self, *(void **)(obj + 0x28), *(void **)(objState + 0x0C), objTail, effectState);
     }
-    sub_080142C0(self, *(void **)(obj + 0x28));
-    sub_080142C0(self, *(void **)(objState + 0x0C));
-    sub_080142C0(self, *(void **)(objState + 8));
+    uploadPendingSpriteGraphic(self, *(void **)(obj + 0x28));
+    uploadPendingSpriteGraphic(self, *(void **)(objState + 0x0C));
+    uploadPendingSpriteGraphic(self, *(void **)(objState + 8));
     if (*(u16 *)obj & 1) {
         u8 *slot0 = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
         if (*(u8 *)(slot0 + 0x1A) != 2) {
             u8 *slot;
             u32 *callbackTable;
-            sub_08013AC4(self);
+            updateActorWorldPosition(self);
             sub_08005E80(0x85);
             slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
             *(u8 *)(slot + 0x1B) = 0;

@@ -1,10 +1,10 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 signOf(s32);
-void sub_08013C5C(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 s32 sub_08013558(void *, void *, s32);
-void sub_08013978(void *, s32);
-void sub_080142C0(void *, s32);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, s32);
+void uploadPendingSpriteGraphic(void *, s32);
+void updateActorWorldPosition(void *);
 void sub_08005E80(s32);
 s32 updateObjectDisplayState(void *, void *);
 void _call_via_r1(void *, s32);
@@ -25,7 +25,7 @@ void sub_08024370(u8 *entity)
   u8 *status = motion + 0x34;
   u8 *motionEx = motion + 0x48;
 
-  if (sub_080141AC(sprite, motion) == 1)
+  if (checkActorViewBounds(sprite, motion) == 1)
   {
     u8 *stepData = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
     if (stepData[0x1A] != 1)
@@ -41,18 +41,18 @@ void sub_08024370(u8 *entity)
       return;
     }
   }
-  sub_08013C5C(entity, sprite);
+  applySpritePaletteVariant(entity, sprite);
   if (sub_08013558(sprite, motion, *((s32 *) (motion + 0x28))) != 0)
   {
-    sub_08013978(entity, *((s32 *) (motion + 0x28)));
+    spawnContactEffectOnHit(entity, *((s32 *) (motion + 0x28)));
   }
-  sub_080142C0(entity, *((s32 *) (motion + 0x28)));
+  uploadPendingSpriteGraphic(entity, *((s32 *) (motion + 0x28)));
   if (((*((u16 *) (motion + 0))) & 1) != 0)
   {
     u8 *stepData = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
     if (stepData[0x1A] != 2)
     {
-      sub_08013AC4(entity);
+      updateActorWorldPosition(entity);
       sub_08005E80(0x86);
       {
         u8 *stepData2 = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);

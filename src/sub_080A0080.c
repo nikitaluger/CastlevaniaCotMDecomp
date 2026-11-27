@@ -10,7 +10,7 @@ struct Entity
     u32 state;         /* +0x3C */
 };
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* Fade-out step for a special object: set the global gfx highlight colour and
@@ -50,5 +50,5 @@ void sub_080A0080(struct Entity *arg0)
             *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
         }
     }
-    sub_08013C8C(arg0, sprite);
+    syncSpriteToWorldPosition(arg0, sprite);
 }

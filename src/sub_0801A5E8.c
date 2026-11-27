@@ -1,12 +1,12 @@
-s32 sub_080141AC(void *, void *);
-void sub_08013C5C(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 s32 sub_0801BD58(void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_080142C0(void *, void *);
+void spawnContactEffectOnHit(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 void sub_0801BB90(void *);
 void sub_0801BBB4(void *);
-void sub_08013AC4(void *);
+void updateActorWorldPosition(void *);
 void sub_080C31E8(void *, void *, s32, u32);
 s32 updateObjectDisplayState(void *, void *);
 s32 sub_080C31E0(s32, s32);
@@ -41,7 +41,7 @@ void sub_0801A5E8(u8 *self) {
     objSub = obj + 0x34;
     objState = obj + 0x48;
 
-    if (sub_080141AC(parent, obj) == 1) {
+    if (checkActorViewBounds(parent, obj) == 1) {
         *(u16 *)(objState + 0x12) = 0;
     } else {
         *(u16 *)(objState + 0x12) = 1;
@@ -50,20 +50,20 @@ void sub_0801A5E8(u8 *self) {
 
     mode = *(s16 *)(objState + 0x12);
     if (mode == 1) {
-        sub_08013C5C(self, parent);
+        applySpritePaletteVariant(self, parent);
         if (sub_0801BD58(self) == 0) {
             if (sub_08013558(parent, obj, *(void **)(obj + 0x28)) != 0) {
                 *(u16 *)(objState + 0x14) = 1;
-                sub_08013978(self, *(void **)(obj + 0x28));
+                spawnContactEffectOnHit(self, *(void **)(obj + 0x28));
             }
         }
-        sub_080142C0(self, *(void **)(obj + 0x28));
+        uploadPendingSpriteGraphic(self, *(void **)(obj + 0x28));
 
         if ((*(u16 *)obj & 1) && *(u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self + 0x1A) != 9) {
             u32 *callbackArg;
             sub_0801BB90(self);
             sub_0801BBB4(self);
-            sub_08013AC4(self);
+            updateActorWorldPosition(self);
             *(u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self + 0x1B) = 0;
             callbackArg = sScriptStepCallbacks;
             sub_080C31E8(self + 0x18, self + 0x22, 9, *callbackArg);

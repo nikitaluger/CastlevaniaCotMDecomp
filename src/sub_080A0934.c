@@ -3,8 +3,8 @@
  * the saved handler) or advances the script step and dispatches a new handler,
  * then reconfigures its animation state. */
 void sub_08097F88(s32, void *, void *, void *);
-void sub_080142C0(void *, void *);
-void sub_08013AC4(void *);
+void uploadPendingSpriteGraphic(void *, void *);
+void updateActorWorldPosition(void *);
 s32 sub_08007E24(s32);
 s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
@@ -30,15 +30,15 @@ void sub_080A0934(u8 *entity) {
     *(u16 *)sprite = spriteAttr;
     sub_08097F88(0, sprite, motion, *(void **)((u8 *)motion + 0x28));
     sub_08097F88(2, sprite, motion, *(void **)((u8 *)motion + 0x48));
-    sub_080142C0(entity, *(void **)((u8 *)motion + 0x28));
-    sub_080142C0(entity, *(void **)((u8 *)motion + 0x48));
+    uploadPendingSpriteGraphic(entity, *(void **)((u8 *)motion + 0x28));
+    uploadPendingSpriteGraphic(entity, *(void **)((u8 *)motion + 0x48));
 
     if (*(u16 *)motion & 1) {
         u32 *scriptFn;
         u8 *stepTable;
         u8 stepByte;
         s32 stepOffset;
-        sub_08013AC4(entity);
+        updateActorWorldPosition(entity);
         sub_08007E24(0xB5);
         *(u8 *)(*(u8 **)((u8 *)motion + 0x28) + 1) = zero;
         *(u8 *)(*(u8 **)((u8 *)motion + 0x48) + 1) = zero;

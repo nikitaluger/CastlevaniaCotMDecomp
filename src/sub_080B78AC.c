@@ -1,9 +1,9 @@
-void sub_08013C5C(void *, void *);
-s32 sub_080141AC(void *, void *);
+void applySpritePaletteVariant(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_080142C0(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
@@ -34,15 +34,15 @@ void sub_080B78AC(void *obj) {
     *(u16 *)entity = packedValue | zero;
     sub_08097F88(0, entity, state, *(void **)((u8 *)state + 0x28));
     sub_08097F88(2, entity, state, *(void **)((u8 *)stateField48 + 4));
-    sub_080142C0(obj, *(void **)((u8 *)state + 0x28));
-    sub_080142C0(obj, *(void **)((u8 *)stateField48 + 4));
+    uploadPendingSpriteGraphic(obj, *(void **)((u8 *)state + 0x28));
+    uploadPendingSpriteGraphic(obj, *(void **)((u8 *)stateField48 + 4));
 
     if (*(u16 *)state & 1) {
         u32 *callbackTable;
         u8 *scriptPtr;
         u8 scriptByte;
         s32 scriptOffset;
-        sub_08013AC4(obj);
+        updateActorWorldPosition(obj);
         sub_08007E24(0xBB);
         *(u8 *)((u8 *)*(u32 **)((u8 *)state + 0x28) + 1) = zero;
         *(u8 *)((u8 *)*(u32 **)((u8 *)stateField48 + 4) + 1) = zero;

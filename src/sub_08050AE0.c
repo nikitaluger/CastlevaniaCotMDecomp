@@ -3,12 +3,12 @@
  * per-state animation flags, then syncs the hitbox component back to the boss. */
 extern void *sScriptStepCallbacks;
 extern void _call_via_r3(void *, void *, s32, void *);
-void sub_08013C5C(void *, void *);
-s32 sub_080141AC(void *, void *);
+void applySpritePaletteVariant(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_080142C0(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
+void updateActorWorldPosition(void *);
 void sub_08051CE8(void *);
 void sub_08051D18(void *, void *);
 s32 updateObjectDisplayState(void *, void *);
@@ -62,10 +62,10 @@ void sub_08050AE0(void *arg0) {
     parent = *(void **)((u8 *)arg0 + 0x38);
     hitbox = *(struct BossHitbox **)((u8 *)arg0 + 0x3C);
     bossData = (struct BossData *)((u8 *)hitbox + 0x48);
-    sub_08013C5C(arg0, parent);
+    applySpritePaletteVariant(arg0, parent);
     hitbox->x = bossData->spawnX;
     hitbox->y = bossData->spawnY;
-    contactResult = sub_080141AC(parent, hitbox);
+    contactResult = checkActorViewBounds(parent, hitbox);
     if (contactResult == 1) {
         if ((hitbox->flags & 1) == 0) {
             hitbox->x = hitbox->homeX;
@@ -76,7 +76,7 @@ void sub_08050AE0(void *arg0) {
     hitbox->x = bossData->retX;
     hitbox->y = bossData->retY;
     if (sub_08013558(parent, hitbox, hitbox->target) != 0) {
-        sub_08013978(arg0, hitbox->target);
+        spawnContactEffectOnHit(arg0, hitbox->target);
         animStatePtr = (u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0);
         if (animStatePtr[0x1A] == 0) {
             animStatePtr[0x1B] = 0;
@@ -84,10 +84,10 @@ void sub_08050AE0(void *arg0) {
               _call_via_r3((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 6, *fnaddr); }
         }
     }
-    sub_080142C0(arg0, hitbox->target);
+    uploadPendingSpriteGraphic(arg0, hitbox->target);
     if ((hitbox->flags & 1) && bossData->stateFlag == 0) {
         bossData->stateFlag = 1;
-        sub_08013AC4(arg0);
+        updateActorWorldPosition(arg0);
         sub_08051CE8(arg0);
         animStatePtr2 = (u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0);
         animStatePtr2[0x1B] = 0;

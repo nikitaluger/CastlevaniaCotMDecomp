@@ -1,14 +1,14 @@
 extern void sub_08005E80(s32);
 extern void stepAnimationTrack(s32, void *);
 extern void sub_08011EE8(void *, s32, s32);
-extern void sub_08013AC4(void *);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(s32, void *);
-extern void sub_08013C5C(void *, s32);
+extern void applySpritePaletteVariant(void *, s32);
 extern void sub_08013C8C(void *, void *);
-extern s32 sub_080141AC(s32, void *);
-extern void sub_080142C0(void *, void *);
+extern s32 checkActorViewBounds(s32, void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
 extern s32 sub_08013558(s32, void *, void *);
-extern void sub_08013978(void *, void *);
+extern void spawnContactEffectOnHit(void *, void *);
 extern void sub_0803E4A8(void *, void *);
 extern void _call_via_r1(void *, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
@@ -42,21 +42,21 @@ void sub_0803E198(u8 *entity)
       partObj[1] = partFlag;
     }
   }
-  if (sub_080141AC(sprite, work) == 1)
+  if (checkActorViewBounds(sprite, work) == 1)
   {
     return;
   }
-  sub_08013C5C(entity, sprite);
+  applySpritePaletteVariant(entity, sprite);
   if (sub_08013558(sprite, work, *((u32 *) (work + 0x28))) != 0)
   {
-    sub_08013978(entity, *((u32 *) (work + 0x28)));
+    spawnContactEffectOnHit(entity, *((u32 *) (work + 0x28)));
   }
-  sub_080142C0(entity, *((u32 *) (work + 0x28)));
+  uploadPendingSpriteGraphic(entity, *((u32 *) (work + 0x28)));
   {
     u8 **partPtr = (u8 **) spriteParts;
     for (partIndex = 1; partIndex >= 0; partIndex--)
     {
-      sub_080142C0(entity, *(partPtr++));
+      uploadPendingSpriteGraphic(entity, *(partPtr++));
     }
   }
   if ((*((u16 *) work) & 1) != 0)
@@ -64,7 +64,7 @@ void sub_0803E198(u8 *entity)
     u8 *actionSlot = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
     if (actionSlot[0x1A] != 2)
     {
-      sub_08013AC4(entity);
+      updateActorWorldPosition(entity);
       sub_08005E80(0x85);
       {
         u8 *stepSlot = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);

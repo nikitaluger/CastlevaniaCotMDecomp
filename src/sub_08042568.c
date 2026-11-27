@@ -7,13 +7,13 @@ extern void sub_08005E80(s32);                    /* play sound */
 extern void stepAnimationTrack(s32, void *);            /* step animation */
 extern void sub_08011EE8(void *, s32, s32);       /* terrain/movement update */
 extern s32 sub_08013558(s32, void *, void *);     /* part damage/hit update */
-extern void sub_08013978(void *, void *);         /* spawn contact hit effect */
-extern void sub_08013AC4(void *);                 /* final position/score update */
+extern void spawnContactEffectOnHit(void *, void *);         /* spawn contact hit effect */
+extern void updateActorWorldPosition(void *);                 /* final position/score update */
 extern s32 updateObjectDisplayState(s32, void *);             /* apply part display state */
-extern void sub_08013C5C(void *, s32);            /* apply palette/flags to sprite */
+extern void applySpritePaletteVariant(void *, s32);            /* apply palette/flags to sprite */
 extern void sub_08013C8C(void *, s32);            /* finish part update */
-extern s32 sub_080141AC(s32, void *);             /* movement bounds check */
-extern void sub_080142C0(void *, void *);         /* upload pending part graphics */
+extern s32 checkActorViewBounds(s32, void *);             /* movement bounds check */
+extern void uploadPendingSpriteGraphic(void *, void *);         /* upload pending part graphics */
 extern void sub_08042900(s32, void *);            /* copy part palette/animation params */
 extern void sub_080C31E0(void *, void *);         /* indirect call */
 extern void sub_080C31E8(void *, void *, s32, s32); /* state machine dispatch */
@@ -62,23 +62,23 @@ void sub_08042568(u8 *entity)
             *((u8 *)(*slotPtr++) + 1) = zero;
         }
     }
-    if (sub_080141AC(sprite, work) == 1) goto end;
-    sub_08013C5C(entity, sprite);
+    if (checkActorViewBounds(sprite, work) == 1) goto end;
+    applySpritePaletteVariant(entity, sprite);
     if (sub_08013558(sprite, work, *(void **)(work + 0x28)) != 0)
-        sub_08013978(entity, *(void **)(work + 0x28));
-    sub_080142C0(entity, *(void **)(work + 0x28));
+        spawnContactEffectOnHit(entity, *(void **)(work + 0x28));
+    uploadPendingSpriteGraphic(entity, *(void **)(work + 0x28));
     {
         u8 **slotPtr = (u8 **)extraParts;
         for (i = 1; i >= 0; i--)
         {
-            sub_080142C0(entity, *(void **)slotPtr);
+            uploadPendingSpriteGraphic(entity, *(void **)slotPtr);
             slotPtr++;
         }
     }
     if (and1(*(u16 *)work) && (*(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x1A) != 2))
     {
         u32 *stateTable;
-        sub_08013AC4(entity);
+        updateActorWorldPosition(entity);
         sub_08005E80(0x85);
         *(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x1B) = 0;
         stateTable = (u32 *)sScriptStepCallbacks;

@@ -1,6 +1,6 @@
 void sub_08011528(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 
 /* Advance the actor's sprite animation, install action-script table 0x08670224,
  * bump the current sub-state's step counter, dispatch its handler and restore
@@ -23,5 +23,5 @@ void sub_080AEF88(void *arg0) {
         }
     }
     *(u16 *)((u8 *)arg0 + 0x22) = (u16)(*(u16 *)((u8 *)arg0 + 0x22) - 1);
-    sub_08013C8C(arg0, actor);
+    syncSpriteToWorldPosition(arg0, actor);
 }

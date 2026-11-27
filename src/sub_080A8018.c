@@ -2,7 +2,7 @@ void stepAnimationTrack(s32, s32);
 void _call_via_r2(void *, void *, s32);
 void sub_08011528(void *, void *);
 void _call_via_r1(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_08016678(void *);
 
 /* When the animation finishes, flag the linked object and restart the script. */
@@ -45,7 +45,7 @@ void sub_080AEF88(void *arg0) {
         }
     }
     *(u16 *)((u8 *)arg0 + 0x22) = (u16)(*(u16 *)((u8 *)arg0 + 0x22) - 1);
-    sub_08013C8C(arg0, sprite);
+    syncSpriteToWorldPosition(arg0, sprite);
 }
 
 /* Flag the linked object per the actor's variant, finish the animation/position

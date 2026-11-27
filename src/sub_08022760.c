@@ -4,7 +4,7 @@ extern void sub_080C31E0(void *, s32);
 extern s32 sub_08014114(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
-void sub_08020E78(void *arg0)
+void releaseProjectileSlots(void *arg0)
 {
     void **p = (void **)(*(u8 **)((u8 *)arg0 + 0x3C) + 0x58);
     s32 i = 2;

@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 s32 sub_080C31E0(s32, s32);
 
 /* Actor update for a follower: copy the parent object's position and X-flip flag into
@@ -43,5 +43,5 @@ void sub_080B1ADC(void *entity) {
         sub_080C31E0((s32)entity, *(s32 *)((u32)(stepCommand * 4) + handlerTable));
         *(u16 *)((u8 *)entity + 0x22) = *(u16 *)((u8 *)entity + 0x22) - 1;
     }
-    sub_08013C8C(entity, sprite);
+    syncSpriteToWorldPosition(entity, sprite);
 }

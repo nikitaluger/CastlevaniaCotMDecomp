@@ -1,8 +1,8 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 hitTestEntities(void *);
 void sub_08005E80(s32);
 s32 sub_08013B5C(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -22,7 +22,7 @@ void sub_080406E0(void *arg0) {
     mainObj = *(void **)(obj + 0x38);
     state = *(void **)(obj + 0x3C);
 
-    if (sub_080141AC(mainObj, state) == 1) {
+    if (checkActorViewBounds(mainObj, state) == 1) {
         sub_080C31E0((s32)arg0, *(s32 *)(obj + 0x24));
         return;
     }
@@ -79,5 +79,5 @@ void sub_080406E0(void *arg0) {
         sub_080C31E0((s32)arg0, *(s32 *)((u32)(cmd * 4) + *(u32 *)(obj + 0x14)));
         *(u16 *)(obj + 0x22) = *(u16 *)(obj + 0x22) - 1;
     }
-    sub_08013C8C(arg0, mainObj);
+    syncSpriteToWorldPosition(arg0, mainObj);
 }

@@ -1,6 +1,6 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 extern u32 gScriptStepCallbackTable;
@@ -13,7 +13,7 @@ void sub_08052A90(void *arg0) {
 
     obj = *(void **)((u8 *)arg0 + 0x38);
     state = *(void **)((u8 *)arg0 + 0x3C);
-    if (sub_080141AC(obj, state) == 1) {
+    if (checkActorViewBounds(obj, state) == 1) {
         sub_080C31E0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;
     }
@@ -52,5 +52,5 @@ void sub_08052A90(void *arg0) {
         sub_080C31E0((s32)arg0, *(s32 *)((u32)(funcIndex * 4) + *(u32 *)((u8 *)arg0 + 0x14)));
         *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) - 1;
     }
-    sub_08013C8C(arg0, obj);
+    syncSpriteToWorldPosition(arg0, obj);
 }

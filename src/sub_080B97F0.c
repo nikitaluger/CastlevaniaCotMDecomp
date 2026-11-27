@@ -1,5 +1,5 @@
 extern u32 gMainWorkspace[];
-void sub_08013C8C(void *entity, void *sprite);
+void syncSpriteToWorldPosition(void *entity, void *sprite);
 void sub_080C31E0(void *entity, void *callback);
 
 /* Update an entity's display: when the global mode word at gMainWorkspace+0x40
@@ -12,5 +12,5 @@ void sub_080B97F0(void *entity) {
         sub_080C31E0(entity, *(void **)((u8 *)entity + 0x24));
         return;
     }
-    sub_08013C8C(entity, sprite);
+    syncSpriteToWorldPosition(entity, sprite);
 }

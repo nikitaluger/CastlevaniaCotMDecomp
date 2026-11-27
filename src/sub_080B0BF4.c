@@ -1,7 +1,7 @@
-extern void sub_08013AC4(void *);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
-extern void sub_080142C0(void *, s32);
+extern void uploadPendingSpriteGraphic(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08007E24(s32);
@@ -25,8 +25,8 @@ void sub_080B0BF4(void *arg0) {
     *(u16 *)sprite = gfxAttr;
 
     sub_08097F88(3, (u16 *)sprite, actor, *(void **)(actor + 0x28));
-    sub_080142C0(entity, *(u32 *)(actor + 0x28));
-    sub_080142C0(entity, *(u32 *)(actor + 0x48));
+    uploadPendingSpriteGraphic(entity, *(u32 *)(actor + 0x28));
+    uploadPendingSpriteGraphic(entity, *(u32 *)(actor + 0x48));
 
     if (*(u16 *)actor & 1) {
         s32 ctrlOffset;
@@ -34,7 +34,7 @@ void sub_080B0BF4(void *arg0) {
         s32 *scriptData;
         u8 stepByte;
 
-        sub_08013AC4(entity);
+        updateActorWorldPosition(entity);
         sub_08007E24(0xB9);
         *(u8 *)(*(u32 *)(actor + 0x28) + 1) = zero;
         *(u8 *)(*(u32 *)(actor + 0x48) + 1) = zero;

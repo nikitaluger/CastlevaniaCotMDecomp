@@ -1,7 +1,7 @@
 void unlinkAndFreeObject();
 void sub_08015974();
 void sub_08016678(void *);
-void sub_0801FA30(void *);
+void releaseActorSlotsAlt(void *);
 s32 sub_080C31E0(void *, s32);
 
 /* Per-frame entity update: free the two optional attached objects
@@ -17,7 +17,7 @@ void sub_0801F9FC(void *arg0) {
     if (*(s32 *)((u8 *)scriptState + 0x2C) != 0) {
         sub_08015974();
     }
-    sub_0801FA30(obj);
+    releaseActorSlotsAlt(obj);
     sub_08016678(obj);
     sub_080C31E0(obj, *(s32 *)((u8 *)scriptState + 0x24));
 }

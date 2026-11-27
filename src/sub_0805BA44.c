@@ -1,9 +1,9 @@
-extern void sub_08013C5C(void *, s32);
-extern s32 sub_080141AC(s32, void *);
+extern void applySpritePaletteVariant(void *, s32);
+extern s32 checkActorViewBounds(s32, void *);
 extern s32 sub_08013558(s32, void *, void *);
-extern void sub_08013978(void *, void *);
-extern void sub_080142C0(void *, void *);
-extern void sub_08013AC4(void *);
+extern void spawnContactEffectOnHit(void *, void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -17,8 +17,8 @@ void sub_0805BA44(u8 *entity) {
     s32 owner = *(s32 *)(entity + 0x38);
     u8 *params = *(u8 **)(entity + 0x3C);
 
-    sub_08013C5C(entity, owner);
-    if (sub_080141AC(owner, params) == 1) {
+    applySpritePaletteVariant(entity, owner);
+    if (checkActorViewBounds(owner, params) == 1) {
         sub_080C31E0(entity, *(void **)(entity + 0x24));
         return;
     }
@@ -28,13 +28,13 @@ void sub_0805BA44(u8 *entity) {
         *(u8 *)(stepPtr + 0x1B) = zeroByte;
         { void **actionTable = &sScriptStepCallbacks;
           sub_080C31E8(entity + 0x18, entity + 0x22, 3, *actionTable); }
-        sub_08013978(entity, *(void **)(params + 0x28));
+        spawnContactEffectOnHit(entity, *(void **)(params + 0x28));
     }
-    sub_080142C0(entity, *(void **)(params + 0x28));
+    uploadPendingSpriteGraphic(entity, *(void **)(params + 0x28));
     if (*(u16 *)params & 1) {
         u8 *stepBase = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
         if (*(u8 *)(stepBase + 0x1A) != 2) {
-            sub_08013AC4(entity);
+            updateActorWorldPosition(entity);
             {
                 u8 *status = *(u8 **)(params + 0x28);
                 u8 zeroByte = 0;

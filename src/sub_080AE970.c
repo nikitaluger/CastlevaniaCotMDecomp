@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 s32 sub_080C31E0(s32, s32);
 
 /* When the work state's timed display does not handle this frame, advance the
@@ -36,5 +36,5 @@ void sub_080AE970(u8 *arg0) {
             *(s32 *)(work + 0x08) = linkedX + (s32)0xFFDC0000;
         *(s32 *)(work + 0x0C) = *(s32 *)(linkedWork + 0x0C) + (s32)0xFFFC0000;
     }
-    sub_08013C8C(arg0, sprite);
+    syncSpriteToWorldPosition(arg0, sprite);
 }

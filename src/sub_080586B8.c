@@ -1,13 +1,13 @@
 void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, s32, s32);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
+void spawnContactEffectOnHit(void *, void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C5C(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_08013CF4(void *, s32, s32);
 s32 sub_08014114(s32, s32, s32, s32, s32, s32);
-void sub_080142C0(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 void sub_08015974(void *);
 void sub_08058978(void *, void *);
 void sub_080C31E0(void *, s32);
@@ -30,16 +30,16 @@ void sub_080586B8(void *self)
     gfxObj = *(void **)((u8 *)self + 0x38);
     anim = *(void **)((u8 *)self + 0x3C);
     animData = (u8 *)anim + 0x34;
-    sub_08013C5C(self, gfxObj);
+    applySpritePaletteVariant(self, gfxObj);
     if (sub_08014114(*(s32 *)((u8 *)anim + 8), *(s32 *)((u8 *)anim + 0xC), -0x20, 0x20, -0x60, 0x20) == 0) {
         sub_080C31E0(self, *(s32 *)((u8 *)self + 0x24));
         return;
     }
     if (sub_08013558(gfxObj, anim, *(void **)((u8 *)anim + 0x28)) != 0) {
         *(u16 *)((u8 *)anim + 0x20) = 0x1E;
-        sub_08013978(self, *(void **)((u8 *)anim + 0x28));
+        spawnContactEffectOnHit(self, *(void **)((u8 *)anim + 0x28));
     }
-    sub_080142C0(self, *(void **)((u8 *)anim + 0x28));
+    uploadPendingSpriteGraphic(self, *(void **)((u8 *)anim + 0x28));
     if (1 & *(u16 *)(*(u8 **)((u8 *)anim + 0x28) + 0x14)) {
         ((struct AnimFlags *)anim)->f0 |= 1;
     }

@@ -16,7 +16,7 @@ struct S_0809FD70
   u32 field_0x6C;
 };
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_08014668(void *);
 void sub_080C31E0(void *, void *);
 void sub_0809FD70(struct S_0809FD70 *arg0)
@@ -43,6 +43,6 @@ void sub_0809FD70(struct S_0809FD70 *arg0)
     sub_080C31E0(new_var3, *((void **) ((((u32) (*((u8 *) ((((u8 *) new_var3) + new_var) + new_var2)))) * 4) + new_var3->field_0x14)));
     new_var3->field_0x22 -= 1;
   }
-  sub_08013C8C(new_var3, r6);
+  syncSpriteToWorldPosition(new_var3, r6);
 }
 

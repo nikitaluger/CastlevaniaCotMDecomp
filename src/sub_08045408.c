@@ -1,9 +1,9 @@
-extern void sub_08013C5C(void *, s32);
-extern s32 sub_080141AC(s32, void *);
+extern void applySpritePaletteVariant(void *, s32);
+extern s32 checkActorViewBounds(s32, void *);
 extern s32 sub_08013558(s32, void *, void *);
-extern void sub_08013978(void *, void *);
-extern void sub_080142C0(void *, void *);
-extern void sub_08013AC4(void *);
+extern void spawnContactEffectOnHit(void *, void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(s32, void *);
 extern void stepAnimationTrack(s32, void *);
 extern void sub_08011EE8(void *, s32, s32);
@@ -39,7 +39,7 @@ void sub_08045408(u8 *entity)
   fx = state + 0x48;
   *((u8 *) ((*((u8 **) (fx + 0x08))) + 1)) = 0;
   *((u8 *) ((*((u8 **) (fx + 0x0C))) + 1)) = 0;
-  if (sub_080141AC(sprite, state) == 1)
+  if (checkActorViewBounds(sprite, state) == 1)
   {
     ;
     if (((u8 *) ((((u32) (*((s16 *) (entity + 0x22)))) * 2) + ((u32) entity)))[0x1A] == 0)
@@ -47,21 +47,21 @@ void sub_08045408(u8 *entity)
       return;
     }
   }
-  sub_08013C5C(entity, sprite);
+  applySpritePaletteVariant(entity, sprite);
   if ((sub_080457E0(entity) == 0) && (sub_08013558(sprite, state, *((void **) (state + 0x28))) != 0))
   {
-    sub_08013978(entity, *((void **) (state + 0x28)));
+    spawnContactEffectOnHit(entity, *((void **) (state + 0x28)));
   }
-  sub_080142C0(entity, *((void **) (state + 0x28)));
-  sub_080142C0(entity, *((u8 **) (fx + 0x08)));
-  sub_080142C0(entity, *((u8 **) (fx + 0x0C)));
+  uploadPendingSpriteGraphic(entity, *((void **) (state + 0x28)));
+  uploadPendingSpriteGraphic(entity, *((u8 **) (fx + 0x08)));
+  uploadPendingSpriteGraphic(entity, *((u8 **) (fx + 0x0C)));
   if ((*((u16 *) state)) & 1)
   {
     u8 *desc1 = (u8 *) ((((u32) (*((s16 *) (entity + 0x22)))) * 2) + ((u32) entity));
     if (desc1[0x1A] != 3)
     {
       u8 *desc2;
-      sub_08013AC4(entity);
+      updateActorWorldPosition(entity);
       desc2 = (u8 *) ((((u32) (*((s16 *) (entity + 0x22)))) * 2) + ((u32) entity));
       desc2[0x1B] = 0;
       callbackSlot = &sScriptStepCallbacks;

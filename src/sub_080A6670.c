@@ -2,7 +2,7 @@ void stepAnimationTrack(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_08011528(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_08016678(void *);
 
 /* Actor step: set the work block's +0xEE flag at sub-step 4, clear it at 8,

@@ -1,6 +1,6 @@
 s32 divideInt(s32, s32);
 s32 sub_080C31E0(void *, s32);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 
 /* Script-step handler: dispatch the current step's callback, advance the
  * script byte, steer the entity toward its target with a scaled speed, and
@@ -39,5 +39,5 @@ void sub_080AED40(void *arg0)
   *((s32 *) (((u8 *) entity) + 0x0C)) = (*((s32 *) (((u8 *) arg0) + 0x5C))) + (((*((s32 *) (((u8 *) arg0) + 0x6C))) >> 8) * (sub_080C31E0(*((void **) (((u8 *) arg0) + 0x7C)), *callbackTable) >> 8));
   heading = divideInt(0x50000000, *((s32 *) (((u8 *) arg0) + 0x6C)));
   *((u16 *) (((u8 *) work) + 0x06)) = (*((u16 *) (((u8 *) work) + 0x04)) = heading);
-  sub_08013C8C(arg0, work);
+  syncSpriteToWorldPosition(arg0, work);
 }

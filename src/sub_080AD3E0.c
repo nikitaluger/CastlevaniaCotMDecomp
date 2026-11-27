@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void _call_via_r1(void *, void *);
 
 struct S_AD3E0
@@ -35,5 +35,5 @@ void sub_080AD3E0(struct S_AD3E0 *arg0)
     _call_via_r1(self, *((void **) (((*((u8 *) ((((u8 *) self) + stepBaseOffset) + (self->step * (stepScale = 2))))) * 4) + self->handlers)));
     self->step -= 1;
   }
-  sub_08013C8C(self, sprite);
+  syncSpriteToWorldPosition(self, sprite);
 }

@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void _call_via_r1(void *, void *);
 void _call_via_r2(void *, void *, s32);
 void setAnimationFrame(void *, void *, s32, s32);
@@ -36,7 +36,7 @@ void sub_080AE6C8(struct ActorCmd *actor)
     _call_via_r1(actor, *((void **) ((((u32) (*((u8 *) ((((u8 *) actor) + cmdOffset) + stepOffset)))) * 4) + actor->handlerTable)));
     actor->step -= 1;
   }
-  sub_08013C8C(actor, sprite);
+  syncSpriteToWorldPosition(actor, sprite);
 }
 
 /* At sub-step 2, play animation 9, set the work's velocity and restart the script. */

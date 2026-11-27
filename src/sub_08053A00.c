@@ -7,13 +7,13 @@ void sub_08005E80(s32);
 void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, void *, s32);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C5C(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 void sub_08013C8C(void *, void *);
-s32 sub_080141AC(void *, void *);
-void sub_080142C0(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 void sub_08053DFC(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, u32, u32);
@@ -36,22 +36,22 @@ void sub_08053A00(void *entity) {
     actor = *(void **)((u8 *)entity + 0x3C);
     actorTarget = (u8 *)actor + 0x34;
     actorEx = (u8 *)actor + 0x48;
-    if (sub_080141AC(anim, actor) == 1 && ACTION_STATE(entity) == 0) {
+    if (checkActorViewBounds(anim, actor) == 1 && ACTION_STATE(entity) == 0) {
         return;
     }
-    sub_08013C5C(entity, anim);
+    applySpritePaletteVariant(entity, anim);
     if (ACTION_STATE(entity) != 0) {
         timerValue = *(u16 *)(actorEx + 6) - 1;
         *(u16 *)(actorEx + 6) = timerValue;
         if ((s32)((u32)timerValue << 16) < 0) {
             *(u16 *)(actorEx + 6) = 0;
             if (sub_08013558(anim, actor, *(void **)((u8 *)actor + 0x28)) != 0)
-                sub_08013978(entity, *(void **)((u8 *)actor + 0x28));
+                spawnContactEffectOnHit(entity, *(void **)((u8 *)actor + 0x28));
         }
     }
-    sub_080142C0(entity, *(void **)((u8 *)actor + 0x28));
+    uploadPendingSpriteGraphic(entity, *(void **)((u8 *)actor + 0x28));
     if ((*(u16 *)actor & 1) && ACTION_STATE(entity) != 5) {
-        sub_08013AC4(entity);
+        updateActorWorldPosition(entity);
         sub_08005E80(0x80);
         ACTION_FLAG(entity) = 0;
         actionData = (u32 *)0x08671BDC;

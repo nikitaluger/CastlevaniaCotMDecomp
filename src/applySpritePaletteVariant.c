@@ -1,7 +1,7 @@
 /* Give the sprite the entity's high-nibble flag value (its palette/variant:
  * work->f22 + 8) while keeping the low 12 bits (tile index), and mark the
  * entity's linked sub-object (+0x28) as active. */
-void sub_08013C5C(void *entity, u16 *sprite)
+void applySpritePaletteVariant(void *entity, u16 *sprite)
 {
   u16 newFlags;
   void *work;

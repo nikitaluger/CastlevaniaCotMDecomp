@@ -5,12 +5,12 @@ extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E730[];
 extern u32 sScriptStepCallbacks[];
-s32 sub_080141AC(void *, void *);
-void sub_08013C5C(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_080142C0(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
+void updateActorWorldPosition(void *);
 void sub_08005E80(s32);
 void sub_080C31E8(void *, void *, s32, u32);
 s32 updateObjectDisplayState(void *, void *);
@@ -37,22 +37,22 @@ void sub_08055204(u8 *arg0)
   state = *((u8 **) (arg0 + 0x3C));
   scratch = state + 0x34;
   extra = state + 0x48;
-  if (sub_080141AC(sprite, state) == 1)
+  if (checkActorViewBounds(sprite, state) == 1)
   {
     if (*((u8 *) ((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + ((u32) arg0) + 0x1A)) <= 2) return;
   }
-  sub_08013C5C(arg0, sprite);
+  applySpritePaletteVariant(arg0, sprite);
   if (sub_08013558(sprite, state, *((void **) (state + 0x28))) != 0)
   {
-    sub_08013978(arg0, *((void **) (state + 0x28)));
+    spawnContactEffectOnHit(arg0, *((void **) (state + 0x28)));
   }
-  sub_080142C0(arg0, *((void **) (state + 0x28)));
+  uploadPendingSpriteGraphic(arg0, *((void **) (state + 0x28)));
   if ((*((u16 *) state)) & 1)
   {
     if (*((u8 *) ((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + ((u32) arg0) + 0x1A)) != 5)
     {
       u32 *callback;
-      sub_08013AC4(arg0);
+      updateActorWorldPosition(arg0);
       sub_08005E80(0x80);
       *((u8 *) (((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + ((u32) arg0)) + 0x1B)) = 0;
       callback = sScriptStepCallbacks;

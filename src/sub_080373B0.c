@@ -1,6 +1,6 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, s32);
-s32 sub_080141AC(void *, void *);
+void syncSpriteToWorldPosition(void *, s32);
+s32 checkActorViewBounds(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* Run one step of an actor's bytecode script using this area's command table,
@@ -12,7 +12,7 @@ void sub_080373B0(void *actor)
     s32 sprite = *(s32 *)(actorBytes + 0x38);
     s32 work = *(s32 *)(actorBytes + 0x3C);
 
-    if (sub_080141AC(sprite, work) == 1) {
+    if (checkActorViewBounds(sprite, work) == 1) {
         sub_080C31E0(actor, *(void **)(actorBytes + 0x24));
         return;
     }
@@ -29,5 +29,5 @@ void sub_080373B0(void *actor)
         sub_080C31E0(actor, *(void **)(*(u32 *)(actorBytes + 0x14) + *(u8 *)(actorBytes + scriptOffset + indexOffset) * 4));
         *(u16 *)(actorBytes + 0x22) -= 1;
     }
-    sub_08013C8C(actor, sprite);
+    syncSpriteToWorldPosition(actor, sprite);
 }

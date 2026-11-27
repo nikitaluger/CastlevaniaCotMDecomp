@@ -1,9 +1,9 @@
-extern void sub_08013C5C(void *, s32);
-extern s32 sub_080141AC(s32, void *);
+extern void applySpritePaletteVariant(void *, s32);
+extern s32 checkActorViewBounds(s32, void *);
 extern s32 sub_08013558(s32, void *, void *);
-extern void sub_08013978(void *, void *);
-extern void sub_080142C0(void *, void *);
-extern void sub_08013AC4(void *);
+extern void spawnContactEffectOnHit(void *, void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -17,16 +17,16 @@ void sub_0803BE00(u8 *object) {
     s32 sprite = *(s32 *)(object + 0x38);
     u8 *state = *(u8 **)(object + 0x3C);
 
-    sub_08013C5C(object, sprite);
-    if (sub_080141AC(sprite, state) == 1) return;
+    applySpritePaletteVariant(object, sprite);
+    if (checkActorViewBounds(sprite, state) == 1) return;
     if (sub_08013558(sprite, state, *(void **)(state + 0x28)) != 0) {
-        sub_08013978(object, *(void **)(state + 0x28));
+        spawnContactEffectOnHit(object, *(void **)(state + 0x28));
     }
-    sub_080142C0(object, *(void **)(state + 0x28));
+    uploadPendingSpriteGraphic(object, *(void **)(state + 0x28));
     if (*(u16 *)state & 1) {
         u8 *slot = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
         if (*(u8 *)(slot + 0x1A) != 5) {
-            sub_08013AC4(object);
+            updateActorWorldPosition(object);
             {
                 u8 *slot = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
                 u8 zero = 0;

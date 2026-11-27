@@ -1,7 +1,7 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_080142C0(void *, void *);
+void spawnContactEffectOnHit(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 s32 sub_08014328(void *, void *, void *);
 void sub_08014314(void *, void *);
 void sub_08013C8C(void *, void *);
@@ -25,14 +25,14 @@ void sub_08039484(void *arg0) {
     *(u32 *)((u8 *)state + 0x08) = *(u32 *)(entity + 0x5C);
     *(u32 *)((u8 *)state + 0x0C) = *(u32 *)(entity + 0x6C);
 
-    if (sub_080141AC(obj, state) == 1)
+    if (checkActorViewBounds(obj, state) == 1)
         return;
 
     if (sub_08013558(obj, state, *(void **)((u8 *)state + 0x28)) != 0)
-        sub_08013978(arg0, *(void **)((u8 *)state + 0x28));
+        spawnContactEffectOnHit(arg0, *(void **)((u8 *)state + 0x28));
 
-    sub_080142C0(*(void **)(entity + 0x28), *(void **)((u8 *)state + 0x28));
-    sub_080142C0(*(void **)(entity + 0x28), *(void **)((u8 *)state + 0x48));
+    uploadPendingSpriteGraphic(*(void **)(entity + 0x28), *(void **)((u8 *)state + 0x28));
+    uploadPendingSpriteGraphic(*(void **)(entity + 0x28), *(void **)((u8 *)state + 0x48));
 
     if (*(u8 *)(entity + 0x7C) != 0) {
         u32 *callbackTable;

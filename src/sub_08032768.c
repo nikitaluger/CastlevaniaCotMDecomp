@@ -1,6 +1,6 @@
 void stepAnimationTrack(s32, s32);
 void sub_08011EE8(void *, s32, s32);
-s32 sub_080141AC(s32, s32);
+s32 checkActorViewBounds(s32, s32);
 void sub_0803B0F8(void *, s32, void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -13,7 +13,7 @@ void sub_08032768(void *arg0) {
     u8 *target = *(u8 **)(self + 0x3C);
     u8 *spriteData = target + 0x34;
     u8 *animState = target + 0x48;
-    if (sub_080141AC((s32)gfx, (s32)target) == 1) return;
+    if (checkActorViewBounds((s32)gfx, (s32)target) == 1) return;
     sub_0803B0F8(target, (s32)gfx, animState, 0x080CEBD8);
     sub_08011EE8(target, 0x16C1, 0);
     stepAnimationTrack((s32)gfx, (s32)spriteData);

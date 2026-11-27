@@ -9,11 +9,11 @@ void selectSceneMode(void)
     u8 *p = gMainWorkspace;
     u8 *p2;
     s32 k;
+    u8 high, low;
     u8 t;
 
-    k = (p[0x50] << 8) + p[0x51];
     p2 = p;
-    switch (k) {
+    switch ((s32)(((u32)*(volatile u8 *)&p[0x50] << 8) + p[0x51])) {
     case 0x0715:
         if (sub_08007EA8(0xB6) != 0 && sub_08007EA8(0xBD) == 0) {
             *(u32 *)&p[0x10] = 6;

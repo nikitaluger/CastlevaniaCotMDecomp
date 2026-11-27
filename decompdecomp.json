@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795739769.5628083,
- "revision": 68569,
+ "saved_at": 1795741399.5341506,
+ "revision": 68616,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "775544:134993272": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnKind68ScriptEffectAlt",
-   "vram": 134993272
   }
  },
  "instructions": "",
@@ -1956,8 +1945,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -4115,12 +4103,12 @@
    "best_score": 16920,
    "best_by": "permuter-8589935085"
   },
-  "sub_08013978": {
+  "spawnContactEffectOnHit": {
    "vram": 134297976,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08013AC4": {
+  "updateActorWorldPosition": {
    "vram": 134298308,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -4135,12 +4123,12 @@
    "matched_by": "opencode-deepseek-v4.1-flash-free-2",
    "readable": false
   },
-  "sub_08013C5C": {
+  "applySpritePaletteVariant": {
    "vram": 134298716,
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_08013C8C": {
+  "syncSpriteToWorldPosition": {
    "vram": 134298764,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -4180,7 +4168,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080141AC": {
+  "checkActorViewBounds": {
    "vram": 134300076,
    "matched_by": "permuter",
    "readable": false
@@ -4200,7 +4188,7 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_080142C0": {
+  "uploadPendingSpriteGraphic": {
    "vram": 134300352,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -5440,10 +5428,10 @@
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": true
   },
-  "sub_0801DE04": {
+  "updatePlayerActor": {
    "vram": 134340100,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0801DF88": {
    "vram": 134340488,
@@ -5565,10 +5553,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0801F300": {
+  "updatePlayerActorAlt": {
    "vram": 134345472,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0801F484": {
    "vram": 134345860,
@@ -5700,7 +5688,7 @@
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": true
   },
-  "sub_0802076C": {
+  "updateProjectileActor": {
    "vram": 134350700,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -11095,6 +11083,11 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
+  "sub_08055840": {
+   "vram": 134568000,
+   "matched_by": "autopilot",
+   "readable": false
+  },
   "updateAttackObject": {
    "vram": 134568288,
    "matched_by": "autopilot",
@@ -14637,8 +14630,8 @@
   },
   "sub_08080920": {
    "vram": 134744352,
-   "best_score": 1000,
-   "best_by": "opencode-free-2"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_080809FC": {
    "vram": 134744572,
@@ -15107,8 +15100,8 @@
   },
   "selectSceneMode": {
    "vram": 134773104,
-   "best_score": 1120,
-   "best_by": "opencode-hy4-flash-free-11"
+   "best_score": 210,
+   "best_by": "opencode-hungerg-free-3"
   },
   "loadSceneGraphics": {
    "vram": 134773584,
@@ -17022,8 +17015,8 @@
   },
   "getSpawnBehaviorIndex": {
    "vram": 134829220,
-   "best_score": 325,
-   "best_by": "opencode-hy4-flash-free-11"
+   "best_score": 295,
+   "best_by": "opencode-beam-free-9"
   },
   "sub_080954E4": {
    "vram": 134829284,
@@ -18828,6 +18821,11 @@
   "sub_080A3624": {
    "vram": 134886948,
    "matched_by": "opencode-free-1",
+   "readable": false
+  },
+  "sub_080A36AC": {
+   "vram": 134887084,
+   "matched_by": "autopilot",
    "readable": false
   },
   "sub_080A37F0": {
@@ -22047,7 +22045,7 @@
   },
   "sub_080BC2C8": {
    "vram": 134988488,
-   "best_score": 870,
+   "best_score": 380,
    "best_by": "opencode-hungerg-free-3"
   },
   "sub_080BC574": {
@@ -22168,7 +22166,7 @@
   "spawnKind68ScriptEffectAlt": {
    "vram": 134993272,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_080BD804": {
    "vram": 134993924,
@@ -25858,13 +25856,13 @@
    "status": "open"
   },
   {
-   "name": "sub_08013978",
+   "name": "spawnContactEffectOnHit",
    "vram": 134297976,
    "size": 332,
    "status": "open"
   },
   {
-   "name": "sub_08013AC4",
+   "name": "updateActorWorldPosition",
    "vram": 134298308,
    "size": 152,
    "status": "open"
@@ -25882,13 +25880,13 @@
    "status": "open"
   },
   {
-   "name": "sub_08013C5C",
+   "name": "applySpritePaletteVariant",
    "vram": 134298716,
    "size": 48,
    "status": "open"
   },
   {
-   "name": "sub_08013C8C",
+   "name": "syncSpriteToWorldPosition",
    "vram": 134298764,
    "size": 104,
    "status": "open"
@@ -25942,7 +25940,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_080141AC",
+   "name": "checkActorViewBounds",
    "vram": 134300076,
    "size": 74,
    "status": "open"
@@ -25966,7 +25964,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080142C0",
+   "name": "uploadPendingSpriteGraphic",
    "vram": 134300352,
    "size": 58,
    "status": "open"
@@ -27604,7 +27602,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801DE04",
+   "name": "updatePlayerActor",
    "vram": 134340100,
    "size": 388,
    "status": "open"
@@ -27670,7 +27668,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801E5FC",
+   "name": "releaseActorSlots",
    "vram": 134342140,
    "size": 44,
    "status": "asm"
@@ -27766,7 +27764,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801F300",
+   "name": "updatePlayerActorAlt",
    "vram": 134345472,
    "size": 388,
    "status": "open"
@@ -27838,7 +27836,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801FA30",
+   "name": "releaseActorSlotsAlt",
    "vram": 134347312,
    "size": 44,
    "status": "asm"
@@ -27934,7 +27932,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802076C",
+   "name": "updateProjectileActor",
    "vram": 134350700,
    "size": 388,
    "status": "open"
@@ -28006,7 +28004,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08020E78",
+   "name": "releaseProjectileSlots",
    "vram": 134352504,
    "size": 44,
    "status": "asm"
@@ -34662,14 +34660,8 @@
   {
    "name": "sub_08055840",
    "vram": 134568000,
-   "size": 74,
-   "status": "asm"
-  },
-  {
-   "name": "sub_0805588A",
-   "vram": 134568074,
-   "size": 10,
-   "status": "asm"
+   "size": 84,
+   "status": "open"
   },
   {
    "name": "updateAttackObject",
@@ -39156,14 +39148,8 @@
   {
    "name": "sub_08080920",
    "vram": 134744352,
-   "size": 200,
+   "size": 220,
    "status": "open"
-  },
-  {
-   "name": "sub_080809E8",
-   "vram": 134744552,
-   "size": 20,
-   "status": "asm"
   },
   {
    "name": "sub_080809FC",
@@ -44520,8 +44506,8 @@
   {
    "name": "sub_080A36AC",
    "vram": 134887084,
-   "size": 300,
-   "status": "asm"
+   "size": 324,
+   "status": "open"
   },
   {
    "name": "sub_080A37F0",
@@ -50346,6 +50332,18 @@
    "kind": "func"
   },
   {
+   "name": "spawnContactEffectOnHit",
+   "address": 134297976,
+   "size": 332,
+   "kind": "func"
+  },
+  {
+   "name": "updateActorWorldPosition",
+   "address": 134298308,
+   "size": 152,
+   "kind": "func"
+  },
+  {
    "name": "updateObjectDisplayState",
    "address": 134298460,
    "size": 206,
@@ -50355,6 +50353,24 @@
    "name": "findKindIndex",
    "address": 134298668,
    "size": 46,
+   "kind": "func"
+  },
+  {
+   "name": "applySpritePaletteVariant",
+   "address": 134298716,
+   "size": 48,
+   "kind": "func"
+  },
+  {
+   "name": "syncSpriteToWorldPosition",
+   "address": 134298764,
+   "size": 104,
+   "kind": "func"
+  },
+  {
+   "name": "checkActorViewBounds",
+   "address": 134300076,
+   "size": 74,
    "kind": "func"
   },
   {
@@ -50373,6 +50389,12 @@
    "name": "updateScriptedEffectObject",
    "address": 134300304,
    "size": 46,
+   "kind": "func"
+  },
+  {
+   "name": "uploadPendingSpriteGraphic",
+   "address": 134300352,
+   "size": 58,
    "kind": "func"
   },
   {
@@ -50562,6 +50584,18 @@
    "kind": "func"
   },
   {
+   "name": "updatePlayerActor",
+   "address": 134340100,
+   "size": 388,
+   "kind": "func"
+  },
+  {
+   "name": "releaseActorSlots",
+   "address": 134342140,
+   "size": 44,
+   "kind": "func"
+  },
+  {
    "name": "createEntityChildSprite",
    "address": 134342256,
    "size": 500,
@@ -50577,6 +50611,18 @@
    "name": "createEntityChildSpriteAlt",
    "address": 134343476,
    "size": 500,
+   "kind": "func"
+  },
+  {
+   "name": "updatePlayerActorAlt",
+   "address": 134345472,
+   "size": 388,
+   "kind": "func"
+  },
+  {
+   "name": "releaseActorSlotsAlt",
+   "address": 134347312,
+   "size": 44,
    "kind": "func"
   },
   {
@@ -50613,6 +50659,18 @@
    "name": "scriptCmdSpawnProjectile",
    "address": 134350100,
    "size": 600,
+   "kind": "func"
+  },
+  {
+   "name": "updateProjectileActor",
+   "address": 134350700,
+   "size": 388,
+   "kind": "func"
+  },
+  {
+   "name": "releaseProjectileSlots",
+   "address": 134352504,
+   "size": 44,
    "kind": "func"
   },
   {
@@ -52422,8 +52480,20 @@
    "kind": "data"
   },
   {
+   "name": "sPlayerScriptStepTable",
+   "address": 140957512,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gScriptedEntityStepTable",
    "address": 140957560,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "sPlayerAltScriptStepTable",
+   "address": 140957600,
    "size": 0,
    "kind": "data"
   },
@@ -52436,6 +52506,12 @@
   {
    "name": "gProjectileScriptHandlers",
    "address": 140957668,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "sProjectileScriptStepTable",
+   "address": 140957680,
    "size": 0,
    "kind": "data"
   },
@@ -52541,12 +52617,12 @@
   },
   {
    "address": 33706856,
-   "type": "struct S_02025368",
+   "type": "s32[]",
    "source": "match"
   },
   {
    "address": 33710064,
-   "type": "struct GlobalState",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -52601,7 +52677,7 @@
   },
   {
    "address": 135052752,
-   "type": "struct Kind68GfxRecord[]",
+   "type": "struct SpawnParams[]",
    "source": "match"
   },
   {
@@ -53060,6 +53136,16 @@
    "source": "match"
   },
   {
+   "address": 135278568,
+   "type": "char[]",
+   "source": "match"
+  },
+  {
+   "address": 135278580,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 138469784,
    "type": "u8[]",
    "source": "match"
@@ -53082,6 +53168,11 @@
   {
    "address": 140957560,
    "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 140957600,
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -53146,7 +53237,7 @@
   },
   {
    "address": 140975068,
-   "type": "s32",
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -55582,7 +55673,7 @@
    "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Boundary artifact floor at score 110. All 25 real instructions (from 0x0801E12C push {lr} onward) are byte-exact; sole diffs are the leading 2-byte orphan `lsrs r6,r4,#1` at 0x0801E12A (high halfword of previous function's literal pool word 0x0866D75C) and the BL displacement shifted by 2 that follo"
   },
   {
-   "name": "sub_0801E5FC",
+   "name": "releaseActorSlots",
    "vram": 134342140,
    "not_c": {
     "opencode-free-1": {
@@ -55607,7 +55698,7 @@
    "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Best score 170 (92.2%). Target: loop over 6 void* pointers at *(arg0+0x3C)+0x58, step 4, counter 5\u21920 (signed bge). For each non-NULL ptr: *(u16*)(ptr+0x5C) |= 2; *ptr = NULL. Same pattern as sub_08020E78 but count=5, offset=0x5C."
   },
   {
-   "name": "sub_0801FA30",
+   "name": "releaseActorSlotsAlt",
    "vram": 134347312,
    "not_c": {
     "opencode-nemotron-3.5-super-vl-12-1": {
@@ -55657,7 +55748,7 @@
    "asm_code": "3 agents (opencode-beam-free, opencode-hy4-flash-free) said in their notes that no C makes it: Why it can't get closer (2 compiles this session, both judged): (1) explicit `u8 *e = D_02021E90 + 0x127C;` local (prior agent's note (a)) regressed 4880 -> 5735 and still lacked the ROM's `mov r7,sl`; (2) reverted to the brief's 4880 source, reconfirmed exactly 4880 (197/197 emitted insns correspon"
   },
   {
-   "name": "sub_08020E78",
+   "name": "releaseProjectileSlots",
    "vram": 134352504,
    "not_c": {
     "opencode-hy4-flash-free-1": {
@@ -56658,53 +56749,6 @@
    "asm_code": "not code (set aside from sub_080548C8): Declared extent 76 bytes (ends 0x08054914) too long: includes next function prologue push {r4,r5,r6,r7,lr}; mov r7,sl at 0x08054910. Real function ends bx r0 at 0x0805490A-0B plus literal pool 0x0866E70C at 0x0805490C-0F (4 bytes). Trim to 0x08054910. C body byte-exact."
   },
   {
-   "name": "sub_08055840",
-   "vram": 134568000,
-   "not_c": {
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer from C \u2014 terminal SETUP/extent wall. Explicit override: all 34/34 declared target instructions are already byte-exact (score 500); every residual row is ROM bytes OUTSIDE the declared 74-byte extent (real epilogue pop{r0};bx r0 at 0x0805588A-8D, pad, and the 0x08671BB0 pool word at 0x08055890), which no C source can emit inside its window. Fix is user-side extent EXTEND to 84 bytes / end 0x08055894 (voted via suggest), do NOT report_boundary/shorten. ~139 lifetime attempts across 9 models all agree; flag sweeps cannot help. Pure C exists, so not not_c, not hand asm, no callee dependency. Release permanently to advance queue.",
-     "t": 1795578772.2757769,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Explicit release: cannot get closer from C. All 34/34 declared target instructions are byte-exact (score 500); the only residual rows are the ROM's real out-of-extent `pop {r0}; bx r0` epilogue, pad and 0x08671BB0 pool word beyond the declared 74-byte extent. No C source can emit bytes outside the declared window; fix requires the user-side extent extension I just filed via suggest(). ~134 prior attempts across 9 models agree. Not hand-written asm, not not_c (plain C exists), no callee dependency, and explicitly NOT a boundary (do not shorten). Best source preserved.",
-     "t": 1795570812.3010688,
-     "from": "note"
-    },
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Cannot get closer from C: all 34 declared target instructions match exactly; remaining diff is entirely outside declared 74-byte extent (real epilogue/pool bytes). No C source can emit beyond extent. Needs user-side extent extension (do not shorten/report boundary) and possible compiler-map correction. Not not_c, no callee dep. Best source preserved.",
-     "t": 1795573846.60011,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Cannot get closer from C \u2014 terminal SETUP/extent wall. Explicit override: all 34/34 declared target instructions are already byte-exact (score 500); every residual row is ROM bytes OUTSIDE the declared 74-byte extent (real epilogue pop{r0};bx r0 at 0x0805588A-8D, pad, and the 0x08671BB0 pool word at"
-  },
-  {
-   "name": "sub_0805588A",
-   "vram": 134568074,
-   "not_c": {
-    "opencode-free-1": {
-     "model": "opencode-free",
-     "why": "Not code: only pop{r0};bx r0 tail, boundary reported to 0x0805588E. Cannot match with C.",
-     "t": 1794923432.4694786
-    },
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Claimed range includes tail fragment `pop {r0}; bx r0` followed by padding/literal/data bytes (0x0000, 0x08671BB0, etc.). Reported boundary to 0x0805588E. Not a matchable standalone C function in current form.",
-     "t": 1794932083.1814322
-    },
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Not C: symbol at 0x0805588A is a mis-split tail fragment. Real code is only `pop {r0}; bx r0` (returns via stack-saved address, not lr) at a non-word-aligned entry; everything after 0x0805588E is literal-pool data (0x08671BB0) and padding/other function bytes. No C function prologue/epilogue emits `pop {r0}; bx r0` as its entire body; agbcc emits `bx lr` (score 405). Boundary at 0x0805588E already reported. Set aside as data/artifact.",
-     "t": 1794981953.5001814
-    }
-   },
-   "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-iceman-contributor-free) found no C makes it: Not C: symbol at 0x0805588A is a mis-split tail fragment. Real code is only `pop {r0}; bx r0` (returns via stack-saved address, not lr) at a non-word-aligned entry; everything after 0x0805588E is literal-pool data (0x08671BB0) and padding/other function bytes. No C function prologue/epilogue emits `pop {r0}; bx r0` as its entire body; agbcc emits `bx lr` (score 405). Boundary at 0x0805588E already reported. Set aside as data/artifact."
-  },
-  {
    "name": "sub_08055D94",
    "vram": 134569364,
    "not_c": {
@@ -57671,28 +57715,6 @@
     }
    },
    "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hy4-flash-free) said in their notes that no C makes it: Release again with reasoning why C cannot get closer: my compile reproduced exactly the documented 2516 floor (142/144 structurally-correct instructions). The whole gap is agbcc's deterministic callee-saved allocation rotation (arg0/f6C/D_02025368/sp0/spawn-result permuted among r5,r6,r7,sb,sl), whi"
-  },
-  {
-   "name": "sub_080809E8",
-   "vram": 134744552,
-   "not_c": {
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Claimed bytes are not executable code but a literal pool/data (0x02025FF0, 0x000018C2, 0x0000155F, 0x0000173A, 0x000014ED) misidentified as function; disassembly is nonsense (lsls r0,r0,#0 padding, invalid ldrsh form). Cannot be decompiled to C. Boundary report at start not accepted by tool, but function should be excluded as data. Best 1100 (empty stub).",
-     "t": 1794917010.5414329
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Not code \u2014 pure literal-pool data, same pattern as sub_08080468. ROM words at 0x080809E8: 0x02025FF0, 0x000018C2, 0x0000155F, 0x0000173A, 0x000014ED (base pointer + four offsets). Thumb disassembly is garbage: `ldrsh r0,[r6,r7]` is not a valid Thumb instruction and `lsls r0,r0,#0` are no-op padding. These words are the literal pools of the surrounding real functions. report_boundary at the start would be rejected (requires an instruction inside the range; already seen for sub_08080468). Empty stub compiles to `bx lr`, score 1100. No C function can compile to 20 bytes of pure literal data. not_c.",
-     "t": 1794919549.2830014
-    },
-    "opencode-hy4-flash-free-4": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Not code \u2014 20 bytes are a literal pool, not a function. ROM words: 0x02025FF0 (base pointer), 0x000018C2, 0x0000155F, 0x0000173A, 0x000014ED (four offsets), then `push {r4,lr}` at 0x080809FC begins the next real function. Same pointer+offsets pattern as sub_08080468. \"Disassembly\" is garbage (ldsh with register offset is Thumb-2, unavailable on ARMv4T; `lsls r0,r0,#0` no-ops). Agreed independently by agents of two other models. No C function can compile to literal data; empty stub scores 1100.",
-     "t": 1794992560.8708913
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free) found no C makes it: Not code \u2014 20 bytes are a literal pool, not a function. ROM words: 0x02025FF0 (base pointer), 0x000018C2, 0x0000155F, 0x0000173A, 0x000014ED (four offsets), then `push {r4,lr}` at 0x080809FC begins the next real function. Same pointer+offsets pattern as sub_08080468. \"Disassembly\" is garbage (ldsh with register offset is Thumb-2, unavailable on ARMv4T; `lsls r0,r0,#0` no-ops). Agreed independently by agents of two other models. No C function can compile to literal data; empty stub scores 1100."
   },
   {
    "name": "sub_08080E00",
@@ -59127,31 +59149,6 @@
     }
    },
    "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Ceiling at 136 (99.1%, 166/166 insns) \u2014 terminal agbcc instruction-scheduling/register-coloring tie, NOT fixable from C. All structure, control flow, calls, and data match target exactly. Remaining 8 diff units: (1) `movs r0,#0; mov r8,r0` zero-init pair is hoisted to function start by agbcc, target"
-  },
-  {
-   "name": "sub_080A36AC",
-   "vram": 134887084,
-   "not_c": {
-    "opencode-free-1": {
-     "model": "opencode-free",
-     "why": "Can't get closer from C: all 142 target instructions already match byte-for-byte (score 1200, confirmed twice this session plus 5+ prior agents over ~80 attempts). The only diff is 12 extra rows = the function's own 6-word literal pool + pad emitted inline after bx r0, which the declared 300-byte extent (ends 0x080A37D8) excludes while the ROM preplaces its pool at 0x080A37D8-0x080A37EF. Local veneers/pool placement cannot be controlled by source, and \"your function is longer than the original\" is purely an extent problem. Not hand-written asm, not a boundary in the body (body ends byte-exact at pop {r0}; bx r0), not not_c. Fix belongs in project setup: extend declared extent 300 -> 324 bytes (end 0x080A37F0). Best source preserved (verbatim in previous compile_and_diff of this session).",
-     "t": 1795473603.3039682,
-     "from": "note"
-    },
-    "opencode-nemotron-3.5-super-vl-12-1": {
-     "model": "opencode-nemotron-3.5-super-vl-12",
-     "why": "Ask again: this function cannot get closer from C. Score 1200 with all 142 target instructions byte-exact (my compile this session + ~7 prior agents). The only diff is 12 extra rows: the function's own 6-word literal pool emitted inline after `bx r0` because the declared extent (300 bytes, ending 0x080A37D8) excludes the ROM's preplaced pool at 0x080A37D8-0x080A37EF (\"your function is longer than the original\"). No C spelling can move literal-pool placement or veneers; fix is project setup: extend declared extent to 324 bytes / end 0x080A37F0 (open setup suggestion). Not hand-written asm, not not_c, no boundary in the body (ends byte-exact at pop {r0}; bx r0), no callee dependency. Body fully byte-exact: both 0x22-indexed flag-byte checks (0x59/0x5A), r7[0]&2 branch, sub_080057F8/r6+0x6C countdown, sub_080A5670(r4+0x48,r4), D_08101C60/D_08101C74 lookups, DMA chain to 0x040000D4, indirect call via *(u32*)0x08671BD0 with D_08101C78 table. Best source = the score-1200 C preserved above.",
-     "t": 1795474945.375479,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Release again with explicit impossibility: the C is complete \u2014 142/142 target instructions byte-exact at score 1200; no further compile can improve it. The 12 residual rows are entirely a project-setup extent artifact: the function's own 6-word literal pool at 0x080A37D8-0x080A37EF lies past the declared 300-byte extent (end 0x080A37D8). Literal-pool placement is controlled by the compiler/linker, not by any C statement, type or declaration order; register-asm pinning is banned. Fix belongs in project setup (extend extent to 324 bytes / end 0x080A37F0); I filed a suggest() vote this session. Not hand-written asm, not not_c, no boundary in the body (it ends byte-exact at pop {r0}; bx r0), no callee dependency. Best-1200 source preserved.",
-     "t": 1795480306.2392168,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Release again with explicit impossibility: the C is complete \u2014 142/142 target instructions byte-exact at score 1200; no further compile can improve it. The 12 residual rows are entirely a project-setup extent artifact: the function's own 6-word literal pool at 0x080A37D8-0x080A37EF lies past the dec"
   },
   {
    "name": "sub_080A53EC",

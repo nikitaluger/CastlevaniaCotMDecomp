@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 void stepAnimationTrack(void *, void *);
@@ -39,5 +39,5 @@ void sub_080B5E90(struct ActionScript *arg0)
     sub_080C31E0(arg0, *((void **) ((((u32) (*((u8 *) ((((u8 *) arg0) + cmdArrayOffset) + stepOffset)))) * 4) + arg0->commandTable)));
     arg0->stepIndex -= 1;
   }
-  sub_08013C8C(arg0, sprite);
+  syncSpriteToWorldPosition(arg0, sprite);
 }

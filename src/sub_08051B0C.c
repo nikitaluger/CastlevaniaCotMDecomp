@@ -1,7 +1,7 @@
 extern void sub_08005E80(s32);
 extern s32 sub_08013B5C(s32, void *);
-extern void sub_08013C8C(void *, s32);
-extern s32 sub_080141AC(s32, void *);
+extern void syncSpriteToWorldPosition(void *, s32);
+extern s32 checkActorViewBounds(s32, void *);
 extern s32 hitTestEntities(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -27,7 +27,7 @@ void sub_08051B0C(ScriptObj *self)
 {
   void *sprite = (void *) self->sprite;
   ScriptObj *actor = (ScriptObj *) self->actor;
-  if (sub_080141AC((s32) sprite, actor) == 1)
+  if (checkActorViewBounds((s32) sprite, actor) == 1)
   {
     sub_080C31E0(self, (s32) self->despawnReason);
     return;
@@ -72,5 +72,5 @@ void sub_08051B0C(ScriptObj *self)
     sub_080C31E0(self, (s32) callback);
     self->stepIndex = (s16) (((u16) self->stepIndex) - 1);
   }
-  sub_08013C8C(self, (s32) sprite);
+  syncSpriteToWorldPosition(self, (s32) sprite);
 }

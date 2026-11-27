@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* If the sprite's timed display did not consume this frame, switch the entity to
@@ -24,5 +24,5 @@ void sub_080A9B38(u8 *self) {
         sub_080C31E0(self, *(void **)(action * 4 + *(u32 *)(self + 0x14)));
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
     }
-    sub_08013C8C(self, sprite);
+    syncSpriteToWorldPosition(self, sprite);
 }

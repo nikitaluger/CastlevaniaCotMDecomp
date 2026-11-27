@@ -32,6 +32,27 @@ struct P
   u8 _24[4];
   struct E *f28;
 };
+struct Actor
+{
+  u16 f0;
+  u16 f2;
+  u8 _4[0x14 - 4];
+  void *f14;
+  u8 _18[0x22 - 0x18];
+  s16 f22;
+  void *f24;
+  u8 _28[0x38 - 0x28];
+  void *f38;
+  void * volatile f3C;
+  u8 _40[0x5C - 0x40];
+  u32 f5C;
+  u8 _60[0x6C - 0x60];
+  s32 f6C;
+  u8 _70[0x7C - 0x70];
+  u32 f7C;
+  u8 _80[0x8C - 0x80];
+  s32 f8C;
+};
 struct BD
 {
   u8 _0[4];
@@ -42,128 +63,101 @@ struct BD
 extern struct BD gEffectGfxTable[];
 extern u16 D_08102F10[];
 extern u16 D_08102F1C[];
-extern u32 gScriptStepCallbackTable;
+extern void *gScriptStepCallbackTable;
 void *allocSpriteObject(void);
 void allocWorkSlot(void *, s32, s32, s32);
 s32 sub_080057F8(void);
 s32 scaleByRandom(s32);
 s32 sub_0800583C(s32);
-void initSpriteGraphics(void *, s32, s32);
-void setAnimationFrame(void *, s32, s32, s32);
+void initSpriteGraphics(void *, void *, s32);
+void setAnimationFrame(void *, void *, s32, s32);
 s32 findKindIndex(s16);
 void installUpdateHandler(void *, void *, void *);
 void *allocEffectPart(void);
-void sub_080BC73C(void *, void *);
-void sub_080C31E0(void *, s32);
-void sub_080C31E4(void *, void *, s32);
+void sub_080BC73C(void *, void *, void *);
+void sub_080C31E0(void *, void *);
+void sub_080C31E4(void *, void *, void *);
 void updateActorEffectSubObject(void);
-void sub_080BC2C8(u8 *arg0)
+void sub_080BC2C8(struct Actor *actor)
 {
-  u8 *r5 = arg0;
-  u8 *new_var7;
-  u8 *r6;
-  struct P *r4;
-  struct P *r4_copy;
-  u8 *r7;
-  u8 *new_var;
-  u8 *new_var5;
-  s16 idx;
-  s32 r;
-  int new_var2;
-  u32 fn_ptr;
-  unsigned long new_var4;
-  int new_var3;
-  u8 *arg22;
-  u16 new_var6;
-  u16 *tab;
-  struct E *e;
-  new_var7 = r5 + 0x24;
-  r6 = allocSpriteObject();
-  if (r6 == 0)
+  s32 sprite;
+  struct P *work;
+  u8 *animState;
+  u16 *defaults;
+  s32 value;
+  s32 heading;
+  u8 *scriptPtr;
+  void **scriptTablePtr;
+  u8 *scriptEntry;
+
+  sprite = (s32)allocSpriteObject();
+  if (sprite == 0) goto fail;
+  actor->f38 = (void *)sprite;
+  allocWorkSlot(actor, 0, 0x48, 0);
+  if (actor->f3C == NULL) goto fail;
+  *((u32 *)(sprite + 0x1C)) = 0x80000009;
+  work = (struct P *)actor->f3C;
+  animState = ((u8 *)work) + 0x34;
+  installUpdateHandler(actor, (u8 *)work, updateActorEffectSubObject);
+  work->f1C = 0x68;
+  value = findKindIndex(0x68);
+  work->f22 = value;
+  if ((s16)value < 0) goto fail;
+  heading = work->f22;
+  heading = heading << 6;
+  heading = heading + 0x200;
+  heading &= 0xFC0;
+  *((u16 *)sprite) = heading;
+  *((u16 *)sprite) |= gMainWorkspace.w;
+  initSpriteGraphics((void *)sprite, animState, (s32)D_08102F10);
+  setAnimationFrame((void *)sprite, animState, 0, 1);
+  defaults = D_08102F1C;
+  work->f28 = allocEffectPart();
+  if (work->f28 == NULL) goto fail;
+  goto ok;
+fail:
+  sub_080C31E0(actor, actor->f24);
+  return;
+ok:
+  work->f28->f1 = 5;
+  work->f28->f2 = 8;
+  work->f28->f3 = 1;
+  work->f28->f4 = gEffectGfxTable[work->f1C].f4;
+  work->f28->f6 = defaults[0];
+  work->f28->f8 = defaults[1];
+  work->f28->fA = defaults[2];
+  work->f28->fC = defaults[3];
+  work->f28->fE = gEffectGfxTable[work->f1C].f6;
+  work->f28->f10 = (u32)sprite;
+  *((u32 *)((u8 *)actor + 0x6C)) = scaleByRandom(0x200000) - (-0x100000);
+  *((u32 *)((u8 *)actor + 0x7C)) = 0xFFFF & sub_080057F8();
+  value = sub_0800583C(0x180);
+  *((s32 *)((u8 *)actor + 0x8C)) = value;
+  if (value < 0)
   {
-    sub_080C31E0(r5, *((u32 *) new_var7));
-    return;
-  }
-  *((u32 *) (r5 + 0x38)) = (u32) r6;
-  allocWorkSlot(r5, 0, 0x48, 0);
-  if ((*((u32 *) (r5 + 0x3C))) == 0)
-  {
-    sub_080C31E0(r5, *((u32 *) (r5 + 0x24)));
-    return;
-  }
-  *((u32 *) (r6 + 0x1C)) = 0x80000009;
-  r4 = (struct P *) (*((u32 *) (r5 + 0x3C)));
-  r7 = ((u8 *) r4) + 0x34;
-  installUpdateHandler(r5, r4, updateActorEffectSubObject);
-  r4->f1C = 0x68;
-  r = findKindIndex((s16) r4->f1C);
-  new_var3 = (r << 16) < 0;
-  r4->f22 = (s16) r;
-  if ((r << 16) < 0)
-  {
-    sub_080C31E0(r5, *((u32 *) new_var7));
-    return;
-  }
-  r4_copy = r4;
-  idx = r4_copy->f22;
-  r = ((idx << 6) + 0x200) & 0xFC0;
-  new_var6 = (u16) r;
-  *((u16 *) r6) = new_var6;
-  *((u16 *) r6) |= gMainWorkspace.w;
-  initSpriteGraphics(r6, (s32) r7, (s32) D_08102F10);
-  setAnimationFrame(r6, (s32) r7, 0, 1);
-  tab = D_08102F1C;
-  e = allocEffectPart();
-  r4_copy->f28 = e;
-  if (e == 0)
-  {
-    sub_080C31E0(r5, *((u32 *) (r5 + 0x24)));
-    return;
-  }
-  r4_copy->f28->f1 = 5;
-  r4_copy->f28->f2 = 8;
-  r4_copy->f28->f3 = 1;
-  idx = r4_copy->f1C;
-  r4_copy->f28->f4 = gEffectGfxTable[idx].f4;
-  r4_copy->f28->f6 = tab[0];
-  r4_copy->f28->f8 = tab[1];
-  r4_copy->f28->fA = tab[2];
-  r4_copy->f28->fC = tab[3];
-  r4_copy->f28->fE = gEffectGfxTable[r4_copy->f1C].f6;
-  r4_copy->f28->f10 = (u32) r6;
-  new_var = r5 + 0x7C;
-  new_var2 = 2;
-  new_var4 = 0x8C;
-  *((u32 *) (r5 + 0x6C)) = scaleByRandom(0x200000) - (-0x100000);
-  *((u32 *) new_var) = 0xFFFF & sub_080057F8();
-  r = (*((s32 *) (r5 + 0x8C)) = sub_0800583C(0x180));
-  if (r < 0)
-  {
-    r = r - 0x80;
+    value = value - 0x80;
   }
   else
   {
-    r = r + 0x80;
+    value = value + 0x80;
   }
-  *((s32 *) (r5 + new_var4)) = r;
-  *((u32 *) (r5 + 0x5C)) = 1;
-  *((u32 *) (r5 + 0x9C)) = 0;
-  sub_080BC73C(r5, r6);
+  *((s32 *)((u8 *)actor + 0x8C)) = value;
+  *((u32 *)((u8 *)actor + 0x5C)) = 1;
+  *((u32 *)((u8 *)actor + 0x9C)) = 0;
+  sub_080BC73C(actor, (void *)sprite, work);
+  actor->f2 |= 0x1000;
   {
-    s16 i;
-    u16 flags;
-    u8 *base;
-    u32 fp;
-    flags = *((u16 *) (r5 + 2));
-    *((u16 *) (r5 + 2)) = flags | 0x1000;
-    i = *((s16 *) (r5 + 0x22));
-    *((u8 *) (r5 + i * 2 + 0x19)) = 0;
-    fp = *(u32 *)&gScriptStepCallbackTable;
-    base = r5 + 0x18;
-    sub_080C31E4(base, r5 + 0x22, fp);
-    i = *((s16 *) (r5 + 0x22));
-    *((u8 *) (r5 + i * 2 + 0x19)) += 1;
-    i = *((s16 *) (r5 + 0x22));
-    sub_080C31E0(r5, *((u32 *) (*((u32 *) (r5 + 0x14)) + *((u8 *) (base + (i << 1))) * 4)));
+    s16 idx = actor->f22;
+    *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = 0;
+  }
+  scriptTablePtr = &gScriptStepCallbackTable;
+  scriptPtr = ((u8 *)actor) + 0x18;
+  sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, *scriptTablePtr);
+  {
+    s16 idx = actor->f22;
+    *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) += 1;
+    idx = actor->f22;
+    scriptEntry = scriptPtr + ((u32)idx * 2);
+    sub_080C31E0(actor, *((void **)((u8 *)actor->f14 + ((*scriptEntry) * 4))));
   }
 }

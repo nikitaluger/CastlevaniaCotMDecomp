@@ -1,9 +1,9 @@
-extern void sub_08013C5C(void *, s32);
-extern s32 sub_080141AC(s32, void *);
+extern void applySpritePaletteVariant(void *, s32);
+extern s32 checkActorViewBounds(s32, void *);
 extern s32 sub_08013558(s32, void *, void *);
-extern void sub_08013978(void *, void *);
-extern void sub_080142C0(void *, void *);
-extern void sub_08013AC4(void *);
+extern void spawnContactEffectOnHit(void *, void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(s32, void *);
 extern void stepAnimationTrack(s32, void *);
 extern void sub_08011EE8(void *, s32, s32);
@@ -29,18 +29,18 @@ void sub_08030BE0(u8 *arg0) {
     u8 zero = 0;
 
     subObj[1] = zero;
-    if (sub_080141AC(owner, ent) == 1) return;
+    if (checkActorViewBounds(owner, ent) == 1) return;
 
-    sub_08013C5C(arg0, owner);
+    applySpritePaletteVariant(arg0, owner);
     if (sub_08013558(owner, ent, *(void **)(ent + 0x28)) != 0) {
-        sub_08013978(arg0, *(void **)(ent + 0x28));
+        spawnContactEffectOnHit(arg0, *(void **)(ent + 0x28));
     }
-    sub_080142C0(arg0, *(void **)(ent + 0x28));
-    sub_080142C0(arg0, *(void **)(timers + 0x14));
+    uploadPendingSpriteGraphic(arg0, *(void **)(ent + 0x28));
+    uploadPendingSpriteGraphic(arg0, *(void **)(timers + 0x14));
     if (*(u16 *)ent & 1) {
         u8 *poseSlot = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
         if (*(u8 *)(poseSlot + 0x1A) != 2) {
-            sub_08013AC4(arg0);
+            updateActorWorldPosition(arg0);
             {
                 u8 *poseSlot = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
                 *(u8 *)(poseSlot + 0x1B) = zero;

@@ -1,11 +1,11 @@
-void sub_08013C5C(void *, void *);
-s32 sub_080141AC(void *, void *);
+void applySpritePaletteVariant(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
-void sub_080142C0(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 void sub_08014314(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -25,14 +25,14 @@ void sub_08041A80(u8 *self) {
     parent = *(u8 **)(self + 0x38);
     enemy = *(u8 **)(self + 0x3C);
     enemyExt = enemy + 0x48;
-    sub_08013C5C(self, parent);
-    if (sub_080141AC(parent, enemy) == 1) {
+    applySpritePaletteVariant(self, parent);
+    if (checkActorViewBounds(parent, enemy) == 1) {
         return;
     }
     if (sub_08013558(parent, enemy, *(void **)(enemy + 0x28)) != 0)
-        sub_08013978(self, *(void **)(enemy + 0x28));
-    sub_080142C0(self, *(void **)(enemy + 0x28));
-    sub_080142C0(self, ((struct AIComponentExt *)enemyExt)->target);
+        spawnContactEffectOnHit(self, *(void **)(enemy + 0x28));
+    uploadPendingSpriteGraphic(self, *(void **)(enemy + 0x28));
+    uploadPendingSpriteGraphic(self, ((struct AIComponentExt *)enemyExt)->target);
     if (*(u16 *)enemy & 1) {
         u32 *effectRoutine;
         u8 *script;
@@ -44,7 +44,7 @@ void sub_08041A80(u8 *self) {
             u8 zero = 0;
             *(u8 *)(target + 1) = zero;
         }
-        sub_08013AC4(self);
+        updateActorWorldPosition(self);
         {
             u8 *stepBase;
             stepBase = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);

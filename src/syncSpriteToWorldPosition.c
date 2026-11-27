@@ -3,7 +3,7 @@ extern u8 gMainWorkspace[];
 
 /* Copy the entity's world position (from its work struct) into the sprite's
  * screen coordinates, offset by the camera's coordinate table entry. */
-void sub_08013C8C(void *entity, void *sprite)
+void syncSpriteToWorldPosition(void *entity, void *sprite)
 {
     void *work = *(void **)((u8 *)entity + 0x3C);
     u8 *coordTable;

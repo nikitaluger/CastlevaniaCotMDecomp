@@ -1,5 +1,5 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 
 struct ScriptEntity {
@@ -30,5 +30,5 @@ void sub_080BC14C(struct ScriptEntity *arg0)
         sub_080C31E0(arg0, *((void **) ((((u32) (*((u8 *) ((((u8 *) arg0) + byteBase) + stepOffset)))) * 4) + arg0->handlerTable)));
         arg0->step -= 1;
     }
-    sub_08013C8C(arg0, sprite);
+    syncSpriteToWorldPosition(arg0, sprite);
 }

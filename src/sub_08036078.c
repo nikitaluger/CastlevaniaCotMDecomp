@@ -1,12 +1,12 @@
-void sub_08013C5C(void *, void *);
-s32 sub_080141AC(void *, void *);
+void applySpritePaletteVariant(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
+void spawnContactEffectOnHit(void *, void *);
 void sub_0803B1F4(void *, void *, void *);
-void sub_08013AC4(void *);
+void updateActorWorldPosition(void *);
 void sub_0803B1A4(void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_0803B1B4(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -23,12 +23,12 @@ void sub_08036078(void *arg0) {
 
     parent = *(u8 **)(self + 0x38);
     enemy = *(u8 **)(self + 0x3C);
-    sub_08013C5C(self, parent);
-    if (sub_080141AC(parent, enemy) == 1) {
+    applySpritePaletteVariant(self, parent);
+    if (checkActorViewBounds(parent, enemy) == 1) {
         return;
     }
     if (sub_08013558(parent, enemy, *(void **)(enemy + 0x28)) != 0)
-        sub_08013978(self, *(void **)(enemy + 0x28));
+        spawnContactEffectOnHit(self, *(void **)(enemy + 0x28));
     enemyExt = enemy + 0x54;
     sub_0803B1F4(self, enemy, enemyExt);
     if (*(u16 *)enemy & 1) {
@@ -37,7 +37,7 @@ void sub_08036078(void *arg0) {
         u8 behaviorId;
         u32 behaviorTable;
         s32 scriptOffset;
-        sub_08013AC4(self);
+        updateActorWorldPosition(self);
         sub_0803B1A4(enemyExt);
         {
             u8 *stepBase;
@@ -82,6 +82,6 @@ void sub_08036078(void *arg0) {
         } else {
             sub_0803B1B4(enemy, enemyExt);
         }
-        sub_08013C8C(self, parent);
+        syncSpriteToWorldPosition(self, parent);
     }
 }

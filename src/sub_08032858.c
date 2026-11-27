@@ -1,5 +1,5 @@
 s32 sub_08011344(s32, s32, s32, s32);
-s32 sub_080141AC(s32);
+s32 checkActorViewBounds(s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 /* Timed effect update: once it has lived 30 frames (and its parent does not
@@ -15,7 +15,7 @@ void sub_08032858(void *arg0)
   fields[0] = *((s32 *) (((s8 *) arg0) + 0x3C));
   anim = fields[0] + 0x34;
   workCtl = (void *)(fields[0] + 0x48);
-  if ((sub_080141AC(fields[1]) != 1) && (((u32) (*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)))) > 0x1EU))
+  if ((checkActorViewBounds(fields[1]) != 1) && (((u32) (*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)))) > 0x1EU))
   {
     s32 *scriptHandlers;
     if (0x10 & (*((u8 *) (((s8 *) workCtl) + 0xD))))

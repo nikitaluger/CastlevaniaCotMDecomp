@@ -1,5 +1,5 @@
 extern s32 updateObjectDisplayState(void *, void *);
-extern void sub_08013C8C(void *, s32);
+extern void syncSpriteToWorldPosition(void *, s32);
 extern void sub_080C31E0(void *, void *);
 struct Sprite { u8 pad[0x2A]; u8 flags; };
 
@@ -30,5 +30,5 @@ void sub_080A9944(void *entity) {
         sub_080C31E0(self, *(void **)(*(u32 *)(self + 0x14) + *(u8 *)(self + stepBaseOffset + stepOffset) * 4));
         *(u16 *)(self + 0x22) -= 1;
     }
-    sub_08013C8C(self, sprite);
+    syncSpriteToWorldPosition(self, sprite);
 }

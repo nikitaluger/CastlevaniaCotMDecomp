@@ -14,13 +14,13 @@ extern u8 D_0866DAA0[];
 void stepAnimationTrack(void *, void *);
 void moveObjectHorizontally(void *, s32, s32);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C5C(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 void sub_08013C8C(void *, void *);
-s32 sub_080141AC(void *, void *);
-void sub_080142C0(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 void sub_08015974(void);
 void sub_0802A7A4(void *, void *);
 void sub_0802A390(struct Entity *entity)
@@ -29,25 +29,25 @@ void sub_0802A390(struct Entity *entity)
   struct Control *control = (struct Control *) entity->control;
   struct Motion *motion = (struct Motion *) entity->motion;
   u8 *animState = ((u8 *) motion) + 0x34;
-  if (sub_080141AC(sprite, motion) == 1)
+  if (checkActorViewBounds(sprite, motion) == 1)
   {
     ((void (*)(void *)) entity->callback)(entity);
     return;
   }
-  sub_08013C5C(entity, sprite);
+  applySpritePaletteVariant(entity, sprite);
   if (sub_08013558(sprite, motion, motion->target) != 0)
   {
-    sub_08013978(entity, motion->target);
+    spawnContactEffectOnHit(entity, motion->target);
   }
   if (control->child->mode == 0)
   {
-    sub_080142C0(entity, motion->target);
+    uploadPendingSpriteGraphic(entity, motion->target);
   }
   if (((motion->flags & 1) != 0) && ((*((u8 *) ((((u8 *) entity) + 0x1A) + (2 * entity->animIndex)))) != 4))
   {
     if (control->child->mode == 0)
     {
-      sub_08013AC4(entity);
+      updateActorWorldPosition(entity);
     }
     else
     {

@@ -1,6 +1,6 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -14,7 +14,7 @@ void sub_080B8E44(void *behav) {
     u8 *owner = *(u8 **)((u8 *)behav + 0x3C);
     u8 *self = (u8 *)behav;
 
-    if (sub_080141AC(target, owner) == 1) {
+    if (checkActorViewBounds(target, owner) == 1) {
         sub_080C31E0(self, *(void **)(self + 0x24));
         return;
     }
@@ -56,5 +56,5 @@ void sub_080B8E44(void *behav) {
         sub_080C31E0(self, *(void **)(cmdByte * 4 + *(u32 *)(self + 0x14)));
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
     }
-    sub_08013C8C(self, target);
+    syncSpriteToWorldPosition(self, target);
 }

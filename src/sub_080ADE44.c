@@ -1,7 +1,7 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 hitTestEntities(void *);
 s32 sub_08013B5C(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -16,7 +16,7 @@ void sub_080ADE44(void *entity) {
     sprite = *(void **)(self + 0x38);
     motion = *(void **)(self + 0x3C);
 
-    if (sub_080141AC(sprite, motion) == 1) {
+    if (checkActorViewBounds(sprite, motion) == 1) {
         sub_080C31E0((s32)self, *(s32 *)(self + 0x24));
         return;
     }
@@ -77,5 +77,5 @@ void sub_080ADE44(void *entity) {
         sub_080C31E0((s32)entity, *(s32 *)((u32)(stepValue * 4) + *(u32 *)((u8 *)entity + 0x14)));
         *(u16 *)((u8 *)entity + 0x22) = *(u16 *)((u8 *)entity + 0x22) - 1;
     }
-    sub_08013C8C(entity, sprite);
+    syncSpriteToWorldPosition(entity, sprite);
 }

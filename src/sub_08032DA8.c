@@ -2,7 +2,7 @@ extern u8 gMainWorkspace[];
 
 extern void advanceMotion(void *, s32);
 extern void stepAnimationTrack(void *, void *);
-extern s32 sub_080141AC(void *, void *);
+extern s32 checkActorViewBounds(void *, void *);
 
 typedef void (*Func)(void *);
 
@@ -36,7 +36,7 @@ void sub_08032DA8(u8 *self) {
         }
     }
     if (moveState[0] > 0x80) {
-        offScreen = sub_080141AC(sprite, work);
+        offScreen = checkActorViewBounds(sprite, work);
         if (offScreen == 1) {
             base = gMainWorkspace;
             parentPtr = (u32 *)(base + 0x1870);

@@ -1,5 +1,5 @@
 extern s32 updateObjectDisplayState(void *, void *);
-extern void sub_08013C8C(void *, void *);
+extern void syncSpriteToWorldPosition(void *, void *);
 extern void sub_080C31E0(void *, void *);
 
 // Linked-object positioning step: copy the linked object's work position into
@@ -38,5 +38,5 @@ void sub_080B2B70(void *arg0)
     }
     *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) - 1;
   }
-  sub_08013C8C(arg0, sprite);
+  syncSpriteToWorldPosition(arg0, sprite);
 }

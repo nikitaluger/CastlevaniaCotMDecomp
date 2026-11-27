@@ -1,9 +1,9 @@
-void sub_08013C5C(void*, void*);
-s32 sub_080141AC(void*, void*);
+void applySpritePaletteVariant(void*, void*);
+s32 checkActorViewBounds(void*, void*);
 s32 sub_08013558(void*, void*, void*);
-void sub_08013978(void*, void*);
-void sub_080142C0(void*, void*);
-void sub_08013AC4(void*);
+void spawnContactEffectOnHit(void*, void*);
+void uploadPendingSpriteGraphic(void*, void*);
+void updateActorWorldPosition(void*);
 s32 updateObjectDisplayState(void*, void*);
 void sub_08013C8C(void*, void*);
 void sub_080C31E0(void*, void*);
@@ -29,15 +29,15 @@ void sub_08042C58(void *entity) {
     parent = *(void **)((u8 *)entity + 0x38);
     component = *(void **)((u8 *)entity + 0x3C);
     scriptPlayer = (u8 *)component + 0x34;
-    if (sub_080141AC(parent, component) != 1 ||
+    if (checkActorViewBounds(parent, component) != 1 ||
         (((u8 *)((s32)((s16)*(u16 *)((u8 *)entity + 0x22) * 2) + (s32)entity))[0x1A] == 1)) {
-        sub_08013C5C(entity, parent);
+        applySpritePaletteVariant(entity, parent);
         if (sub_08013558(parent, component, *(void **)((u8 *)component + 0x28)) != 0)
-            sub_08013978(entity, *(void **)((u8 *)component + 0x28));
-        sub_080142C0(entity, *(void **)((u8 *)component + 0x28));
+            spawnContactEffectOnHit(entity, *(void **)((u8 *)component + 0x28));
+        uploadPendingSpriteGraphic(entity, *(void **)((u8 *)component + 0x28));
         if ((*(u16 *)component & 1) &&
             (((u8 *)((s32)((s16)*(u16 *)((u8 *)entity + 0x22) * 2) + (s32)entity))[0x1A] != 2)) {
-            sub_08013AC4(entity);
+            updateActorWorldPosition(entity);
             sub_08005E80(0x85);
             flipStepPtr = (void *)((s32)((s16)*(u16 *)((u8 *)entity + 0x22) * 2) + (s32)entity);
             *(u8 *)((u8 *)flipStepPtr + 0x1B) = 0;

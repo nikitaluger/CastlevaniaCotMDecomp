@@ -1,9 +1,9 @@
-extern void sub_08013C5C(void *, void *);
-extern s32 sub_080141AC(void *, void *);
+extern void applySpritePaletteVariant(void *, void *);
+extern s32 checkActorViewBounds(void *, void *);
 extern s32 sub_08013558(void *, void *, u32);
-extern void sub_08013978(void *, u32);
-extern void sub_080142C0(void *, u32);
-extern void sub_08013AC4(void *);
+extern void spawnContactEffectOnHit(void *, u32);
+extern void uploadPendingSpriteGraphic(void *, u32);
+extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_080C31E0(void *, void *);
@@ -17,13 +17,13 @@ void sub_08049B44(void *arg0) {
     u8 *compTail = comp + 0x48;
     u8 *self = (u8 *)arg0;
 
-    sub_08013C5C(self, owner);
+    applySpritePaletteVariant(self, owner);
 
     if (*(u8 *)(compTail + 0x0A) == 0) {
         *(u16 *)owner = (*(u16 *)owner & 0x0FFF) | 0xC000;
     }
 
-    if (sub_080141AC(owner, comp) == 1) {
+    if (checkActorViewBounds(owner, comp) == 1) {
         if (*(u8 *)(compTail + 0x0A) != 0) {
             sub_080C31E0(self, *(void **)(self + 0x24));
         }
@@ -31,9 +31,9 @@ void sub_08049B44(void *arg0) {
     }
 
     if (sub_08013558(owner, comp, *(u32 *)(comp + 0x28)) != 0) {
-        sub_08013978(self, *(u32 *)(comp + 0x28));
+        spawnContactEffectOnHit(self, *(u32 *)(comp + 0x28));
     }
-    sub_080142C0(self, *(u32 *)(comp + 0x28));
+    uploadPendingSpriteGraphic(self, *(u32 *)(comp + 0x28));
 
     if (*(u16 *)comp & 1) {
         s32 idx2;
@@ -41,7 +41,7 @@ void sub_08049B44(void *arg0) {
         s32 *audioCmd;
         u8 handlerId;
 
-        sub_08013AC4(self);
+        updateActorWorldPosition(self);
         idx2 = *(s16 *)(self + 0x22) * 2;
         *(u8 *)((u32)idx2 + (u32)self + 0x19) = 0;
         audioCmd = (s32 *)0x08671BB0;

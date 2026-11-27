@@ -1,6 +1,6 @@
 void sub_08062394(s32, u8);
 
-void sub_080142C0(void *arg0, void *arg1) {
+void uploadPendingSpriteGraphic(void *arg0, void *arg1) {
     void *r3 = *(void **)((u8 *)arg0 + 0x3C);
     u16 r2;
     if (r3 != NULL && arg1 != NULL) {
@@ -25,7 +25,7 @@ void sub_08014314(u16 *arg0, void *arg1) {
 void sub_080142FC(void *obj, void *arg1) {
     u8 *state = *(u8 **)((u8 *)obj + 0x3C);
     *(u16 *)(state + 0x1C) = 0x8D;
-    sub_080142C0(obj, arg1);
+    uploadPendingSpriteGraphic(obj, arg1);
     *(u16 *)(state + 0x1C) = 0x57;
 }
 

@@ -1,4 +1,4 @@
-void sub_080142C0(void *self, void *owner);
+void uploadPendingSpriteGraphic(void *self, void *owner);
 
 struct EnemyAnim {
     u8 pad_00[0x28];
@@ -10,11 +10,11 @@ struct AttachedParts {
 };
 
 /* Uploads the enemy's current graphic frame when its animation data or one of
- * its three attached parts has been marked dirty: sub_080142C0 clears the
+ * its three attached parts has been marked dirty: uploadPendingSpriteGraphic clears the
  * request and does the copy, so at most one upload happens per call. */
 void sub_0803B1F4(void *task, struct EnemyAnim *enemy, struct AttachedParts *parts) {
-    sub_080142C0(task, enemy->anim);
-    sub_080142C0(task, parts->part[0]);
-    sub_080142C0(task, parts->part[1]);
-    sub_080142C0(task, parts->part[2]);
+    uploadPendingSpriteGraphic(task, enemy->anim);
+    uploadPendingSpriteGraphic(task, parts->part[0]);
+    uploadPendingSpriteGraphic(task, parts->part[1]);
+    uploadPendingSpriteGraphic(task, parts->part[2]);
 }

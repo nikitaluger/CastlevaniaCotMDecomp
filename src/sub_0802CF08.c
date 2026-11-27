@@ -1,13 +1,13 @@
 void stepAnimationTrack(void *, void *);
 void moveObjectHorizontally(void *, u32, u32);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C5C(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 void sub_08013C8C(void *, void *);
-s32 sub_080141AC(void *, void *);
-void sub_080142C0(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, u32, u32);
 
@@ -33,17 +33,17 @@ void sub_0802CF08(void *obj) {
     owner = *(void **)((u8 *)obj + 0x3C);
     ownerWork = (u8 *)owner + 0x34;
     ownerStatus = (u8 *)owner + 0x48;
-    if (sub_080141AC(sprite, owner) == 1) {
+    if (checkActorViewBounds(sprite, owner) == 1) {
         *(u16 *)((u8 *)ownerStatus + 0x08) = 0;
         return;
     }
-    sub_08013C5C(obj, sprite);
+    applySpritePaletteVariant(obj, sprite);
     if (sub_08013558(sprite, owner, *(void **)((u8 *)owner + 0x28)) != 0)
-        sub_08013978(obj, *(void **)((u8 *)owner + 0x28));
-    sub_080142C0(obj, *(void **)((u8 *)owner + 0x28));
+        spawnContactEffectOnHit(obj, *(void **)((u8 *)owner + 0x28));
+    uploadPendingSpriteGraphic(obj, *(void **)((u8 *)owner + 0x28));
     if (*(u16 *)owner & 1) {
         if (*(u8 *)((u32)(*(s16 *)((u8 *)obj + 0x22)) * 2 + (u32)obj + 0x1A) != 2) {
-            sub_08013AC4(obj);
+            updateActorWorldPosition(obj);
             *(u8 *)((u32)(*(s16 *)((u8 *)obj + 0x22)) * 2 + (u32)obj + 0x1B) = 0;
             scriptTable = (u32 *)0x08671BDC;
             sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 2, *scriptTable);

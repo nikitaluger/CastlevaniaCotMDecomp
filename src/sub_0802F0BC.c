@@ -8,13 +8,13 @@ void sub_0802F0BC(u8 *entity) {
     u8 *actor48 = actor + 0x48;
     s32 visible;
 
-    sub_08013C5C(entity, sprite);
+    applySpritePaletteVariant(entity, sprite);
     visible = sub_08014114(*(s32 *)(actor + 8), *(s32 *)(actor + 0xC), -0x10, 0x10, -0x30, 0x30);
     if (visible == 0) {
         *(u8 *)(*(u8 **)(actor + 0x28) + 1) = (u8)visible;
     }
     if (sub_08013558(sprite, actor, *(void **)(actor + 0x28)) != 0) {
-        sub_08013978(entity, *(void **)(actor + 0x28));
+        spawnContactEffectOnHit(entity, *(void **)(actor + 0x28));
     }
     {
         u8 *step = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
@@ -38,13 +38,13 @@ void sub_0802F0BC(u8 *entity) {
             }
         }
     }
-    sub_080142C0(entity, *(void **)(actor + 0x28));
+    uploadPendingSpriteGraphic(entity, *(void **)(actor + 0x28));
     if (*(u16 *)actor & 1) {
         u8 *step = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
         if (*(u8 *)(step + 0x1A) != 2) {
             u8 *step2;
             s32 *sfxTable;
-            sub_08013AC4(entity);
+            updateActorWorldPosition(entity);
             sub_08005E80(0x8B);
             step2 = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
             *(u8 *)(step2 + 0x1B) = 0;

@@ -1,5 +1,5 @@
 void setObjectAnimation(void *, void *, s16, s32);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 
 /* Attach an effect to its owner: set the flip flags from its own direction
  * fields, play its animation frame, copy the owner's position and update the
@@ -31,5 +31,5 @@ void sub_080BBD00(void *arg0) {
     setObjectAnimation(anim, animDesc, *(s16 *)((u8 *)arg0 + 0x4C), 0);
     *(u32 *)(motion + 8) = *(u32 *)(owner + 8);
     *(u32 *)(motion + 0xC) = *(u32 *)(owner + 0xC);
-    sub_08013C8C(arg0, anim);
+    syncSpriteToWorldPosition(arg0, anim);
 }

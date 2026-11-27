@@ -36,7 +36,7 @@ void sub_0804B6E8(struct MainObj *actor) {
     sub_080C31E0(actor, sub->handler);
 }
 
-void sub_080142C0(void *arg0, void *arg1) {
+void uploadPendingSpriteGraphic(void *arg0, void *arg1) {
     u16 temp_r2;
     void *temp_r3;
 
@@ -56,7 +56,7 @@ void sub_08014314(u16 *arg0, void *arg1) {
     }
 }
 
-void sub_080141AC(void *arg0, void *arg1) {
+void checkActorViewBounds(void *arg0, void *arg1) {
     void *temp_r1;
 
     if (isOutsideCameraBounds(*(u32 *)((u8 *)arg1 + 8), *(u32 *)((u8 *)arg1 + 0xC)) == 1) {

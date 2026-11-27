@@ -1,14 +1,14 @@
 /* Updates an entity: runs its sprite/collision helpers, then either finishes
  * the script (firing the saved handler) or advances the script step and
  * dispatches a new handler, falling back to hitbox upkeep. */
-void sub_08013C5C(void *, void *);
-s32 sub_080141AC(void *, void *);
+void applySpritePaletteVariant(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
-void sub_080142C0(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 void sub_08014314(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -25,24 +25,24 @@ void sub_08037A00(void *entity) {
     sprite = *(void **)((u8 *)entity + 0x38);
     motion = *(void **)((u8 *)entity + 0x3C);
     motionEx = (u8 *)motion + 0x48;
-    sub_08013C5C(entity, sprite);
-    if (sub_080141AC(sprite, motion) == 1) {
+    applySpritePaletteVariant(entity, sprite);
+    if (checkActorViewBounds(sprite, motion) == 1) {
         *(u8 *)(((void **)motionEx)[3] + 1) = 0;
         *(u8 *)(((void **)motionEx)[4] + 1) = 0;
         return;
     }
     if (sub_08013558(sprite, motion, *(void **)((u8 *)motion + 0x28)) != 0)
-        sub_08013978(entity, *(void **)((u8 *)motion + 0x28));
-    sub_080142C0(entity, *(void **)((u8 *)motion + 0x28));
-    sub_080142C0(entity, ((void **)motionEx)[3]);
-    sub_080142C0(entity, ((void **)motionEx)[4]);
+        spawnContactEffectOnHit(entity, *(void **)((u8 *)motion + 0x28));
+    uploadPendingSpriteGraphic(entity, *(void **)((u8 *)motion + 0x28));
+    uploadPendingSpriteGraphic(entity, ((void **)motionEx)[3]);
+    uploadPendingSpriteGraphic(entity, ((void **)motionEx)[4]);
     if (*(u16 *)motion & 1) {
         u32 *scriptFn;
         u8 *stepTable;
         u8 stepByte;
         u32 handlerTable;
         s32 stepOffset;
-        sub_08013AC4(entity);
+        updateActorWorldPosition(entity);
         *(u8 *)(((void **)motionEx)[3] + 1) = 0;
         *(u8 *)(((void **)motionEx)[4] + 1) = 0;
         {

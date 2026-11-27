@@ -1,13 +1,13 @@
 void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, s32, s32);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C5C(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 void sub_08013C8C(void *, void *);
-s32 sub_080141AC(void *, void *);
-void sub_080142C0(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, u32, u32);
 
@@ -32,12 +32,12 @@ void sub_080295E8(void *self) {
     mainObj = *(void **)((u8 *)self + 0x38);
     state = *(void **)((u8 *)self + 0x3C);
     state34 = (u8 *)state + 0x34;
-    if (sub_080141AC(mainObj, state) == 1) {
+    if (checkActorViewBounds(mainObj, state) == 1) {
         return;
     }
-    sub_08013C5C(self, mainObj);
+    applySpritePaletteVariant(self, mainObj);
     if (sub_08013558(mainObj, state, *(void **)((u8 *)state + 0x28)) != 0) {
-        sub_08013978(self, *(void **)((u8 *)state + 0x28));
+        spawnContactEffectOnHit(self, *(void **)((u8 *)state + 0x28));
         if (!(*(u16 *)state & 0x0D)) {
             if (*(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x1A) != 2) {
                 *(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x1B) = 0;
@@ -46,10 +46,10 @@ void sub_080295E8(void *self) {
             }
         }
     }
-    sub_080142C0(self, *(void **)((u8 *)state + 0x28));
+    uploadPendingSpriteGraphic(self, *(void **)((u8 *)state + 0x28));
     if (*(u16 *)state & 1) {
         if (*(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x1A) != 3) {
-            sub_08013AC4(self);
+            updateActorWorldPosition(self);
             *(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x1B) = 0;
             p2 = &sScriptStepCallbacks;
             sub_080C31E8((u8 *)self + 0x18, (u8 *)self + 0x22, 3, *p2);

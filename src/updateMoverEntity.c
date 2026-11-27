@@ -1,11 +1,11 @@
 extern void sub_08005E80(s32);
 extern void stepAnimationTrack(s32, void *);
 extern void moveObjectHorizontally(void *, s32, s32);
-extern void sub_08013AC4(void *);
-extern void sub_08013C5C(void *, s32);
+extern void updateActorWorldPosition(void *);
+extern void applySpritePaletteVariant(void *, s32);
 extern void sub_08013C8C(void *, void *);
-extern s32 sub_080141AC(s32, void *);
-extern void sub_080142C0(void *, void *);
+extern s32 checkActorViewBounds(s32, void *);
+extern void uploadPendingSpriteGraphic(void *, void *);
 extern s32 sub_08014F14(s32, void *, void *, void *);
 extern void spawnChildPair(void *, void *, void *, void *, void *);
 extern s32 sub_0801576C(s32, void *, void *, void *, void *, void *);
@@ -44,13 +44,13 @@ void updateMoverEntity(u8 *entity)
     part = *(partPtr++);
     part[1] = normal;
   }
-  if (sub_080141AC(sprite, motion) == 1)
+  if (checkActorViewBounds(sprite, motion) == 1)
   {
     *((u8 *) (*((u32 *) (motionExt + 0x10)) + 1)) = 0;
     return;
   }
   *((u8 *) (*((u32 *) (motionExt + 0x10)) + 1)) = 5;
-  sub_08013C5C(entity, sprite);
+  applySpritePaletteVariant(entity, sprite);
   res = sub_08014F14(sprite, motion, *((u32 *) (motion + 0x28)), *((u32 *) (motionExt + 0x10)));
   stateA = motion + 0x2C;
   stateB = motionExt + 0x14;
@@ -58,16 +58,16 @@ void updateMoverEntity(u8 *entity)
   {
     spawnChildPair(entity, *((u32 *) (motion + 0x28)), *((u32 *) (motionExt + 0x10)), stateA, stateB);
   }
-  sub_080142C0(entity, *((u32 *) (motion + 0x28)));
-  sub_080142C0(entity, *((u32 *) (motionExt + 0x10)));
-  sub_080142C0(entity, *((u32 *) (motionExt + 0x08)));
-  sub_080142C0(entity, *((u32 *) (motionExt + 0x0C)));
+  uploadPendingSpriteGraphic(entity, *((u32 *) (motion + 0x28)));
+  uploadPendingSpriteGraphic(entity, *((u32 *) (motionExt + 0x10)));
+  uploadPendingSpriteGraphic(entity, *((u32 *) (motionExt + 0x08)));
+  uploadPendingSpriteGraphic(entity, *((u32 *) (motionExt + 0x0C)));
   if ((*((u16 *) motion) & 1) != 0)
   {
     u8 *scriptSlot = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
     if (scriptSlot[0x1A] != 2)
     {
-      sub_08013AC4(entity);
+      updateActorWorldPosition(entity);
       sub_08005E80(0x8A);
       {
         u8 *scriptSlot2 = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);

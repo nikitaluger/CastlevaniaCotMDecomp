@@ -1,12 +1,12 @@
 extern void *sScriptStepCallbacks;
 
 s32 sub_08013558(void *, void *, s32);
-void sub_08013978(void *, s32);
+void spawnContactEffectOnHit(void *, s32);
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C5C(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 void sub_08013C8C(void *, void *);
-void sub_080141AC(void *, void *);
-void sub_080142C0(s32, s32);
+void checkActorViewBounds(void *, void *);
+void uploadPendingSpriteGraphic(s32, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
 
@@ -21,13 +21,13 @@ void sub_080567E0(u8 *object)
     sprite = *(void **)(object + 0x38);
     state = *(u8 **)(object + 0x3C);
 
-    sub_08013C5C(object, sprite);
-    sub_080141AC(sprite, state);
+    applySpritePaletteVariant(object, sprite);
+    checkActorViewBounds(sprite, state);
 
     if (sub_08013558(sprite, state, *(s32 *)(state + 0x28)) != 0)
-        sub_08013978(object, *(s32 *)(state + 0x28));
+        spawnContactEffectOnHit(object, *(s32 *)(state + 0x28));
 
-    sub_080142C0(*(s32 *)(object + 0x28), *(s32 *)(state + 0x28));
+    uploadPendingSpriteGraphic(*(s32 *)(object + 0x28), *(s32 *)(state + 0x28));
 
     if ((*(u16 *)state & 1) || (*(u8 *)(object + 0x74) != 0))
     {

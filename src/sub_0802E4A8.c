@@ -1,9 +1,9 @@
-s32 sub_080141AC(void *, void *);
-void sub_08013C5C(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 s32 sub_08013558(void *, void *, s32);
-void sub_08013978(void *, s32);
-void sub_080142C0(void *, void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, s32);
+void uploadPendingSpriteGraphic(void *, void *);
+void updateActorWorldPosition(void *);
 void sub_08005E80(s32);
 s32 updateObjectDisplayState(void *, void *);
 void _call_via_r1(void *, s32);
@@ -26,10 +26,10 @@ void sub_0802E4A8(u8 *entity)
   u8 *compTail = comp + 0x48;
   u16 f2, f4;
   u32 bit0;
-  if (sub_080141AC(owner, comp) == 1) goto end;
-  sub_08013C5C(entity, owner);
+  if (checkActorViewBounds(owner, comp) == 1) goto end;
+  applySpritePaletteVariant(entity, owner);
   if (sub_08013558(owner, comp, *(s32 *)(comp + 0x28)) != 0)
-    sub_08013978(entity, *(s32 *)(comp + 0x28));
+    spawnContactEffectOnHit(entity, *(s32 *)(comp + 0x28));
   if (((struct P28 *)*(void **)(comp + 0x28))->f14 & 1)
   {
     s32 spd = *(s32 *)(comp + 0x10);
@@ -51,13 +51,13 @@ void sub_0802E4A8(u8 *entity)
     if (*(s32 *)(comp + 0x14) > (0x80 << 10))
       ((struct Flags *)comp)->f0 |= 1;
   }
-  sub_080142C0(entity, *(void **)(comp + 0x28));
+  uploadPendingSpriteGraphic(entity, *(void **)(comp + 0x28));
   if (*(u16 *)(comp + 0) & 1)
   {
     u8 *step = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
     if (step[0x1A] != 3)
     {
-      sub_08013AC4(entity);
+      updateActorWorldPosition(entity);
       sub_08005E80(0x8B);
       {
         u8 *step2 = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);

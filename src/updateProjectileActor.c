@@ -1,10 +1,10 @@
-s32 sub_080141AC(void *, void *);
-void sub_08013C5C(void *, void *);
+s32 checkActorViewBounds(void *, void *);
+void applySpritePaletteVariant(void *, void *);
 s32 sub_08013558(void *, void *, void *);
-void sub_08013978(void *, void *);
-void sub_080142C0(void *, void *);
-void sub_08020E78(void *);
-void sub_08013AC4(void *);
+void spawnContactEffectOnHit(void *, void *);
+void uploadPendingSpriteGraphic(void *, void *);
+void releaseProjectileSlots(void *);
+void updateActorWorldPosition(void *);
 void sub_08005E80(s32);
 void sub_080C31E8(void *, void *, s32, u32);
 s32 updateObjectDisplayState(void *, void *);
@@ -14,13 +14,13 @@ void advanceMotion(void *, s32);
 void sub_08013C8C(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u8 D_0866D7F0[];
+extern u8 sProjectileScriptStepTable[];
 extern u32 sScriptStepCallbacks[];
 
 /* Updates a projectile/weapon entity: runs the hit and damage responses for its
  * owner and sub-object, dispatches a slot callback, then copies the owner's
  * camera-corrected world position back through the coordinate table. */
-void sub_0802076C(u8 *self)
+void updateProjectileActor(u8 *self)
 {
   u8 *parent;
   u8 *obj;
@@ -39,7 +39,7 @@ void sub_0802076C(u8 *self)
   obj = *((u8 **) (self + 0x3C));
   objSub = obj + 0x34;
   objState = obj + 0x48;
-  if (sub_080141AC(parent, obj) == 1)
+  if (checkActorViewBounds(parent, obj) == 1)
   {
     *((u16 *) (objState + 0x0A)) = 0;
   }
@@ -52,18 +52,18 @@ void sub_0802076C(u8 *self)
   mode = *((s16 *) (objState + 0x0A));
   if (mode == ((unsigned short) 1))
   {
-    sub_08013C5C(self, parent);
+    applySpritePaletteVariant(self, parent);
     if (sub_08013558(parent, obj, *((void **) (obj + 0x28))) != 0)
     {
-      sub_08013978(self, *((void **) (obj + 0x28)));
+      spawnContactEffectOnHit(self, *((void **) (obj + 0x28)));
     }
-    sub_080142C0(self, *((void **) (obj + 0x28)));
+    uploadPendingSpriteGraphic(self, *((void **) (obj + 0x28)));
     mode = mode & (*((u16 *) obj));
     if (mode && ((*((u8 *) (((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) self)) + 0x1A))) != 4))
     {
       u32 *tableArg;
-      sub_08020E78(self);
-      sub_08013AC4(self);
+      releaseProjectileSlots(self);
+      updateActorWorldPosition(self);
       sub_08005E80(0x85);
       *((u8 *) (((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) self)) + 0x1B)) = zero;
       tableArg = sScriptStepCallbacks;
@@ -71,13 +71,13 @@ void sub_0802076C(u8 *self)
     }
     if ((*((u16 *) obj)) & 0x0C)
     {
-      sub_08020E78(self);
+      releaseProjectileSlots(self);
     }
   }
   if (updateObjectDisplayState(parent, obj) == 0)
   {
     u8 *slot;
-    *((u32 *) (self + 0x14)) = (u32) D_0866D7F0;
+    *((u32 *) (self + 0x14)) = (u32) sProjectileScriptStepTable;
     *((u16 *) (self + 0x22)) = (*((u16 *) (self + 0x22))) + 1;
     slot = (u8 *) ((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) self));
     *((u8 *) (slot + 0x19)) = (*((u8 *) (slot + 0x19))) + 1;

@@ -1,7 +1,7 @@
-s32 sub_080141AC(void *, void *);
+s32 checkActorViewBounds(void *, void *);
 void sub_080C31E0(void *, void *);
 s32 sub_08013B5C(void *, void *);
-void sub_08013C8C(void *, void *);
+void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
 void *hitTestEntities(void *);
 extern void *sScriptStepCallbacks;
@@ -12,7 +12,7 @@ extern void *sScriptStepCallbacks;
 void sub_080441F8(u8 *object) {
     void *sprite = *(void **)(object + 0x38);
     u8 *state = *(u8 **)(object + 0x3C);
-    if (sub_080141AC(sprite, state) == 1) {
+    if (checkActorViewBounds(sprite, state) == 1) {
         sub_080C31E0(object, *(void **)(object + 0x24));
         return;
     }
@@ -49,5 +49,5 @@ void sub_080441F8(u8 *object) {
         }
         *(u16 *)(object + 0x22) = (u16)(*(u16 *)(object + 0x22) - 1);
     }
-    sub_08013C8C(object, sprite);
+    syncSpriteToWorldPosition(object, sprite);
 }

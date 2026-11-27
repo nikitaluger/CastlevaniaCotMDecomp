@@ -1,9 +1,9 @@
-extern void sub_08013C5C(void *self, void *actor);
+extern void applySpritePaletteVariant(void *self, void *actor);
 extern s32 hitTestEntities(void *animState);
 extern s32 sub_08013B5C(void *actor, void *enemy);
 extern void sub_080C31E8(void *cmdArray, void *pIndex, s32 kind, u32 param);
 extern void sub_080C31E0(void *self, void *cmd);
-extern void sub_08013C8C(void *self, void *actor);
+extern void syncSpriteToWorldPosition(void *self, void *actor);
 extern u32 sScriptStepCallbacks[];
 extern u8 D_0866DCF0[];
 
@@ -23,7 +23,7 @@ void sub_08032C84(u8 *self)
   u8 *actor = *((u8 **) (self + 0x38));
   u8 *enemy = *((u8 **) (self + 0x3C));
   u32 *cmdParam;
-  sub_08013C5C(self, actor);
+  applySpritePaletteVariant(self, actor);
   if (hitTestEntities(*((void **) (enemy + 0x28))) != 0)
   {
     *((u16 *) enemy) = orAnimFlag(enemy);
@@ -52,5 +52,5 @@ void sub_08032C84(u8 *self)
     sub_080C31E0(self, *((void **) ((*((u32 *) (self + 0x14))) + ((*((u8 *) ((self + cmdArrayOff) + cmdOffset))) * 4))));
     *((u16 *) pScriptIndex) -= 1;
   }
-  sub_08013C8C(self, actor);
+  syncSpriteToWorldPosition(self, actor);
 }

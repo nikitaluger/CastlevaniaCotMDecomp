@@ -1,6 +1,6 @@
 s32 updateObjectDisplayState(void *, void *);
-void sub_08013C8C(void *, s32);
-s32 sub_080141AC(void *, void *);
+void syncSpriteToWorldPosition(void *, s32);
+s32 checkActorViewBounds(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* Script/step dispatcher for an object: if its target is off-screen run the
@@ -14,7 +14,7 @@ void sub_080468B4(void *arg0)
     s32 sprite = *(s32 *)(obj + 0x38);
     s32 target = *(s32 *)(obj + 0x3C);
 
-    if (sub_080141AC(sprite, target) == 1) {
+    if (checkActorViewBounds(sprite, target) == 1) {
         sub_080C31E0(arg0, *(void **)(obj + 0x24));
         return;
     }
@@ -31,5 +31,5 @@ void sub_080468B4(void *arg0)
         sub_080C31E0(arg0, *(void **)(*(u32 *)(obj + 0x14) + *(u8 *)(obj + stepByteOffset + partOffset) * 4));
         *(u16 *)(obj + 0x22) -= 1;
     }
-    sub_08013C8C(arg0, sprite);
+    syncSpriteToWorldPosition(arg0, sprite);
 }
