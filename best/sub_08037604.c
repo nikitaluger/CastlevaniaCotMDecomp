@@ -47,11 +47,11 @@ void sub_08037604(void *arg0) {
             break;
         case 0x4f:
             if (*(u8 *)(part + 9) == 0) {
-                u8 t;
+                s32 t;
                 *(u8 *)(part + 9) = 1;
                 t = *(u8 *)(part + 0xa) + 1;
                 *(u8 *)(part + 0xa) = t;
-                if (t == 0xb) {
+                if ((u8)t == 0xb) {
                     _call_via_r1(arg0, *(s32 *)(work + 0x24), arg0);
                     return;
                 }

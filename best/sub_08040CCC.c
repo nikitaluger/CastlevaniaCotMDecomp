@@ -3,7 +3,7 @@ extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern void initWorkStateForKind(void *, void *, void *, void *, s32);
 extern void initSpriteGraphics(void *, void *, s32);
-extern void setAnimationFrame(void *, void *, s32, s32);
+extern void sub_080415D4(u8, void *, void *, void *);
 extern void *spawnBudgetedEffect(void *, s32);
 extern void *allocEffectPart(void);
 extern void registerScriptObject(void *, s32);
@@ -22,8 +22,6 @@ inline s16 getPairedEffectKind(struct PairedEffectWork *work)
   return *((s16 *) (((u8 *) work) + 0x1C));
 }
 
-/* Create a linked pair of scripted objects and their sprites, initialise the
- * single render part, place it in screen space and dispatch the entry script. */
 void sub_08040CCC(u8 *entity)
 {
   void *parent;
@@ -48,7 +46,7 @@ void sub_08040CCC(u8 *entity)
     goto fail;
   }
   *((void **) (entity + 0x38)) = sprite;
-  allocWorkSlot(entity, 0, 0x64, 0);
+  allocWorkSlot(entity, 0, 0x4C, 0);
   if ((*((u32 *) (entity + 0x3C))) == 0)
   {
     goto fail;
@@ -58,10 +56,10 @@ void sub_08040CCC(u8 *entity)
   gfxInit = ((u8 *) work) + 0x34;
   installUpdateHandler(entity, (u8 *) work, (void *) sub_08014290);
   kindTable = gPairedEffectKindTable;
-  variantPtr = entity + 0x4C;
+  variantPtr = entity + 0x74;
   initWorkStateForKind(entity, sprite, (u8 *) work, parent, *((s16 *) (kindTable + ((*variantPtr) * 4))));
   initSpriteGraphics(sprite, gfxInit, ((s32) gSpriteAnimDataTable) + ((*((s16 *) (((u8 *) work) + 0x1C))) * 0xC));
-  setAnimationFrame(sprite, gfxInit, 0, 0);
+  sub_080415D4(0, sprite, (u8 *) work, gfxInit);
   child = spawnBudgetedEffect(entity, 0x15E);
   if (child == NULL)
   {
@@ -69,7 +67,7 @@ void sub_08040CCC(u8 *entity)
   }
   {
     u8 variantByte = *variantPtr;
-    u8 *dst = ((u8 *) child) + 0x4C;
+    u8 *dst = ((u8 *) child) + 0x74;
     zeroByte = 0;
     *dst = variantByte;
   }
@@ -80,10 +78,10 @@ void sub_08040CCC(u8 *entity)
   }
   {
     u8 variantByte = *variantPtr;
-    ((u8 *) child)[0x4C] = variantByte;
+    ((u8 *) child)[0x74] = variantByte;
   }
-  *((u8 *) (entity + 0x8C)) = (u8) zeroByte;
-  *((u8 *) ((*((u8 **) (entity + 0x30))) + 0x8C)) = (u8) zeroByte;
+  *((u8 *) (entity + 0x70)) = (u8) zeroByte;
+  *((u8 *) ((*((u8 **) (entity + 0x30))) + 0x70)) = (u8) zeroByte;
   layerAttrs = gPairedEffectLayerAttrs;
   part = allocEffectPart();
   work->part = part;

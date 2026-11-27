@@ -2830,3 +2830,12 @@ struct PosePlacementEntry {
 #define POSE_HALF_TURN 0x8000
 #define POSE_QUARTER_TURN 0x4000
 #define POSE_TRIG_FUNC_TABLE 0x08671BFC
+
+/* Render-part pointers stored in the main-object work state's +0x48 extension.
+ * updateMainObject clears each part's active byte and queues its pending
+ * graphic through these two pointers. */
+struct MainObjectParts {
+    u8 _0[0xC];
+    void *partA; /* 0x0C */
+    void *partB; /* 0x10 */
+};

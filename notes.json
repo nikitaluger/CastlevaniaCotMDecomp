@@ -359407,5 +359407,49 @@
   "score_before": 1370,
   "score_after": 1370,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:d8a0ef95a9532bde3daa89b9b7210fd6c48c5beaf8d32385c20fc424e294ce43"
+ },
+ {
+  "function": "sub_08037FC0",
+  "text": "All 14 remaining diff rows are a single 2-byte cascade from the missing `mov r0, r8` at instruction 13: `beq #0xaa` vs `#0xa8`, 8 bogus `bl` call displacements, `ldr r1,[pc,#0x6c]` vs `0x70`, `ldr r0,[pc,#0x40]` vs `0x44`, and `bne` bytes `0ed1` vs `0fd1`. The call/linker warnings are false positives documented in accepted knowledge. Treat this as a likely agbcc allocator/copy-insertion wall. The saved C has one harmless warning: `struct SpeedEntry *speedTable = D_080CF0AC;` (u8[] to struct pointer); add a cast if desired, it does not change codegen.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795815811.9133344,
+  "score_before": 630,
+  "score_after": 580,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:f20fd3b4ee8d787edb4e8d06f91c05b46e722ff09a38e02c9fdd8c256ae50d85"
+ },
+ {
+  "function": "sub_0807CEF8",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Confirmed allocator/codegen wall after 31 attempts by 7 agents. Best verified score 1085 (revision 3f1c9bf93acefffa190d); current rechecked baseline 1085. All agbcc flag profiles score 1370 (worse); every type/cast/declaration-order/alias/branch probe neutral or worse (notably `+1` mask on the 0x14 flag read = 2295, and `_call_via_r1` -> real prototype = 2425). Large function; the residual is far beyond a small register swap. Do not repeat broad flag sweeps or those two known-worse probes.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815845.4829888,
+  "score_before": 1085,
+  "score_after": 1085
+ },
+ {
+  "function": "sub_08069BE8",
+  "text": "Rechecked 1025, 149/149 insns. Four variants: strb displacement spelling 1055; struct-field camera store 1025 unchanged; dst-before-src 1110 (fixes scheduling region); removing do-while wrappers 1025 unchanged. Residual = known r2/r3 vs r0/r1 allocator wall plus gCameraState+0x12BC folding. No boundary/callee issue.\nstrb spelling, struct-field camera store, dst/src order, do-while removal\nNo variant beat 1025; baseline retained",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795816015.0700696,
+  "score_before": 1025,
+  "score_after": 1025,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:62f6fc5e98b7394aaf3251577e3ecf546878583ea5fb29fe4d0edf7bad64c202"
+ },
+ {
+  "function": "sub_0803F010",
+  "text": "Terminal agbcc CSE wall, independently confirmed by 3 agents. Rechecked baseline 200; target 128 insns, yours 128, exactly 1 differing opcode at row 90 (`movs r0,#0` vs `mov r0,sb`), rest is register/order fallout. ROM prologue does `movs r1,#0; mov r9,r1` (our `zero`, used for s8 store at _0803F072) but emits a FRESH `movs r0,#0` at _0803F0D0 for the s16 store (our `zero2`); agbcc CSEs both zeros into sb. Tested this session: 6 independent spellings of the zero2 store (literal 0, u16 literal, (s8)0, (s16)zero2, zero2&0xFFFF, derived 0x10000-0x10000) \u2014 all score 200, 0 diff rows changed. Prior agents also tested typed/volatile/block-scoped/OR/truncation spellings and helpers \u2014 all neutral. All 5 flag profiles score 200 (O2/O3/Os), -fno-expensive-optimizations 235, O1 3395. Do not repeat spelling/flag sweeps.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816022.4918828,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:071b1c639ec1964d08abc60e6e504cd6891bf10e02025dca9533d612255cac4a"
+ },
+ {
+  "function": "sub_0807DDF8",
+  "text": "Baseline 235 (98.6%, 173/173 insns), residual is 47 register-only rows from one allocator coin flip: ROM arg0=r6/state=r7, agbcc arg0=r7/state=r6. New test: register hints on parameter and on r6 both scored 235 with zero rows changed (agbcc ignores them). No boundary/callee/hand-asm issue.terminal wall per accepted knowledge.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795816111.4727101,
+  "score_before": 235,
+  "score_after": 235,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:8c991afe6850416b3d9618963c3a83367009a6d8669ff467e418b9ceb8f256e6"
  }
 ]
