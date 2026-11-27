@@ -1,4 +1,4 @@
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 extern u8 gCameraState[];
 struct GameState { u8 _0[0x18A8]; u8 frameCounter; u8 _1[0x13]; u16 activeCount; };
 extern struct GameState gMainWorkspace;
@@ -54,7 +54,7 @@ void updateScriptedTimedAttackObject(u8 *script)
             {
                 u8 *stepSlot = (u8 *)((u32)(*(s16 *)(script + 0x22)) * 2 + (u32)script);
                 *(u8 *)(stepSlot + 0x1B) = 0;
-                { void **callback = &sScriptStepCallbacks;
+                { void **callback = &gScriptEventCallbacks;
                   _call_via_r3(script + 0x18, script + 0x22, 2, *callback); }
             }
         }

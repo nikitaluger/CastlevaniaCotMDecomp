@@ -9,7 +9,7 @@ void *hitTestEntities(void *);                /* find an overlapping entity */
 s32 sub_08013B5C(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void sub_08005E80(s32);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 extern u8 gMainWorkspace[];
 extern u8 D_00001728[];                     /* offset 0x1728 into gMainWorkspace */
 
@@ -44,7 +44,7 @@ void sub_08044E6C(u8 *self) {
                 u8 *stepPtr2 = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
                 stepPtr2[0x1B] = 0;
             }
-            { void **actionTable = &sScriptStepCallbacks;
+            { void **actionTable = &gScriptEventCallbacks;
               sub_080C31E8(self + 0x18, self + 0x22, 1, *actionTable); }
         }
     }

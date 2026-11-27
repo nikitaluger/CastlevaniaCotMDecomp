@@ -10,7 +10,7 @@ extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern s32 *D_080E4CE8[];
 extern s32 *D_080E4D2C[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /*
  * Spawn a sub-object for an actor: allocate it from the object pool, initialise
@@ -78,7 +78,7 @@ extern u32 gScriptStepCallbackTable[];
     u32 *timerCallbacks;
     scriptIdx = *((s16 *) (actorPtr + 0x22));
     *((u8 *) ((actorPtr + (scriptIdx * 2)) + 0x19)) = 0;
-    timerCallbacks = gScriptStepCallbackTable;
+    timerCallbacks = gMainObjTimerCallbacks;
     scriptPtr = actorPtr + 0x18;
     sub_080C31E4(scriptPtr, actorPtr + 0x22, (void *) (*timerCallbacks));
     scriptIdx = *((s16 *) (actorPtr + 0x22));

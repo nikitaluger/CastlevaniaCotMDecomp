@@ -29,7 +29,7 @@ extern struct SpawnEntity *allocEffectPart(void);
 extern void sub_080C31E0(void *a, u32 b);
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
 extern void registerScriptObject(void *a, u32 b);
-extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gEffectGfxTable[]; extern u8 gSpriteAnimDataTable[]; extern u16 gLargeAttackAffineParams[]; extern u32 gScriptStepCallbackTable;
+extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gEffectGfxTable[]; extern u8 gSpriteAnimDataTable[]; extern u16 gLargeAttackAffineParams[]; extern u32 gMainObjTimerCallbacks;
 
 /* Spawns a larger attack entity: allocates a sprite, logic state and entity,
  * initialises them from animation/sprite tables, sets world coordinates from the
@@ -94,7 +94,7 @@ fields:
     registerScriptObject(owner, 0);
     U16(owner, 0x02) = 0x1000 | U16(owner, 0x02);
     U8(owner, 0x19 + (s16)U16(owner, 0x22) * 2) = zero;
-    cmdTable = &gScriptStepCallbackTable; entries = (u8 *)owner + 0x18;
+    cmdTable = &gMainObjTimerCallbacks; entries = (u8 *)owner + 0x18;
     sub_080C31E4(entries, (s16 *)((u8 *)owner + 0x22), *cmdTable);
     { s16 slot = *((s16 *)((u8 *)owner + 0x22)); u8 *counterPtr = (u8 *)((((s32) slot) * 2) + (u32) owner); counterPtr[0x19] = (u8) (counterPtr[0x19] + 1); }
     { s16 slot2 = *((s16 *)((u8 *)owner + 0x22)); u8 *entry = entries + (((s32) slot2) * 2); sub_080C31E0(owner, *(u32 *) ((((u32) (*entry)) * 4) + U32(owner, 0x14))); }

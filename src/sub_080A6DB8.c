@@ -6,7 +6,7 @@ struct WorkWord0 { u8 pad[0x13C]; u32 f13C; };
 struct WorkWord1 { u8 pad[0x140]; u32 f140; };
 
 /* Actor step: clear three fields of the actor's work state, then reset the
- * current script slot, dispatch the script handler through the gScriptStepCallbackTable
+ * current script slot, dispatch the script handler through the gMainObjTimerCallbacks
  * table, and tail-call the next handler from the actor's function table. */
 void sub_080A6DB8(void *actor) {
     u8 *self = (u8 *)actor;

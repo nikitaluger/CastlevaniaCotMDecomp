@@ -2,7 +2,7 @@ extern void startEffectTimer(void *, s32, const void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void releaseActorEffectParts(void);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern const void D_084D425C;
 extern const void D_084D4434;
 extern const void D_084D4478;
@@ -54,7 +54,7 @@ void sub_08077534(void *arg0)
     index = *((s16 *) (((u8 *) arg0) + 0x22));
     ((u8 *) arg0)[(index * 2) + 0x19] = 0;
     {
-        void **effectIds = &gScriptStepCallbackTable;
+        void **effectIds = &gMainObjTimerCallbacks;
         paramPtr = ((u8 *) arg0) + 0x18;
         sub_080C31E4(paramPtr, ((u8 *) arg0) + 0x22, *effectIds);
     }

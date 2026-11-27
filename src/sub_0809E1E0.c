@@ -1,6 +1,6 @@
 extern void *sub_0808E670(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Spawn three effect objects in a horizontal spread (16.16 offsets +1.5, 0
  * and -1.5) around the linked object's position, then clear the step's
@@ -15,6 +15,6 @@ void sub_0809E1E0(void *arg0) {
     sub_0808E670(*(s32 *)(work + 0x08), *(s32 *)(work + 0x0C) + 0xFFF00000, 0xFFFE8000, 0xFFFC8000);
 
     *(u8 *)(task + 0x19 + (*(s16 *)(task + 0x22) * 2)) = 0;
-    scriptHandlers = &gScriptStepCallbackTable;
+    scriptHandlers = &gMainObjTimerCallbacks;
     sub_080C31E4(task + 0x18, task + 0x22, *scriptHandlers);
 }

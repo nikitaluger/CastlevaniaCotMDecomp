@@ -1,12 +1,12 @@
 extern u8 D_08102EA8[];
 extern u16 D_08102EC8[];
 extern u32 D_08670598[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u32 gMenuScriptCallback;
 extern s32 scaleByRandom(u8);
-extern void sub_080BE644(s32);
-extern void sub_080BE7D4(void);
-extern void sub_080BE87C(void);
+extern void markType1D6Objects(s32);
+extern void markType1D7Objects(void);
+extern void markType1DAObjects(void);
 extern void sub_080C31E0(s32, s32);
 extern void sub_080C31E4(s32, s32, s32);
 extern void sub_080C31E8(s32, s32, u16, s32);
@@ -60,9 +60,9 @@ case_init:
     goto dispatch;
 case_finish:
     st->frame = 4;
-    sub_080BE7D4();
-    sub_080BE87C();
-    sub_080BE644((s32)obj);
+    markType1D7Objects();
+    markType1DAObjects();
+    markType1D6Objects((s32)obj);
     {
         u8 *base;
         s32 off;
@@ -91,7 +91,7 @@ dispatch:
         base[0x19] = 0;
     }
     {
-        u32 *pbb0 = &gScriptStepCallbackTable;
+        u32 *pbb0 = &gMainObjTimerCallbacks;
         sub_080C31E4((s32)((u8 *)obj + 0x18), (s32)((u8 *)obj + 0x22), (s32)*pbb0);
     }
 }

@@ -3,7 +3,7 @@ extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E0(void *, void *);
 
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Initialize a scripted actor: assign its kind, allocate a main object and
  * four child objects, DMA its graphics into VRAM, run the script callback,
@@ -46,7 +46,7 @@ void sub_08067880(void *script)
 
     *(u8 *)((u8 *)script + *(s16 *)((u8 *)script + 0x22) * 2 + 0x19) = 0;
 
-    sub_080C31E4(p18, p22, gScriptStepCallbackTable);
+    sub_080C31E4(p18, p22, gMainObjTimerCallbacks);
 
     (*(u8 *)((u8 *)script + *(s16 *)((u8 *)script + 0x22) * 2 + 0x19))++;
 

@@ -4,7 +4,7 @@ s32 sub_080C31E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 s32 divInt32(s32, s32);
 s32 sub_080C36E4(s16, s32);
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Periodic attack: sweep an angle, spawn a shot every few ticks, then advance state. */
 void sub_08017EAC(void *arg0) {
@@ -34,7 +34,7 @@ void sub_08017EAC(void *arg0) {
         u32 *lit2;
         *((s16 *) (((s8 *) attack) + 0x16)) = 0xB4;
         *((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22)) * 2) + arg0)) + 0x19) = 0;
-        lit2 = gScriptStepCallbackTable;
+        lit2 = gMainObjTimerCallbacks;
         sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *lit2);
     }
 }

@@ -9,7 +9,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 extern void updateActorEffectSubObject(void);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Spawns and initializes an entity's child sprite: allocates the object, sets
  * up its motion/animation from a definition object, assigns sprite flags and
@@ -66,8 +66,8 @@ void sub_080B8598(u8 *arg0)
     *((u8 *)(arg0 + 0x4C)) = zero;
     *((u16 *)(arg0 + 2)) |= 0x1000;
     *((u8 *)((arg0 + ((*((s16 *)(arg0 + 0x22))) * 2)) + 0x19)) = zero;
-    gScriptStepCallbackTable++;
-    gScriptStepCallbackTable--;
+    gMainObjTimerCallbacks++;
+    gMainObjTimerCallbacks--;
     scriptTable = (void **)0x08671BB0;
     stepBase = arg0 + 0x18;
     sub_080C31E4(stepBase, arg0 + 0x22, (u32)(*scriptTable));

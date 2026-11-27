@@ -7,7 +7,7 @@ extern s32 checkGlobalStateChange(void *, s32, void *);
 extern void sub_0806D588(s32, void *);
 extern void spawnKind2CEntity(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 struct TileState { u8 _0[0x18A8]; u8 tileIndex; };
 extern struct TileState gMainWorkspace;

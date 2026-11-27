@@ -1,7 +1,7 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 void sub_0805B808(void *arg0)
 {
@@ -26,7 +26,7 @@ void sub_0805B808(void *arg0)
     ((u8 *)arg0)[idx * 2 + 0x19] = zero;
 
     {
-        void **lit = &gScriptStepCallbackTable;
+        void **lit = &gMainObjTimerCallbacks;
         base = (u8 *)arg0 + 0x18;
         sub_080C31E4(base, (u8 *)arg0 + 0x22, *lit);
     }

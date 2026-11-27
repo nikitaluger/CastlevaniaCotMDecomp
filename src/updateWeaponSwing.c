@@ -3,7 +3,7 @@ extern struct S_02025FF0_174C gMainWorkspace;
 extern void sub_08051D3C(void *, void *, u16, s32);
 extern void sub_080520CC(void *, void *, s32);
 extern s32 signOf(s32);
-extern s32 sub_080059DC(s32, s32);
+extern s32 fixedPointDistance(s32, s32);
 extern s32 sub_08005910(s32, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_08051E94(void *, void *, s32, s32);
@@ -50,7 +50,7 @@ extern void sub_08051F98(void *, void *, s32, s16, s32);
   {
     deltaX = gMainWorkspace.v0 - (*((s32 *) (body + 0x58)));
     deltaY = gMainWorkspace.v1 - (*((s32 *) (body + 0x5C)));
-    if (sub_080059DC(deltaX, deltaY) <= 0x3FFFFF)
+    if (fixedPointDistance(deltaX, deltaY) <= 0x3FFFFF)
     {
       *((s32 *) (body + 0x0C)) = sub_08005910(gMainWorkspace.v1 - (*((s32 *) (body + 0x84))), gMainWorkspace.v0 - (*((s32 *) (body + 0x60))));
       sub_08051E94(self, arcTrail, 0xC000 - (((s8) (*((u8 *) (selfBytes + 0x6C)))) * 0x1800), 0);

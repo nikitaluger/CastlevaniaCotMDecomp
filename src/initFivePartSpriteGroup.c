@@ -2,7 +2,7 @@ struct S_02025FF0 { u8 _0[0x174C]; u32 v174C; u32 v1750; };
 extern struct S_02025FF0 gMainWorkspace;
 extern u32 gGameStatus[];
 extern u8 D_02027500[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 struct Obj { u8 _0, f1, f2, f3; u16 f4, f6, f8, fA, fC, fE; u32 f10; u8 _14[2]; u16 f16, f18; };
 struct Base { u8 _0[0x18]; u32 f18; u8 _1C[0x10]; struct Obj *arr[5]; };
 extern void *allocEffectPart(void);
@@ -73,7 +73,7 @@ void initFivePartSpriteGroup(u8 *owner) {
         *(u8 *)((u32)(*(s16 *)(owner + 0x22)) * 2 + (u32)owner + 0x19) = zeroVal;
         {
             u8 *attackLog;
-            u32 *cmdTable = (u32 *)&gScriptStepCallbackTable;
+            u32 *cmdTable = (u32 *)&gMainObjTimerCallbacks;
             attackLog = owner + 0x18;
             sub_080C31E4(attackLog, owner + 0x22, (s32)*cmdTable);
             *(u8 *)((u32)(*(s16 *)(owner + 0x22)) * 2 + (u32)owner + 0x19) += 1;

@@ -1,4 +1,4 @@
-extern void sub_080C2E68(void *a, void *b, u32 c);
+extern void copyBytes(void *a, void *b, u32 c);
 extern s32 sub_0800583C(s32);
 extern s32 sub_08005820(s32);
 extern void *sub_08091B80(s32, s32, s32, s32, s32);
@@ -41,7 +41,7 @@ void sub_08094A40(void *arg0)
         *(u8 *)(*(u8 **)((u8 *)motionEx + 4) + 1) = 0;
         *(u8 *)((u8 *)sprite + 0x2A) = andBF(*(u8 *)((u8 *)sprite + 0x2A));
     }
-    sub_080C2E68(offsets, (void *)0x0810087C, 0x40);
+    copyBytes(offsets, (void *)0x0810087C, 0x40);
     i = 0;
     offsets2 = (s32 *)((u8 *)offsets + 4);
     do {

@@ -4,7 +4,7 @@
  * graphic 0x159, clear the step's companion flag byte and jump the script to
  * step 0x10.
  */
-extern s32 sub_08005F1C(s32 resource);  /* 1 when the resource is loaded */
+extern s32 isResourceLoaded(s32 resource);  /* 1 when the resource is loaded */
 extern s32 sub_08005E80(s32 resource);  /* release a resource */
 extern void _call_via_r3(void *, void *, s32, s32);
 extern u8 gCameraState[];
@@ -18,7 +18,7 @@ void sub_0800B1D0(void *arg0) {
     s32 *stepCallback;
     u32 bMask;
 
-    loadResult = sub_08005F1C(0x15B);
+    loadResult = isResourceLoaded(0x15B);
     if (loadResult == 0) {
         input = *(u16 *)(gCameraState + inputOffset);
         if ((1 & input) || (bMask = 2, bMask &= input, bMask)) {

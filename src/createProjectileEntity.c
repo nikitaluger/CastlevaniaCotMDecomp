@@ -10,7 +10,7 @@ extern struct FixedEffectWorkspace gMainWorkspace;
 extern u8 gCameraState[];
 extern u32 gSpriteAnimDataTable[];
 extern s16 gProjectileFrameTable[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Work state allocated at the projectile entity's +0x3C. */
 struct ProjectileWork {
@@ -88,6 +88,6 @@ void createProjectileEntity(u8 *projectile) {
     *(u16 *)(projectile + 2) |= 0x1000;
     *((u8 *)((s16)*(s16 *)(projectile + 0x22) * 2 + (u32)projectile) + 0x19) = 0;
 
-    scriptCallbacks = (s32 *)gScriptStepCallbackTable;
+    scriptCallbacks = (s32 *)gMainObjTimerCallbacks;
     sub_080C31E4(projectile + 0x18, projectile + 0x22, *scriptCallbacks);
 }

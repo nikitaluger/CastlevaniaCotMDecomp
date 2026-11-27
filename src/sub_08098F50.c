@@ -5,7 +5,7 @@ extern void sub_0809C744(void);
 extern void sub_0808D0A4(s32);
 extern void sub_08005E80(s32);
 extern s32 sub_080C31E4(void *, void *, s32);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /*
  * Finalizes a companion entity: clears its flags and velocity, cancels the

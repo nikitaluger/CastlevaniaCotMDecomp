@@ -1,4 +1,4 @@
-extern s32 sub_08005F1C(s32);
+extern s32 isResourceLoaded(s32);
 extern void sub_08005E80(u16);
 extern void sub_0800B824(u16, u16, s32);
 extern void _call_via_r3(void *, void *, s32, void *);
@@ -16,7 +16,7 @@ void sub_0800B424(u8 *menu)
   u32 scratch;
   u8 state;
   s16 slot;
-  result = sub_08005F1C(0xAD << 1);
+  result = isResourceLoaded(0xAD << 1);
   if (result != 0)
   {
     return;

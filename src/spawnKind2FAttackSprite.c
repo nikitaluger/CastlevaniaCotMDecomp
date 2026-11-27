@@ -48,7 +48,7 @@ struct Kind2FCameraState { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
 extern struct Kind2FCameraState gCameraState;
 extern u8 gSpriteAnimDataTable[];
 extern s16 gKind2FPoseFrameTable[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void spawnKind2FAttackSprite(struct Kind2FAttackParent *arg0) {
     u8 *sprite;
@@ -89,6 +89,6 @@ void spawnKind2FAttackSprite(struct Kind2FAttackParent *arg0) {
     { u32 coordOff = 0x127C; *(u32 *)(sprite + 0x18) = state->worldY - ((*(u32 *)(coordBase + coordOff + ((gMainWorkspace.frameCounter + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     arg0->flags |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * arg0->stepIndex + 0x19) = 0;
-    callback = (s32 *)&gScriptStepCallbackTable;
+    callback = (s32 *)&gMainObjTimerCallbacks;
     _call_via_r2((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *callback);
 }

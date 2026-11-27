@@ -10,7 +10,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Spawn-time setup for an entity: allocate its motion object and sprite view,
  * seed the sprite index and clear the animation-frame slot, run the first

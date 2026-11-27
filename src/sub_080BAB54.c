@@ -1,7 +1,7 @@
 void sub_080BB984(void *, void *);
 void sub_080BE810(s32, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Place an effect's sprite part: let the owner bob, offset the part from the
  * owner's position by the side-dependent entry of the 0x08102EEC offset table
@@ -29,7 +29,7 @@ void sub_080BAB54(void *arg0) {
     *(s32 *)(body + 0x58) += *(s32 *)(body + 0x50);
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x4B) {
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
-        lit = &gScriptStepCallbackTable;
+        lit = &gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *lit);
     }
 }

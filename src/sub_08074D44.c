@@ -18,7 +18,7 @@ extern u8 gGameStatus[];
 extern void *D_02027740;
 extern u8 D_0849A5F0[];
 extern u8 D_0849A610[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 struct S_r4
 {
   u8 _0;
@@ -134,7 +134,7 @@ void sub_08074D44(struct S_A0 *obj)
   ((struct S_5b *)state)->f10 = 1;
   ((struct Sub *) (((u8 *) obj) + (obj->idx * 2)))->f19 = zero;
   {
-    s32 *fn = &gScriptStepCallbackTable;
+    s32 *fn = &gMainObjTimerCallbacks;
     u8 *p18 = ((u8 *) obj) + 0x18;
     sub_080C31E4(p18, ((u8 *) obj) + 0x22, *fn);
     stepSlot = (u8 *) ((s16) obj->idx * 2 + (u32) obj);

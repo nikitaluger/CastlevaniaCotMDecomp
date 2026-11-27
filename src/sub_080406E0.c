@@ -6,7 +6,7 @@ void syncSpriteToWorldPosition(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u32 D_0866E0F0;
 
 struct ObjFlag { u16 flag; };
@@ -45,7 +45,7 @@ void sub_080406E0(void *arg0) {
             scriptStep = (u8 *)((u32)(*(s16 *)(obj + 0x22)) * 2 + (u32)obj);
             *(u8 *)(scriptStep + 0x19) = 0;
         }
-        litPtr = &gScriptStepCallbackTable;
+        litPtr = &gMainObjTimerCallbacks;
         scriptBase = obj + 0x18;
         sub_080C31E4(scriptBase, obj + 0x22, *litPtr);
         {

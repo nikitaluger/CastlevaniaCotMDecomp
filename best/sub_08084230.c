@@ -13,7 +13,7 @@ struct S_02025FF0_7B01C
 };
 extern struct S_02025FF0_7B01C gMainWorkspace;
 extern u8 gTilemapPages[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern s32 checkGlobalStateChange(void *, void *, void *);
 extern s32 getTileTerrainB(s32, s32);
 extern void startEffectTimer(void *, s32, void *);
@@ -68,7 +68,7 @@ label_0808429A:
   playSound(0x88);
   i = *((s16 *) (((u8 *) self) + 0x22));
   *((u8 *) (((u8 *) self) + i * 2 + 0x19)) = zero;
-  pp = &gScriptStepCallbackTable;
+  pp = &gMainObjTimerCallbacks;
   sub_080C31E4(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, *pp);
 label_080842D2:
   *((u16 *) p38) = gMainWorkspace.f18C2;

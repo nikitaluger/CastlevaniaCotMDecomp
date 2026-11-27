@@ -3,7 +3,7 @@
  * next command's handler. */
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 struct GfxTarget { u8 pad[2]; u16 flags; };
 

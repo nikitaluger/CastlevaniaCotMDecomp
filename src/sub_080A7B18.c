@@ -1,4 +1,4 @@
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *spawnBudgetedEffect(void *, s32);
 extern s32 divideInt(s32, s32);
 extern void sub_080C31E0(s32, s32);
@@ -26,7 +26,7 @@ void sub_080A7B18(u8 *self) {
         *(s32 *)(body + 0x150) = -divideInt(*(s32 *)(body + 0x100), 0xC);
         *(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            void **fnaddr = &gScriptStepCallbackTable;
+            void **fnaddr = &gMainObjTimerCallbacks;
             stepBase = self + 0x18;
             sub_080C31E4(stepBase, self + 0x22, (s32)*fnaddr);
         }

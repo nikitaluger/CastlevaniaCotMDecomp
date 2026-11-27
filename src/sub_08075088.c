@@ -8,7 +8,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
 extern u8 D_0849A844[];
 extern u8 D_0849A864[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Saved-game flags: the byte at 0x1510 holds the player's mirror/flip bit. */
 struct SaveData

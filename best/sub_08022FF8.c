@@ -6,7 +6,7 @@ extern void spawnWorldEffect(s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern u8 gMainWorkspace[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 extern u32 gMenuScriptCallback[];
 struct Arg
 {
@@ -130,7 +130,7 @@ void sub_08022FF8(struct Arg *arg0)
   spawnWorldEffect(*((s32 *) (q + 0x14)), *((s32 *) (q + 0x18)), 0);
 
   *((u8 *) ((u32)(arg0->idx << 1) + (u32) arg0) + 0x19) = 0;
-  new_var = gScriptStepCallbackTable;
+  new_var = gMainObjTimerCallbacks;
   sub_080C31E4(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, new_var[0]);
   end:
   ;

@@ -4,7 +4,7 @@ extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E9C0[];
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 
 struct HitTarget { u8 pad; u8 hitState; };
 struct MotionFlags { u16 bits; };
@@ -41,7 +41,7 @@ void sub_0805EE0C(u8 *self) {
         stepEntry2 = (u8 *)((s32)stepOffset + (s32)self);
         if (*(u8 *)(stepEntry2 + 0x1A) != 1) {
             *(u8 *)(stepEntry2 + 0x1B) = 0;
-            fxValue = &sScriptStepCallbacks;
+            fxValue = &gScriptEventCallbacks;
             sub_080C31E8(sequence, self + 0x22, 1, *fxValue);
         }
     }

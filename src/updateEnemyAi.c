@@ -16,7 +16,7 @@ extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *gScriptStepCallbacks;
 extern void *gMenuScriptCallback;
 

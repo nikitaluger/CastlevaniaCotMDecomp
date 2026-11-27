@@ -12,7 +12,7 @@ extern void initSpriteGraphics(struct SpawnSprite *a, u8 *b, void *c);
 extern void setAnimationFrame(struct SpawnSprite *a, u8 *b, int c, int d);
 extern void sub_080C31E0(void *a, u32 b);
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
-extern u32 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u32 gScriptStepCallbackTable;
+extern u32 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u32 gMainObjTimerCallbacks;
 
 /*
  * Spawns a sprite for a scripted task: allocates it, sets up its movement
@@ -53,7 +53,7 @@ body:
     gMainWorkspace[0x10] = (u32)zero;
     U16(task, 0x02) = 0x1000 | U16(task, 0x02);
     U8(task, 0x19 + (s16)U16(task, 0x22) * 2) = (u8)zero;
-    endCallbacks = &gScriptStepCallbackTable;
+    endCallbacks = &gMainObjTimerCallbacks;
     stepEntries = (u8 *)task + 0x18;
     sub_080C31E4(stepEntries, (s16 *)((u8 *)task + 0x22), *endCallbacks);
     stepState = (u8 *)((s16)U16(task, 0x22) * 2 + (u32)task);

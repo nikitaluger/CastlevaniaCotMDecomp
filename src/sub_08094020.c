@@ -4,7 +4,7 @@ extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080C36E4(s16, s32);
 extern u8 D_08100818[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Entity FX update: copies a value looked up from D_08100818 (indexed by the
  * entity's field 0x34) into the FX object, spawns a positioned effect when a
@@ -47,7 +47,7 @@ void sub_08094020(u8 *self) {
     if ((timerVal << 16) <= 0) {
         *(u16 *)(timer + 0x0C) = 8;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
-        msgPtr = &gScriptStepCallbackTable;
+        msgPtr = &gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *msgPtr);
     }
 }

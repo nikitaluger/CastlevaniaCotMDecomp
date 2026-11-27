@@ -2,7 +2,7 @@ extern u32 gScriptStepCallbacks[];
 extern int syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
 extern int stepDelayTimer(void *, void *);
-extern void sub_08084CBC(void *, void *);
+extern void spawnRoom34Object(void *, void *);
 extern void sub_0806A7AC(void *, void *, int);
 extern void sub_08005E80(int);
 extern void sub_080C31E8(void *, void *, int, u32);
@@ -58,7 +58,7 @@ void runAlternateActionStep(void *actor)
     goto lbl_E8;
   }
   *((u32 *) (workAlias + 0x48)) = 0;
-  sub_08084CBC(entityBytes, workAlias);
+  spawnRoom34Object(entityBytes, workAlias);
   stepMode = *((u32 *) (extra + 0xA0));
   switch (stepMode)
   {

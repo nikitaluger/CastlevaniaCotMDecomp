@@ -8,7 +8,7 @@ extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_0806D7B4(void *, s32);
-extern void sub_08084CBC(void *, void *);
+extern void spawnRoom34Object(void *, void *);
 extern void sub_080C31E8(void *, void *, u16, s32);
 
 /* Per-frame actor update: refresh camera/mode state and tick the actor's timer;
@@ -33,7 +33,7 @@ void sub_08065FCC(u8 *actor) {
         timerStatus = stepDelayTimer(state + 0x2C, position);
         if (timerStatus == 0) {
             void *spawned;
-            sub_08084CBC(actor, obj);
+            spawnRoom34Object(actor, obj);
             cooldown = state + 0xC4;
             cooldownValue = *(s32 *)cooldown;
             if (cooldownValue != 0) {

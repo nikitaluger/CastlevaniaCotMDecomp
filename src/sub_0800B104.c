@@ -11,7 +11,7 @@ struct S_02021E90
 };
 extern struct S_02021E90 gCameraState;
 extern void *D_08671BC0;
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 /* Entity reaction update: when a global state flag is set, play an effect,
  * spawn the matching graphics, clear the current pose byte and run a script. */
 void sub_0800B104(u8 *entity)
@@ -40,7 +40,7 @@ void sub_0800B104(u8 *entity)
     sub_0800B824(0x81D9, 0x270, 0x600);
     *((u8 *) ((entity + ((*((s16 *) (entity + 0x22))) * 2)) + 0x19)) = r7;
     {
-      void **fnaddr = &gScriptStepCallbackTable;
+      void **fnaddr = &gMainObjTimerCallbacks;
       sub_080C31E4(entity + 0x18, entity + 0x22, *fnaddr);
     }
   }

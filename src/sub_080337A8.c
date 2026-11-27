@@ -1,7 +1,7 @@
 void sub_08011344(void *, void *, s16, s32);
 void stepAnimationTrack(void *, void *);
 void sub_08033950(void *, void *);
-void sub_080C2E68(void *, void *, u32);
+void copyBytes(void *, void *, u32);
 void sub_080C31E4(void *, void *, s32);
 extern s32 D_080CECBC[];
 
@@ -30,7 +30,7 @@ void sub_080337A8(void *entity) {
     state = *(void **)((u8 *)entity + 0x3C);
     animTrack = (u8 *)state + 0x34;
     step = (u8 *)state + 0x48;
-    sub_080C2E68(frameSeq, (void *)0x080CED8A, 0x2A);
+    copyBytes(frameSeq, (void *)0x080CED8A, 0x2A);
     active = *(u8 *)((u8 *)entity + 0x7C);
     if (active == 0) {
         *(u8 *)(*(void **)((u8 *)state + 0x28) + 1) = active;

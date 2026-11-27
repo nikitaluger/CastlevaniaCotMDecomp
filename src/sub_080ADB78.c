@@ -1,7 +1,7 @@
 extern void sub_080B0698(void *, s32, s32, u16);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 gTrigFuncPtr;
+extern s32 gTrigFuncTable;
 extern u8 D_081022A0[];
 extern s32 gScriptStepCallbacks;
 
@@ -11,7 +11,7 @@ void sub_080ADB78(u8 *arg0) {
     u8 *self = arg0;
     void *state = *(void **)(self + 0x3C);
     void **objList = (void **)((u8 *)state + 0x48);
-    s32 *trigSlot = &gTrigFuncPtr;
+    s32 *trigSlot = &gTrigFuncTable;
     s32 sinVal = sub_080C31E0(*(s32 *)(self + 0x6C), *trigSlot) >> 8;
     s32 cosVal = sub_080C31E0(*(s32 *)(self + 0x6C) + 0x4000, *trigSlot) >> 8;
     u32 i = 0;

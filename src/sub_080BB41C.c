@@ -10,7 +10,7 @@ typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
-M2C_UNK sub_080BB8AC(void *);
+M2C_UNK clearAttachedObjectAnimFlags(void *);
 M2C_UNK sub_080BB940(s32, s32);
 M2C_UNK sub_080BE8D0(s32, s32);
 M2C_UNK sub_080C31E8(void *, void *, s32, s32);
@@ -35,7 +35,7 @@ void sub_080BB41C(void *arg0)
   sub_080BB940(body, *((s32 *) (((s8 *) arg0) + 0x4C)));
   do
   {
-    sub_080BB8AC(work);
+    clearAttachedObjectAnimFlags(work);
   }
   while (0)
   ;

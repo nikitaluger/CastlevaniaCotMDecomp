@@ -1,4 +1,4 @@
-extern void sub_080C2E68(void *, void *, u32);
+extern void copyBytes(void *, void *, u32);
 
 struct S_02021E90_125C { u8 _0x000[0x125C]; u32 ready; };
 extern struct S_02021E90_125C gCameraState;
@@ -7,5 +7,5 @@ extern struct S_02021E90_125C gCameraState;
  * from ROM into the workspace at +0x12A0. */
 void sub_080BEA24(void) {
     gCameraState.ready = 1;
-    sub_080C2E68((u8*)&gCameraState + (0x95 << 5), (void*)0x081032D8, 0x40);
+    copyBytes((u8*)&gCameraState + (0x95 << 5), (void*)0x081032D8, 0x40);
 }

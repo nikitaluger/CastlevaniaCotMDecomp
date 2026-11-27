@@ -4,7 +4,7 @@ extern s32 sub_08013B5C(void *actor, void *enemy);
 extern void sub_080C31E8(void *cmdArray, void *pIndex, s32 kind, u32 param);
 extern void sub_080C31E0(void *self, void *cmd);
 extern void syncSpriteToWorldPosition(void *self, void *actor);
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 extern u8 D_0866DCF0[];
 
 inline int orAnimFlag(u8 *state)
@@ -34,7 +34,7 @@ void sub_08032C84(u8 *self)
     if ((*((u8 *) (p + 0x1A))) != 2)
     {
       *((u8 *) (p + 0x1B)) = 0;
-      cmdParam = sScriptStepCallbacks;
+      cmdParam = gScriptEventCallbacks;
       sub_080C31E8(self + 0x18, self + 0x22, 2, *cmdParam);
     }
   }

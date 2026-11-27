@@ -1,8 +1,8 @@
-s32 sub_080BE550(s32, s32, void *);
-s32 sub_080BE564(s32, s32);
+s32 setAttachedObjectMode(s32, s32, void *);
+s32 setObjectModeWord(s32, s32);
 s32 sub_080BE5A4();
 s32 sub_080BE5FC(void *);
-volatile short sub_080BE8C8(s32, s32);
+volatile short setEffectPartState(s32, s32);
 s32 sub_080C31E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -64,10 +64,10 @@ block_13:
     *(s32 *)((u8 *)motion + 0x6C) = 1;
   }
   if (*(s32 *)((u8 *)arg0 + 4) == 0x2D0) {
-    sub_080BE550(*(s32 *)((u8 *)motion + 0x20), 0, actor);
+    setAttachedObjectMode(*(s32 *)((u8 *)motion + 0x20), 0, actor);
     state1C = *(s32 *)((u8 *)motion + 0x1C);
-    sub_080BE564(state1C, 1);
-    sub_080BE8C8(*(s32 *)((u8 *)motion + 0x34), 2);
+    setObjectModeWord(state1C, 1);
+    setEffectPartState(*(s32 *)((u8 *)motion + 0x34), 2);
     *(s8 *)((u8 *)(*(s16 *)((u8 *)arg0 + 0x22) * 2 + arg0) + 0x19) = 0;
     scriptData = (s32 *)0x08671BB0;
     sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *scriptData);

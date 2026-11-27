@@ -1,5 +1,5 @@
 void sub_080BB984(void *, void *);
-void sub_080988B8(void *, s32);
+void setFacingDirection(void *, s32);
 void sub_080BBA08(void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -17,7 +17,7 @@ void sub_080BAFC4(void *arg0)
   control = ((u8 *) bodyBase) + 0x48;
   animState = *((s32 *) (self + 0x4C));
   sub_080BB984(bodyBase, control);
-  sub_080988B8((void *) animState, *((s32 *) (((u8 *) bodyBase) + 0x08)));
+  setFacingDirection((void *) animState, *((s32 *) (((u8 *) bodyBase) + 0x08)));
   sub_080BBA08(arg0);
   if ((*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19))) == 0x18)
   {

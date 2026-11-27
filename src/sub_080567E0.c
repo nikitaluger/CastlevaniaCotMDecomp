@@ -1,4 +1,4 @@
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 
 s32 sub_08013558(void *, void *, s32);
 void spawnContactEffectOnHit(void *, s32);
@@ -36,7 +36,7 @@ void sub_080567E0(u8 *object)
         {
             *(u8 *)(slot + 0x1B) = 0;
             {
-                void **callback = &sScriptStepCallbacks;
+                void **callback = &gScriptEventCallbacks;
                 sub_080C31E8(object + 0x18, object + 0x22, 3, *callback);
             }
         }

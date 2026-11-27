@@ -72,7 +72,7 @@ struct EffectDesc {
 };
 extern struct EffectDesc gEffectGfxTable[];
 extern u16 gEffectPartParams[];  /* per-part affine/offset parameters, 4 per part */
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Build and register the three render parts, then hand control to the object's
  * destruction handler and step the script forward. */
@@ -171,7 +171,7 @@ success:
     entity->flags |= THREAD_FLAG_WAIT_SPRITE;
     zeroByte = 0;
     *(u8 *)((u8 *)entity + 2 * entity->stateIndex + 0x19) = zeroByte;
-    callbackTable = &gScriptStepCallbackTable;
+    callbackTable = &gMainObjTimerCallbacks;
     {
         u8 *scriptByte = (u8 *)entity + 0x18;
         _call_via_r2(scriptByte, (u8 *)entity + 0x22, *callbackTable);

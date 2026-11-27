@@ -10,7 +10,7 @@ extern s32 checkActorViewBounds(s32, void *);
 extern void uploadPendingSpriteGraphic(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 
 void sub_08052F10(u8 *arg0) {
     s32 a = *(s32 *)(arg0 + 0x38);
@@ -34,7 +34,7 @@ void sub_08052F10(u8 *arg0) {
                 u8 *q = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
                 u8 zero = 0;
                 *(u8 *)(q + 0x1B) = zero;
-                { void **fnaddr = &sScriptStepCallbacks;
+                { void **fnaddr = &gScriptEventCallbacks;
                   sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 1, *fnaddr); }
             }
         }

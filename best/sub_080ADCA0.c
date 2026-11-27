@@ -5,7 +5,7 @@ struct P { u8 _0[8]; u32 f8; u32 fC; u8 _10[0xC]; u16 f1C; u8 _1E[4]; u16 f22; u
 struct BD { u8 _0[4]; u16 f4; u16 f6; u8 _8[0x20]; };
 extern struct BD gEffectGfxTable[];
 extern u16 D_08102508[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -92,7 +92,7 @@ void sub_080ADCA0(u8 *arg0)
   }
   *((u16 *) (arg0 + 2)) = orMode(*((u16 *) (arg0 + 2)), 0x1000);
   *((u8 *) inline_fn(inline_fn(((u32) (*((s16 *) (arg0 + 0x22)))) * 2, (u32) arg0), 0x19)) = (u8) zero;
-  fn = (void **) (&gScriptStepCallbackTable);
+  fn = (void **) (&gMainObjTimerCallbacks);
   p18 = arg0;
   p18 += 0x18;
   { void **__fence_fn; do { __fence_fn = fn; } while (0); sub_080C31E4(p18, (void *) (arg0 + 0x22), (s32) (*__fence_fn)); }

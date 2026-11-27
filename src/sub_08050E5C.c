@@ -3,7 +3,7 @@ void setAnimationFrame(void *, void *, s32, s32);
 void sub_08011460(void *, void *, s32);
 void sub_080C31E4(void *, void *, void *);
 
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Builds an 8-segment trail with a spread-dependent angle; once the script
  * step passes 0x3B it sets the animation and fires the script callback. */
@@ -44,7 +44,7 @@ void sub_08050E5C(void *arg0)
       step = *(s16 *)(self + 0x22);
       self[step * 2 + 0x19] = 0;
       {
-        void **fnaddr = &gScriptStepCallbackTable;
+        void **fnaddr = &gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *fnaddr);
       }
     }

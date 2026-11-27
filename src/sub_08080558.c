@@ -9,7 +9,7 @@ struct S_FF0 { u8 _0[0x1510]; u8 f1510; };
 extern struct S_FF0 gMainWorkspace;
 extern u8 D_080E574C[];
 extern u8 D_080E576C[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 inline u32 inline_fn(u8 *arg0, u32 arg1) { return ((u32) arg0[arg1]) << 5; }
 static inline u8 and1(u8 b) { u32 m = 1; m &= b; return (u8)m; }
 
@@ -59,7 +59,7 @@ void sub_08080558(void *arg0)
     pp[0x19] = (u8) z;
   }
   {
-    u32 *script = &gScriptStepCallbackTable;
+    u32 *script = &gMainObjTimerCallbacks;
     u8 *t4_3 = ((u8 *) arg0) + 0x18;
     sub_080C31E4(t4_3, ((u8 *) arg0) + 0x22, *script);
     {

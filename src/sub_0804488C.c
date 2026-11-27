@@ -4,8 +4,8 @@ s32 sub_080148D8(s32, s32);
 s32 sub_080C31E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
-extern u32 gScriptStepCallbackTable;
-extern u32 gTrigFuncPtr;
+extern u32 gMainObjTimerCallbacks;
+extern u32 gTrigFuncTable;
 
 /* Entity update: offset the enemy's vertical position from a script parameter
  * through a lookup callback, set the sprite's facing from its horizontal
@@ -28,7 +28,7 @@ void sub_0804488C(void *arg0) {
     enemyData = (u8 *)enemy + 0x34;
     enemyState = (u8 *)enemy + 0x48;
 
-    pWaveFn = &gTrigFuncPtr;
+    pWaveFn = &gTrigFuncTable;
     paramIndex = *(s16 *)((u8 *)self + 0x22);
     param = *((u8 *)self + paramIndex * 2 + 0x19);
     param = (param << 8) + 0x4000;
@@ -44,7 +44,7 @@ void sub_0804488C(void *arg0) {
         *(s32 *)((u8 *)enemy + 0x14) = 0xFFF9C000;
         paramIndex = *(s16 *)((u8 *)self + 0x22);
         *((u8 *)self + paramIndex * 2 + 0x19) = 0;
-        pCallbackFn = &gScriptStepCallbackTable;
+        pCallbackFn = &gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *pCallbackFn);
     }
 }

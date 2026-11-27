@@ -15,7 +15,7 @@ void syncSpriteToWorldPosition(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 sProjectileStep5ScriptStepTable[];
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 
 /* Projectile update variant that dispatches script step 5: camera culling, hit handling, animation and sprite projection. */
 void updateProjectileActorStep5(u8 *actor)
@@ -64,7 +64,7 @@ void updateProjectileActorStep5(u8 *actor)
       updateActorWorldPosition(actor);
       playSound(0x8A);
       *((u8 *) (((((u32) (*((s16 *) (actor + 0x22)))) * 2) + ((u32) actor)) + 0x1B)) = zero;
-      stepTable = sScriptStepCallbacks;
+      stepTable = gScriptEventCallbacks;
       sub_080C31E8(actor + 0x18, actor + 0x22, 5, *stepTable);
     }
     if ((*((u16 *) projectile)) & 0x0C)

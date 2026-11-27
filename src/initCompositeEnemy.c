@@ -4,7 +4,7 @@ extern void *spawnBudgetedEffect(void *, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 gCompositePartParams[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Initialises a complex/multi-part entity: sets its animation and graphics,
  * spawns the child sub-objects, copies per-part parameters into them, then
@@ -97,7 +97,7 @@ void initCompositeEnemy(u8 *self) {
     *(u32 *)(*(u8 *volatile *)(parts + 0x58) + 0x7C) = 0;
     stateIndex = *(s16 *)(self + 0x22);
     *(u8 *)(self + stateIndex * 2 + 0x19) = 0;
-    timerCallback = gScriptStepCallbackTable;
+    timerCallback = gMainObjTimerCallbacks;
     stepSlots = self + 0x18;
     sub_080C31E4(stepSlots, self + 0x22, *timerCallback);
     stateIndex = *(s16 *)(self + 0x22);

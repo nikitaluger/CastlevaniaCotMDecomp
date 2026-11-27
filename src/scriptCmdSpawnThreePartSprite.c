@@ -20,7 +20,7 @@ struct SpriteTemplate { u8 unk0[8]; u16 tileStart; u16 tileEnd; u8 unkC[0x28 - 0
 extern struct SpriteTemplate gEffectGfxTable[];
 extern u16 D_08102BBC[];
 extern u8 D_08102CAC[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void scriptCmdSpawnThreePartSprite(struct ScriptedEntity *entity) {
     u8 *sprite;
@@ -115,7 +115,7 @@ success:
     entity->flags |= THREAD_FLAG_WAIT_SPRITE;
     zero = 0;
     *(u8 *)((u8 *)entity + 2 * entity->variant + 0x19) = zero;
-    scriptOps = &gScriptStepCallbackTable;
+    scriptOps = &gMainObjTimerCallbacks;
     {
         u8 *scriptPtr = (u8 *)entity + 0x18;
         _call_via_r2(scriptPtr, (u8 *)entity + 0x22, *scriptOps);

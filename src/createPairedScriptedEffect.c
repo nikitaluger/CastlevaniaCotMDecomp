@@ -15,7 +15,7 @@ extern u8 gMainWorkspace[];
 extern u8 gSpriteAnimDataTable[];
 extern u8 gPairedEffectKindTable[];
 extern u8 gPairedEffectLayerAttrs[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 extern struct PairedEffectKindEntry gSpriteKindTable[];
 inline s16 getPairedEffectKind(struct PairedEffectWork *work)
 {
@@ -127,7 +127,7 @@ void createPairedScriptedEffect(u8 *entity)
     }
     *((u8 *) ((((u32) ((*((s16 *) (entity + 0x22))) * 2)) + ((u32) entity)) + 0x19)) = (u8) zero;
     {
-      u32 *scriptOps = (u32 *) gScriptStepCallbackTable;
+      u32 *scriptOps = (u32 *) gMainObjTimerCallbacks;
       u8 *scriptPtr = entity + 0x18;
       sub_080C31E4(scriptPtr, entity + 0x22, *scriptOps);
       {

@@ -8,7 +8,7 @@ void stepDelayTimer(void *, void *);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
 
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 struct GameState {
     u8 _0[0x10];
@@ -44,7 +44,7 @@ void updateScriptedWalkingActor(void *entityScript)
     {
         *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = 0;
         {
-            void **cmdTable = &gScriptStepCallbackTable;
+            void **cmdTable = &gMainObjTimerCallbacks;
             u8 *scriptPc = script + 0x18;
             sub_080C31E4(scriptPc, script + 0x22, *cmdTable);
             {
@@ -70,7 +70,7 @@ void updateScriptedWalkingActor(void *entityScript)
         {
             *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = 0;
             {
-                void **cmdTable = &gScriptStepCallbackTable;
+                void **cmdTable = &gMainObjTimerCallbacks;
                 u8 *scriptPc = script + 0x18;
                 sub_080C31E4(scriptPc, script + 0x22, *cmdTable);
                 {

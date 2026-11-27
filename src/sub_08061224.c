@@ -2,7 +2,7 @@ extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
 extern s32 sub_08061C9C(u8, u8);
 extern void postDisplaySprite(s32, void *, s32, s32, s32);
-extern void sub_080C2E68(s32, s32, s32);
+extern void copyBytes(s32, s32, s32);
 extern void sub_08061E04(void);
 extern void sub_08061E34(void);
 extern s32 _call_via_r1(s32, s32);
@@ -57,7 +57,7 @@ void sub_08061224(u8 *obj)
   }
   postDisplaySprite(1, (void *) 0x080D9B1C, 0x05000000, 0x20, 0x10);
   gCameraState.f125C = 0;
-  sub_080C2E68((s32) (&gCameraState.f1260), 0x080D9ADC, 0x40);
+  copyBytes((s32) (&gCameraState.f1260), 0x080D9ADC, 0x40);
   *((vu16 *) 0x03000830) &= 0xF0FF;
   gCameraState.f1320 = 0;
   gCameraState.f12E0 = 0;

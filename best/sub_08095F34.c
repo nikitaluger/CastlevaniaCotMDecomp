@@ -2,7 +2,7 @@ extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_0808E348(s32, s32, s32, s32);
-extern void sub_080C2E68(void *, u8 *, s32);
+extern void copyBytes(void *, u8 *, s32);
 extern void sub_080C31E0(void *, s32);
 extern s32 sub_080C36E4(s32, s32);
 extern s32 D_02027888;
@@ -31,7 +31,7 @@ void sub_08095F34(u8 *arg0)
   u8 *pb;
   p = *((s32 **) (arg0 + 0x3C));
   src = (u8 *) 0x08100AD0;
-  sub_080C2E68(sp + 0xC, src, 0x40);
+  copyBytes(sp + 0xC, src, 0x40);
   i = 0;
   pt = sp + 0x10;
   do

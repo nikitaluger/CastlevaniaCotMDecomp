@@ -1,5 +1,5 @@
 extern vu32 gMainWorkspace;
-extern vu32 gScriptStepCallbackTable;
+extern vu32 gMainObjTimerCallbacks;
 
 void *spawnBudgetedEffect(s32, s32);
 void sub_080C31E0(void *, u32);
@@ -61,7 +61,7 @@ void sub_08019170(struct MainObj *arg0) {
     stepState = (u8 *)((step << 1) + (u32)arg0);
     if (stepState[0x19] > 0x1E) {
         stepState[0x19] = 0;
-        stepFn = gScriptStepCallbackTable;
+        stepFn = gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, stepFn);
     }
 }

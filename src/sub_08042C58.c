@@ -10,7 +10,7 @@ void sub_080C31E0(void*, void*);
 void sub_080C31E8(void*, void*, s32, s32);
 void sub_08005E80(s32);
 void stepAnimationTrack(void*, void*);
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 
 /* Runs one step of an entity's scripted behaviour: checks visibility/contact,
  * handles a flip request with a sound cue, advances the step script and
@@ -41,7 +41,7 @@ void sub_08042C58(void *entity) {
             sub_08005E80(0x85);
             flipStepPtr = (void *)((s32)((s16)*(u16 *)((u8 *)entity + 0x22) * 2) + (s32)entity);
             *(u8 *)((u8 *)flipStepPtr + 0x1B) = 0;
-            callTable = &sScriptStepCallbacks;
+            callTable = &gScriptEventCallbacks;
             sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 2, *callTable);
         }
         if (updateObjectDisplayState(parent, component) != 0) goto common;

@@ -3,7 +3,7 @@ void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 s16 divInt32(s32, s32);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 struct S_02025FF0
 {
   u8 pad0[0x10];
@@ -43,7 +43,7 @@ void sub_0807FFDC(u8 *entity)
     {
       *((u8 *) ((entity + (((s32) (*((s16 *) (entity + 0x22)))) * 2)) + 0x19)) = 0;
       {
-        s32 *pd = &gScriptStepCallbackTable;
+        s32 *pd = &gMainObjTimerCallbacks;
         sub_080C31E4(entity + 0x18, entity + 0x22, *pd);
       }
     }

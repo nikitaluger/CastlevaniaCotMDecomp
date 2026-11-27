@@ -8,7 +8,7 @@ void sub_080C31E4(void *, void *, u32);
 
 extern u16 gCrossfadeGfxState[];
 extern u8 D_080C98A6[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 #define END_BYTE     0x0A
 #define COUNT_START  0x10
@@ -25,7 +25,7 @@ void sub_08005C24(void *arg0) {
             s16 i = *(s16 *)((u8 *)arg0 + 0x22);
             *(u8 *)((u8 *)arg0 + i * 2 + 0x19) = 0;
         }
-        callbackTable = &gScriptStepCallbackTable;
+        callbackTable = &gMainObjTimerCallbacks;
         scriptPtr = (u8 *)arg0 + 0x18;
         sub_080C31E4(scriptPtr, (u8 *)arg0 + 0x22, *callbackTable);
         {

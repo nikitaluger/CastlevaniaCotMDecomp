@@ -33,7 +33,7 @@ struct FrameDef { u8 _0[0x20]; u16 gfxA; u16 gfxB; u8 _24[4]; };
 struct ClearByte { u32 value; u8 byte; };
 extern struct FrameDef gEffectGfxTable[];
 extern u16 gKind66LayerParams[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -118,7 +118,7 @@ void spawnKind66DirectionalEffect(u8 *entity)
     flags |= 0x1000;
     *((u16 *) (entity + 2)) = flags;
     *((u8 *) ((entity + (((u32) (*((s16 *) (entity + 0x22)))) * 2)) + 0x19)) = clearByte.byte;
-    callbackTable = &gScriptStepCallbackTable;
+    callbackTable = &gMainObjTimerCallbacks;
     scriptPtr = entity + 0x18;
     _call_via_r2(scriptPtr, entity + 0x22, *callbackTable);
     *((u8 *) ((entity + (((u32) (*((s16 *) (entity + 0x22)))) * 2)) + 0x19)) = (*((u8 *) ((entity + (((u32) (*((s16 *) (entity + 0x22)))) * 2)) + 0x19))) + 1;

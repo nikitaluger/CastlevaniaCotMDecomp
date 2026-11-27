@@ -1,9 +1,9 @@
 struct S_02025FF0 { u8 _0[0x174C]; u32 field_0x174C; };
 extern struct S_02025FF0 gMainWorkspace;
 extern u32 D_08102EEC[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern s32 sub_08005910(s32, s32);
-extern void sub_080988B8(s32, s32);
+extern void setFacingDirection(s32, s32);
 extern s32 divideInt(s32, s32);
 extern void playSound(s32);
 extern s32 sub_080C31E0(void *, s32);
@@ -25,7 +25,7 @@ void sub_080BA9EC(u8 *self) {
     r5 = (u8 *)(*(u32 *)(self + 0x4C));
 
     if (*(s32 *)(r9 + 0x64) != 0) {
-        sub_080988B8((s32)r5, *(s32 *)(ptr + 0x08));
+        setFacingDirection((s32)r5, *(s32 *)(ptr + 0x08));
     }
     r5 += 0x35;
 

@@ -5,7 +5,7 @@
  */
 extern u32 D_08102ED4[];  /* world X of each depth band */
 extern u32 D_08102EE0[];  /* world Y of each depth band */
-void sub_080988B8(void *subject, u32 worldX);
+void setFacingDirection(void *subject, u32 worldX);
 u32 sub_080BE8D4(void);  /* the player's X depth band */
 u32 sub_080BE938(void);  /* the player's Y depth band */
 
@@ -35,7 +35,7 @@ void sub_080BA518(void *arg0) {
         }
         break;
     case 1:
-        sub_080988B8(subject, snappedX);
+        setFacingDirection(subject, snappedX);
         *(u32 *)(layer + 0x64) = 1;
         break;
     case 2:

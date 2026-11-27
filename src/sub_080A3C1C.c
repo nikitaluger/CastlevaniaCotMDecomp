@@ -6,7 +6,7 @@ extern void sub_0808E670(s32, s32, s32, s32);
 extern void sub_080C050C(s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
 extern s32 D_08101C8C[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Periodic entity update: mark the sprite's graphics, advance its physics,
  * then on the configured timer spawn effects and a sound and dispatch the
@@ -48,6 +48,6 @@ void sub_080A3C1C(u8 *entity) {
         zero = 0;
         *attrByte = maskedByte;
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
-        sub_080C31E4(scriptPtr, stepIndexPtr, gScriptStepCallbackTable);
+        sub_080C31E4(scriptPtr, stepIndexPtr, gMainObjTimerCallbacks);
     }
 }

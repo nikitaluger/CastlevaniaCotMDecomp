@@ -7,7 +7,7 @@ extern void updateActorWorldPosition(void *);
 extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 extern void sub_08013C8C(void *, void *);
 extern void sub_080547E0(void *, void *);
 extern void sub_08054864(void *, void *, s32);
@@ -37,7 +37,7 @@ void sub_080542A8(u8 *arg0) {
             {
                 u8 *step = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
                 step[0x1B] = 0;
-                { void **audioCmd = &sScriptStepCallbacks;
+                { void **audioCmd = &gScriptEventCallbacks;
                   sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 5, *audioCmd); }
             }
         }

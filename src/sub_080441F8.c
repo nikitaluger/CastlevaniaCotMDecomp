@@ -4,7 +4,7 @@ s32 sub_08013B5C(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
 void *hitTestEntities(void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 
 /* Steps an enemy object's AI: releases it on player collision, marks itself
  * when its child or target is flagged, fires a despawn callback on flag 1, and
@@ -28,7 +28,7 @@ void sub_080441F8(u8 *object) {
         u8 *slot = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
         if (*(u8 *)(slot + 0x1A) != 1) {
             *(u8 *)(slot + 0x1B) = 0;
-            { void **callback = &sScriptStepCallbacks;
+            { void **callback = &gScriptEventCallbacks;
               sub_080C31E8(object + 0x18, object + 0x22, 1, *callback); }
         }
     }

@@ -1,6 +1,6 @@
 extern void *spawnBudgetedEffect(s32 arg0, s32 arg1);
 extern s32 sub_080C31E0(s32 arg0, s32 arg1);
-extern s32 gTrigFuncPtr;
+extern s32 gTrigFuncTable;
 extern u8 gMainWorkspace[];
 
 /* Spawn an object at an angular offset from another object, setting its
@@ -22,7 +22,7 @@ void *sub_08049200(void *arg0, void *arg1, s32 arg2, s32 arg3)
         s32 *table;
         u8 typeByte;
 
-        table = &gTrigFuncPtr;
+        table = &gTrigFuncTable;
         angle = arg2 << 12;
         cosVal = sub_080C31E0(angle + 0x4000, *table) >> 8;
         sinVal = sub_080C31E0(angle, *table) >> 8;

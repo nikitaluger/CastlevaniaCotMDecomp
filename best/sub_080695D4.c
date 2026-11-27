@@ -7,7 +7,7 @@ extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u8 D_080E068C[];
 extern u8 *D_0866EB08[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 inline u8 inline_fn(u8 *arg0) { return *arg0; }
 void sub_080695D4(u8 *arg0)
 {
@@ -72,5 +72,5 @@ void sub_080695D4(u8 *arg0)
   playSound(0x1BA);
   sub_0806C6B0(arg0, r10, ((*((u8 **) (arg0 + 0x6C))) + 4), sp0);
   *(u8 *)(arg0 + *(s16 *)p22 * 2 + 0x19) = 0;
-  sub_080C31E4(p18, p22, gScriptStepCallbackTable);
+  sub_080C31E4(p18, p22, gMainObjTimerCallbacks);
 }

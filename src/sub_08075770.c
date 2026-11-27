@@ -10,7 +10,7 @@ struct GameState {
 };
 extern struct GameState gMainWorkspace;
 
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Spawns a projectile effect: reserves a sprite slot, allocates and initializes
  * the effect object, then fires the end callback and advances the animation. */

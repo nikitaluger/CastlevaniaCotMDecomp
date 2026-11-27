@@ -2,7 +2,7 @@ s32 getSpriteFacingSign(void *);
 s32 sub_080C31E0(s32, s32);
 void sub_08014848(s32, s32, s32, s32, s32, s32);
 
-extern s32 gTrigFuncPtr;
+extern s32 gTrigFuncTable;
 
 /* On one script phase, flip the sprite's facing flag, set its horizontal
  * direction and spawn a small effect burst; advance the script when its timer
@@ -30,7 +30,7 @@ void sub_0805923C(void *script)
             *(s32 *)((u8 *)body + 0x48) = 0xFFFE0000;
 
         {
-            s32 *lit = &gTrigFuncPtr;
+            s32 *lit = &gTrigFuncTable;
             s32 s1 = sub_080C31E0(*(s32 *)((u8 *)extra + 8) + 0x4000, *lit);
             s32 dx = (-s1) * 8;
             s32 s2 = sub_080C31E0(*(s32 *)((u8 *)extra + 8), *lit);

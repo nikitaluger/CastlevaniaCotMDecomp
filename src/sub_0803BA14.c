@@ -2,7 +2,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 getSpriteFacingSign(void *);
 extern void sub_0808E05C(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u8 gScriptStepCallbackTable[];
+extern u8 gMainObjTimerCallbacks[];
 void sub_0803BA14(u8 *self)
 {
   u8 *actor = *((u8 **) (self + 0x38));
@@ -35,7 +35,7 @@ void sub_0803BA14(u8 *self)
         slotAddr += (u32) self;
         *((u8 *) (slotAddr + 0x19)) = 0;
       }
-      litPtr = (s32 *) gScriptStepCallbackTable;
+      litPtr = (s32 *) gMainObjTimerCallbacks;
       sub_080C31E4(self + 0x18, self + 0x22, *litPtr);
     }
   }
@@ -52,7 +52,7 @@ void sub_0803BA14(u8 *self)
         slotAddr += (u32) self;
         *((u8 *) (slotAddr + 0x19)) = 0;
       }
-      litBytes = gScriptStepCallbackTable;
+      litBytes = gMainObjTimerCallbacks;
       sub_080C31E4(self + 0x18, self + 0x22, *((s32 *) litBytes));
     }
   }

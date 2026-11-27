@@ -1,7 +1,7 @@
-extern s32 sub_080A845C(void *, void *);
+extern s32 refreshMotionTrail(void *, void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 gTrigFuncPtr;
+extern u32 gTrigFuncTable;
 extern u32 gMenuScriptCallback;
 
 /* Decay a state counter and scale two trig lookups by it to set the state's
@@ -22,11 +22,11 @@ void sub_080A66C0(u8 *self)
   {
     *((s32 *) counter) = 0;
   }
-  trigFunc = &gTrigFuncPtr;
+  trigFunc = &gTrigFuncTable;
   anglePtr = state + 0x130;
   *((s32 *) (state + 0xFC)) = (sub_080C31E0((*((s32 *) (state + 0x130))) + 0x4000, *trigFunc) * (*((s32 *) counter))) >> 7;
   *((s32 *) (state + 0x100)) = (sub_080C31E0(*((s32 *) anglePtr), *trigFunc) * (*((s32 *) counter))) >> 7;
-  sub_080A845C(self, work);
+  refreshMotionTrail(self, work);
   count = *((s32 *) counter);
   if (count == 0)
   {

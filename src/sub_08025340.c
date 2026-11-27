@@ -1,5 +1,5 @@
 extern s32 sub_08014114(s32, s32, s32, s32, s32, s32);
-extern void sub_08025728(void *, void *);
+extern void randomizeLaunchOffsets(void *, void *);
 extern void _call_via_r2(void *, void *, s32);
 inline int inline_fn(s16 arg0, int arg1)
 {
@@ -23,7 +23,7 @@ void sub_08025340(void *arg0)
     posX = *((s32 *) (sub + 8));
     if (sub_08014114(posX, *((s32 *) (sub + 0xC)), -0x20, 0x20, -0x20, 0x20) != 0)
     {
-      sub_08025728(sub + 0x50, sub + 0x54);
+      randomizeLaunchOffsets(sub + 0x50, sub + 0x54);
       zero = 0;
       *((u16 *) (state + 0x12)) = 2;
       *((u8 *)((u32)inline_fn(*((s16 *)(self + 0x22)), 2) + (u32)self) + 0x19) = zero;

@@ -1,5 +1,5 @@
 extern u32 gMainWorkspace[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void stepDelayTimer(void *, void *);
 void sub_0806D588(void *, void *);
@@ -35,7 +35,7 @@ void sub_08089630(void *entity)
         *(u16 *)(screenObj + 2) |= 0x10;
         gMainWorkspace[7] = 4;
         *(u8 *)(e + *(s16 *)(e + 0x22) * 2 + 0x19) = zero;
-        sub_080C31E4(e + 0x18, e + 0x22, gScriptStepCallbackTable);
+        sub_080C31E4(e + 0x18, e + 0x22, gMainObjTimerCallbacks);
     }
     stepDelayTimer(animState + 0x20, screenObj);
     sub_0806D588(screenObj, pos);
@@ -53,7 +53,7 @@ void sub_080897EC(void *entity)
     {
         gMainWorkspace[7] = 4;
         *(u8 *)(e + *(s16 *)(e + 0x22) * 2 + 0x19) = 0;
-        sub_080C31E4(e + 0x18, e + 0x22, gScriptStepCallbackTable);
+        sub_080C31E4(e + 0x18, e + 0x22, gMainObjTimerCallbacks);
     }
     sub_0806D588(screenObj, pos);
 }

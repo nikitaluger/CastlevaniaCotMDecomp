@@ -2,7 +2,7 @@ extern void stepDelayTimer(s32, s32);
 extern void startEffectTimer(s32, s32, s32);
 extern void sub_0806D588(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern u8 gMainWorkspace[];
 
 struct F02 { u8 pad[2]; u16 f02; };

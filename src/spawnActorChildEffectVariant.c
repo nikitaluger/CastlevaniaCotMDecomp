@@ -17,7 +17,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 extern u8 gGameStatus[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 struct SubObject {
     u8 _0;
@@ -108,7 +108,7 @@ void spawnActorChildEffectVariant(u8 *entity) {
 
     ((struct ScriptStep *)(entity + *(s16 *)(entity + 0x22) * 2))->counter = 0;
     {
-        s32 *cueTable = &gScriptStepCallbackTable;
+        s32 *cueTable = &gMainObjTimerCallbacks;
         u8 *scriptPtr = entity + 0x18;
         _call_via_r2(scriptPtr, entity + 0x22, *cueTable);
         ((struct ScriptStep *)(entity + *(s16 *)(entity + 0x22) * 2))->counter++;

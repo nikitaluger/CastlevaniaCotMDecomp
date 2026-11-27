@@ -11,7 +11,7 @@ extern u8 D_0202566C;
 struct S25FF0 { u8 _0[0x1510]; u8 f1510; };
 extern struct S25FF0 gMainWorkspace;
 extern u32 D_080E5E18;                      /* 16-entry fixed-point value table */
-extern u32 gScriptStepCallbackTable;                      /* step-script operation */
+extern u32 gMainObjTimerCallbacks;                      /* step-script operation */
 
 struct Part {                               /* one of the two sub-objects */
     u8 _0, f1, f2, f3;

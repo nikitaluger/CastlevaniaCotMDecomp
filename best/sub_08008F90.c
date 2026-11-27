@@ -1,7 +1,7 @@
 extern void sub_0800168C(u8 *, s32, s32, s32);
 extern void sub_080035E4(void);
 extern void sub_080063D4(u32 *, void *);
-extern void sub_080C2E68(void *, const void *, u32);
+extern void copyBytes(void *, const void *, u32);
 extern void sub_08000E98(s32, const void *, u32, s32, s32);
 extern void sub_0805FE8C(u8, u8, u8);
 extern void sub_0805FEB4(u8);
@@ -45,7 +45,7 @@ void sub_08008F90(u8 *arg0)
     *(u32 *)(base + off) = 0;
     *lo = 0;
     off = 0x93 << 5;
-    sub_080C2E68(base + off, (const void *)0x080CAA3C, 0x40);
+    copyBytes(base + off, (const void *)0x080CAA3C, 0x40);
     sub_080035E4();
     sp4 = 0;
     {

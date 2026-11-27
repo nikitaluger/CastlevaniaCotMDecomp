@@ -49,7 +49,7 @@ extern s32 hitTestEntities(void *);
 extern void sub_0808DBB4(s32, s32, s32);
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r3(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 extern u8 gCameraState[];
 extern struct GameState gMainWorkspace;
 
@@ -92,7 +92,7 @@ void updateScriptedAttackObject(struct ScriptObj *script)
     stepState = (u8 *) ((((u32) script->stepIndex) * 2) + ((u32) script));
     stepState[0x1B] = 0;
     {
-      void **eventCallbacks = &sScriptStepCallbacks;
+      void **eventCallbacks = &gScriptEventCallbacks;
       _call_via_r3(((u8 *) script) + 0x18, ((u8 *) script) + 0x22, 0, *eventCallbacks);
     }
   }

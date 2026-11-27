@@ -1,4 +1,4 @@
-extern void sub_080C2E68(void *, void *, u32);
+extern void copyBytes(void *, void *, u32);
 extern u8 gCameraState[];
 
 /* Build the option mask stored at out+0x38: OR the bit values {1,2,4,8} from
@@ -12,7 +12,7 @@ void sub_0808D640(void *out) {
     u32 i;
     u32 disableMask;
 
-    sub_080C2E68(optionBits, (void *)0x080F3E2C, 4);
+    copyBytes(optionBits, (void *)0x080F3E2C, 4);
     i = 0;
     state = gCameraState;
     disableMask = 0x80 << 6;

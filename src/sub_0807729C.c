@@ -19,7 +19,7 @@ struct S_02025FF0 {
     u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Advances an entity's motion/animation and checks its collision row; clears
  * its state on a hit, then either dispatches the current handler or applies
@@ -68,7 +68,7 @@ void sub_0807729C(u8 *entity) {
             stateOffset += (u32)entity;
             stateBytePtr = (u8 *)stateOffset;
             *(u8 *)(stateBytePtr + 0x19) = 0;
-            callbacks = &gScriptStepCallbackTable;
+            callbacks = &gMainObjTimerCallbacks;
             sub_080C31E4(entity + 0x18, entity + 0x22, *callbacks);
         }
         *(u16 *)sprite = gMainWorkspace.f18C2;

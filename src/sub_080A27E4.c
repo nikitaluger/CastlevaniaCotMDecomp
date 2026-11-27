@@ -3,7 +3,7 @@ extern s32 sub_08013B5C(void *, void *);
 extern s32 hitTestEntities(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 extern u8 D_0866FE98[];
 
 /* Behaviour-script callback: mask the target's state, set the owner's active flag
@@ -33,7 +33,7 @@ void sub_080A27E4(u8 *behav) {
     entry = (u8 *)((u32)(*(s16 *)(behav + 0x22)) * 2 + (u32)behav);
     if (*(u8 *)(entry + 0x1A) != 4) {
       *(u8 *)(entry + 0x1B) = 0;
-      cmdTable = sScriptStepCallbacks;
+      cmdTable = gScriptEventCallbacks;
       sub_080C31E8(behav + 0x18, behav + 0x22, 4, *cmdTable);
     }
   }

@@ -2,7 +2,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Idle update for a scripted object: refresh its animation and, after a
  * 32-frame delay, play animation 5 and execute the next script command. */
@@ -29,7 +29,7 @@ void sub_0804AA48(void *arg0)
         ((u8 *)arg0)[scriptIdx * 2 + 0x19] = 0;
 
         {
-            void **lit = &gScriptStepCallbackTable;
+            void **lit = &gMainObjTimerCallbacks;
             scriptPos = (u8 *)arg0 + 0x18;
             sub_080C31E4(scriptPos, (u8 *)arg0 + 0x22, *lit);
         }

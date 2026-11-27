@@ -1,5 +1,5 @@
 extern s32 gScriptStepCallbacks;
-s32 sub_080059DC(s32, s32);
+s32 fixedPointDistance(s32, s32);
 void setAnimationFrame(void *, void *, u16, u8);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -59,7 +59,7 @@ void sub_08047EDC(u8 *arg0) {
         } else {
             s32 followX = *(s32 *)((u8 *)world + 0x174C);
             s32 followY = *(s32 *)((u8 *)world + 0x1750);
-            if (sub_080059DC(followX - *(s32 *)(work + 8), followY - *(s32 *)(work + 0xC)) > 0x200000) {
+            if (fixedPointDistance(followX - *(s32 *)(work + 8), followY - *(s32 *)(work + 0xC)) > 0x200000) {
                 *(s16 *)(chase + 0x0A) = zero;
                 world->chaserCount--;
             } else {

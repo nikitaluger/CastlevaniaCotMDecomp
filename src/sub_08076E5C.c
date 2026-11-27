@@ -9,7 +9,7 @@ extern struct S_02025FF0 gMainWorkspace;
 extern u8 gGameStatus[];
 extern u8 D_084CEC88[];
 extern u8 D_084CECC8[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 struct EffectPart {
   u8 _0;
   u8 f01;
@@ -105,7 +105,7 @@ void sub_08076E5C(struct EffectOwner *self)
   sub_08005E80(0x6D);
   ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19 = zero;
   {
-    s32 *cueTable = &gScriptStepCallbackTable;
+    s32 *cueTable = &gMainObjTimerCallbacks;
     u8 *scriptPtr = (u8 *)self + 0x18;
     sub_080C31E4(scriptPtr, (u8 *)self + 0x22, *cueTable);
     ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19++;

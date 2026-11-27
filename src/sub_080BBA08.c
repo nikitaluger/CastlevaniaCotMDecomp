@@ -1,4 +1,4 @@
-s32 sub_080BE550(s32, s32, s32);
+s32 setAttachedObjectMode(s32, s32, s32);
 u32 divideInt(u8, s32);
 
 /* Pick a phase from the current script slot's byte: divide it by 6, clamp it to
@@ -25,6 +25,6 @@ s32 sub_080BBA08(void *arg0)
   quotient = 2 - quotient;
   phase = quotient;
   base = (s8 *) work;
-  sub_080BE550(*((s32 *) (base + 0x20)), phase, ctrl);
+  setAttachedObjectMode(*((s32 *) (base + 0x20)), phase, ctrl);
   return phase;
 }

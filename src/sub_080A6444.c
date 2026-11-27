@@ -1,5 +1,5 @@
 s32 sub_080A860C(void *, s32);
-s32 sub_080A8940(s32, s32);
+s32 decelerateTargetX(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 /* Updates the entity's pose, then when the work flag at +0x120 is set and the
@@ -16,7 +16,7 @@ void sub_080A6444(void *arg0)
   work = *((void **) (((s8 *) arg0) + 0x3C));
   pose = work + 0x48;
   sub_080A860C(arg0, pose);
-  sub_080A8940(sprite, pose);
+  decelerateTargetX(sprite, pose);
   if ((*((u8 *) (((s8 *) work) + 0x120))) != 0)
   {
     stateValue = *((s32 *) (((s8 *) work) + 0x110));

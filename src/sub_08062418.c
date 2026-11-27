@@ -1,4 +1,4 @@
-void sub_080C2E68(void *, const void *, s32);
+void copyBytes(void *, const void *, s32);
 void resetMapRender(void);
 void setLayerTilemap(s32, s32);
 void setMapLayerParams(u8, s32, s32);
@@ -19,7 +19,7 @@ void sub_08062418(u8 sceneType, u8 scriptIndex) {
 
     type = sceneType;
     index = scriptIndex;
-    sub_080C2E68(layer, D_080DBE20, 2);
+    copyBytes(layer, D_080DBE20, 2);
     resetMapRender();
     setLayerTilemap(0, 0x89);
     setMapLayerParams(layer[type], 1, 1);

@@ -2,7 +2,7 @@ extern u8 gMenuState[];
 extern u8 gGameStatus[];
 extern u8 gCameraState[];
 extern u32 gMenuScriptCallback;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 void playSound(u32);
 void sub_0800F4D4(u32, u32, u32);
 void sub_0800F6BC(void);
@@ -71,6 +71,6 @@ void sub_0800E644(u8 *arg0)
         resetMapRender();
         setLayerTilemap(0, 2);
         arg0[*(s16 *)(arg0 + 0x22) * 2 + 0x19] = (u8)mask;
-        sub_080C31E4(arg0 + 0x18, arg0 + 0x22, gScriptStepCallbackTable);
+        sub_080C31E4(arg0 + 0x18, arg0 + 0x22, gMainObjTimerCallbacks);
     }
 }

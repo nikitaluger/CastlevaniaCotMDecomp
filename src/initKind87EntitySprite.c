@@ -58,8 +58,8 @@ extern s32 sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gCameraState[];
 extern struct S_02025FF0 gMainWorkspace;
-extern void *gScriptStepCallbackTable;
-extern void *gTrigFuncPtr;
+extern void *gMainObjTimerCallbacks;
+extern void *gTrigFuncTable;
 extern u8 gSpriteAnimDataTable[];
 
 /* Builds an entity's graphics: allocates its sprite and state, sets the sprite
@@ -122,7 +122,7 @@ void initKind87EntitySprite(struct Entity *arg0)
     child[0x19] = 0;
   }
   {
-    void **table = &gScriptStepCallbackTable;
+    void **table = &gMainObjTimerCallbacks;
     sub_080C31E4(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, (s32) (*table));
   }
   {

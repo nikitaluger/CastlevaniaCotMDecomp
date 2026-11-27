@@ -1,6 +1,6 @@
 s32 sub_080BE8D4(void);
 s32 sub_080BE938(void);
-void sub_080988B8(void *);
+void setFacingDirection(void *);
 extern u32 D_08102ED4[];
 extern u32 D_08102EE0[];
 
@@ -17,5 +17,5 @@ void sub_080BAD30(void *arg0) {
     *(u32 *)(r5 + 0x08) = t;
     u = (u32)&D_08102EE0[0];
     *(u32 *)(r5 + 0x0C) = *(u32 *)((u8 *)u + *(u32 *)(r4 + 0x60) * 4);
-    sub_080988B8((void *)r6);
+    setFacingDirection((void *)r6);
 }

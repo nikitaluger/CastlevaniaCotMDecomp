@@ -4,7 +4,7 @@ extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080C36E4(s16, s32);
 extern u8 D_081007D0[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Selects an animation value from a table by index, periodically spawns a
  * child effect at a jittered position, then counts the timer down and advances
@@ -45,7 +45,7 @@ void sub_080937B4(u8 *arg0) {
     if ((timer << 16) <= 0) {
         *(u16 *)(timerPtr + 0x0C) = 0x10;
         *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = 0;
-        eventPtr = &gScriptStepCallbackTable;
+        eventPtr = &gMainObjTimerCallbacks;
         sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *eventPtr);
     }
 }

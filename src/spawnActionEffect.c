@@ -14,7 +14,7 @@ extern u8 D_084A0780[];
 extern u8 D_084A0838[];
 extern u8 D_084A1A78[];
 extern u8 D_084A1AF8[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* The parent's action state holds the new effect at +0x2C. It is read back
  * through a volatile slot on every field store, just as the original does. */
@@ -120,7 +120,7 @@ void spawnActionEffect(void *parent)
         idx = *(s16 *)(self + 0x22);
         *(u8 *)(self + idx * 2 + 0x19) = 0;
 
-        scriptTable = gScriptStepCallbackTable;
+        scriptTable = gMainObjTimerCallbacks;
         stepPtr = self + 0x18;
         sub_080C31E4(stepPtr, self + 0x22, (void *)*scriptTable);
 

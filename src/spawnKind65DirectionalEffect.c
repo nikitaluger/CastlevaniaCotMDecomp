@@ -61,7 +61,7 @@ struct BD
 };
 extern struct BD gEffectGfxTable[];
 extern u16 gKind65DirectionalLayerAttrs[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -150,7 +150,7 @@ void spawnKind65DirectionalEffect(struct Sarg *parent)
     s16 stateIdx = parent->f22;
     *((u8 *) (((((u32) stateIdx) * 2) + ((u32) parent)) + 0x19)) = 0;
   }
-  callbackTable = &gScriptStepCallbackTable;
+  callbackTable = &gMainObjTimerCallbacks;
   slotArea = ((u8 *) parent) + 0x18;
   sub_080C31E4(slotArea, ((u8 *) parent) + 0x22, (s32) (*callbackTable));
   {

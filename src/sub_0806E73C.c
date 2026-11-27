@@ -10,7 +10,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Entity setup: checks a spawn condition, allocates and initializes a display object,
    then runs the entity script and dispatches its handler. */

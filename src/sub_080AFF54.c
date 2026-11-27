@@ -1,4 +1,4 @@
-extern u32 D_02027860;
+extern u32 gActiveObjectId;
 void allocWorkSlot(void *, s32, s32, s32);
 s32 spawnBudgetedEffect(s32, s32);
 void sub_080C31E0(void *, s32);
@@ -28,7 +28,7 @@ void sub_080AFF54(void *arg0) {
     i = 0;
     variantByte = self + 0x4C;
     {
-        u32 base = (u32)&D_02027860;
+        u32 base = (u32)&gActiveObjectId;
         dst = childList;
         do {
             child = (u8 *)spawnBudgetedEffect(*(s32 *)base, 0x1B1);

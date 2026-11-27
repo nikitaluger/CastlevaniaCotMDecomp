@@ -8,7 +8,7 @@ struct S_D {
     s32 state14;
 };
 extern struct S_D gMainWorkspace;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 extern u8 D_0850D638;
 
 /* Actor tick: when the global state (+0x14) is 6, play the animation at
@@ -25,7 +25,7 @@ void sub_0808AA78(void *arg0) {
         sub_08005E80(0x199);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            s32 *advanceTable = &gScriptStepCallbackTable;
+            s32 *advanceTable = &gMainObjTimerCallbacks;
             sub_080C31E4(self + 0x18, self + 0x22, *advanceTable);
         }
     }

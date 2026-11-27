@@ -41,7 +41,7 @@ void selectSceneMode(void);
 void loadSceneGraphics(void);
 volatile int sub_080C31E4(void *, void *, s32);
 extern struct SceneLoadWorkspace gMainWorkspace;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Step the scene-load object trees according to the load flags, count off the
  * delayed steps, and reset the workspace for a fresh scene once every flag is set. */
@@ -93,7 +93,7 @@ void updateSceneLoadProgress(void *entity) {
         gMainWorkspace.areaParam = 0;
         *(u8 *)((u8 *)entity + ((struct SceneStepObj *)entity)->stepIndex * 2 + 0x19) = 0;
         {
-            s32 *callback = &gScriptStepCallbackTable;
+            s32 *callback = &gMainObjTimerCallbacks;
             sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callback);
         }
     }

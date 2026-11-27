@@ -11,7 +11,7 @@ extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u8 D_080E4D84[];
 extern u8 D_080E4DE4[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /*
  * Spawn a sub-object using the actor's 12-byte spawn parameter entry: allocate
@@ -85,7 +85,7 @@ void spawnActorParamSubObject(void *arg0)
     u32 *scriptTableArg;
     scriptIdx = *((s16 *) (actorPtr + 0x22));
     *((u8 *) ((actorPtr + (scriptIdx * 2)) + 0x19)) = 0;
-    scriptTableArg = gScriptStepCallbackTable;
+    scriptTableArg = gMainObjTimerCallbacks;
     scriptPtr = actorPtr + 0x18;
     sub_080C31E4(scriptPtr, actorPtr + 0x22, (void *) (*scriptTableArg));
     scriptIdx = *((s16 *) (actorPtr + 0x22));

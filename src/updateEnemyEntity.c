@@ -14,7 +14,7 @@ void sub_080C31E0(void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
 extern s32 gGameStatus[];
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 
 struct AnimFlags { u16 f0; };
 struct Flags2 { u16 f0; u16 f2; };
@@ -62,7 +62,7 @@ struct Flags2 { u16 f0; u16 f2; };
             p30->f2 |= 2;
         }
         *((u8 *)((s16)(*(u16 *)((u8 *)self + 0x22)) * 2 + (u32)self) + 0x1B) = 0;
-        stateFn = &sScriptStepCallbacks;
+        stateFn = &gScriptEventCallbacks;
         sub_080C31E8((u8 *)self + 0x18, (u8 *)self + 0x22, 2, *stateFn);
     }
     if (updateObjectDisplayState(gfxObj, anim) == 0) {

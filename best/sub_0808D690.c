@@ -1,4 +1,4 @@
-extern void sub_080C2E68(void *, void *, u32);
+extern void copyBytes(void *, void *, u32);
 extern void sub_080C31E0(void *);
 extern void *spawnBudgetedEffect(void *, s32);
 
@@ -34,7 +34,7 @@ void sub_0808D640(void *arg0) {
     u16 *p;
     s32 i;
     u32 mask = 0x80 << 6;
-    sub_080C2E68(sp0, (void *)0x080F3E2C, 4);
+    copyBytes(sp0, (void *)0x080F3E2C, 4);
     p = (u16 *)(gCameraState + (0x93 << 5));
     for (i = 0; i <= 3; i++) {
         if (!(mask & *p)) {

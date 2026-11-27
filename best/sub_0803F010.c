@@ -6,7 +6,7 @@ void *spawnBudgetedEffect(s32, s32);
 s32 sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 extern u8 gMainWorkspace[];
-extern u8 gScriptStepCallbackTable[];
+extern u8 gMainObjTimerCallbacks[];
 
 void sub_0803F010(void *arg0)
 {
@@ -51,7 +51,7 @@ void sub_0803F010(void *arg0)
             *(u16 *)((u8 *)temp_r0_4 + 0x5C) |= 2;
         }
         *(s8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = zero;
-        pBB0 = (s32 *)gScriptStepCallbackTable;
+        pBB0 = (s32 *)gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *pBB0);
         return;
     }

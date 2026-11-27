@@ -1,0 +1,32 @@
+struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 obj; };
+extern struct S_02025FF0_1870 gMainWorkspace;
+
+/* Walk the entity list at obj+0x30 (next link at +0x2C); for every entry whose
+ * type (s16 at +0x00) is 0x1DA, set bit 0 of the u16 flags at entry+0x3C. */
+void markType1DAObjects(void)
+{
+    void *unused_r5;
+    s8 *base;
+    void *entry;
+    u16 *flags;
+
+    base = (s8 *)(void *)gMainWorkspace.obj;
+    entry = *((void **)(base + 0x30));
+    if (entry != NULL) {
+        do {
+            do {
+                if ((*((s16 *)(((s8 *)entry) + 0))) == 0x1DA) {
+                    if (unused_r5) {
+                        flags = *((u16 **)(((s8 *)entry) + 0x3C));
+                        *flags |= 1;
+                    } else {
+                        flags = *((u16 **)(((s8 *)entry) + 0x3C));
+                        *flags |= 1;
+                    }
+                }
+                if (1) { }
+            } while (0);
+            entry = *((void **)(((s8 *)entry) + 0x2C));
+        } while (NULL != entry);
+    }
+}

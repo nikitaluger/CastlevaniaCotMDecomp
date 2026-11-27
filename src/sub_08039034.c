@@ -2,7 +2,7 @@ struct S_02025FF0b { u8 _0[0x1728]; u32 a; u32 b; };
 extern struct S_02025FF0b gMainWorkspace;
 extern u8 D_080CF11E[];
 extern s16 D_080CF12E[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 s32 sub_08005910(s32, s32);
 s32 sub_08011344(s32, s32, s32, s32);
 s32 stepAnimationTrack(s32, s32);

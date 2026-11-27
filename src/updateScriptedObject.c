@@ -36,7 +36,7 @@ extern void sub_0802CB5C(s32, void *);      /* refresh the sprite's frame parame
 extern s32 sub_0805F9B4(s32, s32);          /* outside camera bounds? */
 extern void sub_080C31E0(void *, void *);   /* indirect cleanup callback */
 extern void sub_080C31E8(void *, void *, s32, void *); /* indirect script handler */
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 extern u8 gCameraState[];                     /* scroll-offset table */
 extern struct MainWorkspace gMainWorkspace;
 
@@ -89,7 +89,7 @@ void updateScriptedObject(struct ScriptObject *obj)
         sub_08005E80(0x18A);
         ((u8 *)(((u32)obj->stepIndex) * 2 + (u32)obj))[0x1B] = zero;
         {
-          void **fnaddr = &sScriptStepCallbacks;
+          void **fnaddr = &gScriptEventCallbacks;
           sub_080C31E8(((u8*)obj) + 0x18, ((u8*)obj) + 0x22, 1, *fnaddr);
         }
       }

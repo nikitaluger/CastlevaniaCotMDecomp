@@ -1,5 +1,5 @@
 extern s32 sub_08005910(s32 dy, s32 dx);
-extern s32 sub_080059DC(s32 dx, s32 dy);
+extern s32 fixedPointDistance(s32 dx, s32 dy);
 extern void stepAnimationTrack(s32 sprite, void *moverData);
 extern void advanceMotion(void *mover, s32 accel);
 extern void sub_080146D0(void *mover, s32 angle, s32 speed);
@@ -28,7 +28,7 @@ void sub_080B5C58(u8 *self) {
     advanceMotion(mover, 0);
     targetX = targetX - *(s32 *)(mover + 8);
     targetY = targetY - *(s32 *)(mover + 0xC);
-    distance = sub_080059DC(targetX, targetY);
+    distance = fixedPointDistance(targetX, targetY);
     if (distance <= 0x7FFFF) {
         u8 *target = *(u8 **)(self + 0x28);
         s32 targetParam = *(s32 *)(target + 0x4C);

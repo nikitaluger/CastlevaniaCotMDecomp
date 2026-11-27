@@ -1,7 +1,7 @@
 extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
-extern void sub_080C2E68(void *, u32, s32);
+extern void copyBytes(void *, u32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern u8 D_08100820[];
 
@@ -39,7 +39,7 @@ void sub_08094188(u8 *entity)
     *((u8 *) ((*((u8 **) (animTrack + 4))) + 1)) = 0;
     *((u8 *) (sprite + 0x2A)) &= 0xBF;
   }
-  sub_080C2E68(offsets, (u32) D_08100820, 0x40);
+  copyBytes(offsets, (u32) D_08100820, 0x40);
   i = 0;
   offsets2 = offsets + 4;
   do

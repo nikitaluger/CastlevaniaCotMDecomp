@@ -2,7 +2,7 @@ extern void sub_08011528(void *, void *);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_0809C4E0(s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Enemy actor step: apply the current animation frame to the sprite, set a
  * behavior byte from an animation-indexed table, and on the animation's end
@@ -41,7 +41,7 @@ void sub_0809A228(void *actor)
         animIndex = *(s16 *)(self + 0x22);
         self[animIndex * 2 + 0x19] = 0;
         {
-            void **handlerTable = &gScriptStepCallbackTable;
+            void **handlerTable = &gMainObjTimerCallbacks;
             sub_080C31E4(self + 0x18, self + 0x22, *handlerTable);
         }
     }

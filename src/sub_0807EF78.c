@@ -6,7 +6,7 @@ extern void releaseActorEffectParts(void);
 extern u8 gMainWorkspace[];
 extern u32 D_084EA8E4;
 extern u32 D_084EA95C;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Initialize an actor: clear its motion state, install its update callback
  * and graphics data, seed its position from globals, then dispatch its
@@ -41,7 +41,7 @@ void sub_0807EF78(u8 *self) {
     *(u32 *)(state + 0x54) = zero;
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *animCmd = &gScriptStepCallbackTable;
+        s32 *animCmd = &gMainObjTimerCallbacks;
         u8 *sequence = self;
         sequence += 0x18;
         sub_080C31E4(sequence, self + 0x22, *animCmd);

@@ -1,8 +1,8 @@
 void sub_080BB940(s32, s32);
 void sub_080BB898(void *);
-void sub_080BE644(void *);
-void sub_080BE7D4(void);
-void sub_080BE87C(void);
+void markType1D6Objects(void *);
+void markType1D7Objects(void);
+void markType1DAObjects(void);
 void sub_080BE8D0(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -30,9 +30,9 @@ void sub_080BA088(void *entity)
   if ((*((s32 *) (((s8 *) fade) + 0x40))) == 0x10000)
   {
     sub_080BB898(fade);
-    sub_080BE7D4();
-    sub_080BE87C();
-    sub_080BE644(entity);
+    markType1D7Objects();
+    markType1DAObjects();
+    markType1D6Objects(entity);
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) entity) + 0x22))) * 2) + entity)) + 0x19)) = 0;
     scriptTable = (s32 *) 0x08671BB0;
     sub_080C31E4(entity + 0x18, entity + 0x22, *scriptTable);

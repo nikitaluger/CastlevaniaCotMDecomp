@@ -11,7 +11,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u16 D_080CEC8C[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 struct TBL2
 {
   u8 _0[4];
@@ -122,7 +122,7 @@ void sub_08033518(u8 *arg0)
     q[0x19] = zero;
   }
   {
-    u32 *d = &gScriptStepCallbackTable;
+    u32 *d = &gMainObjTimerCallbacks;
     a18 = arg0 + 0x18;
     sub_080C31E4(a18, arg0 + 0x22, *d);
   }

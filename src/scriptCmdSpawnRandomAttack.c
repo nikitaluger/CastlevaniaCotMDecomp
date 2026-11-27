@@ -12,7 +12,7 @@ extern void registerScriptObject(u8 *, s32);
 extern s32 scaleByRandom(s32);
 extern s32 sub_08014EF4(s32);
 extern void sub_08059AA8(void);
-extern void sub_08059AD8(u8 *, u8 *);
+extern void setAttackHitboxFromAction(u8 *, u8 *);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
 
@@ -156,7 +156,7 @@ void scriptCmdSpawnRandomAttack(struct ScriptThread *thread)
     *(u32 *)((u8 *)work + 0x10) = direction;
     *(u16 *)((u8 *)work + 4) |= 0x100;
     setAnimationFrame(sprite, anim, 0, 1);
-    sub_08059AD8(sprite, (u8 *)work);
+    setAttackHitboxFromAction(sprite, (u8 *)work);
     registerScriptObject((u8 *)thread, 0);
     thread->flags |= THREAD_FLAG_WAIT_SPRITE;
     *(u8 *)((u8 *)thread + 2 * thread->stateIndex + 0x19) = 0;

@@ -27,7 +27,7 @@ struct S_02025368 {
 };
 extern struct S_02025368 gGameStatus;
 
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern u32 gLevelExpTable[];
 
 void releaseEffectGroup(void *arg0)
@@ -45,7 +45,7 @@ void sub_08071E9C(void *arg0)
     gMainWorkspace.f1844 |= 0x08000000;
     *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = 0;
     {
-        s32 *nv = gScriptStepCallbackTable;
+        s32 *nv = gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *nv);
     }
 }
@@ -60,7 +60,7 @@ void sub_08071EDC(void *arg0)
         sub_08072018(arg0);
         *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *nv = gScriptStepCallbackTable;
+            s32 *nv = gMainObjTimerCallbacks;
             sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *nv);
         }
     }

@@ -7,7 +7,7 @@ extern void sub_080C31E4(void *, void *, void *);
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern s32 D_02027718;
-extern u8 gScriptStepCallbackTable[];
+extern u8 gMainObjTimerCallbacks[];
 
 static inline u32 bitOne(u8 v) {
     u32 m = 1;

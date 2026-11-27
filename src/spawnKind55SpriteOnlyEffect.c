@@ -19,7 +19,7 @@ extern struct Globals gMainWorkspace;
 struct ScrollTable { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
 extern struct ScrollTable gCameraState;
 extern u8 gSpriteAnimDataTable[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 void spawnKind55SpriteOnlyEffect(struct Entity *entity) {
     u8 *sprite;
@@ -71,6 +71,6 @@ void spawnKind55SpriteOnlyEffect(struct Entity *entity) {
     setAnimationFrame(sprite, animState, 0x0F, 0);
     entity->flags |= 0x1000;
     *(u8 *)((u8 *)entity + 2 * entity->scriptIndex + 0x19) = 0;
-    timerCallbackWord = gScriptStepCallbackTable;
+    timerCallbackWord = gMainObjTimerCallbacks;
     sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *timerCallbackWord);
 }

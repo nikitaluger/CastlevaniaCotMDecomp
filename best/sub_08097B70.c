@@ -2,9 +2,9 @@ extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *sub_0805FB24(s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_02027860;
+extern s32 gActiveObjectId;
 extern u16 D_020213DC;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 extern u8 sub_08097CF4[];
 
 typedef struct {
@@ -44,7 +44,7 @@ void sub_08097B70(void *arg0)
 
     for (i = 0; i < m->count; i++) {
         void *obj;
-        g0 = &D_02027860;
+        g0 = &gActiveObjectId;
         g1 = &D_020213DC;
         node = (u8 *)m->slots[i].ptr;
         obj = sub_0805FB24(*g0, *(s16 *)(node + 4));
@@ -69,7 +69,7 @@ void sub_08097B70(void *arg0)
         u8 *p18;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            u32 *fp = &gScriptStepCallbackTable;
+            u32 *fp = &gMainObjTimerCallbacks;
             p18 = self + 0x18;
             sub_080C31E4(p18, self + 0x22, *fp);
         }

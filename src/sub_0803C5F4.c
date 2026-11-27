@@ -1,7 +1,7 @@
 extern void *spawnBudgetedEffect(u32 a, s32 b);
-extern u32 D_02027860;
+extern u32 gActiveObjectId;
 
-/* Spawn `count` objects from the pool rooted at D_02027860; each gets its
+/* Spawn `count` objects from the pool rooted at gActiveObjectId; each gets its
  * slot index modulo four, four s32 coordinates, two bytes and a direction
  * sign taken from bit 4 of params[1]. */
 void sub_0803C5F4(u32 count, u16 *params, u8 mode, u8 subMode, s32 coord0, s32 coord1, s32 coord2, s32 coord3)
@@ -18,7 +18,7 @@ void sub_0803C5F4(u32 count, u16 *params, u8 mode, u8 subMode, s32 coord0, s32 c
 
     i = 0;
     if (i < count) {
-        u32 *poolRoot = &D_02027860;
+        u32 *poolRoot = &gActiveObjectId;
         do {
             u8 *object = (u8 *)spawnBudgetedEffect(*poolRoot, 0xFB);
             if (object != 0) {

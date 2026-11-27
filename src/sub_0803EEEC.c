@@ -1,4 +1,4 @@
-extern void *gTrigFuncPtr;
+extern void *gTrigFuncTable;
 extern void *gScriptStepCallbacks;
 
 s32 setAnimationFrame(void *, void *, s32, s32);
@@ -34,7 +34,7 @@ void sub_0803EEEC(void *object)
         *(s16 *)(ctrl + 0x0C) = 0;
     }
 
-    angleFunc = &gTrigFuncPtr;
+    angleFunc = &gTrigFuncTable;
     *(s32 *)(ctrl + 0x08) = sub_080C31E0(divInt32(*(s16 *)(ctrl + 0x0C) << 16, 0x3C), *angleFunc) << 1;
 
     {

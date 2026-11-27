@@ -56,7 +56,7 @@ struct PadGfxEntry { u8 _0[4]; u16 gfxA; u16 gfxB; u8 _8[0x28 - 8]; };
 extern struct PadGfxEntry gEffectGfxTable[];
 extern u16 gEntityKindEffectAffineParams[];
 extern u8 gSpriteAnimDataTable[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern struct FixedEffectWorkspace gMainWorkspace;
 extern struct FixedEffectScroll gCameraState;
 
@@ -115,6 +115,6 @@ extern struct FixedEffectScroll gCameraState;
     setAnimationFrame(sprite, anim, 0x18, 1);
     entity->flags |= 0x1000;
     *(u8 *)((u8 *)entity + 2 * entity->index + 0x19) = zeroWord;
-    callbacks = gScriptStepCallbackTable;
+    callbacks = gMainObjTimerCallbacks;
     _call_via_r2((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callbacks);
 }

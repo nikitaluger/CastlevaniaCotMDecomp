@@ -17,7 +17,7 @@ struct VelRow { s32 vx; s32 vy; };
 extern struct SpriteCfgRow gEffectGfxTable[];
 extern struct VelRow gAttackVelTable[];
 extern u16 gAttackLayerAttrs[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -84,7 +84,7 @@ cont:
     *(u32 *)(owner + 0x7C) = 0;
     *(u16 *)(owner + 2) |= 0x1000;
     *(u8 *)(owner + (u32)(*(s16 *)(owner + 0x22)) * 2 + 0x19) = 0;
-    cmdTable = &gScriptStepCallbackTable;
+    cmdTable = &gMainObjTimerCallbacks;
     attackLog = owner + 0x18;
     sub_080C31E4(attackLog, owner + 0x22, *cmdTable);
     *(u8 *)(owner + (u32)(*(s16 *)(owner + 0x22)) * 2 + 0x19) += 1;

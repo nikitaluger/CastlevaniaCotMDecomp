@@ -4,7 +4,7 @@ extern void sub_080C31E4(void *, void *, void *);
 extern struct ChoiceMenuCameraInput gCameraState;
 extern struct ChoiceMenuMainInput gMainWorkspace;
 extern u8 gChoiceMenuOptionTable[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Handles a two-option (confirm/cancel) menu: moves the highlighted option with
  * the prev/next buttons, plays a cursor sound when it changes, then on confirm
@@ -71,7 +71,7 @@ confirm:
         playSound(0x96 << 1);
     *(u8 *)(menu + *(s16 *)(menu + 0x22) * 2 + 0x19) = 0;
     {
-        void **stepCallback = &gScriptStepCallbackTable;
+        void **stepCallback = &gMainObjTimerCallbacks;
         sub_080C31E4(menu + 0x18, menu + 0x22, *stepCallback);
     }
     return;
@@ -90,7 +90,7 @@ cancel:
     *(u32 *)((u8 *)optionDisplay + 0x24) = *(u32 *)((u8 *)choiceOptions + 0xC);
     *(u8 *)(menu + *(s16 *)(menu + 0x22) * 2 + 0x19) = 0;
     {
-        void **stepCallback = &gScriptStepCallbackTable;
+        void **stepCallback = &gMainObjTimerCallbacks;
         sub_080C31E4(menu + 0x18, menu + 0x22, *stepCallback);
     }
 }

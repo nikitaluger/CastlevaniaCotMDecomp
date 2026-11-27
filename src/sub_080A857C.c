@@ -1,6 +1,6 @@
 extern s32 sub_08005910(s32, s32);
 extern s32 sub_0801473C(s32, s32);
-extern s32 sub_0801476C(s32, s32, s32);
+extern s32 angleWithinRange(s32, s32, s32);
 
 struct PlayerPosition { u8 _0[0x174C]; s32 playerX; s32 playerY; };
 extern struct PlayerPosition gMainWorkspace;
@@ -17,7 +17,7 @@ s32 sub_080A857C(void *arg0, void *arg1) {
     deltaX = *(s32 *)((u8 *)arg1 + 0x90) - *(s32 *)((u8 *)arg1 + 0x7C);
     deltaY = *(s32 *)((u8 *)arg1 + 0x94) - *(s32 *)((u8 *)arg1 + 0x80);
     baseAngle = sub_08005910(deltaY, deltaX) & 0xFFFF;
-    if (sub_0801476C(baseAngle, 0xC0 << 5, desiredAngle) != 0) {
+    if (angleWithinRange(baseAngle, 0xC0 << 5, desiredAngle) != 0) {
         return desiredAngle - baseAngle;
     }
     if (sub_0801473C(baseAngle, desiredAngle) == 1) {

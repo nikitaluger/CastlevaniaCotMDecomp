@@ -22,7 +22,7 @@ struct P38 { u16 f0; u8 _2[2]; u16 f4; u16 f6; u16 f8; u16 fA; u8 _C[0x1C-0xC]; 
 extern struct F0 gMainWorkspace;
 extern struct S68 gGameStatus;
 extern u8 D_080E0C90[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern s32 gScriptStepCallbacks[];
 
 void sub_08070290(void *arg0)
@@ -87,6 +87,6 @@ void sub_08070290(void *arg0)
         p6C4->f40 = (u32)res;
         p6C->f48 = *(u8 *)((u8 *)res + 1);
         *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = r9;
-        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *gScriptStepCallbackTable);
+        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *gMainObjTimerCallbacks);
     }
 }

@@ -2,7 +2,7 @@ extern s32 gAreaTilesetTable[];  /* area tileset pointer table */
 extern s32 gLevelExpTable[];   /* EXP required for level n (indexed by level - 1) */
 extern u16 gStatusItemTiles[];   /* tile numbers of the status-screen item grid */
 extern u8 gGameStatus[];    /* game/player status block */
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 extern s32 divideInt(s32, s32);           /* Div: quotient */
 extern s32 moduloInt(s32, s32);           /* Div: remainder */
@@ -138,7 +138,7 @@ void updateStatusScreen(u8 *task)
     setMapLayerParams(0, 1, 1);
     setScreenTransition(0);
     *(u8 *)(task + *(s16 *)(task + 0x22) * 2 + 0x19) = zero;
-    callbackPtr = &gScriptStepCallbackTable;
+    callbackPtr = &gMainObjTimerCallbacks;
     sub_080C31E4(stateData, stateIndex, *callbackPtr);
     (*(u8 *)(task + *(s16 *)(task + 0x22) * 2 + 0x19))++;
     byteOffset = *(s16 *)(task + 0x22) * 2;

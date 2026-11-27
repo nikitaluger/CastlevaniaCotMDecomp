@@ -8,7 +8,7 @@ extern void sub_080C31E8(void *, s32, s32, s32);
 extern u32 scaleByRandom(u32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 struct Update22470LayerFlags { u8 pad; u8 flags; };
 struct Update22470StateFlags { u16 flags; };
 
@@ -53,7 +53,7 @@ void updateDirectionalMultiPartProjectile(u8 *entity)
       *((s32 *) (state + 0x10)) = 0;
       *((s32 *) (state + 0x14)) = scaleByRandom(0x10001) + 0x8000;
       *((u8 *) (((((u32) (*((s16 *) (entity + 0x22)))) * 2) + ((u32) entity)) + 0x1B)) = 0;
-      callback = sScriptStepCallbacks;
+      callback = gScriptEventCallbacks;
       sub_080C31E8(entity + 0x18, entity + 0x22, 2, *callback);
     }
   }

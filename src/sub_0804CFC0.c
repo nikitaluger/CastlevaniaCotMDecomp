@@ -10,7 +10,7 @@ extern void sub_080C31E4(void *, void *, u32);
  * countdown. When the countdown expires or the tile one step ahead -- 0x200000
  * in the direction of vx, via terrainHasSolidFlags -- is blocked, switch to animation
  * 5, copy fresh motion parameters from the 0x080CF9C4 table into the +0x28
- * sub-object, clear the slot timer and dispatch the gScriptStepCallbackTable callback. */
+ * sub-object, clear the slot timer and dispatch the gMainObjTimerCallbacks callback. */
 void sub_0804CFC0(void *entity) {
     s32 animHandle;
     void *state;

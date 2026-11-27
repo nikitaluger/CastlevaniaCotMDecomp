@@ -17,7 +17,7 @@ extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *gMenuScriptCallback;
 extern struct S32Table D_080E03A0;
 
@@ -49,7 +49,7 @@ void sub_08064E88(struct ActorUpdate *entity) {
             if (*(u16 *)((u8 *)parent + 2) & 0x10) adjust = -adjust;
             *(s32 *)((u8 *)actor + 8) = adjust;
             *(u8 *)((u32)entity->step * 2 + (u32)entity + 0x19) = posMode;
-            { void **fnaddr = &gScriptStepCallbackTable; sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, (s32)*fnaddr); }
+            { void **fnaddr = &gMainObjTimerCallbacks; sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, (s32)*fnaddr); }
             break;
         }
     }

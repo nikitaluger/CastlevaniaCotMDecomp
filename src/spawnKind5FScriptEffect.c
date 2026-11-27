@@ -7,7 +7,7 @@ extern struct SpawnParams gEffectGfxTable[];
 extern s16 D_0810216C[];
 extern u32 D_08102170[];
 extern u8 D_0810215C[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void initSpriteGraphics(void *, void *, void *);
@@ -74,7 +74,7 @@ cont:
     host->f28->f10 = gfx;
     *(u16 *)(arg0 + 2) |= 0x1000;
     *(u8 *)(((*(s16 *)(arg0 + 0x22) * 2) + (u32)arg0) + 0x19) = 0;
-    scriptTablePtr = &gScriptStepCallbackTable;
+    scriptTablePtr = &gMainObjTimerCallbacks;
     scriptPtr = arg0 + 0x18;
     sub_080C31E4(scriptPtr, arg0 + 0x22, (s32)*scriptTablePtr);
     *(u8 *)(((*(s16 *)(arg0 + 0x22) * 2) + (u32)arg0) + 0x19) += 1;

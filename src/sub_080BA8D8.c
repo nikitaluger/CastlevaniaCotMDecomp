@@ -10,8 +10,8 @@ typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
-M2C_UNK sub_08098664(void *, s32, s32);
-M2C_UNK sub_080988B8(void *, s32);
+M2C_UNK startScriptOnce(void *, s32, s32);
+M2C_UNK setFacingDirection(void *, s32);
 M2C_UNK sub_080BB940(void *, void *);
 M2C_UNK sub_080C31E4(void *, void *, s32);
 /* Updates a linked entity's state/facing, clears a state field, and (when a flag
@@ -32,7 +32,7 @@ void sub_080BA8D8(void *obj)
     if (1)
     {
     }
-    sub_080988B8(entity, *((s32 *) (((s8 *) config) + 8)));
+    setFacingDirection(entity, *((s32 *) (((s8 *) config) + 8)));
     if (1)
     {
     }
@@ -43,7 +43,7 @@ void sub_080BA8D8(void *obj)
     entityType = *((u8 *) (((s8 *) entity) + 0x25));
     if (entityType == 0)
     {
-      sub_08098664(entity, 4, 0);
+      startScriptOnce(entity, 4, 0);
       *((u8 *) (((s8 *) (((*((s16 *) (((s8 *) obj) + 0x22))) * 2) + obj)) + 0x19)) = entityType;
       callbackEntry = (s32 *) 0x08671BB0;
       sub_080C31E4(obj + 0x18, obj + 0x22, *callbackEntry);

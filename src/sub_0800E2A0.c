@@ -4,7 +4,7 @@ void *createChildObject(void *, s32);
 void sub_0800F4D4(s32, u8, s32);
 void sub_0800F584(u8, u8);
 void sub_0806D930(void *);
-void sub_080C2E68(void *, void *, s32);
+void copyBytes(void *, void *, s32);
 
 /* Create two status objects, copy their base stats from the shared work state,
  * then load their graphics. */
@@ -34,7 +34,7 @@ void sub_0800E2A0(void *parent)
     status = (u8 *)gMenuState;
     copyOffset = 0xB1;
     copyOffset <<= 2;
-    sub_080C2E68(status, workState + copyOffset, 0x48);
+    copyBytes(status, workState + copyOffset, 0x48);
     sub_0806D930(status);
     field40 = status;
     field40 += 0x40;

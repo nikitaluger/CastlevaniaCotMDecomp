@@ -14,7 +14,7 @@ void sub_08013C8C(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866D980[];
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 
 /* Updates a weapon/familiar entity: checks its animation state, handles
  * attack events, advances its state callback and applies camera-relative
@@ -76,7 +76,7 @@ extern u32 sScriptStepCallbacks[];
             t = t + (s32)((u32)t >> 31);
             *((s32 *) (anim + 0x10)) = t >> 1;
             *((u8 *) (((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) self)) + 0x1B)) = zero;
-            animFn = sScriptStepCallbacks;
+            animFn = gScriptEventCallbacks;
             sub_080C31E8(self + 0x18, self + 0x22, 5, *animFn);
         }
     }

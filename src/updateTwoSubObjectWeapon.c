@@ -12,7 +12,7 @@ extern void sub_0803BB10(void *, s32);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u8 sScriptStepCallbacks[];
+extern u8 gScriptEventCallbacks[];
 extern u8 sTwoSubObjectWeaponStepTable[];
 
 /* One update tick of a two-sub-object weapon entity: clear/prime the sub-objects' hit

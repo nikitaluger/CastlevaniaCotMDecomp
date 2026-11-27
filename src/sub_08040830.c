@@ -1,6 +1,6 @@
 struct S_02025FF0_40830 { u8 _0[0x174C]; u32 f174C; u32 f1750; };
 extern struct S_02025FF0_40830 gMainWorkspace;
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern s32 sub_080057F8(void);
 extern s32 sub_08005910(s32, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
@@ -44,7 +44,7 @@ void sub_08040830(u8 *entity) {
               u8 zero = 0;
               *(u16 *)gfxCopy = spriteAttr;
               (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = zero; }
-            { void **handlerTable = &gScriptStepCallbackTable; sub_080C31E4(entity + 0x18, entity + 0x22, *handlerTable); }
+            { void **handlerTable = &gMainObjTimerCallbacks; sub_080C31E4(entity + 0x18, entity + 0x22, *handlerTable); }
         }
     }
 }

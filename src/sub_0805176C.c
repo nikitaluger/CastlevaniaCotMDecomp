@@ -9,7 +9,7 @@ void sub_080C31E8(void*, void*, s32, s32);
 typedef void (*Fn)(void*);
 struct S_02025FF0 { u8 _0[0x1870]; u32 v; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 sScriptStepCallbacks;
+extern u32 gScriptEventCallbacks;
 
 /* Advances one scripted behaviour step for an entity: handles death/contact,
  * flip requests and opcode dispatch, then copies the owner's position. */
@@ -27,7 +27,7 @@ void sub_0805176C(u8 *entity) {
         if (*(u8*)(stepPtr + 0x1A) != 1) {
             u32 *callTable;
             *(u8*)(stepPtr + 0x1B) = 0;
-            callTable = &sScriptStepCallbacks;
+            callTable = &gScriptEventCallbacks;
             sub_080C31E8(entity + 0x18, entity + 0x22, 1, *callTable);
         }
     }

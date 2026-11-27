@@ -2,7 +2,7 @@ s32 sub_080057F8();
 s32 sub_08005E80(s32);
 s32 sub_08049200(void *, void *, s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Script tick: cue a sound on the first slot, cycle a counter that spawns a
  * radial burst, nudge the enemy horizontally per the slot flag, then finish
@@ -39,7 +39,7 @@ void sub_08048C3C(void *arg0) {
         *(s32 *)((u8 *)enemy + 0x10) = 0;
         sub_08005E80(0x8A);
         *(u8 *)(*(s16 *)((u8 *)arg0 + 0x22) * 2 + (u8 *)arg0 + 0x19) = 0;
-        paramPtr = &gScriptStepCallbackTable;
+        paramPtr = &gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *(s32 *)paramPtr);
     }
 }

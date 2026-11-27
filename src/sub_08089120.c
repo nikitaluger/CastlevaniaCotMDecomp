@@ -3,7 +3,7 @@ extern void stepDelayTimer(void *a, void *b);
 extern void sub_0806D588(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
 extern void sub_080C31E0(void *a, void *b);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 struct P38 { u16 f0; u8 _2[0x22]; u32 f24; };
 
 /* Sets a flag and pointer on the FX object, spawns an effect from the child, seeds
@@ -31,7 +31,7 @@ void sub_08089120(void *arg0)
   *(u32 *)(childData + 4) = 0xC70000;
   sub_0806D588(fx, childData);
   *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
-  msgPtr = &gScriptStepCallbackTable;
+  msgPtr = &gMainObjTimerCallbacks;
   step = self + 0x18;
   sub_080C31E4(step, self + 0x22, *msgPtr);
   stepIdx = *(s16 *)(self + 0x22);

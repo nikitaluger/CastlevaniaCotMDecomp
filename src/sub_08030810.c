@@ -1,6 +1,6 @@
 /* identical to sub_080191DC (matched), with its names changed by decompdecomp */
 extern vu32 gMainWorkspace;
-extern vu32 gScriptStepCallbackTable;
+extern vu32 gMainObjTimerCallbacks;
 
 void *spawnBudgetedEffect(s32, s32);
 void unlinkAndFreeObject(void);
@@ -83,6 +83,6 @@ void sub_08019170(struct MainObj *arg0) {
     temp = (u8 *)arg0 + idx * 2;
     if (temp[0x19] > 0x1E) {
         temp[0x19] = 0;
-        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, gScriptStepCallbackTable);
+        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, gMainObjTimerCallbacks);
     }
 }

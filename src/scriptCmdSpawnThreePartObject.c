@@ -18,7 +18,7 @@ extern u16 gPairedPoseAttrs[];
 extern u8 gSpriteKindTable[];
 extern s16 gEffectGfxTable[];
 extern u32 gMainWorkspace[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* 0x34-byte render part returned by allocEffectPart. */
 struct Effect {

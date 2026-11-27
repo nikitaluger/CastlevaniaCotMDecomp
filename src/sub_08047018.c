@@ -4,7 +4,7 @@ extern s32 checkActorViewBounds(void *, void *);
 extern s32 hitTestEntities(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 extern u8 D_0866E2F0[];
 
 /* Behaviour-script callback: on a contact request hand control back to the owner;
@@ -42,7 +42,7 @@ void sub_08047018(u8 *behav) {
     entry = (u8 *)((u32)(*(s16 *)(behav + 0x22)) * 2 + (u32)behav);
     if (*(u8 *)(entry + 0x1A) != 1) {
       *(u8 *)(entry + 0x1B) = 0;
-      cmdTable = sScriptStepCallbacks;
+      cmdTable = gScriptEventCallbacks;
       sub_080C31E8(behav + 0x18, behav + 0x22, 1, *cmdTable);
     }
   }

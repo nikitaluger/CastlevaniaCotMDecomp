@@ -7,7 +7,7 @@ extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void releaseActorEffectSubObject(void);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 struct S_02025FF0 {
     u8 _0x000[0x18C2];
@@ -63,7 +63,7 @@ ready:
     }
 
     {
-        s32 *handlerPtr = &gScriptStepCallbackTable;
+        s32 *handlerPtr = &gMainObjTimerCallbacks;
         u8 *stepTable = (u8 *)obj + 0x18;
         s16 stepIndex;
 

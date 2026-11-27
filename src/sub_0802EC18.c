@@ -34,7 +34,7 @@ extern struct GameState gMainWorkspace;
 struct ScrollTable { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
 extern struct ScrollTable gCameraState;
 extern u8 gSpriteAnimDataTable[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Spawns an entity's sprite and actor state, seeds its kind and position,
  * sets up the initial animation, sprite graphics and camera-relative position,

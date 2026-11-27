@@ -13,7 +13,7 @@ struct ActorContext {
 struct SpawnParams { u8 _0[0x10]; u16 f10; u16 f12; u8 _14[0x14]; };
 extern struct SpawnParams gEffectGfxTable[];
 extern u16 gKind68AltLayerAttrs[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -91,7 +91,7 @@ ok:
         s16 idx = actor->f22;
         *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = zeroByte;
     }
-    scriptTablePtr = &gScriptStepCallbackTable;
+    scriptTablePtr = &gMainObjTimerCallbacks;
     scriptPtr = ((u8 *)actor) + 0x18;
     sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, (s32)(*scriptTablePtr));
     {

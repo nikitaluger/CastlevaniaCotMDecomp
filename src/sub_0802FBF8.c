@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 /* Script step for two linked actors: when the first one's flag 8 is set, set
  * flag 0x10 on both and run a handler; otherwise, when both have flag 0x1000,
@@ -33,7 +33,7 @@ void sub_0802FBF8(u8 *self)
     if ((*(u16 *)(actorA + 2) & 0x1000) != 0 && (*(u16 *)(*(u8 **)(links + 4) + 2) & 0x1000) != 0)
     {
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = flag8;
-        scriptEvent = gScriptStepCallbackTable;
+        scriptEvent = gMainObjTimerCallbacks;
         stepData = self + 0x18;
         sub_080C31E4(stepData, self + 0x22, *scriptEvent);
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) += 1;

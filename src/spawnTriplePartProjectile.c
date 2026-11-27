@@ -15,7 +15,7 @@ extern void initThreeSubObjects(void *a, struct SpawnLogic *b, struct SpawnSprit
 extern void sub_080C31E0(void *a, u32 b); /* _call_via_r1: dispatch the entity's saved handler */
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c); /* _call_via_r2: run the current script step */
 extern void registerScriptObject(void *a, u32 b);
-extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u8 gProjectileSpeedTable[]; extern u8 gScriptStepCallbackTable[];
+extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u8 gProjectileSpeedTable[]; extern u8 gMainObjTimerCallbacks[];
 
 /* Spawn and initialise a scripted three-part projectile: allocate the sprite and work state,
  * install the cleanup handler, pick a launch speed from the table, build the animation and
@@ -69,7 +69,7 @@ body:
     registerScriptObject(entity, 0);
     U16(entity, 0x02) = 0x1000 | U16(entity, 0x02);
     U8(entity, 0x19 + (s16)U16(entity, 0x22) * 2) = zero;
-    stepCallbackWord = &gScriptStepCallbackTable;
+    stepCallbackWord = &gMainObjTimerCallbacks;
     stepStream = (u8 *)entity + 0x18;
     sub_080C31E4(stepStream, (s16 *)((u8 *)entity + 0x22), *stepCallbackWord);
     currentStep = (u8 *)((s16)U16(entity, 0x22) * 2 + (u32)entity);

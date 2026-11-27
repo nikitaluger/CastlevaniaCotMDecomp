@@ -12,7 +12,7 @@ void sub_08097F88(s32, void *, void *, void *);
 void sub_08007E24(s32);
 void sub_08098338(s32, void *);
 
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u32 D_086704B4;
 
 /* Refresh an entity's graphics state, then dispatch the current script

@@ -9,7 +9,7 @@ void setDirectionVector(void *a, u8 b);
 void *sub_08016A2C(void);
 void sub_080C31E0(void *a, void *b);
 void sub_080C31E4(void *a, void *b, s32 c);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 void sub_0807E710(void *arg0)
 {
   u8 new_var3;
@@ -98,7 +98,7 @@ void sub_0807E710(void *arg0)
     }
   }
   *((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;
-  new_var2 = (u32 *) gScriptStepCallbackTable;
+  new_var2 = (u32 *) gMainObjTimerCallbacks;
   {
     u8 *p18 = ((u8 *) arg0) + 0x18;
     u32 *wp = new_var2;

@@ -4,7 +4,7 @@ extern void sub_08005E80(s32);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 D_084FEBF0[];
-extern u8 gScriptStepCallbackTable[];
+extern u8 gMainObjTimerCallbacks[];
 struct S_02025FF0
 {
   u8 pad0[0x1C];
@@ -74,7 +74,7 @@ void sub_080884BC(void *arg0)
   startEffectTimer(fxPos, 0, D_084FEBF0);
   gMainWorkspace.field_1C = 2;
   *(u8 *) ((self + ((*(s16 *) (self + 0x22)) * 2)) + 0x19) = 0;
-  msgPtr = (s32 *) gScriptStepCallbackTable;
+  msgPtr = (s32 *) gMainObjTimerCallbacks;
   sub_080C31E4(self + 0x18, self + 0x22, *msgPtr);
   end:
   stepDelayTimer(fxPos, fx);

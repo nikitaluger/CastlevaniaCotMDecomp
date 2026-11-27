@@ -1,4 +1,4 @@
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *gMenuScriptCallback;
 struct S_02021E90 { u8 _0[0x146C]; u16 f146C; };
 extern struct S_02021E90 gCameraState;
@@ -27,7 +27,7 @@ void sub_0800B288(u8 *self) {
                     sub_0800B824(0x81DB, 0x270, 0x600);
                     scriptIndex = *(s16 *)(self + 0x22);
                     *(self + scriptIndex * 2 + 0x19) = state;
-                    { void **fnaddr = &gScriptStepCallbackTable; sub_080C31E4(self + 0x18, self + 0x22, (s32)*fnaddr); }
+                    { void **fnaddr = &gMainObjTimerCallbacks; sub_080C31E4(self + 0x18, self + 0x22, (s32)*fnaddr); }
                 }
             }
         }

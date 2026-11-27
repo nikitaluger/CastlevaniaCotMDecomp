@@ -1,6 +1,6 @@
 extern void sub_08011344(s32, s32, s16, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 struct S_02025FF0_93090 {
     u8 _0x000[0x10];

@@ -1,5 +1,5 @@
 extern u8 gMainWorkspace[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 extern u32 gMenuScriptCallback[];
 
 s32 syncViewPosition(void*, void*);
@@ -70,7 +70,7 @@ label_BC:
         *(u8 *)(ptr + 0x19) = 0;
     }
     {
-        u32 *callback = gScriptStepCallbackTable;
+        u32 *callback = gMainObjTimerCallbacks;
         u8 *scriptArgs = self + 0x18;
         u8 *scriptIndex = self + 0x22;
         sub_080C31E4(scriptArgs, scriptIndex, *callback);

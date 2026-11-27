@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 extern u8 D_08100B98[];
-extern u8 gScriptStepCallbackTable[];
+extern u8 gMainObjTimerCallbacks[];
 extern u8 gScriptStepCallbacks[];
 extern void sub_08011344(void *, void *, s16, s32);
 extern void sub_080C31E0(void *, s32);
@@ -60,7 +60,7 @@ void sub_0809767C(void *arg0)
         zero = 0;
         *(u16 *)(work + 0x16) = one;
         self[*(s16 *)(self + 0x22) * 2 + 0x19] = zero;
-        hpElse = (s32 *)gScriptStepCallbackTable;
+        hpElse = (s32 *)gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *hpElse);
     }
 }

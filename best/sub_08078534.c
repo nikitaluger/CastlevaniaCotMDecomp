@@ -10,7 +10,7 @@ extern void stepDelayTimer(void *);
 extern void setSpriteScreenPosition(void *, void *);
 extern void _call_via_r1(u32, u32);
 extern void _call_via_r2(u32, u32, u32);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 struct G78534 {
     u8 pad0[0x10];
@@ -80,7 +80,7 @@ void sub_08078534(u8 *self)
             }
         }
         *((u8 *)((s16)*(s16 *)(self + 0x22) * 2 + (u32)self) + 0x19) = 0;
-        _call_via_r2((u32)(self + 0x18), (u32)(self + 0x22), (u32)gScriptStepCallbackTable);
+        _call_via_r2((u32)(self + 0x18), (u32)(self + 0x22), (u32)gMainObjTimerCallbacks);
     }
 
     *r8 = gMainWorkspace.h18C2;

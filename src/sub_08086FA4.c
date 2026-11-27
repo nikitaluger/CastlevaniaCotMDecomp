@@ -12,7 +12,7 @@ struct S_02025FF0_Low {
 };
 extern struct S_02025FF0_Low gMainWorkspace;
 extern s32 D_0866F534[]; /* per-scene data block pointers */
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Script step: switch to the data block of the current scene, reset the scene
  * cursors and the actor's position, then advance the entity's script and tail
@@ -34,7 +34,7 @@ void sub_08086FA4(u8 *arg0) {
     *(u8 *)(off + 0x19) = 0;
 
     {
-        void **fnaddr = &gScriptStepCallbackTable;
+        void **fnaddr = &gMainObjTimerCallbacks;
         base18 = arg0 + 0x18;
         sub_080C31E4(base18, arg0 + 0x22, *fnaddr);
     }

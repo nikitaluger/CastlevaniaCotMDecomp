@@ -1,6 +1,6 @@
 extern u32 D_08671BC0[];
 
-void sub_08056B58(s32, s32, void *, s32, s32);
+void stepAnimationTimer(s32, s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Ticks the object part's frame animation; when its countdown reaches zero it
@@ -37,5 +37,5 @@ void sub_080562A8(u8 *arg0) {
         *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = 0;
         sub_080C31E4(stepBase, stepIndexPtr, *scriptHandlers);
     }
-    sub_08056B58((s32)sprite, (s32)animator, part, 0x0C, 8);
+    stepAnimationTimer((s32)sprite, (s32)animator, part, 0x0C, 8);
 }

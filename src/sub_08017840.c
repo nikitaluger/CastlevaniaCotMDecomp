@@ -1,4 +1,4 @@
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void _call_via_r2(void *, void *, u32);
 void setAnimationFrame(u32, void *, u32, u32);

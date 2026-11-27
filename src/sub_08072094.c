@@ -3,7 +3,7 @@ void *allocSpriteObject(void);
 void sub_08072270(void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E0(void *, s32);
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 struct T {
     u16 attr0; u8 pad02[2]; u16 attr1; u16 attr2; u16 attr3;
     u8 pad0A[0x14 - 0x0A]; u32 param0; u32 param1; u32 mode;

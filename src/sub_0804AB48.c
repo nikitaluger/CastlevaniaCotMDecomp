@@ -8,7 +8,7 @@ struct S_02025FF0_172C {
     u32 v172C;
 };
 extern struct S_02025FF0_172C gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Integrates the entity's motion, refreshes its sprite animation and sound,
  * then, once it passes the Y threshold, doubles its horizontal velocity and
@@ -28,7 +28,7 @@ void sub_0804AB48(void *entity) {
     if (*(s32 *)((u8 *)work + 0xC) > (s32)(gMainWorkspace.v172C + 0xFFE50000)) {
         *(s32 *)((u8 *)work + 0x10) <<= 1;
         *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = 0;
-        p = &gScriptStepCallbackTable;
+        p = &gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *p);
     }
 }

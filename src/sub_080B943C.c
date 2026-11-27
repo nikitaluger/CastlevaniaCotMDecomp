@@ -3,7 +3,7 @@ extern struct
   u8 _0[0x18C2];
   u16 w;
 } gMainWorkspace;
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 struct Half2
 {
   u8 _0[2];
@@ -66,7 +66,7 @@ void sub_080B943C(u8 *arg0)
   *((u32 *) (r8 + 4)) = (*((u32 *) (arg0 + 0x4C))) - 1;
   *((u32 *) (alloc + 0x24)) = 0x0841EB04;
   i = 0;
-  r8 = (u8 *) (&gScriptStepCallbackTable);
+  r8 = (u8 *) (&gMainObjTimerCallbacks);
   alloc = arg0 + 0x18;
   parg = arg0 + 0x22;
   {

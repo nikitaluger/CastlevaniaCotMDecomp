@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 extern u8 gTilemapPages[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 extern s32 sub_08005E80(s32);
 extern s32 getTileTerrainB(s32, s32, s32);
 extern void cullOffscreenEntity(void *, void *);
@@ -52,7 +52,7 @@ void sub_0806EB2C(void *behav) {
             sub_08005E80(0x90);
             *(u8 *)((u8 *)behav + (*(s16 *)((u8 *)behav + 0x22)) * 2 + 0x19) = zero;
             {
-                s32 *cmdTable = &gScriptStepCallbackTable;
+                s32 *cmdTable = &gMainObjTimerCallbacks;
                 sub_080C31E4((u8 *)behav + 0x18, (u8 *)behav + 0x22, *cmdTable);
             }
         }

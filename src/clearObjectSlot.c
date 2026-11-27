@@ -5,7 +5,7 @@ extern void sub_080C31E0(void *, s32);
 extern void unlinkAndFreeObject(void *);
 extern void clearObjectSlot(void *);
 extern s32 gMenuScriptCallback[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 /* Advance the actor's model animation by 8 frames; if its restart flag is
  * set, reload the 0x78 timer, clear the level's counter at +0x17 and run the
@@ -81,7 +81,7 @@ void sub_0802459C(void *arg0) {
         *(u16 *)timer = 0;
         level = *(s16 *)(self + 0x22);
         *(u8 *)(self + level * 2 + 0x19) = 0;
-        handlerTable = gScriptStepCallbackTable;
+        handlerTable = gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *handlerTable);
     }
 }

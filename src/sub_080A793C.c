@@ -1,5 +1,5 @@
 typedef s32 M2C_UNK;
-M2C_UNK sub_080A845C(void *, void *);
+M2C_UNK refreshMotionTrail(void *, void *);
 M2C_UNK sub_080A8B70(void *);
 s16 divideInt(s32, s32);
 s32 sub_080C31E0(s32, s32);
@@ -32,7 +32,7 @@ void sub_080A793C(void *entity)
   scaleFunc = (u32 *) 0x08671BFC;
   *((s32 *) (((s8 *) motion) + 0xFC)) = (s32) (((s32) (sub_080C31E0((*((s32 *) (((s8 *) motion) + 0x130))) + 0x4000, *scaleFunc) * (*((s32 *) (((s8 *) motion) + 0x134))))) >> 7);
   *((s32 *) (((s8 *) motion) + 0x100)) = (s32) (((s32) (sub_080C31E0(*((s32 *) (((s8 *) motion) + 0x130)), *scaleFunc) * (*((s32 *) (((s8 *) motion) + 0x134))))) >> 7);
-  sub_080A845C(entity, motionEx);
+  refreshMotionTrail(entity, motionEx);
   if (((*((u8 *) (((s8 *) motion) + 0x148))) != 3) && (((s32) (*((s32 *) (((s8 *) motion) + 0x134)))) <= 0x31))
   {
     scratch = 0x19;

@@ -9,7 +9,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern void releaseActorEffectSubObject(void);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u8 D_08102124[];
 struct S_Obj {
   u8 _0[2]; u16 flags; u8 _1[0x14 - 4]; u32 handlers; u8 _2[0x22 - 0x18];
@@ -58,7 +58,7 @@ init:
   stepWords = (u16 *)entity;
   ((u8 *)(&stepWords[stepIndex]))[0x19] = 0;
   {
-    u32 *pbb0 = &gScriptStepCallbackTable;
+    u32 *pbb0 = &gMainObjTimerCallbacks;
     stepBase = ((u8 *)entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *)entity) + 0x22, *pbb0);
   }

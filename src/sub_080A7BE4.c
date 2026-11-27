@@ -1,9 +1,9 @@
 /* Update an entity's view flags and accumulate the body's x/y deltas; when the
  * animation frame reaches its end marker, reset the accumulators and frame and
  * run the next animation command. */
-extern void sub_080A845C(void *, void *);
+extern void refreshMotionTrail(void *, void *);
 extern void _call_via_r2(void *, void *, s32);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 void sub_080A7BE4(void *arg0) {
     u16 *viewFlags = *(u16 **)((u8 *)arg0 + 0x38);
@@ -22,10 +22,10 @@ void sub_080A7BE4(void *arg0) {
             *(s32 *)accumX = 0;
             *(u8 *)((u8 *)arg0 + animIndex[0x11] * 2 + 0x19) = 0;
             {
-                s32 *animScript = &gScriptStepCallbackTable;
+                s32 *animScript = &gMainObjTimerCallbacks;
                 _call_via_r2((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *animScript);
             }
         }
     }
-    sub_080A845C(arg0, bodyData);
+    refreshMotionTrail(arg0, bodyData);
 }

@@ -13,7 +13,7 @@ struct S_02025FF0
   u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 struct Entity
 {
@@ -90,7 +90,7 @@ Lcont:
   arr = (u16 *) arg;
   ((u8 *)(&arr[i]))[0x19] = 0;
   {
-    u32 *handlerSlot = &gScriptStepCallbackTable;
+    u32 *handlerSlot = &gMainObjTimerCallbacks;
     statePtr = (u8 *)arg + 0x18;
     sub_080C31E4(statePtr, (u8 *)arg + 0x22, *handlerSlot);
   }

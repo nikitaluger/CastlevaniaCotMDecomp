@@ -7,7 +7,7 @@ extern void sub_080C31E4(u8 *, void *, s32);
 struct GlobalState { u8 _0[0x1510]; u8 flags; };
 extern struct GlobalState gMainWorkspace;
 extern u8 gGameStatus[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 struct SpawnParams {
     u8 _0;
@@ -103,7 +103,7 @@ void sub_0808371C(struct Entity *entity)
     worker->f10 = zero;
     *(u8 *)((u8 *)entity + entity->scriptIndex * 2 + 0x19) = zero2;
     {
-        s32 *fn = &gScriptStepCallbackTable;
+        s32 *fn = &gMainObjTimerCallbacks;
         u8 *scriptPtr = (u8 *)entity + 0x18;
         sub_080C31E4(scriptPtr, &entity->scriptIndex, *fn);
         (*(u8 *)((u8 *)entity + entity->scriptIndex * 2 + 0x19))++;

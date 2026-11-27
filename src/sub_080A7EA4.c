@@ -1,13 +1,13 @@
 /* On a successful interaction check, reverse the companion sprite's direction,
  * destroy the target, play the hit sounds and restart the script step. */
 extern s32 sub_080A8784(void *, u32);
-extern void sub_080A8940(void *, u32);
+extern void decelerateTargetX(void *, u32);
 extern void sub_080AACCC(void *);
 extern void sub_080C050C(s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 struct S_02025FF0 {
     u8 _0[0x1754];
@@ -55,7 +55,7 @@ void sub_080A7EA4(struct Entity *arg) {
         sprite->f0 = newFlags;
     }
     hit = sub_080A8784(arg, stateArg);
-    sub_080A8940(sprite, stateArg);
+    decelerateTargetX(sprite, stateArg);
     if (hit == 0) return;
     sprite->f2A |= 0x10;
     sprite->f2 = sprite->f2 & 0xFCFF;
@@ -68,7 +68,7 @@ void sub_080A7EA4(struct Entity *arg) {
     sub_08005E80(0xBC << 1);
     ((struct ScriptStep *)((u8 *)arg + arg->f22 * 2))->f19 = 0;
     {
-        u32 *pb = &gScriptStepCallbackTable;
+        u32 *pb = &gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)arg + 0x18, (u8 *)arg + 0x22, *pb);
     }
 }

@@ -15,7 +15,7 @@ extern struct GlobalData gMainWorkspace;
 extern u8 gCameraState[];      /* shared video state (BG scroll buffers) */
 extern u32 gVariantSpriteGfxDesc[];     /* shared gfx template descriptor */
 extern s16 gVariantSpriteFrames[];     /* animation frame per variant */
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 void *allocSpriteObject(void);                             /* alloc sprite */
 void allocWorkSlot(void *, int, int, int);             /* alloc + clear slot */
 void initSpriteGraphics(void *, void *, void *);            /* init sprite gfx */
@@ -74,7 +74,7 @@ fail:
     }
     *(u16 *)((u8 *)entity + 2) |= 0x1000;
     *(u8 *)((u32)(*(s16 *)((u8 *)entity + 0x22)) * 2 + (u32)entity + 0x19) = 0;
-    cmdTable = &gScriptStepCallbackTable;
+    cmdTable = &gMainObjTimerCallbacks;
     script = (u8 *)entity;
     script += 0x18;
     sub_080C31E4(script, (u8 *)entity + 0x22, (s32)*cmdTable);

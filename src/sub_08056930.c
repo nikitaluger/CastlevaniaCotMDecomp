@@ -1,6 +1,6 @@
 extern s32 isOutsideCameraBounds(s32, s32);
 extern void sub_08056DB0(void *, void *, void *, s32);
-extern void sub_08056B58(void *, void *, void *, s32, s32);
+extern void stepAnimationTimer(void *, void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 
 struct Entry_080CFBF8 { s32 value; u8 _rest[0x20]; };
@@ -29,6 +29,6 @@ void sub_08056930(void *entity) {
             scriptTable = (u32 *)0x08671BB0;
             sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *scriptTable);
         }
-        sub_08056B58(sprite, anim, state, 0xC, 8);
+        stepAnimationTimer(sprite, anim, state, 0xC, 8);
     }
 }

@@ -21,7 +21,7 @@ extern struct FixedEffectWorkspace gMainWorkspace;
 extern struct FixedEffectScroll gCameraState;
 extern struct KindEffectGfxEntry gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 void spawnKindSelectedEffect(struct KindEffectEntity *entity) {
     u8 *sprite;
@@ -101,6 +101,6 @@ void spawnKindSelectedEffect(struct KindEffectEntity *entity) {
     setAnimationFrame(sprite, gfxState, EFFECT_ANIM_FRAME, 0x01);
     entity->flags |= EFFECT_SPRITE_READY;
     *(u8 *)((u8 *)entity + 2 * entity->stateIndex + 0x19) = zeroWord;
-    callbackTable = gScriptStepCallbackTable;
+    callbackTable = gMainObjTimerCallbacks;
     _call_via_r2((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callbackTable);
 }

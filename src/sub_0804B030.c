@@ -11,7 +11,7 @@ extern s32 checkActorViewBounds(s32, void *);
 extern void uploadPendingSpriteGraphic(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 
 /*
  * Entity AI update: after the state/contact checks, plays the contact sound and
@@ -42,7 +42,7 @@ void sub_0804B030(u8 *entity) {
                 u8 *stepData2 = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
                 u8 zero = 0;
                 *(u8 *)(stepData2 + 0x1B) = zero;
-                { void **scriptFn = &sScriptStepCallbacks;
+                { void **scriptFn = &gScriptEventCallbacks;
                   sub_080C31E8(entity + 0x18, entity + 0x22, 4, *scriptFn); }
             }
         }

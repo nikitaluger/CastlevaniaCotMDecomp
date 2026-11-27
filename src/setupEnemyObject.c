@@ -7,7 +7,7 @@ extern struct KindData gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 D_08102DF0[];
 extern u32 D_08102DF8[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -102,7 +102,7 @@ setupSubObj:
     s16 idx = *((s16 *) (self + 0x22));
     *((u8 *) ((self + (((u32) idx) * 2)) + 0x19)) = 0;
   }
-  scriptTable = &gScriptStepCallbackTable;
+  scriptTable = &gMainObjTimerCallbacks;
   scriptState = self + 0x18;
   sub_080C31E4(scriptState, self + 0x22, (s32)*scriptTable);
   {

@@ -14,7 +14,7 @@ void sub_08013C8C(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 sWeaponScrollYStepTable[];
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 
 /* One update tick of a weapon entity: run the hit/damage responses, handle the
  * attack-end flag (clear hit state, halve the X offset, issue callback 4), dispatch the
@@ -78,7 +78,7 @@ void updateWeaponEntityWithScrollY(u8 *self)
             *((s32 *) (obj + 0x10)) = xPos >> 2;
             sub_08005E80(0x8A);
             *((u8 *) (((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) self)) + 0x1B)) = zero;
-            callbackTable = sScriptStepCallbacks;
+            callbackTable = gScriptEventCallbacks;
             sub_080C31E8(self + 0x18, self + 0x22, 4, *callbackTable);
         }
     }

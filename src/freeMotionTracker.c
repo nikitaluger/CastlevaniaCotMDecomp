@@ -1,4 +1,4 @@
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void *D_0201E8A0;
 s32 getSpriteFacingSign(s32);
 void sub_0801843C(void);

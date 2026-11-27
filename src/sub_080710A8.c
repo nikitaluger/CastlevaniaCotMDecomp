@@ -8,7 +8,7 @@ extern void sub_080C31E0(void *, void *);
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u32 D_080E00C8[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 struct Obj {
     u8 f0, f1, f2, f3;
@@ -78,7 +78,7 @@ void sub_080710A8(void *arg0)
     {
         *(u8 *)(mgr + *(s16 *)(mgr + 0x22) * 2 + 0x19) = 0;
         {
-            void **spawnFunc = &gScriptStepCallbackTable;
+            void **spawnFunc = &gMainObjTimerCallbacks;
             u8 *poseBase = mgr + 0x18;
             sub_080C31E4(poseBase, mgr + 0x22, *spawnFunc);
             {

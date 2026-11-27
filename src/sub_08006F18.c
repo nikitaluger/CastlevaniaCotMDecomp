@@ -2,7 +2,7 @@ extern void updateObjectTree(void *objectList);
 extern void sub_0808C18C(void);
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 gMainWorkspace[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Finishes a stage/room: frees the two child-object lists, bumps the room
  * counter, and once the actor has no children left runs the palette/screen
@@ -25,7 +25,7 @@ void sub_08006F18(void *arg0)
         s32 *advanceTable;
         sub_0808C18C();
         *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = zero;
-        advanceTable = &gScriptStepCallbackTable;
+        advanceTable = &gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *advanceTable);
     }
 }

@@ -1,5 +1,5 @@
 extern void sub_08098338(s32, void *);
-extern void sub_08098764(void *, void *, s32);
+extern void updateSceneObjectFromActor(void *, void *, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -39,7 +39,7 @@ void sub_080B9DA4(u8 *entity) {
     }
 
     *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) - 1;
-    sub_08098764(sprite, actor, param4C);
+    updateSceneObjectFromActor(sprite, actor, param4C);
     sub_08098338(0x19, sprite);
 
     layerTable = gCameraState;

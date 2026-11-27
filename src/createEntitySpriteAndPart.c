@@ -14,7 +14,7 @@ extern u8 gCameraState[];                     /* scroll-offset table */
 extern u8 gMainWorkspace[];                     /* global game state */
 extern u8 gSpriteAnimDataTable[];                     /* frame-control data */
 extern u8 D_080CF968[];                     /* part parameter table */
-extern u32 gScriptStepCallbackTable[];                    /* step-script operation */
+extern u32 gMainObjTimerCallbacks[];                    /* step-script operation */
 
 struct Part {
     u8 _0; u8 f1; u8 f2; u8 f3;
@@ -104,7 +104,7 @@ body:
     }
     *(u8 *)((u32)(*(s16 *)(obj + 0x22) * 2) + (u32)obj + 0x19) = (u8)param;
     {
-        u32 *scriptCallback = (u32 *)gScriptStepCallbackTable;
+        u32 *scriptCallback = (u32 *)gMainObjTimerCallbacks;
         u8 *scriptState = obj + 0x18;
         sub_080C31E4(scriptState, obj + 0x22, *scriptCallback);
         {

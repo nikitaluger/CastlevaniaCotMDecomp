@@ -4,7 +4,7 @@ extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 extern void releaseActorEffectParts(void);
 extern void sub_0808BBAC(s32, s32, s32);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Sets up an entity's appearance (graphics/palette/animation) and its destruction
  * callback, then runs the first step of its script/behavior table. */
@@ -33,7 +33,7 @@ void sub_080834D8(void *entity) {
 
     *(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        u32 *pAnimStep = &gScriptStepCallbackTable;
+        u32 *pAnimStep = &gMainObjTimerCallbacks;
         u8 *stepBase = self + 0x18;
         sub_080C31E4(stepBase, self + 0x22, (void *)*pAnimStep);
         {

@@ -19,7 +19,7 @@ struct TBL { u8 _0[4]; u16 f4; u16 f6; u8 _8[0x28-8]; };
 extern struct TBL gEffectGfxTable[];
 extern u16 gStateEffectAffineParams[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void sub_08031B60(struct Arg0 *arg0) {
     u8 *obj;

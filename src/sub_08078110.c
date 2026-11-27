@@ -22,7 +22,7 @@ struct S_02025FF0 {
     u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 static inline u32 bitOne(u16 v) {
     u32 m = 1;
@@ -61,7 +61,7 @@ void sub_08078110(u8 *obj) {
         *(u16 *)(*(void **)((u8 *)motion + 0x2C) + 0x08) = 8;
         sub_08005E80(0x142);
         *(u8 *)((u8 *)self + (*(s16 *)((u8 *)self + 0x22) * 2) + 0x19) = zero;
-        callbackTbl = &gScriptStepCallbackTable;
+        callbackTbl = &gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *callbackTbl);
     }
     *(u16 *)sprite = gMainWorkspace.f18C2;

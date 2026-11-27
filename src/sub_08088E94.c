@@ -7,7 +7,7 @@ struct S_D {
     s32 effect40;
 };
 extern struct S_D gMainWorkspace;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 extern u8 D_0850969C;
 
 /* Actor tick with a countdown: when the mover's timer runs out, start the
@@ -27,7 +27,7 @@ void sub_08088E94(void *arg0) {
         gMainWorkspace.effect40 = 7;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (u8)timer;
         {
-            s32 *advanceTable = &gScriptStepCallbackTable;
+            s32 *advanceTable = &gMainObjTimerCallbacks;
             sub_080C31E4(self + 0x18, self + 0x22, *advanceTable);
         }
     }

@@ -14,7 +14,7 @@ extern void _call_via_r3(void *, void *, s32, s32); /* run a step-script handler
 extern u8 gCameraState[];                         /* scroll-offset table */
 extern u8 gMainWorkspace[];                         /* global game state */
 extern u8 sEnemyStepHandlers[];                    /* step-script handler table */
-extern s32 sScriptStepCallbacks[];                 /* step-script data table */
+extern s32 gScriptEventCallbacks[];                 /* step-script data table */
 
 /* Updates a two-hitbox scripted enemy: checks both of its collision parts, spawns a
    death effect and plays a sound when either is hit, advances the step script and
@@ -83,7 +83,7 @@ void updateTwoHitboxEnemy(u8 *eff)
                 setAnimationFrame(sprite, anim, 0x22, 0);
             endsw:
                 *(u8 *)(eff + (s32)*(s16 *)(eff + 0x22) * 2 + 0x1B) = 0;
-                scriptData = sScriptStepCallbacks;
+                scriptData = gScriptEventCallbacks;
                 _call_via_r3(eff + 0x18, eff + 0x22, 3, *scriptData);
             }
         }

@@ -1,8 +1,8 @@
 extern s32 _call_via_r1(s32, s32);
 extern u64 sub_080C37B4(s32, s32, s32, s32);
 extern u64 D_080C3218(s32, s32, s32, s32);
-extern s32 sub_080059DC(s32, s32);
-extern s32 gTrigFuncPtr;
+extern s32 fixedPointDistance(s32, s32);
+extern s32 gTrigFuncTable;
 inline s32 inline_fn(u64 arg0)
 {
   return (s32) arg0;
@@ -70,13 +70,13 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   new_var2 = 0xFFFF;
   new_var5 = base & new_var2;
   mask = new_var5;
-  do { t0 = _call_via_r1(half, gTrigFuncPtr); } while (0);
+  do { t0 = _call_via_r1(half, gTrigFuncTable); } while (0);
   new_var7 = (((u32) arg2) >> 17) | (inline_fn2(arg2) << 15);
   a0 = arg2 << 15;
   a1 = new_var7;
   do { p = D_080C3218(a0, a1, t0, inline_fn2(t0)); } while (0);
   sp8 = inline_fn((u32) p);
-  t2 = _call_via_r1(0x4000 + mask, gTrigFuncPtr);
+  t2 = _call_via_r1(0x4000 + mask, gTrigFuncTable);
   p2 = sub_080C37B4(t2, inline_fn2(t2), sp8, (sp8 >> 26) >> 5);
   ;
   lo2 = inline_fn(p2);
@@ -90,7 +90,7 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   }
   lo2 = hi2 << 16;
   val1 = lo2 | (((u32) lo2) >> 16);
-  new_var = gTrigFuncPtr;
+  new_var = gTrigFuncTable;
   t3 = _call_via_r1(mask, new_var);
   p3 = sub_080C37B4(t3, inline_fn2(t3), sp8, new_var4);
   ;
@@ -106,7 +106,7 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   sp4 = lo3;
   do { t0 = (hi3 << val2); } while (0); val2 = t0 | (((u32) sp4) >> 16);
   new_var6 = arg6 - ((char) (arg1 + val2));
-  if (sub_080059DC(arg5 - (arg0 + val1), new_var6) < sp8)
+  if (fixedPointDistance(arg5 - (arg0 + val1), new_var6) < sp8)
   {
     if (lo2)
     {

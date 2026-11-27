@@ -1,7 +1,7 @@
 void allocWorkSlot(u8 *p, s32 a, s32 b, s32 c);
 void clearActorPool(void);
 void decompressToVram(u32 src, u32 dst);
-void sub_080C2E68(u8 *p, u32 src, s32 n);
+void copyBytes(u8 *p, u32 src, s32 n);
 void postDisplaySprite(s32 a, u32 b, u32 c, s32 d, s32 e);
 void sub_080C31E4(u8 *a, u8 *b, u32 c);
 void sub_080C31E0(u8 *a, u32 b);
@@ -48,7 +48,7 @@ void sub_0800807C(u8 *obj)
     off += 0x40;
     *(u32 *)(base + off) = 0;
     *q2 = 0;
-    sub_080C2E68(base + (0x93 << 5), 0x080CA964, 0x40);
+    copyBytes(base + (0x93 << 5), 0x080CA964, 0x40);
     clearActorPool();
     buf = 0;
     dma = (vu32 *)0x040000D4;

@@ -4,7 +4,7 @@
 extern void startEffectTimer(s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern u8 gMainWorkspace[];
 
 void sub_0808A584(void *arg0) {
@@ -30,7 +30,7 @@ void sub_0808A584(void *arg0) {
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *effectData = gScriptStepCallbackTable;
+        s32 *effectData = gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *effectData);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

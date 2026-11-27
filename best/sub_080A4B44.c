@@ -9,7 +9,7 @@ struct Hdr { u16 f0; u16 f2; u16 f4; u16 f6; };
 struct BD { u8 _0[0xC]; u16 fC; u16 fE; u8 _10[0x18]; };
 extern struct BD gEffectGfxTable[];
 extern u16 D_08101CD4[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -71,7 +71,7 @@ void sub_080A4B44(u8 *arg0)
   p->f28->f10 = a;
   *((u16 *) (arg0 + 2)) |= 0x1000;
   *((u8 *) inline_fn(inline_fn(((u32) (*((s16 *) (arg0 + 0x22)))) * 2, (u32) arg0), 0x19)) = zero;
-  fn = &gScriptStepCallbackTable;
+  fn = &gMainObjTimerCallbacks;
   p18 = arg0;
   p18 += 0x18;
   sub_080C31E4(p18, arg0 + 0x22, (s32) (*fn));

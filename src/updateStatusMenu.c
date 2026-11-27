@@ -6,7 +6,7 @@ extern u8 gMenuState[];        /* shared menu work buffer; see the MENU_* offset
 extern u8 gGameStatus[];       /* game/player data */
 extern u8 gCameraState[];      /* shared video/input state */
 extern u32 gMenuScriptCallback;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 void playSound(u32);                       /* play sound */
 void sub_0800F1D8(u32, u32);               /* draw the category's item list */
 void sub_0800F3C8(u32, u32);               /* set up the status-screen background */
@@ -14,7 +14,7 @@ void sub_0800EF3C(u32);                    /* load the selected item's graphics 
 void sub_0800EDAC(u32);                    /* redraw the stat values */
 void sub_0806D930(void *);                 /* recompute the panel's stat values */
 void *createChildObject(void *, u32);           /* allocate and link a child object */
-void sub_080C2E68(void *, void *, u32);    /* memcpy */
+void copyBytes(void *, void *, u32);    /* memcpy */
 void sub_080C31E8(void *, void *, u32, u32); /* state-machine dispatch */
 void sub_080C31E4(void *, void *, u32);    /* indirect call through a callback */
 
@@ -96,7 +96,7 @@ void updateStatusMenu(u8 *entity)
       return;
     }
     playSound(SFX_MENU_CONFIRM);
-    sub_080C2E68(gMenuState, playerState + 0x2C4, MENU_STATE_COPY_SIZE);
+    copyBytes(gMenuState, playerState + 0x2C4, MENU_STATE_COPY_SIZE);
     sub_0806D930(gMenuState);
     sub_0800EDAC(0);
     sub_0800F1D8(gMenuState[MENU_CATEGORY], (gMenuState[MENU_REDRAW_FLAG] + 1) & 1);
@@ -113,7 +113,7 @@ void updateStatusMenu(u8 *entity)
     }
     entity[((*((s16 *) (entity + 0x22))) * 2) + 0x19] = (u8) cancelMask;
     {
-      u32 *dispatchTable = &gScriptStepCallbackTable;
+      u32 *dispatchTable = &gMainObjTimerCallbacks;
       sub_080C31E4(entity + 0x18, entity + 0x22, dispatchTable[0]);
     }
   }

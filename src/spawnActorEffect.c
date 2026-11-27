@@ -10,7 +10,7 @@ struct T { s32 a; s32 b; };
 extern struct BD gEffectGfxTable[];
 extern struct T D_08102CFC[];
 extern u16 D_08102CF4[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -74,7 +74,7 @@ cont:
     *(u16 *)((u8 *)subObj + 4) |= 0x10;
     *(u16 *)(parent + 2) |= 0x1000;
     *(u8 *)(parent + (u32)(*(s16 *)(parent + 0x22)) * 2 + 0x19) = 0;
-    callbackTable = &gScriptStepCallbackTable;
+    callbackTable = &gMainObjTimerCallbacks;
     slotArea = parent + 0x18;
     sub_080C31E4(slotArea, parent + 0x22, *callbackTable);
     *(u8 *)(parent + (u32)(*(s16 *)(parent + 0x22)) * 2 + 0x19) += 1;

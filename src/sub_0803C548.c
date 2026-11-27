@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_080C2E68(void *, void *, s32);
+extern void copyBytes(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -13,7 +13,7 @@ void sub_0803C548(void *obj)
     u8 *stepData;
     s32 *stepFunc;
 
-    sub_080C2E68(frameIds, (void *)0x080CF3AC, 8);
+    copyBytes(frameIds, (void *)0x080CF3AC, 8);
     setAnimationFrame(animGfx, animState, ((s16 *)frameIds)[*(u8 *)(self + 0x8C)], 0);
     *(u8 *)((s16)*(u16 *)(self + 0x22) * 2 + self + 0x19) = 0;
     stepFunc = (s32 *)0x08671BB0;

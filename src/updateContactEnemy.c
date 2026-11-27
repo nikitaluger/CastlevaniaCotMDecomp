@@ -10,7 +10,7 @@ extern void sub_08011EE8(void *, s32, s32);
 extern void sub_08013C8C(void *, s32);
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r3(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 extern void *gContactEnemyStepHandlers[];
 extern s32 sub_080457E0(void *);
 extern void sub_08045970(void *, s32);
@@ -64,7 +64,7 @@ void updateContactEnemy(u8 *entity)
       updateActorWorldPosition(entity);
       slot2 = (u8 *) ((((u32) (*((s16 *) (entity + 0x22)))) * 2) + ((u32) entity));
       slot2[0x1B] = 0;
-      callbackSlot = &sScriptStepCallbacks;
+      callbackSlot = &gScriptEventCallbacks;
       _call_via_r3(entity + 0x18, entity + 0x22, 3, *callbackSlot);
     }
   }

@@ -1,7 +1,7 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 /* Script-step callback: initialises the companion sprite, flags this entity,
  * resets then advances its script step, redirects the script, and finally
  * dispatches the handler indexed by the new step's byte. No companion -> bail. */
@@ -25,7 +25,7 @@ void sub_080A1F7C(u8 *entity)
   stepIndex = *((s16 *) (entity + 0x22));
   entity[(stepIndex * 2) + 0x19] = zero;
   {
-    void **lit = &gScriptStepCallbackTable;
+    void **lit = &gMainObjTimerCallbacks;
     scriptPtr = entity + 0x18;
     sub_080C31E4(scriptPtr, entity + 0x22, *lit);
   }

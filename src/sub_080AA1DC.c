@@ -1,5 +1,5 @@
 extern s32 sub_080C31E0(u32, u32);
-extern u32 gTrigFuncPtr;
+extern u32 gTrigFuncTable;
 struct Vec3 { s32 v[3]; };
 struct Part { u8 pad0[0x4C]; s32 unk4C; u8 pad50[0x0C]; s32 unk5C; u8 pad60[0x0C]; s32 unk6C; u8 pad70[0x0C]; s8 unk7C; };
 struct Limb { struct Part *volatile parts[3]; };
@@ -19,15 +19,15 @@ void sub_080AA1DC(struct Thing *arg0)
     {
       do
       {
-        arg0->unk28[i].v[0] = arg0->unk28[i].v[2] + ((sub_080C31E0(val + 0x3E00, gTrigFuncPtr) >> 8) << 13);
+        arg0->unk28[i].v[0] = arg0->unk28[i].v[2] + ((sub_080C31E0(val + 0x3E00, gTrigFuncTable) >> 8) << 13);
       }
       while (0);
     }
     else
     {
-      arg0->unk28[i].v[0] = arg0->unk28[i].v[2] - ((sub_080C31E0(val + 0x3E00, gTrigFuncPtr) >> 8) << 13);
+      arg0->unk28[i].v[0] = arg0->unk28[i].v[2] - ((sub_080C31E0(val + 0x3E00, gTrigFuncTable) >> 8) << 13);
     }
-    arg0->unk40[i].v[0] = arg0->unk40[i].v[2] + ((sub_080C31E0(v9, gTrigFuncPtr) >> 8) << 13);
+    arg0->unk40[i].v[0] = arg0->unk40[i].v[2] + ((sub_080C31E0(v9, gTrigFuncTable) >> 8) << 13);
   }
 
   for (i = 0; i <= 1; i++)

@@ -1,6 +1,6 @@
 extern void *createChildObject(u32, u32);
 extern void sub_080C31E4(void *, void *, u32);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 extern u8 gMainWorkspace[];
 
@@ -77,7 +77,7 @@ void loadEntityEffectObjects(void *entity) {
         *((u8 *)self + stepIndex * 2 + 0x19) = 0;
     }
     {
-        u32 *scriptCallback = &gScriptStepCallbackTable;
+        u32 *scriptCallback = &gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *scriptCallback);
     }
 }

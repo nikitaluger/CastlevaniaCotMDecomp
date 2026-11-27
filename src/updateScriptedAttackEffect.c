@@ -4,7 +4,7 @@
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E730[];
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 s32 checkActorViewBounds(void *, void *);
 void applySpritePaletteVariant(void *, void *);
 s32 sub_08013558(void *, void *, void *);
@@ -55,7 +55,7 @@ void updateScriptedAttackEffect(u8 *arg0)
       updateActorWorldPosition(arg0);
       sub_08005E80(0x80);
       *((u8 *) (((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + ((u32) arg0)) + 0x1B)) = 0;
-      callback = sScriptStepCallbacks;
+      callback = gScriptEventCallbacks;
       sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 5, *callback);
     }
   }

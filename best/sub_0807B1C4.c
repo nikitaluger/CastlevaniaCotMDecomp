@@ -8,7 +8,7 @@ extern void sub_080C31E0(void *, u32);
 extern void releaseActorEffectParts(void);
 extern u8 gGameStatus[];
 extern u8 D_084DFF10[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 struct Sprite
 {
   u8 pad0;
@@ -139,7 +139,7 @@ int __repair_phase_r4;
   r10->f10 = r6->val9C;
   ;
   *((((u8 *) r6) + (r6->idx * 2)) + 0x19) = 0;
-  { const u32 *D_08671BB0_ptr = &gScriptStepCallbackTable; sub_080C31E4(((u8 *) r6) + 0x18, (void *) (&r6->idx), *D_08671BB0_ptr); }
+  { const u32 *D_08671BB0_ptr = &gMainObjTimerCallbacks; sub_080C31E4(((u8 *) r6) + 0x18, (void *) (&r6->idx), *D_08671BB0_ptr); }
   new_var = r6->idx;
   *((((u8 *) r6) + (new_var * 2)) + 0x19) = (*((((u8 *) r6) + (new_var * 2)) + 0x19)) + 1;
   __repair_phase_r4 = r6->idx;

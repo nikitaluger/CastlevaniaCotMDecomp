@@ -1,7 +1,7 @@
 #define SCRIPT_DUAL_ATTACK_STEP_TABLE 0x0866E5A8
 #define DUAL_ATTACK_DEATH_SFX         0x8A
 
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r3(void *, void *, s32, void *);
 
@@ -68,7 +68,7 @@ doHits:
             playSound(DUAL_ATTACK_DEATH_SFX);
             stepSlot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
             *(u8 *)(stepSlot + 0x1B) = 0;
-            { void **eventCallbacks = &sScriptStepCallbacks;
+            { void **eventCallbacks = &gScriptEventCallbacks;
               _call_via_r3(self + 0x18, self + 0x22, 3, *eventCallbacks); }
         }
     }

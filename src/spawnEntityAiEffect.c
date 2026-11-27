@@ -11,7 +11,7 @@ extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u32 D_084737D4;
 extern u32 D_08473814;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 struct S_08070A5C { u8 _0[0x3C]; u8 * volatile work; };
 struct S_08070A5C_R7 { u16 f00; };
@@ -87,7 +87,7 @@ struct S_08070A5C_R7 { u16 f00; };
     }
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *scriptTable = &gScriptStepCallbackTable;
+        s32 *scriptTable = &gMainObjTimerCallbacks;
         u8 *scriptPtr = entity + 0x18;
         sub_080C31E4(scriptPtr, entity + 0x22, *scriptTable);
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) + 1;

@@ -2,7 +2,7 @@ extern struct FixedEffectWorkspace gMainWorkspace;
 extern struct ScriptedEffectKindEntry gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 gKind4CActorLayerAttrs[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -70,7 +70,7 @@ ok:
         s16 stepIndex = actor->step;
         *((u8 *)(((u32)stepIndex * 2) + (u32)actor + 0x19)) = 0;
     }
-    scriptCallbacks = &gScriptStepCallbackTable;
+    scriptCallbacks = &gMainObjTimerCallbacks;
     scriptSteps = ((u8 *)actor) + 0x18;
     sub_080C31E4(scriptSteps, ((u8 *)actor) + 0x22, (s32)(*scriptCallbacks));
     {

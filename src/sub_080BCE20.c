@@ -1,7 +1,7 @@
 extern void forceAnimationFrame(void *sprite, void *animData, u16 anim, u8 arg);
 extern void sub_080C31E0(void *arg, void *func);
 extern void sub_080C31E4(void *stepData, void *stepIndex, s32 callback);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 inline int inline_fn(u8 *arg0)
 {
   return (*((s16 *) (arg0 + 0x22))) * 2;
@@ -42,7 +42,7 @@ void sub_080BCE20(void *arg0)
     }
     while (i <= 0x31);
     *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = 0;
-    scriptCb = &gScriptStepCallbackTable;
+    scriptCb = &gMainObjTimerCallbacks;
     sub_080C31E4(stepData, stepIndex, *scriptCb);
     (*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)))++;
     stepCmd = *((u8 *) (stepData + inline_fn(self)));

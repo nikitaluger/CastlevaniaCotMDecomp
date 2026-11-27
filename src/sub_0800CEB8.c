@@ -3,7 +3,7 @@ extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u8 D_080CAFA8[];
 extern u32 D_0866CEF4[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 struct RoomState { u8 _0[0x64]; u8 state, prevState, mirror; };
 extern struct RoomState gMenuState;
 
@@ -38,7 +38,7 @@ void sub_0800CEB8(u8 *entity) {
             off += (u32)entity;
             *(u8 *)(off + 0x19) = zero;
             {
-                void **scriptCallbacks = &gScriptStepCallbackTable;
+                void **scriptCallbacks = &gMainObjTimerCallbacks;
                 u8 *base = entity + 0x18;
                 sub_080C31E4(base, entity + 0x22, *scriptCallbacks);
             }

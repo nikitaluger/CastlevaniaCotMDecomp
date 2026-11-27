@@ -95,7 +95,7 @@ extern struct TBL6 gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 D_080CFE3C[];
 extern u16 D_080CFE44[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 void sub_0805C3B4(struct Arg5 *arg0)
 {
   struct RefHolder5 *refHolder;

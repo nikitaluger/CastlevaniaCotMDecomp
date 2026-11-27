@@ -12,7 +12,7 @@ struct MoveParam { s32 velX; s32 velY; };
 extern struct FrameDef gEffectGfxTable[];
 extern struct MoveParam gKind66Velocities[];
 extern u16 gKind66GfxParams[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -71,7 +71,7 @@ cont:
     mover->desc->owner = (u32)sprite;
     *(u16 *)(entity + 2) |= 0x1000;
     *(u8 *)(entity + (u32)(*(s16 *)(entity + 0x22)) * 2 + 0x19) = 0;
-    callbackTable = &gScriptStepCallbackTable;
+    callbackTable = &gMainObjTimerCallbacks;
     scriptPtr = entity + 0x18;
     _call_via_r2(scriptPtr, entity + 0x22, *callbackTable);
     *(u8 *)(entity + (u32)(*(s16 *)(entity + 0x22)) * 2 + 0x19) += 1;

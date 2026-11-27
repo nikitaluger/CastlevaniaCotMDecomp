@@ -3,7 +3,7 @@ extern void copyPoseAttrs(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
 
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 extern u8 D_081021CC[];
 
 struct S_03000830 {
@@ -60,7 +60,7 @@ void sub_080ABD6C(void *entity)
         *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = (u8)zero;
 
         {
-            s32 *p = &gScriptStepCallbackTable;
+            s32 *p = &gMainObjTimerCallbacks;
             stepPtr = (u8 *)entity + 0x18;
             sub_080C31E4(stepPtr, (u8 *)entity + 0x22, *p);
         }

@@ -1,6 +1,6 @@
 extern u16 gFixedEffectLayerAttrs[];
 s32 getSpriteFacingSign(void);
-s32 sub_080059DC(s32, s32);
+s32 fixedPointDistance(s32, s32);
 void sub_080146D0(void *, s32, s32);
 
 /* Picks the speed-table entry for the object's mode (0x2D/0x2E) and copies its
@@ -69,7 +69,7 @@ s32 sub_08014A6C(void *out, s32 angle, s32 step, s32 limit) {
     s32 radius;
     s32 target;
     s32 length;
-    radius = sub_080059DC(*(s32 *)((u8 *)out + 0x10), *(s32 *)((u8 *)out + 0x14));
+    radius = fixedPointDistance(*(s32 *)((u8 *)out + 0x10), *(s32 *)((u8 *)out + 0x14));
     target = radius - step;
     length = limit;
     if (target <= length) {

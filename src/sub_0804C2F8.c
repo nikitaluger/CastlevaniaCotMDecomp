@@ -6,7 +6,7 @@ struct Obj {
     void *field3C;
 };
 extern u16 D_080CF9B0[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void setAnimationFrame(s32, void*, s32, s32);
 extern s32 getSpriteFacingSign(s32);
 extern void *sub_0804CBA0(s32, s32, u16, s32, s32);
@@ -38,7 +38,7 @@ void sub_0804C2F8(struct Obj *arg0) {
     if (*(s16*)((u8*)r7 + 4) <= 0) {
         u8 *p = (u8*)arg0 + arg0->field22 * 2;
         p[0x19] = 0;
-        { u32 *pd = &gScriptStepCallbackTable;
+        { u32 *pd = &gMainObjTimerCallbacks;
           sub_080C31E4((u8*)arg0 + 0x18, (u8*)arg0 + 0x22, *pd); }
     }
 }

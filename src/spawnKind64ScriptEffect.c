@@ -9,7 +9,7 @@ struct SpawnParams { u8 _0[0xC]; u16 fC; u16 fE; u8 _10[0x18]; };
 extern struct SpawnParams gEffectGfxTable[];
 extern u16 gKind64LayerAttrs[];
 extern u8 gKind64SpriteAnimTable[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -71,7 +71,7 @@ cont:
     *(u32 *)(workExtra + 4) = (u32)(scaleByRandom(0x4000) + 0x18000);
     *(u16 *)(actor + 2) |= 0x1000;
     *(u8 *)((u32)(*(s16 *)(actor + 0x22)) * 2 + (u32)actor + 0x19) = 0;
-    timerCallbacks = &gScriptStepCallbackTable;
+    timerCallbacks = &gMainObjTimerCallbacks;
     scriptStream = actor;
     scriptStream += 0x18;
     sub_080C31E4(scriptStream, actor + 0x22, (s32)*timerCallbacks);

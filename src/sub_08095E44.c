@@ -3,7 +3,7 @@ extern void sub_0800479C(void *, s32, s32, u16);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 extern u8 D_0866FAF4;
 extern u8 gTilemapPages[];
 extern u8 gMainWorkspace[];
@@ -40,7 +40,7 @@ void sub_08095E44(void *arg0) {
 
             *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x1B) = (u8)zero;
             {
-                s32 *hookSlot = &sScriptStepCallbacks;
+                s32 *hookSlot = &gScriptEventCallbacks;
                 sub_080C31E8((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 1, *hookSlot);
             }
         }

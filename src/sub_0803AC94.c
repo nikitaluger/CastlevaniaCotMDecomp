@@ -3,7 +3,7 @@ void sub_080C31E0(void *, void *);
 s32 updateObjectDisplayState(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 
 /* Runs an early-exit script, handles a pose transition, advances the pose to
  * select another script, then performs the entity's post-update. */
@@ -25,7 +25,7 @@ void sub_0803AC94(u8 *entity) {
         poseByte = poseByte - 2;
         if (poseByte > 1) {
             *(u8 *)(posePtr + 0x1B) = flag84;
-            { void **scriptTable = &sScriptStepCallbacks;
+            { void **scriptTable = &gScriptEventCallbacks;
               sub_080C31E8(entity + 0x18, entity + 0x22, 2, *scriptTable); }
         }
     }

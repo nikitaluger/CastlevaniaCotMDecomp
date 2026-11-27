@@ -1,6 +1,6 @@
 extern void forceAnimationFrame(void *, void *, s16, s32);
 extern void sub_08011528(void *, void *);
-extern void sub_080C2E68(void *, void *, s32);
+extern void copyBytes(void *, void *, s32);
 
 typedef struct { s32 v[8]; } DeltaTable;
 extern const DeltaTable D_08102224;
@@ -21,7 +21,7 @@ void sub_080AC908(void *gfx, void *anim, void *work, void *aim)
   void *child;
   u8 value;
   *(DeltaTable *)deltas = D_08102224;
-  sub_080C2E68(durations, (void *)D_08102244, 8);
+  copyBytes(durations, (void *)D_08102244, 8);
   if (*((u8 *)((s8 *)aim + 0x11)) != 0)
   {
     if (*((s32 *)((s8 *)aim + 0x08)) == 0)

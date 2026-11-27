@@ -10,7 +10,7 @@ extern void sub_080C31E4(void *, void *, u32);
 extern s16 gBehaviorAnimKinds[];
 extern u32 gBehaviorSpeeds[];
 extern u32 gBehaviorRanges[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u32 gScriptStepCallbacks;
 extern u32 gMenuScriptCallback;
 
@@ -64,7 +64,7 @@ void updateTrackedBehaviorStep(u8 *entity) {
         if (absXFromFocus(*(u32 *)(work + 8)) > (s32)gBehaviorRanges[*(u8 *)(behavior + 0x20)]) {
             u32 *callback;
             (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = 0;
-            callback = &gScriptStepCallbackTable;
+            callback = &gMainObjTimerCallbacks;
             sub_080C31E4(entity + 0x18, entity + 0x22, *callback);
             return;
         }

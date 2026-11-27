@@ -3,7 +3,7 @@ extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Spawns an entity's finishing effect: starts effect 0x56, creates a child
  * object, DMA-loads a tile graphic into VRAM, then fires the end callback and

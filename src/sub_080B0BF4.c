@@ -6,7 +6,7 @@ extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08007E24(s32);
 extern void sub_08097F88(s32, u16 *, u8 *, void *);
-extern void sub_08098764(u16 *, u8 *, s32);
+extern void updateSceneObjectFromActor(u16 *, u8 *, s32);
 extern void sub_08098338(s32, u16 *);
 
 /* Per-frame update for an entity: recompute sprite graphics attributes from
@@ -70,7 +70,7 @@ void sub_080B0BF4(void *arg0) {
         sub_080C31E0(entity, *(void **)(stepByte * 4 + *(u32 *)(entity + 0x14)));
         *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) - 1;
     }
-    sub_08098764((u16 *)sprite, actor, param4C);
+    updateSceneObjectFromActor((u16 *)sprite, actor, param4C);
     sub_08098338(0x30, (u16 *)sprite);
     sub_08013C8C(entity, sprite);
 }

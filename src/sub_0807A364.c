@@ -4,7 +4,7 @@ extern u8 gMainWorkspace[];
 extern u8 D_000018C2[];
 extern u8 D_0000173A[];
 extern u8 D_000014ED[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 extern void stepDelayTimer(void *, u16 *);
 extern void sub_08005E80(s32);

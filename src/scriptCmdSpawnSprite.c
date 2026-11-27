@@ -14,7 +14,7 @@ extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gSpriteAnimDataTable[];
 extern u8 gSpriteDefaultAttrs[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 struct SpriteDef {
   u8 _0;
@@ -201,7 +201,7 @@ void scriptCmdSpawnSprite(struct ScriptThread *thread)
   {
     u8 *cmdState;
     s32 *callbackEntry;
-    callbackEntry = (s32 *) gScriptStepCallbackTable;
+    callbackEntry = (s32 *) gMainObjTimerCallbacks;
     cmdState = ((u8 *) thread) + 0x18;
     sub_080C31E4(cmdState, ((u8 *) thread) + 0x22, *callbackEntry);
     *((u8 *) ((((u8 *) thread) + (2 * thread->menuIndex)) + 0x19)) += 1;

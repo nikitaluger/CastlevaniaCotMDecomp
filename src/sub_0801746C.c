@@ -7,7 +7,7 @@ void sub_080C31E4(void *, void *, u32);
 
 struct S_02025FF0_174C { u8 _0x000[0x174C]; u32 referenceX; };
 extern struct S_02025FF0_174C gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* When its countdown expires, flips a patrolling entity's direction and
  * clamps its X position to a bounded range around a reference point. */
@@ -56,7 +56,7 @@ void sub_0801746C(void *entity) {
         *(u16 *)(control + 0x16) = 5;
         *(u8 *)(self + (s32)*(s16 *)(self + 0x22) * 2 + 0x19) = zero;
         {
-            u32 *scriptTable = &gScriptStepCallbackTable;
+            u32 *scriptTable = &gMainObjTimerCallbacks;
             sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);
         }
     }

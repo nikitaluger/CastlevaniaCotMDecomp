@@ -5,7 +5,7 @@ struct HostObject { u8 _0[8]; u32 f8; u32 fC; u8 _10[0xC]; u16 f1C; u8 _1E[4]; u
 struct SpawnParams { u8 _0[0xC]; u16 fC; u16 fE; u8 _10[0x18]; };
 extern struct SpawnParams gEffectGfxTable[];
 extern u16 gKind65LayerAttrs[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -69,7 +69,7 @@ inline int addOffset(s32 ptr, int off) { return ptr + off; }
   *((u8 *) (actor + 0x8C)) = zero;
   *((u16 *) (actor + 2)) |= 0x1000;
   *((u8 *) addOffset(addOffset(((u32) (*((s16 *) (actor + 0x22)))) * 2, (u32) actor), 0x19)) = zero;
-  timerCallbacks = &gScriptStepCallbackTable;
+  timerCallbacks = &gMainObjTimerCallbacks;
   scriptStream = actor; scriptStream += 0x18;
   sub_080C31E4(scriptStream, actor + 0x22, (s32) (*timerCallbacks));
   *((u8 *) addOffset(addOffset(((u32) (*((s16 *) (actor + 0x22)))) * 2, (u32) actor), 0x19)) += 1;

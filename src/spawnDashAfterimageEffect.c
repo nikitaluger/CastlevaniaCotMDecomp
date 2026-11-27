@@ -12,7 +12,7 @@ extern void releaseEffectGroup(void);            /* effect release handler */
 extern u8 gGameStatus[];    /* game/player data: +0x8C character, +0x2DE stat */
 extern u8 gMainWorkspace[];    /* scene state: +0x1510 colour, +0x1728/0x172C camera, +0x18C2 sprite bits */
 extern u32 gDashAfterimageYOffsets[];   /* per-weapon Y offsets */
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* 0x34-byte effect part object allocated by allocEffectPart. */
 struct DashAfterimagePart {

@@ -61,7 +61,7 @@ extern u8 gSpriteAnimDataTable[];
 extern u16 D_080CEBD0[];
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Spawns an attack's sprite and effect entity, assigns an animation slot, fills
  * the effect from the sprite/attribute tables, sets world coordinates from the
@@ -134,7 +134,7 @@ cont:
   step = *((s16 *) (((u8 *) owner) + 0x22));
   *((((u8 *) owner) + (((s32) step) * 2)) + 0x19) = 0;
   {
-    u32 *gptr = &gScriptStepCallbackTable;
+    u32 *gptr = &gMainObjTimerCallbacks;
     u8 *p18 = ((u8 *) owner) + 0x18;
     u8 *p22 = ((u8 *) owner) + 0x22;
     sub_080C31E4(p18, p22, *gptr);

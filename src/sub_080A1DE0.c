@@ -1,6 +1,6 @@
 struct S_02025FF0 { u8 _0[0x1870]; u32 v; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gTrigFuncPtr;
+extern u32 gTrigFuncTable;
 extern void *D_08101A58;
 
 void *sub_080057F8();

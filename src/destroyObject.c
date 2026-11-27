@@ -5,7 +5,7 @@ extern void sub_080C31E0(void *, s32);
 extern void unlinkAndFreeObject(void *);
 extern void clearObjectSlot(void *);
 extern s32 gMenuScriptCallback[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 void sub_0801F838(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -73,7 +73,7 @@ void sub_0802459C(void *arg0) {
         *(u16 *)r5 = 0;
         idx = *(s16 *)(self + 0x22);
         *(u8 *)(self + idx * 2 + 0x19) = 0;
-        lit = gScriptStepCallbackTable;
+        lit = gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *lit);
     }
 }

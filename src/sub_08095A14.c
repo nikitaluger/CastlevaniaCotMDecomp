@@ -5,7 +5,7 @@ extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866FAE0[];
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 
 struct TargetState { u8 a; u8 flag; };
 struct ObjFlags2 { u8 flag; };
@@ -56,7 +56,7 @@ void sub_08095A14(u8 *self) {
         tmp = tmp >> 24;
         if (tmp > 1) {
             *(u8 *)(p1 + 0x1B) = 0;
-            stateFn = &sScriptStepCallbacks;
+            stateFn = &gScriptEventCallbacks;
             sub_080C31E8(slots, self + 0x22, 1, *stateFn);
         }
     }

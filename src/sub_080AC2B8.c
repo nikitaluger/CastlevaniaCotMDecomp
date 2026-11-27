@@ -2,7 +2,7 @@ extern void sub_080AC9B4(u8, void *);
 extern void sub_08005E80(s32);
 extern void sub_080B0908(s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 struct S_02025FF0_1754 {
     u8 _0x000[0x1754];

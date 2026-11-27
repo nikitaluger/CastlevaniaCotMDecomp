@@ -8,7 +8,7 @@ extern void _call_via_r1(void *, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern s32 sScriptStepCallbacks[];
+extern s32 gScriptEventCallbacks[];
 
 /* Per-frame update for a scripted attack object: probe the target and work
  * flags, run the hit/death response through its callback table, dispatch the
@@ -42,7 +42,7 @@ void updateScriptedAttack(void *entity) {
             s32 *callbackSlot;
             playSound(SCRIPT_ATTACK_DEATH_SFX);
             *((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x1B) = zero;
-            callbackSlot = sScriptStepCallbacks;
+            callbackSlot = gScriptEventCallbacks;
             _call_via_r3((u8 *)entity + 0x18, (u8 *)entity + 0x22, 2, *callbackSlot);
         }
     }

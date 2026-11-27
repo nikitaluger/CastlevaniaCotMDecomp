@@ -63,7 +63,7 @@ struct BD
 extern struct BD gEffectGfxTable[];
 extern u16 D_08102F10[];
 extern u16 D_08102F1C[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 void *allocSpriteObject(void);
 void allocWorkSlot(void *, s32, s32, s32);
 s32 sub_080057F8(void);
@@ -150,7 +150,7 @@ ok:
     s16 idx = actor->f22;
     *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = 0;
   }
-  scriptTablePtr = &gScriptStepCallbackTable;
+  scriptTablePtr = &gMainObjTimerCallbacks;
   scriptPtr = ((u8 *)actor) + 0x18;
   sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, *scriptTablePtr);
   {

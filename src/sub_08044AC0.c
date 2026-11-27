@@ -3,7 +3,7 @@ extern void sub_08045034(void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *gScriptStepCallbacks;
 
 /* Advance an object's animation, spawning an effect when its sprite enters a
@@ -33,7 +33,7 @@ void sub_08044AC0(void *arg0)
             setAnimationFrame(sprite, anim, 5, 0);
             ((u8 *)arg0)[*(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19] = zero;
             {
-                void **table = &gScriptStepCallbackTable;
+                void **table = &gMainObjTimerCallbacks;
                 sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *table);
             }
         } else {

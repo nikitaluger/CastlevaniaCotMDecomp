@@ -4,7 +4,7 @@ extern void sub_08014848(s32, s32, s32, s32, s32, s32);
 extern void sub_0809E278(u16 *, s32, u8 *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080C0384;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Script-step handler: set and advance the target's sprite animation, then act
  * on the script state bits — clear the graphic's high bits, spawn particles,

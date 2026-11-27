@@ -1,7 +1,7 @@
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 /* Test whether the enemy's box at +0xA8 reaches its own 16.16 position (within
  * 0x0C0000); on contact, restart the action script, otherwise slide the box
@@ -15,7 +15,7 @@ void sub_08026780(void *arg0) {
     if (sub_08014A04(box, *(s32 *)(enemy + 8), *(s32 *)(enemy + 0xC), 0xC0000, 0xC0000) == 1) {
         s16 stepIndex = *(s16 *)(self + 0x22);
         *(u8 *)(self + stepIndex * 2 + 0x19) = 0;
-        eventPtr = gScriptStepCallbackTable;
+        eventPtr = gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *eventPtr);
         return;
     }

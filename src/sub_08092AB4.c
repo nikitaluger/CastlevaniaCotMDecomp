@@ -7,7 +7,7 @@ extern void sub_08005E80(s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 extern u8 D_0866FA00;
 extern u8 gTilemapPages[];
 extern u8 gMainWorkspace[];
@@ -45,7 +45,7 @@ void sub_08092AB4(void *entity)
 
             *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x1B) = (u8)zero;
             {
-                s32 *scriptTable = &sScriptStepCallbacks;
+                s32 *scriptTable = &gScriptEventCallbacks;
                 sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 1, *scriptTable);
             }
         }

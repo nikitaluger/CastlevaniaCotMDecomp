@@ -10,7 +10,7 @@ extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 w; };
 extern struct S_02025FF0 gMainWorkspace;
 extern u8 gSpriteAnimDataTable[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 struct SpawnObj { u8 _00[0x14]; u32 stepHandlerTable; };
 
 /*
@@ -69,7 +69,7 @@ void sub_080AEC30(void *entity)
   stepArray = (u16 *)entity;
   ((u8 *)(&stepArray[stepIndex]))[0x19] = 0;
   {
-    u32 *pbb0 = &gScriptStepCallbackTable;
+    u32 *pbb0 = &gMainObjTimerCallbacks;
     stepBase = ((u8 *) entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *) entity) + 0x22, *pbb0);
   }

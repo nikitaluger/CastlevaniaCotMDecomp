@@ -1,5 +1,5 @@
-extern s32 sub_080A845C(void *, void *);
-extern s32 sub_080A8940(s32, void *);
+extern s32 refreshMotionTrail(void *, void *);
+extern s32 decelerateTargetX(s32, void *);
 extern s32 sub_080C31E0(s32, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
 
@@ -35,8 +35,8 @@ void sub_080A6594(void *behav)
     {
         *((u8 *)(((u8 *)owner) + 0xEE)) = 2;
     }
-    sub_080A8940((s32)target, ownerData);
-    sub_080A845C(self, ownerData);
+    decelerateTargetX((s32)target, ownerData);
+    refreshMotionTrail(self, ownerData);
     if ((*((u8 *)((self + ((*((s16 *)(self + 0x22))) * 2)) + 0x19))) == 0x28)
     {
         flag = ownerData + 0xA7;

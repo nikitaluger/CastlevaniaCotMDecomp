@@ -8,7 +8,7 @@ extern void registerScriptObject(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
 extern s32 _call_via_r1(u8 *, s32);
 extern void sub_0803EA3C(void);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 struct SpriteDef { u8 _0; u8 type; u8 layer; u8 priority; u16 gfxIndex; u16 anim0, anim1, anim2, anim3; u16 palette; u32 object; u16 tail; };
 struct SpriteState { u8 _0[8]; s32 worldX; s32 worldY; u8 _10[8]; u32 frame; s16 kind; u8 _1E[4]; s16 animSlot; u32 savedHandler; struct SpriteDef *spriteDef; u8 _2C[0x1C]; u16 duration; u16 interval; u32 spawnState; };
@@ -88,7 +88,7 @@ void spawnKind57ScriptSprite(struct ScriptThread *arg0) {
     arg0->flags |= 0x1000;
     scriptEntry = (u8 *)(arg0->scriptStep * 2 + (u32)arg0);
     scriptEntry[0x19] = 0;
-    timerTable = &gScriptStepCallbackTable;
+    timerTable = &gMainObjTimerCallbacks;
     work = (u8 *)arg0 + 0x18;
     sub_080C31E4(work, (u8 *)arg0 + 0x22, *timerTable);
     scriptEntry2 = (u8 *)(arg0->scriptStep * 2 + (u32)arg0);

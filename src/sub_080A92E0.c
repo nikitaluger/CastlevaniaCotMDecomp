@@ -4,7 +4,7 @@ struct SceneFlags
   u16 f18C2;
 };
 extern struct SceneFlags gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 struct ScriptEntity
 {
@@ -100,7 +100,7 @@ void sub_080A92E0(struct ScriptEntity *entity)
   stepArray = (u16 *) entity;
   ((u8 *) (&stepArray[stepIndex]))[0x19] = 0;
   {
-    u32 *scriptCallbacks = &gScriptStepCallbackTable;
+    u32 *scriptCallbacks = &gMainObjTimerCallbacks;
     stepBase = ((u8 *) entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *) entity) + 0x22, *scriptCallbacks);
   }

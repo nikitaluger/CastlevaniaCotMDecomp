@@ -3,7 +3,7 @@ void sub_0806C6B0(void*, void*, void*, void*);
 void sub_080C31E4(void *, void *, void *);
 extern vu32 gMainWorkspace[];
 extern u8 gCameraState[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 struct Arg69 {
     u8 pad0[0x18];
@@ -79,7 +79,7 @@ void sub_08069BE8(struct Arg69 *arg0) {
         gMainWorkspace[0x52B] = 4;
         temp2 = arg0->f22 * 2 + 0x19;
         *(u8 *)((u8 *)(temp2 * 1 + (int)arg0)) = 0;
-        table = gScriptStepCallbackTable;
+        table = gMainObjTimerCallbacks;
         sub_080C31E4(&arg0->f18, &arg0->f22, (void *)table[0]);
     }
     sub_0806C6B0(arg0, args.b, args.a, sp20);

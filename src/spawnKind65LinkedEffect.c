@@ -8,7 +8,7 @@ struct HostObject {
 struct SpawnParams { u8 _0[8]; u16 f8; u16 fA; u8 _C[0x1C]; };
 extern struct SpawnParams gEffectGfxTable[];
 extern u16 D_08102710[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -73,7 +73,7 @@ cont:
     *(u16 *)(gfx + 2) |= 0x400;
     *(u16 *)(arg0 + 2) |= 0x1000;
     *(u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0 + 0x19) = 0;
-    scriptTablePtr = &gScriptStepCallbackTable;
+    scriptTablePtr = &gMainObjTimerCallbacks;
     scriptPtr = arg0;
     scriptPtr += 0x18;
     sub_080C31E4(scriptPtr, arg0 + 0x22, (s32)*scriptTablePtr);

@@ -1,6 +1,6 @@
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Returns zero; kept as a helper so the compiler materialises the constant at
  * the point the original code did. */
@@ -27,7 +27,7 @@ void sub_0800223C(void *entity)
     stepIndex = *(s16 *)((u8 *)entity + 0x22);
     stepPtr = (u8 *)((stepIndex * 2) + (u32)entity) + 0x19;
     *stepPtr = zeroByte();
-    interpreter = &gScriptStepCallbackTable;
+    interpreter = &gMainObjTimerCallbacks;
     stepBase = (u8 *)entity + 0x18;
     sub_080C31E4(stepBase, (u8 *)entity + 0x22, *interpreter);
     stepIndex = *(s16 *)((u8 *)entity + 0x22);

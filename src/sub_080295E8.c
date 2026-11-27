@@ -11,7 +11,7 @@ void uploadPendingSpriteGraphic(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, u32, u32);
 
-extern u32 sScriptStepCallbacks;
+extern u32 gScriptEventCallbacks;
 
 /* Scripted-effect update: filter the effect/main-object pair through the
  * interaction check, apply contact and position handling, optionally run the
@@ -41,7 +41,7 @@ void sub_080295E8(void *self) {
         if (!(*(u16 *)state & 0x0D)) {
             if (*(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x1A) != 2) {
                 *(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x1B) = 0;
-                p1 = &sScriptStepCallbacks;
+                p1 = &gScriptEventCallbacks;
                 sub_080C31E8((u8 *)self + 0x18, (u8 *)self + 0x22, 2, *p1);
             }
         }
@@ -51,7 +51,7 @@ void sub_080295E8(void *self) {
         if (*(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x1A) != 3) {
             updateActorWorldPosition(self);
             *(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x1B) = 0;
-            p2 = &sScriptStepCallbacks;
+            p2 = &gScriptEventCallbacks;
             sub_080C31E8((u8 *)self + 0x18, (u8 *)self + 0x22, 3, *p2);
         }
     }

@@ -1,4 +1,4 @@
-extern void sub_080C2E68(void *, void *, s32);
+extern void copyBytes(void *, void *, s32);
 extern u8 gCameraState[];
 
 /* Header of a scene object: bit 11 of the u16 flags at +0x02 marks it as set up. */
@@ -29,7 +29,7 @@ void sub_080BDE00(void *scene) {
     {
         u8 *entry = gCameraState;
         s32 entryIndex = 0x99;
-        sub_080C2E68((void *)(entry + entryIndex * 32), (void *)0x08102FFC, 0x40);
+        copyBytes((void *)(entry + entryIndex * 32), (void *)0x08102FFC, 0x40);
     }
     *(s32 *)((u8 *)scene + 0x3C) = zero;
     *(s32 *)((u8 *)scene + 0x4C) = zero;

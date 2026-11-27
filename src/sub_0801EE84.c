@@ -5,7 +5,7 @@ struct GlobalState {
 };
 extern struct GlobalState gMainWorkspace;
 extern u16 D_080CE780[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 s32 sub_08005910(s32, s32);
 void setAnimationFrame(void *, void *, s32, s32);
@@ -39,7 +39,7 @@ void sub_0801EE84(void *self) {
         }
         sub_080146D0(work, angle, 0x38000);
         *(u8 *)((u8 *)self + (*(s16 *)((u8 *)self + 0x22)) * 2 + 0x19) = 0;
-        handlerSlot = &gScriptStepCallbackTable;
+        handlerSlot = &gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *handlerSlot);
     }
 }

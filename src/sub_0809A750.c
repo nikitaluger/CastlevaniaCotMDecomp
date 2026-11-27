@@ -8,7 +8,7 @@ void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 struct Obj {
   u8 _0[2]; u16 f02; u8 _1[0x14 - 4]; u32 f14;
   u8 _2[0x22 - 0x18]; s16 f22; u32 f24;
@@ -67,7 +67,7 @@ setupDone:
   ((u8 *) (&stepIndexPtr[stepIndex]))[0x19] = zeroByte;
   objBytes = (u8 *) objSelf;
   {
-    u32 *pbb0 = &gScriptStepCallbackTable;
+    u32 *pbb0 = &gMainObjTimerCallbacks;
     stepTable = objBytes + 0x18;
     sub_080C31E4((s32) stepTable, (s32) (objBytes + 0x22), (s32) (*pbb0));
   }

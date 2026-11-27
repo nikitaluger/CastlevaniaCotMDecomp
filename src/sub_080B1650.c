@@ -1,7 +1,7 @@
 /* Move an actor along a scripted path: update its direction offset, play a
  * periodic sound, launch a movement step, and end the script past byte 0x80. */
 extern s32 sub_0809856C(s32, s32, s32);
-extern s32 sub_08098664(void *, s32, s32);
+extern s32 startScriptOnce(void *, s32, s32);
 extern s32 sub_080B1960(s32, void *);
 extern s32 sub_080B30B4(s8, s32, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
@@ -37,7 +37,7 @@ void sub_080B1650(void *arg0)
     direction = *((u8 *) (((s8 *) param) + 0x25));
     if (direction == 0)
     {
-      sub_08098664(param, 1, 1);
+      startScriptOnce(param, 1, 1);
       *((u8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)) = direction;
       dispatchArg = 0x08671BB0;
       sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *((s32 *) dispatchArg));

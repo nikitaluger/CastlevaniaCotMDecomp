@@ -6,7 +6,7 @@ extern u8 gGameStatus[];      /* game/player data; +0x0A = intro-skip allowed */
 extern u8 gCameraState[];      /* shared video state (BG scroll buffers, fades) */
 extern u16 D_080CAA00[];     /* event script: time / handler index pairs */
 extern s32 D_0866CB98[];     /* event script step handlers (thumb pointers) */
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 void sub_08000EDC(s32, u8 *, u32, s32, s32);        /* post display-effect block */
 void sub_080060C4(s32, s32, s32, void *);           /* apply to every sound player */
 void sub_080C31E4(u8 *, u8 *, u32);                 /* indirect call */
@@ -43,7 +43,7 @@ fail:
   sub_080060C4(0, 3, 0, sub_080C0384);
   entity[((*((s16 *) (entity + 0x22))) * 2) + 0x19] = 0;
   {
-    u32 *fp = &gScriptStepCallbackTable;
+    u32 *fp = &gMainObjTimerCallbacks;
     sub_080C31E4(entity + 0x18, entity + 0x22, *fp);
   }
   return;

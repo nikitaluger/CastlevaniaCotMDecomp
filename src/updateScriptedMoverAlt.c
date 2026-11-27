@@ -8,7 +8,7 @@ extern void _call_via_r1(void *, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 
 /* Per-frame update for a scripted entity with a mover work state: probe the
  * sensor, run the hit/death response, dispatch the current script step through
@@ -39,7 +39,7 @@ void updateScriptedMoverAlt(void *self) {
             u32 *eventCallback;
             playSound(SCRIPT_DEATH_SFX);
             *((u8 *)self + *(s16 *)((u8 *)self + 0x22) * 2 + 0x1B) = 0;
-            eventCallback = sScriptStepCallbacks;
+            eventCallback = gScriptEventCallbacks;
             _call_via_r3((u8 *)self + 0x18, (u8 *)self + 0x22, 1, *eventCallback);
         }
     }

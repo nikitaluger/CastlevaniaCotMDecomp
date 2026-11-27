@@ -3,7 +3,7 @@ extern void stepDelayTimer(void *a, void *b);
 extern void sub_0806D588(void *a);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 struct P38
 {
   u8 _0[2];
@@ -31,7 +31,7 @@ void sub_08088D1C(void *arg0)
   sub_0806D588(p38);
   *((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;
   {
-    u32 *pBB0 = &gScriptStepCallbackTable;
+    u32 *pBB0 = &gMainObjTimerCallbacks;
     base18 = ((u8 *) arg0) + 0x18;
     do { do { do { sub_080C31E4(base18, ((u8 *) arg0) + 0x22, (void *) (*pBB0)); } while (0); } while (0); } while (0);
     idx = *((s16 *) (((u8 *) arg0) + 0x22));

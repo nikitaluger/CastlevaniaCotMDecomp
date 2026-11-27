@@ -21,7 +21,7 @@ extern void initSpawnedObject(void *, void *, void *, u32, u32);
 extern void sub_080AA9C8(void *, void *, u32, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
-extern void sub_080A80B4(void *, void *);
+extern void buildChainTail(void *, void *);
 extern void *spawnBudgetedEffect(void *, u32);
 extern void sub_080AAD08(void);
 extern void registerScriptObject(void *, s32);
@@ -32,7 +32,7 @@ extern u16 D_08101D1C[];
 extern u8 gSpriteKindTable[];
 extern u8 gEffectGfxTable[];
 extern u32 gMainWorkspace[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void sub_080A806C(void);
 void sub_080A5AE0(u8 *arg0)
 {
@@ -105,7 +105,7 @@ void sub_080A5AE0(u8 *arg0)
     ((struct A5R *) (*((void **) (p + 0x15C))))->fC = *((u16 *) (p34 + 6));
     ((struct A5R *) (*((void **) (p + 0x15C))))->fE = *((u16 *) ((cb + (V1C * 20)) + 4));
     ((struct A5R *) (*((void **) (p + 0x15C))))->f10 = (u32) a;
-    sub_080A80B4(arg0, sp4);
+    buildChainTail(arg0, sp4);
     if ((*idxp) == 0)
     {
       *((void **) (p + 0x180)) = spawnBudgetedEffect(arg0, 0x19D);
@@ -126,7 +126,7 @@ void sub_080A5AE0(u8 *arg0)
     registerScriptObject(arg0, 0);
     *((u16 *) (arg0 + 0x02)) |= 0x1000;
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19] = 0;
-    tcbp = &gScriptStepCallbackTable;
+    tcbp = &gMainObjTimerCallbacks;
     do { p18 = arg0 + 0x18; } while (0);
     do { sub_080C31E4(p18, arg0 + 0x22, *tcbp); } while (0);
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19]++;

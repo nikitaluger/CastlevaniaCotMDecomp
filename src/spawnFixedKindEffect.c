@@ -18,7 +18,7 @@ extern struct FixedEffectWorkspace gMainWorkspace;
 extern struct FixedEffectScroll gCameraState;
 extern u8 gSpriteAnimDataTable[];
 extern struct FixedAttackGfxEntry gEffectGfxTable[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 void spawnFixedKindEffect(struct FixedAttackEntity *entity) {
     u8 *sprite;
@@ -86,6 +86,6 @@ void spawnFixedKindEffect(struct FixedAttackEntity *entity) {
     work->paramB = entity->paramB;
     entity->flags |= EFFECT_SPRITE_READY;
     *(u8 *)((u8 *)entity + 2 * entity->stateIndex + 0x19) = 0;
-    callbackTable = gScriptStepCallbackTable;
+    callbackTable = gMainObjTimerCallbacks;
     _call_via_r2((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callbackTable);
 }

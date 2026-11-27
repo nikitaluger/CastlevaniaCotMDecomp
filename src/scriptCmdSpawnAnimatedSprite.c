@@ -71,7 +71,7 @@ extern struct {
 
 extern u16 gSpawnEffectFrameIds[];
 extern u8 gSpawnEffectAnimData[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 /* Script command: build a parameter-driven effect sprite for the calling
  * script thread. Allocates the sprite and its work state, seeds the work
@@ -147,7 +147,7 @@ cont:
 
     *(u8 *)((u8 *)owner + owner->stepIndex * 2 + 0x19) = zero;
 
-    cmdTable = gScriptStepCallbackTable;
+    cmdTable = gMainObjTimerCallbacks;
     stepLog = (u8 *)owner + 0x18;
     sub_080C31E4(stepLog, &owner->stepIndex, *cmdTable);
 

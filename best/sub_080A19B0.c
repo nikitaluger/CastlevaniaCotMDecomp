@@ -13,7 +13,7 @@ struct Sarg {
 struct BD { u8 _0[4]; u16 f4; u16 f6; u16 f8; u16 fA; u8 _C[0x1C]; };
 extern struct BD gEffectGfxTable[];
 extern u16 D_08101A58[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -86,7 +86,7 @@ ok:
     s16 idx = arg0->f22;
     *((u8 *)(((u32)idx * 2) + (u32)arg0 + 0x19)) = 0;
   }
-  fn = &gScriptStepCallbackTable;
+  fn = &gMainObjTimerCallbacks;
   p18 = ((u8 *)arg0) + 0x18;
   sub_080C31E4(p18, ((u8 *)arg0) + 0x22, (s32)(*fn));
   {

@@ -1,5 +1,5 @@
 extern vu32 gMainWorkspace;
-extern vu32 gScriptStepCallbackTable;
+extern vu32 gMainObjTimerCallbacks;
 
 void *spawnBudgetedEffect(s32, s32);
 void unlinkAndFreeObject(void);

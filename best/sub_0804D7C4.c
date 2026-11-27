@@ -7,7 +7,7 @@ extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void setSpriteFlipForDirection(u8 *);
 extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, u32);
-extern u32 *gScriptStepCallbackTable;
+extern u32 *gMainObjTimerCallbacks;
 extern u8 gSpriteAnimDataTable[];
 struct E
 {

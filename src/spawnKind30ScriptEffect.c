@@ -81,7 +81,7 @@ struct EffectTemplate
 extern struct EffectTemplate gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 D_080CF460[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Build the kind-0x30 scripted effect: allocate its sprite and work state,
  * install its graphics and animation, attach one render layer, align the
@@ -171,7 +171,7 @@ main:
   arg0->flags |= 0x1000;
   scriptBytePtr = (u8 *) ((u32) (2 * arg0->index) + (u32) arg0) + 0x19;
   *scriptBytePtr = (u8) zero;
-  scriptOps = (u32 *) gScriptStepCallbackTable;
+  scriptOps = (u32 *) gMainObjTimerCallbacks;
   scriptPtr = ((u8 *) arg0) + 0x18;
   sub_080C31E4(scriptPtr, ((u8 *) arg0) + 0x22, *scriptOps);
   scriptBytePtr = (u8 *) ((u32) (2 * arg0->index) + (u32) arg0) + 0x19;

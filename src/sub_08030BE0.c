@@ -10,7 +10,7 @@ extern void sub_08011EE8(void *, s32, s32);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 struct B1 { u8 f0; u8 f1; };
 
 /*
@@ -18,7 +18,7 @@ struct B1 { u8 f0; u8 f1; };
  * (+0x38) and the entity it drives (+0x3C); the entity's timers live at +0x48.
  * Refreshes animation/state, runs the current pose handler out of the table at
  * 0x0866DC4C, warps the entity to the player and fires the attack routine from
- * sScriptStepCallbacks when its flag is set, then handles the off-screen/cleanup paths.
+ * gScriptEventCallbacks when its flag is set, then handles the off-screen/cleanup paths.
  */
 void sub_08030BE0(u8 *arg0) {
     s32 owner = *(s32 *)(arg0 + 0x38);
@@ -44,7 +44,7 @@ void sub_08030BE0(u8 *arg0) {
             {
                 u8 *poseSlot = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
                 *(u8 *)(poseSlot + 0x1B) = zero;
-                { void **attackFunc = &sScriptStepCallbacks;
+                { void **attackFunc = &gScriptEventCallbacks;
                   sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 2, *attackFunc); }
             }
         }

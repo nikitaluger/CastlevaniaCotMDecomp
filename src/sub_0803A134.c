@@ -6,7 +6,7 @@ void setSpriteFlipForDirection(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /*
  * Scripted entity setup/update: reset and configure the enemy's state block,

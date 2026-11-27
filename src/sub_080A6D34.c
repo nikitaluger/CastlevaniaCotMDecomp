@@ -1,5 +1,5 @@
 extern void sub_080A860C(void *, void *);
-extern void sub_080A8940(void *, void *);
+extern void decelerateTargetX(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern u32 gScriptStepCallbacks[];
 
@@ -13,7 +13,7 @@ void sub_080A6D34(void *entity)
     void *control = (u8 *)scriptState + 0x48;
 
     sub_080A860C(entity, control);
-    sub_080A8940(companion, control);
+    decelerateTargetX(companion, control);
 
     if (*(u8 *)((u8 *)scriptState + 0x120) != 0)
     {

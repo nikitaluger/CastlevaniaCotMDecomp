@@ -9,7 +9,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern void releaseActorEffectSubObject(void);
 struct GameState { u8 _0[0x18C2]; u16 flags; };
 extern struct GameState gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u32 D_0810225C[];
 extern s16 D_08102258[];
 extern u8 D_08102264[];
@@ -72,7 +72,7 @@ Lcont:
   arr = (u16 *)arg;
   ((u8 *)(&arr[i]))[0x19] = 0;
   {
-    u32 *pbb0 = &gScriptStepCallbackTable;
+    u32 *pbb0 = &gMainObjTimerCallbacks;
     stepBase = ((u8 *)arg) + 0x18;
     sub_080C31E4(stepBase, ((u8 *)arg) + 0x22, *pbb0);
   }

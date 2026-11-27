@@ -1,5 +1,5 @@
 extern u8 gMainWorkspace[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 extern void *spawnBudgetedEffect(s32, s32);
 s32 stepAnimationTrack(s32, s32);
 s32 sub_080148C0(void *, s32, s32);

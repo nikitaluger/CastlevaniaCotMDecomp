@@ -1,5 +1,5 @@
 s32 signOf(s32);
-s32 sub_08098664(s32, s32, s32);
+s32 startScriptOnce(s32, s32, s32);
 void sub_080B1960(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -20,7 +20,7 @@ void sub_080B15D4(void *arg0) {
         }
     }
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x18) {
-        sub_08098664((s32)obj, 3, 1);
+        startScriptOnce((s32)obj, 3, 1);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         scriptHandlers = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);

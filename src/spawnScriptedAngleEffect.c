@@ -6,8 +6,8 @@ struct GameState { u8 _0[0x18C2]; u16 spriteFlags; };
 extern struct GameState gMainWorkspace;
 extern struct ScriptedAngleGfxEntry gEffectGfxTable[];
 extern u16 gAngleEffectAltLayerAttrs[];
-extern u32 gTrigFuncPtr;
-extern u32 gScriptStepCallbackTable;
+extern u32 gTrigFuncTable;
+extern u32 gMainObjTimerCallbacks;
 
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
@@ -51,7 +51,7 @@ void spawnScriptedAngleEffect(u8 *script)
     body->x = *(u32 *)(script + SCRIPT_ANGLE_POS_X);
     body->y = *(u32 *)(script + SCRIPT_ANGLE_POS_Y);
 
-    calcFn = &gTrigFuncPtr;
+    calcFn = &gTrigFuncTable;
     body->adjustedX = ((sub_080C31E0(*(s32 *)(script + SCRIPT_ANGLE_VALUE) + ANGLE_SCRIPT_ANGLE_BIAS, *calcFn) >> 8) * 3) << 8;
     body->adjustedY = ((sub_080C31E0(*(s32 *)(script + SCRIPT_ANGLE_VALUE), *calcFn) >> 8) * 3) << 8;
 
@@ -90,7 +90,7 @@ void spawnScriptedAngleEffect(u8 *script)
 
     *(u16 *)(script + 2) |= EFFECT_SPRITE_READY;
     *(u8 *)(script + (s16)*(u16 *)(script + SCRIPT_STEP_INDEX_OFFSET) * 2 + 0x19) = 0;
-    cmdTable = &gScriptStepCallbackTable;
+    cmdTable = &gMainObjTimerCallbacks;
     scriptPc = script + SCRIPT_STEP_BASE_OFFSET;
     scriptIdx = script + SCRIPT_STEP_INDEX_OFFSET;
     firstCmd = *cmdTable;

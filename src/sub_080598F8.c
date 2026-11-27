@@ -7,7 +7,7 @@ extern void sub_0805A0B0(s32, s32, s32, s32, s16);
 extern void sub_080C31E4(void *, void *, s32);
 extern s16 divInt32(s16, s32);
 extern s16 sub_080C36E4(s16, s32);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 void sub_080598F8(void *object) {
     s16 tick;
@@ -36,7 +36,7 @@ void sub_080598F8(void *object) {
     *(u16 *)(stateTail + 6) = *(u16 *)(stateTail + 6) + 1;
     if (4 & *(u16 *)(state + 2)) {
         *(u8 *)(base + (*(s16 *)(base + 0x22) * 2) + 0x19) = 0;
-        scriptFn = &gScriptStepCallbackTable;
+        scriptFn = &gMainObjTimerCallbacks;
         sub_080C31E4(base + 0x18, base + 0x22, *scriptFn);
     }
 }

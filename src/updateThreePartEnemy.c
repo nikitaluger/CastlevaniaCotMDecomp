@@ -17,7 +17,7 @@ extern void uploadPendingSpriteGraphic(void *, void *);         /* upload pendin
 extern void sub_08042900(s32, void *);            /* copy part palette/animation params */
 extern void sub_080C31E0(void *, void *);         /* indirect call */
 extern void sub_080C31E8(void *, void *, s32, s32); /* state machine dispatch */
-extern u8 sScriptStepCallbacks[];   /* death-state handler table */
+extern u8 gScriptEventCallbacks[];   /* death-state handler table */
 extern u8 gThreePartEnemyStateHandlers[];   /* next-phase state handler table */
 
 /* AND helpers keep the mask in the destination register (see and-result wall). */
@@ -81,7 +81,7 @@ static inline u32 andD(u16 v)
         updateActorWorldPosition(entity);
         sub_08005E80(0x85);
         *(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x1B) = 0;
-        stateTable = (u32 *)sScriptStepCallbacks;
+        stateTable = (u32 *)gScriptEventCallbacks;
         sub_080C31E8(entity + 0x18, entity + 0x22, 2, *stateTable);
     }
     if (updateObjectDisplayState(sprite, work) == 0)

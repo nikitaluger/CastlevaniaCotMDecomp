@@ -1,5 +1,5 @@
 extern u8 D_080CB238[];
-extern void sub_080C2E68(void *, void *, u32);
+extern void copyBytes(void *, void *, u32);
 extern volatile int postDisplaySprite(void *, void *, void *, u32, u32);
 void sub_080111D0(void *arg0, u16 *entries, u32 a2, u32 a3)
 {
@@ -19,7 +19,7 @@ void sub_080111D0(void *arg0, u16 *entries, u32 a2, u32 a3)
   int new_var;
   u32 idx;
   u32 tbl;
-  sub_080C2E68(table, D_080CB238, 0x40);
+  copyBytes(table, D_080CB238, 0x40);
   r12 = 0;
   r10 = 0;
   count = 0;

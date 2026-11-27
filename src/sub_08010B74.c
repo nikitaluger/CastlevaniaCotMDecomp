@@ -1,6 +1,6 @@
 struct S_02025358 { u8 _[0x0C]; u8 flag; };
 extern struct S_02025358 D_02025358;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 extern s32 gMenuScriptCallback;
 void *createChildObject(void *, s32);
 void sub_080C31E0(void *, s32);

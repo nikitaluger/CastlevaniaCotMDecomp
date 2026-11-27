@@ -1,6 +1,6 @@
 /* Spawns a projectile at two points of a countdown, then re-dispatches the
    entity once its behavior counter reaches 0xF0. */
-s32 sub_080988B8(void *, s32);
+s32 setFacingDirection(void *, s32);
 s32 sub_080BB984(void *, void *);
 s32 sub_080BE84C(s32, s32, s8);
 void sub_080C31E4(void *, void *, s32);
@@ -23,7 +23,7 @@ void sub_080BAEE4(void *arg0) {
     actor = *(u8 **)(entity + 0x4C);
 
     sub_080BB984(work, (void *)fx);
-    sub_080988B8(actor, *(s32 *)(work + 0x08));
+    setFacingDirection(actor, *(s32 *)(work + 0x08));
     *(s32 *)(fx + 0x4C) = *(s32 *)(fx + 0x4C) - 1;
     timer = *(s32 *)(fx + 0x4C);
     if (timer != 0) {

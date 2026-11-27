@@ -6,7 +6,7 @@ extern void sub_080C31E4(void *, void *, void *);
 extern u8 gMainWorkspace[];
 extern u8 D_080CF86A[];
 extern u8 D_080CF8A2[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 void sub_080460B4(u8 *self)
 {
@@ -79,7 +79,7 @@ void sub_080460B4(u8 *self)
     {
         u32 *pp;
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = 0;
-        pp = gScriptStepCallbackTable;
+        pp = gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, (void *)*pp);
     }
 }

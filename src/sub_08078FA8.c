@@ -9,7 +9,7 @@ struct Actor { u8 _0[4]; s32 posX; s32 posY; s32 velX; s32 velY; u8 _14[0x2C-0x1
 struct Script { u8 _0[0x22]; s16 step; void *callback; u8 _28[0x38-0x28]; void *world; u8 _3C[0x6C-0x3C]; struct Actor *actor; };
 struct GameState { u8 _0[0x10]; s32 field10; u8 _1[0x14ED-0x14]; u8 field14ED; u8 _2[0x173A-0x14EE]; u8 field173A; u8 _3[0x18C2-0x173B]; u16 field18C2; };
 extern struct GameState gMainWorkspace;
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* One frame of a scripted actor: skip it while an area movement override is
  * active, otherwise integrate velocity, count down the script timer (restoring
@@ -41,7 +41,7 @@ void sub_08078FA8(struct Script *arg0)
     timer = 0x19;
     *((u8 *)(mover->moveCtrl) + 1) = zero;
     *((u8 *)((u8 *)arg0 + arg0->step * 2) + timer) = zero;
-    cmdTable = &gScriptStepCallbackTable;
+    cmdTable = &gMainObjTimerCallbacks;
     sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *cmdTable);
   }
   stepDelayTimer((u8 *)actor + 0x20, world);

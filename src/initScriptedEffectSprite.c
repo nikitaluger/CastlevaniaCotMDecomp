@@ -32,7 +32,7 @@ struct EffectWork {
 struct EffectGfxEntry { u8 _0[4]; u16 gfxIndex; u16 palette; u8 _8[0x20]; };
 extern struct EffectGfxEntry gEffectGfxTable[];
 extern u16 D_08102708[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -131,7 +131,7 @@ void initScriptedEffectSprite(u8 *actor)
   *((u32 *) (actor + 4)) = 0;
   *((u16 *) (actor + 2)) |= 0x1000;
   *((u8 *) (((((u32) (*((s16 *) (actor + 0x22)))) * 2) + ((u32) actor)) + 0x19)) = 0;
-  scriptTablePtr = &gScriptStepCallbackTable;
+  scriptTablePtr = &gMainObjTimerCallbacks;
   scriptPtr = actor;
   scriptPtr += 0x18;
   sub_080C31E4(scriptPtr, actor + 0x22, (s32) (*scriptTablePtr));

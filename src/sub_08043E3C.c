@@ -1,7 +1,7 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern u32 D_080CF570[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Drive this entity's attached object: start its animation, and when the
  * animation reaches frame 0x5A, push the next id from the state table into the
@@ -22,7 +22,7 @@ void sub_08043E3C(void *arg0) {
         dest[1] = (u8)zero;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (u8)zero;
         {
-            void **idTable = &gScriptStepCallbackTable;
+            void **idTable = &gMainObjTimerCallbacks;
             sub_080C31E4(self + 0x18, self + 0x22, *idTable);
         }
     }

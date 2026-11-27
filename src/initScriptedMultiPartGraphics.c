@@ -70,7 +70,7 @@ extern u8 gMultiPartAnimData[];
 extern u8 gSpriteLayerAttrs[];
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Builds a scripted multi-part object's graphics: allocates its sprite and work
  * state, sets up animation and two render layers from the kind attribute tables,
@@ -171,7 +171,7 @@ success:
   scriptStep = *((s16 *)(((u8 *)entity) + 0x22));
   *((((u8 *)entity) + (((s32)scriptStep) * 2)) + 0x19) = 0;
   {
-    u32 *timerTable = &gScriptStepCallbackTable;
+    u32 *timerTable = &gMainObjTimerCallbacks;
     u8 *scriptData = ((u8 *)entity) + 0x18;
     u8 *stepPtr = ((u8 *)entity) + 0x22;
     sub_080C31E4(scriptData, stepPtr, *timerTable);

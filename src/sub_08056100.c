@@ -1,4 +1,4 @@
-extern s32 sub_08056C20(void *, void *, void *, s32, void *, void *, s32);
+extern s32 updateScriptedEffectPath(void *, void *, void *, s32, void *, void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Fixed arc path: base X/velocity X, base Y/velocity Y. */
@@ -15,7 +15,7 @@ void sub_08056100(void *self) {
     u8 *script = target + 0x48;
     s16 index;
     path = *(struct PathData *)0x080CFC88;
-    if (sub_08056C20(self, target, script, (s32)sprite, status, &path, 0) != 0) {
+    if (updateScriptedEffectPath(self, target, script, (s32)sprite, status, &path, 0) != 0) {
         index = *(s16 *)((u8 *)self + 0x22);
         ((u8 *)self)[index * 2 + 0x19] = 0;
         {

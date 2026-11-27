@@ -9,7 +9,7 @@ struct SceneState {
     u16 f18C2;
 };
 extern struct SceneState gMainWorkspace;
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern s32 stepDelayTimer(void *, void *);
 extern void startEffectTimer(void *, s32, s32);
 extern void cullOffscreenEntity(void *, void *);
@@ -39,7 +39,7 @@ void sub_08079A64(u8 *entity) {
         if (countdown == 0) {
             *(s32 *)(state + 0x54) = 0x80;
             (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = (u8)countdown;
-            { void **scriptCallbacks = &gScriptStepCallbackTable; sub_080C31E4(entity + 0x18, entity + 0x22, (u32)*scriptCallbacks); }
+            { void **scriptCallbacks = &gMainObjTimerCallbacks; sub_080C31E4(entity + 0x18, entity + 0x22, (u32)*scriptCallbacks); }
         }
         {
             struct SceneState *scene = &gMainWorkspace;

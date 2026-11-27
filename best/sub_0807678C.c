@@ -14,7 +14,7 @@ extern struct S_FF0
   u8 f1510;
 } gMainWorkspace;
 extern u8 D_080E51D4[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 struct R3
 {
   u8 _0;
@@ -206,7 +206,7 @@ void sub_0807678C(u8 *arg0)
   *((u8 *) ((arg0 + (idx * 2)) + 0x19)) = zero;
   new_var = &(*((s16 *) (arg0 + 0x22)));
   {
-    s32 *lit = &gScriptStepCallbackTable;
+    s32 *lit = &gMainObjTimerCallbacks;
     u8 *a18 = arg0 + 0x18;
     sub_080C31E4(a18, arg0 + 0x22, *lit);
     idx = *new_var;

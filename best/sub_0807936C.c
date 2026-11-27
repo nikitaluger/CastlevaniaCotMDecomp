@@ -14,7 +14,7 @@ struct S_02025FF0
 extern struct S_02025FF0 gMainWorkspace;
 extern u32 gTilemapPages;
 extern u32 D_084DD0AC;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 void stepDelayTimer(void *);
 void startEffectTimer(void *, s32, void *);
 void playSound(s32);
@@ -78,7 +78,7 @@ void sub_0807936C(void *arg0)
     }
 
     *((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;
-    sub_080C31E4(new_var + 0x18, new_var + 0x22, gScriptStepCallbackTable);
+    sub_080C31E4(new_var + 0x18, new_var + 0x22, gMainObjTimerCallbacks);
   }
   *((u16 *) r8) = gMainWorkspace.f18C2;
   new_var4 = (u8 *) r4;

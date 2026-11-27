@@ -2,7 +2,7 @@ extern void updateObjectTree(void *obj);
 extern void *createChildObject(void *parent, s32 kind);
 extern void sub_080C31E4(void *stepData, void *stepIndex, s32 callback);
 extern u32 gMainWorkspace[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 struct S_03000830 { u8 pad[8]; u16 count; };
 extern struct S_03000830 gCrossfadeGfxState;
@@ -33,7 +33,7 @@ void sub_080075DC(void *arg0) {
         *(u32 *)((u8 *)gMainWorkspace + newObjOff) = (u32)createChildObject(0, 0x10);
         *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = 0;
         {
-            s32 *scriptCb = &gScriptStepCallbackTable;
+            s32 *scriptCb = &gMainObjTimerCallbacks;
             sub_080C31E4(self + 0x18, self + 0x22, *scriptCb);
         }
     }

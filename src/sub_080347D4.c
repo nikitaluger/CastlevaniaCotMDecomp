@@ -32,7 +32,7 @@ void sub_0803443C(void *arg0) {
 }
 
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void sub_080350F0(void *arg0) {
     void *r1 = *(void **)((s8 *)arg0 + 0x3C);
@@ -41,7 +41,7 @@ void sub_080350F0(void *arg0) {
     *(s32 *)((s8 *)r1 + 0x4C) = *(s32 *)((s8 *)arg0 + 0x6C);
     *(s32 *)((s8 *)r1 + 0x48) = 0x60000;
     *(u8 *)((s8 *)arg0 + (s32)(s16)((u16 *)arg0)[0x11] * 2 + 0x19) = 0;
-    sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, gScriptStepCallbackTable);
+    sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, gMainObjTimerCallbacks);
     *(u8 *)((s8 *)arg0 + (s32)(s16)((u16 *)arg0)[0x11] * 2 + 0x19) += 1;
     r5 = (s8 *)arg0 + (s32)(s16)((u16 *)arg0)[0x11] * 2;
     sub_080C31E0(arg0, *(u32 *)((u8 *)*(u32 *)((s8 *)arg0 + 0x14) + *(u8 *)r5 * 4));
@@ -62,5 +62,5 @@ void sub_08035150(void *arg0) {
     }
     *(s32 *)((s8 *)r5 + 0x48) = 0;
     *(u8 *)((s8 *)arg0 + (s32)(s16)((u16 *)arg0)[0x11] * 2 + 0x19) = 0;
-    sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, gScriptStepCallbackTable);
+    sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, gMainObjTimerCallbacks);
 }

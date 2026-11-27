@@ -1,6 +1,6 @@
 void sub_080BB940(void *, void *);
 s32 sub_08098754(void *);
-void sub_080988B8(void *, s32);
+void setFacingDirection(void *, s32);
 void _call_via_r3(void *, void *, s32, s32);
 void sub_080BB984(void *, void *);
 void sub_080BB9C8(void *);
@@ -34,7 +34,7 @@ void sub_080BA944(void *arg0) {
     void *mover = *(void **)(actor + 0x4C);
     sub_080BB940(work, mover);
     if (*(s32 *)(extra + 0x64) != 0) {
-        sub_080988B8(mover, *(s32 *)((u8 *)work + 8));
+        setFacingDirection(mover, *(s32 *)((u8 *)work + 8));
     }
     if (*(u8 *)((u8 *)mover + 0x25) == 2) {
         *(s32 *)(extra + 0x68) = 0;

@@ -1,7 +1,7 @@
 void stepDelayTimer(void *, void *);
 void startEffectTimer(void *, s32, void *);
 void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern u8 gMainWorkspace[];
 
 /* Readable aliases for the game's helpers (preprocessor-only, no code effect). */
@@ -32,7 +32,7 @@ void sub_0808C460(void *arg0)
                 s16 idx = *(s16 *)(self + 0x22);
                 self[idx * 2 + 0x19] = 0;
                 {
-                    void **lit = &gScriptStepCallbackTable;
+                    void **lit = &gMainObjTimerCallbacks;
                     AdvanceScript(self + 0x18, self + 0x22, *lit);
                 }
             }

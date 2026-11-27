@@ -1,4 +1,4 @@
-extern u32 gTrigFuncPtr[];
+extern u32 gTrigFuncTable[];
 extern void stepAnimationTrack(void *, void *);
 extern void sub_0804ACB0(void *, void *);
 
@@ -15,7 +15,7 @@ void sub_0804AC24(void *actor) {
     s32 wave;
 
     *(s32 *)(work + 8) = *(s32 *)(work + 8) + *(s32 *)(work + 0x10);
-    wave = ((Fn1)gTrigFuncPtr[0])(*(s32 *)(motion + 4));
+    wave = ((Fn1)gTrigFuncTable[0])(*(s32 *)(motion + 4));
     *(s32 *)(work + 0xC) = *(s32 *)(work + 0x48) + (wave << 2);
     *(s32 *)(motion + 4) = *(s32 *)(motion + 4) + 0x200;
     stepAnimationTrack(sprite, anim);

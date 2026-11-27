@@ -18,9 +18,9 @@ extern u8 D_06000304[];
 extern u8 D_06000344[];
 extern u8 D_06000384[];
 extern u8 D_060003C4[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
-void sub_080C2E68(u16 *dst, u32 src, s32 size);
+void copyBytes(u16 *dst, u32 src, s32 size);
 void clearActorPool(void);
 void postDisplaySprite(s32 a, u8 *src, u8 *dst, s32 c, s32 d);
 void resetMapRender(void);
@@ -59,7 +59,7 @@ void initStatusHud(void *entity)
     gCrossfadeGfxState = (gCrossfadeGfxState & 0xF0FF) | zero;
 
     tileOffset = 0x93 << 5;
-    sub_080C2E68((u16 *)(gfxState + tileOffset), 0x080CAF48, 0x40);
+    copyBytes((u16 *)(gfxState + tileOffset), 0x080CAF48, 0x40);
 
     tileOffset = 0x99 << 5;
     tileAddr = gfxState + tileOffset;
@@ -116,7 +116,7 @@ void initStatusHud(void *entity)
     stateIndex = *(s16 *)((u8 *)hudEntity + 0x22);
     *(u8 *)((u8 *)hudEntity + stateIndex * 2 + 0x19) = zero;
 
-    handlerTablePtr = &gScriptStepCallbackTable;
+    handlerTablePtr = &gMainObjTimerCallbacks;
     scriptStatePtr = (u8 *)hudEntity + 0x18;
     sub_080C31E4(scriptStatePtr, (u8 *)hudEntity + 0x22, *handlerTablePtr);
 

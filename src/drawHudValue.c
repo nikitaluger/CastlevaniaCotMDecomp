@@ -1,4 +1,4 @@
-extern void sub_080C2E68(void *, const void *, s32);
+extern void copyBytes(void *, const void *, s32);
 extern s32 divideInt(u8, s32);
 extern s32 moduloInt(u8, s32);
 extern void setLayerTilemap(s32, u16);
@@ -11,7 +11,7 @@ void drawHudValue(u8 kind, u16 tileOffset) {
     u16 lookup[16];
     u8 kindCopy = kind;
     u16 offset = tileOffset;
-    sub_080C2E68(lookup, (const void*)0x080CAF88, 0x20);
+    copyBytes(lookup, (const void*)0x080CAF88, 0x20);
     setLayerTilemap(0, offset);
     sub_0805FEC8(lookup[divideInt(kindCopy, 0x10)]);
     offset += 4;

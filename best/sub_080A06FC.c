@@ -23,7 +23,7 @@ extern u16 D_08101A50[];
 extern struct T1_080A06FC gSpriteKindTable[];
 extern struct T2_080A06FC gEffectGfxTable[];
 extern struct Big_02025FF0 gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 void sub_080A06FC(struct A_080A06FC *a) {
     u8 *r4;
     struct Res_080A06FC *res;
@@ -85,7 +85,7 @@ fail:
         a->f02 |= 0x1000;
         idx2 = a->f22;
         *(abase + idx2 * 2 + 0x19) = 0;
-        { const u32 *D_08671BB0_ptr = &gScriptStepCallbackTable; sub_080C31E4((u32)(abase + 0x18), (u32)(abase + 0x22), *D_08671BB0_ptr); }
+        { const u32 *D_08671BB0_ptr = &gMainObjTimerCallbacks; sub_080C31E4((u32)(abase + 0x18), (u32)(abase + 0x22), *D_08671BB0_ptr); }
         idx2 = a->f22;
         *(abase + idx2 * 2 + 0x19) = *(abase + idx2 * 2 + 0x19) + 1;
         idx2 = a->f22;

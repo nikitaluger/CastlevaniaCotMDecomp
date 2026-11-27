@@ -11,7 +11,7 @@ void uploadPendingSpriteGraphic(void *, void *);
 void sub_0802B178(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 extern u8 D_0866DAE4[];
 
 /* Updates an entity's child sprite: checks visibility/animation, handles a
@@ -35,7 +35,7 @@ void sub_0802AE88(void *obj) {
         updateActorWorldPosition(obj);
         *(u8 *)((u32)(*(s16 *)((u8 *)obj + 0x22)) * 2 + (u32)obj + 0x1B) = 0;
         {
-            void **fnaddr = &sScriptStepCallbacks;
+            void **fnaddr = &gScriptEventCallbacks;
             sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 2, *fnaddr);
         }
     }

@@ -1,7 +1,7 @@
 extern void startEffectTimer(s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 /* Spawns this effect entity: points its sprite at the animation data, installs
  * the spawn script with a zeroed initial position, then advances the step byte
@@ -16,7 +16,7 @@ void sub_0808AA04(void *arg0) {
     *(s32 *)(params2 + 4) = 0;
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *scriptHandlers = gScriptStepCallbackTable;
+        s32 *scriptHandlers = gMainObjTimerCallbacks;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

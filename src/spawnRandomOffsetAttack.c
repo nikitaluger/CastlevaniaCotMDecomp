@@ -12,7 +12,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Spawn an attack at a randomized offset from its owner: allocate a sprite and
  * work state, pick the animation slot, set graphics/world position relative to
@@ -97,7 +97,7 @@ cont:
     *(u8 *)((u32)(*(s16 *)(owner + 0x22) * 2) + (u32)owner + 0x19) = 0;
 
     {
-        u32 *scriptTable = (u32 *)gScriptStepCallbackTable;
+        u32 *scriptTable = (u32 *)gMainObjTimerCallbacks;
         u8 *scriptSteps = owner + 0x18;
         sub_080C31E4(scriptSteps, owner + 0x22, *scriptTable);
 

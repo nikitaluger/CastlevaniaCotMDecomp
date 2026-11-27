@@ -1,4 +1,4 @@
-extern void sub_080C2E68(void *, s32, s32);
+extern void copyBytes(void *, s32, s32);
 extern void postDisplaySprite(s32, s32, s32, s32, s32);
 struct S_02021E90
 {
@@ -28,7 +28,7 @@ void sub_08062484(void)
   s32 i;
   s32 idx;
   u8 temp;
-  sub_080C2E68(stk, (void *) 0x080DBE22, 4);
+  copyBytes(stk, (void *) 0x080DBE22, 4);
   D_040000D4.src = 0x08442570;
   D_040000D4.dst = (u32) ((struct Arrays *) 0x02027A18);
   arr = (struct Arrays *) 0x02027A18;

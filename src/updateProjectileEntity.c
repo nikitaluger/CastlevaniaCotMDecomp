@@ -11,7 +11,7 @@ extern s32 sub_0805D9A4(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 gProjectileStateTable[];
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 
 struct TargetState { u8 _0; u8 hitFlag; };
 struct ObjFlags2 { u8 attr2A; };
@@ -70,7 +70,7 @@ void updateProjectileEntity(u8 *entity) {
         nextState = *(u8 *)(statePtr + 0x1A);
         if (nextState != 1) {
             *(u8 *)(statePtr + 0x1B) = 0;
-            stateTable = &sScriptStepCallbacks;
+            stateTable = &gScriptEventCallbacks;
             _call_via_r3(stepData, entity + 0x22, 1, *stateTable);
         }
     }

@@ -18,7 +18,7 @@ extern void initThreeSubObjects(void *a, struct SpawnLogic *b, struct SpawnSprit
 extern void sub_080C31E0(void *a, u32 b);
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
 extern void registerScriptObject(void *a, u32 b);
-extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u32 gScriptStepCallbackTable;
+extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u32 gMainObjTimerCallbacks;
 extern u32 sub_0805FAEC(void *, u32);
 extern void sub_080338F0(void *a, struct SpawnLogic *b, struct SpawnSprite *c);
 
@@ -75,7 +75,7 @@ fail1:
     registerScriptObject(entity, 0);
     U16(entity, 0x02) = 0x1000 | U16(entity, 0x02);
     U8(entity, 0x19 + (s16)U16(entity, 0x22) * 2) = zero;
-    callbackEntry = &gScriptStepCallbackTable;
+    callbackEntry = &gMainObjTimerCallbacks;
     scriptData = (u8 *)entity + 0x18;
     sub_080C31E4(scriptData, (s16 *)((u8 *)entity + 0x22), *callbackEntry);
     stepSlot = (u8 *)((s16)U16(entity, 0x22) * 2 + (u32)entity);

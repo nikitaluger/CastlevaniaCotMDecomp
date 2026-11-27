@@ -10,7 +10,7 @@ extern void randomizePatrolTarget(void *);
 extern void updateSpawnedSprite(void);
 extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 struct SpriteDef { u8 _0; u8 kind; u8 subkind; u8 state; u16 tile; u16 attr0; u16 attr1; u16 attr2; u16 attr3; u16 mode; u32 sprite; u16 zero; };
 struct SpawnedObject { u8 _0[8]; s32 x; s32 y; u32 f10; u32 f14; u32 frameIndex; s16 kind; u8 _1E[4]; s16 kindIndex; u32 callback; struct SpriteDef *spriteDef; };
@@ -107,7 +107,7 @@ void scriptCmdSpawnSprite4(struct ScriptThread *thread)
     registerScriptObject((u8 *)thread, 0);
     thread->flags |= THREAD_FLAG_WAIT_SPRITE;
     *(u8 *)((u8 *)thread + 2 * thread->menuIndex + 0x19) = 0;
-    callbackEntry = (s32 *)gScriptStepCallbackTable;
+    callbackEntry = (s32 *)gMainObjTimerCallbacks;
     sub_080C31E4((u8 *)thread + 0x18, (u8 *)thread + 0x22, *callbackEntry);
     {
         u32 stateAddr = 2 * (u32)thread->menuIndex;

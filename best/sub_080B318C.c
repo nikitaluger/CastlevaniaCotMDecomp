@@ -20,13 +20,13 @@ s32 sub_080B3158(void *arg0) {
     return 1;
 }
 
-extern void sub_080C2E68(void *, void *, u32);
+extern void copyBytes(void *, void *, u32);
 
 void sub_080B31C8(void) {
     *(s32 *)0x020230EC = 0; /* placeholder? */
     /* use struct for 0x125C offset */
     *(u32 *)((u8 *)0x02021E90 + 0x125C) = 0;
-    sub_080C2E68((u8 *)0x02021E90 + 0x12B4, (void *)0x0810294C, 0x40);
+    copyBytes((u8 *)0x02021E90 + 0x12B4, (void *)0x0810294C, 0x40);
 }
 
 extern void sub_08097DF8(void *);

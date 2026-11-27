@@ -1,5 +1,5 @@
 s32 sub_080BE58C(void *, s32);
-s32 sub_080BE8C8(s32);
+s32 setEffectPartState(s32);
 s32 sub_080BE8D0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -22,7 +22,7 @@ void sub_080BA204(void *arg0) {
     sub_080BE8D0(*(s32 *)((u8 *)effectState + 0x34), *(s32 *)((u8 *)effectState + 0x40));
     if (*(s32 *)((u8 *)effectState + 0x40) == 0) {
         *(s8 *)((u8 *)sprite + 0x34) = 1;
-        sub_080BE8C8(*(s32 *)((u8 *)effectState + 0x34));
+        setEffectPartState(*(s32 *)((u8 *)effectState + 0x34));
         i = 0;
         do {
             sub_080BE58C(arg0, 0);

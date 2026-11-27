@@ -14,7 +14,7 @@ extern struct { u8 _0[0x2C]; u16 f2C; } D_080D00EC;
 extern vu32 D_040000D4[];
 extern u8 D_0865FDF4[];
 extern u8 D_0865E2F4[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 void sub_0805EC3C(struct Arg5EC3C *arg0)
 {
     u8 *__base_D_0865E2F4;
@@ -86,7 +86,7 @@ cont:
     *(u16 *)obj |= (u16)(w & 0xF000);
     arg0->f2 |= 0x1000;
     *(u8 *)((u8 *)arg0 + arg0->f22 * 2 + 0x19) = zero;
-    fp = gScriptStepCallbackTable;
+    fp = gMainObjTimerCallbacks;
     __base_D_0865E2F4 = (u8 *)arg0 + 0x18;
     sub_080C31E4(__base_D_0865E2F4, &arg0->f22, *fp);
     *(u8 *)((u8 *)arg0 + arg0->f22 * 2 + 0x19) += 1;

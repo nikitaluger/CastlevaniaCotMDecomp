@@ -8,7 +8,7 @@ extern s32 moveEntityWithCollision(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 gBoundedAttackStepTable[];
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 
 /* Despawn a scripted attack when it leaves the active camera rectangle, tick
  * its step timer and hit/visibility flags, dispatch one script command from
@@ -67,7 +67,7 @@ void updateBoundedScriptedAttack(u8 *script) {
         currentStep = (u8 *)((s32)stepOffset + (s32)script);
         if (*(u8 *)(currentStep + 0x1A) != 1) {
             *(u8 *)(currentStep + 0x1B) = 0;
-            eventCallbacks = &sScriptStepCallbacks;
+            eventCallbacks = &gScriptEventCallbacks;
             _call_via_r3(scriptBase, script + SCRIPT_STEP_INDEX_OFFSET, 1, *eventCallbacks);
         }
     }

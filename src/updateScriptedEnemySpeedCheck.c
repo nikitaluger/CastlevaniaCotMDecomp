@@ -11,7 +11,7 @@ void _call_via_r3(void *, void *, s32, s32);
 void sub_08011460(void *, void *, s32);
 void sub_08011EE8(void *, s32, s32);
 void sub_08013C8C(void *, void *);
-extern u32 sScriptStepCallbacks;
+extern u32 gScriptEventCallbacks;
 struct ContactStatus { u8 pad[0x14]; u16 status; };
 struct WorkFlags { u16 flags; };
 

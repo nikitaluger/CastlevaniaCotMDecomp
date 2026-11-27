@@ -11,7 +11,7 @@ extern void advanceMotion(void *, s32);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 struct R8 { u16 f0; u16 f2; u8 _4[6]; s16 oneShot; };
 struct S_02025FF0 { u8 _0[0x18BC]; u16 counter; };
 extern struct S_02025FF0 gMainWorkspace;

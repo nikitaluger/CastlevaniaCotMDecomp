@@ -5,7 +5,7 @@ extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
 extern u8 D_08506368[];
 extern u8 D_08506434[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 struct P38 { u8 _0[2]; u16 f2; u8 _4[0x20]; u32 f24; };
 
@@ -32,7 +32,7 @@ void sub_0808A134(void *arg0)
   sub_0806D588(fx, childData);
   *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
   {
-    u32 *msgPtr = &gScriptStepCallbackTable;
+    u32 *msgPtr = &gMainObjTimerCallbacks;
     u8 *step = self + 0x18;
     sub_080C31E4(step, self + 0x22, *msgPtr);
     {

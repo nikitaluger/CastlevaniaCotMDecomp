@@ -10,7 +10,7 @@ struct SpawnedObj { u16 flags; u16 flags2; u8 _04[0x10]; u32 worldX; u32 worldY;
 struct GameState { u8 _0[0x18a8]; u8 scrollIndex; u8 _a9[0x19]; u16 flags; };
 extern struct GameState gMainWorkspace;
 extern u8 gCameraState[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 void *allocSpriteObject(void);
 void allocWorkSlot(void *, int, int, int);
 void initSpriteGraphics(void *, void *, void *);
@@ -62,7 +62,7 @@ bad:
     }
     *(u16 *)((u8 *)arg0 + 2) |= 0x1000;
     *(u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0 + 0x19) = 0;
-    cmdTable = &gScriptStepCallbackTable;
+    cmdTable = &gMainObjTimerCallbacks;
     scriptPtr = (u8 *)arg0;
     scriptPtr += 0x18;
     sub_080C31E4(scriptPtr, (u8 *)arg0 + 0x22, (s32)*cmdTable);

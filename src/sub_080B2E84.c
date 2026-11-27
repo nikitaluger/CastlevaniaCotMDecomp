@@ -4,7 +4,7 @@
 extern void sub_08005E80(u16);
 extern void sub_08011528(void *, void *);
 extern void _call_via_r2(void *, void *, s32);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 inline s32 *field0C(u8 *arg0)
 {
   return (s32 *) (arg0 + 0x0C);
@@ -57,7 +57,7 @@ void sub_080B2E84(void *arg0)
         *((u8 *) ((entity + (animIndex[0x11] * 2)) + 0x19)) = zero;
       }
       {
-        s32 *animScript = &gScriptStepCallbackTable;
+        s32 *animScript = &gMainObjTimerCallbacks;
         _call_via_r2(entity + 0x18, entity + 0x22, *animScript);
       }
     }

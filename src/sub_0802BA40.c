@@ -22,7 +22,7 @@ void sub_0802BA40(void *arg0, void *arg1, s32 arg2) {
 
 extern u16 D_080CE974[];
 
-void sub_0802A7A4(void *arg0, void *arg1) {
+void copyFormSpriteOffsets(void *arg0, void *arg1) {
     u16 *r4 = D_080CE974;
     if ((u32)(u16)((u16)((u16 *)arg0)[0x14] - 0x1E) <= 4U) {
         u8 *p = *(u8 **)((s8 *)arg1 + 0x28);
@@ -38,13 +38,13 @@ void sub_0802A7A4(void *arg0, void *arg1) {
 }
 
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void sub_0802A6CC(void *arg0) {
     void *r4 = *(void **)((s8 *)arg0 + 0x3C);
     setAnimationFrame(*(s32 *)((s8 *)arg0 + 0x38), (s8 *)r4 + 0x34, 5, 0);
     if (2 & *(u8 *)((s8 *)r4 + 0x34)) {
         *(u8 *)((s8 *)arg0 + (s32)(s16)((u16 *)arg0)[0x11] * 2 + 0x19) = 0;
-        sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, gScriptStepCallbackTable);
+        sub_080C31E4((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, gMainObjTimerCallbacks);
     }
 }

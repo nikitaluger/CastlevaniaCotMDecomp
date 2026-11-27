@@ -13,7 +13,7 @@ struct S_02025FF0
   u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 struct S_Obj
 {
   u8 _0[2];
@@ -107,7 +107,7 @@ void sub_080A9A38(struct S_Obj *entity)
   stepWords = (u16 *) entity;
   ((u8 *) (&stepWords[stepIndex]))[0x19] = 0;
   {
-    u32 *pbb0 = &gScriptStepCallbackTable;
+    u32 *pbb0 = &gMainObjTimerCallbacks;
     stepBase = ((u8 *) entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *) entity) + 0x22, *pbb0);
   }

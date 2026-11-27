@@ -17,7 +17,7 @@ void sub_08013C8C(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 gProjectileStepTable[];
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 
 /* Updates a projectile/weapon entity: runs the hit and damage responses for its
  * owner and sub-object, dispatches a slot callback, then copies the owner's
@@ -65,7 +65,7 @@ void updateScriptedProjectileHit(u8 *self) {
             sub_08018410(self);
             updateActorWorldPosition(self);
             *(u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self + 0x1B) = 0;
-            callbackArg = sScriptStepCallbacks;
+            callbackArg = gScriptEventCallbacks;
             sub_080C31E8(self + 0x18, self + 0x22, 9, *callbackArg);
         }
     }

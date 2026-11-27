@@ -1,4 +1,4 @@
-extern s8 sub_080988DC(void *p);
+extern s8 spawnSceneObjectTableEntries(void *p);
 
 /* Start a script sequence: select the entry list for the given script index,
  * store the initial indices and parameter, then run the entry walker and save
@@ -18,5 +18,5 @@ void sub_08098684(void *obj, u8 script, s8 param)
     *cursor = (u8)param;
     *((s32 *)((u8 *)obj + 0x20)) = *((s32 *)(*((s32 *)obj) + (scriptIndex * 4)));
     ((u8 *)obj)[0x29] = zero;
-    ((u8 *)obj)[0x28] = (u8)sub_080988DC(obj);
+    ((u8 *)obj)[0x28] = (u8)spawnSceneObjectTableEntries(obj);
 }

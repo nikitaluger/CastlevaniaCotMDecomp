@@ -1,10 +1,10 @@
 extern void sub_080BE578(void);
-extern void sub_080BB8AC(void *);
-extern void sub_080BE550(s32, s32, void *);
-extern void sub_080BE564(s32, s32);
+extern void clearAttachedObjectAnimFlags(void *);
+extern void setAttachedObjectMode(s32, s32, void *);
+extern void setObjectModeWord(s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Actor script step: reset the actor and its linked work state, load the
  * resource at 0x08440AA8, clear the work's pointer flags, configure two
@@ -27,12 +27,12 @@ void sub_080BA17C(void *arg0)
 
     sub_080BE578();
     *(s32 *)(work + 0x40) = 0x10000;
-    sub_080BB8AC(work);
-    sub_080BE550(*(s32 *)(work + 0x20), 2, body);
-    sub_080BE564(*(s32 *)(work + 0x1C), 1);
+    clearAttachedObjectAnimFlags(work);
+    setAttachedObjectMode(*(s32 *)(work + 0x20), 2, body);
+    setObjectModeWord(*(s32 *)(work + 0x1C), 1);
 
     *(s8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (s8)zero;
-    scriptTable = &gScriptStepCallbackTable;
+    scriptTable = &gMainObjTimerCallbacks;
     stepData = self + 0x18;
     sub_080C31E4(stepData, self + 0x22, *scriptTable);
 

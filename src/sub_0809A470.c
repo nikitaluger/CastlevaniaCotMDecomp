@@ -1,4 +1,4 @@
-extern void sub_080C2E68(void *, s32, s32);
+extern void copyBytes(void *, s32, s32);
 extern void sub_08011528(s32, void *);
 extern void sub_0809C4E0(s32, s32);
 extern s32 sub_080057F8(void);
@@ -23,7 +23,7 @@ void sub_0809A470(u8 *obj) {
     u16 tableCode;
     s32 *callbackEntry;
 
-    sub_080C2E68(pairs, 0x081017C5, 6);
+    copyBytes(pairs, 0x081017C5, 6);
     sub_08011528(animSetId, frame);
     ptrTable = (void **)((struct FrameState *)frame)->ptrTable;
     frameIndex = ((struct FrameState *)frame)->frameIndex + ((struct FrameState *)frame)->indexOffset;

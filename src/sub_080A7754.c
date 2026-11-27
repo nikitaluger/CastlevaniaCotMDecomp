@@ -1,5 +1,5 @@
-extern s32 sub_080A845C(void *, void *);
-extern void sub_080A8940(s32, void *);
+extern s32 refreshMotionTrail(void *, void *);
+extern void decelerateTargetX(s32, void *);
 extern s32 sub_080C31E0(s32, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
 /* Behaviour callback: advance the owner's animation frame, set its tracking offsets
@@ -37,8 +37,8 @@ void sub_080A7754(void *behav)
   {
     *((u8 *)(((u8 *)owner) + 0xEE)) = 2;
   }
-  sub_080A8940((s32)target, ownerData);
-  sub_080A845C(self, ownerData);
+  decelerateTargetX((s32)target, ownerData);
+  refreshMotionTrail(self, ownerData);
   if ((*((s32 *)(ownerData + 0xEC))) > 0x4B)
   {
     flag = ownerData + 0xA7;

@@ -15,7 +15,7 @@ struct ScriptedSpriteWorkspace {
 extern struct ScriptedSpriteWorkspace gMainWorkspace;
 extern u8 gCameraState[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* State block allocated at entity+0x3C. */
 struct SpawnedEntityState {
@@ -31,7 +31,7 @@ struct SpawnedEntityState {
 
 /* Spawn the sprite and work state for one scripted entity, seed its animation
  * and camera-relative screen position, clear its current script-step action
- * byte, then re-dispatch the script through gScriptStepCallbackTable. */
+ * byte, then re-dispatch the script through gMainObjTimerCallbacks. */
 void spawnScriptedEntitySprite(u8 *entity) {
     u8 *sprite = allocSpriteObject();
     struct SpawnedEntityState *state;
@@ -74,6 +74,6 @@ main:
     setAnimationFrame(sprite, animState, 7, 0);
     *(u16 *)(entity + 2) |= 0x1000;
     *(u8 *)(entity + (s16)*(s16 *)(entity + 0x22) * 2 + 0x19) = 0;
-    callbackSlot = &gScriptStepCallbackTable;
+    callbackSlot = &gMainObjTimerCallbacks;
     _call_via_r2(entity + 0x18, entity + 0x22, *callbackSlot);
 }

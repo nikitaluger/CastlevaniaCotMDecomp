@@ -8,7 +8,7 @@ extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 
 /* Runs an enemy object's AI step: updates its sprite and collision state,
  * handles player interaction and child objects, and fires a slot-indexed
@@ -31,7 +31,7 @@ void sub_0803BE00(u8 *object) {
                 u8 *slot = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
                 u8 zero = 0;
                 *(u8 *)(slot + 0x1B) = zero;
-                { void **callback = &sScriptStepCallbacks;
+                { void **callback = &gScriptEventCallbacks;
                   sub_080C31E8(object + 0x18, object + 0x22, 5, *callback); }
             }
         }

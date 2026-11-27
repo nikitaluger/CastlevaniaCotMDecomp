@@ -6,7 +6,7 @@ struct S_02025FF0_AC { u8 _0[0x18A8]; u8 idx; u8 _1[0x13]; u16 f; };
 extern struct S_02025FF0_AC gMainWorkspace;
 struct S_02021E90_AC { u8 _0[0x1278]; struct Rec64 recs[1]; };
 extern struct S_02021E90_AC gCameraState;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080B0934(s32, s32);

@@ -78,7 +78,7 @@ extern u8 gMainWorkspace[];
 extern u8 gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 D_080CEE08[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 void sub_08034E2C(struct Big *arg0)
 {
   struct Unk6 *p6;
@@ -200,7 +200,7 @@ void sub_08034E2C(struct Big *arg0)
   zero = 0;
   U16(arg0, 0x02) = 0x1000 | U16(arg0, 0x02);
   U8(arg0, 0x19 + (((s16) U16(arg0, 0x22)) * 2)) = zero;
-  gp = &gScriptStepCallbackTable;
+  gp = &gMainObjTimerCallbacks;
   entries = ((u8 *) arg0) + 0x18;
   sub_080C31E4(entries, (s16 *) (((u8 *) arg0) + 0x22), *gp);
   U8(arg0, 0x19 + (((s16) U16(arg0, 0x22)) * 2)) = U8(arg0, 0x19 + (((s16) U16(arg0, 0x22)) * 2)) + 1;

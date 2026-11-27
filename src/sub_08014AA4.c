@@ -1,6 +1,6 @@
 extern u16 gFixedEffectLayerAttrs[];
 s32 getSpriteFacingSign(void);
-s32 sub_080059DC(s32, s32);
+s32 fixedPointDistance(s32, s32);
 void sub_080146D0(void *, s32, s32);
 
 void sub_08019ED4(void *arg0, void *arg1) {
@@ -63,7 +63,7 @@ s32 sub_08014A6C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 tmp;
     s32 v;
     s32 lim;
-    tmp = sub_080059DC(*(s32 *)((u8 *)arg0 + 0x10), *(s32 *)((u8 *)arg0 + 0x14));
+    tmp = fixedPointDistance(*(s32 *)((u8 *)arg0 + 0x10), *(s32 *)((u8 *)arg0 + 0x14));
     v = tmp - arg2;
     lim = arg3;
     if (v <= lim) {

@@ -23,8 +23,8 @@ struct HomingEntity {
   struct HomingMotion *motion;
 };
 extern struct HomingGamePos gMainWorkspace;
-extern s32 gTrigFuncPtr;
-extern s32 gScriptStepCallbackTable;
+extern s32 gTrigFuncTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Steers a homing entity toward the target, advances its motion and facing,
  * then stops it and fires a callback once its state byte reaches 0x5A. */
@@ -43,7 +43,7 @@ void sub_0804874C(struct HomingEntity *entity)
   motion = entity->motion;
   collisionData = (s32)((u8 *)motion + 0x34);
   steer = (struct HomingSteer *)((u8 *)motion + 0x48);
-  trigFn = &gTrigFuncPtr;
+  trigFn = &gTrigFuncTable;
   deltaX = gMainWorkspace.targetX + ((sub_080C31E0(steer->phase + 0x4000, *trigFn) >> 8) << 14);
   deltaY = (gMainWorkspace.targetY + ((sub_080C31E0(steer->phase, *trigFn) >> 8) << 14)) - motion->y;
   deltaX -= motion->x;
@@ -65,7 +65,7 @@ void sub_0804874C(struct HomingEntity *entity)
     sub_080146D0(motion, steer->angle, 0);
     ((struct HomingState *)((u8 *)entity + entity->stateIndex * 2))->state = zero;
     {
-      s32 *callback = &gScriptStepCallbackTable;
+      s32 *callback = &gMainObjTimerCallbacks;
       sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callback);
     }
   }

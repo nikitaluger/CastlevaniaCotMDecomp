@@ -20,7 +20,7 @@ struct S_02025FF0 { u8 _0[0x18A8]; u8 f18A8; u8 _18A9[0x19]; u16 f18C2; };
 extern struct S_02025FF0 gMainWorkspace;
 extern u8 gCameraState[];
 extern s16 gEntityDefinitionAnimFrames[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void*, s32, s32, s32);
 extern void initSpriteGraphics(void*, void*, void*);
@@ -91,7 +91,7 @@ body:
     }
     entity->flags = (u16)(entity->flags | 0x1000);
     *(u8*)((u8*)entity + 0x19 + 2*entity->childIndex) = 0;
-    lit = gScriptStepCallbackTable;
+    lit = gMainObjTimerCallbacks;
     work = (u8*)entity + 0x18;
     sub_080C31E4(work, &entity->childIndex, *lit);
     *(u8*)((u8*)entity + 0x19 + 2*entity->childIndex) = (u8)(*(u8*)((u8*)entity + 0x19 + 2*entity->childIndex) + 1);

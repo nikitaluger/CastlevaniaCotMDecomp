@@ -10,7 +10,7 @@ extern struct S_02025FF0 gMainWorkspace;
 extern u8 gCameraState[];
 extern u8 D_081008BC[];
 extern s16 D_081008C8[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void*, s32, s32, s32);
 extern void initSpriteGraphics(void*, void*, void*);
@@ -98,7 +98,7 @@ body:
     arg0->f2 = (u16)(arg0->f2 | 0x1000);
     *(u8 *)((u8 *)arg0 + 0x19 + 2 * arg0->f22) = 0;
     {
-        s32 *fp = gScriptStepCallbackTable;
+        s32 *fp = gMainObjTimerCallbacks;
         u8 *q = (u8 *)arg0 + 0x18;
         sub_080C31E4(q, &arg0->f22, fp[0]);
         *(u8 *)((u8 *)arg0 + 0x19 + 2 * arg0->f22) = (u8)(*(u8 *)((u8 *)arg0 + 0x19 + 2 * arg0->f22) + 1);

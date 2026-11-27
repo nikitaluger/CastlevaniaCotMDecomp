@@ -10,7 +10,7 @@ extern s32 checkActorViewBounds(s32, void *);
 extern void uploadPendingSpriteGraphic(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 
 /* Runs one tick of a scripted entity: refreshes its owner/target state, does a
  * one-time action when flagged, then dispatches the current script step. */
@@ -36,7 +36,7 @@ void sub_08028E94(u8 *self) {
                 u8 *q = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
                 u8 zero = 0;
                 *(u8 *)(q + 0x1B) = zero;
-                { void **actionTable = &sScriptStepCallbacks;
+                { void **actionTable = &gScriptEventCallbacks;
                   sub_080C31E8(self + 0x18, self + 0x22, 2, *actionTable); }
             }
         }

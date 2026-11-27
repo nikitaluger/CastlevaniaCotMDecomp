@@ -10,7 +10,7 @@ extern void _call_via_r2(void *, void *, s32);
 extern u8 gGameStatus[];
 extern u32 D_084DE7BC;
 extern u32 D_084DE884;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Work state reached through the entity's +0x6C pointer (plus four bytes):
  * +0x2C is the spawned render part and is reloaded on every access. */
@@ -84,7 +84,7 @@ void spawnActorChildEffectWithSound(u8 *entity) {
     playSound(0x14B);
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *callbackSlot = &gScriptStepCallbackTable;
+        s32 *callbackSlot = &gMainObjTimerCallbacks;
         u8 *ctrlBase = entity + 0x18;
         _call_via_r2(ctrlBase, entity + 0x22, *callbackSlot);
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) + 1;

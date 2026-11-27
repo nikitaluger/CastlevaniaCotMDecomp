@@ -2,7 +2,7 @@ extern void sub_080C31E0(void *, s32);
 extern void sub_08011528(s32, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void setObjectAnimation(s32, void *, s32, s32);
-extern void sub_08098664(s32, s32, s32);
+extern void startScriptOnce(s32, s32, s32);
 struct S_02025FF0_1870 { u8 _0[0x1870]; u32 p; };
 extern struct S_02025FF0_1870 gMainWorkspace;
 
@@ -53,7 +53,7 @@ void sub_080B12C0(void *arg0) {
     u8 *self = (u8 *)arg0;
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x1E) {
         s32 *lit;
-        sub_08098664(*(s32 *)(self + 0x4C), 1, 1);
+        startScriptOnce(*(s32 *)(self + 0x4C), 1, 1);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x17) = 0;
         lit = (s32 *)0x08671BD8;
         sub_080C31E8(self + 0x18, self + 0x22, 2, *lit);

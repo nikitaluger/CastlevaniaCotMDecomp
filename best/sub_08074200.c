@@ -11,7 +11,7 @@ extern void startEffectTimer(void *, s32, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void releaseActorEffectParts(void);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 struct E { u8 _0, f1, f2, f3; u16 f4, f6, f8, fA, fC, fE; u8 _10[6]; u16 f16, f18; };
 struct Q { s32 f0, f4, f8, fC; u8 _10[8]; void *f18; u8 _1C[0x10]; struct E *f2C; s32 f30, f34, f38, f3C; };
 static inline u8 and1(u8 b){ u32 m = 1; m &= b; return (u8)m; }

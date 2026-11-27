@@ -2,7 +2,7 @@ extern void stepAnimationTrack(s32, s32);
 extern void setAnimationFrame(s32, s32, s32, s32);
 extern s32 scaleByRandom(s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 
 /* Effect update: advances the sprite animation, and when the sprite reaches
  * state 13 applies gravity, switches it to animation 0x11 and gives it a random

@@ -11,7 +11,7 @@ extern u8 gMainWorkspace[];
 extern u32 D_0202771C;
 extern u8 D_084DFB30[];
 extern u8 D_084DFBC0[];
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 inline u8 inline_fn()
 {
   return gMainWorkspace[0x14EF];
@@ -90,7 +90,7 @@ inline u8 inline_fn()
     u32 *scriptTableArg;
     scriptIdx = *((s16 *) (actorPtr + 0x22));
     *((u8 *) ((actorPtr + (scriptIdx * 2)) + 0x19)) = 0;
-    scriptTableArg = gScriptStepCallbackTable;
+    scriptTableArg = gMainObjTimerCallbacks;
     scriptPtr = actorPtr + 0x18;
     sub_080C31E4(scriptPtr, actorPtr + 0x22, (void *) (*scriptTableArg));
     scriptIdx = *((s16 *) (actorPtr + 0x22));

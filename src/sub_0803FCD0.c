@@ -5,7 +5,7 @@ extern s32 sub_08040A1C(s32, s32, s32, s32);
 extern void setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s16 D_080CF474[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* One frame of a scripted projectile: integrate its heading-driven velocity,
  * add gravity, resolve a ground collision, and after a delay play an effect,
@@ -33,7 +33,7 @@ void sub_0803FCD0(void *script) {
             *(s32*)((char*)body+0x0C) += 0x10000;
             *(u8*)((char*)script + *(s16*)((char*)script+0x22)*2 + 0x19) = 0;
             {
-                u32 *pd = &gScriptStepCallbackTable;
+                u32 *pd = &gMainObjTimerCallbacks;
                 sub_080C31E4((char*)script+0x18, (char*)script+0x22, *pd);
             }
         }

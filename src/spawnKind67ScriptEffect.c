@@ -6,7 +6,7 @@ struct EffectGfxEntry { u8 _0[0x04]; u16 gfxIndex; u16 palette; u8 _8[0x1E]; };
 extern struct EffectGfxEntry gEffectGfxTable[];
 extern u16 gScriptEffectAnimDefaults[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u32 gScriptEffectParams[];
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
@@ -85,7 +85,7 @@ ok:
     s16 idx = *(s16 *)(script + 0x22);
     *(u8 *)(script + (u32)idx * 2 + 0x19) = 0;
   }
-  cmdTable = &gScriptStepCallbackTable;
+  cmdTable = &gMainObjTimerCallbacks;
   scriptPc = script + 0x18;
   sub_080C31E4(scriptPc, script + 0x22, *cmdTable);
   {

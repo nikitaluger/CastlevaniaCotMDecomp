@@ -4,7 +4,7 @@ extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0806E6BC(void);
 extern u8 gMainWorkspace[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 void sub_0806E248(void *arg0)
 {
   u8 *r5;

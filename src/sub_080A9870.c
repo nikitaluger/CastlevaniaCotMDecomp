@@ -7,7 +7,7 @@ extern s32 findKindIndex(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void updateActorEffectSubObject(void);
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 struct S_02025FF0 { u8 _[0x18C2]; u16 w; };
 extern struct S_02025FF0 gMainWorkspace;
 
@@ -42,7 +42,7 @@ ok:
     *(u16 *)((u8 *)entity + 2) |= 0x1000;
     *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *handlerTablePtr = &gScriptStepCallbackTable;
+        s32 *handlerTablePtr = &gMainObjTimerCallbacks;
         u8 *stepTable = (u8 *)entity + 0x18;
         s16 stepIndex;
         sub_080C31E4(stepTable, (u8 *)entity + 0x22, *handlerTablePtr);

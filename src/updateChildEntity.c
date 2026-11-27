@@ -7,7 +7,7 @@ void turnHeadingToward(void *, s32, s32, void *);
 void stepDelayTimer(void *, void *);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 struct GameState {
     u8 _0[0x10];
@@ -47,7 +47,7 @@ extern struct GameState gMainWorkspace;
     tmp = 2;
     *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = check;
     {
-      void **animFn = &gScriptStepCallbackTable;
+      void **animFn = &gMainObjTimerCallbacks;
       u8 *slots = self + 0x18;
       sub_080C31E4(slots, self + 0x22, *animFn);
       {
@@ -71,7 +71,7 @@ extern struct GameState gMainWorkspace;
   {
     *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = remaining;
     {
-      void **animFn = &gScriptStepCallbackTable;
+      void **animFn = &gMainObjTimerCallbacks;
       u8 *slots = self + 0x18;
       sub_080C31E4(slots, self + 0x22, *animFn);
       {

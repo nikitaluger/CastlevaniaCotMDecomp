@@ -27,7 +27,7 @@ struct S_02025368 {
 };
 extern struct S_02025368 gGameStatus;
 
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern u32 gLevelExpTable[];
 
 /* Set the global 0x08000000 flag, clear the entity's current script-step
@@ -37,7 +37,7 @@ void sub_08071E9C(void *entity)
     gMainWorkspace.f1844 |= 0x08000000;
     *(u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2 + 0x19) = 0;
     {
-        s32 *advanceCb = gScriptStepCallbackTable;
+        s32 *advanceCb = gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *advanceCb);
     }
 }

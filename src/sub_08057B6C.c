@@ -1,6 +1,6 @@
 s32 copyPoseAttrs(void *, void *);
 s32 sub_080C31E0(s32, void *);
-extern void *gTrigFuncPtr;
+extern void *gTrigFuncTable;
 extern u8 gPairedEffectLayerAttrs[];
 
 struct B { u8 pad[8]; u16 angle; };
@@ -21,7 +21,7 @@ void sub_08057B6C(void *target, void *state, void *work, void *params)
     ((struct B *)state)->angle = (u16)paramsWords[3];
     if (*(u8 *)paramsWords != 0)
     {
-        trigTable = &gTrigFuncPtr;
+        trigTable = &gTrigFuncTable;
         workWords[2] = paramsWords[1] - (sub_080C31E0(paramsWords[3] + 0x4000, *trigTable) << 4);
         workWords[3] = paramsWords[2] + (sub_080C31E0(paramsWords[3], *trigTable) << 4);
     }

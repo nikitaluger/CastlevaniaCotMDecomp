@@ -4,7 +4,7 @@ extern void moveEntityWithCollision(void *, s32);
 extern void sub_08014848(s32, s32, s32, s32, s32, s32);
 extern void sub_0808BB54(void);
 extern void sub_0808E61C(s32, s32, s32, s32);
-extern void sub_080C2E68(void *, void *, s32);
+extern void copyBytes(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 extern u8 gCrossfadeGfxState[];
 extern u8 gMainWorkspace[];
@@ -33,7 +33,7 @@ void sub_0809919C(void *entity)
   motion = *((void **) (((u8 *) entity) + 0x3C));
   motionState = ((u8 *) motion) + 0x48;
   controlWord = 0x3F40;
-  sub_080C2E68(particleTypes, (void *) 0x081017B4, 0x11);
+  copyBytes(particleTypes, (void *) 0x081017B4, 0x11);
   moveEntityWithCollision(motion, 0x2D82);
   if (!(2 & (*((((u8 *) entity) + ((*((s16 *) (((u8 *) entity) + 0x22))) * 2)) + 0x19))))
   {

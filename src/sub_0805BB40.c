@@ -5,7 +5,7 @@ void sub_080C31E4(void *, void *, void *);
 
 extern u8 gMainWorkspace[];
 extern s32 D_080CFE04[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Entity update: when the animation state at work+0x34 has its bit-2 flag set,
  * refresh it to frame 5 and steer toward the position held in the global at
@@ -57,7 +57,7 @@ void sub_0805BB40(void *entity)
         animState2 = *(u8 **)(work + 0x28);
         *(u8 *)(animState2 + 3) = 1;
         *(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x19) = zero;
-        handlers = &gScriptStepCallbackTable;
+        handlers = &gMainObjTimerCallbacks;
         sub_080C31E4(obj + 0x18, obj + 0x22, *handlers);
     }
 }

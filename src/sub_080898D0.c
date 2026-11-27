@@ -4,7 +4,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 /* Starts the effect: reserve slot 3, allocate the graphics object, initialise
  * its fields, then run the setup callback and dispatch the first callback.

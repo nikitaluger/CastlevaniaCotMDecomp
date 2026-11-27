@@ -13,7 +13,7 @@ extern s32 sub_080C31E0(s32, void *);
 extern s32 sub_0800583C(s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
 
-extern void *gTrigFuncPtr;
+extern void *gTrigFuncTable;
 
 /* When the entity is near the target point, aim it (with a little random
  * spread) toward that point and start its movement toward it. */
@@ -35,7 +35,7 @@ void sub_0805C814(void *script)
         struct S_02025FF0 *p = &gMainWorkspace;
         s32 angle = sub_08005910(p->targetY - *(s32 *)((u8 *)body + 0x0C),
                                   p->targetX - *(s32 *)((u8 *)body + 0x08));
-        void **fpPtr = &gTrigFuncPtr;
+        void **fpPtr = &gTrigFuncTable;
 
         *(s32 *)((u8 *)body + 0x48) += sub_080C31E0(angle + 0x4000, *fpPtr) * 8;
         *(s32 *)((u8 *)extra + 0x04) += sub_080C31E0(angle, *fpPtr) * 8;

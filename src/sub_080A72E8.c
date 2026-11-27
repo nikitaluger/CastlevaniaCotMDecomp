@@ -1,5 +1,5 @@
 typedef s32 M2C_UNK;
-M2C_UNK sub_080A845C(void *, s32);
+M2C_UNK refreshMotionTrail(void *, s32);
 s32 sub_080C31E0(s32, s32);
 M2C_UNK sub_080C31E4(void *, void *, s32);
 
@@ -28,7 +28,7 @@ void sub_080A72E8(void *entity)
   radiusHigh = radius >> 0x10;
   *((s32 *) (((s8 *) state) + 0xFC)) = (s32) (((s32) (sub_080C31E0(angle + 0xFFFFF800, *sinFunc) * radiusHigh)) >> 8);
   *((s32 *) (((s8 *) state) + 0x100)) = (s32) (((s32) (sub_080C31E0(angleOffset, *sinFunc) * radiusHigh)) >> 8);
-  sub_080A845C(entity, ctrl);
+  refreshMotionTrail(entity, ctrl);
   if ((*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) entity) + 0x22))) * 2) + entity)) + 0x19))) == 0x10)
   {
     *((s32 *) (((s8 *) state) + 0x144)) = (s32) (((*((s32 *) (((s8 *) state) + 0x144))) + 0x8000) & 0xFFFF0000);

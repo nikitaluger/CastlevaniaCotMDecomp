@@ -3,7 +3,7 @@
 extern void releaseActorEffectParts(void);
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r2(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern u8 gMainWorkspace[];
 
 void sub_0807FC30(u8 *arg0)
@@ -42,7 +42,7 @@ void sub_0807FC30(u8 *arg0)
     index = *(s16 *)(arg0 + 0x22);
     *(u8 *)(arg0 + index * 2 + 0x19) = 0;
 
-    callbackPtr = &gScriptStepCallbackTable;
+    callbackPtr = &gMainObjTimerCallbacks;
     args = arg0 + 0x18;
     _call_via_r2(args, arg0 + 0x22, *callbackPtr);
 

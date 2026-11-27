@@ -26,7 +26,7 @@ void sub_080A37F0(void *entity)
   s32 posX;
   s32 sinY;
   s32 posY;
-  extern s32 gTrigFuncPtr;
+  extern s32 gTrigFuncTable;
   extern s32 gScriptStepCallbacks;
   targetObj = *((void **) (((u8 *) entity) + 0x38));
   state = *((void **) (((u8 *) entity) + 0x3C));
@@ -73,7 +73,7 @@ void sub_080A37F0(void *entity)
     spawn:
     *((s32 *) ((u8 *) inline_fn(slotArray, (s32) (slot * 4)))) = 1;
 
-    sinFunc = (void *) (&gTrigFuncPtr);
+    sinFunc = (void *) (&gTrigFuncTable);
     angle = slot << 12;
     sinX = _call_via_r1(angle + 0x4000, *((s32 *) sinFunc)) >> 8;
     posX = (*((s32 *) (((u8 *) state) + 0x08))) + (sinX * 0x3000);

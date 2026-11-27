@@ -3,8 +3,8 @@
 extern s32 sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 
-extern u32 gTrigFuncPtr;
-extern u32 gScriptStepCallbackTable;
+extern u32 gTrigFuncTable;
+extern u32 gMainObjTimerCallbacks;
 
 void sub_0809EEC0(void *arg0)
 {
@@ -15,7 +15,7 @@ void sub_0809EEC0(void *arg0)
     u32 *sinFn;
 
     child[1] = zero;
-    sinFn = &gTrigFuncPtr;
+    sinFn = &gTrigFuncTable;
 
     {
         s32 sine = sub_080C31E0((void *)(*(s32 *)(object + 0x7C) + 0x4000), (void *)*sinFn);
@@ -31,7 +31,7 @@ void sub_0809EEC0(void *arg0)
     *(object + *(s16 *)(object + 0x22) * 2 + 0x19) = 0;
 
     {
-        u32 *behaviorFn = &gScriptStepCallbackTable;
+        u32 *behaviorFn = &gMainObjTimerCallbacks;
         u8 *args = object + 0x18;
         sub_080C31E4(args, object + 0x22, (void *)*behaviorFn);
         {

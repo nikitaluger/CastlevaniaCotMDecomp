@@ -10,7 +10,7 @@ extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E958[];
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 
 void sub_0805CCFC(u8 *script) {
     u8 *attacker;
@@ -39,7 +39,7 @@ void sub_0805CCFC(u8 *script) {
             *(u8 *)(*(u8 **)(attack + 0x0C) + 1) = 0;
             sub_08005E80(0x6E);
             *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x1B) = 0;
-            cmdTableAddr = &sScriptStepCallbacks;
+            cmdTableAddr = &gScriptEventCallbacks;
             sub_080C31E8(scriptPc, script + 0x22, 1, *cmdTableAddr);
         }
     }

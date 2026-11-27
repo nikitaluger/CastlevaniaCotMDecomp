@@ -5,9 +5,9 @@ extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
-extern u8 D_084DB5E8[];
+extern u8 gScaledDirectionChildAnimTable[];
 extern u8 D_084DB788[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 struct EffectPart {
   u8 _0;
@@ -103,14 +103,14 @@ void sub_0807AAE8(struct EffectOwner *self)
   effectState->f2C->f10 = mainObj;
   effectState->f18 = self->f24;
   self->f24 = (void *)0x0808449D;
-  ((struct EffectPart *)mainObj)->f24 = (void *)D_084DB5E8;
+  ((struct EffectPart *)mainObj)->f24 = (void *)gScaledDirectionChildAnimTable;
   sub_08003A6C((u8 *)effectObj + 0x20, 0, (s32)D_084DB788);
   ((struct EffectGraphic *)effectObj)->f4 = self->f7C;
   effectState->f4 = self->f8C;
   effectState->f10 = self->f9C;
   ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19 = zero;
   {
-    s32 *cueTable = &gScriptStepCallbackTable;
+    s32 *cueTable = &gMainObjTimerCallbacks;
     u8 *scriptPtr = (u8 *)self + 0x18;
     sub_080C31E4(scriptPtr, (u8 *)self + 0x22, *cueTable);
     ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19++;

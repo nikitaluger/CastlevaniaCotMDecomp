@@ -5,7 +5,7 @@ extern s32 checkActorViewBounds(s32, void *);
 extern s32 hitTestEntities(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 sScriptStepCallbacks;
+extern s32 gScriptEventCallbacks;
 typedef struct
 {
   u16 flags;
@@ -50,7 +50,7 @@ void sub_08051B0C(ScriptObj *self)
     *(((u8 *) actor->contact) + 1) = 0;
     *((((u8 *) self) + (((s32) self->stepIndex) * 2)) + 0x1B) = 0;
     {
-      s32 *fnaddr = &sScriptStepCallbacks;
+      s32 *fnaddr = &gScriptEventCallbacks;
       sub_080C31E8(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, 1, *fnaddr);
     }
   }

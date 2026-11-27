@@ -2,7 +2,7 @@ void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 s32 sub_08023F34(s32, s32, s32);
 void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Enter the next state of this object: give it its state-handler table, bump
  * the state index and that index's counter, then dispatch to the handler. */
@@ -54,7 +54,7 @@ void sub_08023A7C(void *arg0) {
     }
     *(u16 *)(state + 2) = 9;
     *((u8 *)(obj + (*(s16 *)(obj + 0x22)) * 2) + 0x19) = 0;
-    sub_080C31E4(obj + 0x18, obj + 0x22, gScriptStepCallbackTable);
+    sub_080C31E4(obj + 0x18, obj + 0x22, gMainObjTimerCallbacks);
 }
 
 /* Leave this state: clear the busy flags on both animations and, when the

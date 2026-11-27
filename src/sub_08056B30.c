@@ -1,4 +1,4 @@
-extern void sub_08056BB8(void *anim, u8 minDelay, u8 maxDelay);
+extern void randomizeAnimationDelay(void *anim, u8 minDelay, u8 maxDelay);
 
 struct S_8056B58 {
     u8 frame;
@@ -15,5 +15,5 @@ void sub_08056B30(struct S_8056B58 *anim, u8 lastFrame, s16 *durations, u8 minDe
     anim->frame = 0xFF;
     anim->lastFrame = lastFrame;
     anim->durations = durations;
-    sub_08056BB8(anim, minDelay, maxDelay);
+    randomizeAnimationDelay(anim, minDelay, maxDelay);
 }

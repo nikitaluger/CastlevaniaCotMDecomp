@@ -1,4 +1,4 @@
-extern void sub_08061FBC(void);
+extern void reloadStatusGraphics(void);
 extern void drawStatusHud(void);
 extern u8 gGameStatus[];
 extern u8 D_02027A00[];
@@ -19,7 +19,7 @@ void sub_08061F38(void)
   register u8 byteZero = zero_b();
   *bannerTimer = halfZero;
   *((u8 *)hud + 0xDA) = byteZero;
-  sub_08061FBC();
+  reloadStatusGraphics();
   drawStatusHud();
   if ((*((u16 *) (stats + 0x94))) == 0x300)
   {

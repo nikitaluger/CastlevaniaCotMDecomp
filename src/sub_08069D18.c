@@ -4,7 +4,7 @@
 void resetActionResultState(void *, s32, s32, s32);
 void sub_0806C6B0(void *, s32, s32, s32);
 void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* The word at 0x14AC selects the current game mode. */
 struct GameMode { u8 _0[0x14AC]; u32 mode; };
@@ -22,7 +22,7 @@ void sub_08069D18(void *arg0)
     if (gMainWorkspace.mode == 5) {
         ((struct ActionSlot *)(self + *(s16 *)(self + 0x22) * 2))->phase = 0;
         {
-            void **scriptCb = &gScriptStepCallbackTable;
+            void **scriptCb = &gMainObjTimerCallbacks;
             u8 *stepBase = self;
             u8 *stepIndex = self;
             stepBase += 0x18;

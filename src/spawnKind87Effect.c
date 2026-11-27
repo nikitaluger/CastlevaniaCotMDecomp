@@ -56,7 +56,7 @@ struct EffectDef { u8 _0[0x08]; u16 gfxIndex; u16 palette; u8 _C[0x28 - 0x0C]; }
 extern struct EffectDef gEffectGfxTable[];
 extern u16 gKind87EffectLayerAttrs[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Spawn a graphics effect from a main object: allocate a free object, build its
    EffectGfx from gEffectGfxTable/gKind87EffectLayerAttrs, and place it at the object's world coords. */

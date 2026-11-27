@@ -1,4 +1,4 @@
-extern s32 gTrigFuncPtr;
+extern s32 gTrigFuncTable;
 extern s32 D_08671BC0;
 
 s32 sub_080C31E0(s32, s32);
@@ -42,7 +42,7 @@ void sub_080BCEBC(struct ScriptEntity *a)
     sprite = a->sprite;
     actor = a->actor;
     tracker = (u32 *)(actor + 0x48);
-    angleFunc = &gTrigFuncPtr;
+    angleFunc = &gTrigFuncTable;
     cosVal = sub_080C31E0(a->angle + 0x4000, *angleFunc);
     sinVal = sub_080C31E0(a->angle, *angleFunc);
 

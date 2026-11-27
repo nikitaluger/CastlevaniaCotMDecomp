@@ -7,15 +7,16 @@ App versions: started on 1.0.11-rr.1 (branch build), upgraded to 1.0.13-rr.1, th
 
 | Metric | Baseline (`c0108aa`) | Now | Delta |
 |---|---:|---:|---:|
-| Matched functions | 3,894 | 3,959 | **+65** |
-| Set aside (`asm`) | 368 | 316 | −52 (phantom deletions, recovered functions matched) |
-| Layout entries | 4,551 | 4,519 | −32 |
+| Matched functions | 3,894 | 3,966 | **+72** |
+| Set aside (`asm`) | 368 | 318 | −50 (phantom deletions, recovered functions matched) |
+| Layout entries | 4,551 | 4,554 | +3 (35 functions added, 32 phantoms deleted) |
 
 A large share of the new matches is directly attributable to the repairs below: 3 boundary cuts, 30+ extent
 extensions, 1 compiler-profile correction, 7 source restorations, six re-point pairs, two jump-table/data
-splits, three recovered 4-byte prologue stubs and ten phantom deletions. The remainder came from
-autopilot/deep-permuter passes and the app's token-free local-source reuse. Many agent notes blamed "terminal
-compiler walls"; the corrected bytes matched within 4–45 attempts.
+splits, three recovered 4-byte prologue stubs, **35 functions recovered from gaps the importer never declared**,
+and twelve phantom deletions. The remainder came from autopilot/deep-permuter passes and the app's token-free
+local-source reuse. Many agent notes blamed "terminal compiler walls"; the corrected bytes matched within
+4–45 attempts.
 
 ## Root cause
 
@@ -123,6 +124,28 @@ misaligned function, so it was deleted rather than re-pointed. It had burned 1,1
 leaf wall"; the real function matched on the first 22 attempts with the three words inside its own extent.
 The same pure-data case was `sub_0803CE96` (12 B, 1,540 attempts, no function referenced the bytes) — deleted.
 
+### Functions the splitter never declared
+
+A literal-pointer / `bl`-target scan over the ROM found gaps containing real code with no function entry at all.
+**35 such functions were added** in four batches (5 pilot, 10, 10, 10). One (`sub_0805A500`, 244 B) matched at
+score 0 after 13 attempts; all were registered as `open` with a symbol, target bytes, a Thumb disassembly and a
+manifest layout entry, with no attempt or note history — the cleanest work in the project.
+
+The high-confidence filter ended up using the app's own machinery rather than a custom heuristic:
+`decompnet.consoles.gba.split.function_at(rom, addr, limit, name)` derives a missed function's extent from its
+prologue, first return and owned literal pool, and **rejected a candidate our heuristic accepted**
+(`0x0801200`). Candidate starts came from pointer/`bl` evidence, then each was checked for: all own literal
+references inside the extent, no literal owned by an existing function inside it, no overlap, and an end at a
+prologue or existing function start. Of 293 raw candidates, 248 passed; custom heuristics without `function_at`
+passed only 2–10. The app's UI "Find missed functions" is N64-only; the GBA implementation lives in the console
+module but is not exposed.
+
+Batches were inserted with the app closed (it holds DB write locks for minutes), a DB + manifest backup per batch,
+`progress._manifest` validation, and a restart afterwards. Each batch was also **prepended to `config["priority"]`
+and the manifest `priority` array** (newest first), so agents worked the fresh functions before anything with a
+history. The operator unmarked entries as soon as each received its first compile. Roughly 227 verified candidates
+remain for future batches.
+
 ## Unresolved
 
 `sub_08012A94` and `sub_08012C44` (twins, both 432 bytes, open, best 200) have all 203 instructions present
@@ -145,7 +168,7 @@ is obsolete, but 1,140 attempts stayed between scores 17,805 and 18,005 and ther
 new agent would need to reconstruct a large function from scratch.
 
 Two set-asides are **genuine not-C cases**, not extent defects. `sub_080BF7C8` (904 B) is `m4aSoundMain`
-(magic `0x68736D53`) with two inline raw ARM opcode blobs entered via `add rX,pc,#4; bx rX`; none of the 3,959
+(magic `0x68736D53`) with two inline raw ARM opcode blobs entered via `add rX,pc,#4; bx rX`; none of the 3,966
 matched sources uses inline asm, while the other m4a functions in the same region match without such blobs.
 `sub_080BFDBE` (610 B) has a hand-crafted split prologue and a `pop {r3}; bx r3` return that agbcc cannot emit;
 agents reached `not_c` after the extent fix. Leave both set aside — unlike the cases above, their verdicts are
@@ -156,8 +179,8 @@ Still open but close: `sub_080121F8` (256 B, best **80**, unclaimed), `sub_08085
 
 ## Tool defects observed (not project-data problems)
 
-Both of the following are defects in the app / repair library, not in any function's saved data. They surfaced as
-"needs attention" flags and cost time before being diagnosed; neither damaged a source or a match.
+The following are defects or constraints in the app / repair library, not in any function's saved data. They
+surfaced as "needs attention" flags, stalls or manual work; none damaged a source or a match.
 
 ### 1. Deep-proposal result key race (`KeyError: 'choices'`)
 
@@ -178,6 +201,29 @@ Resolved locally by changing `index` → `rindex` on that line (original backed 
 (800 and 1,544). A source-side workaround — swapping the `&&` operands — also works, but the library fix covers
 every function with the same shape. This needs the same fix upstream; release 1.0.14-rr.1 reports itself current.
 
+### 3. Project-lock contention stalls the app as the project grows
+
+Repeated hangs (API timeouts, 50–93% CPU, 3.3–7.8 GB RSS, force-kill after 75 s) left **no exception in the log** —
+it simply stopped. The diagnostics show why: 51 `project-lock-diagnostics` warnings, 29 in phase
+**"Comparing saved files"**, with owners holding the project lock 5–16 s inside `progress.py:_sync`
+(`_merge_manifest`, `_hash`, `_reconcile_renames`, match-commit snapshots), and tool calls/autosave waiting ~5 s
+behind them. DB writes waited 2.9–4.1 s behind `progress.py:2762 (_sync)`; `history_summary.py:86 (build)` did
+full scans up to 3.7 s. This is a lock/verification stall, not OOM: the app's own maintenance actions, agents and
+tool calls all queue behind saved-file verification, which gets slower as the layout grows.
+
+Two mitigating settings were applied by the operator: `maintenance_cpu_percent = 50` (was already set) and
+`worker_threads = 4` instead of the automatic 14 (16 cores − 2 reserved). Peak memory fell from ~7.8 GB to
+~3.3 GB, but the app still froze, so thread caps do **not** address this lock contention. Deep-pass concurrency
+(concurrent compiles / functions at a time / threads per function) is a separate set of controls and also needs
+capping before an autopilot/deep-permuter sweep.
+
+More fundamentally, every repair in this document was made **outside the app's supported write path**: GBA has no
+extent adapter (`propose_change` trim/split is MIPS-only), no supported boundary review, no "find missed functions"
+in the UI, and `suggest` refuses profile changes unless already exact. The app then has to reconcile our DB/manifest
+edits on the next sync (drafts moved to `unlisted/`, saved-file reverification), adding to the very lock pressure
+that stalls it. A native GBA extent adapter, missed-function finder and bulk-add/priority path would remove the
+friction; until then, edits must be batched with the app closed, backed up and validated, as described below.
+
 ## Procedure used for an extent repair
 
 1. Confirm the proposed end from **ROM bytes**, not from agent notes (some notes contain typo'd addresses).
@@ -194,8 +240,12 @@ every function with the same shape. This needs the same fix upstream; release 1.
 6. For a re-point case, instead of deleting the neighbour: set its `vram`, `rom_offset`, `size`, `n_insns` and
    `target` from the ROM at the real prologue address, update its symbol and the manifest layout/`set_aside` vram,
    and keep the same end address. Check no other function starts inside the new range.
-7. Let the agents recompile. Do not hand-edit the manifest while the app is running without checking the DB lock;
-   five app hangs during the session required a forced stop/restart (API timeouts, 75–93% CPU, 4–9 GB RSS,
-   DB write lock held for minutes). The DB kept every match; the manifest needed one restart cycle to flush the
-   most recent one. Relaunch with `setsid nohup decomp … &` so the app survives the agent harness's background
-   shell tasks. Routine DB/manifest repairs need no restart at all.
+7. For a missing function, close the app first: find the start via pointer/`bl` evidence, derive the exact extent
+   with `consoles.gba.split.function_at`, reject any range containing a literal owned by an existing function,
+   then insert the row/symbol/target/disassembly and manifest layout entry. Prepend the names to `priority` in both
+   the DB config and the manifest (the app's own `set_priority` prepends too — newest first). Validate and restart.
+8. Let the agents recompile. Do not hand-edit the manifest while the app is running without checking the DB lock;
+   repeated app hangs required a forced stop/restart (API timeouts, 50–93% CPU, 3–9 GB RSS, DB write lock held for
+   minutes). The DB kept every match; the manifest needed one restart cycle to flush the most recent one. Relaunch
+   with `setsid nohup decomp … &` so the app survives the agent harness's background shell tasks. Routine single
+   repairs can be made in place with `busy_timeout`; batch work is safer with the app closed.

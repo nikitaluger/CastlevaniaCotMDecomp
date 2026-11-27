@@ -10,7 +10,7 @@ extern s32 hitTestEntities(void *);
 extern void _call_via_r1(void *, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
 extern void playSound(s32);
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 extern u32 gScriptedEntityStepTable[];
 struct SpriteDefFlags { u8 a; u8 flag; };
 struct StateFlags { u16 f0; };
@@ -66,7 +66,7 @@ void updateScriptedEntity(u8 *self)
     {
       playSound(0x18A);
       *((u8 *) ((((*((s16 *) (self + 0x22))) * 2) + ((u32) self)) + 0x1B)) = 0;
-      callback = sScriptStepCallbacks;
+      callback = gScriptEventCallbacks;
       _call_via_r3(self + 0x18, self + 0x22, 2, *callback);
     }
   }

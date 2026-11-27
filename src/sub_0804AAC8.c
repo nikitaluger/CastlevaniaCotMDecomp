@@ -3,7 +3,7 @@ extern void stepAnimationTrack(void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Falling object update: integrate its motion with no gravity, refresh the
  * animation, and when it finishes (flag 2) switch to animation 7 and run the
@@ -30,7 +30,7 @@ void sub_0804AAC8(void *arg0)
         ((u8 *)arg0)[scriptIdx * 2 + 0x19] = 0;
 
         {
-            void **lit = &gScriptStepCallbackTable;
+            void **lit = &gMainObjTimerCallbacks;
             scriptPos = (u8 *)arg0 + 0x18;
             sub_080C31E4(scriptPos, (u8 *)arg0 + 0x22, *lit);
         }

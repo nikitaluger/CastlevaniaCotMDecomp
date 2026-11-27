@@ -1,7 +1,7 @@
-extern void sub_08098664(s32, s32, s32);
+extern void startScriptOnce(s32, s32, s32);
 extern void sub_080B3148(void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 struct S_02025FF0_b11c4
 {
   u8 _0[0x1750];
@@ -22,7 +22,7 @@ void sub_080B11C4(void *entity)
   target = *((s32 *) (self + 0x4C));
   if ((*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19))) == 0xF)
   {
-    sub_08098664(target, 2, 0);
+    startScriptOnce(target, 2, 0);
   }
   if ((*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19))) == 0x1E)
   {
@@ -41,7 +41,7 @@ void sub_080B11C4(void *entity)
     }
     *((s8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = 0;
     {
-      void **scriptTable = &gScriptStepCallbackTable;
+      void **scriptTable = &gMainObjTimerCallbacks;
       sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);
     }
   }

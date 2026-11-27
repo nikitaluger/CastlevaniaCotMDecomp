@@ -4,7 +4,7 @@ extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void *gScriptStepCallbacks;
 
 /* The word at 0x14AC selects the current game mode. */
@@ -36,7 +36,7 @@ void sub_080699A8(struct Actor *arg0) {
     if (state->mode == 2) {
         ((struct ActionSlot *)((u8 *)arg0 + arg0->stepIndex * 2))->phase = 0;
         {
-            void **fn = &gScriptStepCallbackTable;
+            void **fn = &gMainObjTimerCallbacks;
             sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *fn);
         }
     }

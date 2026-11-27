@@ -1455,7 +1455,7 @@ extern void sub_080BC73C(void *, void *, void *);
  * +0x34 animation track, +0x48 part block (its s16 word at +0: 1 = special, its
  * s32 at +4: fall speed 0x16C1, its pointers at +0x34/+0x38: the other parts).
  * Render parts carry their active flag in byte +1; a hit clears all three and
- * dispatches event callback index 2 from sScriptStepCallbacks. */
+ * dispatches event callback index 2 from gScriptEventCallbacks. */
 extern u32 sMultiPartProjectileStepTable[];
 #define MULTI_PART_PROJ_DIR_FLAG 2  /* entity+0x6C bit: re-aim child layers from direction */
 

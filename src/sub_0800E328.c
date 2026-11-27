@@ -13,7 +13,7 @@ extern struct S_020278D0 gMenuState;
 extern u8 gGameStatus[];
 void _call_via_r1(void *, void *);
 void sub_0806DD94(void);
-void sub_080C2E68(void *, void *, u32);
+void copyBytes(void *, void *, u32);
 void sub_0806D930(void *);
 
 void sub_0800E328(void) {
@@ -31,6 +31,6 @@ void sub_0800E328(void) {
     } while (i <= 1);
     if (gMenuState.sceneId != *(u16 *)(state + 0x304))
         sub_0806DD94();
-    sub_080C2E68(state + 0x2C4, &gMenuState, 0x48);
+    copyBytes(state + 0x2C4, &gMenuState, 0x48);
     sub_0806D930(state + 0x2C4);
 }

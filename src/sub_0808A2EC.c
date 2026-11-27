@@ -1,5 +1,5 @@
 extern u32 gMainWorkspace[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void stepDelayTimer(void *, void *);
 void sub_0806D588(void *, void *);

@@ -3,8 +3,8 @@ extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 divInt32(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gTrigFuncPtr;
-extern s32 gScriptStepCallbackTable;
+extern s32 gTrigFuncTable;
+extern s32 gMainObjTimerCallbacks;
 extern u8 D_0866DA10[];
 
 /* Bob this object sideways: advance its phase timer, offset the sub-object's
@@ -20,7 +20,7 @@ void sub_08029020(void *arg0) {
     s32 phase;
 
     setAnimationFrame(sprite, anim, 0, 1);
-    sineFn = &gTrigFuncPtr;
+    sineFn = &gTrigFuncTable;
     phase = divInt32(*(s32 *)(state + 8) << 16, 0x50);
     *(s32 *)(sub + 0xC) = *(s32 *)(state + 4) + (sub_080C31E0(phase + 0x4000, *sineFn) << 4);
     if ((*(s32 *)(sub + 0x50))++ > 0x50) {

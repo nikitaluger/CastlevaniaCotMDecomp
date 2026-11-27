@@ -19,7 +19,7 @@ struct S_02025FF0 {
 extern struct S_02025FF0 gMainWorkspace;
 extern u8 D_080E4DEC[];
 extern u8 D_084DE8B8[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 struct S_A0 {
   u8 _0[0x22];
   s16 f22;
@@ -81,7 +81,7 @@ skip:
     startEffectTimer(p7, 0, (s32)D_084DE8B8);
     ((struct Sub *)((u8 *)arg0 + arg0->f22 * 2))->f19 = (u8)v2;
     {
-      s32 *fn = &gScriptStepCallbackTable;
+      s32 *fn = &gMainObjTimerCallbacks;
       sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *fn);
     }
   }

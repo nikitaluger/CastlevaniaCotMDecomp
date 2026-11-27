@@ -1455,7 +1455,7 @@ extern void sub_080BC73C(void *, void *, void *);
  * +0x34 animation track, +0x48 part block (its s16 word at +0: 1 = special, its
  * s32 at +4: fall speed 0x16C1, its pointers at +0x34/+0x38: the other parts).
  * Render parts carry their active flag in byte +1; a hit clears all three and
- * dispatches event callback index 2 from sScriptStepCallbacks. */
+ * dispatches event callback index 2 from gScriptEventCallbacks. */
 extern u32 sMultiPartProjectileStepTable[];
 #define MULTI_PART_PROJ_DIR_FLAG 2  /* entity+0x6C bit: re-aim child layers from direction */
 
@@ -1746,3 +1746,403 @@ struct ActorChildVariantStep { u8 _0[0x19]; u8 counter; };
 #define KIND66_3PART_LAYER_PARAMS 0x08102B84  /* u16 affine parameter table */
 #define KIND66_3PART_GFX_ID       0x80000009
 #define KIND66_3PART_VISIBLE_FLAG 0x400       /* sprite attribute bit set on success */
+
+/* Player-actor update family. All three per-frame updaters share the same
+ * entity/work-state layout: +0x38 sprite, +0x3C work state, +0x14 script-step
+ * table, +0x18 script stream, +0x22 current step index (s16), +0x24 cleanup
+ * callback. Work state: +0x00 animation flags, +0x08/+0x0C 16.16 world X/Y,
+ * +0x28 spawn-flag byte pair, +0x34 animation track, +0x48 view timer.
+ * Their step tables are adjacent: sPlayerScriptStepTable (0x0866D748),
+ * sPlayerIntroScriptStepTable (0x0866D78C), sPlayerAltScriptStepTable
+ * (0x0866D7A0). */
+struct PlayerActorSpawnFlags { u8 unk0; u8 flags; };
+struct PlayerActorAnimFlags { u16 flags; };
+struct PlayerActorCameraScroll { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
+struct PlayerActorWorkspace { u8 _0[0x18A8]; u8 frameCounter; };
+
+/* Step-handler table installed by the scripted-object update (updateTimedScriptedActor).
+ * Entry 0 is also used as the event callback; the table is indexed by the
+ * current step's opcode byte. */
+#define SCRIPT_OBJECT_STEP_HANDLERS 0x0866E6BC
+
+/* ---------- Path-driven scripted effect (updateScriptedEffectPath) ---------- */
+
+/* Phase byte at script+8. */
+enum PathFxPhase {
+    PATHFX_PHASE_APPROACH = 0, /* wait for the target to enter camera range */
+    PATHFX_PHASE_MOVE     = 1, /* walk the path's base+velocity positions */
+    PATHFX_PHASE_HOLD     = 2, /* keep the animation ticking */
+    PATHFX_PHASE_SWAY     = 3  /* sway vertically, then snap and finish */
+};
+
+/* One fixed point of the effect's path: base position and per-step velocity. */
+struct PathFxPoint {
+    s32 baseX; /* 0x00 */
+    s32 velX;  /* 0x04 */
+    s32 baseY; /* 0x08 */
+    s32 velY;  /* 0x0C */
+};
+
+/* Animation/state block at target+0x48, shared with the animation helpers. */
+struct PathFxScript {
+    u8 frame;       /* 0x00 */
+    s8 lastFrame;   /* 0x01 */
+    u8 ticks;       /* 0x02 */
+    s8 ticksReload; /* 0x03 */
+    s16 *durations; /* 0x04 */
+    u8 phase;       /* 0x08: PathFxPhase */
+    s32 step;       /* 0x0C */
+    s32 savedY;     /* 0x10 */
+};
+
+/* Moving object steered by the effect: 16.16 position and velocity. */
+struct PathFxMotion {
+    u8 _0[8];
+    s32 x;  /* 0x08 */
+    s32 y;  /* 0x0C */
+    s32 vx; /* 0x10 */
+    s32 vy; /* 0x14 */
+};
+
+/* Entity owning the effect: child list head at +0x30. */
+struct PathFxOwner {
+    u8 _0[0x30];
+    void *child; /* 0x30 */
+};
+
+/* A child in the owner's +0x30 list: next pointer at +0x2C, flag at +0x70. */
+struct PathFxChild {
+    u8 _0[0x2C];
+    void *next; /* 0x2C */
+    u8 _30[0x70 - 0x30];
+    u8 active;  /* 0x70 */
+};
+
+/* Camera position held in the main workspace. */
+struct PathFxWorkspace {
+    u8 _0[0x174C];
+    s32 camX; /* 0x174C */
+    s32 camY; /* 0x1750 */
+};
+
+/* Distances, step counts and final position used by the state machine. */
+#define PATHFX_APPROACH_RANGE 0x4FFFFF
+#define PATHFX_MOVE_LAST_STEP 0x12
+#define PATHFX_HOLD_LAST_STEP 0x10
+#define PATHFX_SWAY_LAST_STEP 0x18
+#define PATHFX_SWAY_ANGLE_SHIFT 10
+#define PATHFX_FINAL_X 0xFFFF8000
+
+/* Constants for spawnKind2FFixedFrameSprite, the kind-0x2F sprite created from
+ * an entity with a fixed starting animation frame. Its state block holds the
+ * world position and the kind slot; the sprite's screen position is derived
+ * from the per-frame camera scroll rows. */
+#define KIND2F_FIXED_WORK_SLOT     0x48
+#define KIND2F_FIXED_ANIM_FRAME    0x17
+#define KIND2F_FIXED_GFX_ID        0x8000000A
+#define KIND2F_FIXED_ATTR_MASK     0xC00
+#define KIND2F_FIXED_ATTR_BIAS     0x200
+#define KIND2F_FIXED_FRAME_BIAS    8
+#define KIND2F_FIXED_SCROLL_X      0x1278
+#define KIND2F_FIXED_SCROLL_Y      0x127C
+#define KIND2F_FIXED_SCROLL_BIAS_X 0x8000
+#define KIND2F_FIXED_SCROLL_BIAS_Y 0xFFFF8000
+#define KIND2F_FIXED_FRAC_MASK     0xFFFF0000
+
+/* Work block hung off the scripted multi-part object's state at +0x48, as
+ * torn down by teardownScriptedMultiPartObject. The matching source keeps
+ * these as raw pointers, so this layout is documentation for porters. */
+struct ScriptedTeardownAttach {
+    u8 _0[0x14];
+    u8 *spriteHolderA; /* 0x14: holder whose +0x38 sprite gets bit 0x400 set at +2 */
+    u8 *spriteHolderB; /* 0x18: second such holder */
+    s32 secondaryMode; /* 0x1C: passed to setObjectModeWord */
+    s32 attachedMode;  /* 0x20: passed to setAttachedObjectMode */
+    u8 _24[8];
+    u8 *scriptPartA;   /* 0x2C: +0x24 holds its step handler */
+    u8 *scriptPartB;   /* 0x30 */
+    u8 *effectPart;    /* 0x34: disableEffectPart / setEffectPartState */
+    u8 _38[8];
+    u32 timer;         /* 0x40: cleared when the teardown finishes */
+};
+
+/* Script-driven entity action-step family (updateEntityActionScript).
+ * Object: +0x02 flags (0x8000 skips animation/repositioning), +0x14 step
+ * handler table, +0x18 stream of (opcode, timer) step pairs, +0x22 current
+ * step index, +0x38 sprite, +0x3C work state. */
+#define SCRIPT_ENTITY_ACTION_HIT           1       /* work+0x00: a hit landed */
+#define SCRIPT_ENTITY_ACTION_CONTACT       4       /* work+0x02: contact flag */
+#define SCRIPT_ENTITY_ACTION_MIRROR        0x100   /* work+0x02 mirrored to work+0x04 */
+#define SCRIPT_ENTITY_ACTION_MIRROR_CLEAR  0xFEFF
+#define SCRIPT_ENTITY_ACTION_SKIP_ANIM     0x8000  /* object+0x02: skip animation */
+#define SCRIPT_ENTITY_ACTION_SPECIAL_MOVE  1       /* step state+0x06: special move */
+#define SCRIPT_ENTITY_ACTION_MOVE_SPEED    0xB60
+#define SCRIPT_ENTITY_ACTION_STEP_TABLE    0x0866E4F8  /* gEntityActionStepTable */
+#define SCRIPT_ENTITY_ACTION_EVENT_TABLE   0x08671BDC  /* gScriptEventCallbacks */
+#define SCRIPT_ENTITY_ACTION_HIT_EVENT     2           /* callback id on a hit */
+
+struct ScriptEntityActionWorkFlags {
+    u16 hitFlags;      /* 0x00 */
+    u16 contactFlags;  /* 0x02 */
+    u16 statusFlags;   /* 0x04: mirrors contactFlags bit 0x100 */
+    u16 f6;
+    u16 f8;
+    u16 targetGfx;     /* 0x0A: copied to the step target's +4 */
+    u16 fC;
+    u16 targetFrame;   /* 0x0E: +1 copied to the step target's +6 */
+};
+
+struct ScriptEntityActionObject {
+    u8 _0[2];
+    u16 flags;         /* 0x02 */
+    u8 _4[0x10];
+    u32 stepTable;     /* 0x14 */
+    u8 _18[0x0A];
+    s16 stepIndex;     /* 0x22 */
+    u8 _24[0x14];
+    u32 sprite;        /* 0x38 */
+    u32 work;          /* 0x3C */
+};
+
+/* Spawn variant of a scripted entity AI effect (spawnEntityAiEffectVariant).
+ * entity+0x6C points at a work block minus 4; the work state starts at +4.
+ * Offsets in that work state: +0x08 X, +0x0C Y, +0x10 flags/state word,
+ * +0x18 saved update handler, +0x3C render layer, +0x4C entity parameter.
+ * The render layer is volatile so every field store re-reads its pointer. */
+struct AiVariantWorkSlot {
+    u8 _0[0x3C];
+    u8 * volatile layer; /* 0x3C: layer allocated by allocEffectPart */
+};
+
+/* Values used while seeding the variant's render layer and sprite. */
+#define AI_VARIANT_LAYER_KIND       2      /* layer byte at +2 */
+#define AI_VARIANT_LAYER_PRIORITY   8      /* layer byte at +3 */
+#define AI_VARIANT_LAYER_TIMER      0xF    /* layer halfword at +0x16 */
+#define AI_VARIANT_LAYER_TAIL       0x7F   /* layer halfword at +0x18 */
+#define AI_VARIANT_GFX_ID           0x80000006 /* sprite graphics id at +0x1C */
+#define AI_VARIANT_WORK_FLAGS       0x2BF  /* work state word at +0x10 */
+#define AI_VARIANT_WORK_Y_BIAS      0xFFEC0000 /* applied to the workspace Y */
+#define AI_VARIANT_STATE_READY      2      /* workspace byte at +0x14EC */
+
+/* Table-driven directional child effect (spawnActorChildEffectFromTable).
+ * entity+0x9C holds a u32 variant index; gActorChildEffectVariantTable has
+ * 8-byte records: +0 pointer to timer data, +4 direction byte. The part hangs
+ * off the work state at +0x2C (work state = entity+0x6C pointer + 4). */
+struct TabledChildEffectPart {
+    u8 flags;       /* 0x00 */
+    u8 variant;     /* 0x01: workspace bit 0 */
+    u8 kind;        /* 0x02: 2 */
+    u8 layer;       /* 0x03: 8 */
+    u16 gfxIndex;   /* 0x04: from gGameStatus+0x304 */
+    u16 width;      /* 0x06: 4 */
+    u16 height;     /* 0x08: 4 */
+    u16 affine0;    /* 0x0A */
+    u16 affine1;    /* 0x0C */
+    u16 palette;    /* 0x0E: gGameStatus+0x2E2 scaled by 50% */
+    u32 sprite;     /* 0x10: owner sprite */
+    u8 _14[2];
+    u16 frame;      /* 0x16: 5 */
+    u16 animStep;   /* 0x18: 0x54 */
+};
+
+/* Animation data installed on the sprite, and work-state constants. */
+#define CHILD_EFFECT_TABLED_ANIM_DATA 0x084D962C
+#define CHILD_EFFECT_WORK_DISTANCE    0x50000
+#define CHILD_EFFECT_STATE_TIME       0x18
+
+/* Main-workspace byte at +0x1510 supplies the child effect's variant bit. */
+struct ChildEffectWorkspace { u8 _0[0x1510]; u8 variantBit; };
+
+/* Scene/layer object kept in sync with an actor (updateSceneObjectFromActor).
+ * +0x04/+0x08 callback arguments, +0x10 state-change callback, +0x14/+0x18
+ * child objects, +0x1C layer index, +0x29 previous state, +0x2C/+0x30 world
+ * position, +0x34 state byte passed to children, +0x35 signed state. */
+struct SceneObjectFlags { u8 _0[2]; u16 flags; };
+struct SceneObjectPosition { u8 _0[8]; s32 x; s32 y; };
+struct SceneObjectChildState { u8 _0[0x58]; u8 state; };
+struct SceneObject {
+    u8 _0[4];
+    s32 f04[2];
+    u8 _0C[4];
+    void *callback;
+    void *childA;
+    void *childB;
+    u8 layer;
+    u8 _1D[0xC];
+    s8 prevState;
+    u8 _2A[2];
+    s32 posX;
+    s32 posY;
+    u8 stateByte;
+    s8 state;
+};
+struct SceneWorkspace { u8 _0[0x18A8]; u8 activeLayer; };
+
+/* gCameraState is split into 0x40-byte pages, one per layer. */
+struct SceneLayerEntry { u32 x; u32 y; u8 _[0x38]; };
+struct SceneLayerFlagRecord { u16 flag; u8 _[0x3E]; };
+struct SceneLayerFlags { u8 _0[0x1260]; struct SceneLayerFlagRecord recs[1]; };
+struct SceneLayerEntries { u8 _0[0x1278]; struct SceneLayerEntry entries[1]; };
+
+#define SCENE_OBJ_FLIP_X         0x10
+#define SCENE_OBJ_FLIP_CLEAR     0xFFEF
+#define SCENE_LAYER_FLAG         0x2000
+#define SCENE_LAYER_FLAG_CLEAR   0xDFFF
+#define SCENE_LAYER_SHIFT        6
+#define SCENE_SCROLL_X_ROUND     0x8000
+#define SCENE_SCROLL_Y_ROUND     0xFFFF8000
+#define SCENE_SCROLL_FRAC_MASK   0xFFFF0000
+#define SCENE_SCROLL_BIAS        0x400000
+
+/* Kind-0x44 script effect spawned by spawnKind44ScriptEffect (script command). */
+#define KIND44_SCRIPT_EFFECT_KIND       0x44
+#define KIND44_SCRIPT_EFFECT_WORK_SIZE  0x48
+#define KIND44_SCRIPT_EFFECT_GFX_ID     1
+#define KIND44_SCRIPT_EFFECT_FRAME      0x1A
+#define KIND44_SCRIPT_EFFECT_INIT_TIMER 0xFF
+#define KIND44_SCRIPT_EFFECT_READY      0x1000
+#define KIND44_SCRIPT_LAYER_KIND        5
+#define KIND44_SCRIPT_LAYER_INDEX       8
+#define KIND44_SCRIPT_LAYER_PRIORITY    1
+extern u16 gKind44ScriptEffectLayerAttrs[];
+
+/* Alternate kind-0x66 three-part effect (spawnKind66ThreePartEffectAlt). */
+#define KIND66_ALT_WORK_SLOT_SIZE 0x48
+#define KIND66_ALT_GFX_ID         0x8000000B
+#define KIND66_ALT_KIND           0x66
+#define KIND66_ALT_ANIM_FRAME     0x6A
+#define KIND66_ALT_LAYER_KIND     1
+#define KIND66_ALT_LAYER_INDEX    8
+#define KIND66_ALT_LAYER_PRIORITY 1
+#define KIND66_ALT_SPRITE_ATTR    0x400
+#define KIND66_ALT_READY_FLAG     0x1000
+extern u16 gKind66ThreePartAltLayerAttrs[];
+
+/* Controlled-entity update (updateControlledEntity). */
+#define CONTROLLED_MOTION_ACTIVE_FLAG 1
+#define CONTROLLED_HIT_STEP           4
+#define CONTROLLED_CONTROL_BUSY_FLAG  4
+#define CONTROLLED_LINK_BUSY_FLAG     2
+#define CONTROLLED_ENTITY_SKIP_FLAG   0x8000
+#define CONTROLLED_MOVE_STEP          0x100000
+extern u8 gControlledEntityStepHandlers[];
+
+/* Alternate controlled-entity update (updateControlledEntityAlt). */
+#define ALT_CONTROLLED_STEP_HANDLERS   0x0866DB00
+#define ALT_CONTROLLED_EVENT_CALLBACKS 0x08671BDC
+#define ALT_CONTROLLED_MOTION_FLAG     1
+#define ALT_CONTROLLED_HIT_STEP        2
+#define ALT_CONTROLLED_CONTROL_FLAG    4
+#define ALT_CONTROLLED_LINK_FLAG       2
+#define ALT_CONTROLLED_READY_FLAG      0x8000
+#define ALT_CONTROLLED_MOVE_STEP       0x80000
+
+/* Script-step defeat handler (scriptStepDefeatEntity). The entity's work state
+ * holds an animation stage at +0x34 (byte +1 selects the stage, word +4 gates
+ * particle emission) and a motion block at +0x48 receiving velocity, launch
+ * jitter and knockback. */
+#define DEFEAT_STAGE_VARIANT     1     /* anim+1: choose a variant from the global flag */
+#define DEFEAT_STAGE_PARTICLES   2     /* anim+1: emit directional particles */
+#define DEFEAT_PARTICLE_GATE     1     /* anim+4 must equal this to emit them */
+#define DEFEAT_KNOCKBACK_FLAG    2     /* anim+0 bit: jitter, knockback and finish */
+#define DEFEAT_ANIM_FRAME        5
+#define DEFEAT_VARIANT_VELOCITY  0x10000  /* written to motion+0x14 when the flag is set */
+#define DEFEAT_KNOCKBACK_LEFT    0xA000
+#define DEFEAT_KNOCKBACK_RIGHT   0xE000
+#define DEFEAT_PARTICLE_SPEED    0x30000
+
+/* Global workspace word at +0x189C, read by the defeat step to alternate its
+ * variant (bit 1 of value/2). Declared here so sources need only the extern. */
+struct MainWorkspaceDefeatFlag {
+    u8 _0[0x189C];
+    s32 flag;
+};
+
+/* ---------- Angle-driven projectile (updateAngledProjectile) ---------- */
+
+/* Bit in the script entity's flag word at +0x64 that fires the projectile. */
+#define ANGLE_PROJECTILE_FIRE_FLAG    0x20
+
+/* Trig-lookup constants: a quarter turn turns the sine lookup into a cosine,
+ * and the biases make negative products truncate toward zero before the shift. */
+#define ANGLE_PROJECTILE_QUARTER_TURN 0x4000
+#define ANGLE_PROJECTILE_SIN_BIAS     0x7FF
+#define ANGLE_PROJECTILE_COS_BIAS     0xFFF
+#define ANGLE_PROJECTILE_SIN_SHIFT    11
+#define ANGLE_PROJECTILE_COS_SHIFT    12
+#define ANGLE_PROJECTILE_POS_SCALE    8
+
+/* Angle source read through the motion block's +0x58 pointer. */
+struct AngledProjectileTarget {
+    u8 _0[2];
+    u16 facing;       /* 0x02: rotates the direction vector */
+    u16 offsetAngle;  /* 0x04: angle of the added position offset */
+};
+
+/* Motion parameters embedded at work+0x48. */
+struct AngledProjectileMotion {
+    u8 _0[8];
+    u16 angle;        /* 0x08: angle whose sine/cosine produce the direction */
+    u8 _0A[0xE];
+    s16 paramA;       /* 0x18: projectile spawner parameter at +0x5C */
+    u8 _1A[8];
+    s16 paramB;       /* 0x22: projectile spawner parameter at +0x6C */
+    u8 _24[0x34];
+    struct AngledProjectileTarget *target; /* 0x58 */
+    s32 baseX;        /* 0x5C */
+    s32 baseY;        /* 0x60 */
+};
+
+/* Work state reached through the entity's +0x3C pointer. The motion block is
+ * embedded at +0x48 (not a pointer). */
+struct AngledProjectileWork {
+    u8 _0[8];
+    s32 worldX;    /* 0x08: output, rotated trig position */
+    s32 worldY;    /* 0x0C: output, rotated trig position */
+    u8 _10[0xC];
+    s16 kind;      /* 0x1C: kind passed to the projectile spawner */
+    u8 _1E[0x2A];
+    struct AngledProjectileMotion motion; /* 0x48 */
+};
+
+/* Script command handler table and event callback index used by the combat
+ * scripted-object update (updateScriptedCombatObject). */
+#define COMBAT_SCRIPT_STEP_TABLE 0x0866E854
+#define COMBAT_SCRIPT_SOUND_EVENT 3
+
+/* gCameraState fields reset by the level-scene loader. */
+struct LevelLoadCameraState {
+    u8 _0[0x125C];
+    u32 f125C;
+    u16 f1260;
+    u16 f1262;
+    u8 _1264[0x14];
+    u32 f1278;
+    u32 f127C;
+    u8 _1280[0x20];
+    u16 f12A0;
+    u8 _12A2[0x3E];
+    u16 f12E0;
+    u8 _12E2[0x3E];
+    u16 f1320;
+};
+
+/* Constants used by loadLevelScene: hardware registers, scroll offset and the
+ * compressed graphics blobs with their VRAM/palette destinations. */
+#define LEVEL_GFX_MODE_REG      0x03000830
+#define LEVEL_DMA3_REG          0x040000D4
+#define LEVEL_SCROLL_X_OFFSET   0x1278
+#define LEVEL_TILES_VRAM_C000   0x08634AC8
+#define LEVEL_TILES_VRAM_0      0x086363FC
+#define LEVEL_PALETTE_DATA      0x086361BC
+#define LEVEL_TILES_VRAM_10000  0x08635A70
+#define LEVEL_PALETTE_EXTRA     0x086363BC
+
+/* Constants of the projectile spawn constructor (spawnProjectileEntity). */
+#define PROJECTILE_WORK_SLOT      0x48
+#define PROJECTILE_GFX_ID         0x8000000A
+#define PROJECTILE_ANIM_FRAME     9
+#define PROJECTILE_READY_FLAG     0x1000
+#define PROJECTILE_READY_FLAG_ALT 0x800
+#define PROJECTILE_SCROLL_X_OFFSET 0x1278
+#define PROJECTILE_SCROLL_Y_OFFSET 0x127C

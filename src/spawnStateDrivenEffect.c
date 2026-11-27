@@ -16,7 +16,7 @@ extern struct ScriptedEffectWorkspace gMainWorkspace;
 extern struct ScriptedEffectScroll gCameraState;
 extern struct StateDrivenEffectKindEntry gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 void spawnStateDrivenEffect(struct StateDrivenEffectEntity *entity) {
     u8 *sprite;
@@ -82,7 +82,7 @@ body:
     entity->flags |= THREAD_FLAG_WAIT_SPRITE;
     *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = zero;
     {
-        void **callbackTable = &gScriptStepCallbackTable;
+        void **callbackTable = &gMainObjTimerCallbacks;
         u8 *cmdPtr = (u8 *)entity + 0x18;
         sub_080C31E4(cmdPtr, (u8 *)entity + 0x22, *callbackTable);
         {

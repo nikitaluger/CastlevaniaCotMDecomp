@@ -4,8 +4,8 @@ extern s32 sub_080C31E0(s32, s32);
 extern s32 sub_08005910(s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E8(void *, void *, s32, u32);
-extern u32 gTrigFuncPtr;
-extern u32 gScriptStepCallbackTable;
+extern u32 gTrigFuncTable;
+extern u32 gMainObjTimerCallbacks;
 extern u32 gScriptStepCallbacks;
 
 /* World/player coordinates used as the reference point for aiming. */
@@ -34,7 +34,7 @@ void sub_0804854C(u8 *task)
     baseAngle *= direction;
     *(s32 *)(stateData + 0x0C) = baseAngle + 0xC000;
 
-    angleSrc = &gTrigFuncPtr;
+    angleSrc = &gTrigFuncTable;
     angle = sub_080C31E0(baseAngle + 0x10000, *angleSrc);
     aimX = gMainWorkspace.x174C + ((angle >> 8) << 14);
 
@@ -52,7 +52,7 @@ label_end:
     {
         s16 stepIndex = *(s16 *)(task + 0x22);
         *(u8 *)(task + stepIndex * 2 + 0x19) = 0;
-        endCallbacks = &gScriptStepCallbackTable;
+        endCallbacks = &gMainObjTimerCallbacks;
         stateEntry = task + 0x18;
         sub_080C31E4(stateEntry, task + 0x22, *endCallbacks);
         stepIndex = *(s16 *)(task + 0x22);

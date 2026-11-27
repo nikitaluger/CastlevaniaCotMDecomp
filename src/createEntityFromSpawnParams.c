@@ -58,7 +58,7 @@ extern u8 gCameraState[];
 extern u32 D_080D00EC[];                    /* parameter index table */
 extern u8 D_0865FDF4[];                     /* animation entry table */
 extern u8 D_080D00A8[];
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 extern void *allocSpriteObject(void);            /* create the sprite object */
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *allocEffectPart(void);            /* allocate a part object */
@@ -145,7 +145,7 @@ void createEntityFromSpawnParams(struct InitObj *obj)
   }
   obj->f2 = (u16) (obj->f2 | 0x1000);
   *((u8 *) ((((u8 *) obj) + 0x19) + (byteScale * obj->f22))) = 0;
-  scriptOp = gScriptStepCallbackTable;
+  scriptOp = gMainObjTimerCallbacks;
   stepPtr = ((u8 *) obj) + 0x18;
   sub_080C31E4(stepPtr, &obj->f22, *scriptOp);
   *((u8 *) ((((u8 *) obj) + 0x19) + (byteScale * obj->f22))) = (u8) ((*((u8 *) ((((u8 *) obj) + 0x19) + (byteScale * obj->f22)))) + 1);

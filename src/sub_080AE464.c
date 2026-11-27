@@ -8,7 +8,7 @@ void sub_080C31E4(void *, void *, s32);
 
 struct S_02025FF0 { u8 _0[0x174C]; u32 playerX; u32 playerY; };
 extern struct S_02025FF0 gMainWorkspace;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 /* Per-frame update for a homing entity: refresh its animation, toggle between
  * two animation IDs when a state flag is set, turn its heading toward the player
@@ -40,7 +40,7 @@ void sub_080AE464(u8 *self) {
         u8 *child = (u8 *)((s32)((s16)*(s16 *)(self + 0x22) * 2) + (s32)self);
         if (child[0x19] == 0x1E) {
             child[0x19] = 0;
-            { void **effectTable = (void **)&gScriptStepCallbackTable; sub_080C31E4(self + 0x18, self + 0x22, (s32)*effectTable); }
+            { void **effectTable = (void **)&gMainObjTimerCallbacks; sub_080C31E4(self + 0x18, self + 0x22, (s32)*effectTable); }
         }
     }
 }

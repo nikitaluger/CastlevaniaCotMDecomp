@@ -8,7 +8,7 @@ extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_0806D7B4(void *, s32);
-extern void sub_08084CBC(void *, void *);
+extern void spawnRoom34Object(void *, void *);
 extern void sub_080C31E8(void *, void *, u16, void *);
 
 /* Updates an entity's action: when its countdown expires, clears the effect
@@ -45,7 +45,7 @@ void sub_08065BAC(u8 *entity)
       *((u32 *) (globals + 0x1824)) = timerResult;
       *((u32 *) (globals + 0x182C)) = timerResult;
       *((u32 *) (globals + 0x1828)) = timerResult;
-      sub_08084CBC(entity, pos);
+      spawnRoom34Object(entity, pos);
       {
         u32 *accelAddr = (u32 *) (state + 0xC4);
         u32 accel = *accelAddr;

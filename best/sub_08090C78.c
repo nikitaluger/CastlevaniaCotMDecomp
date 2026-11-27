@@ -10,7 +10,7 @@ extern void sub_08007E24(u16);
 extern void playSound(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 void sub_08090C78(u8 *arg0)
 {
   u8 *base;

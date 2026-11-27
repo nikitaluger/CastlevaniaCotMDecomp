@@ -7,7 +7,7 @@ s32 sub_08014328(void *, void *, void *);
 void sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, s32, u32);
 extern u8 D_0866E610[];
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 
 /* Holds the currently selected target object at offset 0x1870. */
 struct S_02025FF0
@@ -50,7 +50,7 @@ void sub_080512FC(u8 *task)
       if (((u8) (stepState[0x1A] - 1)) > 1)
       {
         stepState[0x1B] = 0;
-        callbackSrc = sScriptStepCallbacks;
+        callbackSrc = gScriptEventCallbacks;
         sub_080C31E8(task + 0x18, task + 0x22, 1, *callbackSrc);
       }
     }

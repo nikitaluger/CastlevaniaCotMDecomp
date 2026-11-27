@@ -5,7 +5,7 @@ extern s32 forceAnimationFrame(void *, void *, s32, s32);
 extern void setSpriteFlipForDirection(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 struct P2A { u8 pad[0x2A]; u8 f2A; };
 static inline u8 zero8(void) { return 0; }
@@ -40,7 +40,7 @@ void sub_080BD2F0(void *arg0)
         scriptIndex = *(s16 *)((u8 *)arg0 + 0x22);
         ((u8 *)arg0)[scriptIndex * 2 + 0x19] = zero;
         {
-            void **callbacks = &gScriptStepCallbackTable;
+            void **callbacks = &gMainObjTimerCallbacks;
             scriptData = (u8 *)arg0 + 0x18;
             sub_080C31E4(scriptData, (u8 *)arg0 + 0x22, *callbacks);
         }

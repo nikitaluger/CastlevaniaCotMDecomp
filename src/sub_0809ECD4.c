@@ -2,7 +2,7 @@ extern s32 updateObjectDisplayState(void *, void *);
 extern void syncSpriteToWorldPosition(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, u32);
-extern u32 sScriptStepCallbacks[];
+extern u32 gScriptEventCallbacks[];
 
 /*
  * Entity script update: copy the actor's animation params into its state,
@@ -29,7 +29,7 @@ void sub_0809ECD4(u8 *self)
     else
     {
       *((u8 *) (p + 0x1B)) = 0;
-      cmdParam = sScriptStepCallbacks;
+      cmdParam = gScriptEventCallbacks;
       sub_080C31E8(self + 0x18, self + 0x22, 5, *cmdParam);
     }
   }

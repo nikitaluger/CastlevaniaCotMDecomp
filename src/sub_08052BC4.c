@@ -1,4 +1,4 @@
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 void setAnimationFrame(s32, void *, u16, u8);
 void stepAnimationTrack(s32, void *);
@@ -30,7 +30,7 @@ void sub_08052BC4(u8 *arg0) {
         setAnimationFrame(sprite, animator, 0x0F, 1);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
         {
-            u32 *scriptHandlers = gScriptStepCallbackTable;
+            u32 *scriptHandlers = gMainObjTimerCallbacks;
             sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);
         }
     }

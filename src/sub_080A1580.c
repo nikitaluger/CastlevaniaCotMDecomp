@@ -6,7 +6,7 @@ extern void sub_08005FC4(s32, s32, s32, s32, void *);
 extern void sub_0808E61C(s32, s32, s32, s32);
 extern void sub_080C0384(void);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 struct Entity {
     u8 _0[0x18];
@@ -62,7 +62,7 @@ void sub_080A1580(struct Entity *entity) {
         sub_08005FC4(0, 0xC3 << 1, 3, 0, &sub_080C0384);
         ((struct ScriptStep *)((u8 *)entity + entity->f22 * 2))->f19 = 0;
         {
-            u32 *p = &gScriptStepCallbackTable;
+            u32 *p = &gMainObjTimerCallbacks;
             sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *p);
         }
     }

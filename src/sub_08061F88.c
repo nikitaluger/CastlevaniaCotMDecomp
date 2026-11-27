@@ -1,4 +1,4 @@
-void sub_08061FBC(void);
+void reloadStatusGraphics(void);
 void drawStatusHud(void);
 void sub_08062418(u8, u8);
 
@@ -14,7 +14,7 @@ enum {
 /* Redraw the HUD and, when a message scene is queued, start it with the queued
  * scene type and script index, then clear the pending flag. */
 void sub_08061F88(void) {
-    sub_08061FBC();
+    reloadStatusGraphics();
     drawStatusHud();
     if (D_02027A00[HUD_MSG_PENDING] != 0) {
         sub_08062418(D_02027A00[HUD_MSG_SCENE], D_02027A00[HUD_MSG_SCRIPT]);

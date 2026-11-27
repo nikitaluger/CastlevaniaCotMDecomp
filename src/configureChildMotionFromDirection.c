@@ -1,6 +1,6 @@
 extern s32 _call_via_r1(s32, void *);
 extern u16 sChildMotionParams[];
-extern void *gTrigFuncPtr[];
+extern void *gTrigFuncTable[];
 
 /* Sets the angle-driven motion parameters of an object's three child entities
  * from a direction selector; an out-of-range selector clears the children. Each
@@ -47,7 +47,7 @@ common:
     *((u16 *) (((u8 *) (*child)) + 8)) = motion[1];
   }
 
-  trigFnPtr = gTrigFuncPtr;
+  trigFnPtr = gTrigFuncTable;
   trig = _call_via_r1(baseAngle + 0x4000, *trigFnPtr);
   *((u16 *) ((*((u8 **) (object + 0x28))) + 0x0A)) = (u16) (((trig * 13) / 65536) + motion[2]);
   trig = _call_via_r1(baseAngle, *trigFnPtr);

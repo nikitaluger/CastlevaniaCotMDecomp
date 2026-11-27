@@ -24,7 +24,7 @@ extern struct GfxState gCrossfadeGfxState;
 struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 v; };
 extern struct S_02025FF0_1870 gMainWorkspace;
 
-void sub_080BE87C(void) {
+void markType1DAObjects(void) {
     void *r5 = (void *)gMainWorkspace.v;
     void *r2 = *(void **)((u8 *)r5 + 0x30);
     while (r2 != 0) {

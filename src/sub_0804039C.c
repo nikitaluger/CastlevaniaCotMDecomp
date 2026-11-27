@@ -3,7 +3,7 @@ extern void sub_08014460(void *);
 extern s32 sub_08005910(s32, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Large runtime state block (BSS): holds the player/target position near its end. */
 struct GameGlobals { u8 _0[0x174C]; u32 playerX; u32 playerY; };
@@ -59,7 +59,7 @@ void sub_0804039C(struct EntityObj *entity) {
     sub_080146D0(state, angle, 0x30000);
     ((struct SlotState *)((u8 *)entity + entity->slotIndex * 2))->timer = zero;
     {
-        void **fn = &gScriptStepCallbackTable;
+        void **fn = &gMainObjTimerCallbacks;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *fn);
     }
 }

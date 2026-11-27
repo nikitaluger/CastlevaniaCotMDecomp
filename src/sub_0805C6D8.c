@@ -13,7 +13,7 @@ extern void sub_0805CA00(void *, void *);
 extern void _call_via_r1(void *, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
 extern u32 D_0866E938[];
-extern void *sScriptStepCallbacks;
+extern void *gScriptEventCallbacks;
 
 /*
  * Per-frame entity update: clears the semi-transparent flag on its five OAM

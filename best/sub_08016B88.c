@@ -1,4 +1,4 @@
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 void sub_080C31E4(void *, void *, u32);
 
@@ -14,7 +14,7 @@ void sub_080171A4(void *arg0)
         *(u32 *)(r2 + 0x10) = 0;
         *(u16 *)(r1 + 0x16) = 0x1E;
         *(u8 *)(p + *(s16 *)(p + 0x22) * 2 + 0x19) = 0;
-        sub_080C31E4(p + 0x18, p + 0x22, gScriptStepCallbackTable);
+        sub_080C31E4(p + 0x18, p + 0x22, gMainObjTimerCallbacks);
     }
 }
 

@@ -40,7 +40,7 @@ struct CountdownEntry {
     u8 _8[0x50];
 };
 extern struct CountdownEntry D_080E03A0[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u8 D_0846FEA8[];
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
@@ -81,7 +81,7 @@ void sub_08065E34(struct UpdateCtx *arg0) {
             stepPtr = (u8 *)((u32)(arg0->stepIndex * 2) + (u32)arg0);
             stepPtr[0x19] = posMode;
             {
-                u32 *eventPtr = &gScriptStepCallbackTable;
+                u32 *eventPtr = &gMainObjTimerCallbacks;
                 sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *eventPtr);
             }
         }

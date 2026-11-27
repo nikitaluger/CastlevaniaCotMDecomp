@@ -9,7 +9,7 @@ extern void releaseActorEffectParts(void);
 extern u8 gMainWorkspace[];
 extern u32 D_084E4850;
 extern u32 D_084E48B0;
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 void sub_0807C914(u8 *entity) {
     u32 zero;
@@ -44,7 +44,7 @@ void sub_0807C914(u8 *entity) {
     *(u32 *)(pos + 0x54) = zero;
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *callback = &gScriptStepCallbackTable;
+        s32 *callback = &gMainObjTimerCallbacks;
         u8 *statePtr = entity;
         statePtr += 0x18;
         sub_080C31E4(statePtr, entity + 0x22, *callback);

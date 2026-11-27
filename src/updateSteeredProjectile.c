@@ -7,7 +7,7 @@ void turnHeadingToward(void *, s32, s32, void *);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
 
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /*
  * Per-frame update for a projectile-like actor: run the common condition and
@@ -33,7 +33,7 @@ void updateSteeredProjectile(void *actor)
     {
         *(u8 *)(a + *(s16 *)(a + 0x22) * 2 + 0x19) = 0;
         {
-            void **scriptTable = &gScriptStepCallbackTable;
+            void **scriptTable = &gMainObjTimerCallbacks;
             u8 *scriptPtr = a + 0x18;
             sub_080C31E4(scriptPtr, a + 0x22, *scriptTable);
             {
@@ -59,7 +59,7 @@ void updateSteeredProjectile(void *actor)
         {
             *(u8 *)(a + *(s16 *)(a + 0x22) * 2 + 0x19) = 0;
             {
-                void **scriptTable = &gScriptStepCallbackTable;
+                void **scriptTable = &gMainObjTimerCallbacks;
                 u8 *scriptPtr = a + 0x18;
                 sub_080C31E4(scriptPtr, a + 0x22, *scriptTable);
                 {

@@ -2,7 +2,7 @@ extern void startEffectTimer(s32, s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
-extern s32 gScriptStepCallbackTable[];
+extern s32 gMainObjTimerCallbacks[];
 struct S_02025FF0_B8 { u8 _0[0x14D8]; u16 f14D8; u8 _1[0x1754 - 0x14DA]; s32 f1754; };
 extern struct S_02025FF0_B8 gMainWorkspace;
 
@@ -24,7 +24,7 @@ void sub_080886B8(void *arg0) {
     gMainWorkspace.f14D8 = 0xFFF5;
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *eventPtr = gScriptStepCallbackTable;
+        s32 *eventPtr = gMainObjTimerCallbacks;
         sub_080C31E4(entity + 0x18, entity + 0x22, *eventPtr);
     }
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) += 1;

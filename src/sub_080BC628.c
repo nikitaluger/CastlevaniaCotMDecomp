@@ -9,7 +9,7 @@ extern void sub_080146D0(void *, s32, s32);
 extern void sub_080BC73C(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 struct S_02025FF0 {
     u8 pad[0x174C];
@@ -45,7 +45,7 @@ void sub_080BC628(void *arg0) {
         stepIndex = *(s16 *)(entity + 0x22);
         *(u8 *)(entity + stepIndex * 2 + 0x19) = 0;
 
-        scriptTable = &gScriptStepCallbackTable;
+        scriptTable = &gMainObjTimerCallbacks;
         stepPtr = entity + 0x18;
         sub_080C31E4(stepPtr, entity + 0x22, *scriptTable);
 

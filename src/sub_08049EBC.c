@@ -4,7 +4,7 @@ struct S_02025FF0_49EBC {
     u32 f1750;
 };
 extern struct S_02025FF0_49EBC gMainWorkspace;
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern s32 sub_08005910(s32, s32);
 extern void advanceMotion(void *, s32);
 extern void sub_0804A4D0(void *, void *, void *, s32);
@@ -37,7 +37,7 @@ void sub_08049EBC(u8 *object) {
                 sub_0804A4D0(sprite, pose, ctrl, 0xC);
                 (object + *(s16 *)(object + 0x22) * 2)[0x19] = (u8)firedFlag;
                 {
-                    void **callback = &gScriptStepCallbackTable;
+                    void **callback = &gMainObjTimerCallbacks;
                     sub_080C31E4(object + 0x18, object + 0x22, *callback);
                 }
             }

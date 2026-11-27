@@ -1,7 +1,7 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E0(void *, s32);
-extern s32 D_02027860;
+extern s32 gActiveObjectId;
 inline u8 inline_fn(u32 arg0)
 {
   return (u8) arg0;
@@ -24,7 +24,7 @@ void sub_080B015C(u8 *arg0)
     u32 one = 1;
     u8 *p50 = arg0 + 0x50;
     s32 *p8C = (s32 *) (arg0 + 0x8C);
-    s32 *pd = &D_02027860;
+    s32 *pd = &gActiveObjectId;
     void **arr = (void **) base7;
     for (; i <= 3; i++)
     {

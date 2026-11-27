@@ -59,7 +59,7 @@ struct Kind66GfxRecord {
 extern struct Kind66GfxRecord gEffectGfxTable[];
 extern u16 gKind66LayerAttrs[];
 extern char gSpriteAnimDataTable[];
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -135,7 +135,7 @@ ok:
         s16 idx = actor->step;
         *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = 0;
     }
-    timerCallbacks = &gScriptStepCallbackTable;
+    timerCallbacks = &gMainObjTimerCallbacks;
     scriptPtr = ((u8 *)actor) + 0x18;
     sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, (s32)(*timerCallbacks));
     {

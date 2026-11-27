@@ -52,7 +52,7 @@ struct KindTable { u16 tile; s16 frame; u16 mode; u8 _6[0x14-6]; };
 extern struct KindTable gSpriteKindTable[];
 extern u16 D_080CFE34[];
 extern u8 gSpriteAnimDataTable[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 void scriptCmdSpawnJitteredSprite(struct ScriptThread *thread) {
     u8 *sprite;

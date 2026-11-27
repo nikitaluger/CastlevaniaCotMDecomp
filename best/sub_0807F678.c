@@ -4,7 +4,7 @@ extern void spawnEntity(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gMainWorkspace[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 void sub_0807F678(u8 *arg0) {
     u32 zero = 0;
@@ -36,7 +36,7 @@ void sub_0807F678(u8 *arg0) {
     spawnEntity(arg0, 0x62, 0x0A, 0x12);
     *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = (u8)zero;
     {
-        s32 *lit = &gScriptStepCallbackTable;
+        s32 *lit = &gMainObjTimerCallbacks;
         u8 *a18 = arg0;
         a18 += 0x18;
         sub_080C31E4(a18, arg0 + 0x22, *lit);

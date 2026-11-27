@@ -45,7 +45,7 @@ extern u16 D_08102DA4[];
 extern u8 gSpriteKindTable[];
 extern u8 gSpriteAnimDataTable[];
 extern struct D20 gMainWorkspace;
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 extern void sub_080B8514(void);
 inline static void *inline_fn(u8 *arg0)
 {
@@ -132,7 +132,7 @@ void sub_080B76A4(u8 *arg0)
     *((u16 *) (arg0 + 0x02)) |= 0x1000;
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19] = 0;
     p18 = arg0 + 0x18;
-    new_var2 = (void **) gScriptStepCallbackTable;
+    new_var2 = (void **) gMainObjTimerCallbacks;
     sub_080C31E4(p18, arg0 + 0x22, *new_var2);
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19]++;
     p18 += (*((s16 *) (arg0 + 0x22))) * 2;

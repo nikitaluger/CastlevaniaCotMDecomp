@@ -8,7 +8,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern void releaseActorEffectSubObject(void);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 extern u8 D_08102F08[];
 struct Entity {
   u8 _0[2]; u16 flags; u8 _1[0x14 - 4]; u32 funcTable; u8 _2[0x22 - 0x18];
@@ -56,7 +56,7 @@ Lcont:
   arr = (u16 *)arg;
   ((u8 *)(&arr[i]))[0x19] = 0;
   {
-    u32 *handlerSlot = &gScriptStepCallbackTable;
+    u32 *handlerSlot = &gMainObjTimerCallbacks;
     arg18 = ((u8 *)arg) + 0x18;
     sub_080C31E4(arg18, ((u8 *)arg) + 0x22, *handlerSlot);
   }

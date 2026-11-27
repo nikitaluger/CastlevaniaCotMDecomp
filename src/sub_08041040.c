@@ -6,7 +6,7 @@ extern s32 sub_080148AC(s32, s32);
 extern void sub_080148D8(s32, s32);
 extern void sub_080415D4(u8, s32, void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gScriptStepCallbackTable;
+extern u32 gMainObjTimerCallbacks;
 
 /* Update a falling enemy: integrate gravity, face the player, and when the
  * player is close enough, lunge toward them and play animation 1. */
@@ -26,7 +26,7 @@ void sub_08041040(void *arg0) {
         sub_080415D4(1, anim, motion, (s32)animDesc);
         *(u8 *)(entity + (*(s16 *)(entity + 0x22) * 2) + 0x19) = 0;
         {
-            s32 *litp = (s32 *)&gScriptStepCallbackTable;
+            s32 *litp = (s32 *)&gMainObjTimerCallbacks;
             sub_080C31E4(entity + 0x18, entity + 0x22, *litp);
         }
     }

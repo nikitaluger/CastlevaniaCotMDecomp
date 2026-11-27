@@ -1,4 +1,4 @@
-extern u32 gScriptStepCallbackTable[];
+extern u32 gMainObjTimerCallbacks[];
 
 s32 scaleByRandom(s32);
 void stepAnimationTrack(s32, void *);
@@ -32,7 +32,7 @@ void sub_08044810(u8 *arg0) {
             *(u8 *)(part + 4) = timer;
             *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
             {
-                u32 *scriptHandlers = gScriptStepCallbackTable;
+                u32 *scriptHandlers = gMainObjTimerCallbacks;
                 sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);
             }
         }

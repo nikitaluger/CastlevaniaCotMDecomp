@@ -36,7 +36,7 @@ typedef struct {
 } P;
 
 extern void sub_080C0020(A *, P *);
-extern void sub_080C08D0(u8);
+extern void setSoundMode(u8);
 
 void sub_080C0ABC(A *a, B *b) {
     if (a->f34 == 0x68736D53) {
@@ -72,7 +72,7 @@ void sub_080C0ABC(A *a, B *b) {
         {
             u8 mask = 0x80;
             if (b->b3 & mask)
-                sub_080C08D0(b->b3);
+                setSoundMode(b->b3);
         }
         a->f34 = 0x68736D53;
     }

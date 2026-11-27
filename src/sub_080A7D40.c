@@ -1,9 +1,9 @@
 extern void sub_0808DC40(s32, s32, s32);
 extern void sub_080A860C(void *, void *);
-extern void sub_080A8940(u16 *, void *);
+extern void decelerateTargetX(u16 *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void *D_08671BC0;
-extern void *gScriptStepCallbackTable;
+extern void *gMainObjTimerCallbacks;
 
 /* Refresh an actor's sprite attributes, tracker angle and speed from its AI
  * step flags, spawn an effect when flagged, then advance its script step from
@@ -36,7 +36,7 @@ void sub_080A7D40(void *arg0) {
     }
 
     sub_080A860C(arg0, ai);
-    sub_080A8940(attributes, ai);
+    decelerateTargetX(attributes, ai);
 
     if (*(u8 *)(actor + 0x120)) {
         if (*(s32 *)(actor + 0x110) == 0) {
@@ -54,7 +54,7 @@ void sub_080A7D40(void *arg0) {
                 stepIndex = *(s16 *)((u8 *)arg0 + 0x22);
                 *(u8 *)((u8 *)arg0 + stepIndex * 2 + 0x19) = 0;
                 {
-                    void **scriptTable = &gScriptStepCallbackTable;
+                    void **scriptTable = &gMainObjTimerCallbacks;
                     sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *scriptTable);
                 }
             }

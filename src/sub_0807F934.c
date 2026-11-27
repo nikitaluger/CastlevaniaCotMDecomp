@@ -8,7 +8,7 @@ void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
 extern u8 D_084EC108[];
-extern s32 gScriptStepCallbackTable;
+extern s32 gMainObjTimerCallbacks;
 
 struct S_02025FF0 {
     u8 pad0[0x14ED];
@@ -41,7 +41,7 @@ void sub_0807F934(u8 *entity)
             gMainWorkspace.field14F8 = result;
             *(u8 *)(entity + (s32)*(s16 *)(entity + 0x22) * 2 + 0x19) = (u8)result;
             {
-                s32 *hookSlot = &gScriptStepCallbackTable;
+                s32 *hookSlot = &gMainObjTimerCallbacks;
                 sub_080C31E4(entity + 0x18, entity + 0x22, *hookSlot);
             }
         }
