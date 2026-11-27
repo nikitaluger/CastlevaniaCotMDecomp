@@ -1679,4 +1679,6 @@ struct ScriptEntityCamera {
 #define SCRIPT_ENTITY_SCROLL_X_OFFSET  0x1278
 #define SCRIPT_ENTITY_SCROLL_Y_OFFSET  0x127C
 #define SCRIPT_ENTITY_SCROLL_SHIFT     6           /* 0x40-byte scroll rows */
+#define SCRIPT_ENTITY_BIAS_X           0x8000
+#define SCRIPT_ENTITY_BIAS_Y           0xFFFF8000
 #define SCRIPT_ENTITY_FRAC_MASK        0xFFFF0000
