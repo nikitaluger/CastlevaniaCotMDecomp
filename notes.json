@@ -14688,14 +14688,6 @@
   "score_after": null
  },
  {
-  "function": "updateEnemyActionState",
-  "text": "Stub only; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9724264,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A793C",
   "text": "Cannot complete now; releasing.",
   "by": "opencode-free-1",
@@ -40084,14 +40076,6 @@
   "text": "Cannot get closer this session. Score 2076. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1093025,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateEnemyActionState",
-  "text": "Stub only; not attempted this session. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1093547,
   "score_before": null,
   "score_after": null
  },
@@ -358142,5 +358126,21 @@
   "created_at": 1795808506.3137872,
   "score_before": 430,
   "score_after": 430
+ },
+ {
+  "function": "updateEnemyActionState",
+  "text": "Stub only; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9724264,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateEnemyActionState",
+  "text": "Stub only; not attempted this session. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1093547,
+  "score_before": null,
+  "score_after": null
  }
 ]
