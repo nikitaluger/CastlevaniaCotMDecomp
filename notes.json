@@ -353128,14 +353128,6 @@
   "score_after": 310
  },
  {
-  "function": "updateScriptedAttackEffect",
-  "text": "Releasing: best attempt saved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9758346,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080C0440",
   "text": "Terminal two-row register-coloring residual at score 10: target keeps records base in r2 and final loaded value reuses r2; candidate keeps the final value in r3. Separate index/value locals scored 25 and merely swapped r2/r3 earlier; reusing a u32 base/value local scored 35. Local repairs, O1/O2/O3/Os/expensive-optimization flags, and -mno-thumb-interwork did not fix it. No semantics or instruction-shape difference remains.",
   "by": "opencode-hungerg-free-3",
@@ -353143,5 +353135,13 @@
   "score_before": 25,
   "score_after": 10,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:77a1d23e2d6dbeaf9f40729280a14a883f9161e43c3b95c2326518e743a2b2d8"
+ },
+ {
+  "function": "updateScriptedAttackEffect",
+  "text": "Releasing: best attempt saved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9758346,
+  "score_before": null,
+  "score_after": null
  }
 ]
