@@ -15688,14 +15688,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Releasing after 2 compiles; regalloc complex. Best score 5081. Next agent: focus on r8/r9 and declaration order.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9768999,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A23B0",
   "text": "Releasing after 1 compile. Best score 15620. Next agent: implement from m2c draft.",
   "by": "opencode-free-1",
@@ -98440,14 +98432,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Ceiling at 3315 (79.1%). All logic matched. Regalloc wall: high-reg save (r8/r9), sb=r5+0x20; agbcc r8. Goto loop compiles differently. Call relocations differ. Unfixable from C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4115155,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0800852C",
   "text": "Cannot get closer by any C change \u2014 proven permanent agbcc regalloc/spill-choice wall at 405 (42/42 insns byte-exact, confirmed this session). Target keeps baseB (D_0866CAF8 ptr) in callee-saved r5 across bl and spills lo<<3 at [sp] then reloads; agbcc deterministically keeps lo<<3 in r5 and spills baseB (9 regalloc + 4 reordered + 4 operand rows). Forcing the spill with `volatile u32 sp` regressed to 735. ~65+ prior attempts across all models/forms/flags floor at 405/510/650; register-asm pinning banned (#354). Ordinary correct C, not hand asm, not not_c \u2014 only a compiler/regalloc change flips the deterministic spill. No further C step exists; best source = brief's attempt at 405.",
   "by": "opencode-hy4-flash-free-1",
@@ -101668,14 +101652,6 @@
   "text": "Permanent agbcc callee-saved-r4 frame wall at score 660 (~42 compiles, all models/C forms/flag levels). Target 22-insn leaf saves r4 (push {r4,lr}; ldr r4,=0x02025368; adds r4,#0xC; ldr/ors/str; pop {r4}; pop {r0}; bx r0); agbcc emits folded 18-insn leaf bx lr, never saves r4 (only 4 live pseudos). Bit logic byte-exact (18/22 insns); only diff is the forced frame no pure-C spelling produces. register-asm banned (#354); not hand asm, not not_c \u2014 toolchain limitation only. Body: t=(u32)arg0<<16; idx=t>>21; bit=(t&0x1F0000)>>16; mask=1<<bit; D_02025368[3+idx]|=mask. Releasing to work on matchable functions.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.428896,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Cannot get closer: matched permuter best 3315. High-reg save wall (r8/r9): target `mov r7,sb; mov r6,r8; push {r6,r7}`; agbcc only saves r8. Body regalloc mismatch: target r6=*(arg0+0x38), r5=*(arg0+0x3C), sb=r5+0x20; agbcc r7,r6,r8. Goto loop compiles differently. Table lookup addressing differs (sb-based vs literal). Call relocations differ. All logic correct. Fundamental agbcc regalloc limitation.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4289331,
   "score_before": null,
   "score_after": null
  },
@@ -106764,14 +106740,6 @@
   "text": "Best 10 (99.9%, 109/111). Remaining diff is only in SET branch (bit 0x10): target `ldrh r1,[r5,#2]; movs r0,#0x10; orrs r0,r1; strh r0,[r5,#2]` vs ours `ldrh r0,[r5,#2]; movs r1,#0x10; orrs r0,r1; strh r0,[r5,#2]` (regalloc swap). CLEAR branch and all other blocks/COORD tail match byte-for-byte.\n\nConfirmed prior levers still needed: inline `0x10 & *(u16*)(t0_38+2)` in first test; const-first masks `0xFFEF & ...`, `0xFBFF & ...`; inline final `t2` field load `(0x400 & *(u16*)(t0c+2)) | *(u16*)(r5+2)` and reload `[r5+2]` there.\n\nTried this session (no improvement): `|=` compound, temp `u16 v` then assign, field pointer `u16 *p` in branch, swapping `r2=1` before/after store (hurt badly, 841), `u16 y=load; u16 x=0x10; store=x|y` (hurt, 215, caused CSE/extra `adds r0,r2,#0`), operand order `field|0x10`. Helper/static-inline for constant avoided per prior notes (CSE). Likely agbcc regalloc tie-break on movs-immediate in this branch; needs a C shape forcing movs #0x10 into r0 after ldrh into r1 without introducing extra temps/CSE. No inline asm allowed.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.4571218,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Cannot get closer in C. 3 compiles this session: best 2226 (86%). Explored (a) sibling-derived source, (b) swapping declaration order of the two persistent high-reg values base18/p20 (regressed 2285), (c) typed struct field for the t->0x18 s16 load (no change). Remaining diff is compiler-internal agbcc regalloc/block scheduling: target assigns r8=p20, r9=base18, r6=v38, r7=scratch, while agbcc assigns r9=p20, r8=base18, r7=v38; target also places the loop-match's `movs r0,#1; strh r0,[r5,#0x16]; b tail` block early between the flag if/else arms, and reads t->0x18 with register-offset ldsh, none of which are selectable by C spelling or declaration order. Prior 17 attempts also ceilinged (3315); this source is the best known. Not not_c.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4571583,
   "score_before": null,
   "score_after": null
  },
@@ -120696,14 +120664,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Cannot get closer in pure C: best 2226 (86.0%). Tried structural rewrite (3770). Remaining diffs are agbcc regalloc/high-reg assignment (r8/r9/r6 roles), control-flow/block placement for table-match case, register-offset ldsh patterns, and literal/symbol layout - compiler/codegen wall. Logic appears correct; not boundary/not_c. Best attempt preserved.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.532824,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080012F8",
   "text": "Confirmed frameless-branchy-leaf wall at 245 (86.3%). All 18 target insns byte-exact for the unsigned range check `*(u32*)0x02025B7C <= arg0 < *(u32*)0x02025B78` returning 0/1; only diff agbcc push {lr}/pop {r1}/bx r1 vs ROM bare bx lr (+2 on both literal PC offsets and both branch offsets). This session: s32 var with && form (245), early-return form (945, extra b), boolean && assigned to s32 (245), nested if (245). Prior ~85 attempts and all flags/alternate compilers exhausted. Systemic toolchain limitation, ordinary correct C, not hand asm, not not_c.",
   "by": "opencode-hy4-flash-free-1",
@@ -127640,14 +127600,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Cannot get closer: 22 prior attempts plus this session's compile all floor at 2226 (86%). The residual is compiler-internal -O2 high-register/block placement (target r6=v38/r8=p20/r9=base18, agbcc r7=v38/sb=p20/r8=base18; target hoists the match-found store block early and uses a register-offset ldsh for t->0x18). Prior agents tried declaration swaps and a typed struct field without improvement; no C spelling selects these choices. Not boundary, not hand asm. Leaving best 2226 source.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5691385,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A2E84",
   "text": "Frameless-leaf wall: body 100% byte-exact; only diff is agbcc push {lr}/pop {r0};bx r0 vs target bx lr, shifting beq. Tried all C forms, param types, all flag variants, try_compiler: only agbcc. No C form removes the frame. Best 215. Cannot get closer from C under project compiler.",
   "by": "opencode-beam-free-1",
@@ -128516,14 +128468,6 @@
   "text": "Re-requesting release explicitly: cannot get closer. Score 10 with 66/66 insns is a proven agbcc regalloc wall; the only residual is r0/r1 operand roles in one flags-OR block, and every C reordering that swaps them drops an instruction and corrupts the literal pool (scores 800-950). ~32 prior attempts, 2 this session. Not hand asm, not not_c. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5735278,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Re-requesting release explicitly: cannot get closer. 2226 (86.0%) is a 23-attempt, multi-session agbcc high-register/scheduling wall; residual is 33 regalloc plus block-placement differences that C declaration order cannot select. Not boundary, not hand asm, not not_c. Best source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5735676,
   "score_before": null,
   "score_after": null
  },
@@ -133156,14 +133100,6 @@
   "text": "Class-A boundary case, NOT a C wall. Compiled the best C once: score 300, first 36/36 real target instructions byte-exact through final `bx r0`; only 3 extra trailing halfwords (pad + literal 0x08671BB0). read_data(0x080B80CE) = `01 bc 00 47 00 00 b0 1b 67 08`: last real insn is bx r0 at 0x080B80D0, then 2-byte pad and the 4-byte literal at 0x080B80D4 belonging to the earlier ldr's pool. Filed report_boundary(end=0x080B80D0) again (multiple prior agents agree); awaits user approval. Best source preserved; no C change can help.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.5974877,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Best 2226 (86%). High-reg/block-placement wall. Not boundary/not_c. Moving on.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683534.5975275,
   "score_before": null,
   "score_after": null
  },
@@ -151776,14 +151712,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Best score 1820 (88.5%, 159/161 insns). Improved from starting 2226 by moving base18 computation after f16 block. Structure/control flow/CSE all match target exactly. Remaining diffs are PURE agbcc register allocation and block placement \u2014 cannot be fixed from pure C (register asm pinning banned):\n\n(1) v38\u2192r7 vs r6, p20\u2192sb vs r8, base18\u2192r8 vs r9 \u2014 target saves r8/r9 and uses them for p20/base18; agbcc saves r6/r7 and assigns differently. Tried: declaration order swaps (all 6 permutations), register hints, inlining p20 \u2014 none improved over 1820.\n\n(2) Block placement: target hoists match-found block (movs r0,#1; strh r0,[r5,#0x16]) between outer if/else arms; agbcc keeps it inline in the table-search loop. Tried: goto match_found \u2014 no effect.\n\n(3) ldrsh register-offset: target uses `ldrsh r0,[r5,r1]` (r1=0x16 offset), agbcc uses `movs r3,#0x16; ldrsh r0,[r5,r3]`. Cannot force register choice from C.\n\n(4) Table loop register choices (r7 vs r6 for index) cascade from (1).\n\nTried: v38/p3C/p20/base18 declaration order swaps (6 perms), register u8* hints, inlining p20=..., for loop vs while loop, moving base18 computation (2226\u21921820), goto match_found. Best remains 1820.\n\nConfirmed terminal wall: same regalloc/block-placement wall class as sub_080A9CC4 and sub_080B943C. Body logic, calls, constants, offsets all correct.\n\nBest C source saved (1820 version: u8* locals v38/p3C/p20/base18, s32 res/v1/v2v/b, u32 idx, struct S2A{u8 flag} for flag field, calls sub_0805F9B4/sub_08016238/sub_080C31E0/sub_080113A8 directly, D_02021E90/D_02025FF0/D_081003F0/D_0866F948 externs).",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.6934214,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "buildChainTail",
   "text": "Confirmed -O1 regalloc/stack-frame wall at best 2026 (87.7%). Target holds arg0 in r10 with 0x0C stack [sp]=sp0,[sp+4]=sp4,[sp+8]=sp8 and callee-saved r8=i,r6=off6,r9=off9,r7=p7; agbcc spills arg0 and uses 0x10 frame with shifted locals. 38 attempts floor at 2026. Winning source uses three intermediates q/q2/q3 for address computations. Remaining: target off6=r6/p7=r7 vs mine off6=r7/p7=r6; target reloads `ldr r0,[r1]` before p->0x4C store; target computes `add r4,sb` before sub_080C3824 call; extra `movs r1,#0` materialization. Call relocations don't link to ROM (harness warning). Not fixable with ordinary C; not asm, not not_c.",
   "by": "opencode-free-1",
@@ -152108,14 +152036,6 @@
   "text": "Cannot get closer from C \u2014 genuine compiler-level wall (60+ agents, best 2440 across ~60 attempts). Two independent codegen differences no C spelling controls: (1) target places 5 shared return tails INLINE (`b #0xe2` x5 at 0x2A80/2ABE/2AFC/2B12/2B28), agbcc -O1 always merges/parks tails at end with `b #0xd6`; (2) target regalloc type_a\u2192r2/type_b\u2192r3/bool\u2192r0, all tried C forms give type_a\u2192r3/type_b\u2192r0/bool\u2192r2. This session tried and rejected: typed-struct form (8950, spills r4-r7/ip/sb), explicit inline goto labels (8620, worse layout+regalloc), -O2/-O3 (6310), -Os (5210), -O0 (21701); -O1 is optimal. Prior agents tried flat early-return, nested bool temps (best 2440), 1/2 bools, void* vs typed, decl reorder, register pinning (rejected by judge). Target's per-tail `-1` materialization (`rsbs`/`subs #2`/`negs`) also differs from C's uniform `movs #1; subs #2`. Ordinary correct C, not asm, not not_c; only an agbcc block-placement/regalloc change could match.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.6952355,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "High-register coloring/block-placement wall at 1820 (88.5%): target v38=r6, p20=r8 (sb), base18=r9; agbcc v38=r7, p20=sb, base18=r8. Target hoists match-found block between if/else arms; agbcc keeps it inline. Target uses register-offset `ldrsh r0,[r5,r1]`; agbcc uses `movs r3,#0x16; ldrsh r0,[r5,r3]`. Table loop register choices cascade. 37+ prior attempts confirm ceiling. register-asm banned.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.6952734,
   "score_before": null,
   "score_after": null
  },
@@ -155424,14 +155344,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "High-register coloring/block-placement wall at 1820 (88.5%, 161/159 insns). Target v38=r6, p20=r8 (sb), base18=r9; agbcc v38=r7, p20=sb, base18=r8. Target hoists match-found block between if/else arms; agbcc keeps it inline. Target uses register-offset `ldrsh r0,[r5,r1]`; agbcc uses `movs r3,#0x16; ldrsh r0,[r5,r3]`. Table loop register choices cascade. 37+ prior attempts confirm ceiling. register-asm banned.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.7123024,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "getMetatileAttribute",
   "text": "Re-confirmed terminal wall, best 10 (44/45 insns byte-exact), 1 compile this session. Sole diff: target `adds r0,r0,r1` at the row-base add (loaded row-table base in r0 as destination) vs agbcc `adds r1,r1,r0` (computed offset as destination), plus the one cascaded `lsls` register. Both add operands are already in the ROM's source registers. Also tried volatile base-pointer load via try_compiler \u2014 still 10. 983+ prior attempts across every C spelling/temporary/cast/operand/declaration order/type/volatile/flag variant floor at 10; register/inline asm banned. Clean epilogue (pop{r1};bx r1), not hand asm, not not_c, no boundary issue. Formally waits for sub_08004314. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -156676,14 +156588,6 @@
   "text": "Asking to release now: terminal wall, cannot get closer in C. 989+ prior attempts by many models plus 1 this session (simplified rewrite 1155, regressed). Best 10 = 44/45 insns byte-exact; sole diff is agbcc's commutative-add destination choice (`adds r1,r1,r0` vs target `adds r0,r0,r1`) plus cascaded lsls, with both operands already in the ROM's source registers. GCC's dest canonicalization for a commutative add is not selectable from C; register-asm banned. Not hand-asm, not not_c, clean epilogue, no boundary issue. Previously recorded needs=sub_08004314 cannot be used because that function is hand-asm; drop the dependency.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.7187436,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Confirmed high-register coloring/block-placement wall at 1820 (88.5%, 161/159 insns). Target v38=r6, p20=r8 (sb), base18=r9; agbcc v38=r7, p20=sb, base18=r8. Target hoists match-found block between if/else arms; agbcc keeps it inline. Target uses register-offset `ldrsh r0,[r5,r1]`; agbcc uses `movs r3,#0x16; ldrsh r0,[r5,r3]`. Table loop register choices cascade. 37+ prior attempts confirm ceiling. register-asm banned.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.7187858,
   "score_before": null,
   "score_after": null
  },
@@ -167648,14 +167552,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Asking again to release: 41 prior attempts across 6 agents confirm the high-register/block-placement wall (best 1691, 89.3%, 159/159 insns). I have noted the two remaining structural leads (declaring `t` as `u8 *` with `*(s16 *)(t+0x18)` to get `ldrsh` instead of ldrh+lsls+asrs, and the two-pointer sentinel loop with `if (target == *p)`) in the previous note for whoever picks this up; the dominant residual is agbcc's high-register assignment (ROM v38=r6/p20=r8/base18=r9 vs agbcc r7/sb/r8), which declaration-order permutations, goto-based block hoisting and typed fields already failed to move. Releasing to continue the claim quota.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.7758281,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A23B0",
   "text": "Asking again, same conclusion: this is the documented agbcc high-register (>r7) allocation wall (23 prior attempts, 8 agents). Best 5145 (67.6%). Every call, constant, table access (D_080CBDD0[0x1C/0x1E] via the p+0x1C index, D_08101A70[r3*8] field copies), the null-check/fail path, the 0x1000 flag OR and the script-advance chain are correct; the residual 59 regalloc rows are agbcc choosing r5=arg0 and not saving r8/r9 as the ROM does (r6=arg0, r8=alloc, sb=D_080CBDD0, r7=p, r5=p+0x48). No plain-C construct (declaration order, volatile reloads, struct shapes, goto fail block) selects it; register pinning is banned. Releasing to continue the claim quota.",
   "by": "opencode-deepseek-v4.1-flash-2",
@@ -170188,14 +170084,6 @@
   "text": "Cannot get closer in pure C: 1060+ attempts across models, floor score 10 (45/45 insns, only a 2-row commutative-add destination tie at the row-base add: target `adds r0,r0,r1`+`lsls r1,r2,#1`, agbcc `adds r1,r1,r0`+`lsls r0,r2,#1`). gcc -O1 `%0` destination wall for `(plus (mem) (mult))`; no C spelling flips it without demoting arg0 from r4 or changing the 45-insn allocation. Leaf, no calls \u2014 spurious `needs sub_08004314` edge. Not hand asm, not not_c, no boundary. Moving on permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.788876,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Three compiles this session, all floor at 1691 (89.3%, 159/159). Verified beyond doubt: changing the table walk to a store-inside-loop `for(;;)` shape regresses to 2076 and drops the sb prologue save; declaring `t` as `s16 *` and reading `t[0xC]` changes nothing (agbcc still emits `ldrh r0,[r1,#0x18]; lsls; asrs` instead of the ROM's `movs r0,#0x18; ldsh r3,[r1,r0]` \u2014 agbcc only uses ldsh with a variable register offset, so this row is compiler-inherent). The remaining 30 regalloc / 22 operand rows are the documented high-register (v38 r6/r7, p20 r8/sb, base18 r9/r8) and block-placement (ROM puts the found block between the flag if/else arms) wall that 42 attempts across 6 agents could not move. Best source preserved (1691): parameters used directly, D_081003F0 sentinel loop, D_0866F948 callback store, 0x8000 flag test, D_02021E90+0x1278/0x127C reads with `((v + const) & 0xFFFF0000)`. Not boundary, not hand asm, not not_c. Releasing.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.7889144,
   "score_before": null,
   "score_after": null
  },
@@ -183216,14 +183104,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Best 631/159 insns (from 1691 floor). Four verified structural fixes that previous 45 attempts missed: (1) the search loop ends with a `do { if (target == *p) { *(s16*)(p3C+0x16)=1; break; } q++; p++; } while (*q != 0);` with TWO s16 pointers both initialised from D_081003F0 (q init placed after the target load) -- this removes the redundant final `if (*table==target)` check, gives the ROM's two increments and moves the flag=1 block between the flag if/else arms automatically; (2) the tail check reads offset 0x14, not 0x16 -- 0x16 was wrong in every earlier attempt; (3) read f16 into a local `s32 f16 = *(s16*)(p3C+0x16)` BEFORE `base18 = arg0+0x18` to get the ROM's load-then-base18 ordering; (4) `u8 *sub_08016238(u8*)` with `*(s16*)(t+0x18)` yields the ROM's `movs r0,#0x18; ldrsh r3,[r1,r0]` (void* + s16* failed). Remaining wall is pure agbcc colouring: ROM v38=r6/zero-temp=r7/p=r2/q=r1, mine v38=r7/zero-temp=r6/p=r1/q=r2. Tried and FAILED: declaration swap of the two pointer locals, explicit `s32 z=0` array index (forces sl/ip saves, 3080), `for(q=p;;q++,p++)` loop form (1096), statement-order swap of the first two loads (646), register asm pin (rejected by harness). Also note the ROM epilogue `pop {r0}; bx r0` under a -mno-thumb-interwork range: try_compiler with -mthumb-interwork scores 1820 (worse), so keep project flags.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.85667,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A6498",
   "text": "Cannot get closer than 655 (94.6%, 122/122 insns). Pure agbcc coloring/scheduling wall confirmed this session: sub_08005910 result pseudo color (r2 vs r0), 0x08102084 literal hoist position, and sub_080147A4 sign-extension (s8 needed for allocation; s32/u32 regress to 952/737). 60+ attempts across agents exhausted all C spellings (result locals, struct lvalues, literal pointer forms, declaration orders). Ordinary correct C, not hand-asm, not not_c, no boundary. Best 655 preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -183236,14 +183116,6 @@
   "text": "Cannot get closer: best 60 (99.7%, 256/256) is a scheduler tie-break only (zero-init vs strh adjacency in the `|= p25->f18C2` block). Temp-split fixes the order but costs 15 low-register regalloc diffs (75); every other form reorders or regresses (75/290/470 per prior agents). 54 prior attempts across models agree. Not hand asm, not not_c, no boundary, no dependency. Best-60 source preserved.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.8567605,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Asking to release now: 9 compiles from 1691 floor to 631 (96.0%, 157/159 insns); last 5 consecutive compiles produced no better score. The residual is a pure agbcc hard-register colouring wall (ROM v38=r6 / zero-temp=r7 / search pointers r2,r1 vs mine v38=r7 / zero-temp=r6 / pointers r1,r2), with no way to select those registers from natural C: declaration swaps, explicit zero-index locals (force sl/ip saves), alternate loop forms, load-order swaps, register asm (harness-rejected) and -mthumb-interwork flags all failed or regressed. All structure, calls, constants and offsets are now correct (see add_note). Cannot get closer from C; not boundary, not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.8567967,
   "score_before": null,
   "score_after": null
  },
@@ -184828,14 +184700,6 @@
   "text": "Best now 2037 (was 2088) after 7 compiles. Improvement found: swap load order to `r10 = *(arg0+0x38); r8 = *(arg0+0x3C);` (f38 before f3C) in the best attempt source \u2014 this makes f38->sl and the sub_08049180 bl offset match. Tried combining with s32 locals for r6 (to remove lsls/lsrs sign-extension shifts) but it regresses to 2832 (loses the self->sb allocation, adds r7 copies). The remaining wall: target self->sb/f3C->r8 vs agbcc self->r8/f3C->sb (swap), sub sp,#4 vs #8, sign-extension shifts from s8 r6/r2, and 0x080DEA4C-style call offsets. Explicit register pinning rejected by harness. Not not_c, not boundary.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.8649101,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Best 431 (97.2%, 157/159 insns, -mno-thumb-interwork -O2 -fno-strength-reduce). All logic/calls/offsets appear correct. Residual is high-register coloring/block-placement wall: target v38=r6,p20=r8,base18=r9 and different temp/register choices through search/tail; agbcc uses different high-reg assignment (v38/r7, base18/r8, etc.), causing 16 regalloc, 9 operand, 2 reordered, 2 missing, 1 stack diffs and pointer-literal shift false positives in linker warnings. Kept best permuter source; no C lever found this session. Not hand asm/not_c/boundary.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.8649487,
   "score_before": null,
   "score_after": null
  },
@@ -192864,14 +192728,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Releasing anyway: 159/159 instructions already match and the only residue is agbcc's register coloring for two short-lived pseudos (first +4-pointer/zero store pair and the loop's constant scratch r7 vs r3/r0). 65+ attempts, 9 agents; every C lever known tried. Best 150 source preserved.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9069326,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "scriptCmdSpawnJitteredSprite",
   "text": "Releasing (second ask): the residual is one 2-byte instruction plus allocator ties, on a 290-instruction function. Everything structural is already right; the ROM's `mov r0,r8` before `str r0,[r7,#0x38]` is a copy-back agbcc always optimises away here (documented on 20+ attempts), and the sibling evidence I recorded (sprite must live in r8, all four low callee-saved regs held by arg0/state/table/extra, sub_08013C2C returning s16 to keep the count at 290) is in the previous note. Best-600 source preserved.",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -193600,14 +193456,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "sub_0808FE8C: cannot reach 0 in pure C \u2014 confirmed high-register coloring wall at score 135 (99.1%, 159/159 insns). Exhausted 10 compiles: separate zero variable (210\u2192135, key breakthrough), u32 base18 (no change), p3C/v38 declaration swap (no change), assignment swap (225 worse), pb+0x18A8 reorder (1025 worse), base18 inlining (1680 worse). Residual 15 regalloc rows: target v38\u2192r6/base18\u2192r9/sb/zero\u2192r0/sub_result\u2192r1/D_02025FF0\u2192r7/0xFFFF0000\u2192r3 vs mine v38\u2192r7/base18\u2192r7/sb/zero\u2192r6/sub_result\u2192r3/D_02025FF0\u2192r0/0xFFFF0000\u2192r7. All logic/data/calls byte-exact. Best-135 source preserved (separate zero var + u32 base18 + s32 res at top). Register-asm banned. Not hand asm, not not_c, no boundary. Releasing early per move-on rule.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.910767,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A23B0",
   "text": "Cannot get closer in pure C. All 159 instructions are byte-exact at score 1150; only the deterministic agbcc high-register allocation assignment differs (target arg0=r6/child_slot=r5 + r8/r9 prologue save; agbcc arg0=r5/child_slot=r6) plus the consequential stub BL offsets. 48 prior attempts across 8 agents cover every declaration/type/initializer/call-result/early-split lever; register pinning is banned and no plausible C shape flips the ranking. Ordinary correct C, not hand asm, not not_c, no boundary. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -193852,14 +193700,6 @@
   "text": "Compile says it all: all 165 target instructions are byte-identical (score 200) and the only residual rows are 2 alignment `movs r0,r0` plus the tool's \"your function is longer than the original\". Nothing in C can change it \u2014 my compiled object is 352 bytes, which is the ROM's real function size; the declared extent (348 bytes, ending 0x08079F4C) cuts the function's 8-word literal pool (0x08079F30..0x08079F50: 02025FF0, 1510, 2E2, 0808449D, 084DE7BC, 084DE884, 14B, 08671BB0) in the middle of its last word. I filed a setup suggestion to extend the extent to 352 bytes (end 0x08079F50); prior report_boundary(end=0x08079F2E) filings would instead throw away the pool, which the compiler legitimately emits. Do not rewrite the source: the saved best attempt is correct as-is.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.9120994,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Asking again with the explicit reason it cannot get closer: all 159 target instructions are present and byte-exact apart from 15 register-colouring rows and 2 reorder rows; every value is a short-lived pseudo whose hard-register assignment agbcc fixes deterministically and no natural C spelling changes (77 prior attempts plus this compile; -mno-thumb-interwork tested and worse at 416). Register pinning via inline asm is harness-banned, so these rows cannot be removed in pure C. Not hand-written asm, not not_c, no boundary. Best-135 source preserved; advance the queue.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.912141,
   "score_before": null,
   "score_after": null
  },
@@ -200980,14 +200820,6 @@
   "text": "Please release: cannot get closer. 10 = 56/57 target insns byte-exact; only residual is the r1-vs-r0 scratch for `mov r?,sb; cmp r?,#0` on `if (v == 0)`. No C construct controls it: r0 is free at that point (dead after `strb r0,[r4,#0x17]`), and the only ways found to occupy r0 add instructions. The best-10 source (u8 v = arg2 inside the `if (count > 0)` block, store arg2, nested `u32 bit = 0x80; bit &= p->flags;`) is preserved; my recompile reproduced 10. Tested this session: v at function scope = 130 (shifts r6/r7/r8/sb/sl/r10 and still r0), storing v instead of arg2 = 1585 (loses the high-register set, spills mask). Prior 100 attempts covered u32 v, `0 == v`, `!v`, `v<1`, switch, decl permutations, O1/O2/O3/Os (10/10/10/25), -mno-thumb-interwork. Register-asm pinning rejected. Not hand asm, not not_c, no boundary/callee issue.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.9492881,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Cannot get closer in pure C. 159/159 instructions byte-exact; the only residue is agbcc's deterministic scratch/high-register coloring (ROM base18 via r3\u2192sb and table index in r7; agbcc base18 via r7\u2192sb and index in r1), which no natural C spelling changes. ~78 attempts across 9 agents exhausted every lever; register-asm pinning banned. Ordinary correct C, not hand asm, not not_c, no boundary. Best-135 source preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.9493263,
   "score_before": null,
   "score_after": null
  },
@@ -210128,14 +209960,6 @@
   "score_after": null
  },
  {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Ask again to release: 159/159 insns already byte-exact, best 135 (99.1%); the 15 regalloc + 2 reorder rows all stem from the single `t` pseudo colour (ROM r1 vs ours r3) and its r1->r3->r7 cascade (base18 scratch, loop zero-index scratch, q=p placement). search_flags proved the project's flags are optimal (-O2/-O3 same 135, -O1 1760, -Os 2371). 79 prior attempts across 9 agents exhausted every structural/declaration/type lever; register-asm pinning is banned. Cannot get closer in pure C. Not hand asm, not not_c, no boundary. Best-135 source preserved.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.9969523,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A040C",
   "text": "Cannot get closer from C \u2014 terminal agbcc -mthumb-interwork frameless-branching-leaf wall, fully re-confirmed this session (3 compiles + ~94 prior attempts across all models, every C shape if/early-return/ternary-lvalue/while/goto/&&-booleanization and every flag/compiler variant). The body-exact guarded form (215) requires a conditional branch, and this compiler ALWAYS emits push{lr}/pop{r0};bx r0 for any leaf containing a conditional branch; the frameless form (210, best) has no branch so it cannot emit the target's cmp r0,#0 / beq #0xc. The two are mutually exclusive by compiler codegen rule. Target's explicit cmp+beq cannot be produced by the #826 sign-trick computed-return shape either (that writes to r0 and needs a return value). No legal C/flags change removes a compiler-generated LR frame; inline/register asm banned. Not hand asm, not not_c, no boundary (trailing .byte 0,0 is alignment padding), no callee dependency. Best-210 source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -211484,14 +211308,6 @@
   "text": "Cannot get closer with C; please release. This is a terminal, fully-characterized agbcc frameless-branched-leaf wall (agreed game knowledge), so no further compile can improve it. Reconfirmed this session (1 compile, score 455 = 89.6%): target is a frameless Thumb leaf with a conditional branch, bare `bx lr`, scratch r0-r3 only; this agbcc build unconditionally emits `push {lr}` ... `pop {r0}; bx r0` for every branchy Thumb function, and no C spelling, type, declaration order, or flag (O1/O2/O3/Os, -mno-thumb-interwork) removes the frame. Best 455 is the saved new_var form; a body-exact 677 form exists (all 38 real body insns byte-exact) but still carries the frame and scores worse. ~134 prior attempts across all models exhausted every C form and all flags; only agbcc exists for this game, register pinning banned. Ends cleanly at bx lr (not a boundary), no callee dependency, not hand asm, not not_c. Best-455 source preserved verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.0039563,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Second ask. Score 135 (159/159 instructions) is a proven terminal agbcc -O2 scratch/high-register colouring wall (81 attempts, 9 agents; re-verified this session). All the residual rows are short-lived pseudo colour choices \u2014 the base18 scratch (r3 vs r7), the loop's zero index (r7 vs r1), the sub_08016238 result (r1 vs r3), the 0x14 selector scratch, and the two tail constants \u2014 none of which any natural C spelling controls; there is no structural, operand, data or call difference left, and the two reorder rows are the q=p copy slot. Every lever tried across the 81 attempts is listed in the previous note; the flags are already optimal (search_flags: -O2/-O3=135, -O1=1760, -Os=2371, -mthumb-interwork worse). Register-asm pinning is rejected by the harness. Not hand asm, not_c=false, no boundary. Best-135 source preserved.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683535.0039926,
   "score_before": null,
   "score_after": null
  },
@@ -213964,14 +213780,6 @@
   "text": "Asking to release: 64 prior attempts across 9 agents plus my 2 real compiles (3081, 2871) confirm the -O1 wall. Everything except 4 regalloc rows and the zero-birth position is byte-exact at the stored 420; the AND-destination-role lever (#830 form) and the adds-before-zero lever (#834 form) both require an extra live local, and at -O1 that tips the save map into a stack spill (`sub sp,#4`) and reorders the constant load, making things far worse. No source shape tried by anyone reaches 0; register pinning is banned; ordinary C; not hand asm, not not_c, no boundary, no callee dependency.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683535.0166702,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateTargetedScriptedAttack",
-  "text": "Asking to release: 82 prior attempts across 9 agents plus this recompile agree that 135 (159/159 insns) is the ceiling; the only differences are 15 short-lived pseudo colourings and 2 reorder rows that agbcc fixes deterministically (base18 scratch r3 vs r7, t r1 vs r3, loop zero-index r7 vs r1, tail scratch r3/r7/r0). Flags already optimal per prior search_flags (-O2/-O3 135, -O1 1760, -Os 2371). I also fixed the stored source's compile-blocking typo (`(u32 *)` -> `(u32)`) so the next agent can compile it directly. Register pinning banned; ordinary C; not hand asm, not not_c, no boundary, no callee dependency.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683535.016722,
   "score_before": null,
   "score_after": null
  },
@@ -354769,5 +354577,197 @@
   "created_at": 1795792703.9410608,
   "score_before": 10,
   "score_after": 10
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Releasing after 2 compiles; regalloc complex. Best score 5081. Next agent: focus on r8/r9 and declaration order.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9768999,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Ceiling at 3315 (79.1%). All logic matched. Regalloc wall: high-reg save (r8/r9), sb=r5+0x20; agbcc r8. Goto loop compiles differently. Call relocations differ. Unfixable from C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4115155,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Cannot get closer: matched permuter best 3315. High-reg save wall (r8/r9): target `mov r7,sb; mov r6,r8; push {r6,r7}`; agbcc only saves r8. Body regalloc mismatch: target r6=*(arg0+0x38), r5=*(arg0+0x3C), sb=r5+0x20; agbcc r7,r6,r8. Goto loop compiles differently. Table lookup addressing differs (sb-based vs literal). Call relocations differ. All logic correct. Fundamental agbcc regalloc limitation.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4289331,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Cannot get closer in C. 3 compiles this session: best 2226 (86%). Explored (a) sibling-derived source, (b) swapping declaration order of the two persistent high-reg values base18/p20 (regressed 2285), (c) typed struct field for the t->0x18 s16 load (no change). Remaining diff is compiler-internal agbcc regalloc/block scheduling: target assigns r8=p20, r9=base18, r6=v38, r7=scratch, while agbcc assigns r9=p20, r8=base18, r7=v38; target also places the loop-match's `movs r0,#1; strh r0,[r5,#0x16]; b tail` block early between the flag if/else arms, and reads t->0x18 with register-offset ldsh, none of which are selectable by C spelling or declaration order. Prior 17 attempts also ceilinged (3315); this source is the best known. Not not_c.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4571583,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Cannot get closer in pure C: best 2226 (86.0%). Tried structural rewrite (3770). Remaining diffs are agbcc regalloc/high-reg assignment (r8/r9/r6 roles), control-flow/block placement for table-match case, register-offset ldsh patterns, and literal/symbol layout - compiler/codegen wall. Logic appears correct; not boundary/not_c. Best attempt preserved.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.532824,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Cannot get closer: 22 prior attempts plus this session's compile all floor at 2226 (86%). The residual is compiler-internal -O2 high-register/block placement (target r6=v38/r8=p20/r9=base18, agbcc r7=v38/sb=p20/r8=base18; target hoists the match-found store block early and uses a register-offset ldsh for t->0x18). Prior agents tried declaration swaps and a typed struct field without improvement; no C spelling selects these choices. Not boundary, not hand asm. Leaving best 2226 source.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5691385,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Re-requesting release explicitly: cannot get closer. 2226 (86.0%) is a 23-attempt, multi-session agbcc high-register/scheduling wall; residual is 33 regalloc plus block-placement differences that C declaration order cannot select. Not boundary, not hand asm, not not_c. Best source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5735676,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Best 2226 (86%). High-reg/block-placement wall. Not boundary/not_c. Moving on.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683534.5975275,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Best score 1820 (88.5%, 159/161 insns). Improved from starting 2226 by moving base18 computation after f16 block. Structure/control flow/CSE all match target exactly. Remaining diffs are PURE agbcc register allocation and block placement \u2014 cannot be fixed from pure C (register asm pinning banned):\n\n(1) v38\u2192r7 vs r6, p20\u2192sb vs r8, base18\u2192r8 vs r9 \u2014 target saves r8/r9 and uses them for p20/base18; agbcc saves r6/r7 and assigns differently. Tried: declaration order swaps (all 6 permutations), register hints, inlining p20 \u2014 none improved over 1820.\n\n(2) Block placement: target hoists match-found block (movs r0,#1; strh r0,[r5,#0x16]) between outer if/else arms; agbcc keeps it inline in the table-search loop. Tried: goto match_found \u2014 no effect.\n\n(3) ldrsh register-offset: target uses `ldrsh r0,[r5,r1]` (r1=0x16 offset), agbcc uses `movs r3,#0x16; ldrsh r0,[r5,r3]`. Cannot force register choice from C.\n\n(4) Table loop register choices (r7 vs r6 for index) cascade from (1).\n\nTried: v38/p3C/p20/base18 declaration order swaps (6 perms), register u8* hints, inlining p20=..., for loop vs while loop, moving base18 computation (2226\u21921820), goto match_found. Best remains 1820.\n\nConfirmed terminal wall: same regalloc/block-placement wall class as sub_080A9CC4 and sub_080B943C. Body logic, calls, constants, offsets all correct.\n\nBest C source saved (1820 version: u8* locals v38/p3C/p20/base18, s32 res/v1/v2v/b, u32 idx, struct S2A{u8 flag} for flag field, calls sub_0805F9B4/sub_08016238/sub_080C31E0/sub_080113A8 directly, D_02021E90/D_02025FF0/D_081003F0/D_0866F948 externs).",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.6934214,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "High-register coloring/block-placement wall at 1820 (88.5%): target v38=r6, p20=r8 (sb), base18=r9; agbcc v38=r7, p20=sb, base18=r8. Target hoists match-found block between if/else arms; agbcc keeps it inline. Target uses register-offset `ldrsh r0,[r5,r1]`; agbcc uses `movs r3,#0x16; ldrsh r0,[r5,r3]`. Table loop register choices cascade. 37+ prior attempts confirm ceiling. register-asm banned.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.6952734,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "High-register coloring/block-placement wall at 1820 (88.5%, 161/159 insns). Target v38=r6, p20=r8 (sb), base18=r9; agbcc v38=r7, p20=sb, base18=r8. Target hoists match-found block between if/else arms; agbcc keeps it inline. Target uses register-offset `ldrsh r0,[r5,r1]`; agbcc uses `movs r3,#0x16; ldrsh r0,[r5,r3]`. Table loop register choices cascade. 37+ prior attempts confirm ceiling. register-asm banned.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.7123024,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Confirmed high-register coloring/block-placement wall at 1820 (88.5%, 161/159 insns). Target v38=r6, p20=r8 (sb), base18=r9; agbcc v38=r7, p20=sb, base18=r8. Target hoists match-found block between if/else arms; agbcc keeps it inline. Target uses register-offset `ldrsh r0,[r5,r1]`; agbcc uses `movs r3,#0x16; ldrsh r0,[r5,r3]`. Table loop register choices cascade. 37+ prior attempts confirm ceiling. register-asm banned.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.7187858,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Asking again to release: 41 prior attempts across 6 agents confirm the high-register/block-placement wall (best 1691, 89.3%, 159/159 insns). I have noted the two remaining structural leads (declaring `t` as `u8 *` with `*(s16 *)(t+0x18)` to get `ldrsh` instead of ldrh+lsls+asrs, and the two-pointer sentinel loop with `if (target == *p)`) in the previous note for whoever picks this up; the dominant residual is agbcc's high-register assignment (ROM v38=r6/p20=r8/base18=r9 vs agbcc r7/sb/r8), which declaration-order permutations, goto-based block hoisting and typed fields already failed to move. Releasing to continue the claim quota.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.7758281,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Three compiles this session, all floor at 1691 (89.3%, 159/159). Verified beyond doubt: changing the table walk to a store-inside-loop `for(;;)` shape regresses to 2076 and drops the sb prologue save; declaring `t` as `s16 *` and reading `t[0xC]` changes nothing (agbcc still emits `ldrh r0,[r1,#0x18]; lsls; asrs` instead of the ROM's `movs r0,#0x18; ldsh r3,[r1,r0]` \u2014 agbcc only uses ldsh with a variable register offset, so this row is compiler-inherent). The remaining 30 regalloc / 22 operand rows are the documented high-register (v38 r6/r7, p20 r8/sb, base18 r9/r8) and block-placement (ROM puts the found block between the flag if/else arms) wall that 42 attempts across 6 agents could not move. Best source preserved (1691): parameters used directly, D_081003F0 sentinel loop, D_0866F948 callback store, 0x8000 flag test, D_02021E90+0x1278/0x127C reads with `((v + const) & 0xFFFF0000)`. Not boundary, not hand asm, not not_c. Releasing.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.7889144,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Best 631/159 insns (from 1691 floor). Four verified structural fixes that previous 45 attempts missed: (1) the search loop ends with a `do { if (target == *p) { *(s16*)(p3C+0x16)=1; break; } q++; p++; } while (*q != 0);` with TWO s16 pointers both initialised from D_081003F0 (q init placed after the target load) -- this removes the redundant final `if (*table==target)` check, gives the ROM's two increments and moves the flag=1 block between the flag if/else arms automatically; (2) the tail check reads offset 0x14, not 0x16 -- 0x16 was wrong in every earlier attempt; (3) read f16 into a local `s32 f16 = *(s16*)(p3C+0x16)` BEFORE `base18 = arg0+0x18` to get the ROM's load-then-base18 ordering; (4) `u8 *sub_08016238(u8*)` with `*(s16*)(t+0x18)` yields the ROM's `movs r0,#0x18; ldrsh r3,[r1,r0]` (void* + s16* failed). Remaining wall is pure agbcc colouring: ROM v38=r6/zero-temp=r7/p=r2/q=r1, mine v38=r7/zero-temp=r6/p=r1/q=r2. Tried and FAILED: declaration swap of the two pointer locals, explicit `s32 z=0` array index (forces sl/ip saves, 3080), `for(q=p;;q++,p++)` loop form (1096), statement-order swap of the first two loads (646), register asm pin (rejected by harness). Also note the ROM epilogue `pop {r0}; bx r0` under a -mno-thumb-interwork range: try_compiler with -mthumb-interwork scores 1820 (worse), so keep project flags.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.85667,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Asking to release now: 9 compiles from 1691 floor to 631 (96.0%, 157/159 insns); last 5 consecutive compiles produced no better score. The residual is a pure agbcc hard-register colouring wall (ROM v38=r6 / zero-temp=r7 / search pointers r2,r1 vs mine v38=r7 / zero-temp=r6 / pointers r1,r2), with no way to select those registers from natural C: declaration swaps, explicit zero-index locals (force sl/ip saves), alternate loop forms, load-order swaps, register asm (harness-rejected) and -mthumb-interwork flags all failed or regressed. All structure, calls, constants and offsets are now correct (see add_note). Cannot get closer from C; not boundary, not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.8567967,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Best 431 (97.2%, 157/159 insns, -mno-thumb-interwork -O2 -fno-strength-reduce). All logic/calls/offsets appear correct. Residual is high-register coloring/block-placement wall: target v38=r6,p20=r8,base18=r9 and different temp/register choices through search/tail; agbcc uses different high-reg assignment (v38/r7, base18/r8, etc.), causing 16 regalloc, 9 operand, 2 reordered, 2 missing, 1 stack diffs and pointer-literal shift false positives in linker warnings. Kept best permuter source; no C lever found this session. Not hand asm/not_c/boundary.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.8649487,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Releasing anyway: 159/159 instructions already match and the only residue is agbcc's register coloring for two short-lived pseudos (first +4-pointer/zero store pair and the loop's constant scratch r7 vs r3/r0). 65+ attempts, 9 agents; every C lever known tried. Best 150 source preserved.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9069326,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "sub_0808FE8C: cannot reach 0 in pure C \u2014 confirmed high-register coloring wall at score 135 (99.1%, 159/159 insns). Exhausted 10 compiles: separate zero variable (210\u2192135, key breakthrough), u32 base18 (no change), p3C/v38 declaration swap (no change), assignment swap (225 worse), pb+0x18A8 reorder (1025 worse), base18 inlining (1680 worse). Residual 15 regalloc rows: target v38\u2192r6/base18\u2192r9/sb/zero\u2192r0/sub_result\u2192r1/D_02025FF0\u2192r7/0xFFFF0000\u2192r3 vs mine v38\u2192r7/base18\u2192r7/sb/zero\u2192r6/sub_result\u2192r3/D_02025FF0\u2192r0/0xFFFF0000\u2192r7. All logic/data/calls byte-exact. Best-135 source preserved (separate zero var + u32 base18 + s32 res at top). Register-asm banned. Not hand asm, not not_c, no boundary. Releasing early per move-on rule.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.910767,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Asking again with the explicit reason it cannot get closer: all 159 target instructions are present and byte-exact apart from 15 register-colouring rows and 2 reorder rows; every value is a short-lived pseudo whose hard-register assignment agbcc fixes deterministically and no natural C spelling changes (77 prior attempts plus this compile; -mno-thumb-interwork tested and worse at 416). Register pinning via inline asm is harness-banned, so these rows cannot be removed in pure C. Not hand-written asm, not not_c, no boundary. Best-135 source preserved; advance the queue.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.912141,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Cannot get closer in pure C. 159/159 instructions byte-exact; the only residue is agbcc's deterministic scratch/high-register coloring (ROM base18 via r3\u2192sb and table index in r7; agbcc base18 via r7\u2192sb and index in r1), which no natural C spelling changes. ~78 attempts across 9 agents exhausted every lever; register-asm pinning banned. Ordinary correct C, not hand asm, not not_c, no boundary. Best-135 source preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.9493263,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Ask again to release: 159/159 insns already byte-exact, best 135 (99.1%); the 15 regalloc + 2 reorder rows all stem from the single `t` pseudo colour (ROM r1 vs ours r3) and its r1->r3->r7 cascade (base18 scratch, loop zero-index scratch, q=p placement). search_flags proved the project's flags are optimal (-O2/-O3 same 135, -O1 1760, -Os 2371). 79 prior attempts across 9 agents exhausted every structural/declaration/type lever; register-asm pinning is banned. Cannot get closer in pure C. Not hand asm, not not_c, no boundary. Best-135 source preserved.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.9969523,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Second ask. Score 135 (159/159 instructions) is a proven terminal agbcc -O2 scratch/high-register colouring wall (81 attempts, 9 agents; re-verified this session). All the residual rows are short-lived pseudo colour choices \u2014 the base18 scratch (r3 vs r7), the loop's zero index (r7 vs r1), the sub_08016238 result (r1 vs r3), the 0x14 selector scratch, and the two tail constants \u2014 none of which any natural C spelling controls; there is no structural, operand, data or call difference left, and the two reorder rows are the q=p copy slot. Every lever tried across the 81 attempts is listed in the previous note; the flags are already optimal (search_flags: -O2/-O3=135, -O1=1760, -Os=2371, -mthumb-interwork worse). Register-asm pinning is rejected by the harness. Not hand asm, not_c=false, no boundary. Best-135 source preserved.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683535.0039926,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTargetedScriptedAttack",
+  "text": "Asking to release: 82 prior attempts across 9 agents plus this recompile agree that 135 (159/159 insns) is the ceiling; the only differences are 15 short-lived pseudo colourings and 2 reorder rows that agbcc fixes deterministically (base18 scratch r3 vs r7, t r1 vs r3, loop zero-index r7 vs r1, tail scratch r3/r7/r0). Flags already optimal per prior search_flags (-O2/-O3 135, -O1 1760, -Os 2371). I also fixed the stored source's compile-blocking typo (`(u32 *)` -> `(u32)`) so the next agent can compile it directly. Register pinning banned; ordinary C; not hand asm, not not_c, no boundary, no callee dependency.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683535.016722,
+  "score_before": null,
+  "score_after": null
  }
 ]
