@@ -54,7 +54,7 @@ void sub_0806D7B4(struct Vec *pos, s32 amount) {
 
 /* Scales amount by the cap at gGameStatus+0x2C8 divided by 100, with a minimum
  * of one whole unit (0x10000), then applies it through sub_0806D7B4. */
-void spawnScaledEffect(struct Vec *pos, s32 amount) {
+void sub_0806D77C(struct Vec *pos, s32 amount) {
     u8 *base = gGameStatus;
     s32 *cap = (s32 *)(base + 0x2C8);
     s32 v = divInt32(*cap, 100) * amount;
