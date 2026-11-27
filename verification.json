@@ -206235,11 +206235,11 @@
     "rom_sha1": "d661b01eb94186435723ac03344792c11c20c522"
    },
    "symbols_sha256": "869930c88487e39d0b50a97494d9e5b02562bea383a6ff776c3e50deb13a6e4b",
-   "recorded_at": 1795813127.4225879,
-   "attempt_id": 8590678586,
+   "recorded_at": 1795813038.906862,
+   "attempt_id": 8590677653,
    "source_sha256": "30dacbfefd01dad6e29a88de5ff933c9893dcd8ef528925ebe58f5e04588d8a3",
-   "header_sha256": "bfba3694eedcd8fd5f8817cd3cab2045d4864b3b702b98205d6e453da28e5557",
-   "context_version": 210,
+   "header_sha256": "60a223b20cd3ad743c261ea7710aa54a01171f81037db20042a732c5e12f8a54",
+   "context_version": 207,
    "compiler": {
     "toolchain": "agbcc",
     "flags": [
@@ -206267,7 +206267,7 @@
      ],
      "timeout": 20
     },
-    "settings_source": "compile invocation snapshot",
+    "settings_source": "project configuration at recording; temporary compile overrides may differ",
     "gp": 0,
     "big_endian": false,
     "rom": {
@@ -206276,22 +206276,9 @@
      "region": "North America",
      "byte_order": "gba"
     },
-    "effective_command": [
-     "/bin/sh",
-     "-c",
-     "src=\"$1\"; obj=\"$2\"; inc=\"$3\"; shift 3; \"/home/nikitaluger/.local/share/decompnet/toolchains/arm-gnu/bin/arm-none-eabi-cpp\" -nostdinc -undef -I \"/home/nikitaluger/.local/share/decompnet/toolchains/agbcc/include\" -I \"$inc\" \"$src\" -o \"$obj.i\" && \"/home/nikitaluger/.local/share/decompnet/toolchains/agbcc/bin/agbcc\" \"$@\" \"$obj.i\" -o \"$obj.s\" && \"/home/nikitaluger/.local/share/decompnet/toolchains/arm-gnu/bin/arm-none-eabi-as\" -mcpu=arm7tdmi -o \"$obj\" \"$obj.s\"",
-     "agbcc",
-     "{src}",
-     "{obj}",
-     "{include}",
-     "-mthumb-interwork",
-     "-O2",
-     "-fno-strength-reduce"
-    ],
-    "language": "c",
     "context_unit": "",
     "scoring_revision": "e250b80008d134095dc17b20c7d1fde4eb9016459e1e533deea433ae1f8dcb14",
-    "context_sha256": "bfba3694eedcd8fd5f8817cd3cab2045d4864b3b702b98205d6e453da28e5557"
+    "context_sha256": "60a223b20cd3ad743c261ea7710aa54a01171f81037db20042a732c5e12f8a54"
    },
    "target_sha256": "6a5bc200c9971a5fb1b28c63b4531363abc09cb5d1d0f32047e906efbb652a0e",
    "relocations_sha256": "0819a63adbad23fc3f122c714e5f9ce898a7a9785cf660a583799c1610135543",

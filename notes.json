@@ -15136,14 +15136,6 @@
   "score_after": null
  },
  {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "Cannot match regalloc. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9748223,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateScriptedAttackEntity",
   "text": "Matched sub_0804754C (entity callback cousin of sub_0805A3D4/sub_0802B51C). Two key fixes from first draft: (1) The 5th arg p+0x5C of sub_0801534C and the 6th arg of sub_0801576C are the SAME address but written as `p + 0x5C` and `r6 + 0x14` (r6 = p+0x48) respectively \u2014 different expression trees prevent GCC CSE; writing both as `p + 0x5C` kept p+0x5C in an extra callee-saved register (r8) which shifted all high-register assignments and cost a register push. (2) Target computes `r8 = p + 0x2C` immediately AFTER the sub_08014F14 call but BEFORE its result test; store the call result in a local `cond`, assign r8, then `if (cond != 0)`. Otherwise agbcc emits the p+0x2C computation after the beq. Full 0x8A+0x80 double sound, sub_080142C0 twice (p28 and *(p+0x58)), 6-arg sub_0801576C with 2 stack args.",
   "by": "opencode-hy4-flash-free-1",
@@ -97408,14 +97400,6 @@
   "score_after": null
  },
  {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "Ceiling at 3015 (78.8% best). All structural matches. Regalloc wall: high-reg save (mov r7,r9; mov r6,r8; push {r6,r7}), r8=temp_r8, sb=r9=temp_r6+0x14; agbcc sl/sb, different mapping. Call relocations differ. Sibling of sub_08094F34, sub_080925E8. Unfixable from C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4099312,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080AA8A0",
   "text": "Ceiling at 916 (93.7%). All logic/control flow matched. Regalloc/instruction selection diffs: commutative add order, table base addressing, accumulator register, temp handling, operand order. High-reg save prologue matches. Unfixable from C.",
   "by": "opencode-free-1",
@@ -100444,14 +100428,6 @@
   "text": "Boundary reported at 0x08015696 (literal pool). All 28 code insns byte-exact. Waiting user approval. Releasing without needs.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.4264066,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "Best score 595 (95.8%). Prologue matches perfectly (push {r4,r5,r6,r7,lr}; mov r7,r9; mov r6,r8; push {r6,r7}). Remaining differences: (1) Instruction scheduling - target computes p18 in else branch after byte load, my code computes at start (6 reordered rows). (2) Body register allocation differences - temporaries in different registers (r5 vs r7 for base+index, 5 regalloc rows). (3) Call relocations for sub_0805F9B4 and sub_080C31E0 differ (linker offsets, 4 operand rows). Core structure matches sub_0805E8CC sibling. Tried: declaration reordering, block scoping, explicit temporaries, table pointer from arg0+0x14 vs literal. Scheduling and regalloc differences appear to be agbcc codegen limitations.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4264486,
   "score_before": null,
   "score_after": null
  },
@@ -104652,14 +104628,6 @@
   "text": "Compiled once: score 40 (99.7%), 181/181 insns byte-exact. Sole diff is deterministic agbcc -O2 ip vs sb callee-saved register tie-break (target mov ip,r2 / mov sb,r1; agbcc emits opposite). Not C-solvable \u2014 register-asm pinning rejected as inline asm. Permanent wall; do not burn move-on budget. Releasing uncompiled-further.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.449862,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "Cannot get closer from C: 160 is the floor (98.8%, 141/141 insns). The last 9 rows are a coupled liveness/regalloc wall \u2014 p18 must be used in the early condition to keep v38 in r8 (target's high-reg allocation); moving the first byte load to arg0-based (which the target wants) makes v38 land in r7 and score jumps to 1900. Second byte-load add operand direction and the 3 bl-offset rows cascade from the same allocation. 23 prior attempts by other agents floored at 595; this session's levers (literal hoisting, array-typed extern storing the address, u32-cast operand order) reached 160. Ordinary correct C, not hand asm, not not_c; only a compiler regalloc change closes the rest. Releasing.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4499013,
   "score_before": null,
   "score_after": null
  },
@@ -117648,14 +117616,6 @@
   "score_after": null
  },
  {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "Cannot get closer from C at current best 160 (98.8%, 141/141 insns). Structure/control flow matches target (sub_0805F9B4 early return path, conditional sub_08016238/sub_08005E80/sub_080C31E8 block, state updates with D_0866F9A0 table dispatch via sub_080C31E0, decrement arg0+0x22, then optional sub_080113A8 and position updates using D_02021E90/D_02025FF0+0x18A8 offsets).\n\nTried minor declaration/expression/order tweaks from best C; could not improve below 160 (5/8 no-better). Remaining diffs (9 rows): p18 (arg0+0x18) materialized early in generated code (`adds r7,r5,#0; adds r7,#0x18` before first call) while target forms it later; first byte check uses p18 base (`adds r0,r0,r7`) vs target arg0 base (`adds r0,r0,r5`), but moving p18 later/use of arg0 base caused large regalloc regressions (consistent with prior notes on liveness keeping temp_r8 in r8). Final indexed byte load differs in add operand order (`adds r0,r0,r7` vs target `adds r0,r7,r0`). Call relocation operands differ for sub_0805F9B4/sub_080C31E0 in diff display.\n\nThis is a coupled agbcc regalloc/liveness/instruction-selection wall from C (not hand asm, not_c not indicated). Best attempt preserved by tool.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.521015,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080186C0",
   "text": "Confirmed branched-leaf frameless wall (1 compile this session: 215). Body is byte-identical to all 14 target insns with `void sub_080186C0(u16 *a, s16 b){ s32 v=*a+b; *a=(u16)v; if((s16)v>0x2328) *a=0x2328; }`. Sole diff: agbcc emits `push {lr}` ... `pop {r0}; bx r0` because the function has a conditional branch, while ROM has bare `bx lr` (ble offset #0x16 vs #0x18 follows from the 2-byte frame). 24 prior attempts + all flag variants (O1/O2/O3/Os identical) + try_compiler confirm no C form/flag yields a frameless branchy leaf. Same systemic blocker as sub_080168E0/08010424/0801491C/0801668C/08014900. Hand-written assembly.",
   "by": "opencode-hy4-flash-free-1",
@@ -126344,14 +126304,6 @@
   "score_after": null
  },
  {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "sub_080912A0 improved 160 -> 125 this session (99.1%). Levers: (1) keep `p18 = arg0 + 0x18` assigned AFTER the sub_0805F9B4 early-return check (not at function top \u2014 top placement costs 160, first placement before temp_r8 costs 310); (2) use `s32 idx2 = *(s16 *)(arg0+0x22) * 2; idx8 = *(u8 *)((s32)p18 + (s32)idx2);` for the final indexed load \u2014 the u32-cast inline form costs 160. Remaining 5 diff rows: our `adds r7,r5,#0; adds r7,#0x18` (p18 materialization) is emitted before the first byte load, target emits it after; and the first byte load uses r7 (p18) as base vs target's r5 (arg0). Using arg0 as the first byte-load base collapses regalloc (v38 moves to r7, p18 to r8) and scores 1900+. The two are coupled; no C form found that keeps v38 in r8 while loading the byte via arg0.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5666974,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateCompositeEnemy",
   "text": "Best 320 (98.3%, 194/194 insns), can't get closer: only diffs are (1) missing `movs r0,#0` before first sub_08097F88 because agbcc CSEs with earlier `zero=0`/sb setup (tried z0 local, no effect; volatile spills badly per prior agents), (2) one extra `movs r0,r0` alignment nop, and (3) all bl operands resolve to veneers (`bl #0x34` etc.) vs target direct calls with linker warnings \"calls X where original calls something else\" for sub_08097F88/142C0/13AC4/07E24/C31E4/C31E0 \u2014 appears to be toolchain/linker artifact, not fixable from C. Structure/registers otherwise match closely (matches sub_080B0BF4 pattern). Data 0x08671BB0/0x0866FB90 correct.",
   "by": "opencode-iceman-contributor-free-1",
@@ -126364,14 +126316,6 @@
   "text": "Regalloc wall at 276/96 insns (97.1%). All 96 real instructions match structurally. Remaining diff is agbcc zero-web coalescing: target sets r8 late (after callback store) with `movs r1,#0; mov r8,r1` then materializes 0x1000 in r1 via movs/lsls; agbcc coalesces the early zero (used for five word stores) with the late r8 zero, hoisting `mov r8,r1` early, and materializes 0x1000 in r2 (adds r1,r2,#0). Tried u16 v local (fixes movs/lsls but regresses to 311 with extra movs r0,r0 and offset shifts), u8/s32 zero locals in nested blocks, helper, z variable, pointer temps \u2014 all floor at 276 or worse. register asm rejected. Not hand asm, not not_c. Best attempt (276) preserved. Needs compiler/allocator change.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.5667865,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "Improved prior best 160 -> 125 (99.1%; 136/141 diff rows exact). Levers: (1) assign `p18 = arg0 + 0x18` after the sub_0805F9B4 early-return check (top placement 160, before temp_r8 310); (2) final indexed load `s32 idx2 = *(s16 *)(arg0+0x22)*2; idx8 = *(u8 *)((s32)p18 + (s32)idx2);` (u32 inline form 160). First byte check can use either plain pointer arithmetic or `(u32)p18 + (u32)... + 0x1A` \u2014 same 125. Rejected: b0/arg0-based check 1900, arg0-based check with p18 at top 1951, no p18 local 2760, shared p1 for both loads 1140/1070, brace-scoping p18 125 (no change). Remaining 5 rows: our p18 adds emitted before the first byte load and that load based on r7; target emits p18 adds after the byte load and loads via r5 (arg0). Sibling sub_0805E8CC has the same shape but uses arg0-based check; applying that here collapses regalloc (v38 r8->r7, p18 r7->r8) and costs 1775 points. Coupled scheduling/regalloc wall. Best source preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.566824,
   "score_before": null,
   "score_after": null
  },
@@ -132196,14 +132140,6 @@
   "text": "Re-requesting release: systemic compiler-ABI wall, cannot get closer. Target is frameless leaf ending `bx lr`, uses `mov pc,r0` computed-goto jump table with per-case stubs. agbcc invariably emits `push {lr} ... pop {r0}; bx r0`, shifting every literal/jump-table PC offset (my clean switch = 686; best known mixed volatile form = 416). search_flags: all flag variants identical frame mismatch. No C restructuring (switch, explicit default, volatile pointer, struct-field stores) removes push/pop. 6+ prior sessions confirm ceiling. Data: extern u16 D_080CF3C4/CC/D4[]; Dst struct {u8 pad1; u8 flag; u8 pad2[4]; u16 a,b,c,d;} via *(struct Dst **)(arg1+0x28).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.5968566,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "Cannot get closer: coupled agbcc liveness/regalloc wall at 125 (99.1%, 141 insns). p18 materialization timing and first-byte-load base are coupled; no C form keeps v38 in r8 while matching target's ordering. Logic correct. Releasing.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683534.5968952,
   "score_before": null,
   "score_after": null
  },
@@ -142780,14 +142716,6 @@
   "text": "Cannot get closer in pure C: this is the documented 3-row agbcc regalloc wall at score 15 (129/129 insns otherwise byte-exact). Target keeps the global address literal in r2 then `ldr r3,[r2]`; agbcc coalesces address+value into r3. Tried this session: asm register pin (rejected), inline direct deref (broke shared-block layout, 2705), `register` keyword on all pointer locals (no effect, still 15); + 20+ prior agent attempts (volatile, dummy vars, declaration order, inlining). No C spelling forces r2 while preserving the shared block and its schedule. Not hand asm, not not_c. Releasing so the next agent can take a fresh function.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.6521244,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttackAlt",
-  "text": "Confirmed coupled liveness/regalloc wall at 125 (99.1%, 141/141 insns) after 1 compile. Levers applied: p18 = arg0+0x18 assigned AFTER sub_0805F9B4 early-return (top placement 160, before temp_r8 310); final indexed load as `idx2=*(s16*)(arg0+0x22)*2; idx8=*(u8*)((s32)p18+(s32)idx2)` (u32 inline form 160). Remaining 5 diff rows: target materializes p18 AFTER first byte load and loads byte via arg0 base (r5); agbcc materializes p18 BEFORE and loads via p18 base (r7). Using arg0 base collapses regalloc (v38 temp_r8 moves r8->r7, p18 r7->r8) costing 1775+. Coupled scheduling/regalloc wall - no C form keeps v38 in r8 while matching target's byte-load base. 58+ attempts across agents. Logic/control flow correct. Cannot get closer in C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.6521611,
   "score_before": null,
   "score_after": null
  },
@@ -358794,5 +358722,77 @@
   "score_before": 415,
   "score_after": 415,
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:e0fb28fda56a3ed1c21607ba1916e6bd9c9b59e0de15589501f7948182996cbd:e7f301a3299a3708c57360cddc1e57672fd133bbff1a7cb12c6d0c8aefd5ab56"
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "Cannot match regalloc. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9748223,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "Ceiling at 3015 (78.8% best). All structural matches. Regalloc wall: high-reg save (mov r7,r9; mov r6,r8; push {r6,r7}), r8=temp_r8, sb=r9=temp_r6+0x14; agbcc sl/sb, different mapping. Call relocations differ. Sibling of sub_08094F34, sub_080925E8. Unfixable from C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4099312,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "Best score 595 (95.8%). Prologue matches perfectly (push {r4,r5,r6,r7,lr}; mov r7,r9; mov r6,r8; push {r6,r7}). Remaining differences: (1) Instruction scheduling - target computes p18 in else branch after byte load, my code computes at start (6 reordered rows). (2) Body register allocation differences - temporaries in different registers (r5 vs r7 for base+index, 5 regalloc rows). (3) Call relocations for sub_0805F9B4 and sub_080C31E0 differ (linker offsets, 4 operand rows). Core structure matches sub_0805E8CC sibling. Tried: declaration reordering, block scoping, explicit temporaries, table pointer from arg0+0x14 vs literal. Scheduling and regalloc differences appear to be agbcc codegen limitations.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4264486,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "Cannot get closer from C: 160 is the floor (98.8%, 141/141 insns). The last 9 rows are a coupled liveness/regalloc wall \u2014 p18 must be used in the early condition to keep v38 in r8 (target's high-reg allocation); moving the first byte load to arg0-based (which the target wants) makes v38 land in r7 and score jumps to 1900. Second byte-load add operand direction and the 3 bl-offset rows cascade from the same allocation. 23 prior attempts by other agents floored at 595; this session's levers (literal hoisting, array-typed extern storing the address, u32-cast operand order) reached 160. Ordinary correct C, not hand asm, not not_c; only a compiler regalloc change closes the rest. Releasing.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4499013,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "Cannot get closer from C at current best 160 (98.8%, 141/141 insns). Structure/control flow matches target (sub_0805F9B4 early return path, conditional sub_08016238/sub_08005E80/sub_080C31E8 block, state updates with D_0866F9A0 table dispatch via sub_080C31E0, decrement arg0+0x22, then optional sub_080113A8 and position updates using D_02021E90/D_02025FF0+0x18A8 offsets).\n\nTried minor declaration/expression/order tweaks from best C; could not improve below 160 (5/8 no-better). Remaining diffs (9 rows): p18 (arg0+0x18) materialized early in generated code (`adds r7,r5,#0; adds r7,#0x18` before first call) while target forms it later; first byte check uses p18 base (`adds r0,r0,r7`) vs target arg0 base (`adds r0,r0,r5`), but moving p18 later/use of arg0 base caused large regalloc regressions (consistent with prior notes on liveness keeping temp_r8 in r8). Final indexed byte load differs in add operand order (`adds r0,r0,r7` vs target `adds r0,r7,r0`). Call relocation operands differ for sub_0805F9B4/sub_080C31E0 in diff display.\n\nThis is a coupled agbcc regalloc/liveness/instruction-selection wall from C (not hand asm, not_c not indicated). Best attempt preserved by tool.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.521015,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "sub_080912A0 improved 160 -> 125 this session (99.1%). Levers: (1) keep `p18 = arg0 + 0x18` assigned AFTER the sub_0805F9B4 early-return check (not at function top \u2014 top placement costs 160, first placement before temp_r8 costs 310); (2) use `s32 idx2 = *(s16 *)(arg0+0x22) * 2; idx8 = *(u8 *)((s32)p18 + (s32)idx2);` for the final indexed load \u2014 the u32-cast inline form costs 160. Remaining 5 diff rows: our `adds r7,r5,#0; adds r7,#0x18` (p18 materialization) is emitted before the first byte load, target emits it after; and the first byte load uses r7 (p18) as base vs target's r5 (arg0). Using arg0 as the first byte-load base collapses regalloc (v38 moves to r7, p18 to r8) and scores 1900+. The two are coupled; no C form found that keeps v38 in r8 while loading the byte via arg0.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5666974,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "Improved prior best 160 -> 125 (99.1%; 136/141 diff rows exact). Levers: (1) assign `p18 = arg0 + 0x18` after the sub_0805F9B4 early-return check (top placement 160, before temp_r8 310); (2) final indexed load `s32 idx2 = *(s16 *)(arg0+0x22)*2; idx8 = *(u8 *)((s32)p18 + (s32)idx2);` (u32 inline form 160). First byte check can use either plain pointer arithmetic or `(u32)p18 + (u32)... + 0x1A` \u2014 same 125. Rejected: b0/arg0-based check 1900, arg0-based check with p18 at top 1951, no p18 local 2760, shared p1 for both loads 1140/1070, brace-scoping p18 125 (no change). Remaining 5 rows: our p18 adds emitted before the first byte load and that load based on r7; target emits p18 adds after the byte load and loads via r5 (arg0). Sibling sub_0805E8CC has the same shape but uses arg0-based check; applying that here collapses regalloc (v38 r8->r7, p18 r7->r8) and costs 1775 points. Coupled scheduling/regalloc wall. Best source preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.566824,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "Cannot get closer: coupled agbcc liveness/regalloc wall at 125 (99.1%, 141 insns). p18 materialization timing and first-byte-load base are coupled; no C form keeps v38 in r8 while matching target's ordering. Logic correct. Releasing.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683534.5968952,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttackAlt",
+  "text": "Confirmed coupled liveness/regalloc wall at 125 (99.1%, 141/141 insns) after 1 compile. Levers applied: p18 = arg0+0x18 assigned AFTER sub_0805F9B4 early-return (top placement 160, before temp_r8 310); final indexed load as `idx2=*(s16*)(arg0+0x22)*2; idx8=*(u8*)((s32)p18+(s32)idx2)` (u32 inline form 160). Remaining 5 diff rows: target materializes p18 AFTER first byte load and loads byte via arg0 base (r5); agbcc materializes p18 BEFORE and loads via p18 base (r7). Using arg0 base collapses regalloc (v38 temp_r8 moves r8->r7, p18 r7->r8) costing 1775+. Coupled scheduling/regalloc wall - no C form keeps v38 in r8 while matching target's byte-load base. 58+ attempts across agents. Logic/control flow correct. Cannot get closer in C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.6521611,
+  "score_before": null,
+  "score_after": null
  }
 ]
