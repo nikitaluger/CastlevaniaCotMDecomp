@@ -18,7 +18,7 @@ extern u8 D_00000000[];
  * engine magic at [0x03007FF0], build the callback table in its IWRAM work
  * area at 0x03004040, set up the player through sub_080C2F1C, and seed its
  * per-player state bytes. */
-void initSoundEngine(void *player)
+/* Initialize the m4a sound engine: program the GBA sound registers, guard on the engine magic at 0x03007FF0, build the callback table in the IWRAM work area at 0x03004040, set up the player with sub_080C2F1C, and seed its per-player state bytes. */ void initSoundEngine(void *player)
 {
     volatile u32 *engine;
     u32 magic;
