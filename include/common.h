@@ -2715,8 +2715,32 @@ struct MotionObjectWorkspace {
 #define MOTION_OBJ_PHASE_STEP      0x4000       /* per-frame phase increment */
 #define MOTION_OBJ_PHASE_MAX       0x80000      /* phase clamp */
 #define MOTION_OBJ_TILEMAP_BASE    0x02023130   /* base of gTilemapPages */
+#define MOTION_OBJ_HIT_FORM_BASE   8            /* formIndex values <= this are raised */
 #define MOTION_OBJ_HIT_FORM_MIN    9            /* formIndex floor after a hit */
 #define MOTION_OBJ_HIT_ANIM        8            /* animation fields set on a hit */
 #define MOTION_OBJ_HIT_SFX         0x142        /* playSound id on a hit */
 #define MOTION_OBJ_CLEANUP_SCENE   0x1C         /* sceneState that releases the entity */
 #define MOTION_OBJ_HIT_EFFECT_DATA 0x084D8DF4   /* timer payload of the hit effect */
+
+/* Five-way menu selection state at gMenuState. */
+struct MenuSelectionState {
+    u8 _0[0x64];
+    u8 chosenValue;    /* 0x64: value chosen for the highlighted option */
+    u8 _65[3];
+    s8 selection;      /* 0x68: highlighted option, wraps over 0..MENU_SELECTION_MAX */
+};
+
+/* Pressed-button words at gCameraState. */
+struct MenuInputCameraState {
+    u8 _0[0x146C];
+    u16 actionButtons; /* 0x146C: A/B/Start pressed this frame */
+    u8 _146E[2];
+    u16 dirButtons;    /* 0x1470: directions pressed this frame */
+};
+
+#define MENU_SELECTION_MAX      4     /* highest selectable menu option */
+#define MENU_INPUT_CANCEL_ANY   0x00A /* B or Start cancels the selection */
+#define MENU_CURSOR_TILE_ROW    2     /* VRAM tile row redrawn for the cursor */
+#define MENU_CURSOR_FILL_SIZE   0xFC0 /* bytes cleared for that tile */
+#define MENU_SCRIPT_CMD_CANCEL  0x10  /* script command id sent on cancel */
+#define MENU_SCRIPT_CMD_CONFIRM 0xE   /* script command id sent on confirm */

@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795810479.5168676,
- "revision": 70946,
+ "saved_at": 1795810663.036852,
+ "revision": 70955,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "447280:134665008": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "releaseEntityIfOffscreen",
-   "vram": 134665008
   }
  },
  "instructions": "",
@@ -2131,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -3650,7 +3638,7 @@
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
    "readable": false
   },
-  "sub_0800D390": {
+  "handleMenuSelectionInput": {
    "vram": 134271888,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
    "readable": false
@@ -5112,8 +5100,8 @@
   },
   "sub_0801977C": {
    "vram": 134322044,
-   "best_score": 2540,
-   "best_by": "opencode-hy4-flash-free-11"
+   "matched_by": "opencode-hy4-flash-free-64",
+   "readable": false
   },
   "sub_08019870": {
    "vram": 134322288,
@@ -6872,8 +6860,8 @@
   },
   "sub_08028864": {
    "vram": 134383716,
-   "best_score": 305,
-   "best_by": "opencode-hy4-flash-free-11"
+   "best_score": 5,
+   "best_by": "opencode-hy4-flash-free-65"
   },
   "sub_08028918": {
    "vram": 134383896,
@@ -8607,8 +8595,8 @@
   },
   "sub_08038438": {
    "vram": 134448184,
-   "best_score": 420,
-   "best_by": "opencode-hy4-flash-free-11"
+   "matched_by": "opencode-hy4-flash-free-11",
+   "readable": false
   },
   "sub_08038554": {
    "vram": 134448468,
@@ -14613,7 +14601,7 @@
   "updateScriptedMotionObject": {
    "vram": 134709520,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_08078240": {
    "vram": 134709824,
@@ -25722,7 +25710,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0800D390",
+   "name": "handleMenuSelectionInput",
    "vram": 134271888,
    "size": 300,
    "status": "open"
@@ -51572,6 +51560,12 @@
    "kind": "func"
   },
   {
+   "name": "handleMenuSelectionInput",
+   "address": 134271888,
+   "size": 300,
+   "kind": "func"
+  },
+  {
    "name": "updateStatusMenu",
    "address": 134272700,
    "size": 420,
@@ -54680,6 +54674,12 @@
    "kind": "data"
   },
   {
+   "name": "gMenuChoiceValueTable",
+   "address": 135049218,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gTileTerrainFlags",
    "address": 135049848,
    "size": 0,
@@ -55901,7 +55901,7 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "u8[]",
+   "type": "struct S_02021E90",
    "source": "match"
   },
   {
@@ -55926,7 +55926,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct LargeEffectWorkspace",
+   "type": "u32",
    "source": "match"
   },
   {
@@ -55941,7 +55941,7 @@
   },
   {
    "address": 33716432,
-   "type": "struct MenuPanelState",
+   "type": "struct S_020278D0",
    "source": "match"
   },
   {
@@ -56931,7 +56931,7 @@
   },
   {
    "address": 140975024,
-   "type": "u32[]",
+   "type": "u32",
    "source": "match"
   },
   {
@@ -56946,7 +56946,7 @@
   },
   {
    "address": 140975064,
-   "type": "u32",
+   "type": "u32[]",
    "source": "match"
   },
   {

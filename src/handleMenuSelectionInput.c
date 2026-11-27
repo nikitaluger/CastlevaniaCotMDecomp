@@ -26,7 +26,7 @@ extern u32 gMenuScriptCallback[];
 /* Handle menu-selection input: move the five-way cursor with the direction
  * bits, play a sound and redraw when it changes, then dispatch the confirm or
  * cancel callback. */
-void sub_0800D390(void *obj)
+void handleMenuSelectionInput(void *obj)
 {
     s32 oldSelection;
     u16 dirButtons;

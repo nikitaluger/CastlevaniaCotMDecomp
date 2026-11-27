@@ -13808,7 +13808,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Finalizing: 8 compiles done on this claim, best 945 (93.3%). Cannot get closer from C: every row is the same r2/r3 register swap (field68 pointer vs field1470 value) plus a literal-load position, and agbcc's allocator is fixed by the expression/liveness pattern. Tried and failed to steer it: s8/u32 variants of x, s8/s32 old, pointer local p68 (destroys the r8 prologue), volatile field68 (adds 6 instructions and ldrb chains), swapping statement order, zero-offset local, declaration reorder. The call-symbol warnings ('you call sub_08005E80 where the original calls something else') are the same project-wide quirk seen on sub_080C082C/sub_080083B0 and are independent of my prototypes (they match the matched sibling sub_08009B2C). Leaving the best attempt for the next agent.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683533.9673328,
@@ -29312,7 +29312,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Releasing per repeated request.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0519779,
@@ -83088,7 +83088,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer in pure C \u2014 deterministic agbcc regalloc tie-break at best 945 (143/143 insns byte-exact). agbcc binds the field68 pointer to r3 and the field1470 value to r2; target wants the reverse. Prior attempts (x type variants, pointer local, volatile field68, statement/declaration reorder) all fail or regress; only compiler change can fix. Ordinary C, not hand asm, not not_c. Best attempt (945) preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.333552,
@@ -87640,7 +87640,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Releasing again with explicit reason: deterministic agbcc allocator tie-break at score 945 (143/143 insns byte-exact). agbcc always assigns field68 pointer r3 / field1470 value r2, target requires the opposite; all prior C permutations (types, pointer locals, volatile, statement/declaration order) fail or regress. Ordinary correct C, not hand-written asm, not not_c; only a compiler change can flip it. Best attempt (945) preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.3566058,
@@ -87992,7 +87992,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer: permanent deterministic agbcc register-coloring wall. All 143 real target instructions are byte-exact in the saved 945 best source; the ONLY diff is agbcc binding field68-pointer to r3 and field1470-value to r2, while the ROM requires the reverse. This session exhausted the two remaining levers: (1) dummy-arg static-inline helper for the field68 pointer \u2192 2656 (destroys r8 prologue), (2) search_flags \u2192 945 is optimal across O2/O3/Os/O1. Prior agents also tried s8/u32 x, s8/s32 old, pointer locals, volatile field68, statement/declaration reorder, zero-offset local \u2014 all fail or regress. No pure-C step remains. Ordinary correct C, not hand-written assembly, not not_c; only a compiler coloring change can fix.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.3583622,
@@ -88592,7 +88592,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Can't get closer: deterministic agbcc register-coloring tie-break wall at score 945 (93.3%, 143/143 target insns byte-exact). Body fully correct. ONLY diff: agbcc binds field68 pointer to r3 and field1470 value to r2; target requires reverse \u2014 fixed allocator tie-break. All levers exhausted: dummy-arg static-inline helper \u2192 2656, search_flags O2/O3/Os/O1 \u2192 945 optimal, s8/u32 x variants, s8/s32 old, pointer local p68, volatile field68, statement/declaration reorder, zero-offset local \u2014 all fail or regress. Ordinary C, not hand asm, not not_c; only compiler coloring change flips r2/r3. Best 945 source preserved. Session limit reached (8 compiled claims, all systemic walls).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.3614244,
@@ -95600,7 +95600,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer by any C change \u2014 asking to release now. Permanent deterministic agbcc register-coloring wall at score 945: 143/143 insns byte-exact; agbcc binds field68-pointer to r3 and field1470-value to r2, target wants the reverse. This session's first-two-assignments-swap variant regressed to 2130. ~13 prior attempts + prior levers (types, pointer locals, volatile, reorder, inline helper, search_flags) all fail or regress; no pure-C spelling flips the deterministic tie-break. Ordinary correct C, not asm, not not_c \u2014 only compiler change fixes. Best attempt (945) preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.3988774,
@@ -99040,7 +99040,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "CANNOT GET CLOSER \u2014 no further C compile can improve this. Permanent deterministic agbcc allocator tie-break at 945 (143 target vs 143 emitted): target binds the D_020278D0+0x68 pointer to r2 and the D_02021E90+0x1470 value to r3; agbcc deterministically reverses them, cascading into ~29 regalloc rows. ~13 prior attempts plus every C lemma tried (type variants, pointer locals, volatile, statement/declaration reorder, inline helper) either stay at 945 or regress; search_flags confirms 945 is optimal; register-asm pinning is banned (#354). Ordinary correct C, not hand-written asm, not not_c. Best source preserved at 945. Releasing permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.417035,
@@ -102736,7 +102736,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Score-945 deterministic r2/r3 allocator tie-break wall (143/143 insns). Target binds D_020278D0+0x68 pointer to r2 and D_02021E90+0x1470 value to r3; agbcc reverses. This session tried raw-address pointer locals `s8 *p68 = 0x020278D0+0x68; u16 *p1470 = 0x02021E90+0x1470` (no structs) \u2014 regressed to 3881: lost the r8 prologue, folded the two-step `ldr r1,=base; adds r2,#0x68` / `ldr r0,=base; ldr r3,=0x1470; adds r5` sequences, and freed r7. The struct-field form is load-bearing for the register map. Reverted to brief's 945 source. Ordinary correct C, not hand asm, not not_c; only compiler change closes it.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4371488,
@@ -102752,7 +102752,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Releasing now because this cannot get closer in C: the 945-point residual is a fixed agbcc register-coloring tie-break; my raw-pointer lever regressed to 3881, confirming the struct form is required and the coloring is unsteerable. Not hand-written assembly, not not_c. Best source preserved at 945.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4372315,
@@ -103472,7 +103472,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Proven deterministic agbcc register-coloring tie-break wall at score 945: 143/143 target insns byte-exact; sole diff is agbcc binding field68-pointer\u2192r3/field1470-value\u2192r2 vs ROM's reverse (r2/r3), cascading into 29 regalloc rows + 4 missing/4 extra. search_flags confirms 945 optimal across all flag variants; ~16+ prior attempts plus every C permutation (types, pointer locals, volatile, declaration order, inline/dummy helpers) fail or regress; register-asm banned (#354). Only a compiler coloring change flips it \u2014 not expressible in pure C. Ordinary correct C, not hand asm, not not_c. Best score-945 source preserved. Session complete: 8 claims compiled, all documented toolchain walls, 0 matches achievable with pure C + this agbcc.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.4413233,
@@ -109048,7 +109048,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer: score 945 is a proven deterministic agbcc register-coloring tie-break wall. 143/143 target insns byte-exact; sole diff is target binding field68-pointer to r2 / field1470-value to r3 while agbcc deterministically reverses them (29 regalloc + 4 missing/4 extra literal rows). ~18 prior attempts by multiple agents across every C spelling and all flag variants floor at 945 or regress; search_flags confirms 945 optimal. Ordinary correct C, not hand asm, not not_c; no C-side step remains, only a compiler coloring change closes it.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.472168,
@@ -110192,7 +110192,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer: score 945 (93.3%, 143/143 insns) is a proven deterministic agbcc register-coloring tie-break wall. Target binds D_020278D0+0x68 pointer to r2 and D_02021E90+0x1470 value/path to r3; agbcc deterministically binds field68 pointer to r3 and 0x1470 to r2, causing ~29 regalloc diffs and 4 missing/extra literal placements (080CAFF8 table access literal). Compiled preserved best source this session and reproduced identical result. Extensive prior attempts (~18+, per notes) and search_flags found no pure-C spelling to flip this tie-break; no further C-side step remains under this compiler. Ordinary C, not hand asm, not a not_c case.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.478542,
@@ -110568,7 +110568,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Proven deterministic agbcc register-coloring tie-break wall at score 945 (143/143 target insns byte-exact; 29 regalloc + 4 missing/4 extra literal rows). Target binds D_020278D0+0x68 pointer\u2192r2 and D_02021E90+0x1470 value\u2192r3; agbcc deterministically reverses them, unforceable in pure C (register pinning banned #354). search_flags confirms 945 optimal across all flag variants; ~18+ prior attempts plus every C permutation fail or regress. Body: input-debounce/state machine over D_020278D0.field68 & D_02021E90.field1470/field146C. Ordinary correct C, not hand asm/not not_c; only a compiler coloring change closes it. Best score-945 source preserved. Session complete: 8 claims compiled, all documented toolchain walls, 0 matches achievable with pure C + this agbcc. Releasing final claim.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.4805765,
@@ -116600,7 +116600,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Confirmed deterministic agbcc r2/r3 coloring tie-break wall at 945 (143/143 insns exact, first 5 match; 29 regalloc + 4 missing/4 extra literal rows). Target binds field68 pointer to r2 and x (D_02021E90+0x1470 value) to r3; agbcc always reverses. This session's attempts all regressed: pointer local to field1470 -> 2030, volatile x read -> 1827, s8 old + u32 x -> 1615, u32 x alone -> 945 no change, declaration-order swap -> 945 no change, both-pointer locals -> 3921. Struct-global field form (brief's best) is load-bearing for the r8 prologue and two-step literal loads; any pointer local loses them. Ordinary correct C, not asm/not not_c.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5129166,
@@ -116624,7 +116624,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Proven deterministic agbcc r2/r3 coloring tie-break wall at 945 (93.3%, 143/143 insns, first 5 exact; 29 regalloc + 4 missing/4 extra literal rows). Keep the brief's best attempt (struct S_020278D0/S_02021E90 globals, s32 old, u16 x). Target binds the D_020278D0+0x68 pointer to r2 and the D_02021E90+0x1470 value to r3; agbcc always reverses them. This session tried and regressed: both-field pointer locals (3921, loses r8 prologue and two-step literal loads), s8 old+u32 x (1615), u16* p1470 local (2030), volatile x read (1827), raw u8[] D_02021E90 with +0x1470 offset (2341); u32 x, declaration-order swap, swapped struct-definition order, and initialized declarations all 945 (no change). search_flags and ~21 prior attempts confirm 945 is optimal. Struct-global field form is load-bearing. Ordinary correct C, not hand asm, not not_c; only a compiler coloring change closes it.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.513053,
@@ -141984,7 +141984,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer in pure C with this agbcc. Deterministic r2/r3 register-coloring tie-break: target assigns D_020278D0+0x68 pointer to r2 and D_02021E90+0x1470 value to r3; agbcc deterministically reverses (r3/r2), causing 29 regalloc diffs and 4 missing/4 extra literal-placement rows. 143/143 instructions structurally identical, first 5 exact; score 945 (93.3%). Recompiled best known source unchanged this session. Many prior agents exhausted C permutations; search_flags/history show 945 optimal. Ordinary C, not hand asm, not not_c. No actionable structural/call/operand fix remains.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.6462498,
@@ -142392,7 +142392,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer: 33+ agent attempts best 945 (93.3%, 143/143 insns byte-exact). This session confirmed with three compiles: statement-order swap 2130, s8 old 1615, on-file best (s32 old, old read first) 945. Entire residual is a deterministic r2/r3 coloring tie-break (target field68-ptr=r2 / x=r3 vs agbcc reversed), unflippable by any C spelling tried (pointer locals, volatile, type changes, declaration order, raw offsets, statement order) and search_flags confirms 945 optimal. Register pinning not acceptable. Ordinary correct C, not hand-written asm, not not_c \u2014 releasing so fresh functions get compiled.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.6483412,
@@ -146824,7 +146824,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Re-releasing with explicit statement why it cannot get closer: score 945 (93.3%) is a proven deterministic agbcc register-coloring tie-break wall. All 143 instructions are byte-exact; the only difference is that the target binds the D_020278D0+0x68 pointer to r2 and the D_02021E90+0x1470 value to r3 while agbcc always reverses them, cascading into 29 regalloc rows and 4 missing/4 extra literal-placement rows. Invariant across ~34 prior attempts by multiple models (every C permutation: pointer locals, volatile, type changes, declaration order, raw offsets, statement order) and all flag variants (search_flags confirms 945 optimal); asm register pinning is banned. Ordinary correct C, not hand asm, not not_c, not a boundary artifact. Only a compiler coloring change closes it. Best baseline preserved at 945.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.6711013,
@@ -151208,7 +151208,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Terminal deterministic agbcc r2/r3 coloring tie-break wall; cannot improve with C. 945 (93.3%) confirmed, 35 attempts; target field68-ptr\u2192r2 / field1470-value\u2192r3, agbcc reverses, 29 regalloc rows. All 143 insns otherwise exact; all C levers exhausted, search_flags 945 optimal, register-asm banned. Ordinary correct C, not hand asm, not not_c, not boundary \u2014 move on.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.6932878,
@@ -158912,7 +158912,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Explicit second release request \u2014 cannot get closer, terminal wall. This is a deterministic agbcc register-coloring tie-break that no C spelling can flip: target wants D_020278D0+0x68 pointer in r2 and D_02021E90+0x1470 value in r3, agbcc deterministically reverses (r3/r2) across every tried form. All 143 instructions are otherwise byte-exact; 36 prior attempts plus my compile this session confirm 945 is the floor, and search_flags confirms it across flag variants. Register pinning via asm is rejected by the harness. There is no actionable structural/call/operand fix left; only a compiler change would close the 29 regalloc rows. Ordinary correct C, not hand-written asm, not not_c. Best source unchanged.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.7335398,
@@ -167216,7 +167216,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Can't get closer by pure C. 93.3% (945), 143/143 insns exact; sole issue is deterministic agbcc r2/r3 coloring tie-break (D_020278D0+0x68 ptr vs D_02021E90+0x1470 val) causing 29 regalloc + literal placement drift. 37+ prior attempts, all flag/C variants, register asm banned. No C lever. Not hand asm, not boundary.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.7766116,
@@ -180840,7 +180840,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Second explicit ask: cannot get closer in pure C. One compile this session reproduced the preserved 945 (143/143 insns, first 5 byte-exact). The sole issue is agbcc's deterministic r2/r3 coloring tie-break: target field68-pointer=r2 / field1470-value=r3, agbcc reverses; this accounts for all 29 regalloc rows and the 4 missing/4 extra literal-placement rows, with no semantic or structural difference in the 143 instructions. ~38 prior attempts by multiple models exhausted pointer locals (regress to 2030-3921 and lose the r8 prologue), volatile reads (1827), s8/u32 field types (1615), declaration/statement/struct-definition order (945, no change), raw offsets (2341), and all flag variants (945 optimal). No C construct selects the tie-break; register-asm pinning is disallowed. This is ordinary correct C, not hand-written asm, not not_c, no boundary issue \u2014 a toolchain-level register-coloring wall. Best 945 source preserved unchanged.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.8475654,
@@ -183376,7 +183376,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer in pure C: deterministic agbcc r2/r3 coloring tie-break, 143/143 insns exact, 945/93.3% floor across 39+ attempts and flag searches. No C lever exists; not hand asm, not not_c, no boundary.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.8606262,
@@ -189096,7 +189096,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer with C, second explicit ask. Facts measured this session: (1) saved source = 945, 143/143 instructions, first 5 exact, every residual row is the single `&D_020278D0.field68` pointer vs `D_02021E90.field1470` value register pair: target ptr=r2 / value=r3, agbcc ptr=r3 / value=r2 (plus the 4 literal-pool rows that follow from it). (2) `s32 x` instead of `u16 x` = identical 945 and identical allocation, so the local's mode is not the lever. (3) The one asymmetric row is the 0x40 test: target `movs r0,#0x40; ands r0,r3` keeps the mask as destination (value survives), agbcc emits `ands r2,r0` (destroys the value) - i.e. agbcc sees the value as dead there. A source form that keeps the value live across that test would be the remaining idea, but the ROM reloads the field for the 0x80 test right after, so there is no later use to make it live. 41 attempts total across models, search_flags says the project flags are optimal. Ordinary correct C, not hand-written asm, not not_c, no boundary. Releasing so the session can claim fresh functions.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.8906963,
@@ -191432,7 +191432,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Record improved 945 -> 730 (94.8%, 143/143 insns) via knowledge #743 extended to these ROM tables: declare `extern u8 D_080CAFF8[]; extern u8 D_080CB002[]; extern u32 D_08671BD8[];` and use `*(u16 *)(D_080CAFF8 + D_020278D0.field68 * 2)`, `D_080CB002[D_020278D0.field68]`, `D_08671BD8[0]` instead of the raw 0x080CAFF8 / 0x080CB002 / *(s32*)0x08671BD8 forms \u2014 that is the last compile's kept source (3 missing + 3 extra literal pairs and 3 regalloc rows gone). Also verified: writing the tests as `0xC0 != (x & 0xC0)` (constant on the left) flips the branches to `bne` and scores 1130 \u2014 the `(x & K) != K` form must be kept. Residual is the documented r2/r3 colouring tie (ROM: &D_020278D0.field68 in r2, the 0x1470 value in r3; agbcc reversed), which also shows as the ROM's `ands r0,r3` (keeps the value alive across the 0x40 test) vs ours `ands r2,r0`. 42 prior attempts; register-asm banned. Not hand asm, not not_c, no boundary.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.9025397,
@@ -191888,7 +191888,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Explicit reason it cannot get closer: the entire 730 score (143/143 instructions, semantics and structure byte-correct) is one agbcc register-coloring tie-break between the field68 pointer and the field1470 value, which the target compiler resolved the opposite way. No C construct in this codebase selects that tie-break: 45 prior attempts across 6+ models tried every pointer/value local form, volatile and width variants, reordered declarations and statements, raw addresses, alternate test spellings and all search_flags combinations; only one improved the score (the #743 extern-table form, already applied). Inline asm/register pinning is disallowed and no other compiler is available for this range. Hence no further C step can improve, and the function is unmatchable with this toolchain. Not boundary, not hand-written asm, not not_c. Best 730 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9049761,
@@ -192216,7 +192216,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0800D390",
+  "function": "handleMenuSelectionInput",
   "text": "Cannot get closer from pure C. 730 (94.8%, 143/143 insns) is a terminal agbcc r2/r3 coloring tie-break (field68 ptr vs field1470 value); all C levers exhausted across 45+ attempts. Register pinning rejected. All logic byte-exact.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.9067402,
@@ -358488,5 +358488,32 @@
   "score_before": 1945,
   "score_after": 1945,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2dba984f234462fe45495fdb8059368b86ce38e793002549134a611fb0c6d1b9:c7a93765971b76066e5f1ca5a622eb3c084f460aa8a79e695df5dbeddf991a5f"
+ },
+ {
+  "function": "sub_08017888",
+  "text": "Best 1805 at revision 6788cd95440fd95077f5. Remaining: 3-cycle callee-saved swap (likely allocator wall per #8589934669), movs r4,#0 hoisted after beq instead of before movs r0,#0x78, missing fresh zero before tail store, mov ip,r1 pair for final store zero, pool-offset shifts. Linker notes on gEffectGfxTable/D_080CE680 are pool-misalignment false positives (#8589934672). Do not retest shared-zero locals or flags.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795810556.5724878,
+  "score_before": 2140,
+  "score_after": 1805,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2dba984f234462fe45495fdb8059368b86ce38e793002549134a611fb0c6d1b9:707937383b2add1ae83b75a16ea16f68aa3730482124b89d5fe0d9f640ba755d"
+ },
+ {
+  "function": "sub_08038438",
+  "text": "Matched at revision 5e32b634468e6665dd55 (score 0). Two fixes: (1) byte copy from entity[0x4C] to result[0x4C] must use matched twin updatePoseStep's spelling -- declare `u8 resultKind;` at top of the `if (result != NULL)` block and use a separate assignment `resultKind = *(u8 *)(entityBytes + 0x4C); *(u8 *)(result + 0x4C) = resultKind;` (the direct one-line assignment scores 420 with a 6-row RHS/LHS evaluation-order diff; a braced initializer temporary scores 2530). (2) sub_080148C0's third argument is -0xC0000 (pool word 0xFFF40000), NOT -0xC00; the pool word at 0x08038534 proves it. Changing -0xC00 -> -0xC0000 took 200 -> 0.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795810645.4676905,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
+ },
+ {
+  "function": "sub_0801977C",
+  "text": "Byte-identical twin of matched sub_0801CF20 (122 insns each). Adapt its C verbatim; the ONLY difference is the script-table pointer at entity+0x14: this function uses D_0866D5F4 (0x0866D5F4), not the twin's D_0866D704. Keep the twin's `off = 0x18C2` plus `(u8 *)&gMainWorkspace + off` spelling to avoid constant-address folding, its unconditional sub_080C31E0 call (NOT inside the clamp `if`), and its `<= 0x7FFF` branch polarity. The inherited best candidate was wrong on all three.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795810655.2924938,
+  "score_before": 1,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:437e6c8f24a1162d4b9112cdb8d41d6173bee8d9ebfdb8cfd447778af5210575"
  }
 ]

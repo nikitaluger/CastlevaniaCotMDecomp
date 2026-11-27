@@ -22,7 +22,7 @@ void sub_08038438(void *entity) {
     u32 kindOffset = POSE_WORKSPACE_KIND;
     u8 savedFlag;
 
-    stepAnimationTrack(sprite, animTrack);
+    do { stepAnimationTrack(sprite, animTrack); } while (0);
     animFlags = 2 & *(u8 *)animTrack;
     if (animFlags != 0) {
         if (*(u8 *)(poseState + 0x11) <= 2) {
@@ -37,8 +37,10 @@ void sub_08038438(void *entity) {
     if (savedFlag == 0 && *(u8 *)(poseState + 0x11) <= 2 && *(u16 *)(sprite + 0x28) == 0x13) {
         result = spawnBudgetedEffect(*(u32 *)((u8 *)gMainWorkspace + kindOffset), 0xEE);
         if (result != NULL) {
-            *(u8 *)(result + 0x4C) = *(u8 *)(entityBytes + 0x4C);
-            *(u32 *)(result + 0x5C) = sub_080148C0(state, sprite, -0xC00);
+            u8 resultKind;
+            resultKind = *(u8 *)(entityBytes + 0x4C);
+            *(u8 *)(result + 0x4C) = resultKind;
+            *(u32 *)(result + 0x5C) = sub_080148C0(state, sprite, -0xC0000);
             *(u32 *)(result + 0x6C) = *(u32 *)(state + 0xC) + 0xFFD70000;
             *(u32 *)(result + 0x7C) = sub_080148AC(sprite, D_080CF07C[*(u8 *)(poseState + 0x11)].param);
             *(u32 *)(result + 0x8C) = D_080CF07C[*(u8 *)(poseState + 0x11)].kind;

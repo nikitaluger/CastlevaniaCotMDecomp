@@ -6,22 +6,8 @@ extern void releaseEntityIfOffscreen(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08005E80(s32);
-struct S_02025FF0 {
-    u8 _0[0x10];
-    s32 f10;
-    u8 _14[0x14ED-0x14];
-    u8 f14ED;
-    u8 _14EE[0x173A-0x14EE];
-    u8 f173A;
-    u8 _173B[0x1754-0x173B];
-    s32 f1754;
-    u8 _1758[0x18A8-0x1758];
-    u8 f18A8;
-    u8 _18A9[0x19];
-    u16 f18C2;
-};
-extern struct S_02025FF0 gMainWorkspace;
+extern void playSound(u16);
+extern struct MotionObjectWorkspace gMainWorkspace;
 extern u32 gMainObjTimerCallbacks;
 
 static inline u32 bitOne(u16 v) {
@@ -30,44 +16,44 @@ static inline u32 bitOne(u16 v) {
     return m;
 }
 
-/* One step of an entity's scripted motion: advance/clamp its phase, spawn and
- * announce an event when the phase or world-position test fires, refresh the
- * attached sprite, then dispatch the next callback. */
-void updateScriptedMotionObject(u8 *obj) {
+/* Advance an entity's scripted motion, spawn and announce a collision effect
+ * when the phase or terrain test fires, refresh its sprite, then dispatch the
+ * next callback or release the entity. */
+void updateScriptedMotionObject(u8 *entity) {
     void *self;
-    void *script;
+    void *motionBlock;
     void *stateBase;
     void *sprite;
     void *motion;
-    u32 *callbackTbl;
-    s32 phaseSum;
-    u8 zero;
-    self = obj;
-    script = *(void **)((u8 *)self + 0x6C);
-    stateBase = (u8 *)script + 4;
+    u32 *callbacks;
+    s32 phase;
+    u8 zeroByte;
+    self = entity;
+    motionBlock = *(void **)((u8 *)self + 0x6C);
+    stateBase = (u8 *)motionBlock + 4;
     sprite = *(void **)((u8 *)self + 0x38);
     motion = stateBase;
     if (checkGlobalStateChange(self, sprite, motion) != 0) return;
-    *(s32 *)((u8 *)motion + 0x0C) += 0x4000;
-    if (*(s32 *)((u8 *)motion + 0x0C) > 0x80000) *(s32 *)((u8 *)motion + 0x0C) = 0x80000;
-    *(s32 *)((u8 *)script + 4) += *(s32 *)((u8 *)motion + 8);
-    phaseSum = *(s32 *)((u8 *)motion + 4) + *(s32 *)((u8 *)motion + 0x0C);
-    *(s32 *)((u8 *)motion + 4) = phaseSum;
+    *(s32 *)((u8 *)motion + 0x0C) += MOTION_OBJ_PHASE_STEP;
+    if (*(s32 *)((u8 *)motion + 0x0C) > MOTION_OBJ_PHASE_MAX) *(s32 *)((u8 *)motion + 0x0C) = MOTION_OBJ_PHASE_MAX;
+    *(s32 *)((u8 *)motionBlock + 4) += *(s32 *)((u8 *)motion + 8);
+    phase = *(s32 *)((u8 *)motion + 4) + *(s32 *)((u8 *)motion + 0x0C);
+    *(s32 *)((u8 *)motion + 4) = phase;
     if (bitOne(*(u16 *)(*(void **)((u8 *)motion + 0x2C) + 0x14)) != 0 ||
-        (getTileTerrainB(((u32)gMainWorkspace.f18A8 << 6) + 0x02023130, *(s32 *)((u8 *)script + 4), phaseSum) << 16) != 0) {
-        if (gMainWorkspace.f1754 <= 8) gMainWorkspace.f1754 = 9;
-        startEffectTimer((u8 *)script + 0x20, 0, 0x084D8DF4);
-        *(u16 *)(*(void **)((u8 *)motion + 0x2C) + 0x06) = (zero = 0, 8);
-        *(u16 *)(*(void **)((u8 *)motion + 0x2C) + 0x08) = 8;
-        sub_08005E80(0x142);
-        *(u8 *)((u8 *)self + (*(s16 *)((u8 *)self + 0x22) * 2) + 0x19) = zero;
-        callbackTbl = &gMainObjTimerCallbacks;
-        sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *callbackTbl);
+        (getTileTerrainB(((u32)gMainWorkspace.frameCounter << 6) + MOTION_OBJ_TILEMAP_BASE, *(s32 *)((u8 *)motionBlock + 4), phase) << 16) != 0) {
+        if (gMainWorkspace.formIndex <= MOTION_OBJ_HIT_FORM_BASE) gMainWorkspace.formIndex = MOTION_OBJ_HIT_FORM_MIN;
+        startEffectTimer((u8 *)motionBlock + 0x20, 0, MOTION_OBJ_HIT_EFFECT_DATA);
+        *(u16 *)(*(void **)((u8 *)motion + 0x2C) + 0x06) = (zeroByte = 0, MOTION_OBJ_HIT_ANIM);
+        *(u16 *)(*(void **)((u8 *)motion + 0x2C) + 0x08) = MOTION_OBJ_HIT_ANIM;
+        playSound(MOTION_OBJ_HIT_SFX);
+        *(u8 *)((u8 *)self + (*(s16 *)((u8 *)self + 0x22) * 2) + 0x19) = zeroByte;
+        callbacks = &gMainObjTimerCallbacks;
+        sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *callbacks);
     }
-    *(u16 *)sprite = gMainWorkspace.f18C2;
+    *(u16 *)sprite = gMainWorkspace.gfxFlags;
     stepDelayTimer((u8 *)stateBase + 0x1C, sprite);
     sub_0806D588(sprite, motion);
-    if (gMainWorkspace.f173A == 0x1C || (gMainWorkspace.f14ED == 0 && gMainWorkspace.f10 != 0)) {
+    if (gMainWorkspace.sceneState == MOTION_OBJ_CLEANUP_SCENE || (gMainWorkspace.actionState == 0 && gMainWorkspace.activeForm != 0)) {
         sub_080C31E0(self, *(s32 *)((u8 *)self + 0x24));
         return;
     }

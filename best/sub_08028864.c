@@ -21,7 +21,7 @@ void sub_08028864(u8 *arg0) {
     if (*(s16 *)(arg0 + 0x64) < 0) {
         s32 value;
         delta = *(u16 *)(arg0 + 0x7C);
-        value = (*(s32 *)anglePtr + delta) & 0xFFFF0000;
+        value = (*(s32 *)anglePtr + delta) & 0xFFFF;
         *(s32 *)anglePtr = value;
         if (value > 0x7000) *(s32 *)anglePtr = 0x7000;
     } else {
