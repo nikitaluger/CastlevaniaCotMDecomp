@@ -353311,15 +353311,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:78c9b325998d59ce07287e5f7247608c68a0eebb96f009b31470d1f18a8b2bc1:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
  },
  {
-  "function": "sub_0801A98C",
-  "text": "Best saved candidate d5ca515665eb84a228a4 (also b5bb02df) scores 1900, 74/74 insns. Remaining: long-lived pointer register permutation (target actor=r5, work=r4, timer=r6; candidate actor=r4, work=r6, timer=r5) plus value-selection shape: target cmp; bgt/ble; ldr r0,[pc] 0xFFFFC000; b join, candidate hoists pool load into r1 then overwrites with movs #0x80;lsls #7. Recovered: both inner calls are getSpriteFacingSign(actor), not absXFromFocus; final script-step block uses obj (r7), not actor. Callees: 0x08014938 signOf, 0x08005820 scaleByRandom, 0x08014900 absXFromFocus, 0x08014990 getSpriteFacingSign, 0x080C31E8 _call_via_r3. search_flags: -fno-expensive-optimizations 1895, others 1900, Os 4215. Ternary/if forms and declaration-order swaps left diff unchanged.\ncallee identity fix, actor/obj argument producers, statement/declaration order, ternary forms, all flag variants\nscore plateau 1900 with register permutation and constant-load scheduling residual",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795785508.7341423,
-  "score_before": 1900,
-  "score_after": 1900,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:444e7e4ca3f689c7af584024d1e68e3c5a2a5a6defb97e3a61d860c4ba4be8aa:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
- },
- {
   "function": "sub_080A2990",
   "text": "Key finding (this agent): the ROM flag test is `bit1 of step.counter`. Writing the inner condition as `if (!(2 & c)) { +0x10000 } else { -0x10000 }` (logically negated, arms swapped) makes agbcc emit the target's `bne` instead of `beq` and improves score 1490 -> 1300. With a bitfield struct for the flag it reaches 1290 (best). Full decode of ROM bytes at 0x080A2990: r3=self, r2=sprite, r4=work, r5=const 2, r6=scratch; prologue push{r4,r5,r6,lr}. All remaining mismatches cascade from agbcc coalescing the loaded counter byte into r0 instead of the ROM's r1: ROM does `ldrb r1,[r0,#0x19]; movs r5,#2; adds r0,r5,#0; ands r0,r1`, ours emits `ldrb r0; ands r0,r5` (2 missing copies). Keeping byte in r1 would also free r6 for the literal/constant rows and restore push{r4,r5,r6,lr}. Tried without success: u32/s32/u8/s8/u16 c types, mask locals of all widths and const/volatile, operand order, u16/u32 bitfield storage units, static inline mask helper, using the mask local for index multiply, declaration order, all flag profiles, local-repair families.",
   "by": "opencode-hy4-flash-free-62",
@@ -354144,15 +354135,6 @@
   "score_before": 215,
   "score_after": 215,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:f60b32245a7ffb3a087ea0698fe63ec586b85293ffbdcab55e7c232e1845be52"
- },
- {
-  "function": "sub_0801A98C",
-  "text": "Score 1365 (81.5%), 74/74 insns. Improved from saved 1900 to 1365 by fixing value-selection branch shape in the absXFromFocus/getSpriteFacingSign inner branches.\n\nRemaining diffs (40 rows): dominant register permutation (23 rows) - target actor=r5, work=r4, timer=r6; candidate actor=r4, work=r6, timer=r5. Cascades through most of function. Also small structural diffs in second inner value-selection (hoisting/branch polarity) and tail. Handoff noted 11 prior trials at 1900; regalloc permutation persisted.\n\nTried: declaration/load order swaps, try_local_repairs (single_use_inline, dead_local_stage, balanced_pointer_calls - all worse), inverted second inner condition (regressed badly to 2275). Same regalloc diff unchanged by decl order.\nNext step: Break actor/work/timer register permutation (target r5/r4/r6). Try different C-level live-range shaping, temp reuse, or call argument ordering around signOf/absXFromFocus/getSpriteFacingSign to force agbcc allocation; also recheck second inner value-selection for exact bgt/ble + fallthrough literal shape once regalloc is closer.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795792874.0875368,
-  "score_before": 1900,
-  "score_after": 1365,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
  },
  {
   "function": "sub_080245EC",
@@ -358187,5 +358169,23 @@
   "score_before": 1905,
   "score_after": 1905,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
+ },
+ {
+  "function": "sub_0801A98C",
+  "text": "Best saved candidate d5ca515665eb84a228a4 (also b5bb02df) scores 1900, 74/74 insns. Remaining: long-lived pointer register permutation (target actor=r5, work=r4, timer=r6; candidate actor=r4, work=r6, timer=r5) plus value-selection shape: target cmp; bgt/ble; ldr r0,[pc] 0xFFFFC000; b join, candidate hoists pool load into r1 then overwrites with movs #0x80;lsls #7. Recovered: both inner calls are getSpriteFacingSign(actor), not absXFromFocus; final script-step block uses obj (r7), not actor. Callees: 0x08014938 signOf, 0x08005820 scaleByRandom, 0x08014900 absXFromFocus, 0x08014990 getSpriteFacingSign, 0x080C31E8 _call_via_r3. search_flags: -fno-expensive-optimizations 1895, others 1900, Os 4215. Ternary/if forms and declaration-order swaps left diff unchanged.\ncallee identity fix, actor/obj argument producers, statement/declaration order, ternary forms, all flag variants\nscore plateau 1900 with register permutation and constant-load scheduling residual",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795785508.7341423,
+  "score_before": 1900,
+  "score_after": 1900,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:444e7e4ca3f689c7af584024d1e68e3c5a2a5a6defb97e3a61d860c4ba4be8aa:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
+ },
+ {
+  "function": "sub_0801A98C",
+  "text": "Score 1365 (81.5%), 74/74 insns. Improved from saved 1900 to 1365 by fixing value-selection branch shape in the absXFromFocus/getSpriteFacingSign inner branches.\n\nRemaining diffs (40 rows): dominant register permutation (23 rows) - target actor=r5, work=r4, timer=r6; candidate actor=r4, work=r6, timer=r5. Cascades through most of function. Also small structural diffs in second inner value-selection (hoisting/branch polarity) and tail. Handoff noted 11 prior trials at 1900; regalloc permutation persisted.\n\nTried: declaration/load order swaps, try_local_repairs (single_use_inline, dead_local_stage, balanced_pointer_calls - all worse), inverted second inner condition (regressed badly to 2275). Same regalloc diff unchanged by decl order.\nNext step: Break actor/work/timer register permutation (target r5/r4/r6). Try different C-level live-range shaping, temp reuse, or call argument ordering around signOf/absXFromFocus/getSpriteFacingSign to force agbcc allocation; also recheck second inner value-selection for exact bgt/ble + fallthrough literal shape once regalloc is closer.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795792874.0875368,
+  "score_before": 1900,
+  "score_after": 1365,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
  }
 ]

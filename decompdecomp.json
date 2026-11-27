@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795808877.357082,
- "revision": 70840,
+ "saved_at": 1795809044.4624317,
+ "revision": 70851,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1813,6 +1813,17 @@
    "timeout": 20,
    "function": "sub_080171E8",
    "vram": 134312424
+  },
+  "108940:134326668": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "sub_0801A98C",
+   "vram": 134326668
   }
  },
  "instructions": "",
@@ -5284,8 +5295,8 @@
   },
   "sub_0801A98C": {
    "vram": 134326668,
-   "best_score": 1365,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "matched_by": "opencode-hy4-flash-free-64",
+   "readable": false
   },
   "sub_0801AA30": {
    "vram": 134326832,
