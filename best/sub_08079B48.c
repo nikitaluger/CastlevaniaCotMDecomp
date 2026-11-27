@@ -1,6 +1,6 @@
 extern void sub_08003740(void *, void *);
 extern void startEffectTimer(void *, s32, s32);
-extern void *sub_0806D2A0(s32, s32, s32, s32);
+extern void *spawnEntity(s32, s32, s32, s32);
 extern void cullOffscreenEntity(void *, void *);
 extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void setSpriteScreenPosition(void *, void *);
@@ -67,7 +67,7 @@ void sub_08079B48(struct S_A0 *arg0)
   v1 = p7b->f54 - 1;
   p7b->f54 = v1;
   if ((v1 & 7) != 0) goto skip;
-  p2 = sub_0806D2A0((s32)arg0->f28, 0x4C, 0xA, 0x12);
+  p2 = spawnEntity((s32)arg0->f28, 0x4C, 0xA, 0x12);
   if (p2 == NULL) goto skip;
   p2->f7C = p6C->f4;
   p2->f8C = p7b->f4;

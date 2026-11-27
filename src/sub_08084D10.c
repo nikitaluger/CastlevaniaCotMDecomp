@@ -24,7 +24,7 @@ extern u8 D_084FCA3C[];
 extern u8 D_084A65BC[];
 extern u8 D_084A6814[];
 
-extern SpawnedPart *sub_0806D2A0(void *, s32, s32, s32);
+extern SpawnedPart *spawnEntity(void *, s32, s32, s32);
 extern void startEffectTimer(void *, s32, s32, s32);
 extern void sub_08086E28(void);
 
@@ -39,93 +39,93 @@ s32 sub_08084D10(void *owner, ScriptObj *obj, u8 *actor)
     switch (stateIndex)
     {
     case 0:
-        spawned = sub_0806D2A0(owner, 0x35, 0x0A, 0x12);
+        spawned = spawnEntity(owner, 0x35, 0x0A, 0x12);
         if (spawned)
             spawned->facing = 0;
-        spawned = sub_0806D2A0(owner, 0x35, 0x0A, 0x12);
+        spawned = spawnEntity(owner, 0x35, 0x0A, 0x12);
         if (spawned)
             spawned->facing = 0x80;
         sub_08086E28();
         break;
     case 1:
-        spawned = sub_0806D2A0(owner, 0x36, 0x0A, 0x12);
+        spawned = spawnEntity(owner, 0x36, 0x0A, 0x12);
         if (spawned)
             spawned->facing = 0;
-        spawned = sub_0806D2A0(owner, 0x36, 0x0A, 0x12);
+        spawned = spawnEntity(owner, 0x36, 0x0A, 0x12);
         if (spawned)
             spawned->facing = 0x40;
-        spawned = sub_0806D2A0(owner, 0x36, 0x0A, 0x12);
+        spawned = spawnEntity(owner, 0x36, 0x0A, 0x12);
         if (spawned)
             spawned->facing = 0x80;
-        spawned = sub_0806D2A0(owner, 0x36, 0x0A, 0x12);
+        spawned = spawnEntity(owner, 0x36, 0x0A, 0x12);
         if (spawned)
             spawned->facing = 0xC0;
         sub_08086E28();
         break;
     case 8:
-        sub_0806D2A0(owner, 0x37, 0x0A, 0x12);
+        spawnEntity(owner, 0x37, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 9:
-        sub_0806D2A0(owner, 0x37, 0x0A, 0x12);
+        spawnEntity(owner, 0x37, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 80:
-        sub_0806D2A0(owner, 0x53, 0x0A, 0x12);
+        spawnEntity(owner, 0x53, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 81:
-        sub_0806D2A0(owner, 0x55, 0x0A, 0x12);
+        spawnEntity(owner, 0x55, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 82:
-        sub_0806D2A0(owner, 0x56, 0x0A, 0x12);
+        spawnEntity(owner, 0x56, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 83:
-        sub_0806D2A0(owner, 0x58, 0x0A, 0x12);
+        spawnEntity(owner, 0x58, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 84:
-        sub_0806D2A0(owner, 0x59, 0x0A, 0x12);
+        spawnEntity(owner, 0x59, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 85:
-        sub_0806D2A0(owner, 0x5B, 0x0A, 0x12);
+        spawnEntity(owner, 0x5B, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 86:
-        sub_0806D2A0(owner, 0x5C, 0x0A, 0x12);
+        spawnEntity(owner, 0x5C, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 87:
-        sub_0806D2A0(owner, 0x5E, 0x0A, 0x12);
+        spawnEntity(owner, 0x5E, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 88:
-        sub_0806D2A0(owner, 0x5F, 0x0A, 0x12);
+        spawnEntity(owner, 0x5F, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 89:
-        sub_0806D2A0(owner, 0x61, 0x0A, 0x12);
+        spawnEntity(owner, 0x61, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 115:
-        spawned = sub_0806D2A0(owner, 0x2D, 0x1C, 0x02);
+        spawned = spawnEntity(owner, 0x2D, 0x1C, 0x02);
         if (spawned)
             spawned->facing = 1;
         sub_08086E28();
         break;
     case 116:
     case 119:
-        sub_0806D2A0(owner, 0x39, 0x0A, 0x12);
+        spawnEntity(owner, 0x39, 0x0A, 0x12);
         sub_08086E28();
         break;
     case 118:
-        spawned = sub_0806D2A0(owner, 0x2D, 0x1E, 0x02);
+        spawned = spawnEntity(owner, 0x2D, 0x1E, 0x02);
         if (spawned)
             spawned->facing = 4;
-        spawned = sub_0806D2A0(owner, 0x2D, 0x1E, 0x02);
+        spawned = spawnEntity(owner, 0x2D, 0x1E, 0x02);
         if (spawned)
             spawned->facing = 5;
         sub_08086E28();

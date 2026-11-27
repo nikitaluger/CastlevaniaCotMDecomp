@@ -1,5 +1,5 @@
 extern s32 setEntityForm(s32, s32, s32);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -14,7 +14,7 @@ void sub_080668E4(void *entity) {
     s32 sprite = *(s32 *)(self + 0x38);
     setEntityForm(sprite, effectParam, 0x56);
     {
-        void *child = sub_0806D2A0(entity, 0x34, 0x0A, 0x12);
+        void *child = spawnEntity(entity, 0x34, 0x0A, 0x12);
         if (child != 0) {
             *(u16 *)((u8 *)child + 0x7C) = 0;
         }

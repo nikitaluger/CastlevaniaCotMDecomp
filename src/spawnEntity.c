@@ -13,7 +13,7 @@ extern struct D02025FF0_S gMainWorkspace;
 /* Try to allocate an entity through the slot allocator (the caller's arguments
  * are forwarded in registers). On success propagate the spawn flag byte and
  * return the entity; otherwise return 0. */
-s32 sub_0806D2A0(void) {
+s32 spawnEntity(void) {
     s32 spawned = sub_0806D24C();
     s32 result;
     if (spawned != 0) {

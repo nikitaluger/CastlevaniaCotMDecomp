@@ -15,7 +15,7 @@ struct D02025FF0_S_850B4 {
 extern struct D02025FF0_S_850B4 gMainWorkspace;
 extern u8 gGameStatus[];
 extern u8 D_0845806C[];
-s32 sub_0806D2A0(s32, s32, s32, s32);
+s32 spawnEntity(s32, s32, s32, s32);
 void sub_08086E28(void);
 
 void sub_080850B4(s32 actor, void *ctrl) {
@@ -35,7 +35,7 @@ void sub_080850B4(s32 actor, void *ctrl) {
         *(u32 *)((u8 *)ctrl + 0xB8) = frameCounter;
         if (frameCounter == 0) {
             globals[0xC0]++;
-            trail = sub_0806D2A0(actor, 0x34, 0x0A, 0x12);
+            trail = spawnEntity(actor, 0x34, 0x0A, 0x12);
             if (trail != 0) {
                 *(u16 *)(trail + 0x7C) = (u16)frameCounter;
             }

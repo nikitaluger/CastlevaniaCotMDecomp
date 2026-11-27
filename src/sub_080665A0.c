@@ -1,5 +1,5 @@
 extern s32 setEntityForm(s32, s32, s32);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 inline int addScrollOrigin(int addr)
@@ -22,7 +22,7 @@ void sub_080665A0(void *arg0)
   scroll = (s32 *) (mapPtr + 0x110);
   *scroll = addScrollOrigin(work + 4) - (*((s32 *) (gfxPtr + 0x18)));
   {
-    void *sub = sub_0806D2A0(arg0, 0x34, 0x0A, 0x12);
+    void *sub = spawnEntity(arg0, 0x34, 0x0A, 0x12);
     if (sub != 0)
     {
       *((u16 *) (((u8 *) sub) + 0x7C)) = 0;

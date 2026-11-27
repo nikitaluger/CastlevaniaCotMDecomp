@@ -1,5 +1,5 @@
 extern void startEffectTimer(void *a, s32 b, void *c);
-extern void sub_0806D2A0(void *a, s32 b, s32 c, s32 d);
+extern void spawnEntity(void *a, s32 b, s32 c, s32 d);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 extern void releaseActorEffectParts(void);
@@ -25,7 +25,7 @@ void sub_080834D8(void *entity) {
     startEffectTimer(stateBlock + 0x20, 0, (void *)0x084FACFC);
     *(u32 *)(gfx + 0x14) = 0xFFC00000;
     *(u32 *)(gfx + 0x18) = 0xA0 << 15;
-    sub_0806D2A0(self, 0x77, 0xA, 0x12);
+    spawnEntity(self, 0x77, 0xA, 0x12);
     *(u32 *)(state + 0x10) = 0x80 << 1;
     *(vu16 *)0x05000000 = 0;
     sub_0808BBAC(0x40, 1, 3);

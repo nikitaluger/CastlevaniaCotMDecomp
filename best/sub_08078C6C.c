@@ -17,7 +17,7 @@ extern u8 gTilemapPages[];
 extern s32 checkGlobalStateChange(void *, void *, void *);
 extern s32 getTileTerrainB(void *, s32);
 extern void sub_0808DBF8(s32, s32, s32);
-extern void *sub_0806D2A0(s32, s32, s32, s32);
+extern void *spawnEntity(s32, s32, s32, s32);
 extern void stepDelayTimer(void *, void *);
 extern void setSpriteScreenPosition(void *, void *);
 extern void sub_080C31E0(void *, void *);
@@ -52,7 +52,7 @@ void sub_08078C6C(void *arg0)
     }
     if (--(*((s32 *) (p4 + 0x54))) == 0)
     {
-      p = sub_0806D2A0(*((s32 *) (self + 0x28)), 0x48, 0x0A, 0x12);
+      p = spawnEntity(*((s32 *) (self + 0x28)), 0x48, 0x0A, 0x12);
       if (p != 0)
       {
         *((s32 *) (((u8 *) p) + 0x7C)) = *((s32 *) (((u8 *) p6C) + 4));

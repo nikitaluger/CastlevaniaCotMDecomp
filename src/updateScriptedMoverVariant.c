@@ -1,76 +1,86 @@
-extern s32 sub_08005E80(s32);
-extern void sub_080113A8(void *, void *);
+extern s32 playSound(s32);
+extern void stepAnimationTrack(void *, void *);
 extern void advanceMotion(void *, s32);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern s32 hitTestEntities(void *);
-extern s32 sub_0805F9B4(s32, s32);
-extern void sub_080C31E0(void *, s32);
-extern void sub_080C31E8(void *, void *, s32, s32);
-struct S28 { u8 a; u8 flag; u8 pad[0x12]; u16 flag2; };
-struct P3C { u16 f0; };
+extern s32 isOutsideCameraBounds(s32, s32);
+extern void _call_via_r1(void *, s32);
+extern void _call_via_r3(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
+extern u32 sScriptStepCallbacks[];
 
-/* Per-frame update for one entity: tests collision and active state, handles
- * the death/recycle path through the state's jump table, then repositions the
- * sprite against the camera. */
-void sub_08053350(void *entity) {
+/* Per-frame update for a scripted entity with a mover work state: probe the
+ * sensor, run the hit/death response, dispatch the current script step through
+ * this family's handler table, then write the mover's camera-scroll-relative
+ * screen position. */
+void updateScriptedMoverVariant(void *self) {
     void *sprite;
-    void *state;
-    void *anim;
-    struct P3C *stateFlags;
-    struct S28 *fx;
-    sprite = *(void **)((u8 *)entity + 0x38);
-    state = *(void **)((u8 *)entity + 0x3C);
-    anim = (u8 *)state + 0x34;
-    stateFlags = (struct P3C *)state;
-    fx = *(struct S28 **)((u8 *)state + 0x28);
-    fx->flag |= 5;
-    if (sub_0805F9B4(*(s32 *)((u8 *)state + 8), *(s32 *)((u8 *)state + 0xC)) == 1) {
-        sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
+    void *work;
+    void *animTrack;
+    struct ScriptedWorkFlags *workFlags;
+    struct ScriptedHitTarget *target;
+
+    sprite = *(void **)((u8 *)self + 0x38);
+    work = *(void **)((u8 *)self + 0x3C);
+    animTrack = (u8 *)work + 0x34;
+    workFlags = (struct ScriptedWorkFlags *)work;
+    target = *(struct ScriptedHitTarget **)((u8 *)work + 0x28);
+    target->hitBits |= SCRIPT_HIT_PROBE_BITS;
+
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)work + 8), *(s32 *)((u8 *)work + 0xC)) == 1) {
+        _call_via_r1(self, *(s32 *)((u8 *)self + 0x24));
         goto end;
     }
-    if (hitTestEntities(*(void **)((u8 *)state + 0x28)) != 0) stateFlags->f0 |= 1;
-    fx = *(struct S28 **)((u8 *)state + 0x28);
-    if (fx->flag2 & 1) stateFlags->f0 |= 1;
-    if (stateFlags->f0 & 1) {
-        fx = *(struct S28 **)((u8 *)state + 0x28);
-        fx->flag &= 0xFB;
-        if (*((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x1A) != 1) {
-            s32 *callbackSlot;
-            sub_08005E80(0x189);
-            *((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x1B) = 0;
-            callbackSlot = (s32 *)0x08671BDC;
-            sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 1, *callbackSlot);
+    if (hitTestEntities(*(void **)((u8 *)work + 0x28)) != 0) workFlags->hitFlags |= SCRIPT_WORK_HIT_BIT;
+    target = *(struct ScriptedHitTarget **)((u8 *)work + 0x28);
+    if (target->status & 1) workFlags->hitFlags |= SCRIPT_WORK_HIT_BIT;
+    if (workFlags->hitFlags & SCRIPT_WORK_HIT_BIT) {
+        target = *(struct ScriptedHitTarget **)((u8 *)work + 0x28);
+        target->hitBits &= SCRIPT_HIT_BIT_CLEAR;
+        if (*((u8 *)self + *(s16 *)((u8 *)self + 0x22) * 2 + 0x1A) != 1) {
+            u32 *eventCallback;
+            playSound(SCRIPT_DEATH_SFX);
+            *((u8 *)self + *(s16 *)((u8 *)self + 0x22) * 2 + 0x1B) = 0;
+            eventCallback = sScriptStepCallbacks;
+            _call_via_r3((u8 *)self + 0x18, (u8 *)self + 0x22, 1, *eventCallback);
         }
     }
-    if (sub_08013B5C(sprite, state) != 0) goto else_branch;
-    *(u32 *)((u8 *)entity + 0x14) = 0x0866E690;
-    *(u16 *)((u8 *)entity + 0x22) = *(u16 *)((u8 *)entity + 0x22) + 1;
+    if (updateObjectDisplayState(sprite, work) != 0) goto recycle;
+    *(u32 *)((u8 *)self + 0x14) = SCRIPTED_MOVER_VARIANT_STEP_TABLE;
+    *(u16 *)((u8 *)self + 0x22) = *(u16 *)((u8 *)self + 0x22) + 1;
     {
-        u8 *desc = (u8 *)((s16)(*(u16 *)((u8 *)entity + 0x22)) * 2 + (u32)entity);
-        desc[0x19] = desc[0x19] + 1;
+        u8 *step = (u8 *)((s16)(*(u16 *)((u8 *)self + 0x22)) * 2 + (u32)self);
+        step[0x19] = step[0x19] + 1;
     }
     {
-        s32 slot = (s16)(*(u16 *)((u8 *)entity + 0x22)) * 2;
-        u8 *q = (u8 *)entity; u8 which;
-        q += 0x18; q += slot; which = *q;
-        sub_080C31E0(entity, *(s32 *)(*(u32 *)((u8 *)entity + 0x14) + (u32)(which * 4)));
+        s32 stepOff = (s16)(*(u16 *)((u8 *)self + 0x22)) * 2;
+        u8 *slots = (u8 *)self;
+        u8 opcode;
+        slots += 0x18; slots += stepOff; opcode = *slots;
+        _call_via_r1(self, *(s32 *)(*(u32 *)((u8 *)self + 0x14) + (u32)(opcode * 4)));
     }
-    *(u16 *)((u8 *)entity + 0x22) = *(u16 *)((u8 *)entity + 0x22) - 1;
-    if (*(u16 *)((u8 *)entity + 2) & 0x8000) goto end;
-    sub_080113A8(sprite, anim);
-    advanceMotion(state, 0);
-else_branch:
+    *(u16 *)((u8 *)self + 0x22) = *(u16 *)((u8 *)self + 0x22) - 1;
+    if (*(u16 *)((u8 *)self + 2) & SCRIPT_STEP_SKIP_ANIM) goto end;
+    stepAnimationTrack(sprite, animTrack);
+    advanceMotion(work, 0);
+recycle:
     {
-        u8 *camTable; u8 *camBase; u32 idx; u8 *colX; u8 *colY;
-        camTable = gCameraState; camBase = gMainWorkspace; camBase += 0x18A8;
-        idx = ((u32)*camBase + 1) * 0x40;
-        colX = camTable + 0x1278;
-        *(u32 *)((u8 *)sprite + 0x14) = *(u32 *)((u8 *)state + 8) - ((*(s32 *)(colX + idx) + 0x8000) & 0xFFFF0000);
-        idx = ((u32)*camBase + 1) * 0x40;
-        colY = camTable + 0x127C;
-        *(u32 *)((u8 *)sprite + 0x18) = *(u32 *)((u8 *)state + 0xC) - ((*(s32 *)(colY + idx) + 0xFFFF8000) & 0xFFFF0000);
+        u8 *camTable;
+        u8 *camBase;
+        u32 idx;
+        u8 *scrollX;
+        u8 *scrollY;
+
+        camTable = gCameraState;
+        camBase = gMainWorkspace;
+        camBase += SCRIPT_SCROLL_PB_OFFSET;
+        idx = ((u32)*camBase + 1) * SCRIPT_SCROLL_STRIDE;
+        scrollX = camTable + SCRIPT_SCROLL_X_OFFSET;
+        *(u32 *)((u8 *)sprite + 0x14) = *(u32 *)((u8 *)work + 8) - ((*(s32 *)(scrollX + idx) + SCRIPT_SCROLL_BIAS_X) & SCRIPT_FIXED_FRAC_MASK);
+        idx = ((u32)*camBase + 1) * SCRIPT_SCROLL_STRIDE;
+        scrollY = camTable + SCRIPT_SCROLL_Y_OFFSET;
+        *(u32 *)((u8 *)sprite + 0x18) = *(u32 *)((u8 *)work + 0xC) - ((*(s32 *)(scrollY + idx) + SCRIPT_SCROLL_BIAS_Y) & SCRIPT_FIXED_FRAC_MASK);
     }
 end:
     ;

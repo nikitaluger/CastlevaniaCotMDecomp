@@ -6,7 +6,7 @@ extern void sub_0806A884(void *, void *);
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_0806D7B4(void *, s32);
 extern void sub_08084CBC(void *, void *);
 extern void sub_080C31E8(void *, void *, u32, void *);
@@ -54,7 +54,7 @@ void sub_080660A4(u8 *actor)
             {
                 void *spawned;
                 sub_0806D7B4(obj, accel << 16);
-                spawned = sub_0806D2A0(actor, 0x3C, 0xA, 0x12);
+                spawned = spawnEntity(actor, 0x3C, 0xA, 0x12);
                 if (spawned != 0)
                 {
                     *((u16 *)((u8 *)spawned + 0x7C)) = 1;

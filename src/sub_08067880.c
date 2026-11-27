@@ -1,5 +1,5 @@
 extern void setEntityForm(s32, s32, s32);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E0(void *, void *);
 
@@ -20,7 +20,7 @@ void sub_08067880(void *script)
         setEntityForm(*(s32 *)((u8 *)script + 0x38), mover, 0x19);
     }
 
-    obj = sub_0806D2A0(script, 0x34, 0x0A, 0x12);
+    obj = spawnEntity(script, 0x34, 0x0A, 0x12);
     if (obj != 0) {
         *(u16 *)((u8 *)obj + 0x7C) = 0;
     }
@@ -37,7 +37,7 @@ void sub_08067880(void *script)
     p18 = (u8 *)script + 0x18;
     p22 = (u8 *)script + 0x22;
     do {
-        obj = sub_0806D2A0(script, 0x2B, 0x0A, 0x12);
+        obj = spawnEntity(script, 0x2B, 0x0A, 0x12);
         if (obj != 0) {
             *(s32 *)((u8 *)obj + 0x7C) = i;
         }

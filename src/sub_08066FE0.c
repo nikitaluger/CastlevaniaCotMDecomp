@@ -7,7 +7,7 @@ void sub_0806AA64(void *, void *);
 s32 syncViewPosition(void *, void *);
 void resetActionResultState(void *, void *, void *, void *);
 void sub_0806C6B0(void *, void *, void *, void *);
-void *sub_0806D2A0(void *, s32, s32, s32);
+void *spawnEntity(void *, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Spawn a paired burst of objects around an entity using its component data,
@@ -46,12 +46,12 @@ void sub_08066FE0(void *arg0)
                 zero = 0;
                 count = 7;
                 do {
-                    void *spawned = sub_0806D2A0(arg0, 0x28, 0xA, 0x12);
+                    void *spawned = spawnEntity(arg0, 0x28, 0xA, 0x12);
                     if (spawned != 0) {
                         *((u32 *)(((u8 *)spawned) + 0x7C)) = (u32)offset;
                         *((u32 *)(((u8 *)spawned) + 0x8C)) = 0;
                     }
-                    spawned = sub_0806D2A0(arg0, 0x28, 0xA, 0x12);
+                    spawned = spawnEntity(arg0, 0x28, 0xA, 0x12);
                     if (spawned != 0) {
                         *((u32 *)(((u8 *)spawned) + 0x7C)) = (u32)offset;
                         *((u32 *)(spawned + 0x8C)) = 2;

@@ -6,7 +6,7 @@ extern void sub_0806A884(void *, void *);
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_0806D7B4(void *, s32);
 extern void sub_08084CBC(void *, void *);
 extern void sub_080C31E8(void *, void *, u16, s32);
@@ -38,7 +38,7 @@ void sub_08065FCC(u8 *actor) {
             cooldownValue = *(s32 *)cooldown;
             if (cooldownValue != 0) {
                 sub_0806D7B4(obj, cooldownValue << 16);
-                spawned = sub_0806D2A0(actor, 0x3C, 0xA, 0x12);
+                spawned = spawnEntity(actor, 0x3C, 0xA, 0x12);
                 if (spawned != 0) *(u16 *)((u8 *)spawned + 0x7C) = 1;
                 *(s32 *)cooldown = timerStatus;
             }

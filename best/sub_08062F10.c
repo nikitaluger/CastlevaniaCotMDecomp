@@ -4,7 +4,7 @@ extern u8 gTilemapPages[];
 extern u32 gScriptStepCallbacks[];
 extern s32 syncViewPosition(void *a, void *b);
 extern void resetActionResultState(void *a, void *b, void *c, void *d);
-extern void *sub_0806D2A0(void *a, s32 b, s32 c, s32 d);
+extern void *spawnEntity(void *a, s32 b, s32 c, s32 d);
 extern void setEntityForm(void *a, void *b, s32 c);
 extern void resetActorForm(void *a, void *b);
 extern s32 sub_0806B3E8(void *a, void *b, void *c, void *d);
@@ -56,7 +56,7 @@ void sub_08062F10(void *a)
         u32 v7c = *((u32 *) (r6 + 0x7C));
         if ((v7c == 0) || (v7c == 2))
         {
-          void *res = sub_0806D2A0(r4, 0x34, 0x0A, 0x12);
+          void *res = spawnEntity(r4, 0x34, 0x0A, 0x12);
           if (res)
           {
             *((u16 *) (((u8 *) res) + 0x7C)) = r9;

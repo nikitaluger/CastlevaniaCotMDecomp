@@ -54,7 +54,7 @@ void sub_0806D7B4(struct Vec *position, s32 amount)
 
 /* Add `percent` percent of the accumulator limit (at least 1.0) through
  * sub_0806D7B4. */
-void sub_0806D77C(struct Vec *position, s32 percent)
+void spawnScaledEffect(struct Vec *position, s32 percent)
 {
     u8 *sys = gGameStatus;
     s32 *limit = (s32 *)(sys + 0x2C8);

@@ -2,8 +2,8 @@ extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080168C4(void);
 extern void *sub_080168F8(void);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
-extern void sub_0806D77C(s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
+extern void spawnScaledEffect(s32, s32);
 extern s32 D_080E5EA4[8][2];
 extern s32 D_02027710[8][2];
 extern s32 gMainWorkspace[];
@@ -44,14 +44,14 @@ void sub_08083820(void *self)
       {
         continue;
       }
-      sub_0806D77C(*((s32 *) targetTable), 1);
+      spawnScaledEffect(*((s32 *) targetTable), 1);
       owner = *((void **) (node + 4));
       ;
       if (!(2 & (*((u16 *) (*((void **) (((u8 *) owner) + 0x3C)))))))
       {
         continue;
       }
-      spawned = sub_0806D2A0(*((void **) (((u8 *) (*((void **) (((u8 *) self) + 0x28)))) + 0x28)), 0x78, 0x0A, 0x12);
+      spawned = spawnEntity(*((void **) (((u8 *) (*((void **) (((u8 *) self) + 0x28)))) + 0x28)), 0x78, 0x0A, 0x12);
       if (!spawned)
       {
         continue;

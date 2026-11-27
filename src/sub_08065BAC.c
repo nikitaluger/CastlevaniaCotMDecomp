@@ -6,7 +6,7 @@ extern void sub_0806A884(void *, void *);
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_0806D7B4(void *, s32);
 extern void sub_08084CBC(void *, void *);
 extern void sub_080C31E8(void *, void *, u16, void *);
@@ -53,7 +53,7 @@ void sub_08065BAC(u8 *entity)
         {
           void *spawned;
           sub_0806D7B4(pos, accel << 16);
-          spawned = sub_0806D2A0(entity, 0x3C, 0xA, 0x12);
+          spawned = spawnEntity(entity, 0x3C, 0xA, 0x12);
           if (spawned != 0)
           {
             globals = (u8 *) spawned;

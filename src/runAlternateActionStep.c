@@ -7,7 +7,7 @@ extern void sub_0806A7AC(void *, void *, int);
 extern void sub_08005E80(int);
 extern void sub_080C31E8(void *, void *, int, u32);
 extern void sub_0806D7B4(void *, u32);
-extern int sub_0806D2A0(void *, int, int, int);
+extern int spawnEntity(void *, int, int, int);
 extern int sub_08065CC8(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
@@ -114,7 +114,7 @@ void runAlternateActionStep(void *actor)
       if (hitAmount != 0)
     {
       sub_0806D7B4(workAlias, hitAmount << 16);
-      spawnedEntity = sub_0806D2A0(entityBytes, 0x3C, 0x0A, 0x12);
+      spawnedEntity = spawnEntity(entityBytes, 0x3C, 0x0A, 0x12);
       if (spawnedEntity != 0)
       {
         spawnedFlag = ((u8 *) spawnedEntity) + 0x7C;

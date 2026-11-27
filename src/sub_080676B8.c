@@ -6,7 +6,7 @@ extern void sub_0806AA64(void *, void *);
 extern void startEffectTimer(void *, s32, s32);
 extern s32 stepDelayTimer(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern s32 sub_0808D330();
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -30,7 +30,7 @@ void sub_080676B8(void *arg0) {
         count = *(s32 *)subObj + 1;
         *(s32 *)subObj = count;
         if (count <= 0x70 && (count & 7) == 0) {
-            u8 *spawned = sub_0806D2A0(entity, 0x2A, 0xA, 0x12);
+            u8 *spawned = spawnEntity(entity, 0x2A, 0xA, 0x12);
             if (spawned != 0) {
                 *(s32 *)(spawned + 0x7C) = *(s32 *)subObj;
             }

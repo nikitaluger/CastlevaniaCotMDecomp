@@ -1,6 +1,6 @@
 extern u32 sub_08061C78(void);
-extern void *sub_0806D2A0(s32, s32, s32, s32);
-extern void sub_0806D77C(s32, s32);
+extern void *spawnEntity(s32, s32, s32, s32);
+extern void spawnScaledEffect(s32, s32);
 extern void sub_08086E28(void);
 extern void playSound(s32);
 extern s32 sub_080C3824(s32, s32);
@@ -16,7 +16,7 @@ extern struct S25368 gGameStatus;
 struct Arg1 { u8 _0[0x44]; u32 f44; u8 _48[0x9C-0x48]; u32 f9C, fA0; u8 _A4[0xB8-0xA4]; u32 fB8; };
 struct Obj { u8 _0[0x7C]; u16 f7C; };
 
-void sub_08085158(s32 arg0, struct Arg1 *arg1, s32 arg2) {
+void runActionStepResponse(s32 arg0, struct Arg1 *arg1, s32 arg2) {
     u32 r6;
 u32 __repair_result_r6;
     void *o;
@@ -35,7 +35,7 @@ u32 __repair_result_r6;
     switch (cmd) {
     case 0x23:
         if (gMainWorkspace.f1506 == 0) return;
-        o = sub_0806D2A0(arg0, 0x34, 0xA, 0x12);
+        o = spawnEntity(arg0, 0x34, 0xA, 0x12);
         if (o != NULL) ((struct Obj *)o)->f7C = 0;
         sub_08086E28();
         return;
@@ -43,14 +43,14 @@ u32 __repair_result_r6;
     case 0x28:
         __repair_result_r6 = sub_08061C78();
         if (__repair_result_r6 <= arg1->fB8) return;
-        o = sub_0806D2A0(arg0, 0x34, 0xA, 0x12);
+        o = spawnEntity(arg0, 0x34, 0xA, 0x12);
         if (o != NULL) ((struct Obj *)o)->f7C = 0;
         sub_08086E28();
         arg1->fB8 = __repair_result_r6;
         return;
     case 0x26:
         if (gMainWorkspace.f1504 == 0) return;
-        o = sub_0806D2A0(arg0, 0x34, 0xA, 0x12);
+        o = spawnEntity(arg0, 0x34, 0xA, 0x12);
         if (o != NULL) ((struct Obj *)o)->f7C = 0;
         sub_08086E28();
         return;
@@ -59,7 +59,7 @@ u32 __repair_result_r6;
             t_1 = (arg1->fB8 + 1) & 0x3F;
             arg1->fB8 = t_1;
             if (t_1 == 0) {
-                o = sub_0806D2A0(arg0, 0x34, 0xA, 0x12);
+                o = spawnEntity(arg0, 0x34, 0xA, 0x12);
                 if (o != NULL) ((struct Obj *)o)->f7C = 0;
                 sub_08086E28();
             }
@@ -73,7 +73,7 @@ u32 __repair_result_r6;
             gMainWorkspace.f14F4 = t_2;
             if (t_2 > 0x3B) {
                 gMainWorkspace.f14F4 = 0;
-                sub_0806D77C(arg2, 1);
+                spawnScaledEffect(arg2, 1);
                 sub_08086E28();
             }
         }
@@ -86,7 +86,7 @@ u32 __repair_result_r6;
     case 0x36:
         if ((s32)arg1->fB8 <= 0) {
             arg1->fB8 = 0xC;
-            sub_0806D2A0(arg0, 0x38, 0xA, 0x12);
+            spawnEntity(arg0, 0x38, 0xA, 0x12);
             sub_08086E28();
             playSound(0xD8);
         }
@@ -104,7 +104,7 @@ u32 __repair_result_r6;
             timer--;
             gMainWorkspace.f14F4 = timer;
             if (((s32)timer <= 0x1FF) && !(timer & 3)) {
-                sub_0806D2A0(arg0, 0x29, 0xA, 0x12);
+                spawnEntity(arg0, 0x29, 0xA, 0x12);
             }
         }
         return;
@@ -114,7 +114,7 @@ u32 __repair_result_r6;
         if (*p > (u32)gMainWorkspace.f1508) {
             r6 = *p;
             p68->f300 = r6 + sub_080C3824(r6 - gMainWorkspace.f1508, 5);
-            o = sub_0806D2A0(arg0, 0x34, 0xA, 0x12);
+            o = spawnEntity(arg0, 0x34, 0xA, 0x12);
             if (o != NULL) {
                 ((struct Obj *)o)->f7C = 0;
             }

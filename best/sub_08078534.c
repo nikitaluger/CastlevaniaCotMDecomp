@@ -4,7 +4,7 @@ extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void startEffectTimer(void *, s32, void *);
 extern void playSound(s32);
 extern s32 getTileTerrainB(u32, s32);
-extern void *sub_0806D2A0(s32, s32, s32, s32);
+extern void *spawnEntity(s32, s32, s32, s32);
 extern void sub_0806D330(void *, void *);
 extern void stepDelayTimer(void *);
 extern void setSpriteScreenPosition(void *, void *);
@@ -72,7 +72,7 @@ void sub_08078534(u8 *self)
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 8) = 0xA;
         playSound(0x144);
         for (r2 = 0; r2 <= 7; r2++) {
-            new = sub_0806D2A0(*(s32 *)(self + 0x28), 0x46, 0xA, 0x12);
+            new = spawnEntity(*(s32 *)(self + 0x28), 0x46, 0xA, 0x12);
             if (new != NULL) {
                 *(u32 *)((u8 *)new + 0x7C) = *(u32 *)(r4 + 4 - 0x20 + 0x20);
                 *(u32 *)((u8 *)new + 0x8C) = *(u32 *)(r5 + 4);

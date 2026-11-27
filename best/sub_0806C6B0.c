@@ -21,7 +21,7 @@ extern void sub_0806DD94(void);
 extern void sub_0808E3B8(u32, u32, u32);
 extern void sub_0808E408(u32, u32, u32);
 extern void divInt32(u32, u32);
-extern void sub_08085158(u8 *, u8 *, u32 *);
+extern void runActionStepResponse(u8 *, u8 *, u32 *);
 inline int inline_fn(u32 arg0, int arg1) { return arg0 & arg1; }
 inline u16 inline_fn2(u16 *arg0) { return arg0[3]; }
 inline u16 inline_fn23(u16 *arg0) { return arg0[6]; }
@@ -129,7 +129,7 @@ set1:
     if (*pr) { if ((--(*pr)) == 0) *ploop = 0; }
     if (*pq) (*pq)--;
   }
-  sub_08085158(a, c, d);
+  runActionStepResponse(a, c, d);
   { u16 v = *((u16 *)(h + 0x14E2));
     if (v == 0) { *((u32 *)(h + 0x14E4)) = 0; *((u32 *)(h + 0x14E8)) = 0; }
     else { u32 *pE8 = (u32 *)(h + 0x14E8);

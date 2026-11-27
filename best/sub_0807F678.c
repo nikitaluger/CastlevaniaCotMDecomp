@@ -1,6 +1,6 @@
 extern void startEffectTimer(void *, s32, void *);
 extern s32 stepDelayTimer(void *, void *);
-extern void sub_0806D2A0(void *, s32, s32, s32);
+extern void spawnEntity(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gMainWorkspace[];
@@ -33,7 +33,7 @@ void sub_0807F678(u8 *arg0) {
     }
     *(u32 *)(r4 + 0x10) = zero;
     *(u32 *)(r4 + 0x54) = zero;
-    sub_0806D2A0(arg0, 0x62, 0x0A, 0x12);
+    spawnEntity(arg0, 0x62, 0x0A, 0x12);
     *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = (u8)zero;
     {
         s32 *lit = &gScriptStepCallbackTable;

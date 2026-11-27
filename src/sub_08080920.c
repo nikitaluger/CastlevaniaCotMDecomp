@@ -1,6 +1,6 @@
 extern void stepDelayTimer(void *a, void *b);
 extern void playSound(s32 a);
-extern void *sub_0806D2A0(s32 a, s32 b, s32 c, s32 d);
+extern void *spawnEntity(s32 a, s32 b, s32 c, s32 d);
 extern s32 sub_0806D450(void *a, void *b, void *c);
 extern void sub_080C31E0(void *a, void *b);
 
@@ -19,7 +19,7 @@ void sub_08080920(void *arg0)
     *(s32 *)(r5 + 0x14) = *(s32 *)(r5 + 0x14) + 0x8000;
     *(s32 *)(r5 + 0x18) = (s32)((u32)*(s32 *)(r5 + 0x18) + 0xFFFF0000u);
     if (!(*(s32 *)(r4 + 0x10) & 7)) {
-        void *ret = sub_0806D2A0(*(s32 *)(r6 + 0x28), 0x67, 0x0A, 0x12);
+        void *ret = spawnEntity(*(s32 *)(r6 + 0x28), 0x67, 0x0A, 0x12);
         if (ret != NULL) {
             *(s32 *)((u8 *)ret + 0x9C) = (*(s32 *)(r4 + 0x10) >> 3) & 0x0F;
         }

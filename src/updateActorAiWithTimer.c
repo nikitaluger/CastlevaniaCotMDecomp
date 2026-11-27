@@ -19,7 +19,7 @@ extern s32 stepDelayTimer(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern s32 scaleByRandom(s32);
 extern void sub_08005E80(s32);
-extern void sub_0806D2A0(void *, s32, s32, s32);
+extern void spawnEntity(void *, s32, s32, s32);
 extern void sub_0806BA20(void *, void *, void *);
 extern void sub_08068704(void *, void *, void *);
 extern void *gScriptStepCallbacks;
@@ -68,9 +68,9 @@ void updateActorAiWithTimer(struct Arg0 *actor) {
     }
     if (ai->f2C == 2 && *(s32 *)((u8 *)state + 0xBC) == 0) {
         if (scaleByRandom(8) != 0) {
-            sub_0806D2A0(actor, 0x3A, 0x0A, 0x12);
+            spawnEntity(actor, 0x3A, 0x0A, 0x12);
         } else {
-            sub_0806D2A0(actor, 0x3B, 0x0A, 0x12);
+            spawnEntity(actor, 0x3B, 0x0A, 0x12);
         }
         sub_08005E80(0x94);
         aiSub->fB8 = 1;

@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795778900.3042936,
- "revision": 69394,
+ "saved_at": 1795779121.5557625,
+ "revision": 69408,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1773,24 +1773,13 @@
   },
   "545112:134762840": {
    "vram": 134762840,
-   "function": "sub_08085158",
+   "function": "runActionStepResponse",
    "toolchain": "agbcc",
    "flags": [
     "-mthumb-interwork",
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "340816:134558544": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateScriptedMoverVariant",
-   "vram": 134558544
   }
  },
  "instructions": "",
@@ -2105,8 +2094,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -11012,7 +11000,7 @@
   "updateScriptedMoverVariant": {
    "vram": 134558544,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080534B8": {
    "vram": 134558904,
@@ -13204,7 +13192,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0806D2A0": {
+  "spawnEntity": {
    "vram": 134664864,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -13269,7 +13257,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0806D77C": {
+  "spawnScaledEffect": {
    "vram": 134666108,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -15249,7 +15237,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08085158": {
+  "runActionStepResponse": {
    "vram": 134762840,
    "matched_by": "opencode-hy4-flash-free-60",
    "readable": false
@@ -23138,7 +23126,7 @@
  "function_headers": {
   "sub_0801565C": "local_source_8589935146",
   "sub_08074654": "local_source_8589937090",
-  "sub_08085158": "local_source_8589937398",
+  "runActionStepResponse": "local_source_8589937398",
   "sub_0808EA30": "local_source_8589937664",
   "sub_080BE99C": "local_source_8589938934"
  },
@@ -37370,7 +37358,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0806D2A0",
+   "name": "spawnEntity",
    "vram": 134664864,
    "size": 46,
    "status": "open"
@@ -37448,7 +37436,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0806D77C",
+   "name": "spawnScaledEffect",
    "vram": 134666108,
    "size": 56,
    "status": "open"
@@ -39914,7 +39902,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08085158",
+   "name": "runActionStepResponse",
    "vram": 134762840,
    "size": 576,
    "status": "open"
@@ -49457,7 +49445,7 @@
    "name": "sub_080BFDBE",
    "vram": 135003582,
    "size": 610,
-   "status": "open"
+   "status": "asm"
   },
   {
    "name": "sub_080C0020",
@@ -51826,6 +51814,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnEntity",
+   "address": 134664864,
+   "size": 46,
+   "kind": "func"
+  },
+  {
    "name": "cleanupFailedEffectSpawn",
    "address": 134664912,
    "size": 40,
@@ -51853,6 +51847,12 @@
    "name": "scalePercentSaturate16",
    "address": 134665772,
    "size": 40,
+   "kind": "func"
+  },
+  {
+   "name": "spawnScaledEffect",
+   "address": 134666108,
+   "size": 56,
    "kind": "func"
   },
   {
@@ -51985,6 +51985,12 @@
    "name": "releaseActorEffectParts",
    "address": 134759580,
    "size": 100,
+   "kind": "func"
+  },
+  {
+   "name": "runActionStepResponse",
+   "address": 134762840,
+   "size": 576,
    "kind": "func"
   },
   {
@@ -61061,6 +61067,28 @@
     }
    },
    "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free) found no C makes it: Hand-written assembly / linker thunk, not compiler output. Target is exactly 5 insns: `ldr r2,=0x68736D53; ldr r3,[r0,#0x34]; cmp r2,r3; beq sub_080BFDBE; bx lr` \u2014 a conditional sibling TAIL JUMP into the immediately following function with no call frame, relying on r3 still holding the magic value at sub_080BFDBE (`adds r3,#1; str r3,[r0,#0x34]`). The literal is loaded from `[pc,#0x264]` \u2014 a pool 612 bytes away inside the NEXT function, not a local literal pool. agbcc (all flag variants) never emits this: my `if (*(u32*)(arg0+0x34)==0x68736D53) sub_080BFDBE(arg0);` gave 1030 (13 insns, push{lr}/bl/pop); best ever from 15 earlier attempts is 940. Multiple agents/models independently concur."
+  },
+  {
+   "name": "sub_080BFDBE",
+   "vram": 135003582,
+   "not_c": {
+    "opencode-iceman-contributor-free-10": {
+     "model": "opencode-iceman-contributor-free",
+     "why": "Hand-written Thumb asm, not compiler-generated C. Raw end bytes at 0x080C000E: 08 bc 18 47 = pop{r3}; bx r3 (return via LR popped into r3) - no agbcc/gcc profile emits this. Prologue is hand-crafted split: adds r3,#1; str r3,[r0,#0x34]; push{r0,lr} around early call, then later push{r4-r7,lr} + push{r8-r11} high-reg save; epilogue restores r8-r11 from popped r0-r3 then pop{r3};bx r3. Also has manual bit-test/branch structure atypical for agbcc. Verified via read_data/get_assembly.",
+     "t": 1795778084.133373
+    },
+    "opencode-beam-free-9": {
+     "model": "opencode-beam-free",
+     "why": "Hand-written assembly confirmed via read_data(0x080C0000): author-written epilogue (high-reg restore through low regs, return via LR popped into r3, split prologue). propose_change(set_aside) submitted with evidence. No C can match. Score 16580.",
+     "t": 1795778832.5502176
+    },
+    "you": {
+     "model": "you",
+     "why": "agent proposal (opencode-hy4-flash-free-55, opencode-hungerg-free-3, opencode-beam-free-9), approved by you: sub_080BFDBE (610 bytes, 305 instructions) is author-written Thumb assembly, not compiler-generated C. Independently re-verified 2026-11-27 with read_data(0x080BFFE0,80): the bytes at 0x080C0000 are `06 48 78 63 ff bc 80 46 89 46 92 46 9b 46 08 bc 18 47` = ldr r0,=0x03007FF0; str r0,[r7,#0x34]; pop {r0-r7}; mov r8,r0; mov r9,r1; mov r10,r2; mov r11,r3; pop {r3}; bx r3. Returning via LR popped into r3 and restoring high registers through low registers is hand-written; no agbcc profile emits this. The prologue is equally hand-crafted and split: adds r3,#1; str r3,[r0,#0x34]; push {r0,lr}; ...pop {r0} placed around an early bl to sub_080C0010 BEFORE the real callee-saved frames push {r4-r7,lr} and push {r8-r11} (mov r4,r8 .. mov r7,r11). Bit tests are repeated `tst` (movs r1,#0x80; tst r1,r0) where agbcc always emits ands+cmp. Both adjacent functions are status=asm (sub_080BFDB4, sub_080C0020), confirming the whole region is hand-written. The best C candidate scores 16580 with 258 differing rows concentrated in prologue/epilogue shape; this floor held across 1163 attempts by multiple agents, every agbcc flag profile (O1/O2/O3/Os, interwork on/off, -fno-strength-reduce) and all C-shape/type/declaration permutations; inline assembly is hard-rejected by the harness. No C spelling can reproduce these bytes. / sub_080BFDBE is hand-written Thumb assembly rather than agbcc-gener",
+     "t": 1795779112.702228
+    }
+   },
+   "asm_code": "you set it aside: agent proposal (opencode-hy4-flash-free-55, opencode-hungerg-free-3, opencode-beam-free-9), approved by you: sub_080BFDBE (610 bytes, 305 instructions) is author-written Thumb assembly, not compiler-generated C. Independently re-verified 2026-11-27 with read_data(0x080BFFE0,80): the bytes at 0x080C0000 are `06 48 78 63 ff bc 80 46 89 46 92 46 9b 46 08 bc 18 47` = ldr r0,=0x03007FF0; str r0,[r7,#0x34]; pop {r0-r7}; mov r8,r0; mov r9,r1; mov r10,r2; mov r11,r3; pop {r3}; bx r3. Returning via LR popped into r3 and restoring high registers through low registers is hand-written; no agbcc profile emits this. The prologue is equally hand-crafted and split: adds r3,#1; str r3,[r0,#0x34]; push {r0,lr}; ...pop {r0} placed around an early bl to sub_080C0010 BEFORE the real callee-saved frames push {r4-r7,lr} and push {r8-r11} (mov r4,r8 .. mov r7,r11). Bit tests are repeated `tst` (movs r1,#0x80; tst r1,r0) where agbcc always emits ands+cmp. Both adjacent functions are status=asm (sub_080BFDB4, sub_080C0020), confirming the whole region is hand-written. The best C candidate scores 16580 with 258 differing rows concentrated in prologue/epilogue shape; this floor held across 1163 attempts by multiple agents, every agbcc flag profile (O1/O2/O3/Os, interwork on/off, -fno-strength-reduce) and all C-shape/type/declaration permutations; inline assembly is hard-rejected by the harness. No C spelling can reproduce these bytes. / sub_080BFDBE is hand-written Thumb assembly rather than agbcc-gener"
   },
   {
    "name": "sub_080C0020",

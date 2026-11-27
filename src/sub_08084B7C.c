@@ -1,4 +1,4 @@
-extern void *sub_0806D2A0(s32, s32, s32, s32);
+extern void *spawnEntity(s32, s32, s32, s32);
 extern void sub_08086E28(void);
 extern u8 gGameStatus[];
 struct GameState
@@ -30,7 +30,7 @@ u32 sub_08084B7C(s32 owner, u8 *state, u32 value, u8 key)
   switch (command)
   {
     case 0x2A:
-      spawned = sub_0806D2A0(owner, 0x34, 0x0A, 0x12);
+      spawned = spawnEntity(owner, 0x34, 0x0A, 0x12);
       if (spawned != NULL)
     {
       ((struct SpawnedEntity *) spawned)->flags = 0x1000;
@@ -73,7 +73,7 @@ u32 sub_08084B7C(s32 owner, u8 *state, u32 value, u8 key)
     case 0x29:
 
     case 0x22:
-      spawned = sub_0806D2A0(owner, 0x34, 0x0A, 0x12);
+      spawned = spawnEntity(owner, 0x34, 0x0A, 0x12);
       if (spawned != NULL)
     {
       *((u16 *) (((u8 *) spawned) + 0x7C)) = 0;
@@ -108,7 +108,7 @@ u32 sub_08084B7C(s32 owner, u8 *state, u32 value, u8 key)
     {
       u32 *timer;
       u32 *pC0;
-      spawned = sub_0806D2A0(owner, 0x3C, 0x0A, 0x12);
+      spawned = spawnEntity(owner, 0x3C, 0x0A, 0x12);
       if (spawned != NULL)
       {
         *((u16 *) (((u8 *) spawned) + 0x7C)) = 0;

@@ -1,7 +1,7 @@
 extern u8 gMainWorkspace[];
 
 extern s32 sub_0806D450(void *, void *, void *);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void stepDelayTimer(void *, void *);
 extern void playSound(s32);
 extern void _call_via_r1(void *, void *);
@@ -29,7 +29,7 @@ void sub_08082B58(void *arg0)
     *(s32 *)(r6 + 0x18) += 0xFFFF0000;
 
     if ((*(s32 *)(r4 + 0x10) & 1) == 0) {
-        obj = sub_0806D2A0(*(void **)(r5 + 0x28), 0x73, 0x0A, 0x12);
+        obj = spawnEntity(*(void **)(r5 + 0x28), 0x73, 0x0A, 0x12);
         if (obj != NULL)
             *(s32 *)((u8 *)obj + 0x9C) = *(s32 *)(r4 + 0x10) >> 1;
     }

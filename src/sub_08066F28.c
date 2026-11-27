@@ -1,5 +1,5 @@
 extern s32 setEntityForm(s32, s32, s32);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 inline int addGfxOffset(int value)
@@ -22,7 +22,7 @@ void sub_08066F28(void *arg0)
   posField = (s32 *) (gfx + 0x110);
   *posField = addGfxOffset(gfxData + 4) - (*((s32 *) (sprite + 0x18)));
   {
-    void *allocated = sub_0806D2A0(arg0, 0x34, 0x0A, 0x12);
+    void *allocated = spawnEntity(arg0, 0x34, 0x0A, 0x12);
     if (allocated != 0)
     {
       *((u16 *) (((u8 *) allocated) + 0x7C)) = 0;

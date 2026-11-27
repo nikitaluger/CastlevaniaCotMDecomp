@@ -1611,3 +1611,54 @@ struct ScriptedWorkFlags {
  * X-offset word and the form installed on the mirrored target. */
 #define ENEMY_PARAM_X_OFFSET 0x54
 #define ENEMY_MIRROR_FORM    0x10
+
+/* ---------- Action-step response (runActionStepResponse) ----------
+ * gMainWorkspace+0x14ED holds the current action-step code (the fail/no-dir,
+ * cancel and scenario codes). These are the adjacent fields the response ticks. */
+#define ACTION_STEP_STATE_OFFSET 0x14ED
+
+struct ActionStepWorkspace {
+    u8 _0[0x14ED];
+    u8 actionState;      /* 0x14ED: current action-step code */
+    u8 _14EE[6];
+    u32 actionTimer;     /* 0x14F4 */
+    u8 _14F8[4];
+    u32 timerEnabled;    /* 0x14FC */
+    u32 previousTracked; /* 0x1500 */
+    s16 cancelFlag;      /* 0x1504 */
+    s16 failFlag;        /* 0x1506 */
+    u32 trackedSnapshot; /* 0x1508: snapshot of gGameStatus+0x300 */
+    u8 _150C[0x180C - 0x150C];
+    u32 spawnTimerA;     /* 0x180C */
+    u32 spawnTimerB;     /* 0x1810 */
+    u32 spawnRequest;    /* 0x1814 */
+};
+
+struct ActionStepGameState {
+    u8 _0[0x2CC];
+    u32 phaseTimer;      /* 0x2CC */
+    u32 phaseThreshold;  /* 0x2D0 */
+    u8 _2D4[0x300 - 0x2D4];
+    u32 trackedValue;    /* 0x300 */
+};
+
+/* Per-action state passed to the response by the actor update. */
+struct ActionStepContext {
+    u8 _0[0x44];
+    u32 form;            /* 0x44 */
+    u8 _48[0x9C - 0x48];
+    u32 timerMode;       /* 0x9C */
+    u32 timerCount;      /* 0xA0 */
+    u8 _A4[0xB8 - 0xA4];
+    u32 spawnCounter;    /* 0xB8 */
+};
+
+/* Entity returned by spawnEntity; the response clears its animation flags. */
+struct ActionStepSpawn {
+    u8 _0[0x7C];
+    u16 animFlags;       /* 0x7C */
+};
+
+/* Spawn kinds requested by the response. */
+#define ACTION_SPAWN_KIND_ALT   0x38
+#define ACTION_SPAWN_KIND_TIMER 0x29

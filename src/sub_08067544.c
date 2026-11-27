@@ -9,7 +9,7 @@ struct S_040000D4 {
 extern struct S_040000D4 D_040000D4;
 extern void *gScriptStepCallbackTable;
 extern void setEntityForm(void *, void *, s32);
-extern void *sub_0806D2A0(void *, s32, s32, s32);
+extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_0808D2FC(u32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -28,7 +28,7 @@ void sub_08067544(u8 *entity) {
     zero = 0;
     *(u32 *)(cam + (0x84 << 1)) = *(u32 *)(pos + 4);
     *(u32 *)(cam + (0x88 << 1)) = *(u32 *)(pos + 4) + offset - *(u32 *)(view + 0x18);
-    spawned = sub_0806D2A0(entity, 0x34, 0xA, 0x12);
+    spawned = spawnEntity(entity, 0x34, 0xA, 0x12);
     if (spawned != 0) *(u16 *)((u8 *)spawned + 0x7C) = (u16)zero;
     D_040000D4.f0 = 0x08473838;
     D_040000D4.f4 = 0x06013000;

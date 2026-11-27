@@ -3,7 +3,7 @@ struct Obj84 { u8 _0[0x7C]; u16 spriteId; u8 _7E[0x6]; u16 kind; };
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 
-void *sub_0806D2A0(void *a0, s32 a1, s32 a2, s32 a3);
+void *spawnEntity(void *a0, s32 a1, s32 a2, s32 a3);
 void sub_08086E28(void);
 
 /* Spawns a companion object according to the global game mode: modes 0xA2 and
@@ -17,7 +17,7 @@ void sub_08084AD0(void *spawner)
 
     switch (gMainWorkspace[0x14ED]) {
     case 0xA2:
-        spawned = sub_0806D2A0(spawner, 0x25, 0x0A, 0x12);
+        spawned = spawnEntity(spawner, 0x25, 0x0A, 0x12);
         sub_08086E28();
         if (spawned != NULL) {
             spawned->spriteId = gameState[0x2D8];
@@ -25,14 +25,14 @@ void sub_08084AD0(void *spawner)
         }
         break;
     case 0xA4:
-        spawned = sub_0806D2A0(spawner, 0x25, 0x0A, 0x12);
+        spawned = spawnEntity(spawner, 0x25, 0x0A, 0x12);
         if (spawned != NULL) {
             spawned->spriteId = gameState[0x2D8];
             spawned->kind = 2;
         }
         break;
     case 0xA6:
-        spawned = sub_0806D2A0(spawner, 0x34, 0x0A, 0x12);
+        spawned = spawnEntity(spawner, 0x34, 0x0A, 0x12);
         if (spawned != NULL) {
             spawned->spriteId = 0;
         }

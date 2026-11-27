@@ -2,7 +2,7 @@
  * per-state flag is still clear: run the command's event, set the flag, play
  * its cue where applicable and run the shared follow-up. */
 extern void sub_08005E80();
-extern void sub_0806D2A0();
+extern void spawnEntity();
 extern void sub_0806DE0C();
 
 struct GameState {
@@ -34,19 +34,19 @@ void sub_080849A4(void *actor, void *state)
             {
                 switch (command) {
                 case 0:
-                    sub_0806D2A0(actor, 0x44, 0x0A, 0x12);
+                    spawnEntity(actor, 0x44, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
                     sub_08005E80(0x141);
                     sub_0806DE0C();
                     break;
                 case 1:
-                    sub_0806D2A0(actor, 0x45, 0x0A, 0x12);
+                    spawnEntity(actor, 0x45, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
                     sub_08005E80(0x143);
                     sub_0806DE0C();
                     break;
                 case 2:
-                    sub_0806D2A0(actor, 0x47, 0x0A, 0x12);
+                    spawnEntity(actor, 0x47, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
                     sub_08005E80(0x141);
                     sub_0806DE0C();
@@ -56,25 +56,25 @@ void sub_080849A4(void *actor, void *state)
                 case 8:
                     break;
                 case 5:
-                    sub_0806D2A0(actor, 0x49, 0x0A, 0x12);
+                    spawnEntity(actor, 0x49, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
                     gMainWorkspace.commandCounter++;
                     sub_08005E80(0x148);
                     sub_0806DE0C();
                     break;
                 case 6:
-                    sub_0806D2A0(actor, 0x4B, 0x0A, 0x12);
+                    spawnEntity(actor, 0x4B, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
                     sub_08005E80(0x14A);
                     sub_0806DE0C();
                     break;
                 case 7:
-                    sub_0806D2A0(actor, 0x4D, 0x0A, 0x12);
+                    spawnEntity(actor, 0x4D, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
                     sub_0806DE0C();
                     break;
                 case 9:
-                    sub_0806D2A0(actor, 0x52, 0x0A, 0x12);
+                    spawnEntity(actor, 0x52, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
                     sub_0806DE0C();
                     break;

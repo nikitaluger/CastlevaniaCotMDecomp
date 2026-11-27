@@ -15,7 +15,7 @@ struct RunState {
 };
 extern struct RunState gGameStatus;
 
-extern void sub_0806D2A0(s32, s32, s32, s32);
+extern void spawnEntity(s32, s32, s32, s32);
 extern s32 scalePercentSaturate16(s32, s32);
 extern void sub_08086E28(void);
 extern u8 D_080E47E8[];
@@ -27,7 +27,7 @@ void setupEntityForRoomEntry(s32 spawnArg, u8 *entity) {
     struct RunState *run = &gGameStatus;
 
     if (gMainWorkspace.sceneId == 0x58) {
-        sub_0806D2A0(spawnArg, 0x41, 0x0A, 0x12);
+        spawnEntity(spawnArg, 0x41, 0x0A, 0x12);
         *(u16 *)(((u32 *)(entity + 0x130))[0] + 0x0E) = scalePercentSaturate16(run->baseValue, 0x32);
         *(u16 *)(((u32 *)(entity + 0x130))[0] + 0x18) = 0x4F;
         {

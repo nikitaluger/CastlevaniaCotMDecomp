@@ -5,7 +5,7 @@
 s32 syncViewPosition(void *a, void *b);
 void resetActionResultState(void *a, void *b, void *c, void *d);
 void sub_0806AA64(void *a, void *b);
-void *sub_0806D2A0(void *a, s32 b, s32 c, s32 d);
+void *spawnEntity(void *a, s32 b, s32 c, s32 d);
 void stepDelayTimer(void *a, void *b);
 void startEffectTimer(void *a, s32 b, s32 c);
 void sub_0806C6B0(void *a, void *b, void *c, void *d);
@@ -34,7 +34,7 @@ void sub_08066718(void *entity)
         *trailCountPtr = trailCount;
         if ((trailCount & 3) == 0)
         {
-            void *trail = sub_0806D2A0(self, 0x26, 0x0A, 0x12);
+            void *trail = spawnEntity(self, 0x26, 0x0A, 0x12);
             if (trail != 0)
                 *(s32 *)((u8 *)trail + 0x7C) = *trailCountPtr >> 2;
         }

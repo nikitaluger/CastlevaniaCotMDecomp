@@ -21,7 +21,7 @@ extern u8 D_084E25C0[];
 extern u8 D_084E25D4[];
 s32 stepDelayTimer(void *, void *);
 void startEffectTimer(void *, u32, u32);
-void *sub_0806D2A0(u32, u32, u32, u32);
+void *spawnEntity(u32, u32, u32, u32);
 s32 sub_0806D35C(void *, void *, void *);
 void setSpriteScreenPosition(void *, void *);
 void sub_0808DC40(s32, s32, u32);
@@ -140,7 +140,7 @@ dec:
   *((u32 *) (p8 + 0x54)) = timer;
   if (timer == 0x18)
   {
-    other = sub_0806D2A0(*((u32 *) (s + 0x28)), 0x54, 0x0A, 0x12);
+    other = spawnEntity(*((u32 *) (s + 0x28)), 0x54, 0x0A, 0x12);
     new_var6 = &(*((u32 *) p5));
     if (other != NULL)
     {

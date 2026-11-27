@@ -1,7 +1,7 @@
 extern s32 checkGlobalStateChange(void *self, void *sprite, void *pos);
 extern s32 sub_0806D6B4(void *pos);
 extern void sub_0806D588(void *sprite, void *pos);
-extern void *sub_0806D2A0(s32 kind, s32 param1, s32 param2, s32 param3);
+extern void *spawnEntity(s32 kind, s32 param1, s32 param2, s32 param3);
 extern void cullOffscreenEntity(void *self, void *sprite);
 extern s32 sub_080C31E0(void *self, void *handler);
 
@@ -38,7 +38,7 @@ void sub_08076CD8(void *self) {
     timer = *(u32 *)((u8 *)pos + 0x54) - 1;
     *(u32 *)((u8 *)pos + 0x54) = timer;
     if (timer == 0) {
-        spawned = sub_0806D2A0(*(s32 *)((u8 *)self + 0x28), 0x3F, 0xA, 0x12);
+        spawned = spawnEntity(*(s32 *)((u8 *)self + 0x28), 0x3F, 0xA, 0x12);
         if (spawned != NULL) {
             *(u32 *)((u8 *)spawned + 0x7C) = *(u32 *)((u8 *)mover + 4);
             *(u32 *)((u8 *)spawned + 0x8C) = *(u32 *)((u8 *)pos + 4);

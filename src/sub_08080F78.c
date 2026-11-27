@@ -1,6 +1,6 @@
 extern s32 sub_0806D450(void *, void *, void *);
 extern s32 divInt32(s32, s32);
-extern void *sub_0806D2A0(s32, s32, s32, s32);
+extern void *spawnEntity(s32, s32, s32, s32);
 extern void sub_0808BB54(void);
 extern void sub_080C31E0(void *, s32);
 extern void stepDelayTimer(void *, void *);
@@ -48,7 +48,7 @@ void sub_08080F78(void *obj)
         reg2[3] = ((0x10 - divisor) << 8) | divisor;
     }
     if ((words[4] & 7) == 0) {
-        spawned = sub_0806D2A0(*(s32 *)((u8 *)obj + 0x28), 0x69, 0x0A, 0x12);
+        spawned = spawnEntity(*(s32 *)((u8 *)obj + 0x28), 0x69, 0x0A, 0x12);
         if (spawned != 0)
             *(u32 *)((u8 *)spawned + 0x9C) = ((s32)words[4]) >> 3;
     }

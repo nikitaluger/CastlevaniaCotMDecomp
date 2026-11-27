@@ -31,7 +31,7 @@ struct S_02025FF0 {
 extern struct S_02025FF0 gMainWorkspace;
 
 extern s32 sub_0806D450(void *, u16 *, void *);
-extern void *sub_0806D2A0(s32, s32, s32, s32);
+extern void *spawnEntity(s32, s32, s32, s32);
 extern void stepDelayTimer(void *, u16 *);
 extern void playSound(s32);
 extern void sub_0806D588(u16 *, void *);
@@ -55,7 +55,7 @@ void sub_0808154C(struct S_0808154C_arg *arg) {
         sub->f04 = sub->f04 + 0x10000;
     }
     if ((sub->f10 & 3) == 0) {
-        void *res = sub_0806D2A0((s32)arg->f28, 0x6B, 0xA, 0x12);
+        void *res = spawnEntity((s32)arg->f28, 0x6B, 0xA, 0x12);
         if (res != NULL) {
             *(s32 *)((u8 *)res + 0x9C) = sub->f10 >> 2;
         }

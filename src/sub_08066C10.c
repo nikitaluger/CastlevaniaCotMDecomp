@@ -1,5 +1,5 @@
 void startEffectTimer(void *, s32, u32);
-void *sub_0806D2A0(void *, s32, s32, s32);
+void *spawnEntity(void *, s32, s32, s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -21,7 +21,7 @@ void sub_08066C10(u8 *arg0) {
     parent = *(u8 **)(arg0 + 0x38);
 
     startEffectTimer(state + 0x2C, 0, D_080DEA88[0xD9].first);
-    spawned = sub_0806D2A0(arg0, 0x27, 0x0A, 0x12);
+    spawned = spawnEntity(arg0, 0x27, 0x0A, 0x12);
     if (spawned != 0) {
         *(u32 *)((u8 *)spawned + 0x7C) = *(u32 *)(state + 0xBC);
     }
