@@ -2781,3 +2781,12 @@ struct MainWorkspaceView {
 #define HOVER_VEL_SHORT_BASE     0x1E        /* short velocity-delay base */
 #define HOVER_VEL_LONG_SPAN      0x06        /* long velocity-delay random span */
 #define HOVER_VEL_LONG_BASE      0x0A        /* long velocity-delay base */
+
+/* Virtual-input flag word at gCrossfadeGfxState[0]: two direction bits derived
+ * from the raw coordinate pairs at gCameraState+0x1460..0x1467. The remaining
+ * fields of that u16 array hold the two coordinate pairs (indices 5..8), the
+ * 16-bit id (index 9) and the pressure byte (index 10). */
+#define VIRTUAL_INPUT_FLAG_A       0x2000  /* 0x80 << 6, from the even pair */
+#define VIRTUAL_INPUT_FLAG_B       0x4000  /* 0x80 << 7, from the odd pair */
+#define VIRTUAL_INPUT_FLAG_A_CLEAR 0xDFFF  /* ~VIRTUAL_INPUT_FLAG_A */
+#define VIRTUAL_INPUT_FLAG_B_CLEAR 0xBFFF  /* ~VIRTUAL_INPUT_FLAG_B */

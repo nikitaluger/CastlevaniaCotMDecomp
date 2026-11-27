@@ -1,7 +1,7 @@
 /* Handle a companion command byte ('a'..'j') for a state-3 companion whose
- * per-state flag is still clear: run the command's event, set the flag, play
- * its cue where applicable and run the shared follow-up. */
-extern void sub_08005E80();
+ * per-state flag is still clear: spawn the command's entity, set the flag, play
+ * its sound cue where applicable and run the shared music follow-up. */
+extern void playSound();
 extern void spawnEntity();
 extern void sub_0806DE0C();
 
@@ -36,19 +36,19 @@ void handleCompanionCommand(void *actor, void *state)
                 case 0:
                     spawnEntity(actor, 0x44, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
-                    sub_08005E80(0x141);
+                    playSound(0x141);
                     sub_0806DE0C();
                     break;
                 case 1:
                     spawnEntity(actor, 0x45, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
-                    sub_08005E80(0x143);
+                    playSound(0x143);
                     sub_0806DE0C();
                     break;
                 case 2:
                     spawnEntity(actor, 0x47, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
-                    sub_08005E80(0x141);
+                    playSound(0x141);
                     sub_0806DE0C();
                     break;
                 case 3:
@@ -59,13 +59,13 @@ void handleCompanionCommand(void *actor, void *state)
                     spawnEntity(actor, 0x49, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
                     gMainWorkspace.commandCounter++;
-                    sub_08005E80(0x148);
+                    playSound(0x148);
                     sub_0806DE0C();
                     break;
                 case 6:
                     spawnEntity(actor, 0x4B, 0x0A, 0x12);
                     *(u32 *)flagBytePtr = 1;
-                    sub_08005E80(0x14A);
+                    playSound(0x14A);
                     sub_0806DE0C();
                     break;
                 case 7:

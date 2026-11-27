@@ -1,7 +1,7 @@
 extern void sub_08002E34(void);
 extern void updateObjectTree(void *root);
 extern void sub_08003AC8(void);
-extern void sub_080062AC(void);
+extern void updateVirtualInputFromRaw(void);
 extern void sub_08002FD4(void);
 
 /* Node of the object tree: id at +0, parent at +0x28, next sibling at +0x2C,
@@ -22,6 +22,6 @@ void sub_08002C74(struct MainObj *mainObj) {
     sub_08002E34();
     updateObjectTree(mainObj->root);
     sub_08003AC8();
-    sub_080062AC();
+    updateVirtualInputFromRaw();
     sub_08002FD4();
 }

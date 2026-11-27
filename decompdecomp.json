@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795811899.507994,
- "revision": 71015,
+ "saved_at": 1795812140.8963127,
+ "revision": 71028,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "787988:135005716": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "initSoundEngine",
-   "vram": 135005716
   }
  },
  "instructions": "",
@@ -2131,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -2915,7 +2903,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080062AC": {
+  "updateVirtualInputFromRaw": {
    "vram": 134242988,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -6442,7 +6430,7 @@
   },
   "sub_080248C0": {
    "vram": 134367424,
-   "best_score": 2820,
+   "best_score": 1685,
    "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_080249E4": {
@@ -15678,7 +15666,7 @@
   "handleCompanionCommand": {
    "vram": 134760868,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08084AD0": {
    "vram": 134761168,
@@ -24744,7 +24732,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080062AC",
+   "name": "updateVirtualInputFromRaw",
    "vram": 134242988,
    "size": 296,
    "status": "open"
@@ -51458,6 +51446,12 @@
    "kind": "func"
   },
   {
+   "name": "updateVirtualInputFromRaw",
+   "address": 134242988,
+   "size": 296,
+   "kind": "func"
+  },
+  {
    "name": "decompressToVram",
    "address": 134243284,
    "size": 48,
@@ -55980,7 +55974,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct S_02025FF0",
+   "type": "struct GameState",
    "source": "match"
   },
   {

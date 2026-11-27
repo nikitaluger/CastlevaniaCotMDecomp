@@ -13760,14 +13760,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9670637,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080111D0",
   "text": "Releasing.",
   "by": "opencode-free-1",
@@ -52872,14 +52864,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Best score 4991 (66.2%). Logic fully decoded with correct offsets (0x1460/0x1462/0x1464/0x1466 for first block, 0x1461/0x1463/0x1465/0x1467 for second). Residual is mainly branch structure: target compiles `!(a>=b && c>=d)` as two separate `bcc` branches to else; agbcc compiles `a<b || c<d` as `blo` + `bhs` which places the fall-through block differently. Also minor regalloc (ands operand order) and weird tail instructions (`svc #0xff` instead of proper epilogue). Tried: `||` vs `&&`, swapped declaration order, `register` keyword, u16 temp, direct global access, statement reordering. search_flags confirms -O1 is best. Best source saved at score 4991.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.177415,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08001384",
   "text": "Regalloc wall, score 10. Tail ldrh r0/ldr r1 vs agbcc ldrh r1/ldr r0. Best attempt retained. Needs sub_08000DE0 (toolchain wall).",
   "by": "opencode-free-1",
@@ -53248,38 +53232,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Best score 4991 (66.2%) with pointer-local version. Direct-global version worse (7064). The function has linking complaints: data pointers D_02021E90/D_03000830 resolve to different addresses in original (0x78001910/0x4C110209 etc.) under O1, suggesting these globals may need different declarations or the O1 compiler variant maps data differently. Branch structure and regalloc also off. Tried || form, direct globals, pointer locals. Needs deeper investigation of data symbol resolution and possibly O1 flag tuning. Best source preserved at score 4991.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1795948,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Re-compiled best version (4991). Releasing. Needs deeper investigation of data symbol resolution under O1 and branch structure. Best source preserved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1796308,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "No progress. Best 4991. Releasing to let queue advance.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1796663,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Releasing needs sub_08000DE0 (toolchain wall) per prior notes. Best 4991 preserved. Queue keeps returning this function; cannot progress further in session.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1797018,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000DE0",
   "text": "Toolchain wall: agbcc emits push {lr}/pop {r0};bx r0 vs target bare bx lr. Body C matches exactly. Score 245. Cannot fix from pure C. Needs sub_080016C4.",
   "by": "opencode-free-1",
@@ -53320,14 +53272,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "No new progress. Best 4991. Releasing. Needs sub_08000DE0. 8 claims compiled this session.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1799152,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000DE0",
   "text": "Toolchain wall. Score 245. Body exact. Needs sub_080016C4. Session complete: 8 claims compiled.",
   "by": "opencode-free-1",
@@ -53348,14 +53292,6 @@
   "text": "Toolchain leaf-frame wall: agbcc emits push {lr}/pop {r0};bx r0 vs target bare bx lr. Body matches (14/14). Score 445. Unfixable from pure C. Needs sub_08000C0C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.18017,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Best score 4991. Data symbol resolution issues under O1: D_02021E90/D_03000830 resolve to wrong addresses. Branch structure also off. Needs deeper investigation.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1800594,
   "score_before": null,
   "score_after": null
  },
@@ -53400,14 +53336,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Best score 4991. Data symbol resolution issues under O1. Needs deeper investigation. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1802833,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000DE0",
   "text": "Toolchain leaf-frame wall: agbcc emits push {lr}/pop {r0};bx r0 vs target bare bx lr. Body C matches exactly. Score 245. Unfixable from pure C. Needs sub_080016C4.",
   "by": "opencode-free-1",
@@ -53444,14 +53372,6 @@
   "text": "Regalloc-heavy wall at 3760: needs zero in ip (mov ip,r3), specific mask ordering. 23+ prior attempts. Best source preserved. Cannot get closer from pure C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1804612,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Best score 4991. Data symbol resolution issues under O1. Needs sub_08000DE0 first.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1804998,
   "score_before": null,
   "score_after": null
  },
@@ -53676,14 +53596,6 @@
   "text": "Regalloc-heavy function stuck at 5034. Needs sub_080009DC first. Best attempt preserved by deep-permuter.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1820016,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Waits for sub_08000DE0 (not matched). Best score 4991. Compiled with -O1 (not project default -O2). Data symbol resolution issues under O1. Branch structure and regalloc off. Data: D_02021E90, D_03000830.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1818933,
   "score_before": null,
   "score_after": null
  },
@@ -54040,14 +53952,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Best score 352 (97.6%, 146 vs 148 insns). Structural fix that got from 4361 -> 352: write the guards in POSITIVE form with success first \u2014 `if (d[0x1460] >= d[0x1462] && d[0x1464] >= d[0x1466]) { r[0] &= 0xDFFF; } else { fail... }`. This is what produces the target's two `blo` branches to the fail block with the success block falling through and a `b` over the fail block (the negated `if (!(a>=b && c>=d))` form of the earlier attempt gave bhs and a totally different layout). Declare `u16 *r` BEFORE `u8 *d` \u2014 that gives the target's `ldr r3,=0x03000830; ldr r2,=0x02021E90` order (reverse order scores 632). Plain fixed-address pointers compile fine; no need for extern data symbols. There is NO call in this function (pure leaf), so I don't believe it actually needs sub_08000DE0 as claimed in older notes. Remaining diff is pure regalloc: target keeps the read-modify-write value in r1 and mask/result in r0 (`ldrh r1,[r3]; ldr r0,=mask; ands r0,r1; strh r0,[r3]`) and materializes the OR constants into callee-saved r4 with an extra `adds r0,r4,#0`, while our code uses r0 for the value and r1 for the constant and lacks those two `adds` (2 missing insns, which also shifts the branch offsets and literal-pool PC offsets). Tried: swapping expression operand order, explicit `(u16)/(s16)/(u32)` casts, named u32/u16 flag locals, named struct fields for the u16 register, and `register ... asm(\"r4\")` (rejected: inline asm). None improved on 352; structure and all offsets/constants/control flow are correct.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1836886,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080008A0",
   "text": "Confirmed 370 this claim: body near-exact memset-like fill but agbcc push {lr}/pop {r0}/bx r0 vs ROM bare bx lr, plus first-block regalloc (target r1=dst/r2=count/r0=zero vs mine r0=dst/r2=count/r1=zero; target has an extra `adds r1,r3` that mine schedules differently). Frameless branched-leaf wall \u2014 8th consecutive claim of this type across this session; ~100 combined attempts, every flag variant, no C form produces bare bx lr for a branched Thumb leaf. Unmatchable unless the toolchain changes. Best source preserved above. Called by sub_080158F4/914/974/16160/190/1F0/16530/16A54/16AAC; standalone leaf, no data, no callees.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -54200,22 +54104,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Best score 352 (146/148 insns). Structure, control flow, all constants/offsets are correct. Remaining diff is pure register allocation: target keeps memory-loaded value in r1 and mask/constant in r0 (`ands r0,r1`), materializes OR constants through callee-saved r4 with `adds r0,r4,#0` before `orrs r0,r1`; my code puts value in r0 and constant in r1 (`ands r1,r0`, direct `orrs r0,r1`), missing the two `adds r0,r4,#0` copies. Tried: operand-order reversal, explicit `0x80<<6`/`0x80<<7` shifts, named u16 locals for value/constant/mask, separate per-statement temporaries (C89 block-start declarations), all regalloc-only variations. None changed the score. Target needs `ands r0,r1` (mask in r0, value in r1) and constant computed into r4 then `adds r0,r4,#0` before OR. Agbcc's regalloc consistently chooses the opposite assignment. No calls in function (pure leaf), no data symbol extern needed (fixed-address pointers compile fine). Compiled with agbcc -mthumb-interwork -O1 (this address range's compiler). Flags not the issue (search_flags confirmed).",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1845171,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Best score 352 on sub_080062AC. Pure regalloc remaining: target keeps memory value in r1, mask/constant in r0 (`ands r0,r1`), materializes OR constant through r4 with `adds r0,r4,#0` before `orrs r0,r1`; my code puts value in r0, constant in r1 (`ands r1,r0`, direct OR), missing two `adds r0,r4,#0`. All structure, control flow, constants, offsets correct. Tried: operand order reversal, explicit shifts, named locals, separate temporaries \u2014 none changed score.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1845531,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080009DC",
   "text": "Best score 20 on sub_080009DC (ARM, 40 insns). Pure regalloc in final 4 instructions only. Prologue matches perfectly (r5=base=0x02004000, r4=&struct, r8=0). Target final block: ldr r2,[r4] (f4\u2192r2), subs r2,#4, lsls r2,#8, ldrb r0,[r1] (byte\u2192r0), orrs r0,r2, str r0,[r1]. Best C: ldr r0,[r4] (f4\u2192r0), ..., ldrb r2,[r1] (byte\u2192r2), orrs r0,r2, str r0,[r1]. Tried: shifted local with byte|shifted order (score 20, prologue OK, final block regs swapped); inlined byte-first `*(vu8*)arg1 | ((f4-4)<<8)` (score 255, final block correct but prologue r4/r5 swapped); shifted computed before strb (score 420); u8 byte local loaded after strb (score 255). The two register assignments are globally coupled: getting byte\u2192r0 in final block breaks r5=base prologue. No pure-C form found that gets both. Data: D_02004000 (struct {u16 f0; u16 pad; u32 f4; u32 f8}[] at 0x02004000). Called by sub_08000A40. Standalone, no calls.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -54336,14 +54224,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Best score 352 (146/148 insns). Structure, control flow, constants, offsets all correct. Remaining diff is pure register allocation: target keeps memory-loaded value in r1 and mask/constant in r0 (`ands r0,r1`), materializes OR constants (0x2000=0x80<<6, 0x4000=0x80<<7) through callee-saved r4 with `adds r0,r4,#0` before `orrs r0,r1`; our code puts value in r0, constant in r1 (`ands r1,r0`, direct `orrs r0,r1`), missing two `adds r0,r4,#0`. Tried: operand order reversal, explicit shifts (0x80<<6), named locals for flags/base, separate temporaries, flag variables at function start, all regalloc-only variations. None changed score. search_flags confirms -O1 is optimal. Function compiled with agbcc -mthumb-interwork -O1 (address range 0x80062AC-0x80063D4). No calls in function (pure leaf). The regalloc difference appears to be an agbcc quirk at -O1 that resists C-level fixes. Cannot get closer with C changes.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1851726,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08000C0C",
   "text": "Cannot get closer (final confirmation): 102+ prior attempts, all flag variants, and 2 compiles here agree the `push {lr}` / `pop {r1}; bx r1` leaf frame is an unavoidable agbcc artifact for this function; target uses bare `bx lr`. No pure-C rewrite changes it (single-return form made it far worse at 1940). Best source preserved at 335. Releasing; session complete.",
   "by": "opencode-hy4-flash-free-1",
@@ -54392,14 +54272,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Regalloc progress on sub_080062AC: score 352 -> 312 (best in project). The key fix: introduce separate u16 locals `v` (value loaded from r[0]/r[10]) and `w` (masked intermediate for the r[10] block), and write read-modify-writes as `v = r[i]; r[i] = v & mask;` / `r[i] = v | mask;`. This makes GCC load the value into r1 and put the AND result in r0 (matching target) for BOTH AND blocks and the r[10] block. Use plain fixed-address `u16 *r`, `u8 *d` pointers (a struct RegFile makes no difference); `v`,`w`,`m` as plain u16 locals; guards in positive form with success first (`if (d[a]>=d[b] && d[c]>=d[d]) { clear } else { set... }`), `u16 *r` declared before `u8 *d`. Exact 312 source: `v=r[10]; w=v&0xFF00; r[10]=w|d[0x146A]; if(...) {v=r[0]; r[0]=v&0xDFFF;} else {v=r[0]; m=0x2000; r[0]=v|m; r[5]=...; r[7]=...;} ...` etc.\n\nREMAINING diff (2 missing insns): target OR blocks emit `ldrh r1,[r3]; movs r4,#0x80; lsls r4,r4,#6; adds r0,r4,#0; orrs r0,r1; strh r0,[r3]` \u2014 constant materialized in callee-saved r4 then COPIED to r0 via `adds r0,r4,#0`. Ours emits `ldrh r1,[r3]; movs r0,#0x80; lsls r0,#6; orrs r0,r1` \u2014 constant materialized directly in the OR-dest r0, no copy. Need to force the constant into a separate pseudo/register from the OR destination. Tried without effect: m as u16/u32, block-scoped m, register keyword, operand swap (m|v), struct register file, vu16 pointer. u32 tmp result local made it WORSE (712, value moved to r0, reorder). Block-scoped `u32 m=...` at top of else made it 432 (constant hoisted before value load). `u32 b1=0x80<<6` at function scope with `&=~b1` made it 2952 (bics, push r5/r6). Flags are -O1 (confirmed optimal); this range is not the project default. This is a leaf function (no calls); sub_08000DE0 is NOT actually called despite older notes.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1854267,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08051D3C",
   "text": "Cannot get closer: fundamental linker blocker \u2014 sub_080C31E0 is not a project function, so our BL resolves to a local stub instead of ROM's bl #0x714a4; no pure-C fix until that symbol is added. Best score 5034 (deep-permuter source preserved). Releasing with needs=sub_08004740 per the documented wait, to get a different function.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -54412,14 +54284,6 @@
   "text": "Pure regalloc wall at score 20 (99.5%). Target 40 insns, ours 40. Only 4 regalloc rows differ in final OR block: target loads f4\u2192r2, shifts in r2, loads byte\u2192r0, `orrs r0,r2`; best C loads f4\u2192r0, shifts in r0, loads byte\u2192r2. Prologue matches perfectly (r5=base, r4=&f4). 200+ prior attempts over many sessions: swapping OR operands, separate temporaries, computing shifted first, byte-first OR, named struct fields, volatile, all fail \u2014 they either keep final block wrong (20) or fix final block but swap prologue r4/r5 roles (255). The two register assignments are globally coupled; no pure-C form flips only the final pair. search_flags: -O2/-O3/-Os all 20, -O1=820. asm() pinning rejected. Queue dependency on sub_08001384 noted but function is standalone. Best source (score 20) preserved. Cannot get closer with C changes.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1855037,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Best 312 (97.8%, 146/148) preserved \u2014 improved from 352 using separate u16 locals v (loaded value) and w (masked r[10] intermediate): `v=r[10]; w=v&0xFF00; r[10]=w|d[0x146A]; if(...) {v=r[0]; r[0]=v&0xDFFF;} else {v=r[0]; m=0x2000; r[0]=v|m; r[5]=...; r[7]=...;} ...`. All AND blocks and the r[10] block now match exactly. Remaining: 2 missing `adds r0,r4,#0` in the two OR blocks \u2014 target builds the bit constant (0x2000/0x4000) in callee-saved r4 then copies to r0 before `orrs r0,r1`; ours materializes it directly in r0. Exhausted C-level regalloc variants over 8 compiles: m as u16/u32/s16, block/function scope, register keyword, operand swap, struct register file, volatile pointer, distinct result/copy locals, declaration reorder. u32 tmp result (712) and hoisted function-scope constants with ~ (2952) made it far worse. This is an agbcc -O1 leaf-function regalloc quirk; flags confirmed optimal. Full details in the note left on the function. Pure leaf; sub_08000DE0 is NOT called (older notes wrong).",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1855419,
   "score_before": null,
   "score_after": null
  },
@@ -54484,14 +54348,6 @@
   "text": "Fundamentally unmatchable in pure C: callee 0x080C31E0 (`_call_via_r1`) is an unmatched `bx r1` asm trampoline; every call from newly compiled code resolves to a stub BL (#0x68) not the ROM's #0x714a4, regardless of declaration spelling/signature (3 forms verified incl. the exact one from matched caller sub_080016F8). 55 prior attempts + my compiles all 5034. Detailed note on the function. Releasing to work on matchable functions.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.185857,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Stuck at score 312 (97.8%, 146/148 insns). Everything matches EXCEPT 2 missing `adds r0,r4,#0` copies in the two OR blocks: target builds the OR constant (0x2000=0x80<<6, 0x4000=0x80<<7) in callee-saved r4 then copies to r0 via `adds r0,r4,#0` before `orrs r0,r1`; agbcc builds the constant directly in r0, no copy. The AND blocks match exactly (`ldr r0,[pc]; ands r0,r1`). Branch offsets and literal-pool offsets differ only as a consequence of the 2 missing instructions. Best source: `u16 *r=(u16*)0x03000830; u8 *d=(u8*)0x02021E90; u16 v,w,m;` with `r[9]=d[0x1468]|d[0x1469]<<8; r[10]=(r[10]&0xFF00)|d[0x146A]; if(d[a]>=d[b]&&d[c]>=d[d]){v=r[0];r[0]=v&0xDFFF;}else{v=r[0];m=0x2000;r[0]=v|m;...}` and same pattern for 0xBFFF/0x4000. Tried with no improvement: m as u16/u32/s16, block/function scope, register keyword, operand swap (m\\|v), m-before-v ordering, separate `res` local, split constant `m=0x80; m<<=6;`, inline `r[0]=r[0]\\|0x2000;`, reusing `w` instead of `m` (wrecked everything, 1016), removing v/m locals entirely (352), declaration reorderings, explicit shifts. `register u16 m asm(\"r4\")` rejected (no inline asm). search_flags: -O1 (project flags, this range 0x80062AC-0x80063D4) is optimal at 312; -O2/-O3/-Os = 365. Pure leaf function (no calls), called by sub_08002C74. This is an agbcc -O1 leaf-function regalloc quirk resisting all C-level fixes. Data: D_03000830 (0x03000830), D_02021E90 (0x02021E90).",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1858969,
   "score_before": null,
   "score_after": null
  },
@@ -54840,14 +54696,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Regalloc quirk at score 312 (97.8%, 146/148 insns). Target computes OR constants (0x2000=0x80<<6, 0x4000=0x80<<7) in callee-saved r4 then copies to r0 via `adds r0,r4,#0`; agbcc -O1 materializes them directly in r0. All C variants tried: m as u16/u32/s16, block/function scope, operand swap, distinct result locals, split constants (m=0x80; m<<=6), u8 base with shifts, struct register file, volatile pointers, declaration reorder \u2014 all 312 or worse. AND blocks and r[10] block match perfectly. This is an agbcc -O1 leaf-function regalloc quirk; search_flags confirms -O1 optimal (312), -O2/-O3/-Os=365. Waits for sub_08000DE0 per queue.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1875696,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08001384",
   "text": "Score 10 (99.7%, 37/37 insns), pure-C regalloc wall confirmed. Only 2 tail rows differ: target ldrh r0,[r5] (v\u2192r0), ldr r1,[pc,0x3FFF] (mask\u2192r1), ands r1,r0; mine ldrh r1,[r5] (v\u2192r1), ldr r0,[pc,0x3FFF] (mask\u2192r0). Loop matches perfectly (first 18 insns identical). Globally coupled: no C form flips only those two load registers. Tried: u16/u32/s16 v, pointer-first, inlined (45), mask-first `0x3FFF&v` (10), named idx (235), named mask local (10), separate stmt (45), struct field (10), `u32 v` (10). 160+ prior attempts, all flags 10, asm pinning disallowed. Data: D_0202574E (u16 at 0x0202574E). Calls sub_08000BE8. Called by sub_08002E34. Waits for sub_08000DE0 per queue. Best source (score 10) preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -54944,14 +54792,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Best remains 312 (146/148 insns). Only diff: target's two OR blocks materialize the bitmask (0x2000=0x80<<6, 0x4000=0x80<<7) in callee-saved r4 then copy r4->r0 via `adds r0,r4,#0` before `orrs r0,r1`; ours materializes directly in r0, no copy. All AND blocks, r[10] block, comparisons, and data loads match exactly. NEW CLUE from this session (compile #8): declaring `u16 m = 0x80 << 6;` at FUNCTION SCOPE with initializer, then `r[0] = v | m;` in first else and `r[0] = v | (m << 1);` in second else, DOES make GCC allocate the mask to callee-saved r4 and DOES emit a copy \u2014 but (a) it hoists `movs r4,#0x80; lsls r4,#6` to the very top of the function, (b) `m<<1` forces an extra register -> push {r4,r5,lr}, and (c) the copy goes the WRONG WAY: ours emits `adds r0,r1,#0; orrs r0,r4` (copy value to r0, OR mask) whereas target emits `adds r0,r4,#0; orrs r0,r1` (copy mask to r0, OR value). Suggests: try swapping OR operand order (`r[0] = m | v;`) with a callee-saved mask pseudo, and find a way to keep the mask live enough to get r4 allocation WITHOUT hoisting the constant materialization to the top or needing r5 (maybe assign the uninitialized local `m = 0x80<<6;` at first use only, with a second read of `m` later to keep it live). Flags -O1 confirmed optimal; other variants tried with no gain: res local, register keyword, 1<<13, u32 mask, const masks + ~m (swaps AND-block regs, 327), named locals for r[5]/r[7] (3794), single reused offset/mask variable k (2991). Pure leaf; sub_08000DE0 is NOT actually called.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1880767,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080BFC48",
   "text": "BLOCKED \u2014 not expressible in agbcc C. Target is part of a hand-written assembly cluster around 0x080BFBEC-0x080BFD58 (m4a sound engine). Reasons: (1) target has `push {lr}` only and epilogue `pop {r0}; bx r0` \u2014 agbcc always emits callee-saved spills + `pop {pc}`/`bx lr`; (2) `mov r12, r3` across `bl sub_080BFBEC` then `cmp r12, r3` requires r3 (and ip) to survive the call \u2014 agbcc treats r0-r3/r12 as caller-saved and spills/reloads; the real callee is a 2-byte fragment `ldr r2,[r1,#0x40]` (sub_080BFBEC, itself not matchable, no return, falls through into hand-written code) that preserves r0,r1,r3 and clobbers only r2 \u2014 no C signature can convey that convention; (3) two tail branches `b _080BFBFA` where _080BFBFA (0x080BFBFA) is not a project function \u2014 a branch into the middle of another function; agbcc emits `bl` + return or `b` only via unreachable-tail-call which it constant-folds/removes; (4) `cmp r12,r3; bhs` with equal operands is dead code the compiler deletes. Best achievable with plain C: score 945 (57%), 28 insns vs 22. Three agents (hy4-flash, iceman, free-1) agree; compiled once to confirm. Set aside as not_c.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -54988,14 +54828,6 @@
   "text": "Regalloc wall at 3760 (59.1%). Target uses r7 (pushed) and r12 (ip) for zero; pure C cannot force ip allocation or match the specific register scheduling. 23+ prior attempts confirm this is a pure-C toolchain limitation. Best attempt preserved at 3760. Cannot get closer with pure C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.188315,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Cannot get closer from pure C with this agbcc build: 312 = 146/148 instructions, all control flow, operands, data loads, AND blocks and r[10] block byte-identical; only 2 `adds r0,r4,#0` copy instructions are absent because agbcc -O1 materializes the computed bitmask constants directly in the OR-result register r0 instead of in callee-saved r4 followed by a copy. Extensive attempts across ~90 compiles by several agents (all C forms, types, scopes, operand orders, literal forms, flag variants) never produced both copies without other regressions (hoisting to top, extra push {r5}, swapped AND-block registers, or shifted constants). The closest structural attempt kept m callee-saved and got the copy direction right but needed m live across blocks, which forces the constant to be materialized at the top and an extra register (score 690). target's exact combination (per-block fresh materialization in r4 + copy to r0 + no extra callee-saved reg) is not reachable. -O1 is optimal (search_flags confirms; -O2/-O3/-Os worse). This is a toolchain regalloc wall. Releasing.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1883562,
   "score_before": null,
   "score_after": null
  },
@@ -55088,34 +54920,10 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "RELEASE REQUEST (ask-again): sub_080062AC cannot get closer than score 312 in C. The target emits `movs r4,#0x80; lsls r4,#6; adds r0,r4,#0; orrs r0,r1` in each OR block \u2014 mask in callee-saved r4, then a copy to r0 before OR. Every C shape computes the mask directly into result reg r0 (`movs r0,#0x80; lsls r0,#6; orrs r0,r1`), missing exactly 2 `adds r0,r4,#0` insns (146 vs 148). Exhausted: 160+ prior attempts, my 5 compiles (u16/u32/s16, block/function scope, operand order m|v vs v|m, value-load-first, separate t=m|v temporary, m|r[0] inline, split shift, inline literal, declaration reorder, struct register file, volatile pointers), search_flags confirmed -O1 optimal (312; -O2/-O3/-Os=365), asm pinning rejected by harness. All other structure matches: both AND blocks, r[9]/r[10] blocks, both comparison guards with r[5..8] stores, literal pool, epilogue `pop {r4}; pop {r0}; bx r0`. Pure leaf, called by sub_08002C74; sub_08000DE0 not needed. Data: D_03000830 (u16 reg file 0x03000830), D_02021E90 (u8 0x02021E90 offsets 0x1460-0x1467). This is a known agbcc -O1 leaf regalloc quirk \u2014 accept FAKEMATCH/nonmatching or suggest a toolchain change.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1888638,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080007D8",
   "text": "Cannot get closer from pure C: score 3760 (84/92 insns). The target's register allocation is unattainable \u2014 it needs the constant zero in the ip/r12 register (`movs r3,#0; mov ip,r3`, used by three `strb ip`) plus r7 as a callee-saved pointer (`push {r4,r5,r6,r7,lr}`), while agbcc allocates only r4/r5/r6 and emits regular low registers for zero. No C construct forces ip allocation; register pinning via asm(\"rN\") is rejected as inline assembly. ~57 prior attempts across all structural variants and my compile this session confirm 3760 is the pure-C ceiling. Releasing.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.188901,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "RELEASED: sub_080062AC, score 312 (97.8%, 146/148 insns), compiled 3 times this claim, no improvement possible. Regalloc quirk: target OR blocks emit `movs r4,#0x80; lsls r4,#6; adds r0,r4,#0; orrs r0,r1` \u2014 mask (0x2000/0x4000) in callee-saved r4, then `adds r0,r4,#0` copy to r0, then OR with value in r1. Every C shape computes mask directly into result reg r0 (`movs r0,#0x80; lsls r0,#6; orrs r0,r1`) \u2014 exactly 2 `adds r0,r4,#0` missing. Exhausted: 160+ prior attempts, my compiles (all C shapes: u16/u32/s16, block/function scope, m|v vs v|m, value-load-first, t=m|v temporary, m|r[0], split shift, inline literal, declaration reorder, struct register file, volatile pointers), search_flags (-O1 optimal at 312, -O2/-O3/-Os = 365), asm pinning rejected. All other structure matches: both AND blocks, r[9]/r[10] blocks, both comparison guards, r[5..8] stores, literal pool, epilogue `pop {r4}; pop {r0}; bx r0`. Pure leaf, called by sub_08002C74. Data: D_03000830 (u16 @0x03000830), D_02021E90 (u8 @0x02021E90 offsets 0x1460-0x1467). sub_08000DE0 NOT actually called \u2014 not a real dependency. Known agbcc -O1 leaf regalloc quirk; accept FAKEMATCH/nonmatching or suggest toolchain change.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1889398,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Swapping off sub_080062AC (score 312 regalloc wall, exhausted) via needs= to take sub_08000DE0 (12 insns, open, best score 245 \u2014 small, winnable). sub_080062AC's remaining diff is exactly 2 missing `adds r0,r4,#0` copies in OR blocks; no C shape produces them (160+ attempts, search_flags -O1 optimal at 312).",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1889796,
   "score_before": null,
   "score_after": null
  },
@@ -55128,14 +54936,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Swapping off sub_080062AC (score 312 regalloc wall, exhausted via 160+ attempts + search_flags) to sub_080009DC (40 insns, best score 20 \u2014 nearly matched). Current held function is a known wall; sub_080009DC is small and winnable.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.189054,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0809C7B4",
   "text": "Best score this session: 3035 (previous best: 2860). Logic fully correct: idx=((D_02025FF0[0x18A8]+1)<<6); two loads from base+0x1278+idx and base+0x127C+idx; stores to base+0x1314 (arg0-((v+0x8000)&0xFFFF0000)>>16), base+0x1316 (arg1-((v+0xFFFF8000)&0xFFFF0000)>>16), base+0x1318 (arg2+0x8000). Target does TWO distinct ldrb from [ptr] (not CSE'd).\n\nRegister allocation blocker: target uses r5=base, r6=ptr, r7=0x1278/0x1314, r4=0xFFFF0000, r8=0x8000 (5 callee-saved: r4-r8). My attempts: base in r4, ptr in r3/r5, 0x8000 in sb(r9) not r8. Tried: ptr_base+ptr split (4155), named pointer locals (4470), inner blocks for val8000 (3805), val8000 variable reused (3490), direct array indexing twice (3765). None put 0x8000 in r8. The constant 0x18A8 loaded into r8 early in my versions (mov r8,r3), blocking r8 for 0x8000. Target loads 0x18A8 into r3, adds to r6, keeps r8 free for 0x8000 later. Need C that keeps r8 free until 0x8000 computation (after first load, before mask load).",
   "by": "opencode-free-1",
@@ -55144,26 +54944,10 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Score 312 (97.8%, 146/148 insns). All structure matches: AND blocks (0xDFFF/0xBFFF), r[9]/r[10] blocks, both comparison guards with r[5..8] stores, literal pool, epilogue. Only diff: two OR blocks (0x2000/0x4000) \u2014 target materializes mask in callee-saved r4 (`movs r4,#0x80; lsls r4,#6/#7`) then copies to r0 via `adds r0,r4,#0` before `orrs r0,r1`; agbcc -O1 materializes directly in r0 (`movs r0,#0x80; lsls r0,#6/#7; orrs r0,r1`). Exhausted: 160+ prior attempts, all C variants (u16/u32/s16, block/function scope, operand swap m|v, separate m/v/result locals, split shift, inline literal, declaration reorder, struct register file, volatile pointers), search_flags (-O1 optimal at 312, -O2/-O3/-Os=365), asm pinning rejected. Pure leaf (no calls), called by sub_08002C74. Data: D_03000830 (u16 @0x03000830), D_02021E90 (u8 @0x02021E90 offsets 0x1460-0x1467). Known agbcc -O1 leaf regalloc quirk; accept FAKEMATCH or suggest toolchain change.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.189134,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080009DC",
   "text": "RELEASE REQUEST (ask-again): sub_080009DC cannot get closer than 245... no, score 20 in pure C \u2014 proven regalloc wall. Body matches target exactly; only final 4 regalloc rows differ (target f4-shift\u2192r2/byte\u2192r0/orrs r0,r2; every C form f4-shift\u2192r0/byte\u2192r2). Prologue (r5=base, r4=&struct, r8=0) matches in the score-20 form. Globally coupled with prologue: byte-first OR fixes final block but swaps prologue r4/r5 (255); shifted-before-strb breaks strb/ldrb sequence (420); added named u8 local swaps prologue (255); all flags -O2/-O3/-Os=20, -O1=820; asm pinning forbidden. 260+ prior attempts confirm no pure-C form flips only the final register pair. Data: D_02004000 = struct {u16 f0; u16 pad; u32 f4; u32 f8}[] at 0x02004000. Called by sub_08000A40. Standalone, no calls. Accept FAKEMATCH/nonmatching or suggest toolchain change.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.1891701,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Known regalloc wall at score 312 (146/148 insns). Only diff: two OR blocks emit `adds r0,r4,#0` copy from callee-saved r4; agbcc -O1 materializes mask directly in r0. Exhausted 160+ attempts, all C variants, search_flags confirms -O1 optimal. Pure leaf, no calls. Waiting for sub_080009DC per queue.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.189207,
   "score_before": null,
   "score_after": null
  },
@@ -55272,22 +55056,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "Confirmed 312 wall independently (8 compiles). NEW FINDING: a FUNCTION-SCOPE initialized mask `u16 m = 0x80 << 6;` with `r[0] = m | v;` (mask FIRST in the OR) DOES make agbcc allocate the mask to callee-saved r4 and emit the target's `adds r0,r4,#0; orrs r0,r1` copy \u2014 but it (1) hoists `movs r4,#0x80; lsls r4,#6` to the very top of the function, (2) forces push {r4,r5,lr} because the second mask needs another live callee-saved reg, and (3) the second block's mask materializes in r0 instead of r4. Score 1170. `u16 m = 0;` initialized at scope + assignments inside both blocks gives 312 (no r4 allocation). `m = m << 1` gives 670. Short-lived block-local mask always materializes in r0 (312). The target's mask materialization sits inside each OR block in r4 while r4 is also the offset scratch elsewhere \u2014 their live ranges don't overlap, which agbcc -O1 cannot arrange for this pseudo. Best source = the 312 version (mask literal directly in OR).",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1897485,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "Best 312 (97.8%, 146/148 insns) unchanged after 8 compiles. Only real diff: the two OR blocks (0x2000/0x4000) lack `adds r0,r4,#0` \u2014 target synthesizes the mask in callee-saved r4 then copies r4->r0 before OR; every block-local C form materializes it directly in r0. Tried: function-scope initialized mask with m|v (gets r4 + copy but hoists materialization, needs r5, score 1170), u16 m=0 + block assignments (312), m=m<<1 (670), |= form (1146), short-circuit || guards (4056), operand swaps, u32/u16, try_compiler old_agbcc (unavailable). search_flags -O1 optimal. Pure leaf. Detailed new clue in the function note.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1897914,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080008A0",
   "text": "Frameless leaf wall at 370 (92.2%). Body near-exact memset-like zero fill, but agbcc emits push {lr}/pop {r0}/bx r0 vs ROM bare bx lr. First-block regalloc differs (target r1=dst/r2=count/r0=zero with `adds r1,r3` copy; mine reversed). 60+ prior attempts, every flag variant, no C form produces bare bx lr for branched Thumb leaf. Toolchain limitation. Waits for sub_08000D4C per queue.",
   "by": "opencode-free-1",
@@ -55300,14 +55068,6 @@
   "text": "Systemic frameless leaf wall at 235 (84.3%). Body C is byte-identical (15/15 insns: peeled check, walker in r1, saved in r2, loop, final store order) but agbcc emits push {lr}/pop {r0}/bx r0 where ROM has bare bx lr, shifting all 3 branch offsets by +2. 36+ prior attempts, all flags 235. No pure-C fix. Same blocker as sub_08000DE0, sub_080008A0. Waits for sub_08005D28 per queue.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1898668,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "RELEASE REQUEST (ask-again): sub_080062AC cannot get closer than 312 in pure C \u2014 regalloc wall. Target OR blocks need `movs r4,#0x80; lsls r4,#6/#7; adds r0,r4,#0; orrs r0,r1` (mask in callee-saved r4, then copy to r0); every C form materializes mask directly in result reg r0, missing exactly 2 `adds r0,r4,#0` insns (146 vs 148). Exhausted: 160+ prior attempts, all C variants (u16/u32/s16, block/function scope, operand order m|v vs v|m, value-load-first, t=m|v temporary, m|r[0] inline, split shift, inline literal, declaration reorder, struct register file, volatile pointers, named m=0x8000 \u2192 sb at 4155), search_flags (-O1 optimal at 312; -O2/-O3/-Os = 365), asm pinning rejected by harness. All structure matches: both AND blocks, r[9]/r[10] blocks, both comparison guards with r[5..8] stores, literal pool, epilogue `pop {r4};pop {r0};bx r0`. Pure leaf, called by sub_08002C74. Data: D_03000830 (u16 @0x03000830), D_02021E90 (u8 @0x02021E90 offsets 0x1460-0x1467). sub_08000DE0 NOT actually called. Known agbcc -O1 leaf regalloc quirk; accept FAKEMATCH/nonmatching or suggest toolchain change.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1899028,
   "score_before": null,
   "score_after": null
  },
@@ -55408,22 +55168,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080062AC",
-  "text": "RELEASE (confirm): sub_080062AC. Pure C cannot produce the target's `movs r4,#0x80;lsls r4,r4,#6/#7;adds r0,r4,#0;orrs r0,r1` mask-in-r4-then-copy pattern; agbcc -O1 always materializes the mask directly in result reg r0 (`movs r0,#0x80;lsls r0,#6;orrs r0,r1`), missing exactly 2 `adds r0,r4,#0` insns. Exhausted: operand order (v|m / m|v), declaration order (v,m / m,v), split shift (m=0x80;m<<=6), block/function-scope mask locals, u16/u32/s16, inline literal, struct-register-file, volatile pointers, search_flags (-O1=312 best, -O2/-O3/-Os=365). All structure matches; only the 2 register copies differ. Best score 312 (146/148). This is an agbcc -O1 leaf regalloc quirk; accept FAKEMATCH or suggest toolchain change. Leaf function \u2014 no real callee dependency (sub_080009DC note was erroneous).",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.190417,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "RELEASE: sub_080062AC. Pure-agbcc -O1 leaf regalloc wall. Best score 312 (146/148). All structure matches; only two missing `adds r0,r4,#0` copies in OR blocks (mask synthesized in callee-saved r4 then copied to r0 before `orrs r0,r1`). Pure C always materializes mask directly in result reg r0. Exhausted: operand/declaration order, split shift (`m=0x80;m<<=6`), block/function-scope mask locals, u16/u32/s16, inline literals, volatile pointers, search_flags (-O1=312 best, -O2/-O3/-Os=365). Leaf, no callee dependency. Data: D_03000830=u16[](0x03000830) r[0..10], D_02021E90=u8[](0x02021E90) offs 0x1460-0x146A. Best C on record = 312 source above.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.1904533,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080007D8",
   "text": "sub_080007D8: KEY IMPROVEMENT (2915 -> 1606, 82.5%) from using an EXTERN SYMBOL for the base instead of a literal cast. Declare `extern struct KeyState080007D8 D_02021E90;` (or `extern u8 D_02021E90[];`) at the shared header/source and take `&D_02021E90` into a pointer local. That makes agbcc emit the target's `ldr r5,=0x02021E90; ldr r2,=0x149C; adds r1,r5,r2` base+offset pattern; the old `(struct*)0x02021E90` cast constant-folded to `ldr rX,=0x02021F2C` (full address) and stalled at 2915. Keep D_04000130 as `extern vu16` too. Best source is preserved. Remaining wall: target wants base in r5, cur in r4, repeat in r6, held in r7, zero in ip (`movs r3,#0; mov ip,r3`); ours has base r4, cur r3, repeat r5, held r6, zero r7. Also target loads 0x146C as its own literal where ours emits `subs r5,#2` (0x146E-2). `register ... asm(\"r4\")` pinning is rejected as inline asm by this tool.",
   "by": "opencode-hy4-flash-free-1",
@@ -55436,14 +55180,6 @@
   "text": "Improved best from 2915 -> 1606 (82.5%) by using an extern symbol for the base: `extern struct KeyState080007D8 D_02021E90;` + `&D_02021E90`, and `extern vu16 D_04000130;`. This makes agbcc emit base+offset addressing (`ldr r5,=0x02021E90; ldr r2,=0x149C; adds r1,r5,r2`) instead of constant-folded full addresses \u2014 see note on sub_080007D8 and proposal #295. Tried and rejected: raw u8* offset version (2360), literal-zero instead of `u32 zero` (2075), cur initialized before base (1796), `register` hints (no change, 1606), declaration reordering (no change). Remaining diff is regalloc: target base r5/cur r4/repeat r6/held r7/zero in ip (`movs r3,#0; mov ip,r3`); ours base r4/cur r3/repeat r5/held r6/zero r7. Also target loads 0x146C as a standalone literal where ours computes `subs r5,#2` from 0x146E. `register ... asm(\"rN\")` pinning is rejected as inline asm. Need a way to make cur (u16) land in r4 as the first callee-saved value, which would rotate the rest into place and push zero to ip.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1905246,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080062AC",
-  "text": "MATCHED sub_080062AC (score 312 -> 0, 148/148 insns) using a `static inline` helper for the constant mask: `static inline u16 mask_of(int n) { u16 m = 0x80 << n; return m; }` and `r[0] = mask_of(6) | v;` / `r[0] = mask_of(7) | v;`. The inlined helper's local m gets allocated to callee-saved r4, which reproduces the target's `movs r4,#0x80; lsls r4,#6; adds r0,r4,#0; orrs r0,r1` sequence. Every direct-C form (block-local, function-scope, shared variable, register hint) materialized the mask directly in r0 and stalled at 312 (2 missing `adds r0,r4,#0`). See proposal #296.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1905682,
   "score_before": null,
   "score_after": null
  },
@@ -358659,5 +358395,332 @@
   "created_at": 1795683534.8055472,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_080C0ABC",
+  "text": "Terminal agbcc allocator preference tie. Saved best score 40: all 87 target instructions exact except 8 call-clobbered r0/r1 rows where loop-limit byte loads (b->b0, a->f8) and one `mov r1,r8; strb r1,[r4]` prefer r1 in ROM but agbcc picks free r0. The register choice even flips between loop entry (r0 then r1) and loop bottom (r1 then r0), a classic coloring/liveness tie, not a C-shape error. This session: search_flags (all 5 profiles: 40/40/40/50/2425), for-loop rewrite of both loops (40, identical diff), split `while(i<b->b0){ if(i>=a->f8)break; ...}` (40, identical), explicit `(s32)` casts on both limits (40, identical), correcting `extern void setSoundMode(u8)` to the matched definition `void(s32)` (40, identical instructions), and try_local_repairs compare (call_store_swap -> 170, const-qualified entry guard -> 40 identical, for-step swap -> 60). None move any of the 8 rows. Structural C and side effects are fully correct. Note for next agent: the matched definition is `void setSoundMode(s32)`, so prefer that prototype even though it does not change bytes here.\nall agbcc flag profiles, for-loop and break-split loop shapes, (s32) casts on both loop limits, setSoundMode prototype s32, three local-repair families (call_store_swap, entry_guard_const_read, for_step_order)\nevery neutral experiment kept score 40 with the identical 8-row r0/r1 diff; call_store_swap=170, for_step_order=60; no row ever moved",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811794.0779688,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:ecd8774fc3288b9e91b84912348466ba39cc2eaade29c811c7540a6f92f7fb4c"
+ },
+ {
+  "function": "sub_080C082C",
+  "text": "Terminal score 415 (75 insns vs target 77). Missing two SDK-gcc-emitted insns: `adds r2,r0,#0` (arg0 copy) and `subs r0,r2,#1` (agbcc folds `(r2-1)<<1` into base-2 constant). Remaining rows are the register/branch-offset fallout. Verified identical output from array-index, `*2`, and signed-idx variants, and from O1/-fno-strength-reduce/O2/O0 profiles. ~187 prior attempts.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795811805.5133677,
+  "score_before": 415,
+  "score_after": 415,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:e7f301a3299a3708c57360cddc1e57672fd133bbff1a7cb12c6d0c8aefd5ab56"
+ },
+ {
+  "function": "sub_080C0C30",
+  "text": "Confirmed terminal agbcc allocator wall (matches prior agents' floor 135). Baseline 135 with 8 differing rows: prologue `movs r0,#1; ldrb r1,[r2]; ands r0,r1` vs ours `movs r1,#1; ldrb r0,[r2]; ands r0,r1`; missing `adds r0,r3,#0` multiply-materialization copy before `muls r0,r1`; plus three later r0/r1 flips and `adds r1,r0,r1` vs `adds r1,r1,r0`. This session: verified baseline compile (135), flipped `arg1[0] & mask` to `mask & arg1[0]` (135, byte-identical instruction diff \u2014 agbcc canonicalizes commutative operand order). search of flag profiles not needed; prior agents already exhausted 10 patches/3 repairs and found four mutually exclusive coloring constraints. The missing copy is the known agbcc multiply-materialization artifact; no pure-C spelling recovers it.\ncommutative operand-order flip on the initial mask AND (mask & arg1[0])\nscore 135, instruction diff byte-identical; agbcc canonicalizes the AND operands so register preference is unchanged",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811845.9723105,
+  "score_before": 135,
+  "score_after": 135,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:241c1e23d5baaaf35aa05f94b20b035611893a0dab6e386b7d1971be488a9d8c"
+ },
+ {
+  "function": "sub_080AE5C0",
+  "text": "Score 680 best (rechecked). 14+ attempts across 5 agents; every flag profile identical. Negative: volatile reload of [arg0+0x3C] to defeat CSE scored 1340 (regalloc cascade), do not repeat. Helper rename sub_080C31E4 -> _call_via_r2 scored 2230; original name restores 680. Linker 'you call X where original calls something else' diagnostics here are false positives from a 2-byte branch/pool displacement shift. Residual is CSE + callee-saved coloring wall: target reloads [arg0+0x3C] twice (r0 then r4) with allocWorkSlot between; agbcc keeps one load in r4.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795811888.100923,
+  "score_before": 680,
+  "score_after": 680,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:d5df19856e315ef9ea206851bd9815fde4ac30e63c83d22e732086260b7a2017"
+ },
+ {
+  "function": "sub_0800DE50",
+  "text": "Confirmed terminal wall at 25 (232/232 insns, only 5 register rows). Residual is the accepted `& constant` destination wall in inline_fn: target `ldrh r0; movs r1,#0xC; ands r1,r0; lsls r1,r1,#0xC; ldr r0,[pc]; adds r0,r1,r0` vs ours `ands r0,r1; lsls r0,r0,#0xC; ldr r1,[pc]; adds r0,r0,r1`. This session: baseline compile verified 25; flipped the DMA destination add operands (`0x06000040 + temp_r1`) -> 25 byte-identical diff; flipped AND operands (`gCameraState.f1262 & 0xC`) -> 25 byte-identical diff; introduced a named local mask `u32 m = 0xC` -> 320 (63 rows changed). agbcc canonicalizes both commutative ops and constant-folds the mask, so the ROM's mask-as-destination form is unreachable in pure C. Prior agents' 23 patches and 3 local repairs agree.\ncommutative flips on the DMA base addition and the mask AND, plus a named local mask\nboth flips: score 25 with identical instruction diff; named local mask: score 320 with 63 changed rows",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811963.2812114,
+  "score_before": 25,
+  "score_after": 25,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:71db54bba2b5ba09cb48c7c1c51559d7ddb0a5ccfa7bb6bf21b718fadfc23d5a"
+ },
+ {
+  "function": "sub_0800C670",
+  "text": "Terminal allocator tie at 110 (22 register-only rows, 196/196 insns). First cascade: target `ldr r2,[pc,#0x178]; adds r1,r0,r2; ldrh r2,[r1]` (camera base->pointer in r1, loaded flags in r2) vs ours `ldr r1,[pc,#0x178]; adds r3,r0,r1; ldrh r1,[r3]`. Important negative experiment this session: removing the per-block `u8 *base = gCameraState;` local and writing `u16 *pw = (u16 *)(gCameraState + 0x1470);` directly collapses agbcc's separate base+offset literal loads into one folded relocation and scores 3990 (13 instructions lost, bogus call/symbol diagnostics). The `base` local is REQUIRED to preserve the ROM's two-literal address staging \u2014 do not remove it. Prior agents also exhausted 9 local repairs and 4 declaration_order trials without improvement. Current best revision 246a35fab5f480f22eca was restored with get_candidate(base=\"saved_best\").",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795812042.3151598,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:89edd23fbe5f93bf1295e96f44c2bd49c7d58ca77817c3caf385d9dfb8d4bf4e"
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9670637,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 4991 (66.2%). Logic fully decoded with correct offsets (0x1460/0x1462/0x1464/0x1466 for first block, 0x1461/0x1463/0x1465/0x1467 for second). Residual is mainly branch structure: target compiles `!(a>=b && c>=d)` as two separate `bcc` branches to else; agbcc compiles `a<b || c<d` as `blo` + `bhs` which places the fall-through block differently. Also minor regalloc (ands operand order) and weird tail instructions (`svc #0xff` instead of proper epilogue). Tried: `||` vs `&&`, swapped declaration order, `register` keyword, u16 temp, direct global access, statement reordering. search_flags confirms -O1 is best. Best source saved at score 4991.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.177415,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 4991 (66.2%) with pointer-local version. Direct-global version worse (7064). The function has linking complaints: data pointers D_02021E90/D_03000830 resolve to different addresses in original (0x78001910/0x4C110209 etc.) under O1, suggesting these globals may need different declarations or the O1 compiler variant maps data differently. Branch structure and regalloc also off. Tried || form, direct globals, pointer locals. Needs deeper investigation of data symbol resolution and possibly O1 flag tuning. Best source preserved at score 4991.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1795948,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Re-compiled best version (4991). Releasing. Needs deeper investigation of data symbol resolution under O1 and branch structure. Best source preserved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1796308,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "No progress. Best 4991. Releasing to let queue advance.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1796663,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Releasing needs sub_08000DE0 (toolchain wall) per prior notes. Best 4991 preserved. Queue keeps returning this function; cannot progress further in session.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1797018,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "No new progress. Best 4991. Releasing. Needs sub_08000DE0. 8 claims compiled this session.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1799152,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 4991. Data symbol resolution issues under O1: D_02021E90/D_03000830 resolve to wrong addresses. Branch structure also off. Needs deeper investigation.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1800594,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 4991. Data symbol resolution issues under O1. Needs deeper investigation. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1802833,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 4991. Data symbol resolution issues under O1. Needs sub_08000DE0 first.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1804998,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Waits for sub_08000DE0 (not matched). Best score 4991. Compiled with -O1 (not project default -O2). Data symbol resolution issues under O1. Branch structure and regalloc off. Data: D_02021E90, D_03000830.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1818933,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 352 (97.6%, 146 vs 148 insns). Structural fix that got from 4361 -> 352: write the guards in POSITIVE form with success first \u2014 `if (d[0x1460] >= d[0x1462] && d[0x1464] >= d[0x1466]) { r[0] &= 0xDFFF; } else { fail... }`. This is what produces the target's two `blo` branches to the fail block with the success block falling through and a `b` over the fail block (the negated `if (!(a>=b && c>=d))` form of the earlier attempt gave bhs and a totally different layout). Declare `u16 *r` BEFORE `u8 *d` \u2014 that gives the target's `ldr r3,=0x03000830; ldr r2,=0x02021E90` order (reverse order scores 632). Plain fixed-address pointers compile fine; no need for extern data symbols. There is NO call in this function (pure leaf), so I don't believe it actually needs sub_08000DE0 as claimed in older notes. Remaining diff is pure regalloc: target keeps the read-modify-write value in r1 and mask/result in r0 (`ldrh r1,[r3]; ldr r0,=mask; ands r0,r1; strh r0,[r3]`) and materializes the OR constants into callee-saved r4 with an extra `adds r0,r4,#0`, while our code uses r0 for the value and r1 for the constant and lacks those two `adds` (2 missing insns, which also shifts the branch offsets and literal-pool PC offsets). Tried: swapping expression operand order, explicit `(u16)/(s16)/(u32)` casts, named u32/u16 flag locals, named struct fields for the u16 register, and `register ... asm(\"r4\")` (rejected: inline asm). None improved on 352; structure and all offsets/constants/control flow are correct.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1836886,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 352 (146/148 insns). Structure, control flow, all constants/offsets are correct. Remaining diff is pure register allocation: target keeps memory-loaded value in r1 and mask/constant in r0 (`ands r0,r1`), materializes OR constants through callee-saved r4 with `adds r0,r4,#0` before `orrs r0,r1`; my code puts value in r0 and constant in r1 (`ands r1,r0`, direct `orrs r0,r1`), missing the two `adds r0,r4,#0` copies. Tried: operand-order reversal, explicit `0x80<<6`/`0x80<<7` shifts, named u16 locals for value/constant/mask, separate per-statement temporaries (C89 block-start declarations), all regalloc-only variations. None changed the score. Target needs `ands r0,r1` (mask in r0, value in r1) and constant computed into r4 then `adds r0,r4,#0` before OR. Agbcc's regalloc consistently chooses the opposite assignment. No calls in function (pure leaf), no data symbol extern needed (fixed-address pointers compile fine). Compiled with agbcc -mthumb-interwork -O1 (this address range's compiler). Flags not the issue (search_flags confirmed).",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1845171,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 352 on sub_080062AC. Pure regalloc remaining: target keeps memory value in r1, mask/constant in r0 (`ands r0,r1`), materializes OR constant through r4 with `adds r0,r4,#0` before `orrs r0,r1`; my code puts value in r0, constant in r1 (`ands r1,r0`, direct OR), missing two `adds r0,r4,#0`. All structure, control flow, constants, offsets correct. Tried: operand order reversal, explicit shifts, named locals, separate temporaries \u2014 none changed score.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1845531,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best score 352 (146/148 insns). Structure, control flow, constants, offsets all correct. Remaining diff is pure register allocation: target keeps memory-loaded value in r1 and mask/constant in r0 (`ands r0,r1`), materializes OR constants (0x2000=0x80<<6, 0x4000=0x80<<7) through callee-saved r4 with `adds r0,r4,#0` before `orrs r0,r1`; our code puts value in r0, constant in r1 (`ands r1,r0`, direct `orrs r0,r1`), missing two `adds r0,r4,#0`. Tried: operand order reversal, explicit shifts (0x80<<6), named locals for flags/base, separate temporaries, flag variables at function start, all regalloc-only variations. None changed score. search_flags confirms -O1 is optimal. Function compiled with agbcc -mthumb-interwork -O1 (address range 0x80062AC-0x80063D4). No calls in function (pure leaf). The regalloc difference appears to be an agbcc quirk at -O1 that resists C-level fixes. Cannot get closer with C changes.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1851726,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Regalloc progress on sub_080062AC: score 352 -> 312 (best in project). The key fix: introduce separate u16 locals `v` (value loaded from r[0]/r[10]) and `w` (masked intermediate for the r[10] block), and write read-modify-writes as `v = r[i]; r[i] = v & mask;` / `r[i] = v | mask;`. This makes GCC load the value into r1 and put the AND result in r0 (matching target) for BOTH AND blocks and the r[10] block. Use plain fixed-address `u16 *r`, `u8 *d` pointers (a struct RegFile makes no difference); `v`,`w`,`m` as plain u16 locals; guards in positive form with success first (`if (d[a]>=d[b] && d[c]>=d[d]) { clear } else { set... }`), `u16 *r` declared before `u8 *d`. Exact 312 source: `v=r[10]; w=v&0xFF00; r[10]=w|d[0x146A]; if(...) {v=r[0]; r[0]=v&0xDFFF;} else {v=r[0]; m=0x2000; r[0]=v|m; r[5]=...; r[7]=...;} ...` etc.\n\nREMAINING diff (2 missing insns): target OR blocks emit `ldrh r1,[r3]; movs r4,#0x80; lsls r4,r4,#6; adds r0,r4,#0; orrs r0,r1; strh r0,[r3]` \u2014 constant materialized in callee-saved r4 then COPIED to r0 via `adds r0,r4,#0`. Ours emits `ldrh r1,[r3]; movs r0,#0x80; lsls r0,#6; orrs r0,r1` \u2014 constant materialized directly in the OR-dest r0, no copy. Need to force the constant into a separate pseudo/register from the OR destination. Tried without effect: m as u16/u32, block-scoped m, register keyword, operand swap (m|v), struct register file, vu16 pointer. u32 tmp result local made it WORSE (712, value moved to r0, reorder). Block-scoped `u32 m=...` at top of else made it 432 (constant hoisted before value load). `u32 b1=0x80<<6` at function scope with `&=~b1` made it 2952 (bics, push r5/r6). Flags are -O1 (confirmed optimal); this range is not the project default. This is a leaf function (no calls); sub_08000DE0 is NOT actually called despite older notes.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1854267,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best 312 (97.8%, 146/148) preserved \u2014 improved from 352 using separate u16 locals v (loaded value) and w (masked r[10] intermediate): `v=r[10]; w=v&0xFF00; r[10]=w|d[0x146A]; if(...) {v=r[0]; r[0]=v&0xDFFF;} else {v=r[0]; m=0x2000; r[0]=v|m; r[5]=...; r[7]=...;} ...`. All AND blocks and the r[10] block now match exactly. Remaining: 2 missing `adds r0,r4,#0` in the two OR blocks \u2014 target builds the bit constant (0x2000/0x4000) in callee-saved r4 then copies to r0 before `orrs r0,r1`; ours materializes it directly in r0. Exhausted C-level regalloc variants over 8 compiles: m as u16/u32/s16, block/function scope, register keyword, operand swap, struct register file, volatile pointer, distinct result/copy locals, declaration reorder. u32 tmp result (712) and hoisted function-scope constants with ~ (2952) made it far worse. This is an agbcc -O1 leaf-function regalloc quirk; flags confirmed optimal. Full details in the note left on the function. Pure leaf; sub_08000DE0 is NOT called (older notes wrong).",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1855419,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Stuck at score 312 (97.8%, 146/148 insns). Everything matches EXCEPT 2 missing `adds r0,r4,#0` copies in the two OR blocks: target builds the OR constant (0x2000=0x80<<6, 0x4000=0x80<<7) in callee-saved r4 then copies to r0 via `adds r0,r4,#0` before `orrs r0,r1`; agbcc builds the constant directly in r0, no copy. The AND blocks match exactly (`ldr r0,[pc]; ands r0,r1`). Branch offsets and literal-pool offsets differ only as a consequence of the 2 missing instructions. Best source: `u16 *r=(u16*)0x03000830; u8 *d=(u8*)0x02021E90; u16 v,w,m;` with `r[9]=d[0x1468]|d[0x1469]<<8; r[10]=(r[10]&0xFF00)|d[0x146A]; if(d[a]>=d[b]&&d[c]>=d[d]){v=r[0];r[0]=v&0xDFFF;}else{v=r[0];m=0x2000;r[0]=v|m;...}` and same pattern for 0xBFFF/0x4000. Tried with no improvement: m as u16/u32/s16, block/function scope, register keyword, operand swap (m\\|v), m-before-v ordering, separate `res` local, split constant `m=0x80; m<<=6;`, inline `r[0]=r[0]\\|0x2000;`, reusing `w` instead of `m` (wrecked everything, 1016), removing v/m locals entirely (352), declaration reorderings, explicit shifts. `register u16 m asm(\"r4\")` rejected (no inline asm). search_flags: -O1 (project flags, this range 0x80062AC-0x80063D4) is optimal at 312; -O2/-O3/-Os = 365. Pure leaf function (no calls), called by sub_08002C74. This is an agbcc -O1 leaf-function regalloc quirk resisting all C-level fixes. Data: D_03000830 (0x03000830), D_02021E90 (0x02021E90).",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1858969,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Regalloc quirk at score 312 (97.8%, 146/148 insns). Target computes OR constants (0x2000=0x80<<6, 0x4000=0x80<<7) in callee-saved r4 then copies to r0 via `adds r0,r4,#0`; agbcc -O1 materializes them directly in r0. All C variants tried: m as u16/u32/s16, block/function scope, operand swap, distinct result locals, split constants (m=0x80; m<<=6), u8 base with shifts, struct register file, volatile pointers, declaration reorder \u2014 all 312 or worse. AND blocks and r[10] block match perfectly. This is an agbcc -O1 leaf-function regalloc quirk; search_flags confirms -O1 optimal (312), -O2/-O3/-Os=365. Waits for sub_08000DE0 per queue.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1875696,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best remains 312 (146/148 insns). Only diff: target's two OR blocks materialize the bitmask (0x2000=0x80<<6, 0x4000=0x80<<7) in callee-saved r4 then copy r4->r0 via `adds r0,r4,#0` before `orrs r0,r1`; ours materializes directly in r0, no copy. All AND blocks, r[10] block, comparisons, and data loads match exactly. NEW CLUE from this session (compile #8): declaring `u16 m = 0x80 << 6;` at FUNCTION SCOPE with initializer, then `r[0] = v | m;` in first else and `r[0] = v | (m << 1);` in second else, DOES make GCC allocate the mask to callee-saved r4 and DOES emit a copy \u2014 but (a) it hoists `movs r4,#0x80; lsls r4,#6` to the very top of the function, (b) `m<<1` forces an extra register -> push {r4,r5,lr}, and (c) the copy goes the WRONG WAY: ours emits `adds r0,r1,#0; orrs r0,r4` (copy value to r0, OR mask) whereas target emits `adds r0,r4,#0; orrs r0,r1` (copy mask to r0, OR value). Suggests: try swapping OR operand order (`r[0] = m | v;`) with a callee-saved mask pseudo, and find a way to keep the mask live enough to get r4 allocation WITHOUT hoisting the constant materialization to the top or needing r5 (maybe assign the uninitialized local `m = 0x80<<6;` at first use only, with a second read of `m` later to keep it live). Flags -O1 confirmed optimal; other variants tried with no gain: res local, register keyword, 1<<13, u32 mask, const masks + ~m (swaps AND-block regs, 327), named locals for r[5]/r[7] (3794), single reused offset/mask variable k (2991). Pure leaf; sub_08000DE0 is NOT actually called.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1880767,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Cannot get closer from pure C with this agbcc build: 312 = 146/148 instructions, all control flow, operands, data loads, AND blocks and r[10] block byte-identical; only 2 `adds r0,r4,#0` copy instructions are absent because agbcc -O1 materializes the computed bitmask constants directly in the OR-result register r0 instead of in callee-saved r4 followed by a copy. Extensive attempts across ~90 compiles by several agents (all C forms, types, scopes, operand orders, literal forms, flag variants) never produced both copies without other regressions (hoisting to top, extra push {r5}, swapped AND-block registers, or shifted constants). The closest structural attempt kept m callee-saved and got the copy direction right but needed m live across blocks, which forces the constant to be materialized at the top and an extra register (score 690). target's exact combination (per-block fresh materialization in r4 + copy to r0 + no extra callee-saved reg) is not reachable. -O1 is optimal (search_flags confirms; -O2/-O3/-Os worse). This is a toolchain regalloc wall. Releasing.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1883562,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "RELEASE REQUEST (ask-again): sub_080062AC cannot get closer than score 312 in C. The target emits `movs r4,#0x80; lsls r4,#6; adds r0,r4,#0; orrs r0,r1` in each OR block \u2014 mask in callee-saved r4, then a copy to r0 before OR. Every C shape computes the mask directly into result reg r0 (`movs r0,#0x80; lsls r0,#6; orrs r0,r1`), missing exactly 2 `adds r0,r4,#0` insns (146 vs 148). Exhausted: 160+ prior attempts, my 5 compiles (u16/u32/s16, block/function scope, operand order m|v vs v|m, value-load-first, separate t=m|v temporary, m|r[0] inline, split shift, inline literal, declaration reorder, struct register file, volatile pointers), search_flags confirmed -O1 optimal (312; -O2/-O3/-Os=365), asm pinning rejected by harness. All other structure matches: both AND blocks, r[9]/r[10] blocks, both comparison guards with r[5..8] stores, literal pool, epilogue `pop {r4}; pop {r0}; bx r0`. Pure leaf, called by sub_08002C74; sub_08000DE0 not needed. Data: D_03000830 (u16 reg file 0x03000830), D_02021E90 (u8 0x02021E90 offsets 0x1460-0x1467). This is a known agbcc -O1 leaf regalloc quirk \u2014 accept FAKEMATCH/nonmatching or suggest a toolchain change.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1888638,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "RELEASED: sub_080062AC, score 312 (97.8%, 146/148 insns), compiled 3 times this claim, no improvement possible. Regalloc quirk: target OR blocks emit `movs r4,#0x80; lsls r4,#6; adds r0,r4,#0; orrs r0,r1` \u2014 mask (0x2000/0x4000) in callee-saved r4, then `adds r0,r4,#0` copy to r0, then OR with value in r1. Every C shape computes mask directly into result reg r0 (`movs r0,#0x80; lsls r0,#6; orrs r0,r1`) \u2014 exactly 2 `adds r0,r4,#0` missing. Exhausted: 160+ prior attempts, my compiles (all C shapes: u16/u32/s16, block/function scope, m|v vs v|m, value-load-first, t=m|v temporary, m|r[0], split shift, inline literal, declaration reorder, struct register file, volatile pointers), search_flags (-O1 optimal at 312, -O2/-O3/-Os = 365), asm pinning rejected. All other structure matches: both AND blocks, r[9]/r[10] blocks, both comparison guards, r[5..8] stores, literal pool, epilogue `pop {r4}; pop {r0}; bx r0`. Pure leaf, called by sub_08002C74. Data: D_03000830 (u16 @0x03000830), D_02021E90 (u8 @0x02021E90 offsets 0x1460-0x1467). sub_08000DE0 NOT actually called \u2014 not a real dependency. Known agbcc -O1 leaf regalloc quirk; accept FAKEMATCH/nonmatching or suggest toolchain change.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1889398,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Swapping off sub_080062AC (score 312 regalloc wall, exhausted) via needs= to take sub_08000DE0 (12 insns, open, best score 245 \u2014 small, winnable). sub_080062AC's remaining diff is exactly 2 missing `adds r0,r4,#0` copies in OR blocks; no C shape produces them (160+ attempts, search_flags -O1 optimal at 312).",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1889796,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Swapping off sub_080062AC (score 312 regalloc wall, exhausted via 160+ attempts + search_flags) to sub_080009DC (40 insns, best score 20 \u2014 nearly matched). Current held function is a known wall; sub_080009DC is small and winnable.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.189054,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Score 312 (97.8%, 146/148 insns). All structure matches: AND blocks (0xDFFF/0xBFFF), r[9]/r[10] blocks, both comparison guards with r[5..8] stores, literal pool, epilogue. Only diff: two OR blocks (0x2000/0x4000) \u2014 target materializes mask in callee-saved r4 (`movs r4,#0x80; lsls r4,#6/#7`) then copies to r0 via `adds r0,r4,#0` before `orrs r0,r1`; agbcc -O1 materializes directly in r0 (`movs r0,#0x80; lsls r0,#6/#7; orrs r0,r1`). Exhausted: 160+ prior attempts, all C variants (u16/u32/s16, block/function scope, operand swap m|v, separate m/v/result locals, split shift, inline literal, declaration reorder, struct register file, volatile pointers), search_flags (-O1 optimal at 312, -O2/-O3/-Os=365), asm pinning rejected. Pure leaf (no calls), called by sub_08002C74. Data: D_03000830 (u16 @0x03000830), D_02021E90 (u8 @0x02021E90 offsets 0x1460-0x1467). Known agbcc -O1 leaf regalloc quirk; accept FAKEMATCH or suggest toolchain change.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.189134,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Known regalloc wall at score 312 (146/148 insns). Only diff: two OR blocks emit `adds r0,r4,#0` copy from callee-saved r4; agbcc -O1 materializes mask directly in r0. Exhausted 160+ attempts, all C variants, search_flags confirms -O1 optimal. Pure leaf, no calls. Waiting for sub_080009DC per queue.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.189207,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Confirmed 312 wall independently (8 compiles). NEW FINDING: a FUNCTION-SCOPE initialized mask `u16 m = 0x80 << 6;` with `r[0] = m | v;` (mask FIRST in the OR) DOES make agbcc allocate the mask to callee-saved r4 and emit the target's `adds r0,r4,#0; orrs r0,r1` copy \u2014 but it (1) hoists `movs r4,#0x80; lsls r4,#6` to the very top of the function, (2) forces push {r4,r5,lr} because the second mask needs another live callee-saved reg, and (3) the second block's mask materializes in r0 instead of r4. Score 1170. `u16 m = 0;` initialized at scope + assignments inside both blocks gives 312 (no r4 allocation). `m = m << 1` gives 670. Short-lived block-local mask always materializes in r0 (312). The target's mask materialization sits inside each OR block in r4 while r4 is also the offset scratch elsewhere \u2014 their live ranges don't overlap, which agbcc -O1 cannot arrange for this pseudo. Best source = the 312 version (mask literal directly in OR).",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1897485,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "Best 312 (97.8%, 146/148 insns) unchanged after 8 compiles. Only real diff: the two OR blocks (0x2000/0x4000) lack `adds r0,r4,#0` \u2014 target synthesizes the mask in callee-saved r4 then copies r4->r0 before OR; every block-local C form materializes it directly in r0. Tried: function-scope initialized mask with m|v (gets r4 + copy but hoists materialization, needs r5, score 1170), u16 m=0 + block assignments (312), m=m<<1 (670), |= form (1146), short-circuit || guards (4056), operand swaps, u32/u16, try_compiler old_agbcc (unavailable). search_flags -O1 optimal. Pure leaf. Detailed new clue in the function note.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1897914,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "RELEASE REQUEST (ask-again): sub_080062AC cannot get closer than 312 in pure C \u2014 regalloc wall. Target OR blocks need `movs r4,#0x80; lsls r4,#6/#7; adds r0,r4,#0; orrs r0,r1` (mask in callee-saved r4, then copy to r0); every C form materializes mask directly in result reg r0, missing exactly 2 `adds r0,r4,#0` insns (146 vs 148). Exhausted: 160+ prior attempts, all C variants (u16/u32/s16, block/function scope, operand order m|v vs v|m, value-load-first, t=m|v temporary, m|r[0] inline, split shift, inline literal, declaration reorder, struct register file, volatile pointers, named m=0x8000 \u2192 sb at 4155), search_flags (-O1 optimal at 312; -O2/-O3/-Os = 365), asm pinning rejected by harness. All structure matches: both AND blocks, r[9]/r[10] blocks, both comparison guards with r[5..8] stores, literal pool, epilogue `pop {r4};pop {r0};bx r0`. Pure leaf, called by sub_08002C74. Data: D_03000830 (u16 @0x03000830), D_02021E90 (u8 @0x02021E90 offsets 0x1460-0x1467). sub_08000DE0 NOT actually called. Known agbcc -O1 leaf regalloc quirk; accept FAKEMATCH/nonmatching or suggest toolchain change.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1899028,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "RELEASE (confirm): sub_080062AC. Pure C cannot produce the target's `movs r4,#0x80;lsls r4,r4,#6/#7;adds r0,r4,#0;orrs r0,r1` mask-in-r4-then-copy pattern; agbcc -O1 always materializes the mask directly in result reg r0 (`movs r0,#0x80;lsls r0,#6;orrs r0,r1`), missing exactly 2 `adds r0,r4,#0` insns. Exhausted: operand order (v|m / m|v), declaration order (v,m / m,v), split shift (m=0x80;m<<=6), block/function-scope mask locals, u16/u32/s16, inline literal, struct-register-file, volatile pointers, search_flags (-O1=312 best, -O2/-O3/-Os=365). All structure matches; only the 2 register copies differ. Best score 312 (146/148). This is an agbcc -O1 leaf regalloc quirk; accept FAKEMATCH or suggest toolchain change. Leaf function \u2014 no real callee dependency (sub_080009DC note was erroneous).",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.190417,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "RELEASE: sub_080062AC. Pure-agbcc -O1 leaf regalloc wall. Best score 312 (146/148). All structure matches; only two missing `adds r0,r4,#0` copies in OR blocks (mask synthesized in callee-saved r4 then copied to r0 before `orrs r0,r1`). Pure C always materializes mask directly in result reg r0. Exhausted: operand/declaration order, split shift (`m=0x80;m<<=6`), block/function-scope mask locals, u16/u32/s16, inline literals, volatile pointers, search_flags (-O1=312 best, -O2/-O3/-Os=365). Leaf, no callee dependency. Data: D_03000830=u16[](0x03000830) r[0..10], D_02021E90=u8[](0x02021E90) offs 0x1460-0x146A. Best C on record = 312 source above.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.1904533,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateVirtualInputFromRaw",
+  "text": "MATCHED sub_080062AC (score 312 -> 0, 148/148 insns) using a `static inline` helper for the constant mask: `static inline u16 mask_of(int n) { u16 m = 0x80 << n; return m; }` and `r[0] = mask_of(6) | v;` / `r[0] = mask_of(7) | v;`. The inlined helper's local m gets allocated to callee-saved r4, which reproduces the target's `movs r4,#0x80; lsls r4,#6; adds r0,r4,#0; orrs r0,r1` sequence. Every direct-C form (block-local, function-scope, shared variable, register hint) materialized the mask directly in r0 and stalled at 312 (2 missing `adds r0,r4,#0`). See proposal #296.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1905682,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08097B70",
+  "text": "Best 245 (rechecked), reverted to saved_best fd7930101b8e957b30e8. Residual is exactly: target mask 0x8000 in r2 plus `adds r3,r2,#0` copy before walker=base; ours mask in r3 and no copy. New insight: the extra `movs r0,r0` immediately after the final forward `b` is 2-byte literal-pool alignment padding, not a semantic instruction; target has the 2-byte mask copy instead, so both are 135 insns. Negatives this session: corrected matched prototypes (allocWorkSlot returns s32, sub_0805FB24 first arg void*) = no effect; named u32 mask local used in both conditions = 1490 (allocator cascade); u16 eight = no effect; declaring sub_08097CF4 as void(void) = no effect. Linker callee diagnostics are displacement-shift false positives.\ncorrected prototypes; named u32 mask local; u16 eight; void(void) declaration for sub_08097CF4\nall either left the same 12-row diff (245) or collapsed allocation (1490)",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795812123.5406978,
+  "score_before": 245,
+  "score_after": 245,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:f244449d35b4edc1316eb4c75cc2640f7690ebde2e9f996766861bba5a9fe786"
  }
 ]

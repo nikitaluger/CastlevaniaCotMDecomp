@@ -584,7 +584,7 @@
 <g><title>sub_08006234: {&#x27;matched&#x27;: 1}</title>
 <rect x="300.000" y="180" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080062AC: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateVirtualInputFromRaw: {&#x27;matched&#x27;: 1}</title>
 <rect x="310.000" y="180" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>decompressToVram: {&#x27;matched&#x27;: 1}</title>
