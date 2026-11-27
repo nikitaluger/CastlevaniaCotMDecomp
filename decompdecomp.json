@@ -1770,6 +1770,16 @@
     "-mthumb-interwork",
     "-O2"
    ]
+  },
+  "271720:134489448": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O1"
+   ],
+   "timeout": 20,
+   "function": "updateThreePartEnemy",
+   "vram": 134489448
   }
  },
  "instructions": "",
@@ -2006,7 +2016,8 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h"
+  "local_source_8589938934": "common_local_source_8589938934.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -9172,7 +9183,7 @@
   "updateThreePartEnemy": {
    "vram": 134489448,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": true
+   "readable": false
   },
   "sub_080427C8": {
    "vram": 134490056,
