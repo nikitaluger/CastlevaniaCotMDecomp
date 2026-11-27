@@ -12,9 +12,9 @@ struct ActorContext {
 };
 struct SpawnParams { u8 _0[4]; u16 f4; u16 f6; u16 f8; u16 fA; u8 _C[0x1C]; };
 extern struct SpawnParams gEffectGfxTable[];
-extern u16 gKind68LayerAttrs[];
-extern char gKind68AnimDataTable[];
-extern u32 gScriptStepCallbackTable;
+extern u16 D_08102F30[];
+extern char D_08102F24[];
+extern u32 gMainObjTimerCallback;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -33,7 +33,7 @@ extern void updateActorEffectSubObject(void);
  * palette (with a size-based scale), copy in the spawn defaults, then advance
  * the actor's script index.
  */
-void spawnKind68ScriptEffect(struct ActorContext *actor) {
+void sub_080BC878(struct ActorContext *actor) {
     s32 gfx;
     struct HostObject *host;
     u8 *animState;
@@ -70,9 +70,9 @@ void spawnKind68ScriptEffect(struct ActorContext *actor) {
         host->f10 = actor->f6C * scale;
         host->f14 = scale;
     }
-    initSpriteGraphics((void *)gfx, animState, (s32)gKind68AnimDataTable);
+    initSpriteGraphics((void *)gfx, animState, (s32)D_08102F24);
     setAnimationFrame((void *)gfx, animState, 0, 1);
-    defaults = gKind68LayerAttrs;
+    defaults = D_08102F30;
     host->f28 = allocEffectPart();
     if (host->f28 == NULL) goto fail;
     goto ok;
@@ -95,7 +95,7 @@ ok:
         s16 idx = actor->f22;
         *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = 0;
     }
-    scriptTablePtr = &gScriptStepCallbackTable;
+    scriptTablePtr = &gMainObjTimerCallback;
     scriptPtr = ((u8 *)actor) + 0x18;
     sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, (s32)(*scriptTablePtr));
     {

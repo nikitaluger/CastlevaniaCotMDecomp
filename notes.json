@@ -17144,14 +17144,6 @@
   "score_after": null
  },
  {
-  "function": "spawnKind68ScriptEffect",
-  "text": "stub compiled; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9826257,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08066A88",
   "text": "stub compiled; releasing.",
   "by": "opencode-free-1",
@@ -51276,14 +51268,6 @@
   "text": "Best score 1520 (89%). Remaining diffs are register allocation (base/zero/indirect call) and instruction count; exact match not achieved. Code structure matches control flow and DMA. Register pinning unavailable. Releasing.",
   "by": "opencode-beam-free-4",
   "created_at": 1795683534.1608493,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind68ScriptEffect",
-  "text": "Best score 6900 (combined-if structure). Core blocker: register allocation (arg0 in r4 vs target r5; sprite r7 vs r6; inner r5 vs r4) and missing 'adds r1,r0,#0' copy + inner load. Tried struct fixes, t13 s32, base as integer/volatile/extern, goto (worse), decl reordering, dummy var, reload-based sign check. Combined if is correct. Cannot get closer without register-pinning (register asm not allowed) or a different variable-liveness pattern. Base folding also single load vs target two. Releasing.",
-  "by": "opencode-beam-free-5",
-  "created_at": 1795683534.1608932,
   "score_before": null,
   "score_after": null
  },
@@ -111116,14 +111100,6 @@
   "text": "Body matches exactly (65/65 insns). Score 200 due to trailing literal pool after final bx r0 at 0x0802127A; reported boundary at 0x0802127A pending approval. C is correct per best attempt. No needs.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.4558516,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnKind68ScriptEffect",
-  "text": "Can't get closer: register-allocation wall at score 6900 (best so far). Target keeps arg0 in r5, sprite in r6, inner in r4 across the whole body; any C I write assigns them to r4/r7/r5 and the diff is pure regalloc plus a few missing copy insns \u2014 no pure-C form changes which register holds a live value across calls. Confirmed floor by prior agent (beam-free-5, 6900). Called-symbols also don't link to ROM call sites. This is a regalloc wall, not a C wall; not worth burning the 8-compile move-on budget. Releasing to match small near-misses instead.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.4558887,
   "score_before": null,
   "score_after": null
  },
@@ -344456,5 +344432,29 @@
   "score_before": 305,
   "score_after": 305,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:7c4f5f39f68b51e9a4adb9649db691e602c3ba5f03a4091d9267941fd0486611"
+ },
+ {
+  "function": "spawnKind68ScriptEffect",
+  "text": "stub compiled; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9826257,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind68ScriptEffect",
+  "text": "Best score 6900 (combined-if structure). Core blocker: register allocation (arg0 in r4 vs target r5; sprite r7 vs r6; inner r5 vs r4) and missing 'adds r1,r0,#0' copy + inner load. Tried struct fixes, t13 s32, base as integer/volatile/extern, goto (worse), decl reordering, dummy var, reload-based sign check. Combined if is correct. Cannot get closer without register-pinning (register asm not allowed) or a different variable-liveness pattern. Base folding also single load vs target two. Releasing.",
+  "by": "opencode-beam-free-5",
+  "created_at": 1795683534.1608932,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind68ScriptEffect",
+  "text": "Can't get closer: register-allocation wall at score 6900 (best so far). Target keeps arg0 in r5, sprite in r6, inner in r4 across the whole body; any C I write assigns them to r4/r7/r5 and the diff is pure regalloc plus a few missing copy insns \u2014 no pure-C form changes which register holds a live value across calls. Confirmed floor by prior agent (beam-free-5, 6900). Called-symbols also don't link to ROM call sites. This is a regalloc wall, not a C wall; not worth burning the 8-compile move-on budget. Releasing to match small near-misses instead.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.4558887,
+  "score_before": null,
+  "score_after": null
  }
 ]
