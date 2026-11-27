@@ -15344,14 +15344,6 @@
   "score_after": null
  },
  {
-  "function": "updateCameraSnappedProjectile",
-  "text": "Releasing: regalloc issue remaining; best attempt saved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9757993,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080994DC",
   "text": "Releasing: best attempt saved.",
   "by": "opencode-free-1",
@@ -97832,14 +97824,6 @@
   "score_after": null
  },
  {
-  "function": "updateCameraSnappedProjectile",
-  "text": "Ceiling at 1685 (88.5% best). All structural matches. Regalloc wall: standard prologue but register mapping differs throughout. Call relocations differ project-wide. Unfixable from C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4104187,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08001588",
   "text": "Proven permanent agbcc regalloc/callee-save wall at score 240 (saved best; ~113+ attempts floor at 240-260). My compile: 240 (equals best, no improvement). Target keeps mask 0x3FFF in callee-saved r6 reloaded per iter (`adds r3,r6`), end in r5, loop `blo #0x18`; agbcc emits extra entry `adds r5,r0`, swaps callee-saves (target a->r4/b->r1/mask->r6 vs agbcc a->r6/b->r5), no mask reload, `blo #0x1a`. No pure-C fix (decl order, do-while, mask var, goto forms); register-asm banned (#354). Body: range search over D_02025B74-end buffer stepping 0xBC, match [a,b] against masked u16. Data D_02025B74 u32 end; sig sub_08001588(s32,s32,s32)->void*. Called by sub_080015CC; needs sub_08001534; waited for by sub_0800852C.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -100908,14 +100892,6 @@
   "text": "Permanent agbcc regalloc/callee-save wall at 330 (12 regalloc/7 operand/2 missing, target push {r4,r5,lr} with mask in r5 reloaded per iter; agbcc push {r4,lr}). ~160+ attempts. Not not_c. Needs sub_08002C94. Best source preserved.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.4271197,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateCameraSnappedProjectile",
-  "text": "Cannot get closer: proven agbcc register allocation wall. Target loads temp_r7 into r7 explicitly (ldr r7, [r4,#0x38]) before temp_r5 into r5; agbcc allocates by first-use order (temp_r5 used in call->r5, temp_r7 used in if/else->r6, p18 used later->r7). No C spelling changes the allocation order (tried declaration order, assignment order, dummy vars). Call relocations also differ. COORD block matches sub_08026BDC pattern. Fundamental agbcc codegen limitation.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4271588,
   "score_before": null,
   "score_after": null
  },
@@ -105996,14 +105972,6 @@
   "text": "Regalloc/LICM wall at 666 confirmed (2 compiles): target r6/r7/r4 binding + in-branch 0x00FFFFFF materialize; agbcc r4/r5 + LICM-hoisted limit. 61+ prior attempts, not C-solvable. Best source saved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.4554577,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateCameraSnappedProjectile",
-  "text": "Cannot get closer within this session's budget: improved the function substantially (1685 -> 1180, 92%, first 36 insns byte-exact) by fixing the real COORD-block bug and the bit-op temporaries. The remaining 1180-point gap is entirely deterministic agbcc register allocation/scheduling: target computes arg0+0x18 into r6 after the flag AND (ours before), uses r2 for the zero store (ours r3), r1 for the 0x22 index (ours r2), and a different operand order for the final 0x8000 AND; the two extra emitted instructions shift all literal-pool offsets. Five compiles this session explored these (common-block duplication regressed to 4446; u32-cast commutative flip had no effect), and the inherited 15 prior attempts also floor at 1685. No further C-side lever found; ordinary correct C, not hand asm, not not_c. Releasing to complete the final session claim.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.455503,
   "score_before": null,
   "score_after": null
  },
@@ -358268,5 +358236,37 @@
   "score_before": 0,
   "score_after": 0,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
+ },
+ {
+  "function": "updateCameraSnappedProjectile",
+  "text": "Releasing: regalloc issue remaining; best attempt saved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9757993,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCameraSnappedProjectile",
+  "text": "Ceiling at 1685 (88.5% best). All structural matches. Regalloc wall: standard prologue but register mapping differs throughout. Call relocations differ project-wide. Unfixable from C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4104187,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCameraSnappedProjectile",
+  "text": "Cannot get closer: proven agbcc register allocation wall. Target loads temp_r7 into r7 explicitly (ldr r7, [r4,#0x38]) before temp_r5 into r5; agbcc allocates by first-use order (temp_r5 used in call->r5, temp_r7 used in if/else->r6, p18 used later->r7). No C spelling changes the allocation order (tried declaration order, assignment order, dummy vars). Call relocations also differ. COORD block matches sub_08026BDC pattern. Fundamental agbcc codegen limitation.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4271588,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCameraSnappedProjectile",
+  "text": "Cannot get closer within this session's budget: improved the function substantially (1685 -> 1180, 92%, first 36 insns byte-exact) by fixing the real COORD-block bug and the bit-op temporaries. The remaining 1180-point gap is entirely deterministic agbcc register allocation/scheduling: target computes arg0+0x18 into r6 after the flag AND (ours before), uses r2 for the zero store (ours r3), r1 for the 0x22 index (ours r2), and a different operand order for the final 0x8000 AND; the two extra emitted instructions shift all literal-pool offsets. Five compiles this session explored these (common-block duplication regressed to 4446; u32-cast commutative flip had no effect), and the inherited 15 prior attempts also floor at 1685. No further C-side lever found; ordinary correct C, not hand asm, not not_c. Releasing to complete the final session claim.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.455503,
+  "score_before": null,
+  "score_after": null
  }
 ]
