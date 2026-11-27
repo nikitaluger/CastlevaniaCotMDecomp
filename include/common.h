@@ -2756,3 +2756,28 @@ struct MenuInputCameraState {
 #define FIVEWAY_STEP_TIMER_OFF   0x17
 #define FIVEWAY_MENU_CANCEL_CMD  0x10
 #define FIVEWAY_MENU_CONFIRM_CMD 0xE
+
+/* Hovering-effect step (updateHoveringEffectStep): field views and tunables.
+ * The script object holds its sprite at +0x38 and a work state at +0x3C. In
+ * the work state +0x02 bit 1 reverses X velocity, +0x08/+0x0C are 16.16 world
+ * coordinates, +0x10 is X velocity, +0x34 an animation track, and +0x48 a
+ * motion block whose +0x02/+0x04 are velocity/facing countdowns. The focus
+ * coordinates live in gMainWorkspace; step callbacks are dispatched through
+ * the _call_via_r3 thunk with a callback from SCRIPT_STEP_CALLBACK_TABLE. */
+struct MainWorkspaceView {
+    u8 _0[0x174C];
+    s32 targetX; /* 0x174C: focus X, 16.16 */
+    s32 targetY; /* 0x1750: focus Y, 16.16 */
+};
+
+#define HOVER_FACING_TIMER_SPAN  0x3D       /* random span for facing-timer reload */
+#define HOVER_FACING_TIMER_BASE  0x5A       /* base delay for facing-timer reload */
+#define HOVER_FLIP_MIN_DELAY     0x5A       /* min delay passed to updateFacingFlipTimer */
+#define HOVER_FLIP_MAX_DELAY     0x78       /* max delay passed to updateFacingFlipTimer */
+#define HOVER_END_DISTANCE       0x600000   /* |worldX/Y - focus| that ends the step */
+#define HOVER_WORK_FLAG_REVERSE  2          /* work+0x02 bit: reverse X velocity */
+#define HOVER_FAR_X_DISTANCE     0x400000   /* |worldX - focus| that selects the long delay */
+#define HOVER_VEL_SHORT_SPAN     0x0B        /* short velocity-delay random span */
+#define HOVER_VEL_SHORT_BASE     0x1E        /* short velocity-delay base */
+#define HOVER_VEL_LONG_SPAN      0x06        /* long velocity-delay random span */
+#define HOVER_VEL_LONG_BASE      0x0A        /* long velocity-delay base */

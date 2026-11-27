@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795811011.0953047,
- "revision": 70973,
+ "saved_at": 1795811584.5182097,
+ "revision": 70997,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "177772:134395500": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateHoveringEffectStep",
-   "vram": 134395500
   }
  },
  "instructions": "",
@@ -2131,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7188,7 +7176,7 @@
   "updateHoveringEffectStep": {
    "vram": 134395500,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0802B798": {
    "vram": 134395800,
@@ -12215,10 +12203,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0805A3D4": {
+  "updateWeaponStep": {
    "vram": 134587348,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0805A500": {
    "vram": 134587648,
@@ -36522,7 +36510,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_0805A3D4",
+   "name": "updateWeaponStep",
    "vram": 134587348,
    "size": 300,
    "status": "open"
@@ -53156,6 +53144,12 @@
    "kind": "func"
   },
   {
+   "name": "updateWeaponStep",
+   "address": 134587348,
+   "size": 300,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind51Effect",
    "address": 134590108,
    "size": 476,
@@ -55814,6 +55808,12 @@
    "kind": "data"
   },
   {
+   "name": "gWeaponStateHandlers",
+   "address": 140961928,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gFivePartEntityStepHandlers",
    "address": 140962104,
    "size": 0,
@@ -55944,7 +55944,7 @@
   },
   {
    "address": 33710064,
-   "type": "u32",
+   "type": "struct S_02025FF0",
    "source": "match"
   },
   {

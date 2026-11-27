@@ -358551,5 +358551,86 @@
   "created_at": 1795683534.382183,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_08017888",
+  "text": "Raw-byte BL decode of target: callees are sub_08011368 (bl at +0x1C), sub_08014990 (+0x2C), sub_08018CB0 (spawn, +0x50), allocEffectPart at 0x08016190 with NO arguments (+0x5C), sub_080C31E4 (+0xD4). Pool words at +0xE8/+0xEC/+0xF0 are gEffectGfxTable(0x080CBDD0), D_080CE5C8 (affine table), gMainObjTimerCallbacks(0x08671BB0). Therefore in the C use `extern void *allocEffectPart(void);` called with no args (r0=0x78 is left over from the strh), and `extern u16 D_080CE5C8[];` for affine0-3. I verified these edits keep score 1805 (revision 8d5895f59caee3fef759); linker 'wrong call'/'wrong symbol' notes are false positives from the 1-instruction pool shift.\n\nBest 1805 at revision 6788cd95440fd95077f5; semantically-correct equivalent at 8d5895f59caee3fef759 (see add_note for decoded callees/symbols). Residual: 3-cycle register coloring + movs r4,#0 hoist + mov ip,r1 zero pair; known allocator wall (#8589934669). Do not repeat zero-local or flag experiments.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795811027.8314517,
+  "score_before": 1805,
+  "score_after": 1805,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:707937383b2add1ae83b75a16ea16f68aa3730482124b89d5fe0d9f640ba755d"
+ },
+ {
+  "function": "sub_080185B4",
+  "text": "107/107 insns byte-exact except 8 regalloc rows in the two identical `(s16)(r4+0x32)<<16 + 0xFFFF8000` blocks. Target keeps val in r2 and literal 0xFFFF8000 in r4; candidate uses r1 and r2. All constants verified against raw pool words (0xFFFF8000, 0xFFDC0000, 0xFFD80000, 0x240000, 0x280000, 0xFFC00000, 0xFFF00000, 0x174C, 0x18A8, 0x127C). Terminal agbcc O2 coloring tie; ~30 prior attempts.\ncompile_variants: named shifted temporary and swapped addition operands in both blocks (all score 40, zero rows changed); try_local_repairs branch_orientation/branch_pointer_lifetimes/copy_register_reuse (no improvement); compiler_experiments O1 3505, O3 1500, Os 2085, -mno-thumb-interwork 1500; O2 best at 40\nNo C spelling or flag profile moved the 8-row register tie; agbcc keeps the sign-extended value in r0 and the 0xFFFF8000 literal in r2 instead of target r2/r4.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811032.86221,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:e6d3992921c3aa2008e294b59b675022098a44f230ca32ae55366598d6c72910"
+ },
+ {
+  "function": "sub_080248C0",
+  "text": "Best current 2820, revision f687135f285b5b846baa. Fixes found: (1) both sub_080C31E0 results are shifted <<4 (not <<16) before adding the fixed-point base; (2) 4th call arg is *(s32 *)(*(u8 **)(body+8)+4), not *(s32 *)(body+0xC); (3) y must be computed as two statements `trig = (sub_080C31E0(...)*20)+0xFFD80000; trig = trig + *(s32 *)(work+0xC);` so the constant is added before work[0xC]; (4) sub_080C29E8 takes 4 args: (self+0x18, self+0x22, 0, callback). Remaining: ROM prologue saves 3 callee-saved regs (mov r7,sl / mov r6,sb / mov r5,r8 / push {r5,r6,r7}) with sprite=r4, work=r5, angle=r6, body=r7, self=r8, x=r9, anim=r10; ours saves only 2 (r8=self, sb=anim) with x in r4, work in r6. Likely allocator wall; pools also merge gTrigFuncTable loads where ROM has two separate pool words. Flags -O2/-O3/-Os all score 2820; -O1/fno-expensive worse. try_local_repairs found no improvement.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795811063.640468,
+  "score_before": 3065,
+  "score_after": 2820,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:800b02de1c3219715af12dd2e0e41bb2154cb76211e73bcce9ec3446b296e159"
+ },
+ {
+  "function": "sub_08007EF8",
+  "text": "-O1 profile. First concrete residual: target `adds r0,#0xf; strb r2,[r0]` vs candidate `strb r2,[r0,#0xf]`. Others are register choices (r4 vs r0 for the 0xF3/0xF4/0x80 temporaries) plus two extra `adds r0,r4,#0` copies and the missing early `movs r4,#0`. All literal constants verified against the pool. The `bl` symbol diagnostics are alignment false positives.\nm2c draft 10655; restored saved_best 950; compile_variants on pointer temp, early z4, call comma expression, and two offset locals (950/975/1355); 52 prior attempts\nNo variant changed the first differing row; agbcc keeps the offset addressing form and the 31-row residual.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811162.5636542,
+  "score_before": 10655,
+  "score_after": 950,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:bba84f455b9a58ef109752b24148d455aa275f4c645fdba4a2a55793f8685e42"
+ },
+ {
+  "function": "setKind87EffectLayerAttrs",
+  "text": "Score 570 is the frameless-leaf LR-frame wall already accepted for this game's agbcc -mno-thumb-interwork profile: all 60 target instructions match except agbcc inserts push{lr} and uses pop{pc} instead of bare bx lr, shifting pool offsets (ldr r3,[pc,#0x14] vs #0x10), branch displacements (#0x5a bytes 26d8 vs 25d8) and a `movs r0,r0` padding row. This session tried (a) matched-twin setAttackHitbox struct-field spelling -> 3390 (worse; repeated [r2+0x3c] loads), (b) swapping the first two assignments so r2 loads before r3 -> 700 (worse; pool offset changed). Restored saved_best b9eea51995e941af182e at 570. Do not repeat those two edits.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795811184.810569,
+  "score_before": 3390,
+  "score_after": 570,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:960db762946c8d18ff6ebc6390c51b0e67a6bbad6287c46aa2f54e4566da330a"
+ },
+ {
+  "function": "sub_0800D4BC",
+  "text": "Best 420 (96.3%), 115 insns both sides. Residual is 8 rows at the prologue: target zeroes r0 after computing address in r2 and keeps r0 for the stm loop; candidate hoists zero into r2 and uses r0 for addresses, plus one gMenuState literal load is scheduled before vs after the first loop. Previous agents also called this terminal. Literal-zero rewrite regressed to 815; type/declaration permutations score-neutral.\nliteral zeros instead of clearZero (815); u32/u8 clearZero and declaration-order variants (all 420); moving clearZero=0 to first use (420); local repairs paired_integer_lifetimes/local_weight_ladder/call_initialization (420/430/620)\nno variant improved the 8-row residual; only literal zeros regressed badly",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795811185.6849978,
+  "score_before": 420,
+  "score_after": 420,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:983e9fa6845093b7416f6ccd5e6569c9ff71d4ac4d2a46c42bb456fea38948ce"
+ },
+ {
+  "function": "sub_080253A4",
+  "text": "Target keeps entity=r6, sprite=r7, motion=r5, steer=r4, targetX=sb, targetY=r8; candidate r5/r8/r6/r4/sb/r7. It is a 2-insn length deficit plus a counter sign-check order (`lsls` after strh vs `asrs` before). All callee-symbol diagnostics are the known displacement false positive. Do not repeat generic expression/temporary permutations; 4 agents already did 28 patches.\nbaseline rechecked 1905; 28 prior explicit patches and 3 local repairs; this session only the baseline compile\nNo new experiment: the 17-times-repeated 1905 diff is an allocator cascade beginning at entity/sprite/motion register choice.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811203.6295028,
+  "score_before": 1905,
+  "score_after": 1905,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:9665aac3c7721b3bd9bcf09685ee7ff62e521c40d2aed0a55c37829927fb86f0"
+ },
+ {
+  "function": "sub_080282EC",
+  "text": "Best 1100 at revision 7f866d6c83900a617273; target 122 insns, candidate 117. 46 of 56 diff rows are the known callee-saved coloring wall (target script r4 / x r5 / sb saved; candidate script r5 / x r1). Real structural find: target reloads idx from script+0x14 in the else branch; reusing the existing idx local to express it regressed hard. Linker 'wrong call' and gMainObjTimerCallbacks notes are pool-misalignment artifacts.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795811268.2475388,
+  "score_before": 1100,
+  "score_after": 1100,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:31d7f579186e034a9a498421448ce107f024e7f91e0201d1b81cc08b1d65c0bb"
+ },
+ {
+  "function": "sub_0803BF54",
+  "text": "760 residual: target `movs r2,#0x90; lsls r2,#0xe; adds r0,r5,#0; adds r1,r2,#0` vs candidate no copy; the negate block also uses r1 vs r0. All call-displacement diagnostics are alignment false positives. Two real semantic fixes already applied by a prior agent (pose-table arg to sub_08014588 and velocity delta 0xFFFFF400) \u2014 do not undo.\ncompile_variants: named s32/u32 local for the constant, explicit shift expression, early declaration (all 760, zero rows changed); prior 5 patches and 3 local repairs\nagbcc still emits movs r1,#0x90; lsls r1,#0xe directly; target has the extra r2 staging copy (113 vs 112 insns).",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811280.4271374,
+  "score_before": 760,
+  "score_after": 760,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:5fbaa6cfdda9dc05576e1ef75a47f87985b5eff1f99facc5e55bbf61e1baaa43"
  }
 ]
