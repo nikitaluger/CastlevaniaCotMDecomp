@@ -357710,5 +357710,13 @@
   "score_before": 1405,
   "score_after": 1,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:e136801417f9038c6a21ef96c8b621d47befce926c95e4075ff81ea90dcbe818"
+ },
+ {
+  "function": "sub_0803C048",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No draft, no similar matched twins (find_similar empty). Assembly partially retrieved but contains pool/data at end; function logic involves calls (0x8011898, 0x8014588, 0x8011368, 0x80113a8) and state/flag checks on structs at +0x34/+0x38/+0x3C. Needs manual disassembly tracing to write C.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795806643.9017098,
+  "score_before": null,
+  "score_after": null
  }
 ]
