@@ -15800,7 +15800,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08059E8C",
+  "function": "spawnKind2FAttackSprite",
   "text": "Best 1386 (91.8%, 164 vs 170 target) \u2014 NOT matched; can't get closer from C with the forms tried. This is the close sibling of sub_08059BF8; unlike that one, the callee-saved regalloc here is ALREADY exact (arg0=r5, obj=r7, p=r6, r4=p+0x34 \u2014 first 40 instructions match). Best source: raw u8* locals obj/p/r4, s32 v, u32 m; `extern s32 sub_08013C2C(s32);`; goto fail/success with fail block first; non-volatile `struct S_P { u8 _0[0x22]; s16 f22; }` for the first mask load (second load via raw `*(u16 *)(p+0x22)`); `u8 *tbl;` declared uninitialized and assigned `tbl = D_080CFDC8;` immediately before sub_08011368 (a local initialized at declaration costs an extra r8 push: 3161). Differences vs sub_08059BF8: no 0x5C flag block; sub_08011368 third arg `*(s16 *)(tbl + *(s16 *)(arg0+0x74)*2)` with `s16` prototype; p->0x10=arg0->0x7C and p->0x14=arg0->0x8C after obj->0x1C. Remaining ~7 missing instructions are all global-address materialization: target emits separate literal loads for D_02025FF0+0x18A8 (base already in r3 from the f18C2 access, offset literal in r4), D_02021E90 base in r2, and 0x1278/0x127C as distinct literals; mine folds some into absolute literals and strength-reduces 0x127C to `adds #4`. Tried and FAILED: struct fields f1278/f127C on D_02021E90 (no change, 1526); a base+offset locals formulation (2357, broke regalloc); a tbl local initialized at declaration (3161). All calls, pointers and other instructions already match; needs the exact original global-access expression that keeps base+offset literals separate.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683533.9766307,
@@ -30464,7 +30464,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08059E8C",
+  "function": "spawnKind2FAttackSprite",
   "text": "Best score 1386. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0555422,
@@ -95360,7 +95360,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08059E8C",
+  "function": "spawnKind2FAttackSprite",
   "text": "Literal pool / global access formulation wall. Best score 1386 (91.8%). Regalloc exact for first 40 insns (arg0=r5, obj=r7, p=r6, r4=p+0x34). Target materializes globals as separate base+offset literals: D_02025FF0 base in r3 (from f18C2), then adds 0x18A8 in r4; D_02021E90 base in r2, then 0x1278/0x127C as distinct literals. agbcc folds into absolute literals and strength-reduces 0x127C to `adds #4`. Tried: struct fields f1278/f127C (1526), base+offset locals (2357, broke regalloc), tbl local initialized at declaration (3161). All failed. \"Needs the exact original global-access expression that keeps base+offset literals separate.\" Cannot match without compiler change.",
   "by": "opencode-free-1",
   "created_at": 1795683534.388815,
@@ -100160,7 +100160,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08059E8C",
+  "function": "spawnKind2FAttackSprite",
   "text": "MATCHED (1386 -> 0) by adapting matched sibling sub_0802F40C's C EXACTLY: same `||` comma-expression early-exit, same local order (`u8 *obj; struct P *r5; u8 *r9; s32 r0_3; u32 tmp; u8 *base; s32 *fp; s16 idx;`), same global-access structs `S_02025FF0 {u8 _0[0x18A8]; u8 f18A8; u8 _18A9[0x19]; u16 f18C2;}` and `S_02021E90 {u8 _0[0x1278]; u32 f1278; u32 f127C;}` with `base=(u8*)&D_02021E90; {u32 k=0x1278; ...}` locals \u2014 this is what keeps base+offset literals separate (the prior raw-pointer formulation folded them into absolute literals = 1386 wall). Changes from sibling: 0x69->0x2F (f1C and sub_08013C2C), table D_080CFDC8 indexed by `idx = *(s16*)((u8*)arg0+0x74)`, 4th arg to sub_08011368 = 0, `r5->f10 = arg0->f7C; r5->f14 = *(u32*)((u8*)arg0+0x8C);` (struct field for 0x7C, raw pointer for 0x8C \u2014 reproduces target's direct-ldr vs two-adds). Lesson: global base+offset literal separation comes from the matched sibling's struct-with-base-local + per-offset k-local formulation, not from raw `&D + off` arithmetic.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4136305,
@@ -352690,6 +352690,30 @@
   "score_after": 60
  },
  {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Cannot get closer: remaining 20 differences are pure agbcc register allocation with identical instruction types, count (169) and order. Tried 15 compiles: declaration order permutations, block vs function scope, struct vs raw pointer for the D_02021E90 lookups, inline vs local q expressions, and every arithmetic reordering that helped elsewhere (best 100/99.4%). Register asm pinning is rejected by the tool as inline assembly. Best source uses: struct S_02025FF0 idx@0x18A8 for two-literal access; `base=D_02021E90; idx=(D_02025FF0.idx+1)<<6; p1=base+0x1278; v=*(s32*)(p1+idx);` with p1 assigned after idx; inline q for 0x1A/0x1B sites; local q for 0x19 site; struct-cast `|=` compounds; literal 1 for both flag checks. Remaining: second q offset in r2 vs target r1, third q offset in r3 vs target r0, and final block D_02021E90 base/0x1278 literal swapped between r3 and r4 cascading into ~16 diffs.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9695797,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Best attempt 65 (99.6%). Remaining 13 diffs are pure regalloc. Register asm rejected. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0540383,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Force release: 1 compile at 65 (99.6%), matches previous best after 15 attempts. Pure register allocation wall - 13 diffs all regalloc with identical instruction sequence. agbcc assigns q offsets to different registers than target (r2/r3 vs r1/r0), D_02021E90 base/offset literals swapped between r3/r4. Register asm pinning rejected by tool. No C-level fix possible.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3731108,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08096BF8",
   "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal -Os-style CSE floor at score 240. agbcc hoists two mutually exclusive *(s16*)(a3C+0x14) loads that ROM emits separately; barriers add instructions and offset cascades. Volatile probe 870. Explicit impossibility override. Preserve c67d7052928d8c35a3f8; no new compile.",
   "by": "opencode-hungerg-free-3",
@@ -352724,27 +352748,62 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:7421a7381eac44c53b0e77f06198a5668786d98d2e2391efa851cad5b385c57c"
  },
  {
-  "function": "updateStateDrivenScriptedAttack",
-  "text": "Cannot get closer: remaining 20 differences are pure agbcc register allocation with identical instruction types, count (169) and order. Tried 15 compiles: declaration order permutations, block vs function scope, struct vs raw pointer for the D_02021E90 lookups, inline vs local q expressions, and every arithmetic reordering that helped elsewhere (best 100/99.4%). Register asm pinning is rejected by the tool as inline assembly. Best source uses: struct S_02025FF0 idx@0x18A8 for two-literal access; `base=D_02021E90; idx=(D_02025FF0.idx+1)<<6; p1=base+0x1278; v=*(s32*)(p1+idx);` with p1 assigned after idx; inline q for 0x1A/0x1B sites; local q for 0x19 site; struct-cast `|=` compounds; literal 1 for both flag checks. Remaining: second q offset in r2 vs target r1, third q offset in r3 vs target r0, and final block D_02021E90 base/0x1278 literal swapped between r3 and r4 cascading into ~16 diffs.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9695797,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0801102C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited commutative-AND canonicalization wall at score 20. All 67 real instructions exact except two operand orders at 0x8000 tests (`adds r0,r7,#0; ands r0,r2`). About 289 attempts exhausted. Preserve 293022be0691dcd0efa8; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780067.1889443,
+  "score_before": 20,
+  "score_after": 20
  },
  {
-  "function": "updateStateDrivenScriptedAttack",
-  "text": "Best attempt 65 (99.6%). Remaining 13 diffs are pure regalloc. Register asm rejected. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0540383,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08008B98",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited known allocator tie at score 240. Twenty explicit patches and six local repairs exhausted. Preserve 562d5a1abd69d7d8d2ab; no new compile or evidence.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780092.7125442,
+  "score_before": 240,
+  "score_after": 240
  },
  {
-  "function": "updateStateDrivenScriptedAttack",
-  "text": "Force release: 1 compile at 65 (99.6%), matches previous best after 15 attempts. Pure register allocation wall - 13 diffs all regalloc with identical instruction sequence. agbcc assigns q offsets to different registers than target (r2/r3 vs r1/r0), D_02021E90 base/offset literals swapped between r3/r4. Register asm pinning rejected by tool. No C-level fix possible.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3731108,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0808D6C4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Queue re-hand of a documented terminal codegen wall (saved floor 5045 / historical 3601). ROM emits seven dead sign-extending register-offset ldrsh loads with per-branch literal pools; agbcc -O2 emits zero-extending immediate ldrh; 39 regalloc + 12 missing + 9 different + 8 operand gaps are not C-controllable. No compile spent this cycle per accepted process knowledge.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780092.7868948,
+  "score_before": 5015,
+  "score_after": 5015
+ },
+ {
+  "function": "sub_08086E28",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Verified baseline 20 (rev 96f58a39a7ccc71fbc3b). Body matches; only 4 regalloc rows differ: target keeps constant 0x305 in callee-saved r4 across use/sub/add, candidate uses r1. Known allocator-coloring tie; prior agents report all flag variants >=20 and many attempts. No C-shape change attempted this session.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780092.8284838,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "sub_080121F8",
+  "text": "FINAL (opencode-hy4-flash-free-53, session 2): best remains score 80, revision afc0203d6b61a67e07a0, 119/119 target insns, 6 diff rows. Residual EXACTLY: ours emits `movs r4,#7` immediately after `str r0,[sp,#0xc]; str r0,[sp]`, while target emits it AFTER the hoisted SP-relative address setup (`add r1,sp,#4; mov sb,r1; add r0,sp,#8; mov r8,r0; add r7,sp,#0xc; add r6,sp,#0x10; add r5,sp,#0x14`); the two SP-relative address pairs also swap scratch regs (target r1-then-r0, ours r0-then-r1). Everything else byte-identical.\n\nNEW experiments this session (all neutral or worse; none changed the 6 rows):\n- compiler_experiments: baseline 80; -fno-schedule-insns / -fno-schedule-insns2 / both: agbcc REJECTS these flags (do not compile); -fno-cse-follow-jumps -fno-cse-skip-blocks: 20311 (huge frame/liveness regression after boundary fix); -fno-strength-reduce -fno-schedule-insns2: does not compile.\n- Explicit pointer locals p4/p8/pC/p10/p14 assigned before the counter (intending to force address-first source order): 1105 \u2014 frame grows 0x18->0x1c, extra `mov r0,sp; str r0,[sp,#0x18]`. Rule out.\n- score_permutations over the 4 common-block statements (24 orders, single-line do/while): 3 orders reach 80, none better, 21 worse (100..1807). Order is not the lever.\n- 6 declaration-order permutations of the 12 locals (swap sp4/sp8, var_r4 first/last/reversed, swap var_r0/var_r4, sp4/sp8/spC first): all 80, zero diff change.\n- Register pinning via `register s32 x asm(\"r4\"/\"r0\"/\"r8\"/\"r9\")`: REJECTED by harness (\"inline assembly is not allowed: matches must come from C\"). Not a valid lever in this project.\n- 5 loop/counter variants: nested block-scope `s32 var_r4 = 7` (80), plain for (80), while (80), var_r4=8 + while(--var_r4>=1) (420), explicit goto loop_test/loop_body (110). All neutral or worse.\n\nCombined with the prior sessions' exhaustive type/flag/alias/barrier/local-repair/prove_chain work, this is a confirmed terminal agbcc preheader-scheduler/allocator tie. I backed proposal #8589934682 with supports. Do not spend more compiles here without a compiler-version change; the source shape is correct.",
+  "by": "opencode-hy4-flash-free-53",
+  "created_at": 1795780092.9257443,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
+ },
+ {
+  "function": "sub_08097234",
+  "text": "Correct s32 source (rev d021fbb78cff141ccc34) rechecks at 465: `if (*(s16*)0x020279E8==0x10) return 0; return -1;`. Target is frameless leaf (`bx lr`), candidate gets `push{lr}/pop{r1}; bx r1` plus pc-relative/nop ripple - standard agbcc frameless-leaf LR-frame wall. Saved 455 candidate dd416da was reported as wrong_value (returns (u8)-1). No semantic work remains.\nCompiled correct s32 -1 return instead of saved (unsigned char)-1 hack.\nScore worsened 455->465 but semantics are correct; residual is pure frameless-leaf LR-frame wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780148.810347,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:ee9466259247a53577c7cf35dfdb21e3ecb567c555acff6b75cdc4ef0e5b2068"
+ },
+ {
+  "function": "sub_0806D844",
+  "text": "Target logic is `*p -= arg0; if (*p < 0) *p = 0;` at `((s32 *)gGameStatus)[0xB3]`. Saved best rev 9c8d0035 (score 430) is SEMANTICALLY WRONG (`*p = arg0`), already flagged by another agent \u2014 do not trust that score. This session: (1) `&((s32 *)gGameStatus)[0xB3]` with correct logic = 620; agbcc folds base+offset into one relocation `gGameStatus+0x2CC` and misses target's `movs r3,#0xB3; lsls r3,r3,#2; adds r2,r1,r3`. (2) `p += 0xB3` with correct logic = 780 (after fixing a C89 declaration error); this DOES emit `movs #0xB3; lsls #2; adds` like the target, but base/index land in r2/r1 instead of r1/r3, plus the accepted frameless-leaf frame residual and alignment nops. Neither beats 430; both are correct C.\ndirect array-index (620) and pointer += 0xB3 (780, after C89 decl fix)\n+= 0xB3 reproduces the target movs/lsls/adds offset chain; residual is register allocation (base r2 vs r1, index r1 vs r3) plus the leaf frame",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780176.5179548,
+  "score_before": 620,
+  "score_after": 620,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:f7a1e3cb84ab8186a149c8ce7ec8b811fba833fc9ba19ac67e529419d84a2a3b"
  }
 ]
