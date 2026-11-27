@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795812449.715581,
- "revision": 71047,
+ "saved_at": 1795812858.3987374,
+ "revision": 71062,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1754,7 +1754,7 @@
   },
   "476756:134694484": {
    "vram": 134694484,
-   "function": "sub_08074654",
+   "function": "updateScaledMainObjectEffect",
    "toolchain": "agbcc",
    "flags": [
     "-mthumb-interwork",
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "380156:134597884": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateRoomAnchoredScriptedAttack",
-   "vram": 134597884
   }
  },
  "instructions": "",
@@ -2131,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7952,7 +7940,7 @@
   },
   "sub_080328CC": {
    "vram": 134424780,
-   "best_score": 3245,
+   "best_score": 3200,
    "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_08032A04": {
@@ -12498,7 +12486,7 @@
   "updateRoomAnchoredScriptedAttack": {
    "vram": 134597884,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_0805CE24": {
    "vram": 134598180,
@@ -13155,10 +13143,10 @@
    "best_score": 10,
    "best_by": "opencode-deepseek-v4.1-flash-1"
   },
-  "sub_08064904": {
+  "updateCompanionBossAlt": {
    "vram": 134629636,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "updateMovingActor": {
    "vram": 134629932,
@@ -14275,10 +14263,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_08074654": {
+  "updateScaledMainObjectEffect": {
    "vram": 134694484,
    "matched_by": "permuter-8589937090",
-   "readable": false
+   "readable": true
   },
   "sub_08074870": {
    "vram": 134695024,
@@ -23603,7 +23591,7 @@
  },
  "function_headers": {
   "sub_0801565C": "local_source_8589935146",
-  "sub_08074654": "local_source_8589937090",
+  "updateScaledMainObjectEffect": "local_source_8589937090",
   "runActionStepResponse": "local_source_8589937398",
   "sub_0808EA30": "local_source_8589937664",
   "sub_080BE99C": "local_source_8589938934"
@@ -37728,7 +37716,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_08064904",
+   "name": "updateCompanionBossAlt",
    "vram": 134629636,
    "size": 296,
    "status": "open"
@@ -39138,7 +39126,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08074654",
+   "name": "updateScaledMainObjectEffect",
    "vram": 134694484,
    "size": 296,
    "status": "open"
@@ -53390,6 +53378,12 @@
    "kind": "func"
   },
   {
+   "name": "updateCompanionBossAlt",
+   "address": 134629636,
+   "size": 296,
+   "kind": "func"
+  },
+  {
    "name": "updateMovingActor",
    "address": 134629932,
    "size": 384,
@@ -53681,6 +53675,12 @@
    "name": "spawnScaledMainObjectEffect",
    "address": 134694176,
    "size": 308,
+   "kind": "func"
+  },
+  {
+   "name": "updateScaledMainObjectEffect",
+   "address": 134694484,
+   "size": 296,
    "kind": "func"
   },
   {

@@ -14,10 +14,12 @@ void sub_080328CC(u8 *self)
     u8 *obj;
     s32 idx;
     u8 flags;
+    u8 lowFlags;
 
     stepAnimationTrack(sprite, animState);
     flags = stepState[0xD];
-    if ((flags & 0xF) == 0)
+    lowFlags = flags & 0xF;
+    if (lowFlags == 0)
     {
         if (*(u16 *)((u8 *)sprite + 0x28) == 0x1C || *(u16 *)((u8 *)sprite + 0x28) == 0x28)
         {
@@ -26,7 +28,7 @@ void sub_080328CC(u8 *self)
             obj = (u8 *)spawnBudgetedEffect((s32)self, 0xDF);
             if (obj != 0)
             {
-                obj[0x7C] = 0;
+                obj[0x7C] = lowFlags;
                 if (*(u16 *)((u8 *)sprite + 2) & 0x10)
                 {
                     *(s32 *)(obj + 0x4C) = *(s32 *)((u8 *)work + 8) + 0x80000;

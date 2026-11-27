@@ -7076,7 +7076,7 @@
 <g><title>sub_080646A0: {&#x27;aside&#x27;: 1}</title>
 <rect x="340.000" y="450" width="8.000" height="8" fill="#b54747"/>
 </g>
-<g><title>sub_08064904: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateCompanionBossAlt: {&#x27;matched&#x27;: 1}</title>
 <rect x="350.000" y="450" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>updateMovingActor: {&#x27;matched&#x27;: 1}</title>
@@ -7781,7 +7781,7 @@
 <g><title>spawnScaledMainObjectEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="290.000" y="480" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08074654: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateScaledMainObjectEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="300.000" y="480" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0807477C: {&#x27;aside&#x27;: 1}</title>

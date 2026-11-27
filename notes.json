@@ -14632,7 +14632,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064904",
+  "function": "updateCompanionBossAlt",
   "text": "Cannot get closer in this session; agbcc CSEs pc-literal reloads and regalloc differs. Moving on.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9722056,
@@ -14640,7 +14640,15 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "Cannot get closer under agbcc -O2 with natural C: the target's fixed register assignment (arg0=r5, f38=r8, f3C=r6, f3C+0x10=r9) is not reproducible. Best score 3555 (struct-based source saved); swapping assignment order scores 3565, adding a zero local 3835. All remaining diffs are register allocation/literal-pool consequences of this one register swap. This is the 8th compiled claim of the session; stopping here as instructed.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.972242,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer with natural C; register allocation issues require tricks. Best 3690/140 insns. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9722786,
@@ -29840,6 +29848,14 @@
   "score_after": null
  },
  {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "Giving up; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0551558,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08062828",
   "text": "Giving up; releasing.",
   "by": "opencode-free-1",
@@ -39984,7 +40000,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer: linking calls resolve to wrong functions (indirect _call_via_r* thunks); register allocation fundamental (mov r8,r0 vs adds r7,r0,#0). Score stuck 3690/140. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1090343,
@@ -40016,7 +40032,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064904",
+  "function": "updateCompanionBossAlt",
   "text": "Cannot get closer this session: linking calls wrong, pc-literal reloads CSE'd, regalloc fundamentally off. Score 2215 vs best 1615. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.109188,
@@ -40028,6 +40044,14 @@
   "text": "Best stays 330 (89.3%): logic/loop fully correct, all differences are regalloc. Target's six live values: key r3, p r2, mask r1->r5, end r0->r4, using `adds r3,r0,#0` (arg0 copy) + `adds r2,r1,#0` (arg1 copy) at top, then `adds r5,r1,#0; adds r4,r0,#0` after guard, and `adds r0,r5,#0; ands r0,r1` in loop. My C (and all variants) allocates key r2, p r1, mask r3->r4, end r0->r3, pushes only r4, saves one insn (29 vs 31). Crucial observation: if key lands in r3 (not r2), then r2 is free for p, mask can load into r1, and end/mask copies must go into TWO callee-saved regs r4/r5 \u2014 exactly the target. Tried: separate `mask/key/p/end` locals, extra `u8 *base = arg1` / `u32 a = arg0` copies, `p = arg1; ...; p += 0xBC` split assignment \u2014 all compile identically to 330. Need a construct that makes agbcc allocate key to r3 (e.g. occupying r2 earlier) while still emitting the `adds r2,r1,#0` arg1 copy.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.1092246,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "Cannot get closer this session: linking calls wrong, regalloc off, pointer constants wrong. Score 3555. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1092641,
   "score_before": null,
   "score_after": null
  },
@@ -92424,7 +92448,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064904",
+  "function": "updateCompanionBossAlt",
   "text": "Cannot improve: best 1615 (previous agent), my compiles 2820-4010. Fundamental register allocation mismatch: target uses r6=*(arg0+0x6C), r5=sb=base+4, r9=D_08671BD0. Compiler assigns r5=*(arg0+0x6C), r6=sb=base+4. Target's double-push with r6=ptr1, r9=sb=base+4 not replicable via C declaration order. Linking errors for all 11 callees and D_08671BD0 - project symbol table mismatched. These are project-level issues (register allocation strategy, symbol table) not fixable via C changes.",
   "by": "opencode-free-1",
   "created_at": 1795683534.3831477,
@@ -92440,7 +92464,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot improve further: score 1296 (90.7%) after 1 compile. Fundamental issues: (1) Register allocation: target uses sl (r10) as dedicated zero register via `movs r2,#0; mov sl,r2` at prologue. Compiler doesn't assign my `zero` local to sl. Target's sl usage for zero throughout not replicable via C. (2) Linking errors for sub_0806D518, sub_080C31E4, sub_080C31E0 - project symbol table mismatched. (3) Minor instruction scheduling differences in sub_080C364C calls. These are project-level issues (register allocation strategy, symbol table) not fixable via C changes. Session complete: 8 claims done.",
   "by": "opencode-free-1",
   "created_at": 1795683534.3832233,
@@ -96344,7 +96368,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064904",
+  "function": "updateCompanionBossAlt",
   "text": "Best attempt 120 (99.0%, 133/133 insns, first 95 byte-exact). Improved from 1615 via: (1) distinct pointer locals p1/p2/p3 = (s32*)0x08671BD0 assigned just before each sub_080C31E8 call and dereferenced in the call argument \u2014 this gives target's `ldr r2,=addr; adds r0,...; adds r1,...; ldr r3,[r2]` (would be wrong if a single shared pointer local is used: r3 instead of r2). (2) Pass r9 (not r5) as arg2 of sub_0806BCD8 and sub_0806C6B0 to get target's `mov r2,sb` (r5 and r9 hold the same address but allocate differently). (3) Store the u16 return to a u32 field via `u32 *pt; u16 t2; *pt = t2;` so the lsls/lsrs conversion exists and the store is `str` not `strh`.\nSOLE REMAINING DIFF (4 reordered rows): target computes the store address BEFORE the zero-extension (`bl sub_0806BCD8; mov r6,sb; adds r6,#0xc4; lsls r0,#0x10; lsrs r0,#0x10; str r0,[r6]`), agbcc always emits the lsls/lsrs immediately after the call, before `mov r6,sb; adds r6,#0xc4`. Tried: u32 direct assignment, u16 intermediate + separate u32 conversion, struct-field store (regresses to 940), volatile-style variants. search_flags: O1/O2/O3/Os all give exactly 120 \u2014 flags aren't the problem. Likely a permanent agbcc scheduling wall; needs a compiler change.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4045937,
@@ -96352,7 +96376,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064904",
+  "function": "updateCompanionBossAlt",
   "text": "Cannot get closer by any further compile \u2014 proven permanent agbcc scheduling wall at score 120. The only difference (4 reordered rows out of 133 insns, first 95 byte-exact) is that target emits `mov r6,sb; adds r6,#0xc4` BEFORE the u16\u2192u32 zero-extension `lsls r0,#0x10; lsrs r0,#0x10`, whereas agbcc deterministically emits the lsls/lsrs right after the call. No pure-C spelling (u32 direct, u16+u32 two-step, struct field, store-attached cast, volatile) moves the conversion later; search_flags O1/O2/O3/Os all give exactly 120, so flags aren't the issue. Ordinary correct C, not hand asm, not not_c. Only a compiler/scheduler change closes it. Best attempt (120) and detailed findings saved in my note.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4046462,
@@ -96392,7 +96416,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Best attempt 10 (99.9%, 140/140 insns, first 88 byte-exact). Improved from 1296 via these verified levers:\n1. To get `movs r2,#0; mov r10,r2; strh r0,[r5,#4]` (zero materialized between computing and storing the -= result), write the first decrement as a block with a local: `{ s32 v = *(u16*)(r5+4) - 0x10; zero = 0; *(u16*)(r5+4) = v; }` and assign `zero = 0` there. This places zero in sl with correct timing.\n2. Use distinct pointer locals p=(s32*)0x08671BD0, p2=(s32*)0x08671BB0 assigned just before each call and dereferenced in the call arg \u2014 gives target's early `ldr r2,=addr` then late `ldr r3,[r2]`.\n3. `*(s16*)(r5+4) == 0x100` (signed) gives `movs r0,#4; ldrsh r1,[r5,r0]`.\n4. In the sub_080C364C blocks, reuse the loaded value as the accumulator (`b = b + sub_080C364C(a-b,0x14); *(s32*)(r9+4) = b;`) to get `adds r4,r4,r0; str r4,[r2,#4]` instead of dest r0.\nSOLE REMAINING DIFF (2 regalloc rows): target `ldrb r1,[r0]; movs r0,#1; ands r0,r1; strb r0,[r2,#1]` (mask 1 in AND dest), agbcc deterministically emits `ldrb r0,[r0]; movs r1,#1; ands r0,r1` (value in dest). Both `1 & D[...]` and `D[...] & 1` spellings give the same; a `u8 mask` local regresses to 1270, a `u8 v` value local regresses to 3620. This is the documented permanent agbcc commutative-AND canonicalization wall (cf. sub_08010DF8 score 20). Needs a compiler change.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4048796,
@@ -96400,7 +96424,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer by any further compile \u2014 permanent agbcc commutative-AND canonicalization wall at score 10. The only remaining difference (2 regalloc rows, first 88 of 140 insns byte-exact) is target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (mask 1 in AND dest) vs agbcc's deterministic `ldrb r0,[r0]; movs r1,#1; ands r0,r1` (value in dest). Both operand orders of `1 & D_02025FF0[0x1510]` produce the same wrong dest; a u8 mask local regresses to 1270 and a u8 value local to 3620 by shifting all regalloc. Same proven wall class as sub_08010DF8 (score 20). No pure-C spelling flips the commutative-AND dest; ordinary correct C, not hand asm, not not_c. Only a compiler change can close it. Best attempt (10) preserved with full findings in my note.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.40492,
@@ -113680,6 +113704,14 @@
   "score_after": null
  },
  {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "Can't get closer within reasonable effort. Best 1545 (88.9%, 143/140 insns). Correct overall structure: early sub_0805F9B4==1 -> sub_080C31E0(arg0,arg0[0x24]); middle block conditional on f1A!=1 and sub_08016238(v3C+0x0C) doing f0C[1]=0, sub_08005E80(0x6E), f1B=0, sub_080C31E8(base18,arg0+0x22,1,D_08671BDC); table dispatch via D_0866E958 with f22++/f19++/sub_080C31E0/f22--; 0x8000 early out; sub_080113A8(v38,v3C+0x10); COORD block matching sub_08026BDC exactly. Main blockers: (1) regalloc swap - target keeps v38 in r8 (`ldr r0,[r5,#0x38]; mov r8,r0`) and base18 in r7 set mid-block (`adds r7,r5,#0; adds r7,#0x18`), all my attempts put v38 in r7 and base18 in r8 or generate extra moves/branches; (2) control flow in middle: best form set base18 in both if/else branches but caused duplicated tail/extra branches (beq #0x74/#0x78, extra block) vs target's single unconditional base18 set before cmp; setting base18 unconditionally in target-like position regressed to 2100 due to register/ordering; (3) literal pool order shifted (D_08671BDC/D_0866E958/D_02021E90/D_02025FF0/0x18A8) causing many pc-relative load diffs. Calls follow matched sub_0805D0E4 convention. 12 compiles this session; remaining gap is regalloc/layout.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.4996648,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0807E710",
   "text": "Best 3812 (81.4%). Cannot get closer this session. Flags confirmed optimal (search_flags: O1 best). Tried: raw-pointer version with all p+0x2C reloads and declaration permutations (best 3812); typed-struct version (4096 \u2014 regalloc mostly fixed but field accesses wrong); hybrid struct-type/raw-access version (4602 \u2014 ternary in base init added instructions). The remaining 4-cycle low-reg permutation (arg0/base/p/f38) plus the alloc-result r3 copy and 4-byte stack slot do not respond to declaration order, and the typed-struct rewrite that fixed regalloc in sub_0804A6D0 breaks this function's mixed byte/halfword field accesses. Notes have the exact diffs. Releasing to work on a different function.",
   "by": "opencode-hy4-flash-free-1",
@@ -113696,7 +113728,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064904",
+  "function": "updateCompanionBossAlt",
   "text": "Can't get closer in pure C: best 120 (99.0%), 4 reordered instructions only. Target computes store address (r9+0xC4 in r6) before u16->u32 zero-extension of sub_0806BCD8 return; agbcc emits lsls/lsrs immediately after call regardless of attempted forms (precomputed pt, u16+u32 temp, direct assign, struct field). Previous notes confirm all search_flags variants give 120 and no pure-C spelling moves the conversion - agbcc instruction scheduling wall. All logic, calls, register choices, and D_08671BDC reload pattern match. Releasing for scheduler/compiler-level fix.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.499779,
@@ -113712,7 +113744,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Can't get closer in pure C: best 10 (99.9%, 140/140 insns), only 2 regalloc rows differ at `D_02025FF0[0x1510] & 1` store: target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (mask in AND dest) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1`. Tried both operand orders (D&1, 1&D) with identical result. Documented permanent agbcc commutative-AND canonicalization wall (same class as sub_08010DF8). All structure, calls, zero-in-sl timing, pointer loads, and COORD-like logic correct. Range compiler -O1 as specified. No further C-level changes possible.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.4998546,
@@ -129512,7 +129544,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Permanent agbcc commutative-AND canonicalization wall, cannot get closer by C: score 10 = 140/140 insns, first 88 byte-exact, sole 2 regalloc rows are the AND dest at D_02025FF0[0x1510] & 1; target puts constant 1 in the AND dest register, agbcc deterministically puts the loaded byte there for both operand orders. Earlier 17 attempts tried both spellings and u8 mask/value locals (regress to 1270/3620). Only a compiler change can fix this class (cf. sub_08010DF8). I compiled once to reconfirm; releasing.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5829623,
@@ -129544,7 +129576,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064904",
+  "function": "updateCompanionBossAlt",
   "text": "Permanent agbcc instruction-scheduling wall, cannot get closer by C: score 120 = 133/133 insns, first 95 byte-exact, sole 4 reordered rows are the u16->u32 lsls/lsrs of sub_0806BCD8's return vs the r9+0xC4 address computation. 17 earlier attempts covered u32 direct, u16+u32 temps, struct-field stores, volatile variants and every O1/O2/O3/Os flag (all 120). No C spelling changes the scheduler; compiler change required. I compiled once to reconfirm.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5831072,
@@ -129612,6 +129644,14 @@
   "text": "Forcing release: proven deterministic agbcc final-OR regalloc tie-break wall at score 20 (40/40 insns byte-exact). ~800+ prior attempts, all C spellings and flags floor at 20; operand swaps/accumulators only flip the load-bearing prologue to 255. Needs compiler/regalloc change; ordinary correct leaf C, not hand asm, not not_c. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.583405,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateRoomAnchoredScriptedAttack",
+  "text": "MATCHED (0) from best 1545. Levers that closed the gap: (1) keep `base18` assigned in BOTH arms of the if/else \u2014 assigning it unconditionally before the if swaps callee-saved regs (v38 moves from r8 to r7, base18 to r8, score 1900-2100); (2) SWAP THE BRANCHES: write `if (*(u8*)(arg0+idx*2+0x1A) == 1) { base18 = arg0+0x18; } else { base18 = arg0+0x18; if (sub_08016238(...)) {...} }`. This gives the target's single `cmp r0,#1; beq` with both beq targets at the same label and NO duplicated tail; (3) `lp = &D_08671BDC;` assigned just before sub_080C31E8 gives the early `ldr r0,[pc]`; (4) `b = *(u8 *)((u32)base18 + (u32)idx2)` (integer addition, base first) gives `adds r0,r7,r0`; (5) `*(s16*)... * 2` inline with integer add to arg0 gives `lsls; adds r0,r0,r5`.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5834415,
   "score_before": null,
   "score_after": null
  },
@@ -129696,7 +129736,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064904",
+  "function": "updateCompanionBossAlt",
   "text": "MATCHED (0) from 120 using the u32-return trick: declare `extern u32 sub_0806BCD8(...)`, `u32 t = sub_0806BCD8(...)`, `u32 *pt = (u32 *)((u8 *)r9 + 0xC4); *pt = (u16)t; if ((u16)t != 0)`. The explicit `(u16)` cast at the store produces the target's post-address-computation `lsls #0x10; lsrs #0x10`; a u16 return prototype folds the truncation into the call and schedules it early (the old 120 wall). Same lever as sub_08064BAC.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5838664,
@@ -141088,7 +141128,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Best 10 (99.9%, 140/140 insns) \u2014 permanent agbcc commutative-AND canonicalization wall. Target: `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (mask 1 in AND dest). Agbcc: `ldrb r0,[r0]; movs r1,#1; ands r0,r1` (value in dest). Both `1 & D[...]` and `D[...] & 1` spellings give same wrong dest; u8 mask local \u2192 1270, u8 value local \u2192 3620. Same proven wall class as sub_08010DF8 (score 20). 18 attempts total, no pure-C fix. Not hand asm, not not_c. Best 10 source preserved with full findings in note.",
   "by": "opencode-free-1",
   "created_at": 1795683534.6436749,
@@ -154176,7 +154216,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Best score 10 (140/140 instructions byte-exact). Sole remaining diff: 2 regalloc rows at `D_02025FF0[0x1510] & 1`. Target: `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant 1 in AND dest). agbcc deterministically emits `ldrb r0,[r0]; movs r1,#1; ands r0,r1` (loaded byte in AND dest). Tried and failed to flip: both operand orders (`1&D` and `D&1`), u8/s32 mask/value locals, u8 mask local (\u21921270), u8 value local (\u21923620), `1u` suffix, explicit `(u8)` cast, `*(volatile u8 *)` read (\u21921016, changes addressing mode), pointer-local destination `u8 *d; d[1]=...`, statement reordering (zero store before/after AND). All flag variants give score 10. Only agbcc available for this game. Documented agbcc commutative-AND canonicalization wall (same class as sub_08010DF8, score 20). No pure-C spelling closes it; needs a compiler change. All structure, calls, pointer loads, folded literal-pair address computation, COORD-like logic, and zero-register timing are correct. First 88 of 140 instructions byte-exact.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.7108946,
@@ -157272,7 +157312,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Score 10 (99.9%, 140/140 insns byte-exact) \u2014 permanent agbcc commutative-AND canonicalization wall. Sole remaining diff: target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (mask 1 in AND dest) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1` (value in dest) at `D_02025FF0[0x1510] & 1`. Both operand orders (`1 & D[...]` and `D[...] & 1`) and u8 mask/value locals tried \u2014 all give same wrong dest or regress (1270/3620). Same proven wall class as sub_08010DF8 (score 20). All structure, calls, pointer loads, folded literal-pair address computation, COORD-like logic, zero-in-sl timing correct. Needs compiler change, not C change. Best 10 source preserved. Releasing because no pure-C fix exists for this agbcc canonicalization wall.",
   "by": "opencode-free-1",
   "created_at": 1795683534.7270484,
@@ -160456,7 +160496,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Commutative-AND regalloc wall, best 10 (140/140 insns). Target ldrb r1,[r0]; movs r0,#1; ands r0,r1 vs agbcc ldrb r0,[r0]; movs r1,#1; ands r0,r1. Terminal. Releasing.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.7443736,
@@ -169360,7 +169400,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Confirmed permanent agbcc commutative-AND canonicalization wall at 10 (140/140 insns; first 88 byte-exact). Sole diff: target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1` for `D_02025FF0[0x1510] & 1`. Tried this claim: u8 bitfield read of bit 0 -> 1426 (agbcc emits 32-bit load + lsls/lsrs), block-local `u8 v` -> 3620 (regalloc wrecked). Best-10 source verified and restored. Prior 18 attempts tried both operand orders, u8 mask/value locals, 1u, casts, volatile. Same wall class as sub_08010DF8/sub_0804FD4C. Needs compiler change; ordinary C, not asm, not not_c, not boundary.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.7898014,
@@ -170888,7 +170928,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Re-confirmed the score-10 wall (140/140 insns). New datapoint: splitting the AND into ordered locals does NOT flip it \u2014 `{ u8 *dst = *(void**)(r7+0x2C); u8 v = D_02025FF0[0x1510]; u8 mask = 1; dst[1] = v & mask; }` reproduces the best-10 code exactly (ldrb r0 / movs r1 / ands r0,r1). Also no effect: `mask & v`, `s32 mask`, `u8 mask = 1` assigned inside the if-block (that one regresses to 1270: hoists movs and flips sl copies, 138 insns). -O2 is worse (1075). Target keeps the address-reg r0 for `movs r0,#1` and puts the loaded byte in r1; agbcc always ties the AND dest to the loaded byte. Permanent agbcc commutative-AND canonicalization wall (same class as sub_08010DF8).",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.7978194,
@@ -170896,7 +170936,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer from C: the only difference is which operand register agbcc ties the commutative AND to. Every C spelling I tried (inline `& 1`, named u8/s32 mask, swapped operands, ordered temporaries reproducing the exact instruction sequence) compiles to the same `ldrb r0,[r0]; movs r1,#1; ands r0,r1`; the ROM's `ldrb r1,[r0]; movs r0,#1; ands r0,r1` needs a different canonicalization. The whole function is otherwise byte-exact (140/140 insns) and -O2 is worse (1075), so the range's -O1 flags are right. Needs a compiler-side fix, not C. Best attempt (10) saved.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.797856,
@@ -184264,7 +184304,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Definitively cannot reach 0 from C: 41 attempts across many agents agree on the 10-point floor. The sole residual is agbcc's deterministic canonicalization of `D_02025FF0[0x1510] & 1`: it always ties the AND destination to the loaded byte (`ldrb r0,[r0]; movs r1,#1; ands r0,r1`) while the ROM ties it to the constant (`ldrb r1,[r0]; movs r0,#1; ands r0,r1`). Both operand orders, u8/s32 mask and value locals, `1u`, casts, bitfields, volatile reads and all flag variants were tried and either stay 10 or regress badly (1270/1426/3620). Register pinning is disallowed. All other 140 instructions, calls, literals and control flow are byte-exact. Ordinary correct C, not hand asm, not not_c, no boundary issue. Best-10 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.867264,
@@ -184856,7 +184896,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot improve from C. Score 10 (99.9%, 140/140) is a terminal agbcc commutative-AND canonicalization wall: target ties AND dest to constant reg, agbcc ties to loaded byte. All C spellings (operand order, u8/s32 locals, volatile, bitfield, casts) tried over many sessions; no change or regressions. Compiler-side issue, not C. Not asm, not boundary, not not_c.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.870239,
@@ -192488,7 +192528,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "It cannot get closer in pure C: best is 10 (99.9%, 140/140 instructions) and the only two differing rows are the AND destination of the constant `& 1` (ROM ties it to the constant: `ldrb r1,[r0]; movs r0,#1; ands r0,r1`; agbcc ties it to the loaded byte: `ldrb r0,[r0]; movs r1,#1; ands r0,r1`). This is the project-documented agbcc commutative-AND canonicalization wall (same class as sub_08010DF8, sub_0804FD4C), and the documented lever set is exhausted: constant-on-the-left is normalized away by constant folding, named mask locals change only the scheduling, and volatile/cast/bitfield forms regress to 1270-3620. 42 prior attempts and both this recompile and flag checks agree; -O1 (this range's compiler) is optimal, -O2 is 1075. Not hand-written asm, not not_c, no boundary. Please advance the queue; best source saved.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.9103906,
@@ -193240,7 +193280,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Explicitly asking to release now: it cannot get closer from C. 43+ attempts plus this compile reach 10 (99.9%, all 140 instructions) and the only 2 differing rows are the well-documented agbcc commutative-AND destination for `D_02025FF0[0x1510] & 1`. Every C spelling (swapped operands, named u8/s32 mask/value locals, ordered temporaries, u8 bitfield, volatile, casts, both operand orders, -O1/-O2 flags) either stays at 10 or regresses to 1270-3620. Register pinning via asm disallowed. Not hand-written asm, not not_c, no boundary issue; correct ordinary C. Best-10 source preserved; advance the queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9143538,
@@ -200328,7 +200368,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer in C: best 10 (99.9%, 140/140 insns) preserved and re-verified. 44+ prior attempts plus 2 compiles here. New experiment: block-scoped `u32 one = 1` for the `& 1` test regressed to 1270 (hoisted movs plus global register-cascade failures), confirming plain literal is load-bearing. Sole residual is the agbcc commutative-AND destination tie (`ldrb r1,[r0]; movs r0,#1; ands r0,r1` target vs `ldrb r0,[r0]; movs r1,#1; ands r0,r1` ours); all other C spellings and flag variants previously exhausted. Register pinning banned. Pure C, not hand asm, not not_c, no boundary issue. Best-10 source preserved unchanged.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.9513297,
@@ -214368,7 +214408,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer than the preserved 10. The only residual is the commutative-AND destination for `D_02025FF0[0x1510] & 1`; the helper lever flips it correctly but any extra pseudo (helper mask, block u32, reused s32, mask-as-parameter) reallocates the -O1 frame (arg0 r8->r7, +2 insns, scores 3260-3660). Six attempts this session plus 46 prior confirm the 10 floor. Not hand asm, not not_c, no boundary, no callee dependency.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683535.0249557,
@@ -216024,7 +216064,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Asking to release now: terminal at 10 (99.9%, 140/140 insns byte-exact; 52+ prior attempts). Sole residual: commutative-AND destination orientation for `D_02025FF0[0x1510] & 1` (target ties AND dest to the constant reg; agbcc ties it to the loaded byte). The verified static-inline helper lever cannot be applied: in-source inlining adds insns that trigger global -O1 recoloring (3460), and adding any static-inline helper to context.h is rejected because it regresses 3 matched functions (sub_08013C2C, sub_0804F604, sub_080BE99C). All zero-insn C spellings exhausted; -O1 optimal (-O2 worse). All other 138 instructions byte-exact. Compiler/allocator-side wall, not C-fixable. Not hand asm, not not_c, no boundary, no callee dependency.",
   "by": "opencode-free-1",
   "created_at": 1795683535.0341468,
@@ -217736,7 +217776,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "It cannot get closer in pure C \u2014 please release now. Score 10 has all 140 instructions byte-exact; the only 2 differing rows are agbcc's deterministic commutative-AND destination for `D_02025FF0[0x1510] & 1` (ROM binds the AND dest to the constant register, agbcc to the loaded-byte register). The only known C lever (a static-inline AND helper with a separate u32 mask temp) was compiled this session in both by-value (3460) and by-pointer (3711) forms: it flips the AND but the inlined mask pseudo re-colors the whole function's -O1 callee-saved allocation, so the total score explodes. No zero-extra-pseudo C spelling can flip the AND, and register pinning is harness-banned. 55+ prior attempts across models agree on the floor. This is a compiler canonicalization difference, not C; not hand asm, not not_c, no boundary, no callee dependency. Best-10 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.043523,
@@ -222104,7 +222144,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Re-asking to release: proven terminal agbcc commutative-AND canonicalization wall. Baseline 10 re-confirmed this session (best-ever 10). 140/140 instructions byte-exact; sole residual is the 2-row AND-destination orientation for `D_02025FF0[0x1510] & 1` (ROM ties AND dest to constant reg: `ldrb r1,[r0]; movs r0,#1; ands r0,r1`; agbcc ties it to loaded byte: `ldrb r0,[r0]; movs r1,#1; ands r0,r1`). Exhausted across 55+ attempts by multiple agents plus this session: operand swaps, u8/s32 mask/value locals, `1u`, casts, bitfields, volatile reads, block-scoped `u32 one=1` (regressed to 1270), named temporaries, both operand orders, -O1/-O2 (this range is -O1; -O2 = 1075). The documented static-inline AND-helper lever (which solved sub_0809668C) was tried here in by-value (3460) and by-pointer (3711) forms: it flips the AND but the added mask pseudo reallocates the whole -O1 callee-saved frame (arg0 r8->r7, +2 insns) so the total score explodes; adding any static-inline helper to context.h is rejected because it regresses 3 matched functions (sub_08013C2C, sub_0804F604, sub_080BE99C). Register pinning via asm is harness-banned. All other 138 instructions, calls, literals and control flow byte-exact. Compiler-side canonicalization wall, not C-fixable. Not hand asm, not not_c, no boundary, no callee dependency. Best-10 source preserved; hand back only if a toolchain change is approved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.0664132,
@@ -225344,7 +225384,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer from C. Baseline 10 (99.9%, 140/140 insns), sole 2-row commutative AND dest canonicalization wall at -O1. All other code exact. Helper/context edits regress matched funcs or reallocate frame; no C lever. Not hand asm, not_c, boundary, dependency.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.083786,
@@ -237416,7 +237456,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer from C \u2014 asking again to release. Score 10 (140/140 insns byte-exact) is a proven terminal agbcc -O1 commutative-AND canonicalization wall: only `ldrb r1,[r0]; movs r0,#1; ands r0,r1` vs `ldrb r0,[r0]; movs r1,#1; ands r0,r1` differs. The inline-helper lever recolors the -O1 frame (3460/3711); context.h helper regresses 3 matched functions; 58 attempts across 7 models exhausted all C spellings. Register pinning banned. Not hand asm, not not_c, no boundary, no dependency. Best-10 source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683535.151222,
@@ -245376,7 +245416,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (99.9%, 140/140 instructions byte-exact). Only diff: ldrb r1,[r0]; movs r0,#1; ands r0,r1 (target) vs ldrb r0,[r0]; movs r1,#1; ands r0,r1 (ours) for D_02025FF0[0x1510] & 1. The static-inline helper lever flips the AND but reallocates the whole -O1 callee-saved frame (3460) and a context.h helper regresses 3 matched functions. 58+ attempts across 7 models confirm no zero-extra-pseudo C spelling. Register pinning banned. Not hand asm, not not_c, no boundary/extent/callee. Releasing to advance queue. Cannot get closer from pure C.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.1935775,
@@ -246920,7 +246960,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (99.9%, 140/140 insns byte-exact). Only diff: ldrb r1,[r0]; movs r0,#1; ands r0,r1 (target) vs ldrb r0,[r0]; movs r1,#1; ands r0,r1 (ours) for D_02025FF0[0x1510] & 1. Static-inline helper lever flips AND but reallocates -O1 callee-saved frame (3460) and context.h helper regresses 3 matched functions. 59+ attempts across 7 models. register-asm banned. Not hand asm, not not_c, no boundary/extent/callee. Best-10 source preserved. Cannot get closer in C.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.2018206,
@@ -248088,7 +248128,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "It cannot get closer in pure C: baseline 10 is the documented terminal -O1 commutative-AND destination canonicalization wall, with no zero-cost helper or remaining structural lever. Releasing to advance.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.2079957,
@@ -256984,7 +257024,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Asking again to release: I cannot get closer from pure C. Re-confirmed baseline 10 (140/140 insns byte-exact); only the two-row -O1 commutative-AND destination orientation differs (ROM binds AND dest to the constant reg, agbcc to the loaded byte) for `D_02025FF0[0x1510] & 1`. This session tried a block-local `u32 m = 1; m &= D_02025FF0[0x1510];` (3660, recoloring entire -O1 frame). Prior 61 attempts across 7 models exhausted all zero-extra-pseudo C spellings, operand swaps, typed temporaries, static-inline helpers (3460/3711), context.h helper (rejects 3 matched functions), -O2 (1075). Register pinning is banned. This is an agbcc -O1 canonicalization difference, not expressible in C, so no further compile can improve it. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2571054,
@@ -263728,7 +263768,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Release again: this cannot get closer in pure C. 64 total attempts (63 prior + 1 this session) prove the floor: score 10 with 140/140 real instructions byte-exact; sole residual is the 2-row agbcc -O1 commutative-AND destination canonicalization for `D_02025FF0[0x1510] & 1`. The known inline-helper lever flips the AND but re-colors the whole -O1 frame (3460 this session, 3660/3711 prior) and a context.h helper regresses 3 matched functions. Register pinning via asm is harness-banned. Compiler-side canonicalization wall, not C, not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.293497,
@@ -265256,7 +265296,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Proven terminal agbcc -O1 commutative-AND destination canonicalization wall. Score 10 (140/140 instructions byte-exact) is the ceiling in pure C. Only residual diff: ROM has `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant in AND dest r0, loaded byte in r1) vs agbcc's `ldrb r0,[r0]; movs r1,#1; ands r0,r1` for `D_02025FF0[0x1510] & 1`. Exhausted all C spellings this session (8 compiles) and confirmed prior 60+ attempts across 7 models: operand swaps (`1 & val`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (regresses to 3660/3460, recolors entire -O1 callee-saved frame), static-inline helper (same frame reallocation), context.h helper (regresses 3 matched functions). Register pinning via asm is harness-banned. This is a compiler-side canonicalization difference, not expressible in C. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683535.30172,
@@ -266256,7 +266296,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (140/140 insns byte-exact). Only diff: `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (target) vs `ldrb r0,[r0]; movs r1,#1; ands r0,r1` (ours) for D_02025FF0[0x1510] & 1. Inline helper lever recolors -O1 frame (3460); context.h helper regresses 3 matched functions. register-asm banned. 73+ attempts. Not hand asm, not not_c, no boundary/extent/callee. Best-10 source preserved. Cannot get closer in pure C.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.3069873,
@@ -269672,7 +269712,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "TERMINAL score 10 (99.9%, ALL 140 target instructions byte-exact; agbcc -mthumb-interwork -O1 for this range). Confirmed by my compile this claim; 74 lifetime attempts/7+ models exhausted. Residual: 2 regalloc rows \u2014 target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (AND dest=constant reg, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1` for `D_02025FF0[0x1510] & 1`. Pure -O1 commutative-AND destination canonicalization; not expressible in C. Exhausted: operand swaps (`1&x`), casts `(u32)1`, bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (3660+, recolors whole -O1 callee-saved frame), static-inline helper (3460), context.h helper (regresses 3 matched functions), -O2 (1075). Register-asm pinning REJECTED. Not hand asm, not not_c, no boundary/extent/callee dep. Needs compiler-side canonicalization change. Best-10 source preserved verbatim in brief. Function: early-out via sub_0806D518(arg0, arg0[0x38], arg0[0x6C]+4); else subtract 0x10 from [0x38]+4/+6, sub_08003740(arg0[0x6C]+0x20, arg0[0x38]); if (*(u8*)(arg0[0x6C]+4+0x4C+1) != *(u8*)(arg0[0x6C]+0x54)) then *(u8*)(*(void**)(arg0[0x6C]+4+0x2C)+1)=0; arg0[arg0[0x22]*2+0x19]=0; sub_080C31E8(arg0+0x18, arg0+0x22, 4, *(s32*)0x08671BD0); return. Else: [r9+4] += sub_080C364C(*(s32*)(r6+0x0C)-[r9+4], 0x14); [r7+4] += sub_080C364C(*(s32*)(r6+0x10)-[r7+4], 0x14); sub_0806D588(r5,r7); if (*(s16*)(r5+4)==0x100) { *(u8*)(*(void**)(r7+0x2C)+1) = (u8)(D_02025FF0[0x1510]&1); arg0[arg0[0x22]*2+0x19]=0; sub_080C31E4(arg0+0x18,arg0+0x22,*(s32*)0x08671BB0); } if (D_02025FF0[0x173A]==0x1C || (D_02025FF0[0x14ED]==0 && *(u32*)(D_02025FF0+0x10)!=0)) sub_080C31E0(arg0, *(void**)(arg0+0x24)). Calls: sub_08003740, sub_0806D518, sub_0806D588, sub_080C31E0(_call_via_r1), sub_080C31E4(_call_via_r2), sub_080C31E8(_call_via_r3), sub_080C364C. Data: D_02025FF0[], D_08671BB0, D_08671BD0. Release; advance queue.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.3253613,
@@ -271360,7 +271400,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer from C: terminal -O1 commutative-AND destination canonicalization wall at score 10. All 140 instructions byte-exact except 2 regalloc rows for D_02025FF0[0x1510] & 1. No zero-extra-pseudo C spelling fixes it; inline helper reallocates frame; context.h helper regresses 3 matched functions; register-asm banned. Not hand asm, not not_c, no boundary, no callee dependency. Best-10 source preserved. Releasing anyway.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.334567,
@@ -272960,7 +273000,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer in pure C: this is the documented terminal agbcc -O1 commutative-AND destination canonicalization wall. Fresh valid compile gives score 10 with all 140 real instructions byte-exact except the two AND operand-register rows; 70+ prior attempts across models and the inherited notes establish no zero-cost C spelling or helper can flip those registers without recoloring the frame. Register-asm is harness-banned. No structural, boundary, extent, compiler, or callee dependency remains. Releasing to advance the queue.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.343198,
@@ -274800,7 +274840,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (99.9%, 140/140 target insns byte-exact). Only residual: 2 regalloc rows for `D_02025FF0[0x1510] & 1` \u2014 target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant in AND dest r0, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1`. Pure -O1 canonicalization difference; not expressible in C. Exhausted: operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (regresses to 3660/3460, recolors entire -O1 callee-saved frame), static-inline helper (same frame reallocation), context.h helper (regresses 3 matched functions), -O2 (1075). Register pinning via asm is harness-banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved; needs compiler-side canonicalization change.",
   "by": "opencode-free-1",
   "created_at": 1795683535.353046,
@@ -276824,7 +276864,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (140/140 insns byte-exact). Only residual: 2 regalloc rows for D_02025FF0[0x1510] & 1. No C lever fixes. register-asm banned. Not hand asm, no boundary, no callee dep. Best-10 source preserved. Cannot get closer from C. Cannot get closer.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.3638628,
@@ -278496,7 +278536,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer from C. Terminal agbcc -O1 commutative-AND destination canonicalization wall at 10, 140/140 insns exact. Confirmed this session. No C lever; register-asm banned. Not hand asm, no boundary, no callee dep. Best-10 preserved. Releasing to advance queue.",
   "by": "opencode-iceman-contributor-free-2",
   "created_at": 1795683535.3727865,
@@ -279832,7 +279872,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Cannot get closer within pure C. Recompiling the preserved source confirms score 10: all 140 target instructions match except the two registers in `ldrb r1,[r0]; movs r0,#1; ands r0,r1` versus agbcc's reversed load/constant coloring. This is the proven -O1 commutative-AND canonicalization wall, exhaustively tested across 80+ attempts and 7+ models; helper and mask variants regress the frame, and register asm is rejected. No semantic, boundary, extent, compiler-map or callee issue remains. Preserve best source and advance.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.379833,
@@ -280824,7 +280864,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Why it can't get closer: pure -O1 commutative-AND destination canonicalization for `D_02025FF0[0x1510] & 1`; not expressible in C without recoloring the callee-saved frame. search_flags confirms project flags are optimal (10 vs 1075). Two-arg inline helper recolors frame (3460); register-asm pinning harness-banned. ~82 prior attempts exhausted all legal C spellings. Not hand asm, not not_c, no boundary/extent/callee dependency. Preserve best-10 source and advance the queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.3852487,
@@ -291624,7 +291664,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (140/140 insns byte-exact). Only residual: 2 regalloc rows for `D_02025FF0[0x1510] & 1` \u2014 target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant in AND dest r0, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1`. Pure -O1 canonicalization difference; not expressible in C. Exhausted: operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (regresses to 3660/3460, recolors entire -O1 callee-saved frame), static-inline helper (same frame reallocation), context.h helper (regresses 3 matched functions), -O2 (1075). Register pinning via asm is harness-banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved; needs compiler-side canonicalization change.",
   "by": "opencode-free-1",
   "created_at": 1795683535.4508977,
@@ -292848,7 +292888,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (140/140 insns byte-exact). Only residual: 2 regalloc rows for `D_02025FF0[0x1510] & 1` \u2014 target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant in AND dest r0, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1`. Pure -O1 canonicalization difference; not expressible in C. Exhausted: operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (regresses to 3660/3460, recolors entire -O1 callee-saved frame), static-inline helper (same frame reallocation), context.h helper (regresses 3 matched functions), -O2 (1075). Register pinning via asm is harness-banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved; needs compiler-side canonicalization change.",
   "by": "opencode-free-1",
   "created_at": 1795683535.4508977,
@@ -294024,7 +294064,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Best score 10/99.9% after ~3 compiles this session (~85+ total across 7+ prior agents). Terminal agbcc -O1 commutative-AND destination canonicalization wall:\n\nTarget: `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (loaded byte in r1, constant mask in r0). Mine: `ldrb r0,[r0]; movs r1,#1; ands r0,r1` (loaded byte in r0, constant mask in r1). All 140 target insns present; first 88/140 byte-exact; only 2 regalloc rows differ.\n\nExhausted C levers: operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (\u21923660), static-inline helper (same frame reallocation), context.h helper (regresses 3 matched functions), -O2 (\u21921075). Register pinning via asm harness-banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved; needs compiler-side canonicalization change. Proven terminal wall.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4572954,
@@ -294320,7 +294360,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Explicit impossibility override: cannot get closer in pure C. Score 10 is the proven -O1 commutative-AND destination canonicalization wall; all 140 target instructions are byte-exact except one `ands` operand register pair. ~89 attempts across 7+ models exhausted every C spelling, helper shape and flag; this session's `andBits(1, D_02025FF0[0x1510])` attempt regressed to 3460 by recoloring the callee-saved frame, confirming there is no zero-cost C route. Register-asm pinning is harness-rejected. Not hand asm, not_c=false, no boundary, no callee dependency. Preserve the best-10 source; only a compiler change or NONMATCHING marker closes it.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.4590366,
@@ -297872,7 +297912,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (140/140 target insns byte-exact). Only residual: 2 regalloc rows for `D_02025FF0[0x1510] & 1` \u2014 target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant in AND dest r0, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1`. Pure -O1 canonicalization difference; not expressible in C. Exhausted: operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (regresses to 3660/3460, recolors entire -O1 callee-saved frame), static-inline helper (same frame reallocation), context.h helper (regresses 3 matched functions), -O2 (1075). Register pinning via asm is harness-banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved; needs compiler-side canonicalization change.",
   "by": "opencode-free-1",
   "created_at": 1795683535.4784636,
@@ -298424,7 +298464,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "TERMINAL WALL \u2014 agbcc -O1 commutative-AND destination canonicalization wall (score 10, 99.9%, all 140 target insns byte-exact, only 2 regalloc rows). Target: `ldrb r1,[r0]; movs r0,#1; ands r0,r1` \u2014 constant mask 1 in AND destination r0, loaded byte in r1. agbcc: `ldrb r0,[r0]; movs r1,#1; ands r0,r1` \u2014 loaded byte in r0, constant mask in r1. Same computation, agbcc canonicalizes the constant into the non-destination register. Not expressible in C \u2014 operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped mask locals (`u32 mask=1; mask&=val` \u2192 3660), static-inline `andBits` helper (recolors callee-saved frame \u2192 3460), context.h helper (regresses 3 matched functions), -O2 (\u21921075) all fail. Register-asm pinning harness-banned. Not hand asm, not not_c, no boundary/extent/callee dependency (all 5 callees and 3 data symbols byte-exact). Best-10 source preserved; only a compiler-side canonicalization change closes this.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4814918,
@@ -301808,7 +301848,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (99.9%, 140/140 target insns byte-exact). Only residual: 2 regalloc rows for `D_02025FF0[0x1510] & 1` \u2014 target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant in AND dest r0, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1`. Pure -O1 canonicalization difference; not expressible in C. Exhausted: operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (regresses to 3660/3460, recolors entire -O1 callee-saved frame), static-inline helper (same frame reallocation), context.h helper (regresses 3 matched functions), -O2 (1075). Register pinning via asm is harness-banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-10 source preserved; needs compiler-side canonicalization change.",
   "by": "opencode-nemotron-3-ultra-550b-a5-1",
   "created_at": 1795683535.5003567,
@@ -305056,7 +305096,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal override: the 2 residual rows are a pure agbcc -O1 commutative-AND destination canonicalization (constant must land in AND dest r0, loaded byte in r1); no C spelling/helper/flag produces it without recoloring the whole callee-saved frame, and register-asm pinning is harness-banned. All 140 other instructions byte-exact; not hand asm, no boundary, no missing callee. Preserve best-10 source.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5181353,
@@ -306640,7 +306680,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "TERMINAL pure-C ceiling at score 10 (99.9%), agbcc -O1 (this address range's compiler). All 140 target instructions byte-exact; only 2 regalloc rows differ for `D_02025FF0[0x1510] & 1`: target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant mask in AND dest r0, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1` (loaded byte in r0, constant in r1). Pure -O1 commutative-AND canonicalization difference; not expressible in C. Exhausted ~95 attempts by 7+ models: operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (\u21923660/3460, recolors callee-saved frame), static-inline `andBits` helper (same frame reallocation \u2192 3460), context.h helper (regresses 3 matched functions), -O2 (\u21921075). Register-asm pinning harness-banned. Not hand asm (not_c=false), no boundary/extent/callee dependency (all 5 callees and 3 data symbols byte-exact). Best-10 source preserved. Only a compiler-side canonicalization change closes this. Asking to move on per harness rule \"ask again now with notes saying why it can't get closer.\"",
   "by": "opencode-free-1",
   "created_at": 1795683535.527447,
@@ -308952,7 +308992,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (99.9%, 140/140 target insns byte-exact). Only residual: 2 regalloc rows for `D_02025FF0[0x1510] & 1` \u2014 target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant in AND dest r0, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1`. Pure -O1 canonicalization difference; not expressible in C. Exhausted: operand swaps (`1 & x`), casts (`(u32)1`), bitfields, volatile reads, block-scoped `u32/u8 mask=1; mask&=val` (regresses to 3660/3460, recolors entire -O1 callee-saved frame), static-inline helper (same frame reallocation), context.h helper (regresses 3 matched functions), -O2 (1075). Register pinning via asm is harness-banned. Not hand asm, not_c=false, no boundary/extent/callee dependency (all 5 callees and 3 data symbols byte-exact). Best-10 source preserved; needs compiler-side canonicalization change.",
   "by": "opencode-nemotron-3-ultra-550b-a5-1",
   "created_at": 1795683535.540429,
@@ -314160,7 +314200,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "WHY IT CANNOT GET CLOSER (explicit second request, release now): terminal agbcc -O1 commutative-AND destination canonicalization wall at score 10 (99.9%, 140/140 target insns). Sole residual: 2 regalloc rows for `D_02025FF0[0x1510] & 1` \u2014 target `ldrb r1,[r0]; movs r0,#1; ands r0,r1` (constant mask in AND dest r0, loaded byte in r1) vs agbcc `ldrb r0,[r0]; movs r1,#1; ands r0,r1`. Pure -O1 canonicalization difference, not expressible in C; ~97 attempts across 7+ models exhausted operand swaps, casts, bitfields, volatile reads, block-scoped mask locals (regress 3660/3460), static-inline andBits helper (recolors callee-saved frame), context.h helper (regresses 3 matched functions), -O2 (1075). Register-asm pinning harness-banned. Not hand asm, not_c=false, no boundary/extent/callee dependency. Best-10 source preserved; advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5694878,
@@ -315120,7 +315160,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "SECOND EXPLICIT WHY-IT-CANNOT-GET-CLOSER \u2014 release now, advance permanently. Terminal agbcc -O1 commutative-AND dest canonicalization wall at 10 (99.9%): all 140 target insns byte-exact except 2 regalloc rows for `D_02025FF0[0x1510] & 1` (ROM constant mask in AND dest r0 / byte in r1; agbcc reverses). ~98 attempts/7+ models exhausted every C spelling, helper, flag and cast; context.h helper regresses matched functions; asm pinning harness-banned. No legal pure-C step reaches 0. Pure C, not_c=false, clean extent, no boundary, no callee dependency. Preserve best-10 source verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5747557,
@@ -318601,7 +318641,7 @@
   "score_after": 1170
  },
  {
-  "function": "sub_08074654",
+  "function": "updateScaledMainObjectEffect",
   "text": "Score 10 (99.9%), 140/140 insns exact. Sole residual: 2 regalloc rows at commutative AND (ldrb r1/movs r0,#1 vs ldrb r0/movs r1,#1) for D_02025FF0[0x1510]&1. Known terminal agbcc -O1 canonicalization wall; no C/flag lever. Not not_c, no boundary/callee issue.",
   "by": "opencode-iceman-contributor-free-10",
   "created_at": 1795692260.782882,
@@ -358711,43 +358751,30 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c54258c83e7b6a40251a7a08924a5783b418d5bd7444d22aa0f4f25472ebae3b:caff088c0927a191ae73d593d2e6ee0c7d2a0a20623730fff0be8daacd24cca1"
  },
  {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "Cannot get closer under agbcc -O2 with natural C: the target's fixed register assignment (arg0=r5, f38=r8, f3C=r6, f3C+0x10=r9) is not reproducible. Best score 3555 (struct-based source saved); swapping assignment order scores 3565, adding a zero local 3835. All remaining diffs are register allocation/literal-pool consequences of this one register swap. This is the 8th compiled claim of the session; stopping here as instructed.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.972242,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08017888",
+  "text": "Best remains saved_best revision 6788cd95440fd95077f5 (score 1805 rechecked). Target 117 insns; candidate uses one extra callee-saved register (sb/r9) for zero, causing push {r6,r7} vs target push {r7}, plus cyclic register assignment (target self=r7, field=r6, state=r5, anim=r4; candidate self=r5, field=r7, state=r6). Target stores each layer field through a fresh reload ldr [state,#0x34]; candidate CSEs pointer into r4. Volatile gfx reproduces reload shape but adds 4 insns and extra zero materializations (2105). Zero variable at top or before call spills to sb (2975). Semantics otherwise correct: target calls sub_080121E8(0x78) (do NOT change to allocEffectPart()), sub_08018CB0 3rd arg field+0xC-0x280000, effect index *(s16*)(field+0x1C) with 40-byte stride, affine literal is D_080CE5C8. \"calls something else\" linker messages are size-misalignment false positives.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795812670.6752923,
+  "score_before": 2235,
+  "score_after": 2105,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e0fb28fda56a3ed1c21607ba1916e6bd9c9b59e0de15589501f7948182996cbd:707937383b2add1ae83b75a16ea16f68aa3730482124b89d5fe0d9f640ba755d"
  },
  {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "Giving up; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0551558,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0801B02C",
+  "text": "Confirmed byte-for-byte twin of sub_08017888 (same 117-insn body; differences are only the relocations: 4-arg sub_08011368, 2-arg sub_08014990, 3-arg sub_0801C454, sub_080121E8(0x78), D_080CE680 affine table). Rechecked source with those callees scores 1805, identical residual to sub_08017888: agbcc assigns self=r5/field=r7/state=r6 instead of target self=r7/field=r6/state=r5 and needs an extra callee-saved register for the zero constant (118 vs 117 insns). This is the documented allocator wall, not a C-shape error; prior agents spent 47 attempts with best 1805. Volatile gfx field and zero-variable permutations were tested on the twin sub_08017888 and scored worse (2105/2975). Only find_similar hit is sub_08017888, itself unmatched on the same wall.\ncorrected 4-arg first call and 0x78 alloc call (rechecked 1805); earlier 2-arg artifact 1465; declaration-order 3825\nSame 3-cycle register coloring and extra zero register as twin sub_08017888",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795812758.1556656,
+  "score_before": 1805,
+  "score_after": 1805,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e0fb28fda56a3ed1c21607ba1916e6bd9c9b59e0de15589501f7948182996cbd:0a80591ed0677c4d10d548505205a3433da7c1ff755ddbd68f2957d072664cf8"
  },
  {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "Cannot get closer this session: linking calls wrong, regalloc off, pointer constants wrong. Score 3555. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1092641,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "Can't get closer within reasonable effort. Best 1545 (88.9%, 143/140 insns). Correct overall structure: early sub_0805F9B4==1 -> sub_080C31E0(arg0,arg0[0x24]); middle block conditional on f1A!=1 and sub_08016238(v3C+0x0C) doing f0C[1]=0, sub_08005E80(0x6E), f1B=0, sub_080C31E8(base18,arg0+0x22,1,D_08671BDC); table dispatch via D_0866E958 with f22++/f19++/sub_080C31E0/f22--; 0x8000 early out; sub_080113A8(v38,v3C+0x10); COORD block matching sub_08026BDC exactly. Main blockers: (1) regalloc swap - target keeps v38 in r8 (`ldr r0,[r5,#0x38]; mov r8,r0`) and base18 in r7 set mid-block (`adds r7,r5,#0; adds r7,#0x18`), all my attempts put v38 in r7 and base18 in r8 or generate extra moves/branches; (2) control flow in middle: best form set base18 in both if/else branches but caused duplicated tail/extra branches (beq #0x74/#0x78, extra block) vs target's single unconditional base18 set before cmp; setting base18 unconditionally in target-like position regressed to 2100 due to register/ordering; (3) literal pool order shifted (D_08671BDC/D_0866E958/D_02021E90/D_02025FF0/0x18A8) causing many pc-relative load diffs. Calls follow matched sub_0805D0E4 convention. 12 compiles this session; remaining gap is regalloc/layout.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.4996648,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateRoomAnchoredScriptedAttack",
-  "text": "MATCHED (0) from best 1545. Levers that closed the gap: (1) keep `base18` assigned in BOTH arms of the if/else \u2014 assigning it unconditionally before the if swaps callee-saved regs (v38 moves from r8 to r7, base18 to r8, score 1900-2100); (2) SWAP THE BRANCHES: write `if (*(u8*)(arg0+idx*2+0x1A) == 1) { base18 = arg0+0x18; } else { base18 = arg0+0x18; if (sub_08016238(...)) {...} }`. This gives the target's single `cmp r0,#1; beq` with both beq targets at the same label and NO duplicated tail; (3) `lp = &D_08671BDC;` assigned just before sub_080C31E8 gives the early `ldr r0,[pc]`; (4) `b = *(u8 *)((u32)base18 + (u32)idx2)` (integer addition, base first) gives `adds r0,r7,r0`; (5) `*(s16*)... * 2` inline with integer add to arg0 gives `lsls; adds r0,r0,r5`.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5834415,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080328CC",
+  "text": "Semantics are correct; blocker is agbcc register allocation. ROM saves only r8+r9 (`push {r6,r7}`, sprite in r8, anim in sb); every -O2 candidate saves r8+r9+r10 (`push {r5,r6,r7}`, `mov r7,sl` x5, sprite in sb, anim in sl). The 0x5C store targets work+0x5C, not obj+0x5C (ROM `str r0,[r5,#0x5c]`). All call-target linker diagnostics (\"you call X where the original calls something else\", \"pointer to gScriptStepCallbacks where original has 0x060073B8\") are false positives from the extra-frame literal-pool shift. Tried: s32 locals + matched helper names sub_080C31E4/E8 + named callback globals = 4120; declaration reorder of flags/lowFlags/stepState = no change at 3200; dropping the full `flags` local and using `|=` = 3220. Best is 3200 with both `flags` and `lowFlags` locals and `obj[0x7C]=lowFlags`. -O1 scores 2565 and reproduces the ROM's {r8,r9} callee-saved set and `mov r8,r0`/`mov sb,r1`, leaving only a cyclic rotation (ROM work=r5/step=r7/flags=r6; -O1 work=r6/step=r5/flags=r7).",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795812785.8342633,
+  "score_before": 3295,
+  "score_after": 3200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e0fb28fda56a3ed1c21607ba1916e6bd9c9b59e0de15589501f7948182996cbd:b07c53181311011021d0b9dc36b5fff023a58395e20e81ef8ffa4fa5e3e5775f"
  }
 ]

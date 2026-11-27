@@ -1,77 +1,77 @@
-/* Update a scripted attack entity: test its hit box, handle the hit/spawn
- * flags, advance the live script, then re-anchor the attacker to the current
- * room's coordinate table. */
-extern s32 sub_08005E80(s32);
-extern s32 sub_080113A8(void *, void *);
+/* Advance a room-anchored scripted attack: reject it when outside the camera,
+ * resolve a hit, run the current script command, then re-anchor the attacker to
+ * the current room's scroll coordinates. */
+extern s32 playSound(s32);
+extern s32 stepAnimationTrack(void *, void *);
 extern s32 hitTestEntities(void *);
-extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_080C31E0(void *, s32);
-extern s32 sub_080C31E8(void *, void *, s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern s32 _call_via_r1(void *, s32);
+extern s32 _call_via_r3(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u8 D_0866E958[];
+extern u8 gScriptedAttackCmdTable[];
 extern s32 gScriptEventCallbacks;
 
-void sub_0805CCFC(u8 *script) {
+void updateRoomAnchoredScriptedAttack(u8 *object) {
     u8 *attacker;
     u8 *attack;
-    u8 *attackData34;
-    u8 *scriptPc;
-    s16 scriptStep;
-    s32 *cmdTableAddr;
-    u32 opcode;
-    s32 scriptIndex;
+    u8 *attackAnimState;
+    u8 *stepStream;
+    s16 stepIndex;
+    s32 *eventCallbackSlot;
+    u32 commandId;
+    s32 stepByteOffset;
 
-    attacker = *(u8 **)(script + 0x38);
-    attack = *(u8 **)(script + 0x3C);
-    attackData34 = attack + 0x10;
-    if (sub_0805F9B4(*(s32 *)attack, *(s32 *)(attack + 4)) == 1) {
-        sub_080C31E0(script, *(s32 *)(script + 0x24));
+    attacker = *(u8 **)(object + 0x38);
+    attack = *(u8 **)(object + 0x3C);
+    attackAnimState = attack + 0x10;
+    if (isOutsideCameraBounds(*(s32 *)attack, *(s32 *)(attack + 4)) == 1) {
+        _call_via_r1(object, *(s32 *)(object + 0x24));
         return;
     }
 
-    scriptStep = *(s16 *)(script + 0x22);
-    if (*(u8 *)(script + scriptStep * 2 + 0x1A) == 1) {
-        scriptPc = script + 0x18;
+    stepIndex = *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET);
+    if (*(u8 *)(object + stepIndex * ATTACK_STEP_STRIDE + ATTACK_STEP_FLAG_A_OFF) == 1) {
+        stepStream = object + SCRIPT_STEP_BASE_OFFSET;
     } else {
-        scriptPc = script + 0x18;
+        stepStream = object + SCRIPT_STEP_BASE_OFFSET;
         if (hitTestEntities(*(u8 **)(attack + 0x0C)) != 0) {
             *(u8 *)(*(u8 **)(attack + 0x0C) + 1) = 0;
-            sub_08005E80(0x6E);
-            *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x1B) = 0;
-            cmdTableAddr = &gScriptEventCallbacks;
-            sub_080C31E8(scriptPc, script + 0x22, 1, *cmdTableAddr);
+            playSound(0x6E);
+            *(u8 *)(object + *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET) * ATTACK_STEP_STRIDE + ATTACK_STEP_FLAG_B_OFF) = 0;
+            eventCallbackSlot = &gScriptEventCallbacks;
+            _call_via_r3(stepStream, object + SCRIPT_STEP_INDEX_OFFSET, 1, *eventCallbackSlot);
         }
     }
 
-    *(u32 *)(script + 0x14) = (u32)D_0866E958;
-    *(s16 *)(script + 0x22) = *(s16 *)(script + 0x22) + 1;
-    *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) + 1;
-    scriptIndex = *(s16 *)(script + 0x22) * 2;
-    opcode = *(u8 *)((u32)scriptPc + (u32)scriptIndex);
-    sub_080C31E0(script, *(s32 *)(*(u32 *)(script + 0x14) + opcode * 4));
-    *(s16 *)(script + 0x22) = *(s16 *)(script + 0x22) - 1;
+    *(u32 *)(object + SCRIPT_STEP_TABLE_OFFSET) = (u32)gScriptedAttackCmdTable;
+    *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET) = *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET) + 1;
+    *(u8 *)(object + *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET) * ATTACK_STEP_STRIDE + ATTACK_STEP_TIMER_OFF) = *(u8 *)(object + *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET) * ATTACK_STEP_STRIDE + ATTACK_STEP_TIMER_OFF) + 1;
+    stepByteOffset = *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET) * ATTACK_STEP_STRIDE;
+    commandId = *(u8 *)((u32)stepStream + (u32)stepByteOffset);
+    _call_via_r1(object, *(s32 *)(*(u32 *)(object + SCRIPT_STEP_TABLE_OFFSET) + commandId * 4));
+    *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET) = *(s16 *)(object + SCRIPT_STEP_INDEX_OFFSET) - 1;
 
-    if (*(u16 *)(script + 2) & 0x8000)
+    if (*(u16 *)(object + 2) & SCRIPT_OBJ_FLAG_SKIP_ANIM)
         return;
 
-    sub_080113A8(attacker, attackData34);
+    stepAnimationTrack(attacker, attackAnimState);
 
     {
-        u8 *coordTable = gCameraState;
-        u8 *roomIndexPtr = gMainWorkspace;
-        u8 *coordXTable;
-        u8 *coordYTable;
-        u32 roomOffset;
+        u8 *camera = gCameraState;
+        u8 *roomCounterPtr = gMainWorkspace;
+        u8 *scrollXTable;
+        u8 *scrollYTable;
+        u32 scrollRowOffset;
 
-        roomIndexPtr += 0x18A8;
+        roomCounterPtr += ATTACK_ROOM_COUNTER_OFF;
 
-        roomOffset = ((u32)*roomIndexPtr + 1) * 0x40;
-        coordXTable = coordTable + 0x1278;
-        *(u32 *)(attacker + 0x14) = *(u32 *)attack - ((*(u32 *)(coordXTable + roomOffset) + 0x8000) & 0xFFFF0000);
+        scrollRowOffset = ((u32)*roomCounterPtr + 1) * ATTACK_SCROLL_STRIDE;
+        scrollXTable = camera + ATTACK_SCROLL_X_OFF;
+        *(u32 *)(attacker + 0x14) = *(u32 *)attack - ((*(u32 *)(scrollXTable + scrollRowOffset) + ATTACK_SCROLL_BIAS_X) & ATTACK_SCROLL_FRAC_MASK);
 
-        roomOffset = ((u32)*roomIndexPtr + 1) * 0x40;
-        coordYTable = coordTable + 0x127C;
-        *(u32 *)(attacker + 0x18) = *(u32 *)(attack + 4) - ((*(u32 *)(coordYTable + roomOffset) + 0xFFFF8000) & 0xFFFF0000);
+        scrollRowOffset = ((u32)*roomCounterPtr + 1) * ATTACK_SCROLL_STRIDE;
+        scrollYTable = camera + ATTACK_SCROLL_Y_OFF;
+        *(u32 *)(attacker + 0x18) = *(u32 *)(attack + 4) - ((*(u32 *)(scrollYTable + scrollRowOffset) + ATTACK_SCROLL_BIAS_Y) & ATTACK_SCROLL_FRAC_MASK);
     }
 }

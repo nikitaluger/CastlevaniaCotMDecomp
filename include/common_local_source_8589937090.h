@@ -39,3 +39,42 @@ typedef int s32_bool;
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 
 extern void *sub_080015E0(s32 mask, s32 object);
+
+/* Scaled main-object effect, shared by spawnScaledMainObjectEffect and
+ * updateScaledMainObjectEffect. Offsets are from the effect's own base. */
+struct ScaledFxHeader {          /* object+0x6C */
+    u8 _00[0x04];
+    s32 copy0;                   /* 0x04: eased X, mirrored from the source */
+    u8 _08[0x4C];
+    u8 kind;                     /* 0x54: copied from the spawning main object */
+};
+
+struct ScaledFxState {           /* ScaledFxHeader + 4 */
+    s32 copy0;                   /* 0x00 */
+    s32 copy1;                   /* 0x04: eased Y */
+    u8 _08[0x24];
+    void *gfx;                   /* 0x2C: graphics descriptor */
+    u8 _30[0x1C];
+    struct ScaledFxSource *source; /* 0x4C */
+};
+
+struct ScaledFxSource {
+    u8 _00;
+    u8 kind;                     /* 0x01: must match ScaledFxHeader.kind */
+    u8 _02[0x0A];
+    s32 goalX;                   /* 0x0C */
+    s32 goalY;                   /* 0x10 */
+};
+
+struct ScaledFxTarget {          /* object+0x38 */
+    u8 _00[0x04];
+    u16 scaleX;                  /* 0x04 */
+    u16 scaleY;                  /* 0x06 */
+};
+
+#define MAIN_OBJ_TIMER_CALLBACK_TABLE 0x08671BB0
+#define SCRIPT_STEP_CALLBACK_TABLE    0x08671BD0
+#define GWS_STATE_CHANGE_FIELD        0x14B8
+#define GWS_PARITY_FIELD              0x1510
+#define GWS_SCREEN_MODE_FIELD         0x173A
+#define GWS_TIMER_FIELD               0x14ED
