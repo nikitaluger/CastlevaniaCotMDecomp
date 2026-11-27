@@ -8,7 +8,7 @@ struct ScreenEffects {
     u16 blendControl;  /* BLDCNT: 0x3F40 = alpha blend on all layers */
     u16 blendAlpha;    /* BLDALPHA: 0x0808 = EVA 8 / EVB 8 */
 };
-extern struct ScreenEffects D_03000830;
+extern struct ScreenEffects gCrossfadeGfxState;
 extern u8 gMenuState[];  /* map state: entry index at +0x6A, two row tables at +0x6B and +0x6F */
 extern u8 D_086427B4[];  /* tile map of the transition */
 
@@ -37,8 +37,8 @@ void sub_0800FA74(void *arg0)
     sprite = *(struct Sprite **)((u8 *)arg0 + 0x38);
     sprite->state |= 0x40;
     sprite->tiles = (u32)D_086427B4;
-    D_03000830.blendControl = 0x3F40;
-    D_03000830.blendAlpha = 0x0808;
+    gCrossfadeGfxState.blendControl = 0x3F40;
+    gCrossfadeGfxState.blendAlpha = 0x0808;
     sprite->flags |= 0x0400;
 
     map = (s8 *)gMenuState;

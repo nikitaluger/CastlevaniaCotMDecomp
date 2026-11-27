@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795742744.6788054,
- "revision": 68697,
+ "saved_at": 1795742812.4862344,
+ "revision": 68700,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -2871,10 +2871,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080076F0": {
+  "advanceCrossfadePhase": {
    "vram": 134248176,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08007870": {
    "vram": 134248560,
@@ -24215,7 +24215,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080076F0",
+   "name": "advanceCrossfadePhase",
    "vram": 134248176,
    "size": 384,
    "status": "open"
@@ -50143,6 +50143,12 @@
    "kind": "data"
   },
   {
+   "name": "gCrossfadeGfxState",
+   "address": 50333744,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "postDisplaySprite",
    "address": 134221464,
    "size": 68,
@@ -50212,6 +50218,12 @@
    "name": "updateSceneLoadProgress",
    "address": 134245224,
    "size": 676,
+   "kind": "func"
+  },
+  {
+   "name": "advanceCrossfadePhase",
+   "address": 134248176,
+   "size": 384,
    "kind": "func"
   },
   {

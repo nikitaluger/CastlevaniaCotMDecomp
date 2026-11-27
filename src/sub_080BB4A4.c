@@ -11,7 +11,7 @@ extern void sub_08098664(void *a, s32 b, s32 c);
 extern void sub_0808D0A4(s32 a);
 extern void sub_080C31E0(void *a, s32 b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 
 void sub_080BB4A4(u8 *arg0) {
     u16 __repair_narrow_0;
@@ -56,10 +56,10 @@ void sub_080BB4A4(u8 *arg0) {
     sub_08098664(f4c, 1, 1);
 
     *(u32 *)(ctx + 0xD0) = 0x10;
-    D_03000830[2] = 0x3F42;
+    gCrossfadeGfxState[2] = 0x3F42;
     v = *(u32 *)(ctx + 0xD0);
     __repair_narrow_0 = (u16) (v | ((0x10 - v) << 8));
-    D_03000830[3] = __repair_narrow_0;
+    gCrossfadeGfxState[3] = __repair_narrow_0;
     sub_0808D0A4(0x14);
 
     if (*(u8 *)(f4c + 0x34) != 0) {

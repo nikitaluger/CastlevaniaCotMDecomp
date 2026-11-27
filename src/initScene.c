@@ -11,7 +11,7 @@ void setScreenTransition(s32);
 void sub_08010250(void);
 void sub_080C31E4(u8 *, u8 *, u32);
 void sub_080C31E0(u8 *, u32);
-extern u16 D_03000830;
+extern u16 gCrossfadeGfxState;
 inline u8 *inline_fn(u8 *arg0, int arg1)
 {
   return (u8 *) (arg0 + arg1);
@@ -41,7 +41,7 @@ inline u8 *inline_fn(u8 *arg0, int arg1)
     zero = 0;
     U(q0) = zero;
   }
-  reg = &D_03000830;
+  reg = &gCrossfadeGfxState;
   zero2 = 0;
   *reg = ((*reg) & 0xF0FF) | zero2;
   ptr = inline_fn(base, 0x1260);

@@ -28,7 +28,7 @@ struct S_03000830
   u16 field_0x04;
   u16 field_0x06;
 };
-extern struct S_03000830 D_03000830;
+extern struct S_03000830 gCrossfadeGfxState;
 struct S_0809BE60
 {
   u8 _0x00[0x14];

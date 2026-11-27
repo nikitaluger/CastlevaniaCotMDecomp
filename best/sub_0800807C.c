@@ -6,7 +6,7 @@ void postDisplaySprite(s32 a, u32 b, u32 c, s32 d, s32 e);
 void sub_080C31E4(u8 *a, u8 *b, u32 c);
 void sub_080C31E0(u8 *a, u32 b);
 
-extern u16 D_03000830;
+extern u16 gCrossfadeGfxState;
 struct H { u16 v; };
 
 void sub_0800807C(u8 *obj)
@@ -30,7 +30,7 @@ void sub_0800807C(u8 *obj)
     base = (u8 *)0x02021E90;
     *(u32 *)(base + 0x125C) = 0;
     zero2 = 0;
-    reg = &D_03000830;
+    reg = &gCrossfadeGfxState;
     off = (*reg & 0xF0FF); *reg = off | zero2;
     ((struct H *)(base + (0x95 << 5)))->v = 0xD800;
     off = (0x97 << 5);

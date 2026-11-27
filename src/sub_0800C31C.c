@@ -1,6 +1,6 @@
 extern s32 divideInt(s8 dividend, s32 divisor); /* BIOS Div: quotient */
 extern s32 moduloInt(s8 dividend, s32 divisor); /* BIOS Div: remainder */
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 
 struct S { u8 pad0[2]; u16 flags; u8 pad4[0x26]; u8 highlight; };
 
@@ -14,8 +14,8 @@ void sub_0800C31C(u8 *arg0) {
         (((linkedKind = (s8)(*(u8 *)(*(u8 **)(self + 0x28) + 0x4C))) == 2) || (linkedKind == 4))) {
         sprite->flags |= 0x400;
         sprite->highlight |= 0x40;
-        D_03000830[2] = 0x3F40;
-        D_03000830[3] = 0x808;
+        gCrossfadeGfxState[2] = 0x3F40;
+        gCrossfadeGfxState[3] = 0x808;
     } else {
         sprite->highlight &= 0xBF;
     }

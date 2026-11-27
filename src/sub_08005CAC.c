@@ -1,7 +1,7 @@
 void sub_080C31E8(void *, void *, s32, s32);
 
 extern u8 gCameraState[];
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 
 /* Entity script action: unless game-state flag 8 is set, bail out if the
  * current step's action byte is not 0x88. Otherwise set the global state
@@ -21,8 +21,8 @@ void sub_08005CAC(u8 *entity) {
         }
     }
 
-    D_03000830[2] = 0x0241;
-    D_03000830[3] = 0x10;
+    gCrossfadeGfxState[2] = 0x0241;
+    gCrossfadeGfxState[3] = 0x10;
     *(u16 *)(gameState + (0x95 << 5)) &= 0xDFFF;
     stepIndex = *(s16 *)(entity + 0x22);
     *(u8 *)(entity + stepIndex * 2 + 0x19) = 0;

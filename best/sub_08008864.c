@@ -13,7 +13,7 @@ struct S_03000830
   u16 f4;
   u16 f6;
 };
-extern struct S_03000830 D_03000830;
+extern struct S_03000830 gCrossfadeGfxState;
 void sub_08008864(void *arg0)
 {
   u16 *new_var2;
@@ -131,7 +131,7 @@ void sub_08008864(void *arg0)
   }
   goto loc_89DC;
   loc_8930:
-  D_03000830.f4 = 0x00FF;
+  gCrossfadeGfxState.f4 = 0x00FF;
 
   r6 = 0;
   r4v = 0xC1 << 1;

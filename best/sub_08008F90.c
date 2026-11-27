@@ -10,7 +10,7 @@ extern void sub_080C31E4(u8 *, u8 *, s32);
 extern void sub_080C31E0(u8 *, s32);
 extern u32 D_08671BB0;
 extern u8 D_02021E90[];
-extern vu16 D_03000830;
+extern vu16 gCrossfadeGfxState;
 extern vu32 D_040000D4[];
 
 void sub_08008F90(u8 *arg0)
@@ -28,7 +28,7 @@ void sub_08008F90(u8 *arg0)
     sub_0800168C(arg0, 0, 0xCA << 2, 0);
     base = D_02021E90;
     *(u32 *)(base + 0x125C) = 0;
-    D_03000830 &= 0xF0FF;
+    gCrossfadeGfxState &= 0xF0FF;
     do { off = 0x95 << 5;
     p = (u16 *)(base + off); } while (0);
     v = 0xD800;

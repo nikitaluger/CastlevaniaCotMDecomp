@@ -1,7 +1,7 @@
 extern vu16 D_0200E280;
 extern vu32 D_0200E284;
 extern vu8 D_0200E288;
-extern vu16 D_03000830;
+extern vu16 gCrossfadeGfxState;
 
 /* Restore the saved graphics state from the 0x02021E90 work buffer, then use
  * DMA3 to copy a VRAM block back to 0x0200E290 and several object-tile blocks
@@ -13,7 +13,7 @@ void sub_08006404(void) {
     vu8 *stateBytePtr;
     vu32 *dma;
 
-    D_0200E280 = D_03000830;
+    D_0200E280 = gCrossfadeGfxState;
     stateWordPtr = &D_0200E284;
     gfxSrc = 0x02021E90;
     *stateWordPtr = *(vu32 *)(gfxSrc + 0x125C);

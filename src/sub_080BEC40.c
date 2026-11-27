@@ -10,7 +10,7 @@ struct S {
 };
 struct HW { u8 _0[0x20]; u16 f20; u8 _1[2]; u16 f24; u8 _2[2]; u16 f28; u8 _3[2]; u16 f2C; };
 extern struct S gCameraState;
-extern struct HW D_03000830;
+extern struct HW gCrossfadeGfxState;
 extern vu8 D_04000005;
 
 /* Advance the scanline effect state: refresh the active step block, count down
@@ -36,10 +36,10 @@ void sub_080BEC40(void) {
         gCameraState.f1365 = duration;
         gCameraState.f136E = gCameraState.f136E + gCameraState.f136A;
     }
-    gCameraState.f1370 = D_03000830.f20;
-    gCameraState.f1371 = D_03000830.f24;
-    gCameraState.f1372 = D_03000830.f28;
-    gCameraState.f1373 = D_03000830.f2C;
+    gCameraState.f1370 = gCrossfadeGfxState.f20;
+    gCameraState.f1371 = gCrossfadeGfxState.f24;
+    gCameraState.f1372 = gCrossfadeGfxState.f28;
+    gCameraState.f1373 = gCrossfadeGfxState.f2C;
     gCameraState.f136F = gCameraState.f136E;
     gCameraState.f136D = gCameraState.f1375;
     if (gCameraState.f136D == 0) {

@@ -1,7 +1,7 @@
 struct S02025FF0 { u8 _0[0x14A8]; u32 f14A8; u32 f14AC; };
 extern struct S02025FF0 gMainWorkspace;
 struct S03000830 { u8 _0[4]; u16 f4; u16 f6; };
-extern struct S03000830 D_03000830;
+extern struct S03000830 gCrossfadeGfxState;
 extern u8 gCameraState[];
 extern u32 gScriptStepCallbackTable;
 
@@ -26,7 +26,7 @@ void sub_08069A2C(u8 *obj) {
 
     state = &gMainWorkspace;
     if (state->f14AC == 3) {
-        struct S03000830 *display = &D_03000830;
+        struct S03000830 *display = &gCrossfadeGfxState;
         display->f4 = 0x1542;
         display->f6 = 0x1010;
         zero = 0;

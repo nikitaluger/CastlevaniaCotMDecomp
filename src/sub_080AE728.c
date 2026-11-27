@@ -4,7 +4,7 @@ void _call_via_r1(void *, void *);
 void _call_via_r2(void *, void *, s32);
 void setAnimationFrame(void *, void *, s32, s32);
 void advanceMotion(void *, s32);
-extern u16 D_03000830[4];
+extern u16 gCrossfadeGfxState[4];
 struct S_02025FF0_18BC { u8 _0[0x18BC]; u16 v; };
 extern struct S_02025FF0_18BC D_02025FF0_18BC;
 
@@ -61,9 +61,9 @@ void sub_080AEAF0(void *arg0) {
     u8 value;
     u8 *stepBase;
     s32 *advanceCb;
-    D_03000830[2] = 0xFD << 6;
+    gCrossfadeGfxState[2] = 0xFD << 6;
     value = *(u8 *)(actor + 0x50);
-    D_03000830[3] = (u16)(value | ((0x10 - value) << 8));
+    gCrossfadeGfxState[3] = (u16)(value | ((0x10 - value) << 8));
     D_02025FF0_18BC.v = 1;
     stepBase = actor + *(s16 *)(actor + 0x22) * 2;
     if (*(u8 *)(stepBase + 0x19) == 0xF0) {

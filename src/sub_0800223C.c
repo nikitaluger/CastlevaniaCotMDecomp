@@ -6,7 +6,7 @@ extern void *gScriptStepCallbackTable;
  * the point the original code did. */
 static inline u8 zeroByte(void) { u8 v = 0; return v; }
 
-/* Wait step: counts the shared delay slot D_03000830[4] down and, when it hits
+/* Wait step: counts the shared delay slot gCrossfadeGfxState[4] down and, when it hits
  * zero, clears the step byte, runs the script interpreter, advances the step
  * and dispatches the next handler. */
 void sub_0800223C(void *entity)

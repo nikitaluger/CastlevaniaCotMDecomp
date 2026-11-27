@@ -20,7 +20,7 @@ struct CrossfadeGfxState {
     u16 weights;
     u16 color2;
 };
-extern struct CrossfadeGfxState D_03000830;
+extern struct CrossfadeGfxState gCrossfadeGfxState;
 /* Global game-state control/status flags. */
 struct S_02021E90b { u8 _0[0x146C]; u16 control; u16 status; };
 extern struct S_02021E90b gCameraState;
@@ -40,11 +40,11 @@ void updateCrossfadeEffect(u8 *self)
   sub_080C1C58(frameFloat, 0x000000003FE00000ULL);
   waveIndex = moduloInt(sub_080C23F8(), 0x2E);
   zero = 0;
-  D_03000830.color = 0xFD << 6;
+  gCrossfadeGfxState.color = 0xFD << 6;
   blend = *((u8 *) (gCrossfadeBlendWave + ((u32) waveIndex)));
   *((s32 *) (self + 0x3C)) = blend;
   *((s32 *) (self + 0x4C)) = 16 - blend;
-  D_03000830.weights = (u16) (blend | ((16 - blend) << 8));
+  gCrossfadeGfxState.weights = (u16) (blend | ((16 - blend) << 8));
   if (((u32) (*((s32 *) (self + 4)))) > 0x2EE)
   {
     sub_08005FC4(0, 1, 6, 0, &sub_080C0384);
@@ -63,8 +63,8 @@ void updateCrossfadeEffect(u8 *self)
       one = 1;
       *((u8 *) (self + 0x5C)) = one;
       *((u8 *) (self + 0x60)) = one;
-      D_03000830.color = 0xEF;
-      D_03000830.color2 = 0xA;
+      gCrossfadeGfxState.color = 0xEF;
+      gCrossfadeGfxState.color2 = 0xA;
       {
         u8 *stepTimer = (u8 *) ((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) self));
         stepTimer[0x19] = zero;

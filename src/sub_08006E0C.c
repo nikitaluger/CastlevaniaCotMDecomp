@@ -8,7 +8,7 @@ extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 /* Sound-command slots in IWRAM. */
 struct SoundCmd { u8 _pad[4]; u16 id; u16 mode; u16 counter; };
-extern struct SoundCmd D_03000830;
+extern struct SoundCmd gCrossfadeGfxState;
 static inline u32 decrementCounter(s32 dummy, struct SoundCmd *p) {
   u32 v = p->counter;
   v -= 2;
@@ -44,16 +44,16 @@ void sub_08006E0C(void *obj)
   updateObjectTree(*((s32 *) (state + 0x1888)));
   if ((*((u32 *) (state + 0x14C0)) & 0x40000000) == 0)
   {
-    sh = decrementCounter(0, &D_03000830);
+    sh = decrementCounter(0, &gCrossfadeGfxState);
     sh = sh << 16;
     if (sh != 0) goto L6F04;
   }
   stateWord = *((u32 *) (state + 0x14C0));
   if (stateWord == 0)
   {
-    D_03000830.id = *((u16 *) (state + 0x176A));
-    D_03000830.mode = *((u16 *) (state + 0x176C));
-    D_03000830.counter = *((u16 *) (state + 0x176E));
+    gCrossfadeGfxState.id = *((u16 *) (state + 0x176A));
+    gCrossfadeGfxState.mode = *((u16 *) (state + 0x176C));
+    gCrossfadeGfxState.counter = *((u16 *) (state + 0x176E));
   }
   else
   {

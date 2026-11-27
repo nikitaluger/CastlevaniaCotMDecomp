@@ -14744,7 +14744,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080076F0",
+  "function": "advanceCrossfadePhase",
   "text": "Tried raw offsets from base (score 2963) and a partial D_02025FF0 struct (score 3161, worse). Raw gave large diffs in address materialization (adds r1,r4,r2 vs different forms), struct attempt caused wrong symbol/pointer loads (uses D_02025FF0 symbol differently) and bad 0x1860/0x1880 layout in struct. Function is big (384B) with many D_02025FF0 offsets and a 0x03000830 write; needs careful struct layout for all used offsets or precise pointer arithmetic matching compiler patterns. Not enough progress in 2 tries.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683533.970718,
@@ -30712,7 +30712,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080076F0",
+  "function": "advanceCrossfadePhase",
   "text": "Releasing after 1 compile; function is large repetitive, score 2105. Need more time/iteration; leaving best attempt.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0542006,
@@ -93208,7 +93208,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080076F0",
+  "function": "advanceCrossfadePhase",
   "text": "Score 1620 (90.6%, 169 vs 173 insns). Many operand differences (32) from literal pool offsets and base pointer arithmetic forms. Stack differences (10) from local variable layout. Register allocation differences (6) from base pointer usage. The repeated sub_080C31E0 calls need exact literal pool ordering. Could be matchable with more iteration on pointer forms and declaration order, but time limited. Best attempt preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.3664758,
@@ -96976,7 +96976,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080076F0",
+  "function": "advanceCrossfadePhase",
   "text": "Best score 1435 (91.7%). Main diffs: literal pool offsets (target loads D_02025FF0 at pc+0x38, mine at pc+0x3c), register allocation (target uses r2 for 0xC3<<5 computation via movs r2,#0xC3; lsls r2,r2,#5; mine uses r1), branch offsets differ by 4 bytes (bne #0x54 vs #0x58). Tried: struct layout for D_02025FF0 (regressed to 2151), explicit offset variables (regressed to 2034 due to extra r6 push), matching target's offset computation pattern (no improvement). The repeated sub_080C31E0 calls need exact literal pool ordering. Function compiled with -O1 (range 0x80076F0-0x8007870). Could be matchable with more iteration on pointer forms and declaration order, but move-on limit reached.",
   "by": "opencode-free-1",
   "created_at": 1795683534.3849068,
@@ -98952,7 +98952,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080076F0",
+  "function": "advanceCrossfadePhase",
   "text": "MATCHED (score 0) by porting three structural fixes: (1) replace `v = *(u32*)(d+0x14A8)+K; *(u32*)(d+0x14A8)=v;` with direct `*(u32*)(d+0x14A8) += K;` in both if/else arms (1435 -> 859); (2) use `if ((u16)tmp == 0x10)` with an explicit cast on the second use to get the target's `lsls #0x10; lsrs #0x10` before cmp (859 -> 668); (3) re-assign `d = (u8*)0x02025FF0;` right after `d2 = (u8*)0x03000830;` to force the target's mid-function `ldr r4,=0x02025FF0` reload and align all literal-pool offsets (668 -> 0). See knowledge proposal #358.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.3947608,
@@ -345782,5 +345782,32 @@
   "score_before": 705,
   "score_after": 705,
   "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:8856a5c6634190a00a8734d3712d5d3e652fab54f751a3bc2bb9fca0954975b3"
+ },
+ {
+  "function": "sub_080BAD30",
+  "text": "Register-coloring wall: all real target instructions byte-exact except second table base lands in r1 (candidate) vs r2 (target), score 10. Tried try_local_repairs (variants identical score 10), direct array indexing (score 20, worse), 50+ prior compiles same diff. Per-site scratch-register tie (proposal #8589934653). Preserve candidate revision 5de5991e2df0507ddefb (semantically correct). Next step: try keeping first base alive across second load or a matched twin with opposite coloring; if unchanged, hand off as allocator tie.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795742745.9620924,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:70aa27e11c74200a9a2d66336fb7501aff0aee5b84155151dd87f30e96758f01"
+ },
+ {
+  "function": "sub_080BB984",
+  "text": "Frameless-Thumb-leaf compiler wall: no-call leaf switch; agbcc adds push {lr}/pop {r0};bx r0 and ripples branch/pool offsets. Correct C (c & 0xF) scores 455 (revision dc24c0eeb3fd8f225ee7). search_flags all flags 345 for the off-by-one variant; frame persists across -O1/-O2/-O3/-Os/-fomit. Do not use 345 saved best (off-by-one, reported as wrong_value). Hand off as compiler/backend wall requiring frameless Thumb leaf emission. Next step: none in C; needs ABI/compiler mode change.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795742793.0463421,
+  "score_before": 455,
+  "score_after": 455,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:63e0444d3d8e43a0641a5d537eb8a9f0ccc21f95be8210a6a0462b17cdf5850e"
+ },
+ {
+  "function": "sub_080186C0",
+  "text": "Frameless Thumb branchy-leaf clamp (score 215). Target frameless bx lr; agbcc -mthumb-interwork -O2 emits push{lr}/pop{r0};bx r0 + branch ripple. Body logic matches (s32 v=*a+b; store u16; if ((s16)v>0x2328) store 0x2328). Rechecked 215, improvement budget exhausted. next_experiment: revision ab7ce0aaa183d610ff95; tried that C form; changed = interwork frame emission causes extra prologue/epilogue and offset diffs; title = \u201cFrameless Thumb interwork frame wall; needs compiler/profile change\u201d.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795742793.0903218,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
  }
 ]

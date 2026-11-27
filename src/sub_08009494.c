@@ -1,4 +1,4 @@
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 extern u16 gIntroEventTimeline[]; /* command-script word table */
 void resetMapRender(void);
 void setLayerTilemap(int a, int b);

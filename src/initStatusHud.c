@@ -4,7 +4,7 @@
 extern u8 gGameStatus[];
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern vu16 D_03000830;
+extern vu16 gCrossfadeGfxState;
 extern vu32 D_040000D4[];
 extern u8 D_06000104[];
 extern u8 D_06000144[];
@@ -56,7 +56,7 @@ void initStatusHud(void *entity)
     *(u32 *)(gfxState + 0x125C) = 0;
 
     zero = 0;
-    D_03000830 = (D_03000830 & 0xF0FF) | zero;
+    gCrossfadeGfxState = (gCrossfadeGfxState & 0xF0FF) | zero;
 
     tileOffset = 0x93 << 5;
     sub_080C2E68((u16 *)(gfxState + tileOffset), 0x080CAF48, 0x40);

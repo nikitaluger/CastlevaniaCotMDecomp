@@ -1,8 +1,8 @@
 /* Fold the raw coordinate pairs at gCameraState+0x1460 into the virtual input
- * word at D_03000830: copy the id/pressure fields, then set or clear the two
+ * word at gCrossfadeGfxState: copy the id/pressure fields, then set or clear the two
  * direction flags along with their coordinate values. */
 extern u8 gCameraState[];
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 
 static inline u16 flagBit(int n) {
     u16 m = 0x80 << n;
@@ -10,7 +10,7 @@ static inline u16 flagBit(int n) {
 }
 
 void sub_080062AC(void) {
-    u16 *input = D_03000830;
+    u16 *input = gCrossfadeGfxState;
     u8 *raw = gCameraState;
     u16 word, upper;
 

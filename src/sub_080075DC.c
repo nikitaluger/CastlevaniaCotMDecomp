@@ -5,7 +5,7 @@ extern u32 gMainWorkspace[];
 extern s32 gScriptStepCallbackTable;
 
 struct S_03000830 { u8 pad[8]; u16 count; };
-extern struct S_03000830 D_03000830;
+extern struct S_03000830 gCrossfadeGfxState;
 
 /* Script step: frees three global objects and bumps a counter; once the gfx
  * counter reaches 0x10, snapshots the palette, creates a new kind-0x10 object
@@ -23,8 +23,8 @@ void sub_080075DC(void *arg0) {
     *(u32 *)((u8 *)gMainWorkspace + obj3Off) += 1;
     updateObjectTree(*(void **)((u8 *)gMainWorkspace + obj4Off));
 
-    gfxCount = D_03000830.count + 2;
-    D_03000830.count = (u16)gfxCount;
+    gfxCount = gCrossfadeGfxState.count + 2;
+    gCrossfadeGfxState.count = (u16)gfxCount;
     if ((u16)gfxCount == 0x10) {
         u16 palette = *(u16 *)0x05000000;
         u32 palSlotOff = 0x1768;

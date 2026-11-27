@@ -1,5 +1,5 @@
 extern u8 gCameraState[];
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 extern vu8 D_04000005;
 s32 divideInt(s32, s32);
 void sub_080BEE6C(void)
@@ -25,7 +25,7 @@ void sub_080BEE6C(void)
   }
   while (0);
   pAF = gCameraState + 0x13AF;
-  io = D_03000830;
+  io = gCrossfadeGfxState;
   do {
   u16 temp4; if (base[0x13AE] <= 1)
   {

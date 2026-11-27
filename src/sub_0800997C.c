@@ -1,7 +1,7 @@
 void sub_080C31E8(void *, void *, s32, s32);
 
 struct S_03000830 { u8 pad[8]; u16 field; };
-extern struct S_03000830 D_03000830;
+extern struct S_03000830 gCrossfadeGfxState;
 
 /* Count the shared frame-delay counter down by one per frame; when it reaches
  * zero, clear the actor's wait flag at +4, clear the current step's flag byte

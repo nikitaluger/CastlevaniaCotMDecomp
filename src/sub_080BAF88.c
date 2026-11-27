@@ -17,7 +17,7 @@ struct S_02021E90_all {
 extern struct S_02021E90_all gCameraState;
 
 struct S_03000830 { u8 _0x000[4]; u16 a; u8 _pad[2]; u16 b; };
-extern struct S_03000830 D_03000830;
+extern struct S_03000830 gCrossfadeGfxState;
 
 /* Run one step of the entity's command script; command 0xF0 clears the current
  * command byte and reloads the script from the default command table. */
@@ -37,8 +37,8 @@ void sub_080BAF88(void *arg0) {
 
 void sub_080BEDBC(void) {
     gCameraState.f1361 = 3;
-    gCameraState.f1364 = D_03000830.a;
-    gCameraState.f1366 = D_03000830.b;
+    gCameraState.f1364 = gCrossfadeGfxState.a;
+    gCameraState.f1366 = gCrossfadeGfxState.b;
     gCameraState.f1368 = gCameraState.f1458;
     gCameraState.f1369 = 0x50;
     *(vu8 *)0x04000005 = 0xE3;
@@ -46,8 +46,8 @@ void sub_080BEDBC(void) {
 
 void sub_080BEE14(void) {
     gCameraState.f1361 = 3;
-    gCameraState.f1364 = D_03000830.a;
-    gCameraState.f1366 = D_03000830.b;
+    gCameraState.f1364 = gCrossfadeGfxState.a;
+    gCameraState.f1366 = gCrossfadeGfxState.b;
     gCameraState.f1368 = gCameraState.f1458;
     gCameraState.f1369 = 0x48;
     *(vu8 *)0x04000005 = 0xE3;

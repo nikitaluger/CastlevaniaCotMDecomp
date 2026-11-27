@@ -47,7 +47,7 @@ struct S_0809BE60
   u32 field_0x14;
   u16 field_0x22;
 };
-extern u16 D_03000830[4];
+extern u16 gCrossfadeGfxState[4];
 
 /* If the display-state handler did not consume this frame, advance the script
  * step byte and dispatch the next handler from the table at +0x14; then copy

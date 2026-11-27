@@ -1,5 +1,5 @@
 void sub_080C31E4(void *, void *, s32);
-extern u16 D_03000830[4];
+extern u16 gCrossfadeGfxState[4];
 struct S_D_18BC { u8 _0[0x18BC]; u16 v; };
 extern struct S_D_18BC gMainWorkspace;
 
@@ -11,9 +11,9 @@ void sub_080AEAF0(void *arg0) {
     u8 *step;
     s32 *eventPtr;
     s32 stepOffset;
-    D_03000830[2] = 0xFD << 6;
+    gCrossfadeGfxState[2] = 0xFD << 6;
     blendLevel = *(u8 *)(self + 0x50);
-    D_03000830[3] = (u16)(blendLevel | ((0x10 - blendLevel) << 8));
+    gCrossfadeGfxState[3] = (u16)(blendLevel | ((0x10 - blendLevel) << 8));
     gMainWorkspace.v = 1;
     stepOffset = *(s16 *)(self + 0x22) * 2;
     step = (u8 *)(stepOffset + (u32)self);

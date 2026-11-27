@@ -6,7 +6,7 @@ extern void sub_0808BB54(void);
 extern void sub_0808E61C(s32, s32, s32, s32);
 extern void sub_080C2E68(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
-extern u8 D_03000830[];
+extern u8 gCrossfadeGfxState[];
 extern u8 gMainWorkspace[];
 inline u16 *flagWord(u8 *p) { return (u16 *) (p + 0x3C); }
 
@@ -50,7 +50,7 @@ void sub_0809919C(void *entity)
     randOffset = sub_0800583C(0x20000);
     sub_0808E61C(posX, posY, randOffset, 0 - (scaleByRandom(0x30000) + 0x30000));
   }
-  sysState = D_03000830;
+  sysState = gCrossfadeGfxState;
   *((u16 *) (sysState + 0x04)) = controlWord;
   if (!(0x1F & (*((((u8 *) entity) + ((*((s16 *) (((u8 *) entity) + 0x22))) * 2)) + 0x19))))
   {

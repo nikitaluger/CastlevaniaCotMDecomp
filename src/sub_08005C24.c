@@ -6,7 +6,7 @@
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 extern u8 D_080C98A6[];
 extern u32 gScriptStepCallbackTable;
 
@@ -20,7 +20,7 @@ void sub_08005C24(void *arg0) {
     u32 *callbackTable;
 
     if (scriptEntry[0x19] == END_BYTE) {
-        D_03000830[4] = 0;
+        gCrossfadeGfxState[4] = 0;
         {
             s16 i = *(s16 *)((u8 *)arg0 + 0x22);
             *(u8 *)((u8 *)arg0 + i * 2 + 0x19) = 0;
@@ -43,7 +43,7 @@ void sub_08005C24(void *arg0) {
             sub_080C31E0(arg0, stateTable[scriptByte]);
         }
     } else {
-        volatile u16 *timerDisplay = D_03000830;
+        volatile u16 *timerDisplay = gCrossfadeGfxState;
         u8 *lookupTable = D_080C98A6;
         u8 scriptValue = scriptEntry[0x19];
         s32 tableIndex = (s32)scriptValue - 1;

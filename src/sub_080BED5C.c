@@ -8,8 +8,8 @@ struct SceneState {
     u8 _pad0[0x1361 - 0x1260];
     u8 transitionStep;      /* 0x1361 */
     u8 _pad1[2];
-    u16 savedColor;         /* 0x1364, from D_03000830+4 */
-    u16 savedFrame;         /* 0x1366, from D_03000830+8 */
+    u16 savedColor;         /* 0x1364, from gCrossfadeGfxState+4 */
+    u16 savedFrame;         /* 0x1366, from gCrossfadeGfxState+8 */
     u8 savedValue;          /* 0x1368, latched from 0x1458 */
     u8 savedArg;            /* 0x1369 */
     u8 _pad2[0x1458 - 0x136A];
@@ -19,7 +19,7 @@ extern struct SceneState gCameraState;
 
 /* Gfx/effect state block: +4 highlight color, +8 frame counter. */
 struct GfxState { u8 _0x000[4]; u16 color; u8 _pad[2]; u16 frame; };
-extern struct GfxState D_03000830;
+extern struct GfxState gCrossfadeGfxState;
 
 struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 v; };
 extern struct S_02025FF0_1870 gMainWorkspace;
@@ -41,8 +41,8 @@ void sub_080BE87C(void) {
  * argument and restore the DISPCNT high byte (0xE3 = BG1-BG3, win/OBJ bits). */
 void sub_080BED5C(void) {
     gCameraState.transitionStep = 3;
-    gCameraState.savedColor = D_03000830.color;
-    gCameraState.savedFrame = D_03000830.frame;
+    gCameraState.savedColor = gCrossfadeGfxState.color;
+    gCameraState.savedFrame = gCrossfadeGfxState.frame;
     gCameraState.savedValue = gCameraState.displayValue;
     gCameraState.savedArg = 0;
     *(vu8 *)0x04000005 = 0xE3;

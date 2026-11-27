@@ -1,7 +1,7 @@
 extern void sub_0809BE60(void);
 /* Global gfx/effect state: +4 highlight colour, +6 packed fade weight. */
 struct IO_830 { u8 pad[4]; u16 highlight; u16 fadeWeight; };
-extern struct IO_830 D_03000830;
+extern struct IO_830 gCrossfadeGfxState;
 /* Sprite attribute word: +2 flags. */
 struct F2 { u8 pad[2]; u16 flags; };
 
@@ -21,7 +21,7 @@ void sub_0809BDEC(void *arg0)
     sprite->flags |= 0x400;
     link = *(u8 **)(self + 0x28);
     next = *(u8 **)(link + 0x30);
-    gfx = &D_03000830;
+    gfx = &gCrossfadeGfxState;
     fadeStep = sub_0809BE60;
     while (next)
     {

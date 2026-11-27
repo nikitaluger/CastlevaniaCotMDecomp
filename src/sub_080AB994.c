@@ -5,7 +5,7 @@ extern s32 sub_0800583C(s32);
 extern void sub_080AC908(void *, void *, void *, void *);
 extern void sub_080B089C(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 
 void sub_080AB994(void *actor)
 {
@@ -23,10 +23,10 @@ void sub_080AB994(void *actor)
 
     sub_080AC908(state, seq, work, params);
 
-    D_03000830[2] = 0xFD << 6;
+    gCrossfadeGfxState[2] = 0xFD << 6;
     {
         u8 byte95 = *(u8 *)(work + 0x95);
-        D_03000830[3] = byte95 | ((0x10 - byte95) << 8);
+        gCrossfadeGfxState[3] = byte95 | ((0x10 - byte95) << 8);
     }
 
     sub_080B089C(*(s32 *)(work + 8) + sub_0800583C(0xC0 << 13), 0x88 << 16);

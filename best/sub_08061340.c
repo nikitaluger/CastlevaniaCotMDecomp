@@ -7,7 +7,7 @@ extern u8 D_080D9AB0[];
 extern u8 D_080D9AC0[];
 extern u8 D_080D9B3C[];
 extern u8 D_080DABDC[];
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 struct S61340
 {
   u8 buf[0xB0C];
@@ -63,7 +63,7 @@ void sub_08061340(void *arg0)
   s.f10 = 0;
   sub_08061ED0(*((s32 *) (s.f0C + 0x38)), (void *) s.f0C, 0);
   new_var = s.f14 <= 0x29;
-  *((u16 *) (*((u32 **) (s.f0C + 0x3C)))) = D_03000830[3];
+  *((u16 *) (*((u32 **) (s.f0C + 0x3C)))) = gCrossfadeGfxState[3];
   s.f40 = (u32) (&s.buf[0x20]);
   s.f48 = s.f0C + 0x18;
   s.f4C = s.f0C + 0x22;

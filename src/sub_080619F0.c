@@ -17,7 +17,7 @@ struct ScrollState {
 };
 /* Flags controlling scroll input. */
 struct ScrollInput { u8 _0[0x10]; u8 scrollXEnabled; u8 scrollYEnabled; };
-extern struct ScreenParams D_03000830;
+extern struct ScreenParams gCrossfadeGfxState;
 extern struct ScrollState gCameraState;
 extern struct ScrollInput D_02027A00;
 extern s32 gScriptStepCallbackTable;
@@ -41,8 +41,8 @@ void sub_080619F0(struct ScreenTask *task)
   u8 *stateArgs;
   u32 stateOffset;
   sub_08061ED0((s32)task->sprite);
-  D_03000830.param0 = 0x140;
-  D_03000830.param1 = 0x60A;
+  gCrossfadeGfxState.param0 = 0x140;
+  gCrossfadeGfxState.param1 = 0x60A;
   if (gCameraState.mode & 6) {
     sub_08006210();
     ((struct TaskSubState *)((u8 *)task + task->stateIndex * 2))->subState = 0;

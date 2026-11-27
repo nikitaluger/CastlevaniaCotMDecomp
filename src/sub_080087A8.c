@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 extern void *gScriptStepCallbackTable;
 
 /* Drives a scripted sound effect: resets the script when its sound object is
@@ -19,7 +19,7 @@ void sub_080087A8(void *arg0)
     if (soundState == 0) {
         *(s32 *)((u8 *)arg0 + 4) = soundState;
         zero = 0;
-        D_03000830[2] = 0xBF;
+        gCrossfadeGfxState[2] = 0xBF;
         step = *(s16 *)((u8 *)arg0 + 0x22);
         ((u8 *)arg0)[step * 2 + 0x19] = zero;
         {
@@ -41,8 +41,8 @@ void sub_080087A8(void *arg0)
         if (ramp > 0x10) {
             *(s32 *)(soundObj + 0x18) = 0x10;
         }
-        D_03000830[2] = 0xFD << 6;
-        D_03000830[3] = (u16)(*(s32 *)(soundObj + 0x18) | ((0x10 - *(s32 *)(soundObj + 0x18)) << 8));
+        gCrossfadeGfxState[2] = 0xFD << 6;
+        gCrossfadeGfxState[3] = (u16)(*(s32 *)(soundObj + 0x18) | ((0x10 - *(s32 *)(soundObj + 0x18)) << 8));
         if (*(s32 *)(soundObj + 0x18) == 0x10) {
             step = *(s16 *)((u8 *)arg0 + 0x22);
             ((u8 *)arg0)[step * 2 + 0x19] = 0;

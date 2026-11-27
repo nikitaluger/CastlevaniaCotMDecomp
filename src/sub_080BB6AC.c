@@ -2,10 +2,10 @@ extern void sub_08014848(s32,s32,s32,s32,s32,s32);
 extern void sub_080BE99C(void);
 extern void sub_080BEA94(void);
 extern s32 divideInt(s32,s32);
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 
 /* Effect tick: nudge the state object left/right from a per-frame direction
- * flag, decay a counter into D_03000830[3], periodically draw an effect and
+ * flag, decay a counter into gCrossfadeGfxState[3], periodically draw an effect and
  * spawn particles, and on counter 0x97 run the node callbacks and dispatch the
  * completion callback. */
 void sub_080BB6AC(void *self) {
@@ -26,7 +26,7 @@ void sub_080BB6AC(void *self) {
         s32 *timer = (s32 *)(fx + 0x88);
         *timer -= 1;
         if (*timer < 0) *timer = 0;
-        D_03000830[3] = (u16)(*timer | ((0x10 - *timer) << 8));
+        gCrossfadeGfxState[3] = (u16)(*timer | ((0x10 - *timer) << 8));
     }
 
     if (!(*(u8 *)((u32)(*(s16 *)((char *)self + 0x22) << 1) + (u32)self + 0x19) & 0x03)) {

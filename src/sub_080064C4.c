@@ -1,6 +1,6 @@
 extern volatile short D_0200E280;
 extern vu32 D_0200E284;
-extern vu16 D_03000830;
+extern vu16 gCrossfadeGfxState;
 inline u32 dmaSrcBase()
 {
   return (u32) 0x0200E290;
@@ -17,7 +17,7 @@ void sub_080064C4(void)
   vu32 *dma;
   u8 byteVal;
   u8 *bytePtr;
-  D_03000830 = D_0200E280;
+  gCrossfadeGfxState = D_0200E280;
   gfxSrc = 0x02021E90;
   *((vu32 *) (gfxSrc + 0x125C)) = D_0200E284;
   bytePtr = (u8 *)0x0200E288;

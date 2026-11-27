@@ -1,5 +1,5 @@
 struct S_03000830 { u8 _0[4]; u16 f4; u16 f6; };
-extern struct S_03000830 D_03000830;
+extern struct S_03000830 gCrossfadeGfxState;
 struct Target { u8 _0; u8 f1; u8 _2[8]; u16 fA; u16 fC; };
 struct S_02021E90 { u8 _0[0x1278]; u32 f1278; u32 f127C; };
 extern struct S_02021E90 gCameraState;
@@ -36,8 +36,8 @@ u32 __repair_phase_i;
     sp4 = (u8 *)temp_r1 + 0x48;
     } while (0);
     if (*(u8 *)(arg0 + 0x74) != 0) {
-        D_03000830.f4 = 0x3F44;
-        D_03000830.f6 = 0x60A;
+        gCrossfadeGfxState.f4 = 0x3F44;
+        gCrossfadeGfxState.f6 = 0x60A;
     }
     *(u32 *)((u8 *)temp_r1 + 8) = *(u32 *)(arg0 + 0x4C);
     *(u32 *)((u8 *)temp_r1 + 0xC) = *(u32 *)(arg0 + 0x5C);

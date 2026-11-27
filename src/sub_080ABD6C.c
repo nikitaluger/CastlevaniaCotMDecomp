@@ -11,7 +11,7 @@ struct S_03000830 {
     u16 field4;
     u16 field6;
 };
-extern struct S_03000830 D_03000830;
+extern struct S_03000830 gCrossfadeGfxState;
 
 /* Update a scripted entity's step: track the step-phase counter in the shared
  * registers, and when it reaches 0x10 clear the parent flag, install the
@@ -30,12 +30,12 @@ void sub_080ABD6C(void *entity)
         *(u8 *)((u8 *)component + 0x95) += 1;
     }
 
-    D_03000830.field4 = 0x3F40;
+    gCrossfadeGfxState.field4 = 0x3F40;
 
     if (((*(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) & 7) != 0) || (*(u8 *)((u8 *)component + 0x95) > 8)) {
-        D_03000830.field6 = *(u8 *)((u8 *)component + 0x95);
+        gCrossfadeGfxState.field6 = *(u8 *)((u8 *)component + 0x95);
     } else {
-        D_03000830.field6 = 8;
+        gCrossfadeGfxState.field6 = 8;
     }
 
     if (*(u8 *)((u8 *)extras + 0x4D) == 0x10) {

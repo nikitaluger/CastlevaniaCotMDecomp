@@ -1,4 +1,4 @@
-extern u8 D_03000830[];
+extern u8 gCrossfadeGfxState[];
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -9,7 +9,7 @@ void sub_080C31E4(void *, void *, s32);
  * 1 and dispatches the new command's handler from the actor's command table
  * (self+0x14, indexed by the command byte at self+0x18 + step*2). */
 void sub_08001C24(void *actor) {
-    struct { u8 _[8]; u16 v; } *counter = (void *)D_03000830;
+    struct { u8 _[8]; u16 v; } *counter = (void *)gCrossfadeGfxState;
     u8 *self = actor;
     counter->v += 2;
     if (counter->v > 0x0F) {

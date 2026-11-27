@@ -1,10 +1,10 @@
 /* Highlight/flash script step: counts the timer at work+0x18 down by 2 each frame,
- * drives the global gfx highlight color (D_03000830[2]) and crossfade weight ([3]),
+ * drives the global gfx highlight color (gCrossfadeGfxState[2]) and crossfade weight ([3]),
  * and on expiry releases the two linked objects and advances the script. */
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 
 void sub_080089EC(u8 *self) {
     u8 *work;
@@ -17,10 +17,10 @@ void sub_080089EC(u8 *self) {
     if (timer < 0) {
         *(s32 *)(work + 0x18) = 0;
     }
-    D_03000830[2] = 0x3F40;
+    gCrossfadeGfxState[2] = 0x3F40;
     {
         s32 fade = *(s32 *)(work + 0x18);
-        D_03000830[3] = (u16)(fade | ((0x10 - fade) << 8));
+        gCrossfadeGfxState[3] = (u16)(fade | ((0x10 - fade) << 8));
     }
     if (*(s32 *)(work + 0x18) == 0) {
         void *linked0 = *(void **)work;
@@ -33,7 +33,7 @@ void sub_080089EC(u8 *self) {
                 sub_080C31E0(linked1, *(void **)((u8 *)linked1 + 0x24));
             }
         }
-        D_03000830[2] = 0xBF;
+        gCrossfadeGfxState[2] = 0xBF;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
             s32 *scriptTable = (s32 *)0x08671BB0;

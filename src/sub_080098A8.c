@@ -10,7 +10,7 @@ struct S_02021E90 {
 };
 
 extern struct S_02021E90 gCameraState;
-extern u16 D_03000830[];
+extern u16 gCrossfadeGfxState[];
 extern void *gScriptStepCallbackTable;
 
 /* Forces the entity's mode byte (+0x60) from the global state flags, plays a
@@ -57,7 +57,7 @@ void sub_080098A8(void *entity)
             } else {
                 sub_08005E80(0x159);
             }
-            D_03000830[2] = 0xFF;
+            gCrossfadeGfxState[2] = 0xFF;
             *((s8 *)entity + 0x5C) = 0;
             {
                 s16 stepIndex = *(s16 *)((u8 *)entity + 0x22);
