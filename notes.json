@@ -36160,14 +36160,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08021A68",
-  "text": "CANNOT GET CLOSER with pure C. Best score 2061. Entire remaining diff is a callee-saved register rotation (target r7=v38,r6=p3C,r8=p48,sl=p34,r5=v12 vs agbcc's r6=v38,r5=p3C,sl=p48,r8=p34,r7=v12) driving 50 regalloc rows + literal-load placement. asm() register hints are banned, so regs cannot be pinned. Tried 4 declaration-order variants, v12 early/late, p34 local \u2014 all worse or identical. agbcc's callee-saved allocation is immovable via natural C; score 0 unreachable without asm(). Releasing so another agent may try, or this gets revisited if the toolchain allows hints.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.0830376,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080443EC",
   "text": "Best 3460 (61.9%, 83 vs 91 insns). Progress: got arg0 in r6, count loop closer (uses r0 as counter, r4 as list ptr but target wants r4 counter/r5 ptr), early returns via if+return. Still wrong: missing initial `movs r4,#0` placement/order; byte decrement emits `subs;lsls r0,#24;lsrs r0,#24;strb;cmp` vs target `subs;strb;lsls r0,#24;cmp`; tmp address calc needs separate literals for 0x02021E90, 0x02025FF0, 0x18A8, 0x1278 in target order (`ldr r1,=0x02021E90; ldr r0,=0x02025FF0; ldr r2,=0x18A8; adds r0,r0,r2; ldrb r0,[r0]; adds r0,#1; lsls r0,#6; ldr r2,=0x1278; adds r1,r1,r2; adds r0,r0,r1; ldr r0,[r0]`), I got folded/different order; range clamp control flow very different from target's branch chain (bge/bgt/blt/bgt/bge/ble with specific fallthroughs setting lo/hi to a/r2/r3/bnd). Calls: sub_08014090, sub_0805FAEC, sub_08005820. Needs careful reconstruction of exact branch logic and literal scheduling. Can't get closer quickly.",
   "by": "opencode-iceman-contributor-free-1",
@@ -36380,14 +36372,6 @@
   "text": "Very close: score 10 (99.8%), 91/91 insns. Only 2 regalloc diffs in update of r4+4: target `ldr r1,[r4,#4]; ldr r0,[r4,#0xc]; adds r3,r1,r0; str r3,[r4,#4]`, mine `adds r1,r1,r0; str r1,[r4,#4]` (result in r1 instead of r3). Baseline form that keeps correct load order (r1=r4[4], r0=r4[0xc]) was: `s32 v = *(s32*)(r4+4); do { v = v + *(s32*)(r4+0xc); } while(0); *(s32*)(r4+4)=v;` Tried: separate result var (s32 v2 / s32 c / function-scope res) and direct `a+b` in store RHS \u2014 all flipped load order to r0/r1 (score 20). Rest of function matches (D_02025FF0 struct with 0x10/14ED/173A/18C2 fields, d=&D_02025FF0 after early-return checks, final condition byte173A==0x1C || (byte14ED!=0? no : field10!=0) via goto structure). Needs regalloc trick to get sum result into r3.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.0841181,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08021A68",
-  "text": "Regalloc fundamentally differs: target r7=v38,r6=p3C,r8=p48,sl=p34,r5=v12 vs agbcc r6=r38,r5=p3C,sl=p48,r8=p34,r7=v12. Best score 2061. Data pointer mapping also shifted (D_0866D848 etc point to wrong ROM addrs). Prior agent concluded asm hints needed. Cannot get closer with pure C natural code.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0841599,
   "score_before": null,
   "score_after": null
  },
@@ -83180,14 +83164,6 @@
   "text": "Cannot get closer in pure C (score 245, 79.5%). Systemic frameless-branchy-leaf wall #300: ROM is frameless with bare `bx lr`; this agbcc emits `push {lr}`/`pop {r0}`/`bx r0` for this loop-bearing Thumb leaf, shifting branch offsets by +2 despite identical body logic. Confirmed by compile this claim and ~127 prior attempts. Ordinary C, not hand asm/not_c. Best attempt preserved. Releasing.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.31652,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08021A68",
-  "text": "Near-identical 194-insn clone of MATCHED sub_0801DE04 and sub_0801F300. Copy the matched C from sub_0801F300, change the callee names and the D_0866D... literal to the one in this function's target assembly, and keep BOTH regalloc fixes: `b = b & (*((u16 *) p3C)); if (b && ...)` (forces `ands r5,r0`) and a fresh `u8 b2` local for the second byte load (forces `ldrb r0,[r0]`). sub_0801F300 matched at score 1 purely by correcting the data symbol D_0866D748 -> D_0866D7A0. Check this function's `ldr r0,=...` literal at the equivalent of _0801F3C2 carefully.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.3165574,
   "score_before": null,
   "score_after": null
  },
@@ -345245,5 +345221,119 @@
   "score_before": 555,
   "score_after": 555,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:95e38b5172028c243416bc1e5ddbc7e491a9bdeb10d7eba2163581e60300c22b"
+ },
+ {
+  "function": "sub_080B318C",
+  "text": "Confirmed DRACULA AGB1 frameless Thumb loop-leaf ABI wall. 32-byte leaf scans linked list at +0x30/+0x2C for s16==0x1BE, returns 0 on match else 1. Verified baseline 215. All real target body instructions match; sole residual is agbcc push{lr}/pop{r1};bx r1 vs ROM bare bx lr, with b #0x1e->#0x20 ripple. No C spelling or in-profile flag removes frame. Needs compiler/backend frameless Thumb interwork leaf emission.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795741411.721542,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:f60b32245a7ffb3a087ea0698fe63ec586b85293ffbdcab55e7c232e1845be52"
+ },
+ {
+  "function": "sub_08098400",
+  "text": "Frameless branchy-leaf wall, confirmed score 305 floor at current inputs. 40-byte leaf: reads u16 at 0x03000830+4, ANDs 0xDFC0, checks 0x80/0xC0, then u16 at +8, returns 0/1; bare bx lr, mid-function literal pool. Real target body byte-exact; only residual is agbcc push{lr}/pop{r1};bx r1 vs ROM bare bx lr with bne/b displacement ripple by 2. This session: clean source 570 (wrong reg colors + inverted last branch), restored saved_best do/while scaffolding reconstructing 305 and recompiled (305 confirmed). Requires a compiler/ABI mode emitting frameless Thumb leaves.\nclean pointer source (570); restored saved_best with do/while scaffolding and temp!=0 return form (305)\nframe insertion and 2-byte branch ripple unchanged at 305; reg colors and last-branch polarity only fixable by source but wall dominates",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795741412.3101509,
+  "score_before": 570,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:7c4f5f39f68b51e9a4adb9649db691e602c3ba5f03a4091d9267941fd0486611"
+ },
+ {
+  "function": "sub_0808D690",
+  "text": "Frameless branchy-leaf wall, confirmed score 225 floor at current inputs. 52-byte leaf: switch on arg0 (cases 0/2 saturating subtract at *arg1, cases 1/3 saturating add capped at 0xF00000), ends bare bx lr. Real target body byte-exact including the compact dispatch (cmp/beq/bcc/bne chain) and both saturating paths; only residual is agbcc push{lr}/pop{r0};bx r0 vs ROM bare bx lr, two b #0x32 vs b #0x34 ripples. This session: compiled saved_best switch source alone (225 confirmed). Requires a compiler/ABI mode emitting frameless Thumb leaves.\nsaved_best switch(u32 arg0) with cases 0/2 subtract and 1/3 add, cap 0xF0<<16\nall real instructions byte-exact at 225; frame insertion and two branch ripples unchanged",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795741429.724193,
+  "score_before": 225,
+  "score_after": 225,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:6f38ee1aa23dc596f5044cf937f07640f81a347b52f0c52a0d4dc69f6f3a15af"
+ },
+ {
+  "function": "sub_0801BD58",
+  "text": "Terminal allocator-color tie at score 40. 8 regalloc rows in val block; p38=r7/result=r4 vs ours p38=r4/result=r7. 58+ attempts + twin. Release.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795741435.612813,
+  "score_before": 250,
+  "score_after": 40,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:629ac4da5ab139f240ba59cd07d26519ce913b7a2dd8e38e08d3465bdb720cd5"
+ },
+ {
+  "function": "sub_080BAD30",
+  "text": "Confirmed terminal agbcc -O2 allocator tie, score 10. All 31 target instructions byte-exact; sole residual is D_08102EE0 literal/load colored r1 vs ROM r2 (`ldr r2,[pc,#0x1c]`/`adds r0,r0,r2` vs r1). try_local_repairs (6 families) no improvement. Requires allocator/backend change, not C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795741442.662896,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:70aa27e11c74200a9a2d66336fb7501aff0aee5b84155151dd87f30e96758f01"
+ },
+ {
+  "function": "selectSceneMode",
+  "text": "Best 210/236 insns. Only p2=p copy is early; target places it after the first switch literal, changing that literal's PC offset from 0x38 to 0x34. Selector and all later code match.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795741449.8298345,
+  "score_before": 815,
+  "score_after": 210,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:efbb6d8e4430b1294f1a732daa6a5d399ea46862b253705f18c3044fdf2d8f97"
+ },
+ {
+  "function": "updateProjectileActorAlt",
+  "text": "CANNOT GET CLOSER with pure C. Best score 2061. Entire remaining diff is a callee-saved register rotation (target r7=v38,r6=p3C,r8=p48,sl=p34,r5=v12 vs agbcc's r6=v38,r5=p3C,sl=p48,r8=p34,r7=v12) driving 50 regalloc rows + literal-load placement. asm() register hints are banned, so regs cannot be pinned. Tried 4 declaration-order variants, v12 early/late, p34 local \u2014 all worse or identical. agbcc's callee-saved allocation is immovable via natural C; score 0 unreachable without asm(). Releasing so another agent may try, or this gets revisited if the toolchain allows hints.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.0830376,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateProjectileActorAlt",
+  "text": "Regalloc fundamentally differs: target r7=v38,r6=p3C,r8=p48,sl=p34,r5=v12 vs agbcc r6=r38,r5=p3C,sl=p48,r8=p34,r7=v12. Best score 2061. Data pointer mapping also shifted (D_0866D848 etc point to wrong ROM addrs). Prior agent concluded asm hints needed. Cannot get closer with pure C natural code.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0841599,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateProjectileActorAlt",
+  "text": "Near-identical 194-insn clone of MATCHED sub_0801DE04 and sub_0801F300. Copy the matched C from sub_0801F300, change the callee names and the D_0866D... literal to the one in this function's target assembly, and keep BOTH regalloc fixes: `b = b & (*((u16 *) p3C)); if (b && ...)` (forces `ands r5,r0`) and a fresh `u8 b2` local for the second byte load (forces `ldrb r0,[r0]`). sub_0801F300 matched at score 1 purely by correcting the data symbol D_0866D748 -> D_0866D7A0. Check this function's `ldr r0,=...` literal at the equivalent of _0801F3C2 carefully.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.3165574,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_080BB984",
+  "text": "Semantically correct C (test c&0xF, where c is incremented/stored value) scores 455 and removes the off-by-one extra `adds r0,r2,#1` present in saved 345 candidate. Residual is DRACULA AGB1 frameless Thumb leaf ABI wall: target bare bx lr/no frame, agbcc emits push{lr}/pop{r0};bx r1 with branch/literal/nop layout ripple. All real logic instructions match. Saved 345 candidate is semantically suspect (reloads counter+1 for test) per candidate quality warning; prefer correct c&0xF form. Needs compiler/backend frameless leaf emission.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795741515.2755194,
+  "score_before": 345,
+  "score_after": 345,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:63e0444d3d8e43a0641a5d537eb8a9f0ccc21f95be8210a6a0462b17cdf5850e"
+ },
+ {
+  "function": "sub_080BFD7C",
+  "text": "Shared-literal-pool wall, confirmed. 56-byte leaf under -mno-thumb-interwork: audio tick that checks (u32)(p->f0-0x68736D53)<=1, decrements p[4], on wrap copies p[0xB] and writes 0/0xB600 to 0x040000C6/0x040000D2. Target's first two ldr rows are [pc,#0x298] reading the NEIGHBOUR thunk's pool at 0x080C0018 (=0x03007FF0) / 0x080C001C (=0x68736D53); a standalone compile must emit its own nearby pool, so those rows and the resulting register/pool ripple cannot be reproduced from C. This session: saved_best recompiled = 1895 confirmed; clean correct-behavior C = 2520; compiler_experiments non-interwork O2/Os 1895, interwork 1900. Residual also includes push{r4,lr}/pop{r4,pc} and pool-word decoding garbage. Requires a linker/pool-placement change or a whole translation-unit compile.\nsaved_best struct-based source (1895); clean u8* correct-behavior source (2520); flag trials non-interwork/interwork\nno source reaches the target's [pc,#0x298] shared-pool loads; register colors, frame and trailing pool decoding remain",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795741515.3884664,
+  "score_before": 1895,
+  "score_after": 1895,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:5554068c790ccf4d772bf99ce1bc319415eb6403065eb4c3b748701286fccbdf"
+ },
+ {
+  "function": "sub_08086E28",
+  "text": "Confirmed agbcc -O2 allocator-coloring tie, score 20. All 40 target instructions/opcodes/order exact; sole residual is 0x305 literal kept in r4 in ROM vs r1 in agbcc (affects ldr/adds/subs/adds rows at 6,7,10,11). 37+ prior compiles, try_local_repairs historically no improvement. Needs allocator/backend change, not C fix.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795741532.5715742,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:750c3b182cd43765a5f8367f4fd85b3c4cfa76746e4e3f7bae1ef43717cf7ac0"
+ },
+ {
+  "function": "sub_080BEF60",
+  "text": "Confirmed DRACULA AGB1 frameless Thumb leaf ABI wall under this unit's -mno-thumb-interwork profile. Target is 80-byte leaf (gCameraState 0x1361=7, copy 0x1364->0x1366, 0x1365->0x1367, write 0xE2 or r2-1 to 0x04000005) ending bare bx lr, no frame. Candidate adds push{lr}/pop{pc} and minor compare encoding difference (cmp r2,#0 vs lsls r0,r2,#0x18;cmp r0,#0); real body logic matches. In-profile flags/interwork variants do not produce frameless bx lr leaf. Needs compiler/backend frameless leaf emission.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795741564.5719109,
+  "score_before": 705,
+  "score_after": 705,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:8856a5c6634190a00a8734d3712d5d3e652fab54f751a3bc2bb9fca0954975b3"
  }
 ]

@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795741399.5341506,
- "revision": 68616,
+ "saved_at": 1795741575.4146054,
+ "revision": 68625,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1802,7 +1802,8 @@
   "DRACULA AGB1 near-match triage procedure: when a near-match residual is only `r` (register) rows, work through (1) try_local_repairs(compare=true), (2) a small compile_variants grid of type/declaration/operand-order edits, (3) compiler_experiments flag profiles including exact project flags. If every legal C spelling keeps the same score/diff and non-project flags are much worse, it is an agbcc allocator-coloring tie, not a source problem \u2014 release with an explicit compiler-change handoff rather than spending budget.",
   "DRACULA AGB1 literal-pool/extent wall: when every real target instruction is byte-exact and the only residual rows at the very end are a `movs r0,r0` alignment nop plus 2 rows decoding the bytes of a literal-pool word, the ROM's pool entry sits just past the function's declared extent. A standalone compile must emit its own pool inside the extent, so those rows can never be removed by C spelling, casts, constant formatting or in-profile flags. Release with a compiler/extent handoff; do not spend the compile budget on it.",
   "DRACULA AGB1 frameless Thumb loop-leaf ABI wall: when a no-call leaf loop has a byte-exact real body but agbcc adds `push {lr}` and `pop {r0}; bx r0` where the ROM uses bare `bx lr`, treat it as compiler frame-emission, not loop C. Exact flags, -O1, -O3, and even explicit -fomit-frame-pointer preserve this inserted frame and branch-displacement ripple, while -Os/non-interwork are worse. Do not spend budget on while/do/for or pointer declaration permutations; a compiler/backend change is required.",
-  "DRACULA AGB1 / frameless Thumb leaf frame wall: when a no-call leaf's entire real target body is already byte-exact and the only residual is candidate `push {lr}` / `pop {r0}` / `bx r0` versus the ROM's frameless `bx lr`, with branch and literal offsets rippling by two, this is agbcc `-mthumb-interwork` prologue/epilogue emission, not a C-source mismatch. Source permutations cannot remove it. Confirm the compiler profile once with search_flags, then release with a compiler_settings handoff; matching requires an ABI/compiler mode that emits frameless Thumb leaves."
+  "DRACULA AGB1 / frameless Thumb leaf frame wall: when a no-call leaf's entire real target body is already byte-exact and the only residual is candidate `push {lr}` / `pop {r0}` / `bx r0` versus the ROM's frameless `bx lr`, with branch and literal offsets rippling by two, this is agbcc `-mthumb-interwork` prologue/epilogue emission, not a C-source mismatch. Source permutations cannot remove it. Confirm the compiler profile once with search_flags, then release with a compiler_settings handoff; matching requires an ABI/compiler mode that emits frameless Thumb leaves.",
+  "DRACULA AGB1 / agbcc initial-copy CSE wall: when a switch walker seeds its loop counter with `s32 status = 0; s32 i = status;` and the ROM's prologue is `movs r7,#0; adds r3,r7,#0` (status in callee-saved r7, counter copied into call-clobbered r3), agbcc -O2 constant-propagates both locals to `movs #0` and no legal C spelling preserves the register copy. Declaration order, assignment vs initializer, chained assignment, for-init, do/while(0), struct aggregates, pointer/alias reads, narrow or unsigned types, register/const hints and all five agbcc flag profiles leave the fold (or break other row"
  ],
  "knowledge_evidence": {
   "DRACULA AGB1 near-match triage: when a function's residual is only `r` (register) rows and several structurally different legal C spellings give the same score (or merely rotate which register holds a value), it is an agbcc -O2 allocator-coloring tie, not a source problem. Check before spending a budget: try_local_repairs with compare=true, then a small compile_variants grid of type/declaration/expression changes, then compiler_experiments flag profiles. If non-project flags are all much worse and C variants keep the same score/diff, release with an explicit compiler-change handoff rather than": {
@@ -1930,6 +1931,28 @@
     {
      "by": "opencode-hy4-flash-free-11",
      "value": "sub_08019254: fresh compile of the saved candidate (revision af4bc19dd5fe7e852799) scores 570 with 60 target/60 candidate instructions. Only residual rows: candidate `push {lr}` at row 0, r2/r3 swap on the first two loads, `bhi` displacement off by two (25d8 vs 26d8), `ldr r1,[pc,#8]` vs `[pc,#0xc]`, target-only `movs r0,r0` alignment nop, and candidate `pop {pc}` vs target `bx lr`. search_flags on this exact source returned 570 for all five profiles (-mno-thumb-interwork -O1/-O2/-O3/-Os/-fno-expensive-optimizations), so flags do not change the frame. Matched jump-table donors sub_080547E0, setAttackHitbox and sub_08042130 all carry push {r4,lr} (r4 needed); no matched frameless jump-table donor was found."
+    }
+   ]
+  },
+  "DRACULA AGB1 / agbcc initial-copy CSE wall: when a switch walker seeds its loop counter with `s32 status = 0; s32 i = status;` and the ROM's prologue is `movs r7,#0; adds r3,r7,#0` (status in callee-saved r7, counter copied into call-clobbered r3), agbcc -O2 constant-propagates both locals to `movs #0` and no legal C spelling preserves the register copy. Declaration order, assignment vs initializer, chained assignment, for-init, do/while(0), struct aggregates, pointer/alias reads, narrow or unsigned types, register/const hints and all five agbcc flag profiles leave the fold (or break other row": {
+   "model": [
+    {
+     "by": "opencode-hy4-flash-free-40",
+     "value": "hy4-flash-free"
+    },
+    {
+     "by": "opencode-hungerg-free-3",
+     "value": "hungerg-free"
+    }
+   ],
+   "text": [
+    {
+     "by": "opencode-hy4-flash-free-40",
+     "value": "sub_08012A94 (f1eb2333feea9962cd8a): fresh score 200, only target `adds r3,r7,#0` vs `movs r3,#0` at insn 9; twin sub_08012C44 has the same fold wall. 42 fresh tries plus ~111 prior attempts across models; 64 statement permutations, 6 flag profiles, 6 extra flag experiments, local-repair/prove_chain all stay at 200 or worse."
+    },
+    {
+     "by": "opencode-hungerg-free-3",
+     "value": "Fresh compile of sub_08012C44 revision 14c0b2547d3c49a8b18f: score 200, 203/203 instructions, sole diff target `adds r3,r7,#0` vs candidate `movs r3,#0` at instruction 9. Claim history records 31 explicit patches and 6 local-repair trials with best 200. The source is exactly `status = 0; i = status;`, and every other instruction is byte-exact under the current agbcc profile."
     }
    ]
   }
@@ -5691,7 +5714,7 @@
   "updateProjectileActor": {
    "vram": 134350700,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080208F0": {
    "vram": 134351088,
@@ -5823,7 +5846,7 @@
    "matched_by": "opencode-deepseek-v4.1-flash-2",
    "readable": true
   },
-  "sub_08021A68": {
+  "updateProjectileActorAlt": {
    "vram": 134355560,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -28112,7 +28135,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08021A68",
+   "name": "updateProjectileActorAlt",
    "vram": 134355560,
    "size": 388,
    "status": "open"
@@ -50710,6 +50733,12 @@
    "kind": "func"
   },
   {
+   "name": "updateProjectileActorAlt",
+   "address": 134355560,
+   "size": 388,
+   "kind": "func"
+  },
+  {
    "name": "configureChildMotionFromDirection",
    "address": 134358996,
    "size": 468,
@@ -52516,6 +52545,12 @@
    "kind": "data"
   },
   {
+   "name": "sProjectileAltScriptStepTable",
+   "address": 140957768,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "sEnemyStepHandlers",
    "address": 140957888,
    "size": 0,
@@ -53182,6 +53217,11 @@
   },
   {
    "address": 140957668,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140957680,
    "type": "u8[]",
    "source": "match"
   },
