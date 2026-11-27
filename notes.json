@@ -15544,14 +15544,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Cannot progress; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9756124,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0809E0B4",
   "text": "Cannot progress; releasing.",
   "by": "opencode-free-1",
@@ -94800,14 +94792,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Register allocation wall (r8 callee-saved). Best score 655 (96%). Target uses `push {r4,r5,r6,r7,lr}; mov r7,r8; push {r7}; mov r8,r0 (D_02025368); ... pop {r3}; mov r8,r3` - saves incoming r8 via r7, uses r8 for data pointer. agbcc -O2 never allocates r8/r9/r10 from pure C. Same pattern as sub_0802DA54 (score 1500), sub_08053A00 (1750), sub_08078804 (2190), sub_08077B9C (5640). Pure C cannot force r8 allocation.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.388549,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08059BF8",
   "text": "Register allocation wall (arg0/p swap). Best score 1901 (88.6%). Target: arg0=r5, p=r6, obj=r7, r4=r4; agbcc: arg0=r6, p=r5, obj=r7, r4=r4. Same pattern as sub_080660A4, sub_0804886C. Previous agent tried exhaustive formulations (14 compiles): declaration order, padded structs, volatile fields, goto labels, separate tmp vars. All failed. \"This is an agbcc regalloc tie-break between the sole parameter and a local loaded from it; needs the exact original variable shape, which I could not derive.\" Cannot fix without register pinning.",
   "by": "opencode-free-1",
@@ -95552,14 +95536,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "1 compile, best 956 (autopilot draft shape, mine, 164/165). Literal-pool diffs vs target (0x4700BC01 vs pointer to D_02025FF0, 0x0808449D vs sub_0808449C, 0x084DE7BC vs D_084DE884, 0x084DE884 vs D_08671BB0). Tool 0/8. Moving on to finish the compiled claims.",
-  "by": "opencode-tidepool-alpha-free-1",
-  "created_at": 1795683534.3926728,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08006120",
   "text": "Proven constant-materialization wall at score 235 (range 0x8006120-0x80061CC, agbcc -Os): target loads VALUE 9 directly via `ldr r0,[pc]` (literal pool entry) then `lsls/lsrs #16` truncation; agbcc emits address+deref (`ldr r0,[pc]; ldr r0,[r0]`) for static volatile u32 nine=9, or folds to `movs #9` for const. Branch offset also differs (blo #0x12 vs #0x14). Confirmed myself this session: best-known source = score 235, identical diff. ~50 prior attempts: static volatile u32=9 (240), pool-read hack (630), static const (690), plain u32=9 (2090), all flag variants \u2014 floor at 235. No natural C form forces direct literal-pool VALUE load + truncation. Body logic otherwise matches (45/45 insns): 9-iteration loop over D_080C98C0/D_0200A268/D_08106DCC, calls sub_080C0B70(obj) when obj[1]>=0 setting slot=1, else slot stays 0. Ordinary correct C, not hand asm, not not_c \u2014 needs compiler change. Best source saved at 235.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -95956,14 +95932,6 @@
   "text": "Cannot get closer in pure C: systemic high-register regalloc wall plus unfixable call/data relocations. Best 4575; my clean target-based rewrite regressed to 5916. Target saves r4-r7 plus r8/r9/r10 (three high regs) with arg0=r7, agbcc only saves two high regs; literal-pool entries and all five call relocations cascade. Same wall family as sub_08036BDC/sub_08032354; no C spelling recovers the third high register. Ordinary correct C, not asm, not not_c. Releasing for the final claim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.3948445,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Cannot get closer within the session quota: best 655 (permuter's `new_var=&r4` alias + split division); my verbatim twin-adapted copy of sub_0807AEC4 regressed to 996. Target's literal pool is shifted one slot and its symbol assignments cascade (D_02025FF0 / sub_0808449C / D_084DE7BC / D_084DE884 / D_08671BB0), with 5 callee-saved r8 regalloc rows and 5 unfixable call relocations. Twin is only 83% similar, so verbatim copying fails. Ordinary correct C, not asm, not not_c. Best 655 source preserved; releasing at session quota.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.3948843,
   "score_before": null,
   "score_after": null
  },
@@ -116184,14 +116152,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Best 200 (98.7%, 165/165 target insns match) - cannot get closer in C. Code is byte-for-byte identical in instructions; only difference is 2 extra trailing `movs r0,r0` alignment/padding nops before literal pool (function 4 bytes longer than original). Tried removing unused `c` local, inlining 0x80000 constant - no effect. No structural/logic/regalloc issues remain. This appears to be a padding/alignment artifact not controllable from C source. Releasing to continue claim quota.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.5044916,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080BE644",
   "text": "Refinement of the dead-uninitialized-local trick (from matched sub_080BE7D4/sub_080B300C): an uninitialized local used in `if (dead) {BODY} else {BODY}` forces the callee-saved push/pop with NO emitted body instructions. For sub_080BE644 (two loops, 3 callee-saved values) this took score 20 -> 10: `push {r4,r5,r6,lr}` now matches; ONLY remaining diff is the base literal 0x02025FF0 in r6 (target r5) and the dead local in r5 (target r6). Best score-10 source: void* arg0, loop1 plain, second block `{s8 *new_var = (s8*)(void*)D_02025FF0.v; ... loop2 with if(var_r6){...}else{...}}`, `0x1D6` literal compared in both loops, do{do{if...; if(1){} }while(0); p=*(p+0x2C)}while(p)`. Tried moving the dead-var use to both loops (->40: dead r4, const r5, base r6), declaring it at top/nested after base ref/different block scope (all ->10 unchanged), assigning new_var at very top (->755, breaks literal hoisting). Need base pseudo allocated before dead var.",
   "by": "opencode-hy4-flash-free-2",
@@ -132732,14 +132692,6 @@
   "text": "Regalloc wall: second base-pointer copy hoisted to callee-saved r5 instead of short-lived r1 in block 2. All instructions otherwise match (276, 95%). Known wall. Correct C preserved. Not not_c.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.5911436,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Score 200, class-(A) boundary case, NOT a C wall: all 165 real target instructions are byte-identical through the final `bx r0` at 0x08079F2E (ROM bytes `00 47` there). Declared extent 0x08079DF0+0x15C=0x08079F4C but everything from 0x08079F30 is the literal pool (0x02025FF0, 0x1510, 0x2E2, sub_0808449C, D_084DE7BC, D_084DE884, 0x14B, 0x08671BB0) \u2014 data, not code. Only diff is 2 `movs r0,r0` alignment NOPs agbcc inserts before its pool. Filed report_boundary(end=0x08079F2E) this session; needs user approval to take effect. Best source is the iceman version in the function record (verbatim recompile reproduces 200). Cannot get closer from C \u2014 removing locals/constants does not change the padding. Not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.591182,
   "score_before": null,
   "score_after": null
  },
@@ -157448,14 +157400,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Class-(A) boundary case, NOT a C wall. All 165 real target instructions byte-identical through final bx r0 at 0x08079F2E; only diff is 2 trailing `movs r0,r0` alignment NOPs + literal pool (0x08079F30\u20130x08079F4C) after the return. Score 200 (98.7%). report_boundary(end=0x08079F2E) filed pending user approval. Verbatim iceman source recompiles to 200. Per convention #393 class (A), do not burn compiles changing C. Release; if user approves boundary, function matches at 0.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.718272,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A8784",
   "text": "Confirmed terminal agbcc high-register (r8/r9/r10) regalloc/stack wall at 5035 (66.6%, 154/151 insns). Target prologue saves r8/r9/r10, keeps b in r7 and pC0/pC8/t0 in r10/r8/r9 with `sub sp,#4` and one spill; agbcc uses different high-reg mapping (b\u2192r6, sl/sb used), extra moves/spills, 7 extra insns, shifted call/data relocations. All logic byte-correct: clamp/update C8+C0, wrap C0&0xFFFF, 4x sub_080C31E0 trig calls to 0xA8/0xAC, r6v branch by sign of C8 (0xFFFFC000 vs 0x4000), abs(C8)*result>>10 stores to 0xB4/0xB8, sub_080A845C(a,b), D8 early return, conditional sub_080147A4 with swapped args. Exhausted levers: declaration/assignment reordering (5942\u21925035), pointer types, removing b param use, register hint, late pC8, duplicated ptr temps, merged clamp (lost `rsbs`/got `cmn`). register-asm pin rejected. 30+ prior attempts floor at 5035-5942. Not boundary/not_c/hand asm. Deterministic agbcc high-reg coloring wall, unreachable from pure C.",
   "by": "opencode-free-1",
@@ -159524,14 +159468,6 @@
   "text": "Can't get closer \u2014 terminal agbcc commutative-OR regalloc tie-break, no C lever exists; releasing now. Best 20 (40/40 insns byte-exact), only diff shift-in-r0/byte-in-r2 vs target shift-in-r2/byte-in-r0 at the final orrs. OR commutativity cannot be overridden from C; byte-first flips prologue to 255. ~967 prior attempts all floor at 20; register asm banned, only agbcc available. Not hand asm, not not_c, no boundary, clean epilogue. Best-20 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.729054,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Class (A) boundary case (score 200, 98.7%). All 165 real instructions byte-identical through final bx r0 at 0x08079F2E. Only diff: 2 agbcc-inserted movs r0,r0 alignment NOPs before literal pool at 0x08079F30-0x08079F4C. report_boundary(end=0x08079F2E) filed. Logic/structs/calls fully correct. Per project convention #393, this is NOT a C wall \u2014 boundary fix, not C change. Best source is iceman version (200).",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.7290986,
   "score_before": null,
   "score_after": null
  },
@@ -172112,14 +172048,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Reached 200 (= record) in 2 compiles with a clean source, and it is the same class-(A) boundary artifact three earlier agents hit; boundary re-filed this session with end=0x08079F2E. DETAIL: the function is a near-verbatim clone of MATCHED sub_0807AEC4 (0x0807AEC4, 83% similar) \u2014 copying its source shape gets all 165 real instructions byte-identical. Recipe that works (source is saved as the best attempt): `struct SpawnBuf { u8 _0[0x2C]; u8 * volatile spawned; }` with `obj = (struct SpawnBuf*)buf` and every field store reading `obj->spawned` afresh (the volatile reloads are needed), `struct GlobalFlags { u8 _0[0x1510]; u8 flag1510; }` over D_02025FF0 for the two-literal `ldr base; ldr 0x1510; adds` form, `zero = 0;` assigned after the NULL check, `u32 srcValue = *(u32*)(self+0x9C); *(u8*)(state+0x48) = srcValue;` before the strb, `s32 c = 0x80<<0xC;` for buf+0x40, rounding divides `(*(s32*)(buf+8) * (c>>8)) / 256`, and CSE of the constant 8 shared by the priority (u8 +3) and anim1 (u16 +8) stores via `u8 eight; *(u8*)(obj->spawned+3) = (eight = 8); ... *(u16*)(obj->spawned+8) = eight;` (without the `eight` variable agbcc rematerialises `movs r0,#8`, 4 extra insns, 1336). Our differences from sub_0807AEC4: anim0=4/anim1=8, sub_0806D62C(...,0x3F), flag=5, id=0x5B, gfx+0x24=0x084DE7BC, sub_08003A6C(state+0x20,0,0x084DE884), c=0x80<<0xC, and the extra `sub_08005E80(0x14B)` call after the divides. Residual after all 165 insns match: 4 bytes \u2014 agbcc emits 2 extra zero words after the in-function pool (the in-function pool bytes themselves all match). Nothing in C controls that padding; it needs the extent fix (0x08079F50) or the boundary end 0x08079F2E to be accepted. Not flags (search_flags previously showed O2 optimal), not not_c, not hand asm.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.7939007,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080547E0",
   "text": "Cannot get closer with declared flags (-mno-thumb-interwork -O2). Best 20 (99.6%, 58/60 insns exact): only 2 operand diffs, both downstream of the epilogue \u2014 target `pop {r4}; pop {r0}; bx r0` (6 bytes, interworking) vs agbcc's `pop {r4,pc}` (2 bytes) under this range's -mno-thumb-interwork flag, which shifts the default-case `ldr r3,[pc,#0x1c]` to `[pc,#0x18]`. The target's epilogue is unmistakably interworking, so the range annotation 0x80547E0-0x8054860 is likely wrong. Verified with try_compiler: under `-mthumb-interwork -O2 -fno-strength-reduce` ALL 60 real instructions match byte-for-byte, scoring 200 only because of 2 trailing `movs r0,r0` alignment NOPs after `bx r0` (class-A boundary; report_boundary(end=0x0805485E) already filed with byte evidence \u2014 ROM has function ending at 0x0805485E and shared pool word 0x080CFB3C at 0x08054860). search_flags: -mno-thumb-interwork O2/O3=20, Os=80, O1=1956. This session: 1 compile confirming 20 + flag experiments. Correct ordinary C, not hand asm, not not_c. Best source (switch on arg0+0x28 with 5 cases, volatile field at +0x28, stores src[0..3] to field[3..6]) preserved at 20.",
   "by": "opencode-hy4-flash-free-1",
@@ -173636,14 +173564,6 @@
   "text": "Terminal class-B frameless-branchy-leaf wall at 225 (87.5%, 18/18 body insns byte-exact). This session: named-bit nested-if clean-C 225; C89 early-return 225; baseline recompile 225 (plus one C89 syntax error, not a codegen result). Only residual is agbcc's forced `push {lr}` / `pop {r0}; bx r0` frame vs ROM's bare `bx lr`, with both `bne` offsets #0x24 vs #0x22. ~87 prior attempts across all flags/shapes agree; no C removes a compiler-inserted LR frame. Not hand asm, not not_c, no boundary. Best 225 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.802499,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Boundary/aligned-padding case, not a C wall. Recompiled the saved 200 source this session: all 165 real instructions byte-identical, last one `pop {r0}; bx r0` ending at 0x08079F2E, score 200 with only 2 extra `movs r0,r0` alignment nops before the in-function literal pool. search_flags this session: -O2/-O3/-Os all 200, -O1 3541, so the project flags are right and the padding is agbcc's pool alignment, not controlled by C (nothing in the source changes it). Filed report_boundary(end=0x08079F2E) this session; it needs user approval to take effect (pool 0x08079F30..0x08079F4C = D_02025FF0, 0x1510, 0x2E2, sub_0808449C, D_084DE7BC, D_084DE884, 0x14B, plus the 0x08671BB0 halfword cut by the declared 0x15C extent). No C change can remove the nops; do not burn compiles rewriting the source.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.802539,
   "score_before": null,
   "score_after": null
  },
@@ -186904,14 +186824,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Boundary artifact confirmed: 200 (98.7%), all 165 real instructions byte-identical through `bx r0` ending at 0x08079F2E; only residue is 2 agbcc alignment `movs r0,r0` NOPs after the return, before the in-function literal pool. Recompiled iceman source verbatim -> 200. Filed report_boundary(end=0x08079F2E) again this session (4 prior agents did too). No C spelling/flags remove the NOPs (O2/O3/Os all 200). Not a C wall; not hand asm; not not_c. Best source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.870499,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08062828",
   "text": "Cannot improve from C. 595 (96.0%, 150/150) is a documented agbcc -O1 regalloc/constant-pooling wall (offset anchor pooling, g in r7/ip save, zero scheduling, loop bound form). 98+ prior attempts across models exhausted C levers; register-asm pinning banned. All structure/calls/data correct. Not asm, not boundary, not not_c.",
   "by": "opencode-iceman-contributor-free-1",
@@ -187332,14 +187244,6 @@
   "text": "Cannot get closer in pure C (confirmed this session, 3 compiles, best 245/98.4%). All 156 target instructions are present and byte-identical in opcode/operands/ordering; the only 49 diffs are a 3-way callee-saved register rotation (target entity=r6,motion=r7,steer=r5 vs agbcc entity=r5,motion=r6,steer=r7) plus consequent literal-pool label offsets. This is agbcc global.c allocno ordering; RTL/live ranges of the three pseudos are pinned by the target instruction stream, so no legal C spelling changes coloring. Tried this session: declaration reorder 245 (no effect), assignment reorder steer/collisionData 320 (worse, changes init order). Prior 40+ attempts across 5 models exhausted: zero placement, param/field types, pF0/D_0202773C local, split temps, flag variants, struct vs integer entity (spills to sb). Register pinning is banned. Not hand-written asm, not a boundary case. Only compiler/regalloc change can close it.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.8729014,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Score 200 (98.7%), all 165/165 real instructions byte-identical through `pop {r0}; bx r0` at 0x08079F2E. Only 2 extra `movs r0,r0` alignment NOPs before in-function literal pool (0x08079F30) remain; this is pool-padding/boundary artifact, not fixable in C. search_flags/notes indicate flags not the issue. Reported boundary end=0x08079F2E this session. Best source preserved from opencode-iceman-contributor-free-1.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.8729386,
   "score_before": null,
   "score_after": null
  },
@@ -194816,14 +194720,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Compile says it all: all 165 target instructions are byte-identical (score 200) and the only residual rows are 2 alignment `movs r0,r0` plus the tool's \"your function is longer than the original\". Nothing in C can change it \u2014 my compiled object is 352 bytes, which is the ROM's real function size; the declared extent (348 bytes, ending 0x08079F4C) cuts the function's 8-word literal pool (0x08079F30..0x08079F50: 02025FF0, 1510, 2E2, 0808449D, 084DE7BC, 084DE884, 14B, 08671BB0) in the middle of its last word. I filed a setup suggestion to extend the extent to 352 bytes (end 0x08079F50); prior report_boundary(end=0x08079F2E) filings would instead throw away the pool, which the compiler legitimately emits. Do not rewrite the source: the saved best attempt is correct as-is.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9120994,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0808FE8C",
   "text": "Asking again with the explicit reason it cannot get closer: all 159 target instructions are present and byte-exact apart from 15 register-colouring rows and 2 reorder rows; every value is a short-lived pseudo whose hard-register assignment agbcc fixes deterministically and no natural C spelling changes (77 prior attempts plus this compile; -mno-thumb-interwork tested and worse at 416). Register pinning via inline asm is harness-banned, so these rows cannot be removed in pure C. Not hand-written asm, not not_c, no boundary. Best-135 source preserved; advance the queue.",
   "by": "opencode-hy4-flash-free-1",
@@ -195524,14 +195420,6 @@
   "text": "Confirming release anyway: the only residual is the ROM's unexplained save of r10 (sl), which is never written in the body \u2014 agbcc never allocates an unused callee-saved high register, so the target's 3-high-register prologue and its whole downstream coloring (mask=1 in r2, zero in r6, `ldrh r0; orrs r0,r2`) are unreachable from C. 8+ agents / 24 attempts, ceiling 4880; logic fully verified. Not hand asm, but not matchable with this compiler.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.9158077,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "All 165 real target instructions are byte-identical (score 200, 98.7%); the only residual is 2 agbcc alignment `movs r0,r0` NOPs before the in-function literal pool, which no C spelling or flag removes (prior agents: O2/O3/Os all 200). The declared extent (348 bytes, end 0x08079F4C) cuts the function's own 8-word literal pool at 0x08079F30..0x08079F4F in half; it must be 352 bytes (end 0x08079F50). Backed the existing setup suggestion this session. Do NOT report_boundary(end=0x08079F2E) \u2014 that would discard the pool the compiler legitimately emits. Best source preserved verbatim; not a C wall, not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.9158478,
   "score_before": null,
   "score_after": null
  },
@@ -202456,14 +202344,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "All 165 of 165 target instructions are byte-identical (score 200); the only residual is 2 extra `movs r0,r0` alignment NOPs before the in-function literal pool. This is the documented class-A extent-too-short setup case, not a C wall: declared extent is 348 bytes ending 0x08079F4C, but the function's own 8-word literal pool at 0x08079F30..0x08079F4F (0x02025FF0, 0x1510, 0x2E2, 0x0808449D, 0x084DE7BC, 0x084DE884, 0x14B, 0x08671BB0) runs to 0x08079F50. Backed the existing setup suggestion to EXTEND extent to 352 bytes this session. Do NOT report_boundary/shorten \u2014 the pool belongs to this function and the compiler legitimately emits the padding. Best source (iceman's) is correct and preserved. Not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.9518638,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08060930",
   "text": "Cannot get closer: #712 frameless-branched-leaf wall. Body 52/52 instructions byte-exact (306); the whole residual is agbcc's forced LR frame (`push {lr}` ... `pop {r1}; bx r1` vs ROM bare `bx lr`) plus the literal-pool offset shift (pc+0x1c -> pc+0x18) and the dropped alignment `movs r0,r0`. Proven compiler-level: a minimal branched leaf probe compiles framed under agbcc, and `-mno-apcs-frame` / `-fomit-leaf-frame-pointer` are rejected by the toolchain; latest C body already byte-exact, so no C change can lower it. Not hand asm, not not_c, no boundary, no callee dep. Best-306 source preserved.",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -205924,14 +205804,6 @@
   "text": "Cannot get closer in pure C: all 30 instructions structurally correct at floor 220; the only diff is the two multi-instruction constants' callee-saved colors (target 0x100 in r1 used twice with no copy, 0x800 in r4 with an `adds r0,r4,#0` copy; agbcc assigns r4 to the first constant, copies it, remats the other into r0). 145+ attempts across all declaration-order/lifetime/type/temp/nesting forms and all flag variants (O1 fixed for this range) confirm; register-asm pinning is rejected by the harness. Partial levers solve one constant but destroy the frame/tail. Not hand-written asm, not not_c, no boundary artifact. Best baseline source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9699478,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Class-A extent case \u2014 no C work remains. Fresh compile: score 200 with ALL 165/165 target instructions byte-identical through the final `pop {r0}; bx r0` at 0x08079F2E; residual rows are only our own alignment `movs r0,r0` padding before the function's literal pool. read_data 0x08079F28 confirms the 8-word pool 0x08079F30-0x08079F4F = 0x02025FF0, 0x1510, 0x2E2, 0x0808449D, 0x084DE7BC, 0x084DE884, 0x14B, 0x08671BB0 (the pool word D_08671BB0 at 0x08079F4C is cut by the declared 348-byte extent). Correct setup fix: EXTEND to 352 bytes (end 0x08079F50) \u2014 filed/voted a suggest() this session; report_boundary is the wrong direction (the pool belongs to this function). Best source preserved unchanged (it scores 0 once the extent is fixed).",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9699879,
   "score_before": null,
   "score_after": null
  },
@@ -216712,14 +216584,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "No C work remains: fresh compile this session gives score 200 with ALL 165/165 target instructions byte-identical through the final `pop {r0}; bx r0` at 0x08079F2E. The only residual rows are our own 2 alignment `movs r0,r0` NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) plus \"your function is longer than the original\". This is the documented class-A extent-too-short setup case: declared 348 bytes ends at 0x08079F4C mid-pool, real size is 352 bytes (end 0x08079F50). I filed/backed the setup suggestion to EXTEND the extent to 352 bytes `sub_08079DF0`; do NOT report_boundary(0x08079F2E) and do NOT rewrite the source. Best source preserved verbatim (it scores 0 once the extent fix lands). Not hand asm, not not_c.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683535.0267015,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0805E608",
   "text": "Terminal agbcc regalloc/coloring wall at 350 (94.2%, 61/61 insns byte-exact, same count). 6 compiles this session, all at the 350 floor; ~120 attempts across 8 agents previously. Tried: u16/u32/int idx variants (u16 idx2 -> 1605 r8 spill, reverse -> 350), 1-arg sub_08005E80 prototype (385 + r8 spill), u8 v and (u8)idx 4th arg (1620), `(0xC2 << 2)` offset spelling (350). Residual is coupled: target ldrh idx into r0 then `adds r3,r0,#0` copy, q=r7, constants in r1/r3, no extra `adds r1,r4,#0` before the 0x77 call, and an extra trailing pool-align NOP in ours; agbcc here always loads idx straight into r3, puts q=r1, constants in callee-saved r7, copies v into r1 for hidden 2nd arg, and reloads p via r0. Hidden-arg decls `sub_08062394(u8,u8,u8,u16)` / `sub_08005E80(u16,u32)` are the only way to pin v=r4,c=r2,idx=r3,p=ip; removing them regresses to 385-425. Correct ordinary C exists; not hand asm, not not_c, extent fine (3 pool words inside 128 bytes), no callee dependency. Best-350 source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -220084,22 +219948,6 @@
   "text": "Terminal frameless-branchy-leaf wall (known family). Best 336 (90.1%), all 34 body instructions byte-exact. Sole residual: agbcc emits push{lr}/pop{r0};bx r0 vs ROM bare bx lr, causing +2 branch offsets, literal pool shift, and alignment pad diff. Tried: plain switch (336), if-chain with early return (1721), if-else on c&0x30 (1346). No C-level fix; needs compiler/codegen accommodation or manual asm decision. Not hand asm, not boundary. Best source is plain switch form.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.0451777,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "sub_08079DF0 is a class-A extent-too-short setup case, NOT a C wall. The preserved iceman source (best attempt) compiles with ALL 165/165 target instructions byte-identical (score 200). The only residual rows are 2 extra `movs r0,r0` alignment NOPs the compiler emits before the function's own 8-word literal pool at 0x08079F30-0x08079F4F. Declared extent is 348 bytes ending 0x08079F4C (cuts the last pool word 0x08671BB0 in half); correct extent is 352 bytes ending 0x08079F50. A setup suggestion to EXTEND already exists; do NOT report_boundary at 0x08079F2E and do NOT rewrite the source \u2014 it scores 0 once the extent fix lands.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.0452163,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Asking to release now: no C work remains. Verified this session \u2014 the preserved iceman source compiles with ALL 165/165 target instructions byte-identical (score 200), the only residual being 2 extra `movs r0,r0` alignment NOPs before the function's own literal pool. This is the documented class-A extent-too-short setup case: declared extent 348 bytes ends 0x08079F4C, but the function's own 8-word pool at 0x08079F30-0x08079F4F runs to 0x08079F50 (correct extent 352). Cannot get to 0 from C because the C is already byte-perfect; only the project setup extent fix closes it. `suggest` refuses to back the existing setup suggestion (function's C can't match under the short extent). A setup EXTEND suggestion already exists and a note was added. Do NOT report_boundary (pool belongs to function), do NOT rewrite source. Not hand asm, not not_c. Best-200 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.0452564,
   "score_before": null,
   "score_after": null
  },
@@ -227816,14 +227664,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Best attempt (recompiled) gives score 200: all 165 target instructions match byte-for-byte; only diffs are 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool and \"longer than original\" due to declared extent being too short (declared 348 ends at 0x08079F4C, pool runs to 0x08079F50). This is a class-A setup extent issue, not a C problem (C is correct per prior agents). Do NOT report_boundary; need extent extended to 352 bytes (end 0x08079F50). No further C changes will remove those compiler-inserted NOPs caused by extent.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683535.0860717,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08096F5C",
   "text": "Why it cannot get closer: score 335 is a hard compiler-ABI floor with correct semantics \u2014 all 12 real body insns byte-exact, and the entire residual is the compiler-inserted LR frame (push{lr}/movs r0,r0 nop/pop{r1};bx r1) plus +4 literal and branch shifts. No C spelling or flag removes a mandatory compiler-generated frame; inline/register asm banned. Keep the correct 0/-1 source; the DB best-325 entry is wrong semantics (1/0, no rsbs) and must not be adopted. Ordinary correct C, not hand asm, not not_c, no boundary, no callee dependency.",
   "by": "opencode-hy4-flash-free-1",
@@ -229284,14 +229124,6 @@
   "text": "Release now \u2014 cannot get closer. Terminal frameless-branchy-leaf wall: all 26 body insns byte-exact at 305, only agbcc's push{lr}/pop{r0};bx r0 frame vs ROM bare bx lr (+2 on all ten branch displacements). No C shape or available flag removes this frame for a branching Thumb leaf (4-case switch is the only byte-exact body; switch+default/if-else/trivial-2-way all frame; -O1/-Os/-mno-thumb-interwork tried) across ~97 attempts; inline/register/naked asm banned, so further compiles cannot help. Pure C, not hand asm, not not_c, no boundary, no callee dependency. Best-305 source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683535.0940824,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Setup extent case, NOT a C wall: preserved source compiles with ALL 165/165 target instructions byte-identical (score 200); only residual is 2 extra alignment `movs r0,r0` NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) plus \"function longer than original\". Declared extent is 348 bytes ending 0x08079F4C (mid-pool); real extent is 352 bytes ending 0x08079F50. A setup suggestion to EXTEND to 352 exists; do NOT report_boundary (pool belongs to the function) and do NOT rewrite source \u2014 score reaches 0 once the extent fix lands. All logic/calls/data byte-perfect. Not hand asm, not not_c. Best-200 source preserved. Release.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683535.0941222,
   "score_before": null,
   "score_after": null
  },
@@ -233304,14 +233136,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "RELEASE (documented solved-from-C floor, score 200). First 165/165 target instructions byte-exact; all logic, calls, data references, and register allocation match. Only delta: 2 extra trailing `movs r0, r0` NOPs \u2014 mine has 167 insns vs target's 165, \"your function is longer than the original\" at link. The extras appear right after the matched `lsls r3, r1, #5; movs r0, r0` near the function tail: target ends with one `movs r0, r0`, mine emits three. No empty/null statements in source; agbcc layout/padding artifact, not controllable from C spelling. Not hand asm, not not_c, no boundary, no callee dependency (sub_08016190/sub_0806D2D0/sub_0806D62C/sub_080722E0/sub_0808449C/sub_080C31E0/sub_080C31E4 externs link fine; D_02025368/D_084DE7BC/D_084DE884/D_08671BB0/D_02025FF0 data fine). Previous agents established 200 as the C floor for this function; reproduced here. Suggested path for a later agent: project-setup/codegen change if the trailing NOP padding can be influenced, otherwise accept score 200 as solved-from-C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683535.1169646,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A040C",
   "text": "Why it cannot get closer (explicit): the target pairs a frameless bare `bx lr` with a conditional guard. Under agbcc -mthumb-interwork a conditional guard FORCES a `push {lr}` ... `pop {r0}; bx r0` frame (guarded C = 215, all 6 body insns byte-exact, beq #0xc->#0xe), while a frameless form must DROP the cmp/beq (branch-free best 210). No C statement/type/declaration/attribute/flag/toolchain combines the guard with a frameless return \u2014 ~118 lifetime attempts across all models, C shapes, -O levels, interwork modes and alternate compilers agree; inline/naked asm is banned. This is a pure compiler-codegen limit, not a missing C attempt, so no further compile can improve the score. Release to advance the queue. Pure C, not hand asm, not not_c, no boundary, no callee dependency. Best-210 branch-free and body-exact-215 guarded sources both preserved.",
   "by": "opencode-hy4-flash-free-2",
@@ -235244,14 +235068,6 @@
   "text": "Terminal agbcc -O2 whole-function regalloc floor at 3622, invariant. Releasing.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.1278698,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Only residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because the declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a setup extent issue, not a C issue; do NOT report_boundary (pool belongs to function). An EXTEND-to-352 setup suggestion already exists. Releasing; C work complete.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683535.127929,
   "score_before": null,
   "score_after": null
  },
@@ -239964,14 +239780,6 @@
   "text": "Terminal agbcc -O1 high-reg allocation wall (best 2185, 89.5%, 207/209 insns). 74+ attempts. Not fixable in C. Not hand asm, not not_c, no boundary. Releasing.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.1539774,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C work is complete; this is a project-setup extent issue, not a compile wall. Fresh recompile of the preserved best source: score 200, ALL 165/165 target instructions byte-identical, only 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool because the declared extent is 348 bytes (ends 0x08079F4C, mid-pool) instead of 352 bytes (end 0x08079F50). No C spelling controls those compiler-inserted NOPs. Do NOT report_boundary (the pool belongs to this function) and do not rewrite the C. An EXTEND-to-352 setup suggestion already existed; I voted for it again this session with fresh compile evidence. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683535.154019,
   "score_before": null,
   "score_after": null
  },
@@ -247672,14 +247480,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is complete: all 165/165 target instructions byte-identical (score 200). Only residual is 2 extra movs r0,r0 alignment NOPs before the function's own 8-word literal pool because declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a project-setup extent issue, not a C issue; do NOT report_boundary (pool belongs to function). An EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683535.1949885,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08078534",
   "text": "Terminal agbcc -O2 high-register coloring wall confirmed (1445, 91.1%, 164/164 insns). Target base=r4/p38=r8/base20=sb vs agbcc base=r6/p38=sb/base20=r8. andOne helper + sequenced fl/rr short-circuit load-bearing. 64+ prior attempts. Not hand asm, not not_c, no boundary/extent/callee. Best 1445 source preserved. Cannot get closer in pure C.",
   "by": "opencode-beam-free-1",
@@ -249068,14 +248868,6 @@
   "text": "Release override, explicit impossibility reason: the 210/215 floor is the documented frameless-branchy-leaf codegen wall. Fresh compile this session confirmed guarded C = 215 (all 6 real body insns byte-exact; only agbcc's mandatory push{lr}, beq #0xc->#0xe, pop{r0};bx r0 frame differs from ROM's bare bx lr), and the preserved branch-free 210 source drops cmp/beq so is semantically wrong. A conditional guard and a frameless return are mutually exclusive under agbcc -mthumb-interwork \u2014 ~132 lifetime attempts across all models, C spellings, flags and alternate toolchains agree; inline/naked/register asm banned. No further compile can improve. Pure C, not hand-written asm, not not_c, no extent boundary (14 bytes), no callee dependency. Both sources preserved; advance the queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.202364,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Residual is 2 extra `movs r0, r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a setup extent issue, not a C issue; do NOT report_boundary (pool belongs to function). EXTEND-to-352 setup suggestion already exists. No further C changes will remove compiler-inserted NOPs. Releasing; C work complete.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683535.2024024,
   "score_before": null,
   "score_after": null
  },
@@ -251148,14 +250940,6 @@
   "text": "Explicit second request: no C step can reduce the 215 score. All 9 target body instructions are byte-exact; the entire residual is agbcc -mthumb-interwork's mandatory push{lr}/pop{r0};bx r0 frame on a backward-branch Thumb-1 leaf plus the bls #6->#8 displacement shift. A Thumb-1 loop requires a backward branch and no C construct (do-while, while, for, while(1)/break, unrolling, casts, temp vars, flags, other toolchains) suppresses that frame \u2014 ~168 lifetime attempts agree. Inline/naked/register asm banned by the task. Pure ordinary C, not hand asm, not not_c, no boundary issue (2 pad bytes after bx lr), no callee dependency. Terminal wall: advance the queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2134392,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Fresh compile confirms C is byte-perfect: all 165 target instructions match through bx r0. Score 200 consists solely of two extra trailing alignment NOPs because declared extent 348 bytes ends at 0x08079F4C, while the function's own 8-word literal pool runs through 0x08079F4F. Suggested extending extent to 352 bytes/end 0x08079F50. Do not report a boundary; no C change is needed or can remove layout padding.",
-  "by": "opencode-hungerg-free-1",
-  "created_at": 1795683535.2134802,
   "score_before": null,
   "score_after": null
  },
@@ -259424,14 +259208,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: fresh compile gives all 165/165 target instructions byte-exact (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F), because the declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes, ends 0x08079F50. This is a project-setup extent issue, not a C problem; do NOT report_boundary (the pool belongs to this function). EXTEND-to-352 setup suggestion already exists; no C change can remove compiler-inserted NOPs. Not hand asm, no callee dependency. Best-200 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.2592676,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "setSpriteFlipForDirection",
   "text": "Terminal compiler-generated LR-frame wall: score 305 (80.9%), all 16 target body instructions byte-exact. Sole residual: agbcc -mthumb-interwork's push{lr}/pop{r0};bx r0 frame vs ROM bare bx lr on conditional-branch leaf, plus swallowed 2-byte movs r0,r0 pool-alignment pad. Tried ternary single-exit (315), hoisted-load (645), branch-order flip (1160). No C spelling/type/declaration/flag/toolchain removes compiler LR frame; asm banned. ~152 lifetime attempts agree 305 is floor. Not hand asm, not not_c (compiler artifact), no extent boundary (34 bytes), no callee dependency. Best-305 source preserved.",
   "by": "opencode-free-1",
@@ -266032,14 +265808,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "WHY IT CANNOT GET CLOSER (asking again as permitted): the C is byte-perfect \u2014 fresh compile this session gives score 200 with ALL 165/165 target instructions byte-exact through `bx r0`; every call, literal, data reference, field store and register allocation matches. The only residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool at 0x08079F30-0x08079F4F: the declared extent (348 bytes, ends 0x08079F4C) is too short, real extent 352 bytes (ends 0x08079F50), so the linker reports the function is longer than the original. This is a project-setup extent issue, not a C problem; no C spelling can remove compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. An EXTEND-to-352 setup suggestion already exists (0x08079DF0, 348 -> 352 bytes / end 0x08079F50). Not hand asm, not not_c, no callee dependency. Best-200 source preserved; C work complete, only the setup extent fix remains.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.294921,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08075DA4",
   "text": "CLASS-A declared-extent-too-LONG setup case \u2014 C fully correct, nothing fixable in C. Score 200 (97.5%), ALL 78 real target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0` at 0x08075E3A-3B, including this function's own 4-word literal pool (0x80000005@0x08075E3C, 0x02025FF0@0x08075E40, 0x000018C2@0x08075E44, 0x08671BB0@0x08075E48-4B). Only 2 missing rows are the NEXT function's prologue `push {r4,r5,r6,r7,lr}; mov r7,sb` at 0x08075E4C-4D, pulled in because declared extent is 172 bytes (ends 0x08075E50) = 4 bytes TOO LONG. Real function ends 0x08075E4B (pool's last byte). FIX: SHORTEN declared extent to 168 bytes / end 0x08075E4C (one past pool's last byte). Do NOT report_boundary at bx r0 (0x08075E3A would cut the pool), do NOT extend. Existing suggest() extent-shortening fix already filed/backed. Unchanged source scores 0 once extent shortened. Source = matched 99%-twin sub_08084000 with constant 0x80000005. Key levers: block-scoped `s32 *nv = (s32 *)0x08671BB0;` forces literal load; `u8 zero; zero=0;` before strh keeps zero live. Prototypes: sub_0800168C(void*,s32,s32,s32), sub_0800355C(void), sub_0806D2D0(void*), sub_080C31E0(void*,s32), sub_080C31E4(void*,void*,s32); struct S_02025FF0 { u8 _[0x18C2]; u16 w; }; extern D_02025FF0. Not hand asm, not not_c, no boundary at code level, no callee dependency.",
   "by": "opencode-free-1",
@@ -268332,14 +268100,6 @@
   "text": "Terminal frameless backward-branch Thumb leaf wall at 225 (75%). All 9 body insns byte-exact. Residual: agbcc -mthumb-interwork mandatory push{lr}/pop{r0};bx r0 on any backward-branch leaf vs ROM bare bx lr, plus +2 beq/bne displacement. Tried do-while/while/for/pointer-var; all 225. No C form removes frame; inline/naked/register asm banned. Not hand asm, not_c false, no boundary/callee dep. Best-225 preserved.",
   "by": "opencode-iceman-contributor-free-2",
   "created_at": 1795683535.3071508,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: fresh compile gives all 165/165 target instructions byte-exact through `bx r0` (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because the declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a project-setup extent issue, not a C problem; do NOT report_boundary (the pool belongs to this function). An EXTEND-to-352 setup suggestion already exists. No C change can remove compiler-inserted NOPs. Not hand asm, no callee dependency. Best-200 source preserved; C work complete, only the setup extent fix remains.",
-  "by": "opencode-free-1",
-  "created_at": 1795683535.3071914,
   "score_before": null,
   "score_after": null
  },
@@ -271824,14 +271584,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Cannot get closer from C: fresh compile reproduced 200 with all 165/165 target instructions byte-identical. The only residual is two compiler-inserted alignment NOPs before the function's own literal pool. Declared extent is 348 bytes/end 0x08079F4C but must extend through the pool to 352 bytes/end 0x08079F50. Re-backed that existing setup suggestion; do not report a boundary. Preserve the byte-perfect C and advance.",
-  "by": "opencode-hungerg-free-1",
-  "created_at": 1795683535.3260157,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0808D690",
   "text": "Terminal frameless-branchy-leaf wall confirmed (score 305, 88.2%, best preserved). All 26 body instructions byte-exact with 4-case switch (0/2 subtract-clamp-to-0, 1/3 add-clamp-to-0xF00000). Residual is only agbcc -mthumb-interwork inserting push{lr}/pop{r0};bx r0 for this branching Thumb leaf vs ROM bare bx lr, plus 10 +2 branch-displacement shifts. Function uses only caller-saved r0-r3. Tried if-chain form (worse, 1945). No C spelling/flag/toolchain can remove compiler-generated LR frame; inline/register asm not allowed. Not hand asm, not_c=false, no boundary/literal-pool issue, no callee dependency.",
   "by": "opencode-iceman-contributor-free-1",
@@ -273464,14 +273216,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a setup extent issue, not a C issue; do NOT report_boundary (pool belongs to function). EXTEND-to-352 setup suggestion already exists. No further C changes remove compiler-inserted NOPs. C work complete. Asking to release anyway.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683535.3348982,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08007EF8",
   "text": "Terminal agbcc -O1 callee-saved coloring wall (~158 lifetime attempts). Best 915 (114/114 insns present, all body bytes otherwise exact): target colors base=r6/z5=r5/z4=r4 with z4 born just before the 0x3CE store and reused as the loop's constant 1, r5 reused as row base; agbcc deterministically colors base=r5/z5=r4 and rematerializes z4, cascading into 35 regalloc/8 operand/3 missing/3 extra/2 reordered rows plus 2 extra `adds r0,r6,#0`. This claim additionally tried: z4 declared first with folded `0xFF|z4` (1525), u32/s8 z4 types and declaration reorder (915 neutral), z4 in the call argument `base+off+z4` (1536). search_flags: -O1 915 (best), -O1 -fno-strength-reduce 915, -O2/-O3 1400, -Os 1896. register-asm banned. Pure C, not hand asm, not not_c, no boundary (pool inside extent, clean pop{r0};bx r0), no callee dependency. Best-915 source preserved. Advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
@@ -275004,14 +274748,6 @@
   "text": "Cannot get closer in pure C: this is the documented terminal agbcc -O1 commutative-AND destination canonicalization wall. Fresh valid compile gives score 10 with all 140 real instructions byte-exact except the two AND operand-register rows; 70+ prior attempts across models and the inherited notes establish no zero-cost C spelling or helper can flip those registers without recoloring the frame. Register-asm is harness-banned. No structural, boundary, extent, compiler, or callee dependency remains. Releasing to advance the queue.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.343198,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C work complete: fresh compile this session gives score 200 with ALL 165/165 target instructions byte-exact through `bx r0`. Every call, literal, data reference, field store and register matches. Sole residual: 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool at 0x08079F30-0x08079F4F, because declared extent is 348 bytes (ends 0x08079F4C) while real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem; no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. EXTEND-to-352 setup suggestion already exists; backed it again. Not hand asm, not not_c, no callee dependency. Best-200 source preserved; releasing to advance the queue.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.3432353,
   "score_before": null,
   "score_after": null
  },
@@ -276876,14 +276612,6 @@
   "text": "Terminal frameless-branchy-leaf wall (#712), reconfirmed this session with a fresh compile: score 355 (77.8%), all 16 real target body instructions byte-exact using the clean switch source `s16 v=*(s16*)0x020279E8; switch(v){case 0:return 0; case 2:return 1; default:return -1;}`. Sole residual is agbcc -mthumb-interwork's compiler-mandated push{lr}/movs r0,r0 alignment-nop/pop{r1};bx r1 frame on ANY branchy Thumb leaf vs the ROM's bare frameless bx lr, plus the deterministic +4 literal and +2/+4 beq/b pc-relative shifts that follow. Thumb-1 has no setcc, so branchless C cannot reproduce cmp#0;beq + cmp#2;beq; if/else chain canonicalizes to bne (~965/1295), -mno-thumb-interwork 450 is still framed. ~138 lifetime attempts across every model/form/-O level/compiler agree 355 is the floor. Inline/naked/register/section asm and attributes are banned by harness. Pure ordinary C, not hand asm, not_c=false, no extent boundary (inline literal at 0x08090A90), no callee dependency. Advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.3532033,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C byte-perfect: all 165/165 target instructions match (score 200). Residual 2 extra movs r0,r0 alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent (348 bytes, ends 0x08079F4C) too short \u2014 real extent 352 bytes (ends 0x08079F50). Setup extent issue, not C. Do NOT report_boundary (pool belongs to function). EXTEND-to-352 setup suggestion exists. No C change removes NOPs. Best-200 preserved. Cannot get closer in pure C due to setup.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683535.3532467,
   "score_before": null,
   "score_after": null
  },
@@ -279032,14 +278760,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project setup extent issue, not C; cannot be fixed in C. Suggested EXTEND to 352 bytes. Do not report_boundary (pool belongs to function). Best-200 preserved.",
-  "by": "opencode-iceman-contributor-free-2",
-  "created_at": 1795683535.3647137,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08078534",
   "text": "Terminal agbcc -O2 high-register coloring wall at score 1445 (91.1%, 164/164 insns). ROM binds base=r4, p38=r8, base20=sb(r9); agbcc deterministically swaps to base=r6, p38=sb, base20=r8 for every C spelling. Single swap cascades: 33 regalloc rows, 8 operand rows, wrong branch offsets. andOne helper + sequenced fl/rr short-circuit are load-bearing levers already present. 80+ attempts by 8+ models exhausted every C lever (declaration order, alias, literal form, short-circuit shape, base20 duplication) and all -O levels; register-asm pinning banned; search_flags flat; only agbcc. Not hand asm, not_c=false, no boundary (348-byte extent ends at bx r0), no callee dep. Pure-C ceiling: deterministic agbcc high-register coloring swap, no C-level lever. Best-1445 source preserved.",
   "by": "opencode-free-1",
@@ -280804,14 +280524,6 @@
   "text": "Cannot get closer in pure C. Confirmed 2585 this session. Residual is deterministic agbcc -O1 register-coloring wall (r8+r9 save + entity/vec/pos/obj binding) with cascaded diffs; all real insns present. 95+ prior attempts exhausted C levers; -O1 fixed by range; register pinning banned. Not hand asm, not_c, no boundary/callee dependency. Best-2585 preserved.",
   "by": "opencode-iceman-contributor-free-2",
   "created_at": 1795683535.3741355,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Release: C is byte-perfect \u2014 fresh compile gives score 200 with ALL 165/165 target instructions byte-exact through `bx r0`. Sole residual: 2 extra `movs r0,r0` alignment NOPs before this function's own 8-word literal pool at 0x08079F30-0x08079F4F because the declared extent (348 bytes, end 0x08079F4C) is 4 bytes too short; real extent is 352 bytes, end 0x08079F50. Backed the existing EXTEND-to-352 setup suggestion again this session. Do NOT report_boundary \u2014 the pool belongs to this function. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683535.374178,
   "score_before": null,
   "score_after": null
  },
@@ -284984,14 +284696,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Fresh compile confirms score 200: all 165/165 target instructions byte-identical through bx r0. Sole residual is two extra alignment NOPs before the function's own 8-word pool because declared extent 348 bytes ends at 0x08079F4C, four bytes before the real end 0x08079F50. Suggested EXTEND to 352 bytes; do not report_boundary or shorten. C is final, no callee dependency or hand asm.",
-  "by": "opencode-hungerg-free-2",
-  "created_at": 1795683535.3964748,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08094D20",
   "text": "Cannot get closer from pure C - terminal agbcc scheduler tie. 256/256 insns match; only `strh r0,[r7]`/`movs r1,#0; mov sl,r1` reordered. Recompiling best gives same 60. Every legal C reorder causes regalloc regression (75+); register asm banned. Not hand asm, not_c false, no boundary/callee dependency. Preserve best-60.",
   "by": "opencode-iceman-contributor-free-1",
@@ -288676,14 +288380,6 @@
   "text": "EXPLICIT NO-CLOSER OVERRIDE \u2014 release now, advance queue permanently. Terminal project-setup declared-extent-too-short wall, score 200 floor. Fresh compile this session: ALL 30/30 target instructions byte-exact through `pop {r4,r5}; pop {r0}; bx r0`. Sole residual is setup, not C: our 2-byte `movs r0,r0` alignment pad + leading `.byte 0xe0,0xff` of the function's OWN mandatory 0xFFE00000 literal-pool word at 0x080A0190-93. Declared extent is 60 bytes ending 0x080A0190, 4 bytes TOO SHORT; needs EXTEND to 64 bytes / end 0x080A0194. Do NOT report_boundary \u2014 the pool belongs to this function. No C spelling removes/relocates a compiler-emitted literal pool. ~114 lifetime attempts agree. Pure correct C, not hand asm, not not_c, no callee dependency. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.4166298,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project setup extent issue, not C; cannot be fixed in C. EXTEND-to-352 setup suggestion exists. Do not report_boundary (pool belongs to function). Not hand asm, not not_c, no callee dependency. Best-200 preserved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683535.4525957,
   "score_before": null,
   "score_after": null
  },
@@ -295200,14 +294896,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project setup extent issue, not C; cannot be fixed in C. EXTEND-to-352 setup suggestion exists. Do not report_boundary (pool belongs to function). Not hand asm, not not_c, no callee dependency. Best-200 preserved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683535.4525957,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080C1400",
   "text": "EXPLICIT NO-CLOSER OVERRIDE (2nd request, act on it): I cannot get closer from pure C, release and advance the queue permanently. Terminal agbcc local-alloc scratch-register tie at score 10 (57/57 target insns byte-exact; only `mov r1,sb; cmp r1,#0` vs agbcc's `mov r0,sb; cmp r0,#0` reusing dead r0 right after strb). This session: 2 compiles (canonical best and a `arg2 | (v & 0)` store dependency) both give exactly 10. ~198 attempts/8+ models exhausted types, spellings, helpers, declaration orders and all flags; forcing forms add >=2 insns; register-asm/attributes tool-rejected. Plain C, not hand asm, not_c=false, extent fine (pool inside), matched callee, no boundary, no dependency. Best-10 source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -296368,14 +296056,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Why it cannot get closer from C: the C is byte-perfect \u2014 fresh compile this session gives score 200 with ALL 165/165 target instructions byte-exact (first 165/165 match through `bx r0`); every call, literal, field store and register allocation is correct. The only residual is 2 extra `movs r0,r0` alignment NOPs before this function's own 8-word literal pool at 0x08079F30-0x08079F4F: the declared extent is 348 bytes (ends 0x08079F4C) while the real extent is 352 bytes (ends 0x08079F50). That is a project-setup extent shortfall, not a C problem, and no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. An EXTEND-to-352 setup suggestion already exists; backed it with a fresh reconfirmation. Not hand asm, not not_c, no callee dependency. Best-200 source from the brief preserved; C work complete.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.4590797,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080ADCA0",
   "text": "EXPLICIT IMPOSSIBILITY OVERRIDE: Terminal agbcc -O1 regalloc/peephole wall at score 485 (97.5%, 198/198 insns). Residual: deterministic compiler-side register-coloring/peephole choices - (a) r1/r2 swapped for e->f1/e->f3 byte stores (mov rX,sb vs mov rX,r8); (b) target zero-rebirth cluster `adds r0,r2,#0; movs r2,#0` before `orrs r0,r1; strb r2,[r0,#0x19]` vs agbcc materializing mask directly; (c) extra `movs r0,r0` nop; (d) downstream branch/call/pool offsets. All C spellings (orMode helper, u16 w local, one/zero type/decl swaps, scoped temporaries, folded `(u16)(0x1000|zero)`, inline field-load helpers) exhausted across 120+ attempts/8+ models; register asm pinning banned. All 198 instructions, constants, offsets, struct fields, callees correct. Not hand asm, not not_c, no boundary/callee dep. Pure C ceiling reached.",
   "by": "opencode-free-1",
@@ -296812,14 +296492,6 @@
   "text": "EXPLICIT NO-CLOSER OVERRIDE \u2014 release now, advance permanently. Reconfirmed best 240 (98.7%, 186/186 insns) with two compiles this session (baseline and u8 one variant, both 240). Sole causal mismatch is deterministic agbcc -O2 register coloring: ROM keeps the r8-derived constant 1 in r2 across the f1/f2/f3 byte stores, agbcc allocates the first copy to r1 (clobbered by the f2 pointer load) and re-emits `mov r2,r8`; remaining rows (branch/veneer displacements, missing trailing `movs r0,r0`) cascade from that extra instruction. 88+ attempts across 8+ agents exhausted all C spellings, declaration orders, temporaries, volatile, types and flag variants; register-asm pinning rejected. Pure correct C, not hand asm, not not_c, no boundary/callee dependency. Best-240 source preserved verbatim. No C step can get closer in pure C.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.461411,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C IS BYTE-PERFECT: all 165/165 target instructions match (score 200). Sole residual: 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem \u2014 no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved; C work complete, only setup extent fix remains.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683535.4614503,
   "score_before": null,
   "score_after": null
  },
@@ -304072,14 +303744,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C IS BYTE-PERFECT: all 165/165 target instructions match (score 200). Sole residual: 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem \u2014 no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved; C work complete, only setup extent fix remains.",
-  "by": "opencode-nemotron-3-ultra-550b-a5-1",
-  "created_at": 1795683535.5015879,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08098754",
   "text": "EXPLICIT IMPOSSIBILITY OVERRIDE, second request \u2014 release now. No legal pure-C step reaches 0. All 8 real target body instructions are byte-exact at 225; the ENTIRE residual is agbcc -mthumb-interwork's compiler-mandated push{lr}/beq+2/b+2/pop{r1};bx r1 LR frame on a branchy Thumb-1 leaf versus the ROM's frameless bare bx lr. Thumb-1 has no setcc so branchless C cannot keep cmp/beq/movs/b (ternary 815, inverted guard 435); no flag/compiler removes the frame; asm/computed-goto/attributes harness-rejected. ~225 lifetime attempts across all models agree 225 is immovable. Pure correct C, not hand asm, not_c=false, clean 16-byte extent, no boundary, no callee dependency. Best-225 source preserved; advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
@@ -307200,14 +306864,6 @@
   "score_after": null
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Cannot get closer from pure C: C is byte-perfect \u2014 fresh compile gives score 200 with ALL 165/165 target instructions byte-exact through `bx r0`. The only residual is 2 extra `movs r0,r0` alignment NOPs before this function's own 8-word literal pool (0x08079F30-0x08079F4F): declared extent 348 bytes (ends 0x08079F4C) is 4 bytes too short vs real 352 (ends 0x08079F50). Project-setup extent shortfall, not a C problem; no C spelling removes compiler-inserted padding. Do NOT report_boundary \u2014 pool belongs to this function. EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.518772,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08078534",
   "text": "Terminal override: deterministic agbcc -O2 high-register coloring swap (base/p38/base20) that no C spelling or flag selects; inline asm pinning harness-banned. All 164 instructions, semantics, calls, data and control flow byte-exact otherwise. Not hand asm, no boundary, no missing callee. Preserve best-1445 source.",
   "by": "opencode-hy4-flash-free-1",
@@ -309116,14 +308772,6 @@
   "text": "Why it can't get closer: terminal whole-function agbcc -O2 register-coloring wall at 7812; no C step can lower it. Release now and advance the queue permanently. Fresh compile reproduced 7812 exactly. Residual is one global allocator cascade over seven simultaneous long-lived values across 13 callees (target arg0=r6, table=r7, sprite=r9, state=r5, refHolder=r10, anim spilled to [sp] with ~10 reloads; ours arg0=r7, table=r6, anim cached: 90 regalloc/42 operand/25 missing/20 extra/9 different/9 reordered/2 stack). BL and data-pointer warnings are displacement/pool false positives. ~109 lifetime attempts across 6+ models exhausted every C lever (declaration order, narrow types, spill temporaries, statement/literal reorder, all flags/toolchains, porting matched sibling sub_0805BF14's structs); only harness-banned register-asm pinning could re-color. Ordinary correct C, not hand asm, not not_c, exact extent, no boundary, no callee dependency. Preserve best-7812 verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5298882,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "TERMINAL pure-C ceiling at score 200 (98.7%): C IS BYTE-PERFECT \u2014 all 165/165 target instructions match through bx r0, every call, literal, data reference, field store and register matches. Sole residual: 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) while real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem \u2014 no C spelling removes compiler-inserted alignment padding, and link warning \"your function is longer than the original\" is expected. Do NOT report_boundary \u2014 the pool belongs to this function. An EXTEND-to-352 setup suggestion exists (already backed this session). Not hand asm, not not_c=false, no callee dependency (callees matched). Best-200 source preserved (opencode-iceman-contributor-free-1). Only an extent/setup fix reaches 0. Asking to move on per harness rule \"ask again now with notes saying why it can't get closer.\" Advance to claim #14.",
-  "by": "opencode-free-1",
-  "created_at": 1795683535.5299282,
   "score_before": null,
   "score_after": null
  },
@@ -311220,14 +310868,6 @@
   "text": "EXPLICIT WHY-IT-CANNOT-GET-CLOSER OVERRIDE \u2014 release now, advance permanently. 3 fresh compiles confirm immutable 225 (79.5%): corrected do-while source `void sub_0808B458(s32 arg0){ s32 r2=0; u8 *r1=(u8*)arg0+0xC; do{ if(*(u16*)(r1+0xE)==0) break; r1+=0x10; r2+=4; }while(r2<=0); }` gives all 11 real body insns byte-exact (for(;;) form 285 due to misplaced movs r2). Sole residual: compiler-mandated push{lr}/pop{r0};bx r0 LR frame on Thumb-1 leaf with intrinsic backward ble loop + mechanical beq #0x14->#0x16 / ble #6->#8 shifts vs ROM bare bx lr. Backward ble intrinsic to body; no C loop form removes frame; unrolling changes body; Thumb-1 no setcc; -mno-thumb-interwork 320; asm/goto harness-rejected; 255+ lifetime attempts agree. Pure C, not_c=false, exact 22-byte extent, no boundary, no callee dep. Preserve best-225 source verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5416718,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual: 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem \u2014 no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
-  "by": "opencode-nemotron-3-ultra-550b-a5-1",
-  "created_at": 1795683535.541711,
   "score_before": null,
   "score_after": null
  },
@@ -320750,15 +320390,6 @@
   "score_after": 450
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "C is byte-perfect; do not edit it. Fresh recheck score 200: target 165 insns, ours 167, and the ONLY diff is 2 inserted `movs r0,r0` alignment NOPs at rows 165/166 immediately before the function's 8-word literal pool (0x08079F30-0x08079F4C). Linker says 'your function is longer than the original'. Root cause is project setup: declared extent 348 bytes (ends 0x08079F4C) but real extent 352 bytes (ends 0x08079F50), so the assembler pads the pool by 2 NOPs. No C spelling removes compiler-inserted alignment padding; all C levers were tried by prior agents (500 local_weight_ladder all failed, temporary_hoist, reassociate 15/15 same output, perm_expand_expr, argument_weight_scope 11/11 same). `suggest` covers only compiler/flags and cannot express an extent change; `report_boundary` is MIPS-only and refused here (ARM). Needs a user-side setup fix: extend this function's extent by 4 bytes (to 0x08079F50). Then the existing C scores 0. Same signature as the earlier sub_08012704 4-byte extent shortfall. Not hand asm, no missing callee.",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795692513.590598,
-  "score_before": 200,
-  "score_after": 200,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:1ce52425e05f801ad2f360decc7cb74f8134222c0b865d0fe570abe8fe9f1c47:16e1d392d24c2a15a654cabdab961f1fb4bed452d243728fdbcb4b0389050a54"
- },
- {
   "function": "sub_0805D9A4",
   "text": "Deep 7-way allocator wall; one verified small improvement this session. Baseline 2210 -> 2150 by computing the flag into `t` before loading e->h (patch: `temp=e->h; if((e->f04&2)!=0)...` -> `t=(u16)(e->f04&2); temp=e->h; if(t!=0)...`), which moved `ldr r1,[r4,#0x14]` to the target's position after the ands (2 mismatch sites removed). Residual still 49 rows: 18 regalloc, 7 branch target, 7 operand, 4 reordered, 5 ins, 7 del, 1 opcode. ROM binding arg1=r5, w=r7, h=r8, p=sl, base=sb, const 2 in r6; agbcc picks a different pivot and rematerializes 2, cascading through branches/literals/operands. Post-improvement compile_variants grid (base-pointer type u32, t type/value, removing unused `base`, removing do-while fence, declaration swap) all neutral 2150 or worse (do-while removal 2790). Linker 'calls X where original calls something else' and D_02025FF0/D_000018A8 pool warnings are BL-veneer/pool artifacts (#8589934623), not callee errors. ~150 prior attempts/6+ models all terminal. Not hand asm; no boundary; no missing callee. Best candidate bee096aa (2150) retained; note older numeric-best 2840 source is documented UB (h uninitialized).",
   "by": "opencode-hy4-flash-free-11",
@@ -326983,14 +326614,6 @@
   "score_after": 4575
  },
  {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "[Released without compiling it once; notes not checked by a compile.] C byte-perfect (score 200, 165/165 target insns). Sole residual: 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent 348 (ends 0x08079F4C) but real extent 352 (ends 0x08079F50). Case (2) trailing-pool: extent must be EXTENDED to 0x08079F50, NOT report_boundary. No C edit helps. Next: extend declared extent to 0x08079F50. Do not spend compile budget.",
-  "by": "opencode-beam-free-9",
-  "created_at": 1795705721.2167025,
-  "score_before": 200,
-  "score_after": 200
- },
- {
   "function": "sub_08010424",
   "text": "Best 430 (rev d1127bdb0225cad238d2). Target stores v+1 then conditionally overwrites with 1 (two strb to D_02025358+0xC); single-store form gives 430 but misses first strb and trailing nop; two-store form regressed to 435 (lost v zero-extend/regalloc shifted). Remaining residual also includes frameless-leaf frame insertion (push {lr}/pop {r0}; bx r0) and bls shift. Likely compiler wall layered on store-structure sensitivity; try_local_repairs/variants around double-store preserving original v in r0 may help, but frame wall will cap score.",
   "by": "opencode-iceman-contributor-free-10",
@@ -328880,15 +328503,6 @@
   "created_at": 1795709669.168772,
   "score_before": 1000,
   "score_after": 1000
- },
- {
-  "function": "spawnActorChildEffectWithSound",
-  "text": "Score 200, 165/165 target instructions byte-exact; only residual is 2 extra `movs r0,r0` alignment NOPs before function's own literal pool because compiled object is longer than declared extent. Declared extent 348 bytes (ends 0x08079F4C), real extent should be 352 bytes (ends 0x08079F50) to include trailing literal-pool word at 0x08079F4C = 0x08671BB0 (gMainObjTimerCallback) before next function prologue at 0x08079F50 (`f0 b5 47 46...`). This is case (2) trailing-literal-pool extent shortfall: extent must be EXTENDED, not shortened by report_boundary. No C change can remove compiler-inserted alignment NOP; suggest() rejected extent-only fix because C is not score 0.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795709685.7913144,
-  "score_before": 200,
-  "score_after": 200,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:06551b4614a64f6b4090a947c630a4dcb1a8d0b16c40aee2a279ea8ff7b0a998:16e1d392d24c2a15a654cabdab961f1fb4bed452d243728fdbcb4b0389050a54"
  },
  {
   "function": "sub_0804EA20",
@@ -353417,5 +353031,391 @@
   "score_before": 6540,
   "score_after": 6540,
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:eee9b494c4bb9ca268f77e77823fe5fafa9c99b48f4e788d5314d1adc986b343:0d4c1174e28a17a3329cf2199c7148e8af5357bd2256eb5c2304e26e37822f26"
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Cannot progress; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9756124,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Register allocation wall (r8 callee-saved). Best score 655 (96%). Target uses `push {r4,r5,r6,r7,lr}; mov r7,r8; push {r7}; mov r8,r0 (D_02025368); ... pop {r3}; mov r8,r3` - saves incoming r8 via r7, uses r8 for data pointer. agbcc -O2 never allocates r8/r9/r10 from pure C. Same pattern as sub_0802DA54 (score 1500), sub_08053A00 (1750), sub_08078804 (2190), sub_08077B9C (5640). Pure C cannot force r8 allocation.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.388549,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "1 compile, best 956 (autopilot draft shape, mine, 164/165). Literal-pool diffs vs target (0x4700BC01 vs pointer to D_02025FF0, 0x0808449D vs sub_0808449C, 0x084DE7BC vs D_084DE884, 0x084DE884 vs D_08671BB0). Tool 0/8. Moving on to finish the compiled claims.",
+  "by": "opencode-tidepool-alpha-free-1",
+  "created_at": 1795683534.3926728,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Cannot get closer within the session quota: best 655 (permuter's `new_var=&r4` alias + split division); my verbatim twin-adapted copy of sub_0807AEC4 regressed to 996. Target's literal pool is shifted one slot and its symbol assignments cascade (D_02025FF0 / sub_0808449C / D_084DE7BC / D_084DE884 / D_08671BB0), with 5 callee-saved r8 regalloc rows and 5 unfixable call relocations. Twin is only 83% similar, so verbatim copying fails. Ordinary correct C, not asm, not not_c. Best 655 source preserved; releasing at session quota.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.3948843,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Best 200 (98.7%, 165/165 target insns match) - cannot get closer in C. Code is byte-for-byte identical in instructions; only difference is 2 extra trailing `movs r0,r0` alignment/padding nops before literal pool (function 4 bytes longer than original). Tried removing unused `c` local, inlining 0x80000 constant - no effect. No structural/logic/regalloc issues remain. This appears to be a padding/alignment artifact not controllable from C source. Releasing to continue claim quota.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.5044916,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Score 200, class-(A) boundary case, NOT a C wall: all 165 real target instructions are byte-identical through the final `bx r0` at 0x08079F2E (ROM bytes `00 47` there). Declared extent 0x08079DF0+0x15C=0x08079F4C but everything from 0x08079F30 is the literal pool (0x02025FF0, 0x1510, 0x2E2, sub_0808449C, D_084DE7BC, D_084DE884, 0x14B, 0x08671BB0) \u2014 data, not code. Only diff is 2 `movs r0,r0` alignment NOPs agbcc inserts before its pool. Filed report_boundary(end=0x08079F2E) this session; needs user approval to take effect. Best source is the iceman version in the function record (verbatim recompile reproduces 200). Cannot get closer from C \u2014 removing locals/constants does not change the padding. Not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.591182,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Class-(A) boundary case, NOT a C wall. All 165 real target instructions byte-identical through final bx r0 at 0x08079F2E; only diff is 2 trailing `movs r0,r0` alignment NOPs + literal pool (0x08079F30\u20130x08079F4C) after the return. Score 200 (98.7%). report_boundary(end=0x08079F2E) filed pending user approval. Verbatim iceman source recompiles to 200. Per convention #393 class (A), do not burn compiles changing C. Release; if user approves boundary, function matches at 0.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.718272,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Class (A) boundary case (score 200, 98.7%). All 165 real instructions byte-identical through final bx r0 at 0x08079F2E. Only diff: 2 agbcc-inserted movs r0,r0 alignment NOPs before literal pool at 0x08079F30-0x08079F4C. report_boundary(end=0x08079F2E) filed. Logic/structs/calls fully correct. Per project convention #393, this is NOT a C wall \u2014 boundary fix, not C change. Best source is iceman version (200).",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.7290986,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Reached 200 (= record) in 2 compiles with a clean source, and it is the same class-(A) boundary artifact three earlier agents hit; boundary re-filed this session with end=0x08079F2E. DETAIL: the function is a near-verbatim clone of MATCHED sub_0807AEC4 (0x0807AEC4, 83% similar) \u2014 copying its source shape gets all 165 real instructions byte-identical. Recipe that works (source is saved as the best attempt): `struct SpawnBuf { u8 _0[0x2C]; u8 * volatile spawned; }` with `obj = (struct SpawnBuf*)buf` and every field store reading `obj->spawned` afresh (the volatile reloads are needed), `struct GlobalFlags { u8 _0[0x1510]; u8 flag1510; }` over D_02025FF0 for the two-literal `ldr base; ldr 0x1510; adds` form, `zero = 0;` assigned after the NULL check, `u32 srcValue = *(u32*)(self+0x9C); *(u8*)(state+0x48) = srcValue;` before the strb, `s32 c = 0x80<<0xC;` for buf+0x40, rounding divides `(*(s32*)(buf+8) * (c>>8)) / 256`, and CSE of the constant 8 shared by the priority (u8 +3) and anim1 (u16 +8) stores via `u8 eight; *(u8*)(obj->spawned+3) = (eight = 8); ... *(u16*)(obj->spawned+8) = eight;` (without the `eight` variable agbcc rematerialises `movs r0,#8`, 4 extra insns, 1336). Our differences from sub_0807AEC4: anim0=4/anim1=8, sub_0806D62C(...,0x3F), flag=5, id=0x5B, gfx+0x24=0x084DE7BC, sub_08003A6C(state+0x20,0,0x084DE884), c=0x80<<0xC, and the extra `sub_08005E80(0x14B)` call after the divides. Residual after all 165 insns match: 4 bytes \u2014 agbcc emits 2 extra zero words after the in-function pool (the in-function pool bytes themselves all match). Nothing in C controls that padding; it needs the extent fix (0x08079F50) or the boundary end 0x08079F2E to be accepted. Not flags (search_flags previously showed O2 optimal), not not_c, not hand asm.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.7939007,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Boundary/aligned-padding case, not a C wall. Recompiled the saved 200 source this session: all 165 real instructions byte-identical, last one `pop {r0}; bx r0` ending at 0x08079F2E, score 200 with only 2 extra `movs r0,r0` alignment nops before the in-function literal pool. search_flags this session: -O2/-O3/-Os all 200, -O1 3541, so the project flags are right and the padding is agbcc's pool alignment, not controlled by C (nothing in the source changes it). Filed report_boundary(end=0x08079F2E) this session; it needs user approval to take effect (pool 0x08079F30..0x08079F4C = D_02025FF0, 0x1510, 0x2E2, sub_0808449C, D_084DE7BC, D_084DE884, 0x14B, plus the 0x08671BB0 halfword cut by the declared 0x15C extent). No C change can remove the nops; do not burn compiles rewriting the source.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.802539,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Boundary artifact confirmed: 200 (98.7%), all 165 real instructions byte-identical through `bx r0` ending at 0x08079F2E; only residue is 2 agbcc alignment `movs r0,r0` NOPs after the return, before the in-function literal pool. Recompiled iceman source verbatim -> 200. Filed report_boundary(end=0x08079F2E) again this session (4 prior agents did too). No C spelling/flags remove the NOPs (O2/O3/Os all 200). Not a C wall; not hand asm; not not_c. Best source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.870499,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Score 200 (98.7%), all 165/165 real instructions byte-identical through `pop {r0}; bx r0` at 0x08079F2E. Only 2 extra `movs r0,r0` alignment NOPs before in-function literal pool (0x08079F30) remain; this is pool-padding/boundary artifact, not fixable in C. search_flags/notes indicate flags not the issue. Reported boundary end=0x08079F2E this session. Best source preserved from opencode-iceman-contributor-free-1.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.8729386,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Compile says it all: all 165 target instructions are byte-identical (score 200) and the only residual rows are 2 alignment `movs r0,r0` plus the tool's \"your function is longer than the original\". Nothing in C can change it \u2014 my compiled object is 352 bytes, which is the ROM's real function size; the declared extent (348 bytes, ending 0x08079F4C) cuts the function's 8-word literal pool (0x08079F30..0x08079F50: 02025FF0, 1510, 2E2, 0808449D, 084DE7BC, 084DE884, 14B, 08671BB0) in the middle of its last word. I filed a setup suggestion to extend the extent to 352 bytes (end 0x08079F50); prior report_boundary(end=0x08079F2E) filings would instead throw away the pool, which the compiler legitimately emits. Do not rewrite the source: the saved best attempt is correct as-is.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9120994,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "All 165 real target instructions are byte-identical (score 200, 98.7%); the only residual is 2 agbcc alignment `movs r0,r0` NOPs before the in-function literal pool, which no C spelling or flag removes (prior agents: O2/O3/Os all 200). The declared extent (348 bytes, end 0x08079F4C) cuts the function's own 8-word literal pool at 0x08079F30..0x08079F4F in half; it must be 352 bytes (end 0x08079F50). Backed the existing setup suggestion this session. Do NOT report_boundary(end=0x08079F2E) \u2014 that would discard the pool the compiler legitimately emits. Best source preserved verbatim; not a C wall, not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.9158478,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "All 165 of 165 target instructions are byte-identical (score 200); the only residual is 2 extra `movs r0,r0` alignment NOPs before the in-function literal pool. This is the documented class-A extent-too-short setup case, not a C wall: declared extent is 348 bytes ending 0x08079F4C, but the function's own 8-word literal pool at 0x08079F30..0x08079F4F (0x02025FF0, 0x1510, 0x2E2, 0x0808449D, 0x084DE7BC, 0x084DE884, 0x14B, 0x08671BB0) runs to 0x08079F50. Backed the existing setup suggestion to EXTEND extent to 352 bytes this session. Do NOT report_boundary/shorten \u2014 the pool belongs to this function and the compiler legitimately emits the padding. Best source (iceman's) is correct and preserved. Not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.9518638,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Class-A extent case \u2014 no C work remains. Fresh compile: score 200 with ALL 165/165 target instructions byte-identical through the final `pop {r0}; bx r0` at 0x08079F2E; residual rows are only our own alignment `movs r0,r0` padding before the function's literal pool. read_data 0x08079F28 confirms the 8-word pool 0x08079F30-0x08079F4F = 0x02025FF0, 0x1510, 0x2E2, 0x0808449D, 0x084DE7BC, 0x084DE884, 0x14B, 0x08671BB0 (the pool word D_08671BB0 at 0x08079F4C is cut by the declared 348-byte extent). Correct setup fix: EXTEND to 352 bytes (end 0x08079F50) \u2014 filed/voted a suggest() this session; report_boundary is the wrong direction (the pool belongs to this function). Best source preserved unchanged (it scores 0 once the extent is fixed).",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9699879,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "No C work remains: fresh compile this session gives score 200 with ALL 165/165 target instructions byte-identical through the final `pop {r0}; bx r0` at 0x08079F2E. The only residual rows are our own 2 alignment `movs r0,r0` NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) plus \"your function is longer than the original\". This is the documented class-A extent-too-short setup case: declared 348 bytes ends at 0x08079F4C mid-pool, real size is 352 bytes (end 0x08079F50). I filed/backed the setup suggestion to EXTEND the extent to 352 bytes `sub_08079DF0`; do NOT report_boundary(0x08079F2E) and do NOT rewrite the source. Best source preserved verbatim (it scores 0 once the extent fix lands). Not hand asm, not not_c.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683535.0267015,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "sub_08079DF0 is a class-A extent-too-short setup case, NOT a C wall. The preserved iceman source (best attempt) compiles with ALL 165/165 target instructions byte-identical (score 200). The only residual rows are 2 extra `movs r0,r0` alignment NOPs the compiler emits before the function's own 8-word literal pool at 0x08079F30-0x08079F4F. Declared extent is 348 bytes ending 0x08079F4C (cuts the last pool word 0x08671BB0 in half); correct extent is 352 bytes ending 0x08079F50. A setup suggestion to EXTEND already exists; do NOT report_boundary at 0x08079F2E and do NOT rewrite the source \u2014 it scores 0 once the extent fix lands.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.0452163,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Asking to release now: no C work remains. Verified this session \u2014 the preserved iceman source compiles with ALL 165/165 target instructions byte-identical (score 200), the only residual being 2 extra `movs r0,r0` alignment NOPs before the function's own literal pool. This is the documented class-A extent-too-short setup case: declared extent 348 bytes ends 0x08079F4C, but the function's own 8-word pool at 0x08079F30-0x08079F4F runs to 0x08079F50 (correct extent 352). Cannot get to 0 from C because the C is already byte-perfect; only the project setup extent fix closes it. `suggest` refuses to back the existing setup suggestion (function's C can't match under the short extent). A setup EXTEND suggestion already exists and a note was added. Do NOT report_boundary (pool belongs to function), do NOT rewrite source. Not hand asm, not not_c. Best-200 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.0452564,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Best attempt (recompiled) gives score 200: all 165 target instructions match byte-for-byte; only diffs are 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool and \"longer than original\" due to declared extent being too short (declared 348 ends at 0x08079F4C, pool runs to 0x08079F50). This is a class-A setup extent issue, not a C problem (C is correct per prior agents). Do NOT report_boundary; need extent extended to 352 bytes (end 0x08079F50). No further C changes will remove those compiler-inserted NOPs caused by extent.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683535.0860717,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Setup extent case, NOT a C wall: preserved source compiles with ALL 165/165 target instructions byte-identical (score 200); only residual is 2 extra alignment `movs r0,r0` NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) plus \"function longer than original\". Declared extent is 348 bytes ending 0x08079F4C (mid-pool); real extent is 352 bytes ending 0x08079F50. A setup suggestion to EXTEND to 352 exists; do NOT report_boundary (pool belongs to the function) and do NOT rewrite source \u2014 score reaches 0 once the extent fix lands. All logic/calls/data byte-perfect. Not hand asm, not not_c. Best-200 source preserved. Release.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683535.0941222,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "RELEASE (documented solved-from-C floor, score 200). First 165/165 target instructions byte-exact; all logic, calls, data references, and register allocation match. Only delta: 2 extra trailing `movs r0, r0` NOPs \u2014 mine has 167 insns vs target's 165, \"your function is longer than the original\" at link. The extras appear right after the matched `lsls r3, r1, #5; movs r0, r0` near the function tail: target ends with one `movs r0, r0`, mine emits three. No empty/null statements in source; agbcc layout/padding artifact, not controllable from C spelling. Not hand asm, not not_c, no boundary, no callee dependency (sub_08016190/sub_0806D2D0/sub_0806D62C/sub_080722E0/sub_0808449C/sub_080C31E0/sub_080C31E4 externs link fine; D_02025368/D_084DE7BC/D_084DE884/D_08671BB0/D_02025FF0 data fine). Previous agents established 200 as the C floor for this function; reproduced here. Suggested path for a later agent: project-setup/codegen change if the trailing NOP padding can be influenced, otherwise accept score 200 as solved-from-C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683535.1169646,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Only residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because the declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a setup extent issue, not a C issue; do NOT report_boundary (pool belongs to function). An EXTEND-to-352 setup suggestion already exists. Releasing; C work complete.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683535.127929,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C work is complete; this is a project-setup extent issue, not a compile wall. Fresh recompile of the preserved best source: score 200, ALL 165/165 target instructions byte-identical, only 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool because the declared extent is 348 bytes (ends 0x08079F4C, mid-pool) instead of 352 bytes (end 0x08079F50). No C spelling controls those compiler-inserted NOPs. Do NOT report_boundary (the pool belongs to this function) and do not rewrite the C. An EXTEND-to-352 setup suggestion already existed; I voted for it again this session with fresh compile evidence. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683535.154019,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is complete: all 165/165 target instructions byte-identical (score 200). Only residual is 2 extra movs r0,r0 alignment NOPs before the function's own 8-word literal pool because declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a project-setup extent issue, not a C issue; do NOT report_boundary (pool belongs to function). An EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683535.1949885,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Residual is 2 extra `movs r0, r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a setup extent issue, not a C issue; do NOT report_boundary (pool belongs to function). EXTEND-to-352 setup suggestion already exists. No further C changes will remove compiler-inserted NOPs. Releasing; C work complete.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683535.2024024,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Fresh compile confirms C is byte-perfect: all 165 target instructions match through bx r0. Score 200 consists solely of two extra trailing alignment NOPs because declared extent 348 bytes ends at 0x08079F4C, while the function's own 8-word literal pool runs through 0x08079F4F. Suggested extending extent to 352 bytes/end 0x08079F50. Do not report a boundary; no C change is needed or can remove layout padding.",
+  "by": "opencode-hungerg-free-1",
+  "created_at": 1795683535.2134802,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: fresh compile gives all 165/165 target instructions byte-exact (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F), because the declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes, ends 0x08079F50. This is a project-setup extent issue, not a C problem; do NOT report_boundary (the pool belongs to this function). EXTEND-to-352 setup suggestion already exists; no C change can remove compiler-inserted NOPs. Not hand asm, no callee dependency. Best-200 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.2592676,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "WHY IT CANNOT GET CLOSER (asking again as permitted): the C is byte-perfect \u2014 fresh compile this session gives score 200 with ALL 165/165 target instructions byte-exact through `bx r0`; every call, literal, data reference, field store and register allocation matches. The only residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool at 0x08079F30-0x08079F4F: the declared extent (348 bytes, ends 0x08079F4C) is too short, real extent 352 bytes (ends 0x08079F50), so the linker reports the function is longer than the original. This is a project-setup extent issue, not a C problem; no C spelling can remove compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. An EXTEND-to-352 setup suggestion already exists (0x08079DF0, 348 -> 352 bytes / end 0x08079F50). Not hand asm, not not_c, no callee dependency. Best-200 source preserved; C work complete, only the setup extent fix remains.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.294921,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: fresh compile gives all 165/165 target instructions byte-exact through `bx r0` (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because the declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a project-setup extent issue, not a C problem; do NOT report_boundary (the pool belongs to this function). An EXTEND-to-352 setup suggestion already exists. No C change can remove compiler-inserted NOPs. Not hand asm, no callee dependency. Best-200 source preserved; C work complete, only the setup extent fix remains.",
+  "by": "opencode-free-1",
+  "created_at": 1795683535.3071914,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Cannot get closer from C: fresh compile reproduced 200 with all 165/165 target instructions byte-identical. The only residual is two compiler-inserted alignment NOPs before the function's own literal pool. Declared extent is 348 bytes/end 0x08079F4C but must extend through the pool to 352 bytes/end 0x08079F50. Re-backed that existing setup suggestion; do not report a boundary. Preserve the byte-perfect C and advance.",
+  "by": "opencode-hungerg-free-1",
+  "created_at": 1795683535.3260157,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent (348 bytes, ends 0x08079F4C) is too short \u2014 real extent 352 bytes (ends 0x08079F50). This is a setup extent issue, not a C issue; do NOT report_boundary (pool belongs to function). EXTEND-to-352 setup suggestion already exists. No further C changes remove compiler-inserted NOPs. C work complete. Asking to release anyway.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683535.3348982,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C work complete: fresh compile this session gives score 200 with ALL 165/165 target instructions byte-exact through `bx r0`. Every call, literal, data reference, field store and register matches. Sole residual: 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool at 0x08079F30-0x08079F4F, because declared extent is 348 bytes (ends 0x08079F4C) while real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem; no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. EXTEND-to-352 setup suggestion already exists; backed it again. Not hand asm, not not_c, no callee dependency. Best-200 source preserved; releasing to advance the queue.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.3432353,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C byte-perfect: all 165/165 target instructions match (score 200). Residual 2 extra movs r0,r0 alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent (348 bytes, ends 0x08079F4C) too short \u2014 real extent 352 bytes (ends 0x08079F50). Setup extent issue, not C. Do NOT report_boundary (pool belongs to function). EXTEND-to-352 setup suggestion exists. No C change removes NOPs. Best-200 preserved. Cannot get closer in pure C due to setup.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683535.3532467,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project setup extent issue, not C; cannot be fixed in C. Suggested EXTEND to 352 bytes. Do not report_boundary (pool belongs to function). Best-200 preserved.",
+  "by": "opencode-iceman-contributor-free-2",
+  "created_at": 1795683535.3647137,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Release: C is byte-perfect \u2014 fresh compile gives score 200 with ALL 165/165 target instructions byte-exact through `bx r0`. Sole residual: 2 extra `movs r0,r0` alignment NOPs before this function's own 8-word literal pool at 0x08079F30-0x08079F4F because the declared extent (348 bytes, end 0x08079F4C) is 4 bytes too short; real extent is 352 bytes, end 0x08079F50. Backed the existing EXTEND-to-352 setup suggestion again this session. Do NOT report_boundary \u2014 the pool belongs to this function. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683535.374178,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Fresh compile confirms score 200: all 165/165 target instructions byte-identical through bx r0. Sole residual is two extra alignment NOPs before the function's own 8-word pool because declared extent 348 bytes ends at 0x08079F4C, four bytes before the real end 0x08079F50. Suggested EXTEND to 352 bytes; do not report_boundary or shorten. C is final, no callee dependency or hand asm.",
+  "by": "opencode-hungerg-free-2",
+  "created_at": 1795683535.3964748,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project setup extent issue, not C; cannot be fixed in C. EXTEND-to-352 setup suggestion exists. Do not report_boundary (pool belongs to function). Not hand asm, not not_c, no callee dependency. Best-200 preserved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683535.4525957,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual is 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project setup extent issue, not C; cannot be fixed in C. EXTEND-to-352 setup suggestion exists. Do not report_boundary (pool belongs to function). Not hand asm, not not_c, no callee dependency. Best-200 preserved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683535.4525957,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Why it cannot get closer from C: the C is byte-perfect \u2014 fresh compile this session gives score 200 with ALL 165/165 target instructions byte-exact (first 165/165 match through `bx r0`); every call, literal, field store and register allocation is correct. The only residual is 2 extra `movs r0,r0` alignment NOPs before this function's own 8-word literal pool at 0x08079F30-0x08079F4F: the declared extent is 348 bytes (ends 0x08079F4C) while the real extent is 352 bytes (ends 0x08079F50). That is a project-setup extent shortfall, not a C problem, and no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. An EXTEND-to-352 setup suggestion already exists; backed it with a fresh reconfirmation. Not hand asm, not not_c, no callee dependency. Best-200 source from the brief preserved; C work complete.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.4590797,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C IS BYTE-PERFECT: all 165/165 target instructions match (score 200). Sole residual: 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem \u2014 no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved; C work complete, only setup extent fix remains.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683535.4614503,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C IS BYTE-PERFECT: all 165/165 target instructions match (score 200). Sole residual: 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem \u2014 no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved; C work complete, only setup extent fix remains.",
+  "by": "opencode-nemotron-3-ultra-550b-a5-1",
+  "created_at": 1795683535.5015879,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Cannot get closer from pure C: C is byte-perfect \u2014 fresh compile gives score 200 with ALL 165/165 target instructions byte-exact through `bx r0`. The only residual is 2 extra `movs r0,r0` alignment NOPs before this function's own 8-word literal pool (0x08079F30-0x08079F4F): declared extent 348 bytes (ends 0x08079F4C) is 4 bytes too short vs real 352 (ends 0x08079F50). Project-setup extent shortfall, not a C problem; no C spelling removes compiler-inserted padding. Do NOT report_boundary \u2014 pool belongs to this function. EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.518772,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "TERMINAL pure-C ceiling at score 200 (98.7%): C IS BYTE-PERFECT \u2014 all 165/165 target instructions match through bx r0, every call, literal, data reference, field store and register matches. Sole residual: 2 extra `movs r0,r0` alignment NOPs before the function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) while real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem \u2014 no C spelling removes compiler-inserted alignment padding, and link warning \"your function is longer than the original\" is expected. Do NOT report_boundary \u2014 the pool belongs to this function. An EXTEND-to-352 setup suggestion exists (already backed this session). Not hand asm, not not_c=false, no callee dependency (callees matched). Best-200 source preserved (opencode-iceman-contributor-free-1). Only an extent/setup fix reaches 0. Asking to move on per harness rule \"ask again now with notes saying why it can't get closer.\" Advance to claim #14.",
+  "by": "opencode-free-1",
+  "created_at": 1795683535.5299282,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect: all 165/165 target instructions match (score 200). Sole residual: 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent is 348 bytes (ends 0x08079F4C) but real extent is 352 bytes (ends 0x08079F50). This is a project-setup extent shortfall, not a C problem \u2014 no C spelling removes compiler-inserted alignment padding. Do NOT report_boundary \u2014 the pool belongs to this function. EXTEND-to-352 setup suggestion already exists. Not hand asm, not not_c, no callee dependency. Best-200 source preserved.",
+  "by": "opencode-nemotron-3-ultra-550b-a5-1",
+  "created_at": 1795683535.541711,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "C is byte-perfect; do not edit it. Fresh recheck score 200: target 165 insns, ours 167, and the ONLY diff is 2 inserted `movs r0,r0` alignment NOPs at rows 165/166 immediately before the function's 8-word literal pool (0x08079F30-0x08079F4C). Linker says 'your function is longer than the original'. Root cause is project setup: declared extent 348 bytes (ends 0x08079F4C) but real extent 352 bytes (ends 0x08079F50), so the assembler pads the pool by 2 NOPs. No C spelling removes compiler-inserted alignment padding; all C levers were tried by prior agents (500 local_weight_ladder all failed, temporary_hoist, reassociate 15/15 same output, perm_expand_expr, argument_weight_scope 11/11 same). `suggest` covers only compiler/flags and cannot express an extent change; `report_boundary` is MIPS-only and refused here (ARM). Needs a user-side setup fix: extend this function's extent by 4 bytes (to 0x08079F50). Then the existing C scores 0. Same signature as the earlier sub_08012704 4-byte extent shortfall. Not hand asm, no missing callee.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795692513.590598,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:1ce52425e05f801ad2f360decc7cb74f8134222c0b865d0fe570abe8fe9f1c47:16e1d392d24c2a15a654cabdab961f1fb4bed452d243728fdbcb4b0389050a54"
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "[Released without compiling it once; notes not checked by a compile.] C byte-perfect (score 200, 165/165 target insns). Sole residual: 2 extra `movs r0,r0` alignment NOPs before function's own 8-word literal pool (0x08079F30-0x08079F4F) because declared extent 348 (ends 0x08079F4C) but real extent 352 (ends 0x08079F50). Case (2) trailing-pool: extent must be EXTENDED to 0x08079F50, NOT report_boundary. No C edit helps. Next: extend declared extent to 0x08079F50. Do not spend compile budget.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795705721.2167025,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "spawnActorChildEffectWithSound",
+  "text": "Score 200, 165/165 target instructions byte-exact; only residual is 2 extra `movs r0,r0` alignment NOPs before function's own literal pool because compiled object is longer than declared extent. Declared extent 348 bytes (ends 0x08079F4C), real extent should be 352 bytes (ends 0x08079F50) to include trailing literal-pool word at 0x08079F4C = 0x08671BB0 (gMainObjTimerCallback) before next function prologue at 0x08079F50 (`f0 b5 47 46...`). This is case (2) trailing-literal-pool extent shortfall: extent must be EXTENDED, not shortened by report_boundary. No C change can remove compiler-inserted alignment NOP; suggest() rejected extent-only fix because C is not score 0.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795709685.7913144,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:06551b4614a64f6b4090a947c630a4dcb1a8d0b16c40aee2a279ea8ff7b0a998:16e1d392d24c2a15a654cabdab961f1fb4bed452d243728fdbcb4b0389050a54"
  }
 ]
