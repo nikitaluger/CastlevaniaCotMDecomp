@@ -14688,6 +14688,14 @@
   "score_after": null
  },
  {
+  "function": "updateEnemyActionState",
+  "text": "Stub only; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9724264,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080A793C",
   "text": "Cannot complete now; releasing.",
   "by": "opencode-free-1",
@@ -40076,6 +40084,14 @@
   "text": "Cannot get closer this session. Score 2076. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1093025,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateEnemyActionState",
+  "text": "Stub only; not attempted this session. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.1093547,
   "score_before": null,
   "score_after": null
  },
@@ -358128,19 +358144,48 @@
   "score_after": 430
  },
  {
-  "function": "updateEnemyActionState",
-  "text": "Stub only; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9724264,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08019254",
+  "text": "Body matches intent (switch on val-0x32: 0/1 clears o->field28+1; 9->D_080CE5D8, 2/4->D_080CE5E0; writes tbl[0..3] to +6/+8/+0xA/+0xC). Rev 2bb6bb443ed39c89f9e1 compiled: score 570/60. Target is frameless Thumb leaf (bx lr, no push/pop lr) with jump/table pool; agbcc -mthumb-interwork -O2 emits push{lr}/pop{pc} and shifts literal/jump offsets (known frameless-leaf wall). Tried: compile_and_diff once now (570, no improvement). Handoff (next_experiment): revision=2bb6bb443ed39c89f9e1; tried=compile_and_diff current C gave 570 (only frame+offset shifts); changed=unchanged wall; title=try search_flags/try_compiler alternate profiles (likely same wall) or accept limitation.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808610.0539565,
+  "score_before": 570,
+  "score_after": 570,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:2067e3b225fd90afe421c92602677c42f83e17fc031adfad2f176c3ce049ad94"
  },
  {
-  "function": "updateEnemyActionState",
-  "text": "Stub only; not attempted this session. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.1093547,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08037604",
+  "text": "Best 280 (rev fa7d65da5e6fb7b308f5, rechecked). 8 diff rows remain: 4 regalloc, 2 reordered, 1 inserted, 1 deleted. Structural: (1) target stores part+0xa before zero-extend/compare in case 0x4f; candidate stores after (try_local_repairs stored_value_compare gave same 280, 0 diff change). (2) target loads callback from arg0+0x24 (r8) at call site; candidate uses work+0x24 (r6) - spelling *(s32*)((u8*)arg0+0x24) destroys allocation to 2580. Remaining rows look like agbcc allocator/scheduling wall around bit-set else branch regswap and call-site arg staging. No semantic issues found.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795808672.2159622,
+  "score_before": 280,
+  "score_after": 280,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:7062276b08810cbfad990b8de25ad62fb96b6117267330a073a27a89223b93de"
+ },
+ {
+  "function": "setSpriteFlipForDirection",
+  "text": "Score 305/16insns. Only residual is frameless-leaf prologue wall: target has bare bx lr with no push/pop, candidate emits push{lr}/pop{r0}/bx r0 and shifted branch offsets plus missing movs r0,r0 NOP padding. Body/logic matches target. Tried else_if_arm_swap, paired_integer_lifetimes, walk_shape_chain, arm_scoped_scratch, byte_pointer_record_view, branch_scalar_lifetime via try_local_repairs - all equal or worse. Likely agbcc leaf-frame allocator/wall; no C-shape fix found.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795808686.5944731,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:6c1fa88f82b96b27cb23976a13c7840bb4897baf76bdb9184ae7e03b0727e69d"
+ },
+ {
+  "function": "sub_08016AB8",
+  "text": "Score 365/16insns for sub_08016AB8. Residual is frameless-leaf prologue wall: target bare bx lr, candidate push{lr}/pop{r1}/bx r1 with shifted branch/pool offsets and missing movs r0,r0 padding. Body matches. Tried declaration_order, signedness, temporary_hoist, temporary_hoist_block, store_run_move, allocation_lever via try_local_repairs - no improvement. Manual declaration swap (r1/r2 init order) worsened to 455; saved_best restored as reference (a57c8b196169eea79807). Likely agbcc leaf-frame wall.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795808690.3678749,
+  "score_before": 365,
+  "score_after": 365,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:79e799d52d779d5a5c9fb062222e70c94ad7e3e52bab186887b3b50998267ae1"
+ },
+ {
+  "function": "sub_080186C0",
+  "text": "Score 215/14insns. Only residual is frameless-leaf prologue wall: target bare bx lr, candidate push{lr}/pop{r0}/bx r0 and shifted ble offset. All operands/body match otherwise. Tried temporary_hoist, allocation_lever, staged_narrow_store, narrow_widening, single_use_inline, entry_parameter_copy via try_local_repairs - all equal/worse. Likely agbcc leaf-frame wall.\ntry_local_repairs families temporary_hoist, allocation_lever, staged_narrow_store, narrow_widening, single_use_inline, entry_parameter_copy on 20ad063ce21f53d78deb\nAll equal score 215 or worse; frame insertion unchanged",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795808748.5324538,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
  }
 ]

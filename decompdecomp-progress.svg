@@ -7565,7 +7565,7 @@
 <g><title>sub_0806F408: {&#x27;matched&#x27;: 1}</title>
 <rect x="370.000" y="470" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0806F65C: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateObjectTileCollision: {&#x27;matched&#x27;: 1}</title>
 <rect x="380.000" y="470" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0806F78C: {&#x27;attempt&#x27;: 1}</title>

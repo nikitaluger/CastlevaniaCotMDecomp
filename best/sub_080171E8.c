@@ -16,8 +16,6 @@ void sub_080171E8(void *arg0) {
     count = *(u16 *)(r6 + 0x16) - 1;
     *(u16 *)(r6 + 0x16) = count;
     if ((s16)count < 0) {
-        s32 val;
-
         if (sub_08014938(*(void **)(r4 + 8)) > 0) {
             *(u16 *)(r5 + 2) |= 0x10;
         } else {
@@ -27,19 +25,16 @@ void sub_080171E8(void *arg0) {
         *(u16 *)(r6 + 0x1A) = sub_08005820(0x29) + 0x64;
 
         if (sub_08014900(*(void **)(r4 + 8)) > 0x300000) {
-            if (sub_08014990(r5) > 0) {
-                val = 0x4000;
-            } else {
-                val = 0xFFFFC000;
-            }
+            if (sub_08014990(r5) > 0)
+                *(s32 *)(r4 + 0x10) = 0x80 << 7;
+            else
+                *(s32 *)(r4 + 0x10) = (s32)0xFFFFC000;
         } else {
-            if (sub_08014990(r5) > 0) {
-                val = 0xFFFFC000;
-            } else {
-                val = 0x4000;
-            }
+            if (sub_08014990(r5) > 0)
+                *(s32 *)(r4 + 0x10) = (s32)0xFFFFC000;
+            else
+                *(s32 *)(r4 + 0x10) = 0x80 << 7;
         }
-        *(s32 *)(r4 + 0x10) = val;
 
         *(u8 *)(p + *(s16 *)(p + 0x22) * 2 + 0x19) = 0;
         do { sub_080C31E4(p + 0x18, p + 0x22, 0, *(s32 *)&D_08671BD0); } while (0);

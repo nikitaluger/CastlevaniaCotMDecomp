@@ -2640,3 +2640,37 @@ struct EffectSpriteAttrs { u16 attr0; u16 attr1; };
 
 /* Step-handler table installed by updateCameraRelativeEffect. */
 #define EFFECT_VIEW_STEP_TABLE 0x0866DDD0
+
+/* ---- Moving-object tile-collision update (updateObjectTileCollision) ---- */
+
+/* The actor's +0x6C slot points at a scene block; scene+4 is the position/
+ * motion body passed to setSpriteScreenPosition and the delay-timer helpers. */
+struct TileCollisionScene {
+    u8 _0[4];
+    s32 coordX;        /* 0x04: world X, 16.16 */
+    u8 _8[0x2C];
+};
+
+struct TileCollisionBody {
+    u8 _0[4];
+    s32 coordY;        /* 0x04: world Y, 16.16 */
+    s32 offsetX;       /* 0x08: pending X motion */
+    s32 offsetY;       /* 0x0C: pending Y motion */
+    u8 _10[0x2C];
+    void *effect;      /* 0x3C: effect whose +0x14 flags gate the extra spawn */
+    u8 _40[8];
+    s32 bounce;        /* 0x4C: collision bounce value */
+};
+
+struct TileCollisionEffect { u8 _0[0x14]; u16 flags; };
+
+/* gMainWorkspace byte at +0x18A8 selects the current tilemap page. */
+struct TilePageWorkspace { u8 _0[0x18A8]; u8 pageIndex; };
+
+/* Payload installed on the hit timer and the kind spawned on a flagged hit. */
+#define TILE_COLLISION_ANIM_DATA 0x08472AB0
+#define TILE_COLLISION_EFFECT_KIND 8
+
+/* Bounce written to the body on a tile hit, and the collision sound id. */
+#define TILE_COLLISION_BOUNCE 0x4000
+#define TILE_COLLISION_SFX 0x6F

@@ -19,18 +19,18 @@ void sub_080BEE6C(void)
   u16 temp2;
   u16 temp3;
   base = gCameraState;
+  if (base[0x13AE] <= 1)
+  {
+    return;
+  }
   do
   {
     offB0 = 0x13B0;
   }
   while (0);
-  pAF = gCameraState + 0x13AF;
   io = gCrossfadeGfxState;
   do {
-  u16 temp4; if (base[0x13AE] <= 1)
-  {
-    return;
-  }
+  u16 temp4;
   base[0x1361] = 6;
   temp = io[0x0F];
   *((u16 *) (base + 0x13AA)) = temp;
@@ -57,6 +57,7 @@ void sub_080BEE6C(void)
   i_loop = (0x10 - base[0x13AE]) >> 1;
   if (i_loop < ((base[0x13AE] + 0x10) >> 1))
   {
+    pAF = base + 0x13AF;
     p3 = ((u16 *) (base + 0x1364)) + i_loop;
     key = offB0;
     for (;;)
@@ -83,4 +84,3 @@ void sub_080BEE6C(void)
   }
   D_04000005 = 0x4B;
 }
-
