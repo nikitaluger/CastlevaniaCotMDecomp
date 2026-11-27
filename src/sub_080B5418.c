@@ -1,4 +1,4 @@
-extern void sub_080114A8(void *, void *, s32, s32);
+extern void forceAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 D_08102CAC[];
 extern u8 gScriptStepCallbackTable[];
@@ -34,7 +34,7 @@ void sub_080B5418(void *entity)
         *((u8 *) ((*((void **) (((u8 *) companion) + 0x48))) + 1)) = D_08102CAC[1];
         *((u8 *) ((*((void **) (((u8 *) gfxSlot) + 0x04))) + 1)) = D_08102CAC[2];
         t = 2;
-        sub_080114A8(sprite, animDesc, 0x78, 0);
+        forceAnimationFrame(sprite, animDesc, 0x78, 0);
         *((s8 *) ((((u8 *) world) + ((s32) ((*((s16 *) (((u8 *) world) + 0x22))) * 2))) + 0x19)) = zero;
         { void **fnaddr = (void **) gScriptStepCallbackTable; sub_080C31E4(((u8 *) world) + 0x18, ((u8 *) world) + 0x22, (s32) (*fnaddr)); }
     }

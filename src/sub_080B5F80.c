@@ -1,7 +1,7 @@
 /* Entity action: copies the paired object's coordinates and a target flag, picks
  * an animation from a per-entity id table, and triggers an attack or a message
  * depending on the entity's mode. */
-extern void sub_080114A8(void *, void *, s32, s32);
+extern void forceAnimationFrame(void *, void *, s32, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_08011528(void *, void *);
 extern void copyPoseAttrs(void *, void *);
@@ -56,7 +56,7 @@ void sub_080B5F80(void *entity)
   {
     if ((*((u8 *) (anim + 0))) & 2)
     {
-      sub_080114A8(target, anim, 0x6C, 1);
+      forceAnimationFrame(target, anim, 0x6C, 1);
     }
   }
   if ((*((u8 *) (self + 0x4C))) == 0)

@@ -1,4 +1,4 @@
-extern void sub_080114A8(void *, void *, s16, s32);
+extern void forceAnimationFrame(void *, void *, s16, s32);
 extern void sub_08011528(void *, void *);
 extern void sub_080C2E68(void *, void *, s32);
 
@@ -44,7 +44,7 @@ void sub_080AC908(void *gfx, void *anim, void *work, void *aim)
   if ((*((u8 *)((s8 *)anim + 0x00)) & 0x02) && (*((u8 *)((s8 *)aim + 0x10)) != 0))
   {
     angle = *((s16 *)((s8 *)anim + 0x0E));
-    sub_080114A8(gfx, anim, angle, 0);
+    forceAnimationFrame(gfx, anim, angle, 0);
   }
   child = *((void **)((s8 *)aim + 0x00));
   value = *((u8 *)((s8 *)aim + 0x10));

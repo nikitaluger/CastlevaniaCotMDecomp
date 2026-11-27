@@ -1,4 +1,4 @@
-void sub_080114A8(void *, void *, s32, s32);
+void forceAnimationFrame(void *, void *, s32, s32);
 void sub_08011528(void *, void *);
 
 extern u8 D_08102258[];
@@ -20,7 +20,7 @@ void sub_080AD440(void *arg0) {
         u32 animTable = (u32)D_08102258;
         s32 slot = *(u8 *)(self + 0x4C);
         s32 animId = *(s16 *)(animTable + slot * 2);
-        sub_080114A8(gfx, anim, animId, 0);
+        forceAnimationFrame(gfx, anim, animId, 0);
     }
 
     *(u8 **)(entity + 8) = *(u8 **)(parentEntity + 8);

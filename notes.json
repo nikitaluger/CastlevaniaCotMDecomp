@@ -16680,7 +16680,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0809B824",
+  "function": "updateEntityMotionAndSpawn",
   "text": "IDIOMS FROM THE MATCHED SIBLING sub_0809B824 (same family as sub_0808DE7C / sub_080AD2D0; byte-identical by applying these):\n1. REASSOCIATION WALL SOLVED: for `*(u32 *)(base + 0x1278 + idx)`, write `u8 *q1 = pE + 0x1278;` as a separate statement, then `*(u32 *)(q1 + idx)` \u2014 the local breaks the (idx+base)+lit reassociation; the target keeps the E base in a callee-saved reg and adds idx last.\n2. `u8 *pE = D_BASE;` local \u2192 base lives in a callee-saved reg across both accesses.\n3. Struct-global FIELD ACCESS `D_02025FF0.a8` (extern struct with big _0 padding) \u2192 the two-literal adds for the high offset. But `&D_02025FF0.a8` FOLDS base+offset into a single pool entry \u2014 avoid when target pool shows two literals + adds.\n4. Write `idx = (D_02025FF0.a8 + 1) * 64;` TWICE (once per access) so the byte reload survives across the intervening store.\n5. switch (u8_local) for 1/2 small-int cases \u2192 the target's `cmp/beq forward-body; b end` layout (if/else-if emits bne-fallthrough; wrong).\n6. `u32 p34 = 0x34 + (u32)s;` constant FIRST \u2192 the movs+adds detour shape.\n7. Hoist a base loaded ONCE before an if/else into its own local (v8 = s->unk8), then `r5 = v8 \u00b1 table[i].a;` fresh assignment per branch; do NOT use `r5 = s->unk8; r5 += ...`.\n8. Direct field access (arg0->unk8C), NOT u8 locals, when the target re-reads the field 3+ times \u2014 locals pin values and inflate pressure (mine earlier spilled p34 to the stack and saved a third high register).\n9. `struct P { u32 a; u32 b; } arr[]` models +0/+4 pair tables at base+8*i.\n10. (x + 0x8000) & 0xFFFF0000 and (x + 0xFFFF8000u) & 0xFFFF0000 matched as written; the u on 0xFFFF8000u matters.",
   "by": "opencode-free-2",
   "created_at": 1795683533.9804306,
@@ -348736,5 +348736,89 @@
   "score_before": 665,
   "score_after": 665,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:3d164c24fc4489f8bc8eb1d0e15fb02dac7e3949825c2c53d3d3c2cbf2413ea1"
+ },
+ {
+  "function": "sub_0801C9F8",
+  "text": "Cannot get closer from C: confirmed frameless branchy switch-frame ABI wall at score 570 (90.5%, 1 compile this claim, baseline 570). All non-frame body instructions match; residual is only push{lr}/pop{pc} vs bare bx lr, 2-byte branch/literal-pool ripple, and target-only movs r0,r0 pad nop. Exact 100% twin sub_08019254 has same verified 570 wall across flag profiles per prior handoffs. This matches accepted DRACULA AGB1 agbcc frameless-leaf/frame-wall knowledge; no C-level source change can remove the compiler-inserted frame.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795770562.5065174,
+  "score_before": 570,
+  "score_after": 570,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:960db762946c8d18ff6ebc6390c51b0e67a6bbad6287c46aa2f54e4566da330a"
+ },
+ {
+  "function": "sub_080A2E74",
+  "text": "Frameless Thumb leaf wall (score 215). 7-instruction function storing 1 at arg0+0x54 if non-null. Residual push{lr}/pop{r0};bx r0 vs bare bx lr. Compiler/backend change required.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795770569.403155,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:53844f18ba4adcf3aaea30de82f9ec380253c8966ce4dcf3960fb73bd139402f"
+ },
+ {
+  "function": "sub_0801EF2C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall (score 215). 12-instruction decrement-and-clamp leaf. Residual push{lr}/pop{r0};bx r0 vs bare bx lr. Compiler/backend change required.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795770616.8652563,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_080147A4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall (accepted game knowledge). Score 305 historical; target ends bare `bx lr`, agbcc emits push{lr}/pop{r1};bx r1 plus branch ripple and pad nop. Prior agents exhausted 17 compiles and all flag profiles (O1/O2/O3/Os/-fno-expensive-optimizations all 305). No C spelling fixes it.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795770634.106922,
+  "score_before": 305,
+  "score_after": 305
+ },
+ {
+  "function": "sub_080A040C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall (accepted game knowledge). 7 insns; target ends bare `bx lr` with .byte pad, agbcc inserts push{lr}/pop frame. Score 210 historical, body otherwise matches.\nbranchy leaf setting byte at +0x7C\nscore 210 unchanged; residual is inserted LR frame",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795770634.338497,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "sub_080B9824",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall (accepted game knowledge). 8 insns, score 215; target `adds r0,#0x4C; ldrb; cmp; beq; movs;b;movs; bx lr` with bare bx lr; agbcc inserts push{lr}/pop{r1};bx r1. 14 compiles, 5 agents, all flag/return/branch permutations exhausted.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795770634.5706697,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_080B318C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall (accepted game knowledge). 16 insns, score 215; loop over linked list ending bare bx lr; agbcc inserts push{lr}/pop frame. 14 compiles, 6 agents; NULL-vs-0 spelling and all permutations exhausted.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795770634.7398362,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_0805CE28",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Confirmed deterministic allocator tie (accepted game screening rule): score 40, all 57 target insns byte-exact; sole residual is callee-saved pseudo color swap (snapshot u16 target r5/ours r3, base+0x2D8 pointer target r3/ours r5). ~195 prior attempts, all C/type/order/hoist variants keep 40 or regress; local repairs best 85. Do not spend more compiles.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795770683.453301,
+  "score_before": 40,
+  "score_after": 40
+ },
+ {
+  "function": "sub_08019ED4",
+  "text": "Near-match score 480 (81.5%). Body mostly matches except register allocation (r3/r2/r1/r0 vs target). Residual frame push{lr}/pop{r0};bx r0 vs bare bx lr. try_local_repairs found no improvement. Compiler wall likely. Best rev e58b61050b9014a7e892.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795770692.8828812,
+  "score_before": 1275,
+  "score_after": 480,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:954344fefc692520ef261f6fead18582b6293686f1249ad9112d2741cca9889c"
+ },
+ {
+  "function": "sub_080186C0",
+  "text": "Cannot get closer from C: frameless Thumb leaf ABI wall, score 215 (84.6%). All body instructions match; only push{lr}/pop{r0};bx r0 vs bare bx lr and ble displacement ripple remain. This is the accepted DRACULA AGB1 agbcc frameless-leaf wall; C changes cannot remove compiler-inserted frame.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795770742.4364357,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
  }
 ]

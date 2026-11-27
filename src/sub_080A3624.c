@@ -1,5 +1,5 @@
 extern void sub_080A3E8C(void *a, void *b, void *c, void *d);
-extern void sub_080114A8(void *a, void *b, s16 c, s32 d);
+extern void forceAnimationFrame(void *a, void *b, s16 c, s32 d);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *a, void *b, s32 c);
 extern s16 D_08101C60[];
@@ -24,7 +24,7 @@ void sub_080A3624(u8 *self) {
             off = (u32)stateIndex * 4;
             effectTable += 1;
             effectId = *(s16 *)((u8 *)((u32)off + (u32)effectTable));
-            sub_080114A8(gfx, anim, effectId, 0);
+            forceAnimationFrame(gfx, anim, effectId, 0);
             sub_08005E80(0x165);
             *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
             {

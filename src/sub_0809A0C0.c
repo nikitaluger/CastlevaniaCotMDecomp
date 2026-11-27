@@ -1,4 +1,4 @@
-extern void sub_080114A8(void *, void *, s32, s32);
+extern void forceAnimationFrame(void *, void *, s32, s32);
 extern void sub_0809C4E0(s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, void *);
@@ -24,7 +24,7 @@ void sub_0809A0C0(void *entity)
     animState = work + 0x34;
     parts = work + 0x48;
 
-    sub_080114A8(sprite, animState, 0xF, 0);
+    forceAnimationFrame(sprite, animState, 0xF, 0);
     sub_0809C4E0(*(s32 *)(parts + 8), 0);
 
     zero = 0;

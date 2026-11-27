@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795770555.0838063,
- "revision": 69016,
+ "saved_at": 1795770747.3280134,
+ "revision": 69025,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -4109,7 +4109,7 @@
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
    "readable": false
   },
-  "sub_080114A8": {
+  "forceAnimationFrame": {
    "vram": 134288552,
    "matched_by": "autopilot",
    "readable": false
@@ -17899,7 +17899,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0809B824": {
+  "updateEntityMotionAndSpawn": {
    "vram": 134854692,
    "matched_by": "opencode-free-2",
    "readable": false
@@ -18074,12 +18074,12 @@
    "best_score": 555,
    "best_by": "autopilot"
   },
-  "sub_0809C87C": {
+  "spawnPositionedEffect": {
    "vram": 134858876,
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0809C8A8": {
+  "spawnPositionedEffectWithParam": {
    "vram": 134858920,
    "matched_by": "opencode-free-1",
    "readable": false
@@ -25877,7 +25877,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080114A8",
+   "name": "forceAnimationFrame",
    "vram": 134288552,
    "size": 52,
    "status": "open"
@@ -43295,7 +43295,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809B824",
+   "name": "updateEntityMotionAndSpawn",
    "vram": 134854692,
    "size": 372,
    "status": "open"
@@ -43505,13 +43505,13 @@
    "status": "open"
   },
   {
-   "name": "sub_0809C87C",
+   "name": "spawnPositionedEffect",
    "vram": 134858876,
    "size": 44,
    "status": "open"
   },
   {
-   "name": "sub_0809C8A8",
+   "name": "spawnPositionedEffectWithParam",
    "vram": 134858920,
    "size": 64,
    "status": "open"
@@ -50467,6 +50467,12 @@
    "kind": "func"
   },
   {
+   "name": "forceAnimationFrame",
+   "address": 134288552,
+   "size": 52,
+   "kind": "func"
+  },
+  {
    "name": "setObjectAnimation",
    "address": 134288604,
    "size": 76,
@@ -51901,9 +51907,27 @@
    "kind": "func"
   },
   {
+   "name": "updateEntityMotionAndSpawn",
+   "address": 134854692,
+   "size": 372,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind44Effect",
    "address": 134856620,
    "size": 384,
+   "kind": "func"
+  },
+  {
+   "name": "spawnPositionedEffect",
+   "address": 134858876,
+   "size": 44,
+   "kind": "func"
+  },
+  {
+   "name": "spawnPositionedEffectWithParam",
+   "address": 134858920,
+   "size": 64,
    "kind": "func"
   },
   {
@@ -52699,6 +52723,18 @@
    "kind": "data"
   },
   {
+   "name": "gPoseFrameIndices",
+   "address": 135272432,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gSpawnOffsets",
+   "address": 135272440,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gKind44EffectLayerAttrs",
    "address": 135272468,
    "size": 0,
@@ -53183,7 +53219,7 @@
   },
   {
    "address": 33710064,
-   "type": "u8[]",
+   "type": "struct ScrollState",
    "source": "match"
   },
   {
@@ -53243,7 +53279,7 @@
   },
   {
    "address": 135052752,
-   "type": "struct ScriptedEffectKindEntry[]",
+   "type": "struct BD[]",
    "source": "match"
   },
   {
@@ -53554,6 +53590,16 @@
   {
    "address": 135268972,
    "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135272432,
+   "type": "s16[]",
+   "source": "match"
+  },
+  {
+   "address": 135272440,
+   "type": "struct Offset[]",
    "source": "match"
   },
   {

@@ -1,6 +1,6 @@
 extern s32 sub_080057F8(void);
 extern void sub_08005E80(u16);
-extern void sub_080114A8(s32, u8 *, s32, s32);
+extern void forceAnimationFrame(s32, u8 *, s32, s32);
 extern void setObjectAnimation(s32, u8 *, s32, s32);
 extern void sub_08011528(s32, u8 *);
 extern void sub_080148D8(s32, s32);
@@ -62,7 +62,7 @@ void sub_080994DC(void *arg0)
         else
             if ((sub_080057F8() & 3) == 0)
             {
-                sub_080114A8(sprite, anim, zero, zero);
+                forceAnimationFrame(sprite, anim, zero, zero);
                 sub_080148D8(sprite, *posXPtr);
             }
             else

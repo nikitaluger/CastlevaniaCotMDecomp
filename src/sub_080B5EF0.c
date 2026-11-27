@@ -1,4 +1,4 @@
-extern void sub_080114A8(void *, void *, u16, u8);
+extern void forceAnimationFrame(void *, void *, u16, u8);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -23,7 +23,7 @@ void sub_080B5EF0(void *arg0) {
         s32 *scriptTable;
         newHighlight = 0x40; zero = 0; newHighlight |= oldHighlight; *highlight = (u8)newHighlight;
         *(u8 *)(*(u8 **)(body + 0x28) + 1) = 1;
-        sub_080114A8(sprite, animData, 0x6A, 0);
+        forceAnimationFrame(sprite, animData, 0x6A, 0);
         stepIndex = *(s16 *)(self + 0x22);
         *(u8 *)(self + stepIndex * 2 + 0x19) = zero;
         scriptTable = (s32 *)0x08671BB0;

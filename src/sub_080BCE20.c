@@ -1,4 +1,4 @@
-extern void sub_080114A8(void *sprite, void *animData, u16 anim, u8 arg);
+extern void forceAnimationFrame(void *sprite, void *animData, u16 anim, u8 arg);
 extern void sub_080C31E0(void *arg, void *func);
 extern void sub_080C31E4(void *stepData, void *stepIndex, s32 callback);
 extern u32 gScriptStepCallbackTable;
@@ -29,7 +29,7 @@ void sub_080BCE20(void *arg0)
     u8 enabled;
     highlightBits = 0x40 | (*((u8 *) (sprite + 0x2A)));
     *((u8 *) (sprite + 0x2A)) = highlightBits;
-    sub_080114A8(sprite, animData, 0x1A, 0);
+    forceAnimationFrame(sprite, animData, 0x1A, 0);
     i = 0;
     stepData = self + 0x18;
     stepIndex = self + 0x22;

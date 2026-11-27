@@ -1,5 +1,5 @@
 extern s32 sub_08005910(s32, s32);
-extern void sub_080114A8(s32, void *, s32, s32);
+extern void forceAnimationFrame(s32, void *, s32, s32);
 extern void sub_08011528(s32, void *);
 extern void sub_0809856C(s32, void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -22,7 +22,7 @@ void sub_080AE3D0(u8 *self) {
     sub_0809856C(0xBD << 1, actor + 0x50, 0xF);
     sub_08011528(gfx, anim);
     if (*(u8 *)anim & 2) {
-        sub_080114A8(gfx, anim, 0x47, 0);
+        forceAnimationFrame(gfx, anim, 0x47, 0);
     }
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x18) {
         deltaY = gMainWorkspace.targetY - *(s32 *)(actor + 0xC);

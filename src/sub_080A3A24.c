@@ -1,4 +1,4 @@
-extern void sub_080114A8(s32 arg0, void *arg1, s32 arg2, u8 arg3);
+extern void forceAnimationFrame(s32 arg0, void *arg1, s32 arg2, u8 arg3);
 extern void sub_080A55AC(void *arg0);
 extern void sub_080A56D8(void);
 extern void sub_080A5608(void);
@@ -24,7 +24,7 @@ void sub_080A3A24(void *entity) {
     u8 *entry = phaseTable + 2;
     s16 animId = *(s16 *)(entry + offset);
 
-    sub_080114A8(sprite, anim, animId, 0);
+    forceAnimationFrame(sprite, anim, animId, 0);
     sub_080A55AC(self);
     sub_080A56D8();
     sub_080A5608();

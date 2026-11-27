@@ -1,5 +1,5 @@
 extern void setSpriteFlipForDirection(void *a, s32 b);
-extern void sub_080114A8(void *a, void *b, s32 c, s32 d);
+extern void forceAnimationFrame(void *a, void *b, s32 c, s32 d);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 
@@ -38,7 +38,7 @@ void sub_0809BAB4(void *arg0) {
         if (state < 0) goto COORD;
         if (state > 2) goto COORD;
         *(u8 *)((u8 *)parent + 0x2A) |= 0x40;
-        sub_080114A8(parent, component34, 0x22, 0);
+        forceAnimationFrame(parent, component34, 0x22, 0);
     }
 
 COORD:

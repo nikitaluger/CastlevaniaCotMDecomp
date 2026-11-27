@@ -1,5 +1,5 @@
 extern s32 sub_080C31E0(void *, s32);
-extern void sub_080114A8(void *, void *, s32, s32);
+extern void forceAnimationFrame(void *, void *, s32, s32);
 extern void sub_0809C4E0(void *, s32);
 extern void sub_0809C744(void);
 extern void sub_0808D0A4(s32);
@@ -69,7 +69,7 @@ void sub_08098F50(void *arg0) {
         child = *(u8 **)(child + 0x2C);
     }
 
-    sub_080114A8(owner, anim, 9, 0);
+    forceAnimationFrame(owner, anim, 9, 0);
     sub_0809C4E0(*(void **)(timers + 0x08), 1);
     sub_08005E80(0x186);
     sub_0808D0A4(0x0B);

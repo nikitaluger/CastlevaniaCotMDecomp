@@ -1424,7 +1424,7 @@
 <g><title>sub_0801147C: {&#x27;matched&#x27;: 1}</title>
 <rect x="700.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080114A8: {&#x27;matched&#x27;: 1}</title>
+<g><title>forceAnimationFrame: {&#x27;matched&#x27;: 1}</title>
 <rect x="710.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>setObjectAnimation: {&#x27;matched&#x27;: 1}</title>
@@ -10133,7 +10133,7 @@
 <g><title>sub_0809B6D0: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="580" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0809B824: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateEntityMotionAndSpawn: {&#x27;matched&#x27;: 1}</title>
 <rect x="140.000" y="580" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0809B998: {&#x27;matched&#x27;: 1}</title>
@@ -10238,10 +10238,10 @@
 <g><title>sub_0809C840: {&#x27;attempt&#x27;: 1}</title>
 <rect x="480.000" y="580" width="8.000" height="8" fill="#bf8700"/>
 </g>
-<g><title>sub_0809C87C: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnPositionedEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="490.000" y="580" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0809C8A8: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnPositionedEffectWithParam: {&#x27;matched&#x27;: 1}</title>
 <rect x="500.000" y="580" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0809C8E8: {&#x27;matched&#x27;: 1}</title>

@@ -3,7 +3,7 @@ extern s32 sub_08010F5C(s32 obj, void *desc, s32 frameEntry, s32 gfxSrc, s32 gfx
 /* Point a graphics descriptor at animation frame `frameIndex`: store the index
  * in the descriptor and resolve the frame entry (frameGroup->frames + index*4)
  * together with its gfx source/destination for sub_08010F5C. */
-void sub_080114A8(s32 obj, u8 *desc, u16 frameIndex, u8 flags) {
+void forceAnimationFrame(s32 obj, u8 *desc, u16 frameIndex, u8 flags) {
     u16 index = frameIndex;
     u8 *frameGroup;
 

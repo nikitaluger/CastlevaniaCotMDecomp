@@ -1,7 +1,7 @@
 /* If an entity's trigger flag is set, flag its sprite, refresh its animation,
  * mark several sub-states active, and advance its script by firing the next
  * callback; otherwise just clear the sprite flag. */
-extern s32 sub_080114A8(void *, void *, s32, s32);
+extern s32 forceAnimationFrame(void *, void *, s32, s32);
 extern void setSpriteFlipForDirection(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -31,7 +31,7 @@ void sub_080BD2F0(void *arg0)
             spriteFlags->f2A |= 0x40;
             zero = zero8();
         }
-        sub_080114A8(sprite, animState, 0x1C, 0);
+        forceAnimationFrame(sprite, animState, 0x1C, 0);
         *(u8 *)(*(u8 **)(motion + 0x28) + 1) = 1;
         *(u8 *)(*steerPtr + 1) = 1;
         *(u8 *)(steerPtr[1] + 1) = 1;
