@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795743760.8115032,
- "revision": 68761,
+ "saved_at": 1795744254.2860415,
+ "revision": 68797,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "224220:134441948": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnTriplePartProjectile",
-   "vram": 134441948
   }
  },
  "instructions": "",
@@ -2017,8 +2006,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -8034,7 +8022,7 @@
   "spawnTriplePartProjectile": {
    "vram": 134441948,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_08036D5C": {
    "vram": 134442332,
@@ -9181,10 +9169,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08042568": {
+  "updateThreePartEnemy": {
    "vram": 134489448,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_080427C8": {
    "vram": 134490056,
@@ -32263,7 +32251,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08042568",
+   "name": "updateThreePartEnemy",
    "vram": 134489448,
    "size": 384,
    "status": "open"
@@ -51105,6 +51093,12 @@
    "kind": "func"
   },
   {
+   "name": "updateThreePartEnemy",
+   "address": 134489448,
+   "size": 384,
+   "kind": "func"
+  },
+  {
    "name": "createChildEntitySprite",
    "address": 134494988,
    "size": 492,
@@ -52767,6 +52761,12 @@
    "kind": "data"
   },
   {
+   "name": "gThreePartEnemyStateHandlers",
+   "address": 140960152,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gMoverScriptStepTable",
    "address": 140961072,
    "size": 0,
@@ -53470,6 +53470,11 @@
    "source": "match"
   },
   {
+   "address": 140960152,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 140961072,
    "type": "u32[]",
    "source": "match"
@@ -53516,7 +53521,7 @@
   },
   {
    "address": 140975068,
-   "type": "u32",
+   "type": "u8[]",
    "source": "match"
   },
   {

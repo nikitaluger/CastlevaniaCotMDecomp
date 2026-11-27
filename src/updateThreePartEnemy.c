@@ -18,7 +18,7 @@ extern void sub_08042900(s32, void *);            /* copy part palette/animation
 extern void sub_080C31E0(void *, void *);         /* indirect call */
 extern void sub_080C31E8(void *, void *, s32, s32); /* state machine dispatch */
 extern u8 sScriptStepCallbacks[];   /* death-state handler table */
-extern u8 D_0866E198[];   /* next-phase state handler table */
+extern u8 gThreePartEnemyStateHandlers[];   /* next-phase state handler table */
 
 /* AND helpers keep the mask in the destination register (see and-result wall). */
 static inline u32 and1(u16 v)
@@ -42,7 +42,7 @@ static inline u32 andD(u16 v)
     return m;
 }
 
-void sub_08042568(u8 *entity)
+/* Per-frame update for a three-part composite enemy: check bounds, update each part's damage and graphics, run the next-phase state handler, and finish the part update. */ void updateThreePartEnemy(u8 *entity)
 {
     s32 sprite = *(s32 *)(entity + 0x38);
     u8 *work = *(u8 **)(entity + 0x3C);      /* composite work block */
@@ -91,7 +91,7 @@ void sub_08042568(u8 *entity)
         u8 stateId;
         u32 *handlerTable;
         u32 handler;
-        *(u32 *)(entity + 0x14) = (u32)D_0866E198;
+        *(u32 *)(entity + 0x14) = (u32)gThreePartEnemyStateHandlers;
         *(u16 *)(entity + 0x22) = (u16)(*(u16 *)(entity + 0x22) + 1);
         *(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x19) =
             (u8)(*(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x19) + 1);
