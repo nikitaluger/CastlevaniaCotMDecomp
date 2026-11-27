@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795742812.4862344,
- "revision": 68700,
+ "saved_at": 1795743324.5805604,
+ "revision": 68733,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,16 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "30448:134248176": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O1"
-   ],
-   "timeout": 20,
-   "function": "advanceCrossfadePhase",
-   "vram": 134248176
   }
  },
  "instructions": "",
@@ -1978,8 +1968,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -2885,7 +2874,7 @@
   "advanceCrossfadePhase": {
    "vram": 134248176,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08007870": {
    "vram": 134248560,
@@ -4562,10 +4551,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_08016E44": {
+  "updateScriptedProjectileHit": {
    "vram": 134311492,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08016FC4": {
    "vram": 134311876,
@@ -26524,7 +26513,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08016E44",
+   "name": "updateScriptedProjectileHit",
    "vram": 134311492,
    "size": 384,
    "status": "open"
@@ -50544,6 +50533,12 @@
    "kind": "func"
   },
   {
+   "name": "updateScriptedProjectileHit",
+   "address": 134311492,
+   "size": 384,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind55Effect",
    "address": 134319584,
    "size": 472,
@@ -52614,6 +52609,12 @@
    "kind": "data"
   },
   {
+   "name": "gProjectileStepTable",
+   "address": 140956960,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "sPlayerScriptStepTable",
    "address": 140957512,
    "size": 0,
@@ -52774,7 +52775,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct FixedEffectWorkspace",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -52790,6 +52791,11 @@
   {
    "address": 33716736,
    "type": "struct HudBannerState",
+   "source": "match"
+  },
+  {
+   "address": 50333744,
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -53320,6 +53326,11 @@
   {
    "address": 140955428,
    "type": "s32[]",
+   "source": "match"
+  },
+  {
+   "address": 140956960,
+   "type": "u8[]",
    "source": "match"
   },
   {

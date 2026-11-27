@@ -1811,7 +1811,7 @@
 <g><title>scriptCmdSpawnFixedEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="390.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08016E44: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateScriptedProjectileHit: {&#x27;matched&#x27;: 1}</title>
 <rect x="400.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08016FC4: {&#x27;matched&#x27;: 1}</title>

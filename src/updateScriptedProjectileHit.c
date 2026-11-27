@@ -16,13 +16,13 @@ void sub_08013C8C(void *, void *);
 
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u8 D_0866D520[];
+extern u8 gProjectileStepTable[];
 extern u32 sScriptStepCallbacks[];
 
 /* Updates a projectile/weapon entity: runs the hit and damage responses for its
  * owner and sub-object, dispatches a slot callback, then copies the owner's
  * camera-corrected world position back through the coordinate table. */
-void sub_08016E44(u8 *self) {
+void updateScriptedProjectileHit(u8 *self) {
     u8 *parent;
     u8 *obj;
     u8 *objSub;
@@ -72,7 +72,7 @@ void sub_08016E44(u8 *self) {
 
     if (updateObjectDisplayState(parent, obj) == 0) {
         u8 *slot;
-        *(u32 *)(self + 0x14) = (u32)D_0866D520;
+        *(u32 *)(self + 0x14) = (u32)gProjectileStepTable;
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) + 1;
         slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
         *(u8 *)(slot + 0x19) = *(u8 *)(slot + 0x19) + 1;
