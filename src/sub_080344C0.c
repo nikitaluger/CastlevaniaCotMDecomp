@@ -98,10 +98,11 @@ void sub_080344C0(struct Entity *owner)
   }
   if (((u8 *)owner)[0x70] != 0) {
     part->x += 0x1E0000;
+    part->_10 = 0x40000;
   } else {
-    part->x += 0x02025FF0;
+    part->x += 0xFFE20000;
+    part->_10 = 0xFFFC0000;
   }
-  part->_10 = 0x18C2;
   part->_14 = 0;
   animSlotId = findKindIndex(part->animId);
   part->animSlot = (u16) animSlotId;

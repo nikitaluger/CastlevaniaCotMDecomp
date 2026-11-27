@@ -356526,15 +356526,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:2a7053df7d7f3b9ddbe8b2005dfaf9e879fdf0e2436af975b6e480033519a63f"
  },
  {
-  "function": "sub_080344C0",
-  "text": "86% donor spawnAttackEffectSprite adapted; best 2750 (89.5%, 262/264 insns), rev 817d3a796e5950b9013e. Main structure matches: allocSpriteObject->allocWorkSlot(0,0x4C,0)->typeFlags 0x8000000B->installUpdateHandler(sub_08014290)->animId 0x17->copy owner f4C/f5C to part x/y->adjust y by owner+0x6C (0xFFF40000/0xFFE40000) and x by owner+0x70 (0x1E0000 / 0x02025FF0 literal)->set part+0x10=0x18C2, part+0x14=0->findKindIndex(part->animId)->graphics pack->initSpriteGraphics->setAnimationFrame(...,0x3B,1)->allocEffectPart->fill subEffect (1=5,2=8,3=1, f04/f0E from gEffectGfxTable[animId*40], f06-f0C from D_080CEDF4, +0x10=sprite)->camera scroll adjust (gCameraState+0x1278/0x127C indexed by (state[0x18A8]+1)*0x40)->flags|=0x1000->step byte clear, sub_080C31E4, step byte++, sub_080C31E0(dispatch). Remaining diffs mostly linker false positives from code-size/offset (bl addresses, pool symbol misattributions). Real structural diff: owner+0x70!=0 x-adjust branch in target has dead `movs r0,#0x80; lsls r0,r0,#0xb; b` before convergence; current code b's directly. Also keep x else as literal 0x02025FF0 (not (u32)gMainWorkspace) - symbol form regressed. Tried: findKindIndex(part->animId) improved; swapping x if/else regressed; gMainWorkspace symbol regressed; try_local_repairs found no better variant.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795805511.4602828,
-  "score_before": 3750,
-  "score_after": 2750,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:76ddeda282ddae4dfaf33b5294932af300e892514ec776aad8ff29fea5a1dec1"
- },
- {
   "function": "sub_0800FEDC",
   "text": "Leaf no-call Thumb function; body logic matches target exactly. Only diff is LR-frame wall: target `beq #0x10`/`bx lr`, candidate `push {lr}`/`beq #0x12`/`pop {r0}; bx r0`. 46+ prior attempts, all flag profiles same or worse. Confirmed 215 this session.\nConfirmed current candidate; prior history shows extensive attempts and flag search.\nNo change from baseline 215; all diffs are frame insertion/offset shift.",
   "by": "opencode-iceman-contributor-free-12",
@@ -359512,5 +359503,14 @@
   "created_at": 1795683534.3820562,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_080344C0",
+  "text": "86% donor spawnAttackEffectSprite adapted; best 2750 (89.5%, 262/264 insns), rev 817d3a796e5950b9013e. Main structure matches: allocSpriteObject->allocWorkSlot(0,0x4C,0)->typeFlags 0x8000000B->installUpdateHandler(sub_08014290)->animId 0x17->copy owner f4C/f5C to part x/y->adjust y by owner+0x6C (0xFFF40000/0xFFE40000) and x by owner+0x70 (0x1E0000 / 0x02025FF0 literal)->set part+0x10=0x18C2, part+0x14=0->findKindIndex(part->animId)->graphics pack->initSpriteGraphics->setAnimationFrame(...,0x3B,1)->allocEffectPart->fill subEffect (1=5,2=8,3=1, f04/f0E from gEffectGfxTable[animId*40], f06-f0C from D_080CEDF4, +0x10=sprite)->camera scroll adjust (gCameraState+0x1278/0x127C indexed by (state[0x18A8]+1)*0x40)->flags|=0x1000->step byte clear, sub_080C31E4, step byte++, sub_080C31E0(dispatch). Remaining diffs mostly linker false positives from code-size/offset (bl addresses, pool symbol misattributions). Real structural diff: owner+0x70!=0 x-adjust branch in target has dead `movs r0,#0x80; lsls r0,r0,#0xb; b` before convergence; current code b's directly. Also keep x else as literal 0x02025FF0 (not (u32)gMainWorkspace) - symbol form regressed. Tried: findKindIndex(part->animId) improved; swapping x if/else regressed; gMainWorkspace symbol regressed; try_local_repairs found no better variant.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795805511.4602828,
+  "score_before": 3750,
+  "score_after": 2750,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:76ddeda282ddae4dfaf33b5294932af300e892514ec776aad8ff29fea5a1dec1"
  }
 ]
