@@ -6,56 +6,62 @@ extern s32 scaleByRandom(s32);
 
 void sub_0801FEF8(void *self) {
     void *obj;
-    void *work;
-    u8 *anim;
-    s32 *timer;
-    void *r4obj;
+    u8 *work;
+    u8 *r4;
+    u8 *w48;
     s32 v;
-    s32 t;
+    s32 r1;
+    s32 off;
 
     obj = *(void **)((u8 *)self + 0x38);
-    work = *(void **)((u8 *)self + 0x3C);
-    anim = (u8 *)work + 0x34;
-    timer = (s32 *)((u8 *)work + 0x48);
-    *(s32 *)((u8 *)work + 0x14) = 0;
-    *(s32 *)((u8 *)work + 0x10) = 0;
-    setAnimationFrame((s32)obj, anim, 0x19, 0);
-    if (*(u8 *)anim & 2) {
+    work = *(u8 **)((u8 *)self + 0x3C);
+    r4 = work + 0x34;
+    w48 = work + 0x48;
+    *(s32 *)(work + 0x14) = 0;
+    *(s32 *)(work + 0x10) = 0;
+    setAnimationFrame((s32)obj, r4, 0x19, 0);
+    if (r4[0] & 2) {
         _call_via_r1(self, *(void **)((u8 *)self + 0x24));
         return;
     }
-    if (--timer[2] < 0) {
-        timer[2] = 0;
+    if (--*(s32 *)(w48 + 8) < 0) {
+        *(s32 *)(w48 + 8) = 0;
         return;
     }
-    r4obj = spawnBudgetedEffect(*(s32 *)0x02027860, 0x9A);
-    if (r4obj == 0) {
+    off = 0x1870;
+    r4 = spawnBudgetedEffect(*(s32 *)(0x02025FF0 + off), 0x9A);
+    if (r4 == 0) {
         return;
     }
-    v = *(s32 *)((u8 *)work + 8);
-    if (v < 0) {
-        v += 0xFFFF;
-    }
-    *(u16 *)((u8 *)r4obj + 0x4C) = (s16)(sub_0800583C(10) + (v >> 16));
-    v = *(s32 *)((u8 *)work + 0xC);
-    if (v < 0) {
-        v += 0xFFFF;
-    }
-    *(u16 *)((u8 *)r4obj + 0x54) = (s16)(sub_0800583C(10) + (v >> 16));
 
-    t = timer[2];
+    r1 = sub_0800583C(10);
+    v = *(s32 *)(work + 8);
+    if (v < 0) {
+        v += 0xFFFF;
+    }
+    v = (v >> 16) + r1;
+    *(s16 *)(r4 + 0x4C) = (s16)v;
+
+    r1 = sub_0800583C(10);
+    v = *(s32 *)(work + 0xC);
+    if (v < 0) {
+        v += 0xFFFF;
+    }
+    v = (v >> 16) + r1;
+    *(s16 *)(r4 + 0x54) = (s16)v;
+
     if (*(u16 *)((u8 *)self + 0x5C) & 2) {
-        t -= 1;
+        v = *(s32 *)(w48 + 8) - 1;
     } else {
-        t -= 2;
+        v = *(s32 *)(w48 + 8) - 2;
     }
-    *(s32 *)((u8 *)r4obj + 0x6C) = t << 15;
-    *(s32 *)((u8 *)r4obj + 0x7C) = 0x8000 - scaleByRandom(0x20000);
+    *(s32 *)(r4 + 0x6C) = v << 15;
+    *(s32 *)(r4 + 0x7C) = 0x8000 - scaleByRandom(0x20000);
 
-    v = timer[2] % 2;
+    v = *(s32 *)(w48 + 8) % 2;
     if (v == 0) {
-        *(u16 *)((u8 *)r4obj + 0x5C) = 0x100;
+        *(u16 *)(r4 + 0x5C) = 0x100;
     } else if (v == 1) {
-        *(u16 *)((u8 *)r4obj + 0x5C) = 0x200;
+        *(u16 *)(r4 + 0x5C) = 0x200;
     }
 }

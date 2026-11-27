@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795792307.539749,
- "revision": 69962,
+ "saved_at": 1795792581.881796,
+ "revision": 69979,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,28 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "417956:134635684": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateTimedActorAction",
-   "vram": 134635684
-  },
-  "157660:134375388": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_080267DC",
-   "vram": 134375388
   }
  },
  "instructions": "",
@@ -2107,10 +2085,7 @@
  "claim_order": "",
  "priority": [
   "sub_08025C24",
-  "sub_080245EC",
   "sub_080240B8",
-  "sub_08023BDC",
-  "sub_0801F0A8",
   "sub_0801E160"
  ],
  "auto_compiler": true,
@@ -2123,8 +2098,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5852,6 +5826,11 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
+  "sub_0801F0A8": {
+   "vram": 134344872,
+   "matched_by": "opencode-hy4-flash-free-64",
+   "readable": false
+  },
   "updatePlayerActorAlt": {
    "vram": 134345472,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -5939,7 +5918,7 @@
   },
   "sub_0801FEF8": {
    "vram": 134348536,
-   "best_score": 5160,
+   "best_score": 2045,
    "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_0801FFFC": {
@@ -6342,6 +6321,11 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
+  "sub_08023BDC": {
+   "vram": 134364124,
+   "matched_by": "opencode-hy4-flash-free-65",
+   "readable": false
+  },
   "sub_08023CE8": {
    "vram": 134364392,
    "matched_by": "opencode-free-1",
@@ -6401,6 +6385,11 @@
    "vram": 134366620,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_080245EC": {
+   "vram": 134366700,
+   "best_score": 7470,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_080249E4": {
    "vram": 134367716,
@@ -6469,7 +6458,7 @@
   },
   "sub_080253A4": {
    "vram": 134370212,
-   "best_score": 2580,
+   "best_score": 1905,
    "best_by": "opencode-hy4-flash-free-64"
   },
   "sub_08025494": {
@@ -12970,7 +12959,7 @@
   "updateTimedActorAction": {
    "vram": 134635684,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_08066558": {
    "vram": 134636888,
@@ -14962,10 +14951,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08080558": {
+  "spawnActorChildEffectPermuted": {
    "vram": 134743384,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080806A0": {
    "vram": 134743712,
@@ -16797,7 +16786,7 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0808FE8C": {
+  "updateTargetedScriptedAttack": {
    "vram": 134807180,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
    "readable": false
@@ -39711,7 +39700,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08080558",
+   "name": "spawnActorChildEffectPermuted",
    "vram": 134743384,
    "size": 328,
    "status": "open"
@@ -42027,7 +42016,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0808FE8C",
+   "name": "updateTargetedScriptedAttack",
    "vram": 134807180,
    "size": 328,
    "status": "open"
@@ -52745,6 +52734,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnActorChildEffectPermuted",
+   "address": 134743384,
+   "size": 328,
+   "kind": "func"
+  },
+  {
    "name": "spawnActorChildFromConfig",
    "address": 134747928,
    "size": 348,
@@ -52826,6 +52821,12 @@
    "name": "initVariantSpriteObject",
    "address": 134799596,
    "size": 400,
+   "kind": "func"
+  },
+  {
+   "name": "updateTargetedScriptedAttack",
+   "address": 134807180,
+   "size": 328,
    "kind": "func"
   },
   {
@@ -53903,6 +53904,18 @@
    "kind": "data"
   },
   {
+   "name": "gActorChildEffectPermutationTable",
+   "address": 135157580,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gActorChildEffectParamTable",
+   "address": 135157612,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gChoiceMenuOptionTable",
    "address": 135216636,
    "size": 0,
@@ -53929,6 +53942,12 @@
   {
    "name": "gVariantSpriteFrames",
    "address": 135266880,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gAttackTargetKinds",
+   "address": 135267312,
    "size": 0,
    "kind": "data"
   },
@@ -54491,6 +54510,12 @@
    "kind": "data"
   },
   {
+   "name": "gTargetedAttackStepTable",
+   "address": 140966216,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gBehaviorHandlerTable",
    "address": 140966572,
    "size": 0,
@@ -54548,7 +54573,7 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "struct ProjectileCameraView",
+   "type": "struct S_02021E90",
    "source": "match"
   },
   {
@@ -54573,7 +54598,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct SGlobals",
+   "type": "struct S_02025FF0",
    "source": "match"
   },
   {
@@ -54633,7 +54658,7 @@
   },
   {
    "address": 135049912,
-   "type": "struct Kind44KindEntry[]",
+   "type": "struct EffectDef[]",
    "source": "match"
   },
   {
@@ -54953,6 +54978,16 @@
   },
   {
    "address": 135155012,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135157580,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135157612,
    "type": "u8[]",
    "source": "match"
   },
@@ -55438,7 +55473,7 @@
   },
   {
    "address": 140975024,
-   "type": "s32",
+   "type": "u32",
    "source": "match"
   },
   {

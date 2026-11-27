@@ -4,13 +4,13 @@ extern u8 *hitTestEntities(u8 *);
 extern s32 sub_080C31E0(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern s16 D_081003F0[];
-extern u8 D_0866F948[];
+extern s16 gAttackTargetKinds[];
+extern u8 gTargetedAttackStepTable[];
 struct SpriteFlag { u8 flag; };
 
 /* Per-frame update: mark the sprite by camera visibility, resolve a pending hit
  * target, advance one script step, and refresh the sprite's screen position. */
-void sub_0808FE8C(u8 *entity)
+void updateTargetedScriptedAttack(u8 *entity)
 {
   u8 *sprite;
   u8 *state;
@@ -55,7 +55,7 @@ void sub_0808FE8C(u8 *entity)
     t = hitTestEntities(*((u8 **) (state + 4)));
     if (t != NULL)
     {
-      targetList = D_081003F0;
+      targetList = gAttackTargetKinds;
       if ((*targetList) != 0)
       {
         do
@@ -78,7 +78,7 @@ void sub_0808FE8C(u8 *entity)
       }
     }
   }
-  *((u32 *) (entity + 0x14)) = (u32) D_0866F948;
+  *((u32 *) (entity + 0x14)) = (u32) gTargetedAttackStepTable;
   *((u16 *) (entity + 0x22)) = (*((u16 *) (entity + 0x22))) + 1;
   *((u8 *) (((u32) entity) + ((u32) (*((s16 *) (entity + 0x22)))) * 2 + 0x19)) = (*((u8 *) (((u32) entity) + ((u32) (*((s16 *) (entity + 0x22)))) * 2 + 0x19))) + 1;
   command = *((u8 *) (((u32) scriptBase) + ((u32) (*((s16 *) (entity + 0x22)))) * 2));

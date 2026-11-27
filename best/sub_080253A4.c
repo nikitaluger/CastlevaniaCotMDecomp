@@ -36,11 +36,10 @@ void sub_080253A4(void *arg0)
         }
         else
         {
-            s32 velX;
-            if (getSpriteFacingSign((s32)sprite) <= 0)
-                velX = 0x300000;
+            if (getSpriteFacingSign((s32)sprite) > 0)
+                *(s32 *)(steer + 8) = -0x300000;
             else
-            *(s32 *)(steer + 8) = (-0x300000);
+                *(s32 *)(steer + 8) = 0x300000;
             *(s32 *)(steer + 0x0C) = sub_0800583C(0x200000) - 0x300000;
             *(u16 *)(steer + 0x10) = 0;
             {

@@ -8,7 +8,7 @@ extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void *spawnEntity(void *, s32, s32, s32);
 extern void sub_0806D7B4(void *, s32);
-extern void sub_08084CBC(void *, void *);
+extern void spawnRoom34Object(void *, void *);
 extern void sub_080C31E8(void *, void *, u32, void *);
 extern u16 sub_0806BCD8(void *, void *, void *, void *);
 
@@ -18,7 +18,7 @@ extern struct SGlobals gMainWorkspace;
 /* Per-frame actor update: refresh camera/mode state and tick the actor's timer;
  * on expiry, clear the current script step, fire the type's callback and spawn
  * a cooldown child, then run the collision check and common follow-up updates. */
-void sub_080660A4(u8 *actor)
+void updateTimedActorAction(u8 *actor)
 {
     u8 *state = *((u8 **)(actor + 0x6C));
     u8 *objTail = state + 4;
@@ -46,7 +46,7 @@ void sub_080660A4(u8 *actor)
         }
         gMainWorkspace.f1824 = timerResult;
         *((u32 *)(state + 0xA0)) = timerResult;
-        sub_08084CBC(actor, obj);
+        spawnRoom34Object(actor, obj);
         {
             u32 *accelAddr = (u32 *)(state + 0xC4);
             u32 accel = *accelAddr;
