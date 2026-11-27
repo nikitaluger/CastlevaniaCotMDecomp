@@ -3,7 +3,7 @@ extern void sub_080C31E0(void *a, void *b);
 
 /* Advances a global phase counter and, when it wraps to 0x10, despawns the
  * effect's tracked sub-objects along with the object itself. */
-void advanceCrossfadePhase(void *obj)
+void sub_080076F0(void *obj)
 {
     u8 *state = (u8*)0x02025FF0;
     u8 *reg;

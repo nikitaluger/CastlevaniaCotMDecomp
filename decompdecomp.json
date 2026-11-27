@@ -1770,6 +1770,16 @@
     "-mthumb-interwork",
     "-O2"
    ]
+  },
+  "30448:134248176": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O1"
+   ],
+   "timeout": 20,
+   "function": "advanceCrossfadePhase",
+   "vram": 134248176
   }
  },
  "instructions": "",
@@ -1968,7 +1978,8 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h"
+  "local_source_8589938934": "common_local_source_8589938934.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -2874,7 +2885,7 @@
   "advanceCrossfadePhase": {
    "vram": 134248176,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": true
+   "readable": false
   },
   "sub_08007870": {
    "vram": 134248560,
