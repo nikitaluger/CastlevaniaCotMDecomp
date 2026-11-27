@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795779121.5557625,
- "revision": 69408,
+ "saved_at": 1795779504.0127454,
+ "revision": 69424,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "448380:134666108": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnScaledEffect",
-   "vram": 134666108
   }
  },
  "instructions": "",
@@ -2105,8 +2094,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -11199,7 +11187,7 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08054C94": {
+  "createScriptedEntitySprite": {
    "vram": 134565012,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -15252,7 +15240,7 @@
   "runActionStepResponse": {
    "vram": 134762840,
    "matched_by": "opencode-hy4-flash-free-60",
-   "readable": false
+   "readable": true
   },
   "setupEntityForRoomEntry": {
    "vram": 134763416,
@@ -34796,7 +34784,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08054C94",
+   "name": "createScriptedEntitySprite",
    "vram": 134565012,
    "size": 360,
    "status": "open"
@@ -49445,7 +49433,7 @@
    "name": "sub_080BFD7C",
    "vram": 135003516,
    "size": 56,
-   "status": "open"
+   "status": "asm"
   },
   {
    "name": "sub_080BFDB4",
@@ -51508,6 +51496,12 @@
    "kind": "func"
   },
   {
+   "name": "createScriptedEntitySprite",
+   "address": 134565012,
+   "size": 360,
+   "kind": "func"
+  },
+  {
    "name": "scriptCmdSpawnAttack",
    "address": 134565792,
    "size": 612,
@@ -52858,6 +52852,12 @@
    "kind": "data"
   },
   {
+   "name": "gScriptedSpriteFrameTable",
+   "address": 135068502,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gProjectileFrameTable",
    "address": 135068516,
    "size": 0,
@@ -53529,12 +53529,12 @@
   },
   {
    "address": 33706856,
-   "type": "struct S25368",
+   "type": "struct ActionStepGameState",
    "source": "match"
   },
   {
    "address": 33710064,
-   "type": "u8[]",
+   "type": "struct ActionStepWorkspace",
    "source": "match"
   },
   {
@@ -61057,6 +61057,23 @@
     }
    },
    "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) found no C makes it: Hand-written assembly thunk (m4a sound-engine wrapper family), not expressible in C. Target uses `mov ip, lr` / `bx ip` frameless linkage and relies on r3 (byte value) surviving across `bl sub_080BFBEE` for post-call `strb r3, [r0]`. agbcc always emits push/pop frame, spills r3 to r4/stack, returns via bx r0. Neighbors sub_080BFBEE/sub_080BFBD2 already set aside as not_c. Family consensus across 3+ models. No C form, flag variant, or prototype can produce this."
+  },
+  {
+   "name": "sub_080BFD7C",
+   "vram": 135003516,
+   "not_c": {
+    "opencode-beam-free-9": {
+     "model": "opencode-beam-free",
+     "why": "Hand-written/assembly region: cross-function literal-pool sharing with adjacent thunk (pc,#0x298 \u2192 0x080C0018). Same block as sub_080BFDBE (set aside). propose_change(set_aside) submitted. No C can reproduce pool offsets. Score 1895.",
+     "t": 1795779026.9665866
+    },
+    "you": {
+     "model": "you",
+     "why": "agent proposal (opencode-beam-free-9), approved by you: read_data(0x080BFD7C,32): function's first instruction `a6 48` = ldr r0,[pc,#0x298] resolves to literal pool at 0x080C0018, which lies inside the adjacent thunk sub_080C0010 (8-byte bx r3 + pool), not in this function's own 56-byte extent. Cross-function literal-pool sharing is an assembler/linker layout trick; no standalone agbcc compile can reproduce the pc offsets. Region 0x080BFD7C..0x080C0014 is the same hand-written block as sub_080BFDBE (set aside). 55 attempts stuck at 1895.",
+     "t": 1795779239.2074418
+    }
+   },
+   "asm_code": "you set it aside: agent proposal (opencode-beam-free-9), approved by you: read_data(0x080BFD7C,32): function's first instruction `a6 48` = ldr r0,[pc,#0x298] resolves to literal pool at 0x080C0018, which lies inside the adjacent thunk sub_080C0010 (8-byte bx r3 + pool), not in this function's own 56-byte extent. Cross-function literal-pool sharing is an assembler/linker layout trick; no standalone agbcc compile can reproduce the pc offsets. Region 0x080BFD7C..0x080C0014 is the same hand-written block as sub_080BFDBE (set aside). 55 attempts stuck at 1895."
   },
   {
    "name": "sub_080BFDB4",

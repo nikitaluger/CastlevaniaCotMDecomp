@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="750" viewBox="0 0 840 750" role="img" aria-labelledby="title desc">
-<title id="title">3,960 / 4,202 functions matched (94.2%)</title>
+<title id="title">3,960 / 4,201 functions matched (94.3%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="750" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">gba</text>
-<text x="20" y="59" font-size="16">3,960 / 4,202 functions matched (94.2%)</text>
+<text x="20" y="59" font-size="16">3,960 / 4,201 functions matched (94.3%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="753.927" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="754.106" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
 <text x="36" y="118" font-size="13">Matched: 3,960</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 242</text>
+<text x="236" y="118" font-size="13">Attempt: 241</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
 <text x="436" y="118" font-size="13">Open: 0</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
-<text x="636" y="118" font-size="13">Aside: 317</text>
+<text x="636" y="118" font-size="13">Aside: 318</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
 <g><title>sub_08000468: {&#x27;matched&#x27;: 1}</title>
 <rect x="20.000" y="160" width="8.000" height="8" fill="#238636"/>
@@ -5843,7 +5843,7 @@
 <g><title>sub_08054C4C: {&#x27;matched&#x27;: 1}</title>
 <rect x="230.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08054C94: {&#x27;matched&#x27;: 1}</title>
+<g><title>createScriptedEntitySprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="240.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08054DFC: {&#x27;matched&#x27;: 1}</title>
@@ -13166,8 +13166,8 @@
 <g><title>sub_080BFD64: {&#x27;aside&#x27;: 1}</title>
 <rect x="640.000" y="700" width="8.000" height="8" fill="#b54747"/>
 </g>
-<g><title>sub_080BFD7C: {&#x27;attempt&#x27;: 1}</title>
-<rect x="650.000" y="700" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_080BFD7C: {&#x27;aside&#x27;: 1}</title>
+<rect x="650.000" y="700" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_080BFDB4: {&#x27;aside&#x27;: 1}</title>
 <rect x="660.000" y="700" width="8.000" height="8" fill="#b54747"/>

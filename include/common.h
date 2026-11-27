@@ -1619,3 +1619,64 @@ struct ScriptedWorkFlags {
 /* Step-handler table used by updateScriptedMoverVariant (Thumb handler words
  * for the scripted entity family around 0x08053xxx). */
 #define SCRIPTED_MOVER_VARIANT_STEP_TABLE 0x0866E690
+
+/* ---------- Script-driven entity sprite constructor (createScriptedEntitySprite) ---------- */
+
+/* Work state allocated in the owner's +0x3C slot (0x48 bytes). */
+struct ScriptEntitySpriteWork {
+    u8 _0[8];
+    s32 worldX;      /* 0x08: fixed-point X, from owner +0x4C */
+    s32 worldY;      /* 0x0C: fixed-point Y, from owner +0x54 */
+    s32 paramA;      /* 0x10: from owner +0x5C */
+    s32 paramB;      /* 0x14: from owner +0x6C */
+    u8 _18[4];
+    s16 kind;        /* 0x1C: animation/graphics kind index */
+    u8 _1E[4];
+    s16 kindSlot;    /* 0x22: slot returned by findKindIndex */
+};
+
+/* Owner of the sprite. Its kind (+0x84) and frame selector (+0x7C) pick the
+ * animation; the script step at +0x22 is marked consumed on success. */
+struct ScriptEntitySpriteOwner {
+    u8 _0[2];
+    u16 flags;       /* 0x02: SCRIPT_ENTITY_SPRITE_READY set on success */
+    u8 _4[0x22 - 4];
+    s16 stepIndex;   /* 0x22 */
+    u8 _24[0x38 - 0x24];
+    u8 *sprite;      /* 0x38 */
+    struct ScriptEntitySpriteWork *work; /* 0x3C */
+    u8 _40[0x4C - 0x40];
+    s16 spawnX;      /* 0x4C */
+    u8 _4E[6];
+    s16 spawnY;      /* 0x54 */
+    u8 _56[0x5C - 0x56];
+    s32 paramA;      /* 0x5C */
+    u8 _60[0x6C - 0x60];
+    s32 paramB;      /* 0x6C */
+    u8 _70[0x7C - 0x70];
+    s16 frameIndex;  /* 0x7C: index into gScriptedSpriteFrameTable */
+    u8 _7E[0x84 - 0x7E];
+    u16 kind;        /* 0x84 */
+};
+
+/* Shared workspace and camera-scroll views used to place the sprite. */
+struct ScriptEntityWorkspace {
+    u8 _0[0x18A8];
+    u8 frameCounter; /* 0x18A8 */
+    u8 _18A9[0x19];
+    u16 gfxFlags;    /* 0x18C2 */
+};
+struct ScriptEntityCamera {
+    u8 _0[0x1278];
+    u32 scrollX;     /* 0x1278 */
+    u32 scrollY;     /* 0x127C */
+};
+
+#define SCRIPT_ENTITY_SPRITE_WORK_SIZE 0x48
+#define SCRIPT_ENTITY_SPRITE_GFX_ID    0x8000000A
+#define SCRIPT_ENTITY_SPRITE_READY     0x1000
+#define SCRIPT_ENTITY_ANIM_STRIDE      0xC
+#define SCRIPT_ENTITY_SCROLL_X_OFFSET  0x1278
+#define SCRIPT_ENTITY_SCROLL_Y_OFFSET  0x127C
+#define SCRIPT_ENTITY_SCROLL_SHIFT     6           /* 0x40-byte scroll rows */
+#define SCRIPT_ENTITY_FRAC_MASK        0xFFFF0000
