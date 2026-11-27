@@ -767,7 +767,7 @@
 <g><title>sub_08008600: {&#x27;matched&#x27;: 1}</title>
 <rect x="110.000" y="190" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08008648: {&#x27;matched&#x27;: 1}</title>
+<g><title>initSceneFromSave: {&#x27;matched&#x27;: 1}</title>
 <rect x="120.000" y="190" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080087A8: {&#x27;matched&#x27;: 1}</title>
@@ -3428,7 +3428,7 @@
 <g><title>sub_0802E91C: {&#x27;matched&#x27;: 1}</title>
 <rect x="180.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802E964: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnFixedKindAttackSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="190.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802EAC4: {&#x27;matched&#x27;: 1}</title>
@@ -3473,7 +3473,7 @@
 <g><title>sub_0802F3C4: {&#x27;matched&#x27;: 1}</title>
 <rect x="330.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802F40C: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnAttackSpriteKind69: {&#x27;matched&#x27;: 1}</title>
 <rect x="340.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802F56C: {&#x27;matched&#x27;: 1}</title>
