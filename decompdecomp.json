@@ -1790,6 +1790,17 @@
     "-O1",
     "-fno-strength-reduce"
    ]
+  },
+  "49220:134266948": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "initVariantScriptSprite",
+   "vram": 134266948
   }
  },
  "instructions": "",
@@ -2131,7 +2142,8 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h"
+  "local_source_8589939150": "common_local_source_8589939150.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -3557,7 +3569,7 @@
   "initVariantScriptSprite": {
    "vram": 134266948,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": true
+   "readable": false
   },
   "sub_0800C1EC": {
    "vram": 134267372,

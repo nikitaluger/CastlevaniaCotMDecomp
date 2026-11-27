@@ -6,7 +6,7 @@ extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *gScriptStepCallbacks;
 
-void initVariantScriptSprite(u8 *entity)
+void sub_0800C044(u8 *entity)
 {
     void *gfx;
     void *handler;
