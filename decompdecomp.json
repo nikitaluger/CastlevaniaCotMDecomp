@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795744254.2860415,
- "revision": 68797,
+ "saved_at": 1795744694.829943,
+ "revision": 68830,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,16 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "271720:134489448": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O1"
-   ],
-   "timeout": 20,
-   "function": "updateThreePartEnemy",
-   "vram": 134489448
   }
  },
  "instructions": "",
@@ -1813,9 +1803,11 @@
   "DRACULA AGB1 literal-pool/extent wall: when every real target instruction is byte-exact and the only residual rows at the very end are a `movs r0,r0` alignment nop plus 2 rows decoding the bytes of a literal-pool word, the ROM's pool entry sits just past the function's declared extent. A standalone compile must emit its own pool inside the extent, so those rows can never be removed by C spelling, casts, constant formatting or in-profile flags. Release with a compiler/extent handoff; do not spend the compile budget on it.",
   "DRACULA AGB1 frameless Thumb loop-leaf ABI wall: when a no-call leaf loop has a byte-exact real body but agbcc adds `push {lr}` and `pop {r0}; bx r0` where the ROM uses bare `bx lr`, treat it as compiler frame-emission, not loop C. Exact flags, -O1, -O3, and even explicit -fomit-frame-pointer preserve this inserted frame and branch-displacement ripple, while -Os/non-interwork are worse. Do not spend budget on while/do/for or pointer declaration permutations; a compiler/backend change is required.",
   "DRACULA AGB1 / frameless Thumb leaf frame wall: when a no-call leaf's entire real target body is already byte-exact and the only residual is candidate `push {lr}` / `pop {r0}` / `bx r0` versus the ROM's frameless `bx lr`, with branch and literal offsets rippling by two, this is agbcc `-mthumb-interwork` prologue/epilogue emission, not a C-source mismatch. Source permutations cannot remove it. Confirm the compiler profile once with search_flags, then release with a compiler_settings handoff; matching requires an ABI/compiler mode that emits frameless Thumb leaves.",
+  "DRACULA AGB1 agbcc leaf-frame flag sweep: for a no-call Thumb leaf whose ROM ends in bare `bx lr`, no in-profile flag produces a frameless epilogue. With interwork agbcc emits push{lr}/.../pop{r1};bx r1; removing interwork swaps that for push{lr}/.../pop{pc} plus an extra `movs r0,r0` alignment nop, and -O1/-Os only add register churn. Do not re-test flag permutations on accepted frameless-leaf walls.",
   "DRACULA AGB1 / branchy literal-pool Thumb leaf wall: a 24-byte leaf that loads a global s16 via `ldr r0,[pc,#..]; movs r1,#0; ldsh r0,[r0,r1]; cmp; beq; movs r0,#1; negs r0,r0; b; <pool>; movs r0,#0; bx lr` cannot be matched by agbcc -mthumb-interwork. Every correct C spelling produces the byte-exact real body but adds push {lr}/pop {rN};bx rN and ripples the literal-pool and branch offsets; -O1/-O2/-O3/-Os/-fomit-frame-pointer all emit the same frame. Treat it as a compiler backend wall, not a C-source problem.",
   "DRACULA AGB1 / agbcc initial-copy CSE wall: when a switch walker seeds its loop counter with `s32 status = 0; s32 i = status;` and the ROM's prologue is `movs r7,#0; adds r3,r7,#0` (status in callee-saved r7, counter copied into call-clobbered r3), agbcc -O2 constant-propagates both locals to `movs #0` and no legal C spelling preserves the register copy. Declaration order, assignment vs initializer, chained assignment, for-init, do/while(0), struct aggregates, pointer/alias reads, narrow or unsigned types, register/const hints and all five agbcc flag profiles leave the fold (or break other row",
-  "DRACULA AGB1 / agbcc -1 materialization in small branchy leaves: when the ROM returns -1 via two instructions `movs rN,#1; negs rN,rN`, declare the function's return type as `s32` (or another signed 32-bit type). A `u8`/`unsigned char`/`volatile unsigned char` return collapses this to a single `movs rN,#0xff`, which is a real operand mismatch even after the known frameless-leaf frame residual is allowed for. Also write the condition in the ROM's taken-branch polarity (`if (value == K) return 0; return -1;`) so agbcc emits `beq` with the -1 path as fallthrough; the equivalent `if (value != K) r"
+  "DRACULA AGB1 / agbcc -1 materialization in small branchy leaves: when the ROM returns -1 via two instructions `movs rN,#1; negs rN,rN`, declare the function's return type as `s32` (or another signed 32-bit type). A `u8`/`unsigned char`/`volatile unsigned char` return collapses this to a single `movs rN,#0xff`, which is a real operand mismatch even after the known frameless-leaf frame residual is allowed for. Also write the condition in the ROM's taken-branch polarity (`if (value == K) return 0; return -1;`) so agbcc emits `beq` with the -1 path as fallthrough; the equivalent `if (value != K) r",
+  "DRACULA AGB1 / the agbcc -mno-thumb-interwork profile has the same no-call Thumb leaf LR-frame wall as -mthumb-interwork. When a function's body and all operands match but the residual is an inserted push{lr}, pop{pc} instead of bare bx lr, plus PC-relative pool-offset shifts, treat it as the frameless-leaf compiler wall rather than retrying return-type, branch, or declaration-order permutations."
  ],
  "knowledge_evidence": {
   "DRACULA AGB1 near-match triage: when a function's residual is only `r` (register) rows and several structurally different legal C spellings give the same score (or merely rotate which register holds a value), it is an agbcc -O2 allocator-coloring tie, not a source problem. Check before spending a budget: try_local_repairs with compare=true, then a small compile_variants grid of type/declaration/expression changes, then compiler_experiments flag profiles. If non-project flags are all much worse and C variants keep the same score/diff, release with an explicit compiler-change handoff rather than": {
@@ -1946,6 +1938,32 @@
     }
    ]
   },
+  "DRACULA AGB1 agbcc leaf-frame flag sweep: for a no-call Thumb leaf whose ROM ends in bare `bx lr`, no in-profile flag produces a frameless epilogue. With interwork agbcc emits push{lr}/.../pop{r1};bx r1; removing interwork swaps that for push{lr}/.../pop{pc} plus an extra `movs r0,r0` alignment nop, and -O1/-Os only add register churn. Do not re-test flag permutations on accepted frameless-leaf walls.": {
+   "model": [
+    {
+     "by": "opencode-hy4-flash-free-11",
+     "value": "hy4-flash-free"
+    },
+    {
+     "by": "opencode-beam-free-9",
+     "value": "beam-free"
+    }
+   ],
+   "text": [
+    {
+     "by": "opencode-hy4-flash-free-11",
+     "value": "sub_080186C0 try_compiler flag sweep (agbcc): current `agbcc -mthumb-interwork -O2 -fno-strength-reduce` = 215; `-mthumb-interwork -fomit-frame-pointer` = 215; non-interwork `-O2 -fno-strength-reduce` = 560; `-Os -fno-strength-reduce` = 560; `-O1 -fno-strength-reduce` = 635. Every profile keeps push{lr}; only the epilogue form changes."
+    },
+    {
+     "by": "opencode-hy4-flash-free-11",
+     "value": "sub_080A040C: compiler_experiments on the correct guarded C gave 215 for -O2/-fno-strength-reduce with interwork, -O1 with interwork, and -Os with interwork (all push {lr}/pop {r0}; bx r0 vs ROM bare bx lr); -O2 without interwork gave 300 with push {lr}/pop {pc}. sub_080A041C and sub_080A2D80 show the same byte-exact-body-plus-frame residual at 215."
+    },
+    {
+     "by": "opencode-beam-free-9",
+     "value": "Confirmed on sub_080A041C: search_flags all 5 in-profile flag variants score 215 (identical push{lr} frame); try_compiler -mno-thumb-interwork scores 300 (push{lr}/pop{pc}). Correct body C confirmed. Backs proposal."
+    }
+   ]
+  },
   "DRACULA AGB1 / branchy literal-pool Thumb leaf wall: a 24-byte leaf that loads a global s16 via `ldr r0,[pc,#..]; movs r1,#0; ldsh r0,[r0,r1]; cmp; beq; movs r0,#1; negs r0,r0; b; <pool>; movs r0,#0; bx lr` cannot be matched by agbcc -mthumb-interwork. Every correct C spelling produces the byte-exact real body but adds push {lr}/pop {rN};bx rN and ripples the literal-pool and branch offsets; -O1/-O2/-O3/-Os/-fomit-frame-pointer all emit the same frame. Treat it as a compiler backend wall, not a C-source problem.": {
    "model": [
     {
@@ -2003,6 +2021,28 @@
      "value": "sub_08094374 (24-byte frameless branchy leaf reading s16 at 0x020279E8 and returning 0 when value==0xD else -1): `volatile unsigned char` return gives score 455 with `movs r0,#0xff` and target's `movs r0,#1; negs r0,r0` missing; `s32` return with `if(value==0xD) return 0; return -1;` gives score 465 with every real instruction byte-exact (only the known push{lr}/pop frame residual); `if(value!=0xD) return -1;` gives score 495 with bne and reversed return paths."
     }
    ]
+  },
+  "DRACULA AGB1 / the agbcc -mno-thumb-interwork profile has the same no-call Thumb leaf LR-frame wall as -mthumb-interwork. When a function's body and all operands match but the residual is an inserted push{lr}, pop{pc} instead of bare bx lr, plus PC-relative pool-offset shifts, treat it as the frameless-leaf compiler wall rather than retrying return-type, branch, or declaration-order permutations.": {
+   "model": [
+    {
+     "by": "opencode-hungerg-free-3",
+     "value": "hungerg-free"
+    },
+    {
+     "by": "opencode-beam-free-9",
+     "value": "beam-free"
+    }
+   ],
+   "text": [
+    {
+     "by": "opencode-hungerg-free-3",
+     "value": "Two independently judged cases: a display-mode updater scored 705 with 40 target/candidate instructions and only those frame/pool rows; a camera update scored 700 with 36/36 and the same residual after adding the correct explicit return 0. Both ranges compile with agbcc -mno-thumb-interwork -O2 -fno-strength-reduce."
+    },
+    {
+     "by": "opencode-beam-free-9",
+     "value": "Confirmed on sub_080A041C: try_compiler agbcc -mno-thumb-interwork -O2 gives score 300 with push{lr}/pop{pc} (worse than interwork's push{lr}/pop{r1};bx r1). Backs proposal."
+    }
+   ]
   }
  },
  "claim_order": "",
@@ -2016,8 +2056,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -9183,7 +9222,7 @@
   "updateThreePartEnemy": {
    "vram": 134489448,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_080427C8": {
    "vram": 134490056,
@@ -10520,10 +10559,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0804FA5C": {
+  "updateScriptedDualTargetAttackObject": {
    "vram": 134543964,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_0804FBDC": {
    "vram": 134544348,
@@ -33924,7 +33963,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0804FA5C",
+   "name": "updateScriptedDualTargetAttackObject",
    "vram": 134543964,
    "size": 384,
    "status": "open"
@@ -51155,6 +51194,12 @@
    "name": "spawnKind5ESpriteFromParams",
    "address": 134541020,
    "size": 568,
+   "kind": "func"
+  },
+  {
+   "name": "updateScriptedDualTargetAttackObject",
+   "address": 134543964,
+   "size": 384,
    "kind": "func"
   },
   {
