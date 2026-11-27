@@ -16680,14 +16680,6 @@
   "score_after": null
  },
  {
-  "function": "updateEntityMotionAndSpawn",
-  "text": "IDIOMS FROM THE MATCHED SIBLING sub_0809B824 (same family as sub_0808DE7C / sub_080AD2D0; byte-identical by applying these):\n1. REASSOCIATION WALL SOLVED: for `*(u32 *)(base + 0x1278 + idx)`, write `u8 *q1 = pE + 0x1278;` as a separate statement, then `*(u32 *)(q1 + idx)` \u2014 the local breaks the (idx+base)+lit reassociation; the target keeps the E base in a callee-saved reg and adds idx last.\n2. `u8 *pE = D_BASE;` local \u2192 base lives in a callee-saved reg across both accesses.\n3. Struct-global FIELD ACCESS `D_02025FF0.a8` (extern struct with big _0 padding) \u2192 the two-literal adds for the high offset. But `&D_02025FF0.a8` FOLDS base+offset into a single pool entry \u2014 avoid when target pool shows two literals + adds.\n4. Write `idx = (D_02025FF0.a8 + 1) * 64;` TWICE (once per access) so the byte reload survives across the intervening store.\n5. switch (u8_local) for 1/2 small-int cases \u2192 the target's `cmp/beq forward-body; b end` layout (if/else-if emits bne-fallthrough; wrong).\n6. `u32 p34 = 0x34 + (u32)s;` constant FIRST \u2192 the movs+adds detour shape.\n7. Hoist a base loaded ONCE before an if/else into its own local (v8 = s->unk8), then `r5 = v8 \u00b1 table[i].a;` fresh assignment per branch; do NOT use `r5 = s->unk8; r5 += ...`.\n8. Direct field access (arg0->unk8C), NOT u8 locals, when the target re-reads the field 3+ times \u2014 locals pin values and inflate pressure (mine earlier spilled p34 to the stack and saved a third high register).\n9. `struct P { u32 a; u32 b; } arr[]` models +0/+4 pair tables at base+8*i.\n10. (x + 0x8000) & 0xFFFF0000 and (x + 0xFFFF8000u) & 0xFFFF0000 matched as written; the u on 0xFFFF8000u matters.",
-  "by": "opencode-free-2",
-  "created_at": 1795683533.9804306,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080018B8",
   "text": "Best 27 (99.4%), 46/46 insns \u2014 only first ~6 instructions' register assignment differs. Rest of body (field +0x19 clear/increment, sub_080C31E4 with 0x08671BB0, final sub_080C31E0, arg0 in r4, base18 in r5) is byte-identical. Target's prologue: `ldr r2,=0x03000830; movs r3,#0 (z); movs r1,#0 (zero); movs r0,#0xBF; strh r0,[r2,#4]; strh r1,[r2,#8]`. Best C (score 27) is the exact permuter attempt from the brief with `new_var3=0xBF; reg[4]=0; reg[2]=new_var3;` \u2014 mine emits `movs r0,#0; movs r1,#0xBF; movs r3,#0; strh r0,[r2,#8]; strh r1,[r2,#4]`. Tried: swapping store order (score 235), literal 0xBF without local (230), zero local, z declared uninitialized and assigned early (50). All change global regalloc and get worse. Looks like an agbcc scheduling quirk around the u16 pointer stores; needs a fresh approach. Sibling functions sub_0805B400/sub_0805B4A4 are matched with the same common tail.",
   "by": "opencode-hy4-flash-free-1",
@@ -348820,5 +348812,13 @@
   "score_before": 215,
   "score_after": 215,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:5f69e2d14edf835af8576f12b1bc4b6ba4dad427200f6c60ea3df53ad887a8f6:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
+ },
+ {
+  "function": "updateEntityMotionAndSpawn",
+  "text": "IDIOMS FROM THE MATCHED SIBLING sub_0809B824 (same family as sub_0808DE7C / sub_080AD2D0; byte-identical by applying these):\n1. REASSOCIATION WALL SOLVED: for `*(u32 *)(base + 0x1278 + idx)`, write `u8 *q1 = pE + 0x1278;` as a separate statement, then `*(u32 *)(q1 + idx)` \u2014 the local breaks the (idx+base)+lit reassociation; the target keeps the E base in a callee-saved reg and adds idx last.\n2. `u8 *pE = D_BASE;` local \u2192 base lives in a callee-saved reg across both accesses.\n3. Struct-global FIELD ACCESS `D_02025FF0.a8` (extern struct with big _0 padding) \u2192 the two-literal adds for the high offset. But `&D_02025FF0.a8` FOLDS base+offset into a single pool entry \u2014 avoid when target pool shows two literals + adds.\n4. Write `idx = (D_02025FF0.a8 + 1) * 64;` TWICE (once per access) so the byte reload survives across the intervening store.\n5. switch (u8_local) for 1/2 small-int cases \u2192 the target's `cmp/beq forward-body; b end` layout (if/else-if emits bne-fallthrough; wrong).\n6. `u32 p34 = 0x34 + (u32)s;` constant FIRST \u2192 the movs+adds detour shape.\n7. Hoist a base loaded ONCE before an if/else into its own local (v8 = s->unk8), then `r5 = v8 \u00b1 table[i].a;` fresh assignment per branch; do NOT use `r5 = s->unk8; r5 += ...`.\n8. Direct field access (arg0->unk8C), NOT u8 locals, when the target re-reads the field 3+ times \u2014 locals pin values and inflate pressure (mine earlier spilled p34 to the stack and saved a third high register).\n9. `struct P { u32 a; u32 b; } arr[]` models +0/+4 pair tables at base+8*i.\n10. (x + 0x8000) & 0xFFFF0000 and (x + 0xFFFF8000u) & 0xFFFF0000 matched as written; the u on 0xFFFF8000u matters.",
+  "by": "opencode-free-2",
+  "created_at": 1795683533.9804306,
+  "score_before": null,
+  "score_after": null
  }
 ]
