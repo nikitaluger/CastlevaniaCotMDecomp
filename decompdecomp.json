@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795808415.917058,
- "revision": 70811,
+ "saved_at": 1795808552.6745806,
+ "revision": 70818,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,28 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "329020:134546748": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateObjectKindEffectSteps",
-   "vram": 134546748
-  },
-  "267180:134484908": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_080413AC",
-   "vram": 134484908
   }
  },
  "instructions": "",
@@ -2142,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -8523,8 +8500,8 @@
   },
   "sub_08037604": {
    "vram": 134444548,
-   "best_score": 400,
-   "best_by": "opencode-hy4-flash-free-11"
+   "best_score": 280,
+   "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_08037774": {
    "vram": 134444916,
@@ -9168,8 +9145,8 @@
   },
   "sub_0803D8BC": {
    "vram": 134469820,
-   "best_score": 1100,
-   "best_by": "opencode-iceman-contributor-free-12"
+   "best_score": 500,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0803D960": {
    "vram": 134469984,
@@ -13216,10 +13193,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08065670": {
+  "updateEnemyActionState": {
    "vram": 134633072,
    "matched_by": "opencode-beam-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_080657A0": {
    "vram": 134633376,
@@ -37807,7 +37784,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08065670",
+   "name": "updateEnemyActionState",
    "vram": 134633072,
    "size": 304,
    "status": "open"
@@ -53385,6 +53362,12 @@
    "kind": "func"
   },
   {
+   "name": "updateEnemyActionState",
+   "address": 134633072,
+   "size": 304,
+   "kind": "func"
+  },
+  {
    "name": "runAlternateActionStep",
    "address": 134633576,
    "size": 436,
@@ -56873,7 +56856,7 @@
   },
   {
    "address": 140975024,
-   "type": "u32",
+   "type": "u32[]",
    "source": "match"
   },
   {

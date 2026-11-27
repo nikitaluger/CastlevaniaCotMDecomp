@@ -14688,7 +14688,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065670",
+  "function": "updateEnemyActionState",
   "text": "Stub only; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9724264,
@@ -40088,7 +40088,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065670",
+  "function": "updateEnemyActionState",
   "text": "Stub only; not attempted this session. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1093547,
@@ -357754,6 +357754,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:e136801417f9038c6a21ef96c8b621d47befce926c95e4075ff81ea90dcbe818"
  },
  {
+  "function": "sub_080413AC",
+  "text": "Best ~470 (rev 73394dbadafdb03b2d19) with extern D_080CF4C0[] and table s16*table=D_080CF4C0; findKindIndex(table[((u8*)self)[0x74]*2]). Tried byte-offset hardcoded table gave ~680; twin attrib masking (0x0FFF|0xD000 + split bits) regressed to 2040; try_local_repairs(compare) no improvement. Residuals are regalloc/order in attrib/sign-ext region (e.g. extra ldrh r2,[r5], r0/r1/r2 swaps). Next: try attrib micro-edits (explicit casts/temps, reorder ORs/stores) to sway regalloc, or retest table load as *(s16*)((u8*)D_080CF4C0+idx*4).",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795807137.7939885,
+  "score_before": 680,
+  "score_after": 470,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:7f48f21c4d635b3a689f72ea5db37bf40a643cdd70cc4ee05402a960f2355ac5"
+ },
+ {
   "function": "sub_0803D8BC",
   "text": "Best 1100 (69/75 insns, 85.3%). Remaining 14 diff rows: 5 branch-target, 3 pc-relative operand, 6 deleted. Deleted are mostly pool/nop bytes (movs r0,r0 x2, .byte 0xfe,0xff, strh r0,[r0], .byte 0xfe,0xff) plus 1 real structural difference: target loads r1=0xFFFD0000 in both branches before the shared tail (kind==0xE: ldr r1,[pc,#8]; b shared; kind!=0xE: ldr r1,[pc,#0x28]; fallthrough), shared tail does adds r0,r0,r1; str r0,[r5,#0x14]. Candidate loads 0xFFFD0000 at merge as part of `tmp-0x30000`, so r1 preload is missing in kind==0xE and merge has ldr+adds+str instead of adds+str. Linker diagnostics for all calls are false positives from size/offset shift. Tried: (1) moved `tmp-0x30000` into both branches with merge storing tmp - score 1410, worse. (2) goto tail_store in kind==0xE - score 1100, identical diff. (3) try_local_repairs (6 variants) - no improvement.\nComputed `tmp = (s32)scaleByRandom(0x4000) - 0x30000` inside both branches and stored `tmp` at merge; also tried goto to shared tail label.\nBoth kept or worsened score (1410 and 1100). Neither reproduced target's per-branch r1=0xFFFD0000 preload before shared adds+str tail.",
   "by": "opencode-iceman-contributor-free-12",
@@ -357956,6 +357965,14 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:39943b495b98c09714f9ba9df38bdbe468f78452bf448bba9eb0bb1742d665cc"
  },
  {
+  "function": "updateObjectKindEffectSteps",
+  "text": "Cannot complete now; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9723876,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0803925C",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 20; 94 differing rows (8 opcode, 32 register, 8 branch target, 20 operand, 7 reordered, 6 inserted, 13 deleted; advisory).\nTarget: ldr r0, [pc, #0xcc]\nCandidate: ldr r0, [pc, #0xc8]\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = cmp r0, #0\n  = beq #0xee\ni T: ldr r0, [pc, #0xcc] | C: ldr r0, [pc, #0xc8]\n  = str r0, [r7, #0x1c]\n  = ldr r5, [r6, #0x3c]\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest verified score 6240 (76.5%), 258 insns vs 266 target; saved C revision ec0fb0106f6fd08db9c8. Rebuild from get_candidate(base=\"saved_best\").\n\nSTRUCTURE THAT WORKED (do not undo): use EffectPart/EffectWork/ScriptedObject/EffectTemplate structs like matched spawnKind30ScriptEffect; work->gfx at +0x28, work->gfx2 at +0x48 (pad2C[0x1C]); fail block placed between the second alloc check and part2 init by writing:\n  work->gfx = allocEffectPart();\n  if (work->gfx == NULL) goto fail;\n  ...part1 init...\n  work->gfx2 = allocEffectPart();\n  if (work->gfx2 != NULL) goto main;\nfail: _call_via_r1(arg0, *(s32 *)((u8 *)arg0+0x24)); goto end;\nmain: ...part2 init, camera, script...\nend: ;\n\nREMAINING DIFFS (~94 rows, mostly regalloc/operand):\n1. Literal-pool offsets 4-8 bytes short (target ldr [pc,#0xcc] vs ours #0xc8): code before pool is 2-4 insns shorter; fix by matching the camera section exactly.\n2. animTable (D_080CF0C4) lands in r4; target keeps it in r8 (`mov r8,r4` right after the first alloc). layer=8 lands in r8; target has layer in sl (`movs r2,#8; mov sl,r2; mov r4,sl; strb r4,[part,#2]`), priority in sb.\n3. agbcc hoists a zero into sl (`movs r1,#0; mov sl,r1` before findKindIndex); target materializes `movs r1,#0; strb r1,[part,#1]` at each of the three zero stores (part1 kind, part2 kind, scriptByte).\n4. Camera section: target splits `workspace = &gMainWorkspace; workspace += 0x18A8;` into two statements and uses scrollX/scrollY locals (`camera+0x1278`, `camera+0x127C`). Current C folds the constant into one relocation. Use the exact twin spelling from initScriptedSinglePartGraphics/spawnKind30ScriptEffect.\n\nTRIED, NO GAIN: u8/s32 layer+priority; declaration-order swaps; removing workCheck; `(u8)(0)` casts; kind store before layer assignment (regional gain, overall worse); workCheck removed; search_flags (all O-levels identical 6240); try_local_repairs (3 families, no change); moving `goto end` to `return` (much worse, 9290); `goto main` with fail right after first check (8775).\n\nNext step: patch the camera block to split gMainWorkspace + 0x18A8 and add scrollX/scrollY locals (twin spelling), compile, then tackle the zero-hoist and animTable/layer register swap.",
   "by": "opencode-hy4-flash-free-11",
@@ -357965,20 +357982,165 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:8694afff4e64d1f433422f6be9c7e1425d5461ba821130006d11aae987c43352"
  },
  {
-  "function": "updateObjectKindEffectSteps",
-  "text": "Cannot complete now; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9723876,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0803F7CC",
+  "text": "Score 225 (87.5%, 18 target/20 cand). Body matches; residual is agbcc frameless Thumb leaf wall (push{lr}/pop{r0};bx r0 and branch offset shift). No C-level fix.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808292.4582124,
+  "score_before": 225,
+  "score_after": 225,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:1919ced0628d230e4151db98e630964142130537d5b05f2aba3c3b4879e0ffec"
  },
  {
-  "function": "sub_080413AC",
-  "text": "Best ~470 (rev 73394dbadafdb03b2d19) with extern D_080CF4C0[] and table s16*table=D_080CF4C0; findKindIndex(table[((u8*)self)[0x74]*2]). Tried byte-offset hardcoded table gave ~680; twin attrib masking (0x0FFF|0xD000 + split bits) regressed to 2040; try_local_repairs(compare) no improvement. Residuals are regalloc/order in attrib/sign-ext region (e.g. extra ldrh r2,[r5], r0/r1/r2 swaps). Next: try attrib micro-edits (explicit casts/temps, reorder ORs/stores) to sway regalloc, or retest table load as *(s16*)((u8*)D_080CF4C0+idx*4).",
+  "function": "sub_080147A4",
+  "text": "Score 305 (87.2%, 24 target/25 cand). Body and control flow match; residual is agbcc frameless Thumb leaf wall (push{lr}/pop{r1};bx r1) plus branch offset shifts and target nop/padding difference. No C-level fix apparent.",
   "by": "opencode-iceman-contributor-free-11",
-  "created_at": 1795807137.7939885,
-  "score_before": 680,
-  "score_after": 470,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:7f48f21c4d635b3a689f72ea5db37bf40a643cdd70cc4ee05402a960f2355ac5"
+  "created_at": 1795808314.5372093,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:f439b8d852179d94cd666d0b7e7daeabfe167cfaef201897edbb47778d661de9"
+ },
+ {
+  "function": "sub_0804EA20",
+  "text": "Prologue regalloc-only diff vs target (score 10, stuck): target does `ldr r6,[r0,#0x3c]; adds r4,r6,#0; adds r4,#0x48`, candidate does `ldr r4,[r0,#0x3c]; adds r6,r4,#0; adds r4,#0x48` (r4/r6 swapped in first two). Tried C shapes: (a) kept `u8*r6,r4; r4=r6; r4+=0x48` (best, rev 421e), (b) `r4=(u8*)*(u32*)(self+0x3C)+0x48; r6=r4-0x48` \u2192 score 75 (worse), (c) single `r6` base with offsets \u2192 score 1350 (much worse, wrong offsets/calls artifacts). Reverted to best. try_local_repairs (compare, rev 421e): 3 variants worse (scores 150/775/1260). search_flags: all tested variants still score 10 (no flag win). No further improvement in budget. Next step: try alternate declaration/ordering (e.g. declare r4 before r6, or use different temp strategy) and/or try_compiler experiments if allowed; otherwise this may be an agbcc allocator tie for this prologue pattern.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795808315.0823233,
+  "score_before": 75,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:25bb8f9c1dec5bbae1ac8a93933839d06da8a9284fecea23cd7f62261c7debb7"
+ },
+ {
+  "function": "sub_0800822C",
+  "text": "Terminal dead-reload allocator tie, ~137+ prior attempts. 191/191 instructions exact; only the final reload of *(obj+8) is emitted into r0 by agbcc instead of the ROM's r2. Condition reorder is actively harmful (495). All flag profiles worse. Saved C compiles cleanly at score 10.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808323.3830564,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:dd4c9d624a5de897ab86f1c43d8512b49a95236dc599608d9cadc009aeb37bb5"
+ },
+ {
+  "function": "sub_080185B4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Respecting prior 'exhausted, do not spend more compiles' handoffs (opencode-beam-free-9, opencode-hy4-flash-free-11). Terminal agbcc -O2 register-coloring tie at 40: 107/107 insns, 8 r rows in ((s16)(r4+0x32)<<16)+0xFFFF8000 expression. Current candidate revision 0c7a3326983bae67f7b5 rechecks at 40. __repair_phase_p38 staging is load-bearing (removing it regresses to 250). No compile spent this session.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808341.6918542,
+  "score_before": 40,
+  "score_after": 40
+ },
+ {
+  "function": "sub_08019ED4",
+  "text": "Best 480 (81.5%, 26 target/28 cand). Saved best uses switch on arg1+0x28 to offset gFixedEffectLayerAttrs by 0/+8/+4 and 4 volatile reloads of *(u32*)(work+0x28) to store r2[0..3] into dst[3..6]. Residual: push{lr}/pop{r0} leaf wall plus regalloc/ordering diffs; target keeps r3=arg0+0x3C in reg and reloads r1=[r3,#0x28] each store. Tried removing volatile reloads (used r3 directly) -> much worse (815). Handoff: try matching exact reload pattern without breaking regalloc (volatile+reload from arg0 gave 480; need to keep r3 live like target while preserving per-store load).",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808365.586691,
+  "score_before": 480,
+  "score_after": 480,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:954344fefc692520ef261f6fead18582b6293686f1249ad9112d2741cca9889c"
+ },
+ {
+  "function": "sub_0800DE50",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal allocator tie at 25 (232/232 insns byte-exact; only commutative DMA destination register swap). 23 prior explicit patches + 3 local repairs all stuck at 25. No compile spent this session.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808365.8688297,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "sub_0803F2B8",
+  "text": "Best 12210 (54.9%, rev 2f4486051186a8128b56). Adapted matched twin spawnKind87Effect. Verified fixes: EffectDef={u8 _0[4];u16 gfxIndex;u16 palette;u8 _8[0x28-8]} (gfxIndex +4, palette +6); setAnimationFrame frame 9; extraA/extraB=0. Target needs 3 high callee-saved regs (r8=one,sb=anim,sl=zero), candidate 2; ~24 target-only insns remain. BLs: initSpriteGraphics, allocEffectPart, 4-arg (sprite,anim,9,0); pool: gEffectGfxTable 0x080CBDD0, affine 0x080CF43C, workspace 0x02025FF0, 0xFFFFFC00, 0x30017810; literal 0x803F364=sub_0803F734. Linker call/data-pointer diagnostics are misalignment false positives. Tried worse: obj+0x64 worldX block (12585 / 12285), joint struct rewrite (13990).\ntwin rewrite, struct offsets, frame9, extraA/B zero, sub_0803F734, worldX block\n12210 best; worldX block worse",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795808366.0974555,
+  "score_before": 13385,
+  "score_after": 12210,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:ffb4657a38e0aef7804f5531aad16ec610085966968eaf828d2842d966853a8f"
+ },
+ {
+  "function": "sub_0800FEDC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless Thumb leaf wall: 9-insn body byte-exact; agbcc inserts push{lr}/pop{r0};bx r0 instead of bare bx lr. 46 prior attempts, all flag profiles (215; -Os 350). Accepted as compiler/ABI wall; no C spelling helps. No compile spent this session.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808377.417575,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_0805CE28",
+  "text": "Score 40, 57/57 insns effectively matching except 8 regalloc swaps between r3/r5 (r5<->r3 across prologue/compare/load sequences). try_local_repairs (3 variants): sentinel/temp splits worsened (85) or no change (40) with same regalloc pattern. Prior agent handoffs report this as callee-saved pseudo-coloring tie (~195 attempts). No C spelling tried here beyond local-repair probes improved it; likely allocator wall under agbcc -O2. Next step: try reordering declarations (move base/r3/r5/r7 assignments) and explicit temporaries for the u16 snapshot/value, or consider try_compiler/search_flags for alternate profiles (low yield expected).",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795808396.0660768,
+  "score_before": 85,
+  "score_after": 40,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:b167e6dcd0a1752a93fcd05134d5a01eac44aac4122f0ae217c7c5b16d91692f"
+ },
+ {
+  "function": "setSpriteFlip",
+  "text": "Score 325 (89.8%, 32 target/35 cand). Body matches; residual is agbcc frameless Thumb leaf wall (push{lr}/pop{r0};bx r0, nop, beq offset shifts). No C-level fix.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808397.2039828,
+  "score_before": 325,
+  "score_after": 325,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:6cdd460c6ce210c5d5fa9205108647b240465471f03def93a20fda703334cf0b"
+ },
+ {
+  "function": "sub_080C2E4C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Score 215 (87.5% per history, 13 target insns). Body matches; residual is agbcc frameless Thumb leaf wall with branch offset shifts. Compiled under function's O1 range profile. No C-level fix.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808397.3065555,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_080C0440",
+  "text": "Score 10 (99.5%, 21/21 insns). Only 2 regalloc diffs remain: target `ldr r2,[r1]; adds r0,r2,#0` vs candidate `ldr r3,[r1]; adds r0,r3,#0` at rows 11,13. try_local_repairs(compare,3) families param_in_place_update/member_array_rows/clean_rewrite_scaffold all equal at 10, no diff change. Known stubborn regalloc wall (1059 prior attempts). No C-level fix found.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808450.7890496,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:77a1d23e2d6dbeaf9f40729280a14a883f9161e43c3b95c2326518e743a2b2d8"
+ },
+ {
+  "function": "sub_08008B98",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal allocator tie at 240 (20 explicit patches + 6 local repairs exhausted per two prior handoffs). No compile spent this session.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808450.8352048,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "sub_080C1274",
+  "text": "Best 235 (88.2%, 20/20 insns). Mismatch is regalloc/reorder: target loads r3=[arg0+0x34] before r0=literal and keeps new_var in r4 across branch; candidate hoisting/moving new_var load changed frame/regalloc badly (595). Saved best keeps early ldrh r4,[arg0+0x1C] before if. Remaining diffs: register choices (r1/r3/r4), literal pool offset, bne byte offset. Likely regalloc wall.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808450.9746547,
+  "score_before": 235,
+  "score_after": 235,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:e4dd76afad3dfbcb9503f343463f3bb0c2d921299085f3a3fa837d8e6f06445a"
+ },
+ {
+  "function": "sub_080121F8",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Boundary mis-split: declared extent 0x080121F8..0x08012292 has no return; all exits branch into unowned tail 0x08012292..0x080122F8 which uses this frame and r10=arg1. Boundary-extension suggestion already pending user approval. Per prior explicit impossibility reason, no C definition can match this extent; do not retry until boundary resolved. No compile spent this session.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808488.9156606,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "sub_0805E608",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited score 445 (rechecked). Handoffs report global allocator/coloring tie with ~214 attempts exhausted and explicit non-improvability override; residuals described as coupled register assignment/call-arg placement. Tried no new compiles here due to strong prior evidence of wall; recommend preserving candidate 61158d13c7dbff82dc8a and trying only targeted declaration/order tweaks or alternate compiler profiles if attempted later (low expected yield).",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795808489.0233212,
+  "score_before": 445,
+  "score_after": 445
+ },
+ {
+  "function": "sub_0800C670",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal allocator tie at 110 (9 local repairs + 4 declaration_order trials exhausted per prior handoffs). No compile spent this session.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808504.3713157,
+  "score_before": 110,
+  "score_after": 110
+ },
+ {
+  "function": "sub_08010424",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known frameless branchy-leaf wall (agbcc -mthumb-interwork -O2): compiler inserts push{lr}/pop{r0};bx r0 instead of bare bx lr, causing frame+ripple diffs (score 430). Body logic is correct per notes. No C fix for this profile.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795808506.3137872,
+  "score_before": 430,
+  "score_after": 430
  }
 ]

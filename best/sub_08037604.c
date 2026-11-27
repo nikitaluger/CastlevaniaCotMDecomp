@@ -47,16 +47,15 @@ void sub_08037604(void *arg0) {
             break;
         case 0x4f:
             if (*(u8 *)(part + 9) == 0) {
-                u8 t = (*(u8 *)(part + 0xa) + 1) + (hoisted_const - 79);
-                s32 w;
+                u8 t;
                 *(u8 *)(part + 9) = 1;
+                t = *(u8 *)(part + 0xa) + 1;
                 *(u8 *)(part + 0xa) = t;
-                w = (u8)t;
-                if (w == 0xb) {
+                if (t == 0xb) {
                     _call_via_r1(arg0, *(s32 *)(work + 0x24), arg0);
                     return;
                 }
-                if (w == 9) {
+                if (t == 9) {
                     *(u8 *)(*(u32 *)(work + 0x28) + 1) = 0;
                     *(u8 *)(part + 0xb) = 1;
                 }

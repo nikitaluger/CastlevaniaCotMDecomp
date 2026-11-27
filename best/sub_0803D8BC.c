@@ -15,13 +15,15 @@ void sub_0803D8BC(void *arg0)
     {
         s16 kind = *(s16 *)(work + 0x1C);
         s32 tmp;
+        s32 delta;
         if (kind == 0xE)
         {
             if (getSpriteFacingSign(sprite) > 0)
                 *(s32 *)(work + 0x10) = 0x20000;
             else
-                *(s32 *)(work + 0x10) = 0xFFFE8000;
+                *(s32 *)(work + 0x10) = 0xFFFE0000;
             tmp = (s32)scaleByRandom(0x4000);
+            delta = (s32)0xFFFE8000;
         }
         else
         {
@@ -30,11 +32,12 @@ void sub_0803D8BC(void *arg0)
             else
                 *(s32 *)(work + 0x10) = 0xFFFD0000;
             tmp = (s32)scaleByRandom(0x4000);
+            delta = (s32)0xFFFD0000;
         }
         {
             s16 step;
             s32 *scriptTable;
-            *(s32 *)(work + 0x14) = tmp - 0x30000;
+            *(s32 *)(work + 0x14) = tmp + delta;
             step = *(s16 *)(self + 0x22);
             *(u8 *)(self + step * 2 + 0x19) = 0;
             scriptTable = (s32 *)0x08671BB0;
