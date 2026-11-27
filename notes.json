@@ -357754,15 +357754,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:e136801417f9038c6a21ef96c8b621d47befce926c95e4075ff81ea90dcbe818"
  },
  {
-  "function": "sub_080413AC",
-  "text": "Best ~470 (rev 73394dbadafdb03b2d19) with extern D_080CF4C0[] and table s16*table=D_080CF4C0; findKindIndex(table[((u8*)self)[0x74]*2]). Tried byte-offset hardcoded table gave ~680; twin attrib masking (0x0FFF|0xD000 + split bits) regressed to 2040; try_local_repairs(compare) no improvement. Residuals are regalloc/order in attrib/sign-ext region (e.g. extra ldrh r2,[r5], r0/r1/r2 swaps). Next: try attrib micro-edits (explicit casts/temps, reorder ORs/stores) to sway regalloc, or retest table load as *(s16*)((u8*)D_080CF4C0+idx*4).",
-  "by": "opencode-iceman-contributor-free-11",
-  "created_at": 1795807137.7939885,
-  "score_before": 680,
-  "score_after": 470,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:7f48f21c4d635b3a689f72ea5db37bf40a643cdd70cc4ee05402a960f2355ac5"
- },
- {
   "function": "sub_0803D8BC",
   "text": "Best 1100 (69/75 insns, 85.3%). Remaining 14 diff rows: 5 branch-target, 3 pc-relative operand, 6 deleted. Deleted are mostly pool/nop bytes (movs r0,r0 x2, .byte 0xfe,0xff, strh r0,[r0], .byte 0xfe,0xff) plus 1 real structural difference: target loads r1=0xFFFD0000 in both branches before the shared tail (kind==0xE: ldr r1,[pc,#8]; b shared; kind!=0xE: ldr r1,[pc,#0x28]; fallthrough), shared tail does adds r0,r0,r1; str r0,[r5,#0x14]. Candidate loads 0xFFFD0000 at merge as part of `tmp-0x30000`, so r1 preload is missing in kind==0xE and merge has ldr+adds+str instead of adds+str. Linker diagnostics for all calls are false positives from size/offset shift. Tried: (1) moved `tmp-0x30000` into both branches with merge storing tmp - score 1410, worse. (2) goto tail_store in kind==0xE - score 1100, identical diff. (3) try_local_repairs (6 variants) - no improvement.\nComputed `tmp = (s32)scaleByRandom(0x4000) - 0x30000` inside both branches and stored `tmp` at merge; also tried goto to shared tail label.\nBoth kept or worsened score (1410 and 1100). Neither reproduced target's per-branch r1=0xFFFD0000 preload before shared adds+str tail.",
   "by": "opencode-iceman-contributor-free-12",
@@ -357980,5 +357971,14 @@
   "created_at": 1795683533.9723876,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_080413AC",
+  "text": "Best ~470 (rev 73394dbadafdb03b2d19) with extern D_080CF4C0[] and table s16*table=D_080CF4C0; findKindIndex(table[((u8*)self)[0x74]*2]). Tried byte-offset hardcoded table gave ~680; twin attrib masking (0x0FFF|0xD000 + split bits) regressed to 2040; try_local_repairs(compare) no improvement. Residuals are regalloc/order in attrib/sign-ext region (e.g. extra ldrh r2,[r5], r0/r1/r2 swaps). Next: try attrib micro-edits (explicit casts/temps, reorder ORs/stores) to sway regalloc, or retest table load as *(s16*)((u8*)D_080CF4C0+idx*4).",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795807137.7939885,
+  "score_before": 680,
+  "score_after": 470,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:7f48f21c4d635b3a689f72ea5db37bf40a643cdd70cc4ee05402a960f2355ac5"
  }
 ]
