@@ -1790,6 +1790,17 @@
     "-O1",
     "-fno-strength-reduce"
    ]
+  },
+  "180624:134398352": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "updateOwnedScriptedObject",
+   "vram": 134398352
   }
  },
  "instructions": "",
@@ -2154,7 +2165,8 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h"
+  "local_source_8589939150": "common_local_source_8589939150.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7285,7 +7297,7 @@
   "updateOwnedScriptedObject": {
    "vram": 134398352,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": true
+   "readable": false
   },
   "updatePatrolAI": {
    "vram": 134398644,
