@@ -357701,5 +357701,14 @@
   "score_before": 505,
   "score_after": 10,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:09f1e3fd22ce331a7691f3462a2b6a44b6f9a76f3ba4aa2723d92e3d791cab9a"
+ },
+ {
+  "function": "sub_0803BB10",
+  "text": "Saved score 1 candidate at revision bdba631d90cad7a4244e (116/116 instruction rows byte-identical). Critical fix: case 0/5 must explicitly recompute `tiles2 = tiles + 4; tiles3 = tiles + 8;` even though it reassigns tiles to its own initializer \u2014 that alone moved 555 -> 1. Similarly case 21 needs the recomputation (1405 -> 555). Persistent residual: two linker notes about jump-table pointers, \"a pointer to your function +0x88 where the original points at 0x0803BBAA\" and \"a pointer to your function +0x9A where the original points at 0x0803BB98\" (our +0x88 = 0x0803BB98, our +0x9A = 0x0803BBAA). Target jump table at 0x0803BB3C: cases 0,5 -> 0x0803BB94; 10,15 -> 0x0803BB98; 21 -> 0x0803BBA0; all others -> 0x0803BBAA; index = *(u16*)(arg1+0x28), cmp #0x15. Source edits to case labels (10/15 -> 9/14), default placement, splitting shared cases and enumerating all cases did NOT change compiled bytes or diagnostics. Changing the tiles2 literal DID add a new diagnostic without changing score, so diagnostics may be partly informational. Next: determine why the compiled jump-table slots for two cases resolve to the opposite handler labels; try alternate switch spellings or check whether the residual is a linker/label artifact.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795807078.2590537,
+  "score_before": 1405,
+  "score_after": 1,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:e136801417f9038c6a21ef96c8b621d47befce926c95e4075ff81ea90dcbe818"
  }
 ]
