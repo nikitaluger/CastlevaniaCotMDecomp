@@ -15648,14 +15648,6 @@
   "score_after": null
  },
  {
-  "function": "updateActorAiFromParamTable",
-  "text": "Matched sub_08064CE0 first try \u2014 it is near-identical to matched sub_08069128; adapt that source verbatim with: sub_0806B104 instead of sub_080694D8; extra sub_08005E80(0x67) and fourth zero store f54 in the f40==1 block plus sub_0806E114(arg0,9,*(r9+4),*(r4+4)); sub_0806A7AC(a,r4,0x10)+sub_08003740 instead of sub_08003A6C in the fC8 test block; extra sub_080849A4(arg0,r4) before the u16 result store; sound ids 0x12/3. R4 struct gains f54 at 0x54. Keep `s32 base, idx;` declared in that order with base assigned first (critical per sub_08069128 note).",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9760866,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080996D8",
   "text": "Got to 420 (97.1%). Remaining: register allocation swap (r0/r1 in the ands block) and literal-pool placement of ldr r4/r2. Could not force with natural C; no inline asm allowed. Best attempt kept. Release despite fewer than 8 compiles: regalloc cannot be forced without inline asm.",
   "by": "opencode-free-1",
@@ -353205,5 +353197,13 @@
   "score_before": 215,
   "score_after": 215,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:53844f18ba4adcf3aaea30de82f9ec380253c8966ce4dcf3960fb73bd139402f"
+ },
+ {
+  "function": "updateActorAiFromParamTable",
+  "text": "Matched sub_08064CE0 first try \u2014 it is near-identical to matched sub_08069128; adapt that source verbatim with: sub_0806B104 instead of sub_080694D8; extra sub_08005E80(0x67) and fourth zero store f54 in the f40==1 block plus sub_0806E114(arg0,9,*(r9+4),*(r4+4)); sub_0806A7AC(a,r4,0x10)+sub_08003740 instead of sub_08003A6C in the fC8 test block; extra sub_080849A4(arg0,r4) before the u16 result store; sound ids 0x12/3. R4 struct gains f54 at 0x54. Keep `s32 base, idx;` declared in that order with base assigned first (critical per sub_08069128 note).",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9760866,
+  "score_before": null,
+  "score_after": null
  }
 ]
