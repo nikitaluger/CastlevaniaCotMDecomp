@@ -19,7 +19,7 @@ extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataT
 /* Spawn and initialise a scripted projectile/sprite with a fixed launch speed:
  * allocate the sprite, set up movement logic and animation, align its world
  * position to the scene's scroll offset, then start its script. */
-void sub_08032354(void *arg0) {
+/* Spawns and initialises a scripted projectile: allocates the sprite and work state, installs the update handler and animation, aligns its world position to the camera scroll offset, then advances and dispatches the parent's script step. */ void spawnScriptedProjectile(void *arg0) {
     struct SpawnSprite *sprite; struct SpawnLogic *logic;
     u32 savedAC; s32 zero;
     u8 *animData; u8 *coordTable, *scrollState, *xBase, *yBase;

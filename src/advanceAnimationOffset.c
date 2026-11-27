@@ -1,7 +1,7 @@
 extern void stepAnimationTrack(void *);
 /* Step an animation and adjust a 16.16 accumulator by whole units for specific
  * frame transitions; returns a status code and updates the stored frame. */
-int sub_0804A4F0(u8 *entity, u8 *unused, u8 *state, u8 *prev)
+int advanceAnimationOffset(u8 *entity, u8 *unused, u8 *state, u8 *prev)
 {
   u8 *entityRef = entity;
   u8 *statePtr = state;

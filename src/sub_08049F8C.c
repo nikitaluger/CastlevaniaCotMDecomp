@@ -2,13 +2,13 @@ extern s32 gScriptStepCallbacks;
 extern u32 gMainWorkspace[];
 extern s32 advanceMotion(void *, s32);
 extern void sub_0804A4D0(void *, s32, s32, s32);
-extern u32 sub_0804A4F0(void *, s32, void *, s32);
+extern u32 advanceAnimationOffset(void *, s32, void *, s32);
 extern void sub_0804A650(void *, void *, s32);
 extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /*
- * Enemy decision handler. Advances the enemy's coordinates, asks sub_0804A4F0
+ * Enemy decision handler. Advances the enemy's coordinates, asks advanceAnimationOffset
  * which action to take, then either switches animation state and runs a script
  * callback (case 1) or spawns a projectile with a facing-dependent velocity
  * (case 2).
@@ -25,7 +25,7 @@ void sub_08049F8C(u8 *self) {
 
     advanceMotion(enemy, 0);
     sub_0804A650(self, enemy, enemyExtra);
-    decision = sub_0804A4F0(actor, enemyData, enemy, enemyExtra);
+    decision = advanceAnimationOffset(actor, enemyData, enemy, enemyExtra);
     switch (decision) {
     case 1:
         sub_0804A4D0(actor, enemyData, enemyExtra, 7);

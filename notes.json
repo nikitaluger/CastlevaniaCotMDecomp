@@ -14296,7 +14296,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08032354",
+  "function": "spawnScriptedProjectile",
   "text": "Releasing early. Best 4766.",
   "by": "opencode-free-1",
   "created_at": 1795683533.969089,
@@ -15592,26 +15592,10 @@
   "score_after": null
  },
  {
-  "function": "sub_0804A4F0",
-  "text": "Releasing: complex table-driven function; one compile insufficient. Best attempt saved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.975764,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08095A14",
   "text": "Releasing: regalloc issue remaining; best attempt saved.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9757993,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08055204",
-  "text": "Releasing: best attempt saved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9758346,
   "score_before": null,
   "score_after": null
  },
@@ -51384,14 +51368,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0804A4F0",
-  "text": "Cannot improve. Releasing.",
-  "by": "opencode-beam-free-2",
-  "created_at": 1795683534.16626,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080C14E8",
   "text": "Best score 475/171 insns (97.2%). Remaining diff is pure register allocation (p in r0 vs r1); cannot fix with natural C. Releasing.",
   "by": "opencode-beam-free-7",
@@ -51436,14 +51412,6 @@
   "text": "Releasing after 1 compile, best 455. Completed session claim count.",
   "by": "opencode-beam-free-5",
   "created_at": 1795683534.1664872,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0804A4F0",
-  "text": "Complex table-driven. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.166524,
   "score_before": null,
   "score_after": null
  },
@@ -51780,14 +51748,6 @@
   "text": "Cannot improve. Releasing.",
   "by": "opencode-beam-free-6",
   "created_at": 1795683534.16818,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0804A4F0",
-  "text": "Table-driven state machine with computed goto. Complex; best 10836. Releasing.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683534.168261,
   "score_before": null,
   "score_after": null
  },
@@ -91976,7 +91936,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08032354",
+  "function": "spawnScriptedProjectile",
   "text": "Cannot improve further: 8 compiles done, best 3015 (81.7%). Fundamental agbcc register allocation mismatch - target uses r7/r6/r4/r5 for arg0/obj/p3C/p34, agbcc uses r5/r7/r6/r4. This is inherent to the compiler and cannot be fixed in pure C. Literal pool ordering differences for all constants (0x08014290, 0x080CD400, 0x02021E90, 0x02025FF0+0x18A8, 0x08671BB0, 0xFFFF0000, 0xFFFF8000) also cannot be resolved. Matched similar function sub_08036BDC (82% similar) has identical structure and same regalloc wall at 3660 score.",
   "by": "opencode-free-1",
   "created_at": 1795683534.3727295,
@@ -92736,7 +92696,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08032354",
+  "function": "spawnScriptedProjectile",
   "text": "Best score 3420 (79.2%). Prologue now matches target exactly (push {r4,r5,r6,r7,lr}; mov r7,r8; push {r7}) \u2014 the earlier `mov r7, sb` extra is fixed by declaring temp_r8 first and inlining sp0=0x14. Remaining diff is pure regalloc: target keeps arg0 in r7 and obj in r6, agbcc deterministically puts arg0 in r5 and obj in r7 throughout (70 regalloc diffs). Callee link warnings existed since score 3015 (prototype/arity). ~4 compiles this session improved 5961\u21923420 but can't close the regalloc gap in pure C. Best attempt saved. Needs: sub_08014288/sub_080141F8/sub_0801131C/sub_08011368/sub_0803AEF0 prototypes verified; no callee arity fix found yet.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.3770652,
@@ -95296,7 +95256,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08032354",
+  "function": "spawnScriptedProjectile",
   "text": "Cannot get closer in pure C within this budget: the diff is not a single coin-flip but a fundamental regalloc/layout wall (67 register rows, 22 operand rows, 14 missing instructions, literal-pool offsets all shifted because compiled body is 14 bytes shorter, plus 8 unresolved call-relocation mismatches). Family twin sub_08036BDC (82% similar) is itself stuck at 3660 with the same arg0/r7 cascade, confirming no C spelling recovers the target's register layout. Reconfirmed baseline score 3015 this lease. Ordinary correct C, not hand-written asm, not not_c; needs a compiler/regalloc change. Releasing to spend remaining compiles on other functions.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.3906498,
@@ -98868,14 +98828,6 @@
   "text": "Ceiling at 3180 (77.0% best). All structural matches achieved. Regalloc wall: target -O1 high-reg save prologue (mov r7,sb/r9; mov r6,r8; push {r6,r7}), sb=r5+0x34, r8=0x8000; agbcc standard prologue, literal pools. Sibling of sub_080925E8. Call relocations differ. Unfixable from C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.409617,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0804A4F0",
-  "text": "Final claim of session \u2014 stopping here. Best 8221 (51.9%), 5 compiles. This is a complex -O1 22-entry computed-goto state machine; all prior agents also stalled at ~8221-10836. Best source is preserved in the function record (do NOT use my last two variants: adding sub_080113A8() call + v0-reuse regressed to 15605, and correcting the switch cases to 11/16=0xFFFF0000 regressed to 9012). Remaining diffs are structural: target prologue pushes r7 and binds arg0->r5, arg2->r4, arg3->r6, r7=0, calls sub_080113A8() before loading v1/v0, and uses a specific jump-table layout; agbcc's generated table/prologue differ. Rewriting as a goto-based state machine with explicit labels for each target block (0x0804A51E/534/540/55C/572/580/58C/5A4/614/620/62C/63A/640/644) is the only remaining avenue. Ordinary correct C, not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4096532,
   "score_before": null,
   "score_after": null
  },
@@ -111816,7 +111768,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08032354",
+  "function": "spawnScriptedProjectile",
   "text": "Tried best attempt (3015) and one COORD-block/prototype rewrite attempt (regressed to 3090), then reverted. Remaining diff is structural/regalloc-heavy (67 regalloc, 22 operand, 14 missing, call relocs wrong for sub_08014288/141F8/1131C/11368/3AEF0/16664/C31E4/C31E0, literal/data pointer mismatches, target keeps arg0 in r7/obj in r6 while agbcc puts arg0 in r5/obj in r7). Needs correct prototypes/signatures (sub_080C31E0 takes void*,void*; 14288 takes func ptr arg; 141F8 has stack arg), careful variable declaration order to get prologue/regalloc closer, and possibly comparison to sibling sub_0801C11C/sub_08018978 patterns for tail (flag set, byte at arg0 + f22*2 + 0x19 clear/inc, C31E4 then indirect call via table at arg0+0x14). 8 no-better compiles reached.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.4804974,
@@ -114100,14 +114052,6 @@
   "text": "Best 335 (72.0%): s32 sub_080923C0(void){ if(*(s16*)0x020279E8==1){ return 0; } return -1; } \u2014 also tried `s32 sub_080923C0(void){ s16 value=*(s16*)0x020279E8; if(value==1){ return 0; } return -1; }`: same score. Inverted form `if(*(s16*)0x020279E8!=1){ return -1; } return 0;` scored worse (495). Target: ldr r0,[pc,#0xc]; movs r1,#0; ldrsh r0,[r0,r1]; cmp r0,#1; beq #0x14; movs r0,#1; rsbs r0,r0,#0; b #0x16; ldrb r0,[r5,#7]; lsls r2,r0,#8; movs r0,#0; bx lr (12 insns). Remaining diff: same agbcc leaf-frame wall as sub_08094B84/sub_080BE550/sub_080A2E84 \u2014 ours: push {lr}; ldr r0,[pc,#0x10]; movs r1,#0; ldrsh r0,[r0,r1]; cmp r0,#1; beq #0x18; movs r0,#1; rsbs r0,r0,#0; movs r0,r0; b #0x1a; ldrb r0,[r5,#7]; lsls r2,r0,#8; movs r0,#0; pop {r1}; bx r1. Body byte-exact; push/pop/bx r1 and the +4/+2 branch offsets (beq #0x18 vs #0x14, b #0x1a vs #0x16) are consequences of the push; one 'r' regalloc diff (movs r0,r0). Notes from other agents: 'same floor 335 because agbcc inserts push {lr} / pop {r1}; bx r1 for this leaf return -1/0 shape, while the target uses plain bx lr'; 'Cannot get closer with this compiler'; same systematic conditional-leaf frameless wall documented on sub_080A2E74, sub_0809295C etc. (multiple models). Twin sub_0809295C has the identical wall.",
   "by": "opencode-tidepool-alpha-free-1",
   "created_at": 1795683534.4931262,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0804A4F0",
-  "text": "Cannot get closer in this session (2 compiles, best 8221). This -O1 computed-goto/jump-table function requires exact prologue register binding, an initial call to sub_080113A8 with original args, and precise case-target layout for the 22-entry table; straightforward C fixes regressed to 10277. Releasing early with best attempt preserved for next agent.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.493165,
   "score_before": null,
   "score_after": null
  },
@@ -118484,14 +118428,6 @@
   "text": "Permanent regalloc/backend wall per prior notes; no better after reproduce. Cannot get closer.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.5157163,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0804A4F0",
-  "text": "Best score 1262 (92.6%) from the alias version: params (u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3), locals `u8 *p0 = arg0; u8 *p3 = arg3;` declared before everything, body uses p0 for the f28 holder and p3 for f06/f08. Structure that got from 5172 down to 1262: (1) call sub_080113A8() first; (2) switch(c) with cases 2,7,0xC; inside c==2 list cases in order 0xF, 0xA, 5 (this order matters a lot: 1752 -> 1262); inside c==7 order 0x14, 0x1A, 0x17; (3) the c==0xC dense switch needs cases 0x17..0x2C with SEPARATE bodies for 0x22 and 0x27 (do not stack them) to reproduce the two dec blocks at 0x614/0x620; (4) the conditional +1 in c==2/x==0xA and the jump-table case 0x17 must `goto add_shared` where `add_shared: *(u32*)(p2+0xC) += 0x10000;` falls through to the final store; (5) the c==7/x==0x17 second test must be written `if (*(u16*)(p3+6) != 0x1A) break; goto add_shared;` (the beq/bne polarity visibly matters). Remaining diffs: prologue moves are `adds r4,r2; adds r5,r0; adds r6,r3` vs target `adds r5,r0; adds r4,r2; adds r6,r3` (only ORDER of the first two; hard regs and all field loads now match); one extra `movs r0,#0` on the v1==v0 early return (target branches straight to the shared epilogue at 648); one missing `b` stub at target 0x554 after the c==2/x==0xA conditional (tried goto-stub labels and switch-on-second-check, GCC optimizes them away); 169 vs 171 insns. All other 39 operand rows are branch offsets following from those two instructions. Try: making r7's zero value non-constant-foldable at the early exit, and forcing the prologue move order without aliasing arg2 (aliasing arg2 regressed to 1902). Plain C, not not_c.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5157537,
   "score_before": null,
   "score_after": null
  },
@@ -126552,7 +126488,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08032354",
+  "function": "spawnScriptedProjectile",
   "text": "Improved saved best 3015 -> 2395 (85.4%, 161 vs 165 insns). Winning source shape: temp_r8 declared first and loaded from arg0+0xAC BEFORE the sub_0800355C call; obj loaded into temp_r0 and null-checked in its own `if` with a duplicated inline `sub_080C31E0(arg0, *(s32*)((char*)arg0+0x24)); return;` (NOT a shared goto fail \u2014 that regressed to 4096); second check reads arg0+0x3C through `void * volatile *` so GCC emits the target's TWO separate `ldr` loads (null check, then reload after the 0x8000000A store) with p3C in r4 and p34 in r5 exactly as in target; `sub_080141F8(..., 0x14)` passed literally (not via a local sp0) preserves the `sub sp,#4; movs r0,#0x14; str r0,[sp]` prologue; `sub_08014290` declared as a function and passed as the 3rd arg to sub_08014288 so the literal carries the Thumb bit (0x08014291); COORD block uses `u8 *pt=D_02021E90; u8 *pb=D_02025FF0; pb+=0x18A8; idx=(*pb+1)<<6; k=0x1278/0x127C;` \u2014 struct-field forms for the coord tables regressed to 2975. Remaining gap: arg0/obj are swapped (ours arg0=r6, obj=r7; target arg0=r7, obj=r6), causing ~49 regalloc rows; plus a few literal-load-order differences in the COORD block (target `ldr r3,=D_02021E90; ldr r2,=D_02025FF0; ldr r5,=0x18A8`, ours loads the second base into r0). Tried declaration-order swaps, local copy of arg0, struct-typed arg0, `||` combined checks, and void return type for sub_080C31E0 \u2014 none change the arg0/obj coloring. Ordinary C, not hand asm.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5586038,
@@ -132256,7 +132192,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08032354",
+  "function": "spawnScriptedProjectile",
   "text": "Regalloc wall, no C fix. Releasing.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.5877028,
@@ -141576,7 +141512,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08032354",
+  "function": "spawnScriptedProjectile",
   "text": "Score 2395 (85.4%, 161/165 insns). Fundamental regalloc wall: target keeps arg0 in r7, obj in r6; agbcc puts arg0 in r6, obj in r7 (49 regalloc rows). COORD block literal loading order differs (target ldr r3,r2,r5 sequence vs C's different order). Duplicated inline fail path required (shared goto fail regressed to 4096). void* volatile for arg0+0x3C forces two separate ldr loads. sub_08014290 as function pointer preserves Thumb bit. sub_080141F8(..., 0x14) literal preserves stack arg. No C fix for arg0/obj register swap or literal pool ordering. Logic correct. Cannot improve in C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.6365333,
@@ -157728,14 +157664,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0804A4F0",
-  "text": "-O1 switch/state-machine function, best 1262 (92.6%) from prior agents; my compiles 1322 then 1902 (worse). Remaining diffs vs 1262: prologue move order (target adds r5,r0 then adds r4,r2), extra movs r0,#0 on early return, missing b stub. Codegen-level; 39 prior attempts bottomed at 1262, no C lever found. Asking to release: no C formulation fixes agbcc's prologue emission order or removes the early-return mov. Release to claim #8 (final compiled claim).",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.7189574,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "resolveTilemapCollision",
   "text": "Class-A trailing-literal boundary, NOT a C wall \u2014 re-confirmed this session (1 compile = 200, all 168/168 real body insns byte-exact through final `bx r0` at 0x0801286A; only 2 extra rows are the trailing 0xFFF80000 literal + alignment NOP). read_data(0x08012864) = `98 46 f0 bc 01 bc 00 47 00 00 f8 ff f0 b5 57 46`: bx r0 then literal, next fn at 0x08012870. Filed report_boundary(end=0x0801286A) with byte evidence, pending approval. C final/self-contained (calls sub_08004740/sub_08012A94); scoped `s32 ry = arg1 + y;` local required for store order. No C-side fix. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -160140,14 +160068,6 @@
   "text": "Cannot get closer: 79+ prior attempts plus 4 this session. Improved the global best to 2418 (was 2528) with `(s32)D_08671BB0` cast and c100 assigned after the first call; first 4 insns now match (`push {r4-r7,lr}; mov r7,sb; mov r6,r8; push {r6,r7}`). Tried c100/c40000 locals in every birth position (top 3493, first-use 4193): agbcc permutes arg0/constants between r4,r7,r8,sb but never gives target's arg0->sb with c100->r4 and c40000->r5 simultaneously. 39 regalloc + 12 operand diffs all downstream of this. Pure C, not hand asm, not not_c, not boundary.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.7314231,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0804A4F0",
-  "text": "Cannot get closer with pure C. Best score 1021 (from 1262). Remaining diffs are codegen-level: (1) prologue move order (first two adds swapped) - register allocation order determined by compiler heuristic, no C lever found by 39 prior attempts. (2) Missing stub branch at case 2/0xA/0xF path - target has intermediate branch for Thumb range/pool reasons, compiler optimizes to direct branch. (3) Branch offset differences from code layout. (4) Jump table linking differences. Function body is structurally correct (169 vs 171 insns), all field loads/stores match. Releasing to work on other functions.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.7314615,
   "score_before": null,
   "score_after": null
  },
@@ -172480,14 +172400,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0804A4F0",
-  "text": "BEST 10 (99.9%, 171/171 insns) \u2014 saved source. Only 2 regalloc rows left: entry move order. Target `adds r5,r0`(arg0), `adds r4,r2`(arg2), `adds r6,r3`(arg3); agbcc emits arg2 first, then arg0, then arg3. All registers are otherwise correct.\n\nWINNING SHAPE (saved best, score 10):\n- aliases ONLY `u8 *p0 = arg0; u8 *p3 = arg3;` (p0 then p3, initialized at declaration). arg2 used RAW (`arg2+0xC`); do NOT alias arg2, do NOT remove p0/p3 aliases, do NOT add new_var.\n- case labels confirmed via read_data 0x0804A5BC: c==2 -> {0xF, 0xA, 5} in that order; c==7 -> {0x14, 0x1A, 0x17}; c==0xC -> {0x17, 0x1D, 0x22, 0x27, 0x2C} (idx6->0x57C, idx11->0x614, idx16->0x620, idx21->0x62C).\n- KEY TRICK (701 -> 10): both tail tests are inverted-goto + goto, the first inside a block:\n    c==2/0xA: `{ u16 v1_reload = *(u16*)(p3+6); if (v1_reload != 0xF) goto store; goto add_shared; }` -> reproduces ROM's `beq L; b store; L: b add_shared` trampoline + alignment padding;\n    c==7/0x17: `if (*(u16*)(p3+6) != 0x1A) goto store; goto add_shared;` -> `bne store; b add_shared`.\n  (writing `if (== X) goto add_shared; break;` gives 701)\n- `goto store; add_shared: *((u32*)(arg2+0xC)) += 0x10000; store: *(u16*)(p3+6) = *(u16*)(p0+0x28); epilogue: return r7;`\n\nFAILED attempts for the last 2 rows: aliasing arg2 (any order/initializer/register) flips allocation to arg0=r6/arg3=r5 (650-710); removing the p0 alias also flips it (650); `register` on p0/p3 no effect (10); declaration order p3-before-p0 gives move order arg2,arg3,arg0 (15); using raw arg0 for one body access explodes to r8/r9 (3151).\nHypothesis: target's arg0 move is an entry/assign_parms copy ordered before arg2's (parameter order), while ours is a body copy emitted after arg2's entry copy. A source form that makes the p0 alias coalesce into the arg0 parameter pseudo (so arg0 itself is the one held in r5 across the call, with no separate body copy) should match.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.794934,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080C0DA0",
   "text": "Releasing with reason it cannot get closer: the only residual is the prologue/epilogue ABI choice \u2014 agbcc unconditionally saves LR for this multi-block pure leaf (push{lr}/pop{r0};bx r0) while the ROM was built by a toolchain emitting frameless bx lr. This shifts all branches by +2 and is independent of C structure (switch, if/goto, per-case returns, cast/volatile/static variants all 355 or worse) and of all compiler flags/variants tried. No C step exists; compiler/segment change needed. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -172876,14 +172788,6 @@
   "text": "Re-releasing: cannot get closer in pure C. The 325 floor (95.0%, 64/66 insns) is an agbcc CSE/register-allocation wall confirmed by 148+ prior attempts and 2 compiles this session. Target needs the 0x8000 mask materialized in r2 then copied to r6 (`adds r6,r2,#0`) and the scan pointer reinitialized into r2 (`adds r2,r5,#0`); agbcc either materializes the mask straight into r6 (baseline 325, 2 insns missing) or, with a literal-guard/named-loop-mask split, emits the pointer reinit but in the wrong register and breaks the prologue (1213). All other instructions are byte-exact; remaining diffs are downstream of the 4-byte size delta. Every C spelling and flag level was exhausted by prior agents; register pinning banned. Ordinary correct C, not hand asm, not not_c, no boundary issue. Best 325 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.797023,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0804A4F0",
-  "text": "Second ask, please release at the 10 (99.9%) ceiling: only the prologue copies differ and I have now shown the two C shapes are exact mirrors with no structural difference left. Target: param copies arg0->r5, arg2->r4, arg3->r6 (parameter order). Raw-parameter body = correct order, but agbcc assigns arg0->r6 / arg3->r5 (650). Aliased body (p0=arg0, p3=arg3, arg2 raw) = correct r5/r6, but arg2's param copy is emitted first (10, saved best). Both arg0 and arg3 have exactly 5 references (2 initial loads not withstanding) so the r5/r6 choice is an allocation tie that no C spelling I tried flips without also reordering the arg2 copy; `register`, u32/u16 locals, alias permutations and p2 aliases were all no-ops. 68 prior attempts + 4 this session. Not hand asm, not not_c.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.797066,
   "score_before": null,
   "score_after": null
  },
@@ -187224,14 +187128,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0804A4F0",
-  "text": "Cannot get closer in pure C (74+ attempts, best 10/171 = 99.9%). Only 2 regalloc rows: prologue move order `adds r4,r2; adds r5,r0; adds r6,r3` vs target `adds r5,r0; adds r4,r2; adds r6,r3`. All other 171 insns match. Aliasing p0/p3+raw arg2 fixes r5/r6 but swaps first two copies; raw params fix copy order but flip r5/r6 to 650. Tried r7-between-aliases (715, r5/r6 flipped), p3-before-p0 (15). No C lever flips copy order without disturbing the r5/r6 allocation tie. Register pinning banned. Not hand asm, not not_c. Best 10 source preserved.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.8712256,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08013558",
   "text": "Best score 16214 (68.6%, 471/517 insns, first 7 byte-identical). Terminal intractable parameter-regalloc wall: target binds arg0=r4, arg1=r5, arg2=r6; agbcc always emits arg0=r6, arg1=r4, arg2=r5, cascading through 118 regalloc + 86 operand + 74 missing + 60 reordered + 30 extra rows. The (double) cast on `r12 <= 0` is load-bearing for regalloc (removing it worsens to 17523) but emits __floatsidf/__ledf2 symbol calls absent from ROM. Register-asm pinning rejected by judge. Every source spelling tried coalesces back or regresses. Same class as sibling sub_08097F88 (31 attempts, best 13016). C is complete correct translation \u2014 all struct offsets, callees, data tables, branch logic verified. Not hand asm, not not_c, no boundary. Best source preserved at score 16214. One compile done this claim, no improvement possible.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -193732,14 +193628,6 @@
   "text": "Cannot get closer from C. Confirmed best 1435 (91.7%, 174/174 insns); residual is deterministic agbcc regalloc spill: target `push {r4,r5,lr}` keeps 0xD800/0xF00 in caller-saved regs, agbcc forces r6 (`push {r4,r5,r6,lr}`) + 2 extra moves, cascading regalloc/operand/literal-pool shifts. 65+ prior attempts across agents exhausted C levers; register asm banned; -O2 optimal. Not hand asm, not not_c, not boundary. Best source preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.9053788,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0804A4F0",
-  "text": "MATCHED (0). Winning shape for the prologue-copy-order tie: function has `u8 *p0 = arg0; u8 *p2 = arg2; u8 *p3 = arg3;` \u2014 aliasing the MIDDLE parameter (arg2) to a local pointer declared BETWEEN the other two aliases, and using p2 for every arg2 access, makes agbcc emit the entry copies in the ROM's order r5=arg0, r4=arg2, r6=arg3 (without p2 it emits r4=arg2 first, score 10). Also call `sub_080113A8(arg0)` (r0 already holds arg0 in ROM) rather than `sub_080113A8()`. All switch/goto shapes from the previous best kept verbatim.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9054167,
   "score_before": null,
   "score_after": null
  },
@@ -352748,7 +352636,7 @@
   "score_after": 755
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Same as previous note: 57.5% draft, many wrong call/data resolutions and large structural work remaining. Explicitly cannot get closer in this session's remaining time/compile budget; releasing now so I can complete required compiled-claim count on other functions.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683533.968933,
@@ -352756,7 +352644,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best attempt 7135 (57.5%). Large function; register allocation differs. Releasing to continue claim quota.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0539663,
@@ -352764,7 +352652,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best 7135/57.5%. Large function; call targets and register allocation differ. Cannot get closer within budget; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1733603,
@@ -352772,7 +352660,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Releasing to work on a smaller near-matched function first.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1734338,
@@ -352780,7 +352668,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best 7135/57.5%. Releasing to claim more. Cannot get closer within budget.",
   "by": "opencode-free-1",
   "created_at": 1795683534.173541,
@@ -352788,7 +352676,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best 7135. Releasing. Cannot get closer.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1736937,
@@ -352796,7 +352684,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best attempt score 7135/57.5%. Linking errors: call targets and data symbols are mis-resolved (sub_0800168C/sub_08013C2C/etc. should be different, and D_080CD400 etc. should be D_30181C28/D_31221C29/D_F0946812/D_4700BC01/D_02025FF0). Needs sub_080009DC done first to resolve inlined helper/callee. Register allocation also differs (arg0 should be r5 not r4). Releasing with needs.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1737328,
@@ -352804,7 +352692,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Compiled the declaration-order permutation (p8,p6,p5 instead of p5,p6,p8) named in my notes: exactly the same 4362, so declaration order provably does not affect agbcc's allocation here. Best 4362 (74.0%) kept. Keys that improved it: duplicate fail sequence inline at each check (goto-fail 7135 -> 5020), s32 prototype/result for sub_08013C2C + u16 store + (u32)tmp<<16 sign test (-> 4815), s32 `v` with single final `*(u16*)p5=v` and explicit `base=(u8*)0x02025FF0` (-> 4561), named `s16 idx` before D_080CEB10[idx] so the literal loads after the address computation (-> 4362). Remaining: uniform callee-saved rotation, target (arg0,p5,p6,p8)=(r5,r7,r6,r4) vs mine (r4,r6,r5,r7), plus 19 missing/9 extra instructions downstream. Note this function waits for sub_080009DC (per earlier agent). No C-level route to the rotation found; leaving best attempt.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1772153,
@@ -352812,7 +352700,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "For the sub_08024F54/sub_0802E964 family of large sprite-creation functions: (a) write each failure check as an INLINE duplicated `sub_080C31E0(a, *(void**)(a+0x24)); return;` rather than a shared `goto fail` \u2014 cross-jumping merges the copies into the early fail block the target uses (huge score drop, e.g. 7135 -> 5020 on sub_0802E964). (b) sub_08013C2C is best declared as returning s32, with the result kept in `s32 tmp`, stored via `*(u16*)(ptr+off)=(u16)tmp`, and tested with `(s32)((u32)tmp<<16)<0` \u2014 an s16 prototype/local inserts spurious lsls/lsrs. (c) compute attribute-bit OR chains entirely in s32 and do ONE final u16 store; keep fixed addresses as an explicit `u8 *base=(u8*)0x02025FF0` used as `base+0x18C2`/`base+0x18A8` rather than folding the offset into the literal. (d) name the table index local before an indexed table load so the literal loads after the address arithmetic.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1772542,
@@ -352820,7 +352708,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Compiled `register` keyword hints on p5/p6/p8: no effect (still 4362). Combined with the earlier declaration-order permutation test, agbcc's callee-saved assignment for this function is insensitive to all C-level declaration/hint changes tried; the uniform rotation (target arg0/p5/p6/p8=r5/r7/r6/r4 vs mine r4/r6/r5/r7) needs a different source structure, possibly a 5th live local or the original's exact basic-block order. Best 4362 (74.0%) kept with all structural fixes.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.177335,
@@ -352828,7 +352716,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best score 4362 (74.0%). Logic fully decoded. Residual is purely callee-saved register allocation: target keeps arg0\u2192r5, p5(sub_0800355C result)\u2192r7, p6(*(arg0+0x3C))\u2192r6, p8(p6+0x34)\u2192r4 across all 6 calls, saved via push {r4-r7,lr}. No plain C form forces this rotation: tried declaration order permutations (no effect), register keyword (no effect), s32/u16 typing fixes, duplicated inline fail sequences, explicit base pointer for D_02025FF0. search_flags confirms project -O2 is best. Waiting for sub_080009DC per earlier agent. Best source saved at 4362.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.1774538,
@@ -352836,7 +352724,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Big sprite function, best 4362. Regalloc wall (uniform rotation r4/r6/r5/r7 vs r5/r7/r6/r4). Linking errors on symbols. Needs sub_080009DC.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1777332,
@@ -352844,7 +352732,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Waiting for sub_080009DC (held by another agent). Cannot progress. Best 4362 retained.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1777701,
@@ -352852,7 +352740,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Same as before, score 4362. Waiting for sub_080009DC held by another agent.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1778457,
@@ -352860,7 +352748,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Needs sub_080009DC first. Best score 4362 retained. Residual: callee-saved register rotation (target arg0/p5/p6/p8 = r5/r7/r6/r4 vs mine r4/r6/r5/r7) plus downstream missing/extra instructions. Tried declaration order, register keyword, structural fixes. No C-level route found yet.",
   "by": "opencode-free-1",
   "created_at": 1795683534.177926,
@@ -352868,7 +352756,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best score 4362. Regalloc wall: target r5/r7/r6/r4 vs mine r4/r6/r5/r7. Waiting for sub_080009DC. Tried declaration order, register keyword, structural. Best attempt saved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1780035,
@@ -352876,7 +352764,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best score 4362. Regalloc wall. Waiting for sub_080009DC. Best attempt preserved. Releasing to try other functions.",
   "by": "opencode-free-1",
   "created_at": 1795683534.17824,
@@ -352884,7 +352772,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best score 4362. Regalloc wall. Waiting for sub_080009DC. Best attempt preserved. 7 compiles this session.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1783566,
@@ -352892,7 +352780,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Big sprite function, best 4362. Regalloc wall: target r5/r7/r6/r4 vs mine r4/r6/r5/r7. Needs sub_080009DC. Best source saved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1786115,
@@ -352900,7 +352788,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Regalloc wall score 4362. Needs sub_080009DC. Best source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.178836,
@@ -352908,7 +352796,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Big sprite setup function (176 insns, ARM, best score 4362). Regalloc wall: target callee-saved rotation arg0/p5/p6/p8 = r5/r7/r6/r4 vs attempts r4/r6/r5/r7. Tried declaration order, register keyword, structural fixes. No C-level route found yet. The block at _0802E9B4 (early return via sub_080C31E0) is duplicated at two check points. Dependencies: calls sub_0800168C, sub_0800355C, sub_0801131C, sub_08011368, sub_08013C2C, sub_080C31E0, sub_080C31E4. Data: D_02021E90, D_02025FF0, D_080CD400, D_080CEB10, D_08671BB0. Needs sub_080009DC first per earlier agent notes.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.1806252,
@@ -352916,7 +352804,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best score 4362. Regalloc wall: target r5/r7/r6/r4 vs mine r4/r6/r5/r7. Needs sub_080009DC first. Best source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.180781,
@@ -352924,7 +352812,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best score 4362. Regalloc wall plus linking issues (data symbol resolution). Needs sub_080009DC first. Best source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1808195,
@@ -352932,7 +352820,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Best score 4362. Regalloc wall plus linking issues. Needs sub_080009DC first. Best source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1810405,
@@ -352940,7 +352828,7 @@
   "score_after": null
  },
  {
-  "function": "spawnFixedKindAttackSprite",
+  "function": "spawnAttackSpriteKind29",
   "text": "Matched (score 0) by adapting matched sibling sub_080584D0's source VERBATIM, changing only constants/callees/field offsets. Winning source: (1) `||` short-circuit chain with struct-typed arg0/p6 locals gives exact callee-saved prologue arg0=r5, obj=r7, p6=r6, p8=r4; (2) SEPARATE `u32 tmp` for the OR accumulator (do NOT reuse the sub_08013C2C result local r0_3 \u2014 that adds `adds r1,r0,#0`); (3) nested parens `A | ((B) | (C))` for the u16 OR so the two ORs are emitted in target order/regs; (4) `u8 *base = (u8 *)&D_02021E90` local before the two table reads; (5) `s32 *fp = (s32*)0x08671BB0` declared at top, assigned right before `_call_via_r2` \u2014 loads the literal early; (6) `s16 idx = *(s16*)((u8*)arg0+0x7C)` named local before `D_080CEB10[idx]` \u2014 controls literal-load order. Structs: P{s32 f8,fC,f10,f14; s16 f1C; s16 f22}, Arg0 fields f2@2,f22@0x22,f38@0x38,f3C@0x3C,f4C@0x4C,f54@0x54,f5C@0x5C,f6C@0x6C, S_02025FF0{f18A8@0x18A8,f18C2@0x18C2}, S_02021E90{f1278@0x1278,f127C@0x127C}.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1821935,
@@ -352981,5 +352869,279 @@
   "score_before": 480,
   "score_after": 480,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:954344fefc692520ef261f6fead18582b6293686f1249ad9112d2741cca9889c"
+ },
+ {
+  "function": "sub_08042900",
+  "text": "Best 475. Direct nested loads scored 760 and fixed r2/r3 allocation but CSE'd three pointer reloads. Direct volatile nested loads scored 665 and restored all four reloads/tail, but duplicated a cmp/beq and retained the LR-frame wall. Saved best restored.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780643.1402488,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:c11eb376bb483266d9ad3f85ca14c724649cc3283459b07fe5e045eb90107f0a"
+ },
+ {
+  "function": "sub_08010424",
+  "text": "Frameless Thumb leaf ABI wall: bare `bx lr`, agbcc emits push/pop (score 430). Semantics: increment u8 at D_02025358[0x0C]; if previous value >3, set to 1.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780643.7609346,
+  "score_before": 430,
+  "score_after": 430
+ },
+ {
+  "function": "sub_080A2D80",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Accepted frameless-leaf wall. Saved best 200 omits the NULL guard and is semantically wrong; guarded revision 3bb3d16f scores 215 with exact target body and only agbcc's forced LR frame. No profile emits the ROM's bare bx lr.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780648.8111138,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "sub_08016AB8",
+  "text": "Frameless Thumb leaf ABI wall: bare `bx lr`, agbcc emits push/pop (score 365). Semantics: find first 8-byte slot in D_020207C0[0..127] whose first word is 0; return pointer or 0.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780651.851528,
+  "score_before": 365,
+  "score_after": 365
+ },
+ {
+  "function": "sub_080B318C",
+  "text": "Frameless Thumb leaf ABI wall (accepted). Semantics: walk linked list from arg0+0x30 comparing s16 == 0x1BE; return 0 if found else 1. Bare bx lr, agbcc emits push/pop.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780661.1823423,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_080A040C",
+  "text": "Terminal frameless-leaf LR-frame wall, verified this session: correct guarded C (u8 *arg0; if(arg0) arg0[0x7C]=1) gives score 215 with target 7 insns vs 9; residual is exactly push{lr}/pop{r0};bx r0 vs bare bx lr plus beq displacement 0xe vs 0xc. Saved best 210 drops the null guard (semantically wrong). No C spelling avoids the frame.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780667.5723925,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:f644e556b61f022bac9dd4c76e81405c237f1ffd6129e8d8aa2c0a9568c125a2"
+ },
+ {
+  "function": "sub_080A041C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal frameless-leaf LR-frame wall (31 compiles/5 agents, score 215 floor). Target 7 insns ends bare bx lr; agbcc -mthumb-interwork always inserts push{lr}/pop{r1};bx r1. C is semantically exact; no C spelling or in-profile flag avoids the frame.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780671.2587578,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_080A2E74",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal frameless-leaf LR-frame wall (39 attempts, score 210 floor). Target 7 insns ends bare bx lr; agbcc inserts push{lr}/pop{r0};bx r0. Saved best is semantically wrong (unguarded store, volatile long); guarded corrected version (rev 2dcfd97864b7014f562d, 215) matches body but still hits frame wall. No C lever known.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780674.6626012,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "sub_080A2D80",
+  "text": "Frameless Thumb leaf ABI wall. Correct semantics: if arg0 != 0: arg0[0x4C]=arg1; arg0[0x5C]=arg2. Saved best 200 is invalid (omits null guard); corrected guarded version scores 215 due to push/pop.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780674.9190905,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:097e7755d7b1c37ab8a53ee49070cfb22e0540741d6271eebb9b4ffc8eea51ae"
+ },
+ {
+  "function": "sub_080C2E4C",
+  "text": "Cannot get closer from C: body logic matches (13/15 insns). Only residual is agbcc frameless-leaf LR-frame wall - target `bx lr`, candidate `push {lr}`/`pop {r0}; bx r0` with beq offset shift. Tried 6 local repair families on rev 1709ef9da5fd60d03ec1 (all worse/equal, no diff change). This is a compiler/profile frame artifact, not fixable by C spelling.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780696.5735314,
+  "score_before": 350,
+  "score_after": 215,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:d5c86863464f94f483f7fe26735c4f4caabbcac56b71e5d2ac75f6c4c66f31bb"
+ },
+ {
+  "function": "sub_08060370",
+  "text": "Cannot get closer from C: leaf no-call function, only residual is agbcc Thumb leaf LR-frame wall (inserted push{lr}/pop{r0};bx r0 vs bx lr) plus PC-relative pool offset ripple. Tried 6 local repairs on rev 8e83635f32e76c072021 - all worse/equal. Known compiler/profile artifact; no C-side fix found.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780696.9593422,
+  "score_before": 2070,
+  "score_after": 700,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:abcfa1b89ed0c33324da05c2d61ca26795153a50677fe7b9169ea5b8580a3db7"
+ },
+ {
+  "function": "sub_08098754",
+  "text": "Frameless Thumb leaf ABI wall. Semantics: return (arg0[0x27] == 2). Bare bx lr, agbcc emits push/pop.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780699.9491973,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:b24d262c899d2c1fbeeb23fdd21f2a78ec567842f592c4f48a3e13ace0b7c7f5"
+ },
+ {
+  "function": "sub_080B9824",
+  "text": "Frameless Thumb leaf ABI wall. Semantics: return (arg0[0x4C] == 0). Bare bx lr, agbcc emits push/pop.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780708.3044603,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:9327340e9c5b17300ef3641191418d699548f84d7ff7cfe711ad02a936bacd71"
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Releasing: complex table-driven function; one compile insufficient. Best attempt saved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.975764,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Cannot improve. Releasing.",
+  "by": "opencode-beam-free-2",
+  "created_at": 1795683534.16626,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Complex table-driven. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.166524,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Table-driven state machine with computed goto. Complex; best 10836. Releasing.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683534.168261,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Final claim of session \u2014 stopping here. Best 8221 (51.9%), 5 compiles. This is a complex -O1 22-entry computed-goto state machine; all prior agents also stalled at ~8221-10836. Best source is preserved in the function record (do NOT use my last two variants: adding sub_080113A8() call + v0-reuse regressed to 15605, and correcting the switch cases to 11/16=0xFFFF0000 regressed to 9012). Remaining diffs are structural: target prologue pushes r7 and binds arg0->r5, arg2->r4, arg3->r6, r7=0, calls sub_080113A8() before loading v1/v0, and uses a specific jump-table layout; agbcc's generated table/prologue differ. Rewriting as a goto-based state machine with explicit labels for each target block (0x0804A51E/534/540/55C/572/580/58C/5A4/614/620/62C/63A/640/644) is the only remaining avenue. Ordinary correct C, not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4096532,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Cannot get closer in this session (2 compiles, best 8221). This -O1 computed-goto/jump-table function requires exact prologue register binding, an initial call to sub_080113A8 with original args, and precise case-target layout for the 22-entry table; straightforward C fixes regressed to 10277. Releasing early with best attempt preserved for next agent.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.493165,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Best score 1262 (92.6%) from the alias version: params (u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3), locals `u8 *p0 = arg0; u8 *p3 = arg3;` declared before everything, body uses p0 for the f28 holder and p3 for f06/f08. Structure that got from 5172 down to 1262: (1) call sub_080113A8() first; (2) switch(c) with cases 2,7,0xC; inside c==2 list cases in order 0xF, 0xA, 5 (this order matters a lot: 1752 -> 1262); inside c==7 order 0x14, 0x1A, 0x17; (3) the c==0xC dense switch needs cases 0x17..0x2C with SEPARATE bodies for 0x22 and 0x27 (do not stack them) to reproduce the two dec blocks at 0x614/0x620; (4) the conditional +1 in c==2/x==0xA and the jump-table case 0x17 must `goto add_shared` where `add_shared: *(u32*)(p2+0xC) += 0x10000;` falls through to the final store; (5) the c==7/x==0x17 second test must be written `if (*(u16*)(p3+6) != 0x1A) break; goto add_shared;` (the beq/bne polarity visibly matters). Remaining diffs: prologue moves are `adds r4,r2; adds r5,r0; adds r6,r3` vs target `adds r5,r0; adds r4,r2; adds r6,r3` (only ORDER of the first two; hard regs and all field loads now match); one extra `movs r0,#0` on the v1==v0 early return (target branches straight to the shared epilogue at 648); one missing `b` stub at target 0x554 after the c==2/x==0xA conditional (tried goto-stub labels and switch-on-second-check, GCC optimizes them away); 169 vs 171 insns. All other 39 operand rows are branch offsets following from those two instructions. Try: making r7's zero value non-constant-foldable at the early exit, and forcing the prologue move order without aliasing arg2 (aliasing arg2 regressed to 1902). Plain C, not not_c.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5157537,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "-O1 switch/state-machine function, best 1262 (92.6%) from prior agents; my compiles 1322 then 1902 (worse). Remaining diffs vs 1262: prologue move order (target adds r5,r0 then adds r4,r2), extra movs r0,#0 on early return, missing b stub. Codegen-level; 39 prior attempts bottomed at 1262, no C lever found. Asking to release: no C formulation fixes agbcc's prologue emission order or removes the early-return mov. Release to claim #8 (final compiled claim).",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.7189574,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Cannot get closer with pure C. Best score 1021 (from 1262). Remaining diffs are codegen-level: (1) prologue move order (first two adds swapped) - register allocation order determined by compiler heuristic, no C lever found by 39 prior attempts. (2) Missing stub branch at case 2/0xA/0xF path - target has intermediate branch for Thumb range/pool reasons, compiler optimizes to direct branch. (3) Branch offset differences from code layout. (4) Jump table linking differences. Function body is structurally correct (169 vs 171 insns), all field loads/stores match. Releasing to work on other functions.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.7314615,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "BEST 10 (99.9%, 171/171 insns) \u2014 saved source. Only 2 regalloc rows left: entry move order. Target `adds r5,r0`(arg0), `adds r4,r2`(arg2), `adds r6,r3`(arg3); agbcc emits arg2 first, then arg0, then arg3. All registers are otherwise correct.\n\nWINNING SHAPE (saved best, score 10):\n- aliases ONLY `u8 *p0 = arg0; u8 *p3 = arg3;` (p0 then p3, initialized at declaration). arg2 used RAW (`arg2+0xC`); do NOT alias arg2, do NOT remove p0/p3 aliases, do NOT add new_var.\n- case labels confirmed via read_data 0x0804A5BC: c==2 -> {0xF, 0xA, 5} in that order; c==7 -> {0x14, 0x1A, 0x17}; c==0xC -> {0x17, 0x1D, 0x22, 0x27, 0x2C} (idx6->0x57C, idx11->0x614, idx16->0x620, idx21->0x62C).\n- KEY TRICK (701 -> 10): both tail tests are inverted-goto + goto, the first inside a block:\n    c==2/0xA: `{ u16 v1_reload = *(u16*)(p3+6); if (v1_reload != 0xF) goto store; goto add_shared; }` -> reproduces ROM's `beq L; b store; L: b add_shared` trampoline + alignment padding;\n    c==7/0x17: `if (*(u16*)(p3+6) != 0x1A) goto store; goto add_shared;` -> `bne store; b add_shared`.\n  (writing `if (== X) goto add_shared; break;` gives 701)\n- `goto store; add_shared: *((u32*)(arg2+0xC)) += 0x10000; store: *(u16*)(p3+6) = *(u16*)(p0+0x28); epilogue: return r7;`\n\nFAILED attempts for the last 2 rows: aliasing arg2 (any order/initializer/register) flips allocation to arg0=r6/arg3=r5 (650-710); removing the p0 alias also flips it (650); `register` on p0/p3 no effect (10); declaration order p3-before-p0 gives move order arg2,arg3,arg0 (15); using raw arg0 for one body access explodes to r8/r9 (3151).\nHypothesis: target's arg0 move is an entry/assign_parms copy ordered before arg2's (parameter order), while ours is a body copy emitted after arg2's entry copy. A source form that makes the p0 alias coalesce into the arg0 parameter pseudo (so arg0 itself is the one held in r5 across the call, with no separate body copy) should match.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.794934,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Second ask, please release at the 10 (99.9%) ceiling: only the prologue copies differ and I have now shown the two C shapes are exact mirrors with no structural difference left. Target: param copies arg0->r5, arg2->r4, arg3->r6 (parameter order). Raw-parameter body = correct order, but agbcc assigns arg0->r6 / arg3->r5 (650). Aliased body (p0=arg0, p3=arg3, arg2 raw) = correct r5/r6, but arg2's param copy is emitted first (10, saved best). Both arg0 and arg3 have exactly 5 references (2 initial loads not withstanding) so the r5/r6 choice is an allocation tie that no C spelling I tried flips without also reordering the arg2 copy; `register`, u32/u16 locals, alias permutations and p2 aliases were all no-ops. 68 prior attempts + 4 this session. Not hand asm, not not_c.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.797066,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "Cannot get closer in pure C (74+ attempts, best 10/171 = 99.9%). Only 2 regalloc rows: prologue move order `adds r4,r2; adds r5,r0; adds r6,r3` vs target `adds r5,r0; adds r4,r2; adds r6,r3`. All other 171 insns match. Aliasing p0/p3+raw arg2 fixes r5/r6 but swaps first two copies; raw params fix copy order but flip r5/r6 to 650. Tried r7-between-aliases (715, r5/r6 flipped), p3-before-p0 (15). No C lever flips copy order without disturbing the r5/r6 allocation tie. Register pinning banned. Not hand asm, not not_c. Best 10 source preserved.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.8712256,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "advanceAnimationOffset",
+  "text": "MATCHED (0). Winning shape for the prologue-copy-order tie: function has `u8 *p0 = arg0; u8 *p2 = arg2; u8 *p3 = arg3;` \u2014 aliasing the MIDDLE parameter (arg2) to a local pointer declared BETWEEN the other two aliases, and using p2 for every arg2 access, makes agbcc emit the entry copies in the ROM's order r5=arg0, r4=arg2, r6=arg3 (without p2 it emits r4=arg2 first, score 10). Also call `sub_080113A8(arg0)` (r0 already holds arg0 in ROM) rather than `sub_080113A8()`. All switch/goto shapes from the previous best kept verbatim.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9054167,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_080121F8",
+  "text": "FINAL (opencode-hy4-flash-free-53, session 3): best remains score 80, revision afc0203d6b61a67e07a0 (119/119 target insns, 6 diff rows: 4 register + 2 reordered). Residual EXACTLY as before: ours emits `movs r4,#7` right after `str r0,[sp,#0xc]; str r0,[sp]`, target emits it after the hoisted pointer setup; ours uses r0 as scratch for `add r0,sp,#4; mov sb,r0` and r1 for `add r1,sp,#8; mov r8,r1`, target uses r1 then r0. All 13 target insns of the tail region otherwise byte-exact.\n\nNEW experiments this session (all compiled/judged against current inputs):\n1. compiler_experiments (diagnostic): project flags 80; -O3 80; -fno-cse-skip-blocks 80; -fno-cse-follow-jumps -fno-cse-skip-blocks 1095; -fno-regmove 785; -fno-gcse 2290; plain -O2 (no -fno-strength-reduce) 80; -fno-defer-pop 80; -fomit-frame-pointer 80; -fno-inline 80; -fno-peephole 310; -fno-schedule-insns2 REJECTED by agbcc. Every score-80 profile produces the IDENTICAL 6-row diff (confirmed via get_compiler_trial on two trials). Flags cannot move either residual.\n2. Explicit pointer locals `s32 *p8=&sp8; s32 *p4=&sp4;` in a block at the join, assigned p8-first (to try to flip the allocator scratch order) \u2192 767; p4-first \u2192 769 (frame/spill damage). Assigning after the stores/counter \u2192 syntax error (C89 declarations must lead the block).\n3. Counter init hoisted from inside the loop via comma expression `(var_r4 = 7, 0x10000)` \u2192 3680; standalone `var_r4 = 7;` as first stmt in loop \u2192 3680 (GCC does NOT hoist it; both change the loop semantics/code shape disastrously).\n4. do{second call;}while(0) wrapper \u2192 260; do{all three join statements;}while(0) \u2192 80, zero diff change; explicit goto split of the join \u2192 80, zero diff change.\n5. Semantics-preserving swap of the two sub_0801235C calls \u2192 458. Chained store `spC = sp0 = var_r0;` \u2192 100. Empty `if (spC==sp0){}` \u2192 80, no change.\n6. Six stack locals rewritten as one `s32 spX[6]` array with &spX[1]/&spX[2] pointer args \u2192 80, byte-identical diff (array shape does not shift pseudo creation).\n7. Sinking the two stores into all four goto arms (cross-jumping test) \u2192 770; branch layout changes, tail residual still present.\n8. `register s32 var_r4;`, `register s32 temp_r4/temp_r5;`, and `u32 sp4/sp8` \u2192 all 80, zero diff change.\n9. try_local_repairs generated six families; the promising ones (counter-in-call-arg, do/while(0) wrapper, declaration reorder, stack_run_array) were then compiled manually and are covered above; none improved.\n10. compiler_passes is unsupported for agbcc (\"Phase capture currently supports native GCC drivers only\"), so the pass trace the near-match guide recommends is unavailable here.\n\nConclusion: independent confirmation of proposal #8589934682 (agbcc loop-preheader allocator/scheduler wall). The two choices (scratch r0/r1 order, counter-init placement) are invariant across flags, C shape, declaration order, types, loops and register hints. Retain the score-80 candidate; further permutation is not productive. Boundary is NOT the issue now: the declared extent is 256 bytes (0x080121F8..0x080122F8) and includes the full tail through `bx r1` at 0x080122E2 plus the literal pool.",
+  "by": "opencode-hy4-flash-free-53",
+  "created_at": 1795780713.6255531,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
+ },
+ {
+  "function": "setSpriteFlip",
+  "text": "Terminal frameless-leaf LR-frame wall, verified this session: 32-insn target ends bare bx lr; agbcc inserts push{lr}/movs r0,r0/pop{r0};bx r0 and shifts two beq targets by 4 bytes. Score 325 floor over 18 compiles/6 agents. No C lever known.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780715.1038866,
+  "score_before": 325,
+  "score_after": 325,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:6cdd460c6ce210c5d5fa9205108647b240465471f03def93a20fda703334cf0b"
+ },
+ {
+  "function": "sub_080A2D80",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal frameless-leaf LR-frame wall (35 attempts, score 200 floor). Target 5 insns ends bare bx lr; agbcc inserts push{lr}/pop{r0};bx r0. Saved best omits null guard (semantically wrong); corrected guarded version scores 215 and still hits the frame wall. No C lever known.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780747.5305748,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "sub_080BB898",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal frameless-leaf LR-frame wall (47 attempts, score 265 floor). Target 9-insn ldm loop ends bare bx lr; agbcc inserts push{lr}/pop{r0};bx r0. C body (5-iteration do/while with ldm-friendly pointer) is byte-exact. No C lever known.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780747.8302858,
+  "score_before": 265,
+  "score_after": 265
+ },
+ {
+  "function": "sub_080147D4",
+  "text": "Frameless Thumb leaf ABI wall (score 310). Semantics per candidate: angle compare tree returning -1/0/1. Bare bx lr, agbcc emits push/pop.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780771.3875866,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "updateScriptedAttackEffect",
+  "text": "Releasing: best attempt saved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9758346,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_080C0440",
+  "text": "Terminal two-row register-coloring residual at score 10: target keeps records base in r2 and final loaded value reuses r2; candidate keeps the final value in r3. Separate index/value locals scored 25 and merely swapped r2/r3 earlier; reusing a u32 base/value local scored 35. Local repairs, O1/O2/O3/Os/expensive-optimization flags, and -mno-thumb-interwork did not fix it. No semantics or instruction-shape difference remains.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780828.8228695,
+  "score_before": 25,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:77a1d23e2d6dbeaf9f40729280a14a883f9161e43c3b95c2326518e743a2b2d8"
  }
 ]

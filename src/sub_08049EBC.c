@@ -8,7 +8,7 @@ extern void *gScriptStepCallbackTable;
 extern s32 sub_08005910(s32, s32);
 extern void advanceMotion(void *, s32);
 extern void sub_0804A4D0(void *, void *, void *, s32);
-extern s32 sub_0804A4F0(void *, void *, void *, void *);
+extern s32 advanceAnimationOffset(void *, void *, void *, void *);
 extern void sub_0804A650(void *, void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 
@@ -25,7 +25,7 @@ void sub_08049EBC(u8 *object) {
     s32 angle;
     advanceMotion(state, 0);
     sub_0804A650(object, state, ctrl);
-    if (sub_0804A4F0(sprite, pose, state, ctrl) != 0) {
+    if (advanceAnimationOffset(sprite, pose, state, ctrl) != 0) {
         firedFlag = *(u8 *)(ctrl + 9);
         if (firedFlag == 0) {
             angle = sub_08005910(gMainWorkspace.f1750 - *(s32 *)(state + 0xC), gMainWorkspace.f174C - *(s32 *)(state + 8));

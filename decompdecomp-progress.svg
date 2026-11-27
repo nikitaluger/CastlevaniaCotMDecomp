@@ -3428,7 +3428,7 @@
 <g><title>sub_0802E91C: {&#x27;matched&#x27;: 1}</title>
 <rect x="180.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>spawnFixedKindAttackSprite: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnAttackSpriteKind29: {&#x27;matched&#x27;: 1}</title>
 <rect x="190.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802EAC4: {&#x27;matched&#x27;: 1}</title>
@@ -3638,7 +3638,7 @@
 <g><title>sub_0803230C: {&#x27;matched&#x27;: 1}</title>
 <rect x="80.000" y="310" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08032354: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnScriptedProjectile: {&#x27;matched&#x27;: 1}</title>
 <rect x="90.000" y="310" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080324B4: {&#x27;matched&#x27;: 1}</title>
@@ -5147,7 +5147,7 @@
 <g><title>sub_0804A4D0: {&#x27;matched&#x27;: 1}</title>
 <rect x="310.000" y="370" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0804A4F0: {&#x27;matched&#x27;: 1}</title>
+<g><title>advanceAnimationOffset: {&#x27;matched&#x27;: 1}</title>
 <rect x="320.000" y="370" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0804A650: {&#x27;matched&#x27;: 1}</title>
@@ -5861,7 +5861,7 @@
 <g><title>scriptCmdSpawnAttack: {&#x27;matched&#x27;: 1}</title>
 <rect x="290.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08055204: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateScriptedAttackEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="300.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08055364: {&#x27;matched&#x27;: 1}</title>

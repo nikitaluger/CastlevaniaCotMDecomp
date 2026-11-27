@@ -9,7 +9,7 @@ extern u16 D_080CF268[];
 
 /* Allocate and initialize three sub-objects from the definition's stat and parameter
  * tables; if any allocation fails, dispatch the entity's pending callback instead. */
-void initThreeSubObjects(u8 *entity, u8 *def, s32 payload, struct SubObjects *out) {
+/* Allocates and initialises the three render sub-objects of a multi-part effect from the stat and parameter tables; on any allocation failure, dispatches the entity's pending callback instead. */ void initThreeSubObjects(u8 *entity, u8 *def, s32 payload, struct SubObjects *out) {
     u8 *statsTable;
     void *firstObj;
     void *secondObj;

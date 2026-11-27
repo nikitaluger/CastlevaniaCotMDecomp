@@ -20,7 +20,7 @@ void advanceMotion(void *, s32);
 void sub_08055990(void *, void *);
 void sub_08013C8C(void *, void *);
 
-void sub_08055204(u8 *arg0)
+void updateScriptedAttackEffect(u8 *arg0)
 {
   u8 *sprite;
   u8 *state;

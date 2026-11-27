@@ -1,6 +1,6 @@
 extern s32 moduloInt(u8 arg0, s32 arg1);
 extern void advanceMotion(void *arg0, s32 arg1);
-extern void sub_0804A4F0(void *arg0, void *arg1, void *arg2, void *arg3);
+extern void advanceAnimationOffset(void *arg0, void *arg1, void *arg2, void *arg3);
 extern void sub_080C31E4(void *arg0, void *arg1, s32 arg2);
 void sub_08049E04(void *arg0)
 {
@@ -29,7 +29,7 @@ void sub_08049E04(void *arg0)
     *r6 = ((*r6) & 0x0FFF) | 0xC000;
   }
   advanceMotion(r5, 0);
-  sub_0804A4F0(r6, r8ptr, r5, r7ptr_2);
+  advanceAnimationOffset(r6, r8ptr, r5, r7ptr_2);
   do { if ((*((u8 *) ((((u8 *) self) + ((*((s16 *) (self + 0x22))) * 2)) + 0x19))) == 0x1E)
   {
     s32 zero;

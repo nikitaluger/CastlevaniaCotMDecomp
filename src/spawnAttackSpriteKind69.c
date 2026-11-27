@@ -19,7 +19,7 @@ extern u8 gSpriteAnimDataTable[];
 extern s16 D_080CEB20[];
 extern u32 gScriptStepCallbackTable;
 
-void spawnAttackSpriteKind69(struct Arg0 *arg0) {
+/* Spawns a kind-0x69 attack sprite: allocates the sprite and its 0x48-byte work state, sets kind 0x69 and the parent's fixed-point coordinates, copies the pose and the two extra params, places it from the camera scroll tables, marks the parent ready, then invokes the step callback. */ void spawnAttackSpriteKind69(struct Arg0 *arg0) {
     u8 *sprite;
     struct P *state;
     u8 *scratch;

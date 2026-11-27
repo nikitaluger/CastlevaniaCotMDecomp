@@ -18,7 +18,7 @@ extern struct S_02021E90 gCameraState;
 extern u8 gSpriteAnimDataTable[];
 extern s16 D_080CEB10[];
 extern u32 gScriptStepCallbackTable;
-void spawnFixedKindAttackSprite(struct Arg0 *arg0) {
+/* Spawns a fixed-kind attack sprite: allocates the sprite and its 0x48-byte work state, sets kind 0x29 and the parent's fixed-point coordinates, copies the pose and the two extra params, places it from the camera scroll tables, marks the parent ready, then invokes the step callback. */ void spawnAttackSpriteKind29(struct Arg0 *arg0) {
     u8 *sprite;
     struct P *state;
     u8 *scratch;
