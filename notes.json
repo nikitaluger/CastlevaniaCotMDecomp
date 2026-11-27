@@ -352900,14 +352900,6 @@
   "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:dd4c9d624a5de897ab86f1c43d8512b49a95236dc599608d9cadc009aeb37bb5"
  },
  {
-  "function": "createChildObject",
-  "text": "Best 295 (92.4%). Key fix: mutate the parameter directly (`arg1 &= 0x3FFF;`) so agbcc reuses arg1's register (r5) for the mask result, matching `ands r5,r0`. Remaining: an extra `adds r0,r1,#0` after `ldr r0,=0xFFFF` before the `strh`, the table literal `ldr r0,=0x0202574E` scheduled before `lsls r1,r5,#1` instead of after, and a trailing `movs r0,r0` padding row. Pure scheduling/regalloc. Best C is the straightforward field-store version with `D_0202574E[arg1] += 1`.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9181712,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080B7408",
   "text": "[Released without compiling it once; notes not checked by a compile.] Verified baseline 210 (rev e2856c54bbcea931eed8). Residual matches known agbcc dead-copy/copy-propagation wall around -1 staging/selection (`movs r3,#1; rsbs r3,r3,#0; adds r1,r3,#0` in target vs folded copy in candidate), plus minor ripple. Many prior attempts; no C-shape fix found this session.",
   "by": "opencode-iceman-contributor-free-10",
@@ -352930,5 +352922,13 @@
   "created_at": 1795780343.7880814,
   "score_before": 365,
   "score_after": 365
+ },
+ {
+  "function": "createChildObject",
+  "text": "Best 295 (92.4%). Key fix: mutate the parameter directly (`arg1 &= 0x3FFF;`) so agbcc reuses arg1's register (r5) for the mask result, matching `ands r5,r0`. Remaining: an extra `adds r0,r1,#0` after `ldr r0,=0xFFFF` before the `strh`, the table literal `ldr r0,=0x0202574E` scheduled before `lsls r1,r5,#1` instead of after, and a trailing `movs r0,r0` padding row. Pure scheduling/regalloc. Best C is the straightforward field-store version with `D_0202574E[arg1] += 1`.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9181712,
+  "score_before": null,
+  "score_after": null
  }
 ]

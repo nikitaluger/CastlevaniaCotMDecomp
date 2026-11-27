@@ -5,7 +5,7 @@ extern u16 D_0202574E[];
 /* Allocates an object of `kind`, links it as the first child of `parent` when
  * one is given, installs the recursive-destruct callback, and bumps the
  * per-kind instance counter. */
-void *createChildObject(void *parent, s32 kind) {
+void *sub_08001480(void *parent, s32 kind) {
     void *obj;
     obj = sub_0800141C(kind);
     if (obj != NULL) {
