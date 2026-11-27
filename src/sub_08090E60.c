@@ -2,7 +2,7 @@ extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
 extern s32 sub_080C36E4(u32, s32);
 extern void sub_0808E05C(s32, s32, s16, s32);
-extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
+extern void spawnType207Effect(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 gMainWorkspace[];
 
@@ -40,7 +40,7 @@ void sub_08090E60(void *arg0)
   if (worldFlags & 1)
   {
     s32 spawnKind = 0x16C1;
-    sub_0808E348(originX, originY, speed, angle, spawnKind,
+    spawnType207Effect(originX, originY, speed, angle, spawnKind,
       (s16)(((((s32)(worldFlags + (worldFlags >> 31))) >> 1)) - ((((((s32)(worldFlags + (worldFlags >> 31))) >> 1)) + ((s32)((worldFlags + (worldFlags >> 31)) >> 31))) >> 1 << 1)),
       0xD);
   }

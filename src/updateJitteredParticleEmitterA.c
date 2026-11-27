@@ -1,14 +1,14 @@
 extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
-extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
+extern void spawnType207Effect(s32, s32, s32, s32, s32, s32, s32);
 extern void copyBytes(void *, u32, s32);
 extern void sub_080C31E4(void *, void *, u32);
-extern u8 D_081007D8[];
+extern u8 gJitteredParticleOffsetsA[];
 
 /* Each frame, spawn two particle objects whose offsets come from a fixed table
  * and whose positions are jittered randomly; when the countdown ends, reset
  * it and dispatch the script callback. */
-void sub_08093924(u8 *arg0)
+void updateJitteredParticleEmitterA(u8 *arg0)
 {
   u8 *entity = arg0;
   int yJitterRange;
@@ -40,7 +40,7 @@ void sub_08093924(u8 *arg0)
     *((u8 *) ((*((u8 **) (animTrack + 4))) + 1)) = 0;
     *((u8 *) (sprite + 0x2A)) &= 0xBF;
   }
-  copyBytes(offsets, (u32) D_081007D8, 0x40);
+  copyBytes(offsets, (u32) gJitteredParticleOffsetsA, 0x40);
   i = 0;
   offsets2 = offsets + 4;
   do
@@ -69,7 +69,7 @@ void sub_08093924(u8 *arg0)
       if (cond != 0)
         duration = 0;
     }
-    sub_0808E348(xPos, yPos, 0, heading, 0x80 << 7, duration, 8);
+    spawnType207Effect(xPos, yPos, 0, heading, 0x80 << 7, duration, 8);
     i++;
   }
   while (i <= 1);

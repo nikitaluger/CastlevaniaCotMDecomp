@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795813652.2223117,
- "revision": 71108,
+ "saved_at": 1795813772.5036242,
+ "revision": 71116,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1789,19 +1789,7 @@
     "-mthumb-interwork",
     "-O1",
     "-fno-strength-reduce"
-   ],
-   "timeout": 20
-  },
-  "70468:134288196": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "setObjectAnimationFrame",
-   "vram": 134288196
+   ]
   }
  },
  "instructions": "",
@@ -2143,8 +2131,7 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h",
-  "rom": "common_rom.h"
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -8389,8 +8376,8 @@
   },
   "sub_08036304": {
    "vram": 134439684,
-   "best_score": 3195,
-   "best_by": "opencode-hy4-flash-free-72"
+   "best_score": 1730,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_08036484": {
    "vram": 134440068,
@@ -16917,7 +16904,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0808E348": {
+  "spawnType207Effect": {
    "vram": 134800200,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -17492,7 +17479,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08093924": {
+  "updateJitteredParticleEmitterA": {
    "vram": 134822180,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
    "readable": false
@@ -42457,7 +42444,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0808E348",
+   "name": "spawnType207Effect",
    "vram": 134800200,
    "size": 110,
    "status": "open"
@@ -43195,7 +43182,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08093924",
+   "name": "updateJitteredParticleEmitterA",
    "vram": 134822180,
    "size": 296,
    "status": "open"
@@ -53955,6 +53942,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnType207Effect",
+   "address": 134800200,
+   "size": 110,
+   "kind": "func"
+  },
+  {
    "name": "spawnEffectParticle",
    "address": 134800924,
    "size": 82,
@@ -53987,6 +53980,12 @@
   {
    "name": "updateRoomAnchoredScriptedAttackAlt",
    "address": 134812320,
+   "size": 296,
+   "kind": "func"
+  },
+  {
+   "name": "updateJitteredParticleEmitterA",
+   "address": 134822180,
    "size": 296,
    "kind": "func"
   },
@@ -55281,6 +55280,12 @@
    "kind": "data"
   },
   {
+   "name": "gJitteredParticleOffsetsA",
+   "address": 135268312,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gBehaviorParams",
    "address": 135268554,
    "size": 0,
@@ -56524,6 +56529,11 @@
   },
   {
    "address": 135266880,
+   "type": "s16[]",
+   "source": "match"
+  },
+  {
+   "address": 135267300,
    "type": "s16[]",
    "source": "match"
   },

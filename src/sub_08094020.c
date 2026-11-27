@@ -1,6 +1,6 @@
 extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
-extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
+extern void spawnType207Effect(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080C36E4(s16, s32);
 extern u8 D_08100818[];
@@ -40,7 +40,7 @@ void sub_08094020(u8 *self) {
         spawnX = *(s32 *)(fields + 8) + randomSignedOffset(0xE0000);
         spawnY = *(s32 *)(fields + 0x0C) + randomSignedOffset(0x20000);
         spawnZ = scaleByRandom(0x8000) + 0x2000;
-        sub_0808E348(spawnX, spawnY, 0, spawnZ, 0x16C1, check, 8);
+        spawnType207Effect(spawnX, spawnY, 0, spawnZ, 0x16C1, check, 8);
     }
     timerVal = *(u16 *)(timer + 0x0C) - 1;
     *(u16 *)(timer + 0x0C) = timerVal;

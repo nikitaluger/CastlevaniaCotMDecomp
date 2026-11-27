@@ -1,7 +1,7 @@
 extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
 extern void sub_0808DBF8(s32, s32, s32);
-extern void sub_0808E348(s32, s32, s32, s32);
+extern void spawnType207Effect(s32, s32, s32, s32);
 extern void copyBytes(void *, u8 *, s32);
 extern void sub_080C31E0(void *, s32);
 extern s32 sub_080C36E4(s32, s32);
@@ -65,7 +65,7 @@ void sub_08095F34(u8 *arg0)
     *((s32 *) (sp + 0)) = 0x3000;
     *((s32 *) (sp + 4)) = flag;
     *((s32 *) (sp + 8)) = 8;
-    sub_0808E348(a, r6, c, d);
+    spawnType207Effect(a, r6, c, d);
     i++;
   }
   while (i <= 1);

@@ -9434,7 +9434,7 @@
 <g><title>sub_0808E27C: {&#x27;matched&#x27;: 1}</title>
 <rect x="200.000" y="550" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0808E348: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnType207Effect: {&#x27;matched&#x27;: 1}</title>
 <rect x="210.000" y="550" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0808E3B8: {&#x27;matched&#x27;: 1}</title>
@@ -9803,7 +9803,7 @@
 <g><title>sub_08093870: {&#x27;matched&#x27;: 1}</title>
 <rect x="630.000" y="560" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08093924: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateJitteredParticleEmitterA: {&#x27;matched&#x27;: 1}</title>
 <rect x="640.000" y="560" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08093A4C: {&#x27;matched&#x27;: 1}</title>
