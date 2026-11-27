@@ -1,4 +1,4 @@
-extern void sub_080AA8A0(void *, void *);
+extern void computePosePlacementOffset(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void moveEntityWithCollision(void *, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
@@ -11,7 +11,7 @@ extern struct S_02025FF0_1870 gMainWorkspace;
 void sub_080AA828(void *arg0) {
     u8 *self = (u8 *)arg0;
     void *r0 = *(void **)(self + 0x3C);
-    sub_080AA8A0(arg0, r0);
+    computePosePlacementOffset(arg0, r0);
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0xC) {
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {

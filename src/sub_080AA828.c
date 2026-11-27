@@ -1,4 +1,4 @@
-extern void sub_080AA8A0(void *, void *);
+extern void computePosePlacementOffset(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
 /*
@@ -10,7 +10,7 @@ void sub_080AA828(void *entity) {
     u8 *self = (u8 *)entity;
     void *attached = *(void **)(self + 0x3C);
 
-    sub_080AA8A0(entity, attached);
+    computePosePlacementOffset(entity, attached);
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0xC) {
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {

@@ -2817,3 +2817,16 @@ struct MainWorkspaceView {
 /* Callback pointer read by the jittered particle emitters when their countdown
  * finishes: entry 1 of the main-object timer callback table at 0x08671BB0. */
 #define PARTICLE_EMIT_CALLBACK_ADDR 0x08671BB4
+
+/* Pose-placement table gPosePlacementTable: one 8-byte record per pose.
+ * radius is a 16.16 distance (consumed as >>8); angleDelta is subtracted
+ * from the entity's facing angle before the trig lookup. */
+struct PosePlacementEntry {
+    u32 radius;      /* 0x00 */
+    s32 angleDelta;  /* 0x04 */
+};
+#define POSE_PLACEMENT_ENTRY_SIZE 8
+#define POSE_MOTION_FLIP_X 0x10   /* bit of motionState+2 mirroring the angle */
+#define POSE_HALF_TURN 0x8000
+#define POSE_QUARTER_TURN 0x4000
+#define POSE_TRIG_FUNC_TABLE 0x08671BFC

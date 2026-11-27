@@ -1,5 +1,5 @@
 s32 setAnimationFrame(s32, s32, s32, s32);
-void sub_080AA8A0(void *, s32);
+void computePosePlacementOffset(void *, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 /* Refresh the child sprite's pose-based position; when the current script
@@ -15,7 +15,7 @@ void sub_080AA7D8(void *entity)
   sprite = *(s32 *)(self + 0x38);
   motion = *(s32 *)(self + 0x3C);
   status = motion + 0x34;
-  sub_080AA8A0(entity, motion);
+  computePosePlacementOffset(entity, motion);
   if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 4)
   {
     setAnimationFrame(sprite, status, 0xA, 0);

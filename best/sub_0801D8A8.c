@@ -77,8 +77,9 @@ void sub_0801D8A8(struct Entity *arg0)
   }
   {
     s32 idx = *(s16 *)((u8 *)arg0 + 0x22);
+    s32 idx2 = idx * 2;
     u8 *script = ((u8 *)arg0) + 0x18;
-    _call_via_r1(arg0, (void *)(*(u32 **)((u8 *)arg0 + 0x14))[*(u8 *)(script + idx * 2)]);
+    _call_via_r1(arg0, (void *)(*(u32 **)((u8 *)arg0 + 0x14))[*(u8 *)(script + idx2)]);
   }
   arg0->childIndex = arg0->childIndex - 1;
   if (arg0->flags & 0x8000)
@@ -108,12 +109,12 @@ void sub_0801D8A8(struct Entity *arg0)
   animData = *(u32 *)(extra + 0xC);
   animData = (animData + 0x800) & 0xFFFF;
   *(u32 *)(extra + 0xC) = animData;
-  if ((u32)(animData - 0x4000) > 0x7FFF) {
-    sprite->attr |= gMainWorkspace.f18C2;
-    sprite->unk1C = 0x8000000B;
-  } else {
+  if ((u32)(animData - 0x4000) <= 0x7FFF) {
     sprite->attr |= gMainWorkspace.f18C2;
     sprite->unk1C = 0x80000007;
+  } else {
+    sprite->attr |= gMainWorkspace.f18C2;
+    sprite->unk1C = 0x8000000B;
   }
   {
     u8 *coordBase = gCameraState;

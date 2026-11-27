@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795814853.1749454,
- "revision": 71178,
+ "saved_at": 1795815103.307375,
+ "revision": 71194,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1790,28 +1790,6 @@
     "-O1",
     "-fno-strength-reduce"
    ]
-  },
-  "606600:134824328": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateJitteredParticleSpawner",
-   "vram": 134824328
-  },
-  "244804:134462532": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_0803BC44",
-   "vram": 134462532
   }
  },
  "instructions": "",
@@ -2153,8 +2131,7 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h",
-  "rom": "common_rom.h"
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5714,8 +5691,8 @@
   },
   "sub_0801D8A8": {
    "vram": 134338728,
-   "best_score": 1925,
-   "best_by": "opencode-hy4-flash-free-65"
+   "best_score": 1500,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0801DA44": {
    "vram": 134339140,
@@ -9005,6 +8982,11 @@
   "sub_0803BBFC": {
    "vram": 134462460,
    "matched_by": "opencode-hy4-flash-free-1",
+   "readable": false
+  },
+  "sub_0803BC44": {
+   "vram": 134462532,
+   "matched_by": "opencode-hy4-flash-free-11",
    "readable": false
   },
   "sub_0803BE00": {
@@ -19210,7 +19192,7 @@
   "updateScriptedMultiPartObject": {
    "vram": 134875444,
    "matched_by": "opencode-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080A0A5C": {
    "vram": 134875740,
@@ -20422,10 +20404,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080AA8A0": {
+  "computePosePlacementOffset": {
    "vram": 134916256,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_080AA9C8": {
    "vram": 134916552,
@@ -23625,11 +23607,6 @@
   "sub_080C3BB0": {
    "vram": 135019440,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
-  },
-  "sub_0803BC44": {
-   "vram": 134462532,
-   "matched_by": "opencode-hy4-flash-free-11",
    "readable": false
   }
  },
@@ -46893,7 +46870,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080AA8A0",
+   "name": "computePosePlacementOffset",
    "vram": 134916256,
    "size": 296,
    "status": "open"
@@ -54329,6 +54306,12 @@
    "kind": "func"
   },
   {
+   "name": "computePosePlacementOffset",
+   "address": 134916256,
+   "size": 296,
+   "kind": "func"
+  },
+  {
    "name": "initCompositeEnemy",
    "address": 134921148,
    "size": 432,
@@ -55433,6 +55416,12 @@
    "kind": "data"
   },
   {
+   "name": "gPosePlacementTable",
+   "address": 135274872,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gCompositePartParams",
    "address": 135274996,
    "size": 0,
@@ -56191,7 +56180,7 @@
   },
   {
    "address": 135049912,
-   "type": "struct KindTable[]",
+   "type": "struct PartTable[]",
    "source": "match"
   },
   {
@@ -56680,6 +56669,11 @@
    "source": "match"
   },
   {
+   "address": 135274872,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 135274996,
    "type": "u32[]",
    "source": "match"
@@ -57150,13 +57144,18 @@
    "source": "match"
   },
   {
+   "address": 140967432,
+   "type": "u32[]",
+   "source": "match"
+  },
+  {
    "address": 140972388,
    "type": "u32[]",
    "source": "match"
   },
   {
    "address": 140975024,
-   "type": "u32",
+   "type": "u32[]",
    "source": "match"
   },
   {

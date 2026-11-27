@@ -5,7 +5,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 findKindIndex(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_080AA8A0(void *, void *);
+extern void computePosePlacementOffset(void *, void *);
 extern s64 scaleByRandom(s32);
 struct S_02025FF0
 {
@@ -47,7 +47,7 @@ void sub_080AA650(void *entity)
   motion = *((void **) (((char *) entity) + 0x3C));
   status = ((char *) motion) + 0x34;
   *((s16 *) (((char *) motion) + 0x1C)) = 0x5F;
-  sub_080AA8A0(entity, motion);
+  computePosePlacementOffset(entity, motion);
   spriteBase = findKindIndex(*((s16 *) (((char *) motion) + 0x1C)));
   *((s16 *) (((char *) motion) + 0x22)) = (s16) spriteBase;
   if (((s32) (((u32) spriteBase) << 16)) < 0)

@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="760" viewBox="0 0 840 760" role="img" aria-labelledby="title desc">
-<title id="title">3,991 / 4,296 functions matched (92.9%)</title>
+<title id="title">3,992 / 4,296 functions matched (92.9%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="760" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">gba</text>
-<text x="20" y="59" font-size="16">3,991 / 4,296 functions matched (92.9%)</text>
+<text x="20" y="59" font-size="16">3,992 / 4,296 functions matched (92.9%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="743.203" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="743.389" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 3,991</text>
+<text x="36" y="118" font-size="13">Matched: 3,992</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
 <text x="236" y="118" font-size="13">Attempt: 299</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
-<text x="436" y="118" font-size="13">Open: 6</text>
+<text x="436" y="118" font-size="13">Open: 5</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
 <text x="636" y="118" font-size="13">Aside: 318</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
@@ -4451,8 +4451,8 @@
 <g><title>sub_0803BBFC: {&#x27;matched&#x27;: 1}</title>
 <rect x="390.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803BC44: {&#x27;open&#x27;: 1}</title>
-<rect x="400.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803BC44: {&#x27;matched&#x27;: 1}</title>
+<rect x="400.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0803BE00: {&#x27;matched&#x27;: 1}</title>
 <rect x="410.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -11642,7 +11642,7 @@
 <g><title>sub_080AA860: {&#x27;matched&#x27;: 1}</title>
 <rect x="360.000" y="640" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080AA8A0: {&#x27;matched&#x27;: 1}</title>
+<g><title>computePosePlacementOffset: {&#x27;matched&#x27;: 1}</title>
 <rect x="370.000" y="640" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080AA9C8: {&#x27;matched&#x27;: 1}</title>
