@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="760" viewBox="0 0 840 760" role="img" aria-labelledby="title desc">
-<title id="title">3,984 / 4,296 functions matched (92.7%)</title>
+<title id="title">3,987 / 4,296 functions matched (92.8%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="760" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">gba</text>
-<text x="20" y="59" font-size="16">3,984 / 4,296 functions matched (92.7%)</text>
+<text x="20" y="59" font-size="16">3,987 / 4,296 functions matched (92.8%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="741.899" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="742.458" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 3,984</text>
+<text x="36" y="118" font-size="13">Matched: 3,987</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 303</text>
+<text x="236" y="118" font-size="13">Attempt: 300</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
 <text x="436" y="118" font-size="13">Open: 9</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
@@ -1838,8 +1838,8 @@
 <g><title>sub_080171A4: {&#x27;matched&#x27;: 1}</title>
 <rect x="480.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080171E8: {&#x27;attempt&#x27;: 1}</title>
-<rect x="490.000" y="230" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_080171E8: {&#x27;matched&#x27;: 1}</title>
+<rect x="490.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0801728C: {&#x27;matched&#x27;: 1}</title>
 <rect x="500.000" y="230" width="8.000" height="8" fill="#238636"/>
@@ -2138,8 +2138,8 @@
 <g><title>sub_0801A948: {&#x27;matched&#x27;: 1}</title>
 <rect x="680.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0801A98C: {&#x27;attempt&#x27;: 1}</title>
-<rect x="690.000" y="240" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_0801A98C: {&#x27;matched&#x27;: 1}</title>
+<rect x="690.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0801AA30: {&#x27;matched&#x27;: 1}</title>
 <rect x="700.000" y="240" width="8.000" height="8" fill="#238636"/>
@@ -4565,8 +4565,8 @@
 <g><title>sub_0803D85C: {&#x27;matched&#x27;: 1}</title>
 <rect x="770.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803D8BC: {&#x27;attempt&#x27;: 1}</title>
-<rect x="780.000" y="340" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_0803D8BC: {&#x27;matched&#x27;: 1}</title>
+<rect x="780.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0803D960: {&#x27;matched&#x27;: 1}</title>
 <rect x="790.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -9959,7 +9959,7 @@
 <g><title>scriptCmdSpawnAnimatedSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="350.000" y="570" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08095A14: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateCameraSnappedProjectile: {&#x27;matched&#x27;: 1}</title>
 <rect x="360.000" y="570" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08095B44: {&#x27;matched&#x27;: 1}</title>

@@ -15344,7 +15344,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08095A14",
+  "function": "updateCameraSnappedProjectile",
   "text": "Releasing: regalloc issue remaining; best attempt saved.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9757993,
@@ -97832,7 +97832,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08095A14",
+  "function": "updateCameraSnappedProjectile",
   "text": "Ceiling at 1685 (88.5% best). All structural matches. Regalloc wall: standard prologue but register mapping differs throughout. Call relocations differ project-wide. Unfixable from C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4104187,
@@ -100912,7 +100912,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08095A14",
+  "function": "updateCameraSnappedProjectile",
   "text": "Cannot get closer: proven agbcc register allocation wall. Target loads temp_r7 into r7 explicitly (ldr r7, [r4,#0x38]) before temp_r5 into r5; agbcc allocates by first-use order (temp_r5 used in call->r5, temp_r7 used in if/else->r6, p18 used later->r7). No C spelling changes the allocation order (tried declaration order, assignment order, dummy vars). Call relocations also differ. COORD block matches sub_08026BDC pattern. Fundamental agbcc codegen limitation.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4271588,
@@ -106000,7 +106000,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08095A14",
+  "function": "updateCameraSnappedProjectile",
   "text": "Cannot get closer within this session's budget: improved the function substantially (1685 -> 1180, 92%, first 36 insns byte-exact) by fixing the real COORD-block bug and the bit-op temporaries. The remaining 1180-point gap is entirely deterministic agbcc register allocation/scheduling: target computes arg0+0x18 into r6 after the flag AND (ours before), uses r2 for the zero store (ours r3), r1 for the 0x22 index (ours r2), and a different operand order for the final 0x8000 AND; the two extra emitted instructions shift all literal-pool offsets. Five compiles this session explored these (common-block duplication regressed to 4446; u32-cast commutative flip had no effect), and the inherited 15 prior attempts also floor at 1685. No further C-side lever found; ordinary correct C, not hand asm, not not_c. Releasing to complete the final session claim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.455503,
@@ -353311,6 +353311,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:78c9b325998d59ce07287e5f7247608c68a0eebb96f009b31470d1f18a8b2bc1:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
  },
  {
+  "function": "sub_0801A98C",
+  "text": "Best saved candidate d5ca515665eb84a228a4 (also b5bb02df) scores 1900, 74/74 insns. Remaining: long-lived pointer register permutation (target actor=r5, work=r4, timer=r6; candidate actor=r4, work=r6, timer=r5) plus value-selection shape: target cmp; bgt/ble; ldr r0,[pc] 0xFFFFC000; b join, candidate hoists pool load into r1 then overwrites with movs #0x80;lsls #7. Recovered: both inner calls are getSpriteFacingSign(actor), not absXFromFocus; final script-step block uses obj (r7), not actor. Callees: 0x08014938 signOf, 0x08005820 scaleByRandom, 0x08014900 absXFromFocus, 0x08014990 getSpriteFacingSign, 0x080C31E8 _call_via_r3. search_flags: -fno-expensive-optimizations 1895, others 1900, Os 4215. Ternary/if forms and declaration-order swaps left diff unchanged.\ncallee identity fix, actor/obj argument producers, statement/declaration order, ternary forms, all flag variants\nscore plateau 1900 with register permutation and constant-load scheduling residual",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795785508.7341423,
+  "score_before": 1900,
+  "score_after": 1900,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:444e7e4ca3f689c7af584024d1e68e3c5a2a5a6defb97e3a61d860c4ba4be8aa:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
+ },
+ {
   "function": "sub_080A2990",
   "text": "Key finding (this agent): the ROM flag test is `bit1 of step.counter`. Writing the inner condition as `if (!(2 & c)) { +0x10000 } else { -0x10000 }` (logically negated, arms swapped) makes agbcc emit the target's `bne` instead of `beq` and improves score 1490 -> 1300. With a bitfield struct for the flag it reaches 1290 (best). Full decode of ROM bytes at 0x080A2990: r3=self, r2=sprite, r4=work, r5=const 2, r6=scratch; prologue push{r4,r5,r6,lr}. All remaining mismatches cascade from agbcc coalescing the loaded counter byte into r0 instead of the ROM's r1: ROM does `ldrb r1,[r0,#0x19]; movs r5,#2; adds r0,r5,#0; ands r0,r1`, ours emits `ldrb r0; ands r0,r5` (2 missing copies). Keeping byte in r1 would also free r6 for the literal/constant rows and restore push{r4,r5,r6,lr}. Tried without success: u32/s32/u8/s8/u16 c types, mask locals of all widths and const/volatile, operand order, u16/u32 bitfield storage units, static inline mask helper, using the mask local for index multiply, declaration order, all flag profiles, local-repair families.",
   "by": "opencode-hy4-flash-free-62",
@@ -353353,6 +353362,15 @@
   "created_at": 1795786614.152011,
   "score_before": 0,
   "score_after": 0
+ },
+ {
+  "function": "sub_080171E8",
+  "text": "Best 1905/74insns (74.2%). Fixed: count narrowing (s32+cast), sub_080149A0->sub_08014990 in <=0x300000 branch, sub_080C31E4 signature to 4 args (p+0x18,p+0x22,0,*D_08671BD0). try_local_repairs run_weight_scope do{call}while(0) gave 1950->1905. Remaining: regalloc swap r4<->r7 for arg0/p3c (target r7=p,r4=p3c; ours r4=p,r7=p3c), and val materialization - target uses bgt/ble to shared 0x4000 (movs #0x80;lsls #7) with two separate pc-rel 0xFFFFC000 pool loads; ours preloads 0xFFFFC000 into r1 and conditionally overwrites with 0x4000. Declaration reorder/split no effect. Likely agbcc regalloc+literal-pool layout wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795786616.7209837,
+  "score_before": 2500,
+  "score_after": 1905,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:887f9b7bb8136ad34a547cbdfc017ac1b7eed8b7aba8b431788edec4e6922ed9:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
  },
  {
   "function": "spawnActorChildEffectScaledDirection",
@@ -353952,6 +353970,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:d9f856bdcb6359feca9b4175bbca86d93cb3975ea2cab574cec2de4cca775aee"
  },
  {
+  "function": "sub_080171E8",
+  "text": "Best 1905 (74.2%), 74 insns both. Remaining: target r7=p(arg0), r4=*(p+0x3c), r5=*(p+0x38), r6=p3c+0x48; candidate swaps p and p3c between r4/r7. Target loads 0xFFFFC000 once from one pool word reused twice (ldr r0,[pc,#4] x2); candidate has two pool words. Target/materialization of 0x4000 differs in branch polarity (bgt vs ble). Tried: use arg0 directly -> 1950; invert both inner conditions to <=0 -> 2625 (agbcc merged the two identical branches, 62 insns); declaration reorder -> 1905 unchanged; try_local_repairs (single_use_inline, run_weight_scope, local_weight_ladder) -> 1905/1950/1905. bl/D_ diagnostics are length-misalignment false positives.\narg0-direct; condition inversion; declaration reorder; local repairs\narg0 1950; inversion 2625 (merged branches); reorder 1905; repairs 1905/1950/1905",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795790129.1540425,
+  "score_before": 1905,
+  "score_after": 1905,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
+ },
+ {
   "function": "sub_08093B10",
   "text": "[Released without compiling it once; notes not checked by a compile.] Fifth sibling of the 0x020279E8 predicate family, range check 4..5. Same agbcc leaf-LR-frame wall; 8 compiles by 4 agents produced one distinct diff at 305. No C shape removes the frame; flags confirmed not the issue via search_flags on sibling sub_08090A7C.",
   "by": "opencode-hy4-flash-free-64",
@@ -354135,6 +354162,15 @@
   "score_before": 215,
   "score_after": 215,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:f60b32245a7ffb3a087ea0698fe63ec586b85293ffbdcab55e7c232e1845be52"
+ },
+ {
+  "function": "sub_0801A98C",
+  "text": "Score 1365 (81.5%), 74/74 insns. Improved from saved 1900 to 1365 by fixing value-selection branch shape in the absXFromFocus/getSpriteFacingSign inner branches.\n\nRemaining diffs (40 rows): dominant register permutation (23 rows) - target actor=r5, work=r4, timer=r6; candidate actor=r4, work=r6, timer=r5. Cascades through most of function. Also small structural diffs in second inner value-selection (hoisting/branch polarity) and tail. Handoff noted 11 prior trials at 1900; regalloc permutation persisted.\n\nTried: declaration/load order swaps, try_local_repairs (single_use_inline, dead_local_stage, balanced_pointer_calls - all worse), inverted second inner condition (regressed badly to 2275). Same regalloc diff unchanged by decl order.\nNext step: Break actor/work/timer register permutation (target r5/r4/r6). Try different C-level live-range shaping, temp reuse, or call argument ordering around signOf/absXFromFocus/getSpriteFacingSign to force agbcc allocation; also recheck second inner value-selection for exact bgt/ble + fallthrough literal shape once regalloc is closer.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795792874.0875368,
+  "score_before": 1900,
+  "score_after": 1365,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
  },
  {
   "function": "sub_080245EC",
@@ -357727,6 +357763,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:7f48f21c4d635b3a689f72ea5db37bf40a643cdd70cc4ee05402a960f2355ac5"
  },
  {
+  "function": "sub_0803D8BC",
+  "text": "Best 1100 (69/75 insns, 85.3%). Remaining 14 diff rows: 5 branch-target, 3 pc-relative operand, 6 deleted. Deleted are mostly pool/nop bytes (movs r0,r0 x2, .byte 0xfe,0xff, strh r0,[r0], .byte 0xfe,0xff) plus 1 real structural difference: target loads r1=0xFFFD0000 in both branches before the shared tail (kind==0xE: ldr r1,[pc,#8]; b shared; kind!=0xE: ldr r1,[pc,#0x28]; fallthrough), shared tail does adds r0,r0,r1; str r0,[r5,#0x14]. Candidate loads 0xFFFD0000 at merge as part of `tmp-0x30000`, so r1 preload is missing in kind==0xE and merge has ldr+adds+str instead of adds+str. Linker diagnostics for all calls are false positives from size/offset shift. Tried: (1) moved `tmp-0x30000` into both branches with merge storing tmp - score 1410, worse. (2) goto tail_store in kind==0xE - score 1100, identical diff. (3) try_local_repairs (6 variants) - no improvement.\nComputed `tmp = (s32)scaleByRandom(0x4000) - 0x30000` inside both branches and stored `tmp` at merge; also tried goto to shared tail label.\nBoth kept or worsened score (1410 and 1100). Neither reproduced target's per-branch r1=0xFFFD0000 preload before shared adds+str tail.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795807145.6504405,
+  "score_before": 1670,
+  "score_after": 1100,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:726fc01325c306360913f637b6c6595c2383d10c25fab764abb786a4e99afbf9"
+ },
+ {
   "function": "sub_0803C874",
   "text": "[Released without compiling it once; notes not checked by a compile.] No m2c draft (parse error). Large (~174 insns), no similar twins. Needs manual RE from full assembly and likely struct/type inference.",
   "by": "opencode-iceman-contributor-free-11",
@@ -358144,48 +358189,84 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
  },
  {
+  "function": "sub_0803DB08",
+  "text": "Rev 24a6b3e63fcfe3377928 score 10 (57/57). Only regswap: target movs r1,#0x1C; ldrsh r0,[r5,r1] vs compiled movs r0,#0x1C; ldrsh r1,[r5,r0] (for v = *(s16*)(r5+0x1C)). Handoff: revision=24a6b3e63fcfe3377928; tried=compile_and_diff(score10), try_local_repairs compare (no effect on that load); changed=only r0/r1 swap remains; title=treat as allocator wall, unlikely fixable by C reshapes.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808761.6125243,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:949377948269ddcd793a3a1bfcc9daa95c9905d3dd8a09ea2366d3e17060f2bc"
+ },
+ {
   "function": "sub_0803D8BC",
-  "text": "Best 1100 (69/75 insns, 85.3%). Remaining 14 diff rows: 5 branch-target, 3 pc-relative operand, 6 deleted. Deleted are mostly pool/nop bytes (movs r0,r0 x2, .byte 0xfe,0xff, strh r0,[r0], .byte 0xfe,0xff) plus 1 real structural difference: target loads r1=0xFFFD0000 in both branches before the shared tail (kind==0xE: ldr r1,[pc,#8]; b shared; kind!=0xE: ldr r1,[pc,#0x28]; fallthrough), shared tail does adds r0,r0,r1; str r0,[r5,#0x14]. Candidate loads 0xFFFD0000 at merge as part of `tmp-0x30000`, so r1 preload is missing in kind==0xE and merge has ldr+adds+str instead of adds+str. Linker diagnostics for all calls are false positives from size/offset shift. Tried: (1) moved `tmp-0x30000` into both branches with merge storing tmp - score 1410, worse. (2) goto tail_store in kind==0xE - score 1100, identical diff. (3) try_local_repairs (6 variants) - no improvement.\nComputed `tmp = (s32)scaleByRandom(0x4000) - 0x30000` inside both branches and stored `tmp` at merge; also tried goto to shared tail label.\nBoth kept or worsened score (1410 and 1100). Neither reproduced target's per-branch r1=0xFFFD0000 preload before shared adds+str tail.",
+  "text": "Matched with repair_category=constants. Final literal pool is [0xFFFE8000, 0xFFFD0000, 0x08671BB0]. The non-0xE branch's negative speed is 0xFFFE8000 (i.e. -0x18000, symmetric with +0x18000), NOT 0xFFFD0000. The 0xE branch uses \u00b10x20000 (0xFFFE0000 negative) and delta 0xFFFE8000. scriptTable is a plain pointer constant `(s32 *)0x08671BB0` (not a double dereference).",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795808775.6719007,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:726fc01325c306360913f637b6c6595c2383d10c25fab764abb786a4e99afbf9"
+ },
+ {
+  "function": "sub_080144D8",
+  "text": "Frameless-leaf prologue wall: target 18 insns bare bx lr, candidate 20 insns push{lr}/pop{r0}/bx r0, body/pool otherwise match. Clean C compile score 355 unchanged; try_local_repairs/budget exhausted in prior attempts per notes. No C-shape fix identified; likely agbcc leaf-frame emission wall.",
   "by": "opencode-iceman-contributor-free-12",
-  "created_at": 1795807145.6504405,
-  "score_before": 1670,
-  "score_after": 1100,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:726fc01325c306360913f637b6c6595c2383d10c25fab764abb786a4e99afbf9"
+  "created_at": 1795808793.466659,
+  "score_before": 355,
+  "score_after": 355,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:5c68ef414a88af8749d129af2fe13cdd4cba44a82beada603d0d9b3022272984"
+ },
+ {
+  "function": "sub_080BEE6C",
+  "text": "Best 1650 (rev 6d17af51777cca9dedd9), up from historical 2270. Wins: check `gCameraState[0x13AE]` before `base = gCameraState;`; use `pAF = base + 0x13AF` not `gCameraState + 0x13AF` (the latter is a compile-time pointer folded into one relocation). Linker \"you call divideInt where the original calls something else\" is a FALSE POSITIVE: raw bytes at +0x62 are `04 f0 27 f8` -> BL 0x080C2F20 = divideInt (`swi #6; bx lr`), exactly the ROM callee. Do not change it. Remaining: (a) target copies base into r0 then `adds r4,r0,#0` before cmp/bls; candidate loads r4 directly (allocator wall); (b) target keeps literals 0x1361 in r3 and 0x13AA in r7, deriving +0x4B/-4/-0x48; candidate CSEs all from 0x1361 (+0x49,+2,-6,-0x42); (c) candidate hoists gfx load 2 rows early. FAILED: io-move-after-first-store alone 3085; io+offB0 move 4605 (lost r9 saves); local repairs tie/1850/4685.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795808793.575356,
+  "score_before": 1650,
+  "score_after": 1650,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:59e6b8cff42ab8e2ea4d5ff89ddfbdeb8c9cfc95ba3190b31d509291153a41c7"
+ },
+ {
+  "function": "sub_080C050C",
+  "text": "Score 15 (25/25) rechecked. Residual 3 regalloc rows (target reuses r2 for loaded entry pointer in specific lifetime; agbcc prefers r3) \u2014 prior terminal wall. No change from compile_and_diff now.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808814.1490943,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:8e7c67aa99ea63c073e49ba0bba5fd86c30b184ba11688740975b64c0eae9f99"
  },
  {
   "function": "sub_080171E8",
-  "text": "Best 1905/74insns (74.2%). Fixed: count narrowing (s32+cast), sub_080149A0->sub_08014990 in <=0x300000 branch, sub_080C31E4 signature to 4 args (p+0x18,p+0x22,0,*D_08671BD0). try_local_repairs run_weight_scope do{call}while(0) gave 1950->1905. Remaining: regalloc swap r4<->r7 for arg0/p3c (target r7=p,r4=p3c; ours r4=p,r7=p3c), and val materialization - target uses bgt/ble to shared 0x4000 (movs #0x80;lsls #7) with two separate pc-rel 0xFFFFC000 pool loads; ours preloads 0xFFFFC000 into r1 and conditionally overwrites with 0x4000. Declaration reorder/split no effect. Likely agbcc regalloc+literal-pool layout wall.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795786616.7209837,
-  "score_before": 2500,
-  "score_after": 1905,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:887f9b7bb8136ad34a547cbdfc017ac1b7eed8b7aba8b431788edec4e6922ed9:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
+  "text": "Matched shape: nested constant choices must be direct stores in each branch (0x80<<7 / (s32)0xFFFFC000), not a shared val local; script callback invoked through the r3 bx veneer declared as a 4-arg function with the callback pointer last, with a separate s32 *scriptTable local assigned just before the call. Calling the r2 veneer instead leaves score 10 (single bl-target row).",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808914.2672057,
+  "score_before": 2245,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
  },
  {
-  "function": "sub_080171E8",
-  "text": "Best 1905 (74.2%), 74 insns both. Remaining: target r7=p(arg0), r4=*(p+0x3c), r5=*(p+0x38), r6=p3c+0x48; candidate swaps p and p3c between r4/r7. Target loads 0xFFFFC000 once from one pool word reused twice (ldr r0,[pc,#4] x2); candidate has two pool words. Target/materialization of 0x4000 differs in branch polarity (bgt vs ble). Tried: use arg0 directly -> 1950; invert both inner conditions to <=0 -> 2625 (agbcc merged the two identical branches, 62 insns); declaration reorder -> 1905 unchanged; try_local_repairs (single_use_inline, run_weight_scope, local_weight_ladder) -> 1905/1950/1905. bl/D_ diagnostics are length-misalignment false positives.\narg0-direct; condition inversion; declaration reorder; local repairs\narg0 1950; inversion 2625 (merged branches); reorder 1905; repairs 1905/1950/1905",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795790129.1540425,
-  "score_before": 1905,
-  "score_after": 1905,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
+  "function": "setKind87EffectLayerAttrs",
+  "text": "Fresh compile this session confirms the inherited terminal wall: score 570, target 60 insns / ours 60, body otherwise byte-exact. Residual rows: mandatory `push {lr}` at row 0 vs target's frameless first instruction, swapped first two loads (`ldr r2,[r0,#0x3c]` vs `ldr r3,[pc,#0x14]`), `bhi` byte displacement 25d8 vs 26d8, `ldr r1,[pc,#8]` vs `[pc,#0xc]`, lost `movs r0,r0` padding row, and `pop {pc}` vs `bx lr`. This is the accepted frameless Thumb switch/jump-table leaf LR-frame wall (same as sub_08019254); twin sub_080547E0 has an LR frame in theROM and matches agbcc's lowering. Prior agents tried 13 compiles / 4 agents with no improvement. Do not retry return types, declaration order, or case spellings.\ninherited exact-body C (direct stores, volatile field, gKind87EffectLayerAttrs/D_080CE690/D_080CE698 case mapping)\nscore 570 unchanged; residual push{lr}/pop{pc}, pool ripple and bhi byte displacement; jump-table pointer diagnostics are false positives from the shifted pool",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809005.502646,
+  "score_before": 570,
+  "score_after": 570,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:960db762946c8d18ff6ebc6390c51b0e67a6bbad6287c46aa2f54e4566da330a"
+ },
+ {
+  "function": "sub_0808D6C4",
+  "text": "Confirmed terminal agbcc codegen wall at current -O2 -fno-strength-reduce profile. ROM uses 8x `movs r6,#imm; ldsh rX,[base,r6]; strb` (dead sign extension; Thumb LDRSH is register-offset only); every agbcc spelling tested (plain s16*, volatile s16*, volatile struct with s16 fields, all six flag profiles) emits `ldrh [base,#imm]` instead, losing 16 instructions (108 vs 124) and desyncing literal pools (bogus D_70015F59 / D_1850490B link messages). Clean C 5025, volatile-struct 5895, saved best 5015. Thousands of prior attempts across models/flags all floor here. Not hand asm, not not_c, no boundary issue; pure leaf. Do not retry types/volatility/flags.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795809028.3107517,
+  "score_before": 5025,
+  "score_after": 5025,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:d97924048bd7c98e245ff793467f79bee6ae298c7516f115c89741670954f823"
  },
  {
   "function": "sub_0801A98C",
-  "text": "Best saved candidate d5ca515665eb84a228a4 (also b5bb02df) scores 1900, 74/74 insns. Remaining: long-lived pointer register permutation (target actor=r5, work=r4, timer=r6; candidate actor=r4, work=r6, timer=r5) plus value-selection shape: target cmp; bgt/ble; ldr r0,[pc] 0xFFFFC000; b join, candidate hoists pool load into r1 then overwrites with movs #0x80;lsls #7. Recovered: both inner calls are getSpriteFacingSign(actor), not absXFromFocus; final script-step block uses obj (r7), not actor. Callees: 0x08014938 signOf, 0x08005820 scaleByRandom, 0x08014900 absXFromFocus, 0x08014990 getSpriteFacingSign, 0x080C31E8 _call_via_r3. search_flags: -fno-expensive-optimizations 1895, others 1900, Os 4215. Ternary/if forms and declaration-order swaps left diff unchanged.\ncallee identity fix, actor/obj argument producers, statement/declaration order, ternary forms, all flag variants\nscore plateau 1900 with register permutation and constant-load scheduling residual",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795785508.7341423,
-  "score_before": 1900,
-  "score_after": 1900,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:444e7e4ca3f689c7af584024d1e68e3c5a2a5a6defb97e3a61d860c4ba4be8aa:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
- },
- {
-  "function": "sub_0801A98C",
-  "text": "Score 1365 (81.5%), 74/74 insns. Improved from saved 1900 to 1365 by fixing value-selection branch shape in the absXFromFocus/getSpriteFacingSign inner branches.\n\nRemaining diffs (40 rows): dominant register permutation (23 rows) - target actor=r5, work=r4, timer=r6; candidate actor=r4, work=r6, timer=r5. Cascades through most of function. Also small structural diffs in second inner value-selection (hoisting/branch polarity) and tail. Handoff noted 11 prior trials at 1900; regalloc permutation persisted.\n\nTried: declaration/load order swaps, try_local_repairs (single_use_inline, dead_local_stage, balanced_pointer_calls - all worse), inverted second inner condition (regressed badly to 2275). Same regalloc diff unchanged by decl order.\nNext step: Break actor/work/timer register permutation (target r5/r4/r6). Try different C-level live-range shaping, temp reuse, or call argument ordering around signOf/absXFromFocus/getSpriteFacingSign to force agbcc allocation; also recheck second inner value-selection for exact bgt/ble + fallthrough literal shape once regalloc is closer.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795792874.0875368,
-  "score_before": 1900,
-  "score_after": 1365,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
+  "text": "Byte-identical twin of sub_080171E8: same 74-insn body and register layout, same gScriptStepCallbacks (0x08671BD0) callback via `_call_via_r3` with callback pointer as 4th arg, direct stores in each nested conditional constant branch. Start from sub_080171E8's matched C and only rename the function/data symbol.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809054.9979448,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
  }
 ]

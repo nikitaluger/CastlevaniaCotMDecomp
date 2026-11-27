@@ -13,7 +13,7 @@ struct AnimFlag { u16 flag; };
 
 /* Updates a projectile/hit entity: manages target hit flags and attack state,
  * advances its callback, and snaps its coordinates to the camera. */
-void sub_08095A14(u8 *self) {
+void updateCameraSnappedProjectile(u8 *self) {
     u8 *gfxObj;
     u8 *anim;
     u8 *stateSlot;

@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795809044.4624317,
- "revision": 70851,
+ "saved_at": 1795809151.9570842,
+ "revision": 70855,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,50 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "456284:134674012": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateObjectTileCollision",
-   "vram": 134674012
-  },
-  "252092:134469820": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_0803D8BC",
-   "vram": 134469820
-  },
-  "94696:134312424": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_080171E8",
-   "vram": 134312424
-  },
-  "108940:134326668": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_0801A98C",
-   "vram": 134326668
   }
  },
  "instructions": "",
@@ -2164,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -9040,8 +8995,8 @@
   },
   "sub_0803C250": {
    "vram": 134464080,
-   "best_score": 1215,
-   "best_by": "opencode-hy4-flash-free-75"
+   "best_score": 370,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0803C308": {
    "vram": 134464264,
@@ -13946,7 +13901,7 @@
   "updateObjectTileCollision": {
    "vram": 134674012,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0806F78C": {
    "vram": 134674316,
@@ -17743,7 +17698,7 @@
    "matched_by": "opencode-iceman-contributor-free-8",
    "readable": true
   },
-  "sub_08095A14": {
+  "updateCameraSnappedProjectile": {
    "vram": 134830612,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -43517,7 +43472,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08095A14",
+   "name": "updateCameraSnappedProjectile",
    "vram": 134830612,
    "size": 304,
    "status": "open"
@@ -53953,6 +53908,12 @@
    "kind": "func"
   },
   {
+   "name": "updateCameraSnappedProjectile",
+   "address": 134830612,
+   "size": 304,
+   "kind": "func"
+  },
+  {
    "name": "dispatchSavedSpriteHandler",
    "address": 134831332,
    "size": 30,
@@ -55825,6 +55786,12 @@
    "kind": "data"
   },
   {
+   "name": "gCameraSnappedProjectileStepTable",
+   "address": 140966624,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gCompositeStateHandlers",
    "address": 140966800,
    "size": 0,
@@ -55907,7 +55874,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct TilePageWorkspace",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -56917,7 +56884,7 @@
   },
   {
    "address": 140975056,
-   "type": "u32",
+   "type": "s32",
    "source": "match"
   },
   {
@@ -56927,7 +56894,7 @@
   },
   {
    "address": 140975068,
-   "type": "s32[]",
+   "type": "s32",
    "source": "match"
   },
   {
