@@ -12,7 +12,7 @@ void sub_080489BC(void *arg0)
   s32 rr;
   s32 new_var2[2];
   s32 r6;
-  s8 r2;
+  s32 r2;
   u16 *tbl;
   u16 val;
   s32 i;

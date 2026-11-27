@@ -2,7 +2,6 @@ struct S66MainWorkspace
 {
   u8 _0[0x24];
   u32 f24;
-  u8 _28[2];
   u16 f28;
 };
 extern struct S66MainWorkspace gMainWorkspace;

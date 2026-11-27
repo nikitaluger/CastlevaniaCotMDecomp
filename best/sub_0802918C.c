@@ -77,9 +77,12 @@ join:
     {
         s32 a = sub_08065420(0x140001) + 0xFFF60000 + ((struct MwView *)gMainWorkspace)->a1750;
         s32 b = scroll;
+        s32 bHi, aHi;
         if (b < 0) b += 0xFFFF;
-        *(u16 *)(newObj + 0x4c) = (u16)(b >> 16);
+        bHi = b >> 16;
+        *(u16 *)(newObj + 0x4c) = (u16)bHi;
         if (a < 0) a += 0xFFFF;
-        *(u16 *)(newObj + 0x54) = (u16)(a >> 16);
+        aHi = a >> 16;
+        *(u16 *)(newObj + 0x54) = (u16)aHi;
     }
 }

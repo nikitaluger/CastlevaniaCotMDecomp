@@ -49,7 +49,7 @@ void sub_08037FC0(void *owner) {
     animData = (u8 *)logic + 0x34;
     entityRef = (struct LogicEntityRef *)((u8 *)logic + 0x48);
     installUpdateHandler(owner, logic, sub_08038568);
-    animId = ((struct SpeedEntry *)D_080CF0AC)[U8(owner, 0x4C)].animId;
+    { struct SpeedEntry *speedTable = D_080CF0AC; animId = speedTable[U8(owner, 0x4C)].animId; }
     initWorkStateForKind(owner, sprite, logic, savedAC, (u32)animId);
     zero = 0;
     logic->kind = 8;

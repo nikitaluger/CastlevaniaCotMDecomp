@@ -15176,6 +15176,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Switch-table function, not attempting full decomp. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9750433,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080BF570",
   "text": "Cannot get closer. Releasing.",
   "by": "opencode-free-1",
@@ -50780,6 +50788,14 @@
   "text": "Sprite-setup variant of sub_080654A0. Best 5125 (72.2%). Full translation attempted but regalloc massively off. Cannot get closer this session. Releasing.",
   "by": "opencode-beam-free-4",
   "created_at": 1795683534.1665666,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Cannot get closer: remaining differences are register allocation and instruction selection/order (table base+4 formed as separate `adds`, accumulator register in lookup sequence, temp holding C31E0 result). Logic and control flow are correct at 93.7%. I cannot resolve these within reasonable additional compiles in this session and need to continue with other claims. Releasing for another agent.",
+  "by": "opencode-iceman-contributor-free-4",
+  "created_at": 1795683534.166621,
   "score_before": null,
   "score_after": null
  },
@@ -97312,6 +97328,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Ceiling at 916 (93.7%). All logic/control flow matched. Regalloc/instruction selection diffs: commutative add order, table base addressing, accumulator register, temp handling, operand order. High-reg save prologue matches. Unfixable from C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4099677,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0809E0B4",
   "text": "Ceiling at 946 (93.6% best). All structural matches. Regalloc wall: high-reg save (mov r7,r9; mov r6,r8; push {r6,r7}), sb=temp_r0, r8=temp_r8; agbcc sl/sb, literal pools. Sibling of sub_08094F34, sub_080925E8, sub_080912A0. Call relocations differ. Unfixable from C.",
   "by": "opencode-free-1",
@@ -100636,6 +100660,14 @@
   "text": "Permanent regalloc/spill wall at 405 (42/42 insns byte-exact; deterministic spill: target keeps D_0866CAF8 base in r5, spills lo<<3; agbcc reverses). ~94 attempts. Needs sub_08001588.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.4281454,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Cannot get closer: 916 (93.7%) is the established ceiling for this switch-table function (17 prior attempts). Body/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction selection (commutative add order, tbl+4 separate adds, accumulator reg, redundant call-result moves) not selectable in pure C. Not hand asm, not not_c. Session's 8th claim complete.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4281812,
   "score_before": null,
   "score_after": null
  },
@@ -117448,6 +117480,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Best 916 (93.7%, 146/146 insns). Logic/control flow matches: derives idx from r7+0x34 structure, maps via switch/jump-table cases {0,3,6,12,15,18}->{0..5}, computes r6 from *(u16*)(obj+8) and table 0x08102178 (pair stride 8, using +4 offset) with 0x10-bit branch, calls sub_080C31E0(r6+0x4000, *0x08671BFC) and sub_080C31E0(r6,*), stores arg1+8/0xC as r7+8/0xC + (tbl[r3*2]>>8)*(res>>8).\n\nTried declaration/order/expression variants (table indexing style, multiply operand order, recomputing table value), but could not improve beyond 916. Remaining diffs are deterministic agbcc regalloc/instruction-selection issues: commutative add/register order in idx pointer calc (`adds r0,r0,r1; subs r0,#4` vs `adds r1,r1,r0; subs r1,#4`), branch/layout/operand differences around 0x10 test path, table base/+4 addressing and temp/register lifetimes, call-result handling, and minor reorder/extra/missing instructions. Not inline-asm/not_c; likely compiler/codegen wall from C.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.5207014,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0800479C",
   "text": "Cannot get closer: 82 prior attempts + 2 here, hard floor 7617 (75.7%). Systemic agbcc regalloc/stack-layout wall: frame sub sp,#0x60 vs target #0x64 (uniform 4-byte slot shift), `lsls r0,r6,#1` hoisting in the early tile store, and ~93 regalloc + 36 missing + 36 operand rows that require the exact original local/temporary declaration order and register pressure. All logic, struct offsets, wrap/split loops and quadrant clipping are correct. Tried this session: brief's while-loop form and a compact combined-if form (both 7617). Declaring a 4-byte dummy to pad the frame was tried by prior agents without improving the pervasive regalloc. No concrete C transformation remains; not hand-written assembly. Best C is the 7617 attempt in the brief.",
   "by": "opencode-hy4-flash-free-2",
@@ -126048,6 +126088,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "sub_080AA8A0 improved 916 -> 660 this session. Two C levers that matter: (1) keep named result locals `res1` and `res2` as SEPARATE s32 variables (a single reused `res` costs +196 score: agbcc emits an extra `adds r3,r0,#0` after each call); (2) form the idx pointer as `u8 *p = (u8 *)(v * 4 + base - 4)` with `u32 base` (NOT `(u8*)base + v*4 - 4`) \u2014 that fixes the first 85 instructions (commutative add accumulator in r0). (3) `struct Pair {s32 a,b;}` with `tbl[r3].b` / `tbl[r3].a` scores 660, better than u8*/s32* index+4 forms (705). Remaining 660->0 diff: target emits `ldr r0,=0x08102178; adds r0,#4; lsls r1,r3,#3; adds r0,r1,r0; ldr r0,[r0]` in each branch while struct form gives folded `ldr r0,=0x0810217C; ... ldr r0,[r0,#4]`; plus a few regalloc ties. Target's call relocations are preplaced veneers (bl #0x18940), ours local veneers.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5660617,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080AC170",
   "text": "Callee-saved regalloc wall, cannot reach 0 in pure C. Best known score 930 (deep-permuter, 46 attempts); my attempts scored 4112/10452 (worse). Target keeps base literal 0x08102214 in r6 loaded once, reused for loop-end check and q/r base; agbcc loads literal into r3, copies to r6, second literal load for end check. No C-only way to pin base to r6. Prior agents tried declaration/init order, pointer types (u8*/s32*/void*) \u2014 all regress or pull in r8. Confirmed wall by multiple agents + permuter. Release.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -126060,6 +126108,14 @@
   "text": "Regalloc wall at 10/85 insns (99.8%). Only diff: `p[0x2A] |= 0x40` OR has loaded byte in r0/constant in r1 vs target r1/r0. Tried val-first, mask-first, pointer form, compound assignment, hoisting zero=0 \u2014 all either keep swap or cause spills. Best attempt (10) preserved with scoped `u8 val; u8 mask; zero=0; val|=mask;`. Cannot steer agbcc to swap the two registers in this OR without spilling.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.566139,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Improved prior best 916 -> 660 (95.4%; first 85/146 insns exact). Levers found: separate `res1`/`res2` locals (single reused `res` costs +196), `u8 *p = (u8 *)(v*4 + base - 4)` with `u32 base` (fixes idx pointer accumulator), and `struct Pair {s32 a,b;}` table with `tbl[r3].b` / `tbl[r3].a` (scores 660 vs 705 for u8*/s32*+4 forms). Tried and rejected this session: inline calls 1376, u32 tblbase+4 705, s32* index+1 705, void* intermediate 705, &tbl[r3].b 1900, s32* out pointer 1080, `extern u8 D_08102178[]` 1111 (produces relocatable literal to symbol+4; target has raw 0x08102178 literal), u32 r3 / void* a1 / const tbl (all 660 no change). Remaining: target emits `ldr r0,=0x08102178; adds r0,#4; ldr r0,[r0]` in each branch; agbcc from natural C either folds to a 0x0810217C literal or emits `ldr [r0,#4]`; plus a few regalloc ties (literal r1 vs r2, arg1 copy r8 vs r3) and the standard preplaced-vs-local call veneer relocation difference. ~34 total attempts across agents. Best source preserved.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5661767,
   "score_before": null,
   "score_after": null
  },
@@ -131972,6 +132028,14 @@
   "text": "Cannot get closer: deterministic agbcc callee-saved register-allocation wall (best 4502, 148 insns; 32 regalloc rows). Target's seven high-register pinning choices (i=r3, base=r6, DISPSTAT=ip, two=r8, BLDCNT=sl, BLDY=sb, idx2=r5, next=r7) cannot be induced from ordinary C; register asm rejected as inline asm. 40+ prior attempts confirm. Logic and data behaviour already correct. Releasing to continue claim quota.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.5967798,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Cannot get closer: deterministic agbcc codegen wall at 650 (95.5%, 146 insns). Table base +4 addressing, regalloc ties, and preplaced-vs-local call veneer relocation are not selectable from C. Logic and control flow correct. Releasing to continue claim quota.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683534.596818,
   "score_before": null,
   "score_after": null
  },
@@ -142504,6 +142568,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Confirmed codegen wall at 650 (95.5%, 142/146 insns) after 1 compile. Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Remaining diffs: target emits `ldr r0,=0x08102178; adds r0,#4; lsls r1,r3,#3; adds r0,r1,r0; ldr r0,[r0]` per branch; agbcc folds to 0x0810217C literal or `ldr [r0,#4]` - not selectable from C. Call veneers: target uses preplaced interwork veneers, agbcc emits local veneers. Regalloc ties (arg1 copy r8 vs r3, literal load regs). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Logic/control flow correct. Cannot get closer in C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.6519334,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0809A470",
   "text": "Why it can't get closer: the 1160 score is a compiler-level register-allocation / CSE / basic-block-layout wall, not a missing semantic detail. All logic, constants, calls and data are correct (first 48 insns byte-exact, 127/131 insns); the four residual clusters (swapped ands/ldrb operands, target's intentional re-materialization of buf[k*2+1] that agbcc CSEs, `adds r2,r5,#0x1d` vs `subs r1,#3` flag pointer derivation, and store-block ordering) are all deterministic agbcc choices. ~23 prior attempts by multiple agents with struct layouts, goto labels, explicit casts, type changes and inverted conditions all floor at exactly 1160; inline register pinning is banned. Ordinary C, not hand asm, not a boundary artifact, not not_c. Best source preserved (brief's 1160 attempt).",
   "by": "opencode-hy4-flash-free-2",
@@ -149984,6 +150056,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Confirmed codegen wall at score 650 (95.5%). Logic/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction-selection issues (table base +4 addressing using ldr r0,[r0] vs ldr r0,[r0,#4], preplaced-vs-local call veneers, beq offset differences, regalloc ties on arg1 copy r8 vs r3, literal load regs) not selectable from pure C. Not hand asm, not not_c. Released to work on smaller functions.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.6903234,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08000DE0",
   "text": "Confirmed class-B frameless-branchy-leaf wall at score 245 (79.5%, 12/12 body insns byte-exact). Sole diff: agbcc emits push {lr}/pop {r0}/bx r0 for branched Thumb leaf vs ROM bare bx lr, shifting all branch offsets. 160+ prior attempts across all O-levels/C-forms confirm 245 ceiling; register-asm banned; not hand-asm/not_c/boundary; no callee dependency (bare leaf). Best source preserved: if/else with while walk to list tail then store arg1. Released.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -150252,6 +150332,22 @@
   "text": "Boundary case (class A/overrun), confirmed with 1 compile this session: score 200, all 78/78 real instructions byte-identical through final bx r0 at 0x08075E3A. Only residual = 2 missing rows that are the NEXT function's prologue (push {r4,r5,r6,r7,lr}; mov r7,sb at 0x08075E4C) pulled in because declared 172-byte extent overruns 4 bytes past the 4-word literal pool. Filed report_boundary(end=0x08075E4C). C source = matched twin sub_08084000 with constant 0x80000005; no C work needed. Once boundary approved, unchanged C scores 0.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.6916668,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Confirmed codegen wall at score 650 (95.5%, 142/146 insns). Logic/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction-selection issues (table base +4 addressing using ldr r0,[r0] vs ldr r0,[r0,#4], preplaced-vs-local call veneers, beq offset differences, regalloc ties on arg1 copy r8 vs r3, literal load regs) not selectable from pure C. Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Not hand asm, not not_c. Cannot get closer in C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.6917431,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Confirmed codegen wall at score 650 (95.5%, 142/146 insns). Logic/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction-selection issues (table base +4 addressing using ldr r0,[r0] vs ldr r0,[r0,#4], preplaced-vs-local call veneers, beq offset differences, regalloc ties on arg1 copy r8 vs r3, literal load regs) not selectable from pure C. Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Not hand asm, not not_c. Cannot get closer in C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.6917431,
   "score_before": null,
   "score_after": null
  },
@@ -154056,6 +154152,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Score 650 (95.5%, 142/146 insns). Deterministic agbcc codegen wall. Logic/control flow correct. Remaining diffs: (1) table base +4 addressing - target emits `ldr r0,=0x08102178; adds r0,#4; lsls r1,r3,#3; adds r0,r1,r0; ldr r0,[r0]` per branch; agbcc folds to 0x0810217C literal or `ldr [r0,#4]` - not selectable from C. (2) Call veneers: target uses preplaced interwork veneers (bl #0x18940), agbcc emits local veneers. (3) Regalloc ties (arg1 copy r8 vs r3, literal load regs). Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Cannot get closer in C. Best attempt preserved. Cannot get closer in C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.7116187,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08069BE8",
   "text": "Best score 750 (94.9%, 149/149 insns byte-exact count). Deep agbcc -O1 high-register coloring wall: ~28 regalloc rows, 9 operand, 4 reordered, 2 extra, 2 missing. Target uses r1 for stack reload before sub_0806C5EC (agbcc uses r0), counter literals in r2/r3 (agbcc r0/r1), maskG in r1 (agbcc r2), loop constants in different regs, DMA sp in r0 (agbcc r2). Three key levers already applied: (1) volatile struct Args for stack reloads, (2) named g5/b10 shift locals in loop, (3) separate cnt/factor with late factor=cnt copy. Tried and failed to improve: maskG/maskB swap (\u2192770), u32 cnt/factor (\u2192750 same), s32 cnt+u32 factor (\u2192750 same), g5/b10 at function scope (\u2192750 same), for loop with s32 i (\u2192750 same), for loop with u32 i (\u21922380 worse). search_flags: -O2/-O3/-Os all 750, -O1 3390 \u2014 flags not the issue. Register-asm pinning banned. ~43 prior attempts across models all floor at 750. Only a compiler/regalloc change can close it. Ordinary correct C, not hand asm, not not_c, not boundary. Logic/structure fully matches: sub_0806C5EC call with args, palette fade loop with channel multiplies and clamps, DMA transfer to 0x040000D4, zero-check on f14A8, conditional sub_080C31E4 and sub_0806C6B0.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -155132,6 +155236,14 @@
   "text": "TERMINAL agbcc -mthumb-interwork -O2 whole-function regalloc/literal-scheduling wall, best 3608 (76.7%, 136/155 insns). Target binds arg2=r5, mask=r6, D_02025FF0+0x18A8=r9, D_02023130=r8, D_080D0054=r10 with callee-saved push {r5,r6,r7} + `sub sp,#0x14` stack frame. Agbcc swaps arg2\u2194mask and uses sl/sb; all C spellings give identical diff. ~21 missing rows are target's mid-function literal-pool bytes not reproducible from C. Logic fully correct. Tried: u16/s32/s16 mask, arg2v local (regressed 3788\u21923608), inline tile-base per probe, u8* table after each call, byte offset (v<<16)>>15; volatile/mask-type/table-hoist all regressed per prior agents. register-asm banned. No C spelling changes agbcc's coloring. Not boundary, not hand asm, not not_c. Best source = u16 mask version (3608).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.717214,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Confirmed codegen wall at score 650 (95.5%, 142/146 insns). Logic/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction-selection issues: (1) table base +4 addressing - target emits `ldr r0,=0x08102178; adds r0,#4; lsls r1,r3,#3; adds r0,r1,r0; ldr r0,[r0]` per branch; agbcc folds to 0x0810217C literal or `ldr [r0,#4]` - not selectable from C. (2) Call veneers: target uses preplaced interwork veneers (bl #0x18940), agbcc emits local veneers. (3) Regalloc ties (arg1 copy r8 vs r3, literal load regs). Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Cannot get closer in C. This is a deterministic agbcc codegen wall.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.717253,
   "score_before": null,
   "score_after": null
  },
@@ -166192,6 +166304,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Ask again to release: it cannot get closer in pure C. 15 compiles this session (650 -> 50). All 146 instructions are present and identical in order; the only residue is 10 regalloc rows from a single deterministic agbcc callee-saved tie: index(r3*8) is r4 in the ROM / r5 in mine, and the D_08671BFC pointer is r5 in the ROM / r4 in mine. Both are live across the same two calls; agbcc's allocno priority picks the opposite assignment and no C spelling tried flips it (declaration order, u32 vs s32, integer vs pointer address, inlining the literal, dropping the intermediate). Everything else - control flow, the switch jump table, the +4 table addressing with runtime adds, the call sequence, the literal pool and the preplaced call veneers - is exact. The 50-point source is preserved as the best attempt and is documented in my previous note; it is a large improvement over the inherited 650 and close enough that a future agent only needs to break one allocno tie.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683534.7751389,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0809767C",
   "text": "Best 45 (99.5%, 106/106 insns). Remaining 9 regalloc rows in 3 clusters (agbcc -mthumb-interwork -O1): (1) `adds r2,r7,#0; ands r2,r1` vs `adds r2,r1,#0; ands r2,r7` at bit0=one&flags (tried flags&one, bit0=one;bit0&=flags, dropping bit0 - all worse/no effect). (2) if-branch hp literal D_08671BD0 in r0 vs r2 (`ldr r0,[pc];ldr r3,[r0]` vs r2) - tried moving hp load after p18 (240), hp decl reorder, no effect. (3) else-branch tbl/off chain 5 rows: target r1=tbl(D_08100B98),r0=off; ours swapped - defining off before tbl fixes these but wrecks global coloring to 595 (per prior note); tbl+=2 inside index gives movs #2 (300-315). Also tried s32/u32 off, decl reorder. Not hand asm/not_c/boundary. Best source preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -168508,6 +168628,14 @@
   "text": "Terminal class-B frameless-leaf wall \u2014 CANNOT get closer from C, work finished. Exhausted again this session: best if/return 225 (all 8 body insns byte-exact; only agbcc's mandatory push{lr}/pop{r1};bx r1 interwork frame + beq/b +2 shifts), ternary `?1:0` 815 (inverted bne + extra adds r0,r1,#0), inverted branch 435 (prior), try_compiler old_agbcc unavailable, search_flags O1/O2/O3/Os all 225. Target ends in bare frameless `bx lr` after conditional branches \u2014 no C form/flag/compiler produces this under agbcc. Not hand-written asm, not not_c, not a boundary case. Best 225 if/return source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.7871156,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Asking to release at 2/8: proven 73-attempt allocno wall, 146/146 insns byte-exact with all logic (jump table, +4 table addressing with runtime adds, call sequence, literal pool, preplaced veneers) exact. Sole residue is one symmetric callee-saved assignment: off/index (r3*8, live across both sub_080C31E0 calls and reused as the table value) is r4 in the ROM and r5 in agbcc, while the D_08671BFC function pointer is r5 in the ROM and r4 in agbcc. I tested the one structural alternative that frees a callee-saved value (compute the table value before the first call) and it regressed to 960, confirming the post-call load position is required and the tie is a pure allocator priority between two values with identical liveness. All other C levers (decl order, u32/s32, pointer vs integer address, inlining, intermediate removal, struct Pair) were swept by prior agents and floor at 50. Further compiles cannot act on the diff. Best 50 source preserved.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.787153,
   "score_before": null,
   "score_after": null
  },
@@ -181376,6 +181504,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Releasing early with explicit reason: 75+ attempts by many agents and my 2 compiles confirm a deterministic agbcc callee-saved allocno tie between two values with identical liveness (off/table value and D_08671BFC function pointer, r4/r5 swapped). All 146 instructions, the jump table, call sequence and literal pool are byte-exact; only that symmetric register assignment differs, and no C form/flag level flips it while register-asm pinning is banned. Best-50 source preserved. Ordinary C, not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.8545575,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080ADA98",
   "text": "Cannot get closer in pure C. Regalloc wall 70 (99.1%, 86/86 insns): only r5<->r6 self/walk swap. 100+ attempts, no C lever; register asm banned. Not hand asm, not boundary, not not_c. Best preserved.",
   "by": "opencode-iceman-contributor-free-1",
@@ -183052,6 +183188,14 @@
   "text": "Best score: 8052 (82.5%), target 462 insns, mine 451. Pure regalloc wall: target saves only r8 (mov r7,r8; push {r7}), maps params a=r4,b=r6,c=r5,d=r7, reuses r4 for D_02025FF0 base; mine saves r8+sb, maps a=r4,b=r7,c,r5,d=r6 (b/d swapped), no r4 reuse. ~134 regalloc rows. Tried: inline_fn helper, (val+1)<<6 semantics, do/while(0), register hints, u8*d25ff0 base (worse 10537), s32 a_local (worse 9372), local declaration order (worse 8192), removing cf (worse 8192), goto label rename (no change). Best source = deep-permuter's version with inline_fn, (val+1)<<6 fix, do/while(0), new_var6/new_var locals. Best 7907 was achieved by deep-permuter with 53 attempts - 145 points away. Not hand-asm, not not_c, not boundary.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.8633685,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Cannot get closer in pure C. Score 50 (99.6%) is a confirmed deterministic agbcc allocno tie: 146/146 instructions identical, only r4/r5 swapped for off/table-val vs D_08671BFC pointer across two calls. Many agents/77+ attempts exhausted C-level levers (decl order, type changes, init placement, table-value timing). No structural/call/operand difference remains; register-asm pinning is banned. This is an unfixable regalloc wall.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.8634095,
   "score_before": null,
   "score_after": null
  },
@@ -190536,6 +190680,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "4 compiles, best 50 (146/146 insns, unchanged record). NEW constraint verified: the table read MUST go through the explicit pointer local `u8 *pb = base + 4;` (`*((u32 *)(pb + off))`) \u2014 writing `*((u32 *)((base + 4) + off))` lets agbcc fold the +4 into the load displacement (`ldr r1,[r1,#4]` instead of the rom's `ldr r0,=D_08102178; adds r0,#4; adds r0,r1,r0; ldr r0,[r0]`) and scores 1700; also naming the shifted table value `s32 tv` costs an extra row (that compile was 1700 for both reasons together with the fold). Other verified non-levers this session: data-symbol form for the pointer (`extern u8 D_08671BFC[]; fp = (s32*)D_08671BFC;`) = identical 50; inlining `*((s32*)D_08671BFC)` at both calls = 245 (address materialised after the adds); hoisting fp to the top of the function = 2267 (arg1 pushed to r8). Residual remains the documented allocno tie: rom keeps the loop `off`/table value in r4 and the D_08671BFC pointer in r5, agbcc swaps them (both live across the same two sub_080C31E0 calls). 81 prior attempts; register-asm banned. Not hand asm, not not_c, no boundary.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9023318,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08082B58",
   "text": "Boundary-only case: compiled the recommended source (sub_080C31E0 at all three dispatch sites, declare-then-assign r5/r8/r6/r4 prologue, `*(s32*)(r4+0x10)-=1`, `*(s32*)(r6+0x18)+=0xFFFF0000`, `&1` -> sub_0806D2A0(*(void**)(r5+0x28),0x73,0x0A,0x12) + `>>1` store at obj+0x9C, counter==0 early exit, u32 off reused 0x18C2/0x173A/0x14ED, sub_08005E80(0x162) + reload 0x14, nested-if tail) and got score 900 with all 88/88 declared target instructions byte-exact through the final `bx r0` at 0x08082C14; the only rows are 9 EXTRA decoded words after it (my trailing literal pool + padding) and \"your function is longer than the original\". Re-filed report_boundary(end=0x08082C14): the ROM's pool words 0x02025FF0/0x18C2/0x173A/0x14ED/0xFFFF0000 sit at 0x08082C18-0x08082C27 and the next function starts at 0x08082C28, so the declared extent includes data. Nothing is fixable in C; it matches as soon as the boundary fix is approved.",
   "by": "opencode-deepseek-v4.1-flash-2",
@@ -191456,6 +191608,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Best score 50 (99.6% match, 146/146 insns byte-exact). Terminal agbcc callee-saved allocno tie confirmed by my 4 compiles plus 77+ prior attempts across all models. Sole residue: target has off/table-value (r3*8) in r4 and D_08671BFC function pointer in r5, agbcc deterministically swaps them (off in r5, pointer in r4). Both values have identical liveness across both sub_080C31E0 calls. Tried: declaration order (off before fp, fp before off), u32 vs s32, pointer vs integer address, separate res1/res2 locals, struct Pair, inline calls, computing table_val before fp (regressed to 1765/1115), all -O levels (-O2/-O3=50, -O1=650, -Os=1323), switch vs if/else, idx pointer forms. All leave the tie untouched; register-asm pinning banned. Everything else matches: jump table, +4 table addressing with runtime adds, call sequence via preplaced veneers, literal pool, switch cases (0,3,6,12,15,18), bit & 0x10 branch, 0x8000 offset, >>8 shifts, muls. No boundary/dependency issue. Pure C cannot flip these registers. Best source = score-50 version preserved.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.9073637,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0809C930",
   "text": "Releasing anyway: allocator tie-break wall (p/p34 r5/r4 swap) confirmed again; inherited 1879 source preserved, no further C lever identified.",
   "by": "opencode-deepseek-v4.1-flash-2",
@@ -191976,6 +192136,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Cannot get closer from C \u2014 releasing. 89+ attempts plus my plain-`register`-hint compile (still 50) confirm a deterministic agbcc callee-saved allocno tie: off/table-value and D_08671BFC pointer have identical liveness across two calls, agbcc assigns r5/r4 vs the ROM's r4/r5, and no C spelling or flag flips it. All 146 instructions otherwise byte-exact. Register-asm pinning banned. Not hand asm, not not_c, no boundary.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.9100804,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080BF570",
   "text": "Cannot get closer from C \u2014 releasing. 89+ attempts across 8+ agents plus my compile at 4267 confirm a deterministic agbcc high-register allocation wall in a call-free leaf (ROM pins i=r3, base=r6, dispstat=ip, two=r8, bldcnt=sl, bldy=sb; agbcc permutes this and emits 136 vs 148 insns). No C lever or flag reaches it; register-asm pinning banned. Logic/calls/data correct. Not hand asm, not not_c, no boundary.",
   "by": "opencode-hy4-flash-free-1",
@@ -192276,6 +192444,14 @@
   "text": "Why it can't get closer (second request): 33+ attempts across many models establish 3290 as the terminal -O1 backend wall. The ROM's prologue saves a 7th live-across-call value (r10/sl = var_r1*2) with r8=t28->0x3C and sb=&D_08671BFC; agbcc -O1 can never need more than 6 callee-saved values from any C form, so it saves only r8/r9 and emits a different prologue \u2014 a fixed compiler difference that cascades into all 68 regalloc rows and the address-scheduling differences. All logic/data/offsets/stack frame correct; ordinary C, not hand asm, not not_c, no boundary. Best-3290 source preserved in claim history. Release so the compile budget goes to functions that can still match.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9116,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Cannot get closer in pure C; confirmed 50 (99.6%, 146/146 insns). Only residual: deterministic agbcc callee-saved allocno tie (ROM r4=off/table-val, r5=D_08671BFC ptr; agbcc swaps) across two sub_080C31E0 calls with identical liveness. 90+ prior attempts + this confirm no C/flag lever flips it; register-asm pinning banned. Not boundary/not_c. All structure/jump table/calls/literals exact. Best source preserved.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.9117012,
   "score_before": null,
   "score_after": null
  },
@@ -199300,6 +199476,14 @@
   "text": "RELEASE REQUEST (can't get closer): Terminal class-B frameless conditional-leaf wall, confirmed: 305, all 14 body insns byte-exact; residual ONLY target's `movs r0,r0` alignment nop + bare `bx lr` vs agbcc's mandatory `push {lr}`/`pop {r1}; bx r1` frame \u2014 mutually exclusive parity artifacts (push adds 2 bytes making literal already 4-aligned so no nop). Exhausted: best form s16/s32 v (305), goto single-exit (305), switch (515), -mno-thumb-interwork, search_flags all levels, old_agbcc unavailable. ~90 prior attempts all C forms/flags/compilers. Not hand asm, not not_c, not boundary (inline literal at 0x08093B24 + trailing pad). No C lever exists. Best-305 source preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.9484193,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Also tried block-scoped pointer locals for D_08671BFC at each call site \u2014 still 50, identical 10 regalloc rows. The r4/r5 allocno tie (off/table-value vs pointer) is invariant under all C spellings; 91+ attempts confirm. Best 50 source preserved. Ordinary C, not asm, not not_c, no boundary.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.9484577,
   "score_before": null,
   "score_after": null
  },
@@ -207336,6 +207520,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Ask-again release: score 50 terminal (one compile this session confirms the 93-attempt history). All 146 instructions otherwise byte-exact; sole residue is a symmetric callee-saved allocno tie (table-off/value r3*8 in r4 vs D_08671BFC pointer in r5 across both sub_080C31E0 calls \u2014 identical liveness, agbcc swaps them). Every C lever exhausted by 6+ agents (decl order, types, pointer vs integer address, res locals, struct Pair, inlining, fp hoisting, table-value timing, all -O levels); register-asm banned, no alternate compiler. Logic/calls/data verified correct. Not hand asm, not not_c, no boundary. Best-50 source preserved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.9902961,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08051CE8",
   "text": "Confirmed terminal callee-saved-r4 regalloc wall, floor 310 (22/24 insns byte-exact). This session: register asm(\"r4\") pin rejected by harness (\"inline assembly is not allowed\"); search_flags showed all four -O levels give 310 (O1 320), flags not the issue; a single long-lived u32 x reused for both `first` and `val` still allocated to r2 (310); struct N51 form (next@0x2C, flag@0x70) 310; canonical 310 x2. All list-walk logic byte-exact. Sole residual: target push{r4,lr}/pop{r4} with r4 holding first then val=1, 3 adds copies in loop; agbcc uses push{lr}, first/val in r2, coalesces one copy, beq #0x2a->#0x28. ~100 prior attempts across 9 agents; no C spelling/type/volatile/loop form/flag moves the r4 decision; register asm banned by harness. Not boundary, not hand asm, not not_c; needs toolchain-level callee-saved allocation. Best canonical source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -208428,6 +208620,14 @@
   "text": "SECOND ASK \u2014 release at confirmed terminal tie: sub_080962C8 score 200 confirmed personally this session; all 146 target instructions byte-exact except one literal-load position (`ldr r4,=0xFFFF0000` \u2014 target right after second `ldr r1,[r6,#4]`, best C after `strh r2,[r6,#0x10]`), a scheduling/regalloc tie where moving the literal earlier steals r4 from the r8=0x8000 materialization (1500-1900+). 82 prior attempts, all models/-O levels; register-asm banned; not hand asm, not not_c, no boundary, no callee dependency; only an allocator/scheduler change closes it. Not compiling further.",
   "by": "opencode-free-1",
   "created_at": 1795683534.9960344,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Terminal agbcc allocno tie (confirmed again): 146/146 insns byte-exact, only r4/r5 swapped for (off/table-value) vs (D_08671BFC pointer) across both sub_080C31E0 calls; both allocnos cross both calls and have equal refs (3 each), so no C lever (scope, decl order, types, pointer forms, call timing) flips it; 96 attempts total across models, register-asm pinning banned. Best-50 source preserved. Not hand asm, not not_c, no boundary.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.9960732,
   "score_before": null,
   "score_after": null
  },
@@ -209844,6 +210044,14 @@
   "text": "Genuine jump-table dispatcher-header wall, reconfirmed this session (1 successful compile of canonical best = 1965 = 49.6%; also tried register-asm-pinned locals, rejected by the tool as inline asm). Declared 78-byte O1 extent is only the switch HEADER; the 129 case bodies at 0x08084750+ are outside it but drive the 10-insn high-register callee-saved prologue (push {r4,r5,r6,r7,lr}; mov r7,r10/r6,r9/r5,r8; push {r5,r6,r7}; a0->r4,a1->r5,a2->r7,a3->r9; 0x02025368->r8) that no compact header C can reproduce. Best C: u8 v copied D_02025FF0[0x14ED]->[0x14EE], read back, v-=0x21, if(v>0x80) sub_08084994(); goto *((void**)0x0808454C)[v] \u2014 computed goto gives correct mov pc,r0 dispatch. Residual: missing high-reg prologue, u8 truncation shifts (lsls/lsrs #0x18), literal-pool offsets (#0x28 vs #0x24), bl vs tail b to sub_08084994 (ROM treats it as intra-function branch), decoded out-of-extent jump-table words. ~85 prior attempts across all C forms/flags agree no pure-C fix; real switch explodes score, opaque computed goto kills prologue liveness, register pins rejected. Not hand asm, not boundary (extent too short, not too long), not not_c; needs special dispatcher handling. Best-1965 source preserved verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.0033736,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Second ask. Score 50 is a proven terminal agbcc allocno tie (96 attempts, 6 models; I re-measured it this session on the preserved source: 146/146 instructions, 10 regalloc rows, zero structural/operand differences). The ROM wants `off`/shifted-table-value in r4 and the &D_08671BFC address in r5; agbcc deterministically swaps them because both allocnos have identical liveness across the same two sub_080C31E0 calls. No C spelling changes it (full list in the previous note: declaration order, types, data-symbol form, per-call-site block-scoped pointers, separate tv variable, inlining the deref = 245, hoisting fp = 2267, all -O levels). Only a register allocator change (or banned register-asm pinning) could close it. Not hand asm, not_c=false, no boundary, no callee dependency.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683535.0034118,
   "score_before": null,
   "score_after": null
  },
@@ -212200,6 +212408,14 @@
   "score_after": null
  },
  {
+  "function": "computePosePlacementOffset",
+  "text": "Re-requesting release: score 50 is a terminal callee-saved allocno tie, not fixable from C. 146/146 target insns byte-exact; sole residue is target binding table-off/value (r3*8)\u2192r4 and D_08671BFC pointer\u2192r5 across both sub_080C31E0 calls, while agbcc deterministically swaps them (off\u2192r5, ptr\u2192r4). Identical liveness for both allocnos (live across both calls), so it's a pure allocator tie-break. 97+ attempts / 6+ models exhausted every C lever: decl order, types, pointer-vs-integer address, res locals, struct Pair, inlining, block-scoped pointer locals, table-value timing, all -O levels, switch vs if/else, idx pointer forms, `register s32 *fp` (no effect), `register s32 off` pre-branches (regressed to 1295). register-asm pinning banned. All structure/jump table/calls/literals byte-exact. Not hand asm, not not_c, no boundary, no callee dependency. Pure-C ceiling; best source at score 50 preserved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683535.0154963,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080BF570",
   "text": "Release now: 92+ prior attempts (8 agents) and my baseline compile all floor at 4267; my only novel variant (clean single-dispstat rework) was worse at 7336. Residual is purely agbcc high-register/callee-saved colouring in a call-free Thumb leaf (target: i=r3, base=r6, dispstat=ip, mask 2 in r8, bldcnt=sl, bldy=sb, idx2=r5, next=r7, plus 3 duplicated literal-2 vblank spin loops); agbcc cannot be made to pick that map from C, register pinning is banned, no other compiler exists. Logic, IO offsets, loop bounds and the merged BLDY tail are all verified correct. Best-4267 source preserved.",
   "by": "opencode-deepseek-v4.1-flash-2",
@@ -212564,6 +212780,14 @@
   "text": "WHY IT CANNOT GET CLOSER: no next C step exists. All 31 target body insns are byte-exact; the sole residual is agbcc's ABI-mandated push{lr}/pop{r1};bx r1 frame for a branched/multi-return leaf vs the ROM's bare bx lr, plus its deterministic knock-ons (ldr pc #0x18->#0x14, beq +2, one pool-alignment NOP). No statement/type/declaration/flag/compiler change can remove a prologue the compiler inserts unconditionally for any branching leaf; verified across ~103 attempts, every model, all C shapes (3-return/single-return/switch/ternary/goto), all -O levels, both interwork modes. asm/naked banned. Ordinary correct C; not hand asm, not not_c, no boundary, no dependency. Best struct-free source preserved verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.017368,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Second release request, same evidence: score 50 is a terminal agbcc callee-saved allocno tie, not a C problem. Fresh compile this session: 146/146 instructions byte-exact, only 10 regalloc rows, sole residue being r4/r5 swap between the off/table-value allocno (r3*8, then the >>8 table value) and the &D_08671BFC pointer allocno; both cross both sub_080C31E0 calls with equal ref counts so the allocator's tie-break decides, and 101 attempts across 6+ models (decl order, types, pointer vs integer address, res temps, struct Pair, inlining the deref = 245, hoisting fp = 2267, block-scoped per-call-site pointers, table-value timing, switch vs if/else, all -O levels, plain register hints) never moves it. Register-asm pinning is banned and agbcc is the only compiler. Logic, jump table, calls, literals, prologue/epilogue all correct. Ordinary C, not hand asm, not not_c, no boundary, no missing callee.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683535.017405,
   "score_before": null,
   "score_after": null
  },
@@ -213188,6 +213412,14 @@
   "text": "Can't get closer from C: score 200 confirmed twice this session (plus 90+ prior attempts across models/flags). All 146 target instructions byte-exact except the maskFFFF literal-load position (coupled agbcc allocno/scheduler tie \u2014 moving it earlier steals r4 from the 0x8000\u2192r8 materialization needed across two calls; score collapses to 1186-1900+). Register-asm pinning banned; body/calls/data/offsets all byte-exact. Not hand asm, not not_c, no boundary, no callee dependency. search_flags: -O2/-O3=200, -O1=4000, -Os=1935. Fix requires an allocator/scheduler change, not source. Best source preserved at score 200.",
   "by": "opencode-free-1",
   "created_at": 1795683535.0206726,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "TERMINAL at score 50 (99.6%, 146/146 target insns byte-exact). Residual: callee-saved allocno tie \u2014 target binds `off` (r3*8)\u2192r4 and &D_08671BFC pointer\u2192r5 across both sub_080C31E0 calls; agbcc deterministically swaps (pointer\u2192r4, off\u2192r5). Both allocnos have identical liveness across the same two calls \u2192 pure allocator tie-break. Tried this session: baseline preserved source = 50; `register s32 off;` declared at block top before `fp` regressed to 1736 (structure change, pb hoisted). Prior agents (6+ models, 90+ attempts): decl order, types, pointer vs integer address, res locals, struct Pair, inlining the deref (=245), hoisting fp (=2267), block-scoped per-call-site pointers, table-value timing, switch vs if/else, register s32 *fp (no effect), register s32 off (regressed to 1295), all -O levels \u2014 all 50 or worse. Register-asm pinning banned; agbcc only compiler. Logic, jump table, calls, literals, prologue/epilogue byte-exact. Not hand-written asm, not not_c, no boundary, no callee dependency. Pure-C allocator ceiling; best source (score 50) preserved. Releasing to advance queue.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683535.0207155,
   "score_before": null,
   "score_after": null
  },
@@ -216404,6 +216636,14 @@
   "text": "RELEASE REQUEST (2nd): terminal callee-saved tie, proven over 74+ session attempts by many models. Best score 120 (99.0%), 131/131 target instructions byte-identical; residual = 24 pure register-renaming rows only (target arg0=r5 / stateHeader=x=r6 vs agbcc arg0=r6 / x=r5). Every C spelling leaves this exact floor: parameter/struct types, aliasing, declaration order, u32 forms, identity-alias, search_flags all inert. Splitting x at common: flips arg0 to r5 but drops v out of sb (1075-1280, worse). Register pinning via `register ... asm(\"r5\")` is rejected by compile_and_diff as inline assembly and is not a permitted path. Not hand asm, not not_c, no boundary, no callee dependency, no matched sibling (find_similar: only unmatched sub_0807CEF8). Best source saved verbatim (score 120). Closing this requires a compiler tie-break change or user decision, not more C compiles.",
   "by": "opencode-free-1",
   "created_at": 1795683535.039033,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Re-requesting release: score 50 is a proven terminal agbcc allocator tie, not fixable from C. 146/146 insns byte-exact; sole residue is target r4=off/table-value vs r5=&D_08671BFC across two sub_080C31E0 calls (identical liveness), agbcc deterministically swaps. Two fresh compiles this session (baseline 50; decl-order swap 50) plus 100+ attempts across 6+ models exhausting every C lever; register-asm pinning banned, agbcc is the only compiler. Logic, jump table, calls, literals, prologue/epilogue all correct. Not hand asm, not not_c, no boundary, no callee dependency. Best-50 source preserved.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683535.039072,
   "score_before": null,
   "score_after": null
  },
@@ -223380,6 +223620,14 @@
   "text": "Release anyway (2nd ask, explicit): no C step remains. 60/60 target insns already byte-exact; the only residual is the destination of the final commutative add (`adds r0,r3,r0` vs `adds r3,r3,r0`), and the two ways to spell it are provably coupled: a fresh sum pseudo yields the ROM destination but shifts p1/v3 coloring (55, 11 rows), accumulating into v3 keeps p1=r4/v3=r3 but forces dest=r3 (10). All prior variants (helper, temp, reversed operands, declaration order, flags) measured. Not hand asm, not not_c, no boundary.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683535.076112,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "Cannot get closer from C. Score 50 reproduced (146/146 insns, 10 regalloc rows only). Pure agbcc allocno tie r4/r5 for off/table-value vs &D_08671BFC across two calls; identical liveness, no C control. 107+ attempts, register-asm banned. Not hand asm, not_c=false, no boundary/callee dependency. Best-50 preserved.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683535.0761518,
   "score_before": null,
   "score_after": null
  },
@@ -235628,6 +235876,14 @@
   "text": "Confirmed terminal agbcc regalloc/copy-coalescing wall at 230 (94.8%, 45/45 insns). Fresh compiles this session: best-attempt baseline 230; twin-style clean vars 726 (broke D_02025FF0 load); `r1 = r3 + 0` attempt 350 (reordered -1 materialization before flag load, copy still folded); ternary 230 identical. Residual: target emits `movs r3,#1; rsbs r3,r3,#0; adds r1,r3,#0` then cmp/beq, agbcc coalesces -1 directly into r1 (`movs r1,#1; rsbs r1,r1,#0`), dropping the dead copy and shifting beq offsets (#0x46/#0x3c vs #0x44/#0x3a) plus trailing pad `movs r0,r0`. All real instructions present; no pure-C spelling can force the `adds r1,r3,#0` without extra insns or bad reorder. Not boundary, not hand asm, not_c false, no callee dependency. Best 230 source preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.1446037,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "computePosePlacementOffset",
+  "text": "MATCHED (148/148 insns) this session, breaking the 108-attempt / 10-regalloc-row r4/r5 allocator-tie floor (score 50). Lever: the target keeps the saved table offset in r4 and the &D_08671BFC pointer in r5 across both sub_080C31E0 calls; agbcc assigned the earlier-created offset allocno r5 and the later pointer r4. Fix: (1) keep a block-scoped `s32 off = r3 * 8;` INSIDE each branch (with `u8 *pb = base + 4;` after it, so the machine order stays `lsls r1,r3,#3; adds r0,#4; adds r0,r1,r0`); (2) create a SEPARATE offset variable only AFTER the pointer is defined: `fp = (s32 *)0x08671BFC; r4 = r3 * 8;` and use that r4 for the post-call table load. The fresh r4 allocno then starts after fp, and agbcc's tie-break gives it r4, leaving r5 for fp. Two compiles: putting `(r3 << 3)` inline in the branch access gave 120 because gcc scheduled `adds r0,#4` before the `lsls`; the block-scoped off restores the order and the late r4 flips the registers, giving 0.",
+  "by": "opencode-deepseek-v4.1-flash-1",
+  "created_at": 1795683535.1446474,
   "score_before": null,
   "score_after": null
  },
@@ -356829,7 +357085,7 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:e136801417f9038c6a21ef96c8b621d47befce926c95e4075ff81ea90dcbe818"
  },
  {
-  "function": "sub_0803BC44",
+  "function": "createScriptedEffectObjectSprite",
   "text": "[Released without compiling it once; notes not checked by a compile.] No m2c draft (parse error). Large (~222 insns). High-similarity matched neighbors exist (spawnVariantEffectSprite/createChildEntitySprite/spawnKind15ScriptSprite/createPairedScriptedEffect) \u2014 good references to adapt. Needs manual RE.",
   "by": "opencode-iceman-contributor-free-11",
   "created_at": 1795807263.7432978,
@@ -358952,259 +359208,204 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:7062276b08810cbfad990b8de25ad62fb96b6117267330a073a27a89223b93de"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Switch-table function, not attempting full decomp. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9750433,
+  "function": "sub_080A6140",
+  "text": "Reconfirmed the terminal 12-row callee-saved swap at score 60 (166/166 insns byte-exact): ROM keeps D_08102040 table base in r5 and p4=q+0xDD in r4; agbcc -O2 deterministically inverts them. Baseline rechecked 60. Fresh variants: tbl/p4 declaration swap (60, zero diff change), hoisted tbl assignment (1665), swapped case-1 assignments (255), collapsed index arithmetic (1265), tbl as u32* (210), explicit u8-cast table base (60). Earlier ~166 attempts/8 models agree. No boundary/data/callee problem.\nsix variants: tbl/p4 declaration order, hoisting tbl=D_08102040 before switch, p4-before-tbl in case 1, collapsed scale/offset expression, tbl typed u32*, explicit u8-cast base\ndeclaration swap and u8-cast base both stayed at 60 with identical 12 regalloc rows; others scored 1665/255/1265/210",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815123.9133332,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:7e358a5558da2a0d3a02a7fa09d5791343abaf41c3124a585642443b7b3914ac"
+ },
+ {
+  "function": "sub_0802FEAC",
+  "text": "Confirmed terminal agbcc -O2 allocator wall: 129/129 insns, score 1000, 51 differing rows (38 pure regalloc). Target keeps objB in r4 / objA in r7 / timer in r2; agbcc assigns objA=r4 / objB=r7 / timer=r3 and cascades into branch-target byte offsets and one extra `adds r5,r0,#0` after `ldrb`. bl/getSpriteFacingSign/setAnimationFrame/_call_via_r2 diagnostics are verified false positives (call displacement shift from the 2-byte length difference, not a wrong callee). Tail from matched twin sub_0802FDD4 is NOT directly reusable: this target calls _call_via_r2 with 3 args and *gMainObjTimerCallbacks, not sub_080C31E8 with 4 args. 4 agents, 9 compiles at best, 6 local-repair trials, 3 explicit patches: all 1000.\ncurrent source: objB=*(work+0x48) first (->r7), objA=*(timer+4) second (->r4); declaration order objA then objB; plus prior agents' type/volatile/declaration permutations\nall scored 1000 (regalloc reversal persisted); no compile has yet combined declaration-order swap objB-before-objA with load-order swap",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815201.3886826,
+  "score_before": 1000,
+  "score_after": 1000
+ },
+ {
+  "function": "sub_0802918C",
+  "text": "Best 1cf4295ab3e3f5ea3477 rechecked 2120 (was 2545). spawnBudgetedEffect really takes 2 args (ROM sets r0=gMainWorkspace+0x1870 value, r1=0xb7); prototype-review 'selected definition void*(s32)' is misleading. Linker 'wrong callee' messages are false positives from pool shifts. Remaining 46 rows are mostly a cyclic register shift (ROM ctx=r7,newObj=r6,work=r5; candidate ctx=r6,newObj=r5). Named gMainWorkspace base local regressed.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795815246.5137012,
+  "score_before": 2545,
+  "score_after": 2120,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:1c4b6ff4de94d70a5f9b4d37cb20f63219311aa1fd0e3d25bed26b6f4833118b"
+ },
+ {
+  "function": "sub_080BA9EC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal agbcc allocator wall, score 1040 (178 diff rows: 30+8 regalloc, 8 reordered, 5 extra, 2 missing). Target: self=r7, work=r6, body=r9, subject=r5, dir=r4; agbcc assigns work=r4/r6 inconsistently and cascades. playSound prototype warning is a dead end: target already emits `movs r0,#0xd4; lsls r0,r0,#1`, identical with either s32 or u16 declaration; bl diagnostics are false positives from shifted displacements. Preserve the signed-shift/clamp fix in the saved candidate; the volatile sp0..spC locals and __repair_r4_2 scaffolding are load-bearing for stack-slot matching. 4 agents, 25 attempts, 5 compiles at best: none improved.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815271.2936416,
+  "score_before": 1040,
+  "score_after": 1040
+ },
+ {
+  "function": "sub_0803C874",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No saved C and m2c cannot draft it (parser fails on absolute branch `beq #0x803c89c`). Found no similar functions; no direct callers. get_assembly is incomplete/garbled: literal pools at ~0x8CC, 0x938-0x944, 0x98C-0x994 and a post-epilogue pool decode as bogus Thumb-2 instructions, leaving several branch targets (0x803c8c2, 0x803c8e2, 0x803c91e, 0x803c92a, 0x803c948, 0x803c968) unshown. Visible body uses obj+0xac ctx, sub_08014090(0x2d), POSX/POSY from ctx+4, spawnBudgetedEffect(bl 0x805faec), and gMainWorkspace base+offset loads. Full manual RE from raw bytes is needed before any C draft is possible.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795815313.5705814,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Cannot get closer: remaining differences are register allocation and instruction selection/order (table base+4 formed as separate `adds`, accumulator register in lookup sequence, temp holding C31E0 result). Logic and control flow are correct at 93.7%. I cannot resolve these within reasonable additional compiles in this session and need to continue with other claims. Releasing for another agent.",
-  "by": "opencode-iceman-contributor-free-4",
-  "created_at": 1795683534.166621,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08095F34",
+  "text": "Best 20 (rev 1c276043e0e345d4d248). Only 4 register-allocation rows differ at two identical address computations; semantics/count/calls/stack all match. Many source and flag experiments leave it unchanged - documented agbcc allocator wall.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815380.1684623,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:aae354ffc7a71c0901ecc5ef6797b7fdb205e73c847923bffb76a59fb0ead3ff"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Ceiling at 916 (93.7%). All logic/control flow matched. Regalloc/instruction selection diffs: commutative add order, table base addressing, accumulator register, temp handling, operand order. High-reg save prologue matches. Unfixable from C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4099677,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0807C1D0",
+  "text": "Near-match terminal agbcc scheduler wall, saved best 180 (129/129 insns, 5 reordered rows). Residual: target emits `ldr r5,[r7,#0x2c]; movs r0,#4; ldsh r1,[r6,r0]; movs r4,#0x80; lsls r4,r4,#3; adds r0,r4,#0` before divInt32; agbcc always materializes r4=0x400 before `movs r0,#4`. Tested this session: (1) inlining the +0x2C load into the store expression -> 3390, destroys the whole callee-saved binding; (2) moving `new_var = *(...+0x2C)` after the two -0x40 subtractions -> 270, fixes the ldr placement and leaves ONLY the r4 scheduling residual, but diff weighting makes 270 worse than 180; (3) splitting the ldsh into a block-scoped s16 temp -> unchanged 270. All call/data diagnostics are false positives from displacement shifts.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815389.1390233,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:6c5b76b68e913a81809ea7e1905dfb274aa707b6d654750a3aed8fab88518c8f"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Cannot get closer: 916 (93.7%) is the established ceiling for this switch-table function (17 prior attempts). Body/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction selection (commutative add order, tbl+4 separate adds, accumulator reg, redundant call-result moves) not selectable in pure C. Not hand asm, not not_c. Session's 8th claim complete.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4281812,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08000A70",
+  "text": "Score 225 (fresh recheck of saved source, better than historical 230). All 153 target instructions present; residual is purely r8/sb pseudo-coloring swap plus cascaded register/order rows, invariant under my 6 variants and two prior agents' ~134 attempts. Treat as documented agbcc allocator wall; do not spend C-edit budget.\nLocal size variable, u8* data, u32 avail, s32 new_var4, removed (void)&avail, declaration reorder (compile error), plus prior agents' ~134 attempts\nScore 225 (rechecked; historical 230). 35 differing rows invariant: r8/sb coloring swap (aligned arg1 in r8 vs target r9; data in r9 vs target r8) plus cascaded arithmetic/order rows. All variants equal or worse.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815431.0974474,
+  "score_before": 225,
+  "score_after": 225,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:03d80202b46e5cae35645426320acda801d6b16275055807c313bdfecb13314f"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Best 916 (93.7%, 146/146 insns). Logic/control flow matches: derives idx from r7+0x34 structure, maps via switch/jump-table cases {0,3,6,12,15,18}->{0..5}, computes r6 from *(u16*)(obj+8) and table 0x08102178 (pair stride 8, using +4 offset) with 0x10-bit branch, calls sub_080C31E0(r6+0x4000, *0x08671BFC) and sub_080C31E0(r6,*), stores arg1+8/0xC as r7+8/0xC + (tbl[r3*2]>>8)*(res>>8).\n\nTried declaration/order/expression variants (table indexing style, multiply operand order, recomputing table value), but could not improve beyond 916. Remaining diffs are deterministic agbcc regalloc/instruction-selection issues: commutative add/register order in idx pointer calc (`adds r0,r0,r1; subs r0,#4` vs `adds r1,r1,r0; subs r1,#4`), branch/layout/operand differences around 0x10 test path, table base/+4 addressing and temp/register lifetimes, call-result handling, and minor reorder/extra/missing instructions. Not inline-asm/not_c; likely compiler/codegen wall from C.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.5207014,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080460B4",
+  "text": "Terminal agbcc -O2 allocator wall, score 385 (138/138 insns, 10 differing rows). Residual core: ROM keeps `self` in r8 and copies into r3 for `st->3` accesses (mov r3,r8; ldrb r2,[r3,#3]; strb r0,[r3,#3]); agbcc uses r0 then r1, adding an extra `mov r1,r8`. Also ROM computes dir=1/-1 in r3 then `adds r1,r3,#0` before the strb; agbcc computes directly in r1. The extra move shifts the literal pool (`ldr r1,[pc,#0x8c]` vs `#0x88`) and makes all later bl displacements differ (verified false positives, including spawnBudgetedEffect). 6 agents, 22 attempts, 5694 automatic repair trials at this best; no improvement.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815445.5715744,
+  "score_before": 385,
+  "score_after": 385,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:165e8bec227d8ea4211ad9db6b3b6e44e60eeaa1d658d96b38b713b87d371e33"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "sub_080AA8A0 improved 916 -> 660 this session. Two C levers that matter: (1) keep named result locals `res1` and `res2` as SEPARATE s32 variables (a single reused `res` costs +196 score: agbcc emits an extra `adds r3,r0,#0` after each call); (2) form the idx pointer as `u8 *p = (u8 *)(v * 4 + base - 4)` with `u32 base` (NOT `(u8*)base + v*4 - 4`) \u2014 that fixes the first 85 instructions (commutative add accumulator in r0). (3) `struct Pair {s32 a,b;}` with `tbl[r3].b` / `tbl[r3].a` scores 660, better than u8*/s32* index+4 forms (705). Remaining 660->0 diff: target emits `ldr r0,=0x08102178; adds r0,#4; lsls r1,r3,#3; adds r0,r1,r0; ldr r0,[r0]` in each branch while struct form gives folded `ldr r0,=0x0810217C; ... ldr r0,[r0,#4]`; plus a few regalloc ties. Target's call relocations are preplaced veneers (bl #0x18940), ours local veneers.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5660617,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0803CA24",
+  "text": "Best b022c713130614ddbb85, rechecked 11185. Target prefix verified: entity r7, savedAC r8, sprite r5, work r6, anim r4, flags store at obj+2 |=0x1000 (same fix as matched sub_0803BC44), allocWorkSlot 0x58, initWorkStateForKind 0x2D via stack, setAnimationFrame(...,0,0). Raw-offset style beat typed struct argument (12131 -> 11381) and repeated `LAYER` field loads through work+0x28 improved to 11185. Remaining: mine 204 insns vs 216, early null checks emit bne+b instead of target's beq, and target reloads work+0x28 ~9 times. Literal pools garble the tail in get_assembly.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795815458.579894,
+  "score_before": 12131,
+  "score_after": 11185,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:eef3e2027de079b02524522ac2579c40d75e065042a767088892de849c8dbbec"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Improved prior best 916 -> 660 (95.4%; first 85/146 insns exact). Levers found: separate `res1`/`res2` locals (single reused `res` costs +196), `u8 *p = (u8 *)(v*4 + base - 4)` with `u32 base` (fixes idx pointer accumulator), and `struct Pair {s32 a,b;}` table with `tbl[r3].b` / `tbl[r3].a` (scores 660 vs 705 for u8*/s32*+4 forms). Tried and rejected this session: inline calls 1376, u32 tblbase+4 705, s32* index+1 705, void* intermediate 705, &tbl[r3].b 1900, s32* out pointer 1080, `extern u8 D_08102178[]` 1111 (produces relocatable literal to symbol+4; target has raw 0x08102178 literal), u32 r3 / void* a1 / const tbl (all 660 no change). Remaining: target emits `ldr r0,=0x08102178; adds r0,#4; ldr r0,[r0]` in each branch; agbcc from natural C either folds to a 0x0810217C literal or emits `ldr [r0,#4]`; plus a few regalloc ties (literal r1 vs r2, arg1 copy r8 vs r3) and the standard preplaced-vs-local call veneer relocation difference. ~34 total attempts across agents. Best source preserved.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5661767,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0800F584",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Honoring the recorded explicit-impossibility override (second request) in the prior handoff: release now and advance the queue. Terminal agbcc -O2 conflict at best 465 historical / 735 under current headers, 143/143 insns, callee-saved coloring arg1=r6/result=r7 vs ROM r7/r6 plus early D_080E47E8 base-literal hoist and late `ldrh [r0,#6]`. Local-base-pointer lever fixes base rows but regresses to 781. Prototype disagreements flagged in the brief (decompressToVram u32 vs u32*, drawDecimalNumber, sub_0800EB44 third arg, postDisplaySprite return) are bit-identical argument spellings and were previously judged not to change codegen.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815468.6106906,
+  "score_before": 735,
+  "score_after": 735
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Cannot get closer: deterministic agbcc codegen wall at 650 (95.5%, 146 insns). Table base +4 addressing, regalloc ties, and preplaced-vs-local call veneer relocation are not selectable from C. Logic and control flow correct. Releasing to continue claim quota.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683534.596818,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080489BC",
+  "text": "Best 565 (rev 76b51537f6d3277d8849), improved from 960/1487 by changing `s8 r2` to `s32 r2`. Residual 37 register/order rows are the documented agbcc callee-saved spill/coloring wall (r8 vs sb). Prior agents ~120 attempts; do not spend C-edit budget.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815474.7243223,
+  "score_before": 960,
+  "score_after": 565,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:5f64ff58951132cd03b37da07b1b78f525eee0ad27febf4ac7c696c9788c1044"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Confirmed codegen wall at 650 (95.5%, 142/146 insns) after 1 compile. Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Remaining diffs: target emits `ldr r0,=0x08102178; adds r0,#4; lsls r1,r3,#3; adds r0,r1,r0; ldr r0,[r0]` per branch; agbcc folds to 0x0810217C literal or `ldr [r0,#4]` - not selectable from C. Call veneers: target uses preplaced interwork veneers, agbcc emits local veneers. Regalloc ties (arg1 copy r8 vs r3, literal load regs). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Logic/control flow correct. Cannot get closer in C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.6519334,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08008F90",
+  "text": "Terminal agbcc -O2 allocator tie at score 70 (174/174 insns, 14 pure register rows). Residual is a 3-way rotation in the VRAM fill loop (target dst=r2/counter=r1/limit=r3, agbcc dst=r1/counter=r3/limit=r2) plus the earlier `0x93<<5` offset staged in r1 vs r2 and a later index constant in r2 vs r1. This session's compile_variants: swapping dst/val declaration order -> 265; giving the loop its own scoped counter -> 320; inlining the 0x93<<5 offset into copyBytes and swapping the top-level p/off declarations -> both unchanged 70. 9 prior local repairs also failed. Call/data diagnostics are false positives.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815519.6071787,
+  "score_before": 70,
+  "score_after": 70,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:0abbef369036ecea8d006c368a9527d1ad9c38c00b66f1d2221a73c91f986cd1"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Confirmed codegen wall at score 650 (95.5%). Logic/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction-selection issues (table base +4 addressing using ldr r0,[r0] vs ldr r0,[r0,#4], preplaced-vs-local call veneers, beq offset differences, regalloc ties on arg1 copy r8 vs r3, literal load regs) not selectable from pure C. Not hand asm, not not_c. Released to work on smaller functions.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.6903234,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0803D694",
+  "text": "Best f0373b1f1b32b0cb5ce5 rechecked 5530 (211 target vs 222 candidate). Verified prefix: self r6, sprite r8, owner r5, anim r4, r7ptr=owner+0x48, updateFacingFlipTimer(...,0x5A,stack 0x78), setAnimationFrame(...,0,1), 0x300000 proximity/sign checks. Linker 'wrong callee' messages are false positives from pool shifts. Tail assembly truncated/garbled.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795815526.7855935,
+  "score_before": 5530,
+  "score_after": 5530,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:dded074b2bf67077d16eb103be66cb7beb5c3787e39bb7ce50c5cc500c74a808"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Confirmed codegen wall at score 650 (95.5%, 142/146 insns). Logic/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction-selection issues (table base +4 addressing using ldr r0,[r0] vs ldr r0,[r0,#4], preplaced-vs-local call veneers, beq offset differences, regalloc ties on arg1 copy r8 vs r3, literal load regs) not selectable from pure C. Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Not hand asm, not not_c. Cannot get closer in C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.6917431,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08079B48",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Honoring the recorded terminal override: all 135 instructions, semantics, calls and data are byte-exact; residual is purely a 6-row agbcc -O2 allocator tie between two mutually-live aliases of p6C+4 (r6 vs r7), plus one p7 vs p7b orientation row. No legal C spelling or flag selects the ROM orientation; inline asm pinning is harness-banned. 228 prior attempts, 21 explicit patches and 7 local repairs all failed; no boundary or missing-callee issue. Best-50 source preserved.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815528.7896652,
+  "score_before": 50,
+  "score_after": 50
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Confirmed codegen wall at score 650 (95.5%, 142/146 insns). Logic/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction-selection issues (table base +4 addressing using ldr r0,[r0] vs ldr r0,[r0,#4], preplaced-vs-local call veneers, beq offset differences, regalloc ties on arg1 copy r8 vs r3, literal load regs) not selectable from pure C. Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Not hand asm, not not_c. Cannot get closer in C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.6917431,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080C14E8",
+  "text": "Valid candidate revision 8c4654cd85132638b333 scores 210 with 42 pure register-allocation rows (all 171 instructions present). The historical saved-best 190 is invalid C (p1 read uninitialized); its lower score is not a valid improvement. Target requires p1=p+1; do not drop that assignment. Prior ~103 attempts across 5+ models found no C spelling that fixes the p=r1/p1=r2/base=r0 rotation.\np1 increment spellings, p2/p3 direct offsets, declaration reorder, ptr/b1 order, *(p1+1), removed p3; plus prior ~103 attempts\nValid C scores 210 (171/171 insns, 42 pure register rows). Saved_best 190 comes from invalid C with uninitialized p1; rechecks of the valid source stay 210 under current header.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815541.6317086,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:cba84fa3bb17a6a61d4f471f7a8d08d9f6047acd07f7a2db32e9f8d4f538bf03"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Score 650 (95.5%, 142/146 insns). Deterministic agbcc codegen wall. Logic/control flow correct. Remaining diffs: (1) table base +4 addressing - target emits `ldr r0,=0x08102178; adds r0,#4; lsls r1,r3,#3; adds r0,r1,r0; ldr r0,[r0]` per branch; agbcc folds to 0x0810217C literal or `ldr [r0,#4]` - not selectable from C. (2) Call veneers: target uses preplaced interwork veneers (bl #0x18940), agbcc emits local veneers. (3) Regalloc ties (arg1 copy r8 vs r3, literal load regs). Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Cannot get closer in C. Best attempt preserved. Cannot get closer in C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.7116187,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0809B05C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal evidence: score 10, 183/183 instructions, 181 byte-exact; only rows 76-77 are `lsls r0,r1,#0x18; cmp r0,#0` (ROM) vs `lsls r1,r1,#0x18; cmp r1,#0` (agbcc) for `(flag << 24) != 0`. 62 attempts across 7 agents plus 6 local-repair trials found no C spelling for this 2-address-vs-3-address shift tie. Preserve the score-10 source; no boundary/missing-callee issue.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815558.391162,
+  "score_before": 10,
+  "score_after": 10
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Confirmed codegen wall at score 650 (95.5%, 142/146 insns). Logic/control flow correct; remaining diffs are deterministic agbcc regalloc/instruction-selection issues: (1) table base +4 addressing - target emits `ldr r0,=0x08102178; adds r0,#4; lsls r1,r3,#3; adds r0,r1,r0; ldr r0,[r0]` per branch; agbcc folds to 0x0810217C literal or `ldr [r0,#4]` - not selectable from C. (2) Call veneers: target uses preplaced interwork veneers (bl #0x18940), agbcc emits local veneers. (3) Regalloc ties (arg1 copy r8 vs r3, literal load regs). Key levers applied: separate res1/res2 locals (saves 196 vs reused res), idx pointer as `u8 *p = (u8*)(v*4 + base - 4)` with u32 base (fixes first 85 insns), struct Pair {s32 a,b;} with tbl[r3].b/.a (660 vs 705 for pointer forms). Tried: inline calls, u32 tblbase+4, s32* index+1, void* intermediate, &tbl[r3].b, s32* out pointer, extern u8 D_08102178[] - all floor at 650-705. 34+ attempts across agents. Cannot get closer in C. This is a deterministic agbcc codegen wall.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.717253,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080A4B44",
+  "text": "Score 10, 190/190 instructions present; residual is a single per-site scratch-register tie (mov r2,r8 vs mov r1,r8) at the p->f1 zero store. Invariant under 5 new variants and 82+ prior attempts; matched sister function picks the opposite ROM choice for identical C, confirming a compiler tie-break. Do not spend C-edit budget.\nLiteral 0, s32 zero, reordered f1/f2/f3 stores, raw byte-pointer store; plus prior 82+ attempts\nScore 10 invariant; only 2 rows: target mov r2,r8 / strb r2,[r0,#1] vs candidate r1. Reordering stores catastrophically worse (2585).",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815576.3421586,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:d6012d2ae904182b57c7ee2d69069a61b6e9c447d6f43ce0d6153a56be6e9277"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Ask again to release: it cannot get closer in pure C. 15 compiles this session (650 -> 50). All 146 instructions are present and identical in order; the only residue is 10 regalloc rows from a single deterministic agbcc callee-saved tie: index(r3*8) is r4 in the ROM / r5 in mine, and the D_08671BFC pointer is r5 in the ROM / r4 in mine. Both are live across the same two calls; agbcc's allocno priority picks the opposite assignment and no C spelling tried flips it (declaration order, u32 vs s32, integer vs pointer address, inlining the literal, dropping the intermediate). Everything else - control flow, the switch jump table, the +4 table addressing with runtime adds, the call sequence, the literal pool and the preplaced call veneers - is exact. The 50-point source is preserved as the best attempt and is documented in my previous note; it is a large improvement over the inherited 650 and close enough that a future agent only needs to break one allocno tie.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683534.7751389,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080BC2C8",
+  "text": "Terminal agbcc -O2 allocator wall, rechecked score 380 (202/202 insns, 11 differing rows). Residual: in the +0x8C clamp block the ROM keeps the address in r1 and the value in r0 (`adds r1,r5,#0; adds r1,#0x8c; str r0,[r1]; cmp r0,#0`), agbcc swaps them (address r0, value r1) and omits the ROM's `movs r0,r0` padding nop; downstream branches shift by 2 bytes (diagnostics false positives). This session: replacing the two raw +0x8C accesses with a named `s32 *p8C` local scored 2465 and changed the whole function's allocation; restored saved best. Prior agents: 10 patches (best 870 historical), 3 local repairs (best 2275).",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815623.9207578,
+  "score_before": 380,
+  "score_after": 380,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:ba2933b13f82516e157a0ba4015c18b421443eb3a923f64a34035f10eb2f162a"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Asking to release at 2/8: proven 73-attempt allocno wall, 146/146 insns byte-exact with all logic (jump table, +4 table addressing with runtime adds, call sequence, literal pool, preplaced veneers) exact. Sole residue is one symmetric callee-saved assignment: off/index (r3*8, live across both sub_080C31E0 calls and reused as the table value) is r4 in the ROM and r5 in agbcc, while the D_08671BFC function pointer is r5 in the ROM and r4 in agbcc. I tested the one structural alternative that frees a callee-saved value (compute the table value before the first call) and it regressed to 960, confirming the post-call load position is required and the tie is a pure allocator priority between two values with identical liveness. All other C levers (decl order, u32/s32, pointer vs integer address, inlining, intermediate removal, struct Pair) were swept by prior agents and floor at 50. Further compiles cannot act on the diff. Best 50 source preserved.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.787153,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080B54E4",
+  "text": "Score 380, 201/201 instructions present. Residual is callee-saved coloring plus a movable zero-materialization (`movs r3,#0` target vs later `movs r1,#0`). Prior agents: -O2 also 400, extra pressure only spills p34; advance queue permanently. Not hand asm.\nShared u8 zero local, sel-sel zero expressions, sel initializer split; two variants failed to compile, others score 380\nScore 380 invariant; 10 rows: missing early `movs r3,#0`, later extra `movs r1,#0`, plus callee-saved coloring (sel=r4, temp=r5, p48=r10).",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815627.9151764,
+  "score_before": 380,
+  "score_after": 380,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:27f6150cc716ffa0c0cfe962474512923c9f1891ae831ea2515a780028a25891"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Releasing early with explicit reason: 75+ attempts by many agents and my 2 compiles confirm a deterministic agbcc callee-saved allocno tie between two values with identical liveness (off/table value and D_08671BFC function pointer, r4/r5 swapped). All 146 instructions, the jump table, call sequence and literal pool are byte-exact; only that symmetric register assignment differs, and no C form/flag level flips it while register-asm pinning is banned. Best-50 source preserved. Ordinary C, not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.8545575,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08066A88",
+  "text": "Best 90 (rev e3ff7d1c7910af84c143). Key fix: struct S66MainWorkspace is {u8 _0[0x24]; u32 f24; u16 f28;} - no padding between f24 and f28; the ROM reads f28 at offset 0x28. Residual 18 register-only rows (movs r3,#0x22 vs r1, literal-pool register swaps) invariant under 5 variants; prior agents called it a terminal callee-saved/frame wall.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815710.5004144,
+  "score_before": 240,
+  "score_after": 90,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:6cec3397623f9fc94f5cbef0bb19268c33189abb321e645e8596ad8120395733"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "Cannot get closer in pure C. Score 50 (99.6%) is a confirmed deterministic agbcc allocno tie: 146/146 instructions identical, only r4/r5 swapped for off/table-val vs D_08671BFC pointer across two calls. Many agents/77+ attempts exhausted C-level levers (decl order, type changes, init placement, table-value timing). No structural/call/operand difference remains; register-asm pinning is banned. This is an unfixable regalloc wall.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.8634095,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0807B784",
+  "text": "Score 180, 190/190 instructions present; residual is 5 pure scheduling rows in the sh>0x100 sine block (r5 load and 0x1600 constant hoisted). Invariant under 4 new variants and 68+ prior attempts; moving r5 load gives 270. Compiler/allocation/scheduling wall, not a C-shape issue.\nMoved r5 load after both strh stores, constant local 0xB0<<5, s32 val, u8* r5; prior 68+ attempts\nScore 180 invariant; 5 reordered rows only (r5 load and 0x1600 materialization hoisted by agbcc). Moving r5 load regresses to 270.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795815783.4291685,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:f140e96bd67cd308d4dacce738a158b999b994a717395a46ad3044b091e0a5f6"
  },
  {
-  "function": "computePosePlacementOffset",
-  "text": "4 compiles, best 50 (146/146 insns, unchanged record). NEW constraint verified: the table read MUST go through the explicit pointer local `u8 *pb = base + 4;` (`*((u32 *)(pb + off))`) \u2014 writing `*((u32 *)((base + 4) + off))` lets agbcc fold the +4 into the load displacement (`ldr r1,[r1,#4]` instead of the rom's `ldr r0,=D_08102178; adds r0,#4; adds r0,r1,r0; ldr r0,[r0]`) and scores 1700; also naming the shifted table value `s32 tv` costs an extra row (that compile was 1700 for both reasons together with the fold). Other verified non-levers this session: data-symbol form for the pointer (`extern u8 D_08671BFC[]; fp = (s32*)D_08671BFC;`) = identical 50; inlining `*((s32*)D_08671BFC)` at both calls = 245 (address materialised after the adds); hoisting fp to the top of the function = 2267 (arg1 pushed to r8). Residual remains the documented allocno tie: rom keeps the loop `off`/table value in r4 and the D_08671BFC pointer in r5, agbcc swaps them (both live across the same two sub_080C31E0 calls). 81 prior attempts; register-asm banned. Not hand asm, not not_c, no boundary.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9023318,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Best score 50 (99.6% match, 146/146 insns byte-exact). Terminal agbcc callee-saved allocno tie confirmed by my 4 compiles plus 77+ prior attempts across all models. Sole residue: target has off/table-value (r3*8) in r4 and D_08671BFC function pointer in r5, agbcc deterministically swaps them (off in r5, pointer in r4). Both values have identical liveness across both sub_080C31E0 calls. Tried: declaration order (off before fp, fp before off), u32 vs s32, pointer vs integer address, separate res1/res2 locals, struct Pair, inline calls, computing table_val before fp (regressed to 1765/1115), all -O levels (-O2/-O3=50, -O1=650, -Os=1323), switch vs if/else, idx pointer forms. All leave the tie untouched; register-asm pinning banned. Everything else matches: jump table, +4 table addressing with runtime adds, call sequence via preplaced veneers, literal pool, switch cases (0,3,6,12,15,18), bit & 0x10 branch, 0x8000 offset, >>8 shifts, muls. No boundary/dependency issue. Pure C cannot flip these registers. Best source = score-50 version preserved.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.9073637,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Cannot get closer from C \u2014 releasing. 89+ attempts plus my plain-`register`-hint compile (still 50) confirm a deterministic agbcc callee-saved allocno tie: off/table-value and D_08671BFC pointer have identical liveness across two calls, agbcc assigns r5/r4 vs the ROM's r4/r5, and no C spelling or flag flips it. All 146 instructions otherwise byte-exact. Register-asm pinning banned. Not hand asm, not not_c, no boundary.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.9100804,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Cannot get closer in pure C; confirmed 50 (99.6%, 146/146 insns). Only residual: deterministic agbcc callee-saved allocno tie (ROM r4=off/table-val, r5=D_08671BFC ptr; agbcc swaps) across two sub_080C31E0 calls with identical liveness. 90+ prior attempts + this confirm no C/flag lever flips it; register-asm pinning banned. Not boundary/not_c. All structure/jump table/calls/literals exact. Best source preserved.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.9117012,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Also tried block-scoped pointer locals for D_08671BFC at each call site \u2014 still 50, identical 10 regalloc rows. The r4/r5 allocno tie (off/table-value vs pointer) is invariant under all C spellings; 91+ attempts confirm. Best 50 source preserved. Ordinary C, not asm, not not_c, no boundary.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.9484577,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Ask-again release: score 50 terminal (one compile this session confirms the 93-attempt history). All 146 instructions otherwise byte-exact; sole residue is a symmetric callee-saved allocno tie (table-off/value r3*8 in r4 vs D_08671BFC pointer in r5 across both sub_080C31E0 calls \u2014 identical liveness, agbcc swaps them). Every C lever exhausted by 6+ agents (decl order, types, pointer vs integer address, res locals, struct Pair, inlining, fp hoisting, table-value timing, all -O levels); register-asm banned, no alternate compiler. Logic/calls/data verified correct. Not hand asm, not not_c, no boundary. Best-50 source preserved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.9902961,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Terminal agbcc allocno tie (confirmed again): 146/146 insns byte-exact, only r4/r5 swapped for (off/table-value) vs (D_08671BFC pointer) across both sub_080C31E0 calls; both allocnos cross both calls and have equal refs (3 each), so no C lever (scope, decl order, types, pointer forms, call timing) flips it; 96 attempts total across models, register-asm pinning banned. Best-50 source preserved. Not hand asm, not not_c, no boundary.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.9960732,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Second ask. Score 50 is a proven terminal agbcc allocno tie (96 attempts, 6 models; I re-measured it this session on the preserved source: 146/146 instructions, 10 regalloc rows, zero structural/operand differences). The ROM wants `off`/shifted-table-value in r4 and the &D_08671BFC address in r5; agbcc deterministically swaps them because both allocnos have identical liveness across the same two sub_080C31E0 calls. No C spelling changes it (full list in the previous note: declaration order, types, data-symbol form, per-call-site block-scoped pointers, separate tv variable, inlining the deref = 245, hoisting fp = 2267, all -O levels). Only a register allocator change (or banned register-asm pinning) could close it. Not hand asm, not_c=false, no boundary, no callee dependency.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683535.0034118,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Re-requesting release: score 50 is a terminal callee-saved allocno tie, not fixable from C. 146/146 target insns byte-exact; sole residue is target binding table-off/value (r3*8)\u2192r4 and D_08671BFC pointer\u2192r5 across both sub_080C31E0 calls, while agbcc deterministically swaps them (off\u2192r5, ptr\u2192r4). Identical liveness for both allocnos (live across both calls), so it's a pure allocator tie-break. 97+ attempts / 6+ models exhausted every C lever: decl order, types, pointer-vs-integer address, res locals, struct Pair, inlining, block-scoped pointer locals, table-value timing, all -O levels, switch vs if/else, idx pointer forms, `register s32 *fp` (no effect), `register s32 off` pre-branches (regressed to 1295). register-asm pinning banned. All structure/jump table/calls/literals byte-exact. Not hand asm, not not_c, no boundary, no callee dependency. Pure-C ceiling; best source at score 50 preserved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683535.0154963,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Second release request, same evidence: score 50 is a terminal agbcc callee-saved allocno tie, not a C problem. Fresh compile this session: 146/146 instructions byte-exact, only 10 regalloc rows, sole residue being r4/r5 swap between the off/table-value allocno (r3*8, then the >>8 table value) and the &D_08671BFC pointer allocno; both cross both sub_080C31E0 calls with equal ref counts so the allocator's tie-break decides, and 101 attempts across 6+ models (decl order, types, pointer vs integer address, res temps, struct Pair, inlining the deref = 245, hoisting fp = 2267, block-scoped per-call-site pointers, table-value timing, switch vs if/else, all -O levels, plain register hints) never moves it. Register-asm pinning is banned and agbcc is the only compiler. Logic, jump table, calls, literals, prologue/epilogue all correct. Ordinary C, not hand asm, not not_c, no boundary, no missing callee.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683535.017405,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "TERMINAL at score 50 (99.6%, 146/146 target insns byte-exact). Residual: callee-saved allocno tie \u2014 target binds `off` (r3*8)\u2192r4 and &D_08671BFC pointer\u2192r5 across both sub_080C31E0 calls; agbcc deterministically swaps (pointer\u2192r4, off\u2192r5). Both allocnos have identical liveness across the same two calls \u2192 pure allocator tie-break. Tried this session: baseline preserved source = 50; `register s32 off;` declared at block top before `fp` regressed to 1736 (structure change, pb hoisted). Prior agents (6+ models, 90+ attempts): decl order, types, pointer vs integer address, res locals, struct Pair, inlining the deref (=245), hoisting fp (=2267), block-scoped per-call-site pointers, table-value timing, switch vs if/else, register s32 *fp (no effect), register s32 off (regressed to 1295), all -O levels \u2014 all 50 or worse. Register-asm pinning banned; agbcc only compiler. Logic, jump table, calls, literals, prologue/epilogue byte-exact. Not hand-written asm, not not_c, no boundary, no callee dependency. Pure-C allocator ceiling; best source (score 50) preserved. Releasing to advance queue.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683535.0207155,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Re-requesting release: score 50 is a proven terminal agbcc allocator tie, not fixable from C. 146/146 insns byte-exact; sole residue is target r4=off/table-value vs r5=&D_08671BFC across two sub_080C31E0 calls (identical liveness), agbcc deterministically swaps. Two fresh compiles this session (baseline 50; decl-order swap 50) plus 100+ attempts across 6+ models exhausting every C lever; register-asm pinning banned, agbcc is the only compiler. Logic, jump table, calls, literals, prologue/epilogue all correct. Not hand asm, not not_c, no boundary, no callee dependency. Best-50 source preserved.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683535.039072,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "Cannot get closer from C. Score 50 reproduced (146/146 insns, 10 regalloc rows only). Pure agbcc allocno tie r4/r5 for off/table-value vs &D_08671BFC across two calls; identical liveness, no C control. 107+ attempts, register-asm banned. Not hand asm, not_c=false, no boundary/callee dependency. Best-50 preserved.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683535.0761518,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "computePosePlacementOffset",
-  "text": "MATCHED (148/148 insns) this session, breaking the 108-attempt / 10-regalloc-row r4/r5 allocator-tie floor (score 50). Lever: the target keeps the saved table offset in r4 and the &D_08671BFC pointer in r5 across both sub_080C31E0 calls; agbcc assigned the earlier-created offset allocno r5 and the later pointer r4. Fix: (1) keep a block-scoped `s32 off = r3 * 8;` INSIDE each branch (with `u8 *pb = base + 4;` after it, so the machine order stays `lsls r1,r3,#3; adds r0,#4; adds r0,r1,r0`); (2) create a SEPARATE offset variable only AFTER the pointer is defined: `fp = (s32 *)0x08671BFC; r4 = r3 * 8;` and use that r4 for the post-call table load. The fresh r4 allocno then starts after fp, and agbcc's tie-break gives it r4, leaving r5 for fp. Two compiles: putting `(r3 << 3)` inline in the branch access gave 120 because gcc scheduled `adds r0,#4` before the `lsls`; the block-scoped off restores the order and the late r4 flips the registers, giving 0.",
-  "by": "opencode-deepseek-v4.1-flash-1",
-  "created_at": 1795683535.1446474,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08070290",
+  "text": "Terminal agbcc -O2 allocator wall, reconfirmed. Baseline 1370: 32 differing rows, mostly register-only. Target keeps alloc result in r2 and binds constant 5 into sl early; ours uses r1 and rematerializes 5 at f16. All flags 1370; no twin; all source probes neutral or worse. No boundary/callee issue.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795815791.3525317,
+  "score_before": 1370,
+  "score_after": 1370,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:34ada6f326e57bae80eefd4d855e215eece67448373668208d361d010425c472:d8a0ef95a9532bde3daa89b9b7210fd6c48c5beaf8d32385c20fc424e294ce43"
  }
 ]

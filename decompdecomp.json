@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795815103.307375,
- "revision": 71194,
+ "saved_at": 1795815797.3368943,
+ "revision": 71238,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1790,17 +1790,6 @@
     "-O1",
     "-fno-strength-reduce"
    ]
-  },
-  "698528:134916256": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "computePosePlacementOffset",
-   "vram": 134916256
   }
  },
  "instructions": "",
@@ -2142,8 +2131,7 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h",
-  "rom": "common_rom.h"
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -6958,8 +6946,8 @@
   },
   "sub_0802918C": {
    "vram": 134386060,
-   "best_score": 2545,
-   "best_by": "opencode-hy4-flash-free-65"
+   "best_score": 2120,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_08029354": {
    "vram": 134386516,
@@ -8536,7 +8524,7 @@
    "best_score": 3315,
    "best_by": "opencode-hy4-flash-free-74"
   },
-  "sub_08037A00": {
+  "updateMainObject": {
    "vram": 134445568,
    "matched_by": "opencode-free-1",
    "readable": false
@@ -8593,8 +8581,8 @@
   },
   "sub_08037FC0": {
    "vram": 134447040,
-   "best_score": 630,
-   "best_by": "opencode-hy4-flash-free-73"
+   "best_score": 580,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_080381AC": {
    "vram": 134447532,
@@ -8996,10 +8984,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0803BC44": {
+  "createScriptedEffectObjectSprite": {
    "vram": 134462532,
    "matched_by": "opencode-hy4-flash-free-11",
-   "readable": false
+   "readable": true
   },
   "sub_0803BE00": {
    "vram": 134462976,
@@ -9088,8 +9076,8 @@
   },
   "sub_0803CA24": {
    "vram": 134466084,
-   "best_score": 12131,
-   "best_by": "opencode-hy4-flash-free-64"
+   "best_score": 11185,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0803CBEC": {
    "vram": 134466540,
@@ -10353,8 +10341,8 @@
   },
   "sub_080489BC": {
    "vram": 134515132,
-   "best_score": 960,
-   "best_by": "opencode-hy4-flash-free-64"
+   "best_score": 565,
+   "best_by": "opencode-hy4-flash-free-65"
   },
   "sub_08048AC8": {
    "vram": 134515400,
@@ -13338,8 +13326,8 @@
   },
   "sub_08066A88": {
    "vram": 134638216,
-   "best_score": 240,
-   "best_by": "permuter-8589936889"
+   "best_score": 90,
+   "best_by": "opencode-hy4-flash-free-65"
   },
   "sub_08066C10": {
    "vram": 134638608,
@@ -31924,7 +31912,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08037A00",
+   "name": "updateMainObject",
    "vram": 134445568,
    "size": 294,
    "status": "open"
@@ -32500,7 +32488,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0803BC44",
+   "name": "createScriptedEffectObjectSprite",
    "vram": 134462532,
    "size": 444,
    "status": "open"
@@ -52824,6 +52812,12 @@
    "kind": "func"
   },
   {
+   "name": "updateMainObject",
+   "address": 134445568,
+   "size": 294,
+   "kind": "func"
+  },
+  {
    "name": "allocSpriteConfigPart",
    "address": 134459120,
    "size": 128,
@@ -52839,6 +52833,12 @@
    "name": "updateTwoSubObjectWeapon",
    "address": 134460952,
    "size": 380,
+   "kind": "func"
+  },
+  {
+   "name": "createScriptedEffectObjectSprite",
+   "address": 134462532,
+   "size": 444,
    "kind": "func"
   },
   {
@@ -55032,6 +55032,12 @@
    "kind": "data"
   },
   {
+   "name": "gScriptedEffectPartAttrs",
+   "address": 135066328,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gKind57LayerAttrs",
    "address": 135066668,
    "size": 0,
@@ -55902,6 +55908,12 @@
    "kind": "data"
   },
   {
+   "name": "gMainObjectStepHandlers",
+   "address": 140959324,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "sTwoSubObjectWeaponStepTable",
    "address": 140959596,
    "size": 0,
@@ -56358,6 +56370,11 @@
   {
    "address": 135065548,
    "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 135066328,
+   "type": "u8[]",
    "source": "match"
   },
   {

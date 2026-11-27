@@ -12,7 +12,7 @@ void computePosePlacementOffset(void *entity, void *outPosition)
   u32 halfTurn;
   pose = 0;
   frameData = *((u8 **) ((*((u8 **) (entityBytes + 0x28))) + 0x3C));
-  halfTurn = 0x8000;
+  halfTurn = POSE_HALF_TURN;
   {
     u8 *frameInfo = frameData + 0x34;
     u32 *poseTable = *((u32 **) (frameInfo + 8));
@@ -62,11 +62,11 @@ void computePosePlacementOffset(void *entity, void *outPosition)
     s32 radius;
     s32 cosine;
     s32 sine;
-    if ((*((u16 *) (motionState + 2))) & 0x10)
+    if ((*((u16 *) (motionState + 2))) & POSE_MOTION_FLIP_X)
     {
       s32 angle = *((u16 *) (motionState + 8));
       u8 *poseEntryBase = gPosePlacementTable;
-      s32 entryOffset = pose * 8;
+      s32 entryOffset = pose * POSE_PLACEMENT_ENTRY_SIZE;
       u8 *entryData = poseEntryBase + 4;
       localAngle = angle - (*((u32 *) (entryData + entryOffset)));
     }
@@ -74,13 +74,13 @@ void computePosePlacementOffset(void *entity, void *outPosition)
     {
       s32 angle = *((u16 *) (motionState + 8));
       u8 *poseEntryBase = gPosePlacementTable;
-      s32 entryOffset = pose * 8;
+      s32 entryOffset = pose * POSE_PLACEMENT_ENTRY_SIZE;
       u8 *entryData = poseEntryBase + 4;
       localAngle = halfTurn - (angle - (*((u32 *) (entryData + entryOffset))));
     }
-    trigFuncSlot = (s32 *) 0x08671BFC;
-    radius = pose * 8;
-    cosine = sub_080C31E0(localAngle + 0x4000, *trigFuncSlot);
+    trigFuncSlot = (s32 *) POSE_TRIG_FUNC_TABLE;
+    radius = pose * POSE_PLACEMENT_ENTRY_SIZE;
+    cosine = sub_080C31E0(localAngle + POSE_QUARTER_TURN, *trigFuncSlot);
     radius = (*((s32 *) (gPosePlacementTable + radius))) >> 8;
     *((s32 *) (outBytes + 8)) = (*((s32 *) (frameData + 8))) + (radius * (cosine >> 8));
     sine = sub_080C31E0(localAngle, *trigFuncSlot);

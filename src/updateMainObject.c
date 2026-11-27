@@ -13,10 +13,10 @@ void sub_08014314(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 D_0866DE5C;
+extern u32 gMainObjectStepHandlers;
 extern u32 gMainObjTimerCallbacks;
 
-void sub_08037A00(void *entity) {
+void updateMainObject(void *entity) {
     void *sprite;
     void *motion;
     void *motionEx;
