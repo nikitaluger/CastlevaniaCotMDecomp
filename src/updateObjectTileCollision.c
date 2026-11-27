@@ -18,7 +18,7 @@ struct EffectFlags { u8 _0[0x14]; u16 flags; };
 /* Enemy tile-collision tick: if the shared guard allows it, test the body's
    projected position against the tile table; on a hit restart the animation,
    otherwise commit the motion offset and dispatch the action callback. */
-void updateObjectTileCollision(u8 *arg0) {
+void sub_0806F65C(u8 *arg0) {
     u8 *sceneState = *(u8 **)(arg0 + 0x6C);
     u8 *body = sceneState + 4;
     s32 sprite = *(s32 *)(arg0 + 0x38);
