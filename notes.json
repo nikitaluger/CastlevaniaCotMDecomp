@@ -357683,5 +357683,23 @@
   "score_before": 215,
   "score_after": 215,
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:d5c86863464f94f483f7fe26735c4f4caabbcac56b71e5d2ac75f6c4c66f31bb"
+ },
+ {
+  "function": "sub_08041F84",
+  "text": "Progress from opencode-hy4-flash-free-64: best score 505 at revision 7ae85ddf878e87d6d1a7. Key finding: the script slot pointer is `self + *(s16 *)(self + 0x22) * 2`, NOT work-based \u2014 changing the first slot computation from work to self improved 2075 -> 505. The second slot computation (after setAnimationFrame(sprite,state,7,0)) still uses work in my candidate; target also uses self there (target `ldrsh r0,[r6,r1]; lsls r0,#1; adds r0,r0,r6; ldrb r0,[r0,#0x19]` with r6=self). Remaining diffs: (1) prologue register swap \u2014 target self=r6, sprite=r7, state=r8, work=r5, anim=r4; mine self=r7, sprite=r6, state=r8; (2) target loads 0xFFFC0000 literal with `ldr r1,[pc,#0x44]` AFTER the sprite-flag ands/cmp, mine loads r2 earlier; (3) `movs r1,#0xd0; lsls r1,#10; str r1,[r5,#0x10]` uses r1 in target vs r2 in mine (fallout); (4) `.byte 0x00,0xc0` vs `movs r0,r0` is a false-positive literal-pool misdecode. Target structure (verified from raw bytes): sub_08011EE8(work,0x16C1,0); stepAnimationTrack(sprite,state); sub_08042130(anim,sprite); if(*state&2){ v=(spriteflags&0x10)?0x34000:0xFFFC0000; *(u32*)(work+0x10)=v; setAnimationFrame(sprite,state,10,1);} if(*(u32*)(work+0x10)==0)return; if(absXFromFocus(*(s32*)(work+8))<=0xFFFFF) goto disp; sign=signOf(*(s32*)(work+8)); if(sign!=((spriteflags&0x10)?1:-1)){ if(absXFromFocus(work+8)>0x600000)goto disp;} slot=self+idx*2; if(slot[0x19]>0x3C)goto disp; if((*(u16*)(work+2)&3)==0)return; disp: setAnimationFrame(sprite,state,7,0); slot[0x19]=0; sub_080C31E4(self+0x18,self+0x22,*gMainObjTimerCallbacks). Next step: change both slot bases to self and try declaration reordering (declare sprite before self) to swap r6/r7.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795806587.5688412,
+  "score_before": 2075,
+  "score_after": 505,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:09f1e3fd22ce331a7691f3462a2b6a44b6f9a76f3ba4aa2723d92e3d791cab9a"
+ },
+ {
+  "function": "sub_08041F84",
+  "text": "Low progress after 29 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 79; 2 differing rows (2 register; advisory).\nTarget: adds r0, r0, r6\nCandidate: adds r0, r6, r0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = ldrsh r0, [r6, r1]\n  = lsls r0, r0, #1\nr T: adds r0, r0, r6 | C: adds r0, r6, r0\n  = ldrb r0, [r0, #0x19]\n  = cmp r0, #0x3c\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795807003.6815832,
+  "score_before": 505,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:09f1e3fd22ce331a7691f3462a2b6a44b6f9a76f3ba4aa2723d92e3d791cab9a"
  }
 ]
