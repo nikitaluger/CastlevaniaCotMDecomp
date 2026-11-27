@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795814229.7186499,
- "revision": 71143,
+ "saved_at": 1795814853.1749454,
+ "revision": 71178,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1801,6 +1801,17 @@
    "timeout": 20,
    "function": "updateJitteredParticleSpawner",
    "vram": 134824328
+  },
+  "244804:134462532": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "sub_0803BC44",
+   "vram": 134462532
   }
  },
  "instructions": "",
@@ -23614,6 +23625,11 @@
   "sub_080C3BB0": {
    "vram": 135019440,
    "matched_by": "opencode-iceman-contributor-free-1",
+   "readable": false
+  },
+  "sub_0803BC44": {
+   "vram": 134462532,
+   "matched_by": "opencode-hy4-flash-free-11",
    "readable": false
   }
  },
@@ -56026,6 +56042,12 @@
    "name": "gSixSlotStepHandlerTable",
    "address": 140967312,
    "size": 4,
+   "kind": "data"
+  },
+  {
+   "name": "gMultiPartStateHandlers",
+   "address": 140967432,
+   "size": 0,
    "kind": "data"
   },
   {

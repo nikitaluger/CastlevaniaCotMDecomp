@@ -356917,14 +356917,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:e136801417f9038c6a21ef96c8b621d47befce926c95e4075ff81ea90dcbe818"
  },
  {
-  "function": "sub_0803BC44",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No m2c draft (parse error). Large (~222 insns). High-similarity matched neighbors exist (spawnVariantEffectSprite/createChildEntitySprite/spawnKind15ScriptSprite/createPairedScriptedEffect) \u2014 good references to adapt. Needs manual RE.",
-  "by": "opencode-iceman-contributor-free-11",
-  "created_at": 1795807263.7432978,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0803E4A8",
   "text": "Score 100 (130/130 insns). Only 20 register diffs: consistent r4<->r5 swap (target r4=state, r5=tiles2; candidate r5=state, r4=tiles2). 3-hitbox switch (index *(u16*)(arg1+0x28)-0x10, cases 0/1,4,7,12,16) and merge match. Tried declaration reorders and try_local_repairs compare (split_case_labels,byte_pointer_record_view,dispatch_constant_hoist) - no improvement. Linker pointer diagnostics are jump-table offset artifacts.",
   "by": "opencode-iceman-contributor-free-10",
@@ -359078,6 +359070,14 @@
   "text": "Matched byte-for-byte by correcting the inherited twin source's data symbol from D_081007D8 to D_08100820. The only score-1 residual was that linking pointer; all 141 instructions were already exact. A shared-header extern addition for D_08100820 was rejected because it perturbed three unrelated matched functions, so keep the declaration in this function's source.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.2065544,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_0803BC44",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No m2c draft (parse error). Large (~222 insns). High-similarity matched neighbors exist (spawnVariantEffectSprite/createChildEntitySprite/spawnKind15ScriptSprite/createPairedScriptedEffect) \u2014 good references to adapt. Needs manual RE.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795807263.7432978,
   "score_before": null,
   "score_after": null
  }
