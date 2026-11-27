@@ -1,4 +1,4 @@
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_0808DC88(s32, s32, s32);
 extern void sub_080A8B44(void *, void *);
@@ -41,7 +41,7 @@ void sub_080A7834(void *arg0)
     if (subState == 6)
     {
       *((u8 *) (inline_fn(actor) + 0xEE)) = 0;
-      aimAngle = (*((s32 *) (inline_fn(actor) + 0xE8))) + sub_08005910((*((s32 *) (inline_fn(actor) + 0xDC))) - (*((s32 *) (inline_fn(actor) + 0xC8))), (*((s32 *) (inline_fn(actor) + 0xD8))) - (*((s32 *) (inline_fn(stateData) + 0x7C))));
+      aimAngle = (*((s32 *) (inline_fn(actor) + 0xE8))) + getAngleFromDelta((*((s32 *) (inline_fn(actor) + 0xDC))) - (*((s32 *) (inline_fn(actor) + 0xC8))), (*((s32 *) (inline_fn(actor) + 0xD8))) - (*((s32 *) (inline_fn(stateData) + 0x7C))));
       angleTable = (s32 *) 0x08671BFC;
       angle = aimAngle;
       targetX = (*((s32 *) (inline_fn(actor) + 0x08))) + (angleOffset = (sub_080C31E0(angle + 0x4000, *angleTable) >> 8) * 0x2C00);

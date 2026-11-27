@@ -1,7 +1,7 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08014DB4(void *, void *, s32, s32);
+extern void updateFollowPath(void *, void *, s32, s32);
 
 extern u8 gMainObjTimerCallbacks[];
 extern u8 D_0866D868[];
@@ -75,7 +75,7 @@ void sub_08022708(void *arg0)
     void *pose = (u8 *)work + 0x48;
 
     setAnimationFrame(*(void **)((u8 *)arg0 + 0x38), anim, 0xE, 1);
-    sub_08014DB4(work, (u8 *)work + 0x50, gMainWorkspace.a, gMainWorkspace.b);
+    updateFollowPath(work, (u8 *)work + 0x50, gMainWorkspace.a, gMainWorkspace.b);
     if (4 & *(u16 *)((u8 *)pose + 0x20))
         *(u16 *)pose = 1;
 }

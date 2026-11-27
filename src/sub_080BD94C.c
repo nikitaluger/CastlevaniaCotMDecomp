@@ -1,5 +1,5 @@
-extern s32 sub_0800583C(s32);
-extern s32 sub_08005910(s32, s32);
+extern s32 randomSignedOffset(s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern s32 sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u32 gTrigFuncTable;
@@ -17,9 +17,9 @@ void sub_080BD94C(u8 *self)
   s32 angle;
   u32 *pCallback;
 
-  angle = sub_08005910(gMainWorkspace.targetY - *(s32 *)(body + 0xC),
+  angle = getAngleFromDelta(gMainWorkspace.targetY - *(s32 *)(body + 0xC),
                        gMainWorkspace.targetX - *(s32 *)(body + 8));
-  angle += sub_0800583C(0x1000);
+  angle += randomSignedOffset(0x1000);
   *(s32 *)(state + 4) = angle;
 
   pCallback = &gTrigFuncTable;

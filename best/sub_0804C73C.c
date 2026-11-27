@@ -6,7 +6,7 @@ extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void setSpriteFlip(u8 *);
-extern void sub_080146D0(u8 *, s32, s32);
+extern void setPolarOffset(u8 *, s32, s32);
 extern void sub_0804CC18(u8 *, u8 *);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
@@ -72,7 +72,7 @@ void sub_0804C73C(struct Arg0 *arg0) {
     r5->f48 = *(u16 *)((u8 *)arg0 + 0x5C);
     setSpriteFlip(obj);
     setAnimationFrame(obj, r9, 0x0C, 0x00);
-    sub_080146D0((u8 *)r5, r5->f48, *(u32 *)((u8 *)arg0 + 0x6C));
+    setPolarOffset((u8 *)r5, r5->f48, *(u32 *)((u8 *)arg0 + 0x6C));
     sub_0804CC18((u8 *)arg0, obj);
     *(u16 *)((u8 *)arg0 + 0x02) |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * *(s16 *)((u8 *)arg0 + 0x22) + 0x19) = zero;

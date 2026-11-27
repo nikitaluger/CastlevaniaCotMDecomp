@@ -1,6 +1,6 @@
 extern u8 D_08100860[];
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void sub_08091B80(s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 
@@ -36,8 +36,8 @@ void sub_08094998(u8 *effect)
     frame = *(u16 *)(state + 0x0C);
     resetTime = 3;
     if ((frame & 3) == 0) {
-        spawnX = *(s32 *)(work + 0x08) + sub_0800583C(0xE0000);
-        spawnY = *(s32 *)(work + 0x0C) + sub_0800583C(0x20000);
+        spawnX = *(s32 *)(work + 0x08) + randomSignedOffset(0xE0000);
+        spawnY = *(s32 *)(work + 0x0C) + randomSignedOffset(0x20000);
         spawnSpeed = scaleByRandom(0x8000) + 0x2000;
         sub_08091B80(spawnX, spawnY, 0, spawnSpeed, 0x3000);
     }

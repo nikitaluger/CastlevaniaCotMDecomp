@@ -1,5 +1,5 @@
 extern void sub_08005E80(s32);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void *spawnBudgetedEffect(void *, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void *gMainObjTimerCallbacks;
@@ -21,7 +21,7 @@ void sub_080B2614(void *arg0)
 
     sprite = *(void **)((u8 *)arg0 + 0x38);
     animData = (u8 *)*(void **)((u8 *)arg0 + 0x3C) + 0x34;
-    sub_08011528(sprite, animData);
+    advanceAnimTrack(sprite, animData);
 
     if (animData[0] & 2)
     {

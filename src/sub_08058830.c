@@ -1,5 +1,5 @@
 extern s32 setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014EF4(s32);
+extern s32 rollProbability(s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 gMainObjTimerCallbacks[];
 
@@ -19,7 +19,7 @@ void sub_08058830(void *arg0)
     setAnimationFrame(parent, motion + 0x34, 5, 1);
 
     if (*(u16 *)(motion + 2) & 4) {
-        if (sub_08014EF4(5000) == 1) {
+        if (rollProbability(5000) == 1) {
             speed = 0x2800;
         } else {
             speed = 0xFFFFD800;

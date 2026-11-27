@@ -8,7 +8,7 @@ extern u16 D_080CFF2A[];
 extern u16 D_02023132;
 extern void setLayerTilemap(s32, u16);
 extern void sub_0805FEC8(u16);
-extern void sub_0800FE08(s32, s32, u32, void *);
+extern void drawDecimalNumber(s32, s32, u32, void *);
 extern void sub_0800FEDC(s32, void *);
 void sub_0800F1D8(u8 arg0, u8 arg1) {
     u16 *__base_D_02023132;
@@ -63,7 +63,7 @@ void sub_0800F1D8(u8 arg0, u8 arg1) {
             temp2 = ((base132 & 0x1F00) << 3);
             temp2 = temp2 + 0x06000000;
             temp2 = temp2 + (((u32)r5 << 6) + ((u32)r6 << 1));
-            sub_0800FE08(b, 2, 0x511C, (void *)temp2);
+            drawDecimalNumber(b, 2, 0x511C, (void *)temp2);
         } else {
             base132 = (*__base_D_02023132);
             ptr_web1 = ((base132 & 0x1F00) << 3);

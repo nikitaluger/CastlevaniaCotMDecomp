@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[]; /* memory base; byte 0x14ED holds the current room id */
 extern void *spawnEntity(s32, s32, s32, s32); /* spawn object of a given type */
-extern void sub_08086E28(void); /* notify the room engine of the spawn */
+extern void recordSpawnEvent(void); /* notify the room engine of the spawn */
 
 /* Room 0x34 handler: scale the entity's +0x90 field by four, spawn object type
  * 0x34, clear the spawned object's +0x7C field, notify the room engine, then
@@ -15,7 +15,7 @@ void spawnRoom34Object(s32 arg0, void *arg1) {
                 *(u16 *)((u8 *)spawn + 0x7C) = 0;
             }
         }
-        sub_08086E28();
+        recordSpawnEvent();
     }
     *(s32 *)(room + 0x8C) = *(s32 *)(room + 0x90);
 }

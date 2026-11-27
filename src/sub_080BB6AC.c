@@ -1,4 +1,4 @@
-extern void sub_08014848(s32,s32,s32,s32,s32,s32);
+extern void spawnJitteredParticles(s32,s32,s32,s32,s32,s32);
 extern void sub_080BE99C(void);
 extern void sub_080BEA94(void);
 extern s32 divideInt(s32,s32);
@@ -40,7 +40,7 @@ void sub_080BB6AC(void *self) {
         baseY = *(s32 *)(state + 0xC);
         spawnY = baseY - shift;
         if (spawnY > baseY + (s32)0xFFC00000) {
-            sub_08014848(1, 3, *(s32 *)(state + 8), spawnY, 0x300000, 0x40000);
+            spawnJitteredParticles(1, 3, *(s32 *)(state + 8), spawnY, 0x300000, 0x40000);
         }
         if (*count == 0x97) {
             sub_080BEA94();

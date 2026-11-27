@@ -22,7 +22,7 @@ extern struct In gCameraState;
 extern struct St gMenuState;
 extern u32 gGameStatus[];
 extern void *gMainObjTimerCallbacks;
-extern void *D_08671BC0;
+extern void *gPoseScriptCallbacks;
 
 void playSound(s32);
 void sub_0800EDAC(s32);
@@ -182,7 +182,7 @@ D9A4:
             d = a + ((s16)*(u16 *)(a + 0x22) << 1);
             d[0x19] = 0;
         }
-        sub_080C31E4(a + 0x18, a + 0x22, *(void **)&D_08671BC0);
+        sub_080C31E4(a + 0x18, a + 0x22, *(void **)&gPoseScriptCallbacks);
         return;
     }
     r_4 = 1;

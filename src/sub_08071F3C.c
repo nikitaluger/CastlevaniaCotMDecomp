@@ -1,7 +1,7 @@
 extern void sub_08071FDC(void);
 extern void sub_08072018(void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BC0;
+extern void *gPoseScriptCallbacks;
 extern u8 gGameStatus[];
 extern u32 gLevelExpTable[];
 
@@ -23,7 +23,7 @@ void sub_08071F3C(void *arg0) {
             sub_08071FDC();
             *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
             {
-                void **fnPtr = &D_08671BC0;
+                void **fnPtr = &gPoseScriptCallbacks;
                 sub_080C31E4(self + 0x18, self + 0x22, *fnPtr);
             }
         } else {

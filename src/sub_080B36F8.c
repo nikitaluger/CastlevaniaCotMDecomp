@@ -1,7 +1,7 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void setObjectAnimation(s32, void *, s32, s32);
-extern void sub_08011528(s32, void *);
+extern void advanceAnimTrack(s32, void *);
 extern void sub_080148D8(s32, s32);
 
 struct S_02025FF0_40 { u8 _pad[0x40]; u32 state; };
@@ -15,7 +15,7 @@ void sub_080B36F8(void *arg0) {
     u8 *work = *(u8 **)(self + 0x3C);
     u8 *anim = work + 0x34;
     setObjectAnimation(sprite, anim, 0, 1);
-    sub_08011528(sprite, anim);
+    advanceAnimTrack(sprite, anim);
     sub_080148D8(sprite, *(s32 *)(work + 8));
     if (gMainWorkspace.state == 1) {
         s32 *lit;

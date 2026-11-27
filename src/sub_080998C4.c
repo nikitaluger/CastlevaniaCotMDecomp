@@ -3,7 +3,7 @@ extern struct GameTimer gMainWorkspace;
 
 extern void sub_08005E80(s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
-extern void sub_0809C4E0(s32, s32);
+extern void setEffectBehavior(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Start the actor's scripted action: clamp the global timer upward (minimum
@@ -20,7 +20,7 @@ void sub_080998C4(void *arg0) {
     }
     sub_08005E80(0x167);
     setObjectAnimation(sprite, animState, 0x0F, 0);
-    sub_0809C4E0(*(s32 *)(parts + 8), 0);
+    setEffectBehavior(*(s32 *)(parts + 8), 0);
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
         s32 *scriptCb = (s32 *)0x08671BB0;

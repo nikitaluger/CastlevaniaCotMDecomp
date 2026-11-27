@@ -2,7 +2,7 @@
  * angle, then test whether the enemy's heading and the direction to the
  * player line up. On a match, or when the action byte is 0x5A, clear the
  * action and invoke the action-change callback. */
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern s32 angleWithinRange(s32, s32, s32);
 extern void refreshMotionTrail(void *a, void *b);
 extern void decelerateTargetX(void *a, void *b);
@@ -61,14 +61,14 @@ void updateEnemyVelocityAndHeading(u8 *self) {
     decelerateTargetX(sprite, body);
     refreshMotionTrail(self, body);
 
-    heading = sub_08005910(state->targetX - state->curX,
+    heading = getAngleFromDelta(state->targetX - state->curX,
                            state->curY - *(s32 *)(body + 0x7C));
     tolerance = 0x400;
 
     dx = (s32)gMainWorkspace.x - (state->targetX + *(s32 *)(self + 0x6C));
     dy = (s32)gMainWorkspace.y - (state->curY + *(s32 *)(self + 0x5C));
 
-    if (angleWithinRange(heading, tolerance, sub_08005910(dx, dy)) != 0) {
+    if (angleWithinRange(heading, tolerance, getAngleFromDelta(dx, dy)) != 0) {
         state->stateFlags = (s32)ACTION(self) << 16;
         ACTION(self) = 0;
         stepCallback = (s32 *)0x08671BB0; /* gMainObjTimerCallbacks */

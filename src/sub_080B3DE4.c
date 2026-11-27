@@ -1,4 +1,4 @@
-s32 sub_08011528(s32, void *);
+s32 advanceAnimTrack(s32, void *);
 void sub_08011EE8(void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -19,7 +19,7 @@ void sub_080B3DE4(void *arg0)
     sprite = *(s32 *)((s8 *)arg0 + 0x38);
     work = *(void **)((s8 *)arg0 + 0x3C);
     animator = (s8 *)work + 0x34;
-    sub_08011528(sprite, animator);
+    advanceAnimTrack(sprite, animator);
     sub_08011EE8(work, 0x4000, 0);
     if (0x201 & *(u16 *)((s8 *)work + 2))
         *(s32 *)((s8 *)work + 0x10) = 0;

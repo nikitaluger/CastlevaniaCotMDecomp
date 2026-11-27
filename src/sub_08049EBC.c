@@ -5,7 +5,7 @@ struct S_02025FF0_49EBC {
 };
 extern struct S_02025FF0_49EBC gMainWorkspace;
 extern void *gMainObjTimerCallbacks;
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void advanceMotion(void *, s32);
 extern void sub_0804A4D0(void *, void *, void *, s32);
 extern s32 advanceAnimationOffset(void *, void *, void *, void *);
@@ -28,7 +28,7 @@ void sub_08049EBC(u8 *object) {
     if (advanceAnimationOffset(sprite, pose, state, ctrl) != 0) {
         firedFlag = *(u8 *)(ctrl + 9);
         if (firedFlag == 0) {
-            angle = sub_08005910(gMainWorkspace.f1750 - *(s32 *)(state + 0xC), gMainWorkspace.f174C - *(s32 *)(state + 8));
+            angle = getAngleFromDelta(gMainWorkspace.f1750 - *(s32 *)(state + 0xC), gMainWorkspace.f174C - *(s32 *)(state + 8));
             if (*(u16 *)(sprite + 2) & 0x10) {
                 angle = (0x8000 - angle) & 0xFFFF;
             }

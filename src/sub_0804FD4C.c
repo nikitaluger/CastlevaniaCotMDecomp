@@ -1,4 +1,4 @@
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 s32 sub_08012A94(s32, s32, s32);
 void sub_0805077C(s32, s32, s16);
 void sub_080C31E4(void *, void *, s32);
@@ -45,7 +45,7 @@ void sub_0804FD4C(void *arg0)
       }
       else
       {
-        var_r2 = sub_0800583C(0x10000) * 4;
+        var_r2 = randomSignedOffset(0x10000) * 4;
       }
       var_r0 = (*((s32 *) (((u8 *) temp_r6) + 8))) + ((temp_r4 + 1) * 0x160000);
     }
@@ -65,7 +65,7 @@ void sub_0804FD4C(void *arg0)
       }
       else
       {
-        var_r2 = sub_0800583C(0x10000) * 4;
+        var_r2 = randomSignedOffset(0x10000) * 4;
       }
       var_r0 = (*((s32 *) (((u8 *) temp_r6) + 8))) - ((temp_r4_2 + 1) * 0x160000);
     }

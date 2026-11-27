@@ -1,7 +1,7 @@
 extern void stepDelayTimer(void *, s32);
 extern unsigned short sub_08007B3C(s32, s32, s32);
 extern void sub_0806A7AC(s32, void *, s32);
-extern s32 sub_0806B2C8(s32, s32, void *, void *);
+extern s32 handleSpecialTileAction(s32, s32, void *, void *);
 extern void resetActorForm(s32, void *);
 struct S_02025FF0 {
   u8 _0[0x24];
@@ -46,7 +46,7 @@ u16 sub_08065CC8(s32 arg0, s32 arg1, struct S_arg2 *arg2, struct S_arg3 *arg3)
       (sub_08007B3C((s32)(gTilemapPages + gMainWorkspace.f18A8 * 0x40), arg3->f0 + arg2->f38, arg3->f4 + 0x10000) & 0x4000)) goto fail;
   arg2->f40 = 1;
   resetActorForm(arg1, arg2);
-  r = sub_0806B2C8(arg0, arg1, arg2, arg3);
+  r = handleSpecialTileAction(arg0, arg1, arg2, arg3);
   pC4 = (s32 *)((u8 *)arg2 + 0xC4);
   *pC4 = r;
   if (r != 0) {

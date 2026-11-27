@@ -28,7 +28,7 @@ struct A_080A1348 {
 extern void *gMenuScriptCallback;
 
 extern void setObjectAnimation(void *, void *, s32, s32);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void sub_08098598(s32, void *, s32, void *);
 extern void sub_080A2D98(u32);
 extern void sub_080A2DA0(u32);
@@ -45,7 +45,7 @@ void sub_080A1348(struct A_080A1348 *obj) {
     u8 controlByte2;
 
     setObjectAnimation(sprite, stateArg, 0, 1);
-    sub_08011528(sprite, stateArg);
+    advanceAnimTrack(sprite, stateArg);
 
     if (((struct S_080A1348 *)((u8 *)obj + obj->f22 * 2))->f19 > 0x5A) {
         sub_08098598(0x170, (u8 *)scriptState + 0x60, 0xA, (u8 *)scriptState + 0x64);

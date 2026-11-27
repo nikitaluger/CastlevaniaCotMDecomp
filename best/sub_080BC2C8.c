@@ -66,9 +66,9 @@ extern u16 D_08102F1C[];
 extern void *gMainObjTimerCallbacks;
 void *allocSpriteObject(void);
 void allocWorkSlot(void *, s32, s32, s32);
-s32 sub_080057F8(void);
+s32 nextRandomWord(void);
 s32 scaleByRandom(s32);
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 void initSpriteGraphics(void *, void *, s32);
 void setAnimationFrame(void *, void *, s32, s32);
 s32 findKindIndex(s16);
@@ -130,8 +130,8 @@ ok:
   work->f28->fE = gEffectGfxTable[work->f1C].f6;
   work->f28->f10 = (u32)sprite;
   *((u32 *)((u8 *)actor + 0x6C)) = scaleByRandom(0x200000) - (-0x100000);
-  *((u32 *)((u8 *)actor + 0x7C)) = 0xFFFF & sub_080057F8();
-  value = sub_0800583C(0x180);
+  *((u32 *)((u8 *)actor + 0x7C)) = 0xFFFF & nextRandomWord();
+  value = randomSignedOffset(0x180);
   *((s32 *)((u8 *)actor + 0x8C)) = value;
   if (value < 0)
   {

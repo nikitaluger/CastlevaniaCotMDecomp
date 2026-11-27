@@ -77,8 +77,9 @@ void sub_0801A104(struct Entity *arg0)
   }
   {
     s32 idx = *(s16 *)((u8 *)arg0 + 0x22);
+    s32 idx2 = idx * 2;
     u8 *script = ((u8 *)arg0) + 0x18;
-    _call_via_r1(arg0, (void *)(*(u32 **)((u8 *)arg0 + 0x14))[*(u8 *)(idx * 2 + script)]);
+    _call_via_r1(arg0, (void *)(*(u32 **)((u8 *)arg0 + 0x14))[*(u8 *)(script + idx2)]);
   }
   arg0->childIndex = arg0->childIndex - 1;
   if (arg0->flags & 0x8000)

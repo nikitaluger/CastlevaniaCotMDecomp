@@ -3,7 +3,7 @@
  * depending on the entity's mode. */
 extern void forceAnimationFrame(void *, void *, s32, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void copyPoseAttrs(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 inline u8 *inline_fn(u8 *arg0)
@@ -25,7 +25,7 @@ void sub_080B5F80(void *entity)
   u8 *entry;
   u32 *tablePtr;
   u8 *tableBase;
-  sub_08011528(target, anim);
+  advanceAnimTrack(target, anim);
   *((u32 *) (state + 8)) = *((u32 *) (otherState + 8));
   *((u32 *) (state + 0xC)) = *((u32 *) (otherState + 0xC));
   *((u16 *) (target + 2)) = (flagValue = (*((u16 *) (target + 2))) & 0xFFEF);

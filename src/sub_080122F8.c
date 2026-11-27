@@ -1,4 +1,4 @@
-s32 sub_08005910(s32, s32);
+s32 getAngleFromDelta(s32, s32);
 void sub_0801235C(s32, s32 *, s32 *, s32 *);
 
 /* A segment's two endpoints step along their paths; store the midpoint and
@@ -19,5 +19,5 @@ void sub_080122F8(struct Segment *arg0, struct Segment *arg1) {
     sub_0801235C(arg1->mode, &arg1->step1, &arg1->x1, &arg1->y1);
     arg0->x0 = (arg1->x0 + arg1->x1) / 2;
     arg0->y0 = (arg1->y0 + arg1->y1) / 2;
-    arg1->angle = (sub_08005910(arg1->y1 - arg1->y0, arg1->x1 - arg1->x0) + 0xC000) & 0xFFFF;
+    arg1->angle = (getAngleFromDelta(arg1->y1 - arg1->y0, arg1->x1 - arg1->x0) + 0xC000) & 0xFFFF;
 }

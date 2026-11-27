@@ -3,7 +3,7 @@
  * script callback from the table at 0x08671BB0. */
 extern void forceAnimationFrame(s32, void *, s32, s32);
 extern void sub_0809C5F4(s32);
-extern void sub_0809C4E0(s32, s32);
+extern void setEffectBehavior(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 void sub_0809A3B8(void *entity)
@@ -15,7 +15,7 @@ void sub_0809A3B8(void *entity)
     s32 *scriptCb;
     forceAnimationFrame(sprite, anim, 0, 0);
     sub_0809C5F4(*(s32 *)((u8 *)fx + 0x14));
-    sub_0809C4E0(*(s32 *)((u8 *)fx + 0x08), 0);
+    setEffectBehavior(*(s32 *)((u8 *)fx + 0x08), 0);
     *(u8 *)((u8 *)entity + ((s32)*(s16 *)((u8 *)entity + 0x22) * 2) + 0x19) = 0;
     scriptCb = (s32 *)0x08671BB0;
     sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *scriptCb);

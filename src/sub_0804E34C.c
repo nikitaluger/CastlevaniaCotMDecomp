@@ -13,7 +13,7 @@ typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
-M2C_UNK sub_08014848(s32, s32, s32, s32, s32, s32);
+M2C_UNK spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 M2C_UNK sub_080C31E4(void *, void *, s32);
 u8 sub_080C389C(u8, s32); /* unsigned remainder */
 void sub_0804E34C(void *arg0)
@@ -27,7 +27,7 @@ void sub_0804E34C(void *arg0)
   *((s32 *) (((s8 *) work) + 0x14)) = 0;
   if (sub_080C389C(*((u8 *) (((s8 *) (((*((s16 *) tmpPtr)) * 2) + arg0)) + 0x19)), 6) == 1)
   {
-    sub_08014848(1, 2, *((s32 *) (((s8 *) work) + 8)), (*((s32 *) (((s8 *) work) + 0xC))) + 0xFFFC0000, 0x180000, 0x80000);
+    spawnJitteredParticles(1, 2, *((s32 *) (((s8 *) work) + 8)), (*((s32 *) (((s8 *) work) + 0xC))) + 0xFFFC0000, 0x180000, 0x80000);
   }
   temp_r1 = ((*((s16 *) tmpPtr)) * 2) + arg0;
   if (((u32) (*((u8 *) (((s8 *) (((*((s16 *) tmpPtr)) * 2) + arg0)) + 0x19)))) > 0x5AU)

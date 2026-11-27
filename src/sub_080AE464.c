@@ -1,8 +1,8 @@
-s32 sub_08005910(s32, s32);
+s32 getAngleFromDelta(s32, s32);
 void setObjectAnimation(s32, s32, s32, s32);
-void sub_08011528(s32, s32);
+void advanceAnimTrack(s32, s32);
 void advanceMotion(s32, s32);
-void sub_080146D0(s32, s32, s32);
+void setPolarOffset(s32, s32, s32);
 s32 sub_0801473C(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -23,7 +23,7 @@ void sub_080AE464(u8 *self) {
     anim += 0x34;
     motion = actor;
     motion += 0x48;
-    sub_08011528(view, anim);
+    advanceAnimTrack(view, anim);
     if (*(u8 *)anim & 2) {
         if (*(s16 *)(anim + 0xE) == 0x47)
             setObjectAnimation(view, anim, 0x45, 0);
@@ -32,9 +32,9 @@ void sub_080AE464(u8 *self) {
     }
     {
         s32 angle = *(s32 *)motion;
-        *(s32 *)motion = *(s32 *)motion + sub_0801473C(angle, sub_08005910(gMainWorkspace.playerY - *(s32 *)(actor + 0xC), gMainWorkspace.playerX - *(s32 *)(actor + 8))) * 0x140;
+        *(s32 *)motion = *(s32 *)motion + sub_0801473C(angle, getAngleFromDelta(gMainWorkspace.playerY - *(s32 *)(actor + 0xC), gMainWorkspace.playerX - *(s32 *)(actor + 8))) * 0x140;
     }
-    sub_080146D0(actor, *(s32 *)motion, *(s32 *)(motion + 4));
+    setPolarOffset(actor, *(s32 *)motion, *(s32 *)(motion + 4));
     advanceMotion(actor, 0);
     {
         u8 *child = (u8 *)((s32)((s16)*(s16 *)(self + 0x22) * 2) + (s32)self);

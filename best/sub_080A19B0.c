@@ -12,7 +12,7 @@ struct Sarg {
 };
 struct BD { u8 _0[4]; u16 f4; u16 f6; u16 f8; u16 fA; u8 _C[0x1C]; };
 extern struct BD gEffectGfxTable[];
-extern u16 D_08101A58[];
+extern u16 gPoseAttrs[];
 extern void *gMainObjTimerCallbacks;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
@@ -63,7 +63,7 @@ void sub_080A19B0(struct Sarg *arg0) {
   *((u16 *)a) |= gMainWorkspace.w;
   initSpriteGraphics((void *)a, aux, (p->f1C * 0xC) + ((u32)0x080CD400));
   setAnimationFrame((void *)a, aux, 6, 0);
-  tbl = (u8 *) D_08101A58;
+  tbl = (u8 *) gPoseAttrs;
   p->f28 = allocEffectPart();
   if (p->f28 == NULL) goto fail;
   goto ok;

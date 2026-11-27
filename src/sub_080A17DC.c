@@ -1,4 +1,4 @@
-extern void sub_08011624(void *a, void *b, void *c);
+extern void advanceAnimTrackByDelta(void *a, void *b, void *c);
 extern void advanceMotion(void *a, s32 b);
 extern void sub_080A1744(void *a, void *b);
 
@@ -53,7 +53,7 @@ s32 sub_080A17DC(struct FlipObj *entity, struct Motion *motion, struct TrackStat
 
     signedSpeed = magnitude;
     changed = 0;
-    sub_08011624(entity, track, D_0866FDEC[facing->tableIndex]);
+    advanceAnimTrackByDelta(entity, track, D_0866FDEC[facing->tableIndex]);
     table = track->dirTable;
     {
         s32 idx;

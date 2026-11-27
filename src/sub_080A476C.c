@@ -5,8 +5,8 @@ struct GlobalState {
 };
 extern struct GlobalState gMainWorkspace;
 extern void stepAnimationTrack(void *, void *);
-extern s32 sub_08005910(s32, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Advances the actor's animation; when its current script action is 8, aims
@@ -24,9 +24,9 @@ void sub_080A476C(void *arg0)
     stepAnimationTrack(gfx, work + 0x34);
     if (*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) == 8)
     {
-        angle = sub_08005910(gMainWorkspace.playerY - (*((s32 *) (work + 0x0C))), gMainWorkspace.playerX - (*((s32 *) (work + 0x08))));
+        angle = getAngleFromDelta(gMainWorkspace.playerY - (*((s32 *) (work + 0x0C))), gMainWorkspace.playerX - (*((s32 *) (work + 0x08))));
         heading = angle;
-        sub_080146D0(work, heading, 0x30000);
+        setPolarOffset(work, heading, 0x30000);
         heading = heading + 0x8000;
         heading = heading & 0xFFFF;
         *((s32 *) (self + 0x6C)) = 0xC000 - heading;

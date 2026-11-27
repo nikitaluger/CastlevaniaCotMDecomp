@@ -1,5 +1,5 @@
 s32 setObjectAnimation(s32, s32, s32, s32);
-s32 sub_08011528(s32, s32);
+s32 advanceAnimTrack(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 inline s32 ActorOf(void *obj)
@@ -17,7 +17,7 @@ void sub_080A9BF8(void *arg0)
   actor = ActorOf(arg0);
   anim = (*((s32 *) (((u8 *) arg0) + 0x3C))) + 0x34;
   self = arg0;
-  sub_08011528(actor, anim);
+  advanceAnimTrack(actor, anim);
   if ((*((u8 *) (((u8 *) (((*((s16 *) (((u8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19))) == (*((u8 *) (((u8 *) self) + 0x70))))
   {
     setObjectAnimation(actor, anim, 0x2C, 0);

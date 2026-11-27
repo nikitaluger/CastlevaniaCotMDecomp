@@ -1,5 +1,5 @@
 extern void setObjectAnimation(void *, void *, s32, s32);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void sub_080A040C(void *);
 extern void sub_080C31E4(void *, void *, u32);
 extern u32 gMainObjTimerCallbacks[];
@@ -17,7 +17,7 @@ void sub_0809D8C8(void *arg0)
     u8 *action = work + 0x48;
 
     setObjectAnimation(sprite, anim, 0x17, 0);
-    sub_08011528(sprite, anim);
+    advanceAnimTrack(sprite, anim);
     if (anim[0] & 2)
     {
         *(u32 *)(action + 0x44) = 0;

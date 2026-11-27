@@ -1,4 +1,4 @@
-void sub_08011528(void *, void *);
+void advanceAnimTrack(void *, void *);
 s32 sub_0801459C(void *, s32);
 void sub_080A1744(void *, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -17,7 +17,7 @@ void sub_080A0B60(void *actor) {
     void *work = *(void **)((u8 *)actor + 0x3C);
     s32 *handlerTable;
 
-    sub_08011528(sprite, (u8 *)work + 0x34);
+    advanceAnimTrack(sprite, (u8 *)work + 0x34);
     sub_080A1744(sprite, work);
     if (gMainWorkspace.globalFlag != 0) {
         if (sub_0801459C(work, 0x600000) != 0 || (*(u16 *)work & 2)) {

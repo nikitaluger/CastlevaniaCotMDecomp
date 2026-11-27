@@ -1,7 +1,7 @@
-extern u32 D_08671BC0[];
+extern u32 gPoseScriptCallbacks[];
 extern u8 D_08102BBC[];
 extern u8 D_08102CAC[];
-void sub_08011528(void *arg0, void *arg1);
+void advanceAnimTrack(void *arg0, void *arg1);
 void copyPoseAttrs(void *arg0, void *arg1);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -31,7 +31,7 @@ u32 *__repair_phase_new_var;
   {
     idx = *((s16 *) (e + 0x22));
     *((u8 *) ((e + (idx * 2)) + 0x19)) = sel;
-    new_var = D_08671BC0;
+    new_var = gPoseScriptCallbacks;
     sp = e + 0x18;
     sub_080C31E4((void *) sp, (void *) (e + 0x22), (s32) new_var[0]);
     idx = *((s16 *) (e + 0x22));
@@ -42,7 +42,7 @@ u32 *__repair_phase_new_var;
     sub_080C31E0((void *) e, (s32) (*((u32 **) (e + 0x14)))[byte]);
     return;
   }
-  do { sub_08011528(v38, (void *) p34); } while (0);
+  do { advanceAnimTrack(v38, (void *) p34); } while (0);
   baseptr = *((u32 **) (p34 + 0x08));
   idx = *((s16 *) (p34 + 0x0E));
   byte = *((u8 *) (p34 + 0x01));
@@ -97,7 +97,7 @@ u32 *__repair_phase_new_var;
     e[0x4C] = 0;
     idx = *((s16 *) (e + 0x22));
     *((u8 *) ((e + (idx * 2)) + 0x19)) = 0;
-    __repair_phase_new_var = D_08671BC0;
+    __repair_phase_new_var = gPoseScriptCallbacks;
     sub_080C31E4((void *) (e + 0x18), (void *) (e + 0x22), (s32) __repair_phase_new_var[0]);
   }
 }

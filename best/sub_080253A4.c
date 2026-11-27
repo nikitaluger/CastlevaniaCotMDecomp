@@ -1,7 +1,7 @@
 extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern s32 sub_08014A04(s32, s32, s32, s32, s32);
 extern s32 getSpriteFacingSign(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void randomizeLaunchOffsets(void *, void *);
 extern void sub_08014B1C(s32, s32, s32, s32);
 extern void setSpriteFlip(s32, s32);
@@ -40,7 +40,7 @@ void sub_080253A4(void *arg0)
                 *(s32 *)(steer + 8) = -0x300000;
             else
                 *(s32 *)(steer + 8) = 0x300000;
-            *(s32 *)(steer + 0x0C) = sub_0800583C(0x200000) - 0x300000;
+            *(s32 *)(steer + 0x0C) = randomSignedOffset(0x200000) - 0x300000;
             *(u16 *)(steer + 0x10) = 0;
             {
                 s16 scriptIndex = *(s16 *)(entity + 0x22);

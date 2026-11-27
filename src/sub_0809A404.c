@@ -3,7 +3,7 @@
  * field, play a sound, reset the timer and install the next callback. */
 extern void sub_080148D8(void *, s32);
 extern void forceAnimationFrame(void *, void *, s32, s32);
-extern void sub_0809C4E0(s32, s32);
+extern void setEffectBehavior(s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -16,7 +16,7 @@ void sub_0809A404(void *entity) {
     sub_080148D8(sprite, *(s32 *)(state + 8));
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x1E) {
         forceAnimationFrame(sprite, anim, 9, 0);
-        sub_0809C4E0(*(s32 *)(fx + 8), 0);
+        setEffectBehavior(*(s32 *)(fx + 8), 0);
         sub_08005E80(0x163);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {

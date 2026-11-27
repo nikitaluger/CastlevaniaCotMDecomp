@@ -1,6 +1,6 @@
 extern s32 isOutsideCameraBounds(s32, s32);
 extern void sub_08027A10(void *);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 scaleByRandom(s32);
 extern void stepAnimationTrack(void *, void *);
 extern void advanceMotion(void *, s32);
@@ -51,7 +51,7 @@ void updateMovingScriptedEntity(u8 *entity)
       {
         s32 *callback;
         *((u32 *) (stepState + 0x10)) = 0x16C1;
-        *((u32 *) (state + 0x10)) = sub_0800583C(0x4000);
+        *((u32 *) (state + 0x10)) = randomSignedOffset(0x4000);
         *((u32 *) (state + 0x14)) = scaleByRandom(0x2000);
         {
           void *owner = *((void **) (entity + 0x30));

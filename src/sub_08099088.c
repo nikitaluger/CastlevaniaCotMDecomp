@@ -3,10 +3,10 @@
  * buffer, then examine the current animation frame's command. Command 0x54
  * finalizes the entity (state 3, sound, script restart); otherwise it stays 2. */
 s32 sub_08005FC4(s32, s32, s32, s32, s32 *);
-s32 sub_08011528(u16 *, void *);
+s32 advanceAnimTrack(u16 *, void *);
 s32 moveEntityWithCollision(void *, s32);
-s32 sub_08014848(s32, s32, s32, s32, s32, s32);
-s32 sub_0809C4E0(s32, s32);
+s32 spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
+s32 setEffectBehavior(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 extern s32 sub_080C0384;
 inline s8 *inline_fn(void *arg0) { return (s8 *) arg0; }
@@ -43,12 +43,12 @@ void sub_08099088(void *self)
     {
       posX = *((s32 *)(inline_fn(ent)+8));
       posY = (*((s32 *)(inline_fn(ent)+0xC))) + 0xFFE80000;
-      sub_08014848(2, 2, posX, posY, 0x300000, 0x180000);
+      spawnJitteredParticles(2, 2, posX, posY, 0x300000, 0x180000);
     }
     *((s16 *) (inline_fn((void *) 0x03000830) + 4)) = soundVal;
     pan = *((u8 *) (inline_fn(ent) + 0x6B));
     *((s16 *) (inline_fn((void *) 0x03000830) + 6)) = (s16) (pan | ((0x10 - pan) << 8));
-    sub_08011528(ownerFlags, anim);
+    advanceAnimTrack(ownerFlags, anim);
     cmdTablePtr = *(s32 ***)(inline_fn(anim) + 8);
     frameSlot = *((s16 *) (inline_fn(anim) + 0xE)) + *((u8 *) (inline_fn(anim) + 1));
     cmdBase = (s8 *)*cmdTablePtr;
@@ -58,7 +58,7 @@ void sub_08099088(void *self)
     cmdId = *(u16 *)(cmdPtr + 2);
     if (cmdId == 0x54)
     {
-      sub_0809C4E0(*((s32 *) (inline_fn(timers) + 8)), 3);
+      setEffectBehavior(*((s32 *) (inline_fn(timers) + 8)), 3);
       sub_08005FC4(0, 0x186, 0x18, 0, &sub_080C0384);
       *inline_fn(inline_fn(((*((s16 *) (inline_fn(self) + 0x22))) * 2) + self) + 0x19) = 0;
       handlerTable = (s32 *)0x08671BB0;
@@ -66,5 +66,5 @@ void sub_08099088(void *self)
       return;
     }
   }
-  sub_0809C4E0(*((s32 *) (inline_fn(timers) + 8)), 2);
+  setEffectBehavior(*((s32 *) (inline_fn(timers) + 8)), 2);
 }

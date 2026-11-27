@@ -1,5 +1,5 @@
 void setAnimationFrame(void *, void *, s32, s32);
-s32 sub_08014EF4(s32);
+s32 rollProbability(s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -40,7 +40,7 @@ void sub_0802983C(void *self) {
         u32 *handlerSlot;
         u8 *stateEntry;
         s32 velocity;
-        velocity = sub_08014EF4(0x1388);
+        velocity = rollProbability(0x1388);
         if (velocity == 1)
             velocity = 0xC0 << 7;
         else

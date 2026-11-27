@@ -12,8 +12,8 @@ extern s32 sub_0806B820(void *a, void *b, void *c, void *d);
 extern s32 sub_0806B104(void *a, void *b, void *c);
 extern void sub_0806B280(void *a, void *b, void *c, void *d);
 extern void sub_080C31E8(void *a, void *b, s32 c, u32 d);
-extern s32 sub_0806B2C8(void *a, void *b, void *c, void *d);
-extern s32 sub_0806BBA4(void *a, void *b, void *c);
+extern s32 handleSpecialTileAction(void *a, void *b, void *c, void *d);
+extern s32 tryCompanionAction(void *a, void *b, void *c);
 extern void sub_0806AB04(void *a, void *b, void *c, void *d);
 extern s16 sub_08007B78(void *a, s32 b, s32 c);
 extern s16 sub_08007C40(void *a, s32 b, s32 c);
@@ -169,9 +169,9 @@ void sub_08062F10(void *a)
   }
   goto lab_6312A;
   check_b2c8:
-  if (!sub_0806B2C8(r4, r8, r5, r6))
+  if (!handleSpecialTileAction(r4, r8, r5, r6))
   {
-    if (!sub_0806BBA4(r4, r8, r5))
+    if (!tryCompanionAction(r4, r8, r5))
     {
       u16 *pcc = (u16 *) (r5 + 0xCC);
       *pcc |= 8;

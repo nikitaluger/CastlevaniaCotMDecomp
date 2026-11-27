@@ -1,7 +1,7 @@
 extern void sub_08051F40(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
 void *spawnBudgetedEffect(u32, s32);
@@ -31,9 +31,9 @@ void sub_0805C268(void *arg0) {
     u8 *r5 = r6 + 0x48;
     setAnimationFrame(p38, r6 + 0x34, 0, 1);
     if (sub_08014A04(r6, *(s32 *)(r5 + 8), *(s32 *)(r5 + 0xC), 0x80000, 0x80000) == 1) {
-        s32 v = sub_0800583C(0x200000);
+        s32 v = randomSignedOffset(0x200000);
         *(s32 *)(r5 + 8) = *(s32 *)(r6 + 0x48) + v;
-        *(s32 *)(r5 + 0xC) = *(s32 *)(r5 + 4) + sub_0800583C(0x200000);
+        *(s32 *)(r5 + 0xC) = *(s32 *)(r5 + 4) + randomSignedOffset(0x200000);
     }
     sub_08014B1C(r6, r6 + 0x58, *(s32 *)(r5 + 8), *(s32 *)(r5 + 0xC));
 }

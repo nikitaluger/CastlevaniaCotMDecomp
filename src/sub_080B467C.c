@@ -5,7 +5,7 @@
  * the script through the step callback.
  */
 extern s32 setObjectAnimation(void *, void *, s32, s32);
-extern s32 sub_08011528(void *, void *);
+extern s32 advanceAnimTrack(void *, void *);
 extern s32 sub_080C31E4(void *, void *, s32);
 
 #define ACTION_LOW_MAX  0x1D
@@ -30,7 +30,7 @@ void sub_080B467C(void *arg0)
     } else {
         setObjectAnimation(sprite, animState, FRAME_HIGH, 0);
     }
-    sub_08011528(sprite, animState);
+    advanceAnimTrack(sprite, animState);
     actionEntry = (*(s16 *)((s8 *)arg0 + 0x22) * 2) + (u32)arg0;
     if ((*(u8 *)((s8 *)actionEntry + 0x19) > ACTION_HIGH_MIN) && (*(u8 *)(s8 *)animState & ANIM_FLAG_BUSY)) {
         *(u8 *)((s8 *)actionEntry + 0x19) = 0;

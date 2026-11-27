@@ -1,15 +1,15 @@
 extern s32 fixedPointDistance(s32, s32);
-extern void sub_080146D0();
+extern void setPolarOffset();
 s32 sub_08014A34(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 v = fixedPointDistance(*(s32 *)((u8 *)arg0 + 0x10), *(s32 *)((u8 *)arg0 + 0x14));
     s32 sum = v;
     s32 res;
     sum = sum + arg2;
     if (sum < arg3) {
-        sub_080146D0(arg0, arg1);
+        setPolarOffset(arg0, arg1);
         res = 0;
     } else {
-        sub_080146D0(arg0, arg1, arg3);
+        setPolarOffset(arg0, arg1, arg3);
         res = 1;
     }
     return res;

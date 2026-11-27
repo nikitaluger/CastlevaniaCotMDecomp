@@ -10,6 +10,6 @@ void sub_080B5ACC(void *self) {
     if (step > 0x17FFF) {
         *(s32 *)((u8 *)self + 0x6C) = 0x18000;
     }
-    sub_080146D0(mover, *(s32 *)((u8 *)self + 0x7C), *(s32 *)((u8 *)self + 0x6C));
+    setPolarOffset(mover, *(s32 *)((u8 *)self + 0x7C), *(s32 *)((u8 *)self + 0x6C));
     advanceMotion(mover, 0);
 }

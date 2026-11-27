@@ -1,5 +1,5 @@
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080C36E4(s16, s32);
@@ -35,8 +35,8 @@ void sub_080937B4(u8 *arg0) {
     *(u16 *)(sprite + 0x28) = *(u16 *)(animPtr + byteIndex);
     phase = (s16)sub_080C36E4(*(s16 *)(timerPtr + 0x0C), 6);
     if (phase == 0) {
-        spawnX = *(s32 *)(state + 8) + sub_0800583C(0xE0000);
-        spawnY = *(s32 *)(state + 0x0C) + sub_0800583C(0x20000);
+        spawnX = *(s32 *)(state + 8) + randomSignedOffset(0xE0000);
+        spawnY = *(s32 *)(state + 0x0C) + randomSignedOffset(0x20000);
         spawnZ = scaleByRandom(0x8000) + 0x2000;
         sub_0808E348(spawnX, spawnY, 0, spawnZ, 0x16C1, phase, 8);
     }

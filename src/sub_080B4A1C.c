@@ -5,7 +5,7 @@
  * state code to the global game state, clear the byte and run the next step.
  */
 extern s32 setObjectAnimation(void *, void *, s32, s32);
-extern s32 sub_08011528(void *, void *);
+extern s32 advanceAnimTrack(void *, void *);
 extern s32 sub_080C31E4(void *, void *, u32);
 
 /* Global game state in IWRAM; only the fields this step writes are named. */
@@ -40,7 +40,7 @@ void sub_080B4A1C(void *arg0) {
     } else {
         setObjectAnimation(sprite, animState, FRAME_HIGH, 0);
     }
-    sub_08011528(sprite, animState);
+    advanceAnimTrack(sprite, animState);
     actionByte = *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0) + 0x19);
     if (actionByte > ACTION_HIGH_MIN && (*animState & ANIM_FLAG_BUSY)) {
         gMainWorkspace.f48 = *(u32 *)((u8 *)work + 8);

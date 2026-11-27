@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795792778.7306535,
- "revision": 69989,
+ "saved_at": 1795806449.3167949,
+ "revision": 70701,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "589452:134807180": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateTargetedScriptedAttack",
-   "vram": 134807180
   }
  },
  "instructions": "",
@@ -2095,7 +2084,34 @@
  },
  "claim_order": "",
  "priority": [
-  "sub_080240B8"
+  "sub_0804225C",
+  "sub_08041F84",
+  "sub_08041BE0",
+  "sub_08041824",
+  "sub_0804148C",
+  "sub_08040CCC",
+  "sub_0803F2B8",
+  "sub_0803EAB4",
+  "sub_0803E4A8",
+  "sub_0803D8BC",
+  "sub_0803D694",
+  "sub_0803D310",
+  "sub_0803CA24",
+  "sub_0803C874",
+  "sub_0803C250",
+  "sub_0803C048",
+  "sub_0803BC44",
+  "sub_0803BB10",
+  "sub_0803B2F8",
+  "sub_0803AA4C",
+  "sub_0803A820",
+  "sub_0803A478",
+  "sub_08039E24",
+  "sub_08039830",
+  "sub_08039604",
+  "sub_0803925C",
+  "sub_08038C8C",
+  "sub_080385EC"
  ],
  "auto_compiler": true,
  "released": null,
@@ -2107,8 +2123,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -2786,7 +2801,7 @@
    "matched_by": "api-qwen3.5-9b-1",
    "readable": false
   },
-  "sub_080057F8": {
+  "nextRandomWord": {
    "vram": 134240248,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -2796,7 +2811,7 @@
    "matched_by": "opencode-gemini-4-hydrogen-1",
    "readable": false
   },
-  "sub_0800583C": {
+  "randomSignedOffset": {
    "vram": 134240316,
    "matched_by": "autopilot",
    "readable": false
@@ -3236,10 +3251,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_08008D7C": {
+  "initMainObjectGraphics": {
    "vram": 134253948,
    "matched_by": "opencode-hy4-flash-free-11",
-   "readable": false
+   "readable": true
   },
   "sub_08008EB0": {
    "vram": 134254256,
@@ -3611,10 +3626,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0800D1F0": {
+  "setupMenuStatusDisplay": {
    "vram": 134271472,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_0800D320": {
    "vram": 134271776,
@@ -3746,12 +3761,12 @@
    "matched_by": "opencode-glm-5.3-flash-free-1",
    "readable": false
   },
-  "sub_0800EBDC": {
+  "drawComparisonNumber": {
    "vram": 134278108,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0800EC20": {
+  "loadStateGraphicsSet": {
    "vram": 134278176,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -3853,8 +3868,8 @@
   },
   "sub_0800FBB4": {
    "vram": 134282164,
-   "best_score": 10,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "matched_by": "opencode-hy4-flash-free-64",
+   "readable": false
   },
   "sub_0800FC38": {
    "vram": 134282296,
@@ -3886,7 +3901,7 @@
    "matched_by": "opencode-hy4-flash-free-9",
    "readable": false
   },
-  "sub_0800FE08": {
+  "drawDecimalNumber": {
    "vram": 134282760,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -4201,12 +4216,12 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08011528": {
+  "advanceAnimTrack": {
    "vram": 134288680,
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08011550": {
+  "setTrackAnimFrame": {
    "vram": 134288720,
    "matched_by": "autopilot",
    "readable": false
@@ -4216,7 +4231,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08011624": {
+  "advanceAnimTrackByDelta": {
    "vram": 134288932,
    "matched_by": "autopilot",
    "readable": false
@@ -4461,7 +4476,7 @@
    "best_score": 325,
    "best_by": "opencode-hy4-flash-free-8"
   },
-  "sub_080146D0": {
+  "setPolarOffset": {
    "vram": 134301392,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -4481,7 +4496,7 @@
    "best_score": 310,
    "best_by": "permuter-8589935123"
   },
-  "sub_08014848": {
+  "spawnJitteredParticles": {
    "vram": 134301768,
    "matched_by": "autopilot",
    "readable": false
@@ -4496,7 +4511,7 @@
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
   },
-  "sub_080149A4": {
+  "updateFacingFlipTimer": {
    "vram": 134302116,
    "matched_by": "opencode-hy4-flash-free-9",
    "readable": false
@@ -4536,12 +4551,12 @@
    "best_score": 4104,
    "best_by": "permuter-8589935140"
   },
-  "sub_08014DB4": {
+  "updateFollowPath": {
    "vram": 134303156,
    "matched_by": "opencode-beam-free-1",
-   "readable": false
+   "readable": true
   },
-  "sub_08014EF4": {
+  "rollProbability": {
    "vram": 134303476,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -4741,10 +4756,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_0801704C": {
+  "updateScriptedAngleObject": {
    "vram": 134312012,
-   "best_score": 715,
-   "best_by": "opencode-hy4-flash-free-64"
+   "matched_by": "opencode-hy4-flash-free-11",
+   "readable": true
   },
   "sub_080171A4": {
    "vram": 134312356,
@@ -4963,8 +4978,8 @@
   },
   "sub_08018700": {
    "vram": 134317824,
-   "best_score": 4700,
-   "best_by": "opencode-hy4-flash-free-11"
+   "best_score": 4615,
+   "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_08018868": {
    "vram": 134318184,
@@ -5026,10 +5041,10 @@
    "matched_by": "opencode-hy4-flash-free-10",
    "readable": true
   },
-  "sub_08018FB8": {
+  "MainObj_UpdateSteps": {
    "vram": 134320056,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080190E8": {
    "vram": 134320360,
@@ -5188,8 +5203,8 @@
   },
   "sub_0801A104": {
    "vram": 134324484,
-   "best_score": 1715,
-   "best_by": "opencode-hy4-flash-free-64"
+   "best_score": 1500,
+   "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_0801A2A0": {
    "vram": 134324896,
@@ -5226,10 +5241,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0801A7F0": {
+  "updateScriptedAngleObjectAlt": {
    "vram": 134326256,
-   "best_score": 230,
-   "best_by": "opencode-hy4-flash-free-65"
+   "matched_by": "opencode-hy4-flash-free-65",
+   "readable": true
   },
   "sub_0801A948": {
    "vram": 134326600,
@@ -5443,8 +5458,8 @@
   },
   "sub_0801BEA4": {
    "vram": 134332068,
-   "best_score": 4475,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "best_score": 1150,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0801C00C": {
    "vram": 134332428,
@@ -5511,7 +5526,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_0801C75C": {
+  "updateKind87EffectOwner": {
    "vram": 134334300,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -5546,7 +5561,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0801C9F8": {
+  "setKind87EffectLayerAttrs": {
    "vram": 134334968,
    "best_score": 570,
    "best_by": "permuter-8589935346"
@@ -5728,8 +5743,8 @@
   },
   "sub_0801E160": {
    "vram": 134340960,
-   "best_score": 32085,
-   "best_by": "opencode-hy4-flash-free-64"
+   "best_score": 27205,
+   "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_0801E3FC": {
    "vram": 134341628,
@@ -5844,7 +5859,7 @@
   "scriptCmdSpawnFixedAttack": {
    "vram": 134344872,
    "matched_by": "opencode-hy4-flash-free-64",
-   "readable": false
+   "readable": true
   },
   "updatePlayerActorAlt": {
    "vram": 134345472,
@@ -5933,8 +5948,8 @@
   },
   "sub_0801FEF8": {
    "vram": 134348536,
-   "best_score": 2045,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "best_score": 1335,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0801FFFC": {
    "vram": 134348796,
@@ -6241,10 +6256,10 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_08022E2C": {
+  "updateActorWaypointApproach": {
    "vram": 134360620,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08022F6C": {
    "vram": 134360940,
@@ -6381,10 +6396,15 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08024370": {
+  "sub_080240B8": {
+   "vram": 134365368,
+   "best_score": 11640,
+   "best_by": "opencode-hy4-flash-free-65"
+  },
+  "updateFamiliarEntityTick": {
    "vram": 134366064,
    "matched_by": "opencode-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080244A8": {
    "vram": 134366376,
@@ -6403,8 +6423,18 @@
   },
   "sub_080245EC": {
    "vram": 134366700,
-   "best_score": 7470,
-   "best_by": "opencode-hy4-flash-free-11"
+   "best_score": 4100,
+   "best_by": "opencode-iceman-contributor-free-10"
+  },
+  "sub_08024768": {
+   "vram": 134367080,
+   "best_score": 4635,
+   "best_by": "opencode-hy4-flash-free-64"
+  },
+  "sub_080248C0": {
+   "vram": 134367424,
+   "best_score": 3760,
+   "best_by": "opencode-hy4-flash-free-66"
   },
   "sub_080249E4": {
    "vram": 134367716,
@@ -6678,8 +6708,8 @@
   },
   "sub_08027180": {
    "vram": 134377856,
-   "best_score": 15,
-   "best_by": "opencode-hy4-flash-free-65"
+   "best_score": 10,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_08027234": {
    "vram": 134378036,
@@ -6746,7 +6776,12 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_08027CB0": {
+  "spawnTargetEffectSprite": {
+   "vram": 134380360,
+   "matched_by": "opencode-hy4-flash-free-11",
+   "readable": true
+  },
+  "updateScriptedEffectPosition": {
    "vram": 134380720,
    "matched_by": "opencode-free-1",
    "readable": false
@@ -6791,6 +6826,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_080282EC": {
+   "vram": 134382316,
+   "best_score": 1100,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_080283E8": {
    "vram": 134382568,
    "matched_by": "opencode-iceman-contributor-free-1",
@@ -6820,6 +6860,11 @@
    "vram": 134383472,
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
+  },
+  "sub_08028864": {
+   "vram": 134383716,
+   "best_score": 305,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_08028918": {
    "vram": 134383896,
@@ -6891,6 +6936,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0802918C": {
+   "vram": 134386060,
+   "best_score": 2545,
+   "best_by": "opencode-hy4-flash-free-65"
+  },
   "sub_08029354": {
    "vram": 134386516,
    "matched_by": "opencode-free-2",
@@ -6909,6 +6959,11 @@
   "sub_0802983C": {
    "vram": 134387772,
    "matched_by": "opencode-free-1",
+   "readable": false
+  },
+  "sub_080298E4": {
+   "vram": 134387940,
+   "matched_by": "opencode-hy4-flash-free-64",
    "readable": false
   },
   "sub_08029994": {
@@ -7066,6 +7121,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0802A974": {
+   "vram": 134392180,
+   "best_score": 15940,
+   "best_by": "opencode-iceman-contributor-free-10"
+  },
   "sub_0802AB88": {
    "vram": 134392712,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -7081,10 +7141,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0802AF88": {
+  "updateCompanionAttack": {
    "vram": 134393736,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0802B0C0": {
    "vram": 134394048,
@@ -7125,6 +7185,11 @@
    "vram": 134395800,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_0802B840": {
+   "vram": 134395968,
+   "best_score": 12710,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0802B98C": {
    "vram": 134396300,
@@ -7201,6 +7266,11 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
+  "sub_0802C4C4": {
+   "vram": 134399172,
+   "best_score": 12290,
+   "best_by": "opencode-iceman-contributor-free-10"
+  },
   "sub_0802C620": {
    "vram": 134399520,
    "matched_by": "autopilot",
@@ -7261,6 +7331,11 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
+  "scriptCmdSpawnReferencedSprite": {
+   "vram": 134401176,
+   "matched_by": "opencode-hy4-flash-free-11",
+   "readable": true
+  },
   "sub_0802CF08": {
    "vram": 134401800,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -7276,6 +7351,11 @@
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
   },
+  "sub_0802D180": {
+   "vram": 134402432,
+   "best_score": 60,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_0802D234": {
    "vram": 134402612,
    "matched_by": "autopilot",
@@ -7286,7 +7366,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0802D2B8": {
+  "updateRefSprite": {
    "vram": 134402744,
    "matched_by": "autopilot",
    "readable": false
@@ -7351,6 +7431,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0802DD2C": {
+   "vram": 134405420,
+   "best_score": 1290,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_0802DDF4": {
    "vram": 134405620,
    "matched_by": "autopilot",
@@ -7411,6 +7496,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0802E698": {
+   "vram": 134407832,
+   "matched_by": "opencode-hy4-flash-free-11",
+   "readable": false
+  },
   "sub_0802E764": {
    "vram": 134408036,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -7451,10 +7541,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0802EC18": {
+  "spawnKind29FixedFrameSprite": {
    "vram": 134409240,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_0802ED5C": {
    "vram": 134409564,
@@ -7526,10 +7616,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0802F6C0": {
+  "spawnKind69MainObjEffect": {
    "vram": 134411968,
    "matched_by": "permuter",
-   "readable": false
+   "readable": true
   },
   "sub_0802F804": {
    "vram": 134412292,
@@ -7546,20 +7636,30 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0802F93C": {
+   "vram": 134412604,
+   "best_score": 33405,
+   "best_by": "opencode-hy4-flash-free-67"
+  },
   "sub_0802FBF8": {
    "vram": 134413304,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0802FC98": {
+  "updateScriptedAttackObjectTick": {
    "vram": 134413464,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0802FDD4": {
    "vram": 134413780,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_0802FEAC": {
+   "vram": 134413996,
+   "best_score": 1000,
+   "best_by": "opencode-hy4-flash-free-65"
   },
   "sub_0802FFB4": {
    "vram": 134414260,
@@ -7621,10 +7721,15 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08030BE0": {
+  "sub_080308C0": {
+   "vram": 134416576,
+   "best_score": 21020,
+   "best_by": "opencode-hy4-flash-free-68"
+  },
+  "updateCompanionEntity": {
    "vram": 134417376,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "updateScriptedObjectBehavior": {
    "vram": 134417688,
@@ -7666,6 +7771,11 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
+  "sub_0803109C": {
+   "vram": 134418588,
+   "best_score": 23910,
+   "best_by": "opencode-hy4-flash-free-69"
+  },
   "sub_08031384": {
    "vram": 134419332,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -7676,6 +7786,11 @@
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": true
   },
+  "sub_0803157C": {
+   "vram": 134419836,
+   "best_score": 6150,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_080316BC": {
    "vram": 134420156,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -7684,6 +7799,11 @@
   "sub_08031740": {
    "vram": 134420288,
    "matched_by": "opencode-hy4-flash-free-1",
+   "readable": false
+  },
+  "sub_08031774": {
+   "vram": 134420340,
+   "matched_by": "opencode-hy4-flash-free-11",
    "readable": false
   },
   "sub_0803186C": {
@@ -7699,6 +7819,11 @@
   "sub_08031934": {
    "vram": 134420788,
    "matched_by": "autopilot",
+   "readable": false
+  },
+  "sub_08031968": {
+   "vram": 134420840,
+   "matched_by": "opencode-hy4-flash-free-64",
    "readable": false
   },
   "sub_08031A5C": {
@@ -7796,6 +7921,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_08032604": {
+   "vram": 134424068,
+   "best_score": 7085,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_08032768": {
    "vram": 134424424,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -7810,6 +7940,11 @@
    "vram": 134424664,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
+  },
+  "sub_080328CC": {
+   "vram": 134424780,
+   "best_score": 3630,
+   "best_by": "opencode-hy4-flash-free-65"
   },
   "sub_08032A04": {
    "vram": 134425092,
@@ -7889,6 +8024,11 @@
   "sub_0803333C": {
    "vram": 134427452,
    "matched_by": "opencode-hy4-flash-free-1",
+   "readable": false
+  },
+  "sub_080333D0": {
+   "vram": 134427600,
+   "matched_by": "opencode-hy4-flash-free-65",
    "readable": false
   },
   "sub_08033484": {
@@ -8000,6 +8140,11 @@
    "vram": 134431864,
    "matched_by": "opencode-free-2",
    "readable": false
+  },
+  "sub_080344C0": {
+   "vram": 134431936,
+   "best_score": 2750,
+   "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_080346EC": {
    "vram": 134432492,
@@ -8221,6 +8366,11 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
+  "sub_08036304": {
+   "vram": 134439684,
+   "best_score": 3195,
+   "best_by": "opencode-hy4-flash-free-72"
+  },
   "sub_08036484": {
    "vram": 134440068,
    "matched_by": "opencode-free-1",
@@ -8351,10 +8501,20 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_08037604": {
+   "vram": 134444548,
+   "best_score": 400,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_08037774": {
    "vram": 134444916,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
+  },
+  "sub_080377BC": {
+   "vram": 134444988,
+   "best_score": 3315,
+   "best_by": "opencode-hy4-flash-free-74"
   },
   "sub_08037A00": {
    "vram": 134445568,
@@ -8411,6 +8571,11 @@
    "matched_by": "autopilot",
    "readable": false
   },
+  "sub_08037FC0": {
+   "vram": 134447040,
+   "best_score": 630,
+   "best_by": "opencode-hy4-flash-free-73"
+  },
   "sub_080381AC": {
    "vram": 134447532,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -8430,6 +8595,11 @@
    "vram": 134448044,
    "matched_by": "permuter",
    "readable": false
+  },
+  "sub_08038438": {
+   "vram": 134448184,
+   "best_score": 770,
+   "best_by": "opencode-hy4-flash-free-71"
   },
   "sub_08038554": {
    "vram": 134448468,
@@ -8946,6 +9116,11 @@
    "matched_by": "opencode-hungerg-free-1",
    "readable": false
   },
+  "sub_0803DCA4": {
+   "vram": 134470820,
+   "best_score": 1520,
+   "best_by": "opencode-hy4-flash-free-65"
+  },
   "sub_0803DD18": {
    "vram": 134470936,
    "matched_by": "autopilot",
@@ -9335,6 +9510,11 @@
    "vram": 134484868,
    "matched_by": "autopilot",
    "readable": false
+  },
+  "sub_080413AC": {
+   "vram": 134484908,
+   "best_score": 5770,
+   "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_08041458": {
    "vram": 134485080,
@@ -12086,10 +12266,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0805BB40": {
+  "updateSteerTowardPlayerStep": {
    "vram": 134593344,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_0805BC78": {
    "vram": 134593656,
@@ -12151,10 +12331,10 @@
    "best_score": 8985,
    "best_by": "permuter-8589936699"
   },
-  "sub_0805C6D8": {
+  "updateFivePartScriptedEntityTick": {
    "vram": 134596312,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_0805C814": {
    "vram": 134596628,
@@ -12181,7 +12361,7 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0805CA00": {
+  "applyFivePartSpriteAttributes": {
    "vram": 134597120,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -12301,10 +12481,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_0805DFE0": {
+  "updateCameraBoundedScriptedAttack": {
    "vram": 134602720,
    "matched_by": "opencode-iceman-contributor-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_0805E120": {
    "vram": 134603040,
@@ -12638,8 +12818,8 @@
   },
   "decode2bppTiles": {
    "vram": 134614132,
-   "best_score": 1145,
-   "best_by": "opencode-hy4-flash-free-2"
+   "best_score": 60,
+   "best_by": "opencode-hy4-flash-free-64"
   },
   "uploadGfxTilesToVram": {
    "vram": 134614324,
@@ -12811,10 +12991,10 @@
    "best_score": 845,
    "best_by": "permuter-8589936840"
   },
-  "sub_0806295C": {
+  "initMainObjectEffectGraphics": {
    "vram": 134621532,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_08062A90": {
    "vram": 134621840,
@@ -12871,10 +13051,10 @@
    "matched_by": "opencode-deepseek-v4.1-flash-2",
    "readable": true
   },
-  "sub_08064BAC": {
+  "updateCompanionBoss": {
    "vram": 134630316,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "updateActorAiFromParamTable": {
    "vram": 134630624,
@@ -13181,10 +13361,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08069128": {
+  "updateActorAiAlternateStep": {
    "vram": 134648104,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0806926C": {
    "vram": 134648428,
@@ -13306,7 +13486,7 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0806B2C8": {
+  "handleSpecialTileAction": {
    "vram": 134656712,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": false
@@ -13331,10 +13511,10 @@
    "matched_by": "permuter-8589936956",
    "readable": false
   },
-  "sub_0806BBA4": {
+  "tryCompanionAction": {
    "vram": 134658980,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "resetActorForm": {
    "vram": 134661276,
@@ -13344,7 +13524,7 @@
   "syncViewPosition": {
    "vram": 134661300,
    "matched_by": "opencode-hy4-flash-free-8",
-   "readable": false
+   "readable": true
   },
   "resetActionResultState": {
    "vram": 134661612,
@@ -13481,7 +13661,7 @@
    "best_score": 6505,
    "best_by": "permuter-8589936989"
   },
-  "sub_0806DD94": {
+  "startScreenTransition": {
    "vram": 134667668,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -13666,10 +13846,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0806FDFC": {
+  "scriptCmdStartMainObjectEffect": {
    "vram": 134675964,
    "matched_by": "opencode-hungerg-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08070190": {
    "vram": 134676880,
@@ -13756,10 +13936,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08070E34": {
+  "initPoseCompanionSprite": {
    "vram": 134680116,
    "matched_by": "opencode-iceman-contributor-free-5",
-   "readable": false
+   "readable": true
   },
   "sub_08070FE4": {
    "vram": 134680548,
@@ -13771,10 +13951,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_080710A8": {
+  "spawnPoseCompanionEffect": {
    "vram": 134680744,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_080711E0": {
    "vram": 134681056,
@@ -13831,7 +14011,7 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_08071A20": {
+  "advanceRoomScroll": {
    "vram": 134683168,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
    "readable": false
@@ -13976,10 +14156,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08074520": {
+  "spawnScaledMainObjectEffect": {
    "vram": 134694176,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08074654": {
    "vram": 134694484,
@@ -14016,10 +14196,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08074D44": {
+  "spawnActorEffectPart": {
    "vram": 134696260,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_08074E80": {
    "vram": 134696576,
@@ -14036,10 +14216,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08075088": {
+  "spawnActorEffectPartVariant": {
    "vram": 134697096,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_080751C4": {
    "vram": 134697412,
@@ -14401,10 +14581,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08078E64": {
+  "spawnMainObjectEffect": {
    "vram": 134712932,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08078FA8": {
    "vram": 134713256,
@@ -15151,10 +15331,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08082288": {
+  "spawnEntityChildObject": {
    "vram": 134750856,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0808244C": {
    "vram": 134751308,
@@ -15381,7 +15561,7 @@
    "best_score": 2460,
    "best_by": "permuter-8589937389"
   },
-  "sub_080849A4": {
+  "handleCompanionCommand": {
    "vram": 134760868,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -15391,10 +15571,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_08084B7C": {
+  "runGameModeEffect": {
    "vram": 134761340,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "spawnRoom34Object": {
    "vram": 134761660,
@@ -15436,7 +15616,7 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08086E28": {
+  "recordSpawnEvent": {
    "vram": 134770216,
    "best_score": 20,
    "best_by": "permuter-8589937404"
@@ -16636,7 +16816,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_0808E61C": {
+  "spawnEffectParticle": {
    "vram": 134800924,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -16661,10 +16841,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0808E7E0": {
+  "spawnMainObjectSpriteEffect": {
    "vram": 134801376,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0808E924": {
    "vram": 134801700,
@@ -17856,20 +18036,20 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_08098F50": {
+  "finalizeCompanionEffect": {
    "vram": 134844240,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08099088": {
    "vram": 134844552,
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
   },
-  "sub_0809919C": {
+  "updateAttackVfxState": {
    "vram": 134844828,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080992DC": {
    "vram": 134845148,
@@ -17886,10 +18066,10 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_080996D8": {
+  "enemyScriptStepAimAtPlayer": {
    "vram": 134846168,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0809980C": {
    "vram": 134846476,
@@ -18231,7 +18411,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0809C4E0": {
+  "setEffectBehavior": {
    "vram": 134857952,
    "matched_by": "autopilot",
    "readable": false
@@ -18296,7 +18476,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0809C744": {
+  "loadEffectGfxTile": {
    "vram": 134858564,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -18331,10 +18511,10 @@
    "best_score": 390,
    "best_by": "permuter"
   },
-  "sub_0809CB48": {
+  "updateEnemyMotionEntity": {
    "vram": 134859592,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0809CC88": {
    "vram": 134859912,
@@ -19041,10 +19221,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080A1DE0": {
+  "enemyStepRandomProjectile": {
    "vram": 134880736,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080A1F14": {
    "vram": 134881044,
@@ -19146,7 +19326,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_080A2D30": {
+  "spawnFacingProjectile": {
    "vram": 134884656,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -19226,10 +19406,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_080A36AC": {
+  "updateMainObjectEffectStep": {
    "vram": 134887084,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "sub_080A37F0": {
    "vram": 134887408,
@@ -19486,7 +19666,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080A5670": {
+  "spawnHitSpark": {
    "vram": 134895216,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -19816,10 +19996,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080A8784": {
+  "checkAngularMotionHit": {
    "vram": 134907780,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080A88C0": {
    "vram": 134908096,
@@ -20876,10 +21056,10 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_080B17C8": {
+  "updateFadingParticleEffect": {
    "vram": 134944712,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_080B1908": {
    "vram": 134945032,
@@ -22561,10 +22741,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080BD3A4": {
+  "updateEntityPose": {
    "vram": 134992804,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "destroyMultiPartObject": {
    "vram": 134993120,
@@ -22626,12 +22806,12 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_080BDE00": {
+  "initSceneObject": {
    "vram": 134995456,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
-  "sub_080BE214": {
+  "finishSceneTransition": {
    "vram": 134996500,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -24288,7 +24468,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080057F8",
+   "name": "nextRandomWord",
    "vram": 134240248,
    "size": 40,
    "status": "open"
@@ -24300,7 +24480,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0800583C",
+   "name": "randomSignedOffset",
    "vram": 134240316,
    "size": 18,
    "status": "open"
@@ -24312,7 +24492,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08005910",
+   "name": "getAngleFromDelta",
    "vram": 134240528,
    "size": 202,
    "status": "asm"
@@ -24894,7 +25074,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08008D7C",
+   "name": "initMainObjectGraphics",
    "vram": 134253948,
    "size": 308,
    "status": "open"
@@ -25410,7 +25590,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0800D1F0",
+   "name": "setupMenuStatusDisplay",
    "vram": 134271472,
    "size": 304,
    "status": "open"
@@ -25590,13 +25770,13 @@
    "status": "open"
   },
   {
-   "name": "sub_0800EBDC",
+   "name": "drawComparisonNumber",
    "vram": 134278108,
    "size": 68,
    "status": "open"
   },
   {
-   "name": "sub_0800EC20",
+   "name": "loadStateGraphicsSet",
    "vram": 134278176,
    "size": 214,
    "status": "open"
@@ -25764,7 +25944,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0800FE08",
+   "name": "drawDecimalNumber",
    "vram": 134282760,
    "size": 92,
    "status": "open"
@@ -26172,13 +26352,13 @@
    "status": "open"
   },
   {
-   "name": "sub_08011528",
+   "name": "advanceAnimTrack",
    "vram": 134288680,
    "size": 38,
    "status": "open"
   },
   {
-   "name": "sub_08011550",
+   "name": "setTrackAnimFrame",
    "vram": 134288720,
    "size": 94,
    "status": "open"
@@ -26190,7 +26370,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08011624",
+   "name": "advanceAnimTrackByDelta",
    "vram": 134288932,
    "size": 42,
    "status": "open"
@@ -26508,7 +26688,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080146D0",
+   "name": "setPolarOffset",
    "vram": 134301392,
    "size": 108,
    "status": "open"
@@ -26538,7 +26718,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08014848",
+   "name": "spawnJitteredParticles",
    "vram": 134301768,
    "size": 100,
    "status": "open"
@@ -26592,7 +26772,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_080149A4",
+   "name": "updateFacingFlipTimer",
    "vram": 134302116,
    "size": 94,
    "status": "open"
@@ -26640,13 +26820,13 @@
    "status": "open"
   },
   {
-   "name": "sub_08014DB4",
+   "name": "updateFollowPath",
    "vram": 134303156,
    "size": 320,
    "status": "open"
   },
   {
-   "name": "sub_08014EF4",
+   "name": "rollProbability",
    "vram": 134303476,
    "size": 32,
    "status": "open"
@@ -26946,7 +27126,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801704C",
+   "name": "updateScriptedAngleObject",
    "vram": 134312012,
    "size": 344,
    "status": "open"
@@ -27306,7 +27486,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08018FB8",
+   "name": "MainObj_UpdateSteps",
    "vram": 134320056,
    "size": 304,
    "status": "open"
@@ -27546,7 +27726,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801A7F0",
+   "name": "updateScriptedAngleObjectAlt",
    "vram": 134326256,
    "size": 344,
    "status": "open"
@@ -27900,7 +28080,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801C75C",
+   "name": "updateKind87EffectOwner",
    "vram": 134334300,
    "size": 304,
    "status": "open"
@@ -27942,7 +28122,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801C9F8",
+   "name": "setKind87EffectLayerAttrs",
    "vram": 134334968,
    "size": 120,
    "status": "open"
@@ -28824,7 +29004,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08022E2C",
+   "name": "updateActorWaypointApproach",
    "vram": 134360620,
    "size": 318,
    "status": "open"
@@ -29004,7 +29184,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08024370",
+   "name": "updateFamiliarEntityTick",
    "vram": 134366064,
    "size": 312,
    "status": "open"
@@ -29031,6 +29211,18 @@
    "name": "sub_080245EC",
    "vram": 134366700,
    "size": 380,
+   "status": "open"
+  },
+  {
+   "name": "sub_08024768",
+   "vram": 134367080,
+   "size": 344,
+   "status": "open"
+  },
+  {
+   "name": "sub_080248C0",
+   "vram": 134367424,
+   "size": 292,
    "status": "open"
   },
   {
@@ -29460,7 +29652,13 @@
    "status": "open"
   },
   {
-   "name": "sub_08027CB0",
+   "name": "spawnTargetEffectSprite",
+   "vram": 134380360,
+   "size": 360,
+   "status": "open"
+  },
+  {
+   "name": "updateScriptedEffectPosition",
    "vram": 134380720,
    "size": 188,
    "status": "open"
@@ -29514,6 +29712,12 @@
    "status": "open"
   },
   {
+   "name": "sub_080282EC",
+   "vram": 134382316,
+   "size": 252,
+   "status": "open"
+  },
+  {
    "name": "sub_080283E8",
    "vram": 134382568,
    "size": 60,
@@ -29553,6 +29757,12 @@
    "name": "sub_08028770",
    "vram": 134383472,
    "size": 244,
+   "status": "open"
+  },
+  {
+   "name": "sub_08028864",
+   "vram": 134383716,
+   "size": 180,
    "status": "open"
   },
   {
@@ -29640,6 +29850,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0802918C",
+   "vram": 134386060,
+   "size": 456,
+   "status": "open"
+  },
+  {
    "name": "sub_08029354",
    "vram": 134386516,
    "size": 72,
@@ -29661,6 +29877,12 @@
    "name": "sub_0802983C",
    "vram": 134387772,
    "size": 168,
+   "status": "open"
+  },
+  {
+   "name": "sub_080298E4",
+   "vram": 134387940,
+   "size": 176,
    "status": "open"
   },
   {
@@ -29862,6 +30084,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0802A974",
+   "vram": 134392180,
+   "size": 532,
+   "status": "open"
+  },
+  {
    "name": "sub_0802AB88",
    "vram": 134392712,
    "size": 72,
@@ -29880,7 +30108,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802AF88",
+   "name": "updateCompanionAttack",
    "vram": 134393736,
    "size": 312,
    "status": "open"
@@ -29937,6 +30165,12 @@
    "name": "sub_0802B798",
    "vram": 134395800,
    "size": 168,
+   "status": "open"
+  },
+  {
+   "name": "sub_0802B840",
+   "vram": 134395968,
+   "size": 332,
    "status": "open"
   },
   {
@@ -30030,6 +30264,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0802C4C4",
+   "vram": 134399172,
+   "size": 348,
+   "status": "open"
+  },
+  {
    "name": "sub_0802C620",
    "vram": 134399520,
    "size": 2,
@@ -30108,6 +30348,12 @@
    "status": "open"
   },
   {
+   "name": "scriptCmdSpawnReferencedSprite",
+   "vram": 134401176,
+   "size": 624,
+   "status": "open"
+  },
+  {
    "name": "sub_0802CF08",
    "vram": 134401800,
    "size": 268,
@@ -30126,6 +30372,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0802D180",
+   "vram": 134402432,
+   "size": 180,
+   "status": "open"
+  },
+  {
    "name": "sub_0802D234",
    "vram": 134402612,
    "size": 2,
@@ -30138,7 +30390,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802D2B8",
+   "name": "updateRefSprite",
    "vram": 134402744,
    "size": 46,
    "status": "open"
@@ -30213,6 +30465,12 @@
    "name": "sub_0802DC84",
    "vram": 134405252,
    "size": 168,
+   "status": "open"
+  },
+  {
+   "name": "sub_0802DD2C",
+   "vram": 134405420,
+   "size": 200,
    "status": "open"
   },
   {
@@ -30294,6 +30552,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0802E698",
+   "vram": 134407832,
+   "size": 204,
+   "status": "open"
+  },
+  {
    "name": "sub_0802E764",
    "vram": 134408036,
    "size": 204,
@@ -30342,7 +30606,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802EC18",
+   "name": "spawnKind29FixedFrameSprite",
    "vram": 134409240,
    "size": 324,
    "status": "open"
@@ -30432,7 +30696,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802F6C0",
+   "name": "spawnKind69MainObjEffect",
    "vram": 134411968,
    "size": 324,
    "status": "open"
@@ -30456,13 +30720,19 @@
    "status": "open"
   },
   {
+   "name": "sub_0802F93C",
+   "vram": 134412604,
+   "size": 700,
+   "status": "open"
+  },
+  {
    "name": "sub_0802FBF8",
    "vram": 134413304,
    "size": 160,
    "status": "open"
   },
   {
-   "name": "sub_0802FC98",
+   "name": "updateScriptedAttackObjectTick",
    "vram": 134413464,
    "size": 316,
    "status": "open"
@@ -30471,6 +30741,12 @@
    "name": "sub_0802FDD4",
    "vram": 134413780,
    "size": 214,
+   "status": "open"
+  },
+  {
+   "name": "sub_0802FEAC",
+   "vram": 134413996,
+   "size": 264,
    "status": "open"
   },
   {
@@ -30546,7 +30822,13 @@
    "status": "open"
   },
   {
-   "name": "sub_08030BE0",
+   "name": "sub_080308C0",
+   "vram": 134416576,
+   "size": 800,
+   "status": "open"
+  },
+  {
+   "name": "updateCompanionEntity",
    "vram": 134417376,
    "size": 312,
    "status": "open"
@@ -30600,6 +30882,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0803109C",
+   "vram": 134418588,
+   "size": 744,
+   "status": "open"
+  },
+  {
    "name": "sub_08031384",
    "vram": 134419332,
    "size": 124,
@@ -30612,6 +30900,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0803157C",
+   "vram": 134419836,
+   "size": 320,
+   "status": "open"
+  },
+  {
    "name": "sub_080316BC",
    "vram": 134420156,
    "size": 132,
@@ -30621,6 +30915,12 @@
    "name": "sub_08031740",
    "vram": 134420288,
    "size": 52,
+   "status": "open"
+  },
+  {
+   "name": "sub_08031774",
+   "vram": 134420340,
+   "size": 248,
    "status": "open"
   },
   {
@@ -30639,6 +30939,12 @@
    "name": "sub_08031934",
    "vram": 134420788,
    "size": 52,
+   "status": "open"
+  },
+  {
+   "name": "sub_08031968",
+   "vram": 134420840,
+   "size": 244,
    "status": "open"
   },
   {
@@ -30756,6 +31062,12 @@
    "status": "open"
   },
   {
+   "name": "sub_08032604",
+   "vram": 134424068,
+   "size": 356,
+   "status": "open"
+  },
+  {
    "name": "sub_08032768",
    "vram": 134424424,
    "size": 120,
@@ -30771,6 +31083,12 @@
    "name": "sub_08032858",
    "vram": 134424664,
    "size": 116,
+   "status": "open"
+  },
+  {
+   "name": "sub_080328CC",
+   "vram": 134424780,
+   "size": 312,
    "status": "open"
   },
   {
@@ -30867,6 +31185,12 @@
    "name": "sub_0803333C",
    "vram": 134427452,
    "size": 148,
+   "status": "open"
+  },
+  {
+   "name": "sub_080333D0",
+   "vram": 134427600,
+   "size": 180,
    "status": "open"
   },
   {
@@ -30999,6 +31323,12 @@
    "name": "sub_08034478",
    "vram": 134431864,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_080344C0",
+   "vram": 134431936,
+   "size": 556,
    "status": "open"
   },
   {
@@ -31266,6 +31596,12 @@
    "status": "open"
   },
   {
+   "name": "sub_08036304",
+   "vram": 134439684,
+   "size": 384,
+   "status": "open"
+  },
+  {
    "name": "sub_08036484",
    "vram": 134440068,
    "size": 76,
@@ -31428,6 +31764,12 @@
    "status": "open"
   },
   {
+   "name": "sub_08037604",
+   "vram": 134444548,
+   "size": 288,
+   "status": "open"
+  },
+  {
    "name": "sub_08037724",
    "vram": 134444836,
    "size": 80,
@@ -31437,6 +31779,12 @@
    "name": "sub_08037774",
    "vram": 134444916,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_080377BC",
+   "vram": 134444988,
+   "size": 580,
    "status": "open"
   },
   {
@@ -31506,6 +31854,12 @@
    "status": "open"
   },
   {
+   "name": "sub_08037FC0",
+   "vram": 134447040,
+   "size": 492,
+   "status": "open"
+  },
+  {
    "name": "sub_080381AC",
    "vram": 134447532,
    "size": 254,
@@ -31530,6 +31884,12 @@
    "status": "open"
   },
   {
+   "name": "sub_08038438",
+   "vram": 134448184,
+   "size": 284,
+   "status": "open"
+  },
+  {
    "name": "sub_08038554",
    "vram": 134448468,
    "size": 18,
@@ -31545,6 +31905,12 @@
    "name": "sub_080385A4",
    "vram": 134448548,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_080385EC",
+   "vram": 134448620,
+   "size": 656,
    "status": "open"
   },
   {
@@ -31596,6 +31962,12 @@
    "status": "open"
   },
   {
+   "name": "sub_08038C8C",
+   "vram": 134450316,
+   "size": 408,
+   "status": "open"
+  },
+  {
    "name": "sub_08038E24",
    "vram": 134450724,
    "size": 288,
@@ -31644,6 +32016,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0803925C",
+   "vram": 134451804,
+   "size": 552,
+   "status": "open"
+  },
+  {
    "name": "sub_08039484",
    "vram": 134452356,
    "size": 280,
@@ -31653,6 +32031,12 @@
    "name": "sub_0803959C",
    "vram": 134452636,
    "size": 104,
+   "status": "open"
+  },
+  {
+   "name": "sub_08039604",
+   "vram": 134452740,
+   "size": 328,
    "status": "open"
   },
   {
@@ -31671,6 +32055,12 @@
    "name": "sub_080397E8",
    "vram": 134453224,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_08039830",
+   "vram": 134453296,
+   "size": 840,
    "status": "open"
   },
   {
@@ -31707,6 +32097,12 @@
    "name": "sub_08039DC8",
    "vram": 134454728,
    "size": 92,
+   "status": "open"
+  },
+  {
+   "name": "sub_08039E24",
+   "vram": 134454820,
+   "size": 408,
    "status": "open"
   },
   {
@@ -31758,6 +32154,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0803A478",
+   "vram": 134456440,
+   "size": 552,
+   "status": "open"
+  },
+  {
    "name": "sub_0803A6A0",
    "vram": 134456992,
    "size": 280,
@@ -31767,6 +32169,12 @@
    "name": "sub_0803A7B8",
    "vram": 134457272,
    "size": 104,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803A820",
+   "vram": 134457376,
+   "size": 328,
    "status": "open"
   },
   {
@@ -31785,6 +32193,12 @@
    "name": "sub_0803AA04",
    "vram": 134457860,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803AA4C",
+   "vram": 134457932,
+   "size": 584,
    "status": "open"
   },
   {
@@ -31896,6 +32310,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0803B2F8",
+   "vram": 134460152,
+   "size": 800,
+   "status": "open"
+  },
+  {
    "name": "updateTwoSubObjectWeapon",
    "vram": 134460952,
    "size": 380,
@@ -31932,9 +32352,21 @@
    "status": "open"
   },
   {
+   "name": "sub_0803BB10",
+   "vram": 134462224,
+   "size": 236,
+   "status": "open"
+  },
+  {
    "name": "sub_0803BBFC",
    "vram": 134462460,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803BC44",
+   "vram": 134462532,
+   "size": 444,
    "status": "open"
   },
   {
@@ -31956,9 +32388,21 @@
    "status": "open"
   },
   {
+   "name": "sub_0803C048",
+   "vram": 134463560,
+   "size": 216,
+   "status": "open"
+  },
+  {
    "name": "sub_0803C23C",
    "vram": 134464060,
    "size": 20,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803C250",
+   "vram": 134464080,
+   "size": 184,
    "status": "open"
   },
   {
@@ -32022,6 +32466,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0803C874",
+   "vram": 134465652,
+   "size": 348,
+   "status": "open"
+  },
+  {
    "name": "sub_0803C9D0",
    "vram": 134466000,
    "size": 12,
@@ -32031,6 +32481,12 @@
    "name": "sub_0803C9DC",
    "vram": 134466012,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803CA24",
+   "vram": 134466084,
+   "size": 456,
    "status": "open"
   },
   {
@@ -32112,15 +32568,33 @@
    "status": "open"
   },
   {
+   "name": "sub_0803D310",
+   "vram": 134468368,
+   "size": 632,
+   "status": "open"
+  },
+  {
    "name": "sub_0803D588",
    "vram": 134469000,
    "size": 268,
    "status": "open"
   },
   {
+   "name": "sub_0803D694",
+   "vram": 134469268,
+   "size": 456,
+   "status": "open"
+  },
+  {
    "name": "sub_0803D85C",
    "vram": 134469724,
    "size": 96,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803D8BC",
+   "vram": 134469820,
+   "size": 164,
    "status": "open"
   },
   {
@@ -32163,6 +32637,12 @@
    "name": "sub_0803DBE8",
    "vram": 134470632,
    "size": 188,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803DCA4",
+   "vram": 134470820,
+   "size": 116,
    "status": "open"
   },
   {
@@ -32238,6 +32718,12 @@
    "status": "open"
   },
   {
+   "name": "sub_0803E4A8",
+   "vram": 134472872,
+   "size": 260,
+   "status": "open"
+  },
+  {
    "name": "sub_0803E5AC",
    "vram": 134473132,
    "size": 72,
@@ -32283,6 +32769,12 @@
    "name": "sub_0803EA6C",
    "vram": 134474348,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803EAB4",
+   "vram": 134474420,
+   "size": 572,
    "status": "open"
   },
   {
@@ -32343,6 +32835,12 @@
    "name": "sub_0803F270",
    "vram": 134476400,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_0803F2B8",
+   "vram": 134476472,
+   "size": 568,
    "status": "open"
   },
   {
@@ -32598,6 +33096,12 @@
    "status": "open"
   },
   {
+   "name": "sub_08040CCC",
+   "vram": 134483148,
+   "size": 532,
+   "status": "open"
+  },
+  {
    "name": "sub_08040EE0",
    "vram": 134483680,
    "size": 248,
@@ -32652,9 +33156,21 @@
    "status": "open"
   },
   {
+   "name": "sub_080413AC",
+   "vram": 134484908,
+   "size": 172,
+   "status": "open"
+  },
+  {
    "name": "sub_08041458",
    "vram": 134485080,
    "size": 52,
+   "status": "open"
+  },
+  {
+   "name": "sub_0804148C",
+   "vram": 134485132,
+   "size": 328,
    "status": "open"
   },
   {
@@ -32700,6 +33216,12 @@
    "status": "open"
   },
   {
+   "name": "sub_08041824",
+   "vram": 134486052,
+   "size": 604,
+   "status": "open"
+  },
+  {
    "name": "sub_08041A80",
    "vram": 134486656,
    "size": 262,
@@ -32709,6 +33231,12 @@
    "name": "sub_08041B88",
    "vram": 134486920,
    "size": 88,
+   "status": "open"
+  },
+  {
+   "name": "sub_08041BE0",
+   "vram": 134487008,
+   "size": 380,
    "status": "open"
   },
   {
@@ -32739,6 +33267,12 @@
    "name": "sub_08041F1C",
    "vram": 134487836,
    "size": 104,
+   "status": "open"
+  },
+  {
+   "name": "sub_08041F84",
+   "vram": 134487940,
+   "size": 244,
    "status": "open"
   },
   {
@@ -32775,6 +33309,12 @@
    "name": "sub_08042214",
    "vram": 134488596,
    "size": 72,
+   "status": "open"
+  },
+  {
+   "name": "sub_0804225C",
+   "vram": 134488668,
+   "size": 780,
    "status": "open"
   },
   {
@@ -36072,7 +36612,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0805BB40",
+   "name": "updateSteerTowardPlayerStep",
    "vram": 134593344,
    "size": 312,
    "status": "open"
@@ -36150,7 +36690,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0805C6D8",
+   "name": "updateFivePartScriptedEntityTick",
    "vram": 134596312,
    "size": 316,
    "status": "open"
@@ -36186,7 +36726,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0805CA00",
+   "name": "applyFivePartSpriteAttributes",
    "vram": 134597120,
    "size": 180,
    "status": "open"
@@ -36330,7 +36870,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0805DFE0",
+   "name": "updateCameraBoundedScriptedAttack",
    "vram": 134602720,
    "size": 320,
    "status": "open"
@@ -36990,7 +37530,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0806295C",
+   "name": "initMainObjectEffectGraphics",
    "vram": 134621532,
    "size": 308,
    "status": "open"
@@ -37086,7 +37626,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08064BAC",
+   "name": "updateCompanionBoss",
    "vram": 134630316,
    "size": 308,
    "status": "open"
@@ -37470,7 +38010,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08069128",
+   "name": "updateActorAiAlternateStep",
    "vram": 134648104,
    "size": 324,
    "status": "open"
@@ -37644,7 +38184,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0806B2C8",
+   "name": "handleSpecialTileAction",
    "vram": 134656712,
    "size": 288,
    "status": "open"
@@ -37686,7 +38226,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_0806BBA4",
+   "name": "tryCompanionAction",
    "vram": 134658980,
    "size": 308,
    "status": "open"
@@ -37878,7 +38418,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0806DD94",
+   "name": "startScreenTransition",
    "vram": 134667668,
    "size": 96,
    "status": "open"
@@ -38100,7 +38640,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0806FDFC",
+   "name": "scriptCmdStartMainObjectEffect",
    "vram": 134675964,
    "size": 316,
    "status": "open"
@@ -38208,7 +38748,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08070E34",
+   "name": "initPoseCompanionSprite",
    "vram": 134680116,
    "size": 308,
    "status": "open"
@@ -38226,7 +38766,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080710A8",
+   "name": "spawnPoseCompanionEffect",
    "vram": 134680744,
    "size": 312,
    "status": "open"
@@ -38304,7 +38844,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08071A20",
+   "name": "advanceRoomScroll",
    "vram": 134683168,
    "size": 200,
    "status": "open"
@@ -38478,7 +39018,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08074520",
+   "name": "spawnScaledMainObjectEffect",
    "vram": 134694176,
    "size": 308,
    "status": "open"
@@ -38532,7 +39072,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08074D44",
+   "name": "spawnActorEffectPart",
    "vram": 134696260,
    "size": 316,
    "status": "open"
@@ -38556,7 +39096,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08075088",
+   "name": "spawnActorEffectPartVariant",
    "vram": 134697096,
    "size": 316,
    "status": "open"
@@ -39000,7 +39540,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08078E64",
+   "name": "spawnMainObjectEffect",
    "vram": 134712932,
    "size": 324,
    "status": "open"
@@ -39960,7 +40500,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08082288",
+   "name": "spawnEntityChildObject",
    "vram": 134750856,
    "size": 320,
    "status": "open"
@@ -40248,7 +40788,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080849A4",
+   "name": "handleCompanionCommand",
    "vram": 134760868,
    "size": 298,
    "status": "open"
@@ -40260,7 +40800,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08084B7C",
+   "name": "runGameModeEffect",
    "vram": 134761340,
    "size": 320,
    "status": "open"
@@ -40320,7 +40860,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08086E28",
+   "name": "recordSpawnEvent",
    "vram": 134770216,
    "size": 80,
    "status": "open"
@@ -41820,7 +42360,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0808E61C",
+   "name": "spawnEffectParticle",
    "vram": 134800924,
    "size": 82,
    "status": "open"
@@ -41850,7 +42390,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0808E7E0",
+   "name": "spawnMainObjectSpriteEffect",
    "vram": 134801376,
    "size": 324,
    "status": "open"
@@ -43386,7 +43926,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08098F50",
+   "name": "finalizeCompanionEffect",
    "vram": 134844240,
    "size": 312,
    "status": "open"
@@ -43398,7 +43938,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809919C",
+   "name": "updateAttackVfxState",
    "vram": 134844828,
    "size": 320,
    "status": "open"
@@ -43428,7 +43968,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080996D8",
+   "name": "enemyScriptStepAimAtPlayer",
    "vram": 134846168,
    "size": 308,
    "status": "open"
@@ -43842,7 +44382,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809C4E0",
+   "name": "setEffectBehavior",
    "vram": 134857952,
    "size": 6,
    "status": "open"
@@ -43920,7 +44460,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809C744",
+   "name": "loadEffectGfxTile",
    "vram": 134858564,
    "size": 112,
    "status": "open"
@@ -43962,7 +44502,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809CB48",
+   "name": "updateEnemyMotionEntity",
    "vram": 134859592,
    "size": 320,
    "status": "open"
@@ -44850,7 +45390,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080A1DE0",
+   "name": "enemyStepRandomProjectile",
    "vram": 134880736,
    "size": 308,
    "status": "open"
@@ -44988,7 +45528,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080A2D30",
+   "name": "spawnFacingProjectile",
    "vram": 134884656,
    "size": 78,
    "status": "open"
@@ -45108,7 +45648,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080A36AC",
+   "name": "updateMainObjectEffectStep",
    "vram": 134887084,
    "size": 324,
    "status": "open"
@@ -45426,7 +45966,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080A5670",
+   "name": "spawnHitSpark",
    "vram": 134895216,
    "size": 56,
    "status": "open"
@@ -45852,7 +46392,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_080A8784",
+   "name": "checkAngularMotionHit",
    "vram": 134907780,
    "size": 314,
    "status": "open"
@@ -47184,7 +47724,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080B17C8",
+   "name": "updateFadingParticleEffect",
    "vram": 134944712,
    "size": 320,
    "status": "open"
@@ -49248,7 +49788,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080BD3A4",
+   "name": "updateEntityPose",
    "vram": 134992804,
    "size": 316,
    "status": "open"
@@ -49326,13 +49866,13 @@
    "status": "open"
   },
   {
-   "name": "sub_080BDE00",
+   "name": "initSceneObject",
    "vram": 134995456,
    "size": 324,
    "status": "open"
   },
   {
-   "name": "sub_080BE214",
+   "name": "finishSceneTransition",
    "vram": 134996500,
    "size": 40,
    "status": "open"
@@ -50762,9 +51302,27 @@
    "kind": "func"
   },
   {
+   "name": "nextRandomWord",
+   "address": 134240248,
+   "size": 40,
+   "kind": "func"
+  },
+  {
    "name": "scaleByRandom",
    "address": 134240288,
    "size": 28,
+   "kind": "func"
+  },
+  {
+   "name": "randomSignedOffset",
+   "address": 134240316,
+   "size": 18,
+   "kind": "func"
+  },
+  {
+   "name": "getAngleFromDelta",
+   "address": 134240528,
+   "size": 202,
    "kind": "func"
   },
   {
@@ -50834,6 +51392,12 @@
    "kind": "func"
   },
   {
+   "name": "initMainObjectGraphics",
+   "address": 134253948,
+   "size": 308,
+   "kind": "func"
+  },
+  {
    "name": "updateIntroSequence",
    "address": 134254852,
    "size": 424,
@@ -50888,6 +51452,12 @@
    "kind": "func"
   },
   {
+   "name": "setupMenuStatusDisplay",
+   "address": 134271472,
+   "size": 304,
+   "kind": "func"
+  },
+  {
    "name": "updateStatusMenu",
    "address": 134272700,
    "size": 420,
@@ -50900,6 +51470,18 @@
    "kind": "func"
   },
   {
+   "name": "drawComparisonNumber",
+   "address": 134278108,
+   "size": 68,
+   "kind": "func"
+  },
+  {
+   "name": "loadStateGraphicsSet",
+   "address": 134278176,
+   "size": 214,
+   "kind": "func"
+  },
+  {
    "name": "drawDecimal",
    "address": 134282580,
    "size": 46,
@@ -50909,6 +51491,12 @@
    "name": "drawPaddedDecimal",
    "address": 134282696,
    "size": 64,
+   "kind": "func"
+  },
+  {
+   "name": "drawDecimalNumber",
+   "address": 134282760,
+   "size": 92,
    "kind": "func"
   },
   {
@@ -50951,6 +51539,24 @@
    "name": "setObjectAnimation",
    "address": 134288604,
    "size": 76,
+   "kind": "func"
+  },
+  {
+   "name": "advanceAnimTrack",
+   "address": 134288680,
+   "size": 38,
+   "kind": "func"
+  },
+  {
+   "name": "setTrackAnimFrame",
+   "address": 134288720,
+   "size": 94,
+   "kind": "func"
+  },
+  {
+   "name": "advanceAnimTrackByDelta",
+   "address": 134288932,
+   "size": 42,
    "kind": "func"
   },
   {
@@ -51092,9 +51698,21 @@
    "kind": "func"
   },
   {
+   "name": "setPolarOffset",
+   "address": 134301392,
+   "size": 108,
+   "kind": "func"
+  },
+  {
    "name": "angleWithinRange",
    "address": 134301548,
    "size": 56,
+   "kind": "func"
+  },
+  {
+   "name": "spawnJitteredParticles",
+   "address": 134301768,
+   "size": 100,
    "kind": "func"
   },
   {
@@ -51119,6 +51737,24 @@
    "name": "getSpriteFacingSign",
    "address": 134302096,
    "size": 20,
+   "kind": "func"
+  },
+  {
+   "name": "updateFacingFlipTimer",
+   "address": 134302116,
+   "size": 94,
+   "kind": "func"
+  },
+  {
+   "name": "updateFollowPath",
+   "address": 134303156,
+   "size": 320,
+   "kind": "func"
+  },
+  {
+   "name": "rollProbability",
+   "address": 134303476,
+   "size": 32,
    "kind": "func"
   },
   {
@@ -51200,6 +51836,12 @@
    "kind": "func"
   },
   {
+   "name": "updateScriptedAngleObject",
+   "address": 134312012,
+   "size": 344,
+   "kind": "func"
+  },
+  {
    "name": "updateKind55Effect",
    "address": 134316556,
    "size": 340,
@@ -51215,6 +51857,12 @@
    "name": "spawnKind55Effect",
    "address": 134319584,
    "size": 472,
+   "kind": "func"
+  },
+  {
+   "name": "MainObj_UpdateSteps",
+   "address": 134320056,
+   "size": 304,
    "kind": "func"
   },
   {
@@ -51290,6 +51938,12 @@
    "kind": "func"
   },
   {
+   "name": "updateScriptedAngleObjectAlt",
+   "address": 134326256,
+   "size": 344,
+   "kind": "func"
+  },
+  {
    "name": "updateKind87Effect",
    "address": 134330800,
    "size": 340,
@@ -51311,6 +51965,18 @@
    "name": "spawnKind87Effect",
    "address": 134333828,
    "size": 472,
+   "kind": "func"
+  },
+  {
+   "name": "updateKind87EffectOwner",
+   "address": 134334300,
+   "size": 304,
+   "kind": "func"
+  },
+  {
+   "name": "setKind87EffectLayerAttrs",
+   "address": 134334968,
+   "size": 120,
    "kind": "func"
   },
   {
@@ -51524,6 +52190,12 @@
    "kind": "func"
   },
   {
+   "name": "updateActorWaypointApproach",
+   "address": 134360620,
+   "size": 318,
+   "kind": "func"
+  },
+  {
    "name": "updateArcingTrailAttack",
    "address": 134361484,
    "size": 392,
@@ -51569,6 +52241,12 @@
    "name": "spawnWorldEffect",
    "address": 134364980,
    "size": 100,
+   "kind": "func"
+  },
+  {
+   "name": "updateFamiliarEntityTick",
+   "address": 134366064,
+   "size": 312,
    "kind": "func"
   },
   {
@@ -51650,6 +52328,18 @@
    "kind": "func"
   },
   {
+   "name": "spawnTargetEffectSprite",
+   "address": 134380360,
+   "size": 360,
+   "kind": "func"
+  },
+  {
+   "name": "updateScriptedEffectPosition",
+   "address": 134380720,
+   "size": 188,
+   "kind": "func"
+  },
+  {
    "name": "scriptCmdSpawnSprite4",
    "address": 134381052,
    "size": 632,
@@ -51710,6 +52400,12 @@
    "kind": "func"
   },
   {
+   "name": "updateCompanionAttack",
+   "address": 134393736,
+   "size": 312,
+   "kind": "func"
+  },
+  {
    "name": "updateControlledEntityAlt",
    "address": 134395164,
    "size": 336,
@@ -51731,6 +52427,18 @@
    "name": "updateScriptedObject",
    "address": 134400312,
    "size": 440,
+   "kind": "func"
+  },
+  {
+   "name": "scriptCmdSpawnReferencedSprite",
+   "address": 134401176,
+   "size": 624,
+   "kind": "func"
+  },
+  {
+   "name": "updateRefSprite",
+   "address": 134402744,
+   "size": 46,
    "kind": "func"
   },
   {
@@ -51758,6 +52466,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind29FixedFrameSprite",
+   "address": 134409240,
+   "size": 324,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind69ScriptSprite",
    "address": 134409876,
    "size": 552,
@@ -51776,9 +52490,27 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind69MainObjEffect",
+   "address": 134411968,
+   "size": 324,
+   "kind": "func"
+  },
+  {
+   "name": "updateScriptedAttackObjectTick",
+   "address": 134413464,
+   "size": 316,
+   "kind": "func"
+  },
+  {
    "name": "updateScriptedAttackObject",
    "address": 134415320,
    "size": 416,
+   "kind": "func"
+  },
+  {
+   "name": "updateCompanionEntity",
+   "address": 134417376,
+   "size": 312,
    "kind": "func"
   },
   {
@@ -52274,9 +53006,27 @@
    "kind": "func"
   },
   {
+   "name": "updateSteerTowardPlayerStep",
+   "address": 134593344,
+   "size": 312,
+   "kind": "func"
+  },
+  {
    "name": "scriptCmdSpawnJitteredSprite",
    "address": 134594324,
    "size": 608,
+   "kind": "func"
+  },
+  {
+   "name": "updateFivePartScriptedEntityTick",
+   "address": 134596312,
+   "size": 316,
+   "kind": "func"
+  },
+  {
+   "name": "applyFivePartSpriteAttributes",
+   "address": 134597120,
+   "size": 180,
    "kind": "func"
   },
   {
@@ -52331,6 +53081,12 @@
    "name": "createEntityFromDefinition",
    "address": 134602296,
    "size": 424,
+   "kind": "func"
+  },
+  {
+   "name": "updateCameraBoundedScriptedAttack",
+   "address": 134602720,
+   "size": 320,
    "kind": "func"
   },
   {
@@ -52418,6 +53174,12 @@
    "kind": "func"
   },
   {
+   "name": "initMainObjectEffectGraphics",
+   "address": 134621532,
+   "size": 308,
+   "kind": "func"
+  },
+  {
    "name": "updateScriptedBoss",
    "address": 134624756,
    "size": 496,
@@ -52451,6 +53213,12 @@
    "name": "updateMovingActor",
    "address": 134629932,
    "size": 384,
+   "kind": "func"
+  },
+  {
+   "name": "updateCompanionBoss",
+   "address": 134630316,
+   "size": 308,
    "kind": "func"
   },
   {
@@ -52526,6 +53294,12 @@
    "kind": "func"
   },
   {
+   "name": "updateActorAiAlternateStep",
+   "address": 134648104,
+   "size": 324,
+   "kind": "func"
+  },
+  {
    "name": "updateFormPreviewController",
    "address": 134653384,
    "size": 484,
@@ -52535,6 +53309,18 @@
    "name": "setEntityForm",
    "address": 134653868,
    "size": 24,
+   "kind": "func"
+  },
+  {
+   "name": "handleSpecialTileAction",
+   "address": 134656712,
+   "size": 288,
+   "kind": "func"
+  },
+  {
+   "name": "tryCompanionAction",
+   "address": 134658980,
+   "size": 308,
    "kind": "func"
   },
   {
@@ -52598,6 +53384,12 @@
    "kind": "func"
   },
   {
+   "name": "startScreenTransition",
+   "address": 134667668,
+   "size": 96,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind2CEntity",
    "address": 134668564,
    "size": 64,
@@ -52607,6 +53399,12 @@
    "name": "updateSteeredProjectile",
    "address": 134672072,
    "size": 392,
+   "kind": "func"
+  },
+  {
+   "name": "scriptCmdStartMainObjectEffect",
+   "address": 134675964,
+   "size": 316,
    "kind": "func"
   },
   {
@@ -52625,6 +53423,18 @@
    "name": "spawnEntityAiEffect",
    "address": 134679132,
    "size": 372,
+   "kind": "func"
+  },
+  {
+   "name": "initPoseCompanionSprite",
+   "address": 134680116,
+   "size": 308,
+   "kind": "func"
+  },
+  {
+   "name": "spawnPoseCompanionEffect",
+   "address": 134680744,
+   "size": 312,
    "kind": "func"
   },
   {
@@ -52652,6 +53462,12 @@
    "kind": "func"
   },
   {
+   "name": "advanceRoomScroll",
+   "address": 134683168,
+   "size": 200,
+   "kind": "func"
+  },
+  {
    "name": "setDirectionVector",
    "address": 134685408,
    "size": 84,
@@ -52661,6 +53477,24 @@
    "name": "turnHeadingToward",
    "address": 134685492,
    "size": 62,
+   "kind": "func"
+  },
+  {
+   "name": "spawnScaledMainObjectEffect",
+   "address": 134694176,
+   "size": 308,
+   "kind": "func"
+  },
+  {
+   "name": "spawnActorEffectPart",
+   "address": 134696260,
+   "size": 316,
+   "kind": "func"
+  },
+  {
+   "name": "spawnActorEffectPartVariant",
+   "address": 134697096,
+   "size": 316,
    "kind": "func"
   },
   {
@@ -52724,6 +53558,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnMainObjectEffect",
+   "address": 134712932,
+   "size": 324,
+   "kind": "func"
+  },
+  {
    "name": "spawnActorChildEffectVariant",
    "address": 134713860,
    "size": 360,
@@ -52778,6 +53618,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnEntityChildObject",
+   "address": 134750856,
+   "size": 320,
+   "kind": "func"
+  },
+  {
    "name": "initTwoPartEffectObject",
    "address": 134753544,
    "size": 456,
@@ -52787,6 +53633,18 @@
    "name": "releaseActorEffectParts",
    "address": 134759580,
    "size": 100,
+   "kind": "func"
+  },
+  {
+   "name": "handleCompanionCommand",
+   "address": 134760868,
+   "size": 298,
+   "kind": "func"
+  },
+  {
+   "name": "runGameModeEffect",
+   "address": 134761340,
+   "size": 320,
    "kind": "func"
   },
   {
@@ -52820,6 +53678,12 @@
    "kind": "func"
   },
   {
+   "name": "recordSpawnEvent",
+   "address": 134770216,
+   "size": 80,
+   "kind": "func"
+  },
+  {
    "name": "selectSceneMode",
    "address": 134773104,
    "size": 480,
@@ -52847,6 +53711,18 @@
    "name": "initVariantSpriteObject",
    "address": 134799596,
    "size": 400,
+   "kind": "func"
+  },
+  {
+   "name": "spawnEffectParticle",
+   "address": 134800924,
+   "size": 82,
+   "kind": "func"
+  },
+  {
+   "name": "spawnMainObjectSpriteEffect",
+   "address": 134801376,
+   "size": 324,
    "kind": "func"
   },
   {
@@ -52958,6 +53834,24 @@
    "kind": "func"
   },
   {
+   "name": "finalizeCompanionEffect",
+   "address": 134844240,
+   "size": 312,
+   "kind": "func"
+  },
+  {
+   "name": "updateAttackVfxState",
+   "address": 134844828,
+   "size": 320,
+   "kind": "func"
+  },
+  {
+   "name": "enemyScriptStepAimAtPlayer",
+   "address": 134846168,
+   "size": 308,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind44ScriptEffect",
    "address": 134854352,
    "size": 340,
@@ -52976,9 +53870,21 @@
    "kind": "func"
   },
   {
+   "name": "setEffectBehavior",
+   "address": 134857952,
+   "size": 6,
+   "kind": "func"
+  },
+  {
    "name": "copyPoseOffsetForFrame",
    "address": 134858360,
    "size": 72,
+   "kind": "func"
+  },
+  {
+   "name": "loadEffectGfxTile",
+   "address": 134858564,
+   "size": 112,
    "kind": "func"
   },
   {
@@ -52991,6 +53897,12 @@
    "name": "spawnPositionedEffectWithParam",
    "address": 134858920,
    "size": 64,
+   "kind": "func"
+  },
+  {
+   "name": "updateEnemyMotionEntity",
+   "address": 134859592,
+   "size": 320,
    "kind": "func"
   },
   {
@@ -53024,6 +53936,24 @@
    "kind": "func"
   },
   {
+   "name": "enemyStepRandomProjectile",
+   "address": 134880736,
+   "size": 308,
+   "kind": "func"
+  },
+  {
+   "name": "spawnFacingProjectile",
+   "address": 134884656,
+   "size": 78,
+   "kind": "func"
+  },
+  {
+   "name": "updateMainObjectEffectStep",
+   "address": 134887084,
+   "size": 324,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind59ScriptEffect",
    "address": 134889376,
    "size": 404,
@@ -53033,6 +53963,12 @@
    "name": "spawnKind59ScriptEffectAlt",
    "address": 134890604,
    "size": 396,
+   "kind": "func"
+  },
+  {
+   "name": "spawnHitSpark",
+   "address": 134895216,
+   "size": 56,
    "kind": "func"
   },
   {
@@ -53051,6 +53987,12 @@
    "name": "refreshMotionTrail",
    "address": 134906972,
    "size": 80,
+   "kind": "func"
+  },
+  {
+   "name": "checkAngularMotionHit",
+   "address": 134907780,
+   "size": 314,
    "kind": "func"
   },
   {
@@ -53111,6 +54053,12 @@
    "name": "initSpriteFromTemplate",
    "address": 134940140,
    "size": 40,
+   "kind": "func"
+  },
+  {
+   "name": "updateFadingParticleEffect",
+   "address": 134944712,
+   "size": 320,
    "kind": "func"
   },
   {
@@ -53312,6 +54260,12 @@
    "kind": "func"
   },
   {
+   "name": "updateEntityPose",
+   "address": 134992804,
+   "size": 316,
+   "kind": "func"
+  },
+  {
    "name": "destroyMultiPartObject",
    "address": 134993120,
    "size": 78,
@@ -53321,6 +54275,18 @@
    "name": "spawnKind68ScriptEffectAlt",
    "address": 134993272,
    "size": 392,
+   "kind": "func"
+  },
+  {
+   "name": "initSceneObject",
+   "address": 134995456,
+   "size": 324,
+   "kind": "func"
+  },
+  {
+   "name": "finishSceneTransition",
+   "address": 134996500,
+   "size": 40,
    "kind": "func"
   },
   {
@@ -53516,6 +54482,12 @@
    "kind": "data"
   },
   {
+   "name": "gMenuGfxIdTable",
+   "address": 135049208,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gTileTerrainFlags",
    "address": 135049848,
    "size": 0,
@@ -53600,6 +54572,12 @@
    "kind": "data"
   },
   {
+   "name": "gFixedAttackAffineParamsB",
+   "address": 135063436,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gFixedAttackAffineParams",
    "address": 135063452,
    "size": 0,
@@ -53650,6 +54628,12 @@
   {
    "name": "gKind2CLayerAttrs",
    "address": 135063916,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gSpriteAffineParams",
+   "address": 135064168,
    "size": 0,
    "kind": "data"
   },
@@ -53852,6 +54836,12 @@
    "kind": "data"
   },
   {
+   "name": "gSteerAngleOffsets",
+   "address": 135069188,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gEntitySpriteAnimTable",
    "address": 135069704,
    "size": 0,
@@ -53918,6 +54908,12 @@
    "kind": "data"
   },
   {
+   "name": "gPoseCompanionOffsets",
+   "address": 135135432,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gLevelExpTable",
    "address": 135137080,
    "size": 0,
@@ -53938,6 +54934,12 @@
   {
    "name": "gActorChildEffectParamTable",
    "address": 135157612,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gChildSpawnXOffsets",
+   "address": 135159008,
    "size": 0,
    "kind": "data"
   },
@@ -54022,6 +55024,12 @@
   {
    "name": "gKind4CThrowableLayerAttrs",
    "address": 135272956,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gPoseAttrs",
+   "address": 135273048,
    "size": 0,
    "kind": "data"
   },
@@ -54302,6 +55310,30 @@
    "kind": "data"
   },
   {
+   "name": "gActorEffectAnimSequence",
+   "address": 139044336,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gActorEffectTimerData",
+   "address": 139044368,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gActorEffectVariantAnimSequence",
+   "address": 139044932,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gActorEffectVariantTimerData",
+   "address": 139044964,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gScaledDirectionChildAnimTable",
    "address": 139310568,
    "size": 4,
@@ -54311,6 +55343,18 @@
    "name": "gScaledDirectionChildTimerTable",
    "address": 139310996,
    "size": 4,
+   "kind": "data"
+  },
+  {
+   "name": "gChildSpriteAnimSeq",
+   "address": 139416264,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gChildEffectTimerData",
+   "address": 139416296,
+   "size": 0,
    "kind": "data"
   },
   {
@@ -54338,8 +55382,32 @@
    "kind": "data"
   },
   {
+   "name": "gAngleObjectStepTable",
+   "address": 140957000,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gMainObjStepTable",
+   "address": 140957136,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gProjectileContactStepTable",
    "address": 140957232,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gAngleObjectAltStepTable",
+   "address": 140957272,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind87OwnerStepTable",
+   "address": 140957408,
    "size": 0,
    "kind": "data"
   },
@@ -54406,6 +55474,12 @@
   {
    "name": "sEnemyStepHandlers",
    "address": 140957888,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gFamiliarEntityStepHandlers",
+   "address": 140957944,
    "size": 0,
    "kind": "data"
   },
@@ -54518,6 +55592,12 @@
    "kind": "data"
   },
   {
+   "name": "gFivePartEntityStepHandlers",
+   "address": 140962104,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gBoundedAttackStepTable",
    "address": 140962152,
    "size": 0,
@@ -54526,6 +55606,12 @@
   {
    "name": "gProjectileStateTable",
    "address": 140962168,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gCameraBoundedAttackStepTable",
+   "address": 140962184,
    "size": 0,
    "kind": "data"
   },
@@ -54569,6 +55655,12 @@
    "name": "gMainObjTimerCallbacks",
    "address": 140975024,
    "size": 4,
+   "kind": "data"
+  },
+  {
+   "name": "gPoseScriptCallbacks",
+   "address": 140975040,
+   "size": 0,
    "kind": "data"
   },
   {
@@ -54619,7 +55711,7 @@
   },
   {
    "address": 33706856,
-   "type": "u8[]",
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -54639,17 +55731,17 @@
   },
   {
    "address": 33716432,
-   "type": "s32",
+   "type": "struct MenuPanelState",
    "source": "match"
   },
   {
    "address": 33716736,
-   "type": "struct S_02027A00_61",
+   "type": "struct HudBannerState",
    "source": "match"
   },
   {
    "address": 50333744,
-   "type": "u16[]",
+   "type": "vu16",
    "source": "match"
   },
   {
@@ -54678,18 +55770,23 @@
    "source": "match"
   },
   {
+   "address": 135049208,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 135049848,
    "type": "s16[]",
    "source": "match"
   },
   {
    "address": 135049912,
-   "type": "struct EffectDef[]",
+   "type": "struct KindTable[]",
    "source": "match"
   },
   {
    "address": 135052752,
-   "type": "struct Kind66AltGfxEntry[]",
+   "type": "struct AnimTable[]",
    "source": "match"
   },
   {
@@ -54704,6 +55801,11 @@
   },
   {
    "address": 135062976,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135062992,
    "type": "u16[]",
    "source": "match"
   },
@@ -54740,6 +55842,11 @@
   {
    "address": 135063344,
    "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135063436,
+   "type": "u16[]",
    "source": "match"
   },
   {
@@ -54788,6 +55895,11 @@
    "source": "match"
   },
   {
+   "address": 135064168,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 135064176,
    "type": "u16[]",
    "source": "match"
@@ -54818,13 +55930,23 @@
    "source": "match"
   },
   {
+   "address": 135065012,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 135065176,
    "type": "u8[]",
    "source": "match"
   },
   {
    "address": 135065392,
-   "type": "u8[]",
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135065548,
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -54869,7 +55991,7 @@
   },
   {
    "address": 135066980,
-   "type": "u8[]",
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -54943,6 +56065,11 @@
    "source": "match"
   },
   {
+   "address": 135069188,
+   "type": "s32[]",
+   "source": "match"
+  },
+  {
    "address": 135069704,
    "type": "u8[]",
    "source": "match"
@@ -54998,8 +56125,13 @@
    "source": "match"
   },
   {
-   "address": 135137080,
+   "address": 135135432,
    "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 135137080,
+   "type": "s32[]",
    "source": "match"
   },
   {
@@ -55015,6 +56147,11 @@
   {
    "address": 135157612,
    "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135159008,
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -55079,6 +56216,11 @@
   },
   {
    "address": 135272956,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135273048,
    "type": "u16[]",
    "source": "match"
   },
@@ -55184,7 +56326,7 @@
   },
   {
    "address": 135276304,
-   "type": "u16[]",
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -55308,6 +56450,26 @@
    "source": "match"
   },
   {
+   "address": 139044336,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 139044368,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 139044932,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 139044964,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 139310568,
    "type": "u32",
    "source": "match"
@@ -55338,8 +56500,23 @@
    "source": "match"
   },
   {
+   "address": 140957000,
+   "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 140957136,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 140957232,
    "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140957272,
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -55395,6 +56572,11 @@
   {
    "address": 140957888,
    "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140957944,
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -55468,12 +56650,22 @@
    "source": "match"
   },
   {
+   "address": 140962104,
+   "type": "u32[]",
+   "source": "match"
+  },
+  {
    "address": 140962152,
    "type": "u8[]",
    "source": "match"
   },
   {
    "address": 140962168,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140962184,
    "type": "u8[]",
    "source": "match"
   },
@@ -55513,18 +56705,23 @@
    "source": "match"
   },
   {
+   "address": 140975040,
+   "type": "u32[]",
+   "source": "match"
+  },
+  {
    "address": 140975056,
    "type": "u32",
    "source": "match"
   },
   {
    "address": 140975064,
-   "type": "s32",
+   "type": "u32[]",
    "source": "match"
   },
   {
    "address": 140975068,
-   "type": "u32",
+   "type": "s32[]",
    "source": "match"
   },
   {
@@ -56305,7 +57502,7 @@
    "asm_code": "5 agents (opencode-beam-free, opencode-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Deep regalloc/stack-slot wall at score 11825 (71.0%, 395/409 insns). First divergence: extra `adds r6,r3,#0` (copy of arg3 into callee-saved r6) before `str r6,[sp,#8]`; target stores r3 directly and reloads `ldr r1,[sp,#8]`/`ldr r3,[sp,#4]` for DMA address math. Cascades through all later allocatio"
   },
   {
-   "name": "sub_08005910",
+   "name": "getAngleFromDelta",
    "vram": 134240528,
    "not_c": {
     "opencode-hy4-flash-free-1": {

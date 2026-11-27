@@ -14,7 +14,7 @@ void sub_080A605C(void *arg0)
 
     actor = *(u32 *)(entity + 0x3C);
     ai = (u8 *)(actor + 0x48);
-    angle = sub_08005910(*(s32 *)(ai + 0x1C) - *(s32 *)(ai + 0x08),
+    angle = getAngleFromDelta(*(s32 *)(ai + 0x1C) - *(s32 *)(ai + 0x08),
                          *(s32 *)(ai + 0x18) - *(s32 *)(ai + 0x04));
     *(s32 *)(actor + 0x108) = angle & 0xFFFF;
     angleTable = (s32 *)0x08102030;

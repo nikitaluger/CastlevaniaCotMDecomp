@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014EF4(s32);
+extern s32 rollProbability(s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* Play pose 5 and stand still; when the pose finishes, launch the entity up or
@@ -21,7 +21,7 @@ void sub_0802B0C0(void *self)
         s16 stateIndex;
         s32 *handlerSlot;
 
-        if (sub_08014EF4(0x1388) == 1) {
+        if (rollProbability(0x1388) == 1) {
             *(s32 *)(work + 0x10) = 0x2000;
         } else {
             *(s32 *)(work + 0x10) = 0xFFFFE000;

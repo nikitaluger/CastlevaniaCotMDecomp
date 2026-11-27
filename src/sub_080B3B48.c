@@ -1,5 +1,5 @@
 extern void setObjectAnimation(void *, void *, s32, s32);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s16 D_08102B78[];
 inline u8 *inline_fn(u8 *arg0)
@@ -19,7 +19,7 @@ void sub_080B3B48(void *arg0)
   u8 *anim = actor + 0x34;
   s32 *nextState[2];
   setObjectAnimation(gfx, anim, D_08102B78[*(actor + 0x68)], 0);
-  sub_08011528(gfx, anim);
+  advanceAnimTrack(gfx, anim);
   if (*(actor + 0x68) == 0)
   {
     u8 *stateSlot = (u8 *) ((((s32) (*((s16 *) (self + 0x22)))) * 2) + ((s32) self));

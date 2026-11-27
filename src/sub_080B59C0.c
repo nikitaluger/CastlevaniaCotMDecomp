@@ -1,6 +1,6 @@
 void stepAnimationTrack(s32, void *);
 void advanceMotion(void *, s32);
-void sub_080146D0(void *, s32, s32);
+void setPolarOffset(void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* One frame of a travelling object: advance its animation, shorten its step
@@ -17,7 +17,7 @@ void sub_080B59C0(void *self) {
     if (step <= 0) {
         *(s32 *)((u8 *)self + 0x6C) = 0;
     }
-    sub_080146D0(mover, *(s32 *)((u8 *)self + 0x7C), *(s32 *)((u8 *)self + 0x6C));
+    setPolarOffset(mover, *(s32 *)((u8 *)self + 0x7C), *(s32 *)((u8 *)self + 0x6C));
     advanceMotion(mover, 0);
     if (*(s32 *)((u8 *)self + 0x6C) == 0) {
         s32 slot = *(s16 *)((u8 *)self + 0x22);

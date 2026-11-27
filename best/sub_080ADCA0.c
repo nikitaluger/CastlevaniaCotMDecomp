@@ -14,7 +14,7 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
-extern s32 sub_080057F8(void);
+extern s32 nextRandomWord(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 static inline int inline_fn(s32 arg0, int arg1) { return arg0 + arg1; }
@@ -82,7 +82,7 @@ void sub_080ADCA0(u8 *arg0)
   p->f28->fC = t[3];
   p->f28->fE = gEffectGfxTable[*((s16 *) (((u8 *) p) + 0x1C))].f6;
   p->f28->f10 = (u32) a;
-  if (sub_080057F8() & one)
+  if (nextRandomWord() & one)
   {
     *((u16 *) inline_fn(a, 2)) |= 0x10;
   }

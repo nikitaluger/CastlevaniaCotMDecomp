@@ -1,4 +1,4 @@
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08012A94(s32, s32, s32);
 extern void sub_0801C9A0(s32, s32);
@@ -31,7 +31,7 @@ void sub_0801B42C(u8 *obj)
     if ((sub_080C36E4(*((s16 *) (control + 0x16)), 3) << 16) == 0)
     {
         range = 0x10000;
-        coord = ((*((s32 *) (scriptState + 8))) + (((*((s16 *) (control + 0x18))) + 1) * 0x110000)) + (sub_0800583C(range) * 3);
+        coord = ((*((s32 *) (scriptState + 8))) + (((*((s16 *) (control + 0x18))) + 1) * 0x110000)) + (randomSignedOffset(range) * 3);
         offset = sub_08012A94(coord, *((s32 *) (scriptState + 0xC)), 0x11);
         maxOffset = 0x7FFFFF;
         if (offset <= maxOffset)
@@ -39,7 +39,7 @@ void sub_0801B42C(u8 *obj)
             resultCoord = (*((s32 *) (scriptState + 0xC))) + offset;
             sub_0801C9A0(coord, resultCoord);
         }
-        coord = ((*((s32 *) (scriptState + 8))) - (((*((s16 *) (control + 0x18))) + 1) * 0x110000)) + (sub_0800583C(range) * 3);
+        coord = ((*((s32 *) (scriptState + 8))) - (((*((s16 *) (control + 0x18))) + 1) * 0x110000)) + (randomSignedOffset(range) * 3);
         offset = sub_08012A94(coord, *((s32 *) (scriptState + 0xC)), 0x11);
         if (offset <= (*limitPtr))
         {

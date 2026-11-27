@@ -1,4 +1,4 @@
-extern void sub_08014DB4(void *, void *, s32, s32);
+extern void updateFollowPath(void *, void *, s32, s32);
 extern void advanceMotion(void *, s32);
 extern u8 gMainWorkspace[];
 
@@ -12,7 +12,7 @@ void sub_080265DC(void *arg0) {
     u8 *path = work + 0xDC;
     u8 *base = gMainWorkspace;
 
-    sub_08014DB4(body, path, *(s32 *)(base + 0x174C), *(s32 *)(base + 0x1750));
+    updateFollowPath(body, path, *(s32 *)(base + 0x174C), *(s32 *)(base + 0x1750));
     *(u32 *)(motion + 0x18) = (*(u32 *)(motion + 0x18) + 0x800) & 0xFFFF;
     advanceMotion(body, 0);
 }

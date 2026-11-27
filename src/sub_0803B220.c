@@ -1,5 +1,5 @@
 s32 sub_08005E80(s32);
-s32 sub_08014848(s32, s32, s32, s32, s32, s32);
+s32 spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 s32 sub_0808DC40(s32, s32, s32);
 s32 sub_080C31E0(void *, s32);
 
@@ -21,7 +21,7 @@ void sub_0803B220(void *self, void *state, u16 *attr, u8 *frame)
   }
   if (!(3 & (*frame)))
   {
-    sub_08014848(0, 2, *((s32 *) (((s8 *) state) + 8)), (*((s32 *) (((s8 *) state) + 0xC))) + 0xFFF00000, 0xC0000, 0x100000);
+    spawnJitteredParticles(0, 2, *((s32 *) (((s8 *) state) + 8)), (*((s32 *) (((s8 *) state) + 0xC))) + 0xFFF00000, 0xC0000, 0x100000);
   }
   if ((*frame) == 0x1E)
   {

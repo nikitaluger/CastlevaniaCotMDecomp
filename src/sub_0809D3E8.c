@@ -1,5 +1,5 @@
-s32 sub_080057F8(void);
-s32 sub_08005910(s32, s32);
+s32 nextRandomWord(void);
+s32 getAngleFromDelta(s32, s32);
 void sub_080148D8(void *, s32);
 void sub_0809E32C(void *, void *, void *, void *);
 void sub_0809E490(void *, void *);
@@ -42,12 +42,12 @@ void sub_0809D3E8(void *arg0)
     s32 angle;
     state->timer = zero;
     sub_0809E490(ai, state);
-    jitter = sub_080057F8() & 1;
+    jitter = nextRandomWord() & 1;
     if (jitter == 0)
     {
       jitter = -1;
     }
-    angle = sub_08005910(gMainWorkspace.y - (*((s32 *) (((u8 *) ai) + 0x0C))), gMainWorkspace.x - (*((s32 *) (((u8 *) ai) + 0x08))));
+    angle = getAngleFromDelta(gMainWorkspace.y - (*((s32 *) (((u8 *) ai) + 0x0C))), gMainWorkspace.x - (*((s32 *) (((u8 *) ai) + 0x08))));
     state->angle = angle + (jitter << 14);
     state->flag = zero;
     *((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;

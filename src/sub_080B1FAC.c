@@ -1,7 +1,7 @@
 extern void stepAnimationTrack(void *a, void *b);
-extern void sub_080146D0(void *a, s32 b, s32 c);
+extern void setPolarOffset(void *a, s32 b, s32 c);
 extern void advanceMotion(void *a, s32 b);
-extern s32 sub_08005910(s32 a, s32 b);
+extern s32 getAngleFromDelta(s32 a, s32 b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
 
 /* Shared globals at 0x02025FF0: a target world position used by movement
@@ -28,13 +28,13 @@ void sub_080B1FAC(u8 *arg0)
     if (*(s32 *)(arg0 + 0x6C) < 0)
         *(s32 *)(arg0 + 0x6C) = 0;
 
-    sub_080146D0(body, *(s32 *)(arg0 + 0x7C), *(s32 *)(arg0 + 0x6C));
+    setPolarOffset(body, *(s32 *)(arg0 + 0x7C), *(s32 *)(arg0 + 0x6C));
     advanceMotion(body, 0);
 
     if (*(s32 *)(arg0 + 0x6C) == 0) {
         s32 deltaY = (s32)gMainWorkspace.targetY - *(s32 *)(body + 0x0C);
         s32 deltaX = (s32)gMainWorkspace.targetX - *(s32 *)(body + 0x08);
-        *(s32 *)(arg0 + 0x7C) = sub_08005910(deltaY, deltaX);
+        *(s32 *)(arg0 + 0x7C) = getAngleFromDelta(deltaY, deltaX);
         *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = 0;
         {
             s32 *lit = (s32 *)0x08671BB0;

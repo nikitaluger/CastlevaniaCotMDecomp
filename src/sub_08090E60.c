@@ -1,5 +1,5 @@
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 sub_080C36E4(u32, s32);
 extern void sub_0808E05C(s32, s32, s16, s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
@@ -24,11 +24,11 @@ void sub_08090E60(void *arg0)
   s32 r0;
   s32 r1;
 
-  r0 = sub_0800583C(scaleConst);
+  r0 = randomSignedOffset(scaleConst);
   r0 += 0x100000;
   r1 = coords[2];
   originX = r1 + r0;
-  r0 = sub_0800583C(scaleConst);
+  r0 = randomSignedOffset(scaleConst);
   r0 += 0x100000;
   r1 = coords[3];
   originY = r1 + r0;

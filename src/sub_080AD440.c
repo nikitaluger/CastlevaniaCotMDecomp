@@ -1,5 +1,5 @@
 void forceAnimationFrame(void *, void *, s32, s32);
-void sub_08011528(void *, void *);
+void advanceAnimTrack(void *, void *);
 
 extern u8 D_08102258[];
 
@@ -14,7 +14,7 @@ void sub_080AD440(void *arg0) {
     u8 *anim = entity + 0x34;
     u8 *parentEntity = *(u8 **)(*(u8 **)(self + 0x28) + 0x3C);
 
-    sub_08011528(gfx, anim);
+    advanceAnimTrack(gfx, anim);
 
     if ((*(u8 *)(anim) & 2) && *(u8 *)(self + 0x50)) {
         u32 animTable = (u32)D_08102258;

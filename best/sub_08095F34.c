@@ -1,5 +1,5 @@
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_0808E348(s32, s32, s32, s32);
 extern void copyBytes(void *, u8 *, s32);
@@ -47,9 +47,9 @@ void sub_08095F34(u8 *arg0)
       r6 = *((s32 *) r6p);
     }
     c1 = 0xFFE80000;
-    a = ((*p) + sub_0800583C(0x80000)) + ((r5 << 0x14) + c1);
+    a = ((*p) + randomSignedOffset(0x80000)) + ((r5 << 0x14) + c1);
     c2 = 0xFFFC0000;
-    r6 = ((*(p + 1)) + sub_0800583C(0x80000)) + ((r6 << 0x12) + c2);
+    r6 = ((*(p + 1)) + randomSignedOffset(0x80000)) + ((r6 << 0x12) + c2);
     {
       s32 f1 = scaleByRandom(0x2000);
       s32 f2 = sub_080C36E4(D_02027888, 5) - 2;
@@ -82,9 +82,9 @@ void sub_08095F34(u8 *arg0)
       r6 = *((s32 *) r6p);
     }
   }
-  a = ((*p) + sub_0800583C(0x80000)) + ((r5 << 0x14) + c1);
+  a = ((*p) + randomSignedOffset(0x80000)) + ((r5 << 0x14) + c1);
   c3 = 0x40000;
-  tc = *(p + 1) + sub_0800583C(0x80000);
+  tc = *(p + 1) + randomSignedOffset(0x80000);
   r6 = ((r6 << 0x13) + tc) + c3;
   sub_0808DBF8(a, r6, 8);
   if ((*((u8 *) ((arg0 + ((*((s16 *) (arg0 + 0x22))) * 2)) + 0x19))) > 0x0C)

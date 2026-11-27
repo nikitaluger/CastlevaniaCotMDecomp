@@ -6,7 +6,7 @@
 typedef s32 M2C_UNK;
 M2C_UNK sub_08005E80(s32);
 M2C_UNK setObjectAnimation(s32, s32, s32, s32);
-M2C_UNK sub_08011528(s32, s32);
+M2C_UNK advanceAnimTrack(s32, s32);
 M2C_UNK sub_080C31E4(void *, void *, s32);
 
 /* A frame-table entry is 4 bytes; its property word lives at offset +2. */
@@ -38,7 +38,7 @@ void sub_080B3754(void *actor)
     frameTablePtr = *(s32 **)((s8 *)anim + 8);
     propBefore = FRAME_PROP(anim, frameTablePtr);
     setObjectAnimation(animOwner, anim, ACTION_FRAME, 0);
-    sub_08011528(animOwner, anim);
+    advanceAnimTrack(animOwner, anim);
     frameTablePtr = *(s32 **)((s8 *)anim + 8);
     propAfter = FRAME_PROP_NOW(anim, frameTablePtr);
     if (propBefore != propAfter && propAfter == TRIGGER_PROP) {

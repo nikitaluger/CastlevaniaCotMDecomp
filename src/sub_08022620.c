@@ -1,4 +1,4 @@
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0_174C { u8 _0[0x174C]; u32 x; u32 y; };
@@ -33,7 +33,7 @@ void sub_08022620(u8 *obj)
   flags = (u16 *) (obj + 0x6C);
   if ((*flags) & 1)
   {
-    angle = sub_08005910(((s32) gMainWorkspace.y) - (*((s32 *) (scriptState + 0x0C))), ((s32) gMainWorkspace.x) - (*((s32 *) (scriptState + 8))));
+    angle = getAngleFromDelta(((s32) gMainWorkspace.y) - (*((s32 *) (scriptState + 0x0C))), ((s32) gMainWorkspace.x) - (*((s32 *) (scriptState + 8))));
     if ((*flags) & 0x20)
     {
       angle += 0xC0 << 7;

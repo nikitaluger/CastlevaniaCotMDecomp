@@ -1,7 +1,7 @@
 extern s32 absXFromFocus(s32);
 extern s32 signOf(s32);
 extern s32 getSpriteFacingSign(void *);
-extern s32 sub_08014EF4(s32);
+extern s32 rollProbability(s32);
 extern void sub_0801BE80(void *, s32);
 extern void sub_0801BE64(void *, s32);
 extern void _call_via_r3(void *, void *, s32, u32);
@@ -22,7 +22,7 @@ void sub_0801ADCC(void *arg0)
 
     *(u16 *)(extra + 0x14) = 1;
     if (absX <= 0x0037FFFF) {
-        if (sub_08014EF4(*(s16 *)(extra + 0x2A)) == 1) {
+        if (rollProbability(*(s16 *)(extra + 0x2A)) == 1) {
             void **cbp;
             sub_0801BE80(work + 0x72, 0x2BC);
             idx = *(s16 *)(self + 0x22);
@@ -38,7 +38,7 @@ void sub_0801ADCC(void *arg0)
         goto procs;
     if (facing != sign)
         goto procs;
-    if (sub_08014EF4(*(s16 *)(extra + 0x2C)) == 1) {
+    if (rollProbability(*(s16 *)(extra + 0x2C)) == 1) {
         void **cbp;
         sub_0801BE80(work + 0x74, 0x3E8);
         idx = *(s16 *)(self + 0x22);
@@ -50,7 +50,7 @@ void sub_0801ADCC(void *arg0)
     sub_0801BE64(work + 0x74, 0x4B0);
     if (absX > 0x005FFFFF)
         goto procs;
-    if (sub_08014EF4(*(s16 *)(extra + 0x2E)) == 1) {
+    if (rollProbability(*(s16 *)(extra + 0x2E)) == 1) {
         void **cbp;
         sub_0801BE80(work + 0x76, 0x3E8);
         idx = *(s16 *)(self + 0x22);

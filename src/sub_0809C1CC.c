@@ -3,7 +3,7 @@ extern u8 D_0810181C[];
 extern u8 D_08101824[];
 void sub_080C31E0(void *, s32);
 void sub_08011344(void *, void *, s32, s32);
-s32 sub_080057F8(void);
+s32 nextRandomWord(void);
 void *spawnBudgetedEffect(s32, s32);
 
 static inline u16 or10(u16 v) { u32 m = 0x10; m |= v; return (u16)m; }
@@ -40,7 +40,7 @@ void sub_0809C1CC(void *arg0) {
             dirIndex = indexTable[tableIdx];
             direction = *(s16 *)(dirTable + dirIndex * 2);
             sub_08011344(entity, stateField34, direction, 0);
-            val = sub_080057F8() & resetCount;
+            val = nextRandomWord() & resetCount;
             switch (val) {
             case 0: *(u16 *)(entity + 2) = 0xFFCF & *(u16 *)(entity + 2); break;
             case 1: {

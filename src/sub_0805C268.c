@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
 
@@ -19,8 +19,8 @@ void sub_0805C268(void *script)
 
     setAnimationFrame(sprite, anim, 0, 1);
     if (sub_08014A04(body, *(s32 *)((u8 *)extra + 8), *(s32 *)((u8 *)extra + 0xC), 0x80000, 0x80000) == 1) {
-        *(s32 *)((u8 *)extra + 8) = *(s32 *)((u8 *)body + 0x48) + sub_0800583C(0x200000);
-        *(s32 *)((u8 *)extra + 0xC) = *(s32 *)((u8 *)extra + 4) + sub_0800583C(0x200000);
+        *(s32 *)((u8 *)extra + 8) = *(s32 *)((u8 *)body + 0x48) + randomSignedOffset(0x200000);
+        *(s32 *)((u8 *)extra + 0xC) = *(s32 *)((u8 *)extra + 4) + randomSignedOffset(0x200000);
     }
     sub_08014B1C(body, (u8 *)body + 0x58, *(s32 *)((u8 *)extra + 8), *(s32 *)((u8 *)extra + 0xC));
 }

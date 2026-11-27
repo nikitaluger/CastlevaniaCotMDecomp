@@ -3,7 +3,7 @@ extern void *allocSpriteObject(void);
 extern void initSpriteGraphics(void *, void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 findKindIndex(void);
-extern s32 sub_080057F8(void);
+extern s32 nextRandomWord(void);
 extern s64 scaleByRandom(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -63,7 +63,7 @@ void sub_080AEC30(void *entity)
   initSpriteGraphics(sprite, status, (void *) (((s32)(*((s16 *)(((char *) motion) + 0x1C))) * 0xC) + 0x080CD400));
   setAnimationFrame(sprite, status, 0x0F, 0);
   *((void **)(((char *) entity) + 0x6C)) = (void *)((s32)scaleByRandom(0x80 << 14) + (0xC0 << 14));
-  *((s32 *)(((char *) entity) + 0x7C)) = sub_080057F8() & 0xFFFF;
+  *((s32 *)(((char *) entity) + 0x7C)) = nextRandomWord() & 0xFFFF;
   *((u16 *)(((char *) entity) + 0x02)) |= (0x80 << 5);
   stepIndex = *((s16 *)(((char *) entity) + 0x22));
   stepArray = (u16 *)entity;

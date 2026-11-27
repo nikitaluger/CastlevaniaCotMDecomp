@@ -1,7 +1,7 @@
-/* Spawns the fixed-kind projectile effect from the parent entity: allocates the
- * sprite and its effect definition, copies the animation parameters, sets its world
- * position from the parent's position reference, gives it a horizontal direction,
- * speed and lifetime, then advances the parent's state index. */
+/* Spawns the kind-0x1E fixed attack effect from the parent script entity: allocates
+ * a sprite and its render definition, copies the animation parameters, places it at
+ * the entity's position reference, sets a horizontal travel direction, speed and
+ * lifetime, then advances the script step. */
 extern void *allocSpriteObject(void);                            /* alloc sprite object */
 extern s32 allocWorkSlot(u8 *, s32, s32, s32);               /* alloc + clear slot */
 extern s32 findKindIndex(s32);                               /* kind -> active slot */
@@ -93,7 +93,7 @@ struct EffectDef {
     u8 _6[0x14 - 6];
 };
 extern struct EffectDef gSpriteKindTable[];
-extern u16 D_080CE78C[];  /* affine/OAM constants copied into the effect */
+extern u16 gFixedAttackAffineParamsB[];  /* affine/OAM constants copied into the effect */
 extern u8 gSpriteAnimDataTable[];   /* per-kind animation descriptor table (12-byte entries) */
 
 inline u16 *attrOf(u8 *sprite)
@@ -123,19 +123,19 @@ void scriptCmdSpawnFixedAttack(struct Entity *entity)
     state = NULL;
     effect = NULL;
     slot = 0;
-    if ((((sprite == NULL) || ((entity->sprite = sprite, allocWorkSlot((u8 *) entity, 0, 0xA0, 0), state = entity->state, state == NULL))) || ((gfxInit = ((u8 *) state) + 0x34, state->updateFn = *((u32 *) (((u8 *) entity) + 0x24)), *((u32 *) (((u8 *) entity) + 0x24)) = 0x0801F9FD, zero = 0, state->kind = 0x1E, effectTable = (u8 *) gSpriteKindTable, state->lifetime = ((struct EffectDef *) (effectTable + (0x96 * 4)))[0].lifetime, state->x = refHolder->position->x << 16, state->y = refHolder->position->y << 16, slot = findKindIndex(0x1E), state->slot = slot, ((s32) (slot << 16)) < 0))) || ((initSpriteGraphics(sprite, gfxInit, ((s32) gSpriteAnimDataTable) + (state->kind * 0xC)), effect = allocEffectPart(), state->effect = (struct Effect *) effect, effect == NULL)))
+    if ((((sprite == NULL) || ((entity->sprite = sprite, allocWorkSlot((u8 *) entity, 0, 0xA0, 0), state = entity->state, state == NULL))) || ((gfxInit = ((u8 *) state) + 0x34, state->updateFn = *((u32 *) (((u8 *) entity) + 0x24)), *((u32 *) (((u8 *) entity) + 0x24)) = 0x0801F9FD, zero = 0, state->kind = SPRITE_KIND_FIXED_ATTACK, effectTable = (u8 *) gSpriteKindTable, state->lifetime = ((struct EffectDef *) (effectTable + (0x96 * 4)))[0].lifetime, state->x = refHolder->position->x << 16, state->y = refHolder->position->y << 16, slot = findKindIndex(SPRITE_KIND_FIXED_ATTACK), state->slot = slot, ((s32) (slot << 16)) < 0))) || ((initSpriteGraphics(sprite, gfxInit, ((s32) gSpriteAnimDataTable) + (state->kind * 0xC)), effect = allocEffectPart(), state->effect = (struct Effect *) effect, effect == NULL)))
     {
-        sub_080C31E0((u8 *) entity, *((s32 *) (((u8 *) entity) + 0x24)));
+        _call_via_r1((u8 *) entity, *((s32 *) (((u8 *) entity) + 0x24)));
         return;
     }
     state->effect->active = 0;
     state->effect->param2 = 8;
     state->effect->param3 = 1;
     state->effect->gfxA = ((struct EffectDef *) effectTable)[state->kind].gfxA;
-    state->effect->affine0 = D_080CE78C[0];
-    state->effect->affine1 = D_080CE78C[1];
-    state->effect->affine2 = D_080CE78C[2];
-    state->effect->affine3 = D_080CE78C[3];
+    state->effect->affine0 = gFixedAttackAffineParamsB[0];
+    state->effect->affine1 = gFixedAttackAffineParamsB[1];
+    state->effect->affine2 = gFixedAttackAffineParamsB[2];
+    state->effect->affine3 = gFixedAttackAffineParamsB[3];
     state->effect->gfxB = ((struct EffectDef *) effectTable)[state->kind].gfxB;
     state->effect->sprite = (u32) sprite;
     state->effect->timer = zero;
@@ -175,7 +175,7 @@ void scriptCmdSpawnFixedAttack(struct Entity *entity)
     registerScriptObject((u8 *) entity, 0);
     entity->flags |= THREAD_FLAG_WAIT_SPRITE;
     *((u8 *) ((((u8 *) entity) + (2 * entity->stateIndex)) + 0x19)) = 0;
-    tablePtr = (s32 *) 0x08671BB0;
+    tablePtr = (s32 *) MAIN_OBJ_TIMER_CALLBACK_TABLE;
     stateData = ((u8 *) entity) + 0x18;
     _call_via_r2(stateData, ((u8 *) entity) + 0x22, *tablePtr);
     {

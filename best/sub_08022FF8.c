@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014EF4(s32);
+extern s32 rollProbability(s32);
 extern s32 sub_08012A94(s32, s32, s32);
 extern s32 terrainHasSolidFlags(s32);
 extern void spawnWorldEffect(s32, s32, s32);
@@ -53,7 +53,7 @@ void sub_08022FF8(struct Arg *arg0)
   {
     goto end;
   }
-  *((s16 *) (q + 0x24)) = (sub_08014EF4(0x1388) != 0) ? (-1) : (1);
+  *((s16 *) (q + 0x24)) = (rollProbability(0x1388) != 0) ? (-1) : (1);
   {
     u8 *base = gMainWorkspace;
     *((u32 *) (q + 0x14)) = (*((u32 *) (base + 0x1728))) + ((*((s16 *) (q + 0x24))) << 22);

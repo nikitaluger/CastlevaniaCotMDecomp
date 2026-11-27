@@ -1,6 +1,6 @@
 extern u8 gGameStatus[];                    /* level/enemy data block */
 extern u8 D_080E03A0[];                     /* per-state value/clamp table (0x58-byte rows) */
-extern void *D_08671BC0;
+extern void *gPoseScriptCallbacks;
 extern void *gScriptStepCallbacks;
 extern void *gMenuScriptCallback;
 

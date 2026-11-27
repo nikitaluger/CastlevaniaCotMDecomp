@@ -1,5 +1,5 @@
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_080918B0(s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
@@ -25,8 +25,8 @@ void sub_08095754(u8 *entity) {
     s32 sine, spread;
 
     origin = *(u8 **)(entity + 0x3C);
-    posX = *(s32 *)(origin + 0) + (sub_0800583C(0x10000) << 4);
-    posY = *(s32 *)(origin + 4) + sub_0800583C(0x10000) * 14;
+    posX = *(s32 *)(origin + 0) + (randomSignedOffset(0x10000) << 4);
+    posY = *(s32 *)(origin + 4) + randomSignedOffset(0x10000) * 14;
     frame = gMainWorkspace.value;
     rounded = frame;
     if (frame < 0) rounded = frame + 3;

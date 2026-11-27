@@ -16,7 +16,7 @@ extern struct D02025FF0_S_850B4 gMainWorkspace;
 extern u8 gGameStatus[];
 extern u8 D_0845806C[];
 s32 spawnEntity(s32, s32, s32, s32);
-void sub_08086E28(void);
+void recordSpawnEvent(void);
 
 void sub_080850B4(s32 actor, void *ctrl) {
     u32 *globals = (u32 *)gGameStatus;
@@ -39,7 +39,7 @@ void sub_080850B4(s32 actor, void *ctrl) {
             if (trail != 0) {
                 *(u16 *)(trail + 0x7C) = (u16)frameCounter;
             }
-            sub_08086E28();
+            recordSpawnEvent();
         }
         break;
     case 0x35:

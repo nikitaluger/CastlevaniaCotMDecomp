@@ -1,14 +1,14 @@
 extern s32 gMainObjTimerCallbacks;
 
 s32 scaleByRandom(s32);
-s32 sub_0800583C(s32);
-void sub_08014848(s32, s32, s32, s32, s32, s32);
+s32 randomSignedOffset(s32);
+void spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 void sub_08058D60(s32, s32, s32, s32, s32, s32);
 void sub_080C31E4(u8 *, u8 *, s32);
 u8 sub_080C389C(u8, s32);
 
 /* Spawns an attack from the entity's hitbox sub-object according to its slot
- * state (taken mod 6): state 1 fires a burst through sub_08014848, state 2
+ * state (taken mod 6): state 1 fires a burst through spawnJitteredParticles, state 2
  * creates a projectile through sub_08058D60; the slot counter is reset once it
  * passes 60. */
 void sub_08058344(u8 *self)
@@ -23,7 +23,7 @@ void sub_08058344(u8 *self)
 
     if (sub_080C389C(*(self + *(s16 *)(self + 0x22) * 2 + 0x19), 6) == 1)
     {
-        sub_08014848(1, 1, *(s32 *)(obj + 8), *(s32 *)(obj + 0x0C) + 0x80000, 0xE0000, 0x80000);
+        spawnJitteredParticles(1, 1, *(s32 *)(obj + 8), *(s32 *)(obj + 0x0C) + 0x80000, 0xE0000, 0x80000);
     }
 
     if (sub_080C389C(*(self + *(s16 *)(self + 0x22) * 2 + 0x19), 6) == 2)
@@ -33,10 +33,10 @@ void sub_08058344(u8 *self)
         s32 velX;
         s32 velY;
 
-        spawnX = *(s32 *)(obj + 8) + sub_0800583C(0xA0000);
+        spawnX = *(s32 *)(obj + 8) + randomSignedOffset(0xA0000);
         spawnY = *(s32 *)(obj + 0x0C) + scaleByRandom(0x40000) + 0x180000;
-        velX = sub_0800583C(0x20000);
-        velY = sub_0800583C(0x20000) + 0xFFFF8000;
+        velX = randomSignedOffset(0x20000);
+        velY = randomSignedOffset(0x20000) + 0xFFFF8000;
         sub_08058D60(spawnX, spawnY, velX, velY, (s32)(s16)scaleByRandom(4), 1);
     }
 

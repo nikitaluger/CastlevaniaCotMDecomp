@@ -1,5 +1,5 @@
 void sub_0800EB44(u16 a, s32 b, s32 c);
-void sub_0800FE08(u32 a, s32 b, s32 c, void *d);
+void drawDecimalNumber(u32 a, s32 b, s32 c, void *d);
 u8 sub_08086E78(u8 a, u8 b);
 u32 divideInt(u32 a, u32 b);
 void decompressToVram(u32 a, void *b);
@@ -22,7 +22,7 @@ void sub_0800F584(u8 arg0, u8 arg1)
   if ((gGameStatus.a[arg1 - 1] == 0) || (gGameStatus.b[arg0 - 1] == 0))
   {
     sub_0800EB44(0x816A, 2, 0xFC0);
-    sub_0800FE08(0, 3, 0x511C, (void *) 0x0600EB48);
+    drawDecimalNumber(0, 3, 0x511C, (void *) 0x0600EB48);
   }
   else
     if (sub_08086E78(arg0, arg1) != 0)
@@ -38,13 +38,13 @@ void sub_0800F584(u8 arg0, u8 arg1)
       result = *((u16 *) new_var);
     }
     sub_0800EB44(D_080CB082[arg0 - 1][arg1 - 1], 2, 0xFC0);
-    sub_0800FE08(result, 3, 0x511C, (void *) 0x0600EB48);
+    drawDecimalNumber(result, 3, 0x511C, (void *) 0x0600EB48);
     result = D_080CB14A[arg0 - 1][arg1 - 1];
   }
   else
   {
     sub_0800EB44(0x8169, 2, 0xFC0);
-    sub_0800FE08(0, 3, 0x511C, 0x0600EB48);
+    drawDecimalNumber(0, 3, 0x511C, 0x0600EB48);
   }
  do { decompressToVram(D_0866CFDC[result], (void *) 0x0600B7E0); } while (0);
   postDisplaySprite(1, (void *) 0x0600B7E0, (void *) 0x0600B740, 0xA0, 0x10);

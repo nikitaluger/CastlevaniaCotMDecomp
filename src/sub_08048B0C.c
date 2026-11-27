@@ -1,6 +1,6 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void advanceMotion(void *, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_08049180(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 
@@ -22,13 +22,13 @@ void sub_08048B0C(void *entity) {
     collision = (u8 *)motion + 0x34;
     steer = (struct HomingSteer *)((u8 *)motion + 0x48);
     steer->speed = steer->speed + 0xFFFFE000;
-    sub_080146D0(motion, steer->angle, steer->speed);
+    setPolarOffset(motion, steer->angle, steer->speed);
     sub_08049180(sprite, collision, motion, steer);
     advanceMotion(motion, 0);
     if (steer->speed <= 0) {
         steer->angle = (steer->angle + 0x8000) & 0xFFFF;
         steer->speed = 0x20000;
-        sub_080146D0(motion, steer->angle, steer->speed);
+        setPolarOffset(motion, steer->angle, steer->speed);
         setAnimationFrame(sprite, collision, 0xA, 0);
         *(u8 *)((u8 *)entity + ((s32)*(s16 *)((u8 *)entity + 0x22) * 2) + 0x19) = 0;
         callback = (u32 *)0x08671BB0;

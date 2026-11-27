@@ -7,7 +7,7 @@ struct S_02025FF0 { u8 _0[0x18A8]; u8 f18A8; };
 extern struct S_02025FF0 gMainWorkspace;
 extern u32 sub_080133A4(s32, s32);
 extern void *sub_0808E05C(s32, s32, u16, u16);
-extern void sub_0809C744(u8);
+extern void loadEffectGfxTile(u8);
 extern void sub_0809C7B4(s32, s32, u16);
 extern s32 _call_via_r1(s32, s32);
 
@@ -45,7 +45,7 @@ u32 __repair_phase_i;
         u8 temp_r1_2 = *(u8 *)(arg0 + 0x74);
         sp8 = (u16 *)(arg0 + 0x6C);
         if (*(s8 *)sp4 != temp_r1_2) {
-            sub_0809C744(temp_r1_2);
+            loadEffectGfxTile(temp_r1_2);
             if (*(s8 *)sp4 == 2) {
                 i = 0;
                 var_r1 = (void **)((u8 *)sp4 + 4);

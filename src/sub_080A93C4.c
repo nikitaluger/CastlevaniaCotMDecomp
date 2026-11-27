@@ -1,5 +1,5 @@
 extern s32 updateObjectDisplayState(void *, void *);
-extern void sub_08011528(s32, void *);
+extern void advanceAnimTrack(s32, void *);
 
 /* Display/animation state block referenced by the entity at +0x3C; the
  * movement track lives at +0x34 within it. */
@@ -24,6 +24,6 @@ void sub_080A93C4(struct Entity *entity)
 
     if (updateObjectDisplayState((void *)spriteAttrs, state) == 0)
     {
-        sub_08011528(spriteAttrs, track);
+        advanceAnimTrack(spriteAttrs, track);
     }
 }

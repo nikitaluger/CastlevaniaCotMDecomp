@@ -11,7 +11,7 @@ extern void spawnKind2CEntity(void *, s32, s32, s32);
 extern void sub_0806A884(s32, void *);
 extern s32 stepDelayTimer(void *, s32);
 extern void sub_0806A7AC(s32, void *, s32);
-extern void sub_080849A4(void *, void *);
+extern void handleCompanionCommand(void *, void *);
 extern u16 sub_0806BCD8(void *, s32, void *, void *);
 extern void sub_0806C6B0(void *, s32, void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -66,7 +66,7 @@ struct Work { u8 _0[0xC8]; s32 eventId; };
         callback = (s32 *)0x08671BD0;
         sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 3, *callback);
     }
-    sub_080849A4(arg0, state);
+    handleCompanionCommand(arg0, state);
     *(s32 *)((u8 *)work + 0xC8) = (u16)sub_0806BCD8(arg0, sprite, state, state);
     if (((struct Work *)work)->eventId != 0) {
         u8 *stepPtr;

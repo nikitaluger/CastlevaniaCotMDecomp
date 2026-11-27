@@ -1,4 +1,4 @@
-extern s32 sub_080057F8(void);
+extern s32 nextRandomWord(void);
 extern void setObjectAnimation(s32, s32, s32, s32);
 extern s32 sub_0801459C(void *, s32);
 extern void sub_080148D8(s32, s32);
@@ -50,7 +50,7 @@ void sub_080A0C9C(void *arg0)
         if (sub_0801459C(anim, 0x200000) != 0)
         {
             sub_080148D8(scene, *(s32 *)((u8 *)anim + 0x08));
-            randomDir = (s8)(sub_080057F8() & 3);
+            randomDir = (s8)(nextRandomWord() & 3);
             if (randomDir != 0)
             {
                 s32 *table;

@@ -1,4 +1,4 @@
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_08057AF8(void *);
 extern void sub_08057B6C(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -22,7 +22,7 @@ void sub_0805753C(void *arg0)
     angle = ~*(u32 *)(shot + 0x0C);
     angle += 0xFFFF8001;
     angle &= 0xFFFF;
-    sub_080146D0(motion, angle, *(s32 *)(shot + 0x10));
+    setPolarOffset(motion, angle, *(s32 *)(shot + 0x10));
 
     *(u32 *)(shot + 0x04) += *(u32 *)(motion + 0x10);
     *(u32 *)(shot + 0x08) += *(u32 *)(motion + 0x14);

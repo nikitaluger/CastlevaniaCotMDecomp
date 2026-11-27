@@ -1,5 +1,5 @@
 extern void forceAnimationFrame(void *, void *, s32, s32);
-extern void sub_0809C4E0(s32, s32);
+extern void setEffectBehavior(s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
@@ -25,7 +25,7 @@ void sub_0809A0C0(void *entity)
     parts = work + 0x48;
 
     forceAnimationFrame(sprite, animState, 0xF, 0);
-    sub_0809C4E0(*(s32 *)(parts + 8), 0);
+    setEffectBehavior(*(s32 *)(parts + 8), 0);
 
     zero = 0;
     *(u8 *)(parts + 0x1F) = 1;

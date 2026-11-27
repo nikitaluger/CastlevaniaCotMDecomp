@@ -1,5 +1,5 @@
 extern void copyBytes(void *a, void *b, u32 c);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 sub_08005820(s32);
 extern void *sub_08091B80(s32, s32, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
@@ -53,12 +53,12 @@ void sub_08094A40(void *arg0)
         byteOffset = (rawIndex - ((signedIndex >> 3) * 8)) * 8;
         xOffset = *(s32 *)((u8 *)offsets + byteOffset);
         param = *(s32 *)((u32)offsets2 + byteOffset);
-        jitter = sub_0800583C(0x40000);
+        jitter = randomSignedOffset(0x40000);
         xPos = *(s32 *)((u8 *)motion + 8);
         xPos += jitter;
         xOffset = (xOffset << 0x13) + 0xFFF40000;
         xPos += xOffset;
-        jitter = sub_0800583C(0x40000);
+        jitter = randomSignedOffset(0x40000);
         yPos = *(s32 *)((u8 *)motion + 0xC);
         yPos += jitter;
         param = (param << 0x13) + 0xFFFC0000;

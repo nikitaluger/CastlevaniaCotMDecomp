@@ -1,4 +1,4 @@
-extern u32 D_08671BC0[];
+extern u32 gPoseScriptCallbacks[];
 
 void stepAnimationTimer(s32, s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -25,7 +25,7 @@ void sub_080562A8(u8 *arg0) {
     *(s32 *)(part + 0xC) = countdown;
     if (countdown == 0) {
         node = *(u8 **)(arg0 + 0x30);
-        scriptHandlers = D_08671BC0;
+        scriptHandlers = gPoseScriptCallbacks;
         stepBase = arg0 + 0x18;
         stepIndexPtr = arg0 + 0x22;
         if (node != NULL) {

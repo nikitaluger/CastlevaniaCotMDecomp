@@ -1,11 +1,11 @@
 /* Run an entity's AI step: when flagged, aim the actor at the player with a
  * jittered angle and take its immediate script branch; otherwise advance the
  * animation and project the actor's motion into the world. */
-extern s32 sub_0800583C(s32);
-extern s32 sub_08005910(s32, s32);
+extern s32 randomSignedOffset(s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void stepAnimationTrack(void *, void *);
 extern void setSpriteFlipForDirection(void *, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_080BC73C(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -37,9 +37,9 @@ void sub_080BC628(void *arg0) {
 
         targetDx = gMainWorkspace.field1750 - *(s32 *)(actor + 0x0C);
         targetDy = gMainWorkspace.field174C - *(s32 *)(actor + 0x08);
-        angle = sub_08005910(targetDx, targetDy);
-        angle += sub_0800583C(0x1800);
-        sub_080146D0(actor, angle, 0x20000);
+        angle = getAngleFromDelta(targetDx, targetDy);
+        angle += randomSignedOffset(0x1800);
+        setPolarOffset(actor, angle, 0x20000);
         setSpriteFlipForDirection(script, *(s32 *)(actor + 0x10));
 
         stepIndex = *(s16 *)(entity + 0x22);

@@ -1,6 +1,6 @@
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_080A1894(void *, void *, void *, void *);
-extern s32 sub_080A2D30(void *, void *, s32, s32, s32, s32);
+extern s32 spawnFacingProjectile(void *, void *, s32, s32, s32, s32);
 extern void sub_080A2D80(s32, s32, s32);
 extern s32 sub_080A2D8C(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -39,7 +39,7 @@ void sub_080A10E0(void *arg0) {
             if (f) {
                 var_r2 = 0xFFF00000;
             }
-            var_r0 = sub_080A2D30(arg0, temp_r0, 0, *(s32 *)(temp_r5 + 8) + var_r2, *(s32 *)(temp_r5 + 0xC) + 0xFFD00000, 0);
+            var_r0 = spawnFacingProjectile(arg0, temp_r0, 0, *(s32 *)(temp_r5 + 8) + var_r2, *(s32 *)(temp_r5 + 0xC) + 0xFFD00000, 0);
             *(s32 *)(temp_r4 + 0xC) = var_r0;
             break;
         case 11:

@@ -1,4 +1,4 @@
-s32 sub_08011624(s32, void *, s32);
+s32 advanceAnimTrackByDelta(s32, void *, s32);
 s32 sub_080A2E30(s32);
 s32 sub_080A2E84(s32, s32);
 extern s32 D_0866FDEC[];
@@ -27,7 +27,7 @@ u8 sub_080A1904(s32 entity, void *trackArg, void *facingArg)
   u32 direction;
   u16 prevDirection;
   tableIndexPtr = bytePtr(facing + 0x16);
-  sub_08011624(entity, trackArg, D_0866FDEC[*tableIndexPtr]);
+  advanceAnimTrackByDelta(entity, trackArg, D_0866FDEC[*tableIndexPtr]);
   frameData = *((void **) (track + 8));
   frameIndex = *((s16 *) (track + 0x0E));
   indexOffset = *bytePtr(track + 1);

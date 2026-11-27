@@ -2,7 +2,7 @@
  * Actor script step: keep the idle animation running, and at step 0x0F aim the
  * actor at the player, clear the step counter and advance the script.
  */
-extern s32 sub_08005910(s32 dy, s32 dx);  /* direction angle of a vector */
+extern s32 getAngleFromDelta(s32 dy, s32 dx);  /* direction angle of a vector */
 extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -24,7 +24,7 @@ void sub_080351B0(u8 *self) {
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x0F) {
         s32 dy = gMainWorkspace.y - *(s32 *)(work + 0x0C);
         s32 dx = gMainWorkspace.x - *(s32 *)(work + 0x08);
-        *(s32 *)(move + 4) = sub_08005910(dy, dx);
+        *(s32 *)(move + 4) = getAngleFromDelta(dy, dx);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
             s32 *stepCallback = (s32 *)0x08671BB0;

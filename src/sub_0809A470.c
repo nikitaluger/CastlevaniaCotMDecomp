@@ -1,7 +1,7 @@
 extern void copyBytes(void *, s32, s32);
-extern void sub_08011528(s32, void *);
-extern void sub_0809C4E0(s32, s32);
-extern s32 sub_080057F8(void);
+extern void advanceAnimTrack(s32, void *);
+extern void setEffectBehavior(s32, s32);
+extern s32 nextRandomWord(void);
 extern void sub_0809C5FC(void *, u8);
 extern void sub_080C31E4(void *, void *, s32);
 struct FrameState { u8 flags; u8 indexOffset; u8 _2[6]; void *ptrTable; u8 _C[2]; s16 frameIndex; };
@@ -24,21 +24,21 @@ void sub_0809A470(u8 *obj) {
     s32 *callbackEntry;
 
     copyBytes(pairs, 0x081017C5, 6);
-    sub_08011528(animSetId, frame);
+    advanceAnimTrack(animSetId, frame);
     ptrTable = (void **)((struct FrameState *)frame)->ptrTable;
     frameIndex = ((struct FrameState *)frame)->frameIndex + ((struct FrameState *)frame)->indexOffset;
     tableCode = ((struct CodeEntry *)((u8 *)*ptrTable + frameIndex * 4 - 4))->code;
     if (tableCode == 0x54) {
-        sub_0809C4E0(((struct ChoiceState *)choice)->entity, 3);
+        setEffectBehavior(((struct ChoiceState *)choice)->entity, 3);
     } else if (tableCode == 0x4B) {
-        sub_0809C4E0(((struct ChoiceState *)choice)->entity, 2);
+        setEffectBehavior(((struct ChoiceState *)choice)->entity, 2);
     } else {
-        sub_0809C4E0(((struct ChoiceState *)choice)->entity, 0);
+        setEffectBehavior(((struct ChoiceState *)choice)->entity, 0);
     }
 
     if (((struct FrameState *)frame)->flags & 2) {
         if (((struct ChoiceState *)choice)->choiceFlags[0] & ((struct ChoiceState *)choice)->choiceFlags[1] & ((struct ChoiceState *)choice)->choiceFlags[2]) {
-            ((struct ChoiceState *)choice)->choice = pairs[((struct ChoiceState *)choice)->choice][sub_080057F8() & 1];
+            ((struct ChoiceState *)choice)->choice = pairs[((struct ChoiceState *)choice)->choice][nextRandomWord() & 1];
             result = (u8 *)choice + 0x20;
         } else {
             u8 selected = pairs[((struct ChoiceState *)choice)->choice][0];
@@ -47,7 +47,7 @@ void sub_0809A470(u8 *obj) {
             firstFlag = flagBytes[selected];
             result = (u8 *)choice + 0x20;
             if (firstFlag == 0 && flagBytes[pairs[((struct ChoiceState *)choice)->choice][1]] == 0) {
-                *result = pairs[((struct ChoiceState *)choice)->choice][sub_080057F8() & 1];
+                *result = pairs[((struct ChoiceState *)choice)->choice][nextRandomWord() & 1];
             } else if (firstFlag != 0) {
                 *result = pairs[((struct ChoiceState *)choice)->choice][1];
             } else {

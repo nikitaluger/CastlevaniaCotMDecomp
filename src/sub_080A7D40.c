@@ -2,7 +2,7 @@ extern void sub_0808DC40(s32, s32, s32);
 extern void sub_080A860C(void *, void *);
 extern void decelerateTargetX(u16 *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *D_08671BC0;
+extern void *gPoseScriptCallbacks;
 extern void *gMainObjTimerCallbacks;
 
 /* Refresh an actor's sprite attributes, tracker angle and speed from its AI
@@ -47,7 +47,7 @@ void sub_080A7D40(void *arg0) {
                 stepIndex = *(s16 *)((u8 *)arg0 + 0x22);
                 *(u8 *)((u8 *)arg0 + stepIndex * 2 + 0x19) = 0;
                 {
-                    void **scriptTable = &D_08671BC0;
+                    void **scriptTable = &gPoseScriptCallbacks;
                     sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *scriptTable);
                 }
             } else {

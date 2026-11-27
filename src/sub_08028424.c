@@ -1,4 +1,4 @@
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 s32 getSpriteFacingSign(s32);
 s32 isOutsideCameraBounds(s32, s32);
 void sub_0808DBF8(s32, s32, s32);
@@ -16,8 +16,8 @@ void sub_08028424(void *arg0)
 
     stepFlag = *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19);
     if ((stepFlag & 7) == 1) {
-        randX = sub_0800583C(0x10000) << 3;
-        randY = sub_0800583C(0x10000) << 3;
+        randX = randomSignedOffset(0x10000) << 3;
+        randY = randomSignedOffset(0x10000) << 3;
         if (getSpriteFacingSign(sprite) < 0) {
             s32 xOff = randX + 0x180000;
             s32 spawnX = *(s32 *)((u8 *)work + 8) + xOff;

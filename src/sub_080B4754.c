@@ -5,7 +5,7 @@
  * flag, clear a byte on the parent and dispatch the actor callback.
  */
 extern s32 setObjectAnimation(void *, void *, s32, s32);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void advanceMotion(void *, s32);
 extern s32 sub_080B7290(s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -27,7 +27,7 @@ void sub_080B4754(void *arg0)
   u8 *anim = ((u8 *) actorState) + 0x34;
   u8 *auxState = ((u8 *) actorState) + 0x48;
   setObjectAnimation(animOwner, anim, ACTION_FRAME, 0);
-  sub_08011528(animOwner, anim);
+  advanceAnimTrack(animOwner, anim);
   frameTablePtr = *((void ***) (anim + 0x08));
   {
     s32 frameIndex = (*((s16 *) (anim + 0x0E))) + (*((u8 *) (anim + 0x01)));

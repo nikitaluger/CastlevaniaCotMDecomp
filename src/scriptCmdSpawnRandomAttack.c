@@ -10,7 +10,7 @@ extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void registerScriptObject(u8 *, s32);
 extern s32 scaleByRandom(s32);
-extern s32 sub_08014EF4(s32);
+extern s32 rollProbability(s32);
 extern void sub_08059AA8(void);
 extern void setAttackHitboxFromAction(u8 *, u8 *);
 extern s32 _call_via_r1(u8 *, s32);
@@ -150,7 +150,7 @@ void scriptCmdSpawnRandomAttack(struct ScriptThread *thread)
         *(u16 *)(hitbox + 4) = scaleByRandom(0x65) + 0x78;
         *(u32 *)(hitbox + 0x0C) = 0xFFFF0000;
     }
-    kindIndex = sub_08014EF4(0x1388);
+    kindIndex = rollProbability(0x1388);
     direction = ATTACK_DIR_RIGHT;
     if (kindIndex == 1) direction = ATTACK_DIR_LEFT;
     *(u32 *)((u8 *)work + 0x10) = direction;

@@ -1,5 +1,5 @@
 void sub_0800FEDC(s32, void *);
-s32 sub_0800EBDC(s16, s16, void *);
+s32 drawComparisonNumber(s16, s16, void *);
 void sub_0806D930(void *);
 extern u8 gGameStatus[];
 extern u8 gMenuState[];
@@ -83,10 +83,10 @@ void sub_0800EDAC(s32 arg0)
 
   sub_0806D930(obj);
   state = (u8 *) g;
-  vals[0] = sub_0800EBDC(*((s16 *) (obj + 0x1C)), *((s16 *) (state + 0x2E0)), (void *) 0x06007178);
-  vals[1] = sub_0800EBDC(*((s16 *) (obj + 0x24)), *((s16 *) (((u8 *) g) + 0x2E8)), (void *) 0x060071B8);
-  vals[2] = sub_0800EBDC(*((s16 *) (obj + 0x2C)), new_var = *((s16 *) (((u8 *) g) + 0x2F0)), state = (void *) 0x060071F8);
-  vals[3] = sub_0800EBDC(*((s16 *) (obj + 0x34)), *((s16 *) (((u8 *) g) + 0x2F8)), (void *) 0x06007238);
+  vals[0] = drawComparisonNumber(*((s16 *) (obj + 0x1C)), *((s16 *) (state + 0x2E0)), (void *) 0x06007178);
+  vals[1] = drawComparisonNumber(*((s16 *) (obj + 0x24)), *((s16 *) (((u8 *) g) + 0x2E8)), (void *) 0x060071B8);
+  vals[2] = drawComparisonNumber(*((s16 *) (obj + 0x2C)), new_var = *((s16 *) (((u8 *) g) + 0x2F0)), state = (void *) 0x060071F8);
+  vals[3] = drawComparisonNumber(*((s16 *) (obj + 0x34)), *((s16 *) (((u8 *) g) + 0x2F8)), (void *) 0x06007238);
   i = 0;
   tbl = D_080CB052;
   vp = vals;

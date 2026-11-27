@@ -1,4 +1,4 @@
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 extern s32 D_08102094[][1];
@@ -13,7 +13,7 @@ void sub_080A6824(void *arg0)
   u8 *state = actor + 0x48;
   s32 deltaY = (*((s32 *) (state + 0x1C))) - (*((s32 *) (state + 0x08)));
   s32 deltaX = (*((s32 *) (state + 0x18))) - (*((s32 *) (state + 0x04)));
-  s32 angle = sub_08005910(deltaY, deltaX);
+  s32 angle = getAngleFromDelta(deltaY, deltaX);
   angle += D_08102094[(*((u8 *) (self + 0x4C))) * 2][1];
   angle &= 0xFFFF;
   do {

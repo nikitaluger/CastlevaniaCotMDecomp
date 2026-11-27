@@ -1,6 +1,6 @@
 void stepAnimationTrack(s32, s32);
 void sub_080C31E4(void *, void *, s32);
-void sub_08011528(void *, void *);
+void advanceAnimTrack(void *, void *);
 void sub_080C31E0(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void sub_08016678(void *);

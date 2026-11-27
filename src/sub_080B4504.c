@@ -1,5 +1,5 @@
 extern void sub_080C31E0(void *, s32);
-extern void sub_08011528(s32, void *);
+extern void advanceAnimTrack(s32, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void setObjectAnimation(s32, void *, s32, s32);
 extern void startScriptOnce(s32, s32, s32);
@@ -24,7 +24,7 @@ void sub_080B307C(void) {
  * previous-command byte and restarts the handler table at command 3. */
 void sub_080B4504(void *arg0) {
     u8 *obj = (u8 *)arg0;
-    sub_08011528(*(s32 *)(obj + 0x38), (u8 *)*(void **)(obj + 0x3C) + 0x34);
+    advanceAnimTrack(*(s32 *)(obj + 0x38), (u8 *)*(void **)(obj + 0x3C) + 0x34);
     if (*(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x19) == 0x78) {
         s32 *lit;
         *(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x17) = 0;

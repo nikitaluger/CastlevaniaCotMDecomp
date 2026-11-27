@@ -1,7 +1,7 @@
-s32 sub_08005910(s32, s32);
+s32 getAngleFromDelta(s32, s32);
 void stepAnimationTrack(void *, void *);
 void advanceMotion(void *, s32);
-void sub_080146D0(void *, s32, s32);
+void setPolarOffset(void *, s32, s32);
 void sub_080C31E8(void *, void *, s32, void *);
 
 struct S_02025FF0 {
@@ -33,7 +33,7 @@ void sub_0805BE28(void *entity)
   {
     if (*(s16 *)(motion + 0x20) == 0)
     {
-      *(s32 *)(extra + 0x08) = sub_08005910(gMainWorkspace.y - *(s32 *)(motion + 0x0C),
+      *(s32 *)(extra + 0x08) = getAngleFromDelta(gMainWorkspace.y - *(s32 *)(motion + 0x0C),
                                             gMainWorkspace.x - *(s32 *)(motion + 0x08));
       *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
       {
@@ -46,7 +46,7 @@ void sub_0805BE28(void *entity)
   {
     s32 nextTimer = timer + 0xFFFFE000;
     *(s32 *)(extra + 0x04) = nextTimer;
-    sub_080146D0(motion, *(s32 *)(extra + 0x08), nextTimer);
+    setPolarOffset(motion, *(s32 *)(extra + 0x08), nextTimer);
     advanceMotion(motion, 0);
   }
 

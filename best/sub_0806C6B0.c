@@ -17,7 +17,7 @@ extern void sub_0806D860(u32);
 extern void sub_0806D894(void);
 extern void sub_0806D8C0(void);
 extern void sub_0806D930(u8 *);
-extern void sub_0806DD94(void);
+extern void startScreenTransition(void);
 extern void sub_0808E3B8(u32, u32, u32);
 extern void sub_0808E408(u32, u32, u32);
 extern void divInt32(u32, u32);
@@ -62,7 +62,7 @@ u32 __repair_phase_idx2;
   if ((h[0x14ED] != 0) && (v18 != 0x30)) {
     old = *((u32 *)(g + 0x2CC)); val = *((u32 *)tab);
     if (old >= val) *((u32 *)(g + 0x2CC)) = old - val;
-    else { *((u32 *)(g + 0x2CC)) = 0; sub_0806DD94(); }
+    else { *((u32 *)(g + 0x2CC)) = 0; startScreenTransition(); }
   }
   if ((v18 != 0x1C) && (v18 != 0x30)) { divInt32((u32)((*((s16 *)(g + 0x2F0))) << 16), 0x1770); sub_0806D81C(); }
   { u32 *p = (u32 *)(c + 0x110); if (*p) { divInt32(*((u32 *)(g + 0x2C8)), 100); sub_0806D7F4(); (*p)--; } }
@@ -83,7 +83,7 @@ skip2:
     if (!(((s32)(*((u32 *)(g + 0x2CC)))) > 0xFFFF))
     {
 set1:
-    g[0x2DB] = 1; sub_0806DD94();
+    g[0x2DB] = 1; startScreenTransition();
 ;
     }
     else

@@ -2,7 +2,7 @@
  * sprite, apply a frame-dependent horizontal speed nudge, occasionally spawn
  * a randomized particle, then count down to the next script step. */
 s32 scaleByRandom(s32);
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 void sub_08091E3C(s32, s32, s32, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 s16 sub_080C36E4(s32, s32);
@@ -38,7 +38,7 @@ void sub_080964CC(void *script) {
     {
         s32 flags = *(u16 *)((u8 *)state + 0x14);
         if (!(flags & 1)) {
-            x = *((s32 *)((u8 *)fx + 0x08)) + sub_0800583C(0xE0000);
+            x = *((s32 *)((u8 *)fx + 0x08)) + randomSignedOffset(0xE0000);
             y = *((s32 *)((u8 *)fx + 0x0C)) + 0x40000;
             param = scaleByRandom(0x8000) + 0x2000;
             {

@@ -1,5 +1,5 @@
 s32 signOf(s32);
-s32 sub_080057F8(void);
+s32 nextRandomWord(void);
 
 struct S_02025FF0_174C {
     u8 pad[0x174C];
@@ -14,7 +14,7 @@ extern struct S_02025FF0_174C gMainWorkspace;
 void sub_0809E490(void *arg0, s32 *arg1) {
     s32 side = signOf(*(s32 *)((u8 *)arg0 + 8));
     if (side == 0) {
-        side = sub_080057F8() & 1;
+        side = nextRandomWord() & 1;
         if (side == 0) {
             side = -1;
         }

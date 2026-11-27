@@ -1,5 +1,5 @@
 extern void advanceMotion(s32, s32);
-extern void sub_080146D0(s32, s32, s32);
+extern void setPolarOffset(s32, s32, s32);
 extern s32 sub_080148D8(s32, s32);
 extern s32 sub_08040A1C(s32, s32, s32, s32);
 extern void setAnimationFrame(s32, s32, s32, s32);
@@ -22,7 +22,7 @@ void sub_0803FCD0(void *script) {
     extra = (void*)((char*)body + 0x48);
     advanceMotion(body, 0);
     *(s32*)((char*)extra+4) += 0x100;
-    sub_080146D0(body, *(s32*)((char*)extra+4), 0x4000);
+    setPolarOffset(body, *(s32*)((char*)extra+4), 0x4000);
     *(s32*)((char*)body+0x14) += *(s32*)((char*)body+0x14) >> 2;
     collided = sub_08040A1C(sprite, anim, body, extra);
     sub_080148D8(sprite, *(s32*)((char*)body+0x08));

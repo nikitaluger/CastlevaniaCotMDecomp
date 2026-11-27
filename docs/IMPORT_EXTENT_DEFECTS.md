@@ -7,13 +7,13 @@ App versions: started on 1.0.11-rr.1 (branch build), upgraded to 1.0.13-rr.1, th
 
 | Metric | Baseline (`c0108aa`) | Now | Delta |
 |---|---:|---:|---:|
-| Matched functions | 3,894 | 3,966 | **+72** |
+| Matched functions | 3,894 | 3,979 | **+85** |
 | Set aside (`asm`) | 368 | 318 | −50 (phantom deletions, recovered functions matched) |
-| Layout entries | 4,551 | 4,554 | +3 (35 functions added, 32 phantoms deleted) |
+| Layout entries | 4,551 | 4,614 | +63 (95 functions added, 32 phantoms deleted) |
 
 A large share of the new matches is directly attributable to the repairs below: 3 boundary cuts, 30+ extent
 extensions, 1 compiler-profile correction, 7 source restorations, six re-point pairs, two jump-table/data
-splits, three recovered 4-byte prologue stubs, **35 functions recovered from gaps the importer never declared**,
+splits, three recovered 4-byte prologue stubs, **95 functions recovered from gaps the importer never declared**,
 and twelve phantom deletions. The remainder came from autopilot/deep-permuter passes and the app's token-free
 local-source reuse. Many agent notes blamed "terminal compiler walls"; the corrected bytes matched within
 4–45 attempts.
@@ -127,9 +127,10 @@ The same pure-data case was `sub_0803CE96` (12 B, 1,540 attempts, no function re
 ### Functions the splitter never declared
 
 A literal-pointer / `bl`-target scan over the ROM found gaps containing real code with no function entry at all.
-**35 such functions were added** in four batches (5 pilot, 10, 10, 10). One (`sub_0805A500`, 244 B) matched at
-score 0 after 13 attempts; all were registered as `open` with a symbol, target bytes, a Thumb disassembly and a
-manifest layout entry, with no attempt or note history — the cleanest work in the project.
+**95 such functions were added** in seven batches (5 pilot, five batches of 10, one batch of 30). One
+(`sub_0805A500`, 244 B) matched at score 0 after 13 attempts; all were registered as `open` with a symbol,
+target bytes, a Thumb disassembly and a manifest layout entry, with no attempt or note history — the cleanest
+work in the project.
 
 The high-confidence filter ended up using the app's own machinery rather than a custom heuristic:
 `decompnet.consoles.gba.split.function_at(rom, addr, limit, name)` derives a missed function's extent from its
@@ -143,8 +144,16 @@ module but is not exposed.
 Batches were inserted with the app closed (it holds DB write locks for minutes), a DB + manifest backup per batch,
 `progress._manifest` validation, and a restart afterwards. Each batch was also **prepended to `config["priority"]`
 and the manifest `priority` array** (newest first), so agents worked the fresh functions before anything with a
-history. The operator unmarked entries as soon as each received its first compile. Roughly 227 verified candidates
+history. The operator unmarked entries as soon as each received its first compile. Roughly 166 verified candidates
 remain for future batches.
+
+A batch is safe only with the app closed: it holds DB write locks for minutes and an in-place insert once waited
+>5 minutes. Each batch used fresh DB + manifest backups and post-insert manifest validation. Watch for stale
+priority names after a batch — two earlier entries (`sub_0802CC98`, `sub_08027B48`) were matched and renamed by
+the app, leaving dead names that were later removed. When agents stopped picking up priority functions,
+`claim_ahead` was failing: `claim_ahead.py:115 → claim_state.brief → progress.sync → _StillFailing` with a cached
+"you hold another claim: `sub_080008A0`" error. Removing the stale priority names and restarting restored claim
+dispatch; the app had also cleaned its own expired claim rows during shutdown.
 
 ## Unresolved
 
@@ -168,7 +177,7 @@ is obsolete, but 1,140 attempts stayed between scores 17,805 and 18,005 and ther
 new agent would need to reconstruct a large function from scratch.
 
 Two set-asides are **genuine not-C cases**, not extent defects. `sub_080BF7C8` (904 B) is `m4aSoundMain`
-(magic `0x68736D53`) with two inline raw ARM opcode blobs entered via `add rX,pc,#4; bx rX`; none of the 3,966
+(magic `0x68736D53`) with two inline raw ARM opcode blobs entered via `add rX,pc,#4; bx rX`; none of the 3,979
 matched sources uses inline asm, while the other m4a functions in the same region match without such blobs.
 `sub_080BFDBE` (610 B) has a hand-crafted split prologue and a `pop {r3}; bx r3` return that agbcc cannot emit;
 agents reached `not_c` after the extent fix. Leave both set aside — unlike the cases above, their verdicts are

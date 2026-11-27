@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern s32 getSpriteFacingSign(void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
@@ -30,7 +30,7 @@ void sub_0804F558(void *arg0) {
         if (facing <= 0)
             speed = 0x8000;
         *(u32 *)(steer + 8) = speed;
-        sub_080146D0(work, speed, 0x28000);
+        setPolarOffset(work, speed, 0x28000);
         *(u8 *)((u8 *)arg0 + ((s32)*(s16 *)((u8 *)arg0 + 0x22) * 2) + 0x19) = 0;
         callbacks = (u32 *)0x08671BB0;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *callbacks);

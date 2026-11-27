@@ -15,7 +15,7 @@ void sub_08018700(struct FixedEffectEntity *entity) {
 
     sprite = allocSpriteObject();
     if (sprite == NULL) {
-        sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24));
+        do { sub_080C31E0((u8 *)entity, *(s32 *)((u8 *)entity + 0x24)); } while (0);
         return;
     }
     entity->sprite = sprite;

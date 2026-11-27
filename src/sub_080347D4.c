@@ -47,13 +47,13 @@ void sub_080350F0(void *arg0) {
     sub_080C31E0(arg0, *(u32 *)((u8 *)*(u32 *)((s8 *)arg0 + 0x14) + *(u8 *)r5 * 4));
 }
 
-extern s32 sub_080146D0(void *, s32, s32);
+extern s32 setPolarOffset(void *, s32, s32);
 
 void sub_08035150(void *arg0) {
     void *r5 = *(void **)((s8 *)arg0 + 0x3C);
     s32 v;
     stepAnimationTrack(*(s32 *)((s8 *)arg0 + 0x38), (s8 *)r5 + 0x34);
-    sub_080146D0(r5, *(s32 *)((s8 *)r5 + 0x4C), *(s32 *)((s8 *)r5 + 0x48));
+    setPolarOffset(r5, *(s32 *)((s8 *)r5 + 0x4C), *(s32 *)((s8 *)r5 + 0x48));
     advanceMotion(r5, 0);
     v = *(s32 *)((s8 *)r5 + 0x48) + 0xFFFF0000;
     *(s32 *)((s8 *)r5 + 0x48) = v;

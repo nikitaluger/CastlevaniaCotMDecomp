@@ -1,4 +1,4 @@
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 divInt32(s32, s32);
 extern s32 sub_080C31E0(s32, s32);

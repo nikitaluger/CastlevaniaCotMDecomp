@@ -1,4 +1,4 @@
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
 /* Set the work state's facing angle to 0x4000, build a downward vector of
@@ -11,7 +11,7 @@ void sub_0803FC64(void *obj)
   const s32 *advance;
   u8 *entry;
   *((s32 *) (work + 0x4C)) = 0x4000;
-  sub_080146D0(work, 0x4000, 0x4000);
+  setPolarOffset(work, 0x4000, 0x4000);
   {
     s32 yVel = *((s32 *) (work + 0x14));
     *((s32 *) (work + 0x14)) = yVel + (yVel >> 2);

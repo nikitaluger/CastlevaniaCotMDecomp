@@ -1,5 +1,5 @@
 s32 scaleByRandom(s32);
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 s16 sub_080C389C(s32, s32);
 
 /* Picks a new horizontal direction (0/1/2) stored in the pose block, then
@@ -12,8 +12,8 @@ void sub_0804C674(u8 *entity, s32 *outX, s32 *outY) {
     pose = *(u8 **)(entity + 0x3C) + 0x48;
     *(s16 *)(pose + 6) = sub_080C389C(scaleByRandom(2) + *(s16 *)(pose + 6) + 1, 3);
     randRange = 0x10000;
-    scatter = sub_0800583C(randRange) * 0x10;
-    lift = sub_0800583C(randRange) * 0x10 + 0xFFA80000;
+    scatter = randomSignedOffset(randRange) * 0x10;
+    lift = randomSignedOffset(randRange) * 0x10 + 0xFFA80000;
     switch (*(s16 *)(pose + 6)) {
     case 0:
         *outX = scatter;

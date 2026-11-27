@@ -1,7 +1,7 @@
-extern s32 sub_08005910(s32 dy, s32 dx); /* atan2-style heading toward a point */
+extern s32 getAngleFromDelta(s32 dy, s32 dx); /* atan2-style heading toward a point */
 extern void stepAnimationTrack(void *sprite, void *animState);
 extern s32 sub_0801473C(s32 fromAngle, s32 toAngle); /* -1/0/1 shortest turn */
-extern void sub_080146D0(void *work, s32 heading, s32 speed);
+extern void setPolarOffset(void *work, s32 heading, s32 speed);
 extern void advanceMotion(void *work, s32 accelY);
 
 struct S_02025FF0_174C { u8 pad[0x174C]; u32 lo; u32 hi; };
@@ -32,7 +32,7 @@ void sub_08035220(u8 *self) {
         {
             s32 deltaY = (s32)gMainWorkspace.hi - *(s32 *)(work + 0x0C);
             s32 deltaX = (s32)gMainWorkspace.lo - *(s32 *)(work + 8);
-            turnDir = sub_0801473C(heading, sub_08005910(deltaY, deltaX));
+            turnDir = sub_0801473C(heading, getAngleFromDelta(deltaY, deltaX));
         }
         if (turnDir != -1) {
             if (turnDir == 1) {
@@ -43,6 +43,6 @@ void sub_08035220(u8 *self) {
         }
         *(s32 *)(steer + 4) = (u16)*(s32 *)(steer + 4);
     }
-    sub_080146D0(work, *(s32 *)(steer + 4), *(s32 *)steer);
+    setPolarOffset(work, *(s32 *)(steer + 4), *(s32 *)steer);
     advanceMotion(work, 0);
 }

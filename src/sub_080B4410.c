@@ -1,5 +1,5 @@
 void sub_08005E80(s32);
-s32 sub_08011528(s32, void *);
+s32 advanceAnimTrack(s32, void *);
 void sub_080C31E8(void *, void *, s32, s32);
 
 extern s32 gMenuScriptCallback;
@@ -26,7 +26,7 @@ void sub_080B4410(void *arg0)
     tbl = *framePtr;
     entry = idx * 4 + tbl - 4;
     prevCmd = *(u16 *)((s8 *)entry + 2);
-    sub_08011528(anim, animDesc);
+    advanceAnimTrack(anim, animDesc);
     {
         s32 *framePtr2;
         s32 idx2;

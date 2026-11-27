@@ -5,8 +5,8 @@ struct S_02025FF0
   u32 f172C;
 };
 extern struct S_02025FF0 gMainWorkspace;
-s32 sub_08005910(s32, s32);
-void sub_080146D0(void *, s32, s32);
+s32 getAngleFromDelta(s32, s32);
+void setPolarOffset(void *, s32, s32);
 s32 signOf(s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_080555E0(void *arg0)
@@ -29,8 +29,8 @@ s32 __repair_phase_new_var;
   {
     v = gMainWorkspace.f1728 + (0x80 << 14);
   }
-  new_var = sub_08005910(gMainWorkspace.f172C - (*((s32 *) (((u8 *) r4) + 0xC))), v - (*((s32 *) (((u8 *) r4) + 8))));
-  sub_080146D0(r4, ((0x80 << 5) + new_var) & (0xF0 << 8), 0x80 << 8);
+  new_var = getAngleFromDelta(gMainWorkspace.f172C - (*((s32 *) (((u8 *) r4) + 0xC))), v - (*((s32 *) (((u8 *) r4) + 8))));
+  setPolarOffset(r4, ((0x80 << 5) + new_var) & (0xF0 << 8), 0x80 << 8);
   *((u16 *) (((u8 *) r7) + 6)) = 0x96;
   new_var = signOf(*((s32 *) (((u8 *) r4) + 8)));
   *((u16 *) (((u8 *) r6) + 2)) = (new_var > 0) ? ((*((u16 *) (((u8 *) r6) + 2))) | 0x10) : ((*((u16 *) (((u8 *) r6) + 2))) & 0xFFEF);

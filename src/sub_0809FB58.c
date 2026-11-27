@@ -1,8 +1,8 @@
 struct S_02025FF0 { u8 pad[0x174C]; u32 camX; u32 camY; };
 extern struct S_02025FF0 gMainWorkspace;
-u16 sub_08005910(s32, s32);
+u16 getAngleFromDelta(s32, s32);
 void advanceMotion(void *, s32);
-void sub_080146D0(void *, s32, s32);
+void setPolarOffset(void *, s32, s32);
 s32 sub_0801473C(s32, u16);
 void sub_080C31E4(void *, void *, s32);
 
@@ -27,11 +27,11 @@ void sub_0809FB58(void *actor) {
     }
     dy = (s32)gMainWorkspace.camY - *(s32 *)(work + 0x0C);
     dx = (s32)gMainWorkspace.camX - *(s32 *)(work + 0x08);
-    targetAngle = sub_08005910(dy, dx);
+    targetAngle = getAngleFromDelta(dy, dx);
     turn = sub_0801473C(*(s32 *)(self + 0x7C), targetAngle);
     turn = turn << 8;
     *(s32 *)(self + 0x7C) = *(s32 *)(self + 0x7C) + turn;
-    sub_080146D0(work, *(s32 *)(self + 0x7C), *thrust);
+    setPolarOffset(work, *(s32 *)(self + 0x7C), *thrust);
     advanceMotion(work, 0);
     scriptEntry = (u8 *)((s32)*(s16 *)(self + 0x22) * 2 + (s32)self);
     if (scriptEntry[0x19] == 0x3C) {

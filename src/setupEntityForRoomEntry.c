@@ -17,7 +17,7 @@ extern struct RunState gGameStatus;
 
 extern void spawnEntity(s32, s32, s32, s32);
 extern s32 scalePercentSaturate16(s32, s32);
-extern void sub_08086E28(void);
+extern void recordSpawnEvent(void);
 extern u8 D_080E47E8[];
 
 /* Configures an entity on entering a room. Room 0x58 spawns an extra object,
@@ -40,7 +40,7 @@ void setupEntityForRoomEntry(s32 spawnArg, u8 *entity) {
             u8 *entries = roomTable + 4;
             *counterPtr -= *(s32 *)(entries + offset);
         }
-        sub_08086E28();
+        recordSpawnEvent();
     } else {
         *(u16 *)(((u32 *)(entity + 0x130))[0] + 0x0E) = scalePercentSaturate16(run->baseValue, 0x20);
     }

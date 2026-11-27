@@ -1,6 +1,6 @@
 extern u32 D_081020DC[];
 extern void *gMainObjTimerCallbacks;
-extern s32 sub_08005910(s32 a, s32 b);
+extern s32 getAngleFromDelta(s32 a, s32 b);
 extern u32 scaleByRandom(u32 a);
 extern s32 sub_0801473C(s32 a, s32 b);
 extern void sub_080C31E0(void *, void *);
@@ -31,7 +31,7 @@ void sub_080A7C7C(void *arg0)
     u32 dx = ax - bx;
     u32 ay = *((u32 *) (((u8 *) ai) + 0x18));
     u32 by = *((u32 *) (((u8 *) ai) + 0x04));
-    currentAngle = sub_08005910(dx, ay - by);
+    currentAngle = getAngleFromDelta(dx, ay - by);
   }
   r0 = 0x108;
   r1 = ((u8 *) actor) + r0;

@@ -39,13 +39,13 @@ void sub_080B06CC(s32 *out) {
     } while (i <= 2);
 }
 
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 
 /* Sets up three pre-allocated objects as a spread: same variant/value, angles
  * 45 degrees apart starting from the direction toward (x,y), and a flag set. */
 void sub_080B06F4(void **objects, s32 x, s32 y) {
     void **slot = objects;
-    s32 angle = sub_08005910(*(s32 *)((u8 *)0x02025FF0 + 0x1750) - y,
+    s32 angle = getAngleFromDelta(*(s32 *)((u8 *)0x02025FF0 + 0x1750) - y,
                             *(s32 *)((u8 *)0x02025FF0 + 0x174C) - x) + (s32)0xFFFFE000;
     u32 i = 0;
     do {

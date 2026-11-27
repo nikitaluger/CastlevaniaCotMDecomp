@@ -1,5 +1,5 @@
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void copyBytes(void *, u32, s32);
 extern void sub_080C31E4(void *, void *, u32);
@@ -59,9 +59,9 @@ void sub_08093924(u8 *arg0)
     xOffset = *((u32 *) (offsets + byteOffset));
     yOffset = *((u32 *) (offsets2 + byteOffset));
     xBias = 0xFFF40000;
-    xPos = ((*((u32 *) (motion + 8))) + sub_0800583C(0x80 << 11)) + ((xOffset << posShift) + xBias);
+    xPos = ((*((u32 *) (motion + 8))) + randomSignedOffset(0x80 << 11)) + ((xOffset << posShift) + xBias);
     yJitterRange = (0x80 << 7) << 4;
-    yPos = ((*((u32 *) (motion + 0xC))) + sub_0800583C(yJitterRange)) + ((yOffset << posShift) + yBias);
+    yPos = ((*((u32 *) (motion + 0xC))) + randomSignedOffset(yJitterRange)) + ((yOffset << posShift) + yBias);
     heading = scaleByRandom(0x80 << 6) + (0x80 << 4);
     {
       s32 cond = (((*((s16 *) (animTrack + 0xC))) * 2) + i) & 3;

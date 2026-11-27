@@ -1,6 +1,6 @@
 s32 signOf(s32);
 s32 getSpriteFacingSign(s32);
-s32 sub_08014EF4(s16);
+s32 rollProbability(s16);
 void sub_080186C0(s32, s32);
 void sub_080186DC(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -24,7 +24,7 @@ void sub_0801746C(void *entity) {
     control = motion + 0x48;
     *(u16 *)(control + 0x16) = *(u16 *)(control + 0x16) - 1;
     if ((s16)*(u16 *)(control + 0x16) < 0) {
-        if (sub_08014EF4((s16)*(s16 *)(control + 0x28)) == 1) {
+        if (rollProbability((s16)*(s16 *)(control + 0x28)) == 1) {
             stepSize = 0xB0 << 15;
             sub_080186DC((s32)(motion + 0x70), 0xFA << 2);
         } else {

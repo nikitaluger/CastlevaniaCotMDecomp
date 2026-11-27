@@ -1,6 +1,6 @@
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void sub_08014DB4(u8 *, u8 *, s32, s32);
+extern void updateFollowPath(u8 *, u8 *, s32, s32);
 extern void setSpriteFlip(s32, s32);
 extern u8 gMainWorkspace[];
 
@@ -54,7 +54,7 @@ void sub_0805A500(u8 *self) {
 end:
     bias = 0x80;
     bias <<= 0xC;
-    sub_08014DB4(obj, moveState + 0x14, ((struct FollowWorkspace *)gMainWorkspace)->targetX,
+    updateFollowPath(obj, moveState + 0x14, ((struct FollowWorkspace *)gMainWorkspace)->targetX,
                  ((struct FollowWorkspace *)gMainWorkspace)->targetY - bias);
     setSpriteFlip(parent, *(s32 *)(moveState + 0x18));
 }

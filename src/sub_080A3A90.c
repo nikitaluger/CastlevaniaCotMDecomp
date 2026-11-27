@@ -1,5 +1,5 @@
 void sub_08005E80(s32);
-void sub_08011528(s32, s32);
+void advanceAnimTrack(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Animation tick: keep the actor's current animation playing; at script step
@@ -8,7 +8,7 @@ void sub_080A3A90(void *arg0)
 {
     s32 *stepTable;
     void *self;
-    sub_08011528(*(s32 *)((u8 *)arg0 + 0x38), *(s32 *)((u8 *)arg0 + 0x3C) + 0x34);
+    advanceAnimTrack(*(s32 *)((u8 *)arg0 + 0x38), *(s32 *)((u8 *)arg0 + 0x3C) + 0x34);
     if (*(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) == 0x4B)
     {
         sub_08005E80(0x186);

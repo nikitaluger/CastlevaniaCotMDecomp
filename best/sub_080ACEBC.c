@@ -16,7 +16,7 @@ extern f32 m2c_fbits;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 sub_08005910(s32, s32);                         /* extern */
+s32 getAngleFromDelta(s32, s32);                         /* extern */
 s32 fixedPointDistance(s32, s32);                         /* extern */
 
 void sub_080ACEBC(void *arg0, void *arg1) {
@@ -95,7 +95,7 @@ s32 *__repair_phase_sp54;
         temp2 = arg0 + 0x18;
         temp_r4 = temp2 + sp4;
         temp_r2 = *temp_r4;
-        *(s32 *)(arg0 + 0x1C + sp4) = sub_08005910(M2C_FIELD(temp_r2, s32 *, 0x6C) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(temp_r2, s32 *, 0x5C) - M2C_FIELD(arg0, s32 *, 0x16C));
+        *(s32 *)(arg0 + 0x1C + sp4) = getAngleFromDelta(M2C_FIELD(temp_r2, s32 *, 0x6C) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(temp_r2, s32 *, 0x5C) - M2C_FIELD(arg0, s32 *, 0x16C));
         temp_r2_2 = *temp_r4;
         temp_r2_6 = fixedPointDistance(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(temp_r2_2, s32 *, 0x5C), M2C_FIELD(arg0, s32 *, 0x170) - M2C_FIELD(temp_r2_2, s32 *, 0x6C));
         *(s32 *)(arg0 + 0x20 + sp4) = temp_r2_6;
@@ -139,7 +139,7 @@ s32 *__repair_phase_sp54;
             temp_r2_4 = *(s32 *)(*__repair_entry_var_r10 + ((var_r9 << 2)));
             *var_r4 = temp_r2_4;
             do { sp50 = var_r3; } while (0);
-            *sp54 = sub_08005910(M2C_FIELD(temp_r2_4, s32 *, 0x7C) - *sp14, M2C_FIELD(temp_r2_4, s32 *, 0x6C) - *sp18);
+            *sp54 = getAngleFromDelta(M2C_FIELD(temp_r2_4, s32 *, 0x7C) - *sp14, M2C_FIELD(temp_r2_4, s32 *, 0x6C) - *sp18);
             temp_r2_5 = *var_r4;
             temp_r0_4 = fixedPointDistance(*sp18 - M2C_FIELD(temp_r2_5, s32 *, 0x6C), *sp14 - M2C_FIELD(temp_r2_5, s32 *, 0x7C));
             *var_r3 = temp_r0_4;
@@ -175,7 +175,7 @@ loop_8:
         *var_r5_3 = 2;
         temp_r2_7 = *var_r4_2;
         sp50 = var_r3_2;
-        *__repair_phase_sp54 = sub_08005910(M2C_FIELD(temp_r2_7, s32 *, 0x7C) - *__repair_entry_var_r10, M2C_FIELD(temp_r2_7, s32 *, 0x6C) - M2C_FIELD(arg0, s32 *, 0x16C));
+        *__repair_phase_sp54 = getAngleFromDelta(M2C_FIELD(temp_r2_7, s32 *, 0x7C) - *__repair_entry_var_r10, M2C_FIELD(temp_r2_7, s32 *, 0x6C) - M2C_FIELD(arg0, s32 *, 0x16C));
         temp_r2_8 = *var_r4_2;
         temp_r0_5 = fixedPointDistance(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(temp_r2_8, s32 *, 0x6C), *__repair_entry_var_r10 - M2C_FIELD(temp_r2_8, s32 *, 0x7C));
         *var_r3_2 = temp_r0_5;
@@ -193,7 +193,7 @@ loop_8:
     } while (sp30 <= 1U);
     M2C_FIELD(arg0, s32 *, 0x158) = (s32) M2C_FIELD(sp8, s32 *, 0x14);
     M2C_FIELD(arg0, s8 *, 0x168) = 3;
-    M2C_FIELD(arg0, s32 *, 0x15C) = sub_08005910(M2C_FIELD(sp10, s32 *, 0xC) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(sp10, s32 *, 8) - M2C_FIELD(arg0, s32 *, 0x16C));
+    M2C_FIELD(arg0, s32 *, 0x15C) = getAngleFromDelta(M2C_FIELD(sp10, s32 *, 0xC) - M2C_FIELD(arg0, s32 *, 0x170), M2C_FIELD(sp10, s32 *, 8) - M2C_FIELD(arg0, s32 *, 0x16C));
     temp_r0_6 = fixedPointDistance(M2C_FIELD(arg0, s32 *, 0x16C) - M2C_FIELD(sp10, s32 *, 8), M2C_FIELD(arg0, s32 *, 0x170) - M2C_FIELD(sp10, s32 *, 0xC));
     M2C_FIELD(arg0, s32 *, 0x160) = temp_r0_6;
     M2C_FIELD(arg0, s32 *, 0x164) = temp_r0_6;

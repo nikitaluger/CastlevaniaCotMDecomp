@@ -1,7 +1,7 @@
 /* Advance an actor's attack action: set state flags, apply one sequence step,
  * write two global registers, spawn/configure a projectile with a randomized
  * offset, and finish the script when its byte reaches 0xB4. */
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void sub_080AC908(void *, void *, void *, void *);
 extern void sub_080B089C(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -29,7 +29,7 @@ void sub_080AB994(void *actor)
         gCrossfadeGfxState[3] = byte95 | ((0x10 - byte95) << 8);
     }
 
-    sub_080B089C(*(s32 *)(work + 8) + sub_0800583C(0xC0 << 13), 0x88 << 16);
+    sub_080B089C(*(s32 *)(work + 8) + randomSignedOffset(0xC0 << 13), 0x88 << 16);
 
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0xB4) {
         u16 flags = *(u16 *)(state + 2);

@@ -1,5 +1,5 @@
 extern void *gMainObjTimerCallbacks;
-s32 sub_0800583C(void);
+s32 randomSignedOffset(void);
 void sub_080B089C(s32, s32);
 void divideInt(s32, s16);
 void sub_080C31E4(void *, void *, void *);
@@ -37,7 +37,7 @@ void sub_080ABA48(void *arg0)
     *((u16 *) (sprite + 4)) = (*((u16 *) (sprite + 4))) + stepAmount;
     divideInt(0x18000000, *((s16 *) (sprite + 4)));
     step = 0;
-    sub_080B089C((*((s32 *) (state + 8))) + sub_0800583C(), 0x00880000);
+    sub_080B089C((*((s32 *) (state + 8))) + randomSignedOffset(), 0x00880000);
     if ((*((u8 *) repeatCounter)) == step)
     {
       *((u8 *) ((entity + ((*((s16 *) (entity + 0x22))) * 2)) + 0x19)) = step;

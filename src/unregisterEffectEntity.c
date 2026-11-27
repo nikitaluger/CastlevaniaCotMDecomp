@@ -4,7 +4,7 @@ extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_08014A04(void *, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
-extern void sub_08014DB4(void *, void *, s32, s32);
+extern void updateFollowPath(void *, void *, s32, s32);
 extern void sub_08027A4C(void *, s32, s32 *, s32 *);
 
 extern s32 gTrigFuncTable[];
@@ -74,7 +74,7 @@ void sub_0802754C(void *arg0) {
 void sub_080274F0(void *arg0) {
     void *temp_r4;
     temp_r4 = *(void **)((u8 *)arg0 + 0x3C);
-    sub_08014DB4(temp_r4, (u8 *)temp_r4 + 0x74, gMainWorkspace.v174C, gMainWorkspace.v1750);
+    updateFollowPath(temp_r4, (u8 *)temp_r4 + 0x74, gMainWorkspace.v174C, gMainWorkspace.v1750);
     if (4 & *(u16 *)((u8 *)temp_r4 + 0x8C)) {
         s32 *lit;
         *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = 0;

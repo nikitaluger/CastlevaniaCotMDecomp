@@ -1,4 +1,4 @@
-s32 sub_0809C4E0(void *, s32);
+s32 setEffectBehavior(void *, s32);
 s32 sub_0809C5EC(void *);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -17,7 +17,7 @@ void sub_08099D64(void *arg0)
     charge = *((u16 *) (((s8 *) sub) + 0x24));
     if (charge == 0x1400)
     {
-      sub_0809C4E0(*((void **) (((s8 *) sub) + 8)), 1);
+      setEffectBehavior(*((void **) (((s8 *) sub) + 8)), 1);
       sub_0809C5EC(*((void **) (((s8 *) sub) + 8)));
       *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)) = 0;
       handlerTable = 0x08671BB0;

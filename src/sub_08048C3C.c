@@ -1,4 +1,4 @@
-s32 sub_080057F8();
+s32 nextRandomWord();
 s32 sub_08005E80(s32);
 s32 sub_08049200(void *, void *, s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
@@ -27,7 +27,7 @@ void sub_08048C3C(void *arg0) {
     *(s32 *)((u8 *)enemyState + 0x18) = stepCount;
     if (stepCount == 3) {
         *(s32 *)((u8 *)enemyState + 0x18) = zero;
-        sub_08049200(arg0, enemy, sub_080057F8() & 0xF, 1);
+        sub_08049200(arg0, enemy, nextRandomWord() & 0xF, 1);
     }
     if (2 & *(u8 *)(*(s16 *)((u8 *)arg0 + 0x22) * 2 + (u8 *)arg0 + 0x19)) {
         *(s32 *)((u8 *)enemy + 8) += 0x80 << 10;

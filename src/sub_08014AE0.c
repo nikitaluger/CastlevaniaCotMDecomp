@@ -1,7 +1,7 @@
 extern u16 gFixedEffectLayerAttrs[];
 s32 getSpriteFacingSign(void);
 s32 fixedPointDistance(s32, s32);
-void sub_080146D0(void *, s32, s32);
+void setPolarOffset(void *, s32, s32);
 
 /* Picks the speed-table entry for the object's mode (0x2D/0x2E) and copies its
  * four values into the block at obj->0x28 + 6. */
@@ -73,9 +73,9 @@ s32 sub_08014A6C(void *out, s32 angle, s32 step, s32 limit) {
     target = radius - step;
     length = limit;
     if (target <= length) {
-        sub_080146D0(out, angle, length);
+        setPolarOffset(out, angle, length);
         return 1;
     }
-    sub_080146D0(out, angle, target);
+    setPolarOffset(out, angle, target);
     return 0;
 }

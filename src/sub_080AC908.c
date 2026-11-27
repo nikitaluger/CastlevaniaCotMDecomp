@@ -1,5 +1,5 @@
 extern void forceAnimationFrame(void *, void *, s16, s32);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void copyBytes(void *, void *, s32);
 
 typedef struct { s32 v[8]; } DeltaTable;
@@ -40,7 +40,7 @@ void sub_080AC908(void *gfx, void *anim, void *work, void *aim)
       *((s32 *)((s8 *)aim + 0x08)) = timer;
     }
   }
-  sub_08011528(gfx, anim);
+  advanceAnimTrack(gfx, anim);
   if ((*((u8 *)((s8 *)anim + 0x00)) & 0x02) && (*((u8 *)((s8 *)aim + 0x10)) != 0))
   {
     angle = *((s16 *)((s8 *)anim + 0x0E));

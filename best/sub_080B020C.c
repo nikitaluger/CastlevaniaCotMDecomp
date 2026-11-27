@@ -1,4 +1,4 @@
-extern s32 sub_08005910(s32, u32);
+extern s32 getAngleFromDelta(s32, u32);
 extern unsigned int sub_080C2F4C(s32);
 extern s32 sub_080C31E0(s32, s32);
 inline int inline_fn(s8 arg0, volatile long arg1)
@@ -89,7 +89,7 @@ new_var7 = 0;
   {
     var_r2_2 = 0 - var_r2_2;
   }
-  temp_r4_2 = sub_08005910(temp_r4_4 << 8, var_r2_2);
+  temp_r4_2 = getAngleFromDelta(temp_r4_4 << 8, var_r2_2);
   sp4 = temp_r4_2;
   *((s32 *) (temp_r6[2] + 0x6C)) = (*((s32 *) ((*new_var6) + 0x6C))) + ((sub_080C31E0(temp_r4_2 + 0x4000, *inline_fn2(0x08671BFC)) >> 8) * 0x1800);
   *((s32 *) (temp_r6[2] + 0x7C)) = (*((s32 *) ((*new_var6) + 0x7C))) + ((sub_080C31E0(temp_r4_2, *inline_fn2(0x08671BFC)) >> 8) * 0x1800);

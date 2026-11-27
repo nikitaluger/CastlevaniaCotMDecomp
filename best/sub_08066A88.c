@@ -19,7 +19,7 @@ struct S66GameStatus
 };
 extern struct S66GameStatus gGameStatus;
 extern u32 gScriptStepCallbacks;
-extern u32 D_08671BC0;
+extern u32 gPoseScriptCallbacks;
 extern u32 gMenuScriptCallback;
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
@@ -59,7 +59,7 @@ void sub_08066A88(u8 *script)
     if (timer != 0)
     {
       *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = 0;
-      { const u32 *D_08671BC0_ptr = &D_08671BC0; sub_080C31E4(script + 0x18, script + 0x22, *D_08671BC0_ptr); }
+      { const u32 *D_08671BC0_ptr = &gPoseScriptCallbacks; sub_080C31E4(script + 0x18, script + 0x22, *D_08671BC0_ptr); }
     }
     else
     {

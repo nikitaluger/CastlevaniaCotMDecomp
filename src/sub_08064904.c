@@ -4,7 +4,7 @@
 void *stepDelayTimer(void *, void *);
 void sub_0806A884(void *, void *);
 s32 sub_0806AB04(void *, void *, void *, void *);
-s32 sub_0806B2C8(void *, void *, void *, void *);
+s32 handleSpecialTileAction(void *, void *, void *, void *);
 void resetActorForm(void *, void *);
 s32 syncViewPosition(void *, void *);
 void resetActionResultState(void *, void *, void *, void *);
@@ -43,7 +43,7 @@ void sub_08064904(void *arg0) {
         sub_0806A884(owner, ent);
         subNext = (u8 *)sub + 0x2C;
         if (stepDelayTimer(subNext, owner) == 0 && *(s32 *)((u8 *)ent + 0x40) == 1) {
-            result = sub_0806B2C8(mgr, owner, ent, ent);
+            result = handleSpecialTileAction(mgr, owner, ent, ent);
             if (result != 0) {
                 stepDelayTimer(subNext, owner);
             } else {

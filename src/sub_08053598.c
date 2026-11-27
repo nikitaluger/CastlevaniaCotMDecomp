@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_08014DB4(void *, void *, u32, u32);
+extern void updateFollowPath(void *, void *, u32, u32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0_174C { u8 pad[0x174C]; u32 targetX; u32 targetY; };
 extern struct S_02025FF0_174C gMainWorkspace;
@@ -15,7 +15,7 @@ void sub_08053598(void *arg0)
     u8 *anim = body + 0x34;
     u8 *motion = body + 0x48;
     setAnimationFrame((void *)sprite, anim, 8, 1);
-    sub_08014DB4(body, body + 0x4C, gMainWorkspace.targetX, gMainWorkspace.targetY);
+    updateFollowPath(body, body + 0x4C, gMainWorkspace.targetX, gMainWorkspace.targetY);
     if (*(u16 *)(motion + 0x1C) & 4) {
         s16 stateIndex = *(s16 *)(self + 0x22);
         s32 *handlerTable;

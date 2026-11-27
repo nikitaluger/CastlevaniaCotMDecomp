@@ -1,4 +1,4 @@
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern s32 sub_0801473C(s32, s32);
 extern void sub_080B5ACC(void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -14,7 +14,7 @@ void sub_080B5A5C(void *obj) {
     s32 heading = *(s32 *)(self + 0x7C);
     s32 deltaX = gMainWorkspace.f1750 - *(s32 *)(target + 0x0C);
     s32 deltaY = gMainWorkspace.f174C - *(s32 *)(target + 0x08);
-    s32 targetAngle = sub_08005910(deltaX, deltaY);
+    s32 targetAngle = getAngleFromDelta(deltaX, deltaY);
     s32 turnStep = sub_0801473C(heading, targetAngle);
 
     *(s32 *)(self + 0x7C) = *(s32 *)(self + 0x7C) + (turnStep << 8);

@@ -9,7 +9,7 @@ extern void resetActorForm(void *, void *);
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern void sub_0806DD94(void);
+extern void startScreenTransition(void);
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern s32 sub_0806BCD8(void *, void *, void *, void *);
 extern void sub_080C31E8(void *, void *, u16, void *);
@@ -191,7 +191,7 @@ void sub_08067CCC(u8 *arg0)
         {
         }
         block_28:
-        sub_0806DD94();
+        startScreenTransition();
 
       }
       else

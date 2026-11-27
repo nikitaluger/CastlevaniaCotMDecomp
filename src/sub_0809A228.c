@@ -1,6 +1,6 @@
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void setObjectAnimation(void *, void *, s32, s32);
-extern void sub_0809C4E0(s32, s32);
+extern void setEffectBehavior(s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void *gMainObjTimerCallbacks;
 
@@ -21,7 +21,7 @@ void sub_0809A228(void *actor)
     u16 behavior;
     u16 *entry;
 
-    sub_08011528(sprite, anim);
+    advanceAnimTrack(sprite, anim);
     table = *(s32 *)(anim + 0x08);
     animIndex = *(s16 *)(anim + 0x0E);
     entryIndex = (s32)animIndex + (s32)*(u8 *)(anim + 0x01);
@@ -29,15 +29,15 @@ void sub_0809A228(void *actor)
     entry = (u16 *)(entryIndex * 4 + tableBase - 4);
     behavior = entry[1];
     if (behavior == 0x54) {
-        sub_0809C4E0(*(s32 *)(state + 0x08), 3);
+        setEffectBehavior(*(s32 *)(state + 0x08), 3);
     } else if (behavior == 0x4B) {
-        sub_0809C4E0(*(s32 *)(state + 0x08), 2);
+        setEffectBehavior(*(s32 *)(state + 0x08), 2);
     } else {
-        sub_0809C4E0(*(s32 *)(state + 0x08), 0);
+        setEffectBehavior(*(s32 *)(state + 0x08), 0);
     }
     if ((*(u8 *)anim & 2) != 0) {
         setObjectAnimation(sprite, anim, 0xF, 0);
-        sub_0809C4E0(*(s32 *)(state + 0x08), 0);
+        setEffectBehavior(*(s32 *)(state + 0x08), 0);
         animIndex = *(s16 *)(self + 0x22);
         self[animIndex * 2 + 0x19] = 0;
         {

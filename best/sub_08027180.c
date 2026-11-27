@@ -25,7 +25,7 @@ s32 *__repair_phase_dispatch;
   }
   if ((0x10 & status) != 0)
   {
-    __repair_phase_step = (*((s16 *) (effect + 0x22)) * 2) + effect;
+    __repair_phase_step = (u8 *) ((u32) (*((s16 *) (effect + 0x22)) * 2) + (u32) effect);
     *((u8 *) (__repair_phase_step + 0x19)) = masked;
     __repair_phase_dispatch = (s32 *) 0x08671BD0;
     sub_080C31E8(effect + 0x18, effect + 0x22, 4, *__repair_phase_dispatch);

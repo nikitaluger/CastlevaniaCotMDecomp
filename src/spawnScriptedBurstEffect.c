@@ -1,7 +1,7 @@
 extern void sub_08011EE8(void *, s32, s32);
 extern void stepAnimationTrack(void *, void *);
 extern void *spawnBudgetedEffect(s32, s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 
@@ -36,8 +36,8 @@ extern u32 gMainObjTimerCallbacks;
                 *(s32 *)((u8 *)particle + 0x4C) = worldX + 0xFFF70000;
             else
                 *(s32 *)((u8 *)particle + 0x4C) = worldX + 0x90000;
-            *(s32 *)((u8 *)particle + 0x5C) = *(s32 *)(work + 0xC) + sub_0800583C(0x40000);
-            *(s32 *)((u8 *)particle + 0x6C) = sub_0800583C(0x1000) + 0x7000;
+            *(s32 *)((u8 *)particle + 0x5C) = *(s32 *)(work + 0xC) + randomSignedOffset(0x40000);
+            *(s32 *)((u8 *)particle + 0x6C) = randomSignedOffset(0x1000) + 0x7000;
             *(s32 *)((u8 *)particle + 0x7C) = (-(s32)((*(u16 *)(sprite + 2) & 0x10) != 0) >> 31) & 0x8000;
             *(u8 *)((u8 *)particle + 0x8C) = 7;
         }

@@ -1,5 +1,5 @@
-extern s32 sub_08005910(s32, s32);
-extern void sub_08011528(void *, void *);
+extern s32 getAngleFromDelta(s32, s32);
+extern void advanceAnimTrack(void *, void *);
 extern void sub_0809E4F8(void *);
 extern void sub_080C31E4(void *, void *, u32);
 typedef struct { s32 v[8]; } S32x8;
@@ -30,14 +30,14 @@ void sub_0809D9D4(void *arg0)
   anim = ((u8 *) actor) + 0x34;
   state = ((u8 *) actor) + 0x48;
   *((S32x8 *) vectorTable) = D_081019B4;
-  sub_08011528(gfx, anim);
+  advanceAnimTrack(gfx, anim);
   sub_0809E4F8(self);
   if ((*((u8 *) ((((u8 *) self) + ((*((s16 *) (((u8 *) self) + 0x22))) * 2)) + 0x19))) == 0x10)
   {
     s32 base = 0x02025FF0;
     deltaY = (*((s32 *) (base + 0x1750))) - (*((s32 *) (((u8 *) actor) + 0x0C)));
     deltaX = (*((s32 *) (base + 0x174C))) - (*((s32 *) (((u8 *) actor) + 0x08)));
-    tableOffset = sub_08005910(deltaY, deltaX);
+    tableOffset = getAngleFromDelta(deltaY, deltaX);
     tableOffset = (tableOffset >> 14) << 3;
     *((s32 *) (((u8 *) actor) + 0x10)) = vectorTable[tableOffset >> 2];
     entry2 = vectorTable + 1;

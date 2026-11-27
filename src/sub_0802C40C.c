@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014EF4(s32);
+extern s32 rollProbability(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *gScriptStepCallbacks;
@@ -36,7 +36,7 @@ void sub_0802C40C(void *arg0)
 
     if (anim[0] & 2) {
         if (!(*(u16 *)(*(u8 **)(host + 4) + 6) & 0x10)) {
-            if (sub_08014EF4(0x1388) == 1)
+            if (rollProbability(0x1388) == 1)
                 *(u32 *)(state + 0x10) = 0x4000;
             else
                 *(u32 *)(state + 0x10) = 0xFFFFC000;

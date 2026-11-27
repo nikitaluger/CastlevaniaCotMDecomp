@@ -7,7 +7,7 @@ extern void sub_080C31E4(void *a, void *b, u32 c);
 extern s8 gMenuState[];
 extern u8 D_080CB1AE[];
 extern u8 gCameraState[];
-extern u32 D_08671BC0;
+extern u32 gPoseScriptCallbacks;
 
 /* Resolve a graphics entry from the current state-byte pair; on success set up
  * the graphics state, upload two VRAM blocks selected by the globals, clear the
@@ -53,7 +53,7 @@ void sub_0800E7EC(u8 *self)
 
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (u8)result;
         {
-            u32 *fnaddr = &D_08671BC0;
+            u32 *fnaddr = &gPoseScriptCallbacks;
             sub_080C31E4(self + 0x18, self + 0x22, *fnaddr);
         }
     }

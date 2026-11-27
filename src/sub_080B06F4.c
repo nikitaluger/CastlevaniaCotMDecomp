@@ -1,4 +1,4 @@
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 
 /* Aim a three-part fan effect at (x, y): every actor gets that origin, an
  * angle 0x2000 (45 degrees) apart around the camera-to-point direction, and
@@ -9,7 +9,7 @@ void sub_080B06F4(void **actors, s32 x, s32 y)
     s32 angle;
     u32 i;
     void *actor;
-    angle = sub_08005910(*(s32 *)(camera + 0x1750) - y, *(s32 *)(camera + 0x174C) - x) + 0xFFFFE000;
+    angle = getAngleFromDelta(*(s32 *)(camera + 0x1750) - y, *(s32 *)(camera + 0x174C) - x) + 0xFFFFE000;
     i = 0;
     do
     {

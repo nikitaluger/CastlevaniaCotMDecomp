@@ -1,7 +1,7 @@
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void advanceMotion(void *, s32);
 extern void setSpriteFlip(void *, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern s32 sub_0801473C(s32, s32);
 extern void sub_08049180(void *, void *, void *, void *);
 extern s32 sub_080C31E0(s32, s32);
@@ -47,7 +47,7 @@ void sub_0804874C(struct HomingEntity *entity)
   deltaX = gMainWorkspace.targetX + ((sub_080C31E0(steer->phase + 0x4000, *trigFn) >> 8) << 14);
   deltaY = (gMainWorkspace.targetY + ((sub_080C31E0(steer->phase, *trigFn) >> 8) << 14)) - motion->y;
   deltaX -= motion->x;
-  desiredAngle = sub_08005910(deltaY, deltaX);
+  desiredAngle = getAngleFromDelta(deltaY, deltaX);
   turn = sub_0801473C(steer->angle, desiredAngle);
   steer->angle = steer->angle + (turn << 8);
   if (((struct HomingState *)((u8 *)entity + entity->stateIndex * 2))->state <= 0x31) {
@@ -55,14 +55,14 @@ void sub_0804874C(struct HomingEntity *entity)
   } else {
     steer->speed += (s32)0xFFFFF400;
   }
-  sub_080146D0(motion, steer->angle, steer->speed);
+  setPolarOffset(motion, steer->angle, steer->speed);
   advanceMotion(motion, 0);
   setSpriteFlip(sprite, steer->angle);
   sub_08049180(sprite, (void *)collisionData, motion, steer);
   if (((struct HomingState *)((u8 *)entity + entity->stateIndex * 2))->state == 0x5A) {
     s32 zero = 0;
     steer->speed = zero;
-    sub_080146D0(motion, steer->angle, 0);
+    setPolarOffset(motion, steer->angle, 0);
     ((struct HomingState *)((u8 *)entity + entity->stateIndex * 2))->state = zero;
     {
       s32 *callback = &gMainObjTimerCallbacks;

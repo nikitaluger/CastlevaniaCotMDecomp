@@ -1,5 +1,5 @@
 void setObjectAnimation(void *, void *, s32, s32);
-void sub_08011528(void *, void *);
+void advanceAnimTrack(void *, void *);
 
 /* Appearance switch on the entity's form (entity+0x5C): forms 1 and 2 set the
  * sprite's highlight bit (0x40 in sprite+0x2A) and start the matching animation
@@ -16,13 +16,13 @@ void sub_080BBF9C(void *entity)
         highlight = 0x40 | *(u8 *)(sprite + 0x2A);
         *(u8 *)(sprite + 0x2A) = (u8)highlight;
         setObjectAnimation(sprite, animator, 0x11, 1);
-        sub_08011528(sprite, animator);
+        advanceAnimTrack(sprite, animator);
         break;
     case 2:
         highlight = 0x40 | *(u8 *)(sprite + 0x2A);
         *(u8 *)(sprite + 0x2A) = (u8)highlight;
         setObjectAnimation(sprite, animator, 0x13, 1);
-        sub_08011528(sprite, animator);
+        advanceAnimTrack(sprite, animator);
         break;
     default:
         *(u8 *)(sprite + 0x2A) = 0xBF & *(u8 *)(sprite + 0x2A);

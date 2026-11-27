@@ -15,7 +15,7 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void setSpriteFlipForDirection(void *, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void spawnChainedEffectObjects(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
@@ -76,7 +76,7 @@ void setupEnemyObject(u8 *self)
   scale = (*(u32 *)(self + 0x4C)) * off;
   pos = *(u32 *)addr1;
   pos += scale;
-  sub_080146D0((void *) work, pos, 0x40000);
+  setPolarOffset((void *) work, pos, 0x40000);
   setSpriteFlipForDirection((void *) sprite, *((s32 *) (((u8 *) work) + 0x10)));
   paletteData = D_08102DF0;
   work->f28 = allocEffectPart();

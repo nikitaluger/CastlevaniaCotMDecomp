@@ -1,7 +1,7 @@
 extern s32 scaleByRandom(s32);
 extern s32 signOf(s32);
 extern s32 sub_080C31E0(s32, s32);
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern u32 gTrigFuncTable;
@@ -44,7 +44,7 @@ void sub_0804854C(u8 *task)
     if (*(s32 *)(stateData + 4) != 0)
         goto label_end;
 
-    *(s32 *)(stateData + 8) = sub_08005910(aimY - *(s32 *)(subject + 0x0C), aimX - *(s32 *)(subject + 8));
+    *(s32 *)(stateData + 8) = getAngleFromDelta(aimY - *(s32 *)(subject + 0x0C), aimX - *(s32 *)(subject + 8));
     if (*(s32 *)(stateData + 4) == 0)
         goto label_turn;
 

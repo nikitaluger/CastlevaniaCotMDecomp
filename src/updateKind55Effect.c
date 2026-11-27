@@ -5,7 +5,7 @@
  * multiples of 6 and 3. */
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
-extern void sub_08014848(s32, s32, s32, s32, s32, s32);
+extern void spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 extern s32 getSpriteFacingSign(u8 *);
 extern void sub_0801A310(s32, s32, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
@@ -53,7 +53,7 @@ extern s32 sub_080C36E4(s16, s32);
         xOffset = 0x80 << 11;
     }
     if ((sub_080C36E4(*(s16 *)(body + 0x16), 6) << 16) == 0) {
-        sub_08014848(1, 2, *(u32 *)(entity + 0x08) + xOffset, *(u32 *)(entity + 0x0C) + 0xFFEE0000, 0x80 << 13, 0xC0 << 13);
+        spawnJitteredParticles(1, 2, *(u32 *)(entity + 0x08) + xOffset, *(u32 *)(entity + 0x0C) + 0xFFEE0000, 0x80 << 13, 0xC0 << 13);
     }
     if ((sub_080C36E4(*(s16 *)(body + 0x16), 3) << 16) == 0) {
         xPos = *(u32 *)(entity + 0x08) + xOffset;

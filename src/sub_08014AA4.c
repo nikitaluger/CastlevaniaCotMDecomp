@@ -1,7 +1,7 @@
 extern u16 gFixedEffectLayerAttrs[];
 s32 getSpriteFacingSign(void);
 s32 fixedPointDistance(s32, s32);
-void sub_080146D0(void *, s32, s32);
+void setPolarOffset(void *, s32, s32);
 
 void sub_08019ED4(void *arg0, void *arg1) {
     u8 *r3 = *(u8 **)((u8 *)arg0 + 0x3C);
@@ -67,9 +67,9 @@ s32 sub_08014A6C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     v = tmp - arg2;
     lim = arg3;
     if (v <= lim) {
-        sub_080146D0(arg0, arg1, lim);
+        setPolarOffset(arg0, arg1, lim);
         return 1;
     }
-    sub_080146D0(arg0, arg1, v);
+    setPolarOffset(arg0, arg1, v);
     return 0;
 }

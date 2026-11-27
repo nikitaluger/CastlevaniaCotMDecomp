@@ -1,5 +1,5 @@
 void setObjectAnimation(s32, s32, s32, s32);
-void sub_08011528(s32, s32);
+void advanceAnimTrack(s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
 /* Runs animation 0x11 on the actor, submits its frame data and, once the
@@ -17,7 +17,7 @@ void sub_080B4230(void *self) {
     work = *(void **)(selfBytes + 0x3C);
     animState = (s32)work + 0x34;
     setObjectAnimation(animController, animState, 0x11, 0);
-    sub_08011528(animController, animState);
+    advanceAnimTrack(animController, animState);
     if (2 & *(u8 *)((u8 *)work + 0x34)) {
         *(s8 *)((s8 *)((*(s16 *)(selfBytes + 0x22) * 2) + self) + 0x17) = 0;
         handlerTable = (s32 *)0x08671BD8;

@@ -12,7 +12,7 @@ struct S_020278D0 {
 extern struct S_020278D0 gMenuState;
 extern u8 gGameStatus[];
 void _call_via_r1(void *, void *);
-void sub_0806DD94(void);
+void startScreenTransition(void);
 void copyBytes(void *, void *, u32);
 void sub_0806D930(void *);
 
@@ -30,7 +30,7 @@ void sub_0800E328(void) {
         i++;
     } while (i <= 1);
     if (gMenuState.sceneId != *(u16 *)(state + 0x304))
-        sub_0806DD94();
+        startScreenTransition();
     copyBytes(state + 0x2C4, &gMenuState, 0x48);
     sub_0806D930(state + 0x2C4);
 }

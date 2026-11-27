@@ -1,7 +1,7 @@
 extern void sub_08005E80(s32);
 extern void setObjectAnimation(s32, void *, s32, s32);
 extern void sub_08011EE8(void *, s32, s32);
-extern void sub_0809C4E0(s32, s32);
+extern void setEffectBehavior(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0_1754 { u8 _0[0x1754]; s32 v; };
 extern struct S_02025FF0_1754 gMainWorkspace;
@@ -21,7 +21,7 @@ void sub_08099B68(void *arg0) {
         if (gMainWorkspace.v <= 0x10) gMainWorkspace.v = 0x11;
         sub_08005E80(0x167);
         setObjectAnimation(sprite, animState, 0xF, 0);
-        sub_0809C4E0(*(s32 *)(parts + 8), 0);
+        setEffectBehavior(*(s32 *)(parts + 8), 0);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         scriptCb = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptCb);

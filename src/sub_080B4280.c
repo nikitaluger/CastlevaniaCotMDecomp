@@ -1,7 +1,7 @@
 typedef s32 M2C_UNK;
 M2C_UNK sub_08005E80(s32);
 M2C_UNK setObjectAnimation(s32, s32, s32, s32);
-M2C_UNK sub_08011528(s32, s32);
+M2C_UNK advanceAnimTrack(s32, s32);
 M2C_UNK sub_080B716C(s32);
 M2C_UNK sub_080C31E4(void *, void *, s32);
 
@@ -33,7 +33,7 @@ void sub_080B4280(void *arg0)
     frameTable = *(s32 **)((s8 *)stateAddr + 8);
     oldFrame = READ_FRAME(stateAddr, frameTable);
     setObjectAnimation(gfx, stateAddr, 0x47, 0);
-    sub_08011528(gfx, stateAddr);
+    advanceAnimTrack(gfx, stateAddr);
     frameTable = *(s32 **)((s8 *)stateAddr + 8);
     newFrame = READ_FRAME_VOLATILE(stateAddr, frameTable);
     if (oldFrame != newFrame) {

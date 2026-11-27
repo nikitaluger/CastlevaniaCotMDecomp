@@ -2,7 +2,7 @@ s32 updateObjectDisplayState(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void stepAnimationTrack(s32, void *);
 void advanceMotion(void *, s32);
-void sub_080146D0(void *, s32, s32);
+void setPolarOffset(void *, s32, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -37,7 +37,7 @@ void sub_080B59C0(void *arg0) {
     if (temp_r0 <= 0) {
         *(s32 *)((u8 *)arg0 + 0x6C) = 0;
     }
-    sub_080146D0((void *)temp_r5, *(s32 *)((u8 *)arg0 + 0x7C), *(s32 *)((u8 *)arg0 + 0x6C));
+    setPolarOffset((void *)temp_r5, *(s32 *)((u8 *)arg0 + 0x7C), *(s32 *)((u8 *)arg0 + 0x6C));
     advanceMotion((void *)temp_r5, 0);
     if (*(s32 *)((u8 *)arg0 + 0x6C) == 0) {
         s32 idx = *(s16 *)((u8 *)arg0 + 0x22);
@@ -68,6 +68,6 @@ void sub_080B5ACC(void *arg0) {
     if (temp_r0 > 0x17FFF) {
         *(s32 *)((u8 *)arg0 + 0x6C) = 0x18000;
     }
-    sub_080146D0((void *)temp_r5, *(s32 *)((u8 *)arg0 + 0x7C), *(s32 *)((u8 *)arg0 + 0x6C));
+    setPolarOffset((void *)temp_r5, *(s32 *)((u8 *)arg0 + 0x7C), *(s32 *)((u8 *)arg0 + 0x6C));
     advanceMotion((void *)temp_r5, 0);
 }

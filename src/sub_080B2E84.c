@@ -2,7 +2,7 @@
  * parent's layer flag onto the view, and when the current entry marks an end
  * case, stop the child and run the next animation command. */
 extern void sub_08005E80(u16);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void _call_via_r2(void *, void *, s32);
 extern s32 gMainObjTimerCallbacks;
 inline s32 *field0C(u8 *arg0)
@@ -24,7 +24,7 @@ void sub_080B2E84(void *arg0)
   void *parentBodyPtr = *((void **) (((u8 *) parent) + 0x3C));
   u32 zero;
   parentBody = (u8 *) parentBodyPtr;
-  sub_08011528(view, bodyData);
+  advanceAnimTrack(view, bodyData);
   *((s32 *) (((u8 *) body) + 0x08)) = *((s32 *) (parentBody + 0x08));
   *field0C((u8 *) body) = *field0C(parentBody);
   {

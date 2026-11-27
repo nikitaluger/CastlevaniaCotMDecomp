@@ -1,6 +1,6 @@
 /* On a successful interaction check, reverse the companion sprite's direction,
  * destroy the target, play the hit sounds and restart the script step. */
-extern s32 sub_080A8784(void *, u32);
+extern s32 checkAngularMotionHit(void *, u32);
 extern void decelerateTargetX(void *, u32);
 extern void sub_080AACCC(void *);
 extern void sub_080C050C(s32);
@@ -54,7 +54,7 @@ void sub_080A7EA4(struct Entity *arg) {
         newFlags = (0xFFF & sprite->f0) | 0xE000;
         sprite->f0 = newFlags;
     }
-    hit = sub_080A8784(arg, stateArg);
+    hit = checkAngularMotionHit(arg, stateArg);
     decelerateTargetX(sprite, stateArg);
     if (hit == 0) return;
     sprite->f2A |= 0x10;

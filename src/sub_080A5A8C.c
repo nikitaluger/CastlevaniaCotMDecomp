@@ -1,5 +1,5 @@
 extern void *spawnBudgetedEffect(void *, s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void sub_080A5644(s32, s32);
 extern void _call_via_r1(void *, void *);
 extern u8 D_08101CF4[];
@@ -27,10 +27,10 @@ void sub_080A56D8(void) {
     }
 }
 
-void sub_080A5670(s32 index, void *source) {
+void spawnHitSpark(s32 index, void *source) {
     u8 *table = (u8 *)D_08101CF4;
     s32 offset = index * 8;
-    s32 value = sub_0800583C(0x80 << 11);
+    s32 value = randomSignedOffset(0x80 << 11);
     sub_080A5644(
         *(s32 *)((u8 *)source + 8) + *(s32 *)(table + offset) + value,
         *(s32 *)((u8 *)source + 0xC) + *(s32 *)(table + 4 + offset)

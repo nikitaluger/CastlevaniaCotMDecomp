@@ -1,7 +1,7 @@
 extern u8 gMainWorkspace[];
 
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 sub_080C36E4(u32, s32);
 extern void *sub_080918B0(s32, s32, s32, s32, s32, s16);
 extern void sub_0808DC40(s32, s32, s32);
@@ -14,8 +14,8 @@ extern void _call_via_r1(void *, void *);
 void sub_0809153C(void *arg0) {
     s32 *fields = *(s32 **)((u8 *)arg0 + 0x3C);
     s32 spread = 0xC0000;
-    s32 spawnX = fields[1] + sub_0800583C(spread);
-    s32 spawnY = fields[2] + sub_0800583C(spread) + 0xFFF00000;
+    s32 spawnX = fields[1] + randomSignedOffset(spread);
+    s32 spawnY = fields[2] + randomSignedOffset(spread) + 0xFFF00000;
 
     u32 stateOff = 0x1898;
     u32 *stateVal = (u32 *)(gMainWorkspace + stateOff);

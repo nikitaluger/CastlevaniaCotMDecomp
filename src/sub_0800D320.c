@@ -2,7 +2,7 @@ extern u8 gMenuState[];
 extern u8 gGameStatus[];
 extern u8 D_0863E89C[];
 void _call_via_r1(void *, void *);
-void sub_0806DD94(void);
+void startScreenTransition(void);
 void copyBytes(void *, void *, u32);
 void sub_0806D930(void *);
 void *createChildObject(s32, s32);
@@ -38,7 +38,7 @@ void sub_0800E328(void) {
         i++;
     } while (i <= 1);
     if (*(u16 *)(state + 0x40) != *(u16 *)(workspace + 0x304))
-        sub_0806DD94();
+        startScreenTransition();
     copyBytes(workspace + 0x2C4, state, 0x48);
     sub_0806D930(workspace + 0x2C4);
 }

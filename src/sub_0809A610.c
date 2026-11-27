@@ -1,9 +1,9 @@
 /* Entity action: a random timer triggers sounds/effects, a target flag selects
  * the facing direction, an animation-id table is checked, and horizontal
  * velocity is mirrored based on position thresholds. */
-s32 sub_080057F8(void);
+s32 nextRandomWord(void);
 void sub_0809C5F4(s32);
-void sub_0809C4E0(s32, s32);
+void setEffectBehavior(s32, s32);
 void sub_0809C5E4(s32);
 void sub_08011EE8(void *, s32, s32);
 void setSpriteFlipForDirection(void *, s32);
@@ -17,7 +17,7 @@ void sub_0809A610(void *entity)
     u8 *counter;
     s32 v0, v1;
     
-    if ((sub_080057F8() & 0xFF) == 0)
+    if ((nextRandomWord() & 0xFF) == 0)
     {
         sub_0809C5F4(*((s32 *)(ctrl + 0x14)));
     }
@@ -30,17 +30,17 @@ void sub_0809A610(void *entity)
         *counter = v0;
         if ((v0 << 0x18) == 0)
         {
-            sub_0809C4E0(*((s32 *)(ctrl + 0x08)), 0);
+            setEffectBehavior(*((s32 *)(ctrl + 0x08)), 0);
         }
     }
-    else if ((sub_080057F8() & 0x7F) == 0)
+    else if ((nextRandomWord() & 0x7F) == 0)
     {
         *counter = 0x10;
-        sub_0809C4E0(*((s32 *)(ctrl + 0x08)), 1);
+        setEffectBehavior(*((s32 *)(ctrl + 0x08)), 1);
         sub_0809C5E4(*((s32 *)(ctrl + 0x08)));
     }
     
-    if ((sub_080057F8() & 0x7F) == 0)
+    if ((nextRandomWord() & 0x7F) == 0)
     {
         sub_0809C5E4(*((s32 *)(ctrl + 0x08)));
     }

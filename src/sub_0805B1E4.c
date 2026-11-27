@@ -1,6 +1,6 @@
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Large runtime state block: holds the player/target position near its end. */
@@ -45,8 +45,8 @@ void sub_0805B1E4(void *arg0) {
     if (*status & 2) {
         a = gMainWorkspace.playerY - state->posY;
         b = gMainWorkspace.playerX - state->posX;
-        result = sub_08005910(a, b);
-        sub_080146D0(state, result, 0xC000);
+        result = getAngleFromDelta(a, b);
+        setPolarOffset(state, result, 0xC000);
         ((struct SlotState *)(self + *(s16 *)(self + 0x22) * 2))->timer = 0;
         lit = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *lit);

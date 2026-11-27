@@ -1,9 +1,9 @@
 /* Update an effect-emitter entity from its current script step: spawn a
  * periodic projectile at the spawn point and reset when the script ends. */
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void sub_08005FC4(s32, s32, s32, s32, void *);
-extern void sub_0808E61C(s32, s32, s32, s32);
+extern void spawnEffectParticle(s32, s32, s32, s32);
 extern void sub_080C0384(void);
 extern void sub_080C31E4(void *, void *, s32);
 extern u32 gMainObjTimerCallbacks;
@@ -54,9 +54,9 @@ void sub_080A1580(struct Entity *entity) {
     if (!(stepOpcode & 0xF) && stepOpcode <= 0x95) {
         spawnX = spawnPoint->f08;
         spawnY = spawnPoint->f0C;
-        angle = sub_0800583C(0x8000);
+        angle = randomSignedOffset(0x8000);
         speed = scaleByRandom(0x20000) + 0x40000;
-        sub_0808E61C(spawnX, spawnY, angle, -speed);
+        spawnEffectParticle(spawnX, spawnY, angle, -speed);
     }
     if (((struct ScriptStep *)((u8 *)entity + entity->f22 * 2))->f19 == 0xF0) {
         sub_08005FC4(0, 0xC3 << 1, 3, 0, &sub_080C0384);

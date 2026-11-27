@@ -1,4 +1,4 @@
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 void sub_080AAB04(s32, s32, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -17,11 +17,11 @@ void sub_080A7F78(void *actor)
     {
         if (*(u8 *)((u8 *)self + (*(s16 *)(self + 0x22)) * 2 + 0x19) & 2)
         {
-            spawnPos = *(s32 *)(state + 0x08) + sub_0800583C(0x200000);
+            spawnPos = *(s32 *)(state + 0x08) + randomSignedOffset(0x200000);
         }
         else
         {
-            spawnPos = *(s32 *)(self + 0x5C) + sub_0800583C(0x400000);
+            spawnPos = *(s32 *)(self + 0x5C) + randomSignedOffset(0x400000);
         }
         sub_080AAB04(*(s32 *)(work + 0x138), spawnPos, 0x1E00000);
     }

@@ -1,4 +1,4 @@
-extern s32 sub_080057F8(void);
+extern s32 nextRandomWord(void);
 extern void setObjectAnimation(s32, s32, s32, s32);
 extern s32 sub_0801459C(void *, s32);
 extern void sub_080148D8(s32, s32);
@@ -51,7 +51,7 @@ void sub_080A0FB0(void *arg0)
     if (sub_0801459C(temp_r5, 0x380000) != 0)
     {
       sub_080148D8(temp_r7, *((s32 *)((u8 *)temp_r5 + 8)));
-      temp_r5_2 = (s8)(sub_080057F8() & 3);
+      temp_r5_2 = (s8)(nextRandomWord() & 3);
       if (temp_r5_2 != 0)
       {
         setObjectAnimation(temp_r7, tp34, 0x0E, 0);

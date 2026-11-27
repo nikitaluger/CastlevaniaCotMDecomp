@@ -2,7 +2,7 @@
  * config entry, copy that config into the work struct, and fire the callback
  * at self+0x24 if the sequence's flag requests it. */
 void setObjectAnimation(void *, void *, s32, s32);
-void sub_08011528(void *, void *);
+void advanceAnimTrack(void *, void *);
 void copyPoseAttrs(void *, void *);
 void sub_080C31E0(void *, void *);
 
@@ -19,7 +19,7 @@ void sub_080A91C4(void *actor) {
     u8 *elem;
     u32 category;
     setObjectAnimation(state, seq, 0x18, 0);
-    sub_08011528(state, seq);
+    advanceAnimTrack(state, seq);
     tableRef = *(void **)(seq + 0x08);
     elemIndex = *(s16 *)(seq + 0x0E);
     indexOffset = *(u8 *)(seq + 0x01);

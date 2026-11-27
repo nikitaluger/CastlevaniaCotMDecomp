@@ -4,9 +4,9 @@ extern s32 findKindIndex(s32);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(u8 *, s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 scaleByRandom(s32);
-extern void sub_0805CA00(u8 *, u8 *);
+extern void applyFivePartSpriteAttributes(u8 *, u8 *);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void registerScriptObject(u8 *, s32);
 extern s32 sub_080C31E4(u8 *, u8 *, s32);
@@ -207,8 +207,8 @@ void sub_0805C3B4(struct Arg5 *arg0)
   scratch = anim + 0x14;
   *((u32 *) scratch) = state->x;
   *(((u32 *) scratch) + 1) = state->y;
-  *(((u32 *) scratch) + 2) = state->x + sub_0800583C(0x2000);
-  *(((u32 *) scratch) + 3) = state->y + sub_0800583C(0x2000);
+  *(((u32 *) scratch) + 2) = state->x + randomSignedOffset(0x2000);
+  *(((u32 *) scratch) + 3) = state->y + randomSignedOffset(0x2000);
   table2 = (u8 *) gEffectGfxTable;
   for (i = 0; i <= 4; i++)
   {
@@ -242,7 +242,7 @@ void sub_0805C3B4(struct Arg5 *arg0)
   {
     do
     {
-      sub_0805CA00((u8 *) arg0, sprite);
+      applyFivePartSpriteAttributes((u8 *) arg0, sprite);
     }
     while (0);
   }

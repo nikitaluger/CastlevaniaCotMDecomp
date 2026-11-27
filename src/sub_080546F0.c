@@ -1,5 +1,5 @@
 s32 scaleByRandom(s32);
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 s32 sub_080C36E4(s32, s32);
 void sub_08054E88(s32, s32, s32, s32, s32, s32);
 
@@ -43,10 +43,10 @@ void sub_080546F0(struct S_080546F0 *self)
     obj = self->f3C;
     cfg = obj->f28;
     cfg->f01 = 0;
-    jitterX = sub_0800583C(0x80000);
+    jitterX = randomSignedOffset(0x80000);
     cfg = obj->f28;
     spawnX = obj->f08 + ((s32)cfg->f0A << 16) + jitterX;
-    jitterY = sub_0800583C(0x80000);
+    jitterY = randomSignedOffset(0x80000);
     cfg = obj->f28;
     spawnY = obj->f0C + ((s32)cfg->f0C << 16) + jitterY;
     param = sub_080C36E4(gMainWorkspace[1575], 7);

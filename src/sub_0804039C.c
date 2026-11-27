@@ -1,7 +1,7 @@
 extern void stepAnimationTrack(void *, void *);
 extern void sub_08014460(void *);
-extern s32 sub_08005910(s32, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void *gMainObjTimerCallbacks;
 
@@ -55,8 +55,8 @@ void sub_0804039C(struct EntityObj *entity) {
     subState[2] = 8;
     state->subState[3] = 1;
     globals = &gMainWorkspace;
-    angle = sub_08005910(globals->playerY - state->posY, globals->playerX - state->posX);
-    sub_080146D0(state, angle, 0x30000);
+    angle = getAngleFromDelta(globals->playerY - state->posY, globals->playerX - state->posX);
+    setPolarOffset(state, angle, 0x30000);
     ((struct SlotState *)((u8 *)entity + entity->slotIndex * 2))->timer = zero;
     {
         void **fn = &gMainObjTimerCallbacks;

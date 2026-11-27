@@ -1,4 +1,4 @@
-extern s32 sub_08014848(s32, s32, s32, s32, s32, s32);
+extern s32 spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern u8 sub_080C389C(u8, s32);
 /* work+0x14 (the work state's y velocity), work+0x10 and the patrol counter at
@@ -20,7 +20,7 @@ void sub_0804284C(void *obj)
   if (sub_080C389C(*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) obj) + 0x22))) * 2) + obj)) + 0x19)), 6) == 1)
   {
     xPos = *((s32 *) (((s8 *) work) + 8));
-    sub_08014848(1, 1, xPos, (*((s32 *) (0xC + ((s8 *) work)))) + 0xFFF00000, 0xE0000, 0x100000);
+    spawnJitteredParticles(1, 1, xPos, (*((s32 *) (0xC + ((s8 *) work)))) + 0xFFF00000, 0xE0000, 0x100000);
   }
   if (((u32) (*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) obj) + 0x22))) * 2) + obj)) + 0x19)))) > 0x3CU)
   {

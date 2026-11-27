@@ -1,4 +1,4 @@
-extern s32 sub_080057F8(void);
+extern s32 nextRandomWord(void);
 extern s32 scaleByRandom(s32);
 extern void sub_080A0288(void*, s32);
 extern s32 sub_080A02A4(void*);
@@ -48,7 +48,7 @@ void sub_0809E3B4(void *arg0, void *arg1) {
     if (lowerBound >= spawnMin || upperBound <= spawnMin) {
         if (lowerBound >= spawnMax || upperBound <= spawnMax) {
             if (lowerBound > spawnMin && upperBound < spawnMax) {
-                if (sub_080057F8() & 1) {
+                if (nextRandomWord() & 1) {
                     spawnMax = lowerBound;
                 } else {
                     spawnMin = upperBound;

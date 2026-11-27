@@ -6,7 +6,7 @@ struct S_02025FF0
   u32 f189C;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 scaleByRandom(s32);
 extern s32 sub_080C36E4(s32, s32);
 extern void sub_0802EB5C(s32, s32, s32, s32, s16);
@@ -44,8 +44,8 @@ void sub_0802E830(u8 *effect)
   do
   {
     angle = 0x80000;
-    spawnX = ((*((u32 *) (fxState + 0x08))) + ((*((s16 *) ((*((u8 **) sourcePtr)) + 0x0A))) << 16)) + sub_0800583C(angle);
-    spawnY = ((*((u32 *) (fxState + 0x0C))) + ((*((s16 *) ((*((u8 **) (fxState + 0x28))) + 0x0C))) << 16)) + sub_0800583C(angle);
+    spawnX = ((*((u32 *) (fxState + 0x08))) + ((*((s16 *) ((*((u8 **) sourcePtr)) + 0x0A))) << 16)) + randomSignedOffset(angle);
+    spawnY = ((*((u32 *) (fxState + 0x0C))) + ((*((s16 *) ((*((u8 **) (fxState + 0x28))) + 0x0C))) << 16)) + randomSignedOffset(angle);
   }
   while (0);
   angle = (sub_080C36E4(gMainWorkspace.f189C, 7) - 3) << 13;

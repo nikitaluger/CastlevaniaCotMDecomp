@@ -1,7 +1,7 @@
 extern void setAnimationFrame(s32, void *, u16, u8);
 extern void _call_via_r1(void *, void *);
 extern void *spawnBudgetedEffect(s32, s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern s32 scaleByRandom(s32);
 
 void sub_0801FEF8(void *self) {
@@ -34,7 +34,7 @@ void sub_0801FEF8(void *self) {
         return;
     }
 
-    r1 = sub_0800583C(10);
+    r1 = randomSignedOffset(10);
     v = *(s32 *)(work + 8);
     if (v < 0) {
         v += 0xFFFF;
@@ -42,7 +42,7 @@ void sub_0801FEF8(void *self) {
     v = (v >> 16) + r1;
     *(s16 *)(r4 + 0x4C) = (s16)v;
 
-    r1 = sub_0800583C(10);
+    r1 = randomSignedOffset(10);
     v = *(s32 *)(work + 0xC);
     if (v < 0) {
         v += 0xFFFF;
@@ -56,12 +56,14 @@ void sub_0801FEF8(void *self) {
         v = *(s32 *)(w48 + 8) - 2;
     }
     *(s32 *)(r4 + 0x6C) = v << 15;
-    *(s32 *)(r4 + 0x7C) = 0x8000 - scaleByRandom(0x20000);
+    *(s32 *)(r4 + 0x7C) = 0x8000 - scaleByRandom(0x80 << 10);
 
-    v = *(s32 *)(w48 + 8) % 2;
-    if (v == 0) {
-        *(u16 *)(r4 + 0x5C) = 0x100;
-    } else if (v == 1) {
-        *(u16 *)(r4 + 0x5C) = 0x200;
+    switch (*(s32 *)(w48 + 8) % 2) {
+    case 0:
+        *(u16 *)(r4 + 0x5C) = 0x80 << 1;
+        break;
+    case 1:
+        *(u16 *)(r4 + 0x5C) = 0x80 << 2;
+        break;
     }
 }

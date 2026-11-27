@@ -1,5 +1,5 @@
 extern s32 fixedPointDistance(s32, s32);
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void sub_080269A8(void *, s32);
 extern s32 (*gTrigFuncTable[])(s32);
 extern void (*gMenuScriptCallback)(void *, void *, s32);
@@ -17,7 +17,7 @@ void sub_080267DC(void *arg0) {
         *(s32 *)(box + 0x68) = *(s32 *)(work + 8);
         *(s32 *)(box + 0x6C) = *(s32 *)(work + 0xC);
     } else {
-        s32 angle = sub_08005910(dy, dx);
+        s32 angle = getAngleFromDelta(dy, dx);
         *(s32 *)(box + 0x68) = gTrigFuncTable[0](angle + 0x4000) * 3 + *(s32 *)(box + 0x68);
         *(s32 *)(box + 0x6C) = gTrigFuncTable[0](angle) * 3 + *(s32 *)(box + 0x6C);
     }

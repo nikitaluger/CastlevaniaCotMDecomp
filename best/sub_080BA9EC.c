@@ -2,7 +2,7 @@ struct S_02025FF0 { u8 _0[0x174C]; u32 field_0x174C; };
 extern struct S_02025FF0 gMainWorkspace;
 extern u32 D_08102EEC[];
 extern u32 gMainObjTimerCallbacks;
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void setFacingDirection(s32, s32);
 extern s32 divideInt(s32, s32);
 extern void playSound(s32);
@@ -99,7 +99,7 @@ void sub_080BA9EC(u8 *self) {
     r5 = r5 - r2;
     r1 = r5;
     sp10 = r3;
-    r0 = sub_08005910(r0, r1);
+    r0 = getAngleFromDelta(r0, r1);
     r6 = r0;
     __repair_r4_2 = 0x4000;
     r6 = __repair_r4_2 - r6;
@@ -111,7 +111,7 @@ void sub_080BA9EC(u8 *self) {
     r0 = r1 - r3;
     r1 = sp4;
     r1 = r5;
-    r0 = sub_08005910(r0, r1);
+    r0 = getAngleFromDelta(r0, r1);
     __repair_r4_2 = __repair_r4_2 - r0;
     r2 = r8;
     r2 = r2 & __repair_r4_2;

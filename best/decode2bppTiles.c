@@ -3,20 +3,15 @@ extern u8 gCameraState[];
 void decode2bppTiles(u8 arg0, u8 arg1, u8 arg2, u8 *src, u8 *dst)
 {
     u8 sp[4];
-    u8 t, t2, a, b;
     u32 i, j, k;
     u8 shifted;
     u8 idx;
     s32 out = 0, in = 0;
 
-    t = gCameraState[0x1439];
-    a = t << 4;
-    sp[0] = a | t;
-    t2 = gCameraState[0x143A];
-    sp[1] = a | t2;
-    b = t2 << 4;
-    sp[2] = b | t;
-    sp[3] = b | t2;
+    sp[0] = (gCameraState[0x1439] << 4) | gCameraState[0x1439];
+    sp[1] = (gCameraState[0x1439] << 4) | gCameraState[0x143A];
+    sp[2] = (gCameraState[0x143A] << 4) | gCameraState[0x1439];
+    sp[3] = (gCameraState[0x143A] << 4) | gCameraState[0x143A];
 
     for (i = 0; i < arg1; i++) {
         shifted = (u8)(src[in] << arg2);

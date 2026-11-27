@@ -4,7 +4,7 @@ extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_08014A04(void *, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
-extern void sub_08014DB4(void *, void *, s32, s32);
+extern void updateFollowPath(void *, void *, s32, s32);
 extern void sub_08027A4C(void *, s32, s32 *, s32 *);
 
 extern s32 gTrigFuncTable[];
@@ -43,7 +43,7 @@ void sub_080274F0(void *actor) {
     state = gMainWorkspace;
     targetX = *(s32 *)(state + 0x174C);
     targetY = *(s32 *)(state + 0x1750);
-    sub_08014DB4(work, (u8 *)work + 0x74, targetX, targetY);
+    updateFollowPath(work, (u8 *)work + 0x74, targetX, targetY);
     if (4 & *(u16 *)((u8 *)work + 0x8C)) {
         *(u8 *)((u8 *)actor + *(s16 *)((u8 *)actor + 0x22) * 2 + 0x19) = 0;
         stepCallback = gMainObjTimerCallbacks;

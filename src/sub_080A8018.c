@@ -1,6 +1,6 @@
 void stepAnimationTrack(s32, s32);
 void _call_via_r2(void *, void *, s32);
-void sub_08011528(void *, void *);
+void advanceAnimTrack(void *, void *);
 void _call_via_r1(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void sub_08016678(void *);
@@ -29,7 +29,7 @@ void sub_080ADFE8(void *arg0) {
  * and sub-step, dispatch the command handler, then refresh the sprite. */
 void sub_080AEF88(void *arg0) {
     void *sprite = *(void **)((u8 *)arg0 + 0x38);
-    sub_08011528(sprite, *(u8 **)((u8 *)arg0 + 0x3C) + 0x34);
+    advanceAnimTrack(sprite, *(u8 **)((u8 *)arg0 + 0x3C) + 0x34);
     *(void **)((u8 *)arg0 + 0x14) = (void *)0x08670224;
     *(u16 *)((u8 *)arg0 + 0x22) = (u16)(*(u16 *)((u8 *)arg0 + 0x22) + 1);
     {

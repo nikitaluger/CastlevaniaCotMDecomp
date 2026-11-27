@@ -1,6 +1,6 @@
 void sub_08005E80(s32 soundId);
 void setObjectAnimation(s32 sprite, s32 animState, s32 frame, s32 arg3);
-void sub_08011528(s32 sprite, s32 animState);
+void advanceAnimTrack(s32 sprite, s32 animState);
 void sub_080C31E4(void *scriptData, void *scriptIndex, s32 handler);
 
 /* Plays animation frame 0x1C; once that frame has finished, plays sound 0x196,
@@ -16,7 +16,7 @@ void sub_080B46F0(void *arg0)
   work = *((void **) (((u8 *) arg0) + 0x3C));
   animState = work + 0x34;
   setObjectAnimation(sprite, animState, 0x1C, 0);
-  sub_08011528(sprite, animState);
+  advanceAnimTrack(sprite, animState);
   if (2 & (*((u8 *) (((u8 *) work) + 0x34))))
   {
     sub_08005E80(0x196);

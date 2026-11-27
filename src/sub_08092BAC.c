@@ -1,7 +1,7 @@
 extern u8 gMainWorkspace[];
 
 s32 scaleByRandom(s32);
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 void sub_0808DBF8(s32, s32, s32);
 void sub_080918B0(s32, s32, s32, s32, s32, s32);
 void sub_080C31E0(void *, s32);
@@ -19,8 +19,8 @@ void sub_08092BAC(void *behav)
     u32 countOff;
 
     owner = *(void **)((u8 *)behav + 0x3C);
-    posX = *(s32 *)owner + (sub_0800583C(0x10000) << 4);
-    posYraw = *(s32 *)((u8 *)owner + 4) + (sub_0800583C(0x10000) << 3);
+    posX = *(s32 *)owner + (randomSignedOffset(0x10000) << 4);
+    posYraw = *(s32 *)((u8 *)owner + 4) + (randomSignedOffset(0x10000) << 3);
     countOff = 0x1898;
     counter = (u32 *)(gMainWorkspace + countOff);
     halfCount = *(s32 *)counter / 2;

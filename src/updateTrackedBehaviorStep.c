@@ -1,5 +1,5 @@
 extern void setObjectAnimation(void *, void *, s16, s32);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void sub_08011EE8(void *, u32, s32);
 extern s32 moduloInt(u32, u32);
 extern s32 signOf(s32);
@@ -26,7 +26,7 @@ void updateTrackedBehaviorStep(u8 *entity) {
     u32 speed, zero;
 
     setObjectAnimation(sprite, track, gBehaviorAnimKinds[*(u8 *)(behavior + 0x20)], 1);
-    sub_08011528(sprite, track);
+    advanceAnimTrack(sprite, track);
     speed = gBehaviorSpeeds[*(u8 *)(behavior + 0x20)];
     if ((*(u16 *)((u8 *)sprite + 2) & SPRITE_OAM_FLIP_X) == 0) {
         speed = (u32)-(s32)speed;

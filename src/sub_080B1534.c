@@ -1,5 +1,5 @@
 extern void advanceMotion(void *, s32);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_080B1960(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -35,7 +35,7 @@ void sub_080B1534(u8 *self) {
     }
 
     *(s32 *)(motion + 0x14) = *(s32 *)(motion + 0x14) - ((s8)*(u8 *)(param + 0x35) << 8);
-    sub_080146D0(body, *(s32 *)(motion + 0x14), *(s32 *)(motion + 0x10));
+    setPolarOffset(body, *(s32 *)(motion + 0x14), *(s32 *)(motion + 0x10));
     advanceMotion(body, 0);
 
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x70) {

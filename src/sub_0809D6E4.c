@@ -1,5 +1,5 @@
 s32 setObjectAnimation(s32, s32, s32, s32);
-s32 sub_08011528(s32, s32);
+s32 advanceAnimTrack(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 /* Effect-actor update: advance the animation to step 0x11 and tick it; while the
@@ -19,7 +19,7 @@ void sub_0809D6E4(void *arg0)
   anim = work + 0x34;
   sprite = work + 0x48;
   setObjectAnimation(gfx, anim, 0x11, 0);
-  sub_08011528(gfx, anim);
+  advanceAnimTrack(gfx, anim);
   if (2 & (*((u8 *) (((s8 *) work) + 0x34))))
   {
     if (2 & (*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19))))

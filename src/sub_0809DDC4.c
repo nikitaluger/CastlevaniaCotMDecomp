@@ -1,6 +1,6 @@
 extern void sub_08005FC4(s32, s32, s32, s32, void *);
 extern void setObjectAnimation(u16 *, s32, s32, s32);
-extern void sub_08014848(s32, s32, s32, s32, s32, s32);
+extern void spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 extern void sub_0809E278(u16 *, s32, u8 *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_080C0384;
@@ -32,7 +32,7 @@ void sub_0809DDC4(u8 *arg0) {
     if (flag == 0) {
         posX = *(s32 *)(target + 8);
         posY = *(s32 *)(target + 0x0C) + 0xFFF00000;
-        sub_08014848(2, 2, posX, posY, 0x100000, 0x100000);
+        spawnJitteredParticles(2, 2, posX, posY, 0x100000, 0x100000);
     }
     if (*((u8 *)((s16)*(s16 *)(arg0 + 0x22) * 2 + (u32)arg0) + 0x19) == 0xB4) {
         sub_08005FC4(0, 0x186, 3, 0, &sub_080C0384);

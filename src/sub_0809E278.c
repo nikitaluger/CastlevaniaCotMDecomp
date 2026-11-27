@@ -1,4 +1,4 @@
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 
 struct WaveDeltas { u32 deltas[8]; };
 extern struct WaveDeltas D_081019D4;
@@ -13,7 +13,7 @@ void sub_0809E278(void *ctx, u8 *anim, u8 *soundA, u8 *soundB) {
     u16 scriptValue;
 
     wave = D_081019D4;
-    sub_08011528(ctx, anim);
+    advanceAnimTrack(ctx, anim);
     scriptTable = *(u32 **)(anim + 0x08);
     scriptIndex = *(s16 *)(anim + 0x0E) + *(u8 *)(anim + 0x01);
     scriptValue = ((struct ScriptEntry *)((u8 *)*(u32 **)scriptTable + scriptIndex * 4 - 4))->b;

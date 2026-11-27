@@ -3,7 +3,7 @@
  * view's facing flag, then run the per-frame motion callback. */
 struct Motion { u8 _[0x2E]; u16 angle; s32 countdown; };
 extern void advanceMotion(void *, s32);
-extern void sub_080146D0(void *, u16, s32);
+extern void setPolarOffset(void *, u16, s32);
 extern void sub_080148D8(s32, s32);
 extern void sub_0809856C(s32, void *, s32);
 extern void sub_0809E278(s32, void *, void *, void *);
@@ -33,7 +33,7 @@ void sub_0809CFE0(u8 *entity) {
         animState = entity + 0x18;
         sub_080C31E4(animState, entity + 0x22, *animScript);
     }
-    sub_080146D0(body, motion->angle, motion->countdown);
+    setPolarOffset(body, motion->angle, motion->countdown);
     advanceMotion(body, 0);
     sub_080148D8(view, *(s32 *)(body + 8));
     sub_0809E278(view, bodyData, body, motion);

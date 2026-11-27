@@ -1,9 +1,9 @@
 s32 setAnimationFrame(s32, s32, s32, s32);
-s32 sub_080146D0(void *, s32, s32);
+s32 setPolarOffset(void *, s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 /* Update an effect's animation, then, when flag bit 0 of self+0x5C is set,
- * set its target position via sub_080146D0 using an angle chosen by bit 0x10,
+ * set its target position via setPolarOffset using an angle chosen by bit 0x10,
  * clear the step flag and advance the script. */
 void sub_0801FE44(void *arg0)
 {
@@ -37,7 +37,7 @@ void sub_0801FE44(void *arg0)
     {
       angle = 0x2000;
     }
-    sub_080146D0(body, angle, *((s32 *)(self + 0x6C)));
+    setPolarOffset(body, angle, *((s32 *)(self + 0x6C)));
     *((u8 *)(self + ((*((s16 *)(self + 0x22))) * 2) + 0x19)) = 0;
     {
       s32 *lit = (s32 *)0x08671BB0;

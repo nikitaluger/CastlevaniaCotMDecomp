@@ -1,7 +1,7 @@
 void sub_0800FEDC(s32 arg0, u16 *arg1);
 s32 divideInt(s32, s32);
 s32 moduloInt(s32, s32);
-void sub_0800FE08(s32 arg0, s32 arg1, u16 arg2, u16 *arg3);
+void drawDecimalNumber(s32 arg0, s32 arg1, u16 arg2, u16 *arg3);
 void drawPaddedDecimal(s32 arg0, s32 arg1, u16 arg2, u16 *arg3);
 
 /* Write the decimal digits of `value` right-to-left into `dst`, adding the u16

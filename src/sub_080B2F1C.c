@@ -1,4 +1,4 @@
-extern void sub_08011528(s32, void *);
+extern void advanceAnimTrack(s32, void *);
 extern void copyPoseAttrs(void *, void *, u32 *);
 extern void _call_via_r1(void *, s32);
 extern u32 gKind65LinkedLayerAttrs[];
@@ -26,7 +26,7 @@ void sub_080B2F1C(void *self) {
     component = *(void **)((u8 *)entity + 0x3C);
     track = (u8 *)component + 0x34;
 
-    sub_08011528(fxObj, track);
+    advanceAnimTrack(fxObj, track);
 
     dirTablePtr = *(u32 ***)((u8 *)track + 8);
     dirIndex = *(s16 *)((u8 *)track + 0x0E) + *(u8 *)((u8 *)track + 1);

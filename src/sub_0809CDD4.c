@@ -4,7 +4,7 @@
 extern void sub_080148D8(s32, s32);
 extern void sub_0809E278(s32, s32, void *, void *);
 extern s32 sub_0801459C(void *, s32);
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct AimGameState {
@@ -49,7 +49,7 @@ void sub_0809CDD4(u8 *entity) {
     if (gMainWorkspace.mode != 0) {
         if (sub_0801459C(work, 0x700000) != 0 || (work->flags & 2) != 0) {
             effect->active = 1;
-            angle = sub_08005910(0x01000000 - work->posY, gMainWorkspace.targetX - work->posX);
+            angle = getAngleFromDelta(0x01000000 - work->posY, gMainWorkspace.targetX - work->posX);
             {
                 u8 zero = 0;
                 effect->angle = angle;

@@ -1,4 +1,4 @@
-extern s32 sub_08005910(s32, s32);
+extern s32 getAngleFromDelta(s32, s32);
 extern s32 sub_0801473C(s32, s32);
 extern s32 angleWithinRange(s32, s32, s32);
 
@@ -12,11 +12,11 @@ s32 sub_080A857C(void *arg0, void *arg1) {
     s32 baseAngle;
     s32 deltaX;
     s32 deltaY;
-    desiredAngle = sub_08005910(gMainWorkspace.playerY - (*(s32 *)((u8 *)arg1 + 0x94) + *(s32 *)((u8 *)arg0 + 0x6C)),
+    desiredAngle = getAngleFromDelta(gMainWorkspace.playerY - (*(s32 *)((u8 *)arg1 + 0x94) + *(s32 *)((u8 *)arg0 + 0x6C)),
                       gMainWorkspace.playerX - (*(s32 *)((u8 *)arg1 + 0x90) + *(s32 *)((u8 *)arg0 + 0x5C)));
     deltaX = *(s32 *)((u8 *)arg1 + 0x90) - *(s32 *)((u8 *)arg1 + 0x7C);
     deltaY = *(s32 *)((u8 *)arg1 + 0x94) - *(s32 *)((u8 *)arg1 + 0x80);
-    baseAngle = sub_08005910(deltaY, deltaX) & 0xFFFF;
+    baseAngle = getAngleFromDelta(deltaY, deltaX) & 0xFFFF;
     if (angleWithinRange(baseAngle, 0xC0 << 5, desiredAngle) != 0) {
         return desiredAngle - baseAngle;
     }

@@ -1,5 +1,5 @@
 extern void *createChildObject(s32, s32);
-extern void sub_0800EC20(s32);
+extern void loadStateGraphicsSet(s32);
 extern void sub_0800ECF8(void);
 extern void sub_0800EDAC(s32);
 extern void sub_0800EF3C(s32);
@@ -64,5 +64,5 @@ void sub_0800D4BC(s32 arg0)
     gCameraState[0x146A] = 0x3D;
     sub_0800ECF8();
     sub_0800EDAC(1);
-    sub_0800EC20(0x060072B2);
+    loadStateGraphicsSet(0x060072B2);
 }

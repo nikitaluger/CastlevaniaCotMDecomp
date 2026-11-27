@@ -1,8 +1,8 @@
-extern s32 sub_08005910(s32 dy, s32 dx);
+extern s32 getAngleFromDelta(s32 dy, s32 dx);
 extern s32 fixedPointDistance(s32 dx, s32 dy);
 extern void stepAnimationTrack(s32 sprite, void *moverData);
 extern void advanceMotion(void *mover, s32 accel);
-extern void sub_080146D0(void *mover, s32 angle, s32 speed);
+extern void setPolarOffset(void *mover, s32 angle, s32 speed);
 extern void sub_0808D7BC(s32 x, s32 y, u32 id, u8 kind);
 extern void sub_080C31E0(void *arg, void *func);
 
@@ -24,7 +24,7 @@ void sub_080B5C58(u8 *self) {
     targetY += yOffset;
     dy = targetY - *(s32 *)(mover + 0xC);
     dx = targetX - *(s32 *)(mover + 8);
-    sub_080146D0(mover, sub_08005910(dy, dx), 0x80 << 11);
+    setPolarOffset(mover, getAngleFromDelta(dy, dx), 0x80 << 11);
     advanceMotion(mover, 0);
     targetX = targetX - *(s32 *)(mover + 8);
     targetY = targetY - *(s32 *)(mover + 0xC);

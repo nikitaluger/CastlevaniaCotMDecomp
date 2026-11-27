@@ -1,7 +1,7 @@
 extern s32 absXFromFocus(s32);
 extern s32 signOf(s32);
 extern s32 getSpriteFacingSign(void *);
-extern s32 sub_08014EF4(s32);
+extern s32 rollProbability(s32);
 extern void sub_080186DC(void *, s32);
 extern void sub_080186C0(void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -34,7 +34,7 @@ void sub_08017628(void *arg0)
     *(u16 *)(control + 0x14) = 1;
 
     if (dist <= 0x37FFFF) {
-        if (sub_08014EF4(*(s16 *)(control + 0x2A)) == 1) {
+        if (rollProbability(*(s16 *)(control + 0x2A)) == 1) {
             sub_080186DC(control + 0x2A, 0xAF * 4);
             *(u8 *)(actor + *(s16 *)(actor + 0x22) * 2 + 0x19) = zero;
             sub_080C31E8(actor + 0x18, actor + 0x22, 7, gScriptStepCallbacks[0]);
@@ -43,7 +43,7 @@ void sub_08017628(void *arg0)
             goto cleanup;
         }
     } else if (dist <= 0xB3FFFF && facing == dir) {
-        if (sub_08014EF4(*(s16 *)(control + 0x2C)) == 1) {
+        if (rollProbability(*(s16 *)(control + 0x2C)) == 1) {
             sub_080186DC(control + 0x2C, 0xFA * 4);
             *(u8 *)(actor + *(s16 *)(actor + 0x22) * 2 + 0x19) = zero;
             sub_080C31E8(actor + 0x18, actor + 0x22, 8, gScriptStepCallbacks[0]);
@@ -56,7 +56,7 @@ void sub_08017628(void *arg0)
     }
 
     if (dist <= 0x5FFFFF) {
-        if (sub_08014EF4(*(s16 *)(control + 0x2E)) == 1) {
+        if (rollProbability(*(s16 *)(control + 0x2E)) == 1) {
             sub_080186DC(control + 0x2E, 0xFA * 4);
             *(u8 *)(actor + *(s16 *)(actor + 0x22) * 2 + 0x19) = zero;
             sub_080C31E8(actor + 0x18, actor + 0x22, 5, gScriptStepCallbacks[0]);

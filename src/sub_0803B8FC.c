@@ -1,5 +1,5 @@
 s32 getSpriteFacingSign(s32);
-void sub_08014848(s32, s32, s32, s32, s32, s32);
+void spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 void sub_0808DC40(s32, s32, s32);
 void sub_080C31E0(void *, s32);
 u8 sub_080C389C(u8, s32);
@@ -32,9 +32,9 @@ void sub_0803B8FC(void *arg0) {
         u8 *entry = (u8 *)(entryOffset + (u32)arg0);
         if (sub_080C389C(entry[0x19], 6) == 1) {
             if (getSpriteFacingSign(handle) < 0) {
-                sub_08014848(1, 1, *(s32 *)((u8 *)state + 0x08) + 0xFFF80000, *(s32 *)((u8 *)state + 0x0C) + 0xFFF00000, 0xA0000, 0x140000);
+                spawnJitteredParticles(1, 1, *(s32 *)((u8 *)state + 0x08) + 0xFFF80000, *(s32 *)((u8 *)state + 0x0C) + 0xFFF00000, 0xA0000, 0x140000);
             } else {
-                sub_08014848(1, 1, *(s32 *)((u8 *)state + 0x08) + 0x80000, *(s32 *)((u8 *)state + 0x0C) + 0xFFF00000, 0xA0000, 0x140000);
+                spawnJitteredParticles(1, 1, *(s32 *)((u8 *)state + 0x08) + 0x80000, *(s32 *)((u8 *)state + 0x0C) + 0xFFF00000, 0xA0000, 0x140000);
             }
         }
     }

@@ -1,4 +1,4 @@
-void sub_08011528(void *, void *);
+void advanceAnimTrack(void *, void *);
 void sub_080C31E0(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 
@@ -7,7 +7,7 @@ void syncSpriteToWorldPosition(void *, void *);
  * the script pointer, then follow up on the actor (e.g. camera/edge check). */
 void sub_080AEF88(void *arg0) {
     void *actor = *(void **)((u8 *)arg0 + 0x38);
-    sub_08011528(actor, *(u8 **)((u8 *)arg0 + 0x3C) + 0x34);
+    advanceAnimTrack(actor, *(u8 **)((u8 *)arg0 + 0x3C) + 0x34);
     *(void **)((u8 *)arg0 + 0x14) = (void *)0x08670224;
     *(u16 *)((u8 *)arg0 + 0x22) = (u16)(*(u16 *)((u8 *)arg0 + 0x22) + 1);
     {

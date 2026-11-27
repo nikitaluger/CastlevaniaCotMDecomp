@@ -1,5 +1,5 @@
 extern s32 gTrigFuncTable;
-extern s32 D_08671BC0;
+extern s32 gPoseScriptCallbacks;
 
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -74,7 +74,7 @@ void sub_080BCEBC(struct ScriptEntity *a)
         u32 zero;
 
         i = 0;
-        scriptFunc = &D_08671BC0;
+        scriptFunc = &gPoseScriptCallbacks;
         stepArgs = (u8 *)a + 0x18;
         stepIndexPtr = (u8 *)a + 0x22;
         zero = 0;

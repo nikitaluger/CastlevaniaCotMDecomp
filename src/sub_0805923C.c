@@ -1,6 +1,6 @@
 s32 getSpriteFacingSign(void *);
 s32 sub_080C31E0(s32, s32);
-void sub_08014848(s32, s32, s32, s32, s32, s32);
+void spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 
 extern s32 gTrigFuncTable;
 
@@ -35,7 +35,7 @@ void sub_0805923C(void *script)
             s32 dx = (-s1) * 8;
             s32 s2 = sub_080C31E0(*(s32 *)((u8 *)extra + 8), *lit);
             s32 dy = ((-s2) * 6) + 0x60000;
-            sub_08014848(1, 1,
+            spawnJitteredParticles(1, 1,
                 *(s32 *)((u8 *)body + 8) + dx,
                 *(s32 *)((u8 *)body + 0x0C) + dy,
                 0x80000, 0x80000);

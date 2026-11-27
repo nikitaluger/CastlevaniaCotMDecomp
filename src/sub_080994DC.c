@@ -1,11 +1,11 @@
-extern s32 sub_080057F8(void);
+extern s32 nextRandomWord(void);
 extern void sub_08005E80(u16);
 extern void forceAnimationFrame(s32, u8 *, s32, s32);
 extern void setObjectAnimation(s32, u8 *, s32, s32);
-extern void sub_08011528(s32, u8 *);
+extern void advanceAnimTrack(s32, u8 *);
 extern void sub_080148D8(s32, s32);
 extern void sub_0809A610(void *);
-extern void sub_0809C4E0(s32, s32);
+extern void setEffectBehavior(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 void sub_080994DC(void *arg0)
@@ -29,7 +29,7 @@ void sub_080994DC(void *arg0)
  do { anim = state + 0x34; } while (0);
     body = state + 0x48;
     sub_0809A610(arg0);
-    sub_08011528(sprite, anim);
+    advanceAnimTrack(sprite, anim);
     if ((*anim) & 2)
     {
         counterPtr = state + 0x6A;
@@ -50,7 +50,7 @@ void sub_080994DC(void *arg0)
             else
             {
                 setObjectAnimation(sprite, anim, 0xF, zero);
-                sub_0809C4E0(*((s32 *) (body + 8)), zero);
+                setEffectBehavior(*((s32 *) (body + 8)), zero);
                 step = 2;
                 actionIndex = *((s16 *) (((u8 *) arg0) + 0x22));
                 actionByte = (u8 *) (((u32) (actionIndex * step)) + ((u32) arg0));
@@ -60,7 +60,7 @@ void sub_080994DC(void *arg0)
             }
         }
         else
-            if ((sub_080057F8() & 3) == 0)
+            if ((nextRandomWord() & 3) == 0)
             {
                 forceAnimationFrame(sprite, anim, zero, zero);
                 sub_080148D8(sprite, *posXPtr);
@@ -70,7 +70,7 @@ void sub_080994DC(void *arg0)
                 setObjectAnimation(sprite, anim, 0xF, zero);
                 sub_080148D8(sprite, *((s32 *) (state + 8)));
                 *((u8 *) (state + 0x69)) = zero;
-                sub_0809C4E0(*((s32 *) (body + 8)), zero);
+                setEffectBehavior(*((s32 *) (body + 8)), zero);
                 sub_08005E80(0x165);
                 actionIndex = *((s16 *) (((u8 *) arg0) + 0x22));
                 actionByte = (u8 *) (((u32) (actionIndex * 2)) + ((u32) arg0));

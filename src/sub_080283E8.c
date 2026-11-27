@@ -3,7 +3,7 @@ void sub_080C31E4(void *, void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 s32 divInt32(s32, s32);
 s32 sub_080C31E0(s32, s32);
-s32 sub_0800583C(s32);
+s32 randomSignedOffset(s32);
 
 /* Decrement the state timer at +0x12; when it expires, clear the current
  * script slot's byte and run its script action with argument 0. */

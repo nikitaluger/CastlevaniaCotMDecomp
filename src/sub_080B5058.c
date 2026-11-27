@@ -1,4 +1,4 @@
-void sub_08011528(void *, void *);
+void advanceAnimTrack(void *, void *);
 void copyPoseAttrs(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -20,7 +20,7 @@ void sub_080B5058(void *a0)
     u32 code;
     s32 *eventPtr;
 
-    sub_08011528(sprite, ctrl);
+    advanceAnimTrack(sprite, ctrl);
     frameTablePtr = *(void ***)(ctrl + 0x08);
     frameIndex = *(s16 *)(ctrl + 0x0E);
     frameOffset = *(u8 *)(ctrl + 0x01);

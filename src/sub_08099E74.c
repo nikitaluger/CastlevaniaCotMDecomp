@@ -1,6 +1,6 @@
 extern void setObjectAnimation(s32, s32, s32, s32);
 extern void sub_0808BB54(void);
-extern void sub_0809C4E0(void *, s32);
+extern void setEffectBehavior(void *, s32);
 extern void sub_0809C510(void *, s32, s32);
 extern void sub_080C050C(s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -23,7 +23,7 @@ void sub_08099E74(void *arg0)
     else
     {
       sub_080C050C(0x166);
-      sub_0809C4E0(*(void **)(state + 0x08), 0);
+      setEffectBehavior(*(void **)(state + 0x08), 0);
       sub_0809C510(*(void **)(state + 0x08), *(s32 *)(state + 0x18), 0);
     }
     {
@@ -35,7 +35,7 @@ void sub_08099E74(void *arg0)
       {
         wrapped = 1;
         *(u8 *)(*(u8 **)(*(u8 **)(*(u8 **)(state + 0x08) + 0x3C) + 0x28) + 0x01) = 5;
-        sub_0809C4E0(*(void **)(state + 0x08), 1);
+        setEffectBehavior(*(void **)(state + 0x08), 1);
         setObjectAnimation((s32)gfx, (s32)anim, 0x0F, 0);
         sub_0808BB54();
         *(u8 *)((u8 *)self + ((*(s16 *)((u8 *)self + 0x22)) * 2) + 0x19) = 0;

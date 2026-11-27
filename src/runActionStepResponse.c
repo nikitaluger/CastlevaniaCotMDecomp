@@ -5,7 +5,7 @@
 extern u32 sub_08061C78(void);                 /* scaled value used as a spawn threshold */
 extern void *spawnEntity(s32, s32, s32, s32);
 extern void spawnScaledEffect(s32, s32);
-extern void sub_08086E28(void);                /* records the spawn in the global table */
+extern void recordSpawnEvent(void);                /* records the spawn in the global table */
 extern void playSound(s32);
 extern s32 sub_080C3824(s32, s32);             /* saturating divide */
 
@@ -33,7 +33,7 @@ u32 __repair_result_r6;
         if (gMainWorkspace.failFlag == 0) return;
         spawned = spawnEntity(actor, SPRITE_KIND_JITTERED_SPAWN, 0xA, 0x12);
         if (spawned != NULL) ((struct ActionStepSpawn *)spawned)->animFlags = 0;
-        sub_08086E28();
+        recordSpawnEvent();
         return;
     case ACTION_STEP_NO_DIR:
     case ACTION_ALT_STEP_FAIL:
@@ -41,14 +41,14 @@ u32 __repair_result_r6;
         if (__repair_result_r6 <= state->spawnCounter) return;
         spawned = spawnEntity(actor, SPRITE_KIND_JITTERED_SPAWN, 0xA, 0x12);
         if (spawned != NULL) ((struct ActionStepSpawn *)spawned)->animFlags = 0;
-        sub_08086E28();
+        recordSpawnEvent();
         state->spawnCounter = __repair_result_r6;
         return;
     case ACTION_STEP_CANCEL:
         if (gMainWorkspace.cancelFlag == 0) return;
         spawned = spawnEntity(actor, SPRITE_KIND_JITTERED_SPAWN, 0xA, 0x12);
         if (spawned != NULL) ((struct ActionStepSpawn *)spawned)->animFlags = 0;
-        sub_08086E28();
+        recordSpawnEvent();
         return;
     case 0x27:
         if ((s32)gs->phaseTimer < (s32)gs->phaseThreshold) {
@@ -57,7 +57,7 @@ u32 __repair_result_r6;
             if (wrappedCount == 0) {
                 spawned = spawnEntity(actor, SPRITE_KIND_JITTERED_SPAWN, 0xA, 0x12);
                 if (spawned != NULL) ((struct ActionStepSpawn *)spawned)->animFlags = 0;
-                sub_08086E28();
+                recordSpawnEvent();
             }
         } else {
             state->spawnCounter = 0;
@@ -70,20 +70,20 @@ u32 __repair_result_r6;
             if (nextTick > 0x3B) {
                 gMainWorkspace.actionTimer = 0;
                 spawnScaledEffect(pos, 1);
-                sub_08086E28();
+                recordSpawnEvent();
             }
         }
         return;
     case 0x35:
         state->form = 3;
         gMainWorkspace.spawnRequest = 1;
-        sub_08086E28();
+        recordSpawnEvent();
         return;
     case 0x36:
         if ((s32)state->spawnCounter <= 0) {
             state->spawnCounter = 0xC;
             spawnEntity(actor, ACTION_SPAWN_KIND_ALT, 0xA, 0x12);
-            sub_08086E28();
+            recordSpawnEvent();
             playSound(0xD8);
         }
         state->spawnCounter--;
@@ -114,7 +114,7 @@ u32 __repair_result_r6;
             if (spawned != NULL) {
                 ((struct ActionStepSpawn *)spawned)->animFlags = 0;
             }
-            sub_08086E28();
+            recordSpawnEvent();
         }
         return;
     }

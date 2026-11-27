@@ -1,11 +1,11 @@
 struct S_02025FF0_40830 { u8 _0[0x174C]; u32 f174C; u32 f1750; };
 extern struct S_02025FF0_40830 gMainWorkspace;
 extern void *gMainObjTimerCallbacks;
-extern s32 sub_080057F8(void);
-extern s32 sub_08005910(s32, s32);
+extern s32 nextRandomWord(void);
+extern s32 getAngleFromDelta(s32, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void stepAnimationTrack(void *, void *);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 
@@ -30,12 +30,12 @@ void sub_08040830(u8 *entity) {
                 sub_080C31E0(entity, *(void **)(entity + 0x24));
                 return;
             }
-            { s32 random = sub_080057F8(); one = 1; randomBit = random & one; direction = -1; if (randomBit) direction = 1; }
+            { s32 random = nextRandomWord(); one = 1; randomBit = random & one; direction = -1; if (randomBit) direction = 1; }
             { s32 *angleSlot = (s32 *)(entity + 0x6C);
-              angle = sub_08005910(gMainWorkspace.f1750 - *(s32 *)(body + 0xC), gMainWorkspace.f174C - *(s32 *)(body + 8));
+              angle = getAngleFromDelta(gMainWorkspace.f1750 - *(s32 *)(body + 0xC), gMainWorkspace.f174C - *(s32 *)(body + 8));
               angle += (direction * 3) << 12;
               *angleSlot = angle; }
-            sub_080146D0(body, angle, 0xE0 << 9);
+            setPolarOffset(body, angle, 0xE0 << 9);
             *(s8 *)(*(u8 **)(body + 0x28) + 2) = 8;
             *(u8 *)(*(u8 **)(body + 0x28) + 3) = (u8)one;
             setAnimationFrame(sprite, animTrack, 0x15, 1);

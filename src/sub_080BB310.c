@@ -1,6 +1,6 @@
 extern s32 sub_08005E80(s32);
 extern s32 advanceMotion(void *, s32);
-extern s32 sub_08014848(s32, s32, s32, s32, s32, s32);
+extern s32 spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 extern s32 sub_080BB8C0(void *, void *);
 extern s32 sub_080BB900(void *, void *);
 extern s32 sub_080BBB60(void *);
@@ -34,7 +34,7 @@ void sub_080BB310(void *arg0) {
         }
         if (!(3 & *((u8 *)((s8 *)arg0 + (*((s16 *)((s8 *)arg0 + 0x22)) * 2) + 0x19)))) {
             dir = *((s8 *)((s8 *)control + 0x35));
-            sub_08014848(1, 3, *((s32 *)((s8 *)component + 0x08)) + (dir * 0x90000), *((s32 *)((s8 *)component + 0x0C)) - (dir * 0x30000), 0xC0000, 0x2E0000);
+            spawnJitteredParticles(1, 3, *((s32 *)((s8 *)component + 0x08)) + (dir * 0x90000), *((s32 *)((s8 *)component + 0x0C)) - (dir * 0x30000), 0xC0000, 0x2E0000);
         }
     }
     if (*((u8 *)((s8 *)arg0 + (*((s16 *)((s8 *)arg0 + 0x22)) * 2) + 0x19)) == 0x5A) {

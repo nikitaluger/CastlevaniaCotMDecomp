@@ -1,4 +1,4 @@
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -18,7 +18,7 @@ void sub_080BD8B8(void *arg0)
 
     stepAnimationTrack(gfx, anim);
     if (anim[0] & 2) {
-        *(s32 *)(actorSub + 0x10) = sub_0800583C(0x8000) + 0x10000;
+        *(s32 *)(actorSub + 0x10) = randomSignedOffset(0x8000) + 0x10000;
         setAnimationFrame(gfx, anim, 5, 1);
         {
             s32 xPos = *(s32 *)(actor + 8);

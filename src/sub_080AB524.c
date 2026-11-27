@@ -1,4 +1,4 @@
-extern u32 sub_080057F8(void);
+extern u32 nextRandomWord(void);
 extern void sub_080148D8(void *, s32);
 extern void sub_080AC908(void *, void *, void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
@@ -44,7 +44,7 @@ void sub_080AB524(void *arg0)
         else
           if (mode == 0)
         {
-          pick = sub_080057F8() & 1;
+          pick = nextRandomWord() & 1;
         }
       }
       else

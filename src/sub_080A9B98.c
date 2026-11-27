@@ -1,5 +1,5 @@
 extern s32 updateObjectDisplayState(void *);
-extern void sub_08011528(void *, void *);
+extern void advanceAnimTrack(void *, void *);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern s32 scaleByRandom(s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -11,7 +11,7 @@ void sub_080A9B98(void *arg0) {
     u8 *task = (u8*)arg0;
     void *sprite = *(void**)(task + 0x38);
     u8 *animState = (u8*)*(void**)(task + 0x3C) + 0x34;
-    sub_08011528(sprite, animState);
+    advanceAnimTrack(sprite, animState);
     if (*animState & 2) {
         s32 *scriptTable;
         u8 randByte;

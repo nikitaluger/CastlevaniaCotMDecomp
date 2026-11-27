@@ -1,4 +1,4 @@
-extern vu32 D_0200A260; /* PRNG state, advanced by sub_080057F8 */
+extern vu32 D_0200A260; /* PRNG state, advanced by nextRandomWord */
 #define gRngState D_0200A260
 
 /* Seed the game's pseudo-random number generator. */

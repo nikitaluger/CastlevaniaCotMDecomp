@@ -1,5 +1,5 @@
 extern s32 scaleByRandom(s32);
-extern s32 sub_0800583C(s32);
+extern s32 randomSignedOffset(s32);
 extern void *spawnBudgetedEffect(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 
@@ -11,7 +11,7 @@ void sub_080A042C(s32 kind, u8 *params) {
     s32 *pWaveFunc;
 
     if (sound != NULL) {
-        phase = sub_0800583C(0x4000);
+        phase = randomSignedOffset(0x4000);
         otherPhase = phase + 0xC000;
         volume = scaleByRandom(0x80000) + 0x180000;
         pWaveFunc = (s32 *)0x08671BFC;

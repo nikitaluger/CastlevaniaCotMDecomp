@@ -1,5 +1,5 @@
 extern void stepAnimationTrack(s32, void *);
-extern void sub_080146D0(void *, s32, s32);
+extern void setPolarOffset(void *, s32, s32);
 extern void advanceMotion(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -15,7 +15,7 @@ void sub_08035150(void *arg0)
     u8 *body = work + 0x48;
 
     stepAnimationTrack(parent, anim);
-    sub_080146D0(work, *(s32 *)(body + 4), *(s32 *)(work + 0x48));
+    setPolarOffset(work, *(s32 *)(body + 4), *(s32 *)(work + 0x48));
     advanceMotion(work, 0);
 
     *(s32 *)(work + 0x48) += 0xFFFF0000;
