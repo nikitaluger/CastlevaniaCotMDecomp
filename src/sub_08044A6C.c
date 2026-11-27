@@ -1,4 +1,4 @@
-void sub_080148D8(void *, void *);
+void setSpriteFacingToTarget(void *, void *);
 void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -13,7 +13,7 @@ void sub_08044A6C(void *self) {
     sprite = *(void **)((u8 *)self + 0x38);
     work = *(void **)((u8 *)self + 0x3C);
     animator = (u8 *)work + 0x34;
-    sub_080148D8(sprite, *(void **)((u8 *)work + 8));
+    setSpriteFacingToTarget(sprite, *(void **)((u8 *)work + 8));
     if (*(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self) + 0x19) == 0xF) {
         setAnimationFrame(sprite, animator, 9, 0);
         *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self) + 0x19) = 0;

@@ -1,84 +1,82 @@
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 hitTestEntities(void *);
-extern s32 sub_080C31E0(void *, s32);
-extern s32 sub_080C31E8(void *, void *, s32, s32);
+extern s32 _call_via_r1(void *, s32);
+extern s32 _call_via_r3(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u8 D_0866FAE0[];
+extern u8 gCameraSnappedProjectileStepTable[];
 extern s32 gScriptEventCallbacks;
 
-struct TargetState { u8 a; u8 flag; };
-struct ObjFlags2 { u8 flag; };
-struct AnimFlag { u16 flag; };
-
-/* Updates a projectile/hit entity: manages target hit flags and attack state,
- * advances its callback, and snaps its coordinates to the camera. */
+/* Per-frame update of a camera-snapped projectile: refresh the hit target and
+ * sprite visibility, dispatch the current script step, then place the sprite
+ * in camera space using the scroll table. */
 void updateCameraSnappedProjectile(u8 *self) {
-    u8 *gfxObj;
-    u8 *anim;
-    u8 *stateSlot;
-    u8 *coordTable;
-    u8 *coordXPtr;
-    u8 *camTable;
-    u32 index;
-    u32 coordX;
-    u32 coordY;
-    u32 stateId;
-    u8 *slots;
-    s32 stateOffset;
-    u8 *p1;
-    s32 hitFlag;
-    s32 *stateFn;
+    u8 *sprite;
+    u8 *work;
+    u8 *nextStep;
+    u8 *cameraState;
+    u8 *scrollXBase;
+    u8 *frameCounter;
+    u32 scrollOffset;
+    u32 scrollX;
+    u32 scrollY;
+    u32 stepOpcode;
+    u8 *stepBase;
+    s32 stepOffset;
+    u8 *currentStep;
+    s32 wasHit;
+    s32 *eventCallbacks;
     u32 tmp;
 
-    gfxObj = *(u8 **)(self + 0x38);
-    anim = *(u8 **)(self + 0x3C);
-    if (sub_0805F9B4(*(s32 *)(anim + 8), *(s32 *)(anim + 0xC)) == 1) {
-        s32 tmp2 = 0xBF & ((struct ObjFlags2 *)(gfxObj + 0x2A))->flag;
-        u8 v = 0;
-        ((struct ObjFlags2 *)(gfxObj + 0x2A))->flag = tmp2;
-        ((struct TargetState *)(*(u8 **)(anim + 0x28)))->flag = v;
+    sprite = *(u8 **)(self + 0x38);
+    work = *(u8 **)(self + 0x3C);
+    if (isOutsideCameraBounds(*(s32 *)(work + 8), *(s32 *)(work + 0xC)) == 1) {
+        s32 maskedBits = ATTACK_SPRITE_SHOW_MASK &
+                         ((struct AttackSpriteFlags *)(sprite + 0x2A))->flag;
+        u8 zero = 0;
+        ((struct AttackSpriteFlags *)(sprite + 0x2A))->flag = maskedBits;
+        ((struct AttackTargetState *)(*(u8 **)(work + 0x28)))->hitState = zero;
     } else {
-        ((struct TargetState *)(*(u8 **)(anim + 0x28)))->flag = 4;
-        ((struct ObjFlags2 *)(gfxObj + 0x2A))->flag |= 0x40;
-        if (hitTestEntities(*(u8 **)(anim + 0x28)) != 0) {
-            ((struct AnimFlag *)anim)->flag |= 1;
+        ((struct AttackTargetState *)(*(u8 **)(work + 0x28)))->hitState = ATTACK_TARGET_PENDING;
+        ((struct AttackSpriteFlags *)(sprite + 0x2A))->flag |= ATTACK_SPRITE_HIDE_FLAG;
+        if (hitTestEntities(*(u8 **)(work + 0x28)) != 0) {
+            ((struct AttackHitFlags *)work)->flag |= SCRIPT_OBJ_HIT_FLAG;
         }
     }
-    hitFlag = *(u16 *)anim & 1;
-    slots = self + 0x18;
-    if (hitFlag) {
-        ((struct TargetState *)(*(u8 **)(anim + 0x28)))->flag = 0;
-        stateOffset = *(s16 *)(self + 0x22) * 2;
-        p1 = (u8 *)((s32)stateOffset + (s32)self);
-        tmp = *(u8 *)(p1 + 0x1A);
+    wasHit = *(u16 *)work & SCRIPT_OBJ_HIT_FLAG;
+    stepBase = self + SCRIPT_STEP_BASE_OFFSET;
+    if (wasHit) {
+        ((struct AttackTargetState *)(*(u8 **)(work + 0x28)))->hitState = ATTACK_TARGET_CLEAR;
+        stepOffset = *(s16 *)(self + SCRIPT_STEP_INDEX_OFFSET) * 2;
+        currentStep = (u8 *)((s32)stepOffset + (s32)self);
+        tmp = *(u8 *)(currentStep + 0x1A);
         tmp = (tmp - 1) << 24;
         tmp = tmp >> 24;
         if (tmp > 1) {
-            *(u8 *)(p1 + 0x1B) = 0;
-            stateFn = &gScriptEventCallbacks;
-            sub_080C31E8(slots, self + 0x22, 1, *stateFn);
+            *(u8 *)(currentStep + 0x1B) = 0;
+            eventCallbacks = &gScriptEventCallbacks;
+            _call_via_r3(stepBase, self + SCRIPT_STEP_INDEX_OFFSET, 1, *eventCallbacks);
         }
     }
-    *(u32 *)(self + 0x14) = (u32)D_0866FAE0;
-    *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) + 1;
-    stateSlot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
-    *(u8 *)(stateSlot + 0x19) = *(u8 *)(stateSlot + 0x19) + 1;
-    stateOffset = *(s16 *)(self + 0x22) * 2;
-    stateId = *(u8 *)((u32)slots + (u32)stateOffset);
-    sub_080C31E0(self, *(u32 *)(*(u32 *)(self + 0x14) + stateId * 4));
-    *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
-    if ((*(u16 *)(self + 2) & 0x8000) == 0) {
-        coordTable = gCameraState;
-        camTable = gMainWorkspace;
-        camTable += 0x18A8;
-        index = ((u32)*camTable + 1) * 0x40;
-        coordXPtr = coordTable + 0x1278;
-        coordX = *(u32 *)(coordXPtr + index);
-        *(u32 *)(gfxObj + 0x14) = *(u32 *)(anim + 8) - ((coordX + 0x8000) & 0xFFFF0000);
-        index = ((u32)*camTable + 1) * 0x40;
-        coordTable += 0x127C;
-        coordY = *(u32 *)(coordTable + index);
-        *(u32 *)(gfxObj + 0x18) = *(u32 *)(anim + 0xC) - ((coordY + 0xFFFF8000) & 0xFFFF0000);
+    *(u32 *)(self + SCRIPT_STEP_TABLE_OFFSET) = (u32)gCameraSnappedProjectileStepTable;
+    *(u16 *)(self + SCRIPT_STEP_INDEX_OFFSET) = *(u16 *)(self + SCRIPT_STEP_INDEX_OFFSET) + 1;
+    nextStep = (u8 *)((u32)(*(s16 *)(self + SCRIPT_STEP_INDEX_OFFSET)) * 2 + (u32)self);
+    *(u8 *)(nextStep + 0x19) = *(u8 *)(nextStep + 0x19) + 1;
+    stepOffset = *(s16 *)(self + SCRIPT_STEP_INDEX_OFFSET) * 2;
+    stepOpcode = *(u8 *)((u32)stepBase + (u32)stepOffset);
+    _call_via_r1(self, *(u32 *)(*(u32 *)(self + SCRIPT_STEP_TABLE_OFFSET) + stepOpcode * 4));
+    *(u16 *)(self + SCRIPT_STEP_INDEX_OFFSET) = *(u16 *)(self + SCRIPT_STEP_INDEX_OFFSET) - 1;
+    if ((*(u16 *)(self + 2) & SCRIPT_OBJ_FLAG_SKIP_ANIM) == 0) {
+        cameraState = gCameraState;
+        frameCounter = gMainWorkspace;
+        frameCounter += 0x18A8;
+        scrollOffset = ((u32)*frameCounter + 1) * 0x40;
+        scrollXBase = cameraState + 0x1278;
+        scrollX = *(u32 *)(scrollXBase + scrollOffset);
+        *(u32 *)(sprite + 0x14) = *(u32 *)(work + 8) - ((scrollX + 0x8000) & 0xFFFF0000);
+        scrollOffset = ((u32)*frameCounter + 1) * 0x40;
+        cameraState += 0x127C;
+        scrollY = *(u32 *)(cameraState + scrollOffset);
+        *(u32 *)(sprite + 0x18) = *(u32 *)(work + 0xC) - ((scrollY + 0xFFFF8000) & 0xFFFF0000);
     }
 }

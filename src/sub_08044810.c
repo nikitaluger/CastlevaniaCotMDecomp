@@ -3,7 +3,7 @@ extern u32 gMainObjTimerCallbacks[];
 s32 scaleByRandom(s32);
 void stepAnimationTrack(s32, void *);
 void advanceMotion(void *, s32);
-void sub_080148D8(s32, s32);
+void setSpriteFacingToTarget(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Steps the work object's physics and animation and flips the sprite with its
@@ -20,7 +20,7 @@ void sub_08044810(u8 *arg0) {
 
     advanceMotion(work, 0);
     stepAnimationTrack(sprite, animator);
-    sub_080148D8(sprite, *(s32 *)(work + 8));
+    setSpriteFacingToTarget(sprite, *(s32 *)(work + 8));
     {
         s32 y = *(s32 *)(work + 0xC);
         if (y < *(s32 *)(self + 0x6C)) {

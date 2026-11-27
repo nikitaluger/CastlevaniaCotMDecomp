@@ -2,7 +2,7 @@ extern s16 D_080CF858[];
 void setAnimationFrame(void *, s32, s16, s32);
 void stepAnimationTrack(void *, s32);
 void copyPoseAttrs(void *, void *);
-void sub_080148D8(void *, s32);
+void setSpriteFacingToTarget(void *, s32);
 void sub_08047164(void *, void *, void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
 
@@ -28,7 +28,7 @@ void sub_08046248(void *self) {
         *(u8 *)((u8 *)*(void **)((u8 *)sprite + 4) + 1) = 0;
         frameIndex = D_080CF858[*(u8 *)((u8 *)self + 0x4C)];
         setAnimationFrame(animCtrl, (void *)animState, frameIndex, 1);
-        sub_080148D8(animCtrl, *(s32 *)((u8 *)body + 8));
+        setSpriteFacingToTarget(animCtrl, *(s32 *)((u8 *)body + 8));
         flag = *(u16 *)((u8 *)animCtrl + 2) & 0x10;
         renderMask = 0xFFFFD000;
         if (flag != 0)

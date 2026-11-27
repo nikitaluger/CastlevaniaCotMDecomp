@@ -1,6 +1,6 @@
 s32 setAnimationFrame(s32, s32, s32, s32);
 s32 stepAnimationTrack(s32, s32);
-s32 sub_080148D8(s32, s32);
+s32 setSpriteFacingToTarget(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 /* Script step: refresh the sprite's facing flag and animation from the work
@@ -17,7 +17,7 @@ void sub_0803CDA8(void *self) {
     work = *((void **)(((s8 *)self) + 0x3C));
     body = work;
     animator = (s32)body + 0x34;
-    sub_080148D8(sprite, *((s32 *)(((s8 *)body) + 8)));
+    setSpriteFacingToTarget(sprite, *((s32 *)(((s8 *)body) + 8)));
     workBytes = (s8 *)body;
     stepAnimationTrack(sprite, animator);
     if (2 & (*((u8 *)(workBytes + 0x34)))) {

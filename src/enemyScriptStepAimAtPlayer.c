@@ -11,7 +11,7 @@ s32 getAngleFromDelta(s32, s32);
 void sub_08005E80(s32);
 void setObjectAnimation(void *, void *, s32, s32);
 void sub_08011EE8(void *, s32, s32);
-void sub_080148D8(void *, s32);
+void setSpriteFacingToTarget(void *, s32);
 void setEffectBehavior(s32, s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -26,7 +26,7 @@ void enemyScriptStepAimAtPlayer(void *scriptThread)
     void *work = *((void **) (((u8 *) thread) + 0x3C));
     void *animTrack = (void *) (((u8 *) work) + 0x34);
     void *stepState = (void *) (((u8 *) work) + 0x48);
-    sub_080148D8(sprite, *((s32 *) (((u8 *) work) + 0x08)));
+    setSpriteFacingToTarget(sprite, *((s32 *) (((u8 *) work) + 0x08)));
     {
         s32 baseVelX;
         if ((*((u16 *) (((u8 *) sprite) + 0x02))) & 0x10)

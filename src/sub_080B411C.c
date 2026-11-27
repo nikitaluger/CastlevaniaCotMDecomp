@@ -1,5 +1,5 @@
 s32 setObjectAnimation(s32, s32, s32, s32);
-s32 sub_080148D8(s32, s32);
+s32 setSpriteFacingToTarget(s32, s32);
 s32 sub_080B7280(s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -18,7 +18,7 @@ void sub_080B411C(void *arg0) {
     u8 *stateBase;
 
     setObjectAnimation((s32)gfx, (s32)anim, 0x42, 0);
-    sub_080148D8((s32)gfx, *(s32 *)(actor + 8));
+    setSpriteFacingToTarget((s32)gfx, *(s32 *)(actor + 8));
     stateSlot = (u8 *)((s32)*(s16 *)(self + 0x22) * 2 + (s32)self);
     if (stateSlot[0x19] == 0x1E) {
         setObjectAnimation((s32)gfx, (s32)anim, 0x44, 1);

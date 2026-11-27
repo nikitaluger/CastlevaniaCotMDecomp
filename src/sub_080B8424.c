@@ -1,4 +1,4 @@
-void sub_080148D8(void *, s32);
+void setSpriteFacingToTarget(void *, s32);
 s32 sub_080B9824(s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -15,7 +15,7 @@ void sub_080B8424(void *arg0) {
     u8 *entity = (u8 *)arg0;
     void *sprite = *(void **)(entity + 0x38);
     void *work = *(void **)(entity + 0x3C);
-    sub_080148D8(sprite, *(s32 *)((u8 *)work + 8));
+    setSpriteFacingToTarget(sprite, *(s32 *)((u8 *)work + 8));
     if (*(u8 *)(entity + 0x4C) != 0) {
         u8 *flags = (u8 *)sprite + 0x2A;
         u8 newFlags = *flags | 0x40;

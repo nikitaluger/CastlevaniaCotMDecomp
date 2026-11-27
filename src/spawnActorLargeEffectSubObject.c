@@ -15,7 +15,7 @@ extern void installUpdateHandler(void *, void *, s32);
 extern s32 findKindIndex(void);
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r2(void *, void *, u32);
-void sub_080B943C(u8 *arg0)
+void spawnActorLargeEffectSubObject(u8 *arg0)
 {
   u8 *alloc = allocSpriteObject();
   u8 *p;

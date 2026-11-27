@@ -1,7 +1,7 @@
 /* Entity update: refresh the sprite's visibility flag, then when this
  * entity's sequence timer reaches 0x1E start an animation, clear an effect
  * field, play a sound, reset the timer and install the next callback. */
-extern void sub_080148D8(void *, s32);
+extern void setSpriteFacingToTarget(void *, s32);
 extern void forceAnimationFrame(void *, void *, s32, s32);
 extern void setEffectBehavior(s32, s32);
 extern void sub_08005E80(s32);
@@ -13,7 +13,7 @@ void sub_0809A404(void *entity) {
     u8 *state = *(u8 **)(self + 0x3C);
     u8 *anim = state + 0x34;
     u8 *fx = state + 0x48;
-    sub_080148D8(sprite, *(s32 *)(state + 8));
+    setSpriteFacingToTarget(sprite, *(s32 *)(state + 8));
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x1E) {
         forceAnimationFrame(sprite, anim, 9, 0);
         setEffectBehavior(*(s32 *)(fx + 8), 0);

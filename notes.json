@@ -2440,7 +2440,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080148D8",
+  "function": "setSpriteFacingToTarget",
   "text": "Best 15/99.1% \u2014 only 3 regalloc diffs remain, no instruction/flow differences. Target true branch: `ldrh r1,[r4,#2]; movs r0,#0x10; orrs r0,r1`; false branch: `ldrh r1,[r4,#2]; ldr r0,=0xFFEF; ands r0,r1`; then `strh r0,[r4,#2]`. Mine is identical except result is in r1 (`orrs r1,r0`, `ands r1,r0`, `strh r1`). Input registers/order match exactly; only var_r0's allocated register differs (target r0, mine r1). Tried: inline_fn helper returning the u16 load (permuter's trick, got from 25 to 15), an extra `u16 t` temp in either declaration order, u32 var with cast at store, register asm pin (rejected \u2014 inline asm not allowed). Need a C structure that makes agbcc allocate the merged result variable to r0 rather than r1 \u2014 e.g. different declaration order, an extra pseudo created before the branch, or a helper/inlining arrangement. The store is a single merged `strh` after the branches, so the load must stay inside each branch.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683533.9110029,
@@ -15344,7 +15344,15 @@
   "score_after": null
  },
  {
-  "function": "sub_080994DC",
+  "function": "updateCameraSnappedProjectile",
+  "text": "Releasing: regalloc issue remaining; best attempt saved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9757993,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "enemyScriptStepCycleAnimation",
   "text": "Releasing: best attempt saved.",
   "by": "opencode-free-1",
   "created_at": 1795683533.97587,
@@ -15376,7 +15384,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Releasing: best attempt saved.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9760127,
@@ -18376,7 +18384,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080148D8",
+  "function": "setSpriteFacingToTarget",
   "text": "Score 15/99.1% (best matches prior). Instructions/flow identical to target; only regalloc differs in both branches and final store: target does `ldrh r1,[r4,#2]; movs/ldr r0,imm; orrs/ands r0,r1; strh r0,[r4,#2]`, mine does `orrs/ands r1,r0; strh r1,[r4,#2]` (result ends up in r1 instead of r0). Tried: temp `t` inside branches, two-step `var_r0 = load; var_r0 |=/ &= imm`, and `u32 var_r0` type \u2014 all same 15. Needs a C form/declaration/statement arrangement that makes agbcc allocate merged result to r0 (dest of orrs/ands) while keeping loads inside each branch and single merged store after. Best attempt is the inline_fn form in notes.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683533.9938262,
@@ -18872,7 +18880,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080148D8",
+  "function": "setSpriteFacingToTarget",
   "text": "Best 15. Target orrs/ands result in r0, ours in r1. Tried inline helper, temp var, dummy, u32 type. Cannot flip regalloc. Needs different C form.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9967828,
@@ -28032,7 +28040,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080148D8",
+  "function": "setSpriteFacingToTarget",
   "text": "Best attempt: score 15 (99.1%), target 18 insns, mine 18. Instructions and control flow match exactly. Only diff: register allocation \u2014 target puts merged result in r0 (`orrs r0,r1` / `ands r0,r1` / `strh r0,[r4,#2]`), mine puts it in r1 (`orrs r1,r0` / `ands r1,r0` / `strh r1,[r4,#2]`). Loads and constants are in the right registers (r1=load, r0=imm/literal), only the result variable `var_r0` lands in r1 instead of r0. Logic: if (sub_08014938(arg1) > 0) arg0[1] |= 0x10; else arg0[1] &= 0xFFEF. Tried: `load | 0x10` vs `0x10 | load` (25), u16 vs u32 var_r0 (15 no change), two-step load-then-modify (15 no change), inline_fn helper (brought 25\u219215), u16* param with arg0[1] indexing (25 worse). Cannot flip var_r0's register from r1 to r0 from pure C. Needs register pinning or NONMATCHING. Best source (score 15): inline_fn + u16 var_r0 + `0x10 | inline_fn(...)` / `0xFFEF & inline_fn(...)` form, kept on record. Prototype needed: `s32 sub_08014938(s32);`",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.0458338,
@@ -39592,7 +39600,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080148D8",
+  "function": "setSpriteFacingToTarget",
   "text": "MATCHED (score 0) using the compound-assignment-through-struct-field trick: define `struct S { u8 pad[2]; u16 f2; };` and write `arg0->f2 |= 0x10;` / `arg0->f2 &= 0xFFEF;` in the two if arms. This keeps the merged result in r0 (`orrs r0,r1` / `ands r0,r1` / `strh r0,[r4,#2]`) \u2014 the `inline_fn` + `u16 var_r0` form scores 15 (result in r1), and an s32 temp scores 25. The struct compound-assignment is the key \u2014 it reproduces the single merged `strh` at the join with the load in r1 and constant in r0. Prototype: `s32 sub_08014938(s32);`",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.1067057,
@@ -50176,7 +50184,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Best 1126 (92.1%, 144/144 insns). Solid structure: alloc=sub_0800355C(); two fail paths with inline duplicated `_call_via_r1(arg0,*(void**)(arg0+0x24)); return;` merged by cross-jumping; sub_0800168C(arg0,0,0x120,0); null check loads r0 then p reloaded after the `&=0xBF`; sub_08014288(arg0,p,0x08097DC9); sub_08013C2C(0x67) (real prototype s32 sub_08013C2C(s16)); named struct `struct Half2{u8 _0[2];u16 f;}` for `((struct Half2*)arg0)->f |= 0x1000` (needed to fix ldrh/orrs regalloc); `v=v<<6; v+=0x200; v&=0xFC0` as SEPARATE statements (fixes lsls regalloc); 16-byte fill loop with u32 i (gives bls). Remaining: (a) target has `adds r1,r0,#0` after the sub_08013C2C call; ours has an extra `movs r0,#0x67` and its BL resolves to a local stub (`bl #0x50`) \u2014 with K&R `extern s32 sub_08013C2C();` and NO argument the BL matches and the extra movs disappears, but the function shrinks to 141 insns and then ALL _call_via BLs resolve to local stubs instead of 0x080C31E0/E4. (b) target computes arg0+0x22 into ip (r12) BEFORE the loop's `adds r5,r5,#0x110`; ours computes it into r7 after the loop. Every attempt to name that pointer (idx22/q) overflowed to r9/sb and destroyed all call resolutions \u2014 target uses exactly r4-r8+r12, so NO new live pointer may be introduced. (c) some ldrsh/ldrh and adds register choices in the final indexed-byte and table-lookup blocks. D_02025FF0 struct with field at 0x18C2 and u32 D_08671BB0[] are correct.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1629798,
@@ -97824,6 +97832,14 @@
   "score_after": null
  },
  {
+  "function": "updateCameraSnappedProjectile",
+  "text": "Ceiling at 1685 (88.5% best). All structural matches. Regalloc wall: standard prologue but register mapping differs throughout. Call relocations differ project-wide. Unfixable from C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4104187,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08001588",
   "text": "Proven permanent agbcc regalloc/callee-save wall at score 240 (saved best; ~113+ attempts floor at 240-260). My compile: 240 (equals best, no improvement). Target keeps mask 0x3FFF in callee-saved r6 reloaded per iter (`adds r3,r6`), end in r5, loop `blo #0x18`; agbcc emits extra entry `adds r5,r0`, swaps callee-saves (target a->r4/b->r1/mask->r6 vs agbcc a->r6/b->r5), no mask reload, `blo #0x1a`. No pure-C fix (decl order, do-while, mask var, goto forms); register-asm banned (#354). Body: range search over D_02025B74-end buffer stepping 0xBC, match [a,b] against masked u16. Data D_02025B74 u32 end; sig sub_08001588(s32,s32,s32)->void*. Called by sub_080015CC; needs sub_08001534; waited for by sub_0800852C.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -97840,7 +97856,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080994DC",
+  "function": "enemyScriptStepCycleAnimation",
   "text": "Ceiling at 1115 (91.9% best). All structural logic matched. Regalloc wall: high-reg save (r8/r9), sb=temp_r5+0x48, r8=0; agbcc sl/sb different. Call relocations differ. Unfixable from C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4105752,
@@ -97872,7 +97888,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Ceiling at 1126 (92.1% best). All structural matches. Regalloc wall: high-reg save (r8), specific r4-r8+r12 mapping; agbcc different. Missing adds r1,r0,#0 after sub_08013C2C. Call relocations differ. Unfixable from C.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4107347,
@@ -100792,7 +100808,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080994DC",
+  "function": "enemyScriptStepCycleAnimation",
   "text": "m2c draft scores 1115 (91.9%). Permanent regalloc/call-relocation wall; no pure-C lever found in 1 compile. Releasing to end session; not C-solvable without major rewrite.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.426611,
@@ -100892,6 +100908,14 @@
   "text": "Permanent agbcc regalloc/callee-save wall at 330 (12 regalloc/7 operand/2 missing, target push {r4,r5,lr} with mask in r5 reloaded per iter; agbcc push {r4,lr}). ~160+ attempts. Not not_c. Needs sub_08002C94. Best source preserved.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.4271197,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCameraSnappedProjectile",
+  "text": "Cannot get closer: proven agbcc register allocation wall. Target loads temp_r7 into r7 explicitly (ldr r7, [r4,#0x38]) before temp_r5 into r5; agbcc allocates by first-use order (temp_r5 used in call->r5, temp_r7 used in if/else->r6, p18 used later->r7). No C spelling changes the allocation order (tried declaration order, assignment order, dummy vars). Call relocations also differ. COORD block matches sub_08026BDC pattern. Fundamental agbcc codegen limitation.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4271588,
   "score_before": null,
   "score_after": null
  },
@@ -105712,7 +105736,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080994DC",
+  "function": "enemyScriptStepCycleAnimation",
   "text": "Cannot get closer from C. 138/138 instructions byte-exact at score 65 (99.5%); the SOLE remaining diff is a deterministic agbcc callee-saved register tie-break: target assigns base (loaded from arg0+0x3C) to r5 and the +0x34 pointer to r6, agbcc assigns them the other way round (13 `r` rows, all the same swap). Exhaustively tried this session (6 more compiles): declaration-order swaps, definition-order swaps, r9/p34 computation reorder, u32 base type (regresses to 870 by adding an sl register), struct-pointer arg0 (no change), register-asm pin (rejected as inline asm). No C spelling controls this tie-break; pure compiler-level regalloc decision. Improved the recorded best from 1115 to 65. Ordinary correct C, not hand-written asm, not not_c. Best score-65 source preserved; releasing to spend budget on matchable functions.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4539678,
@@ -105972,6 +105996,14 @@
   "text": "Regalloc/LICM wall at 666 confirmed (2 compiles): target r6/r7/r4 binding + in-branch 0x00FFFFFF materialize; agbcc r4/r5 + LICM-hoisted limit. 61+ prior attempts, not C-solvable. Best source saved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.4554577,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateCameraSnappedProjectile",
+  "text": "Cannot get closer within this session's budget: improved the function substantially (1685 -> 1180, 92%, first 36 insns byte-exact) by fixing the real COORD-block bug and the bit-op temporaries. The remaining 1180-point gap is entirely deterministic agbcc register allocation/scheduling: target computes arg0+0x18 into r6 after the flag AND (ours before), uses r2 for the zero store (ours r3), r1 for the 0x22 index (ours r2), and a different operand order for the final 0x8000 AND; the two extra emitted instructions shift all literal-pool offsets. Five compiles this session explored these (common-block duplication regressed to 4446; u32-cast commutative flip had no effect), and the inherited 15 prior attempts also floor at 1685. No further C-side lever found; ordinary correct C, not hand asm, not not_c. Releasing to complete the final session claim.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.455503,
   "score_before": null,
   "score_after": null
  },
@@ -119408,7 +119440,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Confirmed unfixable in pure C this session (3 compiles): best 1126 (92.1%) from prior agent with s32 t and arg to sub_08013C2C; s16 t gives 2176 (+2 truncation insns), K&R no-arg gives 2941 (137 insns, all regalloc shifted). BL relocation to sub_08013C2C resolves to a local stub in every form; target's `adds r1,r0,#0`, ip-before-loop pointer alloc and r4-r8+r12 coloring cannot be reached without overflowing to r9/sb (which breaks all indirect call resolutions, documented in prior notes). 25 prior attempts concur.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.528816,
@@ -119960,7 +119992,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer in pure C (best 1126/92.1%, 144/144 insns, 4 compiles this session; 28+ prior attempts). Tried: (1) baseline save (1126), (2) structural rewrite (2005), (3) sub_080C31E0/E4 symbol-name fix (1126, no change), (4) naming arg0+0x22/arg0+0x18/&D_08671BB0 before loop to match target ip/r12 setup (2247). Remaining diffs are compiler/register-scheduling walls: target has `adds r1,r0,#0` after `sub_08013C2C` and BL resolves differently; mine emits extra `movs r0,#0x67` and `bl #0x50`. Target forms `mov ip,r1` for arg0+0x22 before `adds r5,r5,#0x110` loop setup; attempts to introduce that live pointer overflow to high regs and break call resolutions (confirmed by prior notes). Cascading branch/literal offsets and call-relocation diffs follow. No boundary/padding issue (ends at bx r0, insn count equal). Releasing with best preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.5316374,
@@ -132536,7 +132568,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer: agbcc regalloc wall at 1126 (92.1%, 144 insns). ip/r12 live pointer and call-resolution coupling not reachable from C. Logic correct. Releasing.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.5970213,
@@ -151048,7 +151080,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Best score 1126 (92.1%, 144/144 insns). Structure/control flow/CSE all match target exactly. Remaining diffs are PURE agbcc register allocation \u2014 cannot be fixed from pure C (register asm pinning banned):\n\n(1) Extra `movs r0,#0x67` before sub_08013C2C \u2014 target calls sub_08013C2C with NO argument (r0=0x67 is set by the preceding strh, not as call arg); ours passes 0x67 as arg requiring reload. Declaring sub_08013C2C(void) no-arg removed this but shifted BL offsets causing stubs for other calls (score 1726).\n\n(2) Missing `adds r1,r0,#0` after sub_08013C2C \u2014 target copies return to r1 before strh/lsls; agbcc uses r0 directly. Same regalloc wall as sub_080A9CC4. Tried: saved copy variable, s16 return type (much worse, 3926 with sb save), no-arg declaration \u2014 none helped.\n\n(3) Missing `mov ip,r1` before the 16-byte copy loop \u2014 target keeps arg0+0x22 in ip(r12) across loop; agbcc recomputes arg0+0x22 each time. Introducing u8* arg0_22 variable had no effect (agbcc doesn't color it to ip). Prior notes confirm: introducing new live pointer overflows to r9/sb and breaks call resolutions.\n\n(4) BL stubs instead of direct calls \u2014 _call_via_r1/r2 wrappers produce indirect calls; target uses direct bl. Declaring direct externs for sub_080C31E0/E4 broke r8 save (score 3465).\n\n(5) Loop setup reg: target uses r0 for 0x88\u21920x110, ours uses r1 (cascading regalloc).\n\nTried: sub_08013C2C(s16) with arg [1126 baseline], no-arg + direct calls [3465], no-arg + _call_via [1726], direct arg 0x67 [1126], saved return copy [1126], u8* arg0_22 local [1126], s16 return type [3926]. All no better.\n\nConfirmed terminal wall: same regalloc wall class as sub_080A9CC4. Body logic, calls, constants, offsets all correct.\n\nBest C source saved (1126 version: u8* locals alloc/p/r7/r8, s32 t/v, u32 i, struct Half2{u8 _0[2];u16 f;} for arg0+0x22, sub_08013C2C(s16) with compound assignment, _call_via_r1/r2 wrappers for indirect calls).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.6926446,
@@ -151472,7 +151504,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Confirmed terminal agbcc register allocation wall at best 1126 (92.1%, 144/144 insns). Structure/control flow/CSE all match target exactly. Remaining diffs are PURE agbcc register allocation \u2014 cannot be fixed from pure C (register asm pinning banned):\n\n(1) Extra `movs r0,#0x67` before sub_08013C2C \u2014 target calls sub_08013C2C with NO argument (r0=0x67 is set by the preceding strh, not as call arg); ours passes 0x67 as arg requiring reload. Declaring sub_08013C2C(void) no-arg removed this but shifted BL offsets causing stubs for other calls (score 1726).\n\n(2) Missing `adds r1,r0,#0` after sub_08013C2C \u2014 target copies return to r1 before strh/lsls; agbcc uses r0 directly. Same regalloc wall as sub_080A9CC4. Tried: saved copy variable, s16 return type (much worse, 3926 with sb save), no-arg declaration \u2014 none helped.\n\n(3) Missing `mov ip,r1` before the 16-byte copy loop \u2014 target keeps arg0+0x22 in ip(r12) across loop; agbcc recomputes arg0+0x22 each time. Introducing u8* arg0_22 variable had no effect (agbcc doesn't color it to ip). Prior notes confirm: introducing new live pointer overflows to r9/sb and breaks call resolutions.\n\n(4) BL stubs instead of direct calls \u2014 _call_via_r1/r2 wrappers produce indirect calls; target uses direct bl. Declaring direct externs for sub_080C31E0/E4 broke r8 save (score 3465).\n\n(5) Loop setup reg: target uses r0 for 0x88\u21920x110, ours uses r1 (cascading regalloc).\n\nTried: sub_08013C2C(s16) with arg [1126 baseline], no-arg + direct calls [3465], no-arg + _call_via [1726], direct arg 0x67 [1126], saved return copy [1126], u8* arg0_22 local [1126], s16 return type [3926]. All no better.\n\nConfirmed terminal wall: same regalloc wall class as sub_080A9CC4. Body logic, calls, constants, offsets all correct.\n\nBest C source saved (1126 version: u8* locals alloc/p/r7/r8, s32 t/v, u32 i, struct Half2{u8 _0[2];u16 f;} for arg0+0x22, sub_08013C2C(s16) with compound assignment, _call_via_r1/r2 wrappers for indirect calls).",
   "by": "opencode-free-1",
   "created_at": 1795683534.694877,
@@ -154760,7 +154792,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal regalloc wall at 1126 (92.1%, 144/144 insns). All structure/control flow/CSE correct. Remaining diffs are pure agbcc register allocation that cannot be fixed from pure C: (1) extra movs r0,#0x67 before sub_08013C2C call, (2) missing adds r1,r0,#0 after call, (3) missing mov ip,r1 before 16-byte copy loop, (4) BL stubs instead of direct calls for _call_via_r1/r2, (5) loop setup register differences. Multiple agents confirmed unfixable in pure C. Same regalloc wall class as sub_080A9CC4.",
   "by": "opencode-free-1",
   "created_at": 1795683534.7119555,
@@ -155960,7 +155992,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Confirmed terminal agbcc register allocation wall at 1126 (92.1%, 144/144 insns). Structure/control flow/CSE all match target exactly. Remaining diffs are PURE agbcc register allocation \u2014 cannot be fixed from pure C (register asm pinning banned):\n\n(1) Extra `movs r0,#0x67` before sub_08013C2C \u2014 target calls sub_08013C2C with NO argument (r0=0x67 is set by the preceding strh, not as call arg); ours passes 0x67 as arg requiring reload. Declaring sub_08013C2C(void) no-arg removed this but shifted BL offsets causing stubs for other calls (score 1726).\n\n(2) Missing `adds r1,r0,#0` after sub_08013C2C \u2014 target copies return to r1 before strh/lsls; agbcc uses r0 directly. Same regalloc wall as sub_080A9CC4. Tried: saved copy variable, s16 return type (much worse, 3926 with sb save), no-arg declaration \u2014 none helped.\n\n(3) Missing `mov ip,r1` before the 16-byte copy loop \u2014 target keeps arg0+0x22 in ip(r12) across loop; agbcc recomputes arg0+0x22 each time. Introducing u8* arg0_22 variable had no effect (agbcc doesn't color it to ip). Prior notes confirm: introducing new live pointer overflows to r9/sb and breaks call resolutions.\n\n(4) BL stubs instead of direct calls \u2014 _call_via_r1/r2 wrappers produce indirect calls; target uses direct bl. Declaring direct externs for sub_080C31E0/E4 broke r8 save (score 3465).\n\n(5) Loop setup reg: target uses r0 for 0x88\u21920x110, ours uses r1 (cascading regalloc).\n\nTried: sub_08013C2C(s16) with arg [1126 baseline], no-arg + direct calls [3465], no-arg + _call_via [1726], direct arg 0x67 [1126], saved return copy [1126], u8* arg0_22 local [1126], s16 return type [3926]. All no better.\n\nConfirmed terminal wall: same regalloc wall class as sub_080A9CC4. Body logic, calls, constants, offsets all correct.",
   "by": "opencode-free-1",
   "created_at": 1795683534.7181513,
@@ -166952,7 +166984,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Asking again with the same reason: this is a confirmed agbcc register-allocation wall (45 prior attempts, 12 agents). Best 1126 (92.1%, 144/144 insns) has correct structure, control flow, calls, constants and offsets; the residual 11 regalloc + 7 operand rows need specific r4-r8/ip coloring (adds r1,r0,#0 after sub_08013C2C, mov ip,r1 for arg0+0x22, ret-in-r1) that no plain-C form reaches without overflowing to r9/sb and breaking call resolution (verified again this session: a direct-call + goto rewrite gives 4315/127). Nothing further to try in C; releasing to continue the claim quota.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.7754505,
@@ -169320,7 +169352,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Confirmed wall; best remains 1126 (prior). 5 compiles this session, best mine 1421 (144/144). Measured facts:\n1) Target calls sub_08013C2C with NO argument: `movs r0,#0x67; strh r0,[p+0x1C]; bl`. Splitting it (`*(u16*)(p+0x1C)=0x67; t=sub_08013C2C();` with `extern s32 sub_08013C2C(void)`) gives the correct 144-insn length; the saved 1126 form passes 0x67 as an arg and is 2 bytes too long (cascades the fail-branch/branch/pool offsets).\n2) ROM copy loop copies the SAME byte 16 times: `dst[i] = *(sprite+0x2A)` with dst=motion+0x110; the source address is never indexed (`ldrb r0,[r3]`, r3 not incremented). Do not write `src[i]`.\n3) Best structure reached 1421 with a `u8 zero` local assigned just before `|= 0x1000` (target materializes `movs r2,#0` between the OR-const setup and the orrs and reuses r2 for the `strb ...+0x19`).\n4) Residual is a rotation of 3 live pointers: target r8=&D_08671BB0(scriptTable), r6=arg0+0x18(stepBase), ip=arg0+0x22(angle); mine r8=stepBase, r6=angle, ip=&D_08671BB0. Tried declaring/assigning scriptTable at top (before sub_0800168C) to lengthen its live range: spills to sb, `push {r6,r7}`, score 2990 \u2014 do not do that. Also tried inline `arg0+0x18`/`arg0+0x22` expressions (no vars): 1875. The duplicate p pseudo (r7 for `&=0xBF`, separate r3=sprite+0x2A for the loop) hints the loop source is re-read through something gcc does not CSE with p (e.g. re-loading the sprite pointer from arg0+0x38 after the calls) \u2014 untested lead.\nNo boundary issue.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.7875774,
@@ -182304,7 +182336,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Compile #5 also 1726 (flag temp for t<<16 did not recover the target's `adds r1,r0,#0` copy). Cannot get closer in C \u2014 asking to release again after following the diff's next steps. Best remains the inherited 1126 (92.1%, 144/144 insns). Residual is a pure agbcc -Os regalloc/coloring wall confirmed over 52+ attempts / 12 agents: (a) target keeps r8=&D_08671BB0, r6=arg0+0x18, ip=arg0+0x22 across the 16-byte copy loop; agbcc rotates/relocates these and never uses ip without a high-reg spill (tried explicit anglePtr local, sibling template, direct calls, no-arg sub_08013C2C, flag temp, D_08671BB0++/-- trick \u2014 all 1726..2265), (b) missing `adds r1,r0,#0` after sub_08013C2C, (c) indirect stub calls from _call_via wrappers (direct-call versions shift the function to 141 insns). find_similar gave the matched sibling sub_080B8598; copying its exact template produced 2265 due to zero spilling to sb. Ordinary correct C, not hand asm, not not_c, no boundary. Best 1126 source preserved; further compiles cannot change the diff.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.8552778,
@@ -183968,7 +184000,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer in pure C. Score 1126 confirmed agbcc regalloc wall (57+ attempts): 144/144 insns, remaining diffs are r8/r6/ip coloring, sub_08013C2C arg form, and indirect-call stubs - no C lever fixes without spill/regressions. Not hand asm, not boundary.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.863884,
@@ -192024,7 +192056,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Releasing anyway: 58 prior attempts across 12 agents, best 1126, structure/control-flow/offsets/calls all match (144/144 insns). My one new lever (kind/tv named locals) made it worse (1926); the saved 1126 source is unchanged and remains best. Residual is pure agbcc regalloc: extra `movs r0,#0x67`, missing `adds r1,r0,#0`, missing hoisted `mov ip, arg0+0x22`, plus literal-pool positions that follow. Nothing left to try in plain C without register pinning (banned).",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.9059002,
@@ -192408,7 +192440,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Score 1126 (92.1%, 144/144 insns byte-exact). Terminal agbcc regalloc wall confirmed by my 1 compile plus 57+ prior attempts across 12 agents. Residual diffs: (1) extra `movs r0,#0x67` before sub_08013C2C (target calls with NO arg, r0=0x67 is from preceding strh not call arg); (2) missing `adds r1,r0,#0` after sub_08013C2C; (3) missing `mov ip,r1` before 16-byte copy loop (target keeps arg0+0x22 in ip=r12); (4) BL stubs instead of direct calls for _call_via_r1/r2; (5) loop setup register differences. Tried: sub_08013C2C(s16) with arg [1126 baseline], no-arg + direct calls [3465], no-arg + _call_via [1726], direct arg 0x67 [1126], saved return copy [1126], u8* arg0_22 local [1126], s16 return type [3926]. All no better; introducing new live pointer overflows to r9/sb and breaks call resolutions. Body logic/calls/constants/offsets all correct. Same regalloc wall class as sub_080A9CC4. Ordinary correct C, not hand asm, not not_c, not boundary. Best source = score-1126 version preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.9080129,
@@ -192928,7 +192960,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer in pure C. 144/144 instructions are byte-exact at score 1126 (92.1%); the residual is a deterministic agbcc -Os regalloc/linkage tie: extra movs r0,#0x67 for sub_08013C2C's arg, missing adds r1,r0,#0 return copy, missing mov ip,r1 for arg0+0x22 across the copy loop, a stub call for _call_via_r2, and the loop-setup register rotation. Applying the matched sibling's full template (direct calls, no-arg sub_08013C2C, zero local) regressed to 3041 by spilling zero to sb; its documented combinations no-arg+direct=3465 and no-arg+_call_via=1726 were already measured. 60+ attempts across 12 agents, register-asm pinning banned. Ordinary correct C, not hand asm, not not_c, no boundary. Best source preserved at 1126.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9106545,
@@ -193272,7 +193304,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer from C: 1126 (92.1%, 144/144 insns) is a confirmed agbcc regalloc wall - extra movs r0,#0x67 arg, missing adds r1,r0,#0/mov ip,r1, r8/r6/ip rotation, indirect-call stubs. 63+ attempts across 12 agents; no-arg/direct-call variants regress badly. Register-asm pinning banned. Ordinary C, not hand asm/not_c/no boundary. Best source preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.9124846,
@@ -200240,7 +200272,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Also tried the untested lead (re-reading sprite pointer from arg0+0x38 for the copy-loop source) \u2014 2545, much worse (breaks prologue and register coloring). Best/inherited 1126 stands; 64+ attempts across 12 agents agree the residual is an agbcc -Os regalloc/linkage wall no plain C reaches. Logic/calls/data/constants/offsets all correct. Ordinary C, not asm, not not_c, no boundary. Session complete: 8 claims compiled.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.9488702,
@@ -209472,7 +209504,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "TERMINAL WALL \u2014 releasing after 2 compiles (score 3166 vs inherited best 1126). What I tried: direct bl sub_080C31E0 / bl sub_080C31E4 calls (matching ROM asm), extern s32 sub_08013C2C(void) no-arg with separate *(u16*)(p+0x1C)=0x67 so r0=0x67 at bl (not an arg), extern u8 D_0841EB04 + (u32)&D_0841EB04 pool-materialization, block u32 *script=(u32*)0x08671BB0, u16 temp for *(u16*)(alloc+2)|=0x400, separate q computations to defeat CSE. Result: worse (3166); my function is 139 insns vs target 144, so literal-pool placement shifts and every diff cascades (branch displacements, pool words compared positionally: ROM pool has 0xBCF04698/0x4700BC01 where my address pointers land). Inherited 1126 source (in claim output) uses _call_via stubs + sub_08013C2C with arg and is 144 insns. Residual at 1126 (12 agents, 67 attempts): pure agbcc -Os regalloc/linkage wall \u2014 missing `adds r1,r0,#0` after bl sub_08013C2C (target copies return to r1 for the following lsls), missing hoisted `mov ip,r1` (arg0+0x22) before the 16-byte copy loop, stub-vs-direct call resolution, r8/r6/ip coloring across the loop. 144/144 instruction structure matches; no plain-C lever closes the register/pool residuals. Not hand-written asm, not a boundary issue. Best source = 1126 version from claim output. Next: try near-matched functions sub_0800DE50 (best 25), sub_080083B0 (best 70), sub_08008864 (best 50), sub_0800F414 (best 90).",
   "by": "opencode-free-1",
   "created_at": 1795683534.996911,
@@ -210784,7 +210816,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "CONFIRMING RELEASE. sub_080B943C is terminal from pure C at score 1126 (92.1%, 144/144 insns byte-exact) \u2014 pure agbcc regalloc/linker wall concurred by 12 agents over 67+ attempts. Residual: (1) extra `movs r0,#0x67` before sub_08013C2C (ROM calls with NO arg; 0x67 is from a preceding strh, not a call arg \u2014 no C spelling makes agbcc drop it), (2) missing `adds r1,r0,#0` after sub_08013C2C, (3) missing hoisted `mov ip, arg0+0x22` across the 16-byte copy loop (target keeps it in ip=r12), (4) indirect-call stubs (_call_via_r1/r2) vs ROM direct veneer bl's \u2014 linking flags \"calls something else\" x3, project/linker matter, (5) r8/r6/ip register rotation across the loop. Tried exhaustively: arg/no-arg sub_08013C2C, direct vs stub calls, declaration shuffling, flag temps, matched sibling sub_080B8598 template (regressed to 2265/3041), saved return copies, s16 return type \u2014 all 1126 or worse. Register-asm pinning banned. Logic/calls/constants/offsets all correct. Ordinary C, not hand asm, not not_c, no boundary. Best source = score-1126 version preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.003738,
@@ -213344,7 +213376,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "New best 480 (was 1126; 144/144 insns) via: `u16 u; u = sub_08013C2C(); *(u16 *)(p + 0x22) = u; if ((u << 16) < 0) fail;` plus a live local `u8 *parg = arg0 + 0x22;` created just before the 16-byte copy loop and used in the middle veneer call `sub_080C31E4(alloc, parg, *(u32 *)r8)` where r8 = (u8*)&D_08671BB0 \u2014 that reproduces the ROM's `mov ip, r1` hoist. Residual is ONE difference (everything else is downstream): ROM emits `adds r1, r0, #0; strh r1,[p+0x22]; lsls r0, r1, #0x10` (the call result copied into a HImode pseudo), agbcc gives `lsls r0,#16; lsrs r0,#16; strh r0` \u2014 i.e. zero-extension instead of a plain copy. Tried and all byte-identical to the 480 source: s32/u16/s16 variable, store with/without (u16) cast, store to (s16*)p, `u16 u = call()` directly, `extern u16 sub_08013C2C(void)`, real names sub_080C31E0/E4 vs _call_via_r1/r2. Full struct-style clone of matched sibling sub_080B8598 (which DOES have the `adds r1,r0,#0` in its ROM) regressed to 2350. Next idea: replicate the sibling's exact local declaration ORDER inside this function's own shape (s32 sprite; u8 *motion; u8 *status; s32 spriteBase; ...) \u2014 the copy pseudo seems to be a regalloc-order artifact, not a typing one.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683535.0168345,
@@ -213352,7 +213384,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Improved 1126 -> 480 (96.6%, 144/144 insns) this session; new best source is the claim's saved attempt. Two levers that worked: (1) the sub_08013C2C result must be held in a u16 local that is stored and then tested with `if ((u << 16) < 0)` (u16 u = call(); *(u16*)(p+0x22) = u;), (2) a live `u8 *parg = arg0 + 0x22;` local created right before the 16-byte copy loop and used in the middle veneer call `sub_080C31E4(alloc, parg, *(u32*)r8)` (r8=(u8*)&D_08671BB0) reproduces the ROM's `mov ip, r1` hoist. Residual is exactly one instruction: ROM has `adds r1, r0, #0; strh r1,[p+0x22]; lsls r0, r1, #0x10` (call result copied to a HImode pseudo), agbcc emits `lsls r0,#16; lsrs r0,#16; strh r0`; the other 3 operand/10 regalloc rows and the branch/pool offsets follow from it. All tried variants (s32/s16/u16 var, with/without cast, (s16*) store, u16-returning prototype, real veneer names, full struct clone of matched sibling sub_080B8598) were byte-identical to 480 or worse (2350). Remaining lead: the copy pseudo looks like an agbcc declaration-order/regalloc artifact \u2014 try the sibling sub_080B8598's exact local declaration order while keeping this function's pointed structure. Not hand asm, not not_c, no boundary issue.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683535.0168722,
@@ -214168,7 +214200,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Can't get closer from C: score 480 confirmed (this session + 67 prior attempts across 12 agents). All 144 target instructions structurally present; the only diff is the missing `adds r1,r0,#0` copy pseudo after sub_08013C2C (ROM: bl; adds r1,r0,#0; strh r1,[p+0x22]; lsls r0,r1,#0x10 \u2014 agbcc: lsls r0,#0x10; lsrs; strh r0) plus consequent branch-offset/literal-pool/regalloc rows. The s32+(t<<16)<0 sibling-spelling experiment scored 1040 (141 insns) \u2014 the copy pseudo is context-dependent and cannot be forced. Tried: s16/s32/u16 result vars, if (t<0) vs if ((t<<16)<0), (u16) casts, (s16*) store, direct bl vs stub calls, declaration shuffling, full matched-sibling template (regressed), D_08671BB0 spellings. Register-asm banned. Body/calls/data/offsets all byte-exact. Not hand asm, not not_c, no boundary, no callee dependency. Best source = score-480 version from this session's first compile.",
   "by": "opencode-free-1",
   "created_at": 1795683535.0210936,
@@ -214784,7 +214816,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Ask again: terminal from C at score 480 (my two compiles this session confirmed 480 then 820 for a worse spelling; 480 is the documented best). All 144 target instructions structurally present; residual is one missing copy pseudo after bl sub_08013C2C \u2014 ROM `bl; adds r1,r0,#0; strh r1,[p+0x22]; lsls r0,r1,#0x10`, agbcc `bl; lsls r0,#0x10; lsrs r0,#0x10; strh r0` \u2014 plus consequent beq offsets (0x5c vs 0x5e), call-target resolution (_call_via_r1/r2 stubs vs ROM direct veneer bls \u2014 linking \"calls something else\" x3, project/linker), register coloring (mov r1,ip hoist; adds r1,r0,r4 vs adds r1,r0+r4), and literal-pool positions. 86 attempts across 12 agents tried every spelling: u16/s32/s16 vars, if(t<0)/if((t<<16)<0), (u16) casts, (s16*) store, extern u16 prototype, direct bl vs stubs, real callee names, block-scoped parg, matched sibling sub_080B8598 template (regressed 2350), declaration shuffling \u2014 all 480 or worse, nothing forces the copy pseudo. Not hand asm, not not_c, no boundary (ends bx r0); callee linkage is a project/linker concern. Body/calls/data/constants/offsets otherwise byte-exact: sub_0800355C alloc, sub_0800168C(arg0,0,0x120,0), fail path via *(void**)(arg0+0x24), *(u32*)(arg0+0x5C)->alloc+0x1C, alloc+0x2A&=0xBF, sub_08014288(arg0,p,0x08097DC9), *(u16*)(p+0x1C)=0x67, p+0x22 store, v<<6+0x200&0xFC0, |=D_02025FF0.w, *(u16*)(alloc+2)|=0x400, *(u32*)(p+0x48)=0, *(u32*)(r8+4)=*(arg0+0x4C)-1, *(u32*)(alloc+0x24)=0x0841EB04, 16-byte copy loop r7->p+0x110, (Half2)arg0->f|=0x1000, self[stride*2+0x19]=0/++, sub_080C31E4(alloc,arg0+0x22,*(u32*)&D_08671BB0), sub_080C31E0(arg0,tbl[*(arg0+0x14+b)]). Best source = score-480 C preserved above.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.0250778,
@@ -217528,7 +217560,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Re-requesting release: terminal at 480 (144/144 insns structurally present). Two compiles this session: preserved best source = 480; new s32-result-with-u16-cast spelling = 1040 (extra linkage/decode fallout), so best stays 480. Sole real residual is the missing `adds r1,r0,#0` copy pseudo after sub_08013C2C plus downstream offsets/regalloc; 86 attempts across 12 agents exhausted all spellings, register-asm pinning banned. Body/calls/data/constants/offsets otherwise byte-exact. Not hand asm, not not_c, no boundary (ends bx r0), callee linkage is a project/linker matter. Best-480 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.040211,
@@ -224864,7 +224896,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer from C: terminal agbcc copy-pseudo/regalloc wall. 480 (96.6%), 144/144 insns; ROM has `adds r1,r0,#0; strh r1,[p+0x22]; lsls r0,r1,#0x10` after sub_08013C2C, agbcc produces `lsls/lsrs/strh` - no C spelling recovers copy pseudo. Cascades to offsets/regalloc/veneer differences. 88+ attempts, register pinning banned. Not hand asm, not_c, no boundary. Best preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.0791676,
@@ -236704,7 +236736,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Please release: no C spelling can produce the ROM's single copy pseudo after sub_08013C2C. ROM keeps the call result as a raw HImode value: `bl; adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#16; cmp r0,#0; bge`. agbcc -Os always inserts the int\u2192short truncation first (`lsls r0,r0,#16; lsrs r1,r0,#16; strh r1; cmp r0,#0`), which also shifts two beq displacements by 2 and drops the trailing alignment `movs r0,r0`. Measured this session: preserved best 400; u16 t with (s16)t test 440; (s16) cast + s16 store 440; s16 callee prototype + u16 store 440; s16 prototype + s16 store 655. Prior 92 attempts by 12 agents got 480-1126 with the same residual. Register pinning is banned, agbcc is the only compiler; this is the same copy-pseudo wall documented on other functions of this game. All logic, calls, data, constants, offsets, the 16-byte copy loop and the two indirect-call tails are byte-exact. Not hand asm, not not_c, no boundary, no callee dependency.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683535.1454346,
@@ -237720,7 +237752,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Re-asking to release: why it can't get closer \u2014 terminal agbcc copy-pseudo wall after sub_08013C2C. 144/144 target instructions present and all logic/calls/data/offsets byte-exact; the only diff is the raw-result copy pseudo (`adds r1,r0,#0; strh r1; lsls r0,r1,#16`) that agbcc never emits for this call result in any C spelling (97+ attempts / 12 agents; register-asm pinning banned). Ordinary C, not hand asm, not not_c, no boundary, no callee dependency. Keep the best-400 source.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.1507688,
@@ -243448,7 +243480,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal copy-pseudo wall at score 400 (97.2%, 144/144 insns). ROM emits `adds r1,r0,#0; strh r1; lsls r0,r1,#0x10` after sub_08013C2C; agbcc emits truncation first. Not fixable from C. Best-400 source preserved. Not hand asm, no boundary.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.1811337,
@@ -245896,7 +245928,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer from C: score 400 is the documented copy-pseudo ceiling, with all 144 instructions present and only the raw HImode copy/truncation sequence differing after sub_08013C2C. Exhausted over 99 attempts by 12 agents. No hand assembly, boundary, or dependency; best source preserved.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.1943069,
@@ -247064,7 +247096,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc -Os copy-pseudo wall at 400 (97.2%, 144/144 insns). After sub_08013C2C, ROM emits `adds r1,r0,#0; strh r1; lsls r0,r1,#16`; agbcc emits `lsls r0,r0,#16; lsrs r1,r0,#16; strh r1` (truncation first). 100 attempts / 12 agents exhausted; register pinning banned. All logic/calls/data/offsets byte-exact. Not hand asm, no boundary, no callee dep. Best 400 source preserved. Recommend try_compiler/suggest.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.2005107,
@@ -251952,7 +251984,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "TERMINAL: score 400 (144/144 target insns byte-present) is the pure-C floor. Residual is only the copy pseudo after sub_08013C2C: ROM keeps the full 32-bit result in r1 (`adds r1,r0,#0`) used both for `strh r1,[r5,#0x22]` and `lsls r0,r1,#0x10`; agbcc -Os truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10`) and never emits the separate copy in any C spelling. Exhausted by 12 agents / 100+ attempts (s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals; best 400, others regress to 440-1126). Register-asm pinning rejected by compile_and_diff. Not hand asm, not not_c, no boundary, no callee dep. Best-400 source preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.2273765,
@@ -256408,7 +256440,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "RELEASED sub_080B943C: terminal agbcc -Os copy-pseudo wall at score 400 (97.2%, all 144 target insns byte-present). Confirmed my own compile = 400. Sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1, then sign-extends via lsls), while agbcc -Os inserts int\u2192short truncation first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10`) and never emits the separate `adds r1,r0,#0` copy in any C spelling. This also shifts two `bge` displacements by 2 and drops the trailing alignment `movs r0,r0`. Exhausted 102+ attempts / 12 agents: s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress to 440-1126. Register-asm pinning rejected by compile_and_diff. All logic, calls (sub_0800355C/sub_0800168C/sub_08014288/sub_08013C2C/sub_080C31E4/sub_080C31E0), data (D_02025FF0/D_0841EB04/D_08671BB0), constants, the 16-byte copy loop, both indirect-call tails, prologue/epilogue byte-exact. Not hand asm, not not_c=false, no boundary (ends pop{r0};bx r0), no callee dependency. Best-400 source preserved verbatim on record. Toolchain limitation \u2014 no pure C reaches 0.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.2518833,
@@ -257040,7 +257072,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer from C \u2014 releasing. Best stays score 400 (97.2%, 144/144 insns). This session's two new variants: (a) `s32 t32 = sub_08013C2C(); *(u16*)(p+0x22)=(u16)t32; if ((s16)t32<0)` -> 1000 (141 insns, truncation gone but copy pseudo and alignment nop gone too, literal pool/bl offsets shift); (b) `s16`-returning prototype with `s32 raw; *(u16*)(p+0x22)=(u16)raw; if (raw<0)` -> 405, only 4 rows left: ROM `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` vs ours `lsls r0,r0,#16; asrs r0,r0,#16; strh r0,[r5,#0x22]` \u2014 the raw-call-result copy pseudo still cannot be produced. ~103 attempts / 12 agents exhausted s32/u16/s16 spellings, callee prototypes, named locals; register-asm pinning rejected. All logic, calls, data, constants, 16-byte copy loop and both indirect-call tails byte-exact. Not hand asm, not not_c=false, no boundary (pop{r0};bx r0), no callee dependency. Best-400 source preserved verbatim.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2552807,
@@ -263752,7 +263784,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Why it cannot get closer: 4 compiles this session, best stays 400. The sole residual (after `bl sub_08013C2C`) is the ROM's `adds r1,r0,#0` copy pseudo + trailing alignment `movs r0,r0`, which agbcc never emits here in any C spelling. Verified this session: u16 prototype (440), raw s32 with `(t<<16)<0` (1000), the matched-sibling's exact idiom `*(s16*)=(s16)t; if ((s32)((u32)t<<16)<0)` (1000), and a two-variable split `t2=t` (1000, coalesced). The sign-test instruction itself is reproducible (`lsls r0,r0,#16; cmp; bge`), but the call-result pseudo always coalesces into r0; the matched sibling sub_080B8598 gets the copy because it has different live-across-call callee-saved pressure (r8 zero, more calls after the test), which this function's ROM does not have. 105+ attempts / 12 agents, all spellings/prototypes/casts; register-asm pinning rejected. All logic, calls, data, constants, 16-byte copy loop and indirect-call tails byte-exact in the 400 source. Not hand asm, not not_c, no boundary (ends pop{r0};bx r0), no callee dependency. Best-400 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2914312,
@@ -264856,7 +264888,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc -Os copy-pseudo wall at score 400 (97.2%, 144/144 target insns byte-present). Sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1), while agbcc -Os truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10; strh r1`) and never emits the separate `adds r1,r0,#0` copy in any C spelling. ~109 attempts / 12 agents exhausted: s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress to 440-1126. Register-asm pinning rejected. All logic/calls/data/constants byte-exact. Not hand asm, not not_c, no boundary, no callee dep. Best-400 source preserved. Asking to release: nothing left in C.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.2974129,
@@ -265456,7 +265488,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc -Os copy-pseudo wall at score 400 (97.2%, 144/144 target insns byte-present). Sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1, used for both store and sign-test), while agbcc -Os truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10; strh r1`) and never emits the separate `adds r1,r0,#0` copy in any C spelling. Exhausted 110+ attempts / 12 agents: s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress to 440-1126. Register-asm pinning rejected. All logic/calls/data/constants/16-byte-copy-loop/indirect-call-tails/prologue-epilogue byte-exact. Not hand asm, not not_c, no boundary (ends pop{r0};bx r0), no callee dependency. Best-400 source preserved verbatim.",
   "by": "opencode-free-1",
   "created_at": 1795683535.3006704,
@@ -266400,7 +266432,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "No pure-C improvement remains: recompilation stayed at 400, with only the raw call-result copy/truncation pseudo differing after sub_08013C2C. Prior exhaustive type/prototype/cast attempts and the harness ban on inline register pinning leave this as an agbcc -Os limitation, not a logic, boundary, or dependency issue. Preserve best source and advance.",
   "by": "opencode-hungerg-free-2",
   "created_at": 1795683535.3057065,
@@ -269736,7 +269768,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc -Os copy-pseudo wall: after sub_08013C2C agbcc truncates first (lsls;lsrs) and never emits the raw 32-bit copy pseudo `adds r1,r0,#0`. 112 attempts by 12 agents exhausted all spellings/prototypes/casts. register-asm banned. Releasing to move on.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.3234727,
@@ -271496,7 +271528,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal 400 (97.2%, 144/144 insns). Fresh compile = 400 (1 different + 1 extra/1 missing: ROM's `adds r1,r0,#0` after `bl sub_08013C2C` with raw result in r1; agbcc -Os truncates first). Documented wall across 12 agents/~100+ attempts: s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress 440-1126; register-asm pinning banned. All logic/calls/data/constants/16-byte loop/indirect-call tails byte-exact. Not hand asm, not not_c, no boundary, no callee dep. Best-400 source preserved. Full budget: 1 compile at floor. Releasing per the 8-compile rule.",
   "by": "opencode-tidepool-alpha-free-1",
   "created_at": 1795683535.333149,
@@ -273112,7 +273144,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc -Os: after sub_08013C2C cannot emit ROM\u2019s `adds r1,r0,#0` copy pseudo (gets truncation sequence) causing |/</> diffs around sign test/branch displacement. Best 400 preserved; no pure-C improvement found in this session (tried no new variants better). Prior exhaustive attempts confirm unfixable by C. Cannot get closer.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.3418665,
@@ -274800,7 +274832,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc -Os copy-pseudo wall at score 400 (97.2%, 144/144 target insns byte-present). Sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10`; agbcc -Os truncates first (`lsls;lsrs`) and never emits the raw 32-bit copy pseudo. ~115 attempts/12 agents exhausted s32/u16/s16 spellings, prototypes, casts. register-asm banned. All logic/calls/data/constants/loop/tails byte-exact. Not hand asm, not not_c, no boundary (ends pop{r0};bx r0), no callee dep. Best-400 source preserved. Needs allocator/toolchain change.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.3508818,
@@ -277136,7 +277168,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc wall, cannot get closer: 117+ lifetime attempts by 12 agents plus this session's compile and search_flags (O2/O3/Os all 400, O1 1405). 144/144 target insns byte-present; only residual is the raw-copy pseudo after sub_08013C2C (`adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10`) that agbcc never emits here; every C spelling/type/prototype/cast regresses. Inline/register/naked asm harness-rejected. Not hand asm, not not_c, no boundary, no callee dependency. Best-400 source preserved. Advance queue permanently.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683535.3634484,
@@ -278576,7 +278608,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Cannot get closer from pure C. Fresh compile confirms 400 (97.2%, 144/144 insns). Terminal agbcc -Os copy-pseudo wall after sub_08013C2C (ROM raw copy+strh+sign-test-from-r1; agbcc truncates first). 117+ attempts exhausted all C/flag levers; asm pinning rejected. All other logic/calls/data exact. Not hand asm, not not_c, no boundary, no callee dependency. Best 400 preserved. Explicit impossibility rationale.",
   "by": "opencode-iceman-contributor-free-2",
   "created_at": 1795683535.3710685,
@@ -279896,7 +279928,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc -Os copy-pseudo wall at score 400 (97.2%, 144/144 target insns byte-present). Sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1 for both store and sign-test), while agbcc -Os truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10; strh r1`) and never emits the separate `adds r1,r0,#0` copy in any C spelling. Exhausted 110+ attempts / 12 agents: s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress to 440-1126. Register-asm pinning rejected. All logic/calls/data/constants/16-byte-copy-loop/indirect-call-tails/prologue-epilogue byte-exact. Not hand asm, not not_c, no boundary (ends pop{r0};bx r0), no callee dependency. Pure-C ceiling reached; cannot get closer in C.",
   "by": "opencode-free-1",
   "created_at": 1795683535.378073,
@@ -282024,7 +282056,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Explicit second ask: no legal C step remains. Fresh compile is the established -Os copy-pseudo floor at 400; the only differing rows require agbcc to emit `adds r1,r0,#0` before halfword truncation, which exhaustive prior type/prototype/cast/flag variants cannot force and banned register assembly cannot fix. No boundary, setup or callee issue. Preserved best 400 source and terminal diagnosis.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.3894503,
@@ -290128,7 +290160,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "sub_080B943C \u2014 terminal agbcc -Os copy-pseudo wall at score 400 (144/144 target insns byte-present). Sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1 for both store and sign-test), while agbcc -Os truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10; strh r1`) and never emits the separate `adds r1,r0,#0` copy in any C spelling. Exhausted 12+ agents / 110+ attempts: s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress to 440-1126. Register-asm pinning harness-rejected. All logic/calls/data/constants/16-byte-copy-loop/indirect-call-tails/prologue-epilogue byte-exact. Not hand asm, not not_c, no boundary (ends pop{r0};bx r0), no callee dependency. Pure-C ceiling reached; cannot get closer in C. Best-400 source preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.43367,
@@ -291528,7 +291560,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Explicit impossibility override: terminal agbcc -Os copy-pseudo wall at score 400 (144/144 target insns byte-present). Sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1 for both store and sign-test), while agbcc -Os truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10; strh r1`) and never emits the separate `adds r1,r0,#0` copy in any C spelling. Exhausted ~122 attempts across 12+ agents: s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress to 440-1126. Register-asm pinning harness-rejected. All logic/calls/data/constants/16-byte-copy-loop/indirect-call-tails/prologue-epilogue byte-exact. Not hand asm, not not_c, no boundary (ends pop{r0};bx r0), no callee dependency. Pure-C ceiling reached; cannot get closer in C. Best-400 source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683535.4413965,
@@ -292040,7 +292072,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Asking to release: terminal agbcc -mthumb-interwork -Os copy-pseudo wall at score 400 (97.2%), confirmed by my own compile plus 124+ prior attempts / 12+ agents / all flag levels (O2/O3/Os = 400, O1 = 1405). All 144 target instructions byte-present; sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1 for both halfword store and sign test), while agbcc -Os truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10; strh r1`) and never emits the separate `adds r1,r0,#0` copy pseudo in any C spelling. Logic/calls/data/constants/16-byte-copy-loop/indirect-call-tails/prologue-epilogue all byte-exact. Exhausted s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress to 440-1126. Register-asm pinning harness-rejected. Ordinary correct C, not hand assembly, not_c=false, no boundary (ends `pop {r0}; bx r0`), no callee dependency (callees matched). Best-400 source preserved. Only a toolgen change (forcing the raw-copy pseudo) closes the last row.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4441612,
@@ -292624,7 +292656,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Terminal agbcc -Os copy-pseudo wall at score 400 (97.2%, 144/144 target insns byte-present). Sole residual: after `bl sub_08013C2C`, ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1 for both halfword store and sign test), while agbcc -Os truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10; strh r1`) and never emits the separate `adds r1,r0,#0` copy in any C spelling. Exhausted ~122 attempts across 12+ agents: s32/u16/(s16)t spellings, s16 prototype + u16/s16 store, named locals \u2014 all regress to 440-1126. Register-asm pinning harness-rejected. All logic/calls/data/constants/16-byte-copy-loop/indirect-call-tails/prologue-epilogue byte-exact. Not hand asm, not not_c, no boundary (ends pop{r0};bx r0), no callee dependency. Pure-C ceiling reached; cannot get closer in C. Best-400 source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683535.4474225,
@@ -293312,7 +293344,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B943C",
+  "function": "spawnActorLargeEffectSubObject",
   "text": "Ask to release: terminal agbcc copy-pseudo wall at score 400 (144/144 target insns byte-present). Sole residual after `bl sub_08013C2C`: ROM emits `adds r1,r0,#0; strh r1,[r5,#0x22]; lsls r0,r1,#0x10` (keeps raw 32-bit result in r1 for both halfword store and sign test), agbcc truncates first (`lsls r0,r0,#0x10; lsrs r1,r0,#0x10; strh r1`) and never emits the separate copy pseudo from any C spelling. Exhausted 122+ attempts / 12+ agents / all flag levels; asm pinning harness-rejected. All logic/calls/data/constants/loop/indirect-call-tails/prologue-epilogue byte-exact. Not hand asm, not_c=false, no boundary (ends pop{r0};bx r0), no callee dependency. Best-400 source preserved. Pure-C ceiling reached; only a toolgen change forcing the raw-copy pseudo closes the last row.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4512858,
@@ -358238,35 +358270,188 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:ee2ce342189bb195eb19311782e7dcde3ea4dd6b323f793fa26ad0fa64304ef6"
  },
  {
-  "function": "updateCameraSnappedProjectile",
-  "text": "Releasing: regalloc issue remaining; best attempt saved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9757993,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0803C250",
+  "text": "Best score 370 (revision 861c37b6c86076124d38). Key facts: x/y coordinates come from `state` (= *(u8**)(p+0x3c)) at +8/+0xC, NOT from p+8. Table D_080CF308 is 8-byte entries {s32 a; s32 b}; keep a table pointer local `t` assigned at the START of each if arm and compute `b = D_080CF308[idx].b` through the GLOBAL (using `t[idx].b` folds the +4 into the load and costs ~625 points). The sound call is `playSound(0x89)` at 0x08005E80, NOT sub_08185780. Remaining diff: branch 2 loads table base into r1 where ROM uses r0 plus `adds r1,r0,#0` copy; all downstream branch/pool offsets follow from that 2-byte difference.\n\nScore 370, revision 861c37b6c86076124d38, 85 instructions (matching count). Residual: 4 register rows swapping r0/r1 in the non-0x10 branch (ROM: base in r0, address in r1, then `adds r1,r0,#0`; ours: base in r1, address in r0, no copy); all downstream branch-byte/pool-offset rows follow from that 2-byte difference. Tried: no-t-local (1170), t local with b=t[idx].b (1005), t local with b=D_080CF308[idx].b (380), playSound callee fix (370), declaration/order/idx-width/t-spelling variants, copy-at-end-of-arm variants (820/1045), try_local_repairs families - none flipped allocation. Next step (untested): compiler_experiments on revision 861c37b6 with -O1/-O3/-mno-thumb-interwork flag profiles to see whether any profile flips branch 2's base to r0; if not, treat as agbcc allocator wall. Key facts: x/y from state+8/+0xC; b via global D_080CF308[idx].b; callee is playSound(0x89).",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795809186.0389614,
+  "score_before": 1170,
+  "score_after": 370,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:531fb8b437d6f3f1c7e760cbb8224e99a848a6acf6e4f669d38a547615cbd99e"
  },
  {
-  "function": "updateCameraSnappedProjectile",
-  "text": "Ceiling at 1685 (88.5% best). All structural matches. Regalloc wall: standard prologue but register mapping differs throughout. Call relocations differ project-wide. Unfixable from C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4104187,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0800822C",
+  "text": "Stuck at score 10 (2 register rows only) after ~100 compiles / 8 agents. Tail mismatch: ROM does `ldr r2,[r4,#8]; cmp r2,#0; bne` for the volatile re-read of obj+0x08 after `str r1,[r2]`; candidate uses r0 instead of r2. Everything else is byte-exact. Tried with no gain: volatile/s32/u32 spellings of the re-read, local `s32 chk`, declaration-order and type permutations, all agbcc flag profiles. Fits the accepted agbcc large-function allocator wall.\u7684\u91cd\u5927 next step is below; consider accepting score 10 as terminal if it also fails.\nVolatile re-read of *(obj+0x08) in the tail condition, s32/u32 spellings, a local `s32 chk`, declaration order/type permutations, all agbcc flag profiles.\nScore stayed 10; only the two rows `ldr r?,[r4,#8]` / `cmp r?,#0` differ (ROM r2 vs candidate r0); no other rows changed.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795809203.478556,
+  "score_before": 10,
+  "score_after": 10
  },
  {
-  "function": "updateCameraSnappedProjectile",
-  "text": "Cannot get closer: proven agbcc register allocation wall. Target loads temp_r7 into r7 explicitly (ldr r7, [r4,#0x38]) before temp_r5 into r5; agbcc allocates by first-use order (temp_r5 used in call->r5, temp_r7 used in if/else->r6, p18 used later->r7). No C spelling changes the allocation order (tried declaration order, assignment order, dummy vars). Call relocations also differ. COORD block matches sub_08026BDC pattern. Fundamental agbcc codegen limitation.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4271588,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08025F38",
+  "text": "Score 220 confirmed (81 insns). Residual 6 rows: redundant reload of v, missing `adds r1,r6,#0` mask copy, r6-vs-r1/r0 coloring, tail 0x22 offset register. This session: v-local 240, named mask 300, local repairs 220/220/1045. Known terminal allocator wall; compiler here is -O1.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809283.280185,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:4e82bc803091c04c0e9f2ae145d2d4a16f03a14e06ffbb331a28a07438abb25b"
  },
  {
-  "function": "updateCameraSnappedProjectile",
-  "text": "Cannot get closer within this session's budget: improved the function substantially (1685 -> 1180, 92%, first 36 insns byte-exact) by fixing the real COORD-block bug and the bit-op temporaries. The remaining 1180-point gap is entirely deterministic agbcc register allocation/scheduling: target computes arg0+0x18 into r6 after the flag AND (ours before), uses r2 for the zero store (ours r3), r1 for the 0x22 index (ours r2), and a different operand order for the final 0x8000 AND; the two extra emitted instructions shift all literal-pool offsets. Five compiles this session explored these (common-block duplication regressed to 4446; u32-cast commutative flip had no effect), and the inherited 15 prior attempts also floor at 1685. No further C-side lever found; ordinary correct C, not hand asm, not not_c. Releasing to complete the final session claim.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.455503,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0800F124",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known terminal allocator wall (~164 prior attempts, best ~2355/1945). Target uses r8 and r12 with a 0x20-byte stack frame and a 14-word struct copy; agbcc's rotated register coloring differs in ~37 rows. Prior agents exhausted source, type and flag permutations; no compile this session.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809312.088244,
+  "score_before": 1945,
+  "score_after": 1945
+ },
+ {
+  "function": "sub_080604A0",
+  "text": "Score 875 rechecked. All body rows exact; only agbcc's push{lr}/pop{r1};bx r1 vs ROM bare bx lr, with cascading pool/branch offsets. All 6 flag profiles >=875; 6 structural patches worse or equal. Documented frameless-leaf LR-frame wall.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795809338.6485763,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:e2f853ef7f23f88d5e968736261d016605eb8978592cde52150254af84160077"
+ },
+ {
+  "function": "sub_0804148C",
+  "text": "Best 7200 (revision 99b65b6b1bea480d9cad). Structure is largely correct: parent pose copies to work+4/+0xC indexed by (s8)work[0]*4; camera-relative coords from gCameraState+0x1278/+0x127C + (gMainWorkspace[0x18A8]+1)*64; flags on anim+0x2A/+2; final stores go to SELF+0x4C/+0x5C/+0x6C (not work). Early idx needs ldrb+lsls/asrs (use u32 v + explicit sign extension); later idx needs `(s8)work[0]` for ldrsb. Adding explicit part0=work+4 / part1=work+0xC locals raised instruction count from 132 to 158 (near target 163) but shifted callee-saved allocation (r7=sl instead of sb), scoring 7440.\n\nScore 7200, revision 99b65b6b1bea480d9cad. Semantics correct (see add_note). Tested next steps: part0+part1 locals (revision 5186a952, score 7440, 158 insns) and part0 only (revision e90f4eb6, score 7450, 150 insns); both recover instructions but shift callee-saved allocation (self lands in r8, not r7) and score worse. The ROM prologue requires push{r4,r5,r6,r7,lr}; mov r7,sb; mov r6,r8; push{r6,r7}; adds r7,r0,#0; anim in ip; work in r6; part0/work+4 in r8; part1/work+0xC in sb. Next agent: use compiler_passes greg allocation priority table on revision 99b65b6b to find the use-count/live-range change that yields exactly r8+sb (not sl), then reintroduce part0/part1.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795809382.5213287,
+  "score_before": 8550,
+  "score_after": 7200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:32bc3d26a5e2c3310f6f734dbd62bf417deadb22f0ef61519c7fe09f7b1d43d7"
+ },
+ {
+  "function": "sub_08028864",
+  "text": "Fresh compile confirms score 305 (target 85 vs 84 insns). All real instruction rows match; only 3 tail rows differ: target has extra `.byte 0xff,0xff`, a real `adds r0,r7,#0` where candidate has a garbage `vcvt` pool decode, and `lsrs r7` vs `lsrs r6`. Raw dump at 0x0802890E/0x08028912 shows the two literal words 0xFFFF0000 and 0x0FFF0000; this is a literal-pool placement/2-byte-length artifact, not a semantics error. Prior agents: 24 attempts, 12 local repairs, 6 explicit patches, no C fix.\ninherited candidate rechecked\nscore 305 unchanged; pool-tail artifact",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809412.4273162,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
+ },
+ {
+  "function": "sub_08047E40",
+  "text": "Baseline rechecks 590; 75 insns each. Residual is coloring: target uses r1=flags, r3=constant 1 (copied to r0 for AND and kept for strh), r0=0x12C, r2=0 early; candidate shifts all by one register. Flags/local/operand-order variants all collapse to 590; all flag profiles >=590.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795809542.5642984,
+  "score_before": 590,
+  "score_after": 590,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:ee71a623b7d4b5729aed602a92efc28717acd51789cc55357bc3d88b438aa886"
+ },
+ {
+  "function": "sub_0802D180",
+  "text": "Best 60 (rev 92a509a7690fb244a0e2). One agbcc list-scheduler tie: 'movs r2,#0' lands one slot early. Keep literal 1 in positive arm and named u16 zero local in else arm. Do not repeat: u8/s16/s32/const zero, function-scope zero, swapped stores, u8* pointer local, literal 0 in else arm, moving u16 v load.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809609.726483,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:b65b8b629918d37e1db0d47c806ef51013dec123c12626469066c0b480d84986"
+ },
+ {
+  "function": "sub_080443EC",
+  "text": "Terminal agbcc copy-coalescing wall. All 94 target instructions present, first 48 byte-exact. Residual: clamp ladder needs a=[0x5C]->r1 with non-coalesced `adds r4,r1,#0` into base=r4 live across `bl sub_08005820`, b=[0x6C]->r0, hi=r3, inner `ble`; agbcc coalesces base into a (340) or cycles groups and inverts ble->bgt (531/535). ~214 attempts/8+ models exhausted every C lever. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-340 source preserved.\n200+ C/flag variants across 7+ models: all declaration orders, assignment/type splits, goto/if-else forms, helpers, (void)a, base-in-comparison, simplified clamp; flag levels -O1/-O2/-Os (-O2 optimal); current baseline rechecked 340.\nResidual unchanged: agbcc coalesces base=r4 into a=r1 (ROM keeps non-coalesced `adds r4,r1,#0` with base live across `bl sub_08005820`); forcing the split cycles groups to a=r4/b=r1 and inverts ble->bgt (531/535). No score below 340 ever reached.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795809643.6379824,
+  "score_before": 340,
+  "score_after": 340
+ },
+ {
+  "function": "sub_08002C94",
+  "text": "Terminal agbcc wall at 540. Fresh verification this session (no new compile needed): last_diff shows 14 regalloc + 3 operand + 3 reordered. The single root divergence is the target's `ldr r2,=0xFFFF8000; adds r0,r2,#0; orrs r0,r1` (constant loaded into r2 then copied to OR destination r0) vs candidate's `ldr r0,=0xFFFF8000; orrs r0,r1`. That missing `adds` makes the candidate 2 bytes shorter before the in-code literal pool at 0x08002CC8, which cascades into: all later branch offsets off by 2, the bogus `vdup.8 d17,d1[7]` / `bl #0x918` rows misdecoded from the shifted literal pool, and the .byte 0x00,0x00 pad mismatch. Confirmed unexpressible by prior agents (all mask spellings / types / flags 245-821 in sibling sub_08008B98; 5443 auto trials here). Pure C, not hand asm, not not_c; clean non-overlapping extent. Wait chain: sub_0801565C has a project-setup extent bug (60->64 bytes) that is waiting on user approval; that in turn blocks this and several others. Best source preserved at revision 406e325653988a04e1a9.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809744.1845315,
+  "score_before": 540,
+  "score_after": 540
+ },
+ {
+  "function": "sub_0806B5B0",
+  "text": "Terminal agbcc intra-block register-color tie at score 10 (99.8%). All 91/91 target instructions present, first 28 byte-exact; only 2 rows differ: target `ldr r1,[pc,#0x70]; adds r0,r0,r1`, candidate uses r3 for the else-branch 0x146C literal. ~206 attempts/6+ models exhausted all C levers. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-10 source preserved.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795809766.8190558,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:14071df106f114571d20b69ce9a006bf51b68c386a6d005613b5535196e1ace1"
+ },
+ {
+  "function": "decode2bppTiles",
+  "text": "Terminal agbcc -O2 coupling wall at score 60 (99.3%), fresh recheck. All 96 target instructions present; only 2 reordered rows: `movs r3,#0` (inner j=0 init) sits at target row 52 before `adds r4,r7,#1; str r4,[sp,#8]` (k=in+1), candidate emits it at row 55 after. Source-order swaps and s32 j all worsen (665-1886). Prior 200+ attempts/8 models exhausted the u8-shift/stack-base-reload/inner-loop-init interaction. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-60 source preserved.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795809835.0192256,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:f622e5f9bcf2e862001d36e2d9d0f23d46aa18d95ab75ec127a6f7e931e67eb2"
+ },
+ {
+  "function": "sub_0807F678",
+  "text": "Terminal agbcc scheduling/coloring tie at score 60 (99.4%), fresh recheck. All 107 target instructions present; only 2 reordered rows: target `movs r6,#0` at row 13 (after rp load), candidate hoists to row 6. Moving zero late fixes position but flips coloring to self=r6/zero=r5 (score 120). 24+18 prior trials exhausted all pure-C levers. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-60 source restored and preserved.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795809901.7710521,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:a258d7eed94c41be69af8568a9aa6e390d18116bd44de9f8f77f1d8605fbce66"
+ },
+ {
+  "function": "sub_08007EF8",
+  "text": "Terminal agbcc -O1 allocator wall at 950 (114/114 insns, 31 residual rows: 14 regalloc, 8 operand, 3 missing, 3 extra, 2 reordered). Fresh verification this session: rechecked saved best = 950; clean m2c-style rewrite = 1875; moving z4=0 earlier = 975; z4=0 after 0x3CE store = 995; removing comma-assignment z4=0 = 1355; three local-repair families (clean_rewrite, explicit_loop_backedge, target_local_bundle) = 995/995/950. compiler_experiments: -O2=1870, -Os=2825, -O3=1870, -O1=950 \u2014 -O1 is this range's only viable profile. Residual roots: (a) target keeps base in r6/zero in r5, zero again in r4, one in r3/r2 and reuses r4/r5 as loop one/row; agbcc rotates these (row in r4, i in r2, one in r3, j in r1); (b) target emits `adds r0,#0xf; strb r2,[r0]` while agbcc folds into `strb r2,[r0,#0xf]`; (c) target computes `adds r3,r1,#1` early for i+1 while agbcc increments i at loop backedge; (d) `bl #0x659ec` is the known false-positive raw call-site offset from the 2-byte fold, not a symbol error. Pure C, not hand asm, not not_c, clean extent. Best source preserved at revision 1b85615182f0b985fd9e.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809901.8153899,
+  "score_before": 1875,
+  "score_after": 950,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:bba84f455b9a58ef109752b24148d455aa275f4c645fdba4a2a55793f8685e42"
+ },
+ {
+  "function": "sub_08041BE0",
+  "text": "Key: r9/sb is a 0/1 flag set only when absXFromFocus<=0x005FFFFF; 0x8000/0xFFFF8000 is a separate direction word at work+0x10, optionally negated. Never fold into one C variable. Target prologue: self r5, sprite r8, work r4, motion r6, saved u16 r7, cb-table sl, flag sb; agbcc puts self in r6 (allocator wall). Tables: gScriptStepCallbacks=0x08671BD0 (SCRIPT_STEP_CALLBACK_TABLE), gMainObjTimerCallbacks=0x08671BB0 (MAIN_OBJ_TIMER_CALLBACK_TABLE). Restore via get_candidate(base=\"saved_best\").",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795809970.867204,
+  "score_before": 4645,
+  "score_after": 4130,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:74256b809fb361b376ddef9b3815cd4460d7995b2eede45caad51f56f6954fe7"
+ },
+ {
+  "function": "sub_080457E0",
+  "text": "Terminal agbcc callee-saved allocator tie at score 45 (99.5%), fresh recheck. All 112 target instructions present; 9 register-only rows: target loads 0x174C into r7 (then reuses r7 for 0x80000), candidate uses r1, cascading into r1/r2 swaps at rows 66-80. Prior 12 patches + 6 local repairs + this session's 3 trials all equal 45 or worse. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-45 source preserved.\nThis session: local repairs branch inversion (3920), call arity (1615), result-store inline (45, equal). Prior 12 explicit patches best 45 + 6 local repairs best 45.\nResidual unchanged at score 45: 9 register rows; target loads 0x174C into r7 (callee-saved, reused for 0x80000), candidate into r1, cascading into r1/r2 swaps at rows 66-80. C permutations cannot reverse callee-saved pseudo-birth order.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795810003.6650975,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:8b3e21e615e856840ac004251c8ad6a00b60b361c56d7175f0b0135b39fe71a0"
+ },
+ {
+  "function": "sub_08048654",
+  "text": "Terminal agbcc/GCC-2.95 PLUS-fold operand-birth-order wall at score 20. All 113 target instructions byte-exact except 4 register rows: target `ldr r2,[r7,#4]; ldr r0,=lit; adds r2,r2,r0`, candidate `ldr r0,[r7,#4]; ldr r2,=lit; adds r0,r0,r2`. Reversed operand order, literal spelling, named temp all equal 20. Independent reproduction by multiple agents. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-20 source preserved.\nThis session: const+field operand swap (20, same source reached 7x by 4 agents), field+const (20), -0xC00 literal (20), named-decrement temp (20), XOR form (1745). Prior 6 patches best 20.\nResidual unchanged at score 20: 4 register rows at `*(s32*)(r7+4) += 0xFFFFF400`; ROM births constant pseudo first (field->r2, literal->r0), agbcc births field-load first. No C spelling changes GCC PLUS-fold canonical birth order.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795810050.160557,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:2a7053df7d7f3b9ddbe8b2005dfaf9e879fdf0e2436af975b6e480033519a63f"
+ },
+ {
+  "function": "sub_0803E4A8",
+  "text": "Terminal agbcc callee-saved coloring wall: target keeps `state` (arg0+0x3c) in r4 and the default tiles2 pointer (D_080CF3DC u16 +0x10) in r5; agbcc always assigns state=r5, tiles2=r4, tiles3=r6. Only 20 register rows differ, 130/130 insns identical. Do not change semantics or chase more permutation; retain score-100 candidate. The 7 linker 'pointer to your function +offset' lines are false positives from jump-table relocation labeling, not wrong targets. Switch: index = *(u16*)(arg1+0x28)-0x10, cases 0/1,4,7,12,16.\nDeclaration/reorder, const qualifiers, s32 index, derived tiles pointers, 3 local-repair families, and all 5 O1/O2/O3/Os/no-strength flag profiles.\nAll preserve score 100 with the identical 20-row r4/r5 swap; 130/130 insns otherwise exact. Compile-error: mixed declaration after statement (agbcc is C89).",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795810062.9148448,
+  "score_before": 100,
+  "score_after": 100,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:9c05207e3c637f091367e80a315d0655dfb2ae0204cb53d93efca735a84e28f9"
+ },
+ {
+  "function": "sub_0801102C",
+  "text": "Terminal agbcc commutative-AND canonicalization wall at score 20 (99.7%), fresh recheck. All 67 target instructions present; 4 register rows at the two e0/e2 & 0x8000 tests: ROM `adds r0,r7,#0; ands r0,r2`, candidate reverses. Swapping source operand order and ==0 form leave score unchanged. ~289 prior attempts. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-20 source preserved.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795810145.5578363,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:7de5f9fe65a293ecf5227466713c9d00043134e4632298dd1badf53a4171acd3:550e80ab93b4a6d3cf94a935bf904fd5f78af3a619860297fdf160a9a8b3ce40"
+ },
+ {
+  "function": "setKind87EffectLayerAttrs",
+  "text": "Terminal agbcc frameless Thumb leaf LR-frame wall at score 570 (90.5%), fresh recheck. Same class as sub_08019254, documented in accepted knowledge. All 60 target body instructions byte-exact; agbcc inserts push{lr}/pop{pc} instead of bare `movs r0,r0; bx lr`, with PC-relative pool ripple and swapped D_080CE690/D_080CE698 table literals. Not hand asm, not not_c, no boundary/extent issue, no callee dependency. Best-570 source preserved.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795810165.2951448,
+  "score_before": 570,
+  "score_after": 570,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:7de5f9fe65a293ecf5227466713c9d00043134e4632298dd1badf53a4171acd3:960db762946c8d18ff6ebc6390c51b0e67a6bbad6287c46aa2f54e4566da330a"
  }
 ]

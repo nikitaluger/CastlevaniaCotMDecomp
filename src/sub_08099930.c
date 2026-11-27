@@ -1,9 +1,9 @@
 extern void setObjectAnimation(s32, s32, s32, s32);
-extern void sub_080148D8(s32, s32);
+extern void setSpriteFacingToTarget(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* When the script step byte equals 0x3C, set the mover's field +0x6A to 0x81,
- * update its facing via sub_080148D8 and emit effect 0 via setObjectAnimation, then
+ * update its facing via setSpriteFacingToTarget and emit effect 0 via setObjectAnimation, then
  * reset the step byte and advance the script. */
 void sub_08099930(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -17,7 +17,7 @@ void sub_08099930(void *arg0) {
         s32 zero = 0;
         *p6A = 0x81;
         do {
-            sub_080148D8(a0, *(s32 *)(base + 8));
+            setSpriteFacingToTarget(a0, *(s32 *)(base + 8));
             setObjectAnimation(a0, (s32)p34, 0, 0);
             idx = *(s16 *)(self + 0x22);
         } while (0);

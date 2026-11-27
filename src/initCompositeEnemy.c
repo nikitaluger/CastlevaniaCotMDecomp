@@ -1,5 +1,5 @@
 extern void setObjectAnimation(void *, void *, s32, s32);
-extern void sub_080148D8(void *, void *);
+extern void setSpriteFacingToTarget(void *, void *);
 extern void *spawnBudgetedEffect(void *, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -47,7 +47,7 @@ void initCompositeEnemy(u8 *self) {
     *(u32 *)(work + 0x0C) = 0x700000;
     *(u32 *)(work + 0x14) = zero;
     *(u16 *)(work + 4) = (*(u16 *)(work + 4) & 0xFDFF) | 0x100;
-    sub_080148D8(sprite, *(u8 **)(work + 8));
+    setSpriteFacingToTarget(sprite, *(u8 **)(work + 8));
     spriteScale = 0x32;
     *(u32 *)(sprite + 0x1C) = spriteScale;
     spriteScale += 0xCE;

@@ -42,7 +42,7 @@ s32 absXFromFocus(s32 arg0) {
 
 s32 signOf(s32);
 inline u16 inline_fn(u16 *arg0) { return *arg0; }
-void sub_080148D8(void *arg0, s32 arg1) {
+void setSpriteFacingToTarget(void *arg0, s32 arg1) {
     u16 var_r0;
     if (signOf(arg1) > 0) {
         var_r0 = 0x10 | inline_fn((u16 *)((s8 *)arg0 + 2));

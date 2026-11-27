@@ -1,5 +1,5 @@
 s32 setObjectAnimation(s32, s32, s32, s32);
-s32 sub_080148D8(s32, s32);
+s32 setSpriteFacingToTarget(s32, s32);
 s32 sub_0809E278(s32, s32, void *, void *);
 s32 sub_0809E3B4(s32, void *);
 s32 sub_080C31E8(void *, void *, s32, s32);
@@ -19,7 +19,7 @@ void sub_0809D1F0(void *arg0)
     work = *(void **)((u8 *)arg0 + 0x3C);
     anim = work + 0x34;
     effectState = work + 0x48;
-    sub_080148D8(sprite, *(s32 *)((u8 *)work + 8));
+    setSpriteFacingToTarget(sprite, *(s32 *)((u8 *)work + 8));
     setObjectAnimation(sprite, anim, 0, 1);
     sub_0809E278(sprite, anim, work, effectState);
     sub_0809E3B4(*(s32 *)((u8 *)effectState + 0x20), work + 0x5C);

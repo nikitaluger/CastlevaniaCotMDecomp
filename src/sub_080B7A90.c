@@ -1,5 +1,5 @@
 void stepAnimationTrack(s32, void *);
-void sub_080148D8(s32, s32);
+void setSpriteFacingToTarget(s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
 struct S_02025FF0_3C {
@@ -16,7 +16,7 @@ void sub_080B7A90(void *self) {
     s32 sprite = *(s32 *)(selfBytes + 0x38);
     void *work = *(void **)(selfBytes + 0x3C);
     stepAnimationTrack(sprite, (u8 *)work + 0x34);
-    sub_080148D8(sprite, *(s32 *)((u8 *)work + 8));
+    setSpriteFacingToTarget(sprite, *(s32 *)((u8 *)work + 8));
     if (gMainWorkspace.v != 0) {
         s32 idx = *(s16 *)(selfBytes + 0x22);
         s32 *handlerTable;

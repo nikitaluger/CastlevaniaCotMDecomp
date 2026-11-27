@@ -1,7 +1,7 @@
 void sub_080AC9B4(u8, void *);
 void sub_080ACCA4(s32, void *, void *, void *);
 s32 signOf(s32);
-void sub_080148D8(void *, s32);
+void setSpriteFacingToTarget(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Set up a tracking actor: prepare both facing animations, compute its direction toward the target, and when nonzero pick the facing animation and finish the state. */
@@ -25,7 +25,7 @@ void sub_080ABE68(void *arg0)
   if ((direction << 17) << 7)
   {
     *((s8 *) (((u8 *) entity) + 0xC6)) = 1;
-    sub_080148D8(gfx, *((s32 *) (((u8 *) entity) + 8)));
+    setSpriteFacingToTarget(gfx, *((s32 *) (((u8 *) entity) + 8)));
     *((s8 *) (((u8 *) state) + 0x1D)) = (*((u16 *) (((u8 *) gfx) + 2)) & 0x10) ? 1 : -1;
     *((s8 *)(((s16 *)((u8 *)arg0 + 0x22))[0] * 2 + (u8 *)arg0 + 0x19)) = 0;
     cbTable = (s32 *) 0x08671BB0;

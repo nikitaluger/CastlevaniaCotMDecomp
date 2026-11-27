@@ -1,7 +1,7 @@
 /* Updates an entity's aim: mirrors its graphic toward the target, advances its
    animation, then, while the global mode is active and the target is in range,
    stores the aim angle and calls the entity's behavior callback. */
-extern void sub_080148D8(s32, s32);
+extern void setSpriteFacingToTarget(s32, s32);
 extern void sub_0809E278(s32, s32, void *, void *);
 extern s32 sub_0801459C(void *, s32);
 extern s32 getAngleFromDelta(s32, s32);
@@ -43,7 +43,7 @@ void sub_0809CDD4(u8 *entity) {
     anim = work->anim;
     effect = (struct AimEffect *)((u8 *)work + 0x48);
     *(u8 *)((u8 *)work + 0x89) = 0;
-    sub_080148D8((s32)gfx, work->posX);
+    setSpriteFacingToTarget((s32)gfx, work->posX);
     sub_0809E278((s32)gfx, (s32)anim, (u8 *)work, (u8 *)effect);
 
     if (gMainWorkspace.mode != 0) {

@@ -4,7 +4,7 @@
  * sub-object signals clear, write two part fields, advance the script, then
  * switch the actor to the script's next state.
  */
-extern void sub_080148D8(void *, void *);
+extern void setSpriteFacingToTarget(void *, void *);
 extern s32 sub_080B9824(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -18,7 +18,7 @@ void sub_080B7C18(void *arg0) {
     u8 *work = *(u8 **)(self + 0x3C);   /* reused below for the script address */
     u8 *workParts = work + 0x48;
 
-    sub_080148D8(sprite, *(void **)(work + 0x08));
+    setSpriteFacingToTarget(sprite, *(void **)(work + 0x08));
     if (*(u8 *)(self + 0x4C) != 0) {
         u8 *attr = (u8 *)(sprite + 0x2A);
         s32 attrValue = ATTR_FLAG | *attr;

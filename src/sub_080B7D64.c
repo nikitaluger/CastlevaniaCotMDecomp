@@ -1,6 +1,6 @@
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void sub_080148D8(s32, s32);
+extern void setSpriteFacingToTarget(s32, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_08011460(s32, void *, s32);
 
@@ -18,7 +18,7 @@ void sub_080B7F5C(void *arg0) {
     u8 *self = (u8*)arg0;
     u8 *r5 = (u8*)*(void **)(self + 0x3C) + 0x48;
     s32 *lit;
-    sub_080148D8(*(s32*)(self + 0x38), *(s32*)((u8*)*(void **)(self + 0x3C) + 8));
+    setSpriteFacingToTarget(*(s32*)(self + 0x38), *(s32*)((u8*)*(void **)(self + 0x3C) + 8));
     if (*(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) == 4) {
         *(u8*)(r5 + 9) = 0;
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = 0;
@@ -32,7 +32,7 @@ void sub_080B7F5C(void *arg0) {
 void sub_080B7D64(void *entity) {
     u8 *self = (u8*)entity;
     s32 *advanceCb;
-    sub_080148D8(*(s32*)(self + 0x38), *(s32*)((u8*)*(void **)(self + 0x3C) + 8));
+    setSpriteFacingToTarget(*(s32*)(self + 0x38), *(s32*)((u8*)*(void **)(self + 0x3C) + 8));
     if (*(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) == 0x10) {
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = 0;
         advanceCb = (s32*)0x08671BB0;

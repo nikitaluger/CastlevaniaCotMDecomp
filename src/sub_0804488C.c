@@ -1,6 +1,6 @@
 s32 setAnimationFrame(s32, s32, s32, s32);
 s32 stepAnimationTrack(s32, s32);
-s32 sub_080148D8(s32, s32);
+s32 setSpriteFacingToTarget(s32, s32);
 s32 sub_080C31E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -35,7 +35,7 @@ void sub_0804488C(void *arg0) {
     *(s32 *)((u8 *)enemy + 0x0C) = *(s32 *)((u8 *)enemy + 0x48) - (sub_080C31E0(param, *pWaveFn) + 0xFFFF0000) * 8;
 
     stepAnimationTrack(actor, (s32)enemyData);
-    sub_080148D8(actor, *(s32 *)((u8 *)enemy + 8));
+    setSpriteFacingToTarget(actor, *(s32 *)((u8 *)enemy + 8));
 
     paramIndex = *(s16 *)((u8 *)self + 0x22);
     param = *((u8 *)self + paramIndex * 2 + 0x19);

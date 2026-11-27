@@ -1,6 +1,6 @@
 s32 nextRandomWord(void);
 s32 getAngleFromDelta(s32, s32);
-void sub_080148D8(void *, s32);
+void setSpriteFacingToTarget(void *, s32);
 void sub_0809E32C(void *, void *, void *, void *);
 void sub_0809E490(void *, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -34,7 +34,7 @@ void sub_0809D3E8(void *arg0)
   anim = ((u8 *) ai) + 0x34;
   state = (struct AimState *)(((u8 *) ai) + 0x48);
   sub_0809E32C(gfx, anim, ai, state);
-  sub_080148D8(gfx, *((s32 *) (((u8 *) ai) + 8)));
+  setSpriteFacingToTarget(gfx, *((s32 *) (((u8 *) ai) + 8)));
   if ((*((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19))) == 0x1E)
   {
     s32 zero = 0;

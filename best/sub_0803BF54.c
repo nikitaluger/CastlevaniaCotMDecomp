@@ -8,6 +8,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern void sub_0803C674(void *, void *, void *);
 
 extern s32 D_08671BB0[];
+extern u8 D_080CF2D8[];
 
 void sub_0803BF54(void *obj)
 {
@@ -15,6 +16,7 @@ void sub_0803BF54(void *obj)
     void *work;
     void *r8;
     void *eff;
+    s32 *handlerTable;
     owner = *(void **)((u8 *)obj + 0x38);
     work = *(void **)((u8 *)obj + 0x3C);
     r8 = (u8 *)work + 0x34;
@@ -43,11 +45,12 @@ void sub_0803BF54(void *obj)
             0x800);
         sub_08011368(owner, r8, 5, 1);
         sub_08014588(*(s32 *)((u8 *)work + 0x28),
-            *(u8 *)((u8 *)eff + 4) * 8 + 0xFFFFF400);
+            *(u8 *)((u8 *)eff + 4) * 8 + (s32)D_080CF2D8);
         *(s32 *)((u8 *)work + 0xC) += 0xFFFFF400;
         *(s32 *)((u8 *)work + 0x10) = zero;
         *(u8 *)((u8 *)obj + *(s16 *)((u8 *)obj + 0x22) * 2 + 0x19) = 0;
-        sub_080C31E4((u8 *)obj + 0x18, (u8 *)obj + 0x22, D_08671BB0[0]);
+        handlerTable = (s32 *)D_08671BB0;
+        sub_080C31E4((u8 *)obj + 0x18, (u8 *)obj + 0x22, *handlerTable);
     } else {
         sub_0803C674(owner, work, eff);
     }

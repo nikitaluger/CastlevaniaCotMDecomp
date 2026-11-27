@@ -1,5 +1,5 @@
 s32 sub_0801459C(void *, s32);
-void sub_080148D8(void *, s32);
+void setSpriteFacingToTarget(void *, s32);
 void sub_080AC908(void *, void *, void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -21,7 +21,7 @@ void sub_080AB268(void *entity) {
 
     aim[0x11] = 1;
     sub_080AC908(companion, anim, scriptState, aim);
-    sub_080148D8(companion, *(s32 *)(scriptState + 0x08));
+    setSpriteFacingToTarget(companion, *(s32 *)(scriptState + 0x08));
 
     if (gMainWorkspace.w != 0) {
         if (sub_0801459C(scriptState, 0x700000) != 0 || (*(u16 *)scriptState & 2)) {

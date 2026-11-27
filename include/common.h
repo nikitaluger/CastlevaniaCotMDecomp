@@ -2674,3 +2674,22 @@ struct TilePageWorkspace { u8 _0[0x18A8]; u8 pageIndex; };
 /* Bounce written to the body on a tile hit, and the collision sound id. */
 #define TILE_COLLISION_BOUNCE 0x4000
 #define TILE_COLLISION_SFX 0x6F
+
+/* Large actor effect sub-object (work slot 0x120, kind 0x67). The actor keeps
+ * its script at +0x18 (2-byte steps, index at +0x22), its cleanup callback at
+ * +0x24, the spawned sprite at +0x38 and the work state at +0x3C. The work
+ * state stores its kind at +0x1C, the kind-table animation slot at +0x22, a
+ * per-step part word at +0x48 and a 16-byte copy of the sprite's part byte at
+ * +0x110. The spawned sprite takes its graphics id from the actor's +0x5C. */
+#define LARGE_EFFECT_KIND            0x67
+#define LARGE_EFFECT_WORK_SLOT_SIZE  0x120
+#define LARGE_EFFECT_SPRITE_PART_OFFSET 0x2A
+#define LARGE_EFFECT_PART_COPY_OFFSET 0x110
+#define LARGE_EFFECT_PART_COPY_COUNT  16
+#define LARGE_EFFECT_FRAME_SHIFT      6
+#define LARGE_EFFECT_FRAME_BIAS       0x200
+#define LARGE_EFFECT_FRAME_MASK       0xFC0
+#define LARGE_EFFECT_ATTR1_FLAG       0x400
+#define LARGE_EFFECT_SCRIPT_BASE      0x18
+#define LARGE_EFFECT_STEP_INDEX_OFFSET 0x22
+#define LARGE_EFFECT_ANIM_SEQUENCE    0x0841EB04

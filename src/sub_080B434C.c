@@ -3,7 +3,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void setObjectAnimation(s32, void *, s32, s32);
 extern void advanceAnimTrack(s32, void *);
-extern void sub_080148D8(s32, s32);
+extern void setSpriteFacingToTarget(s32, s32);
 extern u8 gMainWorkspace[];
 
 void sub_080B3C68(void *arg0) {
@@ -52,7 +52,7 @@ void sub_080B36F8(void *arg0) {
     u8 *r5 = p3C + 0x34;
     setObjectAnimation(v38, r5, 0, 1);
     advanceAnimTrack(v38, r5);
-    sub_080148D8(v38, *(s32 *)(p3C + 8));
+    setSpriteFacingToTarget(v38, *(s32 *)(p3C + 8));
     if (*(u32 *)(gMainWorkspace + 0x40) == 1) {
         s32 *lit;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

@@ -1,6 +1,6 @@
 s32 setObjectAnimation(s32, s32, s32, s32);
 s32 advanceAnimTrack(s32, s32);
-s32 sub_080148D8(s32, s32);
+s32 setSpriteFacingToTarget(s32, s32);
 s32 absXFromFocus(s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -19,7 +19,7 @@ void sub_080B38F8(void *arg0)
     animDesc = (s32)((s8 *)motion + 0x34);
     setObjectAnimation(anim, animDesc, 0, 1);
     advanceAnimTrack(anim, animDesc);
-    sub_080148D8(anim, *((s32 *)((s8 *)motion + 8)));
+    setSpriteFacingToTarget(anim, *((s32 *)((s8 *)motion + 8)));
     if (*((u8 *)((s8 *)arg0 + *((s16 *)((s8 *)arg0 + 0x22)) * 2 + 0x19)) == 0x14) {
         if (absXFromFocus(*((s32 *)((s8 *)motion + 8))) <= 0x3FFFFF) {
             *((u8 *)((s8 *)motion + 0x68)) = 0;

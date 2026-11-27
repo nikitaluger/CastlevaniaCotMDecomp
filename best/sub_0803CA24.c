@@ -47,7 +47,7 @@ void installUpdateHandler(void *, void *, void *);
 void initWorkStateForKind(void *, void *, void *, u32, u32);
 void initSpriteGraphics(void *, void *, void *);
 void setAnimationFrame(void *, void *, u32, u32);
-void sub_080148D8(void *);
+void setSpriteFacingToTarget(void *);
 void *allocEffectPart(void);
 void registerScriptObject(void *, u32);
 void _call_via_r1(void *, void *);
@@ -87,7 +87,7 @@ void sub_0803CA24(struct CaEntity *entity)
     setAnimationFrame(sprite, anim, 0, 0);
     work->x = entity->f4C;
     work->y = entity->f5C;
-    sub_080148D8(sprite);
+    setSpriteFacingToTarget(sprite);
     layer = (struct CaLayer *)allocEffectPart();
     work->layer = (u32)layer;
     if (layer == NULL) goto fail;

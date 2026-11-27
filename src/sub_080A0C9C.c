@@ -1,7 +1,7 @@
 extern s32 nextRandomWord(void);
 extern void setObjectAnimation(s32, s32, s32, s32);
 extern s32 sub_0801459C(void *, s32);
-extern void sub_080148D8(s32, s32);
+extern void setSpriteFacingToTarget(s32, s32);
 extern void sub_080A17B0(s32, s32, void *);
 extern s32 sub_080A17DC(s32, void *, s32, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -49,7 +49,7 @@ void sub_080A0C9C(void *arg0)
         }
         if (sub_0801459C(anim, 0x200000) != 0)
         {
-            sub_080148D8(scene, *(s32 *)((u8 *)anim + 0x08));
+            setSpriteFacingToTarget(scene, *(s32 *)((u8 *)anim + 0x08));
             randomDir = (s8)(nextRandomWord() & 3);
             if (randomDir != 0)
             {
@@ -75,7 +75,7 @@ void sub_080A0C9C(void *arg0)
     if (((u8 *)facing)[0x17] == 3)
     {
         s32 *table;
-        sub_080148D8(scene, *(s32 *)((u8 *)anim + 0x08));
+        setSpriteFacingToTarget(scene, *(s32 *)((u8 *)anim + 0x08));
         sub_080A17B0(scene, track, facing);
         step3 = *(s16 *)(self + 0x22);
         self[step3 * 2 + 0x19] = 0;

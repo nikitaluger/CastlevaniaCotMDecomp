@@ -11,9 +11,9 @@
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
 <text x="36" y="118" font-size="13">Matched: 3,987</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 300</text>
+<text x="236" y="118" font-size="13">Attempt: 302</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
-<text x="436" y="118" font-size="13">Open: 9</text>
+<text x="436" y="118" font-size="13">Open: 7</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
 <text x="636" y="118" font-size="13">Aside: 318</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
@@ -1637,7 +1637,7 @@
 <g><title>sub_080148C0: {&#x27;matched&#x27;: 1}</title>
 <rect x="610.000" y="220" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080148D8: {&#x27;matched&#x27;: 1}</title>
+<g><title>setSpriteFacingToTarget: {&#x27;matched&#x27;: 1}</title>
 <rect x="620.000" y="220" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>absXFromFocus: {&#x27;aside&#x27;: 1}</title>
@@ -4853,8 +4853,8 @@
 <g><title>sub_08041458: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="360" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0804148C: {&#x27;open&#x27;: 1}</title>
-<rect x="140.000" y="360" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0804148C: {&#x27;attempt&#x27;: 1}</title>
+<rect x="140.000" y="360" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_080415D4: {&#x27;matched&#x27;: 1}</title>
 <rect x="150.000" y="360" width="8.000" height="8" fill="#238636"/>
@@ -4886,8 +4886,8 @@
 <g><title>sub_08041B88: {&#x27;matched&#x27;: 1}</title>
 <rect x="240.000" y="360" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08041BE0: {&#x27;open&#x27;: 1}</title>
-<rect x="250.000" y="360" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_08041BE0: {&#x27;attempt&#x27;: 1}</title>
+<rect x="250.000" y="360" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_08041D5C: {&#x27;matched&#x27;: 1}</title>
 <rect x="260.000" y="360" width="8.000" height="8" fill="#238636"/>
@@ -10250,7 +10250,7 @@
 <g><title>sub_08099374: {&#x27;aside&#x27;: 1}</title>
 <rect x="520.000" y="580" width="8.000" height="8" fill="#b54747"/>
 </g>
-<g><title>sub_080994DC: {&#x27;matched&#x27;: 1}</title>
+<g><title>enemyScriptStepCycleAnimation: {&#x27;matched&#x27;: 1}</title>
 <rect x="530.000" y="580" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>enemyScriptStepAimAtPlayer: {&#x27;matched&#x27;: 1}</title>
@@ -12815,7 +12815,7 @@
 <g><title>sub_080B93F4: {&#x27;matched&#x27;: 1}</title>
 <rect x="270.000" y="690" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080B943C: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnActorLargeEffectSubObject: {&#x27;matched&#x27;: 1}</title>
 <rect x="280.000" y="690" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080B956C: {&#x27;matched&#x27;: 1}</title>

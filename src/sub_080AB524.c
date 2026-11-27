@@ -1,5 +1,5 @@
 extern u32 nextRandomWord(void);
-extern void sub_080148D8(void *, s32);
+extern void setSpriteFacingToTarget(void *, s32);
 extern void sub_080AC908(void *, void *, void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
 extern u16 D_081021D4[];
@@ -19,7 +19,7 @@ void sub_080AB524(void *arg0)
   u8 *flagPtr;
   s32 flags;
   sub_080AC908(obj, state34, state, state48);
-  sub_080148D8(obj, *((s32 *) (state + 0x08)));
+  setSpriteFacingToTarget(obj, *((s32 *) (state + 0x08)));
   if (entity[((*((s16 *) (entity + 0x22))) * 2) + 0x19] == 8)
   {
     remaining = (*((u8 *) (state48 + 0x1C))) - 1;
