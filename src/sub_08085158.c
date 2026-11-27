@@ -109,9 +109,10 @@ u32 __repair_result_r6;
         }
         return;
     }
-    case 0xA3:
-        r6 = p68->f300;
-        if (r6 > (u32)gMainWorkspace.f1508) {
+    case 0xA3: {
+        u32 *p = &p68->f300;
+        if (*p > (u32)gMainWorkspace.f1508) {
+            r6 = *p;
             p68->f300 = r6 + sub_080C3824(r6 - gMainWorkspace.f1508, 5);
             o = sub_0806D2A0(arg0, 0x34, 0xA, 0x12);
             if (o != NULL) {
@@ -120,5 +121,6 @@ u32 __repair_result_r6;
             sub_08086E28();
         }
         return;
+    }
     }
 }
