@@ -9,7 +9,7 @@ static inline u16 flagBit(int n) {
     return m;
 }
 
-void updateVirtualInputFromRaw(void) {
+void sub_080062AC(void) {
     u16 *input = gCrossfadeGfxState;
     u8 *raw = gCameraState;
     u16 word, upper;

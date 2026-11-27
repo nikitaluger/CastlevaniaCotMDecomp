@@ -358451,6 +358451,15 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:89edd23fbe5f93bf1295e96f44c2bd49c7d58ca77817c3caf385d9dfb8d4bf4e"
  },
  {
+  "function": "sub_08097B70",
+  "text": "Best 245 (rechecked), reverted to saved_best fd7930101b8e957b30e8. Residual is exactly: target mask 0x8000 in r2 plus `adds r3,r2,#0` copy before walker=base; ours mask in r3 and no copy. New insight: the extra `movs r0,r0` immediately after the final forward `b` is 2-byte literal-pool alignment padding, not a semantic instruction; target has the 2-byte mask copy instead, so both are 135 insns. Negatives this session: corrected matched prototypes (allocWorkSlot returns s32, sub_0805FB24 first arg void*) = no effect; named u32 mask local used in both conditions = 1490 (allocator cascade); u16 eight = no effect; declaring sub_08097CF4 as void(void) = no effect. Linker callee diagnostics are displacement-shift false positives.\ncorrected prototypes; named u32 mask local; u16 eight; void(void) declaration for sub_08097CF4\nall either left the same 12-row diff (245) or collapsed allocation (1490)",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795812123.5406978,
+  "score_before": 245,
+  "score_after": 245,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:f244449d35b4edc1316eb4c75cc2640f7690ebde2e9f996766861bba5a9fe786"
+ },
+ {
   "function": "updateVirtualInputFromRaw",
   "text": "Releasing.",
   "by": "opencode-free-1",
@@ -358713,14 +358722,5 @@
   "created_at": 1795683534.1905682,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "sub_08097B70",
-  "text": "Best 245 (rechecked), reverted to saved_best fd7930101b8e957b30e8. Residual is exactly: target mask 0x8000 in r2 plus `adds r3,r2,#0` copy before walker=base; ours mask in r3 and no copy. New insight: the extra `movs r0,r0` immediately after the final forward `b` is 2-byte literal-pool alignment padding, not a semantic instruction; target has the 2-byte mask copy instead, so both are 135 insns. Negatives this session: corrected matched prototypes (allocWorkSlot returns s32, sub_0805FB24 first arg void*) = no effect; named u32 mask local used in both conditions = 1490 (allocator cascade); u16 eight = no effect; declaring sub_08097CF4 as void(void) = no effect. Linker callee diagnostics are displacement-shift false positives.\ncorrected prototypes; named u32 mask local; u16 eight; void(void) declaration for sub_08097CF4\nall either left the same 12-row diff (245) or collapsed allocation (1490)",
-  "by": "opencode-hy4-flash-free-64",
-  "created_at": 1795812123.5406978,
-  "score_before": 245,
-  "score_after": 245,
-  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:f244449d35b4edc1316eb4c75cc2640f7690ebde2e9f996766861bba5a9fe786"
  }
 ]
