@@ -15328,7 +15328,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Cannot progress; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.975728,
@@ -48864,7 +48864,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Cannot improve further in this session. Releasing.",
   "by": "opencode-beam-free-2",
   "created_at": 1795683534.1560297,
@@ -48880,7 +48880,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Releasing; regalloc wall.",
   "by": "opencode-beam-free-2",
   "created_at": 1795683534.156103,
@@ -48904,7 +48904,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Releasing to work on sub_08001384 (best score 10, near match). sub_080B0400 best 3770 preserved.",
   "by": "opencode-beam-free-2",
   "created_at": 1795683534.1562214,
@@ -49320,7 +49320,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Best score 3770 (73.6%, 138/143 insns), kept from prior attempt. Main issues: prologue/register allocation differs (target push {r7} path, r6/r7/r8 mapping), null checks branch to shared fail epilogue at 0x080B0458 in target, r7+0x2A mask done on actual r7 object, D_081026A4 loaded into r4 before sub_08016190 and used for r0p+6/8/A/C, r8 held as 0 across stores, r0p fields written via reloaded [r5,#0x28] pointers, and tail indexing/registers differ. Tried fixes for r7+0x2A offset and r4tbl placement but regressed; linker reports symbol/call ordering mismatches (sub_080B05CC/D_081026A4 placement). Needs careful temp/register ordering to match. Releasing to continue session.",
   "by": "opencode-iceman-contributor-free-6",
   "created_at": 1795683534.1583588,
@@ -68352,7 +68352,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Cannot get closer from current C in this session. Best 3770 (73.6%, 138/143 insns) preserved from prior agent. Major structural diffs remain: target uses r6=arg0, r7=obj, r5=f3C, r8 as persistent zero, r4 reused (0 then D_081026A4 ptr), shared fail epilogue at 0x080B0458 reached via short beq from all null checks, r7+0x2A mask on obj, sub_08014288(arg0,r5,sub_080B05CC), sub_08016190 result stored to r5+0x28 and reloaded for each field store, D_080CBDD0 accessed with stride 0x28 and fields f14/f16, and standard tail (g+0x4C/g+0x50 zero, g+2|=0x1000, zero/inc byte at g+idx*2+0x19, sub_080C31E4/sub_080C31E0). I attempted a restructure to introduce shared fail/mid layout and correct reloaded stores but it regressed badly (4990) due to register allocation and control-flow layout changes; reverting to best-attempt form and iterating carefully would require more targeted attempts than available now. Left best attempt 3770 intact.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.2561946,
@@ -105848,7 +105848,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Improved inherited best 3770 -> 3745 (saved) by splitting the two aliased objects (r7 MaskObj u8@0x2A vs r5 R5 struct), hoisting `u16 *tbl = D_081026A4` before sub_08016190, and using a shared fail epilogue. Also reported the true boundary at 0x080B0522 (`bx r0`); the trailing 8 bytes are the literal pool (0x080CBDD0/0x08671BB0) decoded as garbage in the diff. Remaining wall is deep agbcc regalloc: target g=r6/r5struct=r5/tbl=r4/zero8=r8, ours g=r5/r5struct=r4/tbl=r6; target's `movs r4,#0` sits just before the mask strb while ours hoists `movs r6,#0` to the prologue; AND tie-break swapped; fail block is target's third-check fallthrough vs ours at function end. Calls/data correct; no further C-side lever found in 3 compiles. Ordinary correct C, not hand asm, not not_c.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4547844,
@@ -106768,7 +106768,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Cannot get closer: deterministic agbcc regalloc rotation at best 430 (96.9%, 143/143 insns, all logic/calls/data byte-exact). Target callee-saved: zero32/tbl=r4, p=r5, arg0=r6, obj=r7, zero8=r8; agbcc gives p=r4, arg0=r5, tbl=r6. Also target has `movs r4,#0` inside the obj+0x2A mask block (zero32 pre-#383 split) which agbcc always coalesces/rematerializes as `movs r1,#0` after sub_08014288. Tried: struct-param vs u8-param, alias local, zero32 first in declaration order, initializer at top, cbdd hoist, struct-CBD2 table fields, qq pointer, TBL_OFF shifts \u2014 best stays 430. Improved inherited 3745 -> 615 -> 430 this session. Ordinary correct C, not asm/not_c; needs a regalloc/coalescing change. Best source = compile #3 (u8 *arg0, zero32 first local, mask split, cbdd hoist).",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4598002,
@@ -117176,7 +117176,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "MATCHED sub_080B0400 (score 20 -> 0 in one compile): the last two diff rows were a load-order swap \u2014 target `ldr r2,[r5,#0x28]` (reload of p->f28) then `ldr r3,=0x080CBDD0`, mine literal first. Fix: keep the `u8 *cbdd` local but assign it INSIDE the RHS of the field store: `p->f28->f4 = ((struct CBD2 *)((cbdd = D_080CBDD0) + TBL_OFF(...)))->f14;`. Evaluating the LHS address first forces agbcc to load p->f28 before the literal, while keeping the literal early (before the offset computation). Inlining `D_080CBDD0` directly in the expression instead sinks the literal load after the offset math (score 200).",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.516201,
@@ -139392,7 +139392,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080B0400",
+  "function": "spawnMainObjTimerEffect",
   "text": "Made readable (211th function). Tried rename_symbol + edit_context but BOTH are currently rejected project-wide because these 7 matched functions 'compile but no longer match': MainObj_CallUpdate, sub_080B06CC, sub_08013C2C, MainObj_UpdateTimer, ResultObj_New, sub_080BE99C, sub_08061224. This is unrelated to this function's source (the same 7 names appear for every rename attempt). Kept structs/externs local and left all global names unchanged; the readable rewrite still matches byte for byte.",
   "by": "opencode-hy4-flash-free-3",
   "created_at": 1795683534.632946,
@@ -358632,5 +358632,32 @@
   "score_before": 760,
   "score_after": 760,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:5fbaa6cfdda9dc05576e1ef75a47f87985b5eff1f99facc5e55bbf61e1baaa43"
+ },
+ {
+  "function": "sub_080121F8",
+  "text": "Boundary mis-split, not a C problem: declared extent 0x080121F8..0x08012292 has no return; all exits branch into the unowned tail 0x08012292..0x080122F8 which uses the same frame and r10=arg1. A boundary-extension proposal is already pending user approval. get_boundary_evidence is unsupported for ARM in this project. 62 explicit patches and 14 local repairs all best 80; the saved source shape is correct for the extended function. A compile_and_diff of the saved source was still pending (248 s) when this session ended.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811594.7411783,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
+ },
+ {
+  "function": "sub_0803C250",
+  "text": "Terminal regalloc wall at 370 (85/85 insns). Else branch: target base in r0 + `adds r1,r0,#0` copy for shared b tail; candidate base in r1, no copy, late `movs r0,r0`. All pool/branch diffs follow the missing 2-byte copy. 26 attempts/4 agents unchanged.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795811629.5703819,
+  "score_before": 370,
+  "score_after": 370,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:531fb8b437d6f3f1c7e760cbb8224e99a848a6acf6e4f669d38a547615cbd99e"
+ },
+ {
+  "function": "sub_080121F8",
+  "text": "Structural blocker, not a C-shape problem: declared extent 0x080121F8..0x08012292 has no return; all exits branch into the unowned shared tail 0x08012292..0x080122F8 (same frame, r10=arg1). A boundary-extension proposal is already pending user approval. Best score 80 across 100 attempts / 3 agents. Residual is exactly 6 rows: target `str r0,[sp,#0xC]; str r0,[sp]; add r1,sp,#4; mov r9,r1; ...; movs r4,#7` vs candidate `...; movs r4,#7; add r0,sp,#4; mov r9,r0` (loop-counter init ordered before the &sp4 address staging, and r0 vs r1 staging reg). Matches the documented agbcc large-function allocator wall. My new experiments: (a) hoist pointer locals for sp4/sp8/spC/sp10/sp14 before do-loop -> score 1105 (extra frame shifts calls, bogus 'calls something else' diagnostic); (b) plain for-loop -> score 80, identical diff; (c) pointer locals + for-loop -> score 1105. None improve.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795811681.0665734,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
  }
 ]

@@ -17,9 +17,9 @@ struct S_02025FF0 { u8 _0[0x18BC]; u16 counter; };
 extern struct S_02025FF0 gMainWorkspace;
 
 /* One update tick of a weapon entity: run the hit/damage responses, issue the
- * attack-end callback, dispatch the current state handler from the D_0866E888
+ * attack-end callback, dispatch the current state handler from the gWeaponStateHandlers
  * table, mirror the entity's animation state, then finish with cleanup. */
-void sub_0805A3D4(u8 *arg0) {
+/* One update tick of a weapon entity: run hit responses, dispatch the attack-end callback and current state handler, then advance and sync the sprite. */ void updateWeaponStep(u8 *arg0) {
     s32 parent = *(s32 *)(arg0 + 0x38);
     u8 *obj = *(u8 **)(arg0 + 0x3C);
     u8 *objSub = obj + 0x34;

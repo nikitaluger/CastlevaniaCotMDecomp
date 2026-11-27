@@ -34,7 +34,7 @@ struct ResultObj {
 
 /* Release the sub-object's linked child (if any), then dispatch its saved
  * script handler on this entity. */
-void sub_080B05CC(struct MainObj *obj) {
+void cleanupMainObjTimerEffect(struct MainObj *obj) {
     struct SubObj *sub = (struct SubObj *)obj->subObj;
     if (sub->child != 0) {
         unlinkAndFreeObject();
