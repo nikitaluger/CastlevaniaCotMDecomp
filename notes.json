@@ -352248,6 +352248,51 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
  },
  {
+  "function": "sub_080C0440",
+  "text": "Fresh recheck confirms the inherited best at score 10 (21/21 insns): only two register rows differ \u2014 ROM loads the record word into r2 and stages it with `adds r0,r2,#0`, while agbcc uses r3. This session: reusing the table-base variable for the loaded value (35, swaps table/index into r3/r2), splitting index and record into separate locals (25), using a u8* record local (25), and try_local_repairs compare (s32 off -> 210; in-place param update and struct-row access -> 10 with identical diff) all fail to move the record load into r2. 1034+ attempts across agents; pure allocator tie. Do not repeat variant grids; only a different compiler build could change this coloring.\nreuse table-base variable (35), split locals (25), u8* record (25), local-repair grid (10/210)\nBest remains 10 with ldr r3,[r1] / adds r0,r3,#0 versus target's r2",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779674.2405035,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:77a1d23e2d6dbeaf9f40729280a14a883f9161e43c3b95c2326518e743a2b2d8"
+ },
+ {
+  "function": "sub_08096F5C",
+  "text": "Semantically correct form is `if (*(s16*)0x020279E8==0xB) return 0; return -1;` (matches target). That scores 465 due to branchy literal-pool Thumb leaf LR-frame wall (push/pop + pool/branch ripple), same class as accepted 9295C tip. Saved historical 305 has wrong polarity (returns 1, not -1) - do not treat as valid. Corrected candidate is rev acc9cc80.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779674.2829955,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:7af7f9e11635829fe05b6fcf9d308108ddd0dbe3d614805018e6f7b7eac4e6fb"
+ },
+ {
+  "function": "sub_080A2D80",
+  "text": "Target has null guard then stores arg1/arg2 to +0x4C/+0x5C. Saved 200 omitted guard (invalid); guarded correct version scores 215 with frameless-leaf LR-frame wall (push/pop, beq ripple). Reported corrected rev 3bb3d16f113a58e73446 is semantically right. Backend wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779674.445842,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:097e7755d7b1c37ab8a53ee49070cfb22e0540741d6271eebb9b4ffc8eea51ae"
+ },
+ {
+  "function": "sub_08020498",
+  "text": "Range check on arg0->f28 (0x29..0x32) conditionally clears byte at arg1->f28+1; copies 4 u16s from D_080CE794 to arg1->f28+6..C. Body matches; score 215 with frameless-leaf LR-frame wall (push{lr}/pop{r0}) and branch ripple. Repeated same diff 13+ times. Likely compiler backend wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779674.4820335,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:ade5b3a1ba72beb4015de3a57be41b203f868ce99608bfa3a1b94b91fb01db10"
+ },
+ {
+  "function": "sub_080A041C",
+  "text": "Null-guarded read of u8 at +0x7C, returns 0 if null. Body matches saved best 215; my variant scored 665 (worse control flow) - not kept. Residual is frameless-leaf LR-frame wall (push/pop, branch ripple). Accepted leaf-wall tip applies.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779674.6211264,
+  "score_before": 665,
+  "score_after": 665,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:3d164c24fc4489f8bc8eb1d0e15fb02dac7e3949825c2c53d3d3c2cbf2413ea1"
+ },
+ {
   "function": "spawnActorChildEffectVariant",
   "text": "Best 5116. Needs regalloc fix: sb holds D_02025368 base; r6/r7/r5/r8 assignment order. Complex 180-insn function. Leaving.",
   "by": "opencode-free-1",
@@ -352334,50 +352379,5 @@
   "created_at": 1795683534.797272,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "sub_080C0440",
-  "text": "Fresh recheck confirms the inherited best at score 10 (21/21 insns): only two register rows differ \u2014 ROM loads the record word into r2 and stages it with `adds r0,r2,#0`, while agbcc uses r3. This session: reusing the table-base variable for the loaded value (35, swaps table/index into r3/r2), splitting index and record into separate locals (25), using a u8* record local (25), and try_local_repairs compare (s32 off -> 210; in-place param update and struct-row access -> 10 with identical diff) all fail to move the record load into r2. 1034+ attempts across agents; pure allocator tie. Do not repeat variant grids; only a different compiler build could change this coloring.\nreuse table-base variable (35), split locals (25), u8* record (25), local-repair grid (10/210)\nBest remains 10 with ldr r3,[r1] / adds r0,r3,#0 versus target's r2",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795779674.2405035,
-  "score_before": 10,
-  "score_after": 10,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:77a1d23e2d6dbeaf9f40729280a14a883f9161e43c3b95c2326518e743a2b2d8"
- },
- {
-  "function": "sub_08096F5C",
-  "text": "Semantically correct form is `if (*(s16*)0x020279E8==0xB) return 0; return -1;` (matches target). That scores 465 due to branchy literal-pool Thumb leaf LR-frame wall (push/pop + pool/branch ripple), same class as accepted 9295C tip. Saved historical 305 has wrong polarity (returns 1, not -1) - do not treat as valid. Corrected candidate is rev acc9cc80.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795779674.2829955,
-  "score_before": 465,
-  "score_after": 465,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:7af7f9e11635829fe05b6fcf9d308108ddd0dbe3d614805018e6f7b7eac4e6fb"
- },
- {
-  "function": "sub_080A2D80",
-  "text": "Target has null guard then stores arg1/arg2 to +0x4C/+0x5C. Saved 200 omitted guard (invalid); guarded correct version scores 215 with frameless-leaf LR-frame wall (push/pop, beq ripple). Reported corrected rev 3bb3d16f113a58e73446 is semantically right. Backend wall.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795779674.445842,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:097e7755d7b1c37ab8a53ee49070cfb22e0540741d6271eebb9b4ffc8eea51ae"
- },
- {
-  "function": "sub_08020498",
-  "text": "Range check on arg0->f28 (0x29..0x32) conditionally clears byte at arg1->f28+1; copies 4 u16s from D_080CE794 to arg1->f28+6..C. Body matches; score 215 with frameless-leaf LR-frame wall (push{lr}/pop{r0}) and branch ripple. Repeated same diff 13+ times. Likely compiler backend wall.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795779674.4820335,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:ade5b3a1ba72beb4015de3a57be41b203f868ce99608bfa3a1b94b91fb01db10"
- },
- {
-  "function": "sub_080A041C",
-  "text": "Null-guarded read of u8 at +0x7C, returns 0 if null. Body matches saved best 215; my variant scored 665 (worse control flow) - not kept. Residual is frameless-leaf LR-frame wall (push/pop, branch ripple). Accepted leaf-wall tip applies.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795779674.6211264,
-  "score_before": 665,
-  "score_after": 665,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:3d164c24fc4489f8bc8eb1d0e15fb02dac7e3949825c2c53d3d3c2cbf2413ea1"
  }
 ]

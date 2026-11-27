@@ -50,7 +50,7 @@ struct ScriptStep { u8 _0[0x19]; u8 counter; };
 
 /* Allocate and initialize a sub-object for this entity's current action, install its
  * cleanup callback and timer, then dispatch the next script step. */
-void spawnActorChildEffectVariant(u8 *entity) {
+void sub_08079204(u8 *entity) {
     u8 *params = *(u8 **)(entity + 0x6C);
     struct BehaviorState *state = (struct BehaviorState *)(params + 4);
     u8 *sprite = *(u8 **)(entity + 0x38);
