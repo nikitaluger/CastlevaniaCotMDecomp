@@ -15328,6 +15328,14 @@
   "score_after": null
  },
  {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Cannot progress; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.975728,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "updateCameraSnappedProjectile",
   "text": "Releasing: regalloc issue remaining; best attempt saved.",
   "by": "opencode-free-1",
@@ -15956,14 +15964,6 @@
   "text": "Stub only. Needs full translation.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9793031,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080C0614",
-  "text": "Releasing: 2 compiles, complex hardware-init function. Pointer assignment ordering and Thumb bit issues. Best score 7363. Next agent should match the exact store sequence; function pointers need +1 Thumb bit which compiler may not auto-add when cast through void*.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9793391,
   "score_before": null,
   "score_after": null
  },
@@ -48856,10 +48856,26 @@
   "score_after": null
  },
  {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Cannot improve further in this session. Releasing.",
+  "by": "opencode-beam-free-2",
+  "created_at": 1795683534.1560297,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "updateScriptedTimedAttackObject",
   "text": "Already done (score 5731). Releasing to move on.",
   "by": "opencode-beam-free-6",
   "created_at": 1795683534.1560664,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Releasing; regalloc wall.",
+  "by": "opencode-beam-free-2",
+  "created_at": 1795683534.156103,
   "score_before": null,
   "score_after": null
  },
@@ -48876,6 +48892,14 @@
   "text": "Done (best 5731). Releasing with needs=sub_080009DC to get a new smaller function.",
   "by": "opencode-beam-free-6",
   "created_at": 1795683534.1561844,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Releasing to work on sub_08001384 (best score 10, near match). sub_080B0400 best 3770 preserved.",
+  "by": "opencode-beam-free-2",
+  "created_at": 1795683534.1562214,
   "score_before": null,
   "score_after": null
  },
@@ -49284,6 +49308,14 @@
   "text": "Releasing; coalescer ceiling 130. Best source preserved.",
   "by": "opencode-beam-free-4",
   "created_at": 1795683534.1583238,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Best score 3770 (73.6%, 138/143 insns), kept from prior attempt. Main issues: prologue/register allocation differs (target push {r7} path, r6/r7/r8 mapping), null checks branch to shared fail epilogue at 0x080B0458 in target, r7+0x2A mask done on actual r7 object, D_081026A4 loaded into r4 before sub_08016190 and used for r0p+6/8/A/C, r8 held as 0 across stores, r0p fields written via reloaded [r5,#0x28] pointers, and tail indexing/registers differ. Tried fixes for r7+0x2A offset and r4tbl placement but regressed; linker reports symbol/call ordering mismatches (sub_080B05CC/D_081026A4 placement). Needs careful temp/register ordering to match. Releasing to continue session.",
+  "by": "opencode-iceman-contributor-free-6",
+  "created_at": 1795683534.1583588,
   "score_before": null,
   "score_after": null
  },
@@ -51732,22 +51764,6 @@
   "text": "Not C: linker-generated Thumb\u2192ARM interworking veneer. Raw bytes `00 a2 10 47` = `add r2,pc,#0; bx r2`, switching to ARM state at 0x080BF7BC (following bytes are ARM code: e0832190, e2830000, e12fff1e). No C construct emits a PC-relative address into r2 followed by `bx r2`; empty function gives `bx lr` (score 105) and call-through variants give push/bl/pop. Already independently concluded by three other agents/models.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.1714761,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080C0614",
-  "text": "Best 2772 (81.2%) with: explicit u8* io increments for the six hardware byte stores (produces target's `adds r0,#6; strb`), `u8 *tbl` with `*(u32 *)(tbl+0x20)` etc. for direct `str r0,[r4,#offset]` table stores, and inline `*(volatile u32 *)0x03007FF0` (removes an early literal hoist). All 9 function-pointer table stores and the 4 r5-relative pointer stores match structurally. Remaining: extra callee-saved r8 holds zero for `strb [r5,#0xc]`/`str [sp]` (target instead loads 0 from literal pool at #0x94 with `movs r1,#0` for [sp]); this adds 4 instructions and shifts every pool offset by 4. Calls to sub_080BFBB8/080C2F1C route via local veneers. Byte stores to arg0 use `adds r1,#0x25; strb` where target uses `adds r1,#0x24; strb [r1,#1]`.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.171522,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080C0614",
-  "text": "Releasing best 2762 (81.3%) after applying the struct-field trick (`struct Byte1 {u8 pad[1]; u8 f;}; ((struct Byte1*)q)->f = 4`) to get `adds r1,#0x24; strb [r1,#1]`. Correct: all IO writes, magic check, 9 table stores, 4 r5 stores, arg0 byte writes. Unfixed: extra callee-saved r8 holding zero (target loads 0 from literal pool via `ldr r0,[pc,#0x94]` while using `movs r1,#0` for [sp]); this adds 4 insns and shifts every literal offset by 4, causing most of the 27 operand diffs. Calls to sub_080BFBB8/sub_080C2F1C use local veneers. Needs a C form that makes the zero byte-store value come from a 32-bit literal-pool load rather than a CSE'd `movs #0`.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.1715665,
   "score_before": null,
   "score_after": null
  },
@@ -68308,6 +68324,14 @@
   "text": "Regalloc wall score 10. Cannot get closer from C. Best preserved. NOT not_c.",
   "by": "opencode-beam-free-2",
   "created_at": 1795683534.2561567,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Cannot get closer from current C in this session. Best 3770 (73.6%, 138/143 insns) preserved from prior agent. Major structural diffs remain: target uses r6=arg0, r7=obj, r5=f3C, r8 as persistent zero, r4 reused (0 then D_081026A4 ptr), shared fail epilogue at 0x080B0458 reached via short beq from all null checks, r7+0x2A mask on obj, sub_08014288(arg0,r5,sub_080B05CC), sub_08016190 result stored to r5+0x28 and reloaded for each field store, D_080CBDD0 accessed with stride 0x28 and fields f14/f16, and standard tail (g+0x4C/g+0x50 zero, g+2|=0x1000, zero/inc byte at g+idx*2+0x19, sub_080C31E4/sub_080C31E0). I attempted a restructure to introduce shared fail/mid layout and correct reloaded stores but it regressed badly (4990) due to register allocation and control-flow layout changes; reverting to best-attempt form and iterating carefully would require more targeted attempts than available now. Left best attempt 3770 intact.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.2561946,
   "score_before": null,
   "score_after": null
  },
@@ -99120,14 +99144,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080C0614",
-  "text": "Cannot get closer: literal pool placement wall. Score 290 (98%). Target uses `ldr r0,[pc,#0x94]` for 32-bit zero literal pool load before byte store, and separate `movs r1,#0` for stack store. agbcc CSEs both to single `movs r0,#0`. Adding volatile zero variable increases stack frame to 8 bytes and breaks register allocation. No pure C spelling forces literal pool load for byte-store zero while keeping stack frame at 4 bytes and register allocation intact. Branch offset (bne) and call offset diffs are consequences of missing literal pool instruction. This is a compiler heuristic difference in literal pool management.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4179597,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08004314",
   "text": "Proven permanent agbcc -O2 ip/sb callee-saved tie-break regalloc wall at score 40 (181/181 insns byte-exact). Sole diff: 8 regalloc rows \u2014 target keeps *(s16*)(arg0+0x3C)/var_r12 in ip(r12) and n1>>3/var_r9 in sb(r9); agbcc -O2 deterministically swaps them (mov ip,r2 vs mov sb,r2; mov sb,r1 vs mov ip,r1; mov r1,ip vs mov r1,sb; mov r3,sb vs mov r3,ip; mov r0,sb vs mov r0,ip). All flag variants O1/O2/O3/Os floor at 40; ~180 prior attempts across all models/forms. register-asm banned (#354); decl/assign-order regresses. No pure-C spelling flips this deterministic tie-break. Calls sub_08004484 via bl (stub link fine). Not hand asm / not not_c \u2014 only a compiler/regalloc change closes it. Data: arg0+0x18/u16@0x3C, arg0+0x1C/u16@0x3E, arg0+0x20 s16, arg0+0x22 s16, arg0+0 u16 flags. Best source = brief's attempt at score 40.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -105800,6 +105816,14 @@
   "score_after": null
  },
  {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Improved inherited best 3770 -> 3745 (saved) by splitting the two aliased objects (r7 MaskObj u8@0x2A vs r5 R5 struct), hoisting `u16 *tbl = D_081026A4` before sub_08016190, and using a shared fail epilogue. Also reported the true boundary at 0x080B0522 (`bx r0`); the trailing 8 bytes are the literal pool (0x080CBDD0/0x08671BB0) decoded as garbage in the diff. Remaining wall is deep agbcc regalloc: target g=r6/r5struct=r5/tbl=r4/zero8=r8, ours g=r5/r5struct=r4/tbl=r6; target's `movs r4,#0` sits just before the mask strb while ours hoists `movs r6,#0` to the prologue; AND tie-break swapped; fail block is target's third-check fallthrough vs ours at function end. Calls/data correct; no further C-side lever found in 3 compiles. Ordinary correct C, not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4547844,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08090A7C",
   "text": "Score 355 (77.8%), frameless-branchy-leaf wall. Target 16 insns ends with bare `bx lr`; agbcc always emits `push {lr}`/`pop {r1}`/`bx r1` for leaf functions, shifting branch offsets +2 and adding 3 extra insns. Hardcoded address `*(s16*)0x020279E8` matches m2c draft best (355). Extern symbol forms worse (755). Switch form is best C structure (if/else 1105). Extra target insns `ldrb r0,[r5,#7]; lsls r2,r0,#8` in diff suggest function boundary extends past listed 16 insns. Verified unsolvable in pure C per project info (O1/O2/O3/Os all floor 245-445).",
   "by": "opencode-free-1",
@@ -106708,6 +106732,14 @@
   "text": "Best 1886 (83.8%). Compiled baseline; known structural wall per prior notes: target uses register-offset `ldrsh r1,[r7,r2]` for modulo sequence and loads table base 0x08100B1E before index for lookup, with different regalloc (r8/r2/r1/r4 roles) and shift/call placement. C attempts produce `ldrh`+shift artifact sequence and different literal/orderings. No C-level fix identified; likely compiler/ABI wall. No further progress in this session after reaching move-on.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.459763,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Cannot get closer: deterministic agbcc regalloc rotation at best 430 (96.9%, 143/143 insns, all logic/calls/data byte-exact). Target callee-saved: zero32/tbl=r4, p=r5, arg0=r6, obj=r7, zero8=r8; agbcc gives p=r4, arg0=r5, tbl=r6. Also target has `movs r4,#0` inside the obj+0x2A mask block (zero32 pre-#383 split) which agbcc always coalesces/rematerializes as `movs r1,#0` after sub_08014288. Tried: struct-param vs u8-param, alias local, zero32 first in declaration order, initializer at top, cbdd hoist, struct-CBD2 table fields, qq pointer, TBL_OFF shifts \u2014 best stays 430. Improved inherited 3745 -> 615 -> 430 this session. Ordinary correct C, not asm/not_c; needs a regalloc/coalescing change. Best source = compile #3 (u8 *arg0, zero32 first local, mask split, cbdd hoist).",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4598002,
   "score_before": null,
   "score_after": null
  },
@@ -117112,6 +117144,14 @@
   "score_after": null
  },
  {
+  "function": "spawnMainObjTimerEffect",
+  "text": "MATCHED sub_080B0400 (score 20 -> 0 in one compile): the last two diff rows were a load-order swap \u2014 target `ldr r2,[r5,#0x28]` (reload of p->f28) then `ldr r3,=0x080CBDD0`, mine literal first. Fix: keep the `u8 *cbdd` local but assign it INSIDE the RHS of the field store: `p->f28->f4 = ((struct CBD2 *)((cbdd = D_080CBDD0) + TBL_OFF(...)))->f14;`. Evaluating the LHS address first forces agbcc to load p->f28 before the literal, while keeping the literal early (before the offset computation). Inlining `D_080CBDD0` directly in the expression instead sinks the literal load after the offset math (score 200).",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.516201,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08068978",
   "text": "Best 16489 (70.9%). Confirmed via MATCHED sibling sub_08065BAC: thunks are sub_0806AB04/sub_0806BCD8 (NOT _0806AB04); sub_080C31E8 signature (void*,void*,u16,void*) with D_08671BD0 as `extern void *` passed directly; s16-index byte store must be `*((u8*)(((*(s16*)(arg0+0x22))*2)+(u32)arg0)+0x19)=v`. Global tables as padded structs recovered 49 insns: D_02025FF0{f24 u32@0x24,f28 u16@0x28,f2A u16@0x2A,f14AC u32@0x14AC,f14ED u8@0x14ED,f18A8 u8@0x18A8}, D_02025368{f3BC/f3BE/f3C2 u16}, D_02021E90{f146C/f146E u16}. CRITICAL agbcc convention: agbcc evaluates the LEFT operand of `&` first, so write `table.field & other/const` with the field FIRST (e.g. `f28 & f3BC`, `f2A & 0x80`) \u2014 swapping operands fixed ~1200 points. Remaining wall: 155 regalloc rows; target self=r5,p+4=r7,copy=r8,p38=r10,temps=r4/r6/r9 vs mine self=r4,p+4=r6,copy=sb,p38=sl. Need original local declaration order/types (and self-struct at +0x18/+0x22/+0x38/+0x6C). Do NOT add the big structs to context.h \u2014 that broke 7 matched functions; keep them local to the source.",
   "by": "opencode-hy4-flash-free-1",
@@ -118164,14 +118204,6 @@
   "text": "Cannot get closer: improved to 301 (94.9%) but remaining diff is a callee-saved register-coloring wall (mine push {r4,r5,r6} with self=r5/zero=r6/extra movs r4,#0; target push {r4,r5} with self=r4/zero=r5 and fresh movs r1,#0 for final strb), plus cascading literal offsets and BL relocation artifacts. Multiple C forms for the final byte-store zero all put it in r4. Releasing with best source and notes preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.522521,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080C0614",
-  "text": "Requesting release with reason: cannot get closer in pure C. All real code byte-identical except the target's `ldr r0,[pc,#0x94]` literal-pool zero for the byte store (`strb r0,[r5,#0xC]`) plus separate `movs r1,#0` for `[sp]`; agbcc always CSEs both zeros to a single `movs r0,#0`. Every C spelling tried (u32 local, (u32)(void*)0, static const u32, volatile variants by prior agents) either stays at 290 or regresses badly (static const -> 2122, r8 frame). ~14 prior attempts agree this is a literal-pool-placement compiler heuristic wall. Not hand-written asm, not not_c. Best source (score 290) preserved verbatim.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.5225668,
   "score_before": null,
   "score_after": null
  },
@@ -121740,14 +121772,6 @@
   "text": "WALL (class B frameless-leaf, proposal #393): body byte-exact; only diff is agbcc's `push {lr}` / `pop {r0}; bx r0` vs target's bare frameless `bx lr` (score 215). Without null check: 200 but cmp/beq missing. Same wall as sub_08060930 (just released): this agbcc build saves lr for every branchy function even when leaf (matched branchy leaf sub_08000D24 = push {r4,lr}; straight-line leaves frameless). Tried: early return, struct field, pointer arithmetic, s32/u8 params, static/non-static, search_flags all -O levels, try_compiler -mno-thumb-interwork \u2014 all keep the frame. Only agbcc exists for this game. Unfixable in pure C. Siblings with same wall: sub_080A0204, sub_080A2D80, sub_08014990. Releasing.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.5412035,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080C0614",
-  "text": "Cannot get closer: 290 (98.0%). Residual is deterministic agbcc literal-pool/CSE choice (pool-loaded zero for byte store vs shared `movs r0,#0` for byte+stack stores), causing 1 missing, 2 regalloc, 2 operand, 3 reordered rows and call/branch offset differences. Tried alternative zero expression `(u8)(magic - 0x68736D53)` with no effect; prior attempts exhausted other C forms. All functional structure/IO/table stores/field writes match. Not hand asm, not not_c. Releasing now.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.5412407,
   "score_before": null,
   "score_after": null
  },
@@ -132488,14 +132512,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080C0614",
-  "text": "Best 70 (99.5%, 148/148 insns, 4 differing rows). Big win from prior best 290 via `extern u8 D_00000000[]; u32 z0=(u32)D_00000000;` which emits the target's `ldr r0,=0` literal-pool load (shared as proposal #537). Remaining wall is scheduling/regalloc of the second zero: target `ldr r0,=0; movs r1,#0; strb r0,[r5,#c]; str r1,[sp]`, ours `ldr r0,=0; strb r0,[r5,#c]; movs r0,#0; str r0,[sp]`. Tried 8 compiles: sp0=0 before/after store, z0 local, void* z0, pointer local, u32 vs s32, init at declaration, register asm (rejected). Cannot force agbcc to materialize the stack-store zero in r1 before the strb without extra instructions. Not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5971358,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "checkAngularMotionHit",
   "text": "Cannot get closer: agbcc high-reg wall at 5035 (66.6%, 151 insns). b/pC0/pC8 coloring not selectable from C. Logic correct. Releasing.",
   "by": "opencode-beam-free-1",
@@ -139316,6 +139332,14 @@
   "text": "Best 400, cannot get closer in pure C within move-on budget (4 compiles, no improvement). Clamp block requires specific load order and two register-copy instructions (`adds r2,r0,#0`, `adds r0,r3,#0`) with a in r4/b in r0/t3 in r3/sum in r1; attempts to force via locals/temps either don't change scheduling or introduce extra live values causing r8 spill/veneer explosion per prior notes and this session's results. Structure, calls, and surrounding logic match; remaining diffs are regalloc/scheduling in clamp and resulting branch/call veneer offsets. Not boundary/not_c. Best preserved.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.6329072,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnMainObjTimerEffect",
+  "text": "Made readable (211th function). Tried rename_symbol + edit_context but BOTH are currently rejected project-wide because these 7 matched functions 'compile but no longer match': MainObj_CallUpdate, sub_080B06CC, sub_08013C2C, MainObj_UpdateTimer, ResultObj_New, sub_080BE99C, sub_08061224. This is unrelated to this function's source (the same 7 names appear for every rename attempt). Kept structs/externs local and left all global names unchanged; the readable rewrite still matches byte for byte.",
+  "by": "opencode-hy4-flash-free-3",
+  "created_at": 1795683534.632946,
   "score_before": null,
   "score_after": null
  },
@@ -156704,14 +156728,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080C0614",
-  "text": "RELEASE (second ask with notes) \u2014 scheduler/regalloc wall at score 70 (99.5%). 5 compiles done, no better in 4/8.\n\nBest: 70 (project flags). All 4 flag variants = 70 (search_flags). Remaining 4 rows are pure scheduler: target `ldr r0,[pc]=0; movs r1,#0; strb r0,[r5,#c]; str r1,[sp]`; agbcc emits `ldr r0,[pc]=0; strb r0,[r5,#c]; movs r0,#0; str r0,[sp]` (70) or hoists stack-store before literal load (410). agbcc won't schedule `movs r1,#0` between `ldr r0,[pc]` and `strb r0,[r5,#c]` because strb immediately consumes r0 \u2014 no gap. ~18 C forms tried (mine + prior agents), all worse/equal. Not hand asm, not not_c. Everything else correct. Release at ceiling.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.7224965,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08061E34",
   "text": "Class-D literal-pool/attribution wall at 600, NOT a C wall. 3 compiles this session (struct-global source and a variant) all give 'first 16 of 16 target instructions match' \u2014 all four stores plus final bx lr byte-exact. The 6 residual rows are the mandatory 3-word pc-relative literal pool (0x02027A00, 0x02021E90, 0x0000127C) emitted after the return; ROM attributes those pool bytes to the following symbol sub_08061E54. Re-reported boundary at 0x08061E52 (final bx lr) this session, pending user approval; prior agents have filed it repeatedly. No C form can remove the pool (target itself uses all 3 pc-relative literals); raw-address form regresses. Not hand asm, not not_c. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -158660,14 +158676,6 @@
   "text": "Terminal 2-row register-coloring tie-break, best 10 (84/84 insns, 99.8%). Sole diff: target `ldr r1,[r4,#0x5c]; str r1,[r4,#0x6c]` for the f5C\u2192f6C copy, agbcc uses r0 (dead at that point, immediately reused for the switch `movs r0,#0; ldrsb r0,[r2,r0]`). This session's 6 compiles: best source 10; `old6c` named temp in condition 10; struct S with correct 0xC gap 10; volatile f5C in comparison 10; named `f5c` temp 255 and `f6c` temp 245 (both pull an extra callee-saved r6, pushing save r5\u2192r6, though f5c temp did make the copy use r1 \u2014 mutually exclusive); `register s32 f5c` 255. ~71 prior attempts across all models/flags agree no natural C lever flips the two rows; register-asm pinning banned. Not hand asm, not boundary, not not_c. Best (10) preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.7327862,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080C0614",
-  "text": "Score 70 (99.5%, 148/148 insns) \u2014 scheduler/regalloc wall. Target: `ldr r0,[pc]=0; movs r1,#0; strb r0,[r5,#c]; str r1,[sp]` (literal-pool zero for byte store, separate movs for stack). agbcc: `ldr r0,[pc]=0; strb r0,[r5,#c]; movs r0,#0; str r0,[sp]` (CSEs both zeros, reorders). 2 reordered + 2 regalloc rows. All 148 real insns present; IO sequence, magic check, 9 table stores, 4 r5 stores, arg0 byte writes all correct. BIG win 2772\u219270 via `extern u8 D_00000000[]; u32 z0=(u32)D_00000000` forcing literal-pool zero load. Tried: sp0=0 placement, z0 local types, void* z0, pointer local, u32/s32, init at declaration, register asm (rejected) \u2014 all worse/equal. ~18 C forms tried across 5 agents, ceiling confirmed. Not hand asm, not not_c. Best source preserved at 70.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.7328255,
   "score_before": null,
   "score_after": null
  },
@@ -171032,14 +171040,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080C0614",
-  "text": "Asking again to release at the 70 (99.5%) ceiling: the whole function is byte-exact except the 4-instruction zero/scheduling sequence. The two shapes I can produce bracket the target exactly and are mirrors of each other:\n- inline `(u32)D_00000000` store then `sp0 = 0` (brief's source): 70, `ldr r0; strb r0; movs r0; str [sp]`\n- `z0=(u32)D_00000000; sp0=0; store=z0; call(&sp0)` with `u32 z0`: 215, `ldr r1; movs r0; str r0,[sp]; strb r1`\n- `sp0=0` before the inline store: 410, `movs r0; str r0,[sp]; ldr r0; strb r0`\nSo the target (`ldr r0; movs r1; strb r0; str [sp]`) is the 215 shape with the two zero pseudos' registers swapped AND the stack store sunk; I could not find a C form that swaps them without also moving the stack store back up. Tiny scheduling/coloring tie, 4 rows, no structural content left. 5 agents / 35+ attempts have hit this same ceiling; 70 preserved.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.796899,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateThreePartEnemy",
   "text": "Best 270 (98.4%, 177/177 insns), up from 935. Matching source preserved: self/parent/obj/objSub/objState/objTail locals, each of the three 2-element loops with its OWN block-scoped pointer (p, q, r) \u2014 sharing one pointer wrecks the callee-saved allocation (1746); state dispatch block in sub_0803B618's exact slot/stateIdx/slotArea/stateByte/handlers/handler form; `if (*(u16*)(self+2) & 0x8000) goto end;` early exit; literal `|= 1`. Remaining 3 rows only: (1) target `adds r1,#0x1c` for `(u8**)(objSub+0x1C)` while agbcc CSEs to `mov r1,sb` (objTail=obj+0x50 is sb); tried integer casts, p+=7, (u32)objSub+0x1C, a copy variable (copy-propagated), pointer-first ordering, for-init combo \u2014 agbcc always merges. (2) loop-3 mask: target `movs r3,#1` before `mov r2,sb`, agbcc emits it after the counter; named-constant locals get r6 + an extra `adds r0,r6,#0` (480); for-init comma form and `1|x` / `x|1` / `|=1` all identical. Likely needs the exact original source shape for the loop-3 preheader and an objSub derivation CSE can't fold through; 8 compiles without beating 270.",
   "by": "opencode-deepseek-v4.1-flash-1",
@@ -172564,14 +172564,6 @@
   "text": "Class-A trailing-literal boundary, NOT a C wall (43+ prior attempts across agents). Recompiled best C this session: score 200 (93.3%), all 30/30 real target instructions byte-exact through final `bx r0` at 0x080A018E. Only residual is agbcc's 2-byte alignment pad `movs r0,r0` plus the mandatory 4-byte literal pool 0xFFE00000 at 0x080A0190, which the target's own `ldr r1,[pc] @ =0xFFE00000` requires. read_data confirms ROM bytes `30 bc 01 bc 00 47 00 00 e0 ff`; declared extent is exactly 60 bytes (0x080A0154-0x080A0190), ending right before the pool. report_boundary(end=0x080A018E) has been filed repeatedly with byte evidence, pending user approval \u2014 that is the only real fix. No C spelling removes the required pool (extern-symbol form regressed to 430); flag sweeps all floor at 200. Not hand asm, not not_c. Best source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.8055081,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080C0614",
-  "text": "Readable-pass finding: sub_080C0614 is a sound-engine (m4a-style) initializer. The engine work pointer lives at IWRAM 0x03007FF0; its first word is the magic 0x68736D53 (\"Smsh\" little-endian), incremented by 1 after validation. The engine work buffer is at IWRAM 0x03004040 (cleared by sub_080BFBB8); a callback/handler table is built there at +0x20,+0x44,+0x4C,+0x70..+0x84, and engine fields at +0x1C/+0x28..+0x34 hold the player pointer, sub_080C0E58/sub_080C0DA0/sub_080C0CF8 and the work base. sub_080C2F1C(&result, player, 0x05000040) does the player setup. Sound I/O registers 0x04000084=0x8F, 0x04000080=0x77 then 0xFF77. Other sub_080Cxxxx functions likely operate on this same engine state.",
-  "by": "opencode-hy4-flash-free-3",
-  "created_at": 1795683534.8055472,
   "score_before": null,
   "score_after": null
  },
@@ -358581,82 +358573,90 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
  },
  {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Cannot progress; releasing.",
+  "function": "initSoundEngine",
+  "text": "Releasing: 2 compiles, complex hardware-init function. Pointer assignment ordering and Thumb bit issues. Best score 7363. Next agent should match the exact store sequence; function pointers need +1 Thumb bit which compiler may not auto-add when cast through void*.",
   "by": "opencode-free-1",
-  "created_at": 1795683533.975728,
+  "created_at": 1795683533.9793391,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Cannot improve further in this session. Releasing.",
-  "by": "opencode-beam-free-2",
-  "created_at": 1795683534.1560297,
+  "function": "initSoundEngine",
+  "text": "Best 2772 (81.2%) with: explicit u8* io increments for the six hardware byte stores (produces target's `adds r0,#6; strb`), `u8 *tbl` with `*(u32 *)(tbl+0x20)` etc. for direct `str r0,[r4,#offset]` table stores, and inline `*(volatile u32 *)0x03007FF0` (removes an early literal hoist). All 9 function-pointer table stores and the 4 r5-relative pointer stores match structurally. Remaining: extra callee-saved r8 holds zero for `strb [r5,#0xc]`/`str [sp]` (target instead loads 0 from literal pool at #0x94 with `movs r1,#0` for [sp]); this adds 4 instructions and shifts every pool offset by 4. Calls to sub_080BFBB8/080C2F1C route via local veneers. Byte stores to arg0 use `adds r1,#0x25; strb` where target uses `adds r1,#0x24; strb [r1,#1]`.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.171522,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Releasing; regalloc wall.",
-  "by": "opencode-beam-free-2",
-  "created_at": 1795683534.156103,
+  "function": "initSoundEngine",
+  "text": "Releasing best 2762 (81.3%) after applying the struct-field trick (`struct Byte1 {u8 pad[1]; u8 f;}; ((struct Byte1*)q)->f = 4`) to get `adds r1,#0x24; strb [r1,#1]`. Correct: all IO writes, magic check, 9 table stores, 4 r5 stores, arg0 byte writes. Unfixed: extra callee-saved r8 holding zero (target loads 0 from literal pool via `ldr r0,[pc,#0x94]` while using `movs r1,#0` for [sp]); this adds 4 insns and shifts every literal offset by 4, causing most of the 27 operand diffs. Calls to sub_080BFBB8/sub_080C2F1C use local veneers. Needs a C form that makes the zero byte-store value come from a 32-bit literal-pool load rather than a CSE'd `movs #0`.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.1715665,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Releasing to work on sub_08001384 (best score 10, near match). sub_080B0400 best 3770 preserved.",
-  "by": "opencode-beam-free-2",
-  "created_at": 1795683534.1562214,
+  "function": "initSoundEngine",
+  "text": "Cannot get closer: literal pool placement wall. Score 290 (98%). Target uses `ldr r0,[pc,#0x94]` for 32-bit zero literal pool load before byte store, and separate `movs r1,#0` for stack store. agbcc CSEs both to single `movs r0,#0`. Adding volatile zero variable increases stack frame to 8 bytes and breaks register allocation. No pure C spelling forces literal pool load for byte-store zero while keeping stack frame at 4 bytes and register allocation intact. Branch offset (bne) and call offset diffs are consequences of missing literal pool instruction. This is a compiler heuristic difference in literal pool management.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4179597,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Best score 3770 (73.6%, 138/143 insns), kept from prior attempt. Main issues: prologue/register allocation differs (target push {r7} path, r6/r7/r8 mapping), null checks branch to shared fail epilogue at 0x080B0458 in target, r7+0x2A mask done on actual r7 object, D_081026A4 loaded into r4 before sub_08016190 and used for r0p+6/8/A/C, r8 held as 0 across stores, r0p fields written via reloaded [r5,#0x28] pointers, and tail indexing/registers differ. Tried fixes for r7+0x2A offset and r4tbl placement but regressed; linker reports symbol/call ordering mismatches (sub_080B05CC/D_081026A4 placement). Needs careful temp/register ordering to match. Releasing to continue session.",
-  "by": "opencode-iceman-contributor-free-6",
-  "created_at": 1795683534.1583588,
+  "function": "initSoundEngine",
+  "text": "Requesting release with reason: cannot get closer in pure C. All real code byte-identical except the target's `ldr r0,[pc,#0x94]` literal-pool zero for the byte store (`strb r0,[r5,#0xC]`) plus separate `movs r1,#0` for `[sp]`; agbcc always CSEs both zeros to a single `movs r0,#0`. Every C spelling tried (u32 local, (u32)(void*)0, static const u32, volatile variants by prior agents) either stays at 290 or regresses badly (static const -> 2122, r8 frame). ~14 prior attempts agree this is a literal-pool-placement compiler heuristic wall. Not hand-written asm, not not_c. Best source (score 290) preserved verbatim.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.5225668,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Cannot get closer from current C in this session. Best 3770 (73.6%, 138/143 insns) preserved from prior agent. Major structural diffs remain: target uses r6=arg0, r7=obj, r5=f3C, r8 as persistent zero, r4 reused (0 then D_081026A4 ptr), shared fail epilogue at 0x080B0458 reached via short beq from all null checks, r7+0x2A mask on obj, sub_08014288(arg0,r5,sub_080B05CC), sub_08016190 result stored to r5+0x28 and reloaded for each field store, D_080CBDD0 accessed with stride 0x28 and fields f14/f16, and standard tail (g+0x4C/g+0x50 zero, g+2|=0x1000, zero/inc byte at g+idx*2+0x19, sub_080C31E4/sub_080C31E0). I attempted a restructure to introduce shared fail/mid layout and correct reloaded stores but it regressed badly (4990) due to register allocation and control-flow layout changes; reverting to best-attempt form and iterating carefully would require more targeted attempts than available now. Left best attempt 3770 intact.",
+  "function": "initSoundEngine",
+  "text": "Cannot get closer: 290 (98.0%). Residual is deterministic agbcc literal-pool/CSE choice (pool-loaded zero for byte store vs shared `movs r0,#0` for byte+stack stores), causing 1 missing, 2 regalloc, 2 operand, 3 reordered rows and call/branch offset differences. Tried alternative zero expression `(u8)(magic - 0x68736D53)` with no effect; prior attempts exhausted other C forms. All functional structure/IO/table stores/field writes match. Not hand asm, not not_c. Releasing now.",
   "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.2561946,
+  "created_at": 1795683534.5412407,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Improved inherited best 3770 -> 3745 (saved) by splitting the two aliased objects (r7 MaskObj u8@0x2A vs r5 R5 struct), hoisting `u16 *tbl = D_081026A4` before sub_08016190, and using a shared fail epilogue. Also reported the true boundary at 0x080B0522 (`bx r0`); the trailing 8 bytes are the literal pool (0x080CBDD0/0x08671BB0) decoded as garbage in the diff. Remaining wall is deep agbcc regalloc: target g=r6/r5struct=r5/tbl=r4/zero8=r8, ours g=r5/r5struct=r4/tbl=r6; target's `movs r4,#0` sits just before the mask strb while ours hoists `movs r6,#0` to the prologue; AND tie-break swapped; fail block is target's third-check fallthrough vs ours at function end. Calls/data correct; no further C-side lever found in 3 compiles. Ordinary correct C, not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4547844,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Cannot get closer: deterministic agbcc regalloc rotation at best 430 (96.9%, 143/143 insns, all logic/calls/data byte-exact). Target callee-saved: zero32/tbl=r4, p=r5, arg0=r6, obj=r7, zero8=r8; agbcc gives p=r4, arg0=r5, tbl=r6. Also target has `movs r4,#0` inside the obj+0x2A mask block (zero32 pre-#383 split) which agbcc always coalesces/rematerializes as `movs r1,#0` after sub_08014288. Tried: struct-param vs u8-param, alias local, zero32 first in declaration order, initializer at top, cbdd hoist, struct-CBD2 table fields, qq pointer, TBL_OFF shifts \u2014 best stays 430. Improved inherited 3745 -> 615 -> 430 this session. Ordinary correct C, not asm/not_c; needs a regalloc/coalescing change. Best source = compile #3 (u8 *arg0, zero32 first local, mask split, cbdd hoist).",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4598002,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "spawnMainObjTimerEffect",
-  "text": "MATCHED sub_080B0400 (score 20 -> 0 in one compile): the last two diff rows were a load-order swap \u2014 target `ldr r2,[r5,#0x28]` (reload of p->f28) then `ldr r3,=0x080CBDD0`, mine literal first. Fix: keep the `u8 *cbdd` local but assign it INSIDE the RHS of the field store: `p->f28->f4 = ((struct CBD2 *)((cbdd = D_080CBDD0) + TBL_OFF(...)))->f14;`. Evaluating the LHS address first forces agbcc to load p->f28 before the literal, while keeping the literal early (before the offset computation). Inlining `D_080CBDD0` directly in the expression instead sinks the literal load after the offset math (score 200).",
+  "function": "initSoundEngine",
+  "text": "Best 70 (99.5%, 148/148 insns, 4 differing rows). Big win from prior best 290 via `extern u8 D_00000000[]; u32 z0=(u32)D_00000000;` which emits the target's `ldr r0,=0` literal-pool load (shared as proposal #537). Remaining wall is scheduling/regalloc of the second zero: target `ldr r0,=0; movs r1,#0; strb r0,[r5,#c]; str r1,[sp]`, ours `ldr r0,=0; strb r0,[r5,#c]; movs r0,#0; str r0,[sp]`. Tried 8 compiles: sp0=0 before/after store, z0 local, void* z0, pointer local, u32 vs s32, init at declaration, register asm (rejected). Cannot force agbcc to materialize the stack-store zero in r1 before the strb without extra instructions. Not hand asm, not not_c.",
   "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.516201,
+  "created_at": 1795683534.5971358,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnMainObjTimerEffect",
-  "text": "Made readable (211th function). Tried rename_symbol + edit_context but BOTH are currently rejected project-wide because these 7 matched functions 'compile but no longer match': MainObj_CallUpdate, sub_080B06CC, sub_08013C2C, MainObj_UpdateTimer, ResultObj_New, sub_080BE99C, sub_08061224. This is unrelated to this function's source (the same 7 names appear for every rename attempt). Kept structs/externs local and left all global names unchanged; the readable rewrite still matches byte for byte.",
+  "function": "initSoundEngine",
+  "text": "RELEASE (second ask with notes) \u2014 scheduler/regalloc wall at score 70 (99.5%). 5 compiles done, no better in 4/8.\n\nBest: 70 (project flags). All 4 flag variants = 70 (search_flags). Remaining 4 rows are pure scheduler: target `ldr r0,[pc]=0; movs r1,#0; strb r0,[r5,#c]; str r1,[sp]`; agbcc emits `ldr r0,[pc]=0; strb r0,[r5,#c]; movs r0,#0; str r0,[sp]` (70) or hoists stack-store before literal load (410). agbcc won't schedule `movs r1,#0` between `ldr r0,[pc]` and `strb r0,[r5,#c]` because strb immediately consumes r0 \u2014 no gap. ~18 C forms tried (mine + prior agents), all worse/equal. Not hand asm, not not_c. Everything else correct. Release at ceiling.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.7224965,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initSoundEngine",
+  "text": "Score 70 (99.5%, 148/148 insns) \u2014 scheduler/regalloc wall. Target: `ldr r0,[pc]=0; movs r1,#0; strb r0,[r5,#c]; str r1,[sp]` (literal-pool zero for byte store, separate movs for stack). agbcc: `ldr r0,[pc]=0; strb r0,[r5,#c]; movs r0,#0; str r0,[sp]` (CSEs both zeros, reorders). 2 reordered + 2 regalloc rows. All 148 real insns present; IO sequence, magic check, 9 table stores, 4 r5 stores, arg0 byte writes all correct. BIG win 2772\u219270 via `extern u8 D_00000000[]; u32 z0=(u32)D_00000000` forcing literal-pool zero load. Tried: sp0=0 placement, z0 local types, void* z0, pointer local, u32/s32, init at declaration, register asm (rejected) \u2014 all worse/equal. ~18 C forms tried across 5 agents, ceiling confirmed. Not hand asm, not not_c. Best source preserved at 70.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.7328255,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initSoundEngine",
+  "text": "Asking again to release at the 70 (99.5%) ceiling: the whole function is byte-exact except the 4-instruction zero/scheduling sequence. The two shapes I can produce bracket the target exactly and are mirrors of each other:\n- inline `(u32)D_00000000` store then `sp0 = 0` (brief's source): 70, `ldr r0; strb r0; movs r0; str [sp]`\n- `z0=(u32)D_00000000; sp0=0; store=z0; call(&sp0)` with `u32 z0`: 215, `ldr r1; movs r0; str r0,[sp]; strb r1`\n- `sp0=0` before the inline store: 410, `movs r0; str r0,[sp]; ldr r0; strb r0`\nSo the target (`ldr r0; movs r1; strb r0; str [sp]`) is the 215 shape with the two zero pseudos' registers swapped AND the stack store sunk; I could not find a C form that swaps them without also moving the stack store back up. Tiny scheduling/coloring tie, 4 rows, no structural content left. 5 agents / 35+ attempts have hit this same ceiling; 70 preserved.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.796899,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "initSoundEngine",
+  "text": "Readable-pass finding: sub_080C0614 is a sound-engine (m4a-style) initializer. The engine work pointer lives at IWRAM 0x03007FF0; its first word is the magic 0x68736D53 (\"Smsh\" little-endian), incremented by 1 after validation. The engine work buffer is at IWRAM 0x03004040 (cleared by sub_080BFBB8); a callback/handler table is built there at +0x20,+0x44,+0x4C,+0x70..+0x84, and engine fields at +0x1C/+0x28..+0x34 hold the player pointer, sub_080C0E58/sub_080C0DA0/sub_080C0CF8 and the work base. sub_080C2F1C(&result, player, 0x05000040) does the player setup. Sound I/O registers 0x04000084=0x8F, 0x04000080=0x77 then 0xFF77. Other sub_080Cxxxx functions likely operate on this same engine state.",
   "by": "opencode-hy4-flash-free-3",
-  "created_at": 1795683534.632946,
+  "created_at": 1795683534.8055472,
   "score_before": null,
   "score_after": null
  }

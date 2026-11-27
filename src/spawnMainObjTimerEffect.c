@@ -12,16 +12,16 @@ struct EffectChild {
 };
 struct ParamRecord { u8 _0[0x14]; u16 f14; u16 f16; u8 _18[0x10]; };
 extern u8 gEffectGfxTable[];     /* per-type spawn parameters, 0x28-byte records */
-extern u16 D_081026A4[];    /* parameter word defaults for the sub-object */
+extern u16 gMainObjTimerLayerDefaults[];    /* parameter word defaults for the sub-object */
 extern void *gMainObjTimerCallbacks;    /* script step table */
 void *allocSpriteObject(void);
 void allocWorkSlot(void *, s32, s32, s32);
 void installUpdateHandler(void *, void *, void *);
 void *allocEffectPart(void);
-void sub_080B05CC(void);
+void cleanupMainObjTimerEffect(void);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
-void sub_080B0400(u8 *actor)
+void spawnMainObjTimerEffect(u8 *actor)
 {
   struct EffectWork *work;
   void *gfx;
@@ -44,12 +44,12 @@ void sub_080B0400(u8 *actor)
     *((u8 *) (((u8 *) gfx) + 0x2A)) = (u8) mask;
   }
   work = (struct EffectWork *) (*((u8 **) (actor + 0x3C)));
-  installUpdateHandler(actor, (u8 *) work, sub_080B05CC);
+  installUpdateHandler(actor, (u8 *) work, cleanupMainObjTimerEffect);
   zero = 0;
   work->f1C = 0x64;
   *((u32 *) (((u8 *) work) + 0x08)) = zero;
   *((u32 *) (((u8 *) work) + 0x0C)) = zero;
-  defaults = D_081026A4;
+  defaults = gMainObjTimerLayerDefaults;
   work->f28 = allocEffectPart();
   if (work->f28 != NULL) goto cont;
   fail:

@@ -18,7 +18,7 @@ extern u8 D_00000000[];
  * engine magic at [0x03007FF0], build the callback table in its IWRAM work
  * area at 0x03004040, set up the player through sub_080C2F1C, and seed its
  * per-player state bytes. */
-void sub_080C0614(void *player)
+void initSoundEngine(void *player)
 {
     volatile u32 *engine;
     u32 magic;
