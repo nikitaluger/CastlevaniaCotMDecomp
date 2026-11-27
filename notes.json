@@ -15352,14 +15352,6 @@
   "score_after": null
  },
  {
-  "function": "enemyScriptStepCycleAnimation",
-  "text": "Releasing: best attempt saved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.97587,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A0FB0",
   "text": "Releasing: best attempt saved.",
   "by": "opencode-free-1",
@@ -97856,14 +97848,6 @@
   "score_after": null
  },
  {
-  "function": "enemyScriptStepCycleAnimation",
-  "text": "Ceiling at 1115 (91.9% best). All structural logic matched. Regalloc wall: high-reg save (r8/r9), sb=temp_r5+0x48, r8=0; agbcc sl/sb different. Call relocations differ. Unfixable from C.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.4105752,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08001148",
   "text": "Proven pure agbcc regalloc wall at best 1675 (~280+ attempts across models/all flag levels floor at 1675-1800). My compile: 2435 (worse). Target keeps arg0\u2192callee-saved r8 (mov r8,r0 prologue, compared vs r8), D(0x02021E90)\u2192r5, table\u2192r6 + mov ip,r6 copy, nodes\u2192r6, -1\u2192r4 computed once (movs r4,#1; rsbs r4,#0); agbcc uses arg0\u2192r7/caller-saved, D\u2192r5, table\u2192r1/r7, -1 recomputed inline. All 69 body insns match count; ONLY register allocation differs. Pure C cannot force callee-saved spilling; not a flag issue; register-asm banned (#354). Body: hash-table node removal \u2014 D=0x02021E90, idx=*(u16*)(D+0x0C), cur=table[idx], scan list via field6*8, match field4==arg0, unlink, return field0, null field0. Struct {void*field0; s16 field4; s16 field6} (8 bytes). Data D_02021E90 u32. Not hand asm, not not_c \u2014 needs compiler change. No callee dependency.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -100804,14 +100788,6 @@
   "text": "Proven permanent agbcc -O1 regalloc wall at score 10. Compiled once: my early-return rewrite scored 940; the known best goto version scores 10 with sole diff the commutative tile-address add dest register (target `adds r0,r0,r1` vs agbcc `adds r1,r1,r0`). ~730 attempts by 5+ agents, all flag variants, floor 10. No C lever; not hand asm. Not spending more budget.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.4265726,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "enemyScriptStepCycleAnimation",
-  "text": "m2c draft scores 1115 (91.9%). Permanent regalloc/call-relocation wall; no pure-C lever found in 1 compile. Releasing to end session; not C-solvable without major rewrite.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683534.426611,
   "score_before": null,
   "score_after": null
  },
@@ -105732,14 +105708,6 @@
   "text": "Body byte-exact 28/28 (compiled: first 28 of 28 target insns match). Score 200 solely from trailing literal pool `.byte 0xfb,0xff` (half of 0x0000FFFB) after final `bx r0` at 0x08015696; report_boundary(end=0x08015696) filed previously, pending user approval. The 2 extra decoded rows are literal-pool bytes, not code. Not a C problem; no C change removes a pc-relative literal. Best source preserved (separate `zero=0` assignment). Releasing without needs.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.453932,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "enemyScriptStepCycleAnimation",
-  "text": "Cannot get closer from C. 138/138 instructions byte-exact at score 65 (99.5%); the SOLE remaining diff is a deterministic agbcc callee-saved register tie-break: target assigns base (loaded from arg0+0x3C) to r5 and the +0x34 pointer to r6, agbcc assigns them the other way round (13 `r` rows, all the same swap). Exhaustively tried this session (6 more compiles): declaration-order swaps, definition-order swaps, r9/p34 computation reorder, u32 base type (regresses to 870 by adding an sl register), struct-pointer arg0 (no change), register-asm pin (rejected as inline asm). No C spelling controls this tie-break; pure compiler-level regalloc decision. Improved the recorded best from 1115 to 65. Ordinary correct C, not hand-written asm, not not_c. Best score-65 source preserved; releasing to spend budget on matchable functions.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4539678,
   "score_before": null,
   "score_after": null
  },
@@ -358453,5 +358421,37 @@
   "score_before": 570,
   "score_after": 570,
   "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:7de5f9fe65a293ecf5227466713c9d00043134e4632298dd1badf53a4171acd3:960db762946c8d18ff6ebc6390c51b0e67a6bbad6287c46aa2f54e4566da330a"
+ },
+ {
+  "function": "enemyScriptStepCycleAnimation",
+  "text": "Releasing: best attempt saved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.97587,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "enemyScriptStepCycleAnimation",
+  "text": "Ceiling at 1115 (91.9% best). All structural logic matched. Regalloc wall: high-reg save (r8/r9), sb=temp_r5+0x48, r8=0; agbcc sl/sb different. Call relocations differ. Unfixable from C.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.4105752,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "enemyScriptStepCycleAnimation",
+  "text": "m2c draft scores 1115 (91.9%). Permanent regalloc/call-relocation wall; no pure-C lever found in 1 compile. Releasing to end session; not C-solvable without major rewrite.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683534.426611,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "enemyScriptStepCycleAnimation",
+  "text": "Cannot get closer from C. 138/138 instructions byte-exact at score 65 (99.5%); the SOLE remaining diff is a deterministic agbcc callee-saved register tie-break: target assigns base (loaded from arg0+0x3C) to r5 and the +0x34 pointer to r6, agbcc assigns them the other way round (13 `r` rows, all the same swap). Exhaustively tried this session (6 more compiles): declaration-order swaps, definition-order swaps, r9/p34 computation reorder, u32 base type (regresses to 870 by adding an sl register), struct-pointer arg0 (no change), register-asm pin (rejected as inline asm). No C spelling controls this tie-break; pure compiler-level regalloc decision. Improved the recorded best from 1115 to 65. Ordinary correct C, not hand-written asm, not not_c. Best score-65 source preserved; releasing to spend budget on matchable functions.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4539678,
+  "score_before": null,
+  "score_after": null
  }
 ]
