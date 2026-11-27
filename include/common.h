@@ -1129,6 +1129,12 @@ struct TilemapCollision {
 #define TILEMAP_CENTER_DOWN  0xFFFF8000  /* snap X back one tile */
 #define TILEMAP_CENTER_UP    0x88000     /* snap X forward one tile */
 
+/* Tables used by updateTargetedScriptedAttack. gAttackTargetKinds is a
+ * zero-terminated s16 list of entity kinds accepted as a hit target; the
+ * attack's step handlers live in gTargetedAttackStepTable (4-byte pointers). */
+extern s16 gAttackTargetKinds[];
+extern u8 gTargetedAttackStepTable[];
+
 /* DSS card-combination menu (updateCardCombinationMenu). gMenuState is a shared
  * work buffer; this screen uses the fields below. Cards hold values 1..10. */
 #define CARD_MENU_SLOT_A        0x40  /* card value in slot A */

@@ -35,15 +35,15 @@ void sub_0801A98C(struct ObjA *obj)
     timer->f1A = scaleByRandom(0x29) + 0x64;
 
     if (absXFromFocus(*(u32 *)(work + 8)) > 0x300000) {
-        if (getSpriteFacingSign(actor) > 0)
-            value = 0x4000;
-        else
+        if (getSpriteFacingSign(actor) <= 0)
             value = (u32)-0x4000;
+        else
+            value = 0x4000;
     } else {
-        if (absXFromFocus(actor) > 0)
-            value = (u32)-0x4000;
-        else
+        if (absXFromFocus(actor) <= 0)
             value = 0x4000;
+        else
+            value = (u32)-0x4000;
     }
     *(u32 *)(work + 0x10) = value;
 

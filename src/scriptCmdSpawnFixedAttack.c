@@ -101,7 +101,7 @@ inline u16 *attrOf(u8 *sprite)
     return (u16 *) sprite;
 }
 
-void sub_0801F0A8(struct Entity *entity)
+void scriptCmdSpawnFixedAttack(struct Entity *entity)
 {
     u8 *sprite;
     s16 unused;

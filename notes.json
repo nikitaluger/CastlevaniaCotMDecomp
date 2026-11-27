@@ -354734,5 +354734,40 @@
   "score_before": 150,
   "score_after": 0,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:ad203c1e582b4f71f8b2a4daea343d4c5fc4216150422d0e451b1bb735ac73e4"
+ },
+ {
+  "function": "sub_0801E160",
+  "text": "Large complex function, 668 bytes / 329 target instructions. Machine draft generation FAILS: 'Failed to parse instruction at sub_0801E160.s line 23: bgt #0x801e1e0' (tool cannot parse conditional branch with absolute address). Only a stub was compiled (score 32085, 10 insns of 329). Structure: prologue push r4-r7,lr + push {r5,r6,r7}; sl=arg0; r4=[arg0+0x38] parent; sb=[arg0+0x3c] motion; r1=motion+0x34 anim; r7=motion+0x48 state; setAnimationFrame(parent,anim,5,0) at 0x8011368; then checks ldrsh state+0x28 and state+8 > 0 -> early exit to 0x801e1e0; else loop over sb+0x58 5 entries clearing pointers while setting bit 0 via ldrh/orrs/strh at ptr+0x5c; then state+0x10-related arithmetic with many literal-pool constants (0x080CE768 etc). Matched twin/neighbor sub_0801E3FC (40 insns) covers same first pattern and is a good C starting point. Other neighbor sub_0801E12A is just before. Not attempted: full reconstruction of the 300-instruction body.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795792651.1010907,
+  "score_before": 32085,
+  "score_after": 32085,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:1fdaba72e6ac9afd8839b507baf4a9d5f3444e2ee6c717f178e0af6b74c49b1d"
+ },
+ {
+  "function": "sub_0801FEF8",
+  "text": "Score 2045 (83.5%), 120/124 insns. Saved best rev 8a2000a81c326dc0bd67. Cannot get closer with C shaping alone after targeted attempts.\n\nStructure mostly right: prologue, setAnimationFrame(obj=self+0x38, work+0x34, 0x19,0), anim&2 -> _call_via_r1(self, self+0x24), timer[2] at work+0x50 decrement with <0 clamp to 0, spawnBudgetedEffect(*(s32*)(0x02025FF0+0x1870),0x9A) null check, two fixed-point adjustments (work+8->spawned+0x4C, work+0xC->spawned+0x54) as (v<0?v+0xFFFF:v)>>16 + sub_0800583C(10), tail sets spawned+0x6C = ((self+0x5C&2)?timer[2]-1:timer[2]-2)<<15, spawned+0x7C = 0x8000-scaleByRandom(0x20000), spawned+0x5C = (timer[2]%2==0)?0x100:(==1)?0x200.\n\nRemaining diffs (47 rows): (1) Spawn literal: target emits `ldr r0,=0x02025FF0; ldr r1,=0x1870; adds r0,r0,r1; ldr r0,[r0]` (2 pc-relative literals + add). C constant-folds to 0x02027860 producing 1 literal - 2 missing insns. 0x02025FF0 is gMainWorkspace (data, 0x02025FF0) but declaring extern gMainWorkspace gave worse score/linker weirdness. (2) Regalloc cascade: target keeps sub_0800583C result in r1, 0xFFFF in r2, v in r0; my code gets r2/r1/r0 swapped in adjustment blocks. (3) Tail mod2 branch shape differs slightly. (4) Pool-disassembly garbling in tail diff around embedded literals makes last rows noisy.\n\nTried: r1/off var reuse (try_local_repairs), gMainWorkspace extern (regressed to 2245, relocation changed), adjustment expression order, mod2 if/else nesting, declaration order tweaks. Same diff reached repeatedly.\nNext step: Force two-literal 0x02025FF0+0x1870 load for spawnBudgetedEffect arg (extern symbol with correct relocation/type, or manual literal) and re-tune adjustment block regalloc by declaration/temporary shaping to get sub_0800583C result in r1 and 0xFFFF in r2.\nu32 base+off constant forms, gMainWorkspace extern, adjustment reorder, mod2 nesting, declaration order, try_local_repairs paired_integer_lifetimes/single_use_inline/dead_local_stage\nScore remained 2045; gMainWorkspace extern regressed to 2245 due to relocation/diff changes. Regalloc in adjustment blocks remained r2/r1 swapped vs target r1/r2.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795792667.0696287,
+  "score_before": 2045,
+  "score_after": 2045,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:64f660ed52aadb868b686c4ba5a08688a0bc427bb0048d7b77216c52bb40c12a"
+ },
+ {
+  "function": "sub_08025C24",
+  "text": "Cannot get closer from this state: machine draft generator fails on absolute-address conditional branch (beq #0x8025d06), no C to inherit, 377-instruction body too large to reconstruct from raw assembly within this session. Dense literal-pool arithmetic and many call sites make a hand build impractical here. Leaving notes for a later pass.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795792685.6928875,
+  "score_before": 37605,
+  "score_after": 37605,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0837da15e578e397c7e91b659b6b4f56a3fbe1e15ec0ecb924502a0218b70b13:16eff172f3b606836dab724e6260b5c2c40713e68b4d2405091dd735e7a259cb"
+ },
+ {
+  "function": "sub_0803DB08",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Terminal dead-load allocator wall at score 10: 57/57 instructions exact except dead signed halfword load at r5+0x1c where target keeps offset in r1 and result in r0 but agbcc coalesces both into r0. Prior agents report 69+ source attempts, volatile regressed to 2605, local repairs best 10. No new compile spent (nothing untested to try).",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795792703.9410608,
+  "score_before": 10,
+  "score_after": 10
  }
 ]
