@@ -352068,30 +352068,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2efab7d8d4509ac87aafb931dfe29958cac7930369c8798ef278be0ac4191d70:9327340e9c5b17300ef3641191418d699548f84d7ff7cfe711ad02a936bacd71"
  },
  {
-  "function": "createScriptedEntitySprite",
-  "text": "Releasing after 2 compiles; regalloc complex. Best score 4290. Next agent: declaration order tuning.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.97694,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "createScriptedEntitySprite",
-  "text": "Register allocation wall (arg0/obj/p permutation). Best score 4290 (75.0%). Target: arg0=r5, obj=r7, p=r6, r4=r4; agbcc: arg0=r4, obj=r6, p=r5, r4=r7 (74 regalloc diffs). Same family as sub_08059BF8 (1901), sub_0802F40C (matched), sub_08059E8C (1386) - all have exact regalloc in matched sibling but agbcc permutes differently here. Also literal pool issues with D_02025FF0/D_02021E90 base+offset materialization. Cannot match without compiler change.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3890402,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "createScriptedEntitySprite",
-  "text": "Best score 4690 (72.7%), previous agent got 4290 (75.0%). Fundamental register allocation mismatch: target uses r5=arg0, r7=obj, r6=p, r4=r6+0x34; agbcc consistently permutes to r4=arg0, r6=obj, r5=p, r7=r6+0x34. Same family as sub_08059BF8, sub_0802F40C (matched), sub_08059E8C - matched sibling has exact regalloc but agbcc permutes differently here.\n\nKey diffs beyond regalloc:\n- sub_0801131C third arg: target computes t0*12+0x080CD400 into r2 BEFORE setting r0/r1 for call; C expression doesn't guarantee r2.\n- sub_08011368 args: target uses specific register setup.\n- Literal pool: target uses absolute addresses (0x020278B2 for D_02025FF0+0x18C2, 0x08671BB0 direct); extern arrays generate different codegen.\n- sub_08013C2C result handling: target does lsls/lsrs for sign extension; C (s32)(t0<<16)<0 generates extra shifts.\n\nTried: matching 4290 code exactly (got 4690), declaration order tuning, absolute addresses vs extern arrays. Regalloc wall persists across 4 compiles. Cannot match without compiler change - releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3968563,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080BEF60",
   "text": "Score 705 (40/40 insns). Two residual causes: (a) ROM is a frameless leaf ending in bare `bx lr` with no push{lr}, while every agbcc profile emits `push {lr}` ... `pop {pc}` (accepted knowledge: -mno-thumb-interwork has the same leaf LR-frame wall); this also shifts pc-relative literal-pool offsets by 4; (b) ROM has `lsls r0,r2,#0x18; cmp r0,#0` before the branch, while candidate compares `cmp r2,#0` directly. This session: explicit `if ((r2 << 24) == 0)` patch -> identical instructions, score 705 (agbcc folds the shift away for u8); 6-variant grid: s8 locals -> 1120 with bogus D_00001361 callee diagnostic, s8 struct fields -> 705 unchanged, (s8)(r2 << 24) -> 2450, (s8)r2 -> 705 unchanged. No C spelling produced the lsls. 43+ compiles across 7 agents; move-on reached. Treat as leaf-frame/compiler wall, not a C fix.\nplain zero test, (r2<<24)==0, s8 locals, s8 struct fields, (s8)(r2<<24), (s8)r2\nAll variants keep score 705 or worse; push{lr}/pop{pc} and missing lsls persist",
   "by": "opencode-hy4-flash-free-11",
@@ -352265,5 +352241,29 @@
   "score_before": 755,
   "score_after": 755,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:8a70b127ec4ba6102661c2beb4b291ec344a9cb1567cb9cbd9456b69d96a43ea:7e00b586b1569e8a77d5e31a09de662709905772d81343a10d02cca32d543f6b"
+ },
+ {
+  "function": "createScriptedEntitySprite",
+  "text": "Releasing after 2 compiles; regalloc complex. Best score 4290. Next agent: declaration order tuning.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.97694,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "createScriptedEntitySprite",
+  "text": "Register allocation wall (arg0/obj/p permutation). Best score 4290 (75.0%). Target: arg0=r5, obj=r7, p=r6, r4=r4; agbcc: arg0=r4, obj=r6, p=r5, r4=r7 (74 regalloc diffs). Same family as sub_08059BF8 (1901), sub_0802F40C (matched), sub_08059E8C (1386) - all have exact regalloc in matched sibling but agbcc permutes differently here. Also literal pool issues with D_02025FF0/D_02021E90 base+offset materialization. Cannot match without compiler change.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3890402,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "createScriptedEntitySprite",
+  "text": "Best score 4690 (72.7%), previous agent got 4290 (75.0%). Fundamental register allocation mismatch: target uses r5=arg0, r7=obj, r6=p, r4=r6+0x34; agbcc consistently permutes to r4=arg0, r6=obj, r5=p, r7=r6+0x34. Same family as sub_08059BF8, sub_0802F40C (matched), sub_08059E8C - matched sibling has exact regalloc but agbcc permutes differently here.\n\nKey diffs beyond regalloc:\n- sub_0801131C third arg: target computes t0*12+0x080CD400 into r2 BEFORE setting r0/r1 for call; C expression doesn't guarantee r2.\n- sub_08011368 args: target uses specific register setup.\n- Literal pool: target uses absolute addresses (0x020278B2 for D_02025FF0+0x18C2, 0x08671BB0 direct); extern arrays generate different codegen.\n- sub_08013C2C result handling: target does lsls/lsrs for sign extension; C (s32)(t0<<16)<0 generates extra shifts.\n\nTried: matching 4290 code exactly (got 4690), declaration order tuning, absolute addresses vs extern arrays. Regalloc wall persists across 4 compiles. Cannot match without compiler change - releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3968563,
+  "score_before": null,
+  "score_after": null
  }
 ]

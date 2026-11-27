@@ -16,10 +16,10 @@ extern struct S_02025FF0 gMainWorkspace;
 struct S_02021E90 { u8 _0[0x1278]; u32 f1278; u32 f127C; };
 extern struct S_02021E90 gCameraState;
 extern u8 gSpriteAnimDataTable[];
-extern s16 gScriptedSpriteFrameTable[];
+extern s16 D_080CFB56[];
 extern u32 gScriptStepCallbackTable;
 
-void createScriptedEntitySprite(struct Arg0 *arg0) {
+void sub_08054C94(struct Arg0 *arg0) {
     u8 *sprite;
     struct P *state;
     u8 *scratch;
@@ -43,7 +43,7 @@ void createScriptedEntitySprite(struct Arg0 *arg0) {
     }
     initSpriteGraphics(sprite, scratch, (s32)gSpriteAnimDataTable + state->kind * 0xC);
     poseIndex = *(s16 *)((u8 *)arg0 + 0x7C);
-    setAnimationFrame(sprite, scratch, gScriptedSpriteFrameTable[poseIndex], 0);
+    setAnimationFrame(sprite, scratch, D_080CFB56[poseIndex], 0);
 
     attrs = (*(u16 *)sprite & 0xC00) |
           (((*(s16 *)((u8 *)state + 0x22) << 6) + 0x200) |
