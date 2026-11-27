@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795813471.573358,
- "revision": 71095,
+ "saved_at": 1795813652.2223117,
+ "revision": 71108,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1789,7 +1789,8 @@
     "-mthumb-interwork",
     "-O1",
     "-fno-strength-reduce"
-   ]
+   ],
+   "timeout": 20
   },
   "70468:134288196": {
    "toolchain": "agbcc",
@@ -17119,7 +17120,7 @@
   "updateFlaggedAiStep": {
    "vram": 134807508,
    "matched_by": "opencode-hy4-flash-free-64",
-   "readable": false
+   "readable": true
   },
   "sub_080901D4": {
    "vram": 134808020,
@@ -55264,6 +55265,12 @@
   {
    "name": "gVariantSpriteFrames",
    "address": 135266880,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gFlaggedAiAnimTable",
+   "address": 135267300,
    "size": 0,
    "kind": "data"
   },
