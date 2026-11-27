@@ -357043,14 +357043,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d250ec46e85afa88793dc3092c94e572c63f1e340e9692e64f5b1d7cdc8cf44:8def06abbb62995237d4e1447e37125c167914e67e8c6ab20cf0fef7e87c85e0"
  },
  {
-  "function": "sub_08038438",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No compiling draft; 142-insn/284-byte function with garbled/unusable tail in assembly dump (lines ~116+ show invalid Thumb/data-like bytes: subs r0,r2,r7; lsrs r7,r4,#1; ... vrev64.16). Likely boundary/disassembly issue. Did not compile. Needs boundary/extent review before decomp; inspect around 0x08038540-0x08038554 (next matched is sub_08038554 at 0x08038554).",
-  "by": "opencode-iceman-contributor-free-12",
-  "created_at": 1795804749.7489846,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0802D180",
   "text": "Low progress after 30 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 34; 11 differing rows (1 register, 1 branch target, 3 operand, 2 reordered, 2 inserted, 2 deleted; advisory).\nTarget: strh r0, [r1]\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = adds r1, #0x5c\n  = movs r0, #1\n< T: strh r0, [r1] | C: \n| T: b #0x70 [bytes 11e0] | C: b #0x70 [bytes 12e0]\no T:  | C: movs r0, r0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest candidate revision 92a509a7690fb244a0e2, verified score 60 (2 reordered rows only). Target schedules `movs r2,#0` after `adds r0,#0x4c`; ours emits it before `adds r0,r4,#0`.\n\nWhat worked (sequential):\n1) The two branch arms had their constant-store spellings swapped relative to the ROM. Change positive arm to literal `*(u16 *)(result + 0x5C) = 1;` and the else arm to a named local `{ u16 zero = 0; *(u16 *)(result + 0x4C) = q2; *(u16 *)(result + 0x5C) = zero; }`. Score 820 -> 185. The literal arm gets fresh address in r1 + constant in r0; the named-local arm gets reused address (result+0x4C then +0x10) + constant in r2, exactly as the ROM does.\n2) Third block must use direct stores and no r54 pointer local: `*(u16 *)(result + 0x54) = q3; v = *(u16 *)(state + 0x1C); *(u16 *)(result + 0x6C) = v;` with `u16 v;` declared in the block (assigned after the q3 store). Score 120 -> 65. A `u8 *r54` local with `r54 += 0x18` assigns the Y/kind block to r1 instead of r0.\n3) Final clear as array indexing `entity[stepOffset + 0x19] = 0;` fixes the `adds r0,r0,r6` vs `adds r0,r6,r0` operand order. Score 65 -> 60.\n\nTried and failed (do not repeat): local repairs else_if_arm_swap (635), local_weight_ladder (120), declaration_order (65); `u8`/`s16` zero types (60), `const u16 zero` (775), zero at function scope with or without initializer (65/780), splitting else stores across lines, swapping the two stores, `u8 *p = result+0x4C` local (950), `s32 zero` (185), moving `u16 v` load before q3 store (130/325). Residual is likely an agbcc instruction-scheduling wall for the constant materialization.",
   "by": "opencode-hy4-flash-free-11",
@@ -357630,15 +357622,6 @@
   "created_at": 1795683533.9151714,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "sub_08038438",
-  "text": "Assembly dump shows garbled/misread tail after ~line ~113 (data-like bytes: subs/lsrs/ldrh shifts into vrev64.16) suggesting the disassembled function extent may include trailing data/padding; real code likely ends near the final if/else store+return path around 0x8038540 area. Best candidate (rev 35cb688b337334131172, from prior work) scores 770 with remaining diffs mainly register/order around storing *(result+0x4C)=*(entity+0x4C) and later scheduling; compile budget exhausted (3/3 no improvement). Needs human/boundary review of function end before further attempts.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795806206.970454,
-  "score_before": 970,
-  "score_after": 770,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
  },
  {
   "function": "sub_080C1274",
@@ -358499,15 +358482,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2dba984f234462fe45495fdb8059368b86ce38e793002549134a611fb0c6d1b9:707937383b2add1ae83b75a16ea16f68aa3730482124b89d5fe0d9f640ba755d"
  },
  {
-  "function": "sub_08038438",
-  "text": "Matched at revision 5e32b634468e6665dd55 (score 0). Two fixes: (1) byte copy from entity[0x4C] to result[0x4C] must use matched twin updatePoseStep's spelling -- declare `u8 resultKind;` at top of the `if (result != NULL)` block and use a separate assignment `resultKind = *(u8 *)(entityBytes + 0x4C); *(u8 *)(result + 0x4C) = resultKind;` (the direct one-line assignment scores 420 with a 6-row RHS/LHS evaluation-order diff; a braced initializer temporary scores 2530). (2) sub_080148C0's third argument is -0xC0000 (pool word 0xFFF40000), NOT -0xC00; the pool word at 0x08038534 proves it. Changing -0xC00 -> -0xC0000 took 200 -> 0.",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795810645.4676905,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
- },
- {
   "function": "sub_0801977C",
   "text": "Byte-identical twin of matched sub_0801CF20 (122 insns each). Adapt its C verbatim; the ONLY difference is the script-table pointer at entity+0x14: this function uses D_0866D5F4 (0x0866D5F4), not the twin's D_0866D704. Keep the twin's `off = 0x18C2` plus `(u8 *)&gMainWorkspace + off` spelling to avoid constant-address folding, its unconditional sub_080C31E0 call (NOT inside the clamp `if`), and its `<= 0x7FFF` branch polarity. The inherited best candidate was wrong on all three.",
   "by": "opencode-hy4-flash-free-64",
@@ -358515,5 +358489,31 @@
   "score_before": 1,
   "score_after": 0,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:437e6c8f24a1162d4b9112cdb8d41d6173bee8d9ebfdb8cfd447778af5210575"
+ },
+ {
+  "function": "sub_08038438",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No compiling draft; 142-insn/284-byte function with garbled/unusable tail in assembly dump (lines ~116+ show invalid Thumb/data-like bytes: subs r0,r2,r7; lsrs r7,r4,#1; ... vrev64.16). Likely boundary/disassembly issue. Did not compile. Needs boundary/extent review before decomp; inspect around 0x08038540-0x08038554 (next matched is sub_08038554 at 0x08038554).",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795804749.7489846,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08038438",
+  "text": "Assembly dump shows garbled/misread tail after ~line ~113 (data-like bytes: subs/lsrs/ldrh shifts into vrev64.16) suggesting the disassembled function extent may include trailing data/padding; real code likely ends near the final if/else store+return path around 0x8038540 area. Best candidate (rev 35cb688b337334131172, from prior work) scores 770 with remaining diffs mainly register/order around storing *(result+0x4C)=*(entity+0x4C) and later scheduling; compile budget exhausted (3/3 no improvement). Needs human/boundary review of function end before further attempts.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795806206.970454,
+  "score_before": 970,
+  "score_after": 770,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
+ },
+ {
+  "function": "sub_08038438",
+  "text": "Matched at revision 5e32b634468e6665dd55 (score 0). Two fixes: (1) byte copy from entity[0x4C] to result[0x4C] must use matched twin updatePoseStep's spelling -- declare `u8 resultKind;` at top of the `if (result != NULL)` block and use a separate assignment `resultKind = *(u8 *)(entityBytes + 0x4C); *(u8 *)(result + 0x4C) = resultKind;` (the direct one-line assignment scores 420 with a 6-row RHS/LHS evaluation-order diff; a braced initializer temporary scores 2530). (2) sub_080148C0's third argument is -0xC0000 (pool word 0xFFF40000), NOT -0xC00; the pool word at 0x08038534 proves it. Changing -0xC00 -> -0xC0000 took 200 -> 0.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795810645.4676905,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
  }
 ]
