@@ -13,7 +13,6 @@ extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
 extern u8 gSpriteAnimDataTable[];
 
-/* Render layer allocated by allocEffectPart for the spawned sprite. */
 struct RefSpawnLayer {
     u8 unused;
     u8 kind;
@@ -28,8 +27,6 @@ struct RefSpawnLayer {
     u32 sprite;
     u16 timer;
 };
-
-/* Work state in the script thread's +0x3C slot. */
 struct RefSpawnWork {
     u8 _0[8];
     s32 x;
@@ -45,8 +42,6 @@ struct RefSpawnWork {
     u8 _2C[8];
     u8 anim[0x24];
 };
-
-/* Script thread that requested the spawn. */
 struct RefSpawnThread {
     u8 _0[2];
     u16 flags;
@@ -62,16 +57,12 @@ struct RefSpawnThread {
     u8 _56[0xAC - 0x56];
     struct RefSpawnPositionHolder *refHolder;
 };
-
-/* Workspace fields read while placing the sprite. */
 struct RefSpawnMainWorkspace {
     u8 _0[0x18A8];
     u8 frameCounter;
     u8 _18A9[0x19];
     u16 gfxFlag;
 };
-
-/* Camera scroll rows, indexed by (frameCounter + 1) * 0x40. */
 struct RefSpawnScrollState { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
 extern struct RefSpawnMainWorkspace gMainWorkspace;
 extern struct RefSpawnScrollState gCameraState;
@@ -97,10 +88,10 @@ void sub_0803D310(struct RefSpawnThread *thread)
     work = NULL;
     slot = 0;
     if ((sprite == NULL) ||
-        (thread->sprite = sprite, allocWorkSlot((u8 *)thread, 0, 0x58, 0), newWork = thread->state, newWork == NULL) ||
+        (thread->sprite = sprite, allocWorkSlot((u8 *)thread, 0, 0x50, 0), newWork = thread->state, newWork == NULL) ||
         (work = newWork, anim = (u8 *)work + 0x34, work->updateFn = *(u32 *)((u8 *)thread + 0x24), *(u32 *)((u8 *)thread + 0x24) = (u32)updateRefSprite,
          refType = refHolder->ref->type,
-         ({ u16 spriteKind; switch (refType) { case SCRIPT_REF_TYPE_C9: spriteKind = REF_SPRITE_KIND_C9; break; case SCRIPT_REF_TYPE_CA: spriteKind = REF_SPRITE_KIND_CA; break; default: goto _skip_kind; } work->kind = spriteKind; _skip_kind: 0; }),
+         ({ u16 spriteKind; switch (refType) { case 0xFF: spriteKind = 0x0E; break; case 0x100: spriteKind = 0x3B; break; default: goto _skip_kind; } work->kind = spriteKind; _skip_kind: 0; }),
          kindTable = (u8 *)gSpriteKindTable,
          work->frameIndex = ((struct RefSpawnKindEntry *)kindTable)[work->kind].frame,
          work->x = refHolder->ref->value0 << 16, work->y = refHolder->ref->value1 << 16,

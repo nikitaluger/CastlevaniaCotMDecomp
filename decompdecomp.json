@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795816777.1641705,
- "revision": 71297,
+ "saved_at": 1795817080.2774057,
+ "revision": 71318,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1790,17 +1790,6 @@
     "-O1",
     "-fno-strength-reduce"
    ]
-  },
-  "180624:134398352": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateOwnedScriptedObject",
-   "vram": 134398352
   }
  },
  "instructions": "",
@@ -2165,8 +2154,7 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h",
-  "rom": "common_rom.h"
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7297,7 +7285,7 @@
   "updateOwnedScriptedObject": {
    "vram": 134398352,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "updatePatrolAI": {
    "vram": 134398644,
@@ -8184,10 +8172,10 @@
    "matched_by": "opencode-free-2",
    "readable": false
   },
-  "sub_080344C0": {
+  "spawnDirectionalAttackEffectSprite": {
    "vram": 134431936,
    "matched_by": "opencode-hy4-flash-free-11",
-   "readable": false
+   "readable": true
   },
   "sub_080346EC": {
    "vram": 134432492,
@@ -9181,8 +9169,8 @@
   },
   "sub_0803D310": {
    "vram": 134468368,
-   "best_score": 6885,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "best_score": 5520,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0803D588": {
    "vram": 134469000,
@@ -31485,7 +31473,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080344C0",
+   "name": "spawnDirectionalAttackEffectSprite",
    "vram": 134431936,
    "size": 556,
    "status": "open"
@@ -52790,6 +52778,12 @@
    "name": "spawnLargeAttackEntity",
    "address": 134429168,
    "size": 476,
+   "kind": "func"
+  },
+  {
+   "name": "spawnDirectionalAttackEffectSprite",
+   "address": 134431936,
+   "size": 556,
    "kind": "func"
   },
   {

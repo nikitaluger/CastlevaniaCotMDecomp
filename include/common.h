@@ -2846,3 +2846,5 @@ struct MainObjectParts {
  * suppresses the owner nudge). Step handlers are 4-byte Thumb pointers indexed
  * by the opcode byte at the current step. */
 #define SCRIPT_OWNED_OBJ_STEP_TABLE 0x0866DB34
+
+#define HOVER_END_X_DISTANCE 0x800000  /* wider X cutoff that ends this hovering step */

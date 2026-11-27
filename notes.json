@@ -356494,7 +356494,7 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:2a7053df7d7f3b9ddbe8b2005dfaf9e879fdf0e2436af975b6e480033519a63f"
  },
  {
-  "function": "sub_080344C0",
+  "function": "spawnDirectionalAttackEffectSprite",
   "text": "86% donor spawnAttackEffectSprite adapted; best 2750 (89.5%, 262/264 insns), rev 817d3a796e5950b9013e. Main structure matches: allocSpriteObject->allocWorkSlot(0,0x4C,0)->typeFlags 0x8000000B->installUpdateHandler(sub_08014290)->animId 0x17->copy owner f4C/f5C to part x/y->adjust y by owner+0x6C (0xFFF40000/0xFFE40000) and x by owner+0x70 (0x1E0000 / 0x02025FF0 literal)->set part+0x10=0x18C2, part+0x14=0->findKindIndex(part->animId)->graphics pack->initSpriteGraphics->setAnimationFrame(...,0x3B,1)->allocEffectPart->fill subEffect (1=5,2=8,3=1, f04/f0E from gEffectGfxTable[animId*40], f06-f0C from D_080CEDF4, +0x10=sprite)->camera scroll adjust (gCameraState+0x1278/0x127C indexed by (state[0x18A8]+1)*0x40)->flags|=0x1000->step byte clear, sub_080C31E4, step byte++, sub_080C31E0(dispatch). Remaining diffs mostly linker false positives from code-size/offset (bl addresses, pool symbol misattributions). Real structural diff: owner+0x70!=0 x-adjust branch in target has dead `movs r0,#0x80; lsls r0,r0,#0xb; b` before convergence; current code b's directly. Also keep x else as literal 0x02025FF0 (not (u32)gMainWorkspace) - symbol form regressed. Tried: findKindIndex(part->animId) improved; swapping x if/else regressed; gMainWorkspace symbol regressed; try_local_repairs found no better variant.",
   "by": "opencode-iceman-contributor-free-10",
   "created_at": 1795805511.4602828,
@@ -359582,5 +359582,58 @@
   "created_at": 1795683534.3820102,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_080377BC",
+  "text": "Allocator/scheduling wall; best 3315 (88.0%, 277/277 insns). First mismatch is target's `mov r0,r8` before `str r0,[r6,#0x38]` (sprite held in callee-saved r8 must be copied to r0 for a Thumb-1 store); candidate stores r0 directly because sprite is still in r0 at that point. Other residuals: target `movs r0,#8; strh r0,[r7,#4]` vs candidate reusing r2, and a few copy inserts/deletes around calls (target `str r0,[r5,#0xc]` vs candidate `adds r1,r0,#0; str r1,...`). Tested: four source variants (inline work reload for anim, scalar temp for scrollRow, swap zero/strh order, named local for 8) \u2014 first three produced byte-identical code (0 rows changed), named local made it much worse (4680). Flags: O2=3315, O3=3315, O1=7102, Os=4245. Boundary tool unavailable for ARM; the previous agent's 'garbled tail' note is literal-pool decode, not an extent problem.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795816791.2134986,
+  "score_before": 3315,
+  "score_after": 3315,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:452270f2dafab694e5ad022fe34448eb4cfcf19f890bbbb7ccd35c69f516f5ca:67520e2cdb7c271ce676bbe526e11590a8d059fe3d5cb7b223c693861cbd2a16"
+ },
+ {
+  "function": "sub_0804C73C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Confirmed terminal wall at score 10 (238/238 target instructions byte-exact). Sole residual is the arg0+0x5C halfword load: ROM `adds r0,r6,#0; adds r0,#0x5C; ldrh r1,[r0]; str r1,[r5,#0x48]` vs candidate `ldrh r0,[r0]; str r0,[r5,#0x48]`; no other row differs. This session ran compiler_experiments on a38fd48f4c5f16532c52 with -O1/-O3/-Os/plain -O2: scores 4550/2280/2280/2280 diagnostics \u2014 the project's -O2 -fno-strength-reduce is the only good profile, and flags do not flip the tie. Earlier agents record ~67 attempts / 7 models with no C spelling found and register pinning rejected. Pure C, correct semantics/data/calls; not hand asm, not not_c, no boundary/extent/callee dependency. Do not spend more compiles here.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795816795.4718134,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_08070290",
+  "text": "Score 1370 (189/189 insns, 92.7%). Residual is a 32-row cascade from one constant-allocation/copy-placement difference: target `movs r0,#5; mov r10,r0; ands r0,r1; movs r1,#0; mov r9,r1; strb r0,[r2,#1]` and late `mov r1,sl; strh r1,[r0,#0x16]`; candidate `movs r2,#5; ands r0,r2; movs r1,#0; mov sb,r1`, a later `mov sl,r2`, and a rematerialized `movs r2,#5` before the final `strh`. This session's compile_variants from 3596552d27018de1b4ec splitting `f1v = (r10 = 5) & ...` into (1) `r10 = 5; f1v = r10 & ...`, (2) `r10 = 5; f1v = 5 & ...`, (3) `f1v = 5 & ...; r10 = 5` all scored 2030, adding frames and shifting every later call; baseline retained. Combined with the recorded 56+ attempts, treat as terminal agbcc allocator wall; no boundary, callee or not_c issue. Pure C, correct semantics/data/calls.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795816877.0877593,
+  "score_before": 1370,
+  "score_after": 1370,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:452270f2dafab694e5ad022fe34448eb4cfcf19f890bbbb7ccd35c69f516f5ca:d8a0ef95a9532bde3daa89b9b7210fd6c48c5beaf8d32385c20fc424e294ce43"
+ },
+ {
+  "function": "sub_08066A88",
+  "text": "Best 90 (184 insns, exact semantics; only 18 register-allocation rows). Baseline revision 73944bf1d6ce4a55bdb0 recovered from saved_best e3ff7d1c7910. Removing the join_arg alias scores 2085 \u2014 it is load-bearing for the current allocation despite being always script. Tested this session: swapping commutative mask operands (120, 210), reordering lit/rv declaration in timer==0 block (90, no diff change), swapping work/sprite declaration order (700). Thousands of prior local-repair trials (local_weight_ladder, run_weight_scope, call_weight_ladder) found zero improvements. compiler_passes and search_learnings are unavailable for agbcc in this install. Treat remaining rows as an allocator/backend wall; do not repeat operand/declaration permutations.\ncompile_variants(combine=true): swapped f28/f3BE operands (score 120), swapped f146C/f3BE operands (210), reordered lit/rv before p18/p22 in the timer==0 block (90, identical diff), swapped work/sprite declaration order (700)\nNo variant beat the 90 baseline; the 18 register-only rows (0x22 index in r1 vs r3, gMenuScriptCallback literal in r2 vs r0, gGameStatus base/offset in r0/r2 vs r2/r3, ldrh/ands register cascade) are unchanged",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816917.2393777,
+  "score_before": 2085,
+  "score_after": 90,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:452270f2dafab694e5ad022fe34448eb4cfcf19f890bbbb7ccd35c69f516f5ca:6cec3397623f9fc94f5cbef0bb19268c33189abb321e645e8596ad8120395733"
+ },
+ {
+  "function": "sub_0807B784",
+  "text": "Best 180, 190/190 insns, five scheduler-only rows in sh>0x100 block: target orders r5 reload after second strh and 0xB0/<<5 before ldsh; agbcc hoists r5 and delays the constant. This session: moving r5 after second store scores 270, inlining both pointer reloads 3305 (frame/call breakage); flag profiles O1 1505, O3/Os 180, schedule-disabling flags unsupported. Prior agents exhausted r5 placement, constant locals, volatile, inline helpers and struct fields. Treat as terminal agbcc -O2 scheduling wall; do not repeat placement permutations.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816997.0505524,
+  "score_before": 270,
+  "score_after": 270,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:452270f2dafab694e5ad022fe34448eb4cfcf19f890bbbb7ccd35c69f516f5ca:f140e96bd67cd308d4dacce738a158b999b994a717395a46ad3044b091e0a5f6"
+ },
+ {
+  "function": "sub_08014B1C",
+  "text": "Current verified baseline 690 (96.2%; target 182 insns, candidate 179). Diff is the known terminal agbcc -O2 callee-saved coloring + branch-placement wall: ROM dist=r7/delta=r6, agbcc dist=r6/delta=r7 (44+ register rows), target places the dist>lim call block after the coord paths and duplicates setPolarOffset in both second-level arms while agbcc shares a tail. This session checked one new source hypothesis: replacing `s32 t = s < 0 ? -((s16)delta) : s;` with `-s` removed a duplicate `asrs` but scored 830 (worse than 690) and regressed later register/branch rows; the extra sign-extension is evidently needed for allocation. Restored saved_best c0b7e02bbdad4d8825d7 (score 690). Linker 'wrong callee' messages here are false positives: divInt32 resolves to 0x080C364C, the ROM's sub_080C364C. Pure C, correct semantics/calls, no boundary or not_c issue.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795817001.4661076,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:452270f2dafab694e5ad022fe34448eb4cfcf19f890bbbb7ccd35c69f516f5ca:c814f091fac383262682c84a4dfd5a69c5abbcdafe54093d0caf18b5ad262135"
  }
 ]

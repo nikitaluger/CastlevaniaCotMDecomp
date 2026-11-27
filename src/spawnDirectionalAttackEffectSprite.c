@@ -68,17 +68,22 @@ extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
 extern u32 gMainObjTimerCallbacks;
 
-void sub_080344C0(struct Entity *owner)
+/* Spawns a direction-aware attack effect for its owner: allocates the sprite
+ * and work slot, fills the animation slot and render layer from the kind and
+ * attribute tables, offsets the effect by the owner's flip/facing flags,
+ * places it in world space corrected for camera scroll and records the
+ * attack on the owner's script step. */
+void spawnDirectionalAttackEffectSprite(struct Entity *owner)
 {
   struct SpriteObj *sprite;
   struct Part *part;
   u8 *animData;
-  u8 *state;
-  u8 *attrConfig;
-  u8 *spriteTable;
+  u8 *workspace;
+  u8 *affineParams;
+  u8 *gfxTable;
   u32 graphics;
-  u32 animSlotId;
-  s16 step;
+  u32 kindSlot;
+  s16 stepIndex;
   sprite = (struct SpriteObj *) allocSpriteObject();
   if (sprite == NULL) goto fail;
   owner->object = (u32) sprite;
@@ -104,18 +109,18 @@ void sub_080344C0(struct Entity *owner)
     part->_10 = 0xFFFC0000;
   }
   part->_14 = 0;
-  animSlotId = findKindIndex(part->animId);
-  part->animSlot = (u16) animSlotId;
-  if (((s16) ((u16) animSlotId)) < 0) goto fail;
+  kindSlot = findKindIndex(part->animId);
+  part->animSlot = (u16) kindSlot;
+  if (((s16) ((u16) kindSlot)) < 0) goto fail;
   graphics = ((u32) (((s32) ((s16) part->animSlot)) << 6)) + (0x80 << 2);
-  graphics |= (animSlotId + 8) << 12;
+  graphics |= (kindSlot + 8) << 12;
   sprite->graphics = (u16) graphics;
-  state = gMainWorkspace;
-  graphics |= *((u16 *) (state + 0x18C2));
+  workspace = gMainWorkspace;
+  graphics |= *((u16 *) (workspace + 0x18C2));
   sprite->graphics = (u16) graphics;
   initSpriteGraphics(sprite, animData, (void *) (gSpriteAnimDataTable + (12 * ((s32) part->animId))));
   setAnimationFrame(sprite, animData, 0x3B, 0x01);
-  attrConfig = (u8 *) D_080CEDF4;
+  affineParams = (u8 *) D_080CEDF4;
   part->subEffect = (u32) allocEffectPart();
   if (part->subEffect == 0) goto fail;
   goto cont;
@@ -126,34 +131,34 @@ cont:
   ((u8 *) part->subEffect)[1] = 5;
   ((u8 *) part->subEffect)[2] = 8;
   ((u8 *) part->subEffect)[3] = 1;
-  { u8 *sub = (u8 *) part->subEffect; spriteTable = gEffectGfxTable; ((struct SubEffect *) sub)->f04 = ((struct AnimEntry *) (spriteTable + (((s32) part->animId) * 40)))->w0; }
-  ((struct SubEffect *) part->subEffect)->f06 = *((u16 *) (&attrConfig[0]));
-  ((struct SubEffect *) part->subEffect)->f08 = *((u16 *) (&attrConfig[2]));
-  ((struct SubEffect *) part->subEffect)->f0A = *((u16 *) (&attrConfig[4]));
-  ((struct SubEffect *) part->subEffect)->f0C = *((u16 *) (&attrConfig[6]));
-  ((struct SubEffect *) part->subEffect)->f0E = ((struct AnimEntry *) (spriteTable + (((s32) part->animId) * 40)))->w1;
+  { u8 *layer = (u8 *) part->subEffect; gfxTable = gEffectGfxTable; ((struct SubEffect *) layer)->f04 = ((struct AnimEntry *) (gfxTable + (((s32) part->animId) * 40)))->w0; }
+  ((struct SubEffect *) part->subEffect)->f06 = *((u16 *) (&affineParams[0]));
+  ((struct SubEffect *) part->subEffect)->f08 = *((u16 *) (&affineParams[2]));
+  ((struct SubEffect *) part->subEffect)->f0A = *((u16 *) (&affineParams[4]));
+  ((struct SubEffect *) part->subEffect)->f0C = *((u16 *) (&affineParams[6]));
+  ((struct SubEffect *) part->subEffect)->f0E = ((struct AnimEntry *) (gfxTable + (((s32) part->animId) * 40)))->w1;
   *((u32 *) (((u8 *) part->subEffect) + 0x10)) = (u32) sprite;
   {
-    u8 *pt = gCameraState;
-    u8 *base1;
-    u8 *base2;
-    u32 idx;
-    idx = ((u32)*(state + 0x18A8) + 1) * 0x40;
-    base1 = pt + 0x1278;
-    sprite->x = part->x - ((*(u32 *)(base1 + idx) + 0x8000) & 0xFFFF0000);
-    idx = ((u32)*(state + 0x18A8) + 1) * 0x40;
-    base2 = pt + 0x127C;
-    sprite->y = part->y - ((*(u32 *)(base2 + idx) + 0xFFFF8000) & 0xFFFF0000);
+    u8 *scroll = gCameraState;
+    u8 *scrollXRow;
+    u8 *scrollYRow;
+    u32 rowIndex;
+    rowIndex = ((u32)*(workspace + 0x18A8) + 1) * 0x40;
+    scrollXRow = scroll + 0x1278;
+    sprite->x = part->x - ((*(u32 *)(scrollXRow + rowIndex) + 0x8000) & 0xFFFF0000);
+    rowIndex = ((u32)*(workspace + 0x18A8) + 1) * 0x40;
+    scrollYRow = scroll + 0x127C;
+    sprite->y = part->y - ((*(u32 *)(scrollYRow + rowIndex) + 0xFFFF8000) & 0xFFFF0000);
   }
   owner->flags |= 0x1000;
-  step = *((s16 *) (((u8 *) owner) + 0x22));
-  *((((u8 *) owner) + (((s32) step) * 2)) + 0x19) = 0;
+  stepIndex = *((s16 *) (((u8 *) owner) + 0x22));
+  *((((u8 *) owner) + (((s32) stepIndex) * 2)) + 0x19) = 0;
   {
-    u32 *gptr = &gMainObjTimerCallbacks;
-    u8 *p18 = ((u8 *) owner) + 0x18;
-    u8 *p22 = ((u8 *) owner) + 0x22;
-    sub_080C31E4(p18, p22, *gptr);
-    { s16 i2 = *((s16 *) p22); u8 *p19 = (u8 *)((((s32) i2) * 2) + (u32) owner); p19[0x19] = (u8) (p19[0x19] + 1); }
-    { s16 i3 = *((s16 *) p22); u8 *q = p18 + (((s32) i3) * 2); sub_080C31E0(owner, *((u32 *) ((((u32) (*q)) * 4) + owner->dispatch))); }
+    u32 *timerCallback = &gMainObjTimerCallbacks;
+    u8 *steps = ((u8 *) owner) + 0x18;
+    u8 *stepIndexPtr = ((u8 *) owner) + 0x22;
+    sub_080C31E4(steps, stepIndexPtr, *timerCallback);
+    { s16 stepA = *((s16 *) stepIndexPtr); u8 *stepByte = (u8 *)((((s32) stepA) * 2) + (u32) owner); stepByte[0x19] = (u8) (stepByte[0x19] + 1); }
+    { s16 stepB = *((s16 *) stepIndexPtr); u8 *handler = steps + (((s32) stepB) * 2); sub_080C31E0(owner, *((u32 *) ((((u32) (*handler)) * 4) + owner->dispatch))); }
   }
 }
