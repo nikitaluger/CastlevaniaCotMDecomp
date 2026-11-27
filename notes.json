@@ -354208,15 +354208,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:407ab29e6d5b3f1269e8afe381f72d4be6396d2a8bf6265a346bd65392ec8905:8cfac606f1c9db95c966f2d09518e54b5341bf9704fbc0017f1a2aec5bdec43a"
  },
  {
-  "function": "sub_08028864",
-  "text": "Reached 305 (96.4%). Positive arm needed local s32 value inside the branch (prevents folding away the >0x7000 store), operand order *anglePtr + delta (adds r0,r0,r1), else clamp 0x1000 (movs #0x80; lsls #5). Remaining 3 diff rows are in the raw-byte tail past the 58-line analyzed extent: extra .byte 0xff,0xff, bogus vcvt decode, and lsrs r7 vs lsrs r6. Exhaustive source and flag experiments left them unchanged. m2c draft fails to parse bne #0x80288b0. sub_08028BAC prototype conflict (u16 vs s32 arg2) left unresolved; current s32 declaration compiles correctly.",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795793830.503313,
-  "score_before": 1450,
-  "score_after": 305,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e7b58565fe9bcdd502aa0e0325c00dcbb368f510df0961f491622236193f57a4:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
- },
- {
   "function": "sub_080298E4",
   "text": "Residual is 13 rows of pure scheduling: target computes the shifted value before the destination address on all three halfword stores. C spelling and flags cannot reorder it; explicit value locals swap registers and add copies. The wrong-callee linker note is the known 2-byte-alignment false positive.\nSix expression spellings (u16/s16 cast, array index, vu16, comma-assign, split cast) all kept score 330; s32 `out` locals at top and near v regressed to 1065; all five flag profiles stayed 330.\nOnly value temporaries changed output, swapping value/address registers (strh r1,[r0]) and adding two copies. Saved_best restored at 2ce6ceec9d54073ecc85.",
   "by": "opencode-hy4-flash-free-64",
@@ -354548,15 +354539,6 @@
   "created_at": 1795795630.6973343,
   "score_before": 295,
   "score_after": 295
- },
- {
-  "function": "sub_08028864",
-  "text": "All 53 compared instruction rows match; score 305 comes from literal-pool tail mis-disassembly in diff (target 85 insns vs candidate 84, differing rows are .byte/garbled pool bytes after final b). Verified with fresh compile_and_diff and try_local_repairs(compare=true, 3 variants, all worse/equal). No C-side fix found. Next agent: confirm whether pool-end artifact is real mismatch by inspecting raw bytes/read_data around function end; if real, only pool layout/constant emission differs.\nRecompiled same source and ran try_local_repairs(compare=true): else_if_arm_swap, do-while call weight, duplicated call-in-arms. All worse/equal; baseline retained.\nNo instruction-row improvement; score stayed 305 with same 3 tail rows (.byte 0xff,0xff / vcvt garbage) after final branch.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795795701.7021623,
-  "score_before": 305,
-  "score_after": 305,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:7f7ef764d67524b608681169128c0a1e4865cd0f3346b9ae10d60ecc0ece7220:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
  },
  {
   "function": "sub_080253A4",
@@ -358305,15 +358287,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:32bc3d26a5e2c3310f6f734dbd62bf417deadb22f0ef61519c7fe09f7b1d43d7"
  },
  {
-  "function": "sub_08028864",
-  "text": "Fresh compile confirms score 305 (target 85 vs 84 insns). All real instruction rows match; only 3 tail rows differ: target has extra `.byte 0xff,0xff`, a real `adds r0,r7,#0` where candidate has a garbage `vcvt` pool decode, and `lsrs r7` vs `lsrs r6`. Raw dump at 0x0802890E/0x08028912 shows the two literal words 0xFFFF0000 and 0x0FFF0000; this is a literal-pool placement/2-byte-length artifact, not a semantics error. Prior agents: 24 attempts, 12 local repairs, 6 explicit patches, no C fix.\ninherited candidate rechecked\nscore 305 unchanged; pool-tail artifact",
-  "by": "opencode-hy4-flash-free-64",
-  "created_at": 1795809412.4273162,
-  "score_before": 305,
-  "score_after": 305,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
- },
- {
   "function": "sub_08047E40",
   "text": "Baseline rechecks 590; 75 insns each. Residual is coloring: target uses r1=flags, r3=constant 1 (copied to r0 for AND and kept for strh), r0=0x12C, r2=0 early; candidate shifts all by one register. Flags/local/operand-order variants all collapse to 590; all flag profiles >=590.",
   "by": "opencode-hy4-flash-free-65",
@@ -358515,5 +358488,32 @@
   "score_before": 0,
   "score_after": 0,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
+ },
+ {
+  "function": "sub_08028864",
+  "text": "Reached 305 (96.4%). Positive arm needed local s32 value inside the branch (prevents folding away the >0x7000 store), operand order *anglePtr + delta (adds r0,r0,r1), else clamp 0x1000 (movs #0x80; lsls #5). Remaining 3 diff rows are in the raw-byte tail past the 58-line analyzed extent: extra .byte 0xff,0xff, bogus vcvt decode, and lsrs r7 vs lsrs r6. Exhaustive source and flag experiments left them unchanged. m2c draft fails to parse bne #0x80288b0. sub_08028BAC prototype conflict (u16 vs s32 arg2) left unresolved; current s32 declaration compiles correctly.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795793830.503313,
+  "score_before": 1450,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e7b58565fe9bcdd502aa0e0325c00dcbb368f510df0961f491622236193f57a4:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
+ },
+ {
+  "function": "sub_08028864",
+  "text": "All 53 compared instruction rows match; score 305 comes from literal-pool tail mis-disassembly in diff (target 85 insns vs candidate 84, differing rows are .byte/garbled pool bytes after final b). Verified with fresh compile_and_diff and try_local_repairs(compare=true, 3 variants, all worse/equal). No C-side fix found. Next agent: confirm whether pool-end artifact is real mismatch by inspecting raw bytes/read_data around function end; if real, only pool layout/constant emission differs.\nRecompiled same source and ran try_local_repairs(compare=true): else_if_arm_swap, do-while call weight, duplicated call-in-arms. All worse/equal; baseline retained.\nNo instruction-row improvement; score stayed 305 with same 3 tail rows (.byte 0xff,0xff / vcvt garbage) after final branch.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795795701.7021623,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:7f7ef764d67524b608681169128c0a1e4865cd0f3346b9ae10d60ecc0ece7220:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
+ },
+ {
+  "function": "sub_08028864",
+  "text": "Fresh compile confirms score 305 (target 85 vs 84 insns). All real instruction rows match; only 3 tail rows differ: target has extra `.byte 0xff,0xff`, a real `adds r0,r7,#0` where candidate has a garbage `vcvt` pool decode, and `lsrs r7` vs `lsrs r6`. Raw dump at 0x0802890E/0x08028912 shows the two literal words 0xFFFF0000 and 0x0FFF0000; this is a literal-pool placement/2-byte-length artifact, not a semantics error. Prior agents: 24 attempts, 12 local repairs, 6 explicit patches, no C fix.\ninherited candidate rechecked\nscore 305 unchanged; pool-tail artifact",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809412.4273162,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
  }
 ]

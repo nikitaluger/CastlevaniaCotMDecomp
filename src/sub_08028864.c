@@ -29,7 +29,7 @@ void sub_08028864(u8 *arg0) {
         delta = *(u16 *)(arg0 + 0x7C);
         value = (*(s32 *)anglePtr - delta) & 0xFFFF;
         *(s32 *)anglePtr = value;
-        if (value < 0xFFF) *(s32 *)anglePtr = 0x1000;
+        if (value <= 0xFFF) *(s32 *)anglePtr = 0x1000;
     }
     setPolarOffset(actor, *(s32 *)anglePtr, *(s32 *)(arg0 + 0x6C));
 }
