@@ -3605,7 +3605,7 @@
 <g><title>sub_08031B60: {&#x27;attempt&#x27;: 1}</title>
 <rect x="770.000" y="300" width="8.000" height="8" fill="#bf8700"/>
 </g>
-<g><title>sub_08031D64: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateStateDrivenScriptedAttack: {&#x27;matched&#x27;: 1}</title>
 <rect x="780.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08031EC8: {&#x27;matched&#x27;: 1}</title>

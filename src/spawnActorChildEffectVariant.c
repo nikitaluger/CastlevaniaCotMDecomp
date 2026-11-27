@@ -1,10 +1,10 @@
 extern void *allocEffectPart(void);
-extern void sub_0806D2D0(void *);
+extern void cleanupFailedEffectSpawn(void *);
 extern s16 scalePercentSaturate16(u16, s32);
-extern void sub_08003A6C(void *, s32, void *);
-extern void sub_080C31E0(void *, void *);
-extern void sub_080C31E4(void *, void *, void *);
-extern void sub_0808449C(void);
+extern void startEffectTimer(void *, s32, void *);
+extern void _call_via_r1(void *, void *);
+extern void _call_via_r2(void *, void *, void *);
+extern void releaseActorEffectParts(void);
 
 struct S_02025FF0 {
     u8 _0[0x14EF];
@@ -50,7 +50,7 @@ struct ScriptStep { u8 _0[0x19]; u8 counter; };
 
 /* Allocate and initialize a sub-object for this entity's current action, install its
  * cleanup callback and timer, then dispatch the next script step. */
-void sub_08079204(u8 *entity) {
+void spawnActorChildEffectVariant(u8 *entity) {
     u8 *params = *(u8 **)(entity + 0x6C);
     struct BehaviorState *state = (struct BehaviorState *)(params + 4);
     u8 *sprite = *(u8 **)(entity + 0x38);
@@ -64,7 +64,7 @@ void sub_08079204(u8 *entity) {
 
     state->subObject = child;
     if (child == NULL) {
-        sub_0806D2D0(entity);
+        cleanupFailedEffectSpawn(entity);
         return;
     }
     state->handle0 = 0;
@@ -85,14 +85,14 @@ void sub_08079204(u8 *entity) {
     state->subObject->sprite = (u32)sprite;
 
     state->cleanupCallback = *(u32 *)(entity + 0x24);
-    *(u32 *)(entity + 0x24) = (u32)sub_0808449C;
+    *(u32 *)(entity + 0x24) = (u32)releaseActorEffectParts;
     {
         u8 modeFlag = gMainWorkspace.b14EF;
         *(u8 *)(params + 0x55) = modeFlag;
     }
     *(u32 *)(sprite + 0x24) = 0x084DCFBC;
 
-    sub_08003A6C(params + 0x20, 0, (void *)0x084DD09C);
+    startEffectTimer(params + 0x20, 0, (void *)0x084DD09C);
 
     state->field54 = 0x1C;
     *(u32 *)(params + 4) = gMainWorkspace.f1728;
@@ -110,9 +110,9 @@ void sub_08079204(u8 *entity) {
     {
         s32 *cueTable = &gScriptStepCallbackTable;
         u8 *scriptPtr = entity + 0x18;
-        sub_080C31E4(scriptPtr, entity + 0x22, *cueTable);
+        _call_via_r2(scriptPtr, entity + 0x22, *cueTable);
         ((struct ScriptStep *)(entity + *(s16 *)(entity + 0x22) * 2))->counter++;
         stepOffset = *(s16 *)(entity + 0x22) * 2;
-        sub_080C31E0(entity, *(u32 *)(*(u32 *)(entity + 0x14) + *(u8 *)(scriptPtr + stepOffset) * 4));
+        _call_via_r1(entity, *(u32 *)(*(u32 *)(entity + 0x14) + *(u8 *)(scriptPtr + stepOffset) * 4));
     }
 }

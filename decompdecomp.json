@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795779715.744833,
- "revision": 69435,
+ "saved_at": 1795780055.239203,
+ "revision": 69461,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,16 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "496132:134713860": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O1"
-   ],
-   "timeout": 20,
-   "function": "spawnActorChildEffectVariant",
-   "vram": 134713860
   }
  },
  "instructions": "",
@@ -2104,8 +2094,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7578,10 +7567,10 @@
    "best_score": 10,
    "best_by": "opencode-iceman-contributor-free-8"
   },
-  "sub_08031D64": {
+  "updateStateDrivenScriptedAttack": {
    "vram": 134421860,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08031EC8": {
    "vram": 134422216,
@@ -14266,7 +14255,7 @@
   "spawnActorChildEffectVariant": {
    "vram": 134713860,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0807936C": {
    "vram": 134714220,
@@ -30319,7 +30308,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08031D64",
+   "name": "updateStateDrivenScriptedAttack",
    "vram": 134421860,
    "size": 356,
    "status": "open"
@@ -51225,6 +51214,12 @@
    "kind": "func"
   },
   {
+   "name": "updateStateDrivenScriptedAttack",
+   "address": 134421860,
+   "size": 356,
+   "kind": "func"
+  },
+  {
    "name": "spawnStateDrivenEffect",
    "address": 134422380,
    "size": 532,
@@ -53427,6 +53422,12 @@
    "kind": "data"
   },
   {
+   "name": "gStateDrivenAttackStepTable",
+   "address": 140958892,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "sTwoSubObjectWeaponStepTable",
    "address": 140959596,
    "size": 0,
@@ -53526,7 +53527,7 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "struct ScriptEntityCamera",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -53546,12 +53547,12 @@
   },
   {
    "address": 33706856,
-   "type": "struct ActionStepGameState",
+   "type": "u8[]",
    "source": "match"
   },
   {
    "address": 33710064,
-   "type": "struct ScriptEntityWorkspace",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -54265,6 +54266,11 @@
    "source": "match"
   },
   {
+   "address": 140958892,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 140959596,
    "type": "u8[]",
    "source": "match"
@@ -54316,7 +54322,7 @@
   },
   {
    "address": 140975024,
-   "type": "s32[]",
+   "type": "s32",
    "source": "match"
   },
   {
@@ -54331,7 +54337,7 @@
   },
   {
    "address": 140975068,
-   "type": "u32[]",
+   "type": "s32[]",
    "source": "match"
   },
   {

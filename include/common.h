@@ -1682,3 +1682,62 @@ struct ScriptEntityCamera {
 #define SCRIPT_ENTITY_BIAS_X           0x8000
 #define SCRIPT_ENTITY_BIAS_Y           0xFFFF8000
 #define SCRIPT_ENTITY_FRAC_MASK        0xFFFF0000
+
+/* Actor child-effect variant spawner (spawnActorChildEffectVariant).
+ * Workspaces/parts are offset views of the shared effect tables. */
+struct ActorChildVariantWorkspace {
+    u8 _0[0x14EF];
+    u8 parity;            /* 0x14EF: selects the child's active flag */
+    u8 _1[0x1510 - 0x14F0];
+    u8 frameFlag;         /* 0x1510: copied to parent+0x55 */
+    u8 _2[0x1728 - 0x1511];
+    u32 kindA;            /* 0x1728 */
+    u32 kindB;            /* 0x172C: biased by -0x140000 */
+};
+
+/* Render part allocated by allocEffectPart for the child effect. */
+struct ActorChildVariantPart {
+    u8 _0;
+    u8 variant;           /* 0x01: workspace parity bit */
+    u8 kind;              /* 0x02 */
+    u8 layer;             /* 0x03 */
+    u16 gfxIndex;         /* 0x04 */
+    u16 param0;           /* 0x06 */
+    u16 param1;           /* 0x08 */
+    u16 param2;           /* 0x0A */
+    u16 param3;           /* 0x0C */
+    u16 scaledValue;      /* 0x0E */
+    u32 sprite;           /* 0x10 */
+    u8 _14[2];
+    u16 frame;            /* 0x16 */
+    u16 _18;
+};
+
+/* State block reached through parent+4. */
+struct ActorChildVariantState {
+    u8 _0[4];
+    u32 kindB;            /* 0x04: workspace kindB minus 0x140000 */
+    u8 _1[0x18 - 0x08];
+    u32 savedHandler;     /* 0x18: previous entity handler */
+    u8 _2[0x2C - 0x1C];
+    struct ActorChildVariantPart *part; /* 0x2C */
+    u32 handleA, handleB, handleC, handleD; /* 0x30..0x3C */
+    u8 _40[0x14];
+    u32 extra54;          /* 0x54 */
+};
+
+/* One 2-byte script step: opcode byte then countdown byte at +0x19. */
+struct ActorChildVariantStep { u8 _0[0x19]; u8 counter; };
+
+#define ACTOR_CHILD_VARIANT_FLIP_BIT    0x10
+#define ACTOR_CHILD_VARIANT_PART_KIND   2
+#define ACTOR_CHILD_VARIANT_PART_LAYER  8
+#define ACTOR_CHILD_VARIANT_PARAM       9
+#define ACTOR_CHILD_VARIANT_SCALE       0x20
+#define ACTOR_CHILD_VARIANT_FRAME       0x1E
+#define ACTOR_CHILD_VARIANT_SCRIPT      0x084DCFBC
+#define ACTOR_CHILD_VARIANT_TIMER_TABLE 0x084DD09C
+#define ACTOR_CHILD_VARIANT_EXTRA54     0x1C
+#define ACTOR_CHILD_VARIANT_VEL_RIGHT   0x00028000
+#define ACTOR_CHILD_VARIANT_VEL_LEFT    0xFFFD8000
+#define ACTOR_CHILD_VARIANT_VEL_Y       0xFFFB0000

@@ -14408,14 +14408,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08031D64",
-  "text": "Cannot get closer: remaining 20 differences are pure agbcc register allocation with identical instruction types, count (169) and order. Tried 15 compiles: declaration order permutations, block vs function scope, struct vs raw pointer for the D_02021E90 lookups, inline vs local q expressions, and every arithmetic reordering that helped elsewhere (best 100/99.4%). Register asm pinning is rejected by the tool as inline assembly. Best source uses: struct S_02025FF0 idx@0x18A8 for two-literal access; `base=D_02021E90; idx=(D_02025FF0.idx+1)<<6; p1=base+0x1278; v=*(s32*)(p1+idx);` with p1 assigned after idx; inline q for 0x1A/0x1B sites; local q for 0x19 site; struct-cast `|=` compounds; literal 1 for both flag checks. Remaining: second q offset in r2 vs target r1, third q offset in r3 vs target r0, and final block D_02021E90 base/0x1278 literal swapped between r3 and r4 cascading into ~16 diffs.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9695797,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08045574",
   "text": "Releasing: regalloc mismatch (r6 vs r7 for base pointer) cannot be fixed without inline asm. Best 1530. Needs deeper regalloc knowledge.",
   "by": "opencode-free-1",
@@ -30196,14 +30188,6 @@
   "text": "Best attempt 8207. Large function with repeated blocks; not enough budget. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0540025,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08031D64",
-  "text": "Best attempt 65 (99.6%). Remaining 13 diffs are pure regalloc. Register asm rejected. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0540383,
   "score_before": null,
   "score_after": null
  },
@@ -92316,14 +92300,6 @@
   "text": "Cannot get closer with pure C here: 12 prior attempts + 4 of mine, best 3255. Structural wall: target keeps r7=self, r6=base, r8=base+0x48 with `mov r7,r8; push {r7}` prologue/epilogue; agbcc always allocates r6=self, r5=base, r7=r8v (no r8 save). Inline-register pinning (`register u8 *x asm(\"r7\")`) is REJECTED by this tool (no inline asm), so there is no lever to force r8. Resolved facts for next agent: sub_080B0934 takes TWO args (s32,s32), target passes *(base+0x234) and *(base+0x238); D_02025FF0 has u8 idx@0x18A8 and u16 f@0x18BC; D_02021E90 has u32 p1@0x1278 and u32 p2@0x127C; D_08671BB0 is u32; constants are (0xF1<<15) and (0x9E<<14); sub_080C31E0=_call_via_r1 (bx r1), sub_080C31E4=_call_via_r2 (bx r2). Using padded struct fields for those globals (not raw literal addresses) is what took 3801\u21923255 (generates `ldr rX,=base; ldr rY,=offset; adds`). Remaining diffs: ~29 regalloc, 21 operand, 18 missing (mostly r8 prologue and two-literal addressing); calls render as local stubs.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.373069,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08031D64",
-  "text": "Force release: 1 compile at 65 (99.6%), matches previous best after 15 attempts. Pure register allocation wall - 13 diffs all regalloc with identical instruction sequence. agbcc assigns q offsets to different registers than target (r2/r3 vs r1/r0), D_02021E90 base/offset literals swapped between r3/r4. Register asm pinning rejected by tool. No C-level fix possible.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3731108,
   "score_before": null,
   "score_after": null
  },
@@ -352248,51 +352224,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
  },
  {
-  "function": "sub_080C0440",
-  "text": "Fresh recheck confirms the inherited best at score 10 (21/21 insns): only two register rows differ \u2014 ROM loads the record word into r2 and stages it with `adds r0,r2,#0`, while agbcc uses r3. This session: reusing the table-base variable for the loaded value (35, swaps table/index into r3/r2), splitting index and record into separate locals (25), using a u8* record local (25), and try_local_repairs compare (s32 off -> 210; in-place param update and struct-row access -> 10 with identical diff) all fail to move the record load into r2. 1034+ attempts across agents; pure allocator tie. Do not repeat variant grids; only a different compiler build could change this coloring.\nreuse table-base variable (35), split locals (25), u8* record (25), local-repair grid (10/210)\nBest remains 10 with ldr r3,[r1] / adds r0,r3,#0 versus target's r2",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795779674.2405035,
-  "score_before": 10,
-  "score_after": 10,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:77a1d23e2d6dbeaf9f40729280a14a883f9161e43c3b95c2326518e743a2b2d8"
- },
- {
-  "function": "sub_08096F5C",
-  "text": "Semantically correct form is `if (*(s16*)0x020279E8==0xB) return 0; return -1;` (matches target). That scores 465 due to branchy literal-pool Thumb leaf LR-frame wall (push/pop + pool/branch ripple), same class as accepted 9295C tip. Saved historical 305 has wrong polarity (returns 1, not -1) - do not treat as valid. Corrected candidate is rev acc9cc80.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795779674.2829955,
-  "score_before": 465,
-  "score_after": 465,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:7af7f9e11635829fe05b6fcf9d308108ddd0dbe3d614805018e6f7b7eac4e6fb"
- },
- {
-  "function": "sub_080A2D80",
-  "text": "Target has null guard then stores arg1/arg2 to +0x4C/+0x5C. Saved 200 omitted guard (invalid); guarded correct version scores 215 with frameless-leaf LR-frame wall (push/pop, beq ripple). Reported corrected rev 3bb3d16f113a58e73446 is semantically right. Backend wall.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795779674.445842,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:097e7755d7b1c37ab8a53ee49070cfb22e0540741d6271eebb9b4ffc8eea51ae"
- },
- {
-  "function": "sub_08020498",
-  "text": "Range check on arg0->f28 (0x29..0x32) conditionally clears byte at arg1->f28+1; copies 4 u16s from D_080CE794 to arg1->f28+6..C. Body matches; score 215 with frameless-leaf LR-frame wall (push{lr}/pop{r0}) and branch ripple. Repeated same diff 13+ times. Likely compiler backend wall.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795779674.4820335,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:ade5b3a1ba72beb4015de3a57be41b203f868ce99608bfa3a1b94b91fb01db10"
- },
- {
-  "function": "sub_080A041C",
-  "text": "Null-guarded read of u8 at +0x7C, returns 0 if null. Body matches saved best 215; my variant scored 665 (worse control flow) - not kept. Residual is frameless-leaf LR-frame wall (push/pop, branch ripple). Accepted leaf-wall tip applies.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795779674.6211264,
-  "score_before": 665,
-  "score_after": 665,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:3d164c24fc4489f8bc8eb1d0e15fb02dac7e3949825c2c53d3d3c2cbf2413ea1"
- },
- {
   "function": "spawnActorChildEffectVariant",
   "text": "Best 5116. Needs regalloc fix: sb holds D_02025368 base; r6/r7/r5/r8 assignment order. Complex 180-insn function. Leaving.",
   "by": "opencode-free-1",
@@ -352379,5 +352310,441 @@
   "created_at": 1795683534.797272,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_080C0440",
+  "text": "Fresh recheck confirms the inherited best at score 10 (21/21 insns): only two register rows differ \u2014 ROM loads the record word into r2 and stages it with `adds r0,r2,#0`, while agbcc uses r3. This session: reusing the table-base variable for the loaded value (35, swaps table/index into r3/r2), splitting index and record into separate locals (25), using a u8* record local (25), and try_local_repairs compare (s32 off -> 210; in-place param update and struct-row access -> 10 with identical diff) all fail to move the record load into r2. 1034+ attempts across agents; pure allocator tie. Do not repeat variant grids; only a different compiler build could change this coloring.\nreuse table-base variable (35), split locals (25), u8* record (25), local-repair grid (10/210)\nBest remains 10 with ldr r3,[r1] / adds r0,r3,#0 versus target's r2",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779674.2405035,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:77a1d23e2d6dbeaf9f40729280a14a883f9161e43c3b95c2326518e743a2b2d8"
+ },
+ {
+  "function": "sub_08096F5C",
+  "text": "Semantically correct form is `if (*(s16*)0x020279E8==0xB) return 0; return -1;` (matches target). That scores 465 due to branchy literal-pool Thumb leaf LR-frame wall (push/pop + pool/branch ripple), same class as accepted 9295C tip. Saved historical 305 has wrong polarity (returns 1, not -1) - do not treat as valid. Corrected candidate is rev acc9cc80.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779674.2829955,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:7af7f9e11635829fe05b6fcf9d308108ddd0dbe3d614805018e6f7b7eac4e6fb"
+ },
+ {
+  "function": "sub_080A2D80",
+  "text": "Target has null guard then stores arg1/arg2 to +0x4C/+0x5C. Saved 200 omitted guard (invalid); guarded correct version scores 215 with frameless-leaf LR-frame wall (push/pop, beq ripple). Reported corrected rev 3bb3d16f113a58e73446 is semantically right. Backend wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779674.445842,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:097e7755d7b1c37ab8a53ee49070cfb22e0540741d6271eebb9b4ffc8eea51ae"
+ },
+ {
+  "function": "sub_08020498",
+  "text": "Range check on arg0->f28 (0x29..0x32) conditionally clears byte at arg1->f28+1; copies 4 u16s from D_080CE794 to arg1->f28+6..C. Body matches; score 215 with frameless-leaf LR-frame wall (push{lr}/pop{r0}) and branch ripple. Repeated same diff 13+ times. Likely compiler backend wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779674.4820335,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:ade5b3a1ba72beb4015de3a57be41b203f868ce99608bfa3a1b94b91fb01db10"
+ },
+ {
+  "function": "sub_080A041C",
+  "text": "Null-guarded read of u8 at +0x7C, returns 0 if null. Body matches saved best 215; my variant scored 665 (worse control flow) - not kept. Residual is frameless-leaf LR-frame wall (push/pop, branch ripple). Accepted leaf-wall tip applies.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779674.6211264,
+  "score_before": 665,
+  "score_after": 665,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:3d164c24fc4489f8bc8eb1d0e15fb02dac7e3949825c2c53d3d3c2cbf2413ea1"
+ },
+ {
+  "function": "sub_080B318C",
+  "text": "Walks linked list at arg0+0x30, returns 0 if any node has s16==0x1BE else 1. Body matches; score 215 with frameless Thumb loop-leaf LR-frame wall (push/pop, branch ripple). Budget 3/3 no improvement. Accepted wall pattern.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779748.5979397,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:f60b32245a7ffb3a087ea0698fe63ec586b85293ffbdcab55e7c232e1845be52"
+ },
+ {
+  "function": "sub_08094374",
+  "text": "Correct semantics: `if (*(s16*)0x020279E8==0xD) return 0; return -1;` (s32). Saved best 455 used volatile unsigned char, collapsing -1 to 0xFF (wrong). Corrected s32 version scores 465 due to branchy literal-pool Thumb leaf LR-frame wall (accepted tip). Reported corrected rev 427b9760. Backend wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779762.4368887,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:45b7af2d8a4dd8e58deaeeaf99b7833dbaf0cc54b2922bac609dd4df7db3e3c9"
+ },
+ {
+  "function": "getSpawnBehaviorIndex",
+  "text": "Correct semantics: `if (*(s16*)0x020279E8==6) return 0; return -1;`. Saved best 295 had inverted polarity (wrong). Corrected version scores 465 due to branchy literal-pool Thumb leaf LR-frame wall (accepted tip). Reported corrected rev d1dd4307. Backend wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779762.5369256,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:c6e94bc0436d6b951c66352abe1596f2602c9d9f3f0c23a6095ff03fededccfa"
+ },
+ {
+  "function": "setSpriteFlip",
+  "text": "66B leaf sets/clears bit 0x10 in arg0->f2 based on arg1 low16 (guards for 0x4000/0xC000; range test via +0xFFFFBFFF <=0x7FFE). Body matches; residual frameless-leaf LR-frame wall (push{lr}/pop{r0}, extra movs r0,r0 nop, branch/pool ripple). Score 325, 3/3 no improvement. Likely agbcc backend wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779771.6212163,
+  "score_before": 325,
+  "score_after": 325,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:6cdd460c6ce210c5d5fa9205108647b240465471f03def93a20fda703334cf0b"
+ },
+ {
+  "function": "sub_08097234",
+  "text": "Confirmed frameless branchy-leaf wall. Semantically correct C (b44ffc336a9f6fe75d65) rechecks at 465 with 12 target vs 15 candidate insns: body byte-exact except agbcc's push{lr}/align-nop/pop{r1};bx r1 versus ROM bare bx lr and the pool/branch ripple. Inherited saved best dd416da91618ea9e35d3 scores 455 only because it casts -1 to unsigned char (returns 255, wrong value); reported a candidate issue on it. Prefer the correct 465 source for any future work; no C spelling removes the leaf frame.\nCorrect s32 source recheck (465) versus inherited (unsigned char)-1 hack (455)\nOnly the LR frame and literal-pool/branch ripple differ; no C lever",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779775.7016377,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:ee9466259247a53577c7cf35dfdb21e3ecb567c555acff6b75cdc4ef0e5b2068"
+ },
+ {
+  "function": "sub_08093B10",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited 15-insn leaf range-check at score 305 (21 compiles/4 agents, single persistent diff). Not recompiled this session (8 compiled-claim budget reached). Start from revision 8c3fd299c086f34c0e9e; likely frameless-leaf/allocator wall. No new experiment.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779812.6398697,
+  "score_before": 305,
+  "score_after": 305
+ },
+ {
+  "function": "sub_080147D4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited 31-insn angle compare-tree at score 310 (45 compiles/4 agents, two diffs). Not recompiled this session (8 compiled-claim budget reached). Start from revision bd1a10e50d5d9f680c72; likely the same agbcc allocator/leaf wall family as sub_080147A4.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779813.0468955,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "sub_08090A7C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited 16-insn leaf switch at score 455 (39 compiles/4 agents, two diffs). Not recompiled this session (8 compiled-claim budget reached). Saved best uses `volatile char` return, which may be a wrong-type hack like sub_08097234; check the s32/m2c draft before trusting the score. Start from revision ac95f8827877f0a9b715.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779813.2403965,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "sub_080186DC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known frameless Thumb leaf ABI wall. Rechecked revision 4543d6c1a072c97d5c56 at score 215; real body matches, residual is inserted LR frame and branch/literal ripple. No viable pure-C source next step identified.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779852.8750336,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_080C0DA0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Fresh prior compile confirms frameless-branched-leaf wall at score 265. Switch body and MMIO stores match; only agbcc push {lr}/pop {r0}; bx r0 versus ROM bare bx lr and alignment ripple remain.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779858.3252609,
+  "score_before": 265,
+  "score_after": 265
+ },
+ {
+  "function": "sub_080A2E74",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known frameless Thumb leaf ABI wall. Semantically correct guarded setter e88bbe229fd97b69a555 scores 215; saved numeric best 210 is the invalid unguarded NULL-store draft and must not be used as canonical source. Residual is push {lr}/pop {r0}; bx r0 versus target bare bx lr plus displacement ripple.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779858.5259044,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "sub_080C1674",
+  "text": "Saved best d0c0271affb1e15ba729 remains score 20: all 36 instructions agree except p[2] shift/literal-mask/or register cascade (target r0 load -> r3 shift; candidate coalesces shift in r0). Splitting b=p[2] from s=b<<16 regressed to 30; register keyword was unchanged; asm register pinning is rejected. Prior notes also record exhaustive width/order/scope/compound variants.\nSplit p[2] assignment/shift and plain register declaration; prior width/order/scope variants unchanged or worse.\nSplit gives score 30 with six r0/r3 rows; register keyword leaves score 30 unchanged.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779858.6557496,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f3c0249d7ff8fbe14a8efbd3c37c977f151e96886fa049ea43779ff161db1387:1e3d557ac589b0f89fc96ec3467d667d50872ca39556e2960f505116c07675a9"
+ },
+ {
+  "function": "sub_0801C9F8",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Reconfirmed inherited frameless switch/jump-table leaf wall. Prior agents verified 60-instruction body byte-exact at score 570; only mandatory agbcc LR frame and jump-table/pool ripple remain. No pure-C fix; no compile repeated.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779862.5900078,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "sub_0803DB08",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal dead-load allocator wall at score 10. All 57 instructions match except dead signed halfword load at +0x1c: target offset in r1/result r0, agbcc coalesces offset/result in r0. Prior 69+ source attempts and volatile/local repairs failed (volatile score 2605). No new compile spent.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779865.9185953,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_0804EA20",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited accepted copy-coalescer/cyclic callee-saved coloring tie at score 10. 53/54 bytes exact; sole residual is r4/r6 swap on load/copy with identical final state. About 184 attempts, local repairs, and all flag profiles exhausted. No new evidence or compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779870.5994,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_0805CE28",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited deterministic callee-saved pseudo-coloring tie at score 40. All 57 instructions exact; residual swaps snapshot u16 and base+0x2D8 pointer between r5/r3. About 195 C/type/order variants and local repairs exhausted. Preserve a65baec7a337f0859068; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779874.955266,
+  "score_before": 40,
+  "score_after": 40
+ },
+ {
+  "function": "sub_0805E608",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited global-allocator/coloring tie around score 445. All 61 target instructions present; residual coupled register assignment and call argument placement. About 214 attempts exhausted, with explicit non-improvability override. Preserve 61158d13c7dbff82dc8a; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779880.7936885,
+  "score_before": 445,
+  "score_after": 445
+ },
+ {
+  "function": "sub_08098400",
+  "text": "Confirmed frameless-leaf LR-frame wall, score 305 floor. Saved best rev 2c723892925ef8967aed rechecked at 305: every real body instruction byte-exact; residual only push{lr} at entry, two branch displacements shifted by 2, a target-only `movs r0,r0` nop, pop{r1}, and bx r1 vs bare bx lr. This session: clean `return p[4]!=0` rewrite = 1545 (rsbs + push{lr}); combined-condition m2c-style draft = 1145 (lsrs/lsls + push{lr}); saved best recompile = 305. All three confirm the inserted LR frame; prior agents tested all 5 flag profiles with no change. No viable C spelling found.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779881.1967502,
+  "score_before": 1545,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:7c4f5f39f68b51e9a4adb9649db691e602c3ba5f03a4091d9267941fd0486611"
+ },
+ {
+  "function": "sub_080C1400",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal agbcc scratch/register tie at score 10. All 57 target instructions exact except mov/cmp operand reuse around v/arg2 (r0 vs r1). About 200 prior attempts and local repairs exhausted. Preserve 510269c6faa30ed2fa46; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779886.4710457,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_0808D690",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited frameless branched-leaf wall at score 225. Body/operands exact; agbcc inserts LR frame and shifts branch offsets. All five flag profiles identical; no C fix.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779896.4756746,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "sub_080A040C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf wall. Correct guarded candidate 868d2d3404b1dfbb9b28 matches target body but scores 215 due mandatory push{lr}/pop;bx versus bare bx lr. Saved lower score 210 is invalid unguarded store-through-NULL source.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779896.7222295,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "sub_080A041C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf wall at score 215. Correct null-guarded getter body matches; residual mandatory LR frame/epilogue. Prior 60 attempts and accepted flag sweep exhausted.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779896.8162408,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_08098754",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf wall at score 215. Correct comparison/getter body matches; residual mandatory LR frame/epilogue. Prior 38 attempts exhausted.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779896.9123034,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_0808FC10",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal agbcc frameless indirect-jump-leaf wall at score 505. All 15 jump-table entries/case stubs/default exact; sole residual mandatory LR frame/epilogue versus bare bx lr plus pool ripple. Prior lifetime attempts exhausted; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779913.9221272,
+  "score_before": 505,
+  "score_after": 505
+ },
+ {
+  "function": "sub_08098428",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited agbcc register-coloring/scheduling tie at score 275. All 78 target instructions represented; pA/pB base colors reversed with consequent r8/sb and inner-loop rotations. Multiple agents and flag searches exhausted. Preserve 7d8795390bf2030f3f6d; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779936.3296037,
+  "score_before": 275,
+  "score_after": 275
+ },
+ {
+  "function": "sub_080B015C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal agbcc allocator/coalescer tie at score 270. All 84 target instructions present in order; residual literal color, coalesced OR-mask copy, and final strh rematerialization. About 209 attempts plus flag/compiler sweeps exhausted. Preserve 7f027378630f231f7c67; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779940.614508,
+  "score_before": 270,
+  "score_after": 270
+ },
+ {
+  "function": "sub_0808F61C",
+  "text": "Confirmed frameless-leaf LR-frame wall, score 435 floor. Saved best (volatile pad + switch on s16 at 0x020279E8, cases 0/6/9 -> 0/1/2, default -1) rechecked at 435: body rows byte-exact; residual push{lr}, sub sp#8, three branch displacements +4, add sp#8, pop{r1}, bx r1 vs bx lr. Removing volatile pad yields 485 (stack rows gone but ldr pool offset shifts and an extra movs r0,r0 nop); prior agents tested all flag profiles with no change. No viable C spelling found.\nsaved-best recheck (435) and pad-free switch (485)\nbody identical; only the inserted LR frame and its branch/pool ripple differ",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779946.222138,
+  "score_before": 435,
+  "score_after": 435,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:d2d8b53296ec6541e8584bd3f13c93672c21347194893ecaec82ef59b58abda9"
+ },
+ {
+  "function": "sub_08097AB0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal register-coloring wall at score 10. 92/92 body instructions exact except adjacent zero materializations ordered r1/r2 instead of target r2/r1 at +0x108 store. Roughly 65 source/type/flag/compiler attempts exhausted; flipping pair regressed unrelated allocation. Preserve 148e8b0e847a72151f8d; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779946.2533283,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_080B95CC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal -O1 allocator/coalescer tie at score 150. 105/106 target instructions exact; missing redundant adds r1,r2,#0 before final OR plus 10 coupled caller-saved rows. About 194 attempts across 8+ agents exhausted C and flags. Explicit impossibility override. Preserve f1f2996ffc2add265232; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779950.802182,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "sub_080BAD30",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal agbcc -O2 allocator tie at score 10. All 31 target instructions match; only D_08102EE0 base literal colored r1 versus target r2, cascading to adds. About 252 attempts and 41 local repairs exhausted. Preserve 5de5991e2df0507ddefb; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779960.0281804,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_08019254",
+  "text": "Confirmed frameless Thumb switch/jump-table leaf wall (agbcc -mthumb-interwork -O2). Target 60 insns, no prologue, jump table at _08019270, ends `bx lr`. Best verified 570 (rev af4bc19dd5fe7e852799). Body/semantics match target; residual is inserted `push {lr}` / `pop {pc}` plus pc-relative/literal ripple and missing `movs r0,r0` alignment nop. Tried donor-style struct/field indexing (rev 4e66c182, score 720) but introduced byte-offset bug and did not remove frame. All 5 flag variants reportedly tried by prior agents. No C-shape fix found.\nAdapted to matched donor-style struct/field indexing (u16* volatile field28, o->field28[3..6], arg1 as u8*).\nScore regressed 570->720 due to byte-store offset bug (`*(u8*)(o->field28+1)` became +2 bytes with u16*); frame wall unchanged.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795779973.9945347,
+  "score_before": 720,
+  "score_after": 720,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:2067e3b225fd90afe421c92602677c42f83e17fc031adfad2f176c3ce049ad94"
+ },
+ {
+  "function": "setSpriteFlipForDirection",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless branchy-leaf wall: target 17 insns, bare bx lr; agbcc inserts LR frame. Body matches. Release.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795779983.5436664,
+  "score_before": 305,
+  "score_after": 305
+ },
+ {
+  "function": "sub_0803F7CC",
+  "text": "Frameless branchy-leaf wall: body matches (masked bit test + conditional zero store) except inserted push{lr}/pop{r0} and branch offset ripple. Release.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795779983.6268294,
+  "score_before": 730,
+  "score_after": 225,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:1919ced0628d230e4151db98e630964142130537d5b05f2aba3c3b4879e0ffec"
+ },
+ {
+  "function": "sub_08051CE8",
+  "text": "Linked-list setter (node+0x30, next+0x2C, set +0x70=1). Clean if/while uses caller-saved regs and scores 630; m2c-style separate temps scores 400 but still no r4 allocation. Saved best 80 relies on UB uninitialized temp. Need a source shape that forces r4 allocation and exact 24 insns; untested: do-while with separate cursor, or register pressure via extra live variable. Next step: try variants that keep node live across loop or use a for-loop; compare allocation.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795779983.8659816,
+  "score_before": 630,
+  "score_after": 400,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:1870ca39190e4719870610fa14ebca37fae4e9aa1d37dedd7360b4464e4d7cde"
+ },
+ {
+  "function": "sub_080C050C",
+  "text": "Near-match score 15 (3 register rows): target rec in r2, candidate in r3. Exhausted declaration order, variable splitting, multiplication forms, inline_fn, flags. Likely allocator coloring tie. Handoff: revision 99061dcf (score 15). Next step: try making t (D_08106DCC) live until after rec assignment or using a separate pointer variable with different declaration order to nudge r2/r3 allocation; or prove_chain with register families.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795779984.0721226,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a3f19e146cb291a3e2b1e08888f5a0af77372421b192c9b7cd17931d063c41a0:8e7c67aa99ea63c073e49ba0bba5fd86c30b184ba11688740975b64c0eae9f99"
+ },
+ {
+  "function": "sub_080A0274",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf wall at score 215. Correct null/zero-test getter body matches; residual mandatory LR frame/epilogue. Prior 22 attempts exhausted.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779993.802054,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_080B9824",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf wall at score 215. Correct zero-test getter body matches; residual mandatory LR frame/epilogue. Prior 36 attempts exhausted.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779997.915044,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_080BB898",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf wall at score 265. Four-iteration loop body exact; residual mandatory LR frame/epilogue. Prior 47 attempts exhausted.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795779998.3686705,
+  "score_before": 265,
+  "score_after": 265
+ },
+ {
+  "function": "sub_0800FEDC",
+  "text": "Rechecked at 215 (saved best). Target 9 insns; all real body rows byte-exact. Residual only: candidate push{lr}, beq displacement +2, pop{r0}, bx r0 vs target bare bx lr. This is the documented frameless Thumb loop-leaf ABI wall; 28 prior compiles / 6 agents, one distinct diff. No C spelling changes it.\nclean single-function do/while recompile of saved best\nunchanged 215; residual frame only",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795779999.0022602,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:a98a058db8a4ed832101ad55910df6747ee23f578c6b1b4149d80fbea3582964"
+ },
+ {
+  "function": "sub_080A24FC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Scheduler tie: score 60, all 107 target instructions present; residual two-row preheader reorder (ldr r6,=D_02025FF0 vs adds r2,r7,#0) independent. No C fix. Release.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780000.1252086,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Cannot get closer: remaining 20 differences are pure agbcc register allocation with identical instruction types, count (169) and order. Tried 15 compiles: declaration order permutations, block vs function scope, struct vs raw pointer for the D_02021E90 lookups, inline vs local q expressions, and every arithmetic reordering that helped elsewhere (best 100/99.4%). Register asm pinning is rejected by the tool as inline assembly. Best source uses: struct S_02025FF0 idx@0x18A8 for two-literal access; `base=D_02021E90; idx=(D_02025FF0.idx+1)<<6; p1=base+0x1278; v=*(s32*)(p1+idx);` with p1 assigned after idx; inline q for 0x1A/0x1B sites; local q for 0x19 site; struct-cast `|=` compounds; literal 1 for both flag checks. Remaining: second q offset in r2 vs target r1, third q offset in r3 vs target r0, and final block D_02021E90 base/0x1278 literal swapped between r3 and r4 cascading into ~16 diffs.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9695797,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Best attempt 65 (99.6%). Remaining 13 diffs are pure regalloc. Register asm rejected. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0540383,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Force release: 1 compile at 65 (99.6%), matches previous best after 15 attempts. Pure register allocation wall - 13 diffs all regalloc with identical instruction sequence. agbcc assigns q offsets to different registers than target (r2/r3 vs r1/r0), D_02021E90 base/offset literals swapped between r3/r4. Register asm pinning rejected by tool. No C-level fix possible.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3731108,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08096BF8",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal -Os-style CSE floor at score 240. agbcc hoists two mutually exclusive *(s16*)(a3C+0x14) loads that ROM emits separately; barriers add instructions and offset cascades. Volatile probe 870. Explicit impossibility override. Preserve c67d7052928d8c35a3f8; no new compile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780002.5491333,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "sub_080BEE6C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited explicit impossibility override. Terminal floor ~2270-4032 confirmed across ~180 attempts: conflicting agbcc register allocation/MMIO lifetimes and __divsi3 call ABI mismatch. No new evidence; preserve a639697c2eb3205c5609.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780035.9149213,
+  "score_before": 2270,
+  "score_after": 2270
+ },
+ {
+  "function": "sub_080186C0",
+  "text": "Rechecked at 215 (saved best, same source). 14 target insns; every real body row byte-exact including lsls/asrs sign-extension, strh, literal load and ble. Residual only: candidate push{lr}, ble displacement +2, pop{r0}, bx r0 vs bare bx lr. 21 prior compiles / 5 agents, one distinct diff; documented frameless-leaf wall.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780041.8376286,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
+ },
+ {
+  "function": "sub_0809767C",
+  "text": "Verified baseline 10 (rev 86fad4fe433847504b6f). Only 2 regalloc rows differ at target insns 13-14: target `movs r7,#1; adds r2,r7,#0; ands r2,r1` vs candidate `adds r2,r1,#0; ands r2,r7` (commutative AND operand/copy choice). Insn count/regs/order otherwise match. try_local_repairs (6 variants: signedness, decl_order, branch_orientation, addr_temp, constant_local, sum_shape) all scored 10 or worse; no displayed diff change vs baseline on the 5 equal variants. Consistent with prior terminal agbcc allocator tie.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780052.223586,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:7421a7381eac44c53b0e77f06198a5668786d98d2e2391efa851cad5b385c57c"
  }
 ]
