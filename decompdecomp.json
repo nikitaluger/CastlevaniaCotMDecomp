@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795816131.3808148,
- "revision": 71258,
+ "saved_at": 1795816454.8494766,
+ "revision": 71280,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1790,17 +1790,6 @@
     "-O1",
     "-fno-strength-reduce"
    ]
-  },
-  "49220:134266948": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "initVariantScriptSprite",
-   "vram": 134266948
   }
  },
  "instructions": "",
@@ -1839,7 +1828,8 @@
   "DRACULA AGB1 / agbcc initial-copy CSE wall: when a switch walker seeds its loop counter with `s32 status = 0; s32 i = status;` and the ROM's prologue is `movs r7,#0; adds r3,r7,#0` (status in callee-saved r7, counter copied into call-clobbered r3), agbcc -O2 constant-propagates both locals to `movs #0` and no legal C spelling preserves the register copy. Declaration order, assignment vs initializer, chained assignment, for-init, do/while(0), struct aggregates, pointer/alias reads, narrow or unsigned types, register/const hints and all five agbcc flag profiles leave the fold (or break other row",
   "DRACULA AGB1 / agbcc -1 materialization in small branchy leaves: when the ROM returns -1 via two instructions `movs rN,#1; negs rN,rN`, declare the function's return type as `s32` (or another signed 32-bit type). A `u8`/`unsigned char`/`volatile unsigned char` return collapses this to a single `movs rN,#0xff`, which is a real operand mismatch even after the known frameless-leaf frame residual is allowed for. Also write the condition in the ROM's taken-branch polarity (`if (value == K) return 0; return -1;`) so agbcc emits `beq` with the -1 path as fallthrough; the equivalent `if (value != K) r",
   "DRACULA AGB1 / the agbcc -mno-thumb-interwork profile has the same no-call Thumb leaf LR-frame wall as -mthumb-interwork. When a function's body and all operands match but the residual is an inserted push{lr}, pop{pc} instead of bare bx lr, plus PC-relative pool-offset shifts, treat it as the frameless-leaf compiler wall rather than retrying return-type, branch, or declaration-order permutations.",
-  "DRACULA AGB1 / agbcc large-function allocator wall: when a candidate has the target's exact instruction count and semantics but only a handful of register-allocation rows differ, a persistent reversal of two long-lived values between callee-saved registers can be a backend coloring tie rather than a C-shape error. The reversal can cascade into multiply operand order and address-staging register differences. Treat a tiny stable register-only residual after exhaustive type, declaration-order, alias, branch and flag experiments as a likely compiler allocator wall; changing correct semantics or co"
+  "DRACULA AGB1 / agbcc large-function allocator wall: when a candidate has the target's exact instruction count and semantics but only a handful of register-allocation rows differ, a persistent reversal of two long-lived values between callee-saved registers can be a backend coloring tie rather than a C-shape error. The reversal can cascade into multiply operand order and address-staging register differences. Treat a tiny stable register-only residual after exhaustive type, declaration-order, alias, branch and flag experiments as a likely compiler allocator wall; changing correct semantics or co",
+  "DRACULA AGB1 / agbcc relocation folding: when the ROM keeps a data base in a register and adds a constant offset at runtime (two literal-pool words: base + offset), agbcc folds `base + CONST` into a single relocation `base+CONST` whenever the offset is a compile-time constant, even through an intermediate local variable. This shifts pc-relative literal-pool offsets and breaks exact match. To force runtime addition, the offset must appear runtime-dependent (e.g., a variable that agbcc cannot constant-fold), but naive volatile tricks introduce UB or stack frames. Reusable technique needed: find "
  ],
  "knowledge_evidence": {
   "DRACULA AGB1 near-match triage: when a function's residual is only `r` (register) rows and several structurally different legal C spellings give the same score (or merely rotate which register holds a value), it is an agbcc -O2 allocator-coloring tie, not a source problem. Check before spending a budget: try_local_repairs with compare=true, then a small compile_variants grid of type/declaration/expression changes, then compiler_experiments flag profiles. If non-project flags are all much worse and C variants keep the same score/diff, release with an explicit compiler-change handoff rather than": {
@@ -2101,6 +2091,28 @@
      "value": "sub_08084500: after 90 compiles, full C at score 10330; ~80 of 179 remaining rows are register-only. Persistent mapping: target r7=a2,r9=a3,r8=gs,r4=budget; ours r4=a2,r7=a3 (or r9=a1),r6=gs. Weight levers (nested do-while on calls/stores, base locals, Field_u32 views, hoisted constants, per-case offsets) improved 57120\u219210330 but could not flip the long-lived value coloring."
     }
    ]
+  },
+  "DRACULA AGB1 / agbcc relocation folding: when the ROM keeps a data base in a register and adds a constant offset at runtime (two literal-pool words: base + offset), agbcc folds `base + CONST` into a single relocation `base+CONST` whenever the offset is a compile-time constant, even through an intermediate local variable. This shifts pc-relative literal-pool offsets and breaks exact match. To force runtime addition, the offset must appear runtime-dependent (e.g., a variable that agbcc cannot constant-fold), but naive volatile tricks introduce UB or stack frames. Reusable technique needed: find ": {
+   "model": [
+    {
+     "by": "opencode-beam-free-9",
+     "value": "beam-free"
+    },
+    {
+     "by": "opencode-hy4-flash-free-65",
+     "value": "hy4-flash-free"
+    }
+   ],
+   "text": [
+    {
+     "by": "opencode-beam-free-9",
+     "value": "sub_0806D844: clean correct C `s32 *p = (s32*)(gGameStatus + 0x2CC); *p -= arg0;` folds to single relocation gGameStatus+0x2CC (score 620, linker mismatch). Target keeps base in r1 and adds 0x2CC at runtime (two literal-pool words). Intermediate variable `u8 *base = gGameStatus; s32 *p = (s32*)(base + 0x2CC);` still folds (765). Volatile base also folds. Saved best 430 uses wrong logic (*p = arg0) with do{}while(0) trick but is invalid. Need a way to force runtime addition without UB."
+    },
+    {
+     "by": "opencode-hy4-flash-free-65",
+     "value": "sub_08069BE8: replacing `*(u32 *)(gCameraState + off3)` (off3=0x12BC) with a struct field at offset 0x12BC produced byte-identical output to baseline (score 1025, 0 diff rows changed) \u2014 agbcc still emits a single folded relocation, not `ldr base; ldr offset; adds`. sub_08067B10: search_flags over five agbcc profiles gave O2/O3/-fno-expensive-optimizations = 1550, O1 = 4390, Os = 8580, so no flag profile avoids the fold. The target retains two literal words (e.g. 0x02021E90 and 0x146C), so a reusable technique for forcing runtime base+offset addition is still needed."
+    }
+   ]
   }
  },
  "claim_order": "",
@@ -2142,8 +2154,7 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h",
-  "rom": "common_rom.h"
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -3569,7 +3580,7 @@
   "initVariantScriptSprite": {
    "vram": 134266948,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0800C1EC": {
    "vram": 134267372,
@@ -6966,10 +6977,10 @@
    "matched_by": "opencode-free-2",
    "readable": false
   },
-  "sub_080295E8": {
+  "updateTimerDrivenEffectObject": {
    "vram": 134387176,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "updateTimerDrivenEffect": {
    "vram": 134387468,
@@ -8523,7 +8534,7 @@
   },
   "sub_08037604": {
    "vram": 134444548,
-   "best_score": 275,
+   "best_score": 70,
    "best_by": "opencode-hy4-flash-free-64"
   },
   "sub_08037774": {
@@ -29998,7 +30009,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080295E8",
+   "name": "updateTimerDrivenEffectObject",
    "vram": 134387176,
    "size": 292,
    "status": "open"
@@ -52554,6 +52565,12 @@
    "kind": "func"
   },
   {
+   "name": "updateTimerDrivenEffectObject",
+   "address": 134387176,
+   "size": 292,
+   "kind": "func"
+  },
+  {
    "name": "updateTimerDrivenEffect",
    "address": 134387468,
    "size": 304,
@@ -57227,7 +57244,7 @@
   },
   {
    "address": 140975068,
-   "type": "s32",
+   "type": "u32",
    "source": "match"
   },
   {

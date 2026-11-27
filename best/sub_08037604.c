@@ -13,6 +13,7 @@ void sub_08037604(void *arg0) {
     u8 *work = *(u8 **)((u8 *)arg0 + 0x3C);
     u8 *animator = work + 0x34;
     u8 *part = work + 0x48;
+    u8 *self = arg0;
   s32 hoisted_const;
 
     if (*(u8 *)(part + 0xb) != 0 &&
@@ -52,10 +53,10 @@ void sub_08037604(void *arg0) {
                 t = *(u8 *)(part + 0xa) + 1;
                 *(u8 *)(part + 0xa) = t;
                 if ((u8)t == 0xb) {
-                    _call_via_r1(arg0, *(s32 *)(work + 0x24), arg0);
+                    _call_via_r1(self, *(s32 *)(self + 0x24), self);
                     return;
                 }
-                if (t == 9) {
+                if ((u8)t == 9) {
                     *(u8 *)(*(u32 *)(work + 0x28) + 1) = 0;
                     *(u8 *)(part + 0xb) = 1;
                 }
