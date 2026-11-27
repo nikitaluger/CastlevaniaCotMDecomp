@@ -1,18 +1,18 @@
-s32 sub_0805F9B4(s32, s32);
+s32 isOutsideCameraBounds(s32, s32);
 struct S_02025FF0_18A8 { u8 _0[0x18A8]; u8 v; };
 extern struct S_02025FF0_18A8 gMainWorkspace;
 extern u8 gCameraState[];
 
 /* Place the sprite at the entity's world position (work+8/+0xC) relative to
  * the current camera, and set/clear its in-view highlight bit (0x40 at
- * sprite+0x2A) according to sub_0805F9B4. */
+ * sprite+0x2A) according to isOutsideCameraBounds. */
 void sub_080144FC(void *arg0, void *arg1)
 {
     u8 *sprite = (u8 *)arg1;
     void *work = *(void **)((u8 *)arg0 + 0x3C);
     u8 *highlight;
 
-    if (sub_0805F9B4(*(s32 *)((u8 *)work + 0x08), *(s32 *)((u8 *)work + 0x0C)) == 1) {
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)work + 0x08), *(s32 *)((u8 *)work + 0x0C)) == 1) {
         highlight = sprite + 0x2A;
         *highlight = 0xBF & *highlight;
     } else {

@@ -1,7 +1,7 @@
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
-extern s32 sub_0801165C(void *, s32);
-extern s32 sub_080113A8(void *, void *);
+extern s32 advanceMotion(void *, s32);
+extern s32 stepAnimationTrack(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866FAB8[];
@@ -42,7 +42,7 @@ void sub_08094F34(u8 *arg0) {
     state = *(u8 **)(arg0 + 0x3C);
     stateField34 = state + 0x34;
     stateField48 = state + 0x48;
-    compareResult = sub_0805F9B4(*(s32 *)(state + 0x08), *(s32 *)(state + 0x0C));
+    compareResult = isOutsideCameraBounds(*(s32 *)(state + 0x08), *(s32 *)(state + 0x0C));
     if (compareResult == 1) {
         targetObj = *(u8 **)(stateField48 + 0x04);
         *(u8 *)(targetObj + 0x01) = 0;
@@ -76,8 +76,8 @@ void sub_08094F34(u8 *arg0) {
         *(u32 *)(stateField48 + 0x14) = *(u32 *)(state + 0x08);
         *(u32 *)(stateField48 + 0x18) = *(u32 *)(state + 0x0C);
         *(u16 *)(stateField48 + 0x1C) = 0;
-        sub_0801165C(state, 0);
-        sub_080113A8(entity, stateField34);
+        advanceMotion(state, 0);
+        stepAnimationTrack(entity, stateField34);
 
         stateTable = gCameraState;
         shakeCounter = gMainWorkspace;

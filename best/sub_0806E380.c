@@ -1,9 +1,9 @@
 extern u8 gMainWorkspace[];
 extern u8 D_080E06C0[];
-void sub_0806D588(void *, void *);
+void setSpriteScreenPosition(void *, void *);
 unsigned short _call_via_r1(void *, void *);
 s32 sub_0806D35C(void *, void *, void *);
-s32 sub_080C364C(s32, s32);
+s32 divInt32(s32, s32);
 struct E_080E06C0
 {
   s32 f0;
@@ -113,7 +113,7 @@ void sub_0806E380(void *arg0)
     ;
     *((s32 *) r8) = *((s32 *) inline_fn(arg0));
     *(new_var23 = (s32 *) (r8 + 4)) = *new_var5;
-    sub_0806D588(new_var3, r8);
+    setSpriteScreenPosition(new_var3, r8);
     if ((*((u32 *) new_var13)) == 1)
     {
       *((s32 *) (arg0 + 0x1744)) = *((s32 *) r8);
@@ -156,12 +156,12 @@ void sub_0806E380(void *arg0)
       }
     }
     v = e->f10;
-    cur += sub_080C364C(((*((s32 *) (arg0 + 0x1728))) + delta) - cur, (*e).f4);
+    cur += divInt32(((*((s32 *) (arg0 + 0x1728))) + delta) - cur, (*e).f4);
     new_var27 = &cur;
     *(r10 + 4) = *new_var27;
     idx = new_var;
     cur = idx;
-    cur += sub_080C364C((new_var2 - v) - cur, e->f4);
+    cur += divInt32((new_var2 - v) - cur, e->f4);
     *new_var23 = cur;
   }
   ;
@@ -246,7 +246,7 @@ void sub_0806E380(void *arg0)
       *new_var12 |= 0xC000;
       cur = *new_var16;
       break;
-      sub_0806D588(new_var3, inline_fn2(r10, 4));
+      setSpriteScreenPosition(new_var3, inline_fn2(r10, 4));
 
   }
 

@@ -1,6 +1,6 @@
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D330(void *, void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -38,7 +38,7 @@ void sub_0807B454(u8 *self) {
     *(s32 *)(actor + 4) += *(s32 *)(work + 8);
     *(s32 *)(work + 4) += *(s32 *)(work + 0x0C);
     *(u16 *)state = gs->f18C2;
-    sub_08003740(actor + 0x20, state);
+    stepDelayTimer(actor + 0x20, state);
     sub_0806D588(state, work);
     if (gs->f173A == 0x1C || (gs->f14ED == 0 && gs->f0010 != 0)) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));

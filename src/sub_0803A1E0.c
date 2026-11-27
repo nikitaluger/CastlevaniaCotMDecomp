@@ -1,9 +1,9 @@
 s32 sub_08011344(s32, s32, s32, s32);
-s32 sub_080113A8(s32, s32);
+s32 stepAnimationTrack(s32, s32);
 s32 sub_08011EE8(void *, s32, s32);
 s32 sub_08014668(s32, s32);
 s32 signOf(s32);
-u32 sub_08005820(u32);
+u32 scaleByRandom(u32);
 s32 sub_0803B0D8(void *, void *, s32);
 s32 sub_0803B0F8(void *, s32, void *, s32);
 s32 sub_080C31E4(void *, void *, s32);
@@ -29,7 +29,7 @@ void sub_0803A1E0(void *arg0)
   sub_0803B0D8(comp, tracker, 0x4000);
   sub_0803B0F8(comp, parent, tracker, 0x080CF1C8);
   sub_08011EE8(comp, 0x16C1, 0);
-  sub_080113A8(parent, body);
+  stepAnimationTrack(parent, body);
   xPos = ((u8 *) comp) + 8;
   sub_08014668(parent, *((s32 *) (((u8 *) comp) + 0x10)));
   if ((*((u8 *) (((u8 *) tracker) + 4))) == 2)
@@ -42,7 +42,7 @@ void sub_0803A1E0(void *arg0)
     {
       *((u16 *) (((u8 *) parent) + 2)) &= 0xFFEF;
     }
-    randByte = sub_08005820(3);
+    randByte = scaleByRandom(3);
     zero = 0;
     *((u8 *) (((u8 *) tracker) + 0xC)) = (u8) randByte;
     animId = D_080CF1D2[*((u8 *) (((u8 *) tracker) + 0xC))];

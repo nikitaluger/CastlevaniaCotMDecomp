@@ -6,8 +6,8 @@ extern void sub_080A3E8C(void *, void *, void *, void *);
 extern void sub_080A56A8(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 D_08671BFC;
-extern s32 D_08671BD0;
+extern s32 gTrigFuncPtr;
+extern s32 gScriptStepCallbacks;
 extern s32 D_08101C7C[];
 void sub_080A3954(void *arg0)
 {
@@ -36,7 +36,7 @@ void sub_080A3954(void *arg0)
     *((s32 *) (((u8 *) state48) + 0x3C)) = 0;
     centerX = sub_0800583C(0x3000) + 0x4000;
     spread = (sub_0800583C(0x80000) + 0x280000) >> 8;
-    randomFn = &D_08671BFC;
+    randomFn = &gTrigFuncPtr;
     rand1 = sub_080C31E0(centerX + 0x4000, *randomFn);
     posTable = D_08101C7C;
     tableIndex = *((s32 *) (((u8 *) state48) + 0x38));
@@ -54,7 +54,7 @@ void sub_080A3954(void *arg0)
     {
       stateBytePtr[0x19] = 0;
       {
-        s32 *effectFn = &D_08671BD0;
+        s32 *effectFn = &gScriptStepCallbacks;
         sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 2, *effectFn);
       }
     }

@@ -1,4 +1,4 @@
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, u32);

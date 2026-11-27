@@ -8,8 +8,8 @@ extern void initSpriteGraphics(void *, void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
-extern void sub_08097DC8(void);
-extern u32 gMainObjTimerCallback;
+extern void updateActorEffectSubObject(void);
+extern u32 gScriptStepCallbackTable;
 
 /* Spawns and initializes an entity's child sprite: allocates the object, sets
  * up its motion/animation from a definition object, assigns sprite flags and
@@ -43,7 +43,7 @@ void sub_080B8598(u8 *arg0)
     *((u32 *)(sprite + 0x1C)) = 1;
     motion = *((u8 **)(arg0 + 0x3C));
     status = motion + 0x34;
-    installUpdateHandler(arg0, motion, sub_08097DC8);
+    installUpdateHandler(arg0, motion, updateActorEffectSubObject);
     zero = 0;
     *((u16 *)(motion + 0x1C)) = 0x67;
     spriteBase = findKindIndex();
@@ -66,8 +66,8 @@ void sub_080B8598(u8 *arg0)
     *((u8 *)(arg0 + 0x4C)) = zero;
     *((u16 *)(arg0 + 2)) |= 0x1000;
     *((u8 *)((arg0 + ((*((s16 *)(arg0 + 0x22))) * 2)) + 0x19)) = zero;
-    gMainObjTimerCallback++;
-    gMainObjTimerCallback--;
+    gScriptStepCallbackTable++;
+    gScriptStepCallbackTable--;
     scriptTable = (void **)0x08671BB0;
     stepBase = arg0 + 0x18;
     sub_080C31E4(stepBase, arg0 + 0x22, (u32)(*scriptTable));

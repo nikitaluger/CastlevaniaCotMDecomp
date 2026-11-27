@@ -1,4 +1,4 @@
-void *sub_0805FAEC(void *pool, s32 size);
+void *spawnBudgetedEffect(void *pool, s32 size);
 
 /* Spawn an object of size 0x192 from the pool, but only while fewer than 0x14
  * already exist in the pool's object list; store x at +0x4C and param at +0x5C. */
@@ -14,7 +14,7 @@ void sub_080A54C0(void *pool, s32 x, s32 param) {
         } while (obj != NULL);
     }
     if (count <= 0x13U) {
-        obj = sub_0805FAEC(pool, 0x192);
+        obj = spawnBudgetedEffect(pool, 0x192);
         if (obj != NULL) {
             *(s32 *)(obj + 0x4C) = x;
             *(s32 *)(obj + 0x5C) = param;

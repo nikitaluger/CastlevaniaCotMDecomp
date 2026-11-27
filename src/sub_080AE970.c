@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 
@@ -13,7 +13,7 @@ void sub_080AE970(u8 *arg0) {
     u8 *actionBase;
     u32 actionId;
 
-    if (sub_08013B5C(sprite, work) == 0) {
+    if (updateObjectDisplayState(sprite, work) == 0) {
         u8 *actionPtr;
         *(u32 *)(arg0 + 0x14) = 0x08670200;
         *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) + 1;

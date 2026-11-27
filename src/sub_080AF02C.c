@@ -48,11 +48,11 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(s32);
-extern void sub_080B05EC(void *, void *, u8, s32);
+extern void initSpriteFromTemplate(void *, void *, u8, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 
 /* Spawn a two-variant scripted effect object from a main object: allocate its
  * sprite and 0x48-byte work block, give the block the destructor as handler,
@@ -78,7 +78,7 @@ void sub_080AF02C(u8 *obj) {
     *(u32 *)(sprite + 0x1C) = gfxTable[*(u8 *)kindPtr];
     owner = (struct EffectOwner *)*(u32 *)(obj + 0x3C);
     gfxState = (u8 *)owner + 0x34;
-    installUpdateHandler(obj, (u8 *)owner, sub_08097D90);
+    installUpdateHandler(obj, (u8 *)owner, releaseActorEffectSubObject);
     owner->animId = 0x64;
     animSlot = findKindIndex(0x64);
     owner->animSlot = animSlot;
@@ -87,7 +87,7 @@ void sub_080AF02C(u8 *obj) {
         return;
     }
     *(u16 *)sprite |= gMainWorkspace.gfxFlags;
-    sub_080B05EC((void *)sprite, gfxState, D_0810254C[*(u8 *)kindPtr], 2);
+    initSpriteFromTemplate((void *)sprite, gfxState, D_0810254C[*(u8 *)kindPtr], 2);
     setObjectAnimation((void *)sprite, gfxState, D_0810253C[*(u8 *)kindPtr].animId, 0);
     defaults = (u8 *)D_0810251C;
     layer = allocEffectPart();

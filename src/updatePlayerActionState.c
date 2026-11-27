@@ -30,20 +30,20 @@ struct PlayerInputState
   u16 rawKeys;                 /* 0x146E: raw key state */
 };
 extern struct PlayerInputState gCameraState;
-extern s32 sub_08003740(void *, void *);          /* decrement timer / fire callback */
+extern s32 stepDelayTimer(void *, void *);          /* decrement timer / fire callback */
 extern void sub_08005E80(s32);                    /* play sound */
 extern void sub_0806A7AC(void *, void *, s32);    /* set entity form */
 extern void sub_0806A884(void *, void *);         /* clamp sprite position */
 extern void sub_0806B104(void *, void *, void *); /* action handler */
 extern void sub_0806BA20(void *, void *, void *); /* action timer / keys */
-extern s32 sub_0806C4B4(void *, void *);          /* camera/view sync */
-extern void sub_0806C5EC(void *, void *, void *, void *); /* reset result flags */
+extern s32 syncViewPosition(void *, void *);          /* camera/view sync */
+extern void resetActionResultState(void *, void *, void *, void *); /* reset result flags */
 extern void sub_0806C6B0(void *, void *, void *, void *); /* common update tail */
-extern void sub_0806E114(void *, s32, s32, s32);  /* spawn entity by definition */
+extern void spawnKind2CEntity(void *, s32, s32, s32);  /* spawn entity by definition */
 extern void sub_08086240(void *, s32);            /* body part handler */
-extern void sub_08086648(void *, void *, s32);    /* body part handler */
+extern void retargetActionForPhase(void *, void *, s32);    /* body part handler */
 extern void sub_08086744(void *, void *, void *, s32); /* body part handler */
-extern void sub_08086D58(void *, s32);            /* body part handler */
+extern void applyActionPresetForProgress(void *, s32);            /* body part handler */
 extern void sub_080C31E8(void *, void *, s32, s32); /* state machine dispatch */
 extern void sub_0806AB04(void *, void *, void *, void *); /* action handler */
 extern u16 sub_0806BCD8(void *, void *, void *, void *);  /* hit check -> next state */
@@ -65,11 +65,11 @@ void updatePlayerActionState(u8 *actor)
   u8 *timer;
   u32 nextState;
   u32 zero70 = 0;
-  if (sub_0806C4B4(work, work) != 0)
+  if (syncViewPosition(work, work) != 0)
   {
     return;
   }
-  sub_0806C5EC(actor, sprite, state, state);
+  resetActionResultState(actor, sprite, state, state);
   sub_0806BA20(sprite, state, state);
   timing = (u8 *) 0x080E03A0;
   actionId = *((s32 *) (state + 0x44));
@@ -106,7 +106,7 @@ void updatePlayerActionState(u8 *actor)
     sub_08086240(work, 9);
     zero = 0;
     *((s32 *) (state + 0x08)) = zero;
-    sub_0806E114(actor, 9, *((s32 *) (state + 0x00)), *((s32 *) (state + 0x04)));
+    spawnKind2CEntity(actor, 9, *((s32 *) (state + 0x00)), *((s32 *) (state + 0x04)));
     (actor + ((*((s16 *) (actor + 0x22))) * 2))[0x19] = (u8) zero;
     {
       s32 *g = (s32 *) 0x08671BD0;
@@ -118,12 +118,12 @@ void updatePlayerActionState(u8 *actor)
   scratch += 0x28;
   {
     u8 *tmp = scratch;
-    s32 r = sub_08003740(tmp, sprite);
+    s32 r = stepDelayTimer(tmp, sprite);
     timer = tmp;
     if ((r == 0) || (gMainWorkspace.resetRequest != 0))
     {
       sub_0806A7AC(sprite, work, 0x10);
-      sub_08003740(timer, sprite);
+      stepDelayTimer(timer, sprite);
       (actor + ((*((s16 *) (0x22 + actor))) * 2))[0x19] = 0;
       {
         s32 *g = (s32 *) 0x08671BD0;
@@ -131,15 +131,15 @@ void updatePlayerActionState(u8 *actor)
       }
     }
   }
-  sub_08086648(sprite, work, 0xB);
-  sub_08086D58(work, 0xB);
+  retargetActionForPhase(sprite, work, 0xB);
+  applyActionPresetForProgress(work, 0xB);
   nextState = sub_0806BCD8(actor, sprite, work, state);
   scratch = work;
   scratch += (unsigned long long) resultOffset;
   *((s32 *) scratch) = (u16) nextState;
   if (((u16) nextState) != 0)
   {
-    sub_08003740(timer, sprite);
+    stepDelayTimer(timer, sprite);
     (actor + ((*((s16 *) (actor + 0x22))) * 2))[0x19] = 0;
     callbackTable = 0x08671BD0;
     sub_080C31E8(actor + 0x18, actor + 0x22, *((s32 *) scratch), *((s32 *) callbackTable));

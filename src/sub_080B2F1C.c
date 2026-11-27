@@ -1,10 +1,10 @@
 extern void sub_08011528(s32, void *);
 extern void copyPoseAttrs(void *, void *, u32 *);
 extern void _call_via_r1(void *, s32);
-extern u32 D_08102710[];
+extern u32 gKind65LinkedLayerAttrs[];
 
 /* Updates the entity's facing from its movement track, maps the resulting
- * direction to one of six pose entries in D_08102710 and copies that pose into
+ * direction to one of six pose entries in gKind65LinkedLayerAttrs and copies that pose into
  * the FX object; finally it advances the script step when the track's flag is
  * set.
  */
@@ -44,7 +44,7 @@ void sub_080B2F1C(void *self) {
         default: break;
     }
 
-    copyPoseAttrs(*(void **)((u8 *)component + 0x28), (void *)((u8 *)D_08102710 + (u32)poseIndex * 8), D_08102710);
+    copyPoseAttrs(*(void **)((u8 *)component + 0x28), (void *)((u8 *)gKind65LinkedLayerAttrs + (u32)poseIndex * 8), gKind65LinkedLayerAttrs);
     if (*(u8 *)track & 0x02) {
         _call_via_r1(entity, *(s32 *)((u8 *)entity + 0x24));
     }

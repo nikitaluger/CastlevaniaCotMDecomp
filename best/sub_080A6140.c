@@ -4,7 +4,7 @@ void sub_080A88C0(void *);
 void sub_080A860C(void *, void *);
 void sub_080A88EC(void *, void *, void *);
 u32 sub_080A89A4(void *);
-s32 sub_08005820(u8);
+s32 scaleByRandom(u8);
 void sub_080C31E8(void *, void *, u32, u32);
 void sub_080A6140(void *arg0)
 {
@@ -66,7 +66,7 @@ void sub_080A6140(void *arg0)
       tbl = D_08102040;
       p4 = q + 0xDD;
     {
-      u32 base = sub_08005820(tbl[(*p4) * 4]);
+      u32 base = scaleByRandom(tbl[(*p4) * 4]);
       u32 off = ((*p4) * 4) + 1;
       u32 address = base + off;
       u8 v = *((u8 *) (address + ((u32) tbl)));

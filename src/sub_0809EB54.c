@@ -14,7 +14,7 @@ struct SpawnParams { u8 _0[4]; u16 gfxA; u16 gfxB; u16 p0; u16 p1; u8 _C[0x1C]; 
 extern struct SpawnParams gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 D_081019FC[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -24,7 +24,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 
 /* Allocates and initialises a projectile/throwable entity: grabs a sprite,
  * installs a cleanup callback on its state object, picks a kind/slot, sets the
@@ -50,7 +50,7 @@ void sub_0809EB54(struct ActorContext *actor) {
     *((u32 *)(sprite + 0x1C)) = 0x8000000A;
     state = (struct HostObject *)actor->state;
     animState = ((u8 *)state) + 0x34;
-    installUpdateHandler(actor, (u8 *)state, sub_08097DC8);
+    installUpdateHandler(actor, (u8 *)state, updateActorEffectSubObject);
     zero = 0;
     state->kind = 0x4C;
     slot = findKindIndex();
@@ -88,7 +88,7 @@ ok:
         s16 stepIndex = actor->stepIndex;
         *((u8 *)(((u32)stepIndex * 2) + (u32)actor + 0x19)) = zero;
     }
-    scriptTable = &gMainObjTimerCallback;
+    scriptTable = &gScriptStepCallbackTable;
     scriptData = ((u8 *)actor) + 0x18;
     sub_080C31E4(scriptData, ((u8 *)actor) + 0x22, (s32)(*scriptTable));
     {

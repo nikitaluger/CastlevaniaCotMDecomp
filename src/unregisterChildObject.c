@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -10,7 +10,7 @@ extern struct S_02025FF0_1870 gMainWorkspace;
  * rounded up by 0xFFFF before the >>16). */
 void *sub_0801C9A0(s32 arg0, s32 arg1)
 {
-    void *result = sub_0805FAEC(gMainWorkspace.v, 0x90);
+    void *result = spawnBudgetedEffect(gMainWorkspace.v, 0x90);
     s32 x16;
     s32 y16;
 

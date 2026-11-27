@@ -1,4 +1,4 @@
-extern s8 D_020278D0[];
+extern s8 gMenuState[];
 
 /* State block reached through the entity's +0x38 sub-object pointer. */
 struct SubObject {
@@ -14,11 +14,11 @@ struct Entity { u8 reserved[0x38]; struct SubObject *sub; };
 
 /* Set up an entity's sub-object: raise the 0x40 flag, install the animation
  * data table, clear the counter and seed the fixed-point coordinate from the
- * game-state byte D_020278D0[0xFB]. */
+ * game-state byte gMenuState[0xFB]. */
 void sub_0800FC78(void *arg0) {
     struct SubObject *sub = ((struct Entity *)arg0)->sub;
     sub->flags |= 0x40;
     sub->dataTable = 0x086428C4;
     sub->counter = 0;
-    sub->coord = (s32)D_020278D0[0xFB] << 0x14;
+    sub->coord = (s32)gMenuState[0xFB] << 0x14;
 }

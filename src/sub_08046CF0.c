@@ -1,8 +1,8 @@
 struct S_02025FF0 { u8 _0[0x1870]; u32 v; };
 extern struct S_02025FF0 gMainWorkspace;
 
-extern void sub_080113A8(void *, void *);
-extern void *sub_0805FAEC(u32, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void *spawnBudgetedEffect(u32, s32);
 extern void sub_080C31E0(void *, s32);
 
 /* During the first few script steps, spawn a child object at the part's
@@ -22,7 +22,7 @@ void sub_08046CF0(void *entity)
     part = *(void **)((u8 *)entity + 0x3C);
     anim = (u8 *)part + 0x34;
     if (*(u8 *)((u8 *)entity + ((s32)*(s16 *)((u8 *)entity + 0x22) * 2) + 0x19) <= 6) {
-        child = sub_0805FAEC(gMainWorkspace.v, 0x122);
+        child = spawnBudgetedEffect(gMainWorkspace.v, 0x122);
         if (child != 0) {
             *(s32 *)((u8 *)child + 0x5C) = *(s32 *)((u8 *)part + 8);
             *(s32 *)((u8 *)child + 0x6C) = *(s32 *)((u8 *)part + 0xC);
@@ -34,7 +34,7 @@ void sub_08046CF0(void *entity)
             *(u8 *)((u8 *)child + 0x4C) = variantByte;
         }
     }
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
     if (2 & *(u8 *)anim) {
         sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
     }

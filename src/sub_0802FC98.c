@@ -1,8 +1,8 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_08014090(s16);
@@ -49,7 +49,7 @@ void sub_0802FC98(void *entity)
         }
     }
 
-    if (sub_08013B5C(sprite, motion) == 0)
+    if (updateObjectDisplayState(sprite, motion) == 0)
     {
         u8 *stepData;
         u8 *stepTable;
@@ -77,7 +77,7 @@ void sub_0802FC98(void *entity)
 
         if (*(u16 *)((u8 *)entity + 2) & 0x8000)
             return;
-        sub_080113A8(sprite, status);
+        stepAnimationTrack(sprite, status);
     }
     else
     {

@@ -1,7 +1,7 @@
 extern u8 D_0866D57C[];
 extern u8 D_0866D56C[];
-extern u32 gMainObjTimerCallback;
-extern u32 D_08671BD8;
+extern u32 gScriptStepCallbackTable;
+extern u32 gMenuScriptCallback;
 
 void _call_via_r1(void *, void *);
 void _call_via_r2(void *, void *, u32);

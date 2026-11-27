@@ -1,4 +1,4 @@
-void sub_080113A8(s32, u8 *);
+void stepAnimationTrack(s32, u8 *);
 void sub_08035DEC(s32, u8 *);
 void sub_080C31E0(void *, s32);
 
@@ -25,7 +25,7 @@ void sub_08035D08(void *arg0) {
         value = 0x40 | *attr;
         *attr = value;
     }
-    sub_080113A8(owner, animState);
+    stepAnimationTrack(owner, animState);
     if (*(u8 *)animState & 2) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));
     } else {

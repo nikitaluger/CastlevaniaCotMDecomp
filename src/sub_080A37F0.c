@@ -26,8 +26,8 @@ void sub_080A37F0(void *entity)
   s32 posX;
   s32 sinY;
   s32 posY;
-  extern s32 D_08671BFC;
-  extern s32 D_08671BD0;
+  extern s32 gTrigFuncPtr;
+  extern s32 gScriptStepCallbacks;
   targetObj = *((void **) (((u8 *) entity) + 0x38));
   state = *((void **) (((u8 *) entity) + 0x3C));
   stateTail = (void *) (((u8 *) state) + 0x34);
@@ -38,7 +38,7 @@ void sub_080A37F0(void *entity)
   cooldown = *((s32 *) (((u8 *) ctrl) + 0x34));
   if (cooldown == 0)
   {
-    targetCount = sub_08005820(9 - (*((s32 *) (((u8 *) ctrl) + 0x30))));
+    targetCount = scaleByRandom(9 - (*((s32 *) (((u8 *) ctrl) + 0x30))));
     slot = 0;
     candidate = 0;
     if ((*((s32 *) (((u8 *) state) + 0x54))) != 0)
@@ -73,7 +73,7 @@ void sub_080A37F0(void *entity)
     spawn:
     *((s32 *) ((u8 *) inline_fn(slotArray, (s32) (slot * 4)))) = 1;
 
-    sinFunc = (void *) (&D_08671BFC);
+    sinFunc = (void *) (&gTrigFuncPtr);
     angle = slot << 12;
     sinX = _call_via_r1(angle + 0x4000, *((s32 *) sinFunc)) >> 8;
     posX = (*((s32 *) (((u8 *) state) + 0x08))) + (sinX * 0x3000);
@@ -94,7 +94,7 @@ void sub_080A37F0(void *entity)
   {
     void *msgFunc;
     ((u8 *) entity)[0x19 + ((*((s16 *) (((u8 *) entity) + 0x22))) * 2)] = 0;
-    msgFunc = (void *) (&D_08671BD0);
+    msgFunc = (void *) (&gScriptStepCallbacks);
     _call_via_r3(((u8 *) entity) + 0x18, ((u8 *) entity) + 0x22, 2, *((s32 *) msgFunc));
   }
 }

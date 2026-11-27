@@ -6,7 +6,7 @@ void sub_08097F88(s32, void *, void *, void *);
 void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
 s32 sub_08007E24(s32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -63,7 +63,7 @@ void sub_080A0934(u8 *entity) {
         return;
     }
 
-    if (sub_08013B5C(sprite, motion) == 0) {
+    if (updateObjectDisplayState(sprite, motion) == 0) {
         u8 *stepTable;
         u8 stepByte;
         s32 stepOffset;

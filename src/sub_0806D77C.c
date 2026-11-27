@@ -1,6 +1,6 @@
 extern u8 gGameStatus[];
 extern void sub_0808D7BC(s32, s32, s32, s32);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern s32 sub_08007B78(s32, s32, s32);
 
 struct S_02025FF0_18A8 {
@@ -57,7 +57,7 @@ void sub_0806D7B4(struct Vec *pos, s32 amount) {
 void sub_0806D77C(struct Vec *pos, s32 amount) {
     u8 *base = gGameStatus;
     s32 *cap = (s32 *)(base + 0x2C8);
-    s32 v = sub_080C364C(*cap, 100) * amount;
+    s32 v = divInt32(*cap, 100) * amount;
     if (v <= 0xFFFF)
     {
         v = 0x10000;

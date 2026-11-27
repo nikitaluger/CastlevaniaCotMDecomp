@@ -1,12 +1,12 @@
 extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern s32 sub_080113A8(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E988[];
-extern s32 D_08671BDC;
+extern s32 sScriptStepCallbacks;
 
 /* target object at motion+0x28: state byte at +1 */
 struct MotionTarget { u8 unused; u8 state; };
@@ -50,7 +50,7 @@ void sub_0805DFE0(u8 *entity) {
     } else {
         ((struct MotionTarget *)(*(u8 **)(motion + 0x28)))->state = 4;
         ((struct SpriteAttr *)(sprite + 0x2A))->bits |= 0x40;
-        if (sub_08016238(*(u8 **)(motion + 0x28)) != 0) {
+        if (hitTestEntities(*(u8 **)(motion + 0x28)) != 0) {
             ((struct MotionFlags *)motion)->bits |= 1;
         }
     }
@@ -62,7 +62,7 @@ void sub_0805DFE0(u8 *entity) {
         stepPtr2 = (u8 *)((s32)stepOff + (s32)entity);
         if (*(u8 *)(stepPtr2 + 0x1A) != 1) {
             *(u8 *)(stepPtr2 + 0x1B) = 0;
-            fxFn = &D_08671BDC;
+            fxFn = &sScriptStepCallbacks;
             sub_080C31E8(sequence, entity + 0x22, 1, *fxFn);
         }
     }

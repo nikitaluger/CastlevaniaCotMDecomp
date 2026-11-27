@@ -81,7 +81,7 @@ struct EffectTemplate
 extern struct EffectTemplate gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 D_080CF460[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 void sub_0804006C(struct ScriptedObject *arg0)
 {

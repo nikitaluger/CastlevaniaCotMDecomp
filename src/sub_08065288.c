@@ -1,8 +1,8 @@
-extern s32 D_08671BD8;
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 gMenuScriptCallback;
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern u16 sub_08065CC8(void *, void *, void *, void *);
 extern u16 sub_0806BCD8(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
@@ -21,18 +21,18 @@ void sub_08065288(u8 *behav) {
     params = *(u8 **)(behav + 0x6C);
     point = params + 4;
     target = *(u8 **)(behav + 0x38);
-    camMode = sub_0806C4B4(point, point);
+    camMode = syncViewPosition(point, point);
     if (camMode == 0) {
         s32 sp0;
-        sub_0806C5EC(behav, target, point, point);
+        resetActionResultState(behav, target, point, point);
         sub_0806A884(target, point);
         sp0 = (s32)params + 0x2C;
-        if (sub_08003740(sp0, target) == 0) {
+        if (stepDelayTimer(sp0, target) == 0) {
             *(u8 *)(behav + (*(s16 *)(behav + 0x22)) * 2 + 0x17) = camMode;
             {
                 u8 *p18 = behav;
                 u8 *p22 = behav;
-                s32 *lit = &D_08671BD8;
+                s32 *lit = &gMenuScriptCallback;
                 u16 rv;
                 p18 += 0x18;
                 p22 += 0x22;
@@ -45,12 +45,12 @@ void sub_08065288(u8 *behav) {
             code = sub_0806BCD8(behav, target, point, point);
             *(u32 *)(params + 0xC8) = (u16)code;
             if ((u16)code != 0) {
-                sub_08003740(sp0, target);
+                stepDelayTimer(sp0, target);
                 *(u8 *)(behav + (*(s16 *)(behav + 0x22)) * 2 + 0x17) = camMode;
                 {
                     u8 *p18 = behav;
                     u8 *p22 = behav;
-                    s32 *lit = &D_08671BD8;
+                    s32 *lit = &gMenuScriptCallback;
                     p18 += 0x18;
                     p22 += 0x22;
                     sub_080C31E8(p18, p22, *(u32 *)(params + 0xC8), *lit);

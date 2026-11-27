@@ -1,5 +1,5 @@
 extern u8 gGameStatus[];
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 extern u8 D_02027943[];
 extern u8 D_080CB007[];
 extern u16 D_080CB00A[];
@@ -18,7 +18,7 @@ void sub_0800F1D8(u8 arg0, u8 arg1) {
     volatile u32 a0 = arg0;
     volatile u32 a1 = arg1;
     u8 *volatile p = gGameStatus;
-    u8 *tbl = D_020278D0;
+    u8 *tbl = gMenuState;
     u8 *base6f = tbl + 0x6F;
     s32 r7 = (s8)base6f[a0] - 2;
     s32 i = 0;

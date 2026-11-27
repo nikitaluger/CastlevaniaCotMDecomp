@@ -5,13 +5,13 @@ extern void sub_08013978(void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
 extern void sub_08005E80(s32);
-extern s32 sub_08013B5C(s32, void *);
-extern void sub_080113A8(s32, void *);
-extern void sub_0801165C(void *, s32);
+extern s32 updateObjectDisplayState(s32, void *);
+extern void stepAnimationTrack(s32, void *);
+extern void advanceMotion(void *, s32);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 struct R8 { u16 f0; u16 f2; u8 _4[6]; s16 oneShot; };
 struct S_02025FF0 { u8 _0[0x18BC]; u16 counter; };
 extern struct S_02025FF0 gMainWorkspace;
@@ -46,7 +46,7 @@ void sub_0805A3D4(u8 *arg0) {
             sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 3, *callbackTable);
         }
     }
-    if (sub_08013B5C(parent, obj) == 0) {
+    if (updateObjectDisplayState(parent, obj) == 0) {
         u8 *slot;
         s32 stateIdx;
         u8 *slotArea;
@@ -65,8 +65,8 @@ void sub_0805A3D4(u8 *arg0) {
         sub_080C31E0(arg0, handler);
         *(u16 *)(arg0 + 0x22) = (u16)(*(u16 *)(arg0 + 0x22) - 1);
         if ((*(u16 *)(arg0 + 2) & 0x8000) == 0) {
-            sub_080113A8(parent, objSub);
-            sub_0801165C(obj, 0);
+            stepAnimationTrack(parent, objSub);
+            advanceMotion(obj, 0);
         } else {
             goto done;
         }

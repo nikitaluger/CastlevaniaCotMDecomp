@@ -3,13 +3,13 @@
  * animation and project the actor's motion into the world. */
 extern s32 sub_0800583C(s32);
 extern s32 sub_08005910(s32, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_08014668(void *, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_080BC73C(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 struct S_02025FF0 {
     u8 pad[0x174C];
@@ -45,7 +45,7 @@ void sub_080BC628(void *arg0) {
         stepIndex = *(s16 *)(entity + 0x22);
         *(u8 *)(entity + stepIndex * 2 + 0x19) = 0;
 
-        scriptTable = &gMainObjTimerCallback;
+        scriptTable = &gScriptStepCallbackTable;
         stepPtr = entity + 0x18;
         sub_080C31E4(stepPtr, entity + 0x22, *scriptTable);
 
@@ -65,7 +65,7 @@ void sub_080BC628(void *arg0) {
         }
     } else {
         (void)actorMotion;
-        sub_080113A8(script, actorMotion);
+        stepAnimationTrack(script, actorMotion);
         *(s32 *)(entity + 0x5C) += 0x600;
         *(s32 *)(entity + 0x7C) += *(s32 *)(entity + 0x8C);
         sub_080BC73C(arg0, script, actor);

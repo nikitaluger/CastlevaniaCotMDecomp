@@ -10,7 +10,7 @@ struct T { s32 a; s32 b; };
 extern struct BD gEffectGfxTable[];
 extern struct T D_08102CFC[];
 extern u16 D_08102CF4[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -20,7 +20,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(u8 *, u32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 
 /* Creates a weapon/projectile under its parent: allocate the main object and sub-object,
  * link the update callback, seed speed/camera fields and the sprite/animation sub-object
@@ -43,7 +43,7 @@ void sub_080B64B8(u8 *parent) {
     *(u32 *)(mainObj + 0x1C) = 0x8000000B;
     subObj = (struct P *)*(u32 *)(parent + 0x3C);
     subState = (u8 *)subObj + 0x34;
-    installUpdateHandler(parent, subObj, sub_08097DC8);
+    installUpdateHandler(parent, subObj, updateActorEffectSubObject);
     subObj->f1C = 0x66;
     *(u16 *)mainObj |= gMainWorkspace.w;
     subObj->f8 = *(u32 *)(parent + 0x4C);
@@ -74,7 +74,7 @@ cont:
     *(u16 *)((u8 *)subObj + 4) |= 0x10;
     *(u16 *)(parent + 2) |= 0x1000;
     *(u8 *)(parent + (u32)(*(s16 *)(parent + 0x22)) * 2 + 0x19) = 0;
-    callbackTable = &gMainObjTimerCallback;
+    callbackTable = &gScriptStepCallbackTable;
     slotArea = parent + 0x18;
     sub_080C31E4(slotArea, parent + 0x22, *callbackTable);
     *(u8 *)(parent + (u32)(*(s16 *)(parent + 0x22)) * 2 + 0x19) += 1;

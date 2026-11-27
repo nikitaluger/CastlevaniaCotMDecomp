@@ -3,7 +3,7 @@
  * actor at the player, clear the step counter and advance the script.
  */
 extern s32 sub_08005910(s32 dy, s32 dx);  /* direction angle of a vector */
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct PlayerPos {
@@ -19,7 +19,7 @@ void sub_080351B0(u8 *self) {
     u8 *animator = work + 0x34;
     u8 *move = work + 0x48;
 
-    sub_080113A8(sprite, animator);
+    stepAnimationTrack(sprite, animator);
 
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x0F) {
         s32 dy = gMainWorkspace.y - *(s32 *)(work + 0x0C);

@@ -4,7 +4,7 @@ s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -54,7 +54,7 @@ void sub_0803CBEC(void *self) {
             callback = *(s32 *)((u32)(slotByte * 4) + callbackTable);
             sub_080C31E0((s32)self, callback);
         } else {
-            if (sub_08013B5C(parent, obj) == 0) {
+            if (updateObjectDisplayState(parent, obj) == 0) {
                 u8 *slots;
                 u8 slotByte;
                 u32 callbackTable;

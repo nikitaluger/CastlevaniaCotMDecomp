@@ -1,6 +1,6 @@
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 s32 sub_0800583C(s32);
 void sub_08014848(s32, s32, s32, s32, s32, s32);
 void sub_08058D60(s32, s32, s32, s32, s32, s32);
@@ -34,10 +34,10 @@ void sub_08058344(u8 *self)
         s32 velY;
 
         spawnX = *(s32 *)(obj + 8) + sub_0800583C(0xA0000);
-        spawnY = *(s32 *)(obj + 0x0C) + sub_08005820(0x40000) + 0x180000;
+        spawnY = *(s32 *)(obj + 0x0C) + scaleByRandom(0x40000) + 0x180000;
         velX = sub_0800583C(0x20000);
         velY = sub_0800583C(0x20000) + 0xFFFF8000;
-        sub_08058D60(spawnX, spawnY, velX, velY, (s32)(s16)sub_08005820(4), 1);
+        sub_08058D60(spawnX, spawnY, velX, velY, (s32)(s16)scaleByRandom(4), 1);
     }
 
     {
@@ -50,7 +50,7 @@ void sub_08058344(u8 *self)
         if (*(slot + 0x19) > 0x3C)
         {
             *(slot + 0x19) = (u8)zero;
-            argTable = &gMainObjTimerCallback;
+            argTable = &gScriptStepCallbackTable;
             sub_080C31E4(self + 0x18, self + 0x22, *argTable);
         }
     }

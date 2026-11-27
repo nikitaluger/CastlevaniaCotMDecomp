@@ -1,8 +1,8 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void setAnimationFrameAndRecord(void *, void *, void *, u16);
 void sub_080C31E8(void *, void *, s32, s32);
 extern u16 gVariantAnimFrameTable[];
-extern s32 D_08671BD0;
+extern s32 gScriptStepCallbacks;
 
 /* Updates the entity's animation; when the animation ends it plays the part's
  * animation for the entity's variant, raises the work object by one unit,
@@ -19,7 +19,7 @@ void sub_0803FEB0(void *arg0)
     work = *(u8 **)(self + 0x3C);
     animator = work + 0x34;
     part = work + 0x48;
-    sub_080113A8(sprite, animator);
+    stepAnimationTrack(sprite, animator);
     if (*animator & 2) {
         u16 frame;
         frame = gVariantAnimFrameTable[*(u8 *)(self + 0x4C)];
@@ -27,7 +27,7 @@ void sub_0803FEB0(void *arg0)
         *(s32 *)(work + 0x0C) += 0x10000;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            s32 *scriptHandlers = &D_08671BD0;
+            s32 *scriptHandlers = &gScriptStepCallbacks;
             sub_080C31E8(self + 0x18, self + 0x22, 1, *scriptHandlers);
         }
     }

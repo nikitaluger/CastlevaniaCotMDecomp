@@ -2,7 +2,7 @@ extern void decompressToVram(u32 *arg0, void *arg1);
 extern volatile int postDisplaySprite(void *a, void *b, void *c, u32 d, u32 e);
 extern volatile int sub_08000E54(void *a, void *b, void *c, u32 d, u32 e);
 extern u8 gGameStatus[];
-extern s8 D_020278D0[];
+extern s8 gMenuState[];
 extern u32 D_0866CFEC[];
 extern u32 D_0866D03C[];
 
@@ -24,8 +24,8 @@ void sub_0800F6BC(void)
   u8 *gfxTable;
   u8 *paletteTable;
   listKey = 0xFA;
-  column = D_020278D0[listKey];
-  row = D_020278D0[0xF9];
+  column = gMenuState[listKey];
+  row = gMenuState[0xF9];
   rowBias = (((row + 1) & 1) * 10) - 1;
   off = column + rowBias;
   roomFlags = state + 0x30C;
@@ -39,9 +39,9 @@ void sub_0800F6BC(void)
     listKey = 1;
     postDisplaySprite((void *)listKey, (void *)0x0600D300, (void *)0x0600C300, 0xC00, 0x10);
     paletteTable = (u8 *)D_0866D03C;
-    paletteColumn = D_020278D0[0xFA] - listKey;
+    paletteColumn = gMenuState[0xFA] - listKey;
     paletteOffset = paletteColumn * 4;
-    paletteOffset += D_020278D0[0xF9] * 40;
+    paletteOffset += gMenuState[0xF9] * 40;
     postDisplaySprite((void *)listKey, (void *)(*(u32 **)(paletteTable + paletteOffset)), (void *)0x050000E0, 0x20, 0x10);
   }
   else

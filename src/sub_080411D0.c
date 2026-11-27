@@ -4,7 +4,7 @@
  * its facing from that speed, switch to the knocked-back animation, clear the
  * step counter and advance the script.
  */
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern s32 sub_080148AC(s32, s32);   /* -speed when the sprite faces left */
 extern void sub_08014668(s32, s32);  /* set the sprite's facing flag from a direction */
 extern void sub_080415D4(u8, s32, void *, s32);
@@ -16,7 +16,7 @@ void sub_080411D0(void *arg0) {
     u8 *work = *(u8 **)(self + 0x3C);
     u8 *animator = work + 0x34;
     s32 speedX;
-    sub_080113A8(sprite, animator);
+    stepAnimationTrack(sprite, animator);
     if (*animator & 2) {
         speedX = sub_080148AC(sprite, 0xFFF90000);
         *(s32 *)(work + 0x10) = speedX;

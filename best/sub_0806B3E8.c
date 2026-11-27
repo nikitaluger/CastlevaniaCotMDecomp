@@ -3,12 +3,12 @@ extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
 extern s32 D_080DFF9C[];
 extern s32 D_080DFFB0[];
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 s32 sub_08084500(void *a, void *b, void *c, void *d);
 void sub_080C31E8(void *a, void *b, s32 c, u32 d);
 void *sub_0806D24C(s32 arg0, s32 arg1, u32 arg2, s32 arg3);
 void sub_08084AD0(void *a);
-void sub_0806A7AC(void *a, void *b, s32 c);
+void setEntityForm(void *a, void *b, s32 c);
 void sub_08085440(void *a, void *b, void *c, s32 d);
 s32 sub_0806B3E8(void *a, void *b, void *c, void *d)
 {
@@ -53,7 +53,7 @@ s32 sub_0806B3E8(void *a, void *b, void *c, void *d)
     {
       s16 idx = *((s16 *) (r5 + 0x22));
       *((u8 *) ((r5 + (idx * 2)) + 0x19)) = 0;
-      { u32 *fp = &D_08671BD0; sub_080C31E8(r5 + 0x18, 0x22 + r5, new_var2, *fp); }
+      { u32 *fp = &gScriptStepCallbacks; sub_080C31E8(r5 + 0x18, 0x22 + r5, new_var2, *fp); }
       return 2;
     }
     if ((*((u32 *) (r6 + 0x48))) == 1)
@@ -78,13 +78,13 @@ s32 sub_0806B3E8(void *a, void *b, void *c, void *d)
             new_var3 = (new_var = r5);
             new_var5 = r6;
             sub_08084AD0(r5);
-            sub_0806A7AC(r10, new_var5, 0x18);
+            setEntityForm(r10, new_var5, 0x18);
             *((u32 *) (((u8 *) d) + 8)) = 0;
             {
               s16 idx = *((s16 *) (new_var3 + 0x22));
               *((u8 *) ((new_var + (idx * 2)) + 0x19)) = 0;
             }
-            { u32 *fp = &D_08671BD0; sub_080C31E8(new_var + 0x18, new_var + 0x22, 0x10, *fp); }
+            { u32 *fp = &gScriptStepCallbacks; sub_080C31E8(new_var + 0x18, new_var + 0x22, 0x10, *fp); }
             return 2;
           }
         }
@@ -104,7 +104,7 @@ s32 sub_0806B3E8(void *a, void *b, void *c, void *d)
       s16 idx = *((s16 *) (new_var + 0x22));
       *((u8 *) ((new_var + (idx * 2)) + 0x19)) = 0;
     }
-    { u32 *fp = &D_08671BD0; sub_080C31E8(new_var + 0x18, new_var + 0x22, 9, *fp); }
+    { u32 *fp = &gScriptStepCallbacks; sub_080C31E8(new_var + 0x18, new_var + 0x22, 9, *fp); }
     return new_var4;
   }
  ret0:

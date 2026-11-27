@@ -5,7 +5,7 @@ extern void sub_080B7454(void *);
 extern void sub_0808D0A4(s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Sets up the entity's graphics and children, signals the four child objects,
  * cleans up stale children, initializes the movement deltas, plays two sounds,
@@ -45,7 +45,7 @@ void sub_080B48F4(void *arg0) {
     stepIdx = *(s16 *)(self + 0x22);
     self[stepIdx * 2 + 0x19] = 0;
     {
-        void **msgPtr = &gMainObjTimerCallback;
+        void **msgPtr = &gScriptStepCallbackTable;
         stepBase = self + 0x18;
         sub_080C31E4(stepBase, self + 0x22, *msgPtr);
     }

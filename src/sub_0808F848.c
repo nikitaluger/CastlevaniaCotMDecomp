@@ -1,5 +1,5 @@
-extern void sub_080113A8(void *, void *);
-extern s32 sub_0805F9B4(s32, s32);
+extern void stepAnimationTrack(void *, void *);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -28,7 +28,7 @@ void sub_0808F848(u8 *entity) {
     state = *(u8 **)(entity + 0x38);
     comp = *(u8 **)(entity + 0x3C);
     compTarget = comp + 0x18;
-    close = sub_0805F9B4(*(s32 *)(comp + 0xC), *(s32 *)(comp + 0x10));
+    close = isOutsideCameraBounds(*(s32 *)(comp + 0xC), *(s32 *)(comp + 0x10));
     if (close == 1) {
         ((struct S2A *)(state + 0x2A))->flag &= 0xBF;
     } else {
@@ -47,7 +47,7 @@ void sub_0808F848(u8 *entity) {
 
     if ((*(u16 *)(entity + 2) & 0x8000) == 0) {
         if (*(s16 *)(comp + 0x16) == 1) {
-            sub_080113A8(state, compTarget);
+            stepAnimationTrack(state, compTarget);
         }
         coordTable = gCameraState;
         camBase = gMainWorkspace;

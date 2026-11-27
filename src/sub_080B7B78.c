@@ -1,4 +1,4 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 s32 sub_080B9824(s32);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -18,7 +18,7 @@ void sub_080B7B78(void *arg0)
   }
   if (sub_080B9824(*((s32 *) (((u8 *) enemy) + 0x48))) != 0)
   {
-    *((s32 *) (((u8 *) enemy) + 8)) = (s32) (sub_08005820(0x700000) + 0x400000);
+    *((s32 *) (((u8 *) enemy) + 8)) = (s32) (scaleByRandom(0x700000) + 0x400000);
     *((s8 *) (((u8 *) (((*((s16 *) (((u8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)) = 0;
     unused = 0x08671BB0;
     sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *((s32 *) unused));

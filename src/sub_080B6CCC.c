@@ -1,6 +1,6 @@
 extern s32 setAnimationFrame(s32, u8 *, s32, s32);
-extern s32 sub_080113A8(s32, u8 *);
-extern s32 sub_08011898(u8 *, s32);
+extern s32 stepAnimationTrack(s32, u8 *);
+extern s32 moveEntityWithCollision(u8 *, s32);
 extern s32 copyPoseAttrs(s32, s32);
 extern s32 sub_0809856C(s32, u8 *, s32);
 extern s32 sub_080B72CC(u8 *);
@@ -16,8 +16,8 @@ void sub_080B6CCC(u8 *self) {
     s32 *pHelperTable;
 
     sub_0809856C(0x18C, self + 0x7C, 0x0F);
-    sub_08011898(scriptState, 0x4000);
-    sub_080113A8(companion, stateArg);
+    moveEntityWithCollision(scriptState, 0x4000);
+    stepAnimationTrack(companion, stateArg);
     sub_080B72CC(self);
     if (*(u8 *)stateArg & 0x02) {
         u16 *timerPtr;

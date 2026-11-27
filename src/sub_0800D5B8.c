@@ -1,12 +1,12 @@
 void sub_080C31E0(void *, void *);
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 
 /* Release the seven registered objects and clear their saved slots in the
  * scene state. */
 void sub_0800D5B8(void) {
     u32 i = 0;
     void **slot;
-    u8 *slots = D_020278D0;
+    u8 *slots = gMenuState;
     slot = (void **)((u32)slots + 0x48);
     do {
         void *obj = *slot;

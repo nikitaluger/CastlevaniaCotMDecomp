@@ -1,6 +1,6 @@
 extern u8 D_084EBFC4[];
-extern u32 D_08671BD0[];
-extern void sub_08003A6C(void *, s32, void *);
+extern u32 gScriptStepCallbacks[];
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 struct S_02025FF0 {
@@ -15,12 +15,12 @@ extern struct S_02025FF0 gMainWorkspace;
  * then advance the script with command 2. */
 void sub_0807F588(void *self, void *subject) {
     u8 *actor = (u8 *)self;
-    sub_08003A6C((u8 *)subject + 0x1C, 0, D_084EBFC4);
+    startEffectTimer((u8 *)subject + 0x1C, 0, D_084EBFC4);
     gMainWorkspace.state1 = 0;
     gMainWorkspace.state2 = 0;
     *(u8 *)(actor + (s32)*(s16 *)(actor + 0x22) * 2 + 0x19) = 0;
     {
-        u32 *scriptFnTable = D_08671BD0;
+        u32 *scriptFnTable = gScriptStepCallbacks;
         sub_080C31E8(actor + 0x18, actor + 0x22, 2, *scriptFnTable);
     }
 }

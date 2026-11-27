@@ -1,5 +1,5 @@
 extern u16 sub_08014990(s32);
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 
 /* Three parallel 5-entry u16 arrays in the entity's data block: x at +0, y at
  * +10, direction at +20. Advancing the pointer by 2 fills one column of all
@@ -50,7 +50,7 @@ void sub_0801843C(u8 *self)
     i--;
   }
   while (i >= 0);
-  obj = sub_0805FAEC(self, 0x87);
+  obj = spawnBudgetedEffect(self, 0x87);
   if (obj != 0)
   {
     x = *((s32 *) (base + 8));
@@ -70,7 +70,7 @@ void sub_0801843C(u8 *self)
     ;
     ((struct ObjFields *) obj)->y = t >> 16;
     ((struct ObjFields *) obj)->direction = dir;
-    obj2 = sub_0805FAEC(obj, 0x87);
+    obj2 = spawnBudgetedEffect(obj, 0x87);
     if (obj2 != 0)
     {
       new_var2 = 16;

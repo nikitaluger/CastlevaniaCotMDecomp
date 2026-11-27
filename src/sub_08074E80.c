@@ -1,8 +1,8 @@
 extern s32 sub_0806D35C(void *, s32, void *);
 extern void sub_0806D588(s32, void *);
-extern s32 sub_08003740(void *, s32);
-extern void sub_0806E114(s32, s32, s32, s32);
-extern void sub_080722E0(void *, u8);
+extern s32 stepDelayTimer(void *, s32);
+extern void spawnKind2CEntity(s32, s32, s32, s32);
+extern void setDirectionVector(void *, u8);
 
 /* Partial view of the shared game state used by this effect. */
 struct S_74E80_Data {
@@ -39,7 +39,7 @@ void sub_08074E80(void *arg0) {
         step = (0x100 - (phase & 0xFF)) >> 4;
     else
         step = (phase & 0xFF) >> 4;
-    sub_080722E0(cur, (u8)*(s32 *)((u8 *)data + 0x54));
+    setDirectionVector(cur, (u8)*(s32 *)((u8 *)data + 0x54));
 
     gameState = &gMainWorkspace;
     targetX = gameState->word174C + *(s32 *)((u8 *)cur + 8) * (step + 0x18);
@@ -59,14 +59,14 @@ void sub_08074E80(void *arg0) {
 
     sub_0806D588(obj, cur);
     *(u16 *)obj = gameState->word18C2;
-    if (sub_08003740((u8 *)data + 0x1C, obj) == 0) {
+    if (stepDelayTimer((u8 *)data + 0x1C, obj) == 0) {
         ((void (*)(void *))(*(void **)((u8 *)arg0 + 0x24)))(arg0);
         return;
     }
     counter = *(s32 *)((u8 *)cur + 0x10) - 1;
     *(s32 *)((u8 *)cur + 0x10) = counter;
     if (counter == 0) {
-        sub_0806E114(*(s32 *)((u8 *)arg0 + 0x28), 0x0F, *(s32 *)cur, *(s32 *)((u8 *)cur + 0x04));
+        spawnKind2CEntity(*(s32 *)((u8 *)arg0 + 0x28), 0x0F, *(s32 *)cur, *(s32 *)((u8 *)cur + 0x04));
         *(s32 *)((u8 *)cur + 0x10) = 0x10;
     }
     if (gameState->byte14ED != 0x31) {

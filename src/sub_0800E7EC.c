@@ -4,7 +4,7 @@ extern void setScreenTransition(u8);
 extern void sub_08000E54(void *a, void *b, void *c, u32 d, u32 e);
 extern void sub_080C31E4(void *a, void *b, u32 c);
 
-extern s8 D_020278D0[];
+extern s8 gMenuState[];
 extern u8 D_080CB1AE[];
 extern u8 gCameraState[];
 extern u32 D_08671BC0;
@@ -20,7 +20,7 @@ void sub_0800E7EC(u8 *self)
     s32 result;
 
     entryTable = D_080CB1AE;
-    stateBytes = D_020278D0;
+    stateBytes = gMenuState;
     entryIdx = (stateBytes[0xFA] - 1) * 2;
     entryIdx += stateBytes[0xF9] * 20;
     result = sub_0805FEC8(*(u16 *)(entryTable + entryIdx));

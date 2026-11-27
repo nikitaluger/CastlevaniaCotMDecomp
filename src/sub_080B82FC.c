@@ -5,7 +5,7 @@ void sub_080B9874(void);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Death cleanup for a multi-part entity: reset the animator to frame 0, remove
  * child objects of id 0x1CF from the +0x30 list, clear related global flags,
@@ -42,6 +42,6 @@ void sub_080B82FC(void *entity)
     sub_080B9818(*(s32 *)pose, *(s32 *)((s8 *)workRef + 0x08));
     sub_0808D0A4(0x13);
     *(s8 *)(((s8 *)(((*(s16 *)((s8 *)entity + 0x22)) * 2) + entity)) + 0x19) = 0;
-    scriptCb = &gMainObjTimerCallback;
+    scriptCb = &gScriptStepCallbackTable;
     sub_080C31E4((s8 *)entity + 0x18, (s8 *)entity + 0x22, *scriptCb);
 }

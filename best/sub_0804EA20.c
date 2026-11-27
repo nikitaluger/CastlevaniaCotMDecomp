@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern s16 sub_080C389C(s32, s32);
 void sub_0804EA20(void *arg0)
@@ -11,7 +11,7 @@ void sub_0804EA20(void *arg0)
   s32 val;
   r4 += 0x48;
 
-  *(s16 *)(r4 + 0x10) = sub_080C389C(sub_08005820(2) + *(s16 *)(r4 + 0x10) + 1, 3);
+  *(s16 *)(r4 + 0x10) = sub_080C389C(scaleByRandom(2) + *(s16 *)(r4 + 0x10) + 1, 3);
   r5 = sub_0800583C(0x80 << 14);
   r1 = sub_0800583C(0x80 << 13);
 

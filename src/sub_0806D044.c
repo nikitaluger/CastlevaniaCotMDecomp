@@ -1,4 +1,4 @@
-extern s32 sub_0806C4B4(s32, void *);
+extern s32 syncViewPosition(s32, void *);
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u8 D_080E0AD0[];
@@ -23,7 +23,7 @@ void sub_0806D044(s32 arg0, s32 arg1, void *arg2)
     u32 entryX;
     u32 entryY;
 
-    mode = sub_0806C4B4(arg1, refPos);
+    mode = syncViewPosition(arg1, refPos);
     if (mode != 0) return;
 
     roomPtrTable = D_0866EB08;

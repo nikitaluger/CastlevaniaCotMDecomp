@@ -1,6 +1,6 @@
 struct S_02025FF0 { u8 _[0x189C]; u32 f; };
 extern struct S_02025FF0 gMainWorkspace;
-extern s16 D_080D002C[];
+extern s16 gParamEffectAnimFrames[];
 void setAnimationFrame(void *, s32, s16, s32);
 void sub_080C31E0(void *, s32);
 
@@ -39,7 +39,7 @@ skip:
         *(u16 *)((u8 *)animCtrl + 6) = scale;
         *(s32 *)((u8 *)body + 0x10) = zero;
         {
-            s16 tableval = D_080D002C[*(u16 *)((u8 *)state16 + 8) & 0xF];
+            s16 tableval = gParamEffectAnimFrames[*(u16 *)((u8 *)state16 + 8) & 0xF];
             setAnimationFrame(animCtrl, (void *)animState, tableval, 1);
         }
     }

@@ -1,4 +1,4 @@
-void sub_080113A8(s32, void *);
+void stepAnimationTrack(s32, void *);
 void setAnimationFrame(s32, void *, s32, s32);
 void sub_08011EE8(void *, s32, s32);
 void sub_080B72CC(void *);
@@ -13,7 +13,7 @@ void sub_080B6C4C(void *arg0) {
     u8 *motion = *(u8 **)((u8 *)arg0 + 0x3C);
     u8 *animDesc = motion + 0x34;
 
-    sub_080113A8(anim, animDesc);
+    stepAnimationTrack(anim, animDesc);
     sub_08011EE8(motion, 0, 0);
     if ((1 & *(u16 *)(*(u8 **)(motion + 0x28) + 0x14)) || (*(u16 *)(motion + 2) != 0)) {
         void **litp;

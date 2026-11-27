@@ -1,7 +1,7 @@
 extern s32 sub_08014990(void *);
 extern void setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Runs a state check on the object's linked state at +0x3C; when bit 1 is set,
  * writes a facing-dependent +/-0x8000 offset into that state, clears this

@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_08044FD4(s32, void *, void *, void *);
 
 /* Launch the projectile (spawn id 0x2D82) and run its upward hit test; once the
@@ -13,7 +13,7 @@ void sub_08044BD0(void *arg0) {
     projectile = *(u8 **)((u8 *)arg0 + 0x3C);
     animator = projectile + 0x34;
     hitState = (u8 *)((u32)projectile + 0x48);
-    sub_0801165C(projectile, 0x2D82);
+    advanceMotion(projectile, 0x2D82);
     if (*(s32 *)(projectile + 0x14) > (s32)(0x80 << 8)) {
         setAnimationFrame((void *)owner, animator, 0x17, 0);
     }

@@ -1,6 +1,6 @@
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_0801165C(void *, s32); /* integrates x/y position from velocity, then applies gravity */
-extern void sub_080113A8(s32, void *); /* updates the animation of the object's physics body */
+extern void advanceMotion(void *, s32); /* integrates x/y position from velocity, then applies gravity */
+extern void stepAnimationTrack(s32, void *); /* updates the animation of the object's physics body */
 
 /* Per-frame step: integrates the object's position and animation, then, once the
  * current command's 15-frame wait has elapsed, resets the counter and advances
@@ -10,8 +10,8 @@ void sub_0803AE04(void *arg0) {
     s32 objId = *(s32 *)(self + 0x38);
     u8 *phys = *(u8 **)(self + 0x3C);
     u8 *anim = phys + 0x34;
-    sub_0801165C(phys, 0);
-    sub_080113A8(objId, anim);
+    advanceMotion(phys, 0);
+    stepAnimationTrack(objId, anim);
     {
         s16 slotIdx = *(s16 *)(self + 0x22);
         u8 *slot = (u8 *)((slotIdx << 1) + (u32)self);

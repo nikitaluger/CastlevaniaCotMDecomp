@@ -14,7 +14,7 @@ struct SpawnParams { u8 _0[4]; u16 f4; u16 f6; u16 f8; u16 fA; u8 _C[0x1C]; };
 extern struct SpawnParams gEffectGfxTable[];
 extern u16 D_08102F30[];
 extern char D_08102F24[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -26,7 +26,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 
 /*
  * Build the graphics/sub-object pair for an actor, set up its animation and
@@ -51,7 +51,7 @@ void sub_080BC878(struct ActorContext *actor) {
     *((u32 *)(gfx + 0x1C)) = 0x80000009;
     host = (struct HostObject *)actor->f3C;
     animState = ((u8 *)host) + 0x34;
-    installUpdateHandler(actor, (u8 *)host, sub_08097DC8);
+    installUpdateHandler(actor, (u8 *)host, updateActorEffectSubObject);
     host->f1C = 0x68;
     value = findKindIndex();
     host->f22 = value;
@@ -95,7 +95,7 @@ ok:
         s16 idx = actor->f22;
         *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = 0;
     }
-    scriptTablePtr = &gMainObjTimerCallback;
+    scriptTablePtr = &gScriptStepCallbackTable;
     scriptPtr = ((u8 *)actor) + 0x18;
     sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, (s32)(*scriptTablePtr));
     {

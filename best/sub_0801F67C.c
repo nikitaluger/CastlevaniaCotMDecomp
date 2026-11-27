@@ -4,7 +4,7 @@ extern u8 D_080CE7AC[];
 extern u32 D_080CE7C4[];
 extern u32 D_08671BB0[];
 extern void sub_08011368(void*, void*, int, int);
-extern int sub_0805FAEC(int, int);
+extern int spawnBudgetedEffect(int, int);
 extern int sub_08014990(void*);
 
 void sub_0801F67C(void *arg0) {
@@ -104,7 +104,7 @@ blockB:
         r9v = 6 - r1sh;
         r8b = (u8 *)&D_02025FF0;
         r0v = D_02025FF0.f1870;
-        r0r = sub_0805FAEC((int)r0v, 0x99);
+        r0r = spawnBudgetedEffect((int)r0v, 0x99);
         r1r = r0r;
         r5v2 = r9v * 4;
         dst = r6 + 0x10 + r5v2;

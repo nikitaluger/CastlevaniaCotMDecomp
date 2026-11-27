@@ -2,7 +2,7 @@ void sub_08005E80(s32);
 s32 sub_08011528(s32, void *);
 void sub_080C31E8(void *, void *, s32, s32);
 
-extern s32 D_08671BD8;
+extern s32 gMenuScriptCallback;
 
 /* Walking update: advance the animation; when the frame's command value
  * changes to 0x42 play sound 0x195, and when the animation ends clear the
@@ -46,7 +46,7 @@ void sub_080B4410(void *arg0)
     if (2 & *(u8 *)((s8 *)animDesc + 0)) {
         *(s8 *)(((s8 *)(((*(s16 *)((s8 *)arg0 + 0x22)) * 2) + arg0)) + 0x17) = 0;
         {
-            s32 *dp = &D_08671BD8;
+            s32 *dp = &gMenuScriptCallback;
             sub_080C31E8((s8 *)arg0 + 0x18, (s8 *)arg0 + 0x22, 3, *dp);
         }
     }

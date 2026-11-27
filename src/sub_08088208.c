@@ -1,5 +1,5 @@
-extern void sub_08003740(void *, void *);
-extern void sub_08003A6C(void *, s32, void *);
+extern void stepDelayTimer(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -26,7 +26,7 @@ void sub_08088208(void *arg0)
   s32 *scriptHandlers;
   if (gMainWorkspace.mode == 0x24)
   {
-    sub_08003A6C(actor + 0x20, 0, (void *)0x085063F8);
+    startEffectTimer(actor + 0x20, 0, (void *)0x085063F8);
     *(u32 *)(actorPos + 8) = 0x20000;
     spriteFlags = 0xFFEF & *(u16 *)(sprite + 2);
     zero = 0;
@@ -36,6 +36,6 @@ void sub_08088208(void *arg0)
     scriptHandlers = (s32 *)0x08671BB0;
     sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);
   }
-  sub_08003740(actor + 0x20, sprite);
+  stepDelayTimer(actor + 0x20, sprite);
   sub_0806D588(sprite, actorPos);
 }

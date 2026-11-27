@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_080B7550(u8, s32, s32, s32, s32);
 void sub_080C31E0(void *, void *);
 
@@ -53,7 +53,7 @@ void sub_080B6170(struct S_080B6170 *self)
     fx->colorB = 0xA06;
   }
 
-  if (sub_08013B5C(spriteAttrs, workState) == 0) {
+  if (updateObjectDisplayState(spriteAttrs, workState) == 0) {
     self->cmdTable = 0x08670454;
     self->stepIndex += 1;
     *((u8 *)(((u8 *)self) + (self->stepIndex * 2) + 0x19)) += 1;

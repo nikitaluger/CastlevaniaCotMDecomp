@@ -1,4 +1,4 @@
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 static inline u8 *levelBase(u8 *b) { return b + 0x6F; }
 
 /* Per-layer reveal step (layer = 0..3). While the countdown byte at +0x6B+layer
@@ -17,7 +17,7 @@ void sub_0800F370(u8 arg0)
   s32 rawLevel;
   u8 *levelPtr;
   layer = arg0;
-  state = D_020278D0;
+  state = gMenuState;
   counters = state + 0x6B;
   countdown = *((s8 *) (counters + layer));
   visiblePtr = counters + 0x88;

@@ -7,10 +7,10 @@ struct Motion {
     s32 vy;
 };
 
-extern void sub_0801165C(struct Motion *motion, s32 gravity);
+extern void advanceMotion(struct Motion *motion, s32 gravity);
 
 /* Advance the object's motion by its velocity with no gravity (used by objects
  * that drift in a straight line). */
 void sub_0804A448(void *obj) {
-    sub_0801165C(*(struct Motion **)((u8 *)obj + 0x3C), 0);
+    advanceMotion(*(struct Motion **)((u8 *)obj + 0x3C), 0);
 }

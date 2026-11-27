@@ -11,7 +11,7 @@ struct GameState_7A8A4
 };
 extern struct GameState_7A8A4 gMainWorkspace;
 extern s32 sub_0806D450(void *, void *, void *);
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -51,7 +51,7 @@ void sub_0807A8A4(void *arg0)
       sub_080C31E4(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, *eventTable);
     }
   }
-  sub_08003740(actor + 0x20, world);
+  stepDelayTimer(actor + 0x20, world);
   {
     u32 savedY = *((u32 *) (world + 0x18));
     sub_0806D588(world, mover);

@@ -15,7 +15,7 @@ struct S_02025FF0 {
 extern struct S_02025FF0 gMainWorkspace;
 extern u8 gCameraState[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Per-entity state allocated through allocWorkSlot. */
 struct EntityState {
@@ -31,7 +31,7 @@ struct EntityState {
 
 /* Spawns one entity from a descriptor: allocates its sprite and state objects,
  * copies the id/position, sets up animation from gSpriteAnimDataTable, positions it
- * against the camera, then calls back through the pointer in gMainObjTimerCallback. */
+ * against the camera, then calls back through the pointer in gScriptStepCallbackTable. */
 void sub_080436AC(u8 *spawn) {
     u8 *sprite = allocSpriteObject();
     struct EntityState *state;
@@ -74,6 +74,6 @@ main:
     setAnimationFrame(sprite, anim, 7, 0);
     *(u16 *)(spawn + 2) |= 0x1000;
     *(u8 *)(spawn + (s16)*(s16 *)(spawn + 0x22) * 2 + 0x19) = 0;
-    callbackSlot = &gMainObjTimerCallback;
+    callbackSlot = &gScriptStepCallbackTable;
     sub_080C31E4(spawn + 0x18, spawn + 0x22, *callbackSlot);
 }

@@ -17,7 +17,7 @@ struct S_02021E90 { u8 _0[0x1278]; u32 f1278; u32 f127C; };
 extern struct S_02021E90 gCameraState;
 extern u8 gSpriteAnimDataTable[];
 extern s16 D_080CFB56[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 void sub_08054C94(struct Arg0 *arg0) {
     u8 *sprite;

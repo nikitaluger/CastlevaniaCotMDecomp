@@ -36,7 +36,7 @@ extern struct CameraInfo gMainWorkspace;
 struct CoordTable { u8 _0[0x1278]; u32 camX; u32 camY; };
 extern struct CoordTable gCameraState;
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern u8 *allocSpriteObject(void);
 extern s32 allocWorkSlot(u8 *, s32, s32, s32);
 extern s32 findKindIndex(s32);
@@ -86,7 +86,7 @@ main:
 	setAnimationFrame((u8 *)sprite, animState, 0x1E, 0);
 	entity->flags |= 0x1000;
 	*(u8 *)((u8 *)entity + 2 * entity->dirIndex + 0x19) = 0;
-	scriptData = &gMainObjTimerCallback;
+	scriptData = &gScriptStepCallbackTable;
 	sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *scriptData);
 	return;
 }

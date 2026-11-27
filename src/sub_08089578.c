@@ -10,8 +10,8 @@ struct GameState {
 extern struct GameState gMainWorkspace;
 
 void sub_080C31E4(void *, void *, s32); /* advance the actor's bytecode stream */
-void sub_08003A6C(void *, s32, s32);    /* initialize a sub-script runner */
-void sub_08003740(void *, void *);      /* step a sub-script runner */
+void startEffectTimer(void *, s32, s32);    /* initialize a sub-script runner */
+void stepDelayTimer(void *, void *);      /* step a sub-script runner */
 
 /* Script command: once the global game state is 0x11, initialize the actor's
  * sub-script runner with handler table 0x0850644C, step it against the actor's
@@ -21,8 +21,8 @@ void sub_08089578(void *arg0) {
     void *sprite = *(void **)((u8 *)arg0 + 0x38);
     if (gMainWorkspace.state == 0x11) {
         void *runner = (u8 *)work + 0x20;
-        sub_08003A6C(runner, 0, 0x0850644C);
-        sub_08003740(runner, sprite);
+        startEffectTimer(runner, 0, 0x0850644C);
+        stepDelayTimer(runner, sprite);
         *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = 0;
         {
             s32 *stream = (s32 *)0x08671BB0;

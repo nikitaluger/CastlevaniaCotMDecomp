@@ -1,6 +1,6 @@
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 
 /* Script command: flag the work object's display state active and step its
  * physics; after the step has run 4 times, clear the counter and advance. */
@@ -11,7 +11,7 @@ void sub_080A1DA0(void *arg0) {
     s32 stepOffset;
     s32 *scriptTable;
     *(u8 *)(*(u8 **)(work + 0x28) + 1) = 1;
-    sub_0801165C(work, 0);
+    advanceMotion(work, 0);
     stepOffset = *(s16 *)(self + 0x22) * 2;
     stepCmd = (u8 *)(stepOffset + (u32)self);
     if (*(u8 *)(stepCmd + 0x19) == 4) {

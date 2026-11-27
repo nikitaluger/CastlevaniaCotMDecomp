@@ -1,6 +1,6 @@
 extern s16 D_080CF858[];
 void setAnimationFrame(void *, s32, s16, s32);
-void sub_080113A8(void *, s32);
+void stepAnimationTrack(void *, s32);
 void copyPoseAttrs(void *, void *);
 void sub_080148D8(void *, s32);
 void sub_08047164(void *, void *, void *, void *);
@@ -22,7 +22,7 @@ void sub_08046248(void *self) {
     body = *(void **)((u8 *)self + 0x3C);
     animState = (s32)body + 0x34;
     sprite = 0x48 + (s32)body;
-    sub_080113A8(animCtrl, (void *)animState);
+    stepAnimationTrack(animCtrl, (void *)animState);
     sub_08047164(self, body, (void *)sprite, animCtrl);
     if ((*(u8 *)((u8 *)body + 0x34) & 2) != 0) {
         *(u8 *)((u8 *)*(void **)((u8 *)sprite + 4) + 1) = 0;

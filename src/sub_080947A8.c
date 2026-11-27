@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_08091B80(s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -26,7 +26,7 @@ void sub_080947A8(u8 *actor) {
     if ((timerBits & 7) == 0) {
         spawnX = *(u8 **)(state + 8) + sub_0800583C(0xE0 << 12);
         spawnY = *(s32 *)(state + 0x0C) + sub_0800583C(0x80 << 10);
-        spawnZ = sub_08005820(0x80 << 8) + (0x80 << 6);
+        spawnZ = scaleByRandom(0x80 << 8) + (0x80 << 6);
         sub_08091B80((s32)spawnX, spawnY, 0, spawnZ, 0x16C1);
     }
     timer = *(u16 *)(timerPtr + 0x0C);

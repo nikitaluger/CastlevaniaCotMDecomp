@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 struct Countdown { u8 pad[2]; u16 state; u16 timer; };
@@ -18,7 +18,7 @@ void sub_0803DD54(void *actor) {
     cd->timer = remaining;
     if ((s32)((u16)remaining << 16) <= 0) {
         cd->state = 0;
-        cd->timer = sub_08005820(0x97) + 0x1E;
+        cd->timer = scaleByRandom(0x97) + 0x1E;
         elementTimer = (u8 *)((*(s16 *)(self + 0x22) << 1) + (s32)self) + 0x17;
         *elementTimer = 0;
         callbackTable = (s32 *)0x08671BD8;

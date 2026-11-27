@@ -7,8 +7,8 @@ struct S_02025FF0_698DC {
     u8 f18C6;
 };
 extern struct S_02025FF0_698DC gMainWorkspace;
-extern void *gMainObjTimerCallback;
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern void *gScriptStepCallbackTable;
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void *sub_08001480(void *, s32);
 extern void sub_0806D894(void);
@@ -27,7 +27,7 @@ void sub_080698DC(u8 *arg0) {
     u8 *ctx = *((u8 **)(arg0 + 0x38));
     void *spawned;
     s32 index;
-    sub_0806C5EC(arg0, ctx, obj, obj);
+    resetActionResultState(arg0, ctx, obj, obj);
     sub_0806C6B0(arg0, ctx, obj, obj);
     spawned = sub_08001480(arg0, 0x30);
     if (spawned != 0) *(s32 *)((u8 *)spawned + 0x7C) = 0;
@@ -47,7 +47,7 @@ void sub_080698DC(u8 *arg0) {
     index = *(s16 *)(arg0 + 0x22);
     (arg0 + index * 2)[0x19] = 0;
     {
-        void **effectIds = &gMainObjTimerCallback;
+        void **effectIds = &gScriptStepCallbackTable;
         sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *effectIds);
     }
 }

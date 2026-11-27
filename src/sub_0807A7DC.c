@@ -1,10 +1,10 @@
 s32 sub_0806D450(void *, void *, void *);
-void sub_08003740(void *, s32);
+void stepDelayTimer(void *, s32);
 void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 struct S_02025FF0 {
     u8 pad0[0x10];
@@ -49,12 +49,12 @@ void sub_0807A7DC(u8 *self)
             }
             *(u8 *)(self + (s32)*(s16 *)(self + 0x22) * 2 + 0x19) = 0;
             {
-                s32 *effectData = &gMainObjTimerCallback;
+                s32 *effectData = &gScriptStepCallbackTable;
                 sub_080C31E4(self + 0x18, self + 0x22, *effectData);
             }
         }
     }
-    sub_08003740((u8 *)pos + 0x1C, (s32)view);
+    stepDelayTimer((u8 *)pos + 0x1C, (s32)view);
     {
         s32 savedX = *(s32 *)(view + 0x18);
         sub_0806D588(view, vec);

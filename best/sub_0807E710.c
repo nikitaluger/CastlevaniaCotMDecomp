@@ -2,14 +2,14 @@ extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u32 D_02027718;
 void *allocEffectPart(void);
-void sub_0806D2D0(void *a);
-s16 sub_0806D62C(u16 a, s32 b);
-void sub_08003A6C(void *a, s32 b, void *c);
-void sub_080722E0(void *a, u8 b);
+void cleanupFailedEffectSpawn(void *a);
+s16 scalePercentSaturate16(u16 a, s32 b);
+void startEffectTimer(void *a, s32 b, void *c);
+void setDirectionVector(void *a, u8 b);
 void *sub_08016A2C(void);
 void sub_080C31E0(void *a, void *b);
 void sub_080C31E4(void *a, void *b, s32 c);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 void sub_0807E710(void *arg0)
 {
   u8 new_var3;
@@ -28,7 +28,7 @@ void sub_0807E710(void *arg0)
   *((void **) (temp + 0x2C)) = a;
   if (0 == a)
   {
-    sub_0806D2D0(arg0);
+    cleanupFailedEffectSpawn(arg0);
     return;
   }
   *((u32 *) ((base + 4) + 0x30)) = (*((u32 *) ((base + 4) + 0x38)) = 0);
@@ -44,7 +44,7 @@ void sub_0807E710(void *arg0)
   *((u16 *) new_var2) = 4;
   *((u16 *) ((*((u8 **) (p + 0x2C))) + 0xA)) = 0;
   *((u16 *) ((*((u8 **) (p + 0x2C))) + 0xC)) = 0;
-  *((u16 *) ((*((u8 **) (p + 0x2C))) + 0xE)) = sub_0806D62C(*((u16 *) (cbase + 0x2E2)), 0x47);
+  *((u16 *) ((*((u8 **) (p + 0x2C))) + 0xE)) = scalePercentSaturate16(*((u16 *) (cbase + 0x2E2)), 0x47);
   *((u16 *) ((*((u8 **) (p + 0x2C))) + 0x16)) = 0x0F;
   *((u16 *) ((*((u8 **) (p + 0x2C))) + 0x18)) = 0x65;
   arg0 = p;
@@ -54,7 +54,7 @@ void sub_0807E710(void *arg0)
   *((void **) (((u8 *) arg0) + 0x24)) = (void *) 0x0808449D;
   new_var = 0x80;
   *((void **) (a + 0x24)) = (void *) 0x084E8090;
-  sub_08003A6C(base + 0x20, 0, (void *) 0x084E80F0);
+  startEffectTimer(base + 0x20, 0, (void *) 0x084E80F0);
   *((s32 *) (base + 4)) = *((s32 *) (((u8 *) arg0) + 0x7C));
   *((s32 *) (p + 4)) = (*((s32 *) (((u8 *) arg0) + 0x8C))) + ((s32) 0xFFFE0000);
   if ((*((s32 *) (base + 4))) > ((s32) D_02027718))
@@ -70,7 +70,7 @@ void sub_0807E710(void *arg0)
   *((s32 *) (p + 0x40)) = 0x40000;
   *((u8 *) (p + 0x44)) = (u8) (((0 - ((*((u16 *) (a + 2))) & 0x10)) >> 31) & new_var);
   *((u8 *) (p + 0x45)) = 1;
-  sub_080722E0(pcopy, *((u8 *) arg0));
+  setDirectionVector(pcopy, *((u8 *) arg0));
   {
     void *r = sub_08016A2C();
     if (r == 0)
@@ -98,7 +98,7 @@ void sub_0807E710(void *arg0)
     }
   }
   *((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;
-  new_var2 = (u32 *) gMainObjTimerCallback;
+  new_var2 = (u32 *) gScriptStepCallbackTable;
   {
     u8 *p18 = ((u8 *) arg0) + 0x18;
     u32 *wp = new_var2;

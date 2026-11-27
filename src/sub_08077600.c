@@ -1,12 +1,12 @@
 s32 sub_0806D35C(void *, void *, void *);
 void sub_0806D588(void *, void *);
-void sub_08003740(void *, void *);
+void stepDelayTimer(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* Readable aliases for the game's helpers (preprocessor-only, no code effect). */
 #define ApplySpecialMotion  sub_0806D35C
 #define SyncSpritePos       sub_0806D588
-#define RunSpriteTimer      sub_08003740
+#define RunSpriteTimer      stepDelayTimer
 #define SwitchState         sub_080C31E0
 
 struct S_02025FF0 {

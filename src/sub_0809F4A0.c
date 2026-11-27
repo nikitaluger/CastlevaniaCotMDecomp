@@ -1,4 +1,4 @@
-extern s32 sub_08013B5C(u32, u32);
+extern s32 updateObjectDisplayState(u32, u32);
 extern void sub_080A05D0(u32, u32, u16, void *);
 extern void sub_080A0638(void *, u32, u32);
 extern s32 sub_080C31E0(void *, s32);
@@ -65,7 +65,7 @@ void sub_0809F4A0(u8 *entity)
         sub_080C31E8(entity + 0x18, entity + 0x22, 5, *(u32 *)addr);
     }
 
-    handled = sub_08013B5C(sprite, state);
+    handled = updateObjectDisplayState(sprite, state);
     baseAnglePtr = (u16 *)(slots + 0x48);
     if (handled == 0) {
         u32 addr;

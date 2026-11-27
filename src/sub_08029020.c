@@ -1,10 +1,10 @@
 extern s32 sub_0800583C(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BFC;
-extern s32 gMainObjTimerCallback;
+extern s32 gTrigFuncPtr;
+extern s32 gScriptStepCallbackTable;
 extern u8 D_0866DA10[];
 
 /* Drive a scripted sway: set anim frame 0, derive a sine-like vertical offset
@@ -20,8 +20,8 @@ void sub_08029020(void *obj) {
     s32 phase;
 
     setAnimationFrame(gfx, anim, 0, 1);
-    phaseCallback = &D_08671BFC;
-    phase = sub_080C364C(*(s32 *)(control + 8) << 16, 0x50);
+    phaseCallback = &gTrigFuncPtr;
+    phase = divInt32(*(s32 *)(control + 8) << 16, 0x50);
     *(s32 *)(state + 0xC) = *(s32 *)(control + 4) + (sub_080C31E0(phase + 0x4000, *phaseCallback) << 4);
     if ((*(s32 *)(state + 0x50))++ > 0x50) {
         *(s32 *)(control + 8) = 0;

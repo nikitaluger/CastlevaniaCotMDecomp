@@ -13,7 +13,7 @@ struct S_080316BC {
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 void sub_080316BC(struct S_080316BC *obj)
 {
@@ -38,7 +38,7 @@ void sub_080316BC(struct S_080316BC *obj)
     if (*(s16 *)(work + 6) == 0) {
         ((u8 *)obj)[obj->field_0x22 * 2 + 0x19] = 0;
         {
-            void **endFuncs = &D_08671BD0;
+            void **endFuncs = &gScriptStepCallbacks;
             sub_080C31E8(stateBytes, (u8 *)obj + 0x22, 0, *endFuncs);
         }
     }

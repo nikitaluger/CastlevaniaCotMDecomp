@@ -1,5 +1,5 @@
 void sub_08011344(void *, void *, s16, s32);
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08033950(void *, void *);
 void sub_080C2E68(void *, void *, u32);
 void sub_080C31E4(void *, void *, s32);
@@ -53,7 +53,7 @@ void sub_080337A8(void *entity) {
     velTableNext = velTable + 1;
     *(s32 *)((u8 *)state + 0x0C) = *(s32 *)((u8 *)entity + 0x5C) + *(s32 *)((u8 *)velTableNext + offset);
     sub_08011344(sprite, animTrack, frameSeq[*step], 0);
-    sub_080113A8(sprite, animTrack);
+    stepAnimationTrack(sprite, animTrack);
     sub_08033950(sprite, state);
     nextStep = *step + 1;
     zero = 0;

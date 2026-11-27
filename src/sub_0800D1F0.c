@@ -4,7 +4,7 @@ struct S_020278D0 {
     u8 _4C[0x68 - 0x4C];
     s8 stageIndex; /* 0x68: selects an entry in D_080CAFF8 */
 };
-extern struct S_020278D0 D_020278D0;
+extern struct S_020278D0 gMenuState;
 
 struct Pair { s16 x; s16 y; };
 extern u32 gGameStatus[];
@@ -16,9 +16,9 @@ void sub_0800FE08(s16, s32, s32, s32);
 void sub_0800EBDC(s16, s16, s32);
 void sub_0800EC20(s32);
 
-/* Room setup: spawn the five actor slots kept at D_020278D0+0x48 and tag each
+/* Room setup: spawn the five actor slots kept at gMenuState+0x48 and tag each
  * with its slot index, load the stage-dependent graphics block selected by
- * D_020278D0.stageIndex, then copy the coordinate pairs stored in
+ * gMenuState.stageIndex, then copy the coordinate pairs stored in
  * gGameStatus to their VRAM destinations. */
 void sub_0800D1F0(s32 arg0) {
     u32 *p;
@@ -28,7 +28,7 @@ void sub_0800D1F0(s32 arg0) {
 
     arr = (struct Pair *)gGameStatus;
     i = 0;
-    d = (u8 *)&D_020278D0;
+    d = (u8 *)&gMenuState;
     p = (u32 *)(d + 0x48);
     do {
         s32 v = sub_08001480(arg0, 0x1B);
@@ -39,7 +39,7 @@ void sub_0800D1F0(s32 arg0) {
         i++;
     } while (i <= 4);
 
-    sub_0800EB44(D_080CAFF8[D_020278D0.stageIndex], 2, 0xFC0);
+    sub_0800EB44(D_080CAFF8[gMenuState.stageIndex], 2, 0xFC0);
 
     sub_0800FE08(arr[0xB1].y, 4, 0x511C, 0x0600696E);
     sub_0800FE08(arr[0xB3].y, 4, 0x511C, 0x060069AE);

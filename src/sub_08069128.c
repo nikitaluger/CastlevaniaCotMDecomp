@@ -1,11 +1,11 @@
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, s32, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, s32, void *, void *);
 extern void sub_0806BA20(s32, void *, void *);
 extern void sub_080694D8(s32, void *, void *);
 extern void sub_0806AB04(void *, s32, void *, void *);
 extern void sub_0806A884(s32, void *);
-extern s32 sub_08003740(void *, s32);
-extern void sub_08003A6C(void *, s32, s32);
+extern s32 stepDelayTimer(void *, s32);
+extern void startEffectTimer(void *, s32, s32);
 extern void sub_0806932C(void *, void *);
 extern u16 sub_0806BCD8(void *, s32, void *, void *);
 extern void sub_0806C6B0(void *, s32, void *, void *);
@@ -36,12 +36,12 @@ void sub_08069128(u8 *arg0) {
     u8 *spawn = *(u8 **)(arg0 + 0x6C);
     u8 *effect = spawn + 4;
     s32 owner = *(s32 *)(arg0 + 0x38);
-    s32 zeroResult = sub_0806C4B4(effect, effect);
+    s32 zeroResult = syncViewPosition(effect, effect);
     s32 motionTable, tableOffset;
 
     if (zeroResult != 0) return;
 
-    sub_0806C5EC(arg0, owner, effect, effect);
+    resetActionResultState(arg0, owner, effect, effect);
     sub_0806BA20(owner, effect, effect);
     motionTable = 0x080E03A0;
     tableOffset = ((struct EffectState *)effect)->tableIndex * 0x58;
@@ -66,10 +66,10 @@ void sub_08069128(u8 *arg0) {
     }
     sub_0806A884(owner, effect);
     hitbox = spawn + 0x2C;
-    if (sub_08003740(hitbox, owner) == 0) {
+    if (stepDelayTimer(hitbox, owner) == 0) {
         u8 *stateByte;
         s32 *cmdTable;
-        sub_08003A6C(hitbox, 0, (void *)0x084FCA84);
+        startEffectTimer(hitbox, 0, (void *)0x084FCA84);
         stateByte = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
         *(u8 *)(stateByte + 0x19) = zeroResult;
         cmdTable = (s32 *)0x08671BD0;
@@ -80,7 +80,7 @@ void sub_08069128(u8 *arg0) {
     if (((struct SpawnObj *)spawn)->command != 0) {
         u8 *stateByte;
         s32 *cmdTable;
-        sub_08003740(hitbox, owner);
+        stepDelayTimer(hitbox, owner);
         stateByte = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
         *(u8 *)(stateByte + 0x19) = zeroResult;
         cmdTable = (s32 *)0x08671BD0;

@@ -1,12 +1,12 @@
 extern void sub_08005E80(s32);
-extern void sub_08011898(u8 *, s32);
+extern void moveEntityWithCollision(u8 *, s32);
 extern void sub_0808DC40(s32, s32, s32);
 extern void sub_0808DC88(s32, s32, s32);
 extern void sub_0808E670(s32, s32, s32, s32);
 extern void sub_080C050C(s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
 extern s32 D_08101C8C[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Periodic entity update: mark the sprite's graphics, advance its physics,
  * then on the configured timer spawn effects and a sound and dispatch the
@@ -27,7 +27,7 @@ void sub_080A3C1C(u8 *entity) {
     if (!(*(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) & 2)) {
         *(u16 *)gfx = (*(u16 *)gfx & 0xFFF) | 0xE000;
     }
-    sub_08011898(body, 0x16C1);
+    moveEntityWithCollision(body, 0x16C1);
     if (!(*(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) & 3)) {
         sub_0808DC40(*(s32 *)(body + 8), *(s32 *)(body + 0xC), 8);
     }
@@ -48,6 +48,6 @@ void sub_080A3C1C(u8 *entity) {
         zero = 0;
         *attrByte = maskedByte;
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
-        sub_080C31E4(scriptPtr, stepIndexPtr, gMainObjTimerCallback);
+        sub_080C31E4(scriptPtr, stepIndexPtr, gScriptStepCallbackTable);
     }
 }

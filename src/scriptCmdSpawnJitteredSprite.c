@@ -9,7 +9,7 @@ extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void registerScriptObject(u8 *, s32);
 extern s32 sub_0800583C(s32);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
 
@@ -52,7 +52,7 @@ struct KindTable { u16 tile; s16 frame; u16 mode; u8 _6[0x14-6]; };
 extern struct KindTable gSpriteKindTable[];
 extern u16 D_080CFE34[];
 extern u8 gSpriteAnimDataTable[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 void scriptCmdSpawnJitteredSprite(struct ScriptThread *thread) {
     u8 *sprite;
@@ -131,7 +131,7 @@ fields:
     ((u32 *)extra)[3] = ((u32 *)extra)[1] + sub_0800583C(0x200000);
     extra += 0x10;
     *(u32 *)((u8 *)work + 0x58) = zero;
-    ((u32 *)extra)[1] = sub_08005820(0x10000);
+    ((u32 *)extra)[1] = scaleByRandom(0x10000);
     ((u32 *)extra)[2] = zero;
     ((u32 *)extra)[3] = 0x4000;
     ((u32 *)extra)[4] = 0x80;

@@ -1,7 +1,7 @@
 extern vu32 gMainWorkspace;
-extern vu32 gMainObjTimerCallback;
+extern vu32 gScriptStepCallbackTable;
 
-void *sub_0805FAEC(s32, s32);
+void *spawnBudgetedEffect(s32, s32);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
 void setAnimationFrame(u32, void *, u32, u32);
@@ -32,7 +32,7 @@ void *ResultObj_New(s32 arg0, s32 arg1) {
     u8 *worldState;
 
     worldState = (u8 *)&gMainWorkspace;
-    result = sub_0805FAEC(*(vu32 *)(worldState + 0x1870), 0x89);
+    result = spawnBudgetedEffect(*(vu32 *)(worldState + 0x1870), 0x89);
     if (result == NULL) {
         return NULL;
     }
@@ -61,7 +61,7 @@ void sub_08019170(struct MainObj *arg0) {
     stepState = (u8 *)((step << 1) + (u32)arg0);
     if (stepState[0x19] > 0x1E) {
         stepState[0x19] = 0;
-        stepFn = gMainObjTimerCallback;
+        stepFn = gScriptStepCallbackTable;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, stepFn);
     }
 }

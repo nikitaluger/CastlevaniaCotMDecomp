@@ -1,5 +1,5 @@
 void setAnimationFrame(s32, void *, s32, s32);
-void sub_080161F0(void);
+void unlinkAndFreeObject(void);
 void sub_080C31E8(void *, void *, s32, s32);
 
 /* Set the work's animation state to 0xB, clamp its coordinate against the
@@ -28,7 +28,7 @@ void sub_0801B27C(void *actor) {
             *(s32 *)(work + 0x0C) = *(s32 *)(target + 0x0C);
             *(s32 *)(work + 0x14) = zero;
             if (*(u32 *)(target + 0x34) != 0) {
-                sub_080161F0();
+                unlinkAndFreeObject();
                 *(u32 *)(target + 0x34) = zero;
             }
             ((u8 *)actor + (*(s16 *)((u8 *)actor + 0x22)) * 2)[0x17] = zero;

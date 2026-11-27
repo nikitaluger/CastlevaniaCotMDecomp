@@ -1,6 +1,6 @@
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
-extern void *sub_0805FAEC(s32, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern s32 sub_080C31E0(void *, s32);
 struct S_02025FF0_1870
 {
@@ -18,8 +18,8 @@ void sub_08039BF8(u8 *obj)
   u8 *scriptState = *((u8 **) (obj + 0x3C));
   u8 *stateArg = scriptState + 0x34;
   u8 *control = scriptState + 0x48;
-  sub_0801165C(scriptState, 0);
-  sub_080113A8(sprite, stateArg);
+  advanceMotion(scriptState, 0);
+  stepAnimationTrack(sprite, stateArg);
   if ((*((u8 *) (obj + 0x84))) != 0)
   {
     return;
@@ -37,7 +37,7 @@ void sub_08039BF8(u8 *obj)
       int value;
       one = 1;
       *((u8 *) control) = one;
-      spawned = sub_0805FAEC((s32) gMainWorkspace.mgr, 0xF1);
+      spawned = spawnBudgetedEffect((s32) gMainWorkspace.mgr, 0xF1);
       if (spawned != 0)
       {
         value = *((u8 *) (obj + 0x4C));

@@ -24,9 +24,9 @@ struct SaveCopyMenuEntity {
     u8 _51[3];
     s8 destSlot;
 };
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 extern u32 D_08671BC0[];
-extern u32 D_08671BD0[];
+extern u32 gScriptStepCallbacks[];
 
 /* Save-copy menu cursor: the d-pad moves the highlighted destination slot over
  * the eight saves (skipping the source slot) and plays a move sound; B cancels
@@ -104,7 +104,7 @@ void updateSaveCopyMenu(struct SaveCopyMenuEntity *menu)
             sub_0800B824(0x81D8, 0x270, 0x600);
             *((u8 *)((u8 *)menu + *(s16 *)((u8 *)menu + 0x22) * 2 + 0x19)) = cancelPressed;
             {
-                u32 *tbl = &gMainObjTimerCallback;
+                u32 *tbl = &gScriptStepCallbackTable;
                 sub_080C31E4((u8 *)menu + 0x18, (u8 *)menu + 0x22, *tbl);
             }
             return;
@@ -116,7 +116,7 @@ void updateSaveCopyMenu(struct SaveCopyMenuEntity *menu)
         sub_0800B824(0x81D9, 0x270, 0x600);
         *((u8 *)((u8 *)menu + *(s16 *)((u8 *)menu + 0x22) * 2 + 0x19)) = saveStatus;
         {
-            u32 *tbl = &D_08671BD0;
+            u32 *tbl = &gScriptStepCallbacks;
             sub_080C31E8((u8 *)menu + 0x18, (u8 *)menu + 0x22, 3, *tbl);
         }
     }

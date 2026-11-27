@@ -1,9 +1,9 @@
 extern u8 gMainWorkspace[];
 s32 sub_0806D35C(void *, void *, void *);
-void sub_0806D588(void *, void *);
+void setSpriteScreenPosition(void *, void *);
 void sub_080C31E0(void *, void *);
-s32 sub_080C364C(s32, s32);
-void sub_08003740(void *, void *);
+s32 divInt32(s32, s32);
+void stepDelayTimer(void *, void *);
 void playSound(s32);
 void sub_08075564(void *arg0)
 {
@@ -43,11 +43,11 @@ void sub_08075564(void *arg0)
       r5 = *((void **) (((u8 *) p4) + 0x2C));
       off = 4;
       value = *((s16 *) (((u8 *) p38) + off));
-      *((u16 *) (((u8 *) r5) + 6)) = sub_080C364C(0x1800, value);
+      *((u16 *) (((u8 *) r5) + 6)) = divInt32(0x1800, value);
       r5 = *((void **) (((u8 *) p4) + 0x2C));
       off = 6;
       value = *((s16 *) (((u8 *) p38) + off));
-      *((u16 *) (((u8 *) r5) + 8)) = sub_080C364C(0x1300, value);
+      *((u16 *) (((u8 *) r5) + 8)) = divInt32(0x1300, value);
     }
       *((u16 *) (((u8 *) p38) + 2)) = (*((u16 *) (((u8 *) p38) + 2))) & 0xFFEF;
       *((u16 *) (((u8 *) p38) + 2)) = (*((u16 *) (((u8 *) p38) + 2))) | (0x10 & (*((u16 *) ((*((void **) ((*((void **) (((u8 *) arg0) + 0x28))) + 0x38))) + 2))));
@@ -95,11 +95,11 @@ void sub_08075564(void *arg0)
       r5 = *((void **) (((u8 *) p4) + 0x2C));
       off = 4;
       value = *((s16 *) (((u8 *) p38) + off));
-      *((u16 *) (((u8 *) r5) + 6)) = sub_080C364C(0x1200, value);
+      *((u16 *) (((u8 *) r5) + 6)) = divInt32(0x1200, value);
       r5 = *((void **) (((u8 *) p4) + 0x2C));
       off = 6;
       value = *((s16 *) (((u8 *) p38) + off));
-      *((u16 *) (((u8 *) r5) + 8)) = sub_080C364C(0x1200, value);
+      *((u16 *) (((u8 *) r5) + 8)) = divInt32(0x1200, value);
     }
       break;
 
@@ -114,11 +114,11 @@ void sub_08075564(void *arg0)
       r5 = *((void **) (((u8 *) p4) + 0x2C));
       off = 4;
       value = *((s16 *) (((u8 *) p38) + off));
-      *((u16 *) (((u8 *) r5) + 6)) = sub_080C364C(0x1200, value);
+      *((u16 *) (((u8 *) r5) + 6)) = divInt32(0x1200, value);
       r5 = *((void **) (((u8 *) p4) + 0x2C));
       off = 6;
       value = *((s16 *) (((u8 *) p38) + off));
-      *((u16 *) (((u8 *) r5) + 8)) = sub_080C364C(0x1200, value);
+      *((u16 *) (((u8 *) r5) + 8)) = divInt32(0x1200, value);
     }
       *((s32 *) (((u8 *) p4) + 0x14)) = (*((s32 *) (((u8 *) p4) + 0x14))) - 1;
       if ((*((s32 *) (((u8 *) p4) + 0x14))) == 0)
@@ -145,7 +145,7 @@ void sub_08075564(void *arg0)
       off += 4;
       v = *((u32 *) (d + off));
       *((u32 *) (((u8 *) alias) + 4)) = v;
-      sub_0806D588(p38, alias);
+      setSpriteScreenPosition(p38, alias);
       *((u16 *) (((u8 *) p38) + 0)) = *((u16 *) (d + 0x18C2));
     }
     else
@@ -156,10 +156,10 @@ void sub_08075564(void *arg0)
       off += 4;
       v = *((u32 *) (d + off));
       *((u32 *) (((u8 *) alias) + 4)) = v;
-      sub_0806D588(p38, alias);
+      setSpriteScreenPosition(p38, alias);
       *((u16 *) (((u8 *) p38) + 0)) = *((u16 *) (d + 0x18C2));
     }
   }
-  sub_08003740(((u8 *) p4) + 0x1C, p38);
+  stepDelayTimer(((u8 *) p4) + 0x1C, p38);
 }
 

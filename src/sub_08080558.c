@@ -1,6 +1,6 @@
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern s32 sub_0806D62C(s32, s32);
+extern s32 scalePercentSaturate16(s32, s32);
 extern void sub_08003A6C(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -9,7 +9,7 @@ struct S_FF0 { u8 _0[0x1510]; u8 f1510; };
 extern struct S_FF0 gMainWorkspace;
 extern u8 D_080E574C[];
 extern u8 D_080E576C[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 inline u32 inline_fn(u8 *arg0, u32 arg1) { return ((u32) arg0[arg1]) << 5; }
 static inline u8 and1(u8 b) { u32 m = 1; m &= b; return (u8)m; }
 
@@ -42,7 +42,7 @@ void sub_08080558(void *arg0)
   *((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 8)) = *((u16 *) (t4_2 + 2));
   *((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x0A)) = 0;
   *((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x0C)) = 0;
-  *((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x0E)) = (u16) sub_0806D62C(*((u16 *) (base + 0x2E2)), *((u16 *) (t4_2 + 4)));
+  *((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x0E)) = (u16) scalePercentSaturate16(*((u16 *) (base + 0x2E2)), *((u16 *) (t4_2 + 4)));
   *((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x16)) = 5;
   *((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x18)) = *((u16 *) (t4_2 + 0x1C));
   *((void **) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x10)) = r5;
@@ -59,7 +59,7 @@ void sub_08080558(void *arg0)
     pp[0x19] = (u8) z;
   }
   {
-    u32 *script = &gMainObjTimerCallback;
+    u32 *script = &gScriptStepCallbackTable;
     u8 *t4_3 = ((u8 *) arg0) + 0x18;
     sub_080C31E4(t4_3, ((u8 *) arg0) + 0x22, *script);
     {

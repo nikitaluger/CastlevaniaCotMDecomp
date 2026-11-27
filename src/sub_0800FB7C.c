@@ -1,4 +1,4 @@
-extern volatile s8 D_020278D0[];
+extern volatile s8 gMenuState[];
 
 /* Sprite setup: set the 0x40 flag, install the effect table at +0x24, and
  * derive the sprite's horizontal/vertical screen offsets from the global
@@ -9,6 +9,6 @@ void sub_0800FB7C(void *arg0) {
     u8 flagsValue = 0x40 | *flags;
     *flags = flagsValue;
     *(u32 *)(sprite + 0x24) = 0x0864280C;
-    *(u32 *)(sprite + 0x14) = ((D_020278D0[0xF7] & 1) * 7) << 0x14;
-    *(u32 *)(sprite + 0x18) = ((s32)(D_020278D0[0xF7] << 24) >> 25) << 0x14;
+    *(u32 *)(sprite + 0x14) = ((gMenuState[0xF7] & 1) * 7) << 0x14;
+    *(u32 *)(sprite + 0x18) = ((s32)(gMenuState[0xF7] << 24) >> 25) << 0x14;
 }

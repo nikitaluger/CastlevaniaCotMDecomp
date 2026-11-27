@@ -1,11 +1,11 @@
 struct EffectEntry { void *ptr; u8 rest[4]; };
 struct EffectEntryTable { struct EffectEntry entries[0xDF]; };
 extern struct EffectEntryTable D_080DEA88;
-s32 sub_08003740(void *, void *);
-void sub_08003A6C(void *, s32, void *);
+s32 stepDelayTimer(void *, void *);
+void startEffectTimer(void *, s32, void *);
 void sub_0806AA64(void *, void *);
-s32 sub_0806C4B4(void *, void *);
-void sub_0806C5EC(void *, void *, void *, void *);
+s32 syncViewPosition(void *, void *);
+void resetActionResultState(void *, void *, void *, void *);
 void sub_0806C6B0(void *, void *, void *, void *);
 void *sub_0806D2A0(void *, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -28,8 +28,8 @@ void sub_08066FE0(void *arg0)
     data = ((u8 *)component) + 4;
     mainObj = *((void **)(((u8 *)arg0) + 0x38));
     state = data;
-    if (sub_0806C4B4(state, state) == 0) {
-        sub_0806C5EC(arg0, mainObj, state, state);
+    if (syncViewPosition(state, state) == 0) {
+        resetActionResultState(arg0, mainObj, state, state);
         delta = (*((s32 *)(((u8 *)component) + 0x110))) - (*((s32 *)(((u8 *)state) + 4)));
         if (delta < 0) {
             delta += 0xF;
@@ -37,8 +37,8 @@ void sub_08066FE0(void *arg0)
         *((s32 *)(((u8 *)state) + 4)) = (*((s32 *)(((u8 *)state) + 4))) + (delta >> 4);
         sub_0806AA64(mainObj, state);
         component = ((u8 *)component) + 0x2C;
-        if (sub_08003740(component, mainObj) == 0) {
-            sub_08003A6C(component, 0, D_080DEA88.entries[0xDE].ptr);
+        if (stepDelayTimer(component, mainObj) == 0) {
+            startEffectTimer(component, 0, D_080DEA88.entries[0xDE].ptr);
             scriptSteps = ((u8 *)arg0) + 0x18;
             {
                 void *scriptIndex = ((u8 *)arg0) + 0x22;

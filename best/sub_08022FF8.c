@@ -1,13 +1,13 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014EF4(s32);
 extern s32 sub_08012A94(s32, s32, s32);
-extern s32 sub_080133EC(s32);
-extern void sub_08023F34(s32, s32, s32);
+extern s32 terrainHasSolidFlags(s32);
+extern void spawnWorldEffect(s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern u8 gMainWorkspace[];
-extern u32 gMainObjTimerCallback[];
-extern u32 D_08671BD8[];
+extern u32 gScriptStepCallbackTable[];
+extern u32 gMenuScriptCallback[];
 struct Arg
 {
   u8 pad[0x22];
@@ -66,7 +66,7 @@ void sub_08022FF8(struct Arg *arg0)
   {
     goto flip;
   }
-  if (sub_080133EC(*((s32 *) (q + 0x14))) == 1)
+  if (terrainHasSolidFlags(*((s32 *) (q + 0x14))) == 1)
   {
     goto flip;
   }
@@ -98,7 +98,7 @@ void sub_08022FF8(struct Arg *arg0)
   {
     goto fail;
   }
-  if (sub_080133EC(*((s32 *) (q + 0x14))) == 1)
+  if (terrainHasSolidFlags(*((s32 *) (q + 0x14))) == 1)
   {
     goto fail;
   }
@@ -122,15 +122,15 @@ void sub_08022FF8(struct Arg *arg0)
   *((u8 *) ((u32)(arg0->idx << 1) + (u32) arg0) + 0x17) = z8;
 
   {
-    u32 *fp = D_08671BD8;
+    u32 *fp = gMenuScriptCallback;
     sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 1, fp[0]);
   }
   goto end;
   success:
-  sub_08023F34(*((s32 *) (q + 0x14)), *((s32 *) (q + 0x18)), 0);
+  spawnWorldEffect(*((s32 *) (q + 0x14)), *((s32 *) (q + 0x18)), 0);
 
   *((u8 *) ((u32)(arg0->idx << 1) + (u32) arg0) + 0x19) = 0;
-  new_var = gMainObjTimerCallback;
+  new_var = gScriptStepCallbackTable;
   sub_080C31E4(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, new_var[0]);
   end:
   ;

@@ -2,7 +2,7 @@ extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u8 D_080E26D0[];
 
-s16 sub_0806D62C(u16, u16);
+s16 scalePercentSaturate16(u16, u16);
 
 /* Configure one display-part slot of an effect: copy the 12-byte part
  * definition (width, height, x, y, damage percent, lifetime) selected for the
@@ -26,7 +26,7 @@ void sub_08084428(void *arg0, s16 frameId, s16 slotIndex)
     *(u16 *)(*((u8 * volatile *)partSlot) + 8) = partDef[1];
     *(u16 *)(*((u8 * volatile *)partSlot) + 10) = partDef[2];
     *(u16 *)(*((u8 * volatile *)partSlot) + 12) = partDef[3];
-    *(u16 *)(*((u8 * volatile *)partSlot) + 14) = sub_0806D62C(*(u16 *)(gParams + 0x2E2), partDef[4]);
+    *(u16 *)(*((u8 * volatile *)partSlot) + 14) = scalePercentSaturate16(*(u16 *)(gParams + 0x2E2), partDef[4]);
 
     part = *((u8 * volatile *)partSlot);
     gState = gMainWorkspace;

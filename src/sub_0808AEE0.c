@@ -1,4 +1,4 @@
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, void *);
 
@@ -37,7 +37,7 @@ void sub_0808AEE0(void *entity)
     globals = &gGameStatus;
 
     *(s32 *)(pos + 0x2C) = *(s32 *)(pos + 0x2C) + 1;
-    sub_08003740(state + 0x20, sprite);
+    stepDelayTimer(state + 0x20, sprite);
 
     if (*(u32 *)(pos + 0x2C) & 2)
         ((struct P2A *)sprite)->f2A |= 0x40;

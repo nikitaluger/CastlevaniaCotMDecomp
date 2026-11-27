@@ -1,4 +1,4 @@
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_080C31E0(void *, s32);
 
 /* Walk the child-pointer array at work+0x48, releasing any non-null entry,
@@ -14,7 +14,7 @@ void sub_080A25D4(void *arg0)
     slot = (s32 *)((u8 *)work + 0x48);
     do {
         if (*slot != 0) {
-            sub_080161F0();
+            unlinkAndFreeObject();
         }
         slot++;
         i++;

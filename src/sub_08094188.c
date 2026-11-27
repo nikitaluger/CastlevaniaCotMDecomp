@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C2E68(void *, u32, s32);
@@ -61,7 +61,7 @@ void sub_08094188(u8 *entity)
     xPos = ((*((u32 *) (motion + 8))) + sub_0800583C(0x80 << 11)) + ((xOffset << posShift) + xBias);
     yJitterRange = (0x80 << 7) << 4;
     yPos = ((*((u32 *) (motion + 0xC))) + sub_0800583C(yJitterRange)) + ((yOffset << posShift) + yBias);
-    heading = sub_08005820(0x80 << 6) + (0x80 << 4);
+    heading = scaleByRandom(0x80 << 6) + (0x80 << 4);
     {
       s32 cond = (((*((s16 *) (animTrack + 0xC))) * 2) + i) & 3;
       duration = 1;

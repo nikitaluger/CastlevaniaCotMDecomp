@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern s32 sub_080C36E4(u32, s32);
 extern void sub_0808E05C(s32, s32, s16, s32);
@@ -35,7 +35,7 @@ void sub_08090E60(void *arg0)
   r0 = gMainWorkspace[0x1898 / 4];
   r0 = sub_080C36E4(r0, 5) - 2;
   speed = r0 << 15;
-  angle = 0x8000 - sub_08005820(0x20000);
+  angle = 0x8000 - scaleByRandom(0x20000);
   worldFlags = gMainWorkspace[0x1898 / 4];
   if (worldFlags & 1)
   {

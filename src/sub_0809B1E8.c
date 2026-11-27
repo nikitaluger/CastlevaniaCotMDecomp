@@ -1,4 +1,4 @@
-extern s32 sub_0801165C(void *, s32);
+extern s32 advanceMotion(void *, s32);
 extern void sub_0808BB54(void);
 extern void sub_0809C840(void *, void *);
 extern s32 sub_080C31E0(void *, s32);
@@ -16,7 +16,7 @@ void sub_0809B1E8(u8 *arg0) {
     sub_0809C840(arg0, sprite);
     *(u16 *)(sprite + 4) = *(u16 *)(sprite + 4) + 0x10;
     *(u16 *)(sprite + 6) = *(u16 *)(sprite + 6) + 0x10;
-    sub_0801165C(fields, 0);
+    advanceMotion(fields, 0);
     *(u16 *)(extra + 4) = *(u16 *)(extra + 4) + 0x217;
     {
         s32 *tablePtr = (s32 *)0x08671BFC;

@@ -1,14 +1,14 @@
-extern s32 sub_08015850(s32, s32, s32, s32, s32, s32);
+extern s32 isPointInActiveCameraBounds(s32, s32, s32, s32, s32, s32);
 extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern s32 sub_080113A8(void *, void *);
-extern s32 sub_08011898(void *, s32);
+extern s32 moveEntityWithCollision(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E9AC[];
-extern s32 D_08671BDC;
+extern s32 sScriptStepCallbacks;
 
 struct TargetState { u8 a; u8 flag; };
 struct ObjFlags2 { u8 flag; };
@@ -38,7 +38,7 @@ void sub_0805E8CC(u8 *self) {
     gfxObj = *(u8 **)(self + 0x38);
     anim = *(u8 **)(self + 0x3C);
     animData = anim + 0x34;
-    if (sub_08015850(*(s32 *)(anim + 8), *(s32 *)(anim + 0xC), -8, 8, -8, 8) == 0) {
+    if (isPointInActiveCameraBounds(*(s32 *)(anim + 8), *(s32 *)(anim + 0xC), -8, 8, -8, 8) == 0) {
         sub_080C31E0(self, *(u32 *)(self + 0x24));
         return;
     }
@@ -50,7 +50,7 @@ void sub_0805E8CC(u8 *self) {
     } else {
         ((struct TargetState *)(*(u8 **)(anim + 0x28)))->flag = 4;
         ((struct ObjFlags2 *)(gfxObj + 0x2A))->flag |= 0x40;
-        if (sub_08016238(*(u8 **)(anim + 0x28)) != 0) {
+        if (hitTestEntities(*(u8 **)(anim + 0x28)) != 0) {
             ((struct AnimFlag *)anim)->flag |= 1;
         }
     }
@@ -65,7 +65,7 @@ void sub_0805E8CC(u8 *self) {
         tmp = tmp >> 24;
         if (tmp > 1) {
             *(u8 *)(p1 + 0x1B) = 0;
-            stateFn = &D_08671BDC;
+            stateFn = &sScriptStepCallbacks;
             sub_080C31E8(slots, self + 0x22, 1, *stateFn);
         }
     }
@@ -79,7 +79,7 @@ void sub_0805E8CC(u8 *self) {
     *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
     if ((*(u16 *)(self + 2) & 0x8000) != 0) return;
     sub_080113A8(gfxObj, animData);
-    sub_08011898(anim, 0x16C1);
+    moveEntityWithCollision(anim, 0x16C1);
     pt = gCameraState;
     pb = gMainWorkspace;
     pb += 0x18A8;

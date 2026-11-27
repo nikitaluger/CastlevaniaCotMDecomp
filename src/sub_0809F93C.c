@@ -1,6 +1,6 @@
 void sub_080A0250(s32);
 void sub_080C31E4(void *, void *, s32);
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Set the work state flag at +0x97, finalize each of the six sub-objects
  * listed at +0x48 and mark every object in the +0x30 list at +0x9C, then reset
@@ -22,7 +22,7 @@ void sub_0809F93C(u8 *arg0)
   }
   while (i <= 5);
   q = *((void **) (arg0 + 0x30));
-  resultTable = &gMainObjTimerCallback;
+  resultTable = &gScriptStepCallbackTable;
   if (q != NULL)
   {
     do

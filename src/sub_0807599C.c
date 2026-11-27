@@ -1,9 +1,9 @@
-s32 sub_08003740(u8 *, u8 *);
-s32 sub_0806D518(u8 *, u8 *, u8 *);
+s32 stepDelayTimer(u8 *, u8 *);
+s32 checkGlobalStateChange(u8 *, u8 *, u8 *);
 void sub_0806D588(u8 *, u8 *);
-void sub_080722E0(u8 *, u32);
+void setDirectionVector(u8 *, u32);
 void sub_080C31E0(u8 *, void *);
-s16 sub_080C364C(s32, s32);
+s16 divInt32(s32, s32);
 
 /* Advance one entity's motion while it is active: clamp and propagate a large
  * coordinate to its child nodes, integrate position from the physics body's
@@ -17,7 +17,7 @@ void sub_0807599C(u8 *entity)
   owner = *((u8 **) (entity + 0x6C));
   body = owner + 4;
   component = *((u8 **) (entity + 0x38));
-  if (sub_0806D518(entity, component, body) == 0)
+  if (checkGlobalStateChange(entity, component, body) == 0)
   {
     u8 *global;
     if ((*((s16 *) (component + 4))) > 0x100)
@@ -31,16 +31,16 @@ void sub_0807599C(u8 *entity)
       do
       {
         coordValue = *((s16 *) (component + 4));
-        *((s16 *) (node + 6)) = sub_080C364C(0x1C00, coordValue);
+        *((s16 *) (node + 6)) = divInt32(0x1C00, coordValue);
       }
       while (0);
       node = *((u8 **) (body + 0x2C));
-      *((s16 *) (node + 8)) = sub_080C364C(0x1C00, *((s16 *) (component + 6)));
+      *((s16 *) (node + 8)) = divInt32(0x1C00, *((s16 *) (component + 6)));
     }
     global = (u8 *) 0x02025FF0;
     *((u16 *) (component + 0)) = *((u16 *) (global + 0x18C2));
-    sub_08003740(owner + 0x20, component);
-    sub_080722E0(body, ((*((u32 *) (body + 0x54))) << 24) >> 24);
+    stepDelayTimer(owner + 0x20, component);
+    setDirectionVector(body, ((*((u32 *) (body + 0x54))) << 24) >> 24);
     {
       s32 xStep;
       xStep = (*((s32 *) (body + 8))) * ((*((s32 *) (body + 0x58))) >> 0x0C);

@@ -1,18 +1,18 @@
 extern u8 gMainWorkspace[];
-extern u32 gMainObjTimerCallback[];
-extern u32 D_08671BD8[];
+extern u32 gScriptStepCallbackTable[];
+extern u32 gMenuScriptCallback[];
 
-s32 sub_0806C4B4(void*, void*);
-void sub_0806C5EC(void*, void*, void*, void*);
+s32 syncViewPosition(void*, void*);
+void resetActionResultState(void*, void*, void*, void*);
 void sub_0806AB04(void*, void*, void*, void*);
 void sub_0806A7AC(void*, void*, s32);
-s32 sub_0806E114(void*, s32, s32, s32);
+s32 spawnKind2CEntity(void*, s32, s32, s32);
 s32 sub_08005E80(s32);
 void sub_080C31E4(void*, void*, u32);
 void sub_0806A884(void*, void*);
 u16 sub_0806BCD8(void*, void*, void*, void*);
 void sub_080C31E8(void*, void*, s32, u32);
-void sub_08003740(void*, void*);
+void stepDelayTimer(void*, void*);
 void sub_0806C6B0(void*, void*, void*, void*);
 
 /* Enemy state-machine tick: run the shared animation/movement helpers, pick a
@@ -35,11 +35,11 @@ void sub_08065670(u8 *self) {
     state = sceneState + 4;
     sprite = *(u8 **)(self + 0x38);
     body = state;
-    checkResult = sub_0806C4B4(state, body);
+    checkResult = syncViewPosition(state, body);
     if (checkResult != 0) {
         goto end;
     }
-    sub_0806C5EC(self, sprite, body, body);
+    resetActionResultState(self, sprite, body, body);
     sub_0806AB04(self, sprite, body, body);
     if (*(u32 *)(sceneState + 0x8C) == 0) {
         if (*(u32 *)(body + 0x0C) != 0) goto label_714;
@@ -51,7 +51,7 @@ label_BC:
     {
         u32 stateX = *(u32 *)(sceneState + 0x04);
         u32 bodyX = *(u32 *)(body + 0x04);
-        sub_0806E114(self, 5, (s32)stateX, (s32)bodyX);
+        spawnKind2CEntity(self, 5, (s32)stateX, (s32)bodyX);
     }
     *(u32 *)(body + 0x08) = 0;
     *(u32 *)(body + 0x0C) = 0;
@@ -70,7 +70,7 @@ label_BC:
         *(u8 *)(ptr + 0x19) = 0;
     }
     {
-        u32 *callback = gMainObjTimerCallback;
+        u32 *callback = gScriptStepCallbackTable;
         u8 *scriptArgs = self + 0x18;
         u8 *scriptIndex = self + 0x22;
         sub_080C31E4(scriptArgs, scriptIndex, *callback);
@@ -89,7 +89,7 @@ label_714:
         *(u8 *)(ptr + 0x17) = 0;
     }
     {
-        u32 *callback = D_08671BD8;
+        u32 *callback = gMenuScriptCallback;
         u8 *scriptArgs = self + 0x18;
         u8 *scriptIndex = self + 0x22;
         u32 callbackFn = *callback;
@@ -109,7 +109,7 @@ label_73A:
         ptr = (u8 *)((u32)ptr + (u32)self);
         *(u8 *)(ptr + 0x17) = 0;
         {
-            u32 *callback = D_08671BD8;
+            u32 *callback = gMenuScriptCallback;
             u8 *scriptArgs = self + 0x18;
             u8 *scriptIndex = self + 0x22;
             u32 prevAction = *(u32 *)(state + 0xC4);
@@ -119,7 +119,7 @@ label_73A:
     }
     {
         u8 *effect = state + 0x28;
-        sub_08003740(effect, sprite);
+        stepDelayTimer(effect, sprite);
     }
     sub_0806C6B0(self, sprite, state, body);
 

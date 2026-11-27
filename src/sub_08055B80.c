@@ -1,6 +1,6 @@
-extern s32 sub_0805F9B4(s32, s32);
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
 extern s32 sub_080C31E0(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -26,7 +26,7 @@ void sub_08055B80(u8 *entity) {
     parent = *(u8 **)(entity + 0x38);
     component = *(u8 **)(entity + 0x3C);
     scriptPlayer = component + 0x34;
-    if (sub_0805F9B4(*(u32 *)(component + 0x08), *(u32 *)(component + 0x0C)) == 1) {
+    if (isOutsideCameraBounds(*(u32 *)(component + 0x08), *(u32 *)(component + 0x0C)) == 1) {
         sub_080C31E0(entity, *(s32 *)(entity + 0x24));
         return;
     }
@@ -43,11 +43,11 @@ void sub_08055B80(u8 *entity) {
     if ((*(u16 *)(entity + 2) & 0x8000) != 0) {
         return;
     }
-    sub_080113A8(parent, scriptPlayer);
+    stepAnimationTrack(parent, scriptPlayer);
     if (*(s16 *)(entity + 0x7C) == 5) {
-        sub_0801165C(component, 0x795);
+        advanceMotion(component, 0x795);
     } else {
-        sub_0801165C(component, 0x16C1);
+        advanceMotion(component, 0x16C1);
     }
     tableBase = gCameraState;
     scrollIndexPtr = gMainWorkspace;

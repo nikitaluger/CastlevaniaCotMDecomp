@@ -1,7 +1,7 @@
 extern u8 gMainWorkspace[];
 extern u8 D_08100B98[];
-extern u8 gMainObjTimerCallback[];
-extern u8 D_08671BD0[];
+extern u8 gScriptStepCallbackTable[];
+extern u8 gScriptStepCallbacks[];
 extern void sub_08011344(void *, void *, s16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -44,7 +44,7 @@ void sub_0809767C(void *arg0)
         if (*(s16 *)(work + 0x14) != 1)
             return;
         self[*(s16 *)(self + 0x22) * 2 + 0x19] = bit0;
-        hpIf = (s32 *)D_08671BD0;
+        hpIf = (s32 *)gScriptStepCallbacks;
         p18 = self + 0x18;
         sub_080C31E8(p18, self + 0x22, 5, *hpIf);
         self[*(s16 *)(self + 0x22) * 2 + 0x19] = self[*(s16 *)(self + 0x22) * 2 + 0x19] + 1;
@@ -60,7 +60,7 @@ void sub_0809767C(void *arg0)
         zero = 0;
         *(u16 *)(work + 0x16) = one;
         self[*(s16 *)(self + 0x22) * 2 + 0x19] = zero;
-        hpElse = (s32 *)gMainObjTimerCallback;
+        hpElse = (s32 *)gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, *hpElse);
     }
 }

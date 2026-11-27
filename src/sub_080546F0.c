@@ -1,4 +1,4 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 s32 sub_0800583C(s32);
 s32 sub_080C36E4(s32, s32);
 void sub_08054E88(s32, s32, s32, s32, s32, s32);
@@ -51,7 +51,7 @@ void sub_080546F0(struct S_080546F0 *self)
     spawnY = obj->f0C + ((s32)cfg->f0C << 16) + jitterY;
     param = sub_080C36E4(gMainWorkspace[1575], 7);
     velX = (param - 3) << 13;
-    velY = 0x8000 - sub_08005820(0x20000);
+    velY = 0x8000 - scaleByRandom(0x20000);
     angle = sub_080C36E4(gMainWorkspace[1575], 7);
     sp0 = (s32)(s16)angle;
     sub_08054E88(spawnX, spawnY, velX, velY, sp0, (s32)(s16)obj->f1C);

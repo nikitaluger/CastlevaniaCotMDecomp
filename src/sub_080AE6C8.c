@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 
@@ -23,7 +23,7 @@ void sub_080AE6C8(struct S_0807B12C *arg0)
   int stepBaseOffset;
   int stepOffset;
   void *sprite = (void *) arg0->sprite;
-  if (sub_08013B5C(sprite, (void *) arg0->work) == 0)
+  if (updateObjectDisplayState(sprite, (void *) arg0->work) == 0)
   {
     arg0->handlers = 0x086701EC;
     arg0->step += 1;

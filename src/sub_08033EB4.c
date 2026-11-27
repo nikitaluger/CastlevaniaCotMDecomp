@@ -1,7 +1,7 @@
-extern void sub_080113A8(void *sprite, void *animTrack);
+extern void stepAnimationTrack(void *sprite, void *animTrack);
 extern void sub_080C31E4(void *stepBase, void *stepIndex, s32 handler);
 extern void copyPoseAttrs(void *hitbox, void *record);
-extern u8 D_080CEDB4[];             /* 8 hitbox records, four halfwords each */
+extern u8 gLargeAttackAffineParams[];             /* 8 hitbox records, four halfwords each */
 
 /* Update an actor's sprite for this frame: step the animation track, restart the
  * script step when the animation asks for it, and install the attack hitbox that
@@ -15,7 +15,7 @@ void sub_08033EB4(u8 *entity) {
     u8 *hitbox = *(u8 **)(motionState + 0x0C);
     void **handlerTable;
     *(hitbox + 1) = 1;
-    sub_080113A8(sprite, animTrack);
+    stepAnimationTrack(sprite, animTrack);
     if (*animTrack & 2) {
         *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = pose;
         handlerTable = (void **)0x08671BB0;
@@ -30,5 +30,5 @@ void sub_08033EB4(u8 *entity) {
     case 235: case 242: case 249: case 256: pose = 6; break;
     case 263: case 270: case 277: case 284: case 291: pose = 7; break;
     }
-    copyPoseAttrs(*(u8 **)(motionState + 0x0C), &D_080CEDB4[pose * 8]);
+    copyPoseAttrs(*(u8 **)(motionState + 0x0C), &gLargeAttackAffineParams[pose * 8]);
 }

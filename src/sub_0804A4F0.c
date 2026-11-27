@@ -1,4 +1,4 @@
-extern void sub_080113A8(void *);
+extern void stepAnimationTrack(void *);
 /* Step an animation and adjust a 16.16 accumulator by whole units for specific
  * frame transitions; returns a status code and updates the stored frame. */
 int sub_0804A4F0(u8 *entity, u8 *unused, u8 *state, u8 *prev)
@@ -10,7 +10,7 @@ int sub_0804A4F0(u8 *entity, u8 *unused, u8 *state, u8 *prev)
   u16 oldFrame;
   u16 newFrame;
   u8 category;
-  sub_080113A8(entity);
+  stepAnimationTrack(entity);
   oldFrame = *((u16 *) (prevPtr + 6));
   newFrame = *((u16 *) (entityRef + 0x28));
   if (oldFrame == newFrame)

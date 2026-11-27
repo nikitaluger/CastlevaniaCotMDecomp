@@ -46,7 +46,7 @@ struct Z
 };
 extern struct BD gEffectGfxTable[];
 extern u16 D_08102D44[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -56,7 +56,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 void sub_080B6E58(u8 *arg0)
 {
   u8 *obj;
@@ -84,7 +84,7 @@ void sub_080B6E58(u8 *arg0)
   *((u32 *) (obj + 0x1C)) = 0x8000000B;
   p = (struct P *) (*((u32 *) (arg0 + 0x3C)));
   p34 = ((u8 *) p) + 0x34;
-  installUpdateHandler(arg0, p, sub_08097DC8);
+  installUpdateHandler(arg0, p, updateActorEffectSubObject);
   p->f1C = 0x66;
   *((u16 *) obj) |= gMainWorkspace.w;
   p->f8 = *((u32 *) (arg0 + 0x4C));
@@ -131,7 +131,7 @@ void sub_080B6E58(u8 *arg0)
     upd2 |= 0x1000;
     *((u16 *) (arg0 + 2)) = upd2;
     *((u8 *) ((arg0 + (((u32) (*((s16 *) (arg0 + 0x22)))) * 2)) + 0x19)) = z.b;
-    fn = &gMainObjTimerCallback;
+    fn = &gScriptStepCallbackTable;
     p18 = arg0 + 0x18;
     sub_080C31E4(p18, arg0 + 0x22, *fn);
     *((u8 *) ((arg0 + (((u32) (*((s16 *) (arg0 + 0x22)))) * 2)) + 0x19)) = (*((u8 *) ((arg0 + (((u32) (*((s16 *) (arg0 + 0x22)))) * 2)) + 0x19))) + 1;

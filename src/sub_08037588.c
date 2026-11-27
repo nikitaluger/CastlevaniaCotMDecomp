@@ -1,7 +1,7 @@
 struct S_02025FF0_37588 { u8 _0x000[0x174C]; u32 targetX; u32 targetY; };
 extern struct S_02025FF0_37588 gMainWorkspace;
 s32 sub_08005910(s32, s32);
-s32 sub_080113A8(s32, void *);
+s32 stepAnimationTrack(s32, void *);
 s32 sub_08037724(s32, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -15,7 +15,7 @@ void sub_08037588(void *arg0) {
     u8 *part;
     animator = work + 0x34;
     part = work + 0x48;
-    sub_080113A8(sprite, animator);
+    stepAnimationTrack(sprite, animator);
     sub_08037724(sprite, part);
     if (*(u8 *)(((s16 *)((u8 *)arg0 + 0x22))[0] * 2 + (u8 *)arg0 + 0x19) == 8) {
         s32 dy = (s32)gMainWorkspace.targetY - *(s32 *)(work + 0xC);

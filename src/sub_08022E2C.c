@@ -4,7 +4,7 @@ extern s32 sub_08014900(s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern s32 sub_08014A6C(void *, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern s32 _call_via_r1(void *, void *);
 extern void _call_via_r3(void *, void *, s32, void *);
 extern u8 gCameraState[];
@@ -43,7 +43,7 @@ void sub_08022E2C(u8 *entity) {
     }
     {
         void **trigFn = (void **)0x08671BFC;
-        s32 trigArg = sub_080C364C(*(s16 *)(motionEx + 4) << 0x10, 0x24);
+        s32 trigArg = divInt32(*(s16 *)(motionEx + 4) << 0x10, 0x24);
         *(u32 *)(motionEx + 0) = _call_via_r1((void *)trigArg, *trigFn) * 2;
     }
     {

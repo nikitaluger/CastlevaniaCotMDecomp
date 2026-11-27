@@ -9,7 +9,7 @@ extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void registerScriptObject(u8 *, s32);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_08014EF4(s32);
 extern void sub_08059AA8(void);
 extern void sub_08059AD8(u8 *, u8 *);
@@ -147,7 +147,7 @@ void scriptCmdSpawnRandomAttack(struct ScriptThread *thread)
         *(u32 *)(hitbox + 8) = zero;
         *(u32 *)((u8 *)work + 0x48) = work->x;
         *(u16 *)(hitbox + 6) = zero;
-        *(u16 *)(hitbox + 4) = sub_08005820(0x65) + 0x78;
+        *(u16 *)(hitbox + 4) = scaleByRandom(0x65) + 0x78;
         *(u32 *)(hitbox + 0x0C) = 0xFFFF0000;
     }
     kindIndex = sub_08014EF4(0x1388);

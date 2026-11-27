@@ -22,7 +22,7 @@ extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 
 void sub_080A8BD8(struct Sarg *arg0) {
     s32 a;
@@ -43,7 +43,7 @@ void sub_080A8BD8(struct Sarg *arg0) {
     *(u32 *)(a + 0x1C) = 0x32 - *(u8 *)((u8 *)arg0 + 0x4C);
     p = (struct P *)arg0->f3C;
     r7a = ((u8 *)p) + 0x34;
-    installUpdateHandler(arg0, (u8 *)p, sub_08097DC8);
+    installUpdateHandler(arg0, (u8 *)p, updateActorEffectSubObject);
     p->f1C = 0x5F;
     r = findKindIndex();
     p->f22 = r;

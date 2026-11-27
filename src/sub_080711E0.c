@@ -1,7 +1,7 @@
 s32 sub_0806D450(void *a, void *b, void *c);
 void sub_0806D588(void *a, void *b);
-void sub_080722E0(void *a, s32 v);
-void sub_0806D2F8(void *a, void *b);
+void setDirectionVector(void *a, s32 v);
+void cullOffscreenEntity(void *a, void *b);
 void sub_080C31E0(void *a, s32 b);
 
 extern s32 D_0866EB44[];
@@ -48,7 +48,7 @@ void sub_080711E0(void *entity)
     angle = (mover->angle + 6) & 0xFF;
     mover->angle = angle;
 
-    sub_080722E0(mover, angle);
+    setDirectionVector(mover, angle);
 
     mover->x = mover->baseX + mover->dirX * 0x28;
     mover->y = mover->fallVel;
@@ -77,5 +77,5 @@ abort:
     return;
 
 offscreen:
-    sub_0806D2F8(entity, world);
+    cullOffscreenEntity(entity, world);
 }

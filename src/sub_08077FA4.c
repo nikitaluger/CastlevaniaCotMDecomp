@@ -1,6 +1,6 @@
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_08003A6C(void *, s32, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -68,7 +68,7 @@ void sub_08077FA4(u8 *entity) {
     state->f2C->f8 = 3;
     state->f2C->fA = 0;
     state->f2C->fC = 0;
-    state->f2C->fE = sub_0806D62C(*(u16 *)(dataTable + 0x2E2), 0x8D);
+    state->f2C->fE = scalePercentSaturate16(*(u16 *)(dataTable + 0x2E2), 0x8D);
     state->f2C->f16 = 0x1E;
     state->f2C->f18 = 0x52;
     state->f2C->f10 = (u32)sprite;

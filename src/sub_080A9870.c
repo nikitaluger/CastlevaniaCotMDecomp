@@ -6,8 +6,8 @@ extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097DC8(void);
-extern s32 gMainObjTimerCallback;
+extern void updateActorEffectSubObject(void);
+extern s32 gScriptStepCallbackTable;
 struct S_02025FF0 { u8 _[0x18C2]; u16 w; };
 extern struct S_02025FF0 gMainWorkspace;
 
@@ -24,7 +24,7 @@ void sub_080A9870(void *entity) {
 
     *(u32 *)((u8 *)sprite + 0x1C) = 0x80000009;
     scriptState = *(void * volatile *)((u8 *)entity + 0x3C);
-    installUpdateHandler(entity, scriptState, sub_08097DC8);
+    installUpdateHandler(entity, scriptState, updateActorEffectSubObject);
     *(u16 *)((u8 *)scriptState + 0x1C) = 0x5F;
     *(u32 *)((u8 *)scriptState + 0x08) = *(u32 *)((u8 *)entity + 0x4C);
     *(u32 *)((u8 *)scriptState + 0x0C) = *(u32 *)((u8 *)entity + 0x5C);
@@ -42,7 +42,7 @@ ok:
     *(u16 *)((u8 *)entity + 2) |= 0x1000;
     *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *handlerTablePtr = &gMainObjTimerCallback;
+        s32 *handlerTablePtr = &gScriptStepCallbackTable;
         u8 *stepTable = (u8 *)entity + 0x18;
         s16 stepIndex;
         sub_080C31E4(stepTable, (u8 *)entity + 0x22, *handlerTablePtr);

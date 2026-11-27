@@ -1,6 +1,6 @@
-extern s32 sub_08013B5C(void *a, void *b);
-extern void sub_080113A8(void *a, void *b);
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 updateObjectDisplayState(void *a, void *b);
+extern void stepAnimationTrack(void *a, void *b);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 sub_080C31E0(void *a, void *b);
 
 extern u8 gCameraState[];
@@ -16,14 +16,14 @@ void sub_08043818(void *arg0) {
     void *enemy = *(void **)((u8 *)arg0 + 0x3C);
     void *enemyData = (u8 *)enemy + 0x34;
 
-    if (sub_0805F9B4(*(s32 *)((u8 *)enemy + 8), *(s32 *)((u8 *)enemy + 0xC)) == 1) {
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)enemy + 8), *(s32 *)((u8 *)enemy + 0xC)) == 1) {
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
         return;
     }
-    if (sub_08013B5C(actor, enemy) != 0) {
+    if (updateObjectDisplayState(actor, enemy) != 0) {
         /* fall through to bottom */
     } else {
-        sub_080113A8(actor, enemyData);
+        stepAnimationTrack(actor, enemyData);
         if (*(u8 *)enemyData & 2) {
             sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
             return;

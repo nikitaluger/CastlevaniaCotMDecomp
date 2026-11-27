@@ -1,6 +1,6 @@
 /* Project a rotated and scaled point into the target's x/y, advance the
  * animation timer, and set the sprite's facing flag from a second projection. */
-extern u32 D_08671BFC;
+extern u32 gTrigFuncPtr;
 s32 divideInt(s32 a, s32 b);
 s32 sub_080C31E0(u32 a, u32 b);
 
@@ -30,7 +30,7 @@ void sub_080BC73C(void *arg0, void *arg1, void *arg2) {
     offsetByte = *(s8 *)(params + 0x35);
     baseX = *(s32 *)(motion + 0x08) + (offsetByte << 20);
     baseY = *(s32 *)(motion + 0x0C) + (s32)0xFFF10000;
-    trigFn = &D_08671BFC;
+    trigFn = &gTrigFuncPtr;
 
     projX = sub_080C31E0(*(s32 *)(src + 0x7C) + 0x4000, *trigFn);
     scale = *(s32 *)(src + 0x6C);
@@ -66,7 +66,7 @@ void sub_080BC73C(void *arg0, void *arg1, void *arg2) {
     }
 
     checkAngle = *(s32 *)(src + 0x7C) + *(s32 *)(src + 0x8C);
-    trigFn2 = &D_08671BFC;
+    trigFn2 = &gTrigFuncPtr;
     checkAngle += 0x4000;
     checkX = sub_080C31E0(checkAngle, *trigFn2);
     scale = *(s32 *)(src + 0x6C);

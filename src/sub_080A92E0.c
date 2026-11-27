@@ -4,7 +4,7 @@ struct SceneFlags
   u16 f18C2;
 };
 extern struct SceneFlags gMainWorkspace;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 struct ScriptEntity
 {
@@ -43,7 +43,7 @@ extern void installUpdateHandler(void *, void *, void *);
 extern void sub_080AA9C8(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 
 /* Initialise a scripted entity with a fresh sprite, set its actor's action,
  * and run one script step; fall back to the entity's default callback if the
@@ -78,7 +78,7 @@ void sub_080A92E0(struct ScriptEntity *entity)
   sprite->f2A &= 0xBF;
   actor = (struct Actor *) entity->f3C;
   anim = ((u8 *) actor) + 0x34;
-  installUpdateHandler(entity, actor, &sub_08097D90);
+  installUpdateHandler(entity, actor, &releaseActorEffectSubObject);
   actor->f1C = 0x5F;
   roll = findKindIndex();
   actor->f22 = roll;
@@ -100,7 +100,7 @@ void sub_080A92E0(struct ScriptEntity *entity)
   stepArray = (u16 *) entity;
   ((u8 *) (&stepArray[stepIndex]))[0x19] = 0;
   {
-    u32 *scriptCallbacks = &gMainObjTimerCallback;
+    u32 *scriptCallbacks = &gScriptStepCallbackTable;
     stepBase = ((u8 *) entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *) entity) + 0x22, *scriptCallbacks);
   }

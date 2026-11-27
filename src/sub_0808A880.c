@@ -1,4 +1,4 @@
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_08005E80(s32);
 extern void sub_08007E24(s32);
 extern void sub_0806D588(void *, void *);
@@ -40,6 +40,6 @@ void sub_0808A880(void *arg0) {
     }
     *(s32 *)(component + 4) = *(s32 *)(component + 4) + *(s32 *)(motion + 8);
     *(s32 *)(motion + 4) = *(s32 *)(motion + 4) + *(s32 *)(motion + 0xC);
-    sub_08003740(component + 0x20, state);
+    stepDelayTimer(component + 0x20, state);
     sub_0806D588(state, motion);
 }

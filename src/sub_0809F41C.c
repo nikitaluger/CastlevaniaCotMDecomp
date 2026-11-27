@@ -1,7 +1,7 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Spawn the entity's work object, set its initial animation frame and flags,
  * reset the current script step, then advance the script and dispatch the
@@ -26,7 +26,7 @@ void sub_0809F41C(u8 *self)
   stepIndex = *((s16 *) (self + 0x22));
   self[(stepIndex * 2) + 0x19] = zero;
   {
-    void **scriptCb = &gMainObjTimerCallback;
+    void **scriptCb = &gScriptStepCallbackTable;
     stepPtr = self + 0x18;
     sub_080C31E4(stepPtr, self + 0x22, *scriptCb);
   }

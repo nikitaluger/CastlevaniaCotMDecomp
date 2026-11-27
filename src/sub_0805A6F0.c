@@ -4,7 +4,7 @@
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080146D0(void *, s32, s32);
-extern s32 D_08671BD0[];
+extern s32 gScriptStepCallbacks[];
 
 void sub_0805A6F0(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -22,7 +22,7 @@ void sub_0805A6F0(void *arg0) {
         s16 scriptIndex;
         scriptIndex = *(s16 *)(self + 0x22);
         *(u8 *)(self + scriptIndex * 2 + 0x19) = 0;
-        scriptTable = D_08671BD0;
+        scriptTable = gScriptStepCallbacks;
         sub_080C31E8(self + 0x18, self + 0x22, 0, *scriptTable);
     } else {
         sub_080146D0(work, (*(u32 *)(moveState + 0x18) + 0x8000) & 0xFFFF, 0x20000);

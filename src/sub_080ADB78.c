@@ -1,9 +1,9 @@
 extern void sub_080B0698(void *, s32, s32, u16);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 D_08671BFC;
+extern s32 gTrigFuncPtr;
 extern u8 D_081022A0[];
-extern s32 D_08671BD0;
+extern s32 gScriptStepCallbacks;
 
 /* Positions seven child objects around an origin using a trig function and a distance
  * table, then (at state 22) clears their flags and dispatches a completion handler. */
@@ -11,7 +11,7 @@ void sub_080ADB78(u8 *arg0) {
     u8 *self = arg0;
     void *state = *(void **)(self + 0x3C);
     void **objList = (void **)((u8 *)state + 0x48);
-    s32 *trigSlot = &D_08671BFC;
+    s32 *trigSlot = &gTrigFuncPtr;
     s32 sinVal = sub_080C31E0(*(s32 *)(self + 0x6C), *trigSlot) >> 8;
     s32 cosVal = sub_080C31E0(*(s32 *)(self + 0x6C) + 0x4000, *trigSlot) >> 8;
     u32 i = 0;
@@ -50,7 +50,7 @@ void sub_080ADB78(u8 *arg0) {
         u8 zero;
         i = 0;
         flag7C = self + 0x7C;
-        handlerSlot = &D_08671BD0;
+        handlerSlot = &gScriptStepCallbacks;
         arg18 = self + 0x18;
         arg22 = self + 0x22;
         zero = 0;

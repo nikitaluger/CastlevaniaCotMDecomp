@@ -1,5 +1,5 @@
 void allocWorkSlot(void *, s32, s32, s32);
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -31,7 +31,7 @@ void sub_0802A8CC(void *entity) {
         }
     }
     {
-        u32 randVal = ((u32)(sub_08005820(0x3D) + 0xB4)) >> 3;
+        u32 randVal = ((u32)(scaleByRandom(0x3D) + 0xB4)) >> 3;
         zero = 0;
         *(s16 *)((u8 *)work + 0x02) = (s16)randVal;
     }

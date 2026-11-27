@@ -6,7 +6,7 @@
  */
 extern s32 setObjectAnimation(void *, void *, s32, s32);
 extern void sub_08011528(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern s32 sub_080B7290(s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -35,7 +35,7 @@ void sub_080B4754(void *arg0)
     u16 frameProp = ((struct FrameProp *)((u8 *) table[0] + (frameIndex * 4) - 4))->value;
     if (frameProp == TRIGGER_PROP)
     {
-      sub_0801165C(actorState, 0);
+      advanceMotion(actorState, 0);
       *((s32 *) (((u8 *) actorState) + 0x14)) += VY_IMPULSE;
     }
   }

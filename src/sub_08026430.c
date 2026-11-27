@@ -7,7 +7,7 @@ extern s32 sub_08014990(void *);
 extern void sub_080269D4(void *, s32);
 extern void sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 struct S_02025FF0
 {
   u8 _0[0x189C];
@@ -65,7 +65,7 @@ void sub_08026430(void *arg0)
     sub_080269D4(arg0, 0x1C);
     (((*((s16 *) (((u8 *) arg0) + 0x22))) * 2) + ((u8 *) arg0))[0x19] = 0;
     {
-      void **scriptTable = &D_08671BD0;
+      void **scriptTable = &gScriptStepCallbacks;
       sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 4, *scriptTable);
     }
     *((u16 *) (state48 + 0x1E)) = 0;

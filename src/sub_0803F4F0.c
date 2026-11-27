@@ -4,8 +4,8 @@
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_08013B5C(void *, void *);
 extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
-extern void sub_08016238(void *);
+extern void advanceMotion(void *, s32);
+extern void hitTestEntities(void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern u8 gCameraState[];
@@ -44,7 +44,7 @@ void sub_0803F4F0(u8 *entity)
     ((struct SpriteFlags *) (anim + 0x2A))->flags |= 0x40;
     *((u8 *) ((*((u8 **) (actor + 0x28))) + 1)) = 5;
   }
-  sub_08016238(*((void **) (actor + 0x28)));
+  hitTestEntities(*((void **) (actor + 0x28)));
   if ((*((u16 *) (entity + 0x5C))) & 1)
   {
     ((struct AnimState *) actor)->flags |= 1;
@@ -80,7 +80,7 @@ void sub_0803F4F0(u8 *entity)
     return;
   }
   sub_080113A8(anim, actorTarget);
-  sub_0801165C(actor, 0);
+  advanceMotion(actor, 0);
   table:
   coordBase = gCameraState;
 

@@ -1,4 +1,4 @@
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void clearActorPool(void);
 void decompressToVram(const void *src, void *dst);
 void postDisplaySprite(s32 a, const void *src, void *dst, s32 c, s32 d);
@@ -28,7 +28,7 @@ struct B {
 /*
  * Loads/initializes a level scene: resets the global view state and graphics
  * mode, clears VRAM, DMA-copies in the scene's tiles and palettes, creates its
- * objects and finally invokes the setup callback in gMainObjTimerCallback.
+ * objects and finally invokes the setup callback in gScriptStepCallbackTable.
  */
 void sub_0800956C(void *scene)
 {
@@ -81,5 +81,5 @@ void sub_0800956C(void *scene)
       u32 byteOffset = objIndex * 2;
       counter = (u8 *)(byteOffset + (u32)scene) + 0x19; }
     *counter = zero;
-    ((Func2)gMainObjTimerCallback)((u8 *)scene + 0x18, (u8 *)scene + 0x22);
+    ((Func2)gScriptStepCallbackTable)((u8 *)scene + 0x18, (u8 *)scene + 0x22);
 }

@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
-extern void sub_080161F0(void *a);
+extern void unlinkAndFreeObject(void *a);
 extern void sub_08071FA0(void);
 extern void sub_08072018(void *a);
 extern void sub_08006120(void);
@@ -27,15 +27,15 @@ struct S_02025368 {
 };
 extern struct S_02025368 gGameStatus;
 
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 extern u32 gLevelExpTable[];
 
-void sub_080718F4(void *arg0)
+void releaseEffectGroup(void *arg0)
 {
     u8 *p = (u8 *)arg0;
     u8 *r4 = *(u8 **)(p + 0x6C) + 4;
 
-    sub_080161F0(*(void **)(r4 + 0x3C));
+    unlinkAndFreeObject(*(void **)(r4 + 0x3C));
     gMainWorkspace.arr1780[*(s32 *)(p + 0xAC)] = 0;
     sub_080C31E0(arg0, *(void **)(r4 + 0x18));
 }
@@ -45,7 +45,7 @@ void sub_08071E9C(void *arg0)
     gMainWorkspace.f1844 |= 0x08000000;
     *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = 0;
     {
-        s32 *nv = gMainObjTimerCallback;
+        s32 *nv = gScriptStepCallbackTable;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *nv);
     }
 }
@@ -60,7 +60,7 @@ void sub_08071EDC(void *arg0)
         sub_08072018(arg0);
         *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *nv = gMainObjTimerCallback;
+            s32 *nv = gScriptStepCallbackTable;
             sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *nv);
         }
     }

@@ -14,7 +14,7 @@ extern struct GlobalData gMainWorkspace;
 extern u8 gCameraState[];
 extern u32 D_08100218[];
 extern s16 D_08100224[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 void *allocSpriteObject(void);
 void allocWorkSlot(void *, int, int, int);
 void initSpriteGraphics(void *, void *, void *);
@@ -66,7 +66,7 @@ fail:
     }
     *(u16 *)((u8 *)self + 2) |= 0x1000;
     *(u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self + 0x19) = 0;
-    cbTable = &gMainObjTimerCallback;
+    cbTable = &gScriptStepCallbackTable;
     scriptPtr = (u8 *)self;
     scriptPtr += 0x18;
     sub_080C31E4(scriptPtr, (u8 *)self + 0x22, (s32)*cbTable);

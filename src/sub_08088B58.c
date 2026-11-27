@@ -1,14 +1,14 @@
 /* Enemy/boss per-frame update: on the first trigger state, queue a delayed
  * graphics load and install its callback, then always tick that load and
  * align the sprite to its sub-object's 3D position. */
-extern void sub_08003A6C(void *, s32, const void *);
-extern void sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, const void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 
 extern u32 gMainWorkspace[];
 extern const void D_084FEC5C;
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 void sub_08088B58(void *entity)
 {
@@ -19,13 +19,13 @@ void sub_08088B58(void *entity)
 
     if (gMainWorkspace[7] == 1) {
         u32 *cbTable;
-        sub_08003A6C(subObj + 0x20, 0, &D_084FEC5C);
+        startEffectTimer(subObj + 0x20, 0, &D_084FEC5C);
         gMainWorkspace[7] = 2;
         *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = 0;
-        cbTable = gMainObjTimerCallback;
+        cbTable = gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, cbTable[0]);
     }
 
-    sub_08003740(subObj + 0x20, sprite);
+    stepDelayTimer(subObj + 0x20, sprite);
     sub_0806D588(sprite, position);
 }

@@ -4,7 +4,7 @@
  * finalizes the entity (state 3, sound, script restart); otherwise it stays 2. */
 s32 sub_08005FC4(s32, s32, s32, s32, s32 *);
 s32 sub_08011528(u16 *, void *);
-s32 sub_08011898(void *, s32);
+s32 moveEntityWithCollision(void *, s32);
 s32 sub_08014848(s32, s32, s32, s32, s32, s32);
 s32 sub_0809C4E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
@@ -33,7 +33,7 @@ void sub_08099088(void *self)
   if (1)
   {
     timers = ent + 0x48;
-    sub_08011898(ent, 0x2D82);
+    moveEntityWithCollision(ent, 0x2D82);
     selfBytes = inline_fn(self);
     if (!(2 & (*((u8 *) (inline_fn(((*((s16 *) (selfBytes + 0x22))) * 2) + self) + 0x19)))))
     {

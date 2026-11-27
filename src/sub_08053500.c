@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 
@@ -39,12 +39,12 @@ void sub_08053500(void *entity) {
     if (*collision & 2) {
         params = (struct SpawnEffect *)((u8 *)collision + 0x18);
         *(u32 *)((u8 *)motion + 0x4C) = 0x4800;
-        params->f4 = sub_08005820(0x10000);
+        params->f4 = scaleByRandom(0x10000);
         params->f8 = 0x4800;
         params->fC = 0x4800;
         params->f10 = zero;
         params->f14 = 0x100;
-        params->f1C = sub_08005820(0xB5) + 0x168;
+        params->f1C = scaleByRandom(0xB5) + 0x168;
         params->f1A = 8 | params->f1A;
         params->f18 = zero;
         params->f24 = zero;

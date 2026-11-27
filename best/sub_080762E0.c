@@ -10,10 +10,10 @@ struct S_02025FF0
   u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-s32 sub_0806D518(void *, void *, void *);
-extern void sub_0806D588(void *, void *);
+s32 checkGlobalStateChange(void *, void *, void *);
+extern void setSpriteScreenPosition(void *, void *);
 extern void sub_0806D330(void *, void *);
-extern void sub_080722E0(void *, u8);
+extern void setDirectionVector(void *, u8);
 extern void sub_080C31E0(void *, s32);
 void sub_080762E0(void *arg0)
 {
@@ -30,7 +30,7 @@ void sub_080762E0(void *arg0)
   r5v = *((void **) (((u8 *) arg0) + 0x6C));
   r4v = ((u8 *) r5v) + 4;
   r6v = *((void **) (((u8 *) arg0) + 0x38));
-  if (sub_0806D518(arg0, r6v, r4v) != 0)
+  if (checkGlobalStateChange(arg0, r6v, r4v) != 0)
   {
     return;
   }
@@ -47,7 +47,7 @@ void sub_080762E0(void *arg0)
   t = (*((u16 *) (((u8 *) r6v) + 0x8))); *((u16 *) (((u8 *) r6v) + 0x8)) = t + 0x800;
   r8v = *((s32 *) (((u8 *) r4v) + 0x8));
   r9v = *((s32 *) (((u8 *) r4v) + 0xC));
-  sub_080722E0(r4v, (u8) (0 - ((*((u16 *) (((u8 *) r6v) + 0x8))) >> 8)));
+  setDirectionVector(r4v, (u8) (0 - ((*((u16 *) (((u8 *) r6v) + 0x8))) >> 8)));
   r2 = *((void **) (((u8 *) r4v) + 0x2C));
   t = *((s32 *) (((u8 *) r4v) + 0x8));
   var_r0 = (t << 1) + t;
@@ -127,7 +127,7 @@ void sub_080762E0(void *arg0)
   *((s16 *) (((u8 *) r2) + 0xC)) = (s16) (var_r0 >> 16);
   *((s32 *) (((u8 *) r4v) + 0x8)) = r8v;
   *((s32 *) (((u8 *) r4v) + 0xC)) = r9v;
-  sub_0806D588(r6v, r4v);
+  setSpriteScreenPosition(r6v, r4v);
   sub_0806D330(arg0, r6v);
   if (p->f173A == 0x1C)
   {

@@ -1,5 +1,5 @@
 extern void sub_08015974(void);
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_080C050C(s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -18,7 +18,7 @@ void sub_0808EE90(void *arg0)
     }
     if (*(s32 *)((u8 *)state + 8) != 0)
     {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     sub_080C050C(0x1B9);
     sub_080C31E0(arg0, *(s32 *)((u8 *)field + 0x24));

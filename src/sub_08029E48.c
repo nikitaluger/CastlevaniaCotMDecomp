@@ -4,7 +4,7 @@ extern s32 sub_08005E80(s32);
 extern void sub_080113A8(void *, void *);
 extern void sub_08011EE8(void *, s32, s32);
 extern s32 sub_08013B5C(void *, void *);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -24,7 +24,7 @@ void sub_08029E48(void *arg0) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
         goto end;
     }
-    if (sub_08016238(*(void **)((u8 *)mover + 0x28)) != 0) mFlags->flags |= 1;
+    if (hitTestEntities(*(void **)((u8 *)mover + 0x28)) != 0) mFlags->flags |= 1;
     state = *(struct MoverState **)((u8 *)mover + 0x28);
     if (state->flags2 & 1) mFlags->flags |= 1;
     if (mFlags->flags & 1) {

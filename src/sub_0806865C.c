@@ -1,4 +1,4 @@
-extern void sub_08003A6C(void *, s32, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 
 extern u8 gGameStatus[];
@@ -6,7 +6,7 @@ extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
 extern u8 D_080E03A0[];
 extern u8 D_084A67F4[];
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* If the scenario flag is set, copy one record of the D_080E03A0 table into
  * the destination object, start an action on the actor, then clear this script
@@ -38,11 +38,11 @@ s32 sub_0806865C(void *arg0, void *arg1, void *arg2, void *arg3) {
         *(s32 *)(outObj + 0x0C) = *(s32 *)entryPtr;
         *(s32 *)(actor + 0x4C) = 1;
         *(s32 *)(actor + 0x50) = 0;
-        sub_08003A6C(actor + 0x28, 0, (void *)D_084A67F4);
+        startEffectTimer(actor + 0x28, 0, (void *)D_084A67F4);
         scriptIdx = *(s16 *)(self + 0x22);
         slotPtr = (u8 *)(scriptIdx * 2 + (s32)self);
         slotPtr[0x19] = 0;
-        advanceFn = &D_08671BD0;
+        advanceFn = &gScriptStepCallbacks;
         sub_080C31E8(self + 0x18, self + 0x22, 0x23, *advanceFn);
         return 1;
     }

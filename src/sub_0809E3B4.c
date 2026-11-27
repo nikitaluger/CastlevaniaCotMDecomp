@@ -1,5 +1,5 @@
 extern s32 sub_080057F8(void);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_080A0288(void*, s32);
 extern s32 sub_080A02A4(void*);
 extern u8 gCameraState[];
@@ -61,7 +61,7 @@ void sub_0809E3B4(void *arg0, void *arg1) {
         spawnMin = upperBound;
     }
     span = spawnMax - spawnMin;
-    offset = sub_08005820(span);
+    offset = scaleByRandom(span);
     sub_080A0288(arg0, offset + spawnMin);
     *((u8*)arg1) += 1;
 end:

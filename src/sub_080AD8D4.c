@@ -1,7 +1,7 @@
 extern void sub_0800168C(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 void sub_080AD8D4(void *arg0)
 {
@@ -30,7 +30,7 @@ void sub_080AD8D4(void *arg0)
     stepIndex = *(s16 *)((u8 *)arg0 + 0x22);
     ((u8 *)arg0)[stepIndex * 2 + 0x19] = zero;
 
-    scriptHandlers = &gMainObjTimerCallback;
+    scriptHandlers = &gScriptStepCallbackTable;
     stepBase = (u8 *)arg0 + 0x18;
     sub_080C31E4(stepBase, (u8 *)arg0 + 0x22, *scriptHandlers);
 

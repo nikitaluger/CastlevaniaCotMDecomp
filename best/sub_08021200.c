@@ -1,5 +1,5 @@
 void setAnimationFrame(s32, void *, s32, s32);
-void *sub_0805FAEC(s32, s32);
+void *spawnBudgetedEffect(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 struct S_02025FF0 {
@@ -14,7 +14,7 @@ void sub_08021200(void *arg0) {
 
     setAnimationFrame(v38, p + 0x34, 0xB, 1);
     if (*(u16 *)((u8 *)arg0 + 0x6C) & 1) {
-        void *r2 = sub_0805FAEC(gMainWorkspace.v, 0x9D);
+        void *r2 = spawnBudgetedEffect(gMainWorkspace.v, 0x9D);
         if (r2 != 0) {
             s32 x = *(s32 *)(p + 8);
             s32 sx;

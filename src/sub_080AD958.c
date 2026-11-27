@@ -9,7 +9,7 @@ struct ActorCmd
     u32 work;
 };
 
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void _call_via_r1(void *, void *);
 
 /* Once the sprite check passes, install this actor's command table, advance
@@ -22,7 +22,7 @@ void sub_080AD958(struct ActorCmd *arg0)
     u8 command;
     u32 stepOffset1;
     u32 stepOffset2;
-    if (sub_08013B5C((void *)arg0->sprite, (void *)arg0->work) != 0)
+    if (updateObjectDisplayState((void *)arg0->sprite, (void *)arg0->work) != 0)
         return;
     *(u32 *)(actor + 0x14) = 0x0867019C;
     *(u16 *)(actor + 0x22) = *(u16 *)(actor + 0x22) + 1;

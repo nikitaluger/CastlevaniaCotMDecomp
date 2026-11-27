@@ -1,8 +1,8 @@
 extern void sub_08015974(void);
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_08042130(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
@@ -12,10 +12,10 @@ void sub_080B8514(void *arg0) {
     void *res = *(void **)((u8 *)arg0 + 0x3C);
     void *aux = (u8 *)res + 0x48;
     if (*(s32 *)((u8 *)res + 0x28) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(s32 *)((u8 *)aux + 4) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(s32 *)((u8 *)res + 0x2C) != 0) {
         sub_08015974();
@@ -29,7 +29,7 @@ void sub_08042078(void *arg0) {
     void *r0p = *(void **)((u8 *)arg0 + 0x3C);
     void *r5 = (u8 *)r0p + 0x34;
     void *r7 = (u8 *)r0p + 0x48;
-    sub_080113A8(r4, r5);
+    stepAnimationTrack(r4, r5);
     sub_08042130(r7, r4);
     if (2 & *(u8 *)r5) {
         *(u8 *)((u8 *)*(void **)((u8 *)r7 + 4) + 1) = 0;
@@ -47,7 +47,7 @@ void sub_080428B8(void *arg0) {
     void *temp_r6;
     temp_r6 = *(void **)((u8 *)arg0 + 0x3C);
     if (*(s32 *)((u8 *)temp_r6 + 0x28) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(s32 *)((u8 *)temp_r6 + 0x2C) != 0) {
         sub_08015974();
@@ -56,7 +56,7 @@ void sub_080428B8(void *arg0) {
     var_r5 = 1;
     do {
         if (*var_r4 != 0) {
-            sub_080161F0();
+            unlinkAndFreeObject();
         }
         var_r4 += 4;
         var_r5 -= 1;

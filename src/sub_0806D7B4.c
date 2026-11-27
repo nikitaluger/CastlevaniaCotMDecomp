@@ -1,6 +1,6 @@
 extern u8 gGameStatus[];
 extern void sub_0808D7BC(s32, s32, s32, s32);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern s32 sub_08007B78(s32, s32, s32);
 
 struct S_02025FF0_18A8 {
@@ -58,7 +58,7 @@ void sub_0806D77C(struct Vec *position, s32 percent)
 {
     u8 *sys = gGameStatus;
     s32 *limit = (s32 *)(sys + 0x2C8);
-    s32 v = sub_080C364C(*limit, 100) * percent;
+    s32 v = divInt32(*limit, 100) * percent;
     if (v <= 0xFFFF)
     {
         v = 0x10000;

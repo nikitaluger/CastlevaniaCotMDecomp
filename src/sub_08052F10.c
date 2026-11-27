@@ -1,16 +1,16 @@
 extern void sub_08005E80(s32);
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C5C(void *, s32);
 extern void sub_08013C8C(void *, s32);
 extern s32 sub_080141AC(s32, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 
 void sub_08052F10(u8 *arg0) {
     s32 a = *(s32 *)(arg0 + 0x38);
@@ -34,12 +34,12 @@ void sub_08052F10(u8 *arg0) {
                 u8 *q = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
                 u8 zero = 0;
                 *(u8 *)(q + 0x1B) = zero;
-                { void **fnaddr = &D_08671BDC;
+                { void **fnaddr = &sScriptStepCallbacks;
                   sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 1, *fnaddr); }
             }
         }
     }
-    if (sub_08013B5C(a, p) == 0) {
+    if (updateObjectDisplayState(a, p) == 0) {
         *(void **)(arg0 + 0x14) = (void *)0x0866E680;
         *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) + 1;
         {
@@ -58,7 +58,7 @@ void sub_08052F10(u8 *arg0) {
         if (*(u16 *)(arg0 + 0x02) & 0x8000) {
             return;
         }
-        sub_080113A8(a, r7);
+        stepAnimationTrack(a, r7);
     }
     sub_08013C8C(arg0, a);
 }

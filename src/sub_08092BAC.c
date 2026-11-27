@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 s32 sub_0800583C(s32);
 void sub_0808DBF8(s32, s32, s32);
 void sub_080918B0(s32, s32, s32, s32, s32, s32);
@@ -26,11 +26,11 @@ void sub_08092BAC(void *behav)
     halfCount = *(s32 *)counter / 2;
     countMod = halfCount % 4;
     posY = posYraw + ((countMod - 1) << 20);
-    speed = sub_08005820(0x2000);
+    speed = scaleByRandom(0x2000);
     countDiv = sub_080C36E4(*(s32 *)counter, 5) - 2;
     speed += 0x4000;
     speed *= countDiv;
-    angle = 0x8000 - sub_08005820(0x20000);
+    angle = 0x8000 - scaleByRandom(0x20000);
     count = *(s32 *)counter;
     if (!(count & 1)) {
         sub_080918B0(posX, posY, speed, angle, 0x16C1,

@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Copy the attached object's position into its script state, then run the
  * entity's update routine and dispatch the handler for the next script frame. */
@@ -19,7 +19,7 @@ void sub_08057228(void *arg0) {
     frameIndex = *(s16 *)(self + 0x22);
     *(u8 *)(self + frameIndex * 2 + 0x19) = 0;
 
-    animTablePtr = &gMainObjTimerCallback;
+    animTablePtr = &gScriptStepCallbackTable;
     framePtr = self + 0x18;
     sub_080C31E4(framePtr, self + 0x22, *animTablePtr);
 

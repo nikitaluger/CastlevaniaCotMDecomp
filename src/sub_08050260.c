@@ -1,4 +1,4 @@
-extern s32 sub_08013B5C(s32, u16 *);
+extern s32 updateObjectDisplayState(s32, u16 *);
 extern void sub_08015974();
 
 /* Applies an object's timed display state to its sprite attributes; while the
@@ -20,7 +20,7 @@ s32 sub_08050260(void *obj, s32 spriteAttrs)
     link24 = *((void **) (((s8 *) state) + 0x24));
     flagBits = 0;
     *((u8 *) (((s8 *) link24) + 1)) = (u8) (0xFE & (*((u8 *) (((s8 *) link24) + 1))));
-    if (sub_08013B5C(spriteAttrs, flags) == 0)
+    if (updateObjectDisplayState(spriteAttrs, flags) == 0)
     {
       return flagBits;
     }
@@ -40,5 +40,5 @@ s32 sub_08050260(void *obj, s32 spriteAttrs)
     }
     return 1;
   }
-  return sub_08013B5C(spriteAttrs, flags);
+  return updateObjectDisplayState(spriteAttrs, flags);
 }

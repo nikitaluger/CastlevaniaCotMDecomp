@@ -5,9 +5,9 @@ extern s32 D_080CFE28[]; /* per-type heading turn step */
 s32 sub_08005910(s32, s32);
 s32 sub_0801473C(s32, s32);
 void sub_080146D0(u8 *, s32, s32);
-s32 sub_0801165C(void *, s32);
+s32 advanceMotion(void *, s32);
 void setSpriteFlip(u16 *, s32);
-void sub_080113A8(s32, void *);
+void stepAnimationTrack(s32, void *);
 
 /* Update a homing projectile: advance its timer, steer its heading toward the
  * target, then set velocity, apply movement and refresh its sprite animation. */
@@ -50,7 +50,7 @@ void sub_0805BC78(u8 *self)
     *(s32 *)(moving + 8) = angle16;
 
     sub_080146D0(entity, angle16, *(s32 *)(moving + 4));
-    sub_0801165C(entity, 0);
+    advanceMotion(entity, 0);
     setSpriteFlip((u16 *)sprite, *(s32 *)(moving + 8));
-    sub_080113A8((s32)sprite, anim);
+    stepAnimationTrack((s32)sprite, anim);
 }

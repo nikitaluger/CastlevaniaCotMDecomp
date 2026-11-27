@@ -1,11 +1,11 @@
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void *allocMotionTracker(void);
 extern void sub_08015974(void *);
 extern s32 sub_080C31E0(s32, s32);
-extern void sub_0801165C(void *, s32);
-extern void sub_080113A8(void *, void *);
+extern void advanceMotion(void *, s32);
+extern void stepAnimationTrack(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 
@@ -41,7 +41,7 @@ void sub_080906D8(u8 *self) {
     objSub = (void *)(obj + 0x34);
     objState = obj + 0x48;
 
-    posResult = sub_0805F9B4(*(s32 *)(obj + 0x08), *(s32 *)(obj + 0x0C));
+    posResult = isOutsideCameraBounds(*(s32 *)(obj + 0x08), *(s32 *)(obj + 0x0C));
     if (posResult == 1) {
         *(u8 *)((u8 *)((struct SP *)objState)->p + 1) = 0;
         ((struct S2A *)(parent + 0x2A))->flag &= 0xBF;
@@ -89,9 +89,9 @@ void sub_080906D8(u8 *self) {
     *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
 
     if ((*(u16 *)(self + 2) & 0x8000) == 0) {
-        sub_0801165C(obj, 0);
+        advanceMotion(obj, 0);
         if (*(s16 *)(objState + 0x10) == 1) {
-            sub_080113A8(parent, objSub);
+            stepAnimationTrack(parent, objSub);
         }
         *(u16 *)((u8 *)((struct SP *)objState)->p + 4) = *(u16 *)(obj + 0x0A);
         spriteField = (u8 *)((struct SP *)objState)->p + 6;

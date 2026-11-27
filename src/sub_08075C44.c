@@ -10,8 +10,8 @@ extern u8 D_000018C2[];
 extern u8 D_000014ED[];
 extern s32 sub_0806D35C(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
-extern s32 sub_08003740(void *, void *);
-extern void sub_08003A6C(void *, s32, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
 
 /* Update a timer-driven effect: run the area special-behavior check, handle
  * the 0xA5/0xA8 command bytes, snap the effect's position to the shared
@@ -39,14 +39,14 @@ void sub_08075C44(void *arg0)
       threshold = *((s16 *) (sys + 0x2EA));
       if ((*((s32 *) (((u8 *) buf) + 0x58))) < threshold)
       {
-        sub_08003A6C(((u8 *) data) + 0x20, 0, D_084A4C84);
+        startEffectTimer(((u8 *) data) + 0x20, 0, D_084A4C84);
       }
       break;
 
     case 0xA8:
       if ((*((s32 *) (((u8 *) buf) + 0x54))) < (*((s16 *) (sys + 0x2E2))))
       {
-        sub_08003A6C(((u8 *) data) + 0x20, 0, D_084A4C84);
+        startEffectTimer(((u8 *) data) + 0x20, 0, D_084A4C84);
       }
       break;
   }
@@ -59,9 +59,9 @@ void sub_08075C44(void *arg0)
   *((s32 *) (((u8 *) buf) + 0x58)) = *((s16 *) (sys + 0x2EA));
   *((u16 *) obj) = *((u16 *) (((u32) gameState) + ((u32) D_000018C2)));
   timer = ((u8 *) buf) + 0x1C;
-  if (sub_08003740(timer, obj) == 0)
+  if (stepDelayTimer(timer, obj) == 0)
   {
-    sub_08003A6C(timer, 0, D_084A4C98);
+    startEffectTimer(timer, 0, D_084A4C98);
   }
   if ((*((u8 *) (((u32) gameState) + ((u32) D_000014ED)))) != (*((u8 *) (((u8 *) buf) + 0x51))))
   {

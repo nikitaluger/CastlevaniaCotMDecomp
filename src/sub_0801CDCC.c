@@ -1,15 +1,15 @@
 /* Update one entity: keep its sprite in view, run its animation/state script
  * and motion, then store camera-relative screen coordinates on the sprite. */
-extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern s32 updateObjectDisplayState(void *, void *);
 extern s32 sub_080C31E0(s32, s32);
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866D6FC[];
-extern u32 D_08671BDC;
+extern u32 sScriptStepCallbacks;
 
 struct SpriteFlags { u8 flag; };   /* sprite + 0x2A */
 struct MotionFlags { u16 flag; };  /* motion + 0x00 */
@@ -28,13 +28,13 @@ void sub_0801CDCC(u8 *entity) {
     u32 stateByte;
     u8 *stateTable;    /* entity + 0x18 */
     s32 animOffset;
-    u32 *scriptTable;  /* D_08671BDC */
+    u32 *scriptTable;  /* sScriptStepCallbacks */
 
     sprite = *(u8 **)(entity + 0x38);
     motion = *(u8 **)(entity + 0x3C);
     motionState = motion + 0x34;
 
-    if (sub_0805F9B4(*(s32 *)(motion + 8), *(s32 *)(motion + 0xC)) == 1) {
+    if (isOutsideCameraBounds(*(s32 *)(motion + 8), *(s32 *)(motion + 0xC)) == 1) {
         *(u8 *)((u8 *)*(void **)(motion + 0x28) + 1) = 0;
         ((struct SpriteFlags *)(sprite + 0x2A))->flag &= 0xBF;
     } else {
@@ -50,12 +50,12 @@ void sub_0801CDCC(u8 *entity) {
         *(u8 *)((u8 *)*(void **)(motion + 0x28) + 1) = 0;
         if (*((u8 *)entity + *(s16 *)(entity + 0x22) * 2 + 0x1A) != 1) {
             *((u8 *)entity + *(s16 *)(entity + 0x22) * 2 + 0x1B) = 0;
-            scriptTable = (u32 *)&D_08671BDC;
+            scriptTable = (u32 *)&sScriptStepCallbacks;
             sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 1, (s32)*scriptTable);
         }
     }
 
-    if (sub_08013B5C(sprite, motion) != 0) goto common;
+    if (updateObjectDisplayState(sprite, motion) != 0) goto common;
 
     *(u32 *)(entity + 0x14) = (u32)D_0866D6FC;
     *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) + 1;
@@ -68,8 +68,8 @@ void sub_0801CDCC(u8 *entity) {
     sub_080C31E0((s32)entity, *(u32 *)(*(u32 *)(entity + 0x14) + stateByte * 4));
     *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) - 1;
     if (*(u16 *)(entity + 2) & 0x8000) return;
-    sub_080113A8(sprite, motionState);
-    sub_0801165C(motion, 0);
+    stepAnimationTrack(sprite, motionState);
+    advanceMotion(motion, 0);
 
 common:
     coordTable = gCameraState;

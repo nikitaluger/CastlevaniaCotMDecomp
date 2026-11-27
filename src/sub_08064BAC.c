@@ -1,10 +1,10 @@
-void *sub_0806C4B4(void *, void *);
-void sub_0806C5EC(void *, void *, void *, void *);
+void *syncViewPosition(void *, void *);
+void resetActionResultState(void *, void *, void *, void *);
 void sub_0806AB04(void *, void *, void *, void *);
 void sub_0806A884(void *, void *);
-s32 sub_08003740(void *, void *);
+s32 stepDelayTimer(void *, void *);
 s32 sub_0806B2C8(void *, void *, void *, void *);
-void sub_0806C49C(void *, void *);
+void resetActorForm(void *, void *);
 void sub_080849A4(void *, void *);
 u32 sub_0806BCD8(void *, void *, void *, void *);
 void sub_0806C6B0(void *, void *, void *, void *);
@@ -16,7 +16,7 @@ inline u8 *inline_fn(void *arg0)
 
 /*
  * Companion/boss update: picks a position mode, runs the state setup helpers,
- * then fires attack routines from the D_08671BD0 table based on state flags,
+ * then fires attack routines from the gScriptStepCallbacks table based on state flags,
  * sub-system results and the current pose index.
  */
 void sub_08064BAC(void *arg0)
@@ -39,11 +39,11 @@ void sub_08064BAC(void *arg0)
   state = ((u8 *) sub) + 4;
   owner = *(new_var = (void **) (((u8 *) mgr) + 0x38));
   ent = state;
-  if (sub_0806C4B4(ent, ent) != 0)
+  if (syncViewPosition(ent, ent) != 0)
   {
     return;
   }
-  sub_0806C5EC(mgr, owner, ent, ent);
+  resetActionResultState(mgr, owner, ent, ent);
   sub_0806AB04(mgr, owner, ent, ent);
   if ((*((s32 *) (inline_fn(ent) + 0x40))) == 0)
   {
@@ -54,18 +54,18 @@ void sub_08064BAC(void *arg0)
   }
   sub_0806A884(owner, ent);
   subNext = ((u8 *) sub) + 0x2C;
-  if ((sub_08003740(subNext, owner) == 0) && ((*((s32 *) (((u8 *) ent) + 0x40))) == 1))
+  if ((stepDelayTimer(subNext, owner) == 0) && ((*((s32 *) (((u8 *) ent) + 0x40))) == 1))
   {
     result = sub_0806B2C8(mgr, owner, ent, ent);
     if (result != 0)
     {
-      sub_08003740(subNext, owner);
+      stepDelayTimer(subNext, owner);
     }
     else
     {
-      sub_0806C49C(owner, ent);
+      resetActorForm(owner, ent);
       *((s32 *) (inline_fn(ent) + 0x48)) = (float) result;
-      sub_08003740(subNext, owner);
+      stepDelayTimer(subNext, owner);
       *inline_fn((((u8 *) mgr) + ((*((s16 *) (inline_fn(mgr) + 0x22))) * 2)) + 0x19) = (u8) result;
       attackTableB = (s32 *) 0x08671BD0;
       sub_080C31E8(inline_fn(mgr) + 0x18, inline_fn(mgr) + 0x22, 4, *attackTableB);
@@ -77,7 +77,7 @@ void sub_08064BAC(void *arg0)
   *codeSlot = (u16)code;
   if ((u16)code != 0)
   {
-    sub_08003740(((u8 *) state) + 0x28, owner);
+    stepDelayTimer(((u8 *) state) + 0x28, owner);
     *((u8 *) ((((u8 *) mgr) + ((*((s16 *) (((u8 *) mgr) + 0x22))) * 2)) + 0x19)) = 0;
     attackTableC = (s32 *) 0x08671BD0;
     sub_080C31E8(inline_fn(mgr) + 0x18, ((u8 *) mgr) + 0x22, *codeSlot, *attackTableC);

@@ -4,14 +4,14 @@ extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
-extern void sub_080113A8(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_08011EE8(void *, s32, s32);
 extern void sub_08013C8C(void *, s32);
 extern void sub_08059AD8(s32, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 extern u8 gCameraState[];
 extern struct { u8 _0[0x18A8]; u8 f18A8; } gMainWorkspace;
 
@@ -41,12 +41,12 @@ void sub_08059630(u8 *self) {
             {
                 u8 *scriptPtr = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
                 *(u8 *)(scriptPtr + 0x1B) = 0;
-                { void **sound = &D_08671BDC;
+                { void **sound = &sScriptStepCallbacks;
                   sub_080C31E8(self + 0x18, self + 0x22, 3, *sound); }
             }
         }
     }
-    if (sub_08013B5C(parent, comp) != 0) goto cdc;
+    if (updateObjectDisplayState(parent, comp) != 0) goto cdc;
     *(u32 *)(self + 0x14) = 0x0866E854;
     *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) + 1);
     {
@@ -63,7 +63,7 @@ void sub_08059630(u8 *self) {
     }
     *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) - 1);
     if ((*(u16 *)(self + 2) & 0x8000) != 0) goto done;
-    sub_080113A8(parent, body);
+    stepAnimationTrack(parent, body);
     sub_08011EE8(comp, *(s32 *)(fx + 8), 0);
 cdc:
     sub_08059AD8(parent, comp);

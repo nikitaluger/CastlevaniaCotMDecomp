@@ -1,9 +1,9 @@
 extern u8 D_02025358[];
 extern u8 gMainWorkspace[];
-extern void (*D_08671BD0)(void *, void *, s32);
-extern void sub_08003740(void *, s32);
-extern void sub_0806A7AC(void *, void *, s32);
-extern s32 sub_0806C4B4(void *, void *);
+extern void (*gScriptStepCallbacks)(void *, void *, s32);
+extern void stepDelayTimer(void *, s32);
+extern void setEntityForm(void *, void *, s32);
+extern s32 syncViewPosition(void *, void *);
 extern void sub_0808B584(void *);
 void sub_08062A90(void *arg0)
 {
@@ -74,12 +74,12 @@ void sub_08062A90(void *arg0)
     cnt--;
   }
   while (cnt >= 0);
-  sub_0806A7AC(r8v, r6, 0);
-  sub_08003740(r6 + 0x28, (s32) r8v);
+  setEntityForm(r8v, r6, 0);
+  stepDelayTimer(r6 + 0x28, (s32) r8v);
   r4 = gMainWorkspace;
   new_var = r4;
   *((u32 *) (new_var + 0x1844)) |= 0x04000000;
-  sub_0806C4B4(r6, r5);
+  syncViewPosition(r6, r5);
   r6n = a + 0x18;
   r8n = a + 0x22;
   r3b = new_var + 0x1618;
@@ -101,5 +101,5 @@ void sub_08062A90(void *arg0)
   }
   idx = *((s16 *) (a + 0x22));
   *((u8 *) ((((u32) a) + (idx * 2)) + 0x19)) = 0;
-  D_08671BD0((void *) r6n, (void *) r8n, 4);
+  gScriptStepCallbacks((void *) r6n, (void *) r8n, 4);
 }

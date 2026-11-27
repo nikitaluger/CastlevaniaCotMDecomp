@@ -7,13 +7,13 @@ extern void setScreenTransition(s32);
 extern void sub_08000E54(s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u16 D_080CB062[];
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 extern u8 gCameraState[];
 
 void sub_0800E1F0(u8 *self)
 {
     s32 result;
-    result = sub_0805FEC8(D_080CB062[(s8)D_020278D0[0xF7]]);
+    result = sub_0805FEC8(D_080CB062[(s8)gMenuState[0xF7]]);
     if (result == 0) {
         u16 *attrPtr;
         s32 attrSize;

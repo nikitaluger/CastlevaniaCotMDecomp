@@ -1,5 +1,5 @@
 extern s32 sub_080141AC(void *, void *);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -22,7 +22,7 @@ void sub_0803677C(u8 *entity)
     return;
   }
   posePtr = entity + 0x22;
-  if (sub_08013B5C(ownerRef, data) == 0)
+  if (updateObjectDisplayState(ownerRef, data) == 0)
   {
     s16 poseIndex;
     s32 byteOffset;

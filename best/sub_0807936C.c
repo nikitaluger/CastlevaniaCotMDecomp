@@ -14,15 +14,15 @@ struct S_02025FF0
 extern struct S_02025FF0 gMainWorkspace;
 extern u32 gTilemapPages;
 extern u32 D_084DD0AC;
-extern u32 gMainObjTimerCallback;
-void sub_08003740(void *);
-void sub_08003A6C(void *, s32, void *);
+extern u32 gScriptStepCallbackTable;
+void stepDelayTimer(void *);
+void startEffectTimer(void *, s32, void *);
 void playSound(s32);
-s32 sub_08007DD8(s32, s32);
+s32 getTileTerrainB(s32, s32);
 void *sub_0806D2A0(s32, s32, s32, s32);
 void sub_0806D330(void *, void *);
-s32 sub_0806D518(void *, void *, void *);
-void sub_0806D588(void *, void *);
+s32 checkGlobalStateChange(void *, void *, void *);
+void setSpriteScreenPosition(void *, void *);
 s32 sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 inline u8 *inline_fn(void **arg0)
@@ -44,7 +44,7 @@ void sub_0807936C(void *arg0)
   void *r8 = *((void **) (((u8 *) arg0) + 0x38));
   s32 i;
   new_var3 = &(*((s32 *) (((u8 *) r6) + 0x54)));
-  if (sub_0806D518(arg0, r8, r6) != 0)
+  if (checkGlobalStateChange(arg0, r8, r6) != 0)
   {
     return;
   }
@@ -59,11 +59,11 @@ void sub_0807936C(void *arg0)
   *((s32 *) (((u8 *) r6) + 0x04)) = i;
   *((s32 *) (((u8 *) r6) + 0x54)) = (*(&(*((s32 *) (((u8 *) r6) + 0x54))))) - 1;
   new_var6 = ((u8 *) r6) + 0x1C;
-  if ((((*((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x14))) & 1) || ((sub_08007DD8((gMainWorkspace.f18A8 << 6) + ((u32) (&gTilemapPages)), *((s32 *) (((u8 *) r4) + 0x04))) << 16) != 0)) || ((*new_var3) == 0))
+  if ((((*((u16 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x14))) & 1) || ((getTileTerrainB((gMainWorkspace.f18A8 << 6) + ((u32) (&gTilemapPages)), *((s32 *) (((u8 *) r4) + 0x04))) << 16) != 0)) || ((*new_var3) == 0))
   {
     void *var_r4 = new_var6;
     new_var = (u8 *) arg0;
-    sub_08003A6C(var_r4, 0, (void *) 0x084DD0AC);
+    startEffectTimer(var_r4, 0, (void *) 0x084DD0AC);
     *((u8 *) (((u8 *) (*((void **) (((u8 *) r6) + 0x2C)))) + 0x01)) = 0;
     playSound(0x149);
     for (i = 0; i <= 7; i++)
@@ -78,12 +78,12 @@ void sub_0807936C(void *arg0)
     }
 
     *((u8 *) ((((u8 *) arg0) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;
-    sub_080C31E4(new_var + 0x18, new_var + 0x22, gMainObjTimerCallback);
+    sub_080C31E4(new_var + 0x18, new_var + 0x22, gScriptStepCallbackTable);
   }
   *((u16 *) r8) = gMainWorkspace.f18C2;
   new_var4 = (u8 *) r4;
-  sub_08003740(new_var4 + 0x20);
-  sub_0806D588(r8, r6);
+  stepDelayTimer(new_var4 + 0x20);
+  setSpriteScreenPosition(r8, r6);
   i = *((u8 *) (((u8 *) (&gMainWorkspace)) + 0x173A));
   if ((i == 0x1C) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
   {

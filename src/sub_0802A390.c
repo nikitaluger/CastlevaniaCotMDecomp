@@ -9,14 +9,14 @@ struct Motion {
 struct Entity {
     u8 _00[2]; u16 flags; u8 _04[0x10]; u32 stateTable; u8 _18[0x0A]; s16 animIndex; u32 callback; u8 _28[0x10]; u8 *sprite; u8 *motion; u8 _40[0xAC - 0x40]; struct Control *control;
 };
-extern u32 D_08671BDC;
+extern u32 sScriptStepCallbacks;
 extern u8 D_0866DAA0[];
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void moveObjectHorizontally(void *, s32, s32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080141AC(void *, void *);
@@ -66,9 +66,9 @@ void sub_0802A390(struct Entity *entity)
       }
     }
     *((u8 *) ((((u8 *) entity) + 0x1B) + (2 * entity->animIndex))) = 0;
-    ((void (*)(void *, void *, s32)) D_08671BDC)(((u8 *) entity) + 0x18, ((u8 *) entity) + 0x22, 4);
+    ((void (*)(void *, void *, s32)) sScriptStepCallbacks)(((u8 *) entity) + 0x18, ((u8 *) entity) + 0x22, 4);
   }
-  if (sub_08013B5C(sprite, motion) == 0)
+  if (updateObjectDisplayState(sprite, motion) == 0)
   {
     entity->stateTable = (u32) D_0866DAA0;
     *((u16 *) (&entity->animIndex)) = (*((u16 *) (&entity->animIndex))) + 1;
@@ -83,7 +83,7 @@ void sub_0802A390(struct Entity *entity)
     {
       return;
     }
-    sub_080113A8(sprite, animState);
+    stepAnimationTrack(sprite, animState);
     moveObjectHorizontally(motion, 0x100000, 0x100000);
   }
   sub_0802A7A4(sprite, motion);

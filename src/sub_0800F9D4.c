@@ -1,10 +1,10 @@
-extern s8 D_020278D0[];
+extern s8 gMenuState[];
 extern u16 D_080CB200[];
 extern u8 D_086426B4[];
 
 /* Set the sprite's 0x40 flag and point its graphic at the tile data for
  * the object's facing, choosing the mirrored variant when the facing
- * differs from the global facing flag at D_020278D0+0x68. */
+ * differs from the global facing flag at gMenuState+0x68. */
 void sub_0800F9D4(u8 *obj)
 {
   u8 *sprite;
@@ -21,7 +21,7 @@ void sub_0800F9D4(u8 *obj)
   sprite = *(u8 **)(obj + 0x38);
   flags = 0x40 | *(sprite + 0x2A);
   *(sprite + 0x2A) = flags;
-  facingFlag = D_020278D0;
+  facingFlag = gMenuState;
   facingFlag += 0x68;
   globalDir = *facingFlag;
   objDir = *((s8 *)(obj + 0x44));

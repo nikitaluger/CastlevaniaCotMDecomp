@@ -1,6 +1,6 @@
 struct S_02025FF0 { u8 _p[0x1870]; u32 v; };
 extern struct S_02025FF0 gMainWorkspace;
-void *sub_0805FAEC(u32, s32);
+void *spawnBudgetedEffect(u32, s32);
 s32 divideInt(s32, s32);
 
 /* Creates a type-0x14B object under the global parent, converting its 16.16
@@ -9,7 +9,7 @@ void *sub_08053678(s32 xFixed, s32 yFixed) {
     void *obj;
     s32 xVal, yVal;
     s32 xPos, yPos;
-    obj = sub_0805FAEC(gMainWorkspace.v, 0x14B);
+    obj = spawnBudgetedEffect(gMainWorkspace.v, 0x14B);
     if (obj == NULL) return NULL;
     xVal = xFixed;
     if (xVal < 0) xVal += 0xFFFF;

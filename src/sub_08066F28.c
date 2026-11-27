@@ -1,4 +1,4 @@
-extern s32 sub_0806A7AC(s32, s32, s32);
+extern s32 setEntityForm(s32, s32, s32);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
@@ -17,7 +17,7 @@ void sub_08066F28(void *arg0)
   s32 gfx = *((s32 *) (obj + 0x6C));
   s32 gfxData = gfx + 4;
   s32 sprite = *((s32 *) (obj + 0x38));
-  sub_0806A7AC(sprite, gfxData, 0x57);
+  setEntityForm(sprite, gfxData, 0x57);
   *((s32 *) (gfx + 0x108)) = *((s32 *) (gfxData + 4));
   posField = (s32 *) (gfx + 0x110);
   *posField = addGfxOffset(gfxData + 4) - (*((s32 *) (sprite + 0x18)));

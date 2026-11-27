@@ -1,6 +1,6 @@
 extern s32 sub_08014090(s32);
-extern void *sub_0805FAEC(void *, s32);
-extern unsigned int sub_08005820(u32);
+extern void *spawnBudgetedEffect(void *, s32);
+extern unsigned int scaleByRandom(u32);
 struct D25FF0_443EC
 {
   u8 _p[0x18A8];
@@ -55,7 +55,7 @@ void sub_080443EC(void *arg0)
     return;
   }
   *p = 0x2D;
-  r5 = sub_0805FAEC(arg0, 0x8D << 1);
+  r5 = spawnBudgetedEffect(arg0, 0x8D << 1);
   if (r5 == 0)
   {
     return;
@@ -96,7 +96,7 @@ void sub_080443EC(void *arg0)
       base = lo;
     }
     compute:
-    *((u32 *) (((u8 *) r5) + 0x4C)) = (u32) (sub_08005820((u32) (upper - base)) + base);
+    *((u32 *) (((u8 *) r5) + 0x4C)) = (u32) (scaleByRandom((u32) (upper - base)) + base);
 
     *((u32 *) (0x5C + ((u8 *) r5))) = *((u32 *) (((u8 *) arg0) + 0x3C));
     *((u32 *) (((u8 *) r5) + 0x6C)) = *((u32 *) (((u8 *) arg0) + 0x4C));

@@ -1,4 +1,4 @@
-void *sub_0805FAEC(s32, s32); /* allocate an effect object of the given kind */
+void *spawnBudgetedEffect(s32, s32); /* allocate an effect object of the given kind */
 
 struct S_02025FF0_all {
     u8 _p1[0x14AC];
@@ -11,7 +11,7 @@ extern struct S_02025FF0_all gMainWorkspace;
 /* Spawn a small effect particle of subtype 1 at (x, y) with horizontal speed vx
  * and an upward vertical speed |vy|; returns NULL when no slot is free. */
 void *sub_0808E61C(s32 x, s32 y, s32 vx, s32 vy) {
-    void *r = sub_0805FAEC(gMainWorkspace.particleType, 0x20B);
+    void *r = spawnBudgetedEffect(gMainWorkspace.particleType, 0x20B);
     if (r == NULL) return NULL;
     *(s32 *)((u8 *)r + 0x4C) = x;
     *(s32 *)((u8 *)r + 0x5C) = y;

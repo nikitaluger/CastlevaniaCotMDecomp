@@ -1,4 +1,4 @@
-extern s32 sub_08003740(s32, u16 *);
+extern s32 stepDelayTimer(s32, u16 *);
 extern s32 sub_0806D450(void *, u16 *, u8 *);
 extern s32 sub_0806D588(u16 *, u8 *);
 extern void sub_080C31E0(void *, s32);
@@ -32,7 +32,7 @@ void sub_08083B50(void *arg0) {
         }
     }
     *result = gMainWorkspace.v18C2;
-    if (sub_08003740(actor + 0x20, result) == 0) {
+    if (stepDelayTimer(actor + 0x20, result) == 0) {
         sub_080C31E0(arg0, *(s32 *)(self + 0x24));
         return;
     }

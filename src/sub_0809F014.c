@@ -5,7 +5,7 @@ extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080A0340(void *, s32);
 extern void sub_080A04B4(void);
 extern void sub_080A04E0(void);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Allocates and initializes an FX object for this entity and its component,
  * loads the visual resources, clears the current script step, posts a message
@@ -49,7 +49,7 @@ void sub_0809F014(u8 *self)
   stepIdx = *((s16 *) (self + 0x22));
   self[(stepIdx * 2) + 0x19] = zero;
   {
-    void **lit = &gMainObjTimerCallback;
+    void **lit = &gScriptStepCallbackTable;
     stepBase = self + 0x18;
     sub_080C31E4(stepBase, self + 0x22, *lit);
   }

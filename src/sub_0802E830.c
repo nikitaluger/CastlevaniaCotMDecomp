@@ -7,7 +7,7 @@ struct S_02025FF0
 };
 extern struct S_02025FF0 gMainWorkspace;
 extern s32 sub_0800583C(s32);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_080C36E4(s32, s32);
 extern void sub_0802EB5C(s32, s32, s32, s32, s16);
 extern void sub_080C31E0(void *, s32);
@@ -49,7 +49,7 @@ void sub_0802E830(u8 *effect)
   }
   while (0);
   angle = (sub_080C36E4(gMainWorkspace.f189C, 7) - 3) << 13;
-  scale = 0x8000 - sub_08005820(0x20000);
+  scale = 0x8000 - scaleByRandom(0x20000);
   tick = gMainWorkspace.f189C;
   frame = (s16) (tick % 4);
   sub_0802EB5C(spawnX, spawnY, angle, scale, frame);

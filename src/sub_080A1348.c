@@ -25,7 +25,7 @@ struct A_080A1348 {
     struct C_080A1348 *f3C;
 };
 
-extern void *D_08671BD8;
+extern void *gMenuScriptCallback;
 
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_08011528(void *, void *);
@@ -70,14 +70,14 @@ void sub_080A1348(struct A_080A1348 *obj) {
         case 0:
             ((struct S_080A1348 *)((u8 *)obj + obj->f22 * 2))->f17 = controlByte2;
             {
-                void **handlerAddr = &D_08671BD8;
+                void **handlerAddr = &gMenuScriptCallback;
                 sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 2, *handlerAddr);
             }
             return;
         case 1:
             ((struct S_080A1348 *)((u8 *)obj + obj->f22 * 2))->f17 = 0;
             {
-                void **handlerAddr = &D_08671BD8;
+                void **handlerAddr = &gMenuScriptCallback;
                 sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 1, *handlerAddr);
             }
             break;

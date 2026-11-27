@@ -2,7 +2,7 @@
 /* Draft from identical target sub_0801797C, retargeted and judged independently. */
 void setAnimationFrame(void *, void *, s32, s32);
 s32 sub_08014990(void *);
-s32 sub_080C364C(s32, s32);
+s32 divInt32(s32, s32);
 s32 sub_080C31E0(s32, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -57,7 +57,7 @@ void sub_0801797C(void *arg0) {
         if (*(s16 *)(r5 + 0x24) > 0x3B)
             *(u16 *)(r5 + 0x24) = 0;
         t1 = (u32 *)0x08671BFC;
-        r0 = sub_080C364C((s32)*(s16 *)(r5 + 0x24) << 16, 0x3C);
+        r0 = divInt32((s32)*(s16 *)(r5 + 0x24) << 16, 0x3C);
         r0 = sub_080C31E0(r0, *t1);
         *(s32 *)(r5 + 0x20) = r0 << 1;
         *(u16 *)(r5 + 0x24) = *(u16 *)(r5 + 0x24) + 1;

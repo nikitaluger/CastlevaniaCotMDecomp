@@ -1,7 +1,7 @@
 void sub_080144D8(void *, void *);
 void sub_080144FC(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 
 /* Run one step of an entity's phased AI: set up its view sprite, dispatch the
  * handler chosen by the current phase's state byte out of the behavior table

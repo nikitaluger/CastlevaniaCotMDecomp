@@ -5,10 +5,10 @@ extern void installUpdateHandler(void *, void *, void *);
 extern void initSpriteGfx(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern u8 D_08102F08[];
 struct Entity {
   u8 _0[2]; u16 flags; u8 _1[0x14 - 4]; u32 funcTable; u8 _2[0x22 - 0x18];
@@ -40,7 +40,7 @@ void sub_080BBC20(struct Entity *arg)
   gfx->kind = 0x8000000B;
   child = (struct Child *)arg->child;
   childSub = ((u8 *)child) + 0x34;
-  installUpdateHandler(arg, child, &sub_08097D90);
+  installUpdateHandler(arg, child, &releaseActorEffectSubObject);
   child->param = 0x68;
   value = findKindIndex();
   child->result = value;
@@ -56,7 +56,7 @@ Lcont:
   arr = (u16 *)arg;
   ((u8 *)(&arr[i]))[0x19] = 0;
   {
-    u32 *handlerSlot = &gMainObjTimerCallback;
+    u32 *handlerSlot = &gScriptStepCallbackTable;
     arg18 = ((u8 *)arg) + 0x18;
     sub_080C31E4(arg18, ((u8 *)arg) + 0x22, *handlerSlot);
   }

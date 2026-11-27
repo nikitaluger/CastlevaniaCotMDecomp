@@ -3,7 +3,7 @@
  * countdown timer; when the timer expires it calls the failure callback.
  * sub_080C36E4 is a remainder helper (a % b), so the two tests fire on timer
  * multiples of 6 and 3. */
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void sub_08014848(s32, s32, s32, s32, s32, s32);
 extern s32 sub_08014990(u8 *);
@@ -62,7 +62,7 @@ void sub_0801820C(u8 *self) {
         yPos = *(u32 *)(entity + 0x0C);
         if (yPos < 0) yPos += 0xFFFF;
         yGrid = yPos >> 16;
-        sub_0801A310(xGrid, yGrid, -sub_08005820(0x38), sub_08005820(0x80 << 9));
+        sub_0801A310(xGrid, yGrid, -scaleByRandom(0x38), scaleByRandom(0x80 << 9));
     }
     timer = *(s16 *)(body + 0x16);
     if (((timer % 2) << 16) == 0) {

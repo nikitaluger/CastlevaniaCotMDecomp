@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 struct Fill { u16 a; u8 pad1[8]; u16 b; };
@@ -35,7 +35,7 @@ void sub_08027758(u8 *entity) {
         i--;
     } while (i >= 0);
 
-    child = sub_0805FAEC((s32)entity, 0xB2);
+    child = spawnBudgetedEffect((s32)entity, 0xB2);
     if (child != 0) {
         childFields = (struct ObjFields *)child;
         x = fixedToInt(*(s32 *)(data + 8));
@@ -44,7 +44,7 @@ void sub_08027758(u8 *entity) {
         childFields->y = y;
         childFields->flag = 0;
         childFields->val = *(u16 *)(data + 0x1C);
-        child2 = sub_0805FAEC((s32)child, 0xB2);
+        child2 = spawnBudgetedEffect((s32)child, 0xB2);
         if (child2 != 0) {
             child2Fields = (struct ObjFields *)child2;
             x2 = fixedToInt(*(s32 *)(data + 8));

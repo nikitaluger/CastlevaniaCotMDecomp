@@ -56,7 +56,7 @@ struct SpriteDef { u8 _0[4]; u16 param4, param6; u8 _8[0x28-8]; };
 extern struct SpriteDef gEffectGfxTable[];
 extern u16 D_080CE740[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Creates an entity's child sprite: sets up its animation from the animation
  * frame table, fills a ChildSprite record from the sprite-definition tables,

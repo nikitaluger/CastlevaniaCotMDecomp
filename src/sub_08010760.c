@@ -4,8 +4,8 @@ extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, void *, void *);
 
 /* Script command: reset the progress byte at +0x17 + step*2, then run the
- * script-step routine at D_08671BD8 with the step array, the step index and the
- * script state pointer held at D_020278D0. */
+ * script-step routine at gMenuScriptCallback with the step array, the step index and the
+ * script state pointer held at gMenuState. */
 void sub_080106E8(void *arg0) {
     u8 *self = (u8*)arg0;
     void *runner;

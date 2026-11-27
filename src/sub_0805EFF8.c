@@ -7,7 +7,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void sub_0805FBE4(void *arg0, u16 arg1);
 void sub_0805FC0C(void *arg0, u16 arg1, u16 arg2);
 void sub_080C31E4(void *arg0, void *arg1, u32 arg2);
@@ -26,7 +26,7 @@ void sub_0805EFF8(void *entity) {
     }
     *(s8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = 0;
     {
-        void **callbackSlot = &gMainObjTimerCallback;
+        void **callbackSlot = &gScriptStepCallbackTable;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callbackSlot);
     }
 }

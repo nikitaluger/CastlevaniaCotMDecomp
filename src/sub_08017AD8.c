@@ -1,5 +1,5 @@
 void setAnimationFrame(s32, void *, s32, s32);
-void sub_080161F0(void);
+void unlinkAndFreeObject(void);
 void sub_080C31E8(void *, void *, s32, s32);
 
 /* Script-step callback: sets a companion animation and an initial velocity,
@@ -28,7 +28,7 @@ void sub_08017AD8(void *arg0) {
             *(s32 *)(scriptState + 0x0C) = *(s32 *)(control + 0x0C);
             *(s32 *)(scriptState + 0x14) = zero;
             if (*(u32 *)(control + 0x34) != 0) {
-                sub_080161F0();
+                unlinkAndFreeObject();
                 *(u32 *)(control + 0x34) = zero;
             }
             ((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2)[0x17] = zero;

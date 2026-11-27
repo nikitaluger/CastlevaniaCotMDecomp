@@ -1,5 +1,5 @@
 extern void sub_080C31E8(void *base, void *index, u16 value, s32 table);
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 extern u16 D_080CAFC0[];
 
 /* Clear the current script step's flag byte and advance the script with the
@@ -16,7 +16,7 @@ void sub_0800D030(void *actor) {
     script = self + 0x18;
     stepIndex = self + 0x22;
     areaSongs = D_080CAFC0;
-    state = D_020278D0;
+    state = gMenuState;
     state += 0x64;
     sub_080C31E8(script, stepIndex, areaSongs[*state], *stepTable);
 }

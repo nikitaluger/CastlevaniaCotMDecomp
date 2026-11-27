@@ -1,13 +1,13 @@
 extern void sub_08003A6C(void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
 extern u8 D_084DB5E8[];
 extern u8 D_084DB788[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 struct EffectPart {
   u8 _0;
@@ -97,7 +97,7 @@ void sub_0807AAE8(struct EffectOwner *self)
   effectState->f2C->f08 = 0x14;
   effectState->f2C->f0A = zero;
   effectState->f2C->f0C = zero;
-  effectState->f2C->f0E = sub_0806D62C(*(u16 *)(paramTable + 0x2E2), 0x7A);
+  effectState->f2C->f0E = scalePercentSaturate16(*(u16 *)(paramTable + 0x2E2), 0x7A);
   effectState->f2C->f16 = 0x3C;
   effectState->f2C->f18 = 0x58;
   effectState->f2C->f10 = mainObj;
@@ -110,7 +110,7 @@ void sub_0807AAE8(struct EffectOwner *self)
   effectState->f10 = self->f9C;
   ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19 = zero;
   {
-    s32 *cueTable = &gMainObjTimerCallback;
+    s32 *cueTable = &gScriptStepCallbackTable;
     u8 *scriptPtr = (u8 *)self + 0x18;
     sub_080C31E4(scriptPtr, (u8 *)self + 0x22, *cueTable);
     ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19++;

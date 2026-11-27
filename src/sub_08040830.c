@@ -1,10 +1,10 @@
 struct S_02025FF0_40830 { u8 _0[0x174C]; u32 f174C; u32 f1750; };
 extern struct S_02025FF0_40830 gMainWorkspace;
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern s32 sub_080057F8(void);
 extern s32 sub_08005910(s32, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -20,7 +20,7 @@ void sub_08040830(u8 *entity) {
     sprite = *(void **)(entity + 0x38);
     body = *(u8 **)(entity + 0x3C);
     animTrack = body + 0x34;
-    sub_080113A8(sprite, animTrack);
+    stepAnimationTrack(sprite, animTrack);
     {
         u8 trackFlag = *(u8 *)(body + 0x34);
         u32 flagMask = 2;
@@ -44,7 +44,7 @@ void sub_08040830(u8 *entity) {
               u8 zero = 0;
               *(u16 *)gfxCopy = spriteAttr;
               (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = zero; }
-            { void **handlerTable = &gMainObjTimerCallback; sub_080C31E4(entity + 0x18, entity + 0x22, *handlerTable); }
+            { void **handlerTable = &gScriptStepCallbackTable; sub_080C31E4(entity + 0x18, entity + 0x22, *handlerTable); }
         }
     }
 }

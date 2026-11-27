@@ -1,4 +1,4 @@
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_080C050C(s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -9,7 +9,7 @@ void sub_08090484(void *self) {
 
     anim = *(void **)((u8 *)self + 0x3C);
     if (*(s32 *)((u8 *)anim + 4) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     sub_080C050C(0x1BE);
     sub_080C31E0(self, *(s32 *)((u8 *)anim + 8));

@@ -1,12 +1,12 @@
 struct S_02025FF0 { u8 _0x000[0x1870]; u32 v; };
 extern struct S_02025FF0 gMainWorkspace;
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 
 /* Allocate a result object, store its fixed-point position and parameters,
  * register it in the owner's result array at the given slot, and return it. */
 void *sub_080199B0(void *owner, s32 x, s32 y, u16 slot, u16 variant)
 {
-    void *result = sub_0805FAEC(gMainWorkspace.v, 0x8A);
+    void *result = spawnBudgetedEffect(gMainWorkspace.v, 0x8A);
     s32 hi, yHi, slotOffset;
     u8 *field, *ownerArray;
 

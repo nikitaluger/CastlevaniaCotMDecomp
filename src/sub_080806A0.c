@@ -1,5 +1,5 @@
 extern s32 sub_0806D450(void *, void *, void *);
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D330(void *, void *);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
@@ -61,7 +61,7 @@ void sub_080806A0(u8 *owner)
             }
         }
         *((u16 *)entity) = gMainWorkspace.unk18C2;
-        sub_08003740(state + 0x1C, entity);
+        stepDelayTimer(state + 0x1C, entity);
         if ((gMainWorkspace.unk173A == 0x1C) || ((gMainWorkspace.unk14ED == 0) && (gMainWorkspace.unk10 != 0)))
         {
             sub_080C31E0(owner, *((void **)(owner + 0x24)));

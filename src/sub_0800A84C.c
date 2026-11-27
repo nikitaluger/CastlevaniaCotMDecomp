@@ -6,9 +6,9 @@ extern s32 sub_0800B8C4(void *, s32);
 extern s32 sub_080103F0(u8);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern u8 gMainWorkspace[];
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 extern volatile u32 D_040000D4[];
-extern u32 D_08671BD8;
+extern u32 gMenuScriptCallback;
 
 struct D02021E90 { u8 pad[0x146C]; u16 flag; };
 extern struct D02021E90 gCameraState;
@@ -41,11 +41,11 @@ void sub_0800A84C(struct A84C *self) {
                 sub_08005E80(0x15C);
                 sub_08007FE0();
                 gMainWorkspace[8] = self->id;
-                *(s32 *)D_020278D0 = 6;
+                *(s32 *)gMenuState = 6;
                 entry = (u8 *)((s32)self->msgIndex * 2 + (u32)self);
                 *(u8 *)(entry + 0x17) = check;
                 {
-                    u32 *msgTable = &D_08671BD8;
+                    u32 *msgTable = &gMenuScriptCallback;
                     sub_080C31E8(&self->msgArg0, &self->msgIndex, 0x11, (void *)*msgTable);
                 }
             } else {
@@ -61,7 +61,7 @@ void sub_0800A84C(struct A84C *self) {
                 entry = (u8 *)((s32)self->msgIndex * 2 + (u32)self);
                 *(u8 *)(entry + 0x17) = choice;
                 {
-                    u32 *msgTable = &D_08671BD8;
+                    u32 *msgTable = &gMenuScriptCallback;
                     sub_080C31E8(&self->msgArg0, &self->msgIndex, 0x10, (void *)*msgTable);
                 }
             }

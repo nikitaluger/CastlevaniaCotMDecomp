@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(void*, s32);
+extern void *spawnBudgetedEffect(void*, s32);
 extern void _call_via_r1(void*, void*);
 
 /* Spawn the 8 numbered children (ids 0..7 stored at child+0x6C) of this
@@ -8,7 +8,7 @@ void sub_08051C58(void *obj) {
     u32 index = 0;
     void *child;
     for (;;) {
-        child = sub_0805FAEC(obj, 0x144);
+        child = spawnBudgetedEffect(obj, 0x144);
         if (child == NULL) {
             _call_via_r1(obj, *(void**)((u8*)obj + 0x24));
             return;
@@ -17,7 +17,7 @@ void sub_08051C58(void *obj) {
         index++;
         if (index > 7) break;
     }
-    if (sub_0805FAEC(obj, 0x145) == NULL) {
+    if (spawnBudgetedEffect(obj, 0x145) == NULL) {
         _call_via_r1(obj, *(void**)((u8*)obj + 0x24));
     }
 }

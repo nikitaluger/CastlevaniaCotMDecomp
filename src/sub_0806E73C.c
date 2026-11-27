@@ -1,6 +1,6 @@
 s32 allocWorkSlot(void *, s32, s32, s32);
 void *allocSpriteObject(void);
-void sub_0806D2D0(void *);
+void cleanupFailedEffectSpawn(void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E0(void *, s32);
 
@@ -10,7 +10,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Entity setup: checks a spawn condition, allocates and initializes a display object,
    then runs the entity script and dispatches its handler. */
@@ -28,7 +28,7 @@ void sub_0806E73C(void *entity)
     sprite = allocSpriteObject();
     if (sprite == 0)
     {
-        sub_0806D2D0(entity);
+        cleanupFailedEffectSpawn(entity);
         return;
     }
 

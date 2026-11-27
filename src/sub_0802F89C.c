@@ -2,7 +2,7 @@ extern s32 sub_08014990(void *);
 extern void sub_0808DBB4(s32, s32, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 
 struct S_02025FF0_1874 { u8 _p[0x1874]; u32 v; };
 extern struct S_02025FF0_1874 gMainWorkspace;
@@ -49,7 +49,7 @@ void *sub_0802F89C(s32 arg0, s32 arg1) {
     void *entity;
     s32 fixedX, fixedY;
     s32 tileX, tileY;
-    entity = sub_0805FAEC(gMainWorkspace.v, 0xD4);
+    entity = spawnBudgetedEffect(gMainWorkspace.v, 0xD4);
     if (entity == 0) return 0;
     fixedX = arg0;
     if (fixedX < 0) fixedX += 0xFFFF;

@@ -1,5 +1,5 @@
-void sub_08003A6C(s32, s32, s32);
-void sub_08003740(s32, s32);
+void startEffectTimer(s32, s32, s32);
+void stepDelayTimer(s32, s32);
 void sub_08005E80(s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_0806D588(s32, s32);
@@ -18,8 +18,8 @@ void sub_08089CDC(void *actor) {
     s32 *handlerTable;
     if (gMainWorkspace.gamePhase == 0x16) {
         workState += 0x20;
-        sub_08003A6C((s32)workState, 0, (s32)0x08507DF4);
-        sub_08003740((s32)workState, gfx);
+        startEffectTimer((s32)workState, 0, (s32)0x08507DF4);
+        stepDelayTimer((s32)workState, gfx);
         sub_08005E80(0x19C);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         handlerTable = (s32 *)0x08671BB0;

@@ -1,7 +1,7 @@
 /* Entity reaction: handles a check result by setting a movement byte and a target
  * flag, dispatches a message from the entity's per-state table, then aligns the
  * target to the current room's coordinate table. */
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -28,7 +28,7 @@ void sub_08093560(u8 *entity) {
     target = *(u8 **)(entity + 0x38);
     state = *(u8 **)(entity + 0x3C);
     stateTail = state + 0x34;
-    check = sub_0805F9B4(*(s32 *)(state + 0x8), *(s32 *)(state + 0xC));
+    check = isOutsideCameraBounds(*(s32 *)(state + 0x8), *(s32 *)(state + 0xC));
     if (check == 1) {
         *(u8 *)(*(u8 **)(stateTail + 4) + 1) = 0;
         ((struct TargetFlags *)(target + 0x2A))->flag &= 0xBF;

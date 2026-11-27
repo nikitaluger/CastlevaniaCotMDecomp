@@ -1,7 +1,7 @@
 void sub_08005E80(s32);
 void sub_0805FA88(s32, s32);
 void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern u8 gMainWorkspace[];
 struct S { u8 pad[0x0C]; s16 started; s16 doneFlag; s16 cooldown; };
 
@@ -28,7 +28,7 @@ void sub_080927EC(void *arg0)
         idx = *(s16 *)(self + 0x22);
         self[idx * 2 + 0x19] = 0;
         {
-            void **lit = &gMainObjTimerCallback;
+            void **lit = &gScriptStepCallbackTable;
             sub_080C31E4(self + 0x18, self + 0x22, *lit);
         }
     }

@@ -1,9 +1,9 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08014668(void *, s32);
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 void sub_0809C840(void *, void *);
 void sub_0809BEB0(void);
 struct S_0807B12C
@@ -57,7 +57,7 @@ void sub_0809B5D8(struct S_0807B12C *arg0)
   int byteBase;
   int byteOffset;
   void *sprite = (void *) arg0->sprite;
-  if (sub_08013B5C(sprite, (void *) arg0->work) == 0)
+  if (updateObjectDisplayState(sprite, (void *) arg0->work) == 0)
   {
     arg0->scriptTable = 0x0866FC68;
     arg0->stepIndex += 1;

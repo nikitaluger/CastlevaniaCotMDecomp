@@ -31,7 +31,7 @@ s32 sub_08014A04(void *obj, s32 targetX, s32 targetY, s32 maxDx, s32 maxDy) {
     return 1;
 }
 
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 signOf(s32);
 void sub_080149A4(void *arg0, void *arg1, u16 *arg2, u16 arg3, s32 arg4) {
     u16 r6 = (u16)arg3;
@@ -58,7 +58,7 @@ void sub_080149A4(void *arg0, void *arg1, u16 *arg2, u16 arg3, s32 arg4) {
         } else {
             tmp = a - 1;
             diff = b - tmp;
-            *arg2 = r6 + sub_08005820(diff);
+            *arg2 = r6 + scaleByRandom(diff);
         }
     }
 }

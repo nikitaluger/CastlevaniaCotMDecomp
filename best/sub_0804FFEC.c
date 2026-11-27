@@ -41,7 +41,7 @@ struct S_02025FF0
 extern struct Tbl gSpriteKindTable[];
 extern struct S_02025FF0 gMainWorkspace;
 extern u8 gCameraState[];
-extern struct E *sub_08016238(void *);
+extern struct E *hitTestEntities(void *);
 extern u32 sub_0806D5F8(u16, u16);
 extern void sub_0808D7BC(s32, s32, u32, u32);
 extern void sub_080158BC(void *, void *);
@@ -91,15 +91,15 @@ void *sub_0804FFEC(void *unused, struct A1 *arg1, struct A23 *arg2, struct A23 *
   {
     arg2->f04 = inline_fn2(arg2->f04 | 0x200);
     arg3->f04 = inline_fn2(arg3->f04 | 0x200);
-    sub_08016238(arg2);
-    sub_08016238(arg3);
+    hitTestEntities(arg2);
+    hitTestEntities(arg3);
     return NULL;
     var_r7 = (struct E *) arg2;
   }
-  var_r8 = sub_08016238(arg2);
+  var_r8 = hitTestEntities(arg2);
   if (var_r8 == NULL)
   {
-    var_r8 = sub_08016238(arg3);
+    var_r8 = hitTestEntities(arg3);
     if (var_r8 == NULL)
     {
       return NULL;

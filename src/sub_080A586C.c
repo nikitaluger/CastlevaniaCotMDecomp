@@ -1,6 +1,6 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080036C0(s32);
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 extern void loadEffectPalette(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -37,14 +37,14 @@ void sub_080A586C(u8 *arg0)
   *((u8 *) (self + 0x4C)) = zero;
   *((u8 *) (self + 0x50)) = zero;
   c19a = 0x19A;
-  v = sub_0805FAEC(self, c19a);
+  v = spawnBudgetedEffect(self, c19a);
   *((void **) (r4 + 0x04)) = v;
   *((u32 *) (((u8 *) v) + 0x5C)) = 0x880000;
   base = *((void **) (r4 + 0x04));
   c1C00000 = 0x1C00000;
   *((u32 *) (base + 0x6C)) = c1C00000;
   *((u8 *) ((*((void **) (r4 + 0x04))) + 0x4C)) = zero;
-  v2 = sub_0805FAEC(self, c19a);
+  v2 = spawnBudgetedEffect(self, c19a);
   *((void **) (r4 + 0x08)) = v2;
   *((u32 *) (((u8 *) v2) + 0x5C)) = 0x1780000;
   *((u32 *) ((*((void **) (r4 + 0x08))) + 0x6C)) = c1C00000;

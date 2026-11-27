@@ -1,9 +1,9 @@
-extern void sub_0806A7AC(s32, s32, s32);
+extern void setEntityForm(s32, s32, s32);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E0(void *, void *);
 
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Initialize a scripted actor: assign its kind, allocate a main object and
  * four child objects, DMA its graphics into VRAM, run the script callback,
@@ -17,7 +17,7 @@ void sub_08067880(void *script)
 
     {
         s32 mover = *(s32 *)((u8 *)script + 0x6C) + 4;
-        sub_0806A7AC(*(s32 *)((u8 *)script + 0x38), mover, 0x19);
+        setEntityForm(*(s32 *)((u8 *)script + 0x38), mover, 0x19);
     }
 
     obj = sub_0806D2A0(script, 0x34, 0x0A, 0x12);
@@ -46,7 +46,7 @@ void sub_08067880(void *script)
 
     *(u8 *)((u8 *)script + *(s16 *)((u8 *)script + 0x22) * 2 + 0x19) = 0;
 
-    sub_080C31E4(p18, p22, gMainObjTimerCallback);
+    sub_080C31E4(p18, p22, gScriptStepCallbackTable);
 
     (*(u8 *)((u8 *)script + *(s16 *)((u8 *)script + 0x22) * 2 + 0x19))++;
 

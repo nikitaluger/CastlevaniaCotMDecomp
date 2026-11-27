@@ -1,4 +1,4 @@
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08011528(s32, void *);
 
 /* Display/animation state block referenced by the entity at +0x3C; the
@@ -22,7 +22,7 @@ void sub_080A9804(struct Entity *entity)
     void *state = entity->state;
     void *track = (u8 *)state + 0x34;
 
-    if (sub_08013B5C((void *)spriteAttrs, state) == 0)
+    if (updateObjectDisplayState((void *)spriteAttrs, state) == 0)
     {
         sub_08011528(spriteAttrs, track);
     }

@@ -1,6 +1,6 @@
-void sub_080113A8(void *, void *);
-s32 sub_08015850(s32, s32, s32, s32, s32, s32);
-s32 sub_0805F9B4(s32, s32);
+void stepAnimationTrack(void *, void *);
+s32 isPointInActiveCameraBounds(s32, s32, s32, s32, s32, s32);
+s32 isOutsideCameraBounds(s32, s32);
 void sub_080C31E0(void *, s32);
 
 struct GameState { u8 _pad[0x10]; u32 mode; };
@@ -17,10 +17,10 @@ void sub_0808E27C(void *entity) {
     u8 *motion = body + 0x14;
 
     if (gMainWorkspace.mode == 1) {
-        if (sub_08015850(*(s32 *)(body + 0x14), *(s32 *)(motion + 4), -0x10, 0x10, -0x10, 0x10) != 0)
+        if (isPointInActiveCameraBounds(*(s32 *)(body + 0x14), *(s32 *)(motion + 4), -0x10, 0x10, -0x10, 0x10) != 0)
             goto updates;
     } else {
-        if (sub_0805F9B4(*(s32 *)(body + 0x14), *(s32 *)(motion + 4)) != 1)
+        if (isOutsideCameraBounds(*(s32 *)(body + 0x14), *(s32 *)(motion + 4)) != 1)
             goto updates;
     }
     sub_080C31E0(self, *(s32 *)(self + 0x24));
@@ -30,7 +30,7 @@ updates:
     *(s32 *)(motion + 0) = *(s32 *)(motion + 0) + *(s32 *)(motion + 8);
     *(s32 *)(motion + 4) = *(s32 *)(motion + 4) + *(s32 *)(motion + 0xC);
     *(s32 *)(motion + 0xC) = *(s32 *)(motion + 0xC) + *(s32 *)(motion + 0x10);
-    sub_080113A8(gfx, body);
+    stepAnimationTrack(gfx, body);
 
     {
         u8 *pt = gCameraState;

@@ -1,9 +1,9 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void moveObjectHorizontally(void *, u32, u32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080141AC(void *, void *);
@@ -50,7 +50,7 @@ void sub_0802C190(void *self) {
             sub_080C31E8((u8 *)self + 0x18, (u8 *)self + 0x22, 2, *p);
         }
     }
-    if (sub_08013B5C(mainObj, state) == 0) {
+    if (updateObjectDisplayState(mainObj, state) == 0) {
         *(u32 *)((u8 *)self + 0x14) = 0x0866DB34;
         *(u16 *)((u8 *)self + 0x22) = *(u16 *)((u8 *)self + 0x22) + 1;
         base = (u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self);
@@ -67,7 +67,7 @@ void sub_0802C190(void *self) {
         if (*(u16 *)((u8 *)self + 2) & 0x8000) {
             return;
         }
-        sub_080113A8(mainObj, state34);
+        stepAnimationTrack(mainObj, state34);
         if (!(*(u16 *)(*(u8 **)((u8 *)owner + 0x04) + 0x06) & 0x10)) {
             moveObjectHorizontally(state, 0x80000, 0x80000);
         }

@@ -1,6 +1,6 @@
 extern u32 D_0866FDEC[];
 void sub_08011624(void *, void *, u32);
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 
 /* Look up an id from the action object's data; when it is 11 or 12 set the
  * target's +0x10 velocity to +2.0 or -2.0 depending on a flag in the source,
@@ -30,6 +30,6 @@ u8 sub_080A1894(void *source, void *target, void *action, void *context)
 end:
     *((u32 *) ((u8 *)target + 0x10)) = 0;
 done:
-    sub_0801165C(target, 0);
+    advanceMotion(target, 0);
     return ((u8 *)action)[0] & 2;
 }

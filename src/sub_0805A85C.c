@@ -1,4 +1,4 @@
-void sub_080161F0(void);
+void unlinkAndFreeObject(void);
 void sub_08015974(void);
 void sub_08016678(void *);
 void sub_080C31E0(void *, void *);
@@ -12,7 +12,7 @@ void sub_0805A85C(void *arg0) {
     u8 *moveState = work + 0x48;
 
     if (*(u32 *)(work + 0x28) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(u32 *)(work + 0x2C) != 0) {
         sub_08015974();

@@ -1,6 +1,6 @@
 void setAnimationFrame(s32, s32, s32, s32);
-void sub_080113A8(s32, s32);
-void sub_0801165C(void *, s32);
+void stepAnimationTrack(s32, s32);
+void advanceMotion(void *, s32);
 void sub_080C31E0(void *, s32);
 
 /* Per-frame update: refreshes the animator and integrates the object's motion;
@@ -14,8 +14,8 @@ void sub_080B23FC(void *entity) {
     sprite = *(s32 *)((u8 *)entity + 0x38);
     work = *(void **)((u8 *)entity + 0x3C);
     animState = (s32)work + 0x34;
-    sub_080113A8(sprite, animState);
-    sub_0801165C(work, 0);
+    stepAnimationTrack(sprite, animState);
+    advanceMotion(work, 0);
     if (*(u8 *)(((*(s16 *)((u8 *)entity + 0x22) * 2) + (u8 *)entity) + 0x19) == 0x18) {
         setAnimationFrame(sprite, animState, 0x57, 0);
     }

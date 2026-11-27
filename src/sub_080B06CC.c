@@ -1,4 +1,4 @@
-void *sub_0805FAEC(u32 parent, u32 type);
+void *spawnBudgetedEffect(u32 parent, u32 type);
 extern u32 D_02027860;
 
 /* Fill the entity's three auxiliary slot pointers with freshly spawned
@@ -9,7 +9,7 @@ void sub_080B06CC(void **slots)
     u32 *parentPtr = &D_02027860;
     void **dst = slots;
     do {
-        *dst++ = sub_0805FAEC(*parentPtr, 0x1A9);
+        *dst++ = spawnBudgetedEffect(*parentPtr, 0x1A9);
         i++;
     } while (i <= 2);
 }

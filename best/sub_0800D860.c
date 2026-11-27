@@ -19,9 +19,9 @@ struct St {
     u8 cF3[1];
 };
 extern struct In gCameraState;
-extern struct St D_020278D0;
+extern struct St gMenuState;
 extern u32 gGameStatus[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern void *D_08671BC0;
 
 void playSound(s32);
@@ -53,7 +53,7 @@ void sub_0800D860(u8 *a)
     u16 temp;
     u16 temp2;
     tbl = gGameStatus;
-    g = &D_020278D0;
+    g = &gMenuState;
     p6A = &g->c6A;
     idx = *p6A;
 
@@ -191,6 +191,6 @@ D9A4:
         u8 *d;
         d = a + ((s16)*(u16 *)(a + 0x22) << 1);
         d[0x19] = 0;
-        sub_080C31E4(a + 0x18, a + 0x22, *(void **)&gMainObjTimerCallback);
+        sub_080C31E4(a + 0x18, a + 0x22, *(void **)&gScriptStepCallbackTable);
     }
 }

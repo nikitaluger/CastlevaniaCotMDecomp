@@ -1,5 +1,5 @@
 s32 setAnimationFrame(s32, s32, s32, s32);
-s32 sub_080113A8(s32, s32);
+s32 stepAnimationTrack(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
 /* Per-frame actor update: advance the sprite animation; when its state's bit 1
@@ -14,7 +14,7 @@ void sub_08044B78(void *actor)
   sprite = *((s32 *) (((s8 *) actor) + 0x38));
   work = *((void **) (((s8 *) actor) + 0x3C));
   state = work + 0x34;
-  sub_080113A8(sprite, state);
+  stepAnimationTrack(sprite, state);
   if (2 & (*((u8 *) (((s8 *) work) + 0x34))))
   {
     *((s32 *) (((s8 *) work) + 0x14)) = 0xFFFE4000;

@@ -1,5 +1,5 @@
 extern void setAnimationFrame(s32, s32, s32, s32);
-extern void sub_080113A8(s32, s32);
+extern void stepAnimationTrack(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Advance the projectile's animation and, once it reports completion (bit 1 of
@@ -14,7 +14,7 @@ void sub_08044A1C(void *arg0)
   owner = *((s32 *)((s8 *)arg0 + 0x38));
   projectile = *((void **)((s8 *)arg0 + 0x3C));
   animator = (s32)projectile + 0x34;
-  sub_080113A8(owner, animator);
+  stepAnimationTrack(owner, animator);
   if (2 & (*((u8 *)((s8 *)projectile + 0x34))))
   {
     setAnimationFrame(owner, animator, 3, 1);

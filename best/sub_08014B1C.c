@@ -2,7 +2,7 @@ extern s32 sub_08005910(s32, s32);
 extern s32 sub_080059DC(s32, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern s32 sub_08014CA0(s32, s32, s32, s32, s32, s32, s32, s32);
-extern s32 sub_080C364C(s32);
+extern s32 divInt32(s32);
 struct MoveA { u8 pad[8]; s32 x, y, vx, vy; };
 struct MoveB { s32 cur, prev, min, max, step, speed, pad, unused; };
 
@@ -17,7 +17,7 @@ void sub_08014B1C(struct MoveA *a, struct MoveB *b, s32 c, s32 d)
     else {
         s16 s = (s16)delta;
         s32 t = s < 0 ? -((s16)delta) : s;
-        v = sub_080C364C(t - 1) + 1;
+        v = divInt32(t - 1) + 1;
     }
     if (v == 1) {
 do { b->prev = angle; delta = 0;

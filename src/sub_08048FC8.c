@@ -1,5 +1,5 @@
 s32 sub_080141AC(void *, void *);
-s32 sub_08016238(void *);
+s32 hitTestEntities(void *);
 s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
@@ -18,7 +18,7 @@ void sub_08048FC8(void *self) {
         sub_080C31E0((s32)self, *(s32 *)((u8 *)self + 0x24));
         return;
     }
-    if (sub_08016238(*(void **)((u8 *)actor + 0x28)) != 0) {
+    if (hitTestEntities(*(void **)((u8 *)actor + 0x28)) != 0) {
         s32 tmp = 1 | *(u16 *)actor;
         *(u16 *)actor = tmp;
     }

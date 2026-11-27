@@ -1,4 +1,4 @@
-extern s32 sub_0806A7AC(s32, s32, s32);
+extern s32 setEntityForm(s32, s32, s32);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
@@ -17,7 +17,7 @@ void sub_080665A0(void *arg0)
   s32 mapPtr = *((s32 *) (self + 0x6C));
   s32 work = mapPtr + 4;
   s32 gfxPtr = *((s32 *) (self + 0x38));
-  sub_0806A7AC(gfxPtr, work, 0x57);
+  setEntityForm(gfxPtr, work, 0x57);
   *((s32 *) (mapPtr + 0x108)) = *((s32 *) (work + 4));
   scroll = (s32 *) (mapPtr + 0x110);
   *scroll = addScrollOrigin(work + 4) - (*((s32 *) (gfxPtr + 0x18)));

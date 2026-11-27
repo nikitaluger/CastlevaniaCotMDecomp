@@ -3,7 +3,7 @@ extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08014DB4(void *, void *, s32, s32);
 
-extern u8 gMainObjTimerCallback[];
+extern u8 gScriptStepCallbackTable[];
 extern u8 D_0866D868[];
 
 struct S_02025FF0_174C { u8 _0[0x174C]; u32 a; u32 b; };
@@ -38,7 +38,7 @@ void sub_08021D90(void *arg0)
     u8 *obj = (u8 *)arg0;
     u8 *pose = *(u8 **)(obj + 0x3C) + 0x48;
     u8 zero = 0;
-    void **stepFnTable = (void **)gMainObjTimerCallback;
+    void **stepFnTable = (void **)gScriptStepCallbackTable;
 
     *(u16 *)(pose + 8) = 0x14;
     *(u16 *)(pose + 0x1C) = 3;

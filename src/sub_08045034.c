@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 
 /* The spawn-object free-list pointer sits at the end of the game-state block. */
 struct GameState { u8 _pad[0x1870]; u32 spawnPool; };
@@ -11,7 +11,7 @@ struct MotionState { u8 _pad[8]; u32 x; u32 y; };
  * front of the actor, 24px above it, moving horizontally away from the facing
  * direction at 2px per frame. */
 void sub_08045034(struct Sprite *sprite, struct MotionState *motion) {
-    void *spawn = sub_0805FAEC(gMainWorkspace.spawnPool, 0x11B);
+    void *spawn = spawnBudgetedEffect(gMainWorkspace.spawnPool, 0x11B);
     s32 velocity;
     u32 x;
     if (!spawn) return;

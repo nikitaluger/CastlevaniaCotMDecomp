@@ -1,4 +1,4 @@
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080415D4(s32, s32, void *, void *);
 
@@ -11,7 +11,7 @@ void sub_080412F8(void *arg0) {
     u8 *work = *(u8 **)(self + 0x3C);
     u8 *animator = work + 0x34;
     s32 *advanceFunc;
-    sub_080113A8((void *)owner, (void *)animator);
+    stepAnimationTrack((void *)owner, (void *)animator);
     if (*(u8 *)animator & 2) {
         sub_080415D4(0, owner, (void *)work, (void *)animator);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

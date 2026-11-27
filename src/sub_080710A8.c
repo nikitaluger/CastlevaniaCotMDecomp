@@ -1,14 +1,14 @@
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern u16 sub_0806D62C(u16, s32);
-extern void sub_080718F4(void);
+extern u16 scalePercentSaturate16(u16, s32);
+extern void releaseEffectGroup(void);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u32 D_080E00C8[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 struct Obj {
     u8 f0, f1, f2, f3;
@@ -52,7 +52,7 @@ void sub_080710A8(void *arg0)
         s32 cond = *(s16 *)(dataTable + 0x8C);
         s32 denom = 0x64;
         if (cond == 1) denom = 0x8D;
-        ((struct Obj *)(u32)*(vu32 *)(sub + 0x3C))->fE = sub_0806D62C(param, denom);
+        ((struct Obj *)(u32)*(vu32 *)(sub + 0x3C))->fE = scalePercentSaturate16(param, denom);
     }
 
     {
@@ -63,7 +63,7 @@ void sub_080710A8(void *arg0)
     }
 
     *(void **)(sub + 0x18) = *(void **)(mgr + 0x24);
-    *(void **)(mgr + 0x24) = (void *)sub_080718F4;
+    *(void **)(mgr + 0x24) = (void *)releaseEffectGroup;
 
     {
         u8 *gs = gMainWorkspace;
@@ -78,7 +78,7 @@ void sub_080710A8(void *arg0)
     {
         *(u8 *)(mgr + *(s16 *)(mgr + 0x22) * 2 + 0x19) = 0;
         {
-            void **spawnFunc = &gMainObjTimerCallback;
+            void **spawnFunc = &gScriptStepCallbackTable;
             u8 *poseBase = mgr + 0x18;
             sub_080C31E4(poseBase, mgr + 0x22, *spawnFunc);
             {

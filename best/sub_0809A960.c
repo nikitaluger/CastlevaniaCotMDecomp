@@ -1,7 +1,7 @@
 struct Ent { u8 _0, f1, f2, f3; u16 f4, f6, f8, fA, fC, fE; u32 f10; };
 struct DefBB { u8 _00[4]; u16 f4; u16 f6; };
 extern u16 D_081017D8[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);

@@ -1,4 +1,4 @@
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern u8 gMainWorkspace[];
 extern u8 D_080E0558[];
 
@@ -19,7 +19,7 @@ void sub_0806DD94(void) {
             u8 *scene = D_080E0558;
             s32 divisor = *(u32*)(scene + 0x5C);
             s32 dividend = 0x100;
-            *(u32*)p1840 = sub_080C364C(dividend, divisor);
+            *(u32*)p1840 = divInt32(dividend, divisor);
         }
         *(u32*)(state + 0x183C) = zero;
     }

@@ -4,13 +4,13 @@ extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
-extern void sub_080113A8(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_08011EE8(void *, s32, s32);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 extern void *D_0866E278;
 extern s32 sub_080457E0(void *);
 extern void sub_08045970(void *, s32);
@@ -64,11 +64,11 @@ void sub_08045408(u8 *entity)
       sub_08013AC4(entity);
       desc2 = (u8 *) ((((u32) (*((s16 *) (entity + 0x22)))) * 2) + ((u32) entity));
       desc2[0x1B] = 0;
-      callbackSlot = &D_08671BDC;
+      callbackSlot = &sScriptStepCallbacks;
       sub_080C31E8(entity + 0x18, entity + 0x22, 3, *callbackSlot);
     }
   }
-  if (sub_08013B5C(sprite, state) == 0)
+  if (updateObjectDisplayState(sprite, state) == 0)
   {
     *((u32 *) (entity + 0x14)) = (u32) 0x0866E278;
     *((u16 *) (entity + 0x22)) = (u16) ((*((u16 *) (entity + 0x22))) + 1);
@@ -85,7 +85,7 @@ void sub_08045408(u8 *entity)
     {
       return;
     }
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
     sub_08011EE8(state, 0x16C1, 0);
   }
   sub_08045970(entity, sprite);

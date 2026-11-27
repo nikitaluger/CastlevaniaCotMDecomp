@@ -1,5 +1,5 @@
-extern s32 sub_08003740(s32, s32);
-extern s32 sub_08003A6C(s32, s32, s32);
+extern s32 stepDelayTimer(s32, s32);
+extern s32 startEffectTimer(s32, s32, s32);
 extern s32 sub_08005E80(s32);
 extern s32 sub_0806D588(s32, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
@@ -21,7 +21,7 @@ void sub_0808A628(void *arg0) {
     actorState = actor + 4;
     sprite = *(s32 *)(self + 0x38);
     if (gMainWorkspace.eventPhase == 1) {
-        sub_08003A6C(actor + 0x20, 0, 0x08502D90);
+        startEffectTimer(actor + 0x20, 0, 0x08502D90);
         gMainWorkspace.eventPhase = 0x10;
         sub_08005E80(0x1BF);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
@@ -30,6 +30,6 @@ void sub_0808A628(void *arg0) {
             sub_080C31E4(self + 0x18, self + 0x22, *lit);
         }
     }
-    sub_08003740(actor + 0x20, sprite);
+    stepDelayTimer(actor + 0x20, sprite);
     sub_0806D588(sprite, actorState);
 }

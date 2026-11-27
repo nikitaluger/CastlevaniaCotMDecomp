@@ -9,7 +9,7 @@ struct S_020278D0 {
     u8 _0x042[0x6];
     void *objects[5];
 };
-extern struct S_020278D0 D_020278D0;
+extern struct S_020278D0 gMenuState;
 extern u8 gGameStatus[];
 void _call_via_r1(void *, void *);
 void sub_0806DD94(void);
@@ -20,7 +20,7 @@ void sub_0800E328(void) {
     u8 *state = gGameStatus;
     u32 i = 0;
     void *obj;
-    u8 *sync = (u8 *)&D_020278D0;
+    u8 *sync = (u8 *)&gMenuState;
     void **slot = (void **)(sync + 0x48);
     do {
         obj = *slot;
@@ -29,8 +29,8 @@ void sub_0800E328(void) {
         slot++;
         i++;
     } while (i <= 1);
-    if (D_020278D0.sceneId != *(u16 *)(state + 0x304))
+    if (gMenuState.sceneId != *(u16 *)(state + 0x304))
         sub_0806DD94();
-    sub_080C2E68(state + 0x2C4, &D_020278D0, 0x48);
+    sub_080C2E68(state + 0x2C4, &gMenuState, 0x48);
     sub_0806D930(state + 0x2C4);
 }

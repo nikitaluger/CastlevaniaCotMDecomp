@@ -1,8 +1,8 @@
-extern void sub_080113A8(s32, s32);
+extern void stepAnimationTrack(s32, s32);
 extern void setAnimationFrame(s32, s32, s32, s32);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 /* Effect update: advances the sprite animation, and when the sprite reaches
  * state 13 applies gravity, switches it to animation 0x11 and gives it a random
@@ -12,7 +12,7 @@ void sub_080A42D8(void *arg0) {
     u8 *sprite = *(u8 **)(self + 0x38);
     u8 *work = *(u8 **)(self + 0x3C);
     u8 *anim = work + 0x34;
-    sub_080113A8((s32)sprite, (s32)anim);
+    stepAnimationTrack((s32)sprite, (s32)anim);
     if (*(u16 *)(sprite + 0x28) == 0xD) {
         s32 zero;
         u8 *animDef;
@@ -21,7 +21,7 @@ void sub_080A42D8(void *arg0) {
         zero = 0;
         animDef[1] = 5;
         setAnimationFrame((s32)sprite, (s32)anim, 0x11, 0);
-        *(s32 *)(work + 0x14) = -(sub_08005820(0xC000) + 0x6000);
+        *(s32 *)(work + 0x14) = -(scaleByRandom(0xC000) + 0x6000);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
         {
             s32 *scriptHandlers = (s32 *)0x08671BB0;

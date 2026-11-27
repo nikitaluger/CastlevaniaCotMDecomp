@@ -1,12 +1,12 @@
-extern void sub_08003A6C(void *a, s32 b, void *c);
+extern void startEffectTimer(void *a, s32 b, void *c);
 extern void sub_0808BBAC(s32 a, s32 b, s32 c);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
-extern void sub_0808449C(void);
+extern void releaseActorEffectParts(void);
 
 extern u8 D_084F6938[];
 extern u8 D_084F69AC[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Initializes an entity's state and sprite: clears its timers, installs the
  * update callback and data tables, sets the palette, then advances the script
@@ -24,9 +24,9 @@ void sub_0808252C(void *arg0)
     *(u32 *)(actor + 0x38) = 0;
     *(u32 *)(actor + 0x3C) = 0;
     *(u32 *)(actor + 0x18) = *(u32 *)(entity + 0x24);
-    *(void **)(entity + 0x24) = sub_0808449C;
+    *(void **)(entity + 0x24) = releaseActorEffectParts;
     *(void **)(sprite + 0x24) = D_084F6938;
-    sub_08003A6C(state + 0x20, 0, D_084F69AC);
+    startEffectTimer(state + 0x20, 0, D_084F69AC);
     *(u32 *)(sprite + 0x14) = 0x00E80000;
     *(u32 *)(sprite + 0x18) = 0x00C00000;
     *(u32 *)(actor + 0x10) = 0x100;
@@ -36,7 +36,7 @@ void sub_0808252C(void *arg0)
 
     *(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = 0;
     {
-        u32 *eventPtr = &gMainObjTimerCallback;
+        u32 *eventPtr = &gScriptStepCallbackTable;
         u8 *stepBase = entity + 0x18;
         sub_080C31E4(stepBase, entity + 0x22, (void *)*eventPtr);
         {

@@ -1,4 +1,4 @@
-void sub_080161F0(void);
+void unlinkAndFreeObject(void);
 void sub_080C31E0(void *obj, s32 handler);
 
 struct MainObj {
@@ -16,7 +16,7 @@ struct SubObj {
 void sub_08090F50(struct MainObj *self) {
     struct SubObj *sub = self->sub;
     if (sub->child != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     sub_080C31E0(self, sub->handler);
 }

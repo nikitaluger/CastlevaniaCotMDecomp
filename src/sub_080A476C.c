@@ -4,7 +4,7 @@ struct GlobalState {
     s32 playerY;
 };
 extern struct GlobalState gMainWorkspace;
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern s32 sub_08005910(s32, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -21,7 +21,7 @@ void sub_080A476C(void *arg0)
     u8 *entity = self;
     void *gfx = *((void **) (self + 0x38));
     work = *((u8 **) (self + 0x3C));
-    sub_080113A8(gfx, work + 0x34);
+    stepAnimationTrack(gfx, work + 0x34);
     if (*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) == 8)
     {
         angle = sub_08005910(gMainWorkspace.playerY - (*((s32 *) (work + 0x0C))), gMainWorkspace.playerX - (*((s32 *) (work + 0x08))));

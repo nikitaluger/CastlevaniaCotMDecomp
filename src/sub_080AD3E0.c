@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void _call_via_r1(void *, void *);
 
@@ -25,7 +25,7 @@ void sub_080AD3E0(struct S_AD3E0 *arg0)
   struct S_AD3E0 *self;
   u8 *new_var3;
   self = arg0;
-  if (sub_08013B5C(sprite, (void *) self->work) == 0)
+  if (updateObjectDisplayState(sprite, (void *) self->work) == 0)
   {
     stepBaseOffset = 0x18;
     self->handlers = 0x08670190;

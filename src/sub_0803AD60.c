@@ -1,7 +1,7 @@
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_08011344(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Global list head held in the shared work area at offset 0x1870. */
 struct WorkAreaList { u8 pad[0x1870]; void *head; };
@@ -17,7 +17,7 @@ void sub_0803AD60(u8 *self) {
     u8 *animData;
     void *listHead, *oldFirst;
 
-    sub_080113A8(actor, enemyData);
+    stepAnimationTrack(actor, enemyData);
     if (*(u8 *)enemyData & 2) {
         s32 zero;
         if (*(u8 *)(self + 0x80) != 0) {
@@ -45,7 +45,7 @@ void sub_0803AD60(u8 *self) {
         *(u32 *)(self + 0x30) = zero;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
         {
-            s32 *pTable = &gMainObjTimerCallback;
+            s32 *pTable = &gScriptStepCallbackTable;
             sub_080C31E4(self + 0x18, self + 0x22, *pTable);
         }
     }

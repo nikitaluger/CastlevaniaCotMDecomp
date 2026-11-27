@@ -1,4 +1,4 @@
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -52,7 +52,7 @@ void sub_0806F11C(void *script)
     percent = 0x59;
     if (cond == 1)
         percent = 0x9E;
-    ((struct Outer *)actor)->p->fE = sub_0806D62C(value, percent);
+    ((struct Outer *)actor)->p->fE = scalePercentSaturate16(value, percent);
 
     ((struct Outer *)actor)->p->f10 = sprite;
     ((struct Outer *)actor)->p->f16 = 0x0F;

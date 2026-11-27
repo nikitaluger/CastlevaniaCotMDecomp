@@ -1,4 +1,4 @@
-s32 sub_080161F0();
+s32 unlinkAndFreeObject();
 s32 unregisterSpriteEntity();
 void sub_080C31E0(void *, s32);
 
@@ -13,7 +13,7 @@ void releaseEffectObject(void *obj)
     {
         obj++;
         obj--;
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     sub_080C31E0(obj, *(s32 *)((u8 *)data + 0x24));
 }

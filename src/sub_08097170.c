@@ -1,8 +1,8 @@
 /* Update an entity's sprite view: set or clear a flag bit depending on whether
  * the entity's position is inside the camera-bounded rectangle, run the view's
  * movement callback, then subtract the camera scroll from its x/y velocity. */
-s32 sub_0805F9B4(s32, s32);
-void sub_080113A8(void *, void *);
+s32 isOutsideCameraBounds(s32, s32);
+void stepAnimationTrack(void *, void *);
 struct S_02025FF0_18A8
 {
     u8 _0[0x18A8];
@@ -21,7 +21,7 @@ void sub_08097170(void *entity)
     view = *(void **)((u8 *)entity + 0x38);
     body = *(void **)((u8 *)entity + 0x3C);
     motionData = (u8 *)body + 0x14;
-    if (sub_0805F9B4(*(s32 *)((u8 *)body + 0x0C), *(s32 *)((u8 *)body + 0x10)) == 1)
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)body + 0x0C), *(s32 *)((u8 *)body + 0x10)) == 1)
     {
         flag = (u8 *)view + 0x2A;
         *flag = 0xBF & (*flag);
@@ -32,7 +32,7 @@ void sub_08097170(void *entity)
         flagBits = 0x40 | (*flag);
         *flag = flagBits;
     }
-    sub_080113A8(view, motionData);
+    stepAnimationTrack(view, motionData);
     {
         u8 *scrollTable = gCameraState;
         u32 camOffset = (gMainWorkspace.camIndex + 1) * 0x40;

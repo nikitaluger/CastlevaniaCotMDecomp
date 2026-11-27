@@ -1,5 +1,5 @@
-extern void sub_08003740(void *, void *);
-extern void sub_08003A6C(void *, s32, void *);
+extern void stepDelayTimer(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -8,7 +8,7 @@ struct S_D {
     s32 state14;
 };
 extern struct S_D gMainWorkspace;
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 extern u8 D_0850D638;
 
 /* Actor tick: when the global state (+0x14) is 6, play the animation at
@@ -20,12 +20,12 @@ void sub_0808AA78(void *arg0) {
 
     if (gMainWorkspace.state14 == 6) {
         mover += 0x20;
-        sub_08003A6C(mover, 0, &D_0850D638);
-        sub_08003740(mover, sprite);
+        startEffectTimer(mover, 0, &D_0850D638);
+        stepDelayTimer(mover, sprite);
         sub_08005E80(0x199);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            s32 *advanceTable = &gMainObjTimerCallback;
+            s32 *advanceTable = &gScriptStepCallbackTable;
             sub_080C31E4(self + 0x18, self + 0x22, *advanceTable);
         }
     }

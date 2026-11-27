@@ -1,7 +1,7 @@
 extern void sub_0808BB54(void);
 extern void sub_080C31E0(void *arg, void *func);
 extern void sub_080C31E8(void *scriptData, void *scriptIndex, s32 arg, s32 callback);
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 
 /* Script step: while the current step's flag bit 0 is clear, counts down the
  * byte at self+0x50 and drives two halfwords of the gfx state from it; when the
@@ -35,7 +35,7 @@ void sub_080AEB4C(u8 *self)
     sub_0808BB54();
     stepIdx = *((s16 *) (self + 0x22));
     *((u8 *) ((self + (stepIdx * 2)) + 0x19)) = zero;
-    scriptCb = &D_08671BD0;
+    scriptCb = &gScriptStepCallbacks;
     stepData = self + 0x18;
     sub_080C31E8(stepData, self + 0x22, 0, *scriptCb);
     ((u8 *)(self + (*(s16 *)(self + 0x22)) * 2))[0x19]++;

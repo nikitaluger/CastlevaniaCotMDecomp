@@ -1,4 +1,4 @@
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, void *);
 
@@ -30,7 +30,7 @@ void sub_0808A4E0(void *arg0) {
         gMainWorkspace.timer14DA = 0x0D;
         sub_080C31E0(self, *(void **)(self + 0x24));
     } else {
-        sub_08003740(mover + 0x20, sprite);
+        stepDelayTimer(mover + 0x20, sprite);
         sub_0806D588(sprite, moverPos);
     }
 }

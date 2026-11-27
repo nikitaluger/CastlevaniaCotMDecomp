@@ -3,7 +3,7 @@
  * animation word differs, and once the animator's bit 1 is set clear this
  * step's state/action bytes and advance the script. */
 s32 setAnimationFrame(void *, s32, s32, s32);
-s32 sub_080113A8(void *, s32);
+s32 stepAnimationTrack(void *, s32);
 s32 sub_080C31E8(void *, void *, s32, s32);
 void sub_080B8804(void *arg0)
 {
@@ -17,7 +17,7 @@ void sub_080B8804(void *arg0)
   if (((u32) (*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19)))) > 7U)
   {
     setAnimationFrame(sprite, animState, 0x1B, 0);
-    sub_080113A8(sprite, animState);
+    stepAnimationTrack(sprite, animState);
     if ((*((u16 *) (((s8 *) sprite) + 0x28))) != 0x1B)
     {
       *((s8 *) (((s8 *) (*((void **) (((s8 *) arg0) + 0x28)))) + 0x4C)) = 0;

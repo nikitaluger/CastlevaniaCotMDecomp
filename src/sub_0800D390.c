@@ -9,7 +9,7 @@ struct S_020278D0 {
     u8 _65[3];
     s8 selection;
 };
-extern struct S_020278D0 D_020278D0;
+extern struct S_020278D0 gMenuState;
 
 struct S_02021E90 {
     u8 _0[0x146C];
@@ -21,7 +21,7 @@ extern struct S_02021E90 gCameraState;
 
 extern u8 D_080CAFF8[];
 extern u8 D_080CB002[];
-extern u32 D_08671BD8[];
+extern u32 gMenuScriptCallback[];
 
 /* Handle menu-selection input: move the five-way cursor with the direction
  * bits, play a sound and redraw when it changes, then dispatch the confirm or
@@ -33,7 +33,7 @@ void sub_0800D390(void *obj)
     u16 actionButtons;
     u32 buttonBits;
 
-    oldSelection = D_020278D0.selection;
+    oldSelection = gMenuState.selection;
     dirButtons = gCameraState.dirButtons;
     {
         u32 bothDirs = 0xC0;
@@ -43,25 +43,25 @@ void sub_0800D390(void *obj)
             u32 dirMinus = 0x40;
 
             dirMinus &= dirButtons;
-            if (dirMinus != 0) D_020278D0.selection--;
+            if (dirMinus != 0) gMenuState.selection--;
             {
                 u16 dirButtons2 = gCameraState.dirButtons;
                 u32 dirPlus = 0x80;
 
                 dirPlus &= dirButtons2;
-                if (dirPlus != 0) D_020278D0.selection++;
+                if (dirPlus != 0) gMenuState.selection++;
             }
-            if (D_020278D0.selection < 0) D_020278D0.selection = 4;
-            if (D_020278D0.selection > 4) D_020278D0.selection = 0;
+            if (gMenuState.selection < 0) gMenuState.selection = 4;
+            if (gMenuState.selection > 4) gMenuState.selection = 0;
         }
     }
-    if (oldSelection != D_020278D0.selection) {
+    if (oldSelection != gMenuState.selection) {
         u8 *gfxTable;
         s32 selection;
 
         sub_08005E80(0x14E);
         gfxTable = D_080CAFF8;
-        selection = D_020278D0.selection;
+        selection = gMenuState.selection;
         sub_0800EB44(*(u16 *)(gfxTable + selection * 2), 2, 0xFC0);
     }
     actionButtons = gCameraState.actionButtons;
@@ -72,7 +72,7 @@ void sub_0800D390(void *obj)
         sub_08006210();
         *(u8 *)((u8 *)obj + *(s16 *)((u8 *)obj + 0x22) * 2 + 0x17) = 0;
         {
-            u32 *callbackTbl = D_08671BD8;
+            u32 *callbackTbl = gMenuScriptCallback;
 
             sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 0x10, callbackTbl[0]);
         }
@@ -84,10 +84,10 @@ void sub_0800D390(void *obj)
         confirmBit &= actionButtons;
         if (confirmBit != 0) {
             sub_08005E80(0x13B);
-            D_020278D0.chosenValue = D_080CB002[D_020278D0.selection];
+            gMenuState.chosenValue = D_080CB002[gMenuState.selection];
             *(u8 *)((u8 *)obj + *(s16 *)((u8 *)obj + 0x22) * 2 + 0x17) = buttonBits;
             {
-                u32 *callbackTbl2 = D_08671BD8;
+                u32 *callbackTbl2 = gMenuScriptCallback;
 
                 sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 0xE, callbackTbl2[0]);
             }

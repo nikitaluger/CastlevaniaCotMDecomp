@@ -52,7 +52,7 @@ void sub_0802F0BC(u8 *entity) {
             sub_080C31E8(entity + 0x18, entity + 0x22, 2, *sfxTable);
         }
     }
-    if (sub_08013B5C(sprite, actor) != 0) goto label_else;
+    if (updateObjectDisplayState(sprite, actor) != 0) goto label_else;
     {
         u8 *step;
         s32 stepOffset;

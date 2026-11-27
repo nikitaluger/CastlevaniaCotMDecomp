@@ -97,7 +97,7 @@ extern struct S_02025FF0 gMainWorkspace;
 extern u8 gCameraState[];
 extern u32 gBehaviorHandlerTable[];
 extern u16 D_081008CA[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
 extern void *allocMotionTracker(void);
@@ -211,7 +211,7 @@ extern void sub_08095438(void);
     u8 *p = (u8 *) ((u32) (arg0->step * 2) + (u32) arg0);
     p[0x19] = 0;
   }
-  behaviorTable = gMainObjTimerCallback;
+  behaviorTable = gScriptStepCallbackTable;
   p18 = ((u8 *) arg0) + 0x18;
   sub_080C31E4(p18, ((u8 *) arg0) + 0x22, *behaviorTable);
   {

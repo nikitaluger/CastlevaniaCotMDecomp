@@ -54,7 +54,7 @@ struct CoordTable
 };
 extern struct CoordTable gCameraState;
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void sub_08059BF8(struct Entity *entity)
 {
   u8 *sprite;

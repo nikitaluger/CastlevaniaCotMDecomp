@@ -5,10 +5,10 @@ extern void installUpdateHandler(void *, void *, void *);
 extern void initSpriteGfx(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern u8 D_08102F0C[];
 struct Entity {
   u8 _0[2]; u16 flags; u8 _1[0x14 - 4]; u32 actionTable; u8 _2[0x22 - 0x18];
@@ -42,7 +42,7 @@ void sub_080BC050(struct Entity *entity)
   spawnedObj->statusFlag &= 0xBF;
   component = (struct Component *)entity->component;
   scriptPlayer = ((u8 *)component) + 0x34;
-  installUpdateHandler(entity, component, &sub_08097D90);
+  installUpdateHandler(entity, component, &releaseActorEffectSubObject);
   component->param = 0x68;
   kind = findKindIndex();
   component->kind = kind;
@@ -60,7 +60,7 @@ Lcont:
   pcWords = (u16 *)entity;
   ((u8 *)(&pcWords[pcOffset]))[0x19] = 0;
   {
-    u32 *pbb0 = &gMainObjTimerCallback;
+    u32 *pbb0 = &gScriptStepCallbackTable;
     stepPtr = ((u8 *)entity) + 0x18;
     sub_080C31E4(stepPtr, ((u8 *)entity) + 0x22, *pbb0);
   }

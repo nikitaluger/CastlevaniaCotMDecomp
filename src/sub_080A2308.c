@@ -1,4 +1,4 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_0808D7BC(s32, s32, u32, u8);
 void sub_080C31E0(void *, void *);
 
@@ -21,7 +21,7 @@ void sub_080A2308(void *entity)
   work = *((u8 **) (((u8 *) entity) + 0x3C));
   track = (s32) (work + 0x34);
   animTrack = *((u8 **) ((*((u8 **) (((u8 *) entity) + 0x28))) + 0x3C));
-  sub_080113A8(animEntity, (void *) track);
+  stepAnimationTrack(animEntity, (void *) track);
   if (2 & (*((u8 *) ((s32) (work + 0x34)))))
   {
     parent = *((void **) (((u8 *) entity) + 0x28));

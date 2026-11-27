@@ -4,7 +4,7 @@ extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern u8 gMainWorkspace[];
 extern u16 D_085244B4[];
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 void sub_08007870(Arg0 *arg0)
 {
     u16 buf[16];
@@ -70,6 +70,6 @@ void sub_08007870(Arg0 *arg0)
         sub_080C31E0(*(void **)(base2 + 0x1880), *(void **)(*(u32 *)(base2 + 0x1880) + 0x24));
         sub_080C31E0(*(void **)(base2 + 0x1888), *(void **)(*(u32 *)(base2 + 0x1888) + 0x24));
         *((u8 *)arg0 + 2 * arg0->f22 + 0x19) = 0;
-        sub_080C31E8(arg0->f18, &arg0->f22, 1, (void *)D_08671BD0);
+        sub_080C31E8(arg0->f18, &arg0->f22, 1, (void *)gScriptStepCallbacks);
     }
 }

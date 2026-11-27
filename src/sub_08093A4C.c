@@ -1,6 +1,6 @@
 extern s32 sub_08014114(s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 D_08671BD0[];
+extern s32 gScriptStepCallbacks[];
 
 /* Attack-step update: clear the sub-object's active flag and the sprite's 0x40
  * flag, tick down the step timer; on expiry zero the velocity and, if the
@@ -27,7 +27,7 @@ void sub_08093A4C(void *arg0)
         if (sub_08014114(*(s32 *)(work + 8), *(s32 *)(work + 0x0C), -0x12, 0x12, -0x0A, 0x0A) == 0) {
             *(s32 *)(action + 8) = zero;
             *(u8 *)(entity + (*(s16 *)(entity + 0x22) * 2) + 0x19) = zero;
-            cmdTable = D_08671BD0;
+            cmdTable = gScriptStepCallbacks;
             sub_080C31E8(entity + 0x18, entity + 0x22, 0, cmdTable[0]);
         }
     }

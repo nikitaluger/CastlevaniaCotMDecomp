@@ -1,8 +1,8 @@
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_080C31E0(void *, s32);
 
 /* Entity state block (the pointer at entity+0x3C). +0x34 is the sprite/anim
- * descriptor driven by sub_080113A8. */
+ * descriptor driven by stepAnimationTrack. */
 struct State {
     u8 _0[0x34];
     u8 anim[0xC];
@@ -23,7 +23,7 @@ void sub_08038B20(struct Entity *entity)
     s32 spriteId = entity->sprite;
     struct State *state = entity->state;
     void *sprite = (u8 *)state + 0x34;
-    sub_080113A8(spriteId, sprite);
+    stepAnimationTrack(spriteId, sprite);
     if (2 & *(u8 *)sprite) {
         sub_080C31E0(entity, entity->update);
     }

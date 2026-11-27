@@ -1,6 +1,6 @@
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_08003A6C(void *a, s32 b, s32 c);
 extern void sub_080C31E0(void *a, s32 b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
@@ -66,7 +66,7 @@ void sub_08082288(u8 *entity) {
     group->spawn->param8 = 0x1E;
     group->spawn->paramA = 0;
     group->spawn->paramC = 0;
-    group->spawn->paramE = sub_0806D62C(*(u16 *)(params + 0x2E2), 0x47);
+    group->spawn->paramE = scalePercentSaturate16(*(u16 *)(params + 0x2E2), 0x47);
     group->spawn->param16 = 0x1E;
     group->spawn->param18 = 0x77;
     group->spawn->sprite = (u32)sprite;

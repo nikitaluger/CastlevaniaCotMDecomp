@@ -1,5 +1,5 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern s32 D_02027860;
 inline u8 inline_fn(u32 arg0)
@@ -28,7 +28,7 @@ void sub_080B015C(u8 *arg0)
     void **arr = (void **) base7;
     for (; i <= 3; i++)
     {
-      void *t = sub_0805FAEC(*pd, 0x1B1);
+      void *t = spawnBudgetedEffect(*pd, 0x1B1);
       *arr = t;
       *((u8 *) (((u8 *) t) + 0x4C)) = one;
       *((u8 *) (((u8 *) (*arr)) + 0x50)) = inline_fn(i);

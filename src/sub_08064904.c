@@ -1,13 +1,13 @@
 /* Companion/boss update: run the state setup helpers, fire script events from
- * the D_08671BD0 table based on state flags and sub-system results, then
+ * the gScriptStepCallbacks table based on state flags and sub-system results, then
  * record the resulting event id for the next frame. */
-void *sub_08003740(void *, void *);
+void *stepDelayTimer(void *, void *);
 void sub_0806A884(void *, void *);
 s32 sub_0806AB04(void *, void *, void *, void *);
 s32 sub_0806B2C8(void *, void *, void *, void *);
-void sub_0806C49C(void *, void *);
-s32 sub_0806C4B4(void *, void *);
-void sub_0806C5EC(void *, void *, void *, void *);
+void resetActorForm(void *, void *);
+s32 syncViewPosition(void *, void *);
+void resetActionResultState(void *, void *, void *, void *);
 void sub_0806C6B0(void *, void *, void *, void *);
 u32 sub_0806BCD8(void *, void *, void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
@@ -31,8 +31,8 @@ void sub_08064904(void *arg0) {
     state = ((u8 *) sub) + 4;
     owner = *(void **) (((u8 *) mgr) + 0x38);
     ent = state;
-    if (sub_0806C4B4(ent, ent) == 0) {
-        sub_0806C5EC(mgr, owner, ent, ent);
+    if (syncViewPosition(ent, ent) == 0) {
+        resetActionResultState(mgr, owner, ent, ent);
         sub_0806AB04(mgr, owner, ent, ent);
         if (*(s32 *)((u8 *)ent + 0x40) == 0) {
             *(s32 *)((u8 *)ent + 0x4C) = 1;
@@ -42,14 +42,14 @@ void sub_08064904(void *arg0) {
         }
         sub_0806A884(owner, ent);
         subNext = (u8 *)sub + 0x2C;
-        if (sub_08003740(subNext, owner) == 0 && *(s32 *)((u8 *)ent + 0x40) == 1) {
+        if (stepDelayTimer(subNext, owner) == 0 && *(s32 *)((u8 *)ent + 0x40) == 1) {
             result = sub_0806B2C8(mgr, owner, ent, ent);
             if (result != 0) {
-                sub_08003740(subNext, owner);
+                stepDelayTimer(subNext, owner);
             } else {
-                sub_0806C49C(owner, ent);
+                resetActorForm(owner, ent);
                 *(s32 *)((u8 *)ent + 0x48) = result;
-                sub_08003740(subNext, owner);
+                stepDelayTimer(subNext, owner);
                 *(((u8 *)mgr) + (s32)*(s16 *)((u8 *)mgr + 0x22) * 2 + 0x19) = (u8)result;
                 attackTableB = (s32 *) 0x08671BD0;
                 sub_080C31E8((u8 *)mgr + 0x18, (u8 *)mgr + 0x22, 4, *attackTableB);
@@ -59,7 +59,7 @@ void sub_08064904(void *arg0) {
         codeSlot = (u32 *)((u8 *)state + 0xC4);
         *codeSlot = (u16)code;
         if ((u16)code != 0) {
-            sub_08003740((u8 *)state + 0x28, owner);
+            stepDelayTimer((u8 *)state + 0x28, owner);
             *(((u8 *)mgr) + (s32)*(s16 *)((u8 *)mgr + 0x22) * 2 + 0x19) = 0;
             attackTableC = (s32 *) 0x08671BD0;
             sub_080C31E8((u8 *)mgr + 0x18, (u8 *)mgr + 0x22, *codeSlot, *attackTableC);

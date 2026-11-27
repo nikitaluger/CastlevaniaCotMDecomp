@@ -1,10 +1,10 @@
 s32 sub_080141AC(void *, void *);
 void sub_080C31E0(void *, void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 
 /* Entity update: leave to the state handler when off-camera or flagged;
- * otherwise, if this frame was not handled by sub_08013B5C, dispatch the next
+ * otherwise, if this frame was not handled by updateObjectDisplayState, dispatch the next
  * script step from the table installed at +0x14 (0x0866DF00 here), then
  * refresh the sprite's screen coordinates. */
 void sub_08039B78(void *arg0) {
@@ -15,7 +15,7 @@ void sub_08039B78(void *arg0) {
         sub_080C31E0(arg0, *(void **)(self + 0x24));
         return;
     }
-    if (sub_08013B5C(sprite, work) == 0) {
+    if (updateObjectDisplayState(sprite, work) == 0) {
         *(u32 *)(self + 0x14) = 0x0866DF00;
         *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) + 1);
         {

@@ -1,4 +1,4 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 void setAnimationFrame(s32, void *, s32, s32);
 s32 sub_08014900(s32);
 s32 sub_0801491C(s32);
@@ -24,7 +24,7 @@ void sub_0802B66C(u8 *arg0)
     *(s16 *)(body + 4) = *(s16 *)(body + 4) - 1;
     if (*(s16 *)(body + 4) <= 0)
     {
-        *(u16 *)(body + 4) = (u16)(sub_08005820(0x3D) + 0x5A);
+        *(u16 *)(body + 4) = (u16)(scaleByRandom(0x3D) + 0x5A);
         if (sub_08014900(*(s32 *)(state + 8)) > 0x600000) goto div;
         if (sub_0801491C(*(s32 *)(state + 0xC)) > 0x600000) goto div;
         {
@@ -45,7 +45,7 @@ void sub_0802B66C(u8 *arg0)
     if (*(u16 *)(state + 2) & 2)
     {
         *(s32 *)(state + 0x10) = -*(s32 *)(state + 0x10);
-        *(u16 *)(body + 2) = (u16)(sub_08005820(0x0B) + 0x1E);
+        *(u16 *)(body + 2) = (u16)(scaleByRandom(0x0B) + 0x1E);
     }
 
     *(s16 *)(body + 2) = *(s16 *)(body + 2) - 1;
@@ -76,11 +76,11 @@ check_delay:
         if (useLongDelay != 0)
             goto set25;
 
-        *(u16 *)(body + 2) = (u16)(sub_08005820(6) + 0x0A);
+        *(u16 *)(body + 2) = (u16)(scaleByRandom(6) + 0x0A);
         goto after_set;
 
 set25:
-        *(u16 *)(body + 2) = (u16)(sub_08005820(0x0B) + 0x1E);
+        *(u16 *)(body + 2) = (u16)(scaleByRandom(0x0B) + 0x1E);
 after_set:
         *(s32 *)(state + 0x10) = -*(s32 *)(state + 0x10);
     }

@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -25,7 +25,7 @@ void sub_08093870(u8 *self)
   if ((spawnTimer & 3) == 0) {
     s32 spawnX = *(s32 *)(body + 8) + sub_0800583C(0xE0 << 12);
     s32 spawnY = *(s32 *)(body + 0xC) + sub_0800583C(0x80 << 10);
-    s32 speed = sub_08005820(0x80 << 8) + (0x80 << 6);
+    s32 speed = scaleByRandom(0x80 << 8) + (0x80 << 6);
     sub_0808E348(spawnX, spawnY, 0, speed, 0xC0 << 6, 0, 8);
   }
 

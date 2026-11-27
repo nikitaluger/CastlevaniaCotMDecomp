@@ -3,8 +3,8 @@ void sub_080C31E0(void *, void *);
 s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
-void *sub_08016238(void *);
-extern void *D_08671BDC;
+void *hitTestEntities(void *);
+extern void *sScriptStepCallbacks;
 
 /* Steps an enemy object's AI: releases it on player collision, marks itself
  * when its child or target is flagged, fires a despawn callback on flag 1, and
@@ -16,7 +16,7 @@ void sub_080441F8(u8 *object) {
         sub_080C31E0(object, *(void **)(object + 0x24));
         return;
     }
-    if (sub_08016238(*(void **)(state + 0x28)) != 0) {
+    if (hitTestEntities(*(void **)(state + 0x28)) != 0) {
         u16 flags = *(u16 *)state | 1;
         *(u16 *)state = flags;
     }
@@ -28,7 +28,7 @@ void sub_080441F8(u8 *object) {
         u8 *slot = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
         if (*(u8 *)(slot + 0x1A) != 1) {
             *(u8 *)(slot + 0x1B) = 0;
-            { void **callback = &D_08671BDC;
+            { void **callback = &sScriptStepCallbacks;
               sub_080C31E8(object + 0x18, object + 0x22, 1, *callback); }
         }
     }

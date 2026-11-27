@@ -1,6 +1,6 @@
 extern void sub_08011650(s32);
 extern void sub_08015974(void);
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -14,11 +14,11 @@ void sub_080992DC(void *entity)
     void *part = (u8 *)work + 0x48;
 
     if (*(s32 *)((u8 *)work + 0x28) != 0)
-        sub_080161F0();
+        unlinkAndFreeObject();
     if (*(s32 *)((u8 *)work + 0x48) != 0)
-        sub_080161F0();
+        unlinkAndFreeObject();
     if (*(s32 *)((u8 *)part + 4) != 0)
-        sub_080161F0();
+        unlinkAndFreeObject();
 
     sub_08011650(sprite);
     if (*(s32 *)((u8 *)work + 0x2C) != 0)

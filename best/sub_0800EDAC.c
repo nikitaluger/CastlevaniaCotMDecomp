@@ -2,7 +2,7 @@ void sub_0800FEDC(s32, void *);
 s32 sub_0800EBDC(s16, s16, void *);
 void sub_0806D930(void *);
 extern u8 gGameStatus[];
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 extern u16 D_080CB052[];
 static inline u32 inline_fn(u16 arg0)
 {
@@ -27,7 +27,7 @@ void sub_0800EDAC(s32 arg0)
   g = (u16 *) gGameStatus;
   if (arg0 == 0)
   {
-    base = D_020278D0;
+    base = gMenuState;
     state = base + 0x6A;
     obj = base;
     if ((*((s8 *) state)) != 3)

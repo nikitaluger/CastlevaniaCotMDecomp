@@ -9,7 +9,7 @@ void *allocEffectPart(void);
 void *spawnParamChild(void *, s32);
 void *spawnKind1C1Child(void *);
 void *spawnKind1C3Child(void *);
-void *sub_0805FAEC(void *, s32);
+void *spawnBudgetedEffect(void *, s32);
 void registerScriptObject(void *, s32);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
@@ -18,7 +18,7 @@ extern u16 gPairedPoseAttrs[];
 extern u8 gSpriteKindTable[];
 extern s16 gEffectGfxTable[];
 extern u32 gMainWorkspace[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* 0x34-byte render part returned by allocEffectPart. */
 struct Effect {
@@ -114,7 +114,7 @@ void scriptCmdSpawnThreePartObject(struct Thread *thread)
     *((void **) (childSlots + 8)) = spawnParamChild(thread, 1);
     *((void **) (childSlots + 12)) = spawnKind1C1Child(thread);
     *((void **) (childSlots + 16)) = spawnKind1C3Child(thread);
-    *((void **) (childSlots + 20)) = sub_0805FAEC(thread, 0x1C4);
+    *((void **) (childSlots + 20)) = spawnBudgetedEffect(thread, 0x1C4);
     state->stateByte = 0;
     thread->spawnFlags = state->spawnFlags;
     {

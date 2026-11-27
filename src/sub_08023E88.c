@@ -1,5 +1,5 @@
-extern void sub_080113A8(void *actor, void *data);
-extern s32 sub_08013B5C(void *actor, void *enemy);
+extern void stepAnimationTrack(void *actor, void *data);
+extern s32 updateObjectDisplayState(void *actor, void *enemy);
 extern void sub_080C31E0(void *self, s32 cmd);
 extern u8 gCameraState[];
 
@@ -34,9 +34,9 @@ void sub_08023E88(void *self)
     animState[1] = (u8)flags;
   }
 
-  if ((sub_08013B5C(actor, enemy) == 0) || (*((s16 *) (((u8 *) self) + 0x74)) == 2))
+  if ((updateObjectDisplayState(actor, enemy) == 0) || (*((s16 *) (((u8 *) self) + 0x74)) == 2))
   {
-    sub_080113A8(actor, enemyData);
+    stepAnimationTrack(actor, enemyData);
     if ((*((u8 *) enemyData)) & 0x02)
     {
       sub_080C31E0(self, *((s32 *) (((u8 *) self) + 0x24)));

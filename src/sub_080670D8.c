@@ -1,10 +1,10 @@
 struct S_080DEA88 { u8 _pad[0xE3 << 3]; s32 field; };
 extern struct S_080DEA88 D_080DEA88;
-extern s32 sub_0806C4B4(s32, s32);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(s32, s32);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AA64(void *, void *);
-extern void sub_08003A6C(void *, s32, s32);
-extern s32 sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, s32);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -19,13 +19,13 @@ void sub_080670D8(void *arg0) {
     void *mainObj = *(void **)(entity + 0x38);
     u8 *timer;
     s32 result;
-    if (sub_0806C4B4((s32)pos, (s32)pos) == 0) {
-        sub_0806C5EC(arg0, mainObj, pos, pos);
+    if (syncViewPosition((s32)pos, (s32)pos) == 0) {
+        resetActionResultState(arg0, mainObj, pos, pos);
         sub_0806AA64(mainObj, pos);
         timer = ctrl + 0x2C;
-        result = sub_08003740(timer, mainObj);
+        result = stepDelayTimer(timer, mainObj);
         if (result == 0) {
-            sub_08003A6C(timer, 0, D_080DEA88.field);
+            startEffectTimer(timer, 0, D_080DEA88.field);
             *(s32 *)(ctrl + (0x88 << 1)) = *(s32 *)(ctrl + (0x84 << 1));
             *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = result;
             {

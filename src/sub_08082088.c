@@ -1,9 +1,9 @@
 extern s32 sub_0806D450(void *, void *, void *);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern void *sub_0806D2A0(s32, s32, s32, s32);
 extern void sub_0808BB54(void);
 extern void sub_080C31E0(void *, s32);
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_08005E80(s32);
 
 /* Counts down a timer that scales a value written into a graphics object,
@@ -38,7 +38,7 @@ void sub_08082088(void *obj)
         off = 0x14 - count;
         divisor = off * 5 + 0x64;
     }
-    scaled = sub_080C364C(0x6400, divisor);
+    scaled = divInt32(0x6400, divisor);
     *(s16 *)(gfx + 4) = scaled;
     *(s16 *)(gfx + 6) = scaled;
     if (words[4] > 0xE0) {
@@ -65,7 +65,7 @@ void sub_08082088(void *obj)
     }
     state = (u8 *)0x02025FF0;
     *(u16 *)gfx = *(u16 *)(state + 0x18C2);
-    sub_08003740(work + 0x1C, gfx);
+    stepDelayTimer(work + 0x1C, gfx);
     words[5] -= 1;
     if (words[5] == 0) {
         sub_08005E80(0x161);

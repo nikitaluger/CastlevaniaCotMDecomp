@@ -1,14 +1,14 @@
 extern void *allocEffectPart(void);
-extern void sub_080161F0(void *);
-extern void sub_0806D2D0(void *);
-extern u32 sub_0806D62C(u32, u32);
-extern void sub_08003A6C(void *, u32, void *);
+extern void unlinkAndFreeObject(void *);
+extern void cleanupFailedEffectSpawn(void *);
+extern u32 scalePercentSaturate16(u32, u32);
+extern void startEffectTimer(void *, u32, void *);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E0(void *, u32);
-extern void sub_0808449C(void);
+extern void releaseActorEffectParts(void);
 extern u8 gGameStatus[];
 extern u8 D_084DFF10[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 struct Sprite
 {
   u8 pad0;
@@ -85,13 +85,13 @@ int __repair_phase_r4;
     {
       if (r7->sprite0 != 0)
       {
-        sub_080161F0(r7->sprite0);
+        unlinkAndFreeObject(r7->sprite0);
       }
       if (r7->sprite1 != 0)
       {
-        sub_080161F0(r7->sprite1);
+        unlinkAndFreeObject(r7->sprite1);
       }
-      sub_0806D2D0(r6);
+      cleanupFailedEffectSpawn(r6);
       return;
     }
     r4++;
@@ -110,7 +110,7 @@ int __repair_phase_r4;
   r7->sprite0->fA = 0xFFF8;
   r7->sprite0->fC = 0x1B;
   r8 = r8 + 0x2E2;
-  r7->sprite0->fE = sub_0806D62C(*((u16 *) r8), 0x64);
+  r7->sprite0->fE = scalePercentSaturate16(*((u16 *) r8), 0x64);
   r7->sprite0->f16 = 5;
   r7->sprite0->f18 = 0x5D;
   do { r7->sprite0->f10 = (u32) r9;
@@ -122,7 +122,7 @@ int __repair_phase_r4;
   r7->sprite1->f8 = 0x15;
   r7->sprite1->fA = 3;
   r7->sprite1->fC = 0xFFF2; } while (0);
-  r7->sprite1->fE = sub_0806D62C(*((u16 *) r8), 0x47);
+  r7->sprite1->fE = scalePercentSaturate16(*((u16 *) r8), 0x47);
   r7->sprite1->f16 = 5;
   r7->sprite1->f18 = 0x5D;
   { do { r7->sprite1->f10 = (u32) r9;
@@ -130,16 +130,16 @@ int __repair_phase_r4;
   r7->f38 = 0;
   r7->f3C = 0;
   r10->f18 = r6->callback;
-  r6->callback = (u32) sub_0808449C; } while (0);
+  r6->callback = (u32) releaseActorEffectParts; } while (0);
   *((u32 *) (((u8 *) r9) + 0x24)) = 0x084DFEF8;
   new_var = 0;
-  do { sub_08003A6C(((u8 *) r7) + 0x1C, new_var, D_084DFF10); r10->f4 = r6->val8C; } while (0);
+  do { startEffectTimer(((u8 *) r7) + 0x1C, new_var, D_084DFF10); r10->f4 = r6->val8C; } while (0);
   }
   r7->f0 = r6->val7C;
   r10->f10 = r6->val9C;
   ;
   *((((u8 *) r6) + (r6->idx * 2)) + 0x19) = 0;
-  { const u32 *D_08671BB0_ptr = &gMainObjTimerCallback; sub_080C31E4(((u8 *) r6) + 0x18, (void *) (&r6->idx), *D_08671BB0_ptr); }
+  { const u32 *D_08671BB0_ptr = &gScriptStepCallbackTable; sub_080C31E4(((u8 *) r6) + 0x18, (void *) (&r6->idx), *D_08671BB0_ptr); }
   new_var = r6->idx;
   *((((u8 *) r6) + (new_var * 2)) + 0x19) = (*((((u8 *) r6) + (new_var * 2)) + 0x19)) + 1;
   __repair_phase_r4 = r6->idx;

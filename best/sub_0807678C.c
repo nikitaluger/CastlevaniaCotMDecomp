@@ -1,8 +1,8 @@
-extern void sub_08003A6C(u32, u32, u32);
+extern void startEffectTimer(u32, u32, u32);
 extern void *allocEffectPart(void);
-extern void sub_0806D2D0(void *);
-extern s32 sub_0806D62C(u16, s32);
-extern void sub_0808449C(void);
+extern void cleanupFailedEffectSpawn(void *);
+extern s32 scalePercentSaturate16(u16, s32);
+extern void releaseActorEffectParts(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
@@ -14,7 +14,7 @@ extern struct S_FF0
   u8 f1510;
 } gMainWorkspace;
 extern u8 D_080E51D4[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 struct R3
 {
   u8 _0;
@@ -109,7 +109,7 @@ void sub_0807678C(u8 *arg0)
   r5->f2C = r3;
   if (r3 == 0)
   {
-    sub_0806D2D0(arg0);
+    cleanupFailedEffectSpawn(arg0);
     return;
   }
   zero = 0;
@@ -130,17 +130,17 @@ void sub_0807678C(u8 *arg0)
   tmp = (v = t->f04);
   if (v == 0)
   {
-    tmp = sub_0806D62C(*((u16 *) (gGameStatus + 0x2E2)), t->f06);
+    tmp = scalePercentSaturate16(*((u16 *) (gGameStatus + 0x2E2)), t->f06);
   }
   rp->f0E = tmp;
   r5->f2C->f16 = 5;
   r5->f2C->f18 = t->f42;
   r5->f2C->f10 = (u32) sl;
   r5->f18 = *((u32 *) (arg0 + 0x24));
-  *((u32 *) (arg0 + 0x24)) = (u32) (&sub_0808449C);
+  *((u32 *) (arg0 + 0x24)) = (u32) (&releaseActorEffectParts);
   r7->f55 = gMainWorkspace.f14EF;
   *((u32 *) (((u8 *) sl) + 0x24)) = t->f08;
-  sub_08003A6C((u32) (((u8 *) r7) + 0x20), zero, t->f0C);
+  startEffectTimer((u32) (((u8 *) r7) + 0x20), zero, t->f0C);
   arg0 = (u8 *) (&gMainWorkspace);
   r7->f04 = *((u32 *) (arg0 + 0x1728));
   new_var2 = arg0 + 0x14;
@@ -206,7 +206,7 @@ void sub_0807678C(u8 *arg0)
   *((u8 *) ((arg0 + (idx * 2)) + 0x19)) = zero;
   new_var = &(*((s16 *) (arg0 + 0x22)));
   {
-    s32 *lit = &gMainObjTimerCallback;
+    s32 *lit = &gScriptStepCallbackTable;
     u8 *a18 = arg0 + 0x18;
     sub_080C31E4(a18, arg0 + 0x22, *lit);
     idx = *new_var;

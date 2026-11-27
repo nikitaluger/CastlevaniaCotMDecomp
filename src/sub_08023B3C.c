@@ -2,7 +2,7 @@ void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
 s32 sub_08023F34(s32, s32, s32);
 void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 void sub_0802349C(void *arg0) {
     u8 *obj = arg0;
@@ -48,7 +48,7 @@ void sub_08023A7C(void *arg0) {
     }
     *(u16 *)(r5 + 2) = 9;
     *((u8 *)(obj + (*(s16 *)(obj + 0x22)) * 2) + 0x19) = 0;
-    sub_080C31E4(obj + 0x18, obj + 0x22, gMainObjTimerCallback);
+    sub_080C31E4(obj + 0x18, obj + 0x22, gScriptStepCallbackTable);
 }
 
 // Clears a flag on the entity's two linked sprites; if the graphics state's

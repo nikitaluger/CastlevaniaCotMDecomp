@@ -17,8 +17,8 @@ struct GameState_70C78 {
 extern struct GameState_70C78 gMainWorkspace;
 
 s32 sub_0806D450(void *, void *, void *);
-void sub_080722E0(void *, u8);
-void sub_08003740(void *, void *);
+void setDirectionVector(void *, u8);
+void stepDelayTimer(void *, void *);
 void sub_0806D588(void *, void *);
 void sub_080719EC(void *, void *, void *);
 void sub_080C31E0(void *, s32);
@@ -45,7 +45,7 @@ void sub_08070C78(void *entity)
     }
     *(s32 *)((s8 *)work + 0x58) += (s32)D_080E00E8[*(s32 *)((s8 *)work + 0x60)].velocity;
     if (*(s32 *)((s8 *)work + 0x58) > 0x01000000) goto Lcall1;
-    sub_080722E0(work, (u8)*(s32 *)((s8 *)work + 0x54));
+    setDirectionVector(work, (u8)*(s32 *)((s8 *)work + 0x54));
     step = *(s32 *)((s8 *)work + 0x08) * (*(s32 *)((s8 *)work + 0x58) >> 12);
     if (step < 0) step += 15;
     *(s32 *)((s8 *)state + 4) = *(s32 *)((s8 *)work + 0x4C) + (step >> 4);
@@ -53,7 +53,7 @@ void sub_08070C78(void *entity)
     if (step < 0) step += 15;
     *(s32 *)((s8 *)work + 4) = *(s32 *)((s8 *)work + 0x50) + (step >> 4);
     *(s32 *)((s8 *)work + 0x54) = (*(s32 *)((s8 *)work + 0x54) + 4) & 0xFF;
-    sub_08003740((s8 *)state + 0x30, other);
+    stepDelayTimer((s8 *)state + 0x30, other);
     sub_0806D588(other, work);
     sub_080719EC(entity, work, work);
     if (gMainWorkspace.field14FC == 0) goto Lcheck;

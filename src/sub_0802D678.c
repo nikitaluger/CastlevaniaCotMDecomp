@@ -1,4 +1,4 @@
-extern u16 D_080CEA70[];
+extern u16 gAnimatedEffectAffineParams[];
 extern u16 D_080CEA78[];
 extern u16 D_080CEA80[];
 extern u16 D_080CEA88[];
@@ -11,7 +11,7 @@ struct Hitbox { u8 pad[1]; u8 flag; u8 pad2[4]; u16 maxX, maxY, minX, minY; };
 /* Select an attack hitbox by the source's action offset, clear the target's
  * active-hit flag for the two "no hit" actions, and copy the box edges over. */
 void sub_0802D678(u8 *source, u8 *target) {
-    u16 *boxParams = D_080CEA70;
+    u16 *boxParams = gAnimatedEffectAffineParams;
     s32 hitboxIndex = *(u16 *)(source + 0x28) - 0x2C;
     switch (hitboxIndex) {
     case 0:
@@ -19,7 +19,7 @@ void sub_0802D678(u8 *source, u8 *target) {
         ((struct Hitbox *)*(struct Hitbox **)(target + 0x28))->flag &= 0xFE;
         break;
     case 1:
-        boxParams = D_080CEA70;
+        boxParams = gAnimatedEffectAffineParams;
         break;
     case 3:
         boxParams = D_080CEA78;

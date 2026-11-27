@@ -1,4 +1,4 @@
-s32 sub_080113A8(s32, s32);
+s32 stepAnimationTrack(s32, s32);
 s32 sub_08011EE8(void *, s32, s32);
 s32 sub_08014668(s32, s32);
 s32 sub_0803B0D8(void *, void *, s32);
@@ -17,7 +17,7 @@ void sub_08033DC0(void *entity) {
     sub_0803B0D8(component, pose, 0x4000);
     sub_0803B0F8(component, sprite, pose, 0x080CEDFC);
     sub_08011EE8(component, 0x16C1, 0);
-    sub_080113A8(sprite, (s32)animator);
+    stepAnimationTrack(sprite, (s32)animator);
     sub_08014668(sprite, *(s32 *)((u8 *)component + 0x10));
     if (*(u8 *)((u8 *)pose + 4) == 3) {
         *((s8 *)(((s16 *)((u8 *)entity + 0x22))[0] * 2 + (u8 *)entity + 0x19)) = 0;

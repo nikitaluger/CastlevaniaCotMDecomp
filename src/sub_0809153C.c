@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern s32 sub_080C36E4(u32, s32);
 extern void *sub_080918B0(s32, s32, s32, s32, s32, s16);
@@ -21,7 +21,7 @@ void sub_0809153C(void *arg0) {
     u32 *stateVal = (u32 *)(gMainWorkspace + stateOff);
     s32 motion = (sub_080C36E4(*stateVal, 5) - 2) << 14;
 
-    sub_080918B0(spawnX, spawnY, motion, 0x8000 - sub_08005820(0x20000), 0x16C1,
+    sub_080918B0(spawnX, spawnY, motion, 0x8000 - scaleByRandom(0x20000), 0x16C1,
         (s16)((*stateVal - ((((s32)(*stateVal + (*stateVal >> 31)) >> 1) << 1))) + 1));
 
     if (*(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) > 3) {

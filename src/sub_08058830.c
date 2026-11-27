@@ -1,7 +1,7 @@
 extern s32 setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014EF4(s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Step for a pacing enemy: keep it playing animation 5; when its motion object
  * is flagged (bit 2), give it a random left/right speed (50/50), reset the
@@ -29,7 +29,7 @@ void sub_08058830(void *arg0)
         idx = *(s16 *)(self + 0x22);
         *(u8 *)(self + idx * 2 + 0x19) = 0;
         {
-            u32 *pTable = gMainObjTimerCallback;
+            u32 *pTable = gScriptStepCallbackTable;
             sub_080C31E4(self + 0x18, self + 0x22, *pTable);
         }
     }

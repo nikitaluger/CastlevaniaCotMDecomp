@@ -1,5 +1,5 @@
 extern u8 gMainWorkspace[];
-extern s32 sub_08003740(s32, void *);
+extern s32 stepDelayTimer(s32, void *);
 extern s32 sub_0806D450(void *, void *, void *);
 extern s32 sub_0806D588(void *, void *);
 extern void sub_08005E80(s32);
@@ -36,7 +36,7 @@ void sub_0807A708(u8 *self) {
                 sub_080C31E4(self + 0x18, self + 0x22, *animCmd);
             }
         }
-        sub_08003740((s32)object + 0x20, sprite);
+        stepDelayTimer((s32)object + 0x20, sprite);
         sub_0806D588(sprite, state);
         if (*(u8 *)(gGame + 0x173A) == 0x1C || (*(u8 *)(gGame + 0x14ED) == 0 && *(s32 *)(gGame + 0x10) != 0)) {
             sub_080C31E0(self, *(s32 *)(self + 0x24));

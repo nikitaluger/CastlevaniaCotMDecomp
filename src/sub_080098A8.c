@@ -11,7 +11,7 @@ struct S_02021E90 {
 
 extern struct S_02021E90 gCameraState;
 extern u16 D_03000830[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Forces the entity's mode byte (+0x60) from the global state flags, plays a
  * sound when it changes, and on a trigger flag runs the spawn/action sequence. */
@@ -64,7 +64,7 @@ void sub_080098A8(void *entity)
                 *((s8 *)entity + stepIndex * 2 + 0x19) = 0;
             }
             {
-                void **callback = &gMainObjTimerCallback;
+                void **callback = &gScriptStepCallbackTable;
                 sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *callback);
             }
         }

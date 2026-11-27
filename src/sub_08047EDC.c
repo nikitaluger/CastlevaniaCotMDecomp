@@ -1,4 +1,4 @@
-extern s32 D_08671BD0;
+extern s32 gScriptStepCallbacks;
 s32 sub_080059DC(s32, s32);
 void setAnimationFrame(void *, void *, u16, u8);
 void sub_080C31E8(void *, void *, s32, s32);
@@ -40,7 +40,7 @@ void sub_08047EDC(u8 *arg0) {
         *(s32 *)(work + 0x14) = 0;
         *(s32 *)(work + 0x10) = 0;
         arg0[*(s16 *)(arg0 + 0x22) * 2 + 0x19] = 0;
-        handlers = &D_08671BD0;
+        handlers = &gScriptStepCallbacks;
         sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 2, *handlers);
     } else {
         s32 zero;

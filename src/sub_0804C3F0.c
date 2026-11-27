@@ -2,7 +2,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern void sub_0804C674(void *, void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BD8;
+extern void *gMenuScriptCallback;
 
 void sub_0804C3F0(void *arg0)
 {
@@ -36,7 +36,7 @@ void sub_0804C3F0(void *arg0)
         ((u8 *)arg0)[idx * 2 + 0x17] = 0;
 
         {
-            void **litp = &D_08671BD8;
+            void **litp = &gMenuScriptCallback;
             void *a0 = (u8 *)arg0 + 0x18;
             void *a1 = (u8 *)arg0 + 0x22;
             sub_080C31E8(a0, a1, 1, *litp);

@@ -2,7 +2,7 @@ extern void sub_080146D0(void *, s32, s32);
 extern void sub_08057AF8(void *);
 extern void sub_08057B6C(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Update a projectile: turn its angle and speed into velocity, advance its
  * position, flip its orientation every 20 frames and sync its sprite. */
@@ -37,7 +37,7 @@ void sub_0805753C(void *arg0)
         ((u8 *)scriptOff + (s32)(u8 *)arg0)[0x19] = 0;
 
         {
-            void **litp = &gMainObjTimerCallback;
+            void **litp = &gScriptStepCallbackTable;
             void *a0 = (u8 *)arg0 + 0x18;
             void *a1 = (u8 *)arg0 + 0x22;
             sub_080C31E4(a0, a1, *litp);

@@ -1,6 +1,6 @@
 /* Run the entity's behavior state machine: spawn a queued effect, tick its
  * cooldowns relative to the player, and choose a facing direction. */
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
@@ -31,7 +31,7 @@ struct Mover {
 struct ScriptArg { u8 pad[0x22]; s16 index; };
 
 extern s16 D_080CEB70[];
-extern u32 D_08671BD0[];
+extern u32 gScriptStepCallbacks[];
 
 void sub_08030D18(void *entity)
 {
@@ -66,7 +66,7 @@ void sub_08030D18(void *entity)
                 idx2 = ((struct ScriptArg *)entity)->index;
                 p = (u8 *)((s16 *)entity + idx2);
                 p[0x19] = 0;
-                pp = D_08671BD0;
+                pp = gScriptStepCallbacks;
                 sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 1, *pp);
                 return;
             }
@@ -83,13 +83,13 @@ void sub_08030D18(void *entity)
         tmp ^= 0x10;
         zero = 0;
         *(u16 *)((u8 *)workObj + 2) = tmp;
-        behavior->timer = sub_08005820(0x3D) + 0x78;
+        behavior->timer = scaleByRandom(0x3D) + 0x78;
         behavior->state = zero;
     }
 
     behavior->timer--;
     if ((s16)behavior->timer <= 0) {
-        behavior->timer = sub_08005820(0x3D) + 0x78;
+        behavior->timer = scaleByRandom(0x3D) + 0x78;
         if (sub_08014900(mover->x) <= 0x600000 && sub_0801491C(mover->y) <= 0x400000) {
             behavior->state = 1;
         } else {

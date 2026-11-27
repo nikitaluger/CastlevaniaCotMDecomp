@@ -2,12 +2,12 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern s16 findKindIndex(s32);
-extern void sub_080B05EC(void *, void *, s32, s32);
+extern void initSpriteFromTemplate(void *, void *, s32, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
-extern s32 gMainObjTimerCallback;
+extern void releaseActorEffectSubObject(void);
+extern s32 gScriptStepCallbackTable;
 
 struct S_02025FF0 {
     u8 _0x000[0x18C2];
@@ -36,7 +36,7 @@ void sub_080AEE98(void *entity)
     *(u32 *)((u8 *)sprite + 0x1C) = 0xB4;
     motion = *(void * volatile *)((u8 *)entity + 0x3C);
     status = (u8 *)motion + 0x34;
-    installUpdateHandler(entity, motion, sub_08097D90);
+    installUpdateHandler(entity, motion, releaseActorEffectSubObject);
     *(u16 *)((u8 *)motion + 0x1C) = 0x64;
     *(u32 *)((u8 *)motion + 0x08) = *(u32 *)((u8 *)entity + 0x4C);
     *(u32 *)((u8 *)motion + 0x0C) = *(u32 *)((u8 *)entity + 0x5C);
@@ -50,7 +50,7 @@ fail:
 
 ok:
     *(u16 *)((u8 *)sprite + 0x00) |= gMainWorkspace.spriteFlags;
-    sub_080B05EC(sprite, status, 0x9E, 6);
+    initSpriteFromTemplate(sprite, status, 0x9E, 6);
     setObjectAnimation(sprite, status, 0x4B, 1);
 
     *(u8 *)((u8 *)entity + 0x6C) = 0x10;
@@ -59,7 +59,7 @@ ok:
     *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = 0;
 
     {
-        s32 *scriptTable = &gMainObjTimerCallback;
+        s32 *scriptTable = &gScriptStepCallbackTable;
         u8 *stepBase = (u8 *)entity + 0x18;
         s16 stepIndex;
 

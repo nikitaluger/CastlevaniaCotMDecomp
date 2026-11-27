@@ -2,9 +2,9 @@ s32 setAnimationFrame(s32, s32, s32, s32);
 s32 sub_0801D154(void *, s32, s32, s16, s32);
 s32 sub_080C31E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
-s32 sub_080C364C(s32, s32);
+s32 divInt32(s32, s32);
 s32 sub_080C36E4(s16, s32);
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Periodic attack: sweep an angle, spawn a shot every few ticks, then advance state. */
 void sub_0801B650(void *arg0) {
@@ -23,7 +23,7 @@ void sub_0801B650(void *arg0) {
         *((s16 *) (((s8 *) attack) + 0x24)) = 0;
     }
     trigTable = (void *) 0x08671BFC;
-    *((s32 *) (((s8 *) attack) + 0x20)) = (s32) (sub_080C31E0(sub_080C364C(*((s16 *) (((s8 *) attack) + 0x24)) << 0x10, 0x3C), *((s32 *) trigTable)) * 2);
+    *((s32 *) (((s8 *) attack) + 0x20)) = (s32) (sub_080C31E0(divInt32(*((s16 *) (((s8 *) attack) + 0x24)) << 0x10, 0x3C), *((s32 *) trigTable)) * 2);
     *((s16 *) (((s8 *) attack) + 0x24)) = (s16) ((u16) *((s16 *) (((s8 *) attack) + 0x24)) + 1);
     if ((sub_080C36E4(*((s16 *) (((s8 *) attack) + 0x16)), 3) << 0x10) == 0) {
         sub_0801D154(arg0, *((s32 *) (((s8 *) work) + 8)), *((s32 *) (((s8 *) attack) + 0xC)), *((s16 *) (((s8 *) attack) + 0x18)), 8);
@@ -34,7 +34,7 @@ void sub_0801B650(void *arg0) {
         u32 *lit2;
         *((s16 *) (((s8 *) attack) + 0x16)) = 0xB4;
         *((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22)) * 2) + arg0)) + 0x19) = 0;
-        lit2 = gMainObjTimerCallback;
+        lit2 = gScriptStepCallbackTable;
         sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *lit2);
     }
 }

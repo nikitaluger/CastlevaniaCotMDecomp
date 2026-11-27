@@ -1,10 +1,10 @@
-extern s32 D_08671BD0;
+extern s32 gScriptStepCallbacks;
 extern u32 gMainWorkspace[];
-extern s32 sub_0801165C(void *, s32);
+extern s32 advanceMotion(void *, s32);
 extern void sub_0804A4D0(void *, s32, s32, s32);
 extern u32 sub_0804A4F0(void *, s32, void *, s32);
 extern void sub_0804A650(void *, void *, s32);
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /*
@@ -23,7 +23,7 @@ void sub_08049F8C(u8 *self) {
     s32 baseX;
     s32 baseY;
 
-    sub_0801165C(enemy, 0);
+    advanceMotion(enemy, 0);
     sub_0804A650(self, enemy, enemyExtra);
     decision = sub_0804A4F0(actor, enemyData, enemy, enemyExtra);
     switch (decision) {
@@ -31,12 +31,12 @@ void sub_08049F8C(u8 *self) {
         sub_0804A4D0(actor, enemyData, enemyExtra, 7);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            s32 *callback = &D_08671BD0;
+            s32 *callback = &gScriptStepCallbacks;
             sub_080C31E8(self + 0x18, self + 0x22, 2, *callback);
         }
         return;
     case 2:
-        projectile = sub_0805FAEC(gMainWorkspace[0x1870 / 4], 0x12B);
+        projectile = spawnBudgetedEffect(gMainWorkspace[0x1870 / 4], 0x12B);
         if (projectile != NULL) {
             baseX = *(s32 *)(enemy + 8);
             *(s32 *)(projectile + 0x4C) = baseX + (*(volatile u16 *)(actor + 2) & 0x10 ? 0xC0000 : (s32)0xFFF40000);

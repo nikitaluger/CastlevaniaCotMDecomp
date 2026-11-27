@@ -11,7 +11,7 @@ struct S_080316BC {
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 // Plays frame 9, runs one step callback, and on a negative angle restarts at the step-2 callback.
 void sub_08055710(struct S_080316BC *obj)
@@ -37,7 +37,7 @@ void sub_08055710(struct S_080316BC *obj)
     if (*(s16 *)(state + 6) < 0) {
         ((u8 *)obj)[obj->step * 2 + 0x19] = 0;
         {
-            void **lit = &D_08671BD0;
+            void **lit = &gScriptStepCallbacks;
             sub_080C31E8(stepData, (u8 *)obj + 0x22, 2, *lit);
         }
     }

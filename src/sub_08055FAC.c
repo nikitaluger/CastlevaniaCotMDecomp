@@ -4,7 +4,7 @@ s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -61,7 +61,7 @@ void sub_08055FAC(void *entity)
     return;
   }
   sub_08056BF0(self, component);
-  if (sub_08013B5C(parent, component) == 0)
+  if (updateObjectDisplayState(parent, component) == 0)
   {
     u8 *stepPtr;
     u8 opcode;

@@ -15,9 +15,9 @@ extern struct GameState gMainWorkspace;
 extern u8 gTilemapPages[];
 s32 sub_0806D450(void *, void *, void *);
 void sub_0806D588(void *, void *);
-s16 sub_08007DD8(u8 *, s32, s32);
-void sub_0806E114(s32, s32, s32, s32);
-void sub_0806D2F8(void *, void *);
+s16 getTileTerrainB(u8 *, s32, s32);
+void spawnKind2CEntity(s32, s32, s32, s32);
+void cullOffscreenEntity(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* One frame of a scripted actor: apply camera/movement overrides, advance its
@@ -34,10 +34,10 @@ void sub_080708D8(u8 *arg0)
   sub_0806D588(world, mover);
   if ((*(u16 *)(*((u8 **)(mover + 0x3C)) + 0x14) & 1) == 0) goto checkCollision;
 spawnEffect:
-  sub_0806E114(*(s32 *)(arg0 + 0x28), 8, *(s32 *)(actor + 4), *(s32 *)(mover + 4));
+  spawnKind2CEntity(*(s32 *)(arg0 + 0x28), 8, *(s32 *)(actor + 4), *(s32 *)(mover + 4));
   goto abort;
 checkCollision:
-  hitType = sub_08007DD8(gTilemapPages + (gMainWorkspace.field18A8 << 6), *(s32 *)(actor + 4), *(s32 *)(mover + 4));
+  hitType = getTileTerrainB(gTilemapPages + (gMainWorkspace.field18A8 << 6), *(s32 *)(actor + 4), *(s32 *)(mover + 4));
   if (hitType != 0) goto spawnEffect;
   if (gMainWorkspace.field14FC != 0) goto abort;
   if (gMainWorkspace.field173A == 0x1C) goto abort;
@@ -48,5 +48,5 @@ abort:
   sub_080C31E0(arg0, *(s32 *)(arg0 + 0x24));
   return;
 offscreen:
-  sub_0806D2F8(arg0, world);
+  cullOffscreenEntity(arg0, world);
 }

@@ -12,18 +12,18 @@ struct Actor {
 };
 struct ActorParam { u32 value; u32 limit; u8 _8[0x50]; };
 extern struct ActorParam D_080E03A0[];
-extern u32 D_08671BD0;
-extern u32 D_08671BD8;
+extern u32 gScriptStepCallbacks;
+extern u32 gMenuScriptCallback;
 
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern void sub_08005E80(s32);
-extern void sub_0806E114(void *, s32, u32, u32);
+extern void spawnKind2CEntity(void *, s32, u32, u32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern void sub_0806D588(void *, void *);
 extern void sub_0806A884(void *, void *);
-extern u32 sub_08003740(void *, void *);
+extern u32 stepDelayTimer(void *, void *);
 extern void sub_0806A7AC(void *, void *, s32);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 
@@ -33,11 +33,11 @@ void sub_08067A04(struct ActorUpdate *arg0) {
     struct ActorStateData *state = (struct ActorStateData *)arg0->state;
     struct Actor *actor = (struct Actor *)((u8 *)state + 4);
     u8 *parent = arg0->parent;
-    s32 posMode = sub_0806C4B4(actor, actor);
+    s32 posMode = syncViewPosition(actor, actor);
     if (posMode == 0) {
         u8 *stepPtr;
         s32 value, limit;
-        sub_0806C5EC(arg0, parent, actor, actor);
+        resetActionResultState(arg0, parent, actor, actor);
         value = actor->energy + D_080E03A0[actor->kind].value;
         actor->energy = value;
         limit = D_080E03A0[actor->kind].limit;
@@ -49,11 +49,11 @@ void sub_08067A04(struct ActorUpdate *arg0) {
             actor->timerB = posMode;
             actor->timerC = posMode;
             actor->counter = posMode;
-            sub_0806E114(arg0, 9, state->param, actor->param);
+            spawnKind2CEntity(arg0, 9, state->param, actor->param);
             stepPtr = (u8 *)((u32)(arg0->step * 2) + (u32)arg0);
             stepPtr[0x19] = posMode;
             {
-                u32 *pd = &D_08671BD0;
+                u32 *pd = &gScriptStepCallbacks;
                 sub_080C31E8((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 1, *pd);
             }
         }
@@ -61,14 +61,14 @@ void sub_08067A04(struct ActorUpdate *arg0) {
         sub_0806A884(parent, actor);
         {
             u8 *stateField = (u8 *)state + 0x2C;
-            u32 result = sub_08003740(stateField, parent);
+            u32 result = stepDelayTimer(stateField, parent);
             if (result == 0) {
                 sub_0806A7AC(parent, actor, 0x10);
-                sub_08003740(stateField, parent);
+                stepDelayTimer(stateField, parent);
                 stepPtr = (u8 *)((u32)(arg0->step * 2) + (u32)arg0);
                 stepPtr[0x17] = result;
                 {
-                    u32 *pd = &D_08671BD8;
+                    u32 *pd = &gMenuScriptCallback;
                     sub_080C31E8((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 3, *pd);
                 }
             }

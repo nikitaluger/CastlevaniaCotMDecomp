@@ -19,7 +19,7 @@ struct MovingActor {
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* Dispatch the current script command, then pick a movement direction from
  * the actor's position relative to its target and end the step. */
@@ -52,7 +52,7 @@ void sub_0802D0E4(struct ScriptActor *arg0)
         actor->direction = direction;
         ((u8 *)arg0)[arg0->stepIndex * 2 + 0x19] = 0;
         {
-            void **lit = &D_08671BD0;
+            void **lit = &gScriptStepCallbacks;
             sub_080C31E8(scriptData, (u8 *)arg0 + 0x22, 0, *lit);
         }
     }

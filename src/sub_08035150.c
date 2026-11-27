@@ -1,6 +1,6 @@
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_080146D0(void *, s32, s32);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Projectile flight step: animate it, set its velocity from the fixed angle in
@@ -14,9 +14,9 @@ void sub_08035150(void *arg0)
     void *anim = work + 0x34;
     u8 *body = work + 0x48;
 
-    sub_080113A8(parent, anim);
+    stepAnimationTrack(parent, anim);
     sub_080146D0(work, *(s32 *)(body + 4), *(s32 *)(work + 0x48));
-    sub_0801165C(work, 0);
+    advanceMotion(work, 0);
 
     *(s32 *)(work + 0x48) += 0xFFFF0000;
     if (*(s32 *)(work + 0x48) <= 0)

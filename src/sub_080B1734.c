@@ -1,4 +1,4 @@
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 void sub_080B300C(void);
 void sub_080B307C(void);

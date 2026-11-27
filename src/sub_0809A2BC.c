@@ -2,7 +2,7 @@ extern s32 sub_080057F8(void);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_0809C5E4(s32);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Advance the actor's work offset by +-1.0 from its script flag, periodically
  * signal its parts object, and on trigger start an animation, clear the current
@@ -34,7 +34,7 @@ void sub_0809A2BC(void *arg0)
     scriptIndex = *((s16 *) (((u8 *) arg0) + 0x22));
     ((u8 *) arg0)[(scriptIndex * 2) + 0x19] = 0;
     {
-      void **scriptCb = &gMainObjTimerCallback;
+      void **scriptCb = &gScriptStepCallbackTable;
       sub_080C31E4(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, *scriptCb);
     }
   }

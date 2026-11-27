@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
-extern void sub_080161F0(void *a);
+extern void unlinkAndFreeObject(void *a);
 extern void sub_08071FA0(void);
 extern void sub_08072018(void *a);
 extern void sub_08006120(void);
@@ -27,7 +27,7 @@ struct S_02025368 {
 };
 extern struct S_02025368 gGameStatus;
 
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 extern u32 gLevelExpTable[];
 
 /* Set the global 0x08000000 flag, clear the entity's current script-step
@@ -37,7 +37,7 @@ void sub_08071E9C(void *entity)
     gMainWorkspace.f1844 |= 0x08000000;
     *(u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2 + 0x19) = 0;
     {
-        s32 *advanceCb = gMainObjTimerCallback;
+        s32 *advanceCb = gScriptStepCallbackTable;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *advanceCb);
     }
 }

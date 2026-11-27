@@ -1,10 +1,10 @@
-extern void *D_08671BFC;
-extern void *D_08671BD0;
+extern void *gTrigFuncPtr;
+extern void *gScriptStepCallbacks;
 
 s32 setAnimationFrame(void *, void *, s32, s32);
 s32 sub_08014990(void *);
 s32 sub_0803F758(void *, s32, s32, s16);
-s32 sub_080C364C(s32, s32);
+s32 divInt32(s32, s32);
 s32 sub_080C31E0(s32, void *);
 void sub_080C31E8(void *, void *, s32, void *);
 
@@ -34,8 +34,8 @@ void sub_0803EEEC(void *object)
         *(s16 *)(ctrl + 0x0C) = 0;
     }
 
-    angleFunc = &D_08671BFC;
-    *(s32 *)(ctrl + 0x08) = sub_080C31E0(sub_080C364C(*(s16 *)(ctrl + 0x0C) << 16, 0x3C), *angleFunc) << 1;
+    angleFunc = &gTrigFuncPtr;
+    *(s32 *)(ctrl + 0x08) = sub_080C31E0(divInt32(*(s16 *)(ctrl + 0x0C) << 16, 0x3C), *angleFunc) << 1;
 
     {
         s16 nextIndex = *(s16 *)(ctrl + 0x0C) + 1;
@@ -58,7 +58,7 @@ void sub_0803EEEC(void *object)
         flagByte = (u8 *)((idx * 2) + (u32)object) + 0x19;
         *flagByte = bz();
         {
-            void **callback = &D_08671BD0;
+            void **callback = &gScriptStepCallbacks;
             sub_080C31E8((u8 *)object + 0x18, (u8 *)object + 0x22, 1, *callback);
         }
     } else {

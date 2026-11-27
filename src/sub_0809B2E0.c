@@ -1,6 +1,6 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void initSpriteGraphics(void *, void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 findKindIndex(s32);
@@ -62,7 +62,7 @@ void sub_0809B2E0(void *entity)
   initSpriteGraphics(sprite, status, (void *) ((((s32) (*((s16 *) (((char *) motion) + 0x1C)))) * 0xC) + 0x080CD400));
   setAnimationFrame(sprite, status, 7, 0);
   allocSize = 0xB60;
-  *((s32 *)(((char *) entity) + 0x6C)) = sub_08005820(allocSize) + allocSize;
+  *((s32 *)(((char *) entity) + 0x6C)) = scaleByRandom(allocSize) + allocSize;
   *((u16 *)(((char *) entity) + 0x02)) |= 0x1000;
   {
     u8 *p = (u8 *) ((((s16) (*((s16 *) (((char *) entity) + 0x22)))) * 2) + ((u32) entity));

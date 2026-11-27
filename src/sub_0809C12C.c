@@ -1,8 +1,8 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
-s8 sub_08005820(s32);
+s8 scaleByRandom(s32);
 void loadEffectPalette(u32, void *);
 extern void sub_0809BEE8(void);
 
@@ -27,7 +27,7 @@ void sub_0809C12C(struct S_0807B12C *arg0)
   int stepBaseOffset;
   int stepOffset;
   void *sprite = (void *) arg0->sprite;
-  if (sub_08013B5C(sprite, (void *) arg0->work) == 0)
+  if (updateObjectDisplayState(sprite, (void *) arg0->work) == 0)
   {
     arg0->handlers = 0x0866FC8C;
     arg0->step += 1;

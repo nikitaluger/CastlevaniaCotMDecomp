@@ -1,6 +1,6 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
-extern void sub_08011898(void *, s32);
+extern void moveEntityWithCollision(void *, s32);
 extern void sub_08014848(s32, s32, s32, s32, s32, s32);
 extern void sub_0808BB54(void);
 extern void sub_0808E61C(s32, s32, s32, s32);
@@ -34,7 +34,7 @@ void sub_0809919C(void *entity)
   motionState = ((u8 *) motion) + 0x48;
   controlWord = 0x3F40;
   sub_080C2E68(particleTypes, (void *) 0x081017B4, 0x11);
-  sub_08011898(motion, 0x2D82);
+  moveEntityWithCollision(motion, 0x2D82);
   if (!(2 & (*((((u8 *) entity) + ((*((s16 *) (((u8 *) entity) + 0x22))) * 2)) + 0x19))))
   {
     *spriteAttr = (0xFFF & (*spriteAttr)) | 0xE000;
@@ -48,7 +48,7 @@ void sub_0809919C(void *entity)
     posX = *((s32 *) (((u8 *) motion) + 0x08));
     posY = *((s32 *) (((u8 *) motion) + 0x0C));
     randOffset = sub_0800583C(0x20000);
-    sub_0808E61C(posX, posY, randOffset, 0 - (sub_08005820(0x30000) + 0x30000));
+    sub_0808E61C(posX, posY, randOffset, 0 - (scaleByRandom(0x30000) + 0x30000));
   }
   sysState = D_03000830;
   *((u16 *) (sysState + 0x04)) = controlWord;

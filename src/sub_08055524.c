@@ -1,8 +1,8 @@
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 D_08671BFC;
+extern u32 gTrigFuncPtr;
 extern u8 D_0866E750[];
 
 /* Run one step of a scripted effect: set its animation frame and draw offset,
@@ -30,8 +30,8 @@ void sub_08055524(u8 *self) {
         *(s16 *)(render + 4) = 0;
     }
 
-    table = &D_08671BFC;
-    quotient = sub_080C364C((s32)*(s16 *)(render + 4) << 16, 0x3C);
+    table = &gTrigFuncPtr;
+    quotient = divInt32((s32)*(s16 *)(render + 4) << 16, 0x3C);
     *(s32 *)render = sub_080C31E0(quotient + 0x8000, *table) * 2;
 
     *(u16 *)(render + 4) = *(u16 *)(render + 4) + 1;

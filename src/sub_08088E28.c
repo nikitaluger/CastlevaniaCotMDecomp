@@ -1,6 +1,6 @@
 extern void sub_0806D6B4(void *);
-extern void sub_08003A6C(void *, s32, void *);
-extern void sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -20,7 +20,7 @@ void sub_08088E28(void *entity) {
     sprite = *(void **)(self + 0x38);
     sub_0806D6B4(pos);
     if (*(s32 *)(mover + 4) <= 0x800000) {
-        sub_08003A6C(mover + 0x20, 0, (void *)0x085096BC);
+        startEffectTimer(mover + 0x20, 0, (void *)0x085096BC);
         *(s32 *)(pos + 8) = 0;
         *(s32 *)(pos + 0xC) = 0;
         *(s32 *)(pos + 0x10) = 0x40;
@@ -28,6 +28,6 @@ void sub_08088E28(void *entity) {
         scriptTable = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);
     }
-    sub_08003740(mover + 0x20, sprite);
+    stepDelayTimer(mover + 0x20, sprite);
     sub_0806D588(sprite, pos);
 }

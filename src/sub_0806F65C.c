@@ -1,13 +1,13 @@
-extern void sub_08003740(void *, s32);
-extern void sub_08003A6C(void *, s32, s32);
+extern void stepDelayTimer(void *, s32);
+extern void startEffectTimer(void *, s32, s32);
 extern void sub_08005E80(s32);
-extern u16 sub_08007DD8(s32, s32, s32);
-extern void sub_0806D2F8(void *, s32);
-extern s32 sub_0806D518(void *, s32, void *);
+extern u16 getTileTerrainB(s32, s32, s32);
+extern void cullOffscreenEntity(void *, s32);
+extern s32 checkGlobalStateChange(void *, s32, void *);
 extern void sub_0806D588(s32, void *);
-extern void sub_0806E114(s32, s32, s32, s32);
+extern void spawnKind2CEntity(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 struct TileState { u8 _0[0x18A8]; u8 tileIndex; };
 extern struct TileState gMainWorkspace;
@@ -23,17 +23,17 @@ void sub_0806F65C(u8 *arg0) {
     u8 *body = sceneState + 4;
     s32 sprite = *(s32 *)(arg0 + 0x38);
     u8 *bodyKeep = body;
-    s32 busy = sub_0806D518(arg0, sprite, body);
+    s32 busy = checkGlobalStateChange(arg0, sprite, body);
     s32 collision;
     if (busy != 0) return;
 
-    collision = (u16)sub_08007DD8(0x02023130 + (gMainWorkspace.tileIndex << 6),
+    collision = (u16)getTileTerrainB(0x02023130 + (gMainWorkspace.tileIndex << 6),
                        ((struct SceneState *)sceneState)->coordX + ((struct BodyState *)body)->offsetX,
                        ((struct BodyState *)body)->coordY + ((struct BodyState *)body)->offsetY);
     if (collision != 0) {
         u8 *actionByte;
         s32 *callback;
-        sub_08003A6C(sceneState + 0x30, 0, (void *)0x08472AB0);
+        startEffectTimer(sceneState + 0x30, 0, (void *)0x08472AB0);
         ((struct BodyState *)body)->offsetX = busy;
         ((struct BodyState *)body)->offsetY = busy;
         ((struct BodyState *)body)->aux48 = 0x4000;
@@ -50,11 +50,11 @@ void sub_0806F65C(u8 *arg0) {
             u8 *actionByte;
             s32 *callback;
             u8 *effect;
-            sub_08003A6C(sceneState + 0x30, 0, (void *)0x08472AB0);
+            startEffectTimer(sceneState + 0x30, 0, (void *)0x08472AB0);
             ((struct BodyState *)body)->offsetX = collision;
             ((struct BodyState *)body)->offsetY = collision;
             ((struct BodyState *)body)->aux48 = 0x4000;
-            sub_0806E114(*(s32 *)(arg0 + 0x28), 8, ((struct SceneState *)sceneState)->coordX, ((struct BodyState *)body)->coordY);
+            spawnKind2CEntity(*(s32 *)(arg0 + 0x28), 8, ((struct SceneState *)sceneState)->coordX, ((struct BodyState *)body)->coordY);
             effect = ((struct BodyState *)body)->effect;
             zero = 0;
             ((struct EffectFlags *)effect)->flags = collision;
@@ -66,6 +66,6 @@ void sub_0806F65C(u8 *arg0) {
         }
     }
     sub_0806D588(sprite, bodyKeep);
-    sub_08003740(body + 0x2C, sprite);
-    sub_0806D2F8(arg0, sprite);
+    stepDelayTimer(body + 0x2C, sprite);
+    cullOffscreenEntity(arg0, sprite);
 }

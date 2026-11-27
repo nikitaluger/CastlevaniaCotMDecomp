@@ -4,7 +4,7 @@ struct S_02025FF0_1870 {
 };
 extern struct S_02025FF0_1870 gMainWorkspace;
 
-void *sub_0805FAEC(u32, s32);
+void *spawnBudgetedEffect(u32, s32);
 
 /* Spawn a 0x104-byte pooled object at a 16.16 fixed-point position, storing an
  * owner value at 0x8C and a u16 setup parameter at 0x64. */
@@ -15,7 +15,7 @@ void *sub_0803F758(s32 owner, s32 xFixed, s32 yFixed, u16 param64)
     s32 yScaled;
     s32 pos;
 
-    obj = sub_0805FAEC(gMainWorkspace.parent, 0x104);
+    obj = spawnBudgetedEffect(gMainWorkspace.parent, 0x104);
     if (obj == 0) {
         return 0;
     }

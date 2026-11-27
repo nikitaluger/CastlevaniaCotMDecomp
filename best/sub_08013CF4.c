@@ -1,9 +1,9 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_080133A4(s32, s32);
 extern void sub_0805D92C(s32, s32, s32);
 extern void sub_0805E6A8(s32, s32, u16, s16);
 extern void sub_0805EBB8(s32, s32, u16);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern u16 sub_080C3824(u16, s32);
 extern u16 sub_080C389C(u16, s32);
 extern u8 gMainWorkspace[];
@@ -50,18 +50,18 @@ void sub_08013CF4(void *arg0, s32 arg1, s32 arg2)
     t0 = e1->unk0E;
     tmp = *(s16 *)(sp0 + 0x2F8);
     g2f8 = tmp - 100;
-    v1 = sub_080C364C(t0 * g2f8, 200);
+    v1 = divInt32(t0 * g2f8, 200);
     v1 += t0;
     if (v1 > 0x1388)
         v1 = 0x1388;
 
     t1 = e1->unk12;
-    v2 = sub_080C364C(t1 * g2f8, 200);
+    v2 = divInt32(t1 * g2f8, 200);
     v2 += t1;
     if (v2 > 0x9C4)
         v2 = 0x9C4;
 
-    rnd = sub_08005820(0x2710);
+    rnd = scaleByRandom(0x2710);
     if (rnd < v1)
     {
         if (r10v <= 0x36)

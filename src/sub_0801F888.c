@@ -17,7 +17,7 @@ void sub_0801F888(void *obj)
 
     {
         s32 *valueFuncs = (s32 *)0x08671BFC;
-        s32 scaled = sub_080C364C(*(s16 *)(fx + 4) << 16, 0x24);
+        s32 scaled = divInt32(*(s16 *)(fx + 4) << 16, 0x24);
         *(s32 *)(fx + 0) = sub_080C31E0(scaled, *valueFuncs) * 2;
     }
 

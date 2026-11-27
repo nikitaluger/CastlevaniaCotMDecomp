@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 struct S4
 {
   s32 a;
@@ -33,7 +33,7 @@ void sub_08040AB0(u8 *arg0, u8 *arg1, u8 *arg2)
   if (v >= 0)
   {
     new_var2 = &tmp;
-    ret = sub_0805FAEC(arg0, 0x106);
+    ret = spawnBudgetedEffect(arg0, 0x106);
     if (ret != 0)
     {
       tmp = s[v * 2];

@@ -1,4 +1,4 @@
-void sub_080161F0();
+void unlinkAndFreeObject();
 void sub_08015974();
 void sub_08016678(void *);
 void sub_0801E5FC(void *);
@@ -12,7 +12,7 @@ void sub_0801E5C8(void *arg0) {
     void *obj = arg0;
     void *scriptState = *(void **)((u8 *)obj + 0x3C);
     if (*(s32 *)((u8 *)scriptState + 0x28) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(s32 *)((u8 *)scriptState + 0x2C) != 0) {
         sub_08015974();

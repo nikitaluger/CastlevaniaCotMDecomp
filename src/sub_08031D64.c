@@ -3,9 +3,9 @@
  * parent's script step to dispatch a callback, then repositions the sprite on screen. */
 extern void sub_08005E80(s32);
 extern void sub_080113A8(s32, void *);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern s32 sub_08013B5C(s32, void *);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -28,7 +28,7 @@ void sub_08031D64(u8 *self)
         sub_080C31E0(self, *((void **)(self + 0x24)));
         return;
     }
-    if (sub_08016238(*((void **)(state + 0x28))) != 0)
+    if (hitTestEntities(*((void **)(state + 0x28))) != 0)
         ((struct StateFlags *)state)->flags |= 1;
     if (1 & ((struct SpriteDefTimer *)(*((u8 **)(state + 0x28))))->timer)
         ((struct StateFlags *)state)->flags |= 1;
@@ -60,7 +60,7 @@ void sub_08031D64(u8 *self)
         if (((*((u16 *)(self + 2))) & 0x8000) == 0)
         {
             sub_080113A8(sprite, scratch);
-            sub_0801165C(state, 0);
+            advanceMotion(state, 0);
         }
         else goto done;
     }

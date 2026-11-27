@@ -1,6 +1,6 @@
-extern s32 sub_0805F9B4(s32 x, s32 y); /* 1 when the point is outside the view */
-extern void sub_080113A8(void *sprite, void *animState);
-extern void sub_0801165C(void *work, s32 accelY);
+extern s32 isOutsideCameraBounds(s32 x, s32 y); /* 1 when the point is outside the view */
+extern void stepAnimationTrack(void *sprite, void *animState);
+extern void advanceMotion(void *work, s32 accelY);
 extern void sub_080C31E0(void *actor, void *handler);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -12,10 +12,10 @@ void sub_08026BDC(void *arg0) {
     void *sprite = *(void **)(self + 0x38);
     void *work = *(void **)(self + 0x3C);
     u8 *animState = (u8 *)work + 0x34;
-    if (sub_0805F9B4(*(s32 *)((u8 *)work + 0x08), *(s32 *)((u8 *)work + 0x0C)) == 1)
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)work + 0x08), *(s32 *)((u8 *)work + 0x0C)) == 1)
         goto SWITCH_STATE;
-    sub_080113A8(sprite, animState);
-    sub_0801165C(work, 0);
+    stepAnimationTrack(sprite, animState);
+    advanceMotion(work, 0);
     if (*(u8 *)animState & 2)
         goto SWITCH_STATE;
     goto SET_COORDS;

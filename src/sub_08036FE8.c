@@ -1,7 +1,7 @@
 extern u8 gMainWorkspace[];
-extern s32 gMainObjTimerCallback;
-extern void *sub_0805FAEC(s32, s32);
-s32 sub_080113A8(s32, s32);
+extern s32 gScriptStepCallbackTable;
+extern void *spawnBudgetedEffect(s32, s32);
+s32 stepAnimationTrack(s32, s32);
 s32 sub_080148C0(void *, s32, s32);
 void sub_0803B140(u32, void *, void *, void *);
 void sub_0803B194(void *);
@@ -20,13 +20,13 @@ void sub_08036FE8(u8 *behav) {
     void *proj;
     u8 objParam;
     sub_0803B194((u8 *)owner + 0x54);
-    sub_080113A8((s32)target, ownerInfo);
+    stepAnimationTrack((s32)target, ownerInfo);
     if (*(u16 *)((u8 *)target + 0x28) == 0x49 && *(u8 *)(ownerData + 0x18) == 0) {
         *(u8 *)(ownerData + 0x18) = 1;
         {
             u32 tableBase = (u32)gMainWorkspace;
             u32 objectIdOff = 0x1870;
-            proj = sub_0805FAEC(*(s32 *)(tableBase + objectIdOff), 0xEB);
+            proj = spawnBudgetedEffect(*(s32 *)(tableBase + objectIdOff), 0xEB);
         }
         if (proj != 0) {
             objParam = *(u8 *)(self + 0x4C);

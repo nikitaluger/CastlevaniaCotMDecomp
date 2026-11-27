@@ -1,9 +1,9 @@
-extern s32 sub_08005820(u8);
+extern s32 scaleByRandom(u8);
 extern void sub_080C31E8(u8 *, u8 *, s32, s32);
 extern s32 gMainWorkspace[];
 extern u8 D_081026C8[];
 extern u16 D_081026E8[];
-extern s32 D_08671BD8[];
+extern s32 gMenuScriptCallback[];
 void sub_080B104C(u8 *arg0)
 {
     u8 *p = *(u8 **)(arg0 + 0x3C);
@@ -13,7 +13,7 @@ void sub_080B104C(u8 *arg0)
     s32 k;
     s32 idx;
     v = tbl[d[6] * 4];
-    k = sub_08005820(v) + 1;
+    k = scaleByRandom(v) + 1;
     idx = k + d[6] * 4;
     d[4] = tbl[idx];
     if (*(s32 *)(p + 8) > 0x01000000) {
@@ -34,5 +34,5 @@ done:
     d[6] = v;
     if (v == 7) d[6] = 0;
     *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x17) = 0;
-    { s32 *gp = D_08671BD8; sub_080C31E8(arg0 + 0x18, arg0 + 0x22, D_081026E8[d[4]], gp[0]); }
+    { s32 *gp = gMenuScriptCallback; sub_080C31E8(arg0 + 0x18, arg0 + 0x22, D_081026E8[d[4]], gp[0]); }
 }

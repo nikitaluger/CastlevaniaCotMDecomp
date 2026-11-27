@@ -1,4 +1,4 @@
-extern u32 D_08671BFC;
+extern u32 gTrigFuncPtr;
 s32 sub_080C31E0(u32 a, u32 b);
 s32 sub_080A845C(u32 a, void *b);
 s32 sub_080147A4(s32 a, s32 b, s32 c);
@@ -41,7 +41,7 @@ s32 sub_080A8784(u32 behav, MotionEntity *entity)
     entity->angularVel = -entity->maxAngularVel;
   }
   entity->angle = (entity->angle + entity->angularVel) & 0xFFFF;
-  amplitude1 = &D_08671BFC;
+  amplitude1 = &gTrigFuncPtr;
   entity->cosVal = sub_080C31E0(entity->angle + 0x4000, *amplitude1);
   entity->sinVal = sub_080C31E0(entity->angle, *amplitude1);
   if (entity->angularVel > 0)
@@ -53,7 +53,7 @@ s32 sub_080A8784(u32 behav, MotionEntity *entity)
     offsetAngle = entity->angle + 0x4000;
   }
   offsetAngle &= 0xFFFF;
-  amplitude2 = &D_08671BFC;
+  amplitude2 = &gTrigFuncPtr;
   entity->velX = (((entity->angularVel < 0) ? (-entity->angularVel) : (entity->angularVel)) * sub_080C31E0(offsetAngle + 0x4000, *amplitude2)) >> 10;
   entity->velY = (((entity->angularVel < 0) ? (-entity->angularVel) : (entity->angularVel)) * sub_080C31E0(offsetAngle, *amplitude2)) >> 10;
   sub_080A845C(behav, entity);

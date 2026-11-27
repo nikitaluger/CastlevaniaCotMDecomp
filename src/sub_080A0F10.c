@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_08098598(s32, void *, s32, void *);
 extern void sub_080A1744(void *, void *);
 extern void sub_080A1780(void *, void *, void *);
@@ -22,7 +22,7 @@ void sub_080A0F10(u8 *self) {
     sub_080A1744(actor, enemy);
     zero = 0;
     *(u8 *)(work + 0x16) = 1;
-    *(s32 *)(self + 4) = sub_08005820(0xB4) + 0xB4;
+    *(s32 *)(self + 4) = scaleByRandom(0xB4) + 0xB4;
     sub_080A1780(actor, timerPtr, work);
     clearOff = *(s16 *)(self + 0x22);
     clearOff <<= 1;

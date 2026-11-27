@@ -1,4 +1,4 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -14,7 +14,7 @@ void sub_08052680(void *self) {
     view = *(void **)((u8 *)self + 0x38);
     target = *(void **)((u8 *)self + 0x3C);
     hitbox = (u8 *)target + 0x34;
-    sub_080113A8(view, hitbox);
+    stepAnimationTrack(view, hitbox);
     if (2 & *hitbox) {
         setAnimationFrame(view, hitbox, 3, 0);
         victim = *(u8 **)((u8 *)target + 0x28);

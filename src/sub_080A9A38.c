@@ -6,14 +6,14 @@ extern void sub_080AA9C8(void *, void *, s32, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 struct S_02025FF0
 {
   u8 _0[0x18C2];
   u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 struct S_Obj
 {
   u8 _0[2];
@@ -79,7 +79,7 @@ void sub_080A9A38(struct S_Obj *entity)
   sprite->kind = 0x8000000B;
   motion = (struct S_R4 *) entity->motion;
   status = ((u8 *) motion) + 0x34;
-  installUpdateHandler(entity, motion, &sub_08097D90);
+  installUpdateHandler(entity, motion, &releaseActorEffectSubObject);
   motion->spriteId = 0x5F;
   spriteBase = findKindIndex();
   motion->spriteBase = spriteBase;
@@ -107,7 +107,7 @@ void sub_080A9A38(struct S_Obj *entity)
   stepWords = (u16 *) entity;
   ((u8 *) (&stepWords[stepIndex]))[0x19] = 0;
   {
-    u32 *pbb0 = &gMainObjTimerCallback;
+    u32 *pbb0 = &gScriptStepCallbackTable;
     stepBase = ((u8 *) entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *) entity) + 0x22, *pbb0);
   }

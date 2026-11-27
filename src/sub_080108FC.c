@@ -2,7 +2,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08001480(void *, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080415D4(s32, s32, void *, void *);
 
 /* Restart the actor: play animation 9, install command table 0x0866DA6C, push
@@ -48,7 +48,7 @@ void sub_080412F8(void *arg0) {
     u8 *work = *(u8 **)(self + 0x3C);
     u8 *anim = work + 0x34;
     s32 *stepFnTable;
-    sub_080113A8((void *)sprite, (void *)anim);
+    stepAnimationTrack((void *)sprite, (void *)anim);
     if (*(u8 *)anim & 2) {
         sub_080415D4(0, sprite, (void *)work, (void *)anim);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

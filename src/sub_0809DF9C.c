@@ -1,4 +1,4 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 s32 sub_0800583C(s32);
 s32 sub_08005FC4(s32, s32, s32, s32, s32 *);
 s32 setObjectAnimation(u16 *, s32, s32, s32);
@@ -37,7 +37,7 @@ void sub_0809DF9C(void *arg0)
         baseX = *(s32 *)((u8 *)actor + 8);
         baseY = *(s32 *)((u8 *)actor + 0xC) + 0xFFF00000;
         effectArg = sub_0800583C(0x18000);
-        sub_0808E61C(baseX, baseY, effectArg, 0 - (sub_08005820(0x20000) + 0x18000));
+        sub_0808E61C(baseX, baseY, effectArg, 0 - (scaleByRandom(0x20000) + 0x18000));
     }
     if (*(u8 *)((u8 *)(*(s16 *)((u8 *)arg0 + 0x22) * 2 + arg0) + 0x19) == 0xB4) {
         sub_08005FC4(0, 0x186, 0xF, 0, &sub_080C0384);

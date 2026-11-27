@@ -4,7 +4,7 @@ extern void sub_080C31E0(void *arg0, void *arg1);
 extern u8 gCameraState[];
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 static inline u8 and0F(u8 b)
 {

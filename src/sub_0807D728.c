@@ -1,12 +1,12 @@
-extern void sub_08003A6C(void *, s32, void *);
-extern s32 sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_0808449C(void);
+extern void releaseActorEffectParts(void);
 extern u8 gMainWorkspace[];
 extern u32 D_084E6478;
 extern u32 D_084E64C0;
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Initialize an actor: clear its motion state, install its update callback
  * and graphics data, seed its position from globals, then dispatch its
@@ -24,13 +24,13 @@ void sub_0807D728(u8 *self) {
     *(u32 *)(state + 0x38) = zero;
     *(u32 *)(state + 0x3C) = zero;
     *(u32 *)(state + 0x18) = *(u32 *)(self + 0x24);
-    *(u32 *)(self + 0x24) = (u32)&sub_0808449C;
+    *(u32 *)(self + 0x24) = (u32)&releaseActorEffectParts;
     *(u32 *)(sprite + 0x24) = (u32)&D_084E6478;
     {
         u8 *pos = object;
         pos += 0x20;
-        sub_08003A6C(pos, 0, &D_084E64C0);
-        sub_08003740(pos, sprite);
+        startEffectTimer(pos, 0, &D_084E64C0);
+        stepDelayTimer(pos, sprite);
     }
     {
         u8 *gGame = gMainWorkspace;
@@ -41,7 +41,7 @@ void sub_0807D728(u8 *self) {
     *(u32 *)(state + 0x54) = zero;
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *animCmd = &gMainObjTimerCallback;
+        s32 *animCmd = &gScriptStepCallbackTable;
         u8 *sequence = self;
         sequence += 0x18;
         sub_080C31E4(sequence, self + 0x22, *animCmd);

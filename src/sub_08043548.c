@@ -1,7 +1,7 @@
-s32 sub_080113A8(void *, void *);
-s32 sub_0801165C(void *, s32);
-s32 sub_08013B5C(void *, void *);
-s32 sub_0805F9B4(s32, s32);
+s32 stepAnimationTrack(void *, void *);
+s32 advanceMotion(void *, s32);
+s32 updateObjectDisplayState(void *, void *);
+s32 isOutsideCameraBounds(s32, s32);
 s32 sub_080C31E0(void *, void *);
 
 struct ScrollTableIndex { u8 pad[0x18A8]; u8 index; };
@@ -27,16 +27,16 @@ void sub_08043548(void *arg0)
   enemy = *((void **) (((u8 *) self) + 0x3C));
   enemyData = ((u8 *) enemy) + 0x34;
 
-  if (sub_0805F9B4(*((s32 *) (((u8 *) enemy) + 0x08)), *((s32 *) (((u8 *) enemy) + 0x0C))) == 1)
+  if (isOutsideCameraBounds(*((s32 *) (((u8 *) enemy) + 0x08)), *((s32 *) (((u8 *) enemy) + 0x0C))) == 1)
   {
     sub_080C31E0(self, *((void **) (((u8 *) self) + 0x24)));
     return;
   }
 
-  if (sub_08013B5C(actor, enemy) == 0)
+  if (updateObjectDisplayState(actor, enemy) == 0)
   {
-    sub_080113A8(actor, enemyData);
-    sub_0801165C(enemy, 0x16C1);
+    stepAnimationTrack(actor, enemyData);
+    advanceMotion(enemy, 0x16C1);
   }
 
   coordTable = gCameraState;

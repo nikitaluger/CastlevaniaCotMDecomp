@@ -1,5 +1,5 @@
 extern void sub_08015974(void *);
-extern void sub_080161F0(void *);
+extern void unlinkAndFreeObject(void *);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -11,13 +11,13 @@ void sub_0805C9B8(void *obj) {
     s32 remaining;
 
     if (*(void **)(fields + 0x28) != 0)
-        sub_080161F0(*(void **)(fields + 0x28));
+        unlinkAndFreeObject(*(void **)(fields + 0x28));
 
     slots = (void **)(fields + 0x84);
     remaining = 4;
     do {
         if (*slots != 0)
-            sub_080161F0(*slots);
+            unlinkAndFreeObject(*slots);
         slots++;
         remaining--;
     } while (remaining >= 0);

@@ -4,12 +4,12 @@
  * for the next phase, applies the palette/terrain parameters, and finishes the
  * part update. */
 extern void sub_08005E80(s32);                    /* play sound */
-extern void sub_080113A8(s32, void *);            /* step animation */
+extern void stepAnimationTrack(s32, void *);            /* step animation */
 extern void sub_08011EE8(void *, s32, s32);       /* terrain/movement update */
 extern s32 sub_08013558(s32, void *, void *);     /* part damage/hit update */
 extern void sub_08013978(void *, void *);         /* spawn contact hit effect */
 extern void sub_08013AC4(void *);                 /* final position/score update */
-extern s32 sub_08013B5C(s32, void *);             /* apply part display state */
+extern s32 updateObjectDisplayState(s32, void *);             /* apply part display state */
 extern void sub_08013C5C(void *, s32);            /* apply palette/flags to sprite */
 extern void sub_08013C8C(void *, s32);            /* finish part update */
 extern s32 sub_080141AC(s32, void *);             /* movement bounds check */
@@ -17,7 +17,7 @@ extern void sub_080142C0(void *, void *);         /* upload pending part graphic
 extern void sub_08042900(s32, void *);            /* copy part palette/animation params */
 extern void sub_080C31E0(void *, void *);         /* indirect call */
 extern void sub_080C31E8(void *, void *, s32, s32); /* state machine dispatch */
-extern u8 D_08671BDC[];   /* death-state handler table */
+extern u8 sScriptStepCallbacks[];   /* death-state handler table */
 extern u8 D_0866E198[];   /* next-phase state handler table */
 
 /* AND helpers keep the mask in the destination register (see and-result wall). */
@@ -81,10 +81,10 @@ void sub_08042568(u8 *entity)
         sub_08013AC4(entity);
         sub_08005E80(0x85);
         *(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x1B) = 0;
-        stateTable = (u32 *)D_08671BDC;
+        stateTable = (u32 *)sScriptStepCallbacks;
         sub_080C31E8(entity + 0x18, entity + 0x22, 2, *stateTable);
     }
-    if (sub_08013B5C(sprite, work) == 0)
+    if (updateObjectDisplayState(sprite, work) == 0)
     {
         s32 stateOffset;
         u8 *stateData;
@@ -104,7 +104,7 @@ void sub_08042568(u8 *entity)
         *(u16 *)(entity + 0x22) = (u16)(*(u16 *)(entity + 0x22) - 1);
         if (and8000(*(u16 *)(entity + 2))) goto end;
         if (*(s16 *)(parts + 4) == 1)
-            sub_080113A8(sprite, gfxInit);
+            stepAnimationTrack(sprite, gfxInit);
         sub_08011EE8(work, 0x16C1, 0);
     }
     sub_08042900(sprite, work);

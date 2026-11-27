@@ -1,12 +1,12 @@
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void playSound(s32);
 extern void *sub_08016A2C(void);
-extern void sub_0806D2F8(void *, void *);
-extern s32 sub_0806D518(void *, void *, void *);
-extern void sub_0806D588(void *, void *);
+extern void cullOffscreenEntity(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
+extern void setSpriteScreenPosition(void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s16 sub_080C364C(s32, s16);
+extern s16 divInt32(s32, s16);
 extern u8 gMainWorkspace[];
 void sub_0807B784(void *arg0)
 {
@@ -48,7 +48,7 @@ void sub_0807B784(void *arg0)
   r9 = *((void **) (((u8 *) arg0) + 0x6C));
   r6 = ((u8 *) r9) + 4;
   r8 = *((void **) (((u8 *) arg0) + 0x38));
-  tr = sub_0806D518(arg0, r8, r6);
+  tr = checkGlobalStateChange(arg0, r8, r6);
   if (tr != 0)
   {
     return;
@@ -93,10 +93,10 @@ void sub_0807B784(void *arg0)
     r5 = *((void **) (((u8 *) r6) + 0x2C));
     *((u16 *) (((u8 *) r3) + 6)) = (*((u16 *) (((u8 *) r3) + 6))) - 0x40;
     val = *((s16 *) (((u8 *) r3) + 4));
-    *((s16 *) (((u8 *) r5) + 6)) = sub_080C364C(0x1600, val);
+    *((s16 *) (((u8 *) r5) + 6)) = divInt32(0x1600, val);
     r5b = *((void **) (((u8 *) r6) + 0x2C));
     val2 = *((s16 *) (((u8 *) r3) + 6));
-    *((s16 *) (((u8 *) r5b) + 8)) = sub_080C364C(0x1600, val2);
+    *((s16 *) (((u8 *) r5b) + 8)) = divInt32(0x1600, val2);
   }
   v = (*((s32 *) (((u8 *) r6) + 0x40))) >> 8;
   m = (*((s32 *) (((u8 *) r6) + 0x08))) * v;
@@ -112,8 +112,8 @@ void sub_0807B784(void *arg0)
     m2 += 0xFF;
   }
   *((s32 *) (((u8 *) r6) + 4)) = (*((s32 *) (((u8 *) r6) + 4))) + (m2 >> 8);
-  sub_0806D588(r8, r6);
-  sub_08003740(((u8 *) r9) + 0x20, r8);
+  setSpriteScreenPosition(r8, r6);
+  stepDelayTimer(((u8 *) r9) + 0x20, r8);
   t0 = sub_08016A2C();
   if (t0 != NULL)
   {
@@ -150,6 +150,6 @@ void sub_0807B784(void *arg0)
   sub_080C31E0(arg0, fn);
   return;
   do_success:
-  sub_0806D2F8(arg0, r8);
+  cullOffscreenEntity(arg0, r8);
 
 }

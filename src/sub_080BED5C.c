@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 
 /* EWRAM scene/transition state: the current transition step and the saved
  * color/frame/display values used by the fade-in family. */

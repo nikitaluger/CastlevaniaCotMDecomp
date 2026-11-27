@@ -6,8 +6,8 @@ extern void sub_080B2FD4(void *, void *, s32, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
-extern s32 gMainObjTimerCallback;
+extern void releaseActorEffectSubObject(void);
+extern s32 gScriptStepCallbackTable;
 
 struct S_02025FF0 {
     u8 _0x000[0x18C2];
@@ -38,7 +38,7 @@ void sub_080B2494(void *obj)
     *(u32 *)((u8 *)sprite + 0x1C) = 0x8000000A;
     scriptState = *(void * volatile *)((u8 *)obj + 0x3C);
     stateArg = (u8 *)scriptState + 0x34;
-    installUpdateHandler(obj, scriptState, sub_08097D90);
+    installUpdateHandler(obj, scriptState, releaseActorEffectSubObject);
     *(u16 *)((u8 *)scriptState + 0x1C) = 0x65;
     *(s16 *)((u8 *)scriptState + 0x22) = findKindIndex();
     if (*(s16 *)((u8 *)scriptState + 0x22) >= 0)
@@ -63,7 +63,7 @@ ready:
     }
 
     {
-        s32 *handlerPtr = &gMainObjTimerCallback;
+        s32 *handlerPtr = &gScriptStepCallbackTable;
         u8 *stepTable = (u8 *)obj + 0x18;
         s16 stepIndex;
 

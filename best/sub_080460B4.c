@@ -1,12 +1,12 @@
 extern void sub_08011EE8(void *, s32, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_08047164(void *, void *, void *, void *);
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern u8 gMainWorkspace[];
 extern u8 D_080CF86A[];
 extern u8 D_080CF8A2[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 void sub_080460B4(u8 *self)
 {
@@ -23,7 +23,7 @@ void sub_080460B4(u8 *self)
     s32 ofs;
 
     sub_08011EE8(obj, 0x16C1, 0);
-    sub_080113A8(parent, sub);
+    stepAnimationTrack(parent, sub);
     sub_08047164(self, obj, state, parent);
 
     {
@@ -57,7 +57,7 @@ void sub_080460B4(u8 *self)
                 s32 arg0v = *(s32 *)(g + 0x1870);
                 u8 *tbl2 = D_080CF8A2;
                 u8 idx2 = *(u8 *)p4C;
-                res = sub_0805FAEC(arg0v, *(u16 *)(tbl2 + idx2 * 2));
+                res = spawnBudgetedEffect(arg0v, *(u16 *)(tbl2 + idx2 * 2));
             }
             if (res != 0)
             {
@@ -79,7 +79,7 @@ void sub_080460B4(u8 *self)
     {
         u32 *pp;
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = 0;
-        pp = gMainObjTimerCallback;
+        pp = gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, (void *)*pp);
     }
 }

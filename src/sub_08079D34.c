@@ -2,7 +2,7 @@ struct S_02025FF0_9D34 { u8 _0[0x18C2]; u16 f18C2; };
 extern struct S_02025FF0_9D34 gMainWorkspace;
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
-extern void sub_0806D2D0(void *);
+extern void cleanupFailedEffectSpawn(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -18,7 +18,7 @@ void sub_08079D34(void *arg0) {
     }
     animCtrl = allocSpriteObject();
     if (animCtrl == 0) {
-        sub_0806D2D0((void *)self);
+        cleanupFailedEffectSpawn((void *)self);
         return;
     }
     *(u8 **)(self + 0x38) = animCtrl;

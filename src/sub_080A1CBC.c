@@ -2,7 +2,7 @@ extern void sub_08005E80(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /*
  * Script-step dispatcher. Copies self's coordinates into its target object and
@@ -49,7 +49,7 @@ void sub_080A1CBC(u8 *entity)
         stepIndex = *(s16 *)(self + 0x22);
         *(u8 *)(self + stepIndex * 2 + 0x19) = 0;
         {
-            callbackPtr = &D_08671BD0;
+            callbackPtr = &gScriptStepCallbacks;
         }
         cmdPtr = self + 0x18;
         sub_080C31E8(cmdPtr, self + 0x22, 1, *callbackPtr);
@@ -72,7 +72,7 @@ void sub_080A1CBC(u8 *entity)
         stepIndex = *(s16 *)(self + 0x22);
         *(u8 *)(self + stepIndex * 2 + 0x19) = 0;
         {
-            callbackPtr = &D_08671BD0;
+            callbackPtr = &gScriptStepCallbacks;
         }
         cmdPtr = self + 0x18;
         sub_080C31E8(cmdPtr, self + 0x22, 2, *callbackPtr);

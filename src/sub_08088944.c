@@ -1,13 +1,13 @@
 extern u32 gMainWorkspace[];
 struct S_02025FF0_14B8 { u8 _0[0x14B8]; u32 activeFlag; };
 extern struct S_02025FF0_14B8 D_02025FF0_14B8;
-s32 sub_08003740(void *, void *);
+s32 stepDelayTimer(void *, void *);
 void sub_0806D588(void *, void *);
 void sub_080C31E4(void *, void *, u32);
 void sub_080C31E0(void *, void *);
-void sub_08003A6C(void *, u32, u32);
+void startEffectTimer(void *, u32, u32);
 
-/* Actor step: when the mover has finished (sub_08003740 returns 0), set global
+/* Actor step: when the mover has finished (stepDelayTimer returns 0), set global
  * state gMainWorkspace[7] to 2, clear the script step byte and advance. */
 void sub_080888F4(void *arg0) {
     u8 *self = (u8*)arg0;
@@ -15,7 +15,7 @@ void sub_080888F4(void *arg0) {
     u8 *pos = mover + 4;
     u8 *sprite = *(u8 **)(self + 0x38);
     u32 *callback;
-    s32 result = sub_08003740(mover + 0x20, sprite);
+    s32 result = stepDelayTimer(mover + 0x20, sprite);
     if (result == 0) {
         gMainWorkspace[7] = 2;
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = result;
@@ -35,12 +35,12 @@ void sub_08088944(void *arg0) {
     u8 *sprite = *(u8 **)(self + 0x38);
     u32 *callback;
     if (gMainWorkspace[5] == 0xE) {
-        sub_08003A6C(mover + 0x20, 0, 0x08500D8C);
+        startEffectTimer(mover + 0x20, 0, 0x08500D8C);
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = 0;
         callback = (u32*)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *callback);
     }
-    sub_08003740(mover + 0x20, sprite);
+    stepDelayTimer(mover + 0x20, sprite);
     sub_0806D588(sprite, pos);
 }
 
@@ -54,12 +54,12 @@ void sub_08088894(void *arg0) {
     u8 *sprite = *(u8 **)(self + 0x38);
     u32 *callback;
     if (gMainWorkspace[5] == 0xA) {
-        sub_08003A6C(mover + 0x20, 0, 0x08500D3C);
+        startEffectTimer(mover + 0x20, 0, 0x08500D3C);
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = 0;
         callback = (u32*)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *callback);
     }
-    sub_08003740(mover + 0x20, sprite);
+    stepDelayTimer(mover + 0x20, sprite);
     sub_0806D588(sprite, pos);
 }
 

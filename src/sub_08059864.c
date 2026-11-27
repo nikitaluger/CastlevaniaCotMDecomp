@@ -1,6 +1,6 @@
 extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Advances the animation; when its state has bit 2 set, switches animation,
  * resets the work's motion state and fires the script callback. */
@@ -23,7 +23,7 @@ void sub_08059864(void *script) {
         *(u16 *)((u8 *)work + 0x04) = (u16)(0xFEFF & *(u16 *)((u8 *)work + 0x04));
         *(s8 *)((u8 *)script + 0x19 + *(s16 *)((u8 *)script + 0x22) * 2) = 0;
         {
-            void **fn = &gMainObjTimerCallback[0];
+            void **fn = &gScriptStepCallbackTable[0];
             sub_080C31E4((u8 *)script + 0x18, (u8 *)script + 0x22, *fn);
         }
     }

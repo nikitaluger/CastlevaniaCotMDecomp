@@ -1,4 +1,4 @@
-void sub_08003A6C(void *, u8, s32);
+void startEffectTimer(void *, u8, s32);
 
 struct S_02025FF0 { u8 _0[0x24]; u32 modeFlags; u16 _28; u16 dirFlags; };
 extern struct S_02025FF0 gMainWorkspace;
@@ -21,7 +21,7 @@ void sub_0806926C(u8 *arg0) {
         if (!(gCameraState[0x146E / 2] & 0x40)) goto check80;
     }
 flag40:
-    sub_08003A6C(obj + 0x28, 0, 0x084FCABC);
+    startEffectTimer(obj + 0x28, 0, 0x084FCABC);
     obj[0x129] = 0;
     return;
 check80:
@@ -32,10 +32,10 @@ check80:
         if (!(gCameraState[0x146E / 2] & 0x80)) goto dflt;
     }
 flag80:
-    sub_08003A6C(obj + 0x28, 0, 0x084FCAE8);
+    startEffectTimer(obj + 0x28, 0, 0x084FCAE8);
     obj[0x129] = 2;
     return;
 dflt:
-    sub_08003A6C(obj + 0x28, 0, 0x084FCA98);
+    startEffectTimer(obj + 0x28, 0, 0x084FCA98);
     obj[0x129] = 1;
 }

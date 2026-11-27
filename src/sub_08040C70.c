@@ -2,7 +2,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08001480(void *, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080415D4(s32, s32, void *, void *);
 
 void sub_08029A7C(void *arg0) {
@@ -43,7 +43,7 @@ void sub_080412F8(void *arg0) {
     u8 *r7 = *(u8 **)(self + 0x3C);
     u8 *r4 = r7 + 0x34;
     s32 *lit;
-    sub_080113A8((void *)r6, (void *)r4);
+    stepAnimationTrack((void *)r6, (void *)r4);
     if (*(u8 *)r4 & 2) {
         sub_080415D4(0, r6, (void *)r7, (void *)r4);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

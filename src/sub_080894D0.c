@@ -1,12 +1,12 @@
-extern void sub_08003A6C(void *a, s32 b, void *c);
-extern void sub_08003740(void *a, void *b);
+extern void startEffectTimer(void *a, s32 b, void *c);
+extern void stepDelayTimer(void *a, void *b);
 extern void sub_0806D588(void *a);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 
 extern u8 D_08506368[];
 extern u8 D_08506444[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Points the FX object at its sprite data, spawns an effect from the child, seeds
  * the child's movement values, updates the FX position, then advances the actor's
@@ -21,8 +21,8 @@ void sub_080894D0(void *arg0)
 
     *(void **)(fx + 0x24) = D_08506368;
     fxPos = child + 0x20;
-    sub_08003A6C(fxPos, 0, D_08506444);
-    sub_08003740(fxPos, fx);
+    startEffectTimer(fxPos, 0, D_08506444);
+    stepDelayTimer(fxPos, fx);
     *(u32 *)(child + 4) = 0xFFF00000;
     *(u32 *)(childData + 4) = 0x7F0000;
     *(u32 *)(childData + 8) = 0x20000;
@@ -30,7 +30,7 @@ void sub_080894D0(void *arg0)
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        u32 *msgPtr = &gMainObjTimerCallback;
+        u32 *msgPtr = &gScriptStepCallbackTable;
         u8 *step = self + 0x18;
         sub_080C31E4(step, self + 0x22, (void *)*msgPtr);
         {

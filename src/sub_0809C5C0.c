@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(s32 parent, s32 type);
+extern void *spawnBudgetedEffect(s32 parent, s32 type);
 
 /*
  * Spawns one effect object of type 0x17E under `parent` and stores position x
@@ -8,7 +8,7 @@ extern void *sub_0805FAEC(s32 parent, s32 type);
 void sub_0809C5C0(s32 parent, s32 x, s32 y) {
     void *obj;
 
-    obj = sub_0805FAEC(parent, 0x17E);
+    obj = spawnBudgetedEffect(parent, 0x17E);
     if (obj != NULL) {
         *(s32 *)((u8 *)obj + 0x4C) = x;
         *(s32 *)((u8 *)obj + 0x5C) = y;

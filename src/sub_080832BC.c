@@ -1,4 +1,4 @@
-extern void sub_08003A6C(void *, s32, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern s32 sub_080C36E4(s32, s32);
@@ -30,7 +30,7 @@ void sub_080832BC(u8 *arg0)
   *((void **) (state + 0x18)) = *((void **) (arg0 + 0x24));
   *((void **) (arg0 + 0x24)) = (void *) 0x0808449D;
   *((void **) (ctx + 0x24)) = (void *) 0x084F9458;
-  sub_08003A6C(subObj + 0x20, 0, (void *) 0x084F9488);
+  startEffectTimer(subObj + 0x20, 0, (void *) 0x084F9488);
   ctxCallbacks = (void **) (ctx + 0x14);
   durationTable12 = D_080E5E58;
   paramPtr = arg0 + 0x9C;

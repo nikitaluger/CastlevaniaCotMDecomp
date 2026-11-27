@@ -1,5 +1,5 @@
 extern void sub_08015974(void);   /* release a 0x14-byte particle object */
-extern void sub_080161F0(void);   /* release a 0x34-byte particle object */
+extern void unlinkAndFreeObject(void);   /* release a 0x34-byte particle object */
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -14,10 +14,10 @@ void sub_0804E410(void *arg0) {
     s32 i;
     slots = work + 0x48;
     if (*(u32 *)(work + 0x28) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(u32 *)(slots + 0x10) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(u32 *)(work + 0x2C) != 0) {
         sub_08015974();
@@ -29,7 +29,7 @@ void sub_0804E410(void *arg0) {
     i = 1;
     do {
         if (*(u32 *)slots != 0) {
-            sub_080161F0();
+            unlinkAndFreeObject();
         }
         slots += 4;
         i--;

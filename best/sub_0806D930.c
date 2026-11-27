@@ -1,5 +1,5 @@
 extern s32 sub_08061C78(void);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern s32 sub_080C3824(s32, s32);
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
@@ -143,11 +143,11 @@ void sub_0806D930(u8 *arg0)
         break;
 
       case 0xA5:
-        *((s16 *) (arg0 + 0x24)) = (*((s16 *) (arg0 + 0x24))) + sub_080C364C(*((s32 *) (base + 0x90)), 0x5460);
+        *((s16 *) (arg0 + 0x24)) = (*((s16 *) (arg0 + 0x24))) + divInt32(*((s32 *) (base + 0x90)), 0x5460);
         break;
 
       case 0xA8:
-        *((s16 *) (arg0 + 0x1C)) = (*((s16 *) (arg0 + 0x1C))) + sub_080C364C(*((s32 *) (base + 0x90)), 0x5460);
+        *((s16 *) (arg0 + 0x1C)) = (*((s16 *) (arg0 + 0x1C))) + divInt32(*((s32 *) (base + 0x90)), 0x5460);
         break;
 
       default:

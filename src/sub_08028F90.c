@@ -1,9 +1,9 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 D_08671BFC;
-extern s32 gMainObjTimerCallback;
+extern s32 gTrigFuncPtr;
+extern s32 gScriptStepCallbackTable;
 
 /* Set an oscillating velocity from a sine lookup of the step counter, choose
  * the direction sign from the sprite flag, start frame 0 and advance the script. */
@@ -34,15 +34,15 @@ void sub_08028F90(void *arg0)
     *((u32 *) (state + 0x10)) = -directionMask;
   }
   setAnimationFrame(sprite, anim, 0, 1);
-  global = &D_08671BFC;
-  angle = sub_080C364C((*((u32 *) (extra + 0x08))) << 16, 0x50);
+  global = &gTrigFuncPtr;
+  angle = divInt32((*((u32 *) (extra + 0x08))) << 16, 0x50);
   angle = angle + 0x4000;
   sway = sub_080C31E0(angle, *global);
   sway = sway << 4;
   *((u32 *) (state + 0x0C)) = (*((u32 *) (extra + 4))) + sway;
   *((u32 *) (extra + 0x08)) = (*((u32 *) (extra + 0x08))) + 1;
   *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = zero;
-  event = &gMainObjTimerCallback;
+  event = &gScriptStepCallbackTable;
   global = event;
   sub_080C31E4(self + 0x18, self + 0x22, *global);
 }

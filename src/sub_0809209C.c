@@ -1,5 +1,5 @@
-extern s32 sub_0805F9B4(s32, s32);
-extern void sub_080113A8(void *, void *);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -33,7 +33,7 @@ void sub_0809209C(u8 *task) {
     actor = *((u8 **) (task + 0x38));
     subject = *((u8 **) (task + 0x3C));
     subjectState = subject + 0x24;
-    hit = sub_0805F9B4(*((s32 *) (subject + 0x04)), *((s32 *) (subject + 0x08)));
+    hit = isOutsideCameraBounds(*((s32 *) (subject + 0x04)), *((s32 *) (subject + 0x08)));
     if (hit == 1) {
         ((struct ActorFlag *) (actor + 0x2A))->flag = 0xBF & ((struct ActorFlag *) (actor + 0x2A))->flag;
     } else {
@@ -57,7 +57,7 @@ void sub_0809209C(u8 *task) {
     *((u16 *) (task + 0x22)) = (*((u16 *) (task + 0x22))) - 1;
     if ((*((u16 *) (task + 2))) & 0x8000) return;
     if ((*((s16 *) (subject + 0x0C))) == 1) {
-        sub_080113A8(actor, subjectState);
+        stepAnimationTrack(actor, subjectState);
     }
     coords = gCameraState;
     camera = gMainWorkspace;

@@ -9,11 +9,11 @@ struct SceneState {
     u16 f18C2;
 };
 extern struct SceneState gMainWorkspace;
-extern void *gMainObjTimerCallback;
-extern s32 sub_08003740(void *, void *);
-extern void sub_08003A6C(void *, s32, s32);
-extern void sub_0806D2F8(void *, void *);
-extern s32 sub_0806D518(void *, void *, void *);
+extern void *gScriptStepCallbackTable;
+extern s32 stepDelayTimer(void *, void *);
+extern void startEffectTimer(void *, s32, s32);
+extern void cullOffscreenEntity(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
@@ -28,7 +28,7 @@ void sub_08079A64(u8 *entity) {
     s32 countdown;
     s32 counter;
 
-    if (sub_0806D518(entity, sprite, state) == 0) {
+    if (checkGlobalStateChange(entity, sprite, state) == 0) {
         counter = *(s32 *)(state + 0xC) + 0x4000;
         *(s32 *)(state + 0xC) = counter;
         if (counter > 0x80000) *(s32 *)(state + 0xC) = 0x80000;
@@ -39,21 +39,21 @@ void sub_08079A64(u8 *entity) {
         if (countdown == 0) {
             *(s32 *)(state + 0x54) = 0x80;
             (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = (u8)countdown;
-            { void **scriptCallbacks = &gMainObjTimerCallback; sub_080C31E4(entity + 0x18, entity + 0x22, (u32)*scriptCallbacks); }
+            { void **scriptCallbacks = &gScriptStepCallbackTable; sub_080C31E4(entity + 0x18, entity + 0x22, (u32)*scriptCallbacks); }
         }
         {
             struct SceneState *scene = &gMainWorkspace;
             u8 *obj20;
             *sprite = scene->f18C2;
             obj20 = obj + 0x20;
-            if (sub_08003740(obj20, sprite) == 0)
-                sub_08003A6C(obj20, 0, 0x084DE8A4);
+            if (stepDelayTimer(obj20, sprite) == 0)
+                startEffectTimer(obj20, 0, 0x084DE8A4);
             sub_0806D588(sprite, state);
             if (scene->f173A == 0x1C || (scene->f14ED == 0 && scene->f10 != 0)) {
                 sub_080C31E0((s32)entity, *(s32 *)((u8 *)entity + 0x24));
                 return;
             }
-            sub_0806D2F8(entity, sprite);
+            cullOffscreenEntity(entity, sprite);
         }
     }
 }

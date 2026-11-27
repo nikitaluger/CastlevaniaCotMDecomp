@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *a, void *b, s32 c, s32 d);
-extern s32 sub_08005820(s32 a);
+extern s32 scaleByRandom(s32 a);
 extern s32 sub_08014990(void *a);
 typedef void (*Fn)(void *, void *, s32);
 void sub_0803DBE8(u8 *arg0)
@@ -18,7 +18,7 @@ void sub_0803DBE8(u8 *arg0)
   {
     if ((*((s16 *) (r8 + 2))) == 0)
     {
-      s32 v = sub_08005820(0x97) + 0x1E;
+      s32 v = scaleByRandom(0x97) + 0x1E;
       s32 zero = 0;
       *((s16 *) (r8 + 4)) = v | zero;
       *((u8 *) ((arg0 + ((*((s16 *) (arg0 + 0x22))) * 2)) + 0x17)) = zero;

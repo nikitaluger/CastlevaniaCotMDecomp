@@ -1,7 +1,7 @@
 extern void sub_080114A8(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 D_08102CAC[];
-extern u8 gMainObjTimerCallback[];
+extern u8 gScriptStepCallbackTable[];
 
 /* Links or unlinks a companion entity: when linked, mirror its position and
  * shared sprite flags, select its graphics state, run the script command and
@@ -36,7 +36,7 @@ void sub_080B5418(void *entity)
         t = 2;
         sub_080114A8(sprite, animDesc, 0x78, 0);
         *((s8 *) ((((u8 *) world) + ((s32) ((*((s16 *) (((u8 *) world) + 0x22))) * 2))) + 0x19)) = zero;
-        { void **fnaddr = (void **) gMainObjTimerCallback; sub_080C31E4(((u8 *) world) + 0x18, ((u8 *) world) + 0x22, (s32) (*fnaddr)); }
+        { void **fnaddr = (void **) gScriptStepCallbackTable; sub_080C31E4(((u8 *) world) + 0x18, ((u8 *) world) + 0x22, (s32) (*fnaddr)); }
     }
     else
     {

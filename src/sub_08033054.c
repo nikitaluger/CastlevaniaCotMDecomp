@@ -7,7 +7,7 @@ void sub_08013AC4(void *);
 void sub_0803B1A4(void *);
 s32 sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_080338F0(void *, void *, void *);
 void sub_0803B1B4(void *, void *);
 void sub_08013C8C(void *, void *);
@@ -72,7 +72,7 @@ void sub_08033054(void *task)
     }
   }
   sub_080338F0(task, subject, actor);
-  if (sub_08013B5C(actor, subject) == 0)
+  if (updateObjectDisplayState(actor, subject) == 0)
   {
     *((u32 *) (((u8 *) task) + 0x14)) = 0x0866DD08;
     *((u16 *) (((u8 *) task) + 0x22)) = (*((u16 *) (((u8 *) task) + 0x22))) + 1;

@@ -16,7 +16,7 @@ extern u8 gSpriteAnimDataTable[];
 extern u8 gVariantSpawnKindTable[];
 extern u8 gVariantAnimFrameTable[];
 extern u8 gEffectLayerAttrTable[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Small render layer allocated from the effect pool for a spawned sprite. */
 struct SubEffect {
@@ -116,7 +116,7 @@ body:
     }
     *(u8 *)((u32)(*(s16 *)(entity + 0x22) * 2) + (u32)entity + 0x19) = (u8)sourceRef;
     {
-        u32 *scriptOps = (u32 *)gMainObjTimerCallback;
+        u32 *scriptOps = (u32 *)gScriptStepCallbackTable;
         u8 *scriptSlots = entity + 0x18;
         sub_080C31E4(scriptSlots, entity + 0x22, *scriptOps);
         {

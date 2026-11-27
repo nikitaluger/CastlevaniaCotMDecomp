@@ -1,9 +1,9 @@
 extern void sub_080AA8A0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08011898(void *, s32);
+extern void moveEntityWithCollision(void *, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 
 struct S_02025FF0_1870 { u8 _0[0x1870]; u32 p; };
 extern struct S_02025FF0_1870 gMainWorkspace;
@@ -26,7 +26,7 @@ void sub_080AA860(void *arg0) {
     s32 r7 = *(s32 *)(self + 0x38);
     u8 *r4 = *(u8 **)(self + 0x3C);
     u8 *r6 = r4 + 0x34;
-    sub_08011898(r4, *(s32 *)(self + 0x4C));
+    moveEntityWithCollision(r4, *(s32 *)(self + 0x4C));
     if (*(s32 *)(r4 + 0x14) > (0x80 << 10)) {
         setAnimationFrame(r7, r6, 0xC, 0);
     }
@@ -36,7 +36,7 @@ void sub_080AA860(void *arg0) {
 }
 
 void *sub_080AA9F0(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
-    void *r = sub_0805FAEC((void *)gMainWorkspace.p, 0xCE << 1);
+    void *r = spawnBudgetedEffect((void *)gMainWorkspace.p, 0xCE << 1);
     if (r == NULL) return NULL;
     {
         u8 *p = r;

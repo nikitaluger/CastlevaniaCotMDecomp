@@ -9,9 +9,9 @@ struct GameState_79F50 {
     u16 w;
 };
 extern struct GameState_79F50 gMainWorkspace;
-extern s32 sub_08003740(void *, s32);
-extern s32 sub_0806D2F8(void *, void *);
-extern s32 sub_0806D518();
+extern s32 stepDelayTimer(void *, s32);
+extern s32 cullOffscreenEntity(void *, void *);
+extern s32 checkGlobalStateChange();
 extern void sub_0806D588(void *, void *);
 extern void _call_via_r1(void *, s32);
 
@@ -27,7 +27,7 @@ void sub_08079F50(void *arg0) {
     mover = *(u8 **)(self + 0x6C);
     pos = mover + 4;
     sprite = *(u8 **)(self + 0x38);
-    if (sub_0806D518(self, sprite, pos) == 0) {
+    if (checkGlobalStateChange(self, sprite, pos) == 0) {
         *(s32 *)(mover + 4) = *(s32 *)(mover + 4) + *(s32 *)(pos + 8);
         *(s32 *)(pos + 4) = *(s32 *)(pos + 4) + *(s32 *)(pos + 0x0C);
         gs = &gMainWorkspace;
@@ -35,12 +35,12 @@ void sub_08079F50(void *arg0) {
             u16 w = gMainWorkspace.w;
             *(u16 *)sprite = w;
         }
-        sub_08003740((void *)(mover + 0x20), (s32)sprite);
+        stepDelayTimer((void *)(mover + 0x20), (s32)sprite);
         sub_0806D588(sprite, pos);
         if (gs->f173A == 0x1C || (gs->f14ED == 0 && gs->f10 != 0)) {
             _call_via_r1(self, *(s32 *)(self + 0x24));
             return;
         }
-        sub_0806D2F8(self, sprite);
+        cullOffscreenEntity(self, sprite);
     }
 }

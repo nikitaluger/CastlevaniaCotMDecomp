@@ -1,8 +1,8 @@
 s32 sub_08014114(s32, s32, s32, s32, s32, s32);
 void sub_080C31E0(void *self, void *fn);
-s32 sub_08013B5C(void *, void *);
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, s32);
+s32 updateObjectDisplayState(void *, void *);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, s32);
 
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -30,9 +30,9 @@ void sub_08024D74(u8 *obj)
         return;
     }
 
-    if (sub_08013B5C(sprite, state) == 0) {
-        sub_080113A8(sprite, anim);
-        sub_0801165C(state, 0);
+    if (updateObjectDisplayState(sprite, state) == 0) {
+        stepAnimationTrack(sprite, anim);
+        advanceMotion(state, 0);
     }
 
     scroll = gCameraState;

@@ -1,6 +1,6 @@
-extern void sub_0801165C(void *, s32);
-extern void sub_080113A8(void *, void *);
-extern s32 sub_080133EC(s32, s32);
+extern void advanceMotion(void *, s32);
+extern void stepAnimationTrack(void *, void *);
+extern s32 terrainHasSolidFlags(s32, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void copyPoseAttrs(void *, u32);
 extern void sub_080C31E4(void *, void *, u32);
@@ -8,9 +8,9 @@ extern void sub_080C31E4(void *, void *, u32);
 /* Advance a patrolling entity. Integrates its motion (state +8/+C position,
  * +10/+14 velocity, +34 status byte) and animation, then decrements the +0x4C
  * countdown. When the countdown expires or the tile one step ahead -- 0x200000
- * in the direction of vx, via sub_080133EC -- is blocked, switch to animation
+ * in the direction of vx, via terrainHasSolidFlags -- is blocked, switch to animation
  * 5, copy fresh motion parameters from the 0x080CF9C4 table into the +0x28
- * sub-object, clear the slot timer and dispatch the gMainObjTimerCallback callback. */
+ * sub-object, clear the slot timer and dispatch the gScriptStepCallbackTable callback. */
 void sub_0804CFC0(void *entity) {
     s32 animHandle;
     void *state;
@@ -23,14 +23,14 @@ void sub_0804CFC0(void *entity) {
     animHandle = *(s32 *)((u8 *)entity + 0x38);
     state = *(void **)((u8 *)entity + 0x3C);
     status = (u8 *)state + 0x34;
-    sub_0801165C(state, 0);
-    sub_080113A8((void *)animHandle, status);
+    advanceMotion(state, 0);
+    stepAnimationTrack((void *)animHandle, status);
     countdown = *(u16 *)((u8 *)entity + 0x4C) - 1;
     *(u16 *)((u8 *)entity + 0x4C) = countdown;
     velX = *(s32 *)((u8 *)state + 0x10);
     lookAhead = 0x200000;
     if (velX < 0) lookAhead = 0xFFE00000;
-    if ((countdown << 16) == 0 || sub_080133EC(*(s32 *)((u8 *)state + 8) + lookAhead, *(s32 *)((u8 *)state + 0xC)) != 0) {
+    if ((countdown << 16) == 0 || terrainHasSolidFlags(*(s32 *)((u8 *)state + 8) + lookAhead, *(s32 *)((u8 *)state + 0xC)) != 0) {
         setAnimationFrame((void *)animHandle, status, 5, 0);
         copyPoseAttrs(*(void **)((u8 *)state + 0x28), 0x080CF9C4);
         *(s8 *)((s8 *)((u32)(*(s16 *)((u8 *)entity + 0x22)) * 2 + (u32)entity) + 0x19) = 0;

@@ -7,8 +7,8 @@ struct S_040000D4 {
     vu32 f8;
 };
 extern struct S_040000D4 D_040000D4;
-extern void *gMainObjTimerCallback;
-extern void sub_0806A7AC(void *, void *, s32);
+extern void *gScriptStepCallbackTable;
+extern void setEntityForm(void *, void *, s32);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_0808D2FC(u32);
 extern void sub_080C31E0(void *, void *);
@@ -23,7 +23,7 @@ void sub_08067544(u8 *entity) {
     u32 dmaControl;
     u8 *statePtr;
     s32 offset = 0xC0 << 15;
-    sub_0806A7AC(view, pos, 0x57);
+    setEntityForm(view, pos, 0x57);
     *(u32 *)(cam + 0xBC) = 0;
     zero = 0;
     *(u32 *)(cam + (0x84 << 1)) = *(u32 *)(pos + 4);
@@ -37,7 +37,7 @@ void sub_08067544(u8 *entity) {
     sub_0808D2FC(*(u32 *)(view + 0x14));
     (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = (u8)zero;
     {
-        void **callback = &gMainObjTimerCallback;
+        void **callback = &gScriptStepCallbackTable;
         statePtr = entity + 0x18;
         sub_080C31E4(statePtr, entity + 0x22, *callback);
     }

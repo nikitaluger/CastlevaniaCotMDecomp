@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 
@@ -8,7 +8,7 @@ void sub_080C31E0(void *, void *);
  * refresh the sprite's screen position. */
 void sub_080A9B38(u8 *self) {
     u8 *sprite = *(u8 **)(self + 0x38);
-    if (sub_08013B5C(sprite, *(void **)(self + 0x3C)) == 0) {
+    if (updateObjectDisplayState(sprite, *(void **)(self + 0x3C)) == 0) {
         s32 stepOffset;
         u8 action;
         u8 *scriptState;

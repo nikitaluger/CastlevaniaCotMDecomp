@@ -1,4 +1,4 @@
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern void sub_0808E05C(s32, s32, s32, s32);
@@ -37,7 +37,7 @@ void sub_0803B828(void *entity) {
             }
             *((u8*)entity + *(s16*)((u8*)entity + 0x22)*2 + 0x19) = zero;
             {
-                u32 *pd = (u32 *)&D_08671BD0;
+                u32 *pd = (u32 *)&gScriptStepCallbacks;
                 sub_080C31E8((u8*)entity + 0x18, (u8*)entity + 0x22, 0, (s32)*pd);
             }
         }
@@ -54,7 +54,7 @@ void sub_0803B828(void *entity) {
             }
             *((u8*)entity + *(s16*)((u8*)entity + 0x22)*2 + 0x19) = zero;
             {
-                u32 *pd = (u32 *)&D_08671BD0;
+                u32 *pd = (u32 *)&gScriptStepCallbacks;
                 sub_080C31E8((u8*)entity + 0x18, (u8*)entity + 0x22, 0, (s32)*pd);
             }
         }

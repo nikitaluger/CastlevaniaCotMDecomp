@@ -1,4 +1,4 @@
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, void *);
@@ -37,7 +37,7 @@ void sub_080765FC(void *arg0) {
     *(s32 *)((u8 *)pos + 4) = state->word1750;
     sub_0806D588(mainObj, pos);
     *(u16 *)mainObj = state->word18C2;
-    if (sub_08003740((u8 *)ctrl + 0x20, mainObj) == 0) {
+    if (stepDelayTimer((u8 *)ctrl + 0x20, mainObj) == 0) {
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
         return;
     }

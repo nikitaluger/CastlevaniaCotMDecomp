@@ -2,14 +2,14 @@ extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
-extern void sub_080161F0(void *);
+extern void unlinkAndFreeObject(void *);
 extern void clearObjectSlot(void *);
-extern s32 D_08671BD8[];
-extern s32 gMainObjTimerCallback[];
+extern s32 gMenuScriptCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 /* Advance the actor's model animation by 8 frames; if its restart flag is
  * set, reload the 0x78 timer, clear the level's counter at +0x17 and run the
- * handler at D_08671BD8[0] with argument 3. */
+ * handler at gMenuScriptCallback[0] with argument 3. */
 void sub_0801F838(void *arg0) {
     u8 *self = (u8 *)arg0;
     s32 model = *(s32 *)(self + 0x38);
@@ -25,7 +25,7 @@ void sub_0801F838(void *arg0) {
         *(u16 *)(timers + 6) = 0x78;
         level = *(s16 *)(self + 0x22);
         *(u8 *)(self + level * 2 + 0x17) = zero;
-        handlerTable = D_08671BD8;
+        handlerTable = gMenuScriptCallback;
         sub_080C31E8(self + 0x18, self + 0x22, 3, *handlerTable);
     }
 }
@@ -37,10 +37,10 @@ void destroyObject(void *arg0) {
 
     clearObjectSlot(arg0);
     if (*(u32 *)(work + 0x28) != 0) {
-        sub_080161F0(*(void **)(work + 0x28));
+        unlinkAndFreeObject(*(void **)(work + 0x28));
     }
     if (*(u32 *)(timers + 4) != 0) {
-        sub_080161F0(*(void **)(timers + 4));
+        unlinkAndFreeObject(*(void **)(timers + 4));
     }
     sub_080C31E0(arg0, *(s32 *)(work + 0x24));
 }
@@ -81,7 +81,7 @@ void sub_0802459C(void *arg0) {
         *(u16 *)timer = 0;
         level = *(s16 *)(self + 0x22);
         *(u8 *)(self + level * 2 + 0x19) = 0;
-        handlerTable = gMainObjTimerCallback;
+        handlerTable = gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, *handlerTable);
     }
 }

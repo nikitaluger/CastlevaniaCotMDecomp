@@ -1,10 +1,10 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 void setAnimationFrame(s32, void *, s32, s32);
 s32 sub_08014900(s32);
 s32 sub_0801491C(s32);
 void sub_080149A4(s32, void *, void *, s32, s32);
 void sub_080C31E8(void *, void *, s32, u32);
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 struct S_02025FF0 { u8 _[0x174C]; s32 field174C; };
 extern struct S_02025FF0 gMainWorkspace;
 
@@ -25,7 +25,7 @@ void sub_0802DB60(u8 *arg0)
     *(s16 *)(state48 + 4) = *(s16 *)(state48 + 4) - 1;
     if (*(s16 *)(state48 + 4) <= 0)
     {
-        *(u16 *)(state48 + 4) = (u16)(sub_08005820(0x3D) + 0x5A);
+        *(u16 *)(state48 + 4) = (u16)(scaleByRandom(0x3D) + 0x5A);
         if (sub_08014900(*(s32 *)(state + 8)) <= 0x800000 &&
             sub_0801491C(*(s32 *)(state + 0xC)) <= 0x600000)
         {
@@ -41,7 +41,7 @@ void sub_0802DB60(u8 *arg0)
     if (*(u16 *)(state + 2) & 2)
     {
         *(s32 *)(state + 0x10) = -*(s32 *)(state + 0x10);
-        *(u16 *)(state48 + 2) = (u16)(sub_08005820(0x0B) + 0x1E);
+        *(u16 *)(state48 + 2) = (u16)(scaleByRandom(0x0B) + 0x1E);
     }
 
     *(s16 *)(state48 + 2) = *(s16 *)(state48 + 2) - 1;
@@ -72,11 +72,11 @@ checkDelay:
         if (useLongDelay != 0)
             goto shortDelay;
 
-        *(u16 *)(state48 + 2) = (u16)(sub_08005820(6) + 0x0A);
+        *(u16 *)(state48 + 2) = (u16)(scaleByRandom(6) + 0x0A);
         goto afterDelay;
 
 shortDelay:
-        *(u16 *)(state48 + 2) = (u16)(sub_08005820(0x0B) + 0x1E);
+        *(u16 *)(state48 + 2) = (u16)(scaleByRandom(0x0B) + 0x1E);
 afterDelay:
         *(s32 *)(state + 0x10) = -*(s32 *)(state + 0x10);
     }

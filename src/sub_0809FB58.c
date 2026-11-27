@@ -1,7 +1,7 @@
 struct S_02025FF0 { u8 pad[0x174C]; u32 camX; u32 camY; };
 extern struct S_02025FF0 gMainWorkspace;
 u16 sub_08005910(s32, s32);
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 void sub_080146D0(void *, s32, s32);
 s32 sub_0801473C(s32, u16);
 void sub_080C31E4(void *, void *, s32);
@@ -32,7 +32,7 @@ void sub_0809FB58(void *actor) {
     turn = turn << 8;
     *(s32 *)(self + 0x7C) = *(s32 *)(self + 0x7C) + turn;
     sub_080146D0(work, *(s32 *)(self + 0x7C), *thrust);
-    sub_0801165C(work, 0);
+    advanceMotion(work, 0);
     scriptEntry = (u8 *)((s32)*(s16 *)(self + 0x22) * 2 + (s32)self);
     if (scriptEntry[0x19] == 0x3C) {
         scriptEntry[0x19] = 0;

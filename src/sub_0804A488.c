@@ -1,6 +1,6 @@
 /* Tear down an object: free its four optional sub-objects, reset its field
  * state, then hand control to the callback stored at fields+0x24. */
-void sub_080161F0(void);
+void unlinkAndFreeObject(void);
 void sub_08015974(void);
 void sub_08016678(void *);
 void _call_via_r1(void *, void *);
@@ -8,9 +8,9 @@ void _call_via_r1(void *, void *);
 void sub_0804A488(void *obj) {
     u8 *fields = *(u8 **)((u8 *)obj + 0x3C);
     u8 *slots = fields + 0x48;
-    if (*(s32 *)(fields + 0x28) != 0) sub_080161F0();
-    if (*(s32 *)(fields + 0x48) != 0) sub_080161F0();
-    if (*(s32 *)(slots + 4) != 0) sub_080161F0();
+    if (*(s32 *)(fields + 0x28) != 0) unlinkAndFreeObject();
+    if (*(s32 *)(fields + 0x48) != 0) unlinkAndFreeObject();
+    if (*(s32 *)(slots + 4) != 0) unlinkAndFreeObject();
     if (*(s32 *)(fields + 0x2C) != 0) sub_08015974();
     sub_08016678(obj);
     _call_via_r1(obj, *(void **)(fields + 0x24));

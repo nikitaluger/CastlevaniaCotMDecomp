@@ -2,7 +2,7 @@
  * within camera range, moves it along a path, plays an animation step, then
  * finishes by snapping it to a table-derived position. Returns 1 when done. */
 extern s32 sub_080059DC(s32, s32);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_08056B58(s32, s32, void *, s32, s32);
 extern void sub_08056BB8(void *, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
@@ -41,7 +41,7 @@ s32 sub_08056C20(u8 *owner, u8 *target, u8 *script, s32 paramA, s32 paramB, u8 *
         *(s32 *)(target + 0x10) = *(s32 *)(path + 0) + product;
         product = *(s32 *)(path + 0xC) * *(s32 *)(script + 0xC);
         *(s32 *)(target + 0x14) = *(s32 *)(path + 8) + product;
-        sub_0801165C(target, 0);
+        advanceMotion(target, 0);
         step = *(s32 *)(script + 0xC) + 1;
         *(s32 *)(script + 0xC) = step;
         if (step == 0x12) {

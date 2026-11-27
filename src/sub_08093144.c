@@ -1,7 +1,7 @@
 extern void sub_08011344(void *, void *, s32, s32);
 extern s64 sub_0809329C(void *);
 extern void sub_080C31E4(void *, void *, u32);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 extern struct GameState { u8 _0[0x3C]; u16 mode; } gMainWorkspace;
 extern struct FrameEntry { s16 frame; s16 pad; } D_08100684[];
 

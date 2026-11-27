@@ -1,5 +1,5 @@
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_080142C0(void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -53,7 +53,7 @@ void sub_080B0BF4(void *arg0) {
         return;
     }
 
-    if (sub_08013B5C(sprite, actor) == 0) {
+    if (updateObjectDisplayState(sprite, actor) == 0) {
         s32 ctrlOffset;
         u8 *ctrlPtr;
         u8 stepByte;

@@ -1,4 +1,4 @@
-void sub_080113A8(s32, s32);
+void stepAnimationTrack(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_08011528(void *, void *);
 void sub_080C31E0(void *, void *);

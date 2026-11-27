@@ -40,19 +40,19 @@ extern struct S_02025FF0 gMainWorkspace;
 extern struct S_02021E90 gCameraState;
 extern u8 gGameStatus[];
 extern u8 D_080E03A0[];
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 extern void *D_084A67FC;
 extern void *D_084A6814;
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806BA20(void *, void *, void *);
 extern void sub_08068704(void *, void *, void *);
-extern void sub_08003A6C(void *, s32, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void D_0806AB04(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
 extern u16 sub_0806BCD8(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 void sub_08067B10(struct Arg0 *arg0)
 {
@@ -68,11 +68,11 @@ void sub_08067B10(struct Arg0 *arg0)
   a = arg0->f38;
   new_var2 = &(g4 = g4b)->f44;
   base = gGameStatus;
-  if (sub_0806C4B4(g4, g4) != 0)
+  if (syncViewPosition(g4, g4) != 0)
   {
     return;
   }
-  sub_0806C5EC(arg0, (void *) a, g4, g4);
+  resetActionResultState(arg0, (void *) a, g4, g4);
   sub_0806BA20((void *) a, g4, g4);
   {
     u8 *tbl;
@@ -116,12 +116,12 @@ void sub_08067B10(struct Arg0 *arg0)
   block_bba:
   r4v = ((u8 *) g4b) + 0x28;
 
-  sub_08003A6C(r4v, 0, D_084A67FC);
+  startEffectTimer(r4v, 0, D_084A67FC);
   *((u32 *) (((u8 *) g4b) + 0xB8)) = 0;
   *((u8 *) (((((u32) arg0->f22) * 2) + ((u32) arg0)) + 0x19)) = 0;
   {
     void *fn;
-    fn = &D_08671BD0;
+    fn = &gScriptStepCallbacks;
     sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 0x27, *((void **) fn));
   }
   block_bec:
@@ -139,18 +139,18 @@ void sub_08067B10(struct Arg0 *arg0)
       *((u8 *) (((((u32) arg0->f22) * 2) + ((u32) arg0)) + 0x19)) = 0;
       {
         void *fn;
-        fn = &D_08671BD0;
+        fn = &gScriptStepCallbacks;
         sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 0x26, *((void **) fn));
       }
       g4->f08 = 0;
     }
     else
     {
-      sub_08003A6C(r9, 0, D_084A6814);
+      startEffectTimer(r9, 0, D_084A6814);
       *((u8 *) (((((u32) arg0->f22) * 2) + ((u32) arg0)) + 0x19)) = 0;
       {
         void *fn;
-        fn = &D_08671BD0;
+        fn = &gScriptStepCallbacks;
         sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 0x24, *((void **) fn));
       }
     }
@@ -167,11 +167,11 @@ void sub_08067B10(struct Arg0 *arg0)
       *((u8 *) (((((u32) arg0->f22) * 2) + ((u32) arg0)) + 0x19)) = 0;
       {
         void *fn;
-        fn = &D_08671BD0;
+        fn = &gScriptStepCallbacks;
         sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, *pp, *((void **) fn));
       }
     }
   }
-  sub_08003740(r9, (void *) a);
+  stepDelayTimer(r9, (void *) a);
   sub_0806C6B0(arg0, (void *) a, g4b, g4);
 }

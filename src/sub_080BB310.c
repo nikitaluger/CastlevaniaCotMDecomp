@@ -1,5 +1,5 @@
 extern s32 sub_08005E80(s32);
-extern s32 sub_0801165C(void *, s32);
+extern s32 advanceMotion(void *, s32);
 extern s32 sub_08014848(s32, s32, s32, s32, s32, s32);
 extern s32 sub_080BB8C0(void *, void *);
 extern s32 sub_080BB900(void *, void *);
@@ -24,7 +24,7 @@ void sub_080BB310(void *arg0) {
     sub_080BBB60(component);
     oldVelocity = *((s32 *)((s8 *)component + 0x10));
     *((s32 *)((s8 *)component + 0x10)) = (s32)(oldVelocity + (*((s8 *)((s8 *)control + 0x35)) * 0x2800));
-    sub_0801165C(component, 0);
+    advanceMotion(component, 0);
     direction = *((s8 *)((s8 *)control + 0x35));
     if (((direction == -1) && (*((s32 *)((s8 *)component + 0x10)) < 0)) || ((direction == 1) && (*((s32 *)((s8 *)component + 0x10)) > 0))) {
         if (((oldVelocity < 0) && (*((s32 *)((s8 *)component + 0x10)) > 0)) || ((oldVelocity > 0) && (*((s32 *)((s8 *)component + 0x10)) < 0))) {

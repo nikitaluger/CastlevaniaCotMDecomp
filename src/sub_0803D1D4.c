@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, s32);
 s32 sub_080141AC(void *, void *);
 void sub_080C31E0(void *, void *);
@@ -18,7 +18,7 @@ void sub_0803D1D4(void *arg0)
         sub_080C31E0(arg0, *(void **)(obj + 0x24));
         return;
     }
-    if (sub_08013B5C(sprite, target) == 0) {
+    if (updateObjectDisplayState(sprite, target) == 0) {
         int stepByteOffset = 0x18;
         s32 idx;
         s32 partOffset;

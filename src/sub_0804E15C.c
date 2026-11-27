@@ -1,10 +1,10 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 struct P48u { u8 _0[2]; u16 timer2; u16 timer4; };
 struct P48s { u8 _0[4]; s16 timer4; };
 struct S_02025FF0 { u8 _0[0x174C]; s32 targetX; };
@@ -27,7 +27,7 @@ void sub_0804E15C(u8 *arg0) {
     timer4 = ((struct P48u *)p48)->timer4 - 1;
     ((struct P48u *)p48)->timer4 = timer4;
     if ((timer4 << 0x10) <= 0) {
-        ((struct P48u *)p48)->timer4 = (u16)(sub_08005820(0x3D) + 0x5A);
+        ((struct P48u *)p48)->timer4 = (u16)(scaleByRandom(0x3D) + 0x5A);
         if (sub_08014900(*(s32 *)(state + 8)) <= 0x380000 &&
             sub_0801491C(*(s32 *)(state + 0xC)) <= 0x380000) {
             u8 *scriptPtr = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
@@ -43,7 +43,7 @@ void sub_0804E15C(u8 *arg0) {
     }
     if (*(u16 *)(state + 2) & 2) {
         *(s32 *)(state + 0x10) = -*(s32 *)(state + 0x10);
-        ((struct P48u *)p48)->timer2 = (u16)(sub_08005820(0x15) + 0x46);
+        ((struct P48u *)p48)->timer2 = (u16)(scaleByRandom(0x15) + 0x46);
     }
     timer2 = ((struct P48u *)p48)->timer2 - 1;
     ((struct P48u *)p48)->timer2 = timer2;
@@ -62,10 +62,10 @@ void sub_0804E15C(u8 *arg0) {
     if (farFromTarget == 1) useLongDelay = 1;
 check5:
     if (useLongDelay != 0) goto set15;
-    newTimer = sub_08005820(0x10) + 0x28;
+    newTimer = scaleByRandom(0x10) + 0x28;
     goto store;
 set15:
-    newTimer = sub_08005820(0x15) + 0x46;
+    newTimer = scaleByRandom(0x15) + 0x46;
 store:
     ((struct P48u *)p48)->timer2 = newTimer;
     *(s32 *)(state + 0x10) = -*(s32 *)(state + 0x10);

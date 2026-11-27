@@ -1,5 +1,5 @@
 extern u32 gMainWorkspace[];
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D330(void *, void *);
 
 /* Advance the object's vertical motion (position plus bob offset) on both the
@@ -24,6 +24,6 @@ void sub_0808B270(void *entity) {
     screenWordOffset = 0x18C2;
     screenWord = *(u16 *)((u8 *)gMainWorkspace + screenWordOffset);
     *(u16 *)((u8 *)sprite + 0) = screenWord;
-    sub_08003740((u8 *)stateHeader + 0x20, sprite);
+    stepDelayTimer((u8 *)stateHeader + 0x20, sprite);
     sub_0806D330(self, sprite);
 }

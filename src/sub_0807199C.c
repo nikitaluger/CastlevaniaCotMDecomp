@@ -1,5 +1,5 @@
 extern void sub_080C31E0(void *a, void *b);
-extern void sub_080161F0(void *a);
+extern void unlinkAndFreeObject(void *a);
 
 struct S_02025FF0 {
     u8 pad0[0x14EC];
@@ -17,7 +17,7 @@ void sub_0807199C(void *arg0)
     u8 *group = *(u8 **)(self + 0x6C) + 4;
 
     gMainWorkspace.state = 0;
-    sub_080161F0(*(void **)(group + 0x3C));
+    unlinkAndFreeObject(*(void **)(group + 0x3C));
     *(&gMainWorkspace.slotState[*(s32 *)(self + 0xAC)]) = 0;
     sub_080C31E0(arg0, *(void **)(group + 0x18));
 }

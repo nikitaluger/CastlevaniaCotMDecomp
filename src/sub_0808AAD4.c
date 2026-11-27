@@ -1,5 +1,5 @@
-extern s32 sub_08003740(void *, void *);
-extern void sub_08003A6C(void *, s32, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0_AAD4 { u8 _0[0x1C]; u32 v1C; u8 _1[0x14D8-0x20]; u16 v14D8; u16 v14DA; };
 extern struct S_02025FF0_AAD4 gMainWorkspace;
@@ -14,9 +14,9 @@ void sub_0808AAD4(void *arg0) {
     u8 *sprite = *((u8 **)(self + 0x38));
     u8 *script = work + 0x20;
     u8 zero;
-    if (sub_08003740(script, sprite) == 0) {
-        sub_08003A6C(script, 0, (void *)0x0850D684);
-        sub_08003740(script, sprite);
+    if (stepDelayTimer(script, sprite) == 0) {
+        startEffectTimer(script, 0, (void *)0x0850D684);
+        stepDelayTimer(script, sprite);
         gMainWorkspace.v1C = 0x40;
         zero = 0;
         gMainWorkspace.v14D8 = 0xFFFA;

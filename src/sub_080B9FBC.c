@@ -1,9 +1,9 @@
 extern u8 D_08102EA8[];
 extern u16 D_08102EC8[];
 extern u32 D_08670598[];
-extern u32 gMainObjTimerCallback;
-extern u32 D_08671BD8;
-extern s32 sub_08005820(u8);
+extern u32 gScriptStepCallbackTable;
+extern u32 gMenuScriptCallback;
+extern s32 scaleByRandom(u8);
 extern void sub_080BE644(s32);
 extern void sub_080BE7D4(void);
 extern void sub_080BE87C(void);
@@ -46,7 +46,7 @@ case_init:
     patternTable = D_08102EA8;
     v = st->pattern;
     b0 = patternTable[(v >> 1) * 4];
-    t = sub_08005820(b0) + 1;
+    t = scaleByRandom(b0) + 1;
     st->frame = t;
     v2 = st->pattern;
     addr = (u32)t;
@@ -73,7 +73,7 @@ case_finish:
         base[0x17] = 0;
     }
     {
-        u32 *pbd8 = &D_08671BD8;
+        u32 *pbd8 = &gMenuScriptCallback;
         sub_080C31E8((s32)((u8 *)obj + 0x18), (s32)((u8 *)obj + 0x22),
                      D_08102EC8[st->frame], (s32)*pbd8);
     }
@@ -91,7 +91,7 @@ dispatch:
         base[0x19] = 0;
     }
     {
-        u32 *pbb0 = &gMainObjTimerCallback;
+        u32 *pbb0 = &gScriptStepCallbackTable;
         sub_080C31E4((s32)((u8 *)obj + 0x18), (s32)((u8 *)obj + 0x22), (s32)*pbb0);
     }
 }

@@ -5,7 +5,7 @@ struct S_02025FF0 { u8 _[0x18C2]; u16 w; };
 extern struct S_02025FF0 gMainWorkspace;
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
-extern void sub_0806D2D0(void *);
+extern void cleanupFailedEffectSpawn(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -20,7 +20,7 @@ void sub_0807493C(void *actor) {
     }
     newActor = allocSpriteObject();
     if (newActor == 0) {
-        sub_0806D2D0(actor);
+        cleanupFailedEffectSpawn(actor);
         return;
     }
     *(u8 **)(self + 0x38) = newActor;

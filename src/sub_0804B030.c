@@ -1,17 +1,17 @@
 extern void sub_08005E80(s32);
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void moveObjectHorizontally(void *, s32, s32);
 extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C5C(void *, s32);
 extern void sub_08013C8C(void *, void *);
 extern s32 sub_080141AC(s32, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 
 /*
  * Entity AI update: after the state/contact checks, plays the contact sound and
@@ -42,12 +42,12 @@ void sub_0804B030(u8 *entity) {
                 u8 *stepData2 = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
                 u8 zero = 0;
                 *(u8 *)(stepData2 + 0x1B) = zero;
-                { void **scriptFn = &D_08671BDC;
+                { void **scriptFn = &sScriptStepCallbacks;
                   sub_080C31E8(entity + 0x18, entity + 0x22, 4, *scriptFn); }
             }
         }
     }
-    if (sub_08013B5C(sprite, motion) == 0) {
+    if (updateObjectDisplayState(sprite, motion) == 0) {
         *(void **)(entity + 0x14) = (void *)0x0866E450;
         *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) + 1;
         {
@@ -66,7 +66,7 @@ void sub_0804B030(u8 *entity) {
         if (*(u16 *)(entity + 0x02) & 0x8000) {
             return;
         }
-        sub_080113A8(sprite, status);
+        stepAnimationTrack(sprite, status);
         moveObjectHorizontally(motion, 0x180000, 0x180000);
     }
     sub_08013C8C(entity, sprite);

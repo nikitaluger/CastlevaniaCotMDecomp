@@ -2,11 +2,11 @@
  * new rotation to its sprite; when the current script step asks for it, spawn a
  * marker object at the entity's position. */
 extern s32 sub_08005910(s32, s32);
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
 extern void sub_080146D0(void *, u16, s32);
 extern s32 sub_0801473C(void *, s32);
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 
 struct GlobalTarget {
     u8 _0[0x174C];
@@ -47,12 +47,12 @@ void sub_08040908(void *entity) {
         sub_080146D0(motion, (u16)newAngle, 0x1C000);
     }
 
-    sub_0801165C(motion, 0);
-    sub_080113A8(gfx, aimPoint);
+    advanceMotion(motion, 0);
+    stepAnimationTrack(gfx, aimPoint);
 
     scriptMask = (u8)(3) & *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19);
     if (scriptMask == 0) {
-        spawned = sub_0805FAEC(entity, 0x108);
+        spawned = spawnBudgetedEffect(entity, 0x108);
         if (spawned != NULL) {
             *(s32 *)((u8 *)spawned + 0x4C) = *(s32 *)((u8 *)motion + 0x08);
             *(s32 *)((u8 *)spawned + 0x5C) = *(s32 *)((u8 *)motion + 0x0C);

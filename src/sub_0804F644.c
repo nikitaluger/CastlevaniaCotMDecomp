@@ -1,10 +1,10 @@
 /* identical to sub_08014290 (matched), with its names changed by decompdecomp */
 void sub_08015974(void);
-void sub_080161F0(void);
+void unlinkAndFreeObject(void);
 void sub_08016678(void *);
 void sub_080C31E0(void *, u32);
 void sub_08062394(s32, u8);
-s32 sub_0805F9B4(s32, s32);
+s32 isOutsideCameraBounds(s32, s32);
 
 struct MainObj {
     u8 pad_0x00[0x22];
@@ -27,7 +27,7 @@ struct SubObj {
 void sub_0804F644(struct MainObj *actor) {
     struct SubObj *sub = (struct SubObj *)actor->sub;
     if (sub->attachedA != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (sub->attachedB != 0) {
         sub_08015974();
@@ -59,7 +59,7 @@ void sub_08014314(u16 *arg0, void *arg1) {
 void sub_080141AC(void *arg0, void *arg1) {
     void *temp_r1;
 
-    if (sub_0805F9B4(*(u32 *)((u8 *)arg1 + 8), *(u32 *)((u8 *)arg1 + 0xC)) == 1) {
+    if (isOutsideCameraBounds(*(u32 *)((u8 *)arg1 + 8), *(u32 *)((u8 *)arg1 + 0xC)) == 1) {
         *(u8 *)((u8 *)arg0 + 0x2A) = (u8)(0xBF & *(u8 *)((u8 *)arg0 + 0x2A));
         temp_r1 = *(void **)((u8 *)arg1 + 0x28);
         if (temp_r1 != NULL) {

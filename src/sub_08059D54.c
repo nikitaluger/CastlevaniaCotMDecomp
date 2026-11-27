@@ -1,4 +1,4 @@
-extern void sub_080113A8(void *a, void *b);
+extern void stepAnimationTrack(void *a, void *b);
 extern s32 sub_080C31E0(void *a, void *b);
 
 extern u8 gCameraState[];
@@ -16,7 +16,7 @@ void sub_08059D54(void *entity)
     work = *(void **)((u8 *)entity + 0x3C);
     anim = (u8 *)work + 0x34;
 
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
     if (*(u8 *)anim & 2) {
         sub_080C31E0(entity, *(void **)((u8 *)entity + 0x24));
         return;

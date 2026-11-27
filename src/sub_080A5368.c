@@ -1,4 +1,4 @@
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_080C31E0(void *, void *);
 
 struct S_02025FF0_18A8 { u8 _0[0x18A8]; u8 v; };
@@ -27,7 +27,7 @@ void sub_080A5368(void *entity)
         return;
     }
 
-    sub_0801165C(motion, 0);
+    advanceMotion(motion, 0);
 
     table = gCameraState;
     index = (gMainWorkspace.v + 1) * 0x40;

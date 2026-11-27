@@ -10,9 +10,9 @@ struct GameState {
 };
 extern struct GameState gMainWorkspace;
 
-extern s32 sub_08003740(void *, void *);
-extern s32 sub_0806D2F8(void *, void *);
-extern s32 sub_0806D518(void *, void *, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern s32 cullOffscreenEntity(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
 extern s32 sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -24,7 +24,7 @@ void sub_08078958(void *arg0)
   void *actor = *((void **) (((char *) arg0) + 0x6C));
   void *mover = ((char *) actor) + 4;
   void *world = *((void **) (((char *) arg0) + 0x38));
-  if (sub_0806D518(arg0, world, mover) == 0)
+  if (checkGlobalStateChange(arg0, world, mover) == 0)
   {
     s32 speed;
     s32 delta = (*((s32 *) (((char *) mover) + 8))) * ((*((s32 *) (((char *) mover) + 0x40))) >> 8);
@@ -49,11 +49,11 @@ void sub_08078958(void *arg0)
     *((s32 *) (((char *) mover) + 4)) += delta >> 8;
     *((u16 *) world) = gMainWorkspace.field18C2;
     *((s32 *) (((char *) mover) + 0x48)) -= 1;
-    if ((((*((s32 *) (((char *) mover) + 0x48))) == 0) || ((sub_08003740(((char *) actor) + 0x20, world), sub_0806D588(world, mover), gMainWorkspace.field173A == 0x1C))) || ((gMainWorkspace.field14ED == 0) && (gMainWorkspace.field10 != 0)))
+    if ((((*((s32 *) (((char *) mover) + 0x48))) == 0) || ((stepDelayTimer(((char *) actor) + 0x20, world), sub_0806D588(world, mover), gMainWorkspace.field173A == 0x1C))) || ((gMainWorkspace.field14ED == 0) && (gMainWorkspace.field10 != 0)))
     {
       sub_080C31E0(arg0, *((s32 *) (((char *) arg0) + 0x24)));
       return;
     }
-    sub_0806D2F8(arg0, world);
+    cullOffscreenEntity(arg0, world);
   }
 }

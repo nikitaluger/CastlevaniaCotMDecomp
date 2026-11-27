@@ -1,4 +1,4 @@
-extern void sub_08011898(void *, s32);
+extern void moveEntityWithCollision(void *, s32);
 extern void sub_080C31E0(void *, s32);
 
 /* The status halfword at +0x02 is set once the current movement step finishes. */
@@ -22,7 +22,7 @@ void sub_0809B468(struct Actor *actor)
 {
     struct MoveState *move = actor->move;
 
-    sub_08011898(move, actor->step);
+    moveEntityWithCollision(move, actor->step);
     if (move->status != 0)
     {
         sub_080C31E0(actor, actor->update);

@@ -4,7 +4,7 @@ extern u8 D_08101824[];
 void sub_080C31E0(void *, s32);
 void sub_08011344(void *, void *, s32, s32);
 s32 sub_080057F8(void);
-void *sub_0805FAEC(s32, s32);
+void *spawnBudgetedEffect(s32, s32);
 
 static inline u16 or10(u16 v) { u32 m = 0x10; m |= v; return (u16)m; }
 static inline u16 or30(u16 v) { u32 m = 0x30; m |= v; return (u16)m; }
@@ -63,7 +63,7 @@ void sub_0809C1CC(void *arg0) {
         {
             u32 fieldOffset = 0x1870;
             u8 *globalBase = gMainWorkspace;
-            spawned = sub_0805FAEC(*(s32 *)(globalBase + fieldOffset), 0xBF * 2);
+            spawned = spawnBudgetedEffect(*(s32 *)(globalBase + fieldOffset), 0xBF * 2);
         }
         if (spawned != NULL) {
             *(s32 *)((u8 *)spawned + 0x4C) = *(s32 *)(state + 8);

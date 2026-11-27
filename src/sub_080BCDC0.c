@@ -12,7 +12,7 @@ struct ActionScript
   u32 sprite;
   u32 work;
 };
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 
@@ -25,7 +25,7 @@ void sub_080BCDC0(struct ActionScript *arg0)
   int cmdArrayOffset;
   int stepOffset;
   void *sprite = (void *) arg0->sprite;
-  if (sub_08013B5C(sprite, (void *) arg0->work) == 0)
+  if (updateObjectDisplayState(sprite, (void *) arg0->work) == 0)
   {
     arg0->commandTable = 0x086706F8;
     arg0->stepIndex += 1;
@@ -45,7 +45,7 @@ void sub_080BD290(struct ActionScript *arg0)
   int cmdArrayOffset;
   int stepOffset;
   void *sprite = (void *) arg0->sprite;
-  if (sub_08013B5C(sprite, (void *) arg0->work) == 0)
+  if (updateObjectDisplayState(sprite, (void *) arg0->work) == 0)
   {
     arg0->commandTable = 0x08670708;
     arg0->stepIndex += 1;

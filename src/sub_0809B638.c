@@ -1,5 +1,5 @@
 extern void sub_08014668(void *, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E0(void *, s32);
 
 /* Actor draw step: copy the entity's parameters into its sprite control block
@@ -19,7 +19,7 @@ void sub_0809B638(void *arg0)
     }
     *(u16 *)(sprite + 0x08) = *(u16 *)((u8 *)arg0 + 0x6C);
     sub_08014668(sprite, *(vu32 *)(ctrl + 0x10));
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
     if (*(u8 *)anim & 2)
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
 }

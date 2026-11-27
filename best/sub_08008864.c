@@ -6,7 +6,7 @@ void sub_080102F0(s32);
 void sub_080C31E8(void *, void *, s32, s32);
 void sub_080C0384(void);
 extern u8 gCameraState[];
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 struct S_03000830
 {
   u8 pad[4];
@@ -68,7 +68,7 @@ void sub_08008864(void *arg0)
   s = *((s16 *) (r7 + 0x22));
   s = s << 1;
   *((u8 *) ((((u32) s) + ((u32) r7)) + 0x19)) = (u8) r4;
-  pp1 = &D_08671BD0;
+  pp1 = &gScriptStepCallbacks;
   sub_080C31E8(r7 + 0x18, r7 + 0x22, 0x05, *pp1);
   goto loc_89DC;
   loc_88CC:
@@ -147,7 +147,7 @@ void sub_08008864(void *arg0)
   s = *((s16 *) (r7 + 0x22));
   s = s << 1;
   *((u8 *) ((((u32) s) + ((u32) r7)) + 0x19)) = (u8) r6;
-  pp2 = &D_08671BD0;
+  pp2 = &gScriptStepCallbacks;
   sub_080C31E8(r7 + 0x18, r7 + 0x22, 0x07, *pp2);
   goto loc_89DC;
   loc_899C:
@@ -159,7 +159,7 @@ void sub_08008864(void *arg0)
   ;
   new_var = 0x22;
   *((u8 *) ((((u32) (s << 1)) + ((u32) r7)) + 0x19)) = 0;
-  pp3 = &D_08671BD0;
+  pp3 = &gScriptStepCallbacks;
   sub_080C31E8(r7 + 0x18, r7 + new_var, 0x05, *pp3);
   loc_89DC:
   return;

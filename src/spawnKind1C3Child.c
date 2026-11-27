@@ -1,7 +1,7 @@
-void sub_080113A8(s32, void *);
+void stepAnimationTrack(s32, void *);
 void sub_080148D8(s32, s32);
 void sub_080C31E8(void *, void *, s32, s32);
-void *sub_0805FAEC(s32, s32);
+void *spawnBudgetedEffect(s32, s32);
 extern u8 gMainWorkspace[];
 
 /* Play the effect's animation, face it toward the shared target X, and when the
@@ -10,7 +10,7 @@ void sub_080B7A90(void *entity) {
     u8 *self = (u8 *)entity;
     s32 sprite = *(s32 *)(self + 0x38);
     void *work = *(void **)(self + 0x3C);
-    sub_080113A8(sprite, (u8 *)work + 0x34);
+    stepAnimationTrack(sprite, (u8 *)work + 0x34);
     sub_080148D8(sprite, *(s32 *)((u8 *)work + 8));
     if (*(u16 *)(gMainWorkspace + 0x3C) != 0) {
         *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = 0;
@@ -20,7 +20,7 @@ void sub_080B7A90(void *entity) {
 
 /* Spawn a type-0x1C3 object under the entity and clear its state byte. */
 void *spawnKind1C3Child(s32 parent) {
-    void *obj = sub_0805FAEC(parent, 0x1C3);
+    void *obj = spawnBudgetedEffect(parent, 0x1C3);
     if (obj == 0) {
         return 0;
     }

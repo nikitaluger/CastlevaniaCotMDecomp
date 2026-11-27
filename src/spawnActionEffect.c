@@ -1,6 +1,6 @@
 void *allocEffectPart(void *);
 void sub_0806D2D0(void *);
-u16 sub_0806D62C(u16, s32);
+u16 scalePercentSaturate16(u16, s32);
 void sub_08003A6C(void *, s32, const void *);
 void sub_0808449C(void);
 void sub_080C31E4(void *, void *, void *);
@@ -14,7 +14,7 @@ extern u8 D_084A0780[];
 extern u8 D_084A0838[];
 extern u8 D_084A1A78[];
 extern u8 D_084A1AF8[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* The parent's action state holds the new effect at +0x2C. It is read back
  * through a volatile slot on every field store, just as the original does. */
@@ -69,7 +69,7 @@ void spawnActionEffect(void *parent)
     switch (action[0x55])
     {
     case ACTION_EFFECT_KIND_SMALL:
-        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_SMALL);
+        *(u16 *)(EFFECT + 0x0E) = scalePercentSaturate16(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_SMALL);
         *(u16 *)(EFFECT + 0x18) = ACTION_EFFECT_ANIM_SMALL;
         {
             u16 v = 0x400;
@@ -82,7 +82,7 @@ void spawnActionEffect(void *parent)
         *(u32 *)(child + 0x1C) = ACTION_EFFECT_GFX_STANDARD;
         break;
     case ACTION_EFFECT_KIND_MEDIUM:
-        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_MEDIUM);
+        *(u16 *)(EFFECT + 0x0E) = scalePercentSaturate16(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_MEDIUM);
         *(u16 *)(EFFECT + 0x18) = ACTION_EFFECT_ANIM_MEDIUM;
         *(u16 *)(child + 4) = 0x40;
         {
@@ -96,7 +96,7 @@ void spawnActionEffect(void *parent)
         *(u32 *)(actionData + 0x54) = 0;
         break;
     case ACTION_EFFECT_KIND_LARGE:
-        *(u16 *)(EFFECT + 0x0E) = sub_0806D62C(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_LARGE);
+        *(u16 *)(EFFECT + 0x0E) = scalePercentSaturate16(*(u16 *)(stats + 0x2E2), ACTION_EFFECT_SCALE_LARGE);
         *(u16 *)(EFFECT + 0x18) = ACTION_EFFECT_ANIM_LARGE;
         {
             u16 v = 0x400;
@@ -120,7 +120,7 @@ void spawnActionEffect(void *parent)
         idx = *(s16 *)(self + 0x22);
         *(u8 *)(self + idx * 2 + 0x19) = 0;
 
-        scriptTable = gMainObjTimerCallback;
+        scriptTable = gScriptStepCallbackTable;
         stepPtr = self + 0x18;
         sub_080C31E4(stepPtr, self + 0x22, (void *)*scriptTable);
 

@@ -12,8 +12,8 @@ judge accepted them as matches.
 - **Compiler:** agbcc
 <!-- decompdecomp:details:end -->
 <!-- decompdecomp:progress:start -->
-- **Progress:** 3922 matching function(s), 263 best attempt(s)
-- **Completion:** 3,922 / 4,182 functions (93.8%). 363 set aside, excluded from completion.
+- **Progress:** 3938 matching function(s), 247 best attempt(s)
+- **Completion:** 3,938 / 4,183 functions (94.1%). 346 set aside, excluded from completion.
 <!-- decompdecomp:progress:end -->
 
 ## What's in this folder

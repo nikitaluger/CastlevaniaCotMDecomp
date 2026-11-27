@@ -1,10 +1,10 @@
 extern void sub_08013C8C(void *, void *);
 extern s32 sub_08013B5C(void *, void *);
 extern s32 sub_080141AC(void *, void *);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 extern u8 D_0866E2F0[];
 
 /* Behaviour-script callback: on a contact request hand control back to the owner;
@@ -26,7 +26,7 @@ void sub_08047018(u8 *behav) {
     sub_080C31E0(behav, *(void **)(behav + 0x24));
     return;
   }
-  if (sub_08016238(*(void **)(owner + 0x28)) != 0) {
+  if (hitTestEntities(*(void **)(owner + 0x28)) != 0) {
     newFlags = (u16)(1) | *(u16 *)owner;
     *(u16 *)owner = (u16)newFlags;
   }
@@ -42,7 +42,7 @@ void sub_08047018(u8 *behav) {
     entry = (u8 *)((u32)(*(s16 *)(behav + 0x22)) * 2 + (u32)behav);
     if (*(u8 *)(entry + 0x1A) != 1) {
       *(u8 *)(entry + 0x1B) = 0;
-      cmdTable = D_08671BDC;
+      cmdTable = sScriptStepCallbacks;
       sub_080C31E8(behav + 0x18, behav + 0x22, 1, *cmdTable);
     }
   }

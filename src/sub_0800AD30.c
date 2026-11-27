@@ -2,7 +2,7 @@ extern void sub_08005E80(s32);
 extern void sub_080102F0(u8);
 extern void sub_08010320(u8);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 D_08671BD8[];
+extern s32 gMenuScriptCallback[];
 extern u8 gGameStatus[];
 
 /* Actor update: clear a flag on the linked object, then, when its trigger byte

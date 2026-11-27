@@ -1,5 +1,5 @@
-extern s32 sub_080113A8(s32, void *);
-extern s32 sub_0801165C(void *, s32);
+extern s32 stepAnimationTrack(s32, void *);
+extern s32 advanceMotion(void *, s32);
 
 struct Work {
     u8 pad_0x00[0x34];
@@ -17,6 +17,6 @@ void sub_080BCB7C(struct MainObj *obj) {
     s32 sprite = obj->sprite;
     struct Work *work = obj->work;
 
-    sub_080113A8(sprite, (s8 *)work + 0x34);
-    sub_0801165C(work, 0);
+    stepAnimationTrack(sprite, (s8 *)work + 0x34);
+    advanceMotion(work, 0);
 }

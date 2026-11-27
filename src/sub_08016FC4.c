@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 signOf(s32);
 extern s32 sub_08014990(void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -25,7 +25,7 @@ void sub_08016FC4(void *actor)
       else
         attrs->flags &= 0xFFEF;
     }
-    *((u16 *) (animState + 0x1A)) = (u16) (sub_08005820(0x29) + 0x64);
+    *((u16 *) (animState + 0x1A)) = (u16) (scaleByRandom(0x29) + 0x64);
     zeroWord = 0;
     if (sub_08014990(sprite) > zeroWord)
       *((s32 *) (work + 0x10)) = 0x80 << 7;
@@ -33,7 +33,7 @@ void sub_08016FC4(void *actor)
       *((s32 *) (work + 0x10)) = (s32) 0xFFFFC000;
     zeroByte = zeroWord;
     *((u16 *) (animState + 0x14)) = zeroWord;
-    *((u16 *) (animState + 0x1C)) = (u16) (sub_08005820(0x3D) + 0x3C);
+    *((u16 *) (animState + 0x1C)) = (u16) (scaleByRandom(0x3D) + 0x3C);
     *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = zeroByte;
     scriptTable = (s32 *) 0x08671BB0;
     sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);

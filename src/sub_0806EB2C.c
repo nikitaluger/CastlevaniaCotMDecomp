@@ -1,12 +1,12 @@
 extern u8 gMainWorkspace[];
 extern u8 gTilemapPages[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 extern s32 sub_08005E80(s32);
-extern s32 sub_08007DD8(s32, s32, s32);
-extern void sub_0806D2F8(void *, void *);
-extern s32 sub_0806D518(void *, void *, void *);
+extern s32 getTileTerrainB(s32, s32, s32);
+extern void cullOffscreenEntity(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
-extern void sub_0806E114(s32, s32, s32, s32);
+extern void spawnKind2CEntity(s32, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct WarpTarget { u8 _0[4]; u16 x; u16 y; u16 flag; };
@@ -25,17 +25,17 @@ void sub_0806EB2C(void *behav) {
     params = *(u8 **)((u8 *)behav + 0x6C);
     point = params + 4;
     target = *(u8 **)((u8 *)behav + 0x38);
-    if (sub_0806D518(behav, target, point) == 0) {
+    if (checkGlobalStateChange(behav, target, point) == 0) {
         *(s32 *)(params + 4) = *(s32 *)(params + 4) + *(s32 *)(point + 8);
         *(s32 *)(point + 4) = *(s32 *)(point + 4) + *(s32 *)(point + 0xC);
         sub_0806D588(target, point);
         hitFlag = 1 & *(u16 *)(*(void **)(point + 0x3C) + 0x14);
         if (hitFlag != 0) {
-            sub_0806E114(*(s32 *)((u8 *)behav + 0x28), 8, *(s32 *)(params + 4), *(s32 *)(point + 4));
+            spawnKind2CEntity(*(s32 *)((u8 *)behav + 0x28), 8, *(s32 *)(params + 4), *(s32 *)(point + 4));
             sub_080C31E0(behav, *(s32 *)((u8 *)behav + 0x24));
             return;
         }
-        tile = sub_08007DD8((s32)&gTilemapPages[gMainWorkspace[0x18A8] << 6], *(s32 *)(params + 4), *(s32 *)(point + 4));
+        tile = getTileTerrainB((s32)&gTilemapPages[gMainWorkspace[0x18A8] << 6], *(s32 *)(params + 4), *(s32 *)(point + 4));
         if ((u16)tile != 0) {
             zero = 0;
             ((struct WarpTarget *)target)->x = 0x100;
@@ -52,10 +52,10 @@ void sub_0806EB2C(void *behav) {
             sub_08005E80(0x90);
             *(u8 *)((u8 *)behav + (*(s16 *)((u8 *)behav + 0x22)) * 2 + 0x19) = zero;
             {
-                s32 *cmdTable = &gMainObjTimerCallback;
+                s32 *cmdTable = &gScriptStepCallbackTable;
                 sub_080C31E4((u8 *)behav + 0x18, (u8 *)behav + 0x22, *cmdTable);
             }
         }
-        sub_0806D2F8(behav, target);
+        cullOffscreenEntity(behav, target);
     }
 }

@@ -35,4 +35,4 @@ void sub_08017418(void *arg0)
   sub_080C31E4(p + 0x18, p + 0x22, (s32) (*pp));
 }
 
-void sub_080161F0(void *arg0);
+void unlinkAndFreeObject(void *arg0);

@@ -25,7 +25,7 @@ extern u8 D_084A65BC[];
 extern u8 D_084A6814[];
 
 extern SpawnedPart *sub_0806D2A0(void *, s32, s32, s32);
-extern void sub_08003A6C(void *, s32, s32, s32);
+extern void startEffectTimer(void *, s32, s32, s32);
 extern void sub_08086E28(void);
 
 /* Dispatch on the current scripted state to spawn its actors with the right
@@ -138,12 +138,12 @@ s32 sub_08084D10(void *owner, ScriptObj *obj, u8 *actor)
         if (actor[0x128] != 0)
         {
             obj->data = (u32) D_084FC524;
-            sub_08003A6C(actor + 0x28, 0, (s32) D_084FCA3C, (s32) obj);
+            startEffectTimer(actor + 0x28, 0, (s32) D_084FCA3C, (s32) obj);
             sub_08086E28();
             return 0x29;
         }
         obj->data = (u32) D_084A65BC;
-        sub_08003A6C(actor + 0x28, 0, (s32) D_084A6814, (s32) obj);
+        startEffectTimer(actor + 0x28, 0, (s32) D_084A6814, (s32) obj);
         sub_08086E28();
         return 0x24;
     default:

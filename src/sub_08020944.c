@@ -5,7 +5,7 @@ extern s32 sub_08014A6C(u8 *, u32, s32, s32);
 extern void sub_08014B1C(u8 *, u8 *, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(u8 *, u8 *, s32, u32);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 
@@ -62,7 +62,7 @@ void sub_08020944(u8 *entity)
   }
   {
     u32 *trigFuncs = (u32 *) 0x08671BFC;
-    *((u32 *) (steer + 0)) = sub_080C31E0(sub_080C364C(((u32) (*((s16 *) (steer + 4)))) << 16, 0x24), *trigFuncs) << 1;
+    *((u32 *) (steer + 0)) = sub_080C31E0(divInt32(((u32) (*((s16 *) (steer + 4)))) << 16, 0x24), *trigFuncs) << 1;
   }
   *((u16 *) (steer + 4)) = (*((u16 *) (steer + 4))) + 1;
   if ((*((s16 *) (steer + 0xC))) == 1)

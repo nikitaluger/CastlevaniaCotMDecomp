@@ -1,8 +1,8 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
-s8 sub_08005820(s32);
+s8 scaleByRandom(s32);
 void loadEffectPalette(u32, void *);
 extern void sub_0809BEE8(void);
 
@@ -22,7 +22,7 @@ void sub_0809C12C(struct S_0807B12C *arg0)
   int new_var;
   int new_var2;
   void *r5 = (void *) arg0->field_0x38;
-  if (sub_08013B5C(r5, (void *) arg0->field_0x3C) == 0)
+  if (updateObjectDisplayState(r5, (void *) arg0->field_0x3C) == 0)
   {
     arg0->field_0x14 = 0x0866FC8C;
     arg0->field_0x22 += 1;
@@ -43,7 +43,7 @@ void sub_0809C18C(void *entity) {
     u8 zero = 0;
     state[2] = 1;
     state[3] = 0xFF;
-    state[1] = sub_08005820(0x18);
+    state[1] = scaleByRandom(0x18);
     *(u8 *)((u8 *)entity + (*(s16 *)((u8 *)entity + 0x22)) * 2 + 0x19) = zero;
     {
         s32 *advanceCb = (s32 *)0x08671BB0;

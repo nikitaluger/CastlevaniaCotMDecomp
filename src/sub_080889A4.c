@@ -1,5 +1,5 @@
 extern u32 gMainWorkspace[];
-s32 sub_08003740(void *, void *);
+s32 stepDelayTimer(void *, void *);
 void sub_0806D588(void *, void *);
 void sub_080C31E4(void *, void *, u32);
 
@@ -12,7 +12,7 @@ void sub_080889A4(void *arg0) {
     u8 *mover = actor + 4;
     u8 *sprite = *(u8 **)(self + 0x38);
     u32 *handlers;
-    s32 timer = sub_08003740(actor + 0x20, sprite);
+    s32 timer = stepDelayTimer(actor + 0x20, sprite);
     if (timer == 0) {
         gMainWorkspace[7] = 2;
         *(u8*)(self + *(s16*)(self + 0x22) * 2 + 0x19) = timer;

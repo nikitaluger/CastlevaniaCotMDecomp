@@ -1,5 +1,5 @@
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, void *);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, void *);
 extern s32 sub_08014114(s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 
@@ -29,8 +29,8 @@ void sub_08091AB8(void *arg0)
         return;
     }
 
-    sub_0801165C(state, *(s32 *)((u8 *)extra + 4));
-    sub_080113A8(sprite, anim);
+    advanceMotion(state, *(s32 *)((u8 *)extra + 4));
+    stepAnimationTrack(sprite, anim);
 
     scroll = gCameraState;
     camState = gMainWorkspace;

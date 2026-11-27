@@ -1,4 +1,4 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, s32, s32);
 
 /* Refresh the current animation frame of the object at +0x38 using the state
@@ -10,6 +10,6 @@ void sub_0803895C(void *entity)
     void *work;
     obj = *(void **)((u8 *)entity + 0x38);
     work = *(void **)((u8 *)entity + 0x3C);
-    sub_080113A8(obj, (u8 *)work + 0x34);
+    stepAnimationTrack(obj, (u8 *)work + 0x34);
     sub_08011EE8(work, 0x16C1, 0xE0 << 12);
 }

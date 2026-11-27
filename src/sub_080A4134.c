@@ -1,4 +1,4 @@
-s32 sub_08016238(void *);
+s32 hitTestEntities(void *);
 void sub_08005E80(s32);
 s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
@@ -15,7 +15,7 @@ void sub_080A4134(void *arg0) {
     u8 *obj = *(u8 **)((u8 *)arg0 + 0x3C);
     u8 *self = (u8 *)arg0;
 
-    if (sub_08016238(*(void **)(obj + 0x28)) != 0) {
+    if (hitTestEntities(*(void **)(obj + 0x28)) != 0) {
         sub_08005E80(0x189);
         ((struct F0 *)obj)->f0 |= 1;
     }

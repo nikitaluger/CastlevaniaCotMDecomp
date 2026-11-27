@@ -1,7 +1,7 @@
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_080C31E8(void *, void *, u32, u32);
 void sub_08013C8C(void *, void *);
@@ -40,7 +40,7 @@ void sub_0804A88C(void *arg0) {
             sub_080C31E8((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 6, *handlerSlot);
         }
     }
-    if (sub_08013B5C(obj, state) == 0) {
+    if (updateObjectDisplayState(obj, state) == 0) {
         *(u32 *)((u8 *)arg0 + 0x14) = 0x0866E41C;
         *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) + 1;
         stateByteBase = (u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0);

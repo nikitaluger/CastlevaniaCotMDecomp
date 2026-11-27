@@ -1,4 +1,4 @@
-extern void sub_08003740(void *timer, void *gfx);
+extern void stepDelayTimer(void *timer, void *gfx);
 extern void sub_08005E80(s32 soundId);
 extern void sub_0806D588(void *gfx, void *state);
 extern void sub_080C31E4(void *scriptData, void *scriptIndex, s32 handler);

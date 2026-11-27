@@ -1,5 +1,5 @@
-s32 sub_0801165C(void *, s32);
-s32 sub_0805F9B4(s32, s32);
+s32 advanceMotion(void *, s32);
+s32 isOutsideCameraBounds(s32, s32);
 s32 sub_080C31E0(void *, void *);
 
 struct S_02025FF0_18A8 { u8 _0x000[0x18A8]; u8 cameraIndex; };
@@ -21,13 +21,13 @@ void sub_08054DFC(void *entity)
   sprite = *((void **) (((u8 *) self) + 0x38));
   work = *((void **) (((u8 *) self) + 0x3C));
 
-  if (sub_0805F9B4(*((s32 *) (((u8 *) work) + 0x08)), *((s32 *) (((u8 *) work) + 0x0C))) == 1)
+  if (isOutsideCameraBounds(*((s32 *) (((u8 *) work) + 0x08)), *((s32 *) (((u8 *) work) + 0x0C))) == 1)
   {
     sub_080C31E0(self, *((void **) (((u8 *) self) + 0x24)));
     return;
   }
 
-  sub_0801165C(work, 0x16C1);
+  advanceMotion(work, 0x16C1);
 
   coordTable = gCameraState;
   coordOffset = (gMainWorkspace.cameraIndex + 1) * 0x40;

@@ -4,7 +4,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_0800583C(s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
-void *sub_0805FAEC(u32, s32);
+void *spawnBudgetedEffect(u32, s32);
 struct S_02025FF0_187C { u8 _p[0x187C]; u32 v; };
 extern struct S_02025FF0_187C gMainWorkspace;
 
@@ -42,7 +42,7 @@ void sub_0805C268(void *arg0) {
  * +0x54) plus the +0x5C flag. Returns the new entity, or NULL on failure. */
 void *sub_0805F104(u16 variantA, u16 variantB) {
     void *obj;
-    obj = sub_0805FAEC(gMainWorkspace.v, 0x1E9);
+    obj = spawnBudgetedEffect(gMainWorkspace.v, 0x1E9);
     if (obj == NULL) return NULL;
     *(u16 *)((u8 *)obj + 0x4C) = variantA;
     *(u16 *)((u8 *)obj + 0x54) = variantB;

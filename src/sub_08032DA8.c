@@ -1,7 +1,7 @@
 extern u8 gMainWorkspace[];
 
-extern void sub_0801165C(void *, s32);
-extern void sub_080113A8(void *, void *);
+extern void advanceMotion(void *, s32);
+extern void stepAnimationTrack(void *, void *);
 extern s32 sub_080141AC(void *, void *);
 
 typedef void (*Func)(void *);
@@ -25,8 +25,8 @@ void sub_08032DA8(u8 *self) {
     animState = work + 0x34;
     moveState = work + 0x48;
     *(s32 *)(work + 0x10) = *(s32 *)(work + 0x10) + *(s32 *)(moveState + 4);
-    sub_0801165C(work, 0);
-    sub_080113A8(sprite, animState);
+    advanceMotion(work, 0);
+    stepAnimationTrack(sprite, animState);
     nextTimer = moveState[0] + 1;
     moveState[0] = (u8)nextTimer;
     if ((u8)nextTimer == 0x80) {

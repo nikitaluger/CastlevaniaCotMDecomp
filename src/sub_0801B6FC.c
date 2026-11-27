@@ -2,7 +2,7 @@ void setAnimationFrame(u32, void *, u32, u32);
 void sub_0801BE38(void *, s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
-s32 sub_080C364C(s32, s32);
+s32 divInt32(s32, s32);
 
 /* Drive a timed script step: turn the 60-frame tick counter into a phase,
  * run the phase callback to update an output value, then clear the step's
@@ -30,7 +30,7 @@ void sub_0801B6FC(void *arg0)
     *((u16 *) (((u8 *) control) + 0x24)) = 0;
   }
   phaseCallback = (u32 *) 0x08671BFC;
-  *((s32 *) (((u8 *) control) + 0x20)) = sub_080C31E0(sub_080C364C(((s32) (*((s16 *) (((u8 *) control) + 0x24)))) << 16, 0x3C), *phaseCallback) * 2;
+  *((s32 *) (((u8 *) control) + 0x20)) = sub_080C31E0(divInt32(((s32) (*((s16 *) (((u8 *) control) + 0x24)))) << 16, 0x3C), *phaseCallback) * 2;
   tmp = (*((u16 *) (((u8 *) control) + 0x24))) + 1;
   zero = 0;
   *((u16 *) (((u8 *) control) + 0x24)) = tmp;

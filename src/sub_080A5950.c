@@ -11,7 +11,7 @@ struct Entity
 };
 
 s32 sub_08098400(void);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* Fade step for a special object: if no fade is currently visible, set the
@@ -41,7 +41,7 @@ void sub_080A5950(struct Entity *arg0)
         u8 command;
         u32 stepOffset;
         u32 stepOffset2;
-        if (sub_08013B5C(sprite, state) != 0)
+        if (updateObjectDisplayState(sprite, state) != 0)
             return;
         *(u32 *)(self + 0x14) = 0x0866FF64;
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) + 1;

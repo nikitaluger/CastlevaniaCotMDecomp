@@ -1,9 +1,9 @@
 /* identical to sub_080191DC (matched), with its names changed by decompdecomp */
 extern vu32 gMainWorkspace;
-extern vu32 gMainObjTimerCallback;
+extern vu32 gScriptStepCallbackTable;
 
-void *sub_0805FAEC(s32, s32);
-void sub_080161F0(void);
+void *spawnBudgetedEffect(s32, s32);
+void unlinkAndFreeObject(void);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
 void setAnimationFrame(u32, void *, u32, u32);
@@ -37,7 +37,7 @@ struct ResultObj {
 void sub_08043300(struct MainObj *obj) {
     struct SubObj *sub = (struct SubObj *)obj->unk_0x3C;
     if (sub->unk_0x28 != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     sub_080C31E0(obj, sub->unk_0x24);
 }
@@ -48,7 +48,7 @@ void *sub_080191FC(s32 arg0, s32 arg1) {
     s32 var_r1;
     void *temp_r0;
 
-    temp_r0 = sub_0805FAEC(*(vu32 *)((u8 *)&gMainWorkspace + 0x1870), 0x89);
+    temp_r0 = spawnBudgetedEffect(*(vu32 *)((u8 *)&gMainWorkspace + 0x1870), 0x89);
     if (temp_r0 == NULL) {
         return NULL;
     }
@@ -83,6 +83,6 @@ void sub_08019170(struct MainObj *arg0) {
     temp = (u8 *)arg0 + idx * 2;
     if (temp[0x19] > 0x1E) {
         temp[0x19] = 0;
-        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, gMainObjTimerCallback);
+        sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, gScriptStepCallbackTable);
     }
 }

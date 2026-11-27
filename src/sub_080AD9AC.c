@@ -1,6 +1,6 @@
 extern void *sub_080B063C(void *, s32, s32, s32, u16, u8);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 void sub_080AD9AC(void *parent)
 {
   int flagValue;
@@ -40,7 +40,7 @@ void sub_080AD9AC(void *parent)
     *((u8 *) ((obj + (targetIndex * 2)) + 0x19)) = (u8) clearValue;
   }
   {
-    s32 *callbackEntry = &gMainObjTimerCallback;
+    s32 *callbackEntry = &gScriptStepCallbackTable;
     sub_080C31E4(obj + 0x18, obj + 0x22, *callbackEntry);
   }
 }

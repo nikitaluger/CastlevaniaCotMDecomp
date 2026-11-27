@@ -1,11 +1,11 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Give an entity a random diagonal velocity, then advance its state machine.
- * The motion state (via +0x3C) keeps vx/vy at +0x10/+0x14; sub_08005820 with
+ * The motion state (via +0x3C) keeps vx/vy at +0x10/+0x14; scaleByRandom with
  * scale 0x28000 supplies the random magnitude, and the +0x6C flag flips vx.
- * Then reset the slot timer, dispatch the gMainObjTimerCallback callback, bump the timer,
+ * Then reset the slot timer, dispatch the gScriptStepCallbackTable callback, bump the timer,
  * and call the next handler from the function-pointer table at +0x14 indexed by
  * the slot byte at +0x18. */
 void sub_08051408(void *entity) {
@@ -17,8 +17,8 @@ void sub_08051408(void *entity) {
 
     state = *(void **)((u8 *)entity + 0x3C);
     randomScale = 0x28000;
-    *(s32 *)((u8 *)state + 0x10) = sub_08005820(randomScale) + 0x8000;
-    *(s32 *)((u8 *)state + 0x14) = -(sub_08005820(randomScale) + 0x8000);
+    *(s32 *)((u8 *)state + 0x10) = scaleByRandom(randomScale) + 0x8000;
+    *(s32 *)((u8 *)state + 0x14) = -(scaleByRandom(randomScale) + 0x8000);
     if (*(u8 *)((u8 *)entity + 0x6C) & 1) {
         *(s32 *)((u8 *)state + 0x10) = -*(s32 *)((u8 *)state + 0x10);
     }

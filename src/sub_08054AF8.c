@@ -1,7 +1,7 @@
-s32 sub_0805F9B4(s32, s32);
-s32 sub_08013B5C(void *, void *);
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, s32);
+s32 isOutsideCameraBounds(s32, s32);
+s32 updateObjectDisplayState(void *, void *);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, s32);
 void sub_080C31E0(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -23,11 +23,11 @@ void sub_08054AF8(void *arg0)
     anim = (u8 *)actor + 0x34;
     contact = *(struct ScriptContact **)((u8 *)actor + 0x28);
     contact->flag |= 1;
-    if (sub_0805F9B4(*(s32 *)((u8 *)actor + 8), *(s32 *)((u8 *)actor + 0xC)) == 1) {
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)actor + 8), *(s32 *)((u8 *)actor + 0xC)) == 1) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;
     }
-    if (sub_08013B5C(sprite, actor) == 0) {
+    if (updateObjectDisplayState(sprite, actor) == 0) {
         /* 0x0866E714 is this entity's script-step callback table. */
         *(u32 *)((u8 *)arg0 + 0x14) = 0x0866E714;
         *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) + 1;
@@ -47,8 +47,8 @@ void sub_08054AF8(void *arg0)
         *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) - 1;
         if (*(u16 *)((u8 *)arg0 + 2) & 0x8000)
             return;
-        sub_080113A8(sprite, anim);
-        sub_0801165C(actor, 0);
+        stepAnimationTrack(sprite, anim);
+        advanceMotion(actor, 0);
     }
     {
         u8 *scrollBase = gCameraState;

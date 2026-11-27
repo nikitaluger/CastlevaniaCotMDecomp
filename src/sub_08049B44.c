@@ -4,7 +4,7 @@ extern s32 sub_08013558(void *, void *, u32);
 extern void sub_08013978(void *, u32);
 extern void sub_080142C0(void *, u32);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -57,7 +57,7 @@ void sub_08049B44(void *arg0) {
         return;
     }
 
-    if (sub_08013B5C(owner, comp) == 0) {
+    if (updateObjectDisplayState(owner, comp) == 0) {
         s32 idx2;
         u8 *scriptData;
         u8 handlerId;

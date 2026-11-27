@@ -11,19 +11,19 @@ struct AIState {
     u8 _2E[0x12]; u32 idleTimer; u8 _44[8]; u32 flag4C;
     u8 _50[0x68]; u32 flagB8; u8 _BC[8]; u32 aiResult;
 };
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void D_0806AB04(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
-extern void sub_08003A6C(void *, s32, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern u16 sub_0806BCD8(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_08005E80(s32);
 extern void sub_0806D2A0(void *, s32, s32, s32);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 void sub_08068378(struct Actor *entity) {
     struct AIWork *ai;
     struct AIState *aiState;
@@ -35,24 +35,24 @@ void sub_08068378(struct Actor *entity) {
     ref = entity->refPtr;
     ai = (struct AIWork *)entity->aiPtr;
     aiState = aiStateB;
-    if (sub_0806C4B4(aiState, aiState) != 0) return;
-    sub_0806C5EC(entity, (void *)ref, aiState, aiState);
+    if (syncViewPosition(aiState, aiState) != 0) return;
+    resetActionResultState(entity, (void *)ref, aiState, aiState);
     D_0806AB04(entity, (void *)ref, aiState, aiState);
     if (aiState->idleTimer == 0) {
         aiStateB->flag4C = 1;
         *(u8 *)((u32)entity->animIndex * 2 + (u32)entity + 0x19) = 0;
-        { void *fn = &D_08671BD0; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 0x27, *(void **)fn); }
+        { void *fn = &gScriptStepCallbacks; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 0x27, *(void **)fn); }
     }
     sub_0806A884((void *)ref, aiState);
     timerPtr = (u8 *)ai + 0x2C;
-    timerResult = sub_08003740(timerPtr, (void *)ref);
+    timerResult = stepDelayTimer(timerPtr, (void *)ref);
     if (timerResult == 0) {
-        sub_08003A6C(timerPtr, 0, (void *)0x084A6814);
+        startEffectTimer(timerPtr, 0, (void *)0x084A6814);
         *(u8 *)((u32)entity->animIndex * 2 + (u32)entity + 0x19) = 0;
-        { void *fn = &D_08671BD0; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 0x24, *(void **)fn); }
+        { void *fn = &gScriptStepCallbacks; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 0x24, *(void **)fn); }
     }
     if (aiState->mode == 2 && *(s32 *)((u8 *)ai + 0xBC) == 0) {
-        if (sub_08005820(8) != 0) {
+        if (scaleByRandom(8) != 0) {
             sub_0806D2A0(entity, 0x3A, 0x0A, 0x12);
         } else {
             sub_0806D2A0(entity, 0x3B, 0x0A, 0x12);
@@ -62,9 +62,9 @@ void sub_08068378(struct Actor *entity) {
     }
     aiStateB->aiResult = sub_0806BCD8(entity, (void *)ref, aiStateB, aiState);
     if (aiStateB->aiResult != 0) {
-        sub_08003740((u8 *)aiStateB + 0x28, (void *)ref);
+        stepDelayTimer((u8 *)aiStateB + 0x28, (void *)ref);
         *(u8 *)((u32)entity->animIndex * 2 + (u32)entity + 0x19) = 0;
-        { void *fn = &D_08671BD0; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, aiStateB->aiResult, *(void **)fn); }
+        { void *fn = &gScriptStepCallbacks; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, aiStateB->aiResult, *(void **)fn); }
     }
     sub_0806C6B0(entity, (void *)ref, aiStateB, aiState);
 }

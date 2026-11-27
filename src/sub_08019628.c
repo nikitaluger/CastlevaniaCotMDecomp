@@ -2,10 +2,10 @@
  * object, optionally runs the current script command, then syncs the work
  * object's X/Y coordinates to the entity's position in the shared coord
  * table. */
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
-extern s32 sub_08013B5C(void *, void *);
-extern s32 sub_0805F9B4(s32, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
+extern s32 updateObjectDisplayState(void *, void *);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern u8 gCameraState[];
@@ -34,7 +34,7 @@ void sub_08019628(u8 *self) {
     work = *(u8 **)(self + 0x38);
     entity = *(u8 **)(self + 0x3C);
     anim = entity + 0x34;
-    zoneResult = sub_0805F9B4(*(s32 *)(entity + 8), *(s32 *)(entity + 0xC));
+    zoneResult = isOutsideCameraBounds(*(s32 *)(entity + 8), *(s32 *)(entity + 0xC));
     if (zoneResult == 1) {
         *(u8 *)(*(u8 **)(entity + 0x28) + 1) = 0;
         ((struct FlagByte *)(work + 0x2A))->flag &= 0xBF;
@@ -57,7 +57,7 @@ void sub_08019628(u8 *self) {
         }
     }
 
-    if (sub_08013B5C(work, entity) != 0) {
+    if (updateObjectDisplayState(work, entity) != 0) {
         goto syncCoords;
     }
     *(u32 *)(self + 0x14) = 0x0866D5EC;
@@ -73,8 +73,8 @@ void sub_08019628(u8 *self) {
     if ((*(u16 *)(self + 2) & (0x80 << 8)) != 0) {
         return;
     }
-    sub_080113A8(work, anim);
-    sub_0801165C(entity, 0);
+    stepAnimationTrack(work, anim);
+    advanceMotion(entity, 0);
 
 syncCoords:
     coordTable = gCameraState;

@@ -3,7 +3,7 @@ extern u8 D_086426B4[];
 extern union {
     u8 b[0x800];
     s8 sb[0x800];
-} D_020278D0;
+} gMenuState;
 inline u16 inline_fn(u32 base, int index)
 {
   return *((u16 *) (base + index));
@@ -36,8 +36,8 @@ void sub_0800FAE4(u8 *actor)
   kindValue = (s8) kindPtr[0];
   if (kindValue == 0)
   {
-    stateIndex = (s8) D_020278D0.b[0x6A];
-    stateSigned = ((s8 *) ((D_020278D0.b + 0x6F) + stateIndex))[0];
+    stateIndex = (s8) gMenuState.b[0x6A];
+    stateSigned = ((s8 *) ((gMenuState.b + 0x6F) + stateIndex))[0];
     if (stateSigned > 0)
     {
       flagPtr = (u8 *) (sprite + 0x2A);
@@ -48,9 +48,9 @@ void sub_0800FAE4(u8 *actor)
   }
   else
   {
-    stateIndex = D_020278D0.sb[0x6A];
-    stateVal = *(u8 *) (D_020278D0.b + 0x6A + 0x89 + stateIndex);
-    stateSigned = ((s8 *) ((D_020278D0.b + 0x6F) + stateIndex))[0];
+    stateIndex = gMenuState.sb[0x6A];
+    stateVal = *(u8 *) (gMenuState.b + 0x6A + 0x89 + stateIndex);
+    stateSigned = ((s8 *) ((gMenuState.b + 0x6F) + stateIndex))[0];
     diff = stateVal - stateSigned;
     if (diff > 8)
     {

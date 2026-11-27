@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 
 struct ObjectPool { u8 _p[0x1870]; u32 pool; };
 extern struct ObjectPool gMainWorkspace;
@@ -18,7 +18,7 @@ struct SpawnedObj {
 void *sub_0801DAB4(s32 a0, s32 a1, s32 a2, s32 a3) {
     struct SpawnedObj *obj;
     void *result;
-    obj = (struct SpawnedObj *)sub_0805FAEC(gMainWorkspace.pool, 0x93);
+    obj = (struct SpawnedObj *)spawnBudgetedEffect(gMainWorkspace.pool, 0x93);
     if (obj != 0) {
         obj->x = a0;
         obj->y = a1;

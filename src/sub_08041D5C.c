@@ -1,4 +1,4 @@
-extern s32 sub_080113A8(s32, s32);
+extern s32 stepAnimationTrack(s32, s32);
 extern s32 sub_08011EE8(void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -19,7 +19,7 @@ void sub_08041D5C(void *arg0) {
     motion = body + 0x48;
     sub_08011EE8(body, 0x16C1, 0);
     *(u16 *)(motion + 2) = *(u16 *)(motion + 2) | *(u16 *)(body + 2);
-    sub_080113A8(sprite, (s32)anim);
+    stepAnimationTrack(sprite, (s32)anim);
     if (*(u8 *)anim & 2) {
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         handlerTable = (s32 *)0x08671BC0;

@@ -1,4 +1,4 @@
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -20,7 +20,7 @@ void sub_08051490(u8 *arg0)
     startFrame = arg0[0x6C] * 3;
     if (arg0[*(s16 *)(arg0 + 0x22) * 2 + 0x19] >= startFrame)
     {
-        sub_0801165C(motion, 0x16C1);
+        advanceMotion(motion, 0x16C1);
         *(u32 *)(arg0 + 0x4C) = *(u32 *)(motion + 8);
         *(u32 *)(arg0 + 0x5C) = *(u32 *)(motion + 0xC);
         if (arg0[*(s16 *)(arg0 + 0x22) * 2 + 0x19] == startFrame + 0x1E)

@@ -1,7 +1,7 @@
 /* Advance an entity's behavior script: latch a halt flag from its state,
  * dispatch the current state callback, or run the normal script step and then
  * update the entity's position from the camera coordinate table. */
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -47,7 +47,7 @@ void sub_080A1B38(void *arg0) {
         return;
     }
 
-    if (sub_08013B5C(script, state) == 0) {
+    if (updateObjectDisplayState(script, state) == 0) {
         u8 *statePtr;
         u8 stateByte;
         s32 stateIndex;

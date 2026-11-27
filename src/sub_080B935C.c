@@ -1,8 +1,8 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, s32);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 extern u32 gMainWorkspace[];
 
@@ -22,7 +22,7 @@ void sub_080B956C(struct S_0807B12C *arg0)
   int new_var;
   int new_var2;
   void *r5 = (void *) arg0->field_0x38;
-  if (sub_08013B5C(r5, (void *) arg0->field_0x3C) == 0)
+  if (updateObjectDisplayState(r5, (void *) arg0->field_0x3C) == 0)
   {
     arg0->field_0x14 = 0x0867058C;
     arg0->field_0x22 += 1;
@@ -39,16 +39,16 @@ void sub_080B9398(void *arg0) {
     u8 *self = arg0;
     s32 p38 = *(s32 *)(self + 0x38);
     u8 *p3C = *(u8 **)(self + 0x3C);
-    sub_080113A8((void *)p38, p3C + 0x34);
+    stepAnimationTrack((void *)p38, p3C + 0x34);
     *(s32 *)(p3C + 0x10) += *(s32 *)(self + 0x7C) << 13;
-    sub_0801165C(p3C, 0);
+    advanceMotion(p3C, 0);
 }
 
 /* Run one step of the entity's command script; command 0x10 clears the current
  * command byte and reloads the script from the default command table. */
 void sub_080B935C(void *arg0) {
     u8 *obj = arg0;
-    sub_080113A8(*(s32 *)(obj + 0x38), *(u8 **)(obj + 0x3C) + 0x34);
+    stepAnimationTrack(*(s32 *)(obj + 0x38), *(u8 **)(obj + 0x3C) + 0x34);
     if (*(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x19) == 0x10) {
         *(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x19) = 0;
         {

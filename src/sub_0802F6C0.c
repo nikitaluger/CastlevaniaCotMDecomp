@@ -40,7 +40,7 @@ extern struct GameState gMainWorkspace;
 struct ScrollTable { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
 extern struct ScrollTable gCameraState;
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Spawn a simple effect from a main object: allocate a free object, fill its
    OwnerEffect (kind 0x69) and place it at the object's world coordinates. */

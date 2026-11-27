@@ -1,7 +1,7 @@
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Script step advance: marks the work state's mode byte, resets the step
  * counter, advances the script and dispatches the handler for the new step;
@@ -29,7 +29,7 @@ void sub_080563CC(void *arg0)
     ((u8 *)arg0)[stepIndex * 2 + 0x19] = zero;
 
     {
-        void **scriptHandlers = &gMainObjTimerCallback;
+        void **scriptHandlers = &gScriptStepCallbackTable;
         stepBase = (u8 *)arg0 + 0x18;
         sub_080C31E4(stepBase, (u8 *)arg0 + 0x22, *scriptHandlers);
     }

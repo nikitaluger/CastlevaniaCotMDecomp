@@ -1,7 +1,7 @@
 #define SUBPTR ( *(u8 * volatile *)((u8 *)state + 0x2C) )
 void *allocEffectPart(void *);
 void sub_0806D2D0(void *);
-u16 sub_0806D62C(u16, s32);
+u16 scalePercentSaturate16(u16, s32);
 void sub_08003A6C(void *, s32, void *);
 void sub_0808449C(void);
 void sub_080C31E4(void *, void *, void *);
@@ -11,7 +11,7 @@ extern u8 gMainWorkspace[];
 extern u32 D_0202771C;
 extern u8 D_084DFB30[];
 extern u8 D_084DFBC0[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 inline u8 inline_fn()
 {
   return gMainWorkspace[0x14EF];
@@ -49,7 +49,7 @@ void sub_0807A0D4(void *arg0)
   *((u16 *) (SUBPTR + 8)) = 0x0A;
   *((u16 *) (SUBPTR + 0x0A)) = 0;
   *((u16 *) (SUBPTR + 0x0C)) = 0;
-  *((u16 *) (SUBPTR + 0x0E)) = sub_0806D62C(*((u16 *) (config + 0x2E2)), 0x64);
+  *((u16 *) (SUBPTR + 0x0E)) = scalePercentSaturate16(*((u16 *) (config + 0x2E2)), 0x64);
   *((u16 *) (SUBPTR + 0x16)) = 5;
   *((u16 *) (SUBPTR + 0x18)) = 0x5C;
   *((u32 *) (SUBPTR + 0x10)) = (u32) sprite;
@@ -90,7 +90,7 @@ void sub_0807A0D4(void *arg0)
     u32 *scriptTableArg;
     scriptIdx = *((s16 *) (actorPtr + 0x22));
     *((u8 *) ((actorPtr + (scriptIdx * 2)) + 0x19)) = 0;
-    scriptTableArg = gMainObjTimerCallback;
+    scriptTableArg = gScriptStepCallbackTable;
     scriptPtr = actorPtr + 0x18;
     sub_080C31E4(scriptPtr, actorPtr + 0x22, (void *) (*scriptTableArg));
     scriptIdx = *((s16 *) (actorPtr + 0x22));

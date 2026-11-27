@@ -1,7 +1,7 @@
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 
-s32 sub_0805F9B4(s32 a, s32 b);
+s32 isOutsideCameraBounds(s32 a, s32 b);
 void playSound(u16 arg0);
 void _call_via_r1(void *a, u32 b);
 void _call_via_r3(void *a, void *b, s32 c, u32 d);
@@ -60,7 +60,7 @@ void sub_0808F2C0(void *arg0)
     v6 = *(void**)(arg0 + 0x3C);
     v7 = (u8*)v6 + 0x34;
 
-    cond = sub_0805F9B4(*(s32*)(v6 + 8), *(s32*)(v6 + 0x0C));
+    cond = isOutsideCameraBounds(*(s32*)(v6 + 8), *(s32*)(v6 + 0x0C));
     if (cond == 1) {
         p = *(u8**)(v7 + 8);
         { u8 *__fence_p; do { __fence_p = p; } while (0); __fence_p[1] = 0; }

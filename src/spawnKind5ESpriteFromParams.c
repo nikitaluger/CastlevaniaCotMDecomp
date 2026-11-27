@@ -69,7 +69,7 @@ extern s32 signOf(s32);
 extern void setSpriteFlip(u8 *, u32);
 extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 *gMainObjTimerCallback;
+extern u32 *gScriptStepCallbackTable;
 extern u8 gSpriteAnimDataTable[];
 
 /* Builds a kind-0x5E sprite from the entity's spawn parameters: allocates its

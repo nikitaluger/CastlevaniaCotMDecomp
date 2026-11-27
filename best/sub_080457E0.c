@@ -1,5 +1,5 @@
 s32 sub_08014990(s32);
-void *sub_08016238(s32);
+void *hitTestEntities(s32);
 void sub_0808E9AC(s32, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -50,7 +50,7 @@ s32 sub_080457E0(void *arg0)
     {
       return 0;
     }
-    r4 = sub_08016238(*new_var4);
+    r4 = hitTestEntities(*new_var4);
     do { if (r4 == 0)
     {
       return 0;

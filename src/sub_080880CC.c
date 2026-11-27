@@ -8,8 +8,8 @@ struct GameState {
 extern struct GameState gMainWorkspace;
 
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08003A6C(void *, s32, s32);
-extern void sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, s32);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 
 /* Enemy per-frame update while the game is in mode 0x17: restart the mover's
@@ -24,13 +24,13 @@ void sub_080880CC(void *entity) {
     u8 *sprite = *(u8 **)(self + 0x38);
     s32 *scriptTable;
     if (gMainWorkspace.mode == 0x17) {
-        sub_08003A6C(mover + 0x20, 0, 0x08506414);
+        startEffectTimer(mover + 0x20, 0, 0x08506414);
         *(s32 *)(pos + 8) = 0;
         *(s32 *)(pos + 0xC) = 0;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         scriptTable = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);
     }
-    sub_08003740(mover + 0x20, sprite);
+    stepDelayTimer(mover + 0x20, sprite);
     sub_0806D588(sprite, pos);
 }

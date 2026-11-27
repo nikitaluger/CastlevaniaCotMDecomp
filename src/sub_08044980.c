@@ -11,8 +11,8 @@ typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
 M2C_UNK setAnimationFrame(s32, s32, s32, s32);
-M2C_UNK sub_0801165C(void *, s32);
-M2C_UNK sub_08011898(void *, s32);
+M2C_UNK advanceMotion(void *, s32);
+M2C_UNK moveEntityWithCollision(void *, s32);
 M2C_UNK sub_08044FD4(s32, void *, void *, void *);
 M2C_UNK sub_080C31E4(void *, void *, s32);
 
@@ -30,11 +30,11 @@ void sub_08044980(void *self)
   state = entity + 0x48;
   if ((*((u8 *) (((s8 *) state) + 5))) != 0)
   {
-    sub_0801165C(entity, 0x2D82);
+    advanceMotion(entity, 0x2D82);
   }
   else
   {
-    sub_08011898(entity, 0x2D82);
+    moveEntityWithCollision(entity, 0x2D82);
   }
   if (((s32) (*((s32 *) (((s8 *) entity) + 0x14)))) > 0x8000)
   {

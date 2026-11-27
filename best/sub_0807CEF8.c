@@ -4,14 +4,14 @@ extern u8 D_000018A8[];
 extern u8 D_000018C2[];
 extern u8 D_0000173A[];
 extern u8 D_000014ED[];
-extern s32 sub_0806D518(void *, void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void sub_0808DBF8(s32, s32, s32);
-extern s16 sub_080C364C(s32, s16);
-extern void sub_08003740(void *, void *);
-extern void sub_0806D588(void *, void *);
-extern void sub_0806D2F8(void *, void *);
+extern s16 divInt32(s32, s16);
+extern void stepDelayTimer(void *, void *);
+extern void setSpriteScreenPosition(void *, void *);
+extern void cullOffscreenEntity(void *, void *);
 extern void _call_via_r1(u32, u32);
-extern s32 sub_08007DD8(u32, s32);
+extern s32 getTileTerrainB(u32, s32);
 void sub_0807CEF8(void *arg0)
 {
   u8 *r9;
@@ -27,7 +27,7 @@ void sub_0807CEF8(void *arg0)
   r8 = *((u8 **) (r9 + 0x6C));
   do { r6 = r8 + 4; } while (0);
   r7 = *((u8 **) (r9 + 0x38));
-  if (sub_0806D518(arg0, r7, r6) != 0)
+  if (checkGlobalStateChange(arg0, r7, r6) != 0)
   {
     return;
   }
@@ -41,13 +41,13 @@ void sub_0807CEF8(void *arg0)
       v = *((s16 *) (r7 + 4));
       c = 0x80 << 3;
       r5 = *((u8 **) (r6 + 0x2C));
-      *((u16 *) (r5 + 6)) = sub_080C364C(c, v);
+      *((u16 *) (r5 + 6)) = divInt32(c, v);
     }
     {
       s16 v;
       v = *((s16 *) (r7 + 6));
       r5 = *((u8 **) (r6 + 0x2C));
-      *((u16 *) (r5 + 8)) = sub_080C364C(0x80 << 3, v);
+      *((u16 *) (r5 + 8)) = divInt32(0x80 << 3, v);
     }
   } } while (0);
   new_var = (s32 *) (r6 + 4);
@@ -70,7 +70,7 @@ void sub_0807CEF8(void *arg0)
   }
   r2 = ((u32) gMainWorkspace) + ((u32) D_000018A8);
   r2 = ((*((u8 *) r2)) << 6) + ((u32) gTilemapPages);
-  if ((sub_08007DD8(r2, *((s32 *) (r8 + 4))) << 0x10) != 0)
+  if ((getTileTerrainB(r2, *((s32 *) (r8 + 4))) << 0x10) != 0)
   {
     do { sub_0808DBF8(*((s32 *) (r8 + 4)), *new_var, 0); } while (0);
     _call_via_r1((u32) r9, *new_var3);
@@ -79,14 +79,14 @@ void sub_0807CEF8(void *arg0)
   {
     r2 = 0x000018C2;
     *((u16 *) (r7 + new_var2)) = *((u16 *) (((u32) gMainWorkspace) + r2));
-    do { sub_08003740(r8 + 0x20, r7); } while (0);
-    sub_0806D588(r7, r6);
+    do { stepDelayTimer(r8 + 0x20, r7); } while (0);
+    setSpriteScreenPosition(r7, r6);
     if (((*((u8 *) (((u32) gMainWorkspace) + ((u32) D_0000173A)))) == 0x1C) || (((*((u8 *) (((u32) gMainWorkspace) + (0x000014ED)))) == 0) && ((*((u32 *) (((u8 *) gMainWorkspace) + 0x10))) != 0)))
     {
       _call_via_r1((u32) r9, *new_var3);
       return;
     }
-    sub_0806D2F8(arg0, r7);
+    cullOffscreenEntity(arg0, r7);
   }
 }
 

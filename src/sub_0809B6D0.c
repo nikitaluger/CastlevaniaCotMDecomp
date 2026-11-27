@@ -10,7 +10,7 @@ struct WorkState {
 struct ParamEntry { u16 f0; u8 _2[2]; u16 f4; u8 _6[0xE]; };
 extern struct ParamEntry gSpriteKindTable[];
 extern u16 D_081017E8[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -20,7 +20,7 @@ extern void setObjectAnimation(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 
 void sub_0809B6D0(u8 *entity) {
     s32 obj; struct WorkState *p; u8 *animState; u8 one; s32 r; u16 *paramTable; u8 *framePtr; void **fn; u8 *q;
@@ -33,7 +33,7 @@ void sub_0809B6D0(u8 *entity) {
     *(u32 *)(obj + 0x1C) = one;
     p = (struct WorkState *)*(u8 **)(entity + 0x3C);
     animState = (u8 *)p + 0x34;
-    installUpdateHandler(entity, (u8 *)p, sub_08097D90);
+    installUpdateHandler(entity, (u8 *)p, releaseActorEffectSubObject);
     p->f1C = 0x44;
     r = findKindIndex(0x44);
     p->f22 = r;
@@ -61,7 +61,7 @@ cont:
     p->f28->f10 = obj;
     *(u16 *)(entity + 2) |= 0x1000;
     *(u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity + 0x19) = 0;
-    fn = &gMainObjTimerCallback;
+    fn = &gScriptStepCallbackTable;
     framePtr = entity;
     framePtr += 0x18;
     sub_080C31E4(framePtr, entity + 0x22, (s32)*fn);

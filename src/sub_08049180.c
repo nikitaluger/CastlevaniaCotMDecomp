@@ -1,4 +1,4 @@
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 
 /* Recoils a homing entity vertically whenever the animation-driven contact
  * code carried on the sprite changes, then caches the new code in the steer
@@ -6,7 +6,7 @@ extern void sub_080113A8(s32, void *);
 s32 sub_08049180(s32 sprite, void *animState, void *motion, void *steer) {
     s32 impulse = 0;
     s32 rebounded = impulse;
-    sub_080113A8(sprite, animState);
+    stepAnimationTrack(sprite, animState);
     if (*(u16 *)((u8 *)steer + 2) != *(u16 *)((u8 *)sprite + 0x28)) {
         u8 contactType = *(u8 *)((u8 *)steer + 1);
         switch (contactType) {

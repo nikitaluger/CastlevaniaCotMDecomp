@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 extern s32 sub_0800583C(s32);
 extern void sub_080A5644(s32, s32);
 extern void _call_via_r1(void *, void *);
@@ -9,7 +9,7 @@ struct S_02025FF0_1870 { u8 _0x000[0x1870]; u32 v; };
 extern struct S_02025FF0_1870 gMainWorkspace;
 
 void sub_080A56A8(s32 param0, s32 param1) {
-    void *effect = sub_0805FAEC((void *)gMainWorkspace.v, 0x195);
+    void *effect = spawnBudgetedEffect((void *)gMainWorkspace.v, 0x195);
     if (effect != 0) {
         *(s32 *)((u8 *)effect + 0x4C) = param0;
         *(s32 *)((u8 *)effect + 0x5C) = param1;

@@ -32,7 +32,7 @@ struct S_02025368 {
 };
 extern struct S_02025368 gGameStatus;
 
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 extern u32 gLevelExpTable[];
 
 void sub_08071EDC(void *arg0)
@@ -48,7 +48,7 @@ void sub_08071EDC(void *arg0)
         sub_08072018(arg0);
         *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = 0;
         {
-            s32 *nv = gMainObjTimerCallback;
+            s32 *nv = gScriptStepCallbackTable;
             sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *nv);
         }
     }
@@ -82,7 +82,7 @@ void sub_08072140(void *arg0)
     *(u32 *)(self + 0x24) = (u32)sub_08072270;
 
     *(u8 *)(self + (s16)*(u16 *)(self + 0x22) * 2 + 0x19) = 0;
-    lit = gMainObjTimerCallback;
+    lit = gScriptStepCallbackTable;
     base18 = self + 0x18;
     sub_080C31E4(base18, self + 0x22, *lit);
 

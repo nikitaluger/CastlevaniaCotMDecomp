@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, s32);
 s32 sub_080141AC(void *, void *);
 void sub_080C31E0(void *, void *);
@@ -16,7 +16,7 @@ void sub_0809B3F0(void *actor)
         sub_080C31E0(actor, *(void **)(actorBytes + 0x24));
         return;
     }
-    if (sub_08013B5C(sprite, work) == 0) {
+    if (updateObjectDisplayState(sprite, work) == 0) {
         int scriptOffset = 0x18;
         s32 scriptIndex;
         s32 indexOffset;

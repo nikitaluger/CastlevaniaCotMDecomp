@@ -3,7 +3,7 @@ extern void sub_0809C4E0(s32, s32);
 extern void sub_08005E80(s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* AI script step: pose the sprite at frame 0xF, clear a part field and several work
  * flags, play cue 0x165, then advance the script and dispatch the next state callback. */
@@ -36,7 +36,7 @@ void sub_0809A0C0(void *entity)
     sub_08005E80(0x165);
 
     *(s8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (s8)zero;
-    scriptCb = &gMainObjTimerCallback;
+    scriptCb = &gScriptStepCallbackTable;
     stepBase = self + 0x18;
     sub_080C31E4(stepBase, self + 0x22, *scriptCb);
 

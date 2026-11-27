@@ -1,7 +1,7 @@
-extern s32 sub_0806D518(void *, void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
-extern void sub_08003740(void *);
-extern void sub_0806D2F8(void *, void *);
+extern void stepDelayTimer(void *);
+extern void cullOffscreenEntity(void *, void *);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 struct GlobalState {
@@ -32,7 +32,7 @@ void sub_0807F490(u8 *self)
   work = actor + 4;
   state = *((u8 **) statePtr);
   body = work;
-  if (sub_0806D518(self, state, body) != 0)
+  if (checkGlobalStateChange(self, state, body) != 0)
   {
     return;
   }
@@ -46,12 +46,12 @@ void sub_0807F490(u8 *self)
   *((u16 *) ((*((u8 **) (work + 0x2C))) + 0x14)) = 0;
   gs = &gMainWorkspace;
   *((u16 *) state) = gs->f18C2;
-  sub_08003740(work + 0x1C);
+  stepDelayTimer(work + 0x1C);
   sub_0806D588(state, body);
   if ((gs->f173A == 0x1C) || ((gs->f14ED == 0) && (gs->f0010 != 0)))
   {
     sub_080C31E0(self, *((s32 *) (self + 0x24)));
     return;
   }
-  sub_0806D2F8(self, state);
+  cullOffscreenEntity(self, state);
 }

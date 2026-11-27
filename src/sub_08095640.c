@@ -6,7 +6,7 @@ extern void sub_080C31E0(void *, s32);
 
 extern u8 gTilemapPages[];
 extern u8 gMainWorkspace[];
-extern s32 D_08671BDC;
+extern s32 sScriptStepCallbacks;
 
 /*
  * Entity attack update: when the current animation frame registers a hit, sets
@@ -51,7 +51,7 @@ void sub_08095640(u8 *entity)
 
             *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x1B) = (u8)zero;
             {
-                s32 *scriptTable = &D_08671BDC;
+                s32 *scriptTable = &sScriptStepCallbacks;
                 sub_080C31E8(entity + 0x18, entity + 0x22, 1, *scriptTable);
             }
         }

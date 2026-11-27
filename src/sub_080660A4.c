@@ -1,10 +1,10 @@
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 extern void sub_0806AB04(void *, void *, void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern u16 sub_08065CC8(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_0806D7B4(void *, s32);
@@ -26,19 +26,19 @@ void sub_080660A4(u8 *actor)
     u8 *obj = objTail;
     s32 timerResult;
 
-    if (sub_0806C4B4(obj, objTail) != 0)
+    if (syncViewPosition(obj, objTail) != 0)
     {
         return;
     }
-    sub_0806C5EC(actor, position, obj, obj);
+    resetActionResultState(actor, position, obj, obj);
     sub_0806AB04(actor, position, obj, obj);
     sub_0806A884(position, obj);
-    timerResult = sub_08003740(state + 0x2C, position);
+    timerResult = stepDelayTimer(state + 0x2C, position);
     if (timerResult == 0)
     {
         *((u8 *)(((s16)*((s16 *)(actor + 0x22))) * 2 + (u32)actor) + 0x19) = timerResult;
         {
-            void **callback = &D_08671BD0;
+            void **callback = &gScriptStepCallbacks;
             u8 *cbArgA = actor + 0x18;
             u8 *cbArgB = actor + 0x22;
             u16 callbackValue = sub_08065CC8(actor, position, obj, obj);
@@ -68,11 +68,11 @@ void sub_080660A4(u8 *actor)
     {
         *((u8 *)(((s16)*((s16 *)(actor + 0x22))) * 2 + (u32)actor) + 0x19) = 0;
         {
-            void **callback = &D_08671BD0;
+            void **callback = &gScriptStepCallbacks;
             sub_080C31E8(actor + 0x18, actor + 0x22, *((u32 *)(objTail + 0xC4)), *callback);
         }
         gMainWorkspace.f1824 = 0;
-        sub_08003740(objTail + 0x28, position);
+        stepDelayTimer(objTail + 0x28, position);
     }
     sub_0806C6B0(actor, position, objTail, obj);
 }

@@ -1,8 +1,8 @@
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_080C31E0(void *, s32);
 
 /* Entity state block (the pointer at entity+0x3C). +0x34 is the
- * sprite/animation descriptor advanced by sub_080113A8. */
+ * sprite/animation descriptor advanced by stepAnimationTrack. */
 struct State {
     u8 _0[0x10];
     u32 f10;
@@ -19,14 +19,14 @@ struct Entity {
     struct State *state;     /* 0x3C: per-entity state block */
 };
 
-/* Advance the state's sprite descriptor via sub_080113A8; if the descriptor
+/* Advance the state's sprite descriptor via stepAnimationTrack; if the descriptor
  * reports completion (bit 1), run the entity's pending update callback. */
 void sub_080B6448(struct Entity *entity)
 {
     s32 spriteId = entity->sprite;
     struct State *state = entity->state;
     void *sprite = (u8 *)state + 0x34;
-    sub_080113A8(spriteId, sprite);
+    stepAnimationTrack(spriteId, sprite);
     if (2 & *(u8 *)sprite) {
         sub_080C31E0(entity, entity->update);
     }

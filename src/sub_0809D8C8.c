@@ -2,7 +2,7 @@ extern void setObjectAnimation(void *, void *, s32, s32);
 extern void sub_08011528(void *, void *);
 extern void sub_080A040C(void *);
 extern void sub_080C31E4(void *, void *, u32);
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Animation step: set and advance sprite animation 0x17; once it has finished,
  * clear the attached action's state, mark its sub-object as removed, copy the
@@ -27,7 +27,7 @@ void sub_0809D8C8(void *arg0)
         *(u8 *)(*(u8 **)(work + 0x28) + 1) = 0;
         *(u8 *)(self + (*(s16 *)(self + 0x22) * 2) + 0x19) = 0;
         {
-            u32 *cmdTable = gMainObjTimerCallback;
+            u32 *cmdTable = gScriptStepCallbackTable;
             sub_080C31E4(self + 0x18, self + 0x22, *cmdTable);
         }
     }

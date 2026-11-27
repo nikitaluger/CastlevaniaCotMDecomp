@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 
 struct S_02025FF0 { u8 pad[0x1870]; u32 objPool; };
 extern struct S_02025FF0 gMainWorkspace;
@@ -8,7 +8,7 @@ extern struct S_02025FF0 gMainWorkspace;
 void *sub_0805B2B8(s32 x, s32 y) {
     void *obj;
     s32 rawX, rawY, gridX, gridY;
-    obj = sub_0805FAEC(gMainWorkspace.objPool, 0x16A);
+    obj = spawnBudgetedEffect(gMainWorkspace.objPool, 0x16A);
     if (obj == NULL)
         return NULL;
     rawX = x;

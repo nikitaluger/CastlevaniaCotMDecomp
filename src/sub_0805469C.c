@@ -2,7 +2,7 @@ void sub_080C31E8(void *a, void *b, s32 c, s32 d); /* _call_via_r3 */
 
 /* Wait-for-turn command: once the X and Y motion components at work+0x48 no
  * longer point in opposite directions, clear them, clear the current step's
- * byte and dispatch script op 0 through D_08671BD0. */
+ * byte and dispatch script op 0 through gScriptStepCallbacks. */
 void sub_0805469C(void *arg0)
 {
   u8 *actor = (u8 *) arg0;

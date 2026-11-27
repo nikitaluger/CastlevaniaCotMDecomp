@@ -4,12 +4,12 @@ s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern u32 D_0866E238;
 
 /* Runs the hit/damage responses for a weapon entity's owner and hitbox
@@ -44,7 +44,7 @@ void sub_080446C8(void *entity) {
             slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
             *(u8 *)(slot + 0x19) = 0;
         }
-        argTable = &gMainObjTimerCallback;
+        argTable = &gScriptStepCallbackTable;
         slots = self + 0x18;
         sub_080C31E4(slots, self + 0x22, *argTable);
         {
@@ -59,7 +59,7 @@ void sub_080446C8(void *entity) {
         return;
     }
 
-    if (sub_08013B5C(parent, obj) == 0) {
+    if (updateObjectDisplayState(parent, obj) == 0) {
         u8 *slots;
         u8 slotByte;
         s32 slotOff;

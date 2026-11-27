@@ -1,4 +1,4 @@
-extern void sub_08003740(void *a, void *b);
+extern void stepDelayTimer(void *a, void *b);
 extern void playSound(s32 a);
 extern void *sub_0806D2A0(s32 a, s32 b, s32 c, s32 d);
 extern s32 sub_0806D450(void *a, void *b, void *c);
@@ -31,7 +31,7 @@ void sub_08080920(void *arg0)
     {
         u8 *r7 = (u8 *)0x02025FF0;
         *(u16 *)(r5 + 0x00) = *(u16 *)(r7 + 0x18C2);
-        sub_08003740(r8 + 0x1C, r5);
+        stepDelayTimer(r8 + 0x1C, r5);
         *(s32 *)(r4 + 0x14) = *(s32 *)(r4 + 0x14) - 1;
         if (*(s32 *)(r4 + 0x14) == 0) {
             playSound(0x15F);

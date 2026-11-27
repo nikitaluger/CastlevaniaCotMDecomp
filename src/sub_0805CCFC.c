@@ -3,14 +3,14 @@
  * room's coordinate table. */
 extern s32 sub_08005E80(s32);
 extern s32 sub_080113A8(void *, void *);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E958[];
-extern s32 D_08671BDC;
+extern s32 sScriptStepCallbacks;
 
 void sub_0805CCFC(u8 *script) {
     u8 *attacker;
@@ -35,11 +35,11 @@ void sub_0805CCFC(u8 *script) {
         scriptPc = script + 0x18;
     } else {
         scriptPc = script + 0x18;
-        if (sub_08016238(*(u8 **)(attack + 0x0C)) != 0) {
+        if (hitTestEntities(*(u8 **)(attack + 0x0C)) != 0) {
             *(u8 *)(*(u8 **)(attack + 0x0C) + 1) = 0;
             sub_08005E80(0x6E);
             *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x1B) = 0;
-            cmdTableAddr = &D_08671BDC;
+            cmdTableAddr = &sScriptStepCallbacks;
             sub_080C31E8(scriptPc, script + 0x22, 1, *cmdTableAddr);
         }
     }

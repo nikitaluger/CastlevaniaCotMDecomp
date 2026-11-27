@@ -1,5 +1,5 @@
-extern void sub_08060C74(u8, u8, u8, void *, void *);
-extern void sub_08060D34(void);
+extern void decode2bppTiles(u8, u8, u8, void *, void *);
+extern void uploadGfxTilesToVram(void);
 extern void *D_086711E8[];
 
 // Loads a 2bpp graphic into the work buffer at 0x02023248: ids 0-1 fill it with
@@ -29,11 +29,11 @@ void sub_08060A50(u16 gfxId) {
         void **gfxTable = D_086711E8;
         s32 tableIndex = (s32)id - 2;
         void *src = gfxTable[tableIndex];
-        sub_08060C74(4, 8, 0, src, (void *)0x02023248);
+        decode2bppTiles(4, 8, 0, src, (void *)0x02023248);
         break;
     }
     }
-    if (id != 0) sub_08060D34();
+    if (id != 0) uploadGfxTilesToVram();
     {
         u32 state = (u32)0x02021E90;
         *(u8 *)(state + 0x1443) += 1;

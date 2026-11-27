@@ -1,13 +1,13 @@
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
-extern s32 sub_08013B5C(void *, void *);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void setAttackHitbox(void *, void *);
 extern s32 sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866D820[];
-extern s32 D_08671BDC[];
+extern s32 sScriptStepCallbacks[];
 
 struct SubFlag { u8 a; u8 flag; };
 struct StateFlag { u16 flag; };
@@ -47,12 +47,12 @@ void sub_080210D0(u8 *arg0)
         if (*(u8 *)(flagPtr + 0x1A) != 1) {
             s32 *scriptJump;
             *(u8 *)(flagPtr + 0x1B) = 0;
-            scriptJump = D_08671BDC;
+            scriptJump = sScriptStepCallbacks;
             sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 1, *scriptJump);
         }
     }
 
-    if (sub_08013B5C(mainObj, state) != 0) goto common;
+    if (updateObjectDisplayState(mainObj, state) != 0) goto common;
 
     *(u32 *)(arg0 + 0x14) = (u32)D_0866D820;
     *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) + 1;
@@ -65,8 +65,8 @@ void sub_080210D0(u8 *arg0)
     sub_080C31E0((void *)arg0, *(u32 *)(*(u32 *)(arg0 + 0x14) + cmd * 4));
     *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) - 1;
     if ((*(u16 *)(arg0 + 2) & 0x8000) != 0) return;
-    sub_080113A8(mainObj, p34);
-    sub_0801165C(state, 0);
+    stepAnimationTrack(mainObj, p34);
+    advanceMotion(state, 0);
 
 common:
     setAttackHitbox(mainObj, state);

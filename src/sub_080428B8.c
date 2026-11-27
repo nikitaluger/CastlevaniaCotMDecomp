@@ -1,5 +1,5 @@
 extern void sub_08015974(void);
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -13,7 +13,7 @@ void sub_080428B8(void *entity) {
 
     state = *(void **)((u8 *)entity + 0x3C);
     if (*(s32 *)((u8 *)state + 0x28) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(s32 *)((u8 *)state + 0x2C) != 0) {
         sub_08015974();
@@ -22,7 +22,7 @@ void sub_080428B8(void *entity) {
     remaining = 1;
     do {
         if (*(s32 *)childRef != 0) {
-            sub_080161F0();
+            unlinkAndFreeObject();
         }
         childRef += 4;
         remaining -= 1;

@@ -1,5 +1,5 @@
 extern s32 sub_08005E80(s32);
-extern s32 sub_0801165C(void *, s32);
+extern s32 advanceMotion(void *, s32);
 extern s32 sub_080BB984(void *, s32);
 extern s32 sub_080BBA4C(void *);
 extern s32 sub_080BBB60(void *);
@@ -20,7 +20,7 @@ void sub_080BB288(void *arg0)
   other = *((void **) (((s8 *) arg0) + 0x4C));
   sub_080BB984(body, work);
   sub_080BBB60(body);
-  sub_0801165C(body, 0);
+  advanceMotion(body, 0);
   if ((*((u8 *) (((s8 *) (((*((s16 *) (((s8 *) arg0) + 0x22))) * 2) + arg0)) + 0x19))) == 2)
   {
     sub_08005E80(0x1AB);

@@ -1,4 +1,4 @@
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 extern u8 gGameStatus[];
 extern u8 D_0863E89C[];
 void _call_via_r1(void *, void *);
@@ -10,7 +10,7 @@ void *sub_08001480(s32, s32);
 /* Dispatch the handler at object+0x24 for each of the five tracked objects. */
 void sub_0800D320(void) {
     u32 i = 0;
-    u8 *state = D_020278D0;
+    u8 *state = gMenuState;
     void **objPtr = (void **)(state + 0x48);
     void *obj;
     do {
@@ -27,7 +27,7 @@ void sub_0800D320(void) {
 void sub_0800E328(void) {
     u32 i = 0;
     u8 *workspace = gGameStatus;
-    u8 *state = D_020278D0;
+    u8 *state = gMenuState;
     void **objPtr = (void **)(state + 0x48);
     void *obj;
     do {
@@ -85,7 +85,7 @@ void sub_0800C2C8(void *arg0)
  * then allocate one more tagged 7 as the last tracked object. */
 void sub_0800E8B0(s32 kind) {
     s32 i = 0;
-    u8 *state = D_020278D0;
+    u8 *state = gMenuState;
     void **objPtr = (void **)(state + 0x48);
     void *newObj;
     void *cur;

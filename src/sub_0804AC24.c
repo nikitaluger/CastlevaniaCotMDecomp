@@ -1,5 +1,5 @@
-extern u32 D_08671BFC[];
-extern void sub_080113A8(void *, void *);
+extern u32 gTrigFuncPtr[];
+extern void stepAnimationTrack(void *, void *);
 extern void sub_0804ACB0(void *, void *);
 
 typedef s32 (*Fn1)(s32);
@@ -15,9 +15,9 @@ void sub_0804AC24(void *actor) {
     s32 wave;
 
     *(s32 *)(work + 8) = *(s32 *)(work + 8) + *(s32 *)(work + 0x10);
-    wave = ((Fn1)D_08671BFC[0])(*(s32 *)(motion + 4));
+    wave = ((Fn1)gTrigFuncPtr[0])(*(s32 *)(motion + 4));
     *(s32 *)(work + 0xC) = *(s32 *)(work + 0x48) + (wave << 2);
     *(s32 *)(motion + 4) = *(s32 *)(motion + 4) + 0x200;
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
     sub_0804ACB0(work, sprite);
 }

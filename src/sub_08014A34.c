@@ -23,6 +23,6 @@ s32 sub_08014A34(void *out, s32 angle, s32 step, s32 limit)
 }
 
 s32 sub_08014A04(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 signOf(s32);
 void sub_080149A4(void *arg0, void *arg1, u16 *arg2, u16 arg3, s32 arg4);

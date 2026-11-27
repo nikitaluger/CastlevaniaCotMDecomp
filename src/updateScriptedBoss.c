@@ -1,4 +1,4 @@
-extern s32 sub_08003740(u8 *, u8 *);
+extern s32 stepDelayTimer(u8 *, u8 *);
 extern void sub_08005E80(s32);
 extern void sub_0806A7AC(u8 *, u8 *, s32);
 extern void sub_0806A884(u8 *, u8 *);
@@ -6,11 +6,11 @@ extern s32 sub_0806B104(u8 *, u8 *, u8 *);
 extern s32 sub_0806B3E8(u8 *, u8 *, u8 *, u8 *);
 extern s32 sub_0806B820(u8 *, u8 *, u8 *, u8 *);
 extern s32 sub_0806BA98(u8 *, u8 *, u8 *, u8 *);
-extern void sub_0806C49C(u8 *, u8 *);
-extern s32 sub_0806C4B4(u8 *, u8 *);
-extern void sub_0806C5EC(u8 *, u8 *, u8 *, u8 *);
+extern void resetActorForm(u8 *, u8 *);
+extern s32 syncViewPosition(u8 *, u8 *);
+extern void resetActionResultState(u8 *, u8 *, u8 *, u8 *);
 extern void sub_0806C6B0(u8 *, u8 *, u8 *, u8 *);
-extern void sub_0806E114(u8 *, s32, u32, u32);
+extern void spawnKind2CEntity(u8 *, s32, u32, u32);
 extern void sub_080C31E8(u8 *, u8 *, s32, s32);
 extern s32 sub_0806AB04(u8 *, u8 *, u8 *, u8 *);
 extern u16 sub_0806BCD8(u8 *, u8 *, u8 *, u8 *);
@@ -52,11 +52,11 @@ void updateScriptedBoss(struct ScriptedObject *boss)
   target = boss->target;
   workState = work;
   gameFlags = gGameStatus;
-  if (sub_0806C4B4(work, workState) != 0)
+  if (syncViewPosition(work, workState) != 0)
   {
     goto end;
   }
-  sub_0806C5EC((u8 *) boss, target, workState, workState);
+  resetActionResultState((u8 *) boss, target, workState, workState);
   if (((*((u32 *) (workState + 0x60))) & 0xF) == 0)
   {
     sub_08005E80(0x69);
@@ -70,11 +70,11 @@ void updateScriptedBoss(struct ScriptedObject *boss)
     if (((*((s32 *) (workState + 0x60))) > 0x1F) && (gMainWorkspace.mode != 1))
     {
       sub_0806A7AC(target, workState, BOSS_FORM_ATTACK);
-      sub_0806E114((u8 *) boss, 4, data->gfxId, *((u32 *) (workState + 4)));
+      spawnKind2CEntity((u8 *) boss, 4, data->gfxId, *((u32 *) (workState + 4)));
     }
     else
     {
-      sub_0806C49C(target, work);
+      resetActorForm(target, work);
     }
     *((u8 *) ((((u8 *) boss) + (2 * boss->index)) + 0x19)) = 0;
     {
@@ -129,7 +129,7 @@ void updateScriptedBoss(struct ScriptedObject *boss)
     }
   }
   offset = 0x28;
-  sub_08003740(work + offset, target);
+  stepDelayTimer(work + offset, target);
   sub_0806C6B0((u8 *) boss, target, work, workState);
   end:
   ;

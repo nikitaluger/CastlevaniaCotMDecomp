@@ -1,10 +1,10 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 void setAnimationFrame(s32, void *, u16, u8);
 void setSpriteFlip(void *, s32);
 s32 sub_08014A04(void *, s32, s32, s32, s32);
 void sub_08014B1C(void *, void *, s32, s32);
 void sub_0804EA20(void *);
-void *sub_0805FAEC(s32, s32);
+void *spawnBudgetedEffect(s32, s32);
 extern u8 gMainWorkspace[];
 
 /* Counts down a timer: on expiry in the right animation state it spawns
@@ -26,8 +26,8 @@ void sub_0804E8DC(void *entity) {
             void *spawned;
             u32 poolOffset = 0x1870;
 
-            *(u16 *)(state + 0x12) = (u16)(sub_08005820(0x3D) + 0xB4);
-            spawned = sub_0805FAEC(*(s32 *)(gMainWorkspace + poolOffset), 0x13E);
+            *(u16 *)(state + 0x12) = (u16)(scaleByRandom(0x3D) + 0xB4);
+            spawned = spawnBudgetedEffect(*(s32 *)(gMainWorkspace + poolOffset), 0x13E);
             if (spawned != NULL) {
                 s32 x = *(s32 *)((u8 *)obj + 8);
                 if (x < 0)

@@ -1,5 +1,5 @@
-extern s32 sub_0805F9B4(s32 a, s32 b);
-extern void sub_080113A8(void *a, void *b);
+extern s32 isOutsideCameraBounds(s32 a, s32 b);
+extern void stepAnimationTrack(void *a, void *b);
 extern s32 sub_080C31E0(void *a, void *b);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -17,9 +17,9 @@ void sub_08028B14(void *arg0)
     work = *(void **)((u8 *)arg0 + 0x3C);
     animState = (u8 *)work + 0x34;
 
-    if (sub_0805F9B4(*(s32 *)((u8 *)work + 0x08), *(s32 *)((u8 *)work + 0x0C)) == 1)
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)work + 0x08), *(s32 *)((u8 *)work + 0x0C)) == 1)
         goto CALL;
-    sub_080113A8(sprite, animState);
+    stepAnimationTrack(sprite, animState);
     if (*animState & 2)
         goto CALL;
     goto COORD;

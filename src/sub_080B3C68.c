@@ -1,7 +1,7 @@
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* Script step handler: when the current slot's command byte is 4, clear it and
- * dispatch the slot's command through the table at D_08671BD0. */
+ * dispatch the slot's command through the table at gScriptStepCallbacks. */
 void sub_080B3C68(void *arg0) {
     u8 *self = (u8 *)arg0;
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 4) {

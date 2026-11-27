@@ -1,4 +1,4 @@
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 void sub_0809C840(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_0809BEB0(void);
@@ -52,7 +52,7 @@ void sub_0809AF38(struct S_0807B12C *obj)
   u32 *pTable;
   struct S_r5_0809AF38 *motion = (struct S_r5_0809AF38 *) obj->field_0x3C;
   sub_0809C840(obj, flags);
-  sub_0801165C((void *) motion, 0x16C1);
+  advanceMotion((void *) motion, 0x16C1);
   if (((s32) motion->field_0x14) >= 0)
   {
     motion->field_0x48 = motion->field_0x0C;

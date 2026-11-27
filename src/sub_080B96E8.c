@@ -6,13 +6,13 @@ struct SpawnLogic { u8 pad0[4]; u16 kind; u8 pad6[2]; u32 moveX, moveY; u8 pad10
 extern struct SpawnSprite *allocSpriteObject(void);
 extern void allocWorkSlot(void *arg0, int a, int b, int c);
 extern void installUpdateHandler(void *a, struct SpawnLogic *b, void (*c)(void));
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 extern void initWorkStateForKind(void *a, struct SpawnSprite *b, struct SpawnLogic *c, u32 d, s32 e);
 extern void initSpriteGraphics(struct SpawnSprite *a, u8 *b, void *c);
 extern void setAnimationFrame(struct SpawnSprite *a, u8 *b, int c, int d);
 extern void sub_080C31E0(void *a, u32 b);
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
-extern u32 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u32 gMainObjTimerCallback;
+extern u32 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u32 gScriptStepCallbackTable;
 
 /*
  * Spawns a sprite for a scripted task: allocates it, sets up its movement
@@ -44,7 +44,7 @@ body:
     sprite->typeId = 0x14;
     logic = (struct SpawnLogic *)U32(task, 0x3C);
     animData = (u8 *)logic + 0x34;
-    installUpdateHandler(task, logic, sub_08097DC8);
+    installUpdateHandler(task, logic, updateActorEffectSubObject);
     initWorkStateForKind(task, sprite, logic, savedState, 0x67);
     sprite->flags0 = sprite->flags0 & 0x0FFF;
     zero = 0;
@@ -53,7 +53,7 @@ body:
     gMainWorkspace[0x10] = (u32)zero;
     U16(task, 0x02) = 0x1000 | U16(task, 0x02);
     U8(task, 0x19 + (s16)U16(task, 0x22) * 2) = (u8)zero;
-    endCallbacks = &gMainObjTimerCallback;
+    endCallbacks = &gScriptStepCallbackTable;
     stepEntries = (u8 *)task + 0x18;
     sub_080C31E4(stepEntries, (s16 *)((u8 *)task + 0x22), *endCallbacks);
     stepState = (u8 *)((s16)U16(task, 0x22) * 2 + (u32)task);

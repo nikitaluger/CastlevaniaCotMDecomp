@@ -2,10 +2,10 @@
  * sprite's resource slots and install the cleanup callback, set its state table
  * and animation params, then clear and bump the script counter and dispatch the
  * handler selected by the script. */
-extern void sub_08003A6C(void *, s32, s32);
+extern void startEffectTimer(void *, s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_0808449C(void);
+extern void releaseActorEffectParts(void);
 
 void sub_080839E4(u8 *actor) {
     u8 *sprite = *(u8 **)(actor + 0x6C);
@@ -24,9 +24,9 @@ void sub_080839E4(u8 *actor) {
     *(s32 *)(spriteState + 0x38) = zero;
     *(s32 *)(spriteState + 0x3C) = zero;
     *(void **)(spriteState + 0x18) = *(void **)(actor + 0x24);
-    *(void **)(actor + 0x24) = &sub_0808449C;
+    *(void **)(actor + 0x24) = &releaseActorEffectParts;
     *(u32 *)(state + 0x24) = 0x084FAC70;
-    sub_08003A6C(sprite + 0x20, 0, 0x084FACD8);
+    startEffectTimer(sprite + 0x20, 0, 0x084FACD8);
     *(void **)(spriteState + 0x4C) = *(void **)(actor + 0x7C);
     spriteByte = *(s32 *)(actor + 0x8C);
     *(u8 *)(sprite + 0x54) = spriteByte;

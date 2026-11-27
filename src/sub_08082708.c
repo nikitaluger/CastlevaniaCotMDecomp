@@ -9,7 +9,7 @@ struct S_02025FF0
 extern struct S_02025FF0 gMainWorkspace;
 s32 allocWorkSlot(void *, s32, s32, s32);
 void *allocSpriteObject(void);
-void sub_0806D2D0(void *);
+void cleanupFailedEffectSpawn(void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 struct ST { u8 pad[2]; u16 f2; };
@@ -26,7 +26,7 @@ void sub_08082708(void *scriptStep)
   newActor = allocSpriteObject();
   if (newActor == NULL)
   {
-    sub_0806D2D0(scriptStep);
+    cleanupFailedEffectSpawn(scriptStep);
     return;
   }
   *((void **) (((u8 *) scriptStep) + 0x38)) = newActor;

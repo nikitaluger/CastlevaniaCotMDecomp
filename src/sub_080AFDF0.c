@@ -1,5 +1,5 @@
 extern s32 allocWorkSlot(u8 *, s32, s32, s32);
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080AFE80(void *);
 
@@ -24,11 +24,11 @@ void sub_080AFDF0(u8 *self) {
         return;
     }
     childSlots = work + 0x48;
-    child = sub_0805FAEC(gMainWorkspace.v, 0x1B0);
+    child = spawnBudgetedEffect(gMainWorkspace.v, 0x1B0);
     *(void **)childSlots = child;
     *(void **)(self + 0x7C) = child;
     *(u8 *)(*(void **)childSlots + 0x4C) = 0;
-    child = sub_0805FAEC(gMainWorkspace.v, 0x1B0);
+    child = spawnBudgetedEffect(gMainWorkspace.v, 0x1B0);
     *(void **)(childSlots + 4) = child;
     *(void **)(self + 0x6C) = child;
     {

@@ -1,7 +1,7 @@
-extern void sub_080161F0(void *);
+extern void unlinkAndFreeObject(void *);
 
 /* Three sub-objects owned by a state block (state+0x54), freed by
- * sub_080161F0 when still allocated. */
+ * unlinkAndFreeObject when still allocated. */
 struct OwnedObjects {
     void *obj0;
     void *obj1;
@@ -11,12 +11,12 @@ struct OwnedObjects {
 /* Free the three sub-objects owned by this block, skipping empty slots. */
 void sub_0803B1CC(struct OwnedObjects *res) {
     if (res->obj0 != 0) {
-        sub_080161F0(res->obj0);
+        unlinkAndFreeObject(res->obj0);
     }
     if (res->obj1 != 0) {
-        sub_080161F0(res->obj1);
+        unlinkAndFreeObject(res->obj1);
     }
     if (res->obj2 != 0) {
-        sub_080161F0(res->obj2);
+        unlinkAndFreeObject(res->obj2);
     }
 }

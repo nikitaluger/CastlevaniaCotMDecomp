@@ -1,5 +1,5 @@
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void setSpriteFlip(u8 *, u32);
 extern s32 sub_08014A04(u8 *, s32, s32, s32, s32);
 extern void sub_08014B1C(u8 *, u8 *, s32, s32);
@@ -46,5 +46,5 @@ void sub_08026628(u8 *arg0) {
     sub_080C31E0((s32)arg0, *(s32 *)((u32)(msgIndex * 4) + *(u32 *)((u8 *)arg0 + 0x14)));
     *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) - 1;
     *(u32 *)(ctrl + 0x18) = (*(u32 *)(ctrl + 0x18) + (0x80 << 4)) & 0xFFFF;
-    sub_0801165C(state + 0xA8, 0);
+    advanceMotion(state + 0xA8, 0);
 }

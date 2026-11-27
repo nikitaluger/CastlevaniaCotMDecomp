@@ -1,5 +1,5 @@
 extern volatile unsigned char sub_08007B78(s32, s32, s32);
-extern void sub_0806A7AC(s32, void *, s32);
+extern void setEntityForm(s32, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 struct S_02025FF0
 {
@@ -20,7 +20,7 @@ struct S_02021E90
 };
 extern struct S_02021E90 gCameraState;
 extern u8 gTilemapPages[];
-extern s32 D_08671BD0;
+extern s32 gScriptStepCallbacks;
 struct Step
 {
   u8 _0[0x19];
@@ -69,10 +69,10 @@ s32 sub_0806B2C8(struct Actor *actor, s32 entity, struct Interaction *interactio
   switch (attr)
   {
   case 0x15:
-    sub_0806A7AC(entity, interaction, 0x34);
+    setEntityForm(entity, interaction, 0x34);
     ((struct Step *) (((u8 *) actor) + (actor->step * 2)))->timer = 0;
     {
-      s32 *handlerTable = &D_08671BD0;
+      s32 *handlerTable = &gScriptStepCallbacks;
       sub_080C31E8(((u8 *) actor) + 0x18, ((u8 *) actor) + 0x22, 0x2F, *handlerTable);
     }
     return 0x2F;
@@ -81,22 +81,22 @@ s32 sub_0806B2C8(struct Actor *actor, s32 entity, struct Interaction *interactio
       s32 pending = gMainWorkspace.event;
       if (pending == 0)
       {
-        sub_0806A7AC(entity, interaction, 0x34);
+        setEntityForm(entity, interaction, 0x34);
         ((struct Step *) (((u8 *) actor) + (actor->step * 2)))->timer = (u8) pending;
         {
-          s32 *handlerTable = &D_08671BD0;
+          s32 *handlerTable = &gScriptStepCallbacks;
           sub_080C31E8(((u8 *) actor) + 0x18, ((u8 *) actor) + 0x22, 0x30, *handlerTable);
         }
         return 0x30;
       }
     }
   default:
-    sub_0806A7AC(entity, interaction, 2);
+    setEntityForm(entity, interaction, 2);
     interaction->active = 1;
     pos->z = 0;
     ((struct Step *) (((u8 *) actor) + (actor->step * 2)))->timer = 0;
     {
-      s32 *handlerTable = &D_08671BD0;
+      s32 *handlerTable = &gScriptStepCallbacks;
       sub_080C31E8(((u8 *) actor) + 0x18, ((u8 *) actor) + 0x22, 5, *handlerTable);
     }
     return 5;

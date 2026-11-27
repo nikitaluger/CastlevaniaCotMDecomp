@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0801473C(s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -28,7 +28,7 @@ void sub_080A75A8(void *arg0)
     do {
         s32 angleDelta;
         angleDelta = *(s32 *)((u8 *)angleTable + (*indexPtr) * 8) - *(s32 *)(tableB + (*indexPtr) * 8);
-        matchedAngle = sub_08005820(angleDelta) + *(s32 *)(tableB + (*indexPtr) * 8);
+        matchedAngle = scaleByRandom(angleDelta) + *(s32 *)(tableB + (*indexPtr) * 8);
     } while (matchedAngle == *(s32 *)(ai + 0xC0));
 
     {

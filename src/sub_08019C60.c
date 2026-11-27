@@ -1,6 +1,6 @@
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
-extern s32 sub_08013B5C(void *, void *);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08019ED4(void *, void *);
 extern s32 sub_080C31E0(s32, s32);
 extern u8 gCameraState[];
@@ -35,7 +35,7 @@ void sub_08019C60(u8 *self) {
     parentFlag = *(struct FlagPair **)(parent + 0x28);
     parentFlag->flag |= 1;
 
-    if (sub_08013B5C(child, parent) != 0) goto common;
+    if (updateObjectDisplayState(child, parent) != 0) goto common;
 
     *(u32 *)(self + 0x14) = (u32)D_0866D608;
     *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) + 1;
@@ -48,8 +48,8 @@ void sub_08019C60(u8 *self) {
     sub_080C31E0((s32)self, *(u32 *)(*(u32 *)(self + 0x14) + effectIndex * 4));
     *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
     if ((*(u16 *)(self + 2) & 0x8000) != 0) return;
-    sub_080113A8(child, parentData);
-    sub_0801165C(parent, 0);
+    stepAnimationTrack(child, parentData);
+    advanceMotion(parent, 0);
 
 common:
     sub_08019ED4(self, child);

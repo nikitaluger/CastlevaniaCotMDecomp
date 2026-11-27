@@ -12,7 +12,7 @@ extern void sub_080A2D08(u32, u32, u32, u32);
 extern void setObjectAnimation(u32, u32, u32, u32);
 extern void sub_08097EF4(u32, u32, u32, u32);
 extern struct Res_080A06FC *allocEffectPart(void);
-extern u32 sub_0805FAEC(u32, u32);
+extern u32 spawnBudgetedEffect(u32, u32);
 extern void sub_080C31E0(u32, u32);
 extern void registerScriptObject(u32, u32);
 extern void sub_080C31E4(u32, u32, u32);
@@ -23,7 +23,7 @@ extern u16 D_08101A50[];
 extern struct T1_080A06FC gSpriteKindTable[];
 extern struct T2_080A06FC gEffectGfxTable[];
 extern struct Big_02025FF0 gMainWorkspace;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void sub_080A06FC(struct A_080A06FC *a) {
     u8 *r4;
     struct Res_080A06FC *res;
@@ -76,16 +76,16 @@ fail:
         b->f48->f0C = ((u16 *)ptr)[3];
         b->f48->f0E = gEffectGfxTable[b->f1C].b;
         b->f48->f10 = (u32)res;
-        r9[1] = sub_0805FAEC((u32)a, 0x18C);
-        r9[2] = sub_0805FAEC((u32)a, 0x18E);
-        do { r9[4] = sub_0805FAEC(gMainWorkspace.field, 0x190); } while (0);
+        r9[1] = spawnBudgetedEffect((u32)a, 0x18C);
+        r9[2] = spawnBudgetedEffect((u32)a, 0x18E);
+        do { r9[4] = spawnBudgetedEffect(gMainWorkspace.field, 0x190); } while (0);
         a->f4C = b->f18;
         a->f54 = gEffectGfxTable[b->f1C].f24;
         registerScriptObject((u32)a, 0);
         a->f02 |= 0x1000;
         idx2 = a->f22;
         *(abase + idx2 * 2 + 0x19) = 0;
-        { const u32 *D_08671BB0_ptr = &gMainObjTimerCallback; sub_080C31E4((u32)(abase + 0x18), (u32)(abase + 0x22), *D_08671BB0_ptr); }
+        { const u32 *D_08671BB0_ptr = &gScriptStepCallbackTable; sub_080C31E4((u32)(abase + 0x18), (u32)(abase + 0x22), *D_08671BB0_ptr); }
         idx2 = a->f22;
         *(abase + idx2 * 2 + 0x19) = *(abase + idx2 * 2 + 0x19) + 1;
         idx2 = a->f22;

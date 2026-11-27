@@ -2,8 +2,8 @@ extern u8 gMainWorkspace[];
 extern u32 D_080E572C[];
 s32 sub_0806D35C(void *, void *, void *);
 void sub_0806D588(void *, void *);
-void sub_08003A6C(void *, s32, s32);
-void sub_08003740(void *, void *);
+void startEffectTimer(void *, s32, s32);
+void stepDelayTimer(void *, void *);
 
 /* Updates a follower entity: if the current area's special behavior handled it
  * (sub_0806D35C returned nonzero) do nothing; otherwise copy the global target
@@ -46,9 +46,9 @@ void sub_0807FCD4(u8 *entity) {
                     value += tbl;
                     animData = *(u32 *)value;
                 }
-                sub_08003A6C(animTimer, 0, animData);
+                startEffectTimer(animTimer, 0, animData);
             }
-            sub_08003740(animTimer, state);
+            stepDelayTimer(animTimer, state);
         } else {
             u8 *flags = state + 0x2A;
             *flags = 0xBF & *flags;

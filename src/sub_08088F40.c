@@ -10,7 +10,7 @@ struct GameState {
 extern struct GameState gMainWorkspace;
 
 void sub_080C31E4(void *, void *, s32); /* advance the actor's bytecode stream */
-void sub_08003A6C(void *, s32, s32);    /* initialize a sub-script runner */
+void startEffectTimer(void *, s32, s32);    /* initialize a sub-script runner */
 void sub_0806D588(void *, void *);      /* sync a sprite to its 3D position */
 
 /* Script command: while the global sub-state is 1, reinitialize the effect's
@@ -24,7 +24,7 @@ void sub_08088F40(void *arg0) {
     u8 *sprite = *(u8 **)(self + 0x38);
     u32 *stream;
     if (gMainWorkspace.subState == 1) {
-        sub_08003A6C(motion + 0x20, 0, 0x085096C4);
+        startEffectTimer(motion + 0x20, 0, 0x085096C4);
         *(u32 *)(pos + 8) = 0x8000;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         stream = (u32 *)0x08671BB0;

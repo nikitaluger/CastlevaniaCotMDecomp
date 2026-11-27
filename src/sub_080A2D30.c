@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080A2D80(void *, s32, s32);
 extern void sub_080A2D8C(void *, s32);
 
@@ -8,7 +8,7 @@ struct S_80 { u8 pad[0x80]; u8 b[1]; };
  * lifetime, a kind and a direction taken from the facing bit of the source
  * sprite; returns NULL when the object pool is exhausted. */
 void *sub_080A2D30(s32 owner, void *source, s32 kind, s32 velX, s32 velY, s32 lifetime) {
-    void *obj = sub_0805FAEC(owner, 0x18B);
+    void *obj = spawnBudgetedEffect(owner, 0x18B);
     if (obj == NULL) return NULL;
     sub_080A2D80(obj, velX, velY);
     sub_080A2D8C(obj, lifetime);

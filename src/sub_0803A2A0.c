@@ -1,4 +1,4 @@
-void sub_080113A8(s32, void *);
+void stepAnimationTrack(s32, void *);
 void *sub_0805FB24(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -15,7 +15,7 @@ void sub_0803A2A0(void *arg0)
   u8 *enemy = *((u8 **) (self + 0x3C));
   u8 *enemyData = enemy + 0x34;
   u8 *enemyState = enemy + 0x48;
-  sub_080113A8((s32) actor, enemyData);
+  stepAnimationTrack((s32) actor, enemyData);
   if ((*enemyData) & 2)
   {
     void *child = sub_0805FB24(self, 0xF4);

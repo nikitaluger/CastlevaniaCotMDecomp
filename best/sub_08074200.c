@@ -5,13 +5,13 @@ extern struct S_02025FF0 gMainWorkspace;
 extern u8 gGameStatus[];
 extern s32 D_080E4C98[];
 extern void *allocEffectPart(void);
-extern void sub_0806D2D0(void *);
-extern s16 sub_0806D62C(u16, s32);
-extern void sub_08003A6C(void *, s32, void *);
+extern void cleanupFailedEffectSpawn(void *);
+extern s16 scalePercentSaturate16(u16, s32);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
-extern void sub_0808449C(void);
-extern void *gMainObjTimerCallback;
+extern void releaseActorEffectParts(void);
+extern void *gScriptStepCallbackTable;
 struct E { u8 _0, f1, f2, f3; u16 f4, f6, f8, fA, fC, fE; u8 _10[6]; u16 f16, f18; };
 struct Q { s32 f0, f4, f8, fC; u8 _10[8]; void *f18; u8 _1C[0x10]; struct E *f2C; s32 f30, f34, f38, f3C; };
 static inline u8 and1(u8 b){ u32 m = 1; m &= b; return (u8)m; }
@@ -25,7 +25,7 @@ void sub_08074200(u8 *arg0) {
     base = gGameStatus;
     child = allocEffectPart();
     q->f2C = child;
-    if (child == NULL) { sub_0806D2D0(arg0); return; }
+    if (child == NULL) { cleanupFailedEffectSpawn(arg0); return; }
     zero = 0;
     q->f30 = zero; q->f34 = zero; q->f38 = zero; q->f3C = zero;
     d = &gMainWorkspace;
@@ -37,14 +37,14 @@ void sub_08074200(u8 *arg0) {
     q->f2C->f8 = 8;
     q->f2C->fA = zero;
     q->f2C->fC = zero;
-    q->f2C->fE = sub_0806D62C(*(u16 *)(base + 0x2E2), 0x20);
+    q->f2C->fE = scalePercentSaturate16(*(u16 *)(base + 0x2E2), 0x20);
     q->f2C->f16 = 0xF;
     q->f2C->f18 = 0x26;
     *(u8 **)((u8 *)q->f2C + 0x10) = a;
     q->f18 = *(void **)(arg0 + 0x24);
-    *(void **)(arg0 + 0x24) = sub_0808449C;
+    *(void **)(arg0 + 0x24) = releaseActorEffectParts;
     *(u32 *)(a + 0x24) = 0x08489960;
-    sub_08003A6C(g + 0x20, 0, (void *)0x08489B94);
+    startEffectTimer(g + 0x20, 0, (void *)0x08489B94);
     counter = d->f14F8;
     a = (u8 *)D_080E4C98 + (counter << 4);
     counter++;

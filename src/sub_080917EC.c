@@ -1,9 +1,9 @@
 /* Update a view/entity from a motion state: abort if its position leaves the
  * current view rectangle, otherwise integrate velocity, refresh its animation
  * and set its scroll coordinates relative to the current camera tile. */
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, void *);
-extern s32 sub_0805F9B4(s32, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, void *);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern void sub_080C31E0(void *, void *);
 
 extern u8 gCameraState[];
@@ -24,12 +24,12 @@ void sub_080917EC(void *entity)
     velocityPtr = motion;
     velocityPtr += 0x48;
 
-    if (sub_0805F9B4(*(s32 *)(motion + 8), *(s32 *)(motion + 0xC)) == 1) {
+    if (isOutsideCameraBounds(*(s32 *)(motion + 8), *(s32 *)(motion + 0xC)) == 1) {
         sub_080C31E0(entity, *(void **)((u8 *)entity + 0x24));
         return;
     }
-    sub_0801165C(motion, *(s32 *)(velocityPtr + 4));
-    sub_080113A8(view, animTable);
+    advanceMotion(motion, *(s32 *)(velocityPtr + 4));
+    stepAnimationTrack(view, animTable);
 
     coordTable = gCameraState;
     animIndexPtr = gMainWorkspace;

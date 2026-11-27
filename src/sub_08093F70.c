@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -25,7 +25,7 @@ void sub_08093F70(u8 *self)
     if ((flag & 7) == 0) {
         s32 spawnX = *(s32 *)(fields + 8) + sub_0800583C(0xE0 << 12);
         s32 spawnY = *(s32 *)(fields + 0xC) + sub_0800583C(0x80 << 10);
-        s32 spawnZ = sub_08005820(0x80 << 8) + (0x80 << 6);
+        s32 spawnZ = scaleByRandom(0x80 << 8) + (0x80 << 6);
         sub_0808E348(spawnX, spawnY, 0, spawnZ, 0x16C1, 0, 8);
     }
 

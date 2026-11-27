@@ -1,14 +1,14 @@
 /* Entity AI tick: while the camera is idle, round the entity's work Y coordinate,
  * run its timer and contact checks, then dispatch the resulting message id and state. */
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AA64(void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern u16 sub_08065CC8(void *, void *, void *, void *);
 extern void sub_0806C31E8(void *, void *, u16, s32);
 extern void sub_0806A7AC(void *, void *, s32);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern s32 D_08671BD8;
+extern s32 gMenuScriptCallback;
 
 void sub_0806A418(u8 *entity)
 {
@@ -18,10 +18,10 @@ void sub_0806A418(u8 *entity)
   u8 *workCopy = work;
   void *other = *((void **) (entity + 0x38));
   workArg = work;
-  if (sub_0806C4B4(workArg, workArg) == 0)
+  if (syncViewPosition(workArg, workArg) == 0)
   {
     s32 diff;
-    sub_0806C5EC(entity, other, workArg, workArg);
+    resetActionResultState(entity, other, workArg, workArg);
     diff = (*((s32 *) (state + 0x110))) - (*((s32 *) (work + 4)));
     if (diff < 0)
     {
@@ -29,18 +29,18 @@ void sub_0806A418(u8 *entity)
     }
     *((s32 *) (workArg + 4)) = (*((s32 *) (work + 4))) + (diff >> 3);
     sub_0806AA64(other, workArg);
-    if (sub_08003740(state + 0x2C, other) == 0)
+    if (stepDelayTimer(state + 0x2C, other) == 0)
     {
       *((s32 *) (work + 4)) = *((s32 *) (state + 0x108));
       if ((*((s32 *) (work + 0x40))) == 0)
       {
         sub_0806A7AC(other, workArg, 0x10);
-        sub_08003740(state + 0x2C, other);
+        stepDelayTimer(state + 0x2C, other);
         *((u8 *) ((entity + ((*((s16 *) (entity + 0x22))) * 2)) + 0x17)) = 0;
         {
           u8 *msgArg0 = entity;
           u8 *msgArg1 = entity;
-          s32 *msgTable = &D_08671BD8;
+          s32 *msgTable = &gMenuScriptCallback;
           u16 msgId = 3;
           msgArg0 += 0x18;
           msgArg1 += 0x22;
@@ -53,7 +53,7 @@ void sub_0806A418(u8 *entity)
         {
           u8 *msgArg0 = entity;
           u8 *msgArg1 = entity;
-          s32 *msgTable = &D_08671BD8;
+          s32 *msgTable = &gMenuScriptCallback;
           u16 msgId;
           msgArg0 += 0x18;
           msgArg1 += 0x22;

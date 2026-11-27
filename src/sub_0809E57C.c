@@ -18,7 +18,7 @@ struct SpawnParams { u8 _0[4]; u16 f4; u16 f6; u16 f8; u16 fA; u8 _C[0x1C]; };
 extern struct SpawnParams gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];       /* 12-byte animation-data records */
 extern u16 D_081019F4[];       /* default values copied into the sub-object */
-extern u32 gMainObjTimerCallback;        /* script callback table */
+extern u32 gScriptStepCallbackTable;        /* script callback table */
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -28,7 +28,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 
 /* Spawns the sprite and attached sub-object for an actor: reads the actor's
  * kind, builds its sprite attributes and animation from the parameter tables,
@@ -51,7 +51,7 @@ void sub_0809E57C(struct ActorContext *actor) {
     *((u32 *)(sprite + 0x1C)) = 0x80000009;
     work = (struct HostObject *)actor->f3C;
     anim = ((u8 *)work) + 0x34;
-    installUpdateHandler(actor, (u8 *)work, sub_08097DC8);
+    installUpdateHandler(actor, (u8 *)work, updateActorEffectSubObject);
     work->f1C = 0x4C;
     kind = findKindIndex();
     work->f22 = kind;
@@ -88,7 +88,7 @@ ok:
         s16 stepIndex = actor->f22;
         *((u8 *)(((u32)stepIndex * 2) + (u32)actor + 0x19)) = 0;
     }
-    scriptCb = &gMainObjTimerCallback;
+    scriptCb = &gScriptStepCallbackTable;
     stepData = ((u8 *)actor) + 0x18;
     sub_080C31E4(stepData, ((u8 *)actor) + 0x22, (s32)(*scriptCb));
     {

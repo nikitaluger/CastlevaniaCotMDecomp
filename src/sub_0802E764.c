@@ -2,7 +2,7 @@ extern s32 sub_08011408(s32, void *, s32, s32, s32);
 extern s32 sub_08014990(s32);
 extern void *sub_0802EDF4(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* Drives the entity's offset toward a limit according to its owner's direction,
  * spawning a pair of markers for one pose, then resets the pose and runs a script. */
@@ -32,7 +32,7 @@ void sub_0802E764(u8 *entity) {
         if (offset > 0) {
             *(s32 *)(data + 0x10) = zero;
             *(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x19) = zero;
-            { void **scriptTable = &D_08671BD0;
+            { void **scriptTable = &gScriptStepCallbacks;
               sub_080C31E8(entity + 0x18, entity + 0x22, 0, *scriptTable); }
         }
     } else {
@@ -42,7 +42,7 @@ void sub_0802E764(u8 *entity) {
         if (offset < 0) {
             *(s32 *)(data + 0x10) = zero;
             *(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x19) = zero;
-            { void **scriptTable = &D_08671BD0;
+            { void **scriptTable = &gScriptStepCallbacks;
               sub_080C31E8(entity + 0x18, entity + 0x22, 0, *scriptTable); }
         }
     }

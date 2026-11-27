@@ -1,5 +1,5 @@
 s32 sub_080141AC(void *, void *);
-s32 sub_08016238(void *);
+s32 hitTestEntities(void *);
 s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
@@ -21,7 +21,7 @@ void sub_080ADE44(void *entity) {
         return;
     }
 
-    if (sub_08016238(*(void **)((u8 *)motion + 0x28)) != 0) {
+    if (hitTestEntities(*(void **)((u8 *)motion + 0x28)) != 0) {
         s32 tmp = 1 | *(u16 *)motion;
         *(u16 *)motion = tmp;
     }

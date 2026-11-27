@@ -1,5 +1,5 @@
-extern void *gMainObjTimerCallback;
-extern void *sub_0805FAEC(void *, s32);
+extern void *gScriptStepCallbackTable;
+extern void *spawnBudgetedEffect(void *, s32);
 extern s32 divideInt(s32, s32);
 extern void sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -18,7 +18,7 @@ void sub_080A7B18(u8 *self) {
     if (!(*(self + *(s16 *)(self + 0x22) * 2 + 0x19) & 2)) {
         *(u16 *)gfx = (*(u16 *)gfx & 0xFFF) | 0xE000;
     }
-    child = sub_0805FAEC(self, 0x19F);
+    child = spawnBudgetedEffect(self, 0x19F);
     *(void **)(body + 0x180) = child;
     if (child != 0) {
         *(s32 *)((u8 *)child + 0x4C) = self[0x4C];
@@ -26,7 +26,7 @@ void sub_080A7B18(u8 *self) {
         *(s32 *)(body + 0x150) = -divideInt(*(s32 *)(body + 0x100), 0xC);
         *(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         {
-            void **fnaddr = &gMainObjTimerCallback;
+            void **fnaddr = &gScriptStepCallbackTable;
             stepBase = self + 0x18;
             sub_080C31E4(stepBase, self + 0x22, (s32)*fnaddr);
         }

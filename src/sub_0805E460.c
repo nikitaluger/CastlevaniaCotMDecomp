@@ -1,16 +1,16 @@
 /* Per-frame update for one actor: despawn when it leaves a tight bounds box,
  * update visibility and sub-state flags, run a scripted action from D_0866E99C,
  * then refresh the sprite's camera-relative screen position. */
-extern s32 sub_08015850(s32, s32, s32, s32, s32, s32);
+extern s32 isPointInActiveCameraBounds(s32, s32, s32, s32, s32, s32);
 extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
-extern s32 sub_08011898(void *, s32);
+extern s32 moveEntityWithCollision(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E99C[];
-extern s32 D_08671BDC;
+extern s32 sScriptStepCallbacks;
 
 struct ActorBits { u8 unk0; u8 flags; };
 struct SpriteFlags { u8 flags; };
@@ -35,7 +35,7 @@ void sub_0805E460(u8 *entity) {
 
     anim = *(u8 **)(entity + 0x38);
     actor = *(u8 **)(entity + 0x3C);
-    if (sub_08015850(*(s32 *)(actor + 8), *(s32 *)(actor + 0xC), -8, 8, -8, 8) == 0) {
+    if (isPointInActiveCameraBounds(*(s32 *)(actor + 8), *(s32 *)(actor + 0xC), -8, 8, -8, 8) == 0) {
         sub_080C31E0(entity, *(u32 *)(entity + 0x24));
         return;
     }
@@ -47,7 +47,7 @@ void sub_0805E460(u8 *entity) {
     } else {
         ((struct ActorBits *)(*(u8 **)(actor + 0x28)))->flags = 4;
         ((struct SpriteFlags *)(anim + 0x2A))->flags |= 0x40;
-        if (sub_08016238(*(u8 **)(actor + 0x28)) != 0) {
+        if (hitTestEntities(*(u8 **)(actor + 0x28)) != 0) {
             ((struct AnimState *)actor)->flags |= 1;
         }
     }
@@ -59,7 +59,7 @@ void sub_0805E460(u8 *entity) {
         child = (u8 *)((s32)frameOffset + (s32)entity);
         if (*(u8 *)(child + 0x1A) != 1) {
             *(u8 *)(child + 0x1B) = 0;
-            actionData = &D_08671BDC;
+            actionData = &sScriptStepCallbacks;
             sub_080C31E8(patternBase, entity + 0x22, 1, *actionData);
         }
     }
@@ -72,7 +72,7 @@ void sub_0805E460(u8 *entity) {
     sub_080C31E0(entity, *(u32 *)(*(u32 *)(entity + 0x14) + patternValue * 4));
     *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) - 1;
     if ((*(u16 *)(entity + 2) & 0x8000) != 0) return;
-    sub_08011898(actor, 0x16C1);
+    moveEntityWithCollision(actor, 0x16C1);
     coordBase = gCameraState;
     camIndexPtr = gMainWorkspace;
     camIndexPtr += 0x18A8;

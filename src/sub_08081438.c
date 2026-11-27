@@ -4,7 +4,7 @@
  * advance its animation and invoke the selected callback. */
 extern u8 gCameraState[];   /* coordinate-table base */
 extern u8 gMainWorkspace[];   /* game-work buffer */
-extern void sub_08003A6C(void *, u32, void *);  /* init effect descriptor */
+extern void startEffectTimer(void *, u32, void *);  /* init effect descriptor */
 extern void sub_0808BBAC(s32, s32, s32);        /* store effect params in game work */
 extern void sub_080C31E4(void *, void *, u32);  /* start animation frame */
 extern void sub_080C31E0(void *, s32);          /* call an entity callback */
@@ -42,9 +42,9 @@ void sub_08081438(struct EffectEntity *entity)
     *(u32 *)(subData + 0x38) = zero;
     *(u32 *)(subData + 0x3C) = zero;
     *(u32 *)(subData + 0x18) = *(u32 *)(entityBytes + 0x24);
-    *(u32 *)(entityBytes + 0x24) = 0x0808449D; /* Thumb ptr to sub_0808449C */
+    *(u32 *)(entityBytes + 0x24) = 0x0808449D; /* Thumb ptr to releaseActorEffectParts */
     *(u32 *)((u8 *)sprite + 0x24) = 0x084F240C; /* sprite data table */
-    sub_08003A6C(sub + 0x20, 0, (void *)0x084F24BC); /* frame data */
+    startEffectTimer(sub + 0x20, 0, (void *)0x084F24BC); /* frame data */
     coordTable = gCameraState;
     stateBuf = gMainWorkspace;
     idx = ((u32)stateBuf[0x18A8] + 1) * 0x40;

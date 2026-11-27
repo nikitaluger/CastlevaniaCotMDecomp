@@ -1,4 +1,4 @@
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r3(void *, void *, s32, void *);
 
@@ -12,7 +12,7 @@ extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
 extern void sub_08005E80(s32);
 extern s32 sub_08050260(void *, s32);
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_080502D0(s32, void *);
 extern void sub_08013C8C(void *, s32);
 
@@ -64,7 +64,7 @@ doHits:
             sub_08005E80(0x8A);
             slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
             *(u8 *)(slot + 0x1B) = 0;
-            { void **callbackSlot = &D_08671BDC;
+            { void **callbackSlot = &sScriptStepCallbacks;
               _call_via_r3(self + 0x18, self + 0x22, 3, *callbackSlot); }
         }
     }
@@ -87,7 +87,7 @@ doHits:
     }
     *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
     if ((*(u16 *)(self + 2) & 0x8000) != 0) goto end;
-    sub_080113A8(parent, objSub);
+    stepAnimationTrack(parent, objSub);
 
 finish:
     sub_080502D0(parent, obj);

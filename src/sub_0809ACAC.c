@@ -1,4 +1,4 @@
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_080C31E0(void *, s32);
 
 /* Release every non-null child object referenced by the 50 pointer slots at
@@ -14,7 +14,7 @@ void sub_0809ACAC(void *arg0)
     slot = (s32 *)((u8 *)work + 0x4C);
     do {
         if (*slot != 0) {
-            sub_080161F0();
+            unlinkAndFreeObject();
         }
         slot++;
         i++;

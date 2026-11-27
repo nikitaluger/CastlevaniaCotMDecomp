@@ -5,8 +5,8 @@ extern void sub_080148D8(s32, s32);
 extern void sub_080A17B0(s32, s32, void *);
 extern s32 sub_080A17DC(s32, void *, s32, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BD0[];
-extern u32 D_08671BD8[];
+extern u32 gScriptStepCallbacks[];
+extern u32 gMenuScriptCallback[];
 
 /* Actor direction-change handler: tick the cooldown, follow the movement track,
  * and when direction changes (or the facing counter hits 3) issue the matching
@@ -43,7 +43,7 @@ void sub_080A0C9C(void *arg0)
             s32 *table;
             step = *(s16 *)(self + 0x22);
             self[step * 2 + 0x17] = (s8)timerNow;
-            table = (s32 *)D_08671BD8;
+            table = (s32 *)gMenuScriptCallback;
             sub_080C31E8(self + 0x18, self + 0x22, 3, *table);
             return;
         }
@@ -57,7 +57,7 @@ void sub_080A0C9C(void *arg0)
                 setObjectAnimation(scene, track, 0x0E, 0);
                 step = *(s16 *)(self + 0x22);
                 self[step * 2 + 0x19] = 0;
-                table = (s32 *)D_08671BD0;
+                table = (s32 *)gScriptStepCallbacks;
                 sub_080C31E8(self + 0x18, self + 0x22, 2, *table);
                 return;
             }
@@ -66,7 +66,7 @@ void sub_080A0C9C(void *arg0)
                 sub_080A17B0(scene, track, facing);
                 step2 = *(s16 *)(self + 0x22);
                 self[step2 * 2 + 0x19] = randomDir;
-                table = (s32 *)D_08671BD0;
+                table = (s32 *)gScriptStepCallbacks;
                 sub_080C31E8(self + 0x18, self + 0x22, 3, *table);
             }
             return;
@@ -79,7 +79,7 @@ void sub_080A0C9C(void *arg0)
         sub_080A17B0(scene, track, facing);
         step3 = *(s16 *)(self + 0x22);
         self[step3 * 2 + 0x19] = 0;
-        table = (s32 *)D_08671BD0;
+        table = (s32 *)gScriptStepCallbacks;
         sub_080C31E8(self + 0x18, self + 0x22, 3, *table);
     }
 }

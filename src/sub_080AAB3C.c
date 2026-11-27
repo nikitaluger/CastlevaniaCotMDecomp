@@ -1,5 +1,5 @@
 extern void sub_080C31E0(void *, s32);
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 struct S_02025FF0_1870 { u8 _0[0x1870]; u32 p; };
 extern struct S_02025FF0_1870 gMainWorkspace;
 
@@ -19,7 +19,7 @@ void sub_080AAACC(void) {
 
 /* Spawn a type-0x1A0 child and fill its +0x4C/+0x5C/+0x6C parameter slots. */
 void sub_080AAB04(void *parent, s32 value1, s32 value2) {
-    void *obj = sub_0805FAEC((void *)gMainWorkspace.p, 0xD0 << 1);
+    void *obj = spawnBudgetedEffect((void *)gMainWorkspace.p, 0xD0 << 1);
     if (obj != 0) {
         *(s32 *)((u8 *)obj + 0x4C) = value1;
         *(s32 *)((u8 *)obj + 0x5C) = value2;
@@ -29,7 +29,7 @@ void sub_080AAB04(void *parent, s32 value1, s32 value2) {
 
 /* Spawn a type-0x1A1 child, storing two word parameters and a byte flag at +0x6C. */
 void sub_080AAB3C(s32 value1, s32 value2, u8 flag) {
-    void *obj = sub_0805FAEC((void *)gMainWorkspace.p, 0x1A1);
+    void *obj = spawnBudgetedEffect((void *)gMainWorkspace.p, 0x1A1);
     if (obj != 0) {
         u8 *p;
         *(s32 *)((u8 *)obj + 0x4C) = value1;
@@ -40,7 +40,7 @@ void sub_080AAB3C(s32 value1, s32 value2, u8 flag) {
 }
 
 void sub_080AAC20(u8 arg0, s32 arg1, s32 arg2) {
-    void *r = sub_0805FAEC((void *)gMainWorkspace.p, 0xD2 << 1);
+    void *r = spawnBudgetedEffect((void *)gMainWorkspace.p, 0xD2 << 1);
     if (r != 0) {
         u8 *p = (u8 *)r + 0x7C;
         *p = arg0;

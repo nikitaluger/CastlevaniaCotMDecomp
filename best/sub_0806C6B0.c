@@ -20,7 +20,7 @@ extern void sub_0806D930(u8 *);
 extern void sub_0806DD94(void);
 extern void sub_0808E3B8(u32, u32, u32);
 extern void sub_0808E408(u32, u32, u32);
-extern void sub_080C364C(u32, u32);
+extern void divInt32(u32, u32);
 extern void sub_08085158(u8 *, u8 *, u32 *);
 inline int inline_fn(u32 arg0, int arg1) { return arg0 & arg1; }
 inline u16 inline_fn2(u16 *arg0) { return arg0[3]; }
@@ -64,10 +64,10 @@ u32 __repair_phase_idx2;
     if (old >= val) *((u32 *)(g + 0x2CC)) = old - val;
     else { *((u32 *)(g + 0x2CC)) = 0; sub_0806DD94(); }
   }
-  if ((v18 != 0x1C) && (v18 != 0x30)) { sub_080C364C((u32)((*((s16 *)(g + 0x2F0))) << 16), 0x1770); sub_0806D81C(); }
-  { u32 *p = (u32 *)(c + 0x110); if (*p) { sub_080C364C(*((u32 *)(g + 0x2C8)), 100); sub_0806D7F4(); (*p)--; } }
-  { u32 *p = (u32 *)(c + 0x114); if (*p) { sub_080C364C(*((u32 *)(g + 0x2D0)), 100); sub_0806D81C(); (*p)--; } }
-  if (((g[0x94] == 0x0E) && (g[0x95] != 0)) && (v18 != 0x1C)) { sub_080C364C(*((u32 *)(g + 0x2D0)), 100); sub_0806D844(); }
+  if ((v18 != 0x1C) && (v18 != 0x30)) { divInt32((u32)((*((s16 *)(g + 0x2F0))) << 16), 0x1770); sub_0806D81C(); }
+  { u32 *p = (u32 *)(c + 0x110); if (*p) { divInt32(*((u32 *)(g + 0x2C8)), 100); sub_0806D7F4(); (*p)--; } }
+  { u32 *p = (u32 *)(c + 0x114); if (*p) { divInt32(*((u32 *)(g + 0x2D0)), 100); sub_0806D81C(); (*p)--; } }
+  if (((g[0x94] == 0x0E) && (g[0x95] != 0)) && (v18 != 0x1C)) { divInt32(*((u32 *)(g + 0x2D0)), 100); sub_0806D844(); }
   {
     int flag = 0;
     s32 x = ((s32)(*((u32 *)(g + 0x2C4)))) >> 8;

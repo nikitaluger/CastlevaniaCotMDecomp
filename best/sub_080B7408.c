@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 
 void sub_080B7408(void *arg0, s32 arg1) {
     void *r4;
@@ -12,7 +12,7 @@ void sub_080B7408(void *arg0, s32 arg1) {
     r4 = arg0;
     r6 = arg1;
     r5 = *(void **)((u8 *)r4 + 0x3C);
-    r2 = sub_0805FAEC(r4, 0x1C9);
+    r2 = spawnBudgetedEffect(r4, 0x1C9);
     if (r2 != 0) {
         *(u32 *)((u8 *)r2 + 0x4C) = *(u32 *)((u8 *)r5 + 8);
         *(u32 *)((u8 *)r2 + 0x5C) = *(u32 *)((u8 *)r5 + 0xC) + 0xFFEC0000;

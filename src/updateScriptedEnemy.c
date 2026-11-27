@@ -19,18 +19,18 @@ struct ScrollState
 };
 extern struct ScrollState gCameraState;
 extern u8 gGameStatus[];
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806BA20(void *, void *, void *);
 extern void sub_0806B104(void *, void *, void *);
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern void sub_08005E80(s32);
-extern void sub_0806E114(void *, s32, s32, s32);
+extern void spawnKind2CEntity(void *, s32, s32, s32);
 extern void sub_0806A884(void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_0806A7AC(void *, void *, s32);
-extern void sub_08086648(void *, void *, s32);
-extern void sub_08086D58(void *, s32);
+extern void retargetActionForPhase(void *, void *, s32);
+extern void applyActionPresetForProgress(void *, s32);
 extern u16 sub_0806BCD8(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_08086744(void *, void *, void *, s32);
@@ -54,11 +54,11 @@ void updateScriptedEnemy(u8 *enemy)
   u8 *animPtr;
   u32 result;
   u32 zero70 = 0;
-  if (sub_0806C4B4(work, work) != 0)
+  if (syncViewPosition(work, work) != 0)
   {
     return;
   }
-  sub_0806C5EC(enemy, target, workState, workState);
+  resetActionResultState(enemy, target, workState, workState);
   sub_0806BA20(target, workState, workState);
   paramTable = (u8 *) ENEMY_PARAM_TABLE;
   tableIndex = *((s32 *) (workState + 0x44));
@@ -94,7 +94,7 @@ void updateScriptedEnemy(u8 *enemy)
     }
     zero = 0;
     *((s32 *) (workState + 0x08)) = zero;
-    sub_0806E114(enemy, 9, *((s32 *) (workState + 0x00)), *((s32 *) (workState + 0x04)));
+    spawnKind2CEntity(enemy, 9, *((s32 *) (workState + 0x00)), *((s32 *) (workState + 0x04)));
     (enemy + ((*((s16 *) (enemy + 0x22))) * 2))[0x19] = (u8) zero;
     {
       s32 *scriptOps = (s32 *) SCRIPT_STEP_CALLBACK_TABLE;
@@ -106,12 +106,12 @@ void updateScriptedEnemy(u8 *enemy)
   gameFlags += 0x28;
   {
     u8 *animScratch = gameFlags;
-    s32 moveResult = sub_08003740(animScratch, target);
+    s32 moveResult = stepDelayTimer(animScratch, target);
     animPtr = animScratch;
     if ((moveResult == 0) || (gMainWorkspace.counter != 0))
     {
       sub_0806A7AC(target, work, BOSS_FORM_FALLBACK);
-      sub_08003740(animPtr, target);
+      stepDelayTimer(animPtr, target);
       (enemy + ((*((s16 *) (0x22 + enemy))) * 2))[0x19] = 0;
       {
         s32 *scriptOps = (s32 *) SCRIPT_STEP_CALLBACK_TABLE;
@@ -119,15 +119,15 @@ void updateScriptedEnemy(u8 *enemy)
       }
     }
   }
-  sub_08086648(target, work, 0xB);
-  sub_08086D58(work, 0xC);
+  retargetActionForPhase(target, work, 0xB);
+  applyActionPresetForProgress(work, 0xC);
   result = sub_0806BCD8(enemy, target, work, workState);
   gameFlags = work;
   gameFlags += (unsigned long long) resultOffset;
   *((s32 *) gameFlags) = (u16) result;
   if (((u16) result) != 0)
   {
-    sub_08003740(animPtr, target);
+    stepDelayTimer(animPtr, target);
     (enemy + ((*((s16 *) (enemy + 0x22))) * 2))[0x19] = 0;
     scriptOpsAddr = SCRIPT_STEP_CALLBACK_TABLE;
     sub_080C31E8(enemy + 0x18, enemy + 0x22, *((s32 *) gameFlags), *((s32 *) scriptOpsAddr));

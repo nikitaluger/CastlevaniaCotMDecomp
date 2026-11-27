@@ -1,7 +1,7 @@
 void sub_080144D8(void *, void *);
 void sub_080144FC(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_080161F0(void);
+void unlinkAndFreeObject(void);
 void sub_08015974(void);
 void sub_08016678(void *);
 void _call_via_r1(void *, void *);
@@ -11,9 +11,9 @@ void _call_via_r1(void *, void *);
 void sub_08035D6C(void *arg0) {
     u8 *work = *(u8 **)((u8 *)arg0 + 0x3C);
     u8 *state = work + 0x48;
-    if (*(s32 *)(work + 0x28) != 0) sub_080161F0();
-    if (*(s32 *)(work + 0x48) != 0) sub_080161F0();
-    if (*(s32 *)(state + 4) != 0) sub_080161F0();
+    if (*(s32 *)(work + 0x28) != 0) unlinkAndFreeObject();
+    if (*(s32 *)(work + 0x48) != 0) unlinkAndFreeObject();
+    if (*(s32 *)(state + 4) != 0) unlinkAndFreeObject();
     if (*(s32 *)(work + 0x2C) != 0) sub_08015974();
     sub_08016678(arg0);
     _call_via_r1(arg0, *(void **)(work + 0x24));

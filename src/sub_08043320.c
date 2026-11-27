@@ -1,7 +1,7 @@
 struct S_02025FF0 { u8 _0x000[0x1870]; u32 v; };
 extern struct S_02025FF0 gMainWorkspace;
 
-void *sub_0805FAEC(u32, s32);
+void *spawnBudgetedEffect(u32, s32);
 
 /* Spawn one type-0x112 effect/entity object from the shared pool at a 16.16
  * fixed-point position, then store its three setup parameters. */
@@ -11,7 +11,7 @@ void *sub_08043320(s32 xFixed, s32 yFixed, s32 param5C, s32 param6C, u16 param7C
     s32 yScaled;
     s32 x, y;
 
-    obj = sub_0805FAEC(gMainWorkspace.v, 0x112);
+    obj = spawnBudgetedEffect(gMainWorkspace.v, 0x112);
     if (obj == 0) {
         return 0;
     }

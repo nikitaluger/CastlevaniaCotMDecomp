@@ -1,4 +1,4 @@
-void *sub_0805FAEC(void *, s32);   /* spawn an effect object */
+void *spawnBudgetedEffect(void *, s32);   /* spawn an effect object */
 void sub_080A845C(void *, void *);
 s32 sub_080C31E0(s32, s32);        /* call the sine table entry */
 s32 sub_080C3824(s32, s32);        /* unsigned divide */
@@ -28,7 +28,7 @@ void sub_080A80B4(void *arg0, u8 *arg1) {
     segX = 0;
     do {
         if (i <= 6) {
-            segment = sub_0805FAEC(arg0, 0x19B);
+            segment = spawnBudgetedEffect(arg0, 0x19B);
             ptrBase = arg1 + 0x10;
             *(void **)(ptrBase + segOff) = segment;
             *alivePtr = 1;

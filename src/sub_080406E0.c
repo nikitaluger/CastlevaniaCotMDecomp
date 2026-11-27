@@ -1,12 +1,12 @@
 s32 sub_080141AC(void *, void *);
-s32 sub_08016238(void *);
+s32 hitTestEntities(void *);
 void sub_08005E80(s32);
 s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern u32 D_0866E0F0;
 
 struct ObjFlag { u16 flag; };
@@ -27,7 +27,7 @@ void sub_080406E0(void *arg0) {
         return;
     }
 
-    if (sub_08016238(*(void **)((u8 *)state + 0x28)) != 0) {
+    if (hitTestEntities(*(void **)((u8 *)state + 0x28)) != 0) {
         ((struct ObjFlag *)state)->flag |= 1;
     }
     if (*(u16 *)(*(u8 **)((u8 *)state + 0x28) + 0x14) & 1) {
@@ -45,7 +45,7 @@ void sub_080406E0(void *arg0) {
             scriptStep = (u8 *)((u32)(*(s16 *)(obj + 0x22)) * 2 + (u32)obj);
             *(u8 *)(scriptStep + 0x19) = 0;
         }
-        litPtr = &gMainObjTimerCallback;
+        litPtr = &gScriptStepCallbackTable;
         scriptBase = obj + 0x18;
         sub_080C31E4(scriptBase, obj + 0x22, *litPtr);
         {

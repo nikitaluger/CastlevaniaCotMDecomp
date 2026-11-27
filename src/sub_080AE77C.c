@@ -1,4 +1,4 @@
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 u16 divideInt(s32, s32);
 void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -14,7 +14,7 @@ void sub_080AE77C(void *arg0) {
     s32 *scriptHandlers;
     u8 *stepBase;
     s16 stepIndex;
-    sub_0801165C(work, 0);
+    advanceMotion(work, 0);
     stepIndex = *(s16 *)(self + 0x22);
     stepBase = (u8 *)((s32)stepIndex * 2 + (s32)self);
     if (*(u8 *)(stepBase + 0x19) <= 0x0F) {

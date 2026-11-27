@@ -1,7 +1,7 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014990(void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* Patrol AI: when the entity reaches either movement bound, flip its facing
  * (bit 0x10) and reset its velocity; otherwise tick a countdown timer and,
@@ -66,7 +66,7 @@ void sub_0805AC68(void *arg0)
         z = *((s16 *) (entity + 0x22));
         *((u8 *)(entity + z * 2 + 0x19)) = 0;
         {
-            void **fn = &D_08671BD0;
+            void **fn = &gScriptStepCallbacks;
             sub_080C31E8(entity + 0x18, entity + 0x22, 1, *fn);
         }
     }

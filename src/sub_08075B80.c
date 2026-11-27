@@ -1,8 +1,8 @@
-extern void sub_0808449C(void);
-extern void sub_08003A6C(void *, s32, void *);
+extern void releaseActorEffectParts(void);
+extern void startEffectTimer(void *, s32, void *);
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r2(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 
@@ -33,7 +33,7 @@ void sub_08075B80(u8 *entity)
     *(s32 *)(fields + 0x3C) = zero;
 
     *(u32 *)(fields + 0x18) = *(u32 *)(entity + 0x24);
-    *(void **)(entity + 0x24) = &sub_0808449C;
+    *(void **)(entity + 0x24) = &releaseActorEffectParts;
 
     {
         u8 *flags = gMainWorkspace;
@@ -45,13 +45,13 @@ void sub_08075B80(u8 *entity)
     *(s32 *)(fields + 0x58) = *(s16 *)(gameState + 0x2EA);
 
     *(u32 *)(gfx + 0x24) = 0x084A4BB4;
-    sub_08003A6C(extra + 0x20, 0, (void *)0x084A4C84);
+    startEffectTimer(extra + 0x20, 0, (void *)0x084A4C84);
     *(u32 *)(gfx + 0x1C) = 0x80000006;
 
     actionIdx = *(s16 *)(entity + 0x22);
     *(u8 *)(entity + actionIdx * 2 + 0x19) = 0;
 
-    animDef = &gMainObjTimerCallback;
+    animDef = &gScriptStepCallbackTable;
     animList = entity + 0x18;
     _call_via_r2(animList, entity + 0x22, *animDef);
 

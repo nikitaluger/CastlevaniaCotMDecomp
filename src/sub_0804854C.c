@@ -1,12 +1,12 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 signOf(s32);
 extern s32 sub_080C31E0(s32, s32);
 extern s32 sub_08005910(s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E8(void *, void *, s32, u32);
-extern u32 D_08671BFC;
-extern u32 gMainObjTimerCallback;
-extern u32 D_08671BD0;
+extern u32 gTrigFuncPtr;
+extern u32 gScriptStepCallbackTable;
+extern u32 gScriptStepCallbacks;
 
 /* World/player coordinates used as the reference point for aiming. */
 struct S_02025FF0 { u8 _[0x174C]; s32 x174C; s32 x1750; };
@@ -30,11 +30,11 @@ void sub_0804854C(u8 *task)
     u32 *turnCallbacks;
     if (direction == 0) direction = 1;
 
-    baseAngle = sub_08005820(0x2000);
+    baseAngle = scaleByRandom(0x2000);
     baseAngle *= direction;
     *(s32 *)(stateData + 0x0C) = baseAngle + 0xC000;
 
-    angleSrc = &D_08671BFC;
+    angleSrc = &gTrigFuncPtr;
     angle = sub_080C31E0(baseAngle + 0x10000, *angleSrc);
     aimX = gMainWorkspace.x174C + ((angle >> 8) << 14);
 
@@ -52,7 +52,7 @@ label_end:
     {
         s16 stepIndex = *(s16 *)(task + 0x22);
         *(u8 *)(task + stepIndex * 2 + 0x19) = 0;
-        endCallbacks = &gMainObjTimerCallback;
+        endCallbacks = &gScriptStepCallbackTable;
         stateEntry = task + 0x18;
         sub_080C31E4(stateEntry, task + 0x22, *endCallbacks);
         stepIndex = *(s16 *)(task + 0x22);
@@ -67,7 +67,7 @@ label_turn:
     {
         s16 stepIndex = *(s16 *)(task + 0x22);
         *(u8 *)(task + stepIndex * 2 + 0x19) = 0;
-        turnCallbacks = &D_08671BD0;
+        turnCallbacks = &gScriptStepCallbacks;
         sub_080C31E8(turnCallbacks ? task + 0x18 : task + 0x18, task + 0x22, 2, *turnCallbacks);
     }
 }

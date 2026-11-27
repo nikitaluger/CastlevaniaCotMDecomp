@@ -1,12 +1,12 @@
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
 extern u8 gTilemapPages[];
-extern u32 D_08671BD0[];
-extern s32 sub_0806C4B4(void *a, void *b);
-extern void sub_0806C5EC(void *a, void *b, void *c, void *d);
+extern u32 gScriptStepCallbacks[];
+extern s32 syncViewPosition(void *a, void *b);
+extern void resetActionResultState(void *a, void *b, void *c, void *d);
 extern void *sub_0806D2A0(void *a, s32 b, s32 c, s32 d);
-extern void sub_0806A7AC(void *a, void *b, s32 c);
-extern void sub_0806C49C(void *a, void *b);
+extern void setEntityForm(void *a, void *b, s32 c);
+extern void resetActorForm(void *a, void *b);
 extern s32 sub_0806B3E8(void *a, void *b, void *c, void *d);
 extern s32 sub_0806B820(void *a, void *b, void *c, void *d);
 extern s32 sub_0806B104(void *a, void *b, void *c);
@@ -17,7 +17,7 @@ extern s32 sub_0806BBA4(void *a, void *b, void *c);
 extern void sub_0806AB04(void *a, void *b, void *c, void *d);
 extern s16 sub_08007B78(void *a, s32 b, s32 c);
 extern s16 sub_08007C40(void *a, s32 b, s32 c);
-extern s32 sub_08003740(void *a, void *b);
+extern s32 stepDelayTimer(void *a, void *b);
 extern void sub_0806A884(void *a, void *b);
 extern u16 sub_0806BCD8(void *a, void *b, void *c, void *d);
 extern void sub_0806C6B0(void *a, void *b, void *c, void *d);
@@ -30,12 +30,12 @@ void sub_08062F10(void *a)
   u8 *r5 = r7 + 4;
   void *r8 = *((void **) (((u8 *) r4) + 0x38));
   u8 *r6 = r7 + 4;
-  s32 r9 = sub_0806C4B4(r6, r6);
+  s32 r9 = syncViewPosition(r6, r6);
   if (r9)
   {
     return;
   }
-  do { sub_0806C5EC(r4, r8, r6, r6); } while (0);
+  do { resetActionResultState(r4, r8, r6, r6); } while (0);
   {
     u32 *p84 = (u32 *) (r7 + 0x84);
     u32 v = (*p84) + 1;
@@ -52,7 +52,7 @@ void sub_08062F10(void *a)
           {
             *((u16 *) (((u8 *) res) + 0x7C)) = r9;
           }
-          sub_0806A7AC(r8, r6, 0x54);
+          setEntityForm(r8, r6, 0x54);
           *((u32 *) (r6 + 0x7C)) = 3;
         }
       }
@@ -64,12 +64,12 @@ void sub_08062F10(void *a)
     else
       if ((*((u32 *) (r6 + 0x7C))) == 3)
     {
-      sub_0806C49C(r8, r6);
+      resetActorForm(r8, r6);
     }
     else
       if ((*((u32 *) (0x10 + gMainWorkspace))) != 0)
     {
-      sub_0806A7AC(r8, r6, 0x7F);
+      setEntityForm(r8, r6, 0x7F);
       *((u32 *) (r6 + 0x7C)) = 1;
     }
     else
@@ -77,7 +77,7 @@ void sub_08062F10(void *a)
     {
       if ((*((u32 *) (r6 + 0x7C))) == 0)
       {
-        sub_0806A7AC(r8, r6, 1);
+        setEntityForm(r8, r6, 1);
         *((u32 *) (r6 + 0x7C)) = 1;
       }
     }
@@ -98,7 +98,7 @@ void sub_08062F10(void *a)
       {
         s16 idx = *((s16 *) (((u8 *) r4) + 0x22));
         ((u8 *) r4)[(idx * 2) + 0x19] = 0;
-        sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, 7, D_08671BD0[0]);
+        sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, 7, gScriptStepCallbacks[0]);
       }
     }
     else
@@ -106,16 +106,16 @@ void sub_08062F10(void *a)
       *((u32 *) (r5 + 0x68)) = 1;
       if (gMainWorkspace[0x14ED] != 0x35)
       {
-        do { sub_0806A7AC(r8, r5, 7); } while (0);
+        do { setEntityForm(r8, r5, 7); } while (0);
       }
       else
       {
-        sub_0806A7AC(r8, r5, 0x55);
+        setEntityForm(r8, r5, 0x55);
       }
       {
         s16 idx = *((s16 *) (((u8 *) r4) + 0x22));
         ((u8 *) r4)[(idx * 2) + 0x19] = 0;
-        sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, 6, D_08671BD0[0]);
+        sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, 6, gScriptStepCallbacks[0]);
       }
     }
     goto lab_6312A;
@@ -134,13 +134,13 @@ void sub_08062F10(void *a)
   {
     goto check_b2c8;
   }
-  sub_0806A7AC(r8, r5, 4);
+  setEntityForm(r8, r5, 4);
   *((u32 *) (r6 + 8)) = 0;
   *((u32 *) new_var2) = 2;
   {
     s16 idx = *((s16 *) (((u8 *) r4) + 0x22));
     ((u8 *) r4)[(idx * 2) + 0x19] = 0;
-    sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, 8, D_08671BD0[0]);
+    sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, 8, gScriptStepCallbacks[0]);
   }
   goto lab_6312A;
   check_b2c8:
@@ -158,11 +158,11 @@ void sub_08062F10(void *a)
 
   if (((*((u32 *) (r5 + 0x40))) == 0) && ((*((u32 *) (r5 + 0x4C))) == 0))
   {
-    sub_0806A7AC(r8, r5, 0x10);
+    setEntityForm(r8, r5, 0x10);
     {
       s16 idx = *((s16 *) (((u8 *) r4) + 0x22));
       ((u8 *) r4)[(idx * 2) + 0x19] = 0;
-      sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, 3, D_08671BD0[0]);
+      sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, 3, gScriptStepCallbacks[0]);
     }
   }
   {
@@ -185,16 +185,16 @@ void sub_08062F10(void *a)
   }
   if (((((u8 *) r4)[0x18] == 4) && ((*((u32 *) (r5 + 0x78))) != 0)) && ((*((u32 *) (r5 + 0x7C))) == 0))
   {
-    sub_0806A7AC(r8, r5, 3);
+    setEntityForm(r8, r5, 3);
     *((u32 *) (r5 + 0x7C)) = 2;
   }
   sub_0806A884(r8, r6);
   {
     void *p28 = r5 + 0x28;
-    if (sub_08003740(p28, r8) == 0)
+    if (stepDelayTimer(p28, r8) == 0)
     {
-      do { do { sub_0806C49C(r8, r5);
-      sub_08003740(p28, r8); } while (0); } while (0);
+      do { do { resetActorForm(r8, r5);
+      stepDelayTimer(p28, r8); } while (0); } while (0);
     }
   }
   {
@@ -203,11 +203,11 @@ void sub_08062F10(void *a)
     if (rv != 0)
     {
       void *p28 = r5 + 0x28;
-      sub_08003740(p28, r8);
+      stepDelayTimer(p28, r8);
       {
         s16 idx = *((s16 *) (((u8 *) r4) + 0x22));
         ((u8 *) r4)[(idx * 2) + 0x19] = 0;
-        sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, rv, D_08671BD0[0]);
+        sub_080C31E8(((u8 *) r4) + 0x18, ((u8 *) r4) + 0x22, rv, gScriptStepCallbacks[0]);
       }
     }
   }

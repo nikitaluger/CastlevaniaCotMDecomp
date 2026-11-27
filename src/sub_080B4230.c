@@ -4,7 +4,7 @@ void sub_080C31E8(void *, void *, s32, s32);
 
 /* Runs animation 0x11 on the actor, submits its frame data and, once the
  * status byte reports completion (bit 1), clears the script byte at +0x17 and
- * dispatches the handler from table D_08671BD8. */
+ * dispatches the handler from table gMenuScriptCallback. */
 void sub_080B4230(void *self) {
     s32 animState;
     s32 *handlerTable;

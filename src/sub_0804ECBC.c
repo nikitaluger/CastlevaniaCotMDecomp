@@ -1,14 +1,14 @@
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, u32);
-s32 sub_08013B5C(void *, void *);
-s32 sub_0805F9B4(s32, s32);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, u32);
+s32 updateObjectDisplayState(void *, void *);
+s32 isOutsideCameraBounds(s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 struct Target { u8 unk0; u8 hitFlags; u8 pad[0x12]; u16 stateFlags; };
 struct Comp { u16 flags; };
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u32 D_08671BDC;
+extern u32 sScriptStepCallbacks;
 extern u32 D_0866E55C;
 
 /* Entity script update: refresh the linked target's flags, run one script
@@ -27,7 +27,7 @@ void sub_0804ECBC(void *self) {
     target = *(struct Target **)((u8 *)comp + 0x28);
     target->hitFlags |= 1;
 
-    if (sub_0805F9B4(*(s32 *)((u8 *)comp + 8), *(s32 *)((u8 *)comp + 0xC)) == 1) {
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)comp + 8), *(s32 *)((u8 *)comp + 0xC)) == 1) {
         sub_080C31E0(self, *(s32 *)((u8 *)self + 0x24));
         return;
     }
@@ -43,12 +43,12 @@ void sub_0804ECBC(void *self) {
         if (*((u8 *)self + *(s16 *)((u8 *)self + 0x22) * 2 + 0x1A) != 1) {
             u32 *sound;
             *((u8 *)self + *(s16 *)((u8 *)self + 0x22) * 2 + 0x1B) = 0;
-            sound = &D_08671BDC;
+            sound = &sScriptStepCallbacks;
             sub_080C31E8((u8 *)self + 0x18, (u8 *)self + 0x22, 1, *sound);
         }
     }
 
-    if (sub_08013B5C(parent, comp) == 0) {
+    if (updateObjectDisplayState(parent, comp) == 0) {
         *(u32 *)((u8 *)self + 0x14) = (u32)&D_0866E55C;
         *(u16 *)((u8 *)self + 0x22) = *(u16 *)((u8 *)self + 0x22) + 1;
         {
@@ -68,8 +68,8 @@ void sub_0804ECBC(void *self) {
         if (*(u16 *)((u8 *)self + 2) & 0x8000) {
             return;
         }
-        sub_080113A8(parent, body);
-        sub_0801165C(comp, 0);
+        stepAnimationTrack(parent, body);
+        advanceMotion(comp, 0);
     }
 
     {

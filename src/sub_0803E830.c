@@ -2,12 +2,12 @@
  * perform the one-time spawn action when flagged, then - if its logic allows -
  * dispatch the current script step's callback from the per-entity handler table
  * and refresh the animation/timer state. */
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, u32, u32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080141AC(void *, void *);   /* visibility/validity check */
@@ -48,7 +48,7 @@ void sub_0803E830(void *self) {
             sub_080C31E8((u8 *)self + 0x18, (u8 *)self + 0x22, 2, *actionTable);
         }
     }
-    if (sub_08013B5C(owner, params) == 0) {
+    if (updateObjectDisplayState(owner, params) == 0) {
         *(u32 *)((u8 *)self + 0x14) = 0x0866E04C;
         *(u16 *)((u8 *)self + 0x22) = *(u16 *)((u8 *)self + 0x22) + 1;
         stepBase = (u8 *)((u32)(*(s16 *)((u8 *)self + 0x22)) * 2 + (u32)self);
@@ -65,7 +65,7 @@ void sub_0803E830(void *self) {
         if (*(u16 *)((u8 *)self + 2) & 0x8000) {
             return;
         }
-        sub_080113A8(owner, animState);
+        stepAnimationTrack(owner, animState);
         sub_08011EE8(params, *(u32 *)((u8 *)timers + 0x04), 0);
     }
     sub_08013C8C(self, owner);

@@ -7,7 +7,7 @@ extern void sub_08013AC4(void *);
 extern void sub_0803B1A4(void *);
 extern void sub_0803B1B4(void *, void *);
 extern void sub_0803B1F4(void *, void *, void *);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -57,7 +57,7 @@ void sub_08035590(void *task) {
         }
         return;
     }
-    if (sub_08013B5C(actor, subject) == 0) {
+    if (updateObjectDisplayState(actor, subject) == 0) {
         s32 stepOffset;
         u8 *stateEntry;
         u8 handlerIndex;

@@ -4,7 +4,7 @@ s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
@@ -12,7 +12,7 @@ void sub_08097F88(s32, void *, void *, void *);
 void sub_08007E24(s32);
 void sub_08098338(s32, void *);
 
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern u32 D_086704B4;
 
 /* Refresh an entity's graphics state, then dispatch the current script
@@ -67,7 +67,7 @@ void sub_080B78AC(void *obj) {
         return;
     }
 
-    if (sub_08013B5C(entity, state) == 0) {
+    if (updateObjectDisplayState(entity, state) == 0) {
         u8 *scriptPtr;
         u8 scriptByte;
         s32 scriptOffset;

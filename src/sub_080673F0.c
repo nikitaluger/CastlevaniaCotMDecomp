@@ -40,18 +40,18 @@ struct CountdownEntry {
 };
 
 extern struct CountdownEntry D_080E03A0[];
-extern u32 D_08671BD0;
-extern u32 D_08671BD8;
+extern u32 gScriptStepCallbacks;
+extern u32 gMenuScriptCallback;
 
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern void sub_08005E80(s32);
-extern void sub_0806E114(void *, s32, u32, u32);
+extern void spawnKind2CEntity(void *, s32, u32, u32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern void sub_0806D588(void *, void *);
 extern void sub_0806A884(void *, void *);
-extern u32 sub_08003740(void *, void *);
+extern u32 stepDelayTimer(void *, void *);
 extern void sub_0806A7AC(void *, void *, s32);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 
@@ -64,11 +64,11 @@ void sub_080673F0(struct UpdateCtx *ctx) {
     struct StateBlock *blk = (struct StateBlock *)ctx->state;
     struct ScriptEntity *ent = (struct ScriptEntity *)((u8 *)blk + 4);
     u8 *work = ctx->work;
-    s32 mode = sub_0806C4B4(ent, ent);
+    s32 mode = syncViewPosition(ent, ent);
     if (mode == 0) {
         u8 *step;
         s32 timer, limit;
-        sub_0806C5EC(ctx, work, ent, ent);
+        resetActionResultState(ctx, work, ent, ent);
         timer = ent->countdown + D_080E03A0[ent->timingIndex].delta;
         ent->countdown = timer;
         limit = D_080E03A0[ent->timingIndex].limit;
@@ -80,11 +80,11 @@ void sub_080673F0(struct UpdateCtx *ctx) {
             ent->field50 = mode;
             ent->field54 = mode;
             ent->field08 = mode;
-            sub_0806E114(ctx, 9, blk->spawnParam, ent->spawnParam);
+            spawnKind2CEntity(ctx, 9, blk->spawnParam, ent->spawnParam);
             step = (u8 *)((u32)(ctx->stepIndex * 2) + (u32)ctx);
             step[0x19] = mode;
             {
-                u32 *eventPtr = &D_08671BD0;
+                u32 *eventPtr = &gScriptStepCallbacks;
                 sub_080C31E8((u8 *)ctx + 0x18, (u8 *)ctx + 0x22, 1, *eventPtr);
             }
         }
@@ -92,14 +92,14 @@ void sub_080673F0(struct UpdateCtx *ctx) {
         sub_0806A884(work, ent);
         {
             u8 *timerPtr = (u8 *)blk + 0x2C;
-            u32 expired = sub_08003740(timerPtr, work);
+            u32 expired = stepDelayTimer(timerPtr, work);
             if (expired == 0) {
                 sub_0806A7AC(work, ent, 0x10);
-                sub_08003740(timerPtr, work);
+                stepDelayTimer(timerPtr, work);
                 step = (u8 *)((u32)(ctx->stepIndex * 2) + (u32)ctx);
                 step[0x17] = expired;
                 {
-                    u32 *eventPtr = &D_08671BD8;
+                    u32 *eventPtr = &gMenuScriptCallback;
                     sub_080C31E8((u8 *)ctx + 0x18, (u8 *)ctx + 0x22, 3, *eventPtr);
                 }
             }

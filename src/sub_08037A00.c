@@ -6,7 +6,7 @@ s32 sub_080141AC(void *, void *);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080142C0(void *, void *);
 void sub_08014314(void *, void *);
@@ -14,7 +14,7 @@ s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
 extern u32 D_0866DE5C;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 void sub_08037A00(void *entity) {
     void *sprite;
@@ -50,7 +50,7 @@ void sub_08037A00(void *entity) {
             stepData = (u8 *)((u32)(*(s16 *)((u8 *)entity + 0x22)) * 2 + (u32)entity);
             *(u8 *)(stepData + 0x19) = 0;
         }
-        scriptFn = (u32 *)&gMainObjTimerCallback;
+        scriptFn = (u32 *)&gScriptStepCallbackTable;
         stepTable = (u8 *)entity + 0x18;
         sub_080C31E4(stepTable, (u8 *)entity + 0x22, *scriptFn);
         {
@@ -66,7 +66,7 @@ void sub_08037A00(void *entity) {
         sub_080C31E0((s32)entity, handler);
         return;
     } else {
-        if (sub_08013B5C(sprite, motion) == 0) {
+        if (updateObjectDisplayState(sprite, motion) == 0) {
             u8 *stepData;
             u8 *stepTable;
             u8 stepByte;

@@ -56,7 +56,7 @@ struct SpriteDef { u8 _0[8]; u16 param8, paramA; u8 _C[0x28-0xC]; };
 extern struct SpriteDef gEffectGfxTable[];
 extern u16 D_080CE740[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Alternate child-sprite constructor: same flow as createEntityChildSprite, but it
  * reads the graphic ids from +8/+0xA of the sprite-definition entry and installs

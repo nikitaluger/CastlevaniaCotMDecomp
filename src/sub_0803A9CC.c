@@ -1,5 +1,5 @@
 extern void sub_08015974(void);
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -9,10 +9,10 @@ extern void sub_080C31E0(void *, s32);
 void sub_0803A9CC(void *arg0) {
     u8 *work = *(u8 **)((u8 *)arg0 + 0x3C);
     if (*(s32 *)(work + 0x28) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(s32 *)(work + 0x48) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(s32 *)(work + 0x2C) != 0) {
         sub_08015974();

@@ -1,4 +1,4 @@
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_08014848(s32, s32, s32, s32, s32, s32);
 extern void sub_0808DC40(s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
@@ -13,7 +13,7 @@ void sub_08048CE4(void *arg0) {
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) & 2) {
         *(u16 *)sprite = (u16)((*(u16 *)sprite & 0xFFF) | 0xE000);
     }
-    sub_0801165C(work, 0xB60);
+    advanceMotion(work, 0xB60);
     if (!(3 & *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19))) {
         sub_08014848(1, 1, *(s32 *)((u8 *)work + 8), *(s32 *)((u8 *)work + 0xC), 0x80000, 0x80000);
     }

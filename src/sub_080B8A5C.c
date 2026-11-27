@@ -1,5 +1,5 @@
 s32 sub_080141AC(void *, void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -40,7 +40,7 @@ void sub_080B8A5C(void *behav) {
         return;
     }
 
-    if (sub_08013B5C(target, owner) == 0) {
+    if (updateObjectDisplayState(target, owner) == 0) {
         s32 scriptOff;
         u8 *cmdArray;
         u8 cmdByte;

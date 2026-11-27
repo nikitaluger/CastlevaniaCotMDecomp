@@ -1,7 +1,7 @@
 extern void sub_08003A6C(void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern u32 sub_0806D62C(u32, u32);
+extern u32 scalePercentSaturate16(u32, u32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_0808449C(void);
@@ -18,7 +18,7 @@ extern u8 gGameStatus[];
 extern void *D_02027740;
 extern u8 D_0849A5F0[];
 extern u8 D_0849A610[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 struct S_r4
 {
   u8 _0;
@@ -119,7 +119,7 @@ void sub_08074D44(struct S_A0 *obj)
   state->f2C->f08 = 8;
   state->f2C->f0A = 0;
   state->f2C->f0C = 0;
-  state->f2C->f0E = sub_0806D62C(*((u16 *) (work + 0x2E2)), 0x64);
+  state->f2C->f0E = scalePercentSaturate16(*((u16 *) (work + 0x2E2)), 0x64);
   state->f2C->f16 = 0x0F;
   state->f2C->f18 = 0x30;
   state->f2C->f10 = owner;
@@ -134,7 +134,7 @@ void sub_08074D44(struct S_A0 *obj)
   ((struct S_5b *)state)->f10 = 1;
   ((struct Sub *) (((u8 *) obj) + (obj->idx * 2)))->f19 = zero;
   {
-    s32 *fn = &gMainObjTimerCallback;
+    s32 *fn = &gScriptStepCallbackTable;
     u8 *p18 = ((u8 *) obj) + 0x18;
     sub_080C31E4(p18, ((u8 *) obj) + 0x22, *fn);
     stepSlot = (u8 *) ((s16) obj->idx * 2 + (u32) obj);

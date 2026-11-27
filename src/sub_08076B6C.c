@@ -1,11 +1,11 @@
 s32 allocWorkSlot(void *, s32, s32, s32);
 void *allocSpriteObject(void);
-void sub_0806D2D0(void *);
+void cleanupFailedEffectSpawn(void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, u32);
 
 extern u8 gMainWorkspace[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Acquire a sprite slot for the script, falling back to its current object;
  * allocate and link a new object, copy flags and a template value into it,
@@ -25,7 +25,7 @@ void sub_08076B6C(void *script)
 
     obj = allocSpriteObject();
     if (obj == 0) {
-        sub_0806D2D0(script);
+        cleanupFailedEffectSpawn(script);
         return;
     }
 
@@ -50,7 +50,7 @@ void sub_08076B6C(void *script)
     idx = *(s16 *)((u8 *)script + 0x22);
     *(u8 *)((u8 *)script + idx * 2 + 0x19) = (u8)zero;
 
-    pd = &gMainObjTimerCallback;
+    pd = &gScriptStepCallbackTable;
     base = (u8 *)script + 0x18;
     sub_080C31E4(base, (u8 *)script + 0x22, *pd);
 

@@ -1,10 +1,10 @@
 struct S_080DEA88 { u8 _pad[0xE3 << 3]; s32 field; };
 extern struct S_080DEA88 D_080DEA88;
-extern s32 sub_0806C4B4(s32, s32);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(s32, s32);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AA64(void *, void *);
-extern void sub_08003A6C(void *, s32, s32);
-extern void sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, s32);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -17,14 +17,14 @@ void sub_0806A36C(void *entity) {
     void *sprite = *(void **)(obj + 0x38);
     s32 countdown;
     u8 *state;
-    if (sub_0806C4B4((s32)scriptBase, (s32)scriptBase) == 0) {
-        sub_0806C5EC(entity, sprite, scriptBase, scriptBase);
+    if (syncViewPosition((s32)scriptBase, (s32)scriptBase) == 0) {
+        resetActionResultState(entity, sprite, scriptBase, scriptBase);
         sub_0806AA64(sprite, scriptBase);
         countdown = *(s32 *)(aiData + 0xBC) - 1;
         *(s32 *)(aiData + 0xBC) = countdown;
         state = aiData + 0x2C;
         if (countdown == 0) {
-            sub_08003A6C(state, 0, D_080DEA88.field);
+            startEffectTimer(state, 0, D_080DEA88.field);
             *(s32 *)(aiData + (0x88 << 1)) = *(s32 *)(aiData + (0x84 << 1));
             *(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x19) = countdown;
             {
@@ -32,7 +32,7 @@ void sub_0806A36C(void *entity) {
                 sub_080C31E4(obj + 0x18, obj + 0x22, *scriptId);
             }
         }
-        sub_08003740(state, sprite);
+        stepDelayTimer(state, sprite);
         sub_0806C6B0(entity, sprite, scriptBase, scriptBase);
     }
 }

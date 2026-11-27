@@ -6,15 +6,15 @@ void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
 void sub_080269A8(void *, s32);
 void sub_080C31E8(void *, void *, s32, u32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_080C31E0(u8 *, s32);
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, s32);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, s32);
 void sub_08013C8C(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866D980[];
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 
 /* Updates a weapon/familiar entity: checks its animation state, handles
  * attack events, advances its state callback and applies camera-relative
@@ -76,12 +76,12 @@ void sub_08025FE0(u8 *self)
             t = t + (s32)((u32)t >> 31);
             *((s32 *) (anim + 0x10)) = t >> 1;
             *((u8 *) (((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) self)) + 0x1B)) = zero;
-            animFn = D_08671BDC;
+            animFn = sScriptStepCallbacks;
             sub_080C31E8(self + 0x18, self + 0x22, 5, *animFn);
         }
     }
 
-    if (sub_08013B5C(gfxObj, anim) == 0)
+    if (updateObjectDisplayState(gfxObj, anim) == 0)
     {
         u8 *p2;
         *((u32 *) (self + 0x14)) = (u32) D_0866D980;
@@ -96,8 +96,8 @@ void sub_08025FE0(u8 *self)
         *((u16 *) (self + 0x22)) = (*((u16 *) (self + 0x22))) - 1;
         if (((*((u16 *) (self + 2))) & 0x8000) == 0)
         {
-            sub_080113A8(gfxObj, animData);
-            sub_0801165C(anim, *((s32 *) (extra + 0x04)));
+            stepAnimationTrack(gfxObj, animData);
+            advanceMotion(anim, *((s32 *) (extra + 0x04)));
         }
         else
         {

@@ -1,10 +1,10 @@
 extern void sub_08005E80(s32);
-extern void sub_080113A8(s32, void *);
-extern void sub_0801165C(void *, s32);
+extern void stepAnimationTrack(s32, void *);
+extern void advanceMotion(void *, s32);
 extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C5C(void *, s32);
 extern void sub_08013C8C(void *, void *);
 extern s32 sub_080141AC(s32, void *);
@@ -13,7 +13,7 @@ extern void sub_0805CA00(void *, void *);
 extern void _call_via_r1(void *, s32);
 extern void _call_via_r3(void *, void *, s32, s32);
 extern u32 D_0866E938[];
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 
 /*
  * Per-frame entity update: clears the semi-transparent flag on its five OAM
@@ -70,7 +70,7 @@ void sub_0805C6D8(u8 *entity)
       }
     }
   }
-  if (sub_08013B5C(sprite, motion) == 0)
+  if (updateObjectDisplayState(sprite, motion) == 0)
   {
     *((u32 *) (entity + 0x14)) = (u32) D_0866E938;
     *((u16 *) (entity + 0x22)) = *((u16 *) (entity + 0x22)) + 1;
@@ -90,8 +90,8 @@ void sub_0805C6D8(u8 *entity)
     {
       return;
     }
-    sub_080113A8(sprite, animState);
-    sub_0801165C(motion, 0);
+    stepAnimationTrack(sprite, animState);
+    advanceMotion(motion, 0);
   }
   if ((*((u16 *) motion) & 0x0D) == 0)
   {

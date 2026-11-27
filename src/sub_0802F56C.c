@@ -1,6 +1,6 @@
-s32 sub_080113A8(void *, void *);
-s32 sub_0801165C(void *, s32);
-s32 sub_0805F9B4(s32, s32);
+s32 stepAnimationTrack(void *, void *);
+s32 advanceMotion(void *, s32);
+s32 isOutsideCameraBounds(s32, s32);
 s32 sub_080C31E0(void *, void *);
 struct S_02025FF0_18A8 { u8 _0x000[0x18A8]; u8 cameraIndex; };
 extern struct S_02025FF0_18A8 gMainWorkspace;
@@ -23,13 +23,13 @@ void sub_0802F56C(void *arg0)
   sprite = *((void **) (((u8 *) self) + 0x38));
   work = *((void **) (((u8 *) self) + 0x3C));
   animState = ((u8 *) work) + 0x34;
-  if (sub_0805F9B4(*((s32 *) (((u8 *) work) + 0x08)), *((s32 *) (((u8 *) work) + 0x0C))) == 1)
+  if (isOutsideCameraBounds(*((s32 *) (((u8 *) work) + 0x08)), *((s32 *) (((u8 *) work) + 0x0C))) == 1)
   {
     sub_080C31E0(self, *((void **) (((u8 *) self) + 0x24)));
     return;
   }
-  sub_080113A8(sprite, animState);
-  sub_0801165C(work, 0x16C1);
+  stepAnimationTrack(sprite, animState);
+  advanceMotion(work, 0x16C1);
   coordTable = gCameraState;
   coordOffset = (gMainWorkspace.cameraIndex + 1) * 0x40;
   xBase = coordTable + 0x1278;

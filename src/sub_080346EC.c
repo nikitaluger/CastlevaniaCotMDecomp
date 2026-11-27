@@ -2,10 +2,10 @@ extern void sub_08005E80(s32);
 extern s32 sub_08013B5C(s32, void *);
 extern void sub_08013C8C(void *, s32);
 extern s32 sub_080141AC(s32, void *);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 D_08671BDC;
+extern s32 sScriptStepCallbacks;
 typedef struct
 {
   u16 flags;
@@ -31,7 +31,7 @@ void sub_080346EC(ScriptObj *self)
     sub_080C31E0(self, (s32) self->despawnReason);
     return;
   }
-  if (sub_08016238(actor->contact) != 0)
+  if (hitTestEntities(actor->contact) != 0)
   {
     actor->flags = (u16) (1 | actor->flags);
   }
@@ -45,7 +45,7 @@ void sub_080346EC(ScriptObj *self)
     *(((u8 *) actor->contact) + 1) = 0;
     *((((u8 *) self) + (((s32) self->stepIndex) * 2)) + 0x1B) = 0;
     {
-      s32 *fnaddr = &D_08671BDC;
+      s32 *fnaddr = &sScriptStepCallbacks;
       sub_080C31E8(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, 1, *fnaddr);
     }
   }

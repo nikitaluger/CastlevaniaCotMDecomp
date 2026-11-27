@@ -1,5 +1,5 @@
-extern s32 sub_08003740(void *, void *);
-extern s32 sub_0806D518(void *, void *, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern s32 sub_080C31E0(void *, void *);
 
@@ -27,11 +27,11 @@ void sub_08078240(void *entity) {
     slotObj = *(void **)((u8 *)entity + 0x6C);
     objData = (u8 *)slotObj + 4;
     effect = *(void **)((u8 *)entity + 0x38);
-    if (sub_0806D518(entity, effect, objData) != 0)
+    if (checkGlobalStateChange(entity, effect, objData) != 0)
         return;
     state = &gMainWorkspace;
     *(u16 *)effect = state->word18C2;
-    if (sub_08003740((u8 *)slotObj + 0x20, effect) == 0) {
+    if (stepDelayTimer((u8 *)slotObj + 0x20, effect) == 0) {
         sub_080C31E0(entity, *(void **)((u8 *)entity + 0x24));
         return;
     }

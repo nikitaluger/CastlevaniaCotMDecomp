@@ -2,7 +2,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern s32 sub_08014EF4(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* Run one step of an object's behavior script: dispatch the current opcode,
  * and when its animation finishes pick a random horizontal direction and hand
@@ -44,7 +44,7 @@ void sub_0802C40C(void *arg0)
         pc = *(s16 *)(obj + 0x22);
         obj[pc * 2 + 0x19] = 0;
         {
-            void **jumpTable = &D_08671BD0;
+            void **jumpTable = &gScriptStepCallbacks;
             sub_080C31E8(obj + 0x18, obj + 0x22, 0, *jumpTable);
         }
     }

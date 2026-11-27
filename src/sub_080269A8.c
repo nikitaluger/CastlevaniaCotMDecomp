@@ -1,7 +1,7 @@
 extern void sub_080C31E4(void *, void *, s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 void sub_08026780(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -12,7 +12,7 @@ void sub_08026780(void *arg0) {
     if (sub_08014A04(r6, *(s32 *)(r4 + 8), *(s32 *)(r4 + 0xC), 0xC0000, 0xC0000) == 1) {
         s16 idx = *(s16 *)(self + 0x22);
         *(u8 *)(self + idx * 2 + 0x19) = 0;
-        lit = gMainObjTimerCallback;
+        lit = gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, *lit);
         return;
     }

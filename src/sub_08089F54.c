@@ -1,4 +1,4 @@
-extern s32 sub_08003740(s32, s32);
+extern s32 stepDelayTimer(s32, s32);
 extern void sub_08001480(s32, s32);
 extern void sub_0806D588(s32, s32);
 extern void sub_080C31E0(void *, s32);
@@ -22,7 +22,7 @@ void sub_08089F54(void *arg0)
     pos = (u8 *)work + 4;
     sprite = *(s32 *)((u8 *)self + 0x38);
     timer = (u8 *)work + 0x20;
-    if (sub_08003740((s32)timer, sprite) == 0)
+    if (stepDelayTimer((s32)timer, sprite) == 0)
     {
         gMainWorkspace[7] = 8;
         parentOff = 0x1864;
@@ -31,6 +31,6 @@ void sub_08089F54(void *arg0)
         sub_080C31E0(self, *(s32 *)((u8 *)self + 0x24));
         return;
     }
-    sub_08003740((s32)timer, sprite);
+    stepDelayTimer((s32)timer, sprite);
     sub_0806D588(sprite, (s32)pos);
 }

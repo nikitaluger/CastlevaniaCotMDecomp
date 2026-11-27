@@ -1,10 +1,10 @@
-extern void sub_08003A6C(void *, s32, void *);
-extern s32 sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gMainWorkspace[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 void sub_0807F678(u8 *arg0) {
     u32 zero = 0;
@@ -23,8 +23,8 @@ void sub_0807F678(u8 *arg0) {
     {
         u8 *p20 = r7;
         p20 += 0x20;
-        sub_08003A6C(p20, 0, (void *)0x084EBFC4);
-        sub_08003740(p20, rp);
+        startEffectTimer(p20, 0, (void *)0x084EBFC4);
+        stepDelayTimer(p20, rp);
     }
     {
         u8 *base = gMainWorkspace;
@@ -36,7 +36,7 @@ void sub_0807F678(u8 *arg0) {
     sub_0806D2A0(arg0, 0x62, 0x0A, 0x12);
     *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = (u8)zero;
     {
-        s32 *lit = &gMainObjTimerCallback;
+        s32 *lit = &gScriptStepCallbackTable;
         u8 *a18 = arg0;
         a18 += 0x18;
         sub_080C31E4(a18, arg0 + 0x22, *lit);

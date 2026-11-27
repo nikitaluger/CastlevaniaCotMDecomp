@@ -1,6 +1,6 @@
 extern u32 D_02027860;
 void allocWorkSlot(void *, s32, s32, s32);
-s32 sub_0805FAEC(s32, s32);
+s32 spawnBudgetedEffect(s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080AFFE8(void);
 
@@ -31,7 +31,7 @@ void sub_080AFF54(void *arg0) {
         u32 base = (u32)&D_02027860;
         dst = childList;
         do {
-            child = (u8 *)sub_0805FAEC(*(s32 *)base, 0x1B1);
+            child = (u8 *)spawnBudgetedEffect(*(s32 *)base, 0x1B1);
             *dst = child;
             child[0x4C] = 0;
             ((u8 *)*dst)[0x50] = (u8)i;

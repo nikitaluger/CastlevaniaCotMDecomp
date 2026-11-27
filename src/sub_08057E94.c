@@ -6,7 +6,7 @@
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E804[];
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 
 s32 sub_080141AC(void*, void*);
 void sub_08013C5C(void*, void*);
@@ -16,9 +16,9 @@ void sub_080142C0(void*, void*);
 void sub_08013AC4(void*);
 void sub_08005E80(u32);
 void sub_080C31E8(void*, void*, s32, u32);
-s32 sub_08013B5C(void*, void*);
+s32 updateObjectDisplayState(void*, void*);
 void sub_080C31E0(void*, s32);
-void sub_080113A8(void*, void*);
+void stepAnimationTrack(void*, void*);
 void moveObjectHorizontally(void*, s32, s32);
 void sub_08013C8C(void*, void*);
 
@@ -63,12 +63,12 @@ void sub_08057E94(u8 *entity) {
             sub_08013AC4(entity);
             sub_08005E80(0x85);
             ACTION_FLAG(entity) = 0;
-            actionData = D_08671BDC;
+            actionData = sScriptStepCallbacks;
             sub_080C31E8(entity + 0x18, entity + 0x22, 1, *actionData);
         }
     }
 
-    if (sub_08013B5C(anim, actor) == 0) {
+    if (updateObjectDisplayState(anim, actor) == 0) {
         *(u32 *)(entity + 0x14) = (u32)D_0866E804;
         *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) + 1;
         frameEntry = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
@@ -81,7 +81,7 @@ void sub_08057E94(u8 *entity) {
         sub_080C31E0(entity, *(u32 *)(*(u32 *)(entity + 0x14) + patternValue * 4));
         *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) - 1;
         if (!((*(u16 *)(entity + 0x02)) & 0x8000)) {
-            sub_080113A8(anim, actorTarget);
+            stepAnimationTrack(anim, actorTarget);
             moveObjectHorizontally(actor, 0x100000, 0x100000);
         } else {
             return;

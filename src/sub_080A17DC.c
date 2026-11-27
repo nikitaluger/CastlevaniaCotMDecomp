@@ -1,5 +1,5 @@
 extern void sub_08011624(void *a, void *b, void *c);
-extern void sub_0801165C(void *a, s32 b);
+extern void advanceMotion(void *a, s32 b);
 extern void sub_080A1744(void *a, void *b);
 
 struct FlipObj {
@@ -77,6 +77,6 @@ s32 sub_080A17DC(struct FlipObj *entity, struct Motion *motion, struct TrackStat
         }
         facing->prevDir = direction;
     }
-    sub_0801165C(motion, 0);
+    advanceMotion(motion, 0);
     return changed;
 }

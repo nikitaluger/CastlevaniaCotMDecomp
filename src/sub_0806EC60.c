@@ -1,4 +1,4 @@
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -49,7 +49,7 @@ void sub_0806EC60(void *arg0) {
     ((struct B_6EC60 *)stateBlock)->p->fA = 0;
     ((struct B_6EC60 *)stateBlock)->p->fC = 0;
     gauge = base->v;
-    ((struct B_6EC60 *)stateBlock)->p->fE = sub_0806D62C(gauge, 0x7E);
+    ((struct B_6EC60 *)stateBlock)->p->fE = scalePercentSaturate16(gauge, 0x7E);
     ((struct B_6EC60 *)stateBlock)->p->f10 = animCtrl;
     ((struct B_6EC60 *)stateBlock)->p->f16 = 0xF;
     ((struct B_6EC60 *)stateBlock)->p->f18 = 0x10;

@@ -1,5 +1,5 @@
 extern void sub_08011528(void *sprite, void *anim);
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 
 struct GameState_B1B68 { u8 _0[0x1870]; u32 v; };
@@ -14,7 +14,7 @@ void sub_080B1B68(u8 *self) {
 
     sub_08011528(sprite, anim);
     if (*anim & 2) {
-        void *shot = sub_0805FAEC(gMainWorkspace.v, 0x1B9);
+        void *shot = spawnBudgetedEffect(gMainWorkspace.v, 0x1B9);
         s32 ownerX = *(s32 *)(ownerWork + 8);
         u32 dirFlag = *(u16 *)(*(u8 **)(*(u8 **)(self + 0x28) + 0x38) + 2) & 0x10;
         if (dirFlag)

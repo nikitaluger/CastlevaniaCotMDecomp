@@ -2,7 +2,7 @@
  * the angle and count the timer down, recompute and apply its velocity, set the
  * view's facing flag, then run the per-frame motion callback. */
 struct Motion { u8 _[0x2E]; u16 angle; s32 countdown; };
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_080146D0(void *, u16, s32);
 extern void sub_080148D8(s32, s32);
 extern void sub_0809856C(s32, void *, s32);
@@ -34,7 +34,7 @@ void sub_0809CFE0(u8 *entity) {
         sub_080C31E4(animState, entity + 0x22, *animScript);
     }
     sub_080146D0(body, motion->angle, motion->countdown);
-    sub_0801165C(body, 0);
+    advanceMotion(body, 0);
     sub_080148D8(view, *(s32 *)(body + 8));
     sub_0809E278(view, bodyData, body, motion);
 }

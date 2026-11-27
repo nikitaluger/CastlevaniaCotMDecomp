@@ -4,13 +4,13 @@ s32 sub_08013558(void*, void*, void*);
 void sub_08013978(void*, void*);
 void sub_080142C0(void*, void*);
 void sub_08013AC4(void*);
-s32 sub_08013B5C(void*, void*);
+s32 updateObjectDisplayState(void*, void*);
 void sub_08013C8C(void*, void*);
 void sub_080C31E0(void*, void*);
 void sub_080C31E8(void*, void*, s32, s32);
 void sub_08005E80(s32);
-void sub_080113A8(void*, void*);
-extern s32 D_08671BDC;
+void stepAnimationTrack(void*, void*);
+extern s32 sScriptStepCallbacks;
 
 /* Runs one step of an entity's scripted behaviour: checks visibility/contact,
  * handles a flip request with a sound cue, advances the step script and
@@ -41,10 +41,10 @@ void sub_08042C58(void *entity) {
             sub_08005E80(0x85);
             flipStepPtr = (void *)((s32)((s16)*(u16 *)((u8 *)entity + 0x22) * 2) + (s32)entity);
             *(u8 *)((u8 *)flipStepPtr + 0x1B) = 0;
-            callTable = &D_08671BDC;
+            callTable = &sScriptStepCallbacks;
             sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 2, *callTable);
         }
-        if (sub_08013B5C(parent, component) != 0) goto common;
+        if (updateObjectDisplayState(parent, component) != 0) goto common;
         *(void **)((u8 *)entity + 0x14) = (void *)0x0866E1B4;
         *(u16 *)((u8 *)entity + 0x22) = (u16)(*(u16 *)((u8 *)entity + 0x22) + 1);
         dispatchStepPtr = (void *)((s32)((s16)*(u16 *)((u8 *)entity + 0x22) * 2) + (s32)entity);
@@ -55,7 +55,7 @@ void sub_08042C58(void *entity) {
         sub_080C31E0(entity, *(void **)((u8 *)*(void **)((u8 *)entity + 0x14) + opcode * 4));
         *(u16 *)((u8 *)entity + 0x22) = (u16)(*(u16 *)((u8 *)entity + 0x22) - 1);
         if ((*(u16 *)((u8 *)entity + 0x02) & 0x8000) != 0) return;
-        sub_080113A8(parent, scriptPlayer);
+        stepAnimationTrack(parent, scriptPlayer);
     common:
         sub_08013C8C(entity, parent);
     }

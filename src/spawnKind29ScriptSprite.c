@@ -15,7 +15,7 @@ extern void registerScriptObject(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
 extern s32 _call_via_r1(u8 *, s32);
 extern void sub_0802E8EC(void);
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Kind-table records: a 4-byte pair holding a signed motion value, and a
  * 14-byte per-kind record holding tile/palette ids. */
@@ -120,7 +120,7 @@ void spawnKind29ScriptSprite(struct Kind29Entity *entity) {
     entity->flags |= 0x1000;
     scriptEntry = (u8 *)(entity->scriptStep * 2 + (u32)entity);
     scriptEntry[0x19] = 0;
-    callbackPtr = &gMainObjTimerCallback;
+    callbackPtr = &gScriptStepCallbackTable;
     scriptPtr = (u8 *)entity + 0x18;
     sub_080C31E4(scriptPtr, (u8 *)entity + 0x22, *callbackPtr);
     scriptEntry2 = (u8 *)(entity->scriptStep * 2 + (u32)entity);

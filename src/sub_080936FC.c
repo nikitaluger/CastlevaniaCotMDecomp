@@ -1,10 +1,10 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_0808E348(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern s16 sub_080C36E4(s16, s32);
 extern u16 D_081007D0[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Looks up a value from D_081007D0 into the FX object, spawns a randomly offset
  * effect when the table check succeeds, and ticks a countdown that, on expiry,
@@ -26,7 +26,7 @@ void sub_080936FC(u8 *self) {
     if (check == 0) {
         spawnX = *(s32 *)(fields + 0x08) + sub_0800583C(0xE0 << 12);
         spawnY = *(s32 *)(fields + 0x0C) + sub_0800583C(0x80 << 10);
-        spawnZ = sub_08005820(0x80 << 8) + (0x80 << 6);
+        spawnZ = scaleByRandom(0x80 << 8) + (0x80 << 6);
         sub_0808E348(spawnX, spawnY, 0, spawnZ, 0x16C1, check, 8);
     }
     {
@@ -41,7 +41,7 @@ void sub_080936FC(u8 *self) {
                 stepOffset += (u32)self;
                 *(u8 *)(stepOffset + 0x19) = 0;
             }
-            msgPtr = (u32 *)gMainObjTimerCallback;
+            msgPtr = (u32 *)gScriptStepCallbackTable;
             sub_080C31E4(self + 0x18, self + 0x22, *msgPtr);
         }
     }

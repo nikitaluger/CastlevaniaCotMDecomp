@@ -6,7 +6,7 @@ extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void setSpriteFlip(u8 *);
 extern void registerScriptObject(u8 *, s32);
-extern s16 sub_08005820(s32);
+extern s16 scaleByRandom(s32);
 extern void sub_0804EA20(u8 *);
 extern void sub_0804E9F0(void);
 extern void sub_080C31E0(void *, u32);
@@ -150,7 +150,7 @@ void sub_0804E584(struct Arg0 *arg0)
     *((s32 *) (((u8 *) r5) + 0x48)) = r5->f8;
     *((s32 *) (r4b + 4)) = r5->fC;
     *((u16 *) (r4b + 0x10)) = zero;
-    *((u16 *) (r4b + 0x12)) = sub_08005820(0xB4);
+    *((u16 *) (r4b + 0x12)) = scaleByRandom(0xB4);
     sub_0804EA20((u8 *) arg0);
     new_var = *((s16 *) (r4b + 0x10));
     r2b = ((u8 *) r5) + 0x5C;
@@ -166,7 +166,7 @@ void sub_0804E584(struct Arg0 *arg0)
       *((u16 *) (r4b + 0x10)) = *new_var3;
     }
     while (0);
-    *((u16 *) (r4b + 0x12)) = sub_08005820(0xB4);
+    *((u16 *) (r4b + 0x12)) = scaleByRandom(0xB4);
     sub_0804EA20((u8 *) arg0);
     new_var = *((s16 *) (r4b + 0x10));
     r2b = ((u8 *) r5) + 0x5C;

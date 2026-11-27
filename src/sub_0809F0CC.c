@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_080A054C(u8, s32, s32);
 void sub_080C31E0(void *, void *);
 
@@ -19,7 +19,7 @@ void sub_0809F0CC(u8 *arg0) {
             p[3] = gfxWord1;
         }
     }
-    if (sub_08013B5C(sprite, work) == 0) {
+    if (updateObjectDisplayState(sprite, work) == 0) {
         s32 stepOffset;
         u8 command;
         u8 *stepPtr;

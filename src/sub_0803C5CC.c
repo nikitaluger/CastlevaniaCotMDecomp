@@ -1,7 +1,7 @@
-extern void sub_08011898(void *, s32);
+extern void moveEntityWithCollision(void *, s32);
 extern void sub_080C31E0(void *, s32);
 
-/* Movement/animation state driven by sub_08011898. The status halfword at
+/* Movement/animation state driven by moveEntityWithCollision. The status halfword at
  * +0x02 is nonzero once the current movement step has finished. */
 struct MoveState {
     u16 f0;
@@ -20,7 +20,7 @@ struct Actor {
 void sub_0803C5CC(struct Actor *actor) {
     struct MoveState *move = actor->move;
 
-    sub_08011898(move, 0x16C1);
+    moveEntityWithCollision(move, 0x16C1);
     if (move->status != 0) {
         sub_080C31E0(actor, actor->update);
     }

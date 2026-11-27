@@ -1,4 +1,4 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 
 /* Actor state struct: +0x04 frame timer, +0x28 linked object, +0x38 sprite,
  * +0x3C work block, +0x5C cached animation contact code. */
@@ -35,7 +35,7 @@ void sub_080B2BEC(void *arg0) {
     sprite = self->sprite;
     work = (u8 *)self->work;
     anim = (struct B2_Sub *)(work + 0x34);
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
     frames = (u8 **)anim->frames;
     idx = anim->frame + anim->step;
     table = *frames;

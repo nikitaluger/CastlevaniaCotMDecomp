@@ -1,10 +1,10 @@
-s32 sub_080113A8(s32, void *);
+s32 stepAnimationTrack(s32, void *);
 s32 setAnimationFrameAndRecord(s32, void *, void *, u16);
 s32 sub_08040B34(void *, s32, void *);
 extern void _call_via_r2(void *, void *, s32);
 
 extern u16 D_080CF478[];
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 /* Tick this enemy's animation; once it finishes, select the next shot animation
  * from the variant table, raise the part a pixel, optionally spawn a projectile
@@ -16,7 +16,7 @@ void sub_0803FD84(void *entity)
     void *anim = (u8 *)part + 0x34;
     void *ext = (u8 *)part + 0x48;
 
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
 
     if (*(u8 *)anim & 0x02) {
         u32 base = (u32)D_080CF478;

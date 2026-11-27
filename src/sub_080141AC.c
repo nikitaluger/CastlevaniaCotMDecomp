@@ -1,4 +1,4 @@
-s32 sub_0805F9B4(s32, s32);
+s32 isOutsideCameraBounds(s32, s32);
 
 /* Movement bounds check: when the destination lies outside the camera view,
  * drop the entity's on-screen flag and stop the mover; report whether none of
@@ -9,7 +9,7 @@ s32 sub_080141AC(void *arg0, void *arg1)
   u8 *viewFlags;
   unsigned short newFlags;
   s32 outside;
-  outside = sub_0805F9B4(*((u32 *) (((u8 *) arg1) + 8)), *((u32 *) (((u8 *) arg1) + 0xC)));
+  outside = isOutsideCameraBounds(*((u32 *) (((u8 *) arg1) + 8)), *((u32 *) (((u8 *) arg1) + 0xC)));
   if (outside == 1)
   {
     viewFlags = ((u8 *) arg0) + 0x2A;

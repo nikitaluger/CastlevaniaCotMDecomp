@@ -1,10 +1,10 @@
-extern s32 sub_08003740(void *, void *);
-extern s32 sub_08003A6C(void *, s32, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern s32 startEffectTimer(void *, s32, void *);
 extern void sub_0806E154(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u8 D_080E01A0[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 struct P38 { u8 _0[4]; u16 f4; u16 f6; u16 f8; };
 
 /*
@@ -34,8 +34,8 @@ void sub_0806DF88(u8 *arg0)
   *((u32 *) (subObj + 4)) = *((u32 *) (arg0 + 0x8C));
   *((u32 *) (obj + 4)) = *((u32 *) (arg0 + 0x9C));
   *((u32 *) (ctx + 0x24)) = *((u32 *) (config + 0x0C));
-  sub_08003A6C(subObj + 0x24, 0, *((void **) (config + 0x10)));
-  sub_08003740(subObj + 0x24, ctx);
+  startEffectTimer(subObj + 0x24, 0, *((void **) (config + 0x10)));
+  stepDelayTimer(subObj + 0x24, ctx);
   *((u32 *) (obj + 0x10)) = *((u32 *) (config + 0x14));
   ((struct P38 *)ctx)->f4 = 0x100;
   ((struct P38 *)ctx)->f6 = 0x100;
@@ -43,7 +43,7 @@ void sub_0806DF88(u8 *arg0)
   zero = 0;
   index = *((s16 *) (arg0 + 0x22));
   *((u8 *) ((arg0 + (index * 2)) + 0x19)) = zero;
-  effectIds = &gMainObjTimerCallback;
+  effectIds = &gScriptStepCallbackTable;
   base18 = arg0 + 0x18;
   sub_080C31E4(base18, arg0 + 0x22, *effectIds);
   index = *((s16 *) (arg0 + 0x22));

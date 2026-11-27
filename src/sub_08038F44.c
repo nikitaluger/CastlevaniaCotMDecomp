@@ -1,7 +1,7 @@
 void sub_080144D8(void *, void *);
 void sub_080144FC(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, s32, s32);
 
 /* Advance to the next script step (state table 0x0866DE68): stamp the step on
@@ -56,7 +56,7 @@ void sub_080382AC(void *arg0) {
  * collision update with flags 0x16C1 and gravity 0xE<<12. */
 void sub_0803895C(void *arg0) {
     s32 work = *(s32 *)((u8 *)arg0 + 0x3C);
-    sub_080113A8(*(void **)((u8 *)arg0 + 0x38), (u8 *)work + 0x34);
+    stepAnimationTrack(*(void **)((u8 *)arg0 + 0x38), (u8 *)work + 0x34);
     sub_08011EE8((void *)work, 0x16C1, 0xE0 << 12);
 }
 

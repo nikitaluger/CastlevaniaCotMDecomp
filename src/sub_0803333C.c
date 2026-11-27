@@ -1,5 +1,5 @@
 void sub_0803B194(void *);
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08011344(void *, void *, s32, s32);
 void sub_0803B140(s32, void *, void *, s32);
 void sub_080C31E4(void *, void *, s32);
@@ -15,7 +15,7 @@ void sub_0803333C(void *self)
     void *moveState = (u8 *)work + 0x48;
 
     sub_0803B194((u8 *)work + 0x54);
-    sub_080113A8(sprite, animState);
+    stepAnimationTrack(sprite, animState);
     if (*(u8 *)animState & 2) {
         if (*(u16 *)((u8 *)sprite + 2) & 0x10)
             *(s32 *)((u8 *)work + 0x10) = 0x40000;

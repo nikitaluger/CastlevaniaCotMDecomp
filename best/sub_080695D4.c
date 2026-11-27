@@ -1,13 +1,13 @@
 extern void playSound(s32);
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u8 D_080E068C[];
 extern u8 *D_0866EB08[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 inline u8 inline_fn(u8 *arg0) { return *arg0; }
 void sub_080695D4(u8 *arg0)
 {
@@ -27,8 +27,8 @@ void sub_080695D4(u8 *arg0)
   u8 temp;
   sp0 = (*((u8 **) (arg0 + 0x6C))) + 4;
   r10 = *((void **) (arg0 + 0x38));
-  if (sub_0806C4B4(sp0, sp0) != 0) return;
-  sub_0806C5EC(arg0, r10, sp0, sp0);
+  if (syncViewPosition(sp0, sp0) != 0) return;
+  resetActionResultState(arg0, r10, sp0, sp0);
   p94 = gGameStatus + 0x94;
   p95 = gGameStatus + 0x95;
   p18 = arg0 + 0x18;
@@ -72,5 +72,5 @@ void sub_080695D4(u8 *arg0)
   playSound(0x1BA);
   sub_0806C6B0(arg0, r10, ((*((u8 **) (arg0 + 0x6C))) + 4), sp0);
   *(u8 *)(arg0 + *(s16 *)p22 * 2 + 0x19) = 0;
-  sub_080C31E4(p18, p22, gMainObjTimerCallback);
+  sub_080C31E4(p18, p22, gScriptStepCallbackTable);
 }

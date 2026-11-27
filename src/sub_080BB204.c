@@ -1,7 +1,7 @@
 extern void sub_080BB940(void *a, void *b);
 extern void sub_080BB984(void *a, void *b);
 extern void sub_080BBB60(void *a);
-extern void sub_0801165C(void *a, s32 b);
+extern void advanceMotion(void *a, s32 b);
 extern void sub_080BE8D0(s32 a, s32 b);
 extern void sub_080BB898(void *a);
 extern void sub_080C31E4(void *a, void *b, s32 c);
@@ -21,7 +21,7 @@ void sub_080BB204(u8 *arg0)
         sub_080BB984(scriptState, control);
 
     sub_080BBB60(scriptState);
-    sub_0801165C(scriptState, 0);
+    advanceMotion(scriptState, 0);
 
     *(s32 *)(control + 0x40) += 0x600;
     if (*(s32 *)(control + 0x40) > 0x10000)

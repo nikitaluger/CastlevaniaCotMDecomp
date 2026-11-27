@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_080C31E0(void *, void *);
 
 struct ScriptEntity
@@ -20,7 +20,7 @@ void sub_080A2000(struct ScriptEntity *arg0)
 {
   int byteBase;
   int stepOffset;
-  if (sub_08013B5C((void *)arg0->sprite, (void *)arg0->work) == 0)
+  if (updateObjectDisplayState((void *)arg0->sprite, (void *)arg0->work) == 0)
   {
     arg0->handlerTable = 0x0866FE74;
     arg0->step += 1;

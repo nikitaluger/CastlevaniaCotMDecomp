@@ -2,7 +2,7 @@ struct S_02025368 { u8 _pad1[0x8C]; s16 arr8C[1]; u8 _pad2[0x2DE - 0x8E]; u16 fi
 extern struct S_02025368 gGameStatus;
 struct Obj { u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; void *f10; u8 _pad14[2]; u16 f16; u16 f18; };
 struct Outer { u8 _pad[0x3C]; struct Obj *obj; };
-u16 sub_0806D62C(u16, s32);
+u16 scalePercentSaturate16(u16, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -30,7 +30,7 @@ void sub_0806F408(void *arg0) {
     paramValue = params->field2DE;
     mode = params->arr8C[0];
     scaleLimit = (mode == 1) ? 0x64 : 0x3F;
-    gfxData->obj->fE = sub_0806D62C(paramValue, scaleLimit);
+    gfxData->obj->fE = scalePercentSaturate16(paramValue, scaleLimit);
     gfxData->obj->f10 = sprite;
     gfxData->obj->f16 = 0xF;
     gfxData->obj->f18 = 0x12;

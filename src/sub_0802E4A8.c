@@ -5,13 +5,13 @@ void sub_08013978(void *, s32);
 void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
 void sub_08005E80(s32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void _call_via_r1(void *, s32);
 void _call_via_r3(void *, void *, s32, s32);
 void sub_08011460(void *, void *, s32);
 void sub_08011EE8(void *, s32, s32);
 void sub_08013C8C(void *, void *);
-extern u32 D_08671BDC;
+extern u32 sScriptStepCallbacks;
 struct P28 { u8 pad[0x14]; u16 f14; };
 struct Flags { u16 f0; };
 
@@ -69,7 +69,7 @@ void sub_0802E4A8(u8 *entity)
       }
     }
   }
-  if (sub_08013B5C(owner, comp) == 0)
+  if (updateObjectDisplayState(owner, comp) == 0)
   {
     *(u32 *)(entity + 0x14) = 0x0866DBC0;
     *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) + 1;

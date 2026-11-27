@@ -1,17 +1,17 @@
-s32 sub_0806C4B4(void *, void *);
-void sub_0806C5EC(void *, void *, void *, void *);
+s32 syncViewPosition(void *, void *);
+void resetActionResultState(void *, void *, void *, void *);
 void sub_0806AB04(void *, void *, void *, void *);
-void sub_08003A6C(void *, s32, s32);
+void startEffectTimer(void *, s32, s32);
 void sub_08005E80(s32);
 void sub_0806A7AC(void *, void *, s32);
 void sub_0806A884(void *, void *);
-void sub_08003740(void *, void *);
+void stepDelayTimer(void *, void *);
 void sub_0806C6B0(void *, void *, void *, void *);
 void sub_08084CBC(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
-extern s32 gMainObjTimerCallback;
-extern s32 D_08671BD8;
+extern s32 gScriptStepCallbackTable;
+extern s32 gMenuScriptCallback;
 
 /* Advance a spawned effect's motion from its profile table at 0x080E03A0 and,
    when its action flag is set, fire the kind-specific hit/sound/animation cues. */
@@ -29,9 +29,9 @@ void sub_08065A64(void *arg0) {
     s32 *cmdTable;
 
     effect = effectBase;
-    zeroResult = sub_0806C4B4(effect, effect);
+    zeroResult = syncViewPosition(effect, effect);
     if (zeroResult != 0) return;
-    sub_0806C5EC(arg0, owner, effect, effect);
+    resetActionResultState(arg0, owner, effect, effect);
     motionTable = (u8 *)0x080E03A0;
     tableOffset = *(s32 *)((u8 *)effect + 0x44) * 0x58;
     *(s32 *)((u8 *)effect + 0x0C) += *(s32 *)(tableOffset + motionTable);
@@ -65,7 +65,7 @@ void sub_08065A64(void *arg0) {
             sub_080C31E8((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 0x1B, *cmdTable);
             break;
         default:
-            sub_08003A6C((u8 *)spawn + 0x2C, 0, 0x0846EC44);
+            startEffectTimer((u8 *)spawn + 0x2C, 0, 0x0846EC44);
             stateByte = (u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0);
             stateByte[0x19] = zeroResult;
             cmdTable = (s32 *)0x08671BB0;
@@ -74,6 +74,6 @@ void sub_08065A64(void *arg0) {
         }
     }
     sub_0806A884(owner, effect);
-    sub_08003740((u8 *)effectBase + 0x28, owner);
+    stepDelayTimer((u8 *)effectBase + 0x28, owner);
     sub_0806C6B0(arg0, owner, effectBase, effect);
 }

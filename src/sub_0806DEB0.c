@@ -1,9 +1,9 @@
 struct Global18C2 { u8 pad[0x18C2]; u16 initialValue; };
 extern struct Global18C2 gMainWorkspace;
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void *allocSpriteObject(void);
-extern void sub_0806D2D0(void *);
+extern void cleanupFailedEffectSpawn(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -21,7 +21,7 @@ void sub_0806DEB0(u8 *actor) {
     }
     newObj = allocSpriteObject();
     if (newObj == 0) {
-        sub_0806D2D0(actor);
+        cleanupFailedEffectSpawn(actor);
         return;
     }
     *(void **)(actor + 0x38) = newObj;
@@ -39,7 +39,7 @@ void sub_0806DEB0(u8 *actor) {
         break;
     }
     (actor + *(s16 *)(actor + 0x22) * 2)[0x19] = 0;
-    { void **callback = &gMainObjTimerCallback;
+    { void **callback = &gScriptStepCallbackTable;
       cbParam = actor + 0x18;
       sub_080C31E4(cbParam, actor + 0x22, (s32)*callback); }
     (actor + *(s16 *)(actor + 0x22) * 2)[0x19]++;

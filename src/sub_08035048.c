@@ -1,5 +1,5 @@
 s32 sub_080141AC(s32, void *);
-s32 sub_08013B5C(s32, void *);
+s32 updateObjectDisplayState(s32, void *);
 void sub_08013C8C(void *, s32);
 void sub_080C31E0(void *, s32);
 
@@ -34,7 +34,7 @@ void sub_08035048(void *arg0)
       dst = (void * volatile *)((u8 *) obj + 0x30);
       *((s32 *) (((u8 *) *dst) + 0x4C)) = *((s32 *) (((u8 *) state) + 0x08));
       *((s32 *) (((u8 *) *dst) + 0x5C)) = *stateY;
-      if (sub_08013B5C((s32) sprite, state) == 0)
+      if (updateObjectDisplayState((s32) sprite, state) == 0)
       {
         *((void **) (((u8 *) obj) + 0x14)) = (void *) 0x0866DD90;
         goto dispatch;
@@ -44,7 +44,7 @@ void sub_08035048(void *arg0)
     goto checkState;
   }
 checkState:
-  if (sub_08013B5C((s32) sprite, state) == 0)
+  if (updateObjectDisplayState((s32) sprite, state) == 0)
   {
     *((void **) (((u8 *) obj) + 0x14)) = (void *) 0x0866DDA0;
     goto dispatch;

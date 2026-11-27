@@ -1,5 +1,5 @@
-extern s32 sub_08003740(void *, void *);
-extern void sub_08003A6C(void *, s32, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_08001480(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -17,11 +17,11 @@ void sub_08089D40(void *arg0)
   u8 *pos = work + 4;
   u8 *obj = *(u8 **)(entity + 0x38);
   u8 *script = work + 0x20;
-  s32 done = sub_08003740(script, obj);
+  s32 done = stepDelayTimer(script, obj);
   if (done == 0)
   {
-    sub_08003A6C(script, 0, (void *)0x08507E1C);
-    sub_08003740(script, obj);
+    startEffectTimer(script, 0, (void *)0x08507E1C);
+    stepDelayTimer(script, obj);
     sub_08001480(gMainWorkspace.v, 0x7F);
     *((u8 *) ((entity + ((*((s16 *) (entity + 0x22))) * 2)) + 0x19)) = (u8) done;
     litp = &(*((s32 *) 0x08671BB0));

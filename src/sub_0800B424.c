@@ -3,8 +3,8 @@ extern void sub_08005E80(u16);
 extern void sub_0800B824(u16, u16, s32);
 extern void _call_via_r3(void *, void *, s32, void *);
 extern u8 gCameraState[];
-extern s32 D_08671BD0[];
-extern s32 D_08671BD8[];
+extern s32 gScriptStepCallbacks[];
+extern s32 gMenuScriptCallback[];
 
 /* Menu confirm handler: once the global flags allow it, reads the object's
  * state byte and either grants the entry and fires the "select" callback, or
@@ -40,7 +40,7 @@ void sub_0800B424(u8 *menu)
     slot = (scratch = *((s16 *) (menu + 0x22)));
     *((u8 *) ((menu + (slot * 2)) + 0x19)) = result;
     {
-      s32 *pd = D_08671BD0;
+      s32 *pd = gScriptStepCallbacks;
       _call_via_r3(menu + 0x18, menu + 0x22, 0, (void *) (*pd));
     }
     return;
@@ -50,7 +50,7 @@ void sub_0800B424(u8 *menu)
   slot = *((s16 *) (menu + 0x22));
   *((u8 *) ((menu + (slot * 2)) + 0x17)) = state;
   {
-    s32 *pd = D_08671BD8;
+    s32 *pd = gMenuScriptCallback;
     _call_via_r3(menu + 0x18, menu + 0x22, 0x10, (void *) (*pd));
   }
 }

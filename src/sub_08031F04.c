@@ -1,4 +1,4 @@
-void sub_080161F0(void);
+void unlinkAndFreeObject(void);
 void sub_080C31E0(void *obj, u32 handler);
 
 struct SubObj {
@@ -21,7 +21,7 @@ struct MainObj {
 void sub_08031F04(struct MainObj *obj) {
     struct SubObj *sub = obj->sub;
     if (sub->unk_0x28 != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     sub_080C31E0(obj, sub->handler);
 }

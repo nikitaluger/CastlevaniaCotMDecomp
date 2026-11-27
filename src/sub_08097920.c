@@ -11,7 +11,7 @@ struct S_02025FF0
 };
 extern struct S_02025FF0 gMainWorkspace;
 extern s16 D_08100B98[][2];
-extern u32 D_08671BD8;
+extern u32 gMenuScriptCallback;
 
 struct ScriptStep
 {
@@ -45,6 +45,6 @@ void sub_08097920(struct ScriptStep *step)
     sub_08011344(animId, (u8 *)target + 0x1C, D_08100B98[*target][1], 0);
     *(u16 *)((u8 *)target + 0x16) = 1 | zero;
     *(u8 *)((u8 *)step + step->index * 2 + 0x17) = (u8)zero;
-    scriptArg = &D_08671BD8;
+    scriptArg = &gMenuScriptCallback;
     sub_080C31E8((u8 *)step + 0x18, (u8 *)step + 0x22, 2, *scriptArg);
 }

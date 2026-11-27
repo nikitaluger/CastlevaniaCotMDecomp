@@ -1,6 +1,6 @@
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern s32 allocSpriteObject(void);
-extern void sub_0806D2D0(void *);
+extern void cleanupFailedEffectSpawn(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -22,7 +22,7 @@ void sub_08083694(void *entity)
 
     obj = allocSpriteObject();
     if (obj == 0) {
-        sub_0806D2D0(entity);
+        cleanupFailedEffectSpawn(entity);
         return;
     }
 

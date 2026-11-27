@@ -1,4 +1,4 @@
-extern void *sub_0805FAEC(u32 a, s32 b);
+extern void *spawnBudgetedEffect(u32 a, s32 b);
 extern u32 D_02027860;
 
 /* Spawn `count` objects from the pool rooted at D_02027860; each gets its
@@ -20,7 +20,7 @@ void sub_0803C5F4(u32 count, u16 *params, u8 mode, u8 subMode, s32 coord0, s32 c
     if (i < count) {
         u32 *poolRoot = &D_02027860;
         do {
-            u8 *object = (u8 *)sub_0805FAEC(*poolRoot, 0xFB);
+            u8 *object = (u8 *)spawnBudgetedEffect(*poolRoot, 0xFB);
             if (object != 0) {
                 u8 slot = i & 3;
                 u8 *slotField = object + 0x8C;

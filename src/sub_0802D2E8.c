@@ -5,7 +5,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern u8 D_080CEA40[];
 extern u8 D_080CEAA8[];
 extern u8 D_080CEAE0[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 void sub_0802C6D4(void *arg0, void *arg1, s32 arg2) {
     u8 *base;

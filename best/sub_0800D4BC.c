@@ -8,7 +8,7 @@ extern void sub_0800F104(void);
 extern void sub_0800F1D8(u8, s32);
 extern void sub_0800F3C8(u8, s32);
 extern u8 gCameraState[];
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 
 void sub_0800D4BC(s32 arg0)
 {
@@ -20,7 +20,7 @@ void sub_0800D4BC(s32 arg0)
     u8 *base_3;
     void **entry;
 
-    base_1 = D_020278D0;
+    base_1 = gMenuState;
     base_1[0x69] = clearZero;
     i = 0;
     base_1 += 0x48;
@@ -31,7 +31,7 @@ void sub_0800D4BC(s32 arg0)
     } while (i <= 6);
 
     i = 0;
-    base_2 = D_020278D0;
+    base_2 = gMenuState;
     entry = (void **)(base_2 + 0x4C);
     for (; i <= 3; i++) {
         entry[0] = sub_08001480(arg0, 0x1B);
@@ -40,7 +40,7 @@ void sub_0800D4BC(s32 arg0)
     }
 
     i = 0;
-    base_3 = D_020278D0;
+    base_3 = gMenuState;
     entry = (void **)(base_3 + 0x5C);
     for (; i <= 1; i++) {
         entry[0] = sub_08001480(arg0, 0x1B);
@@ -50,9 +50,9 @@ void sub_0800D4BC(s32 arg0)
 
     zero = 0;
     sub_0800F104();
-    sub_0800F1D8(D_020278D0[0x6A], 0);
-    sub_0800F1D8(D_020278D0[0x6A], 1);
-    sub_0800F3C8(D_020278D0[0x69], 0);
+    sub_0800F1D8(gMenuState[0x6A], 0);
+    sub_0800F1D8(gMenuState[0x6A], 1);
+    sub_0800F3C8(gMenuState[0x69], 0);
     sub_0800F040();
     sub_0800EF3C(0xFF);
 

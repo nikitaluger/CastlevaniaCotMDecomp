@@ -13,7 +13,7 @@ struct Sarg {
 struct BD { u8 _0[4]; u16 f4; u16 f6; u16 f8; u16 fA; u8 _C[0x1C]; };
 extern struct BD gEffectGfxTable[];
 extern u16 D_08101A58[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -23,7 +23,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 
 void sub_080A19B0(struct Sarg *arg0) {
   struct P *new_var;
@@ -45,7 +45,7 @@ void sub_080A19B0(struct Sarg *arg0) {
   *((u32 *)(a + 0x1C)) = 0x80000009;
   p = (struct P *) arg0->f3C;
   aux = ((u8 *)p) + 0x34;
-  installUpdateHandler(arg0, (u8 *)p, sub_08097DC8);
+  installUpdateHandler(arg0, (u8 *)p, updateActorEffectSubObject);
   p->f1C = 0x54;
   one = 1;
   p->f18 = one;
@@ -86,7 +86,7 @@ ok:
     s16 idx = arg0->f22;
     *((u8 *)(((u32)idx * 2) + (u32)arg0 + 0x19)) = 0;
   }
-  fn = &gMainObjTimerCallback;
+  fn = &gScriptStepCallbackTable;
   p18 = ((u8 *)arg0) + 0x18;
   sub_080C31E4(p18, ((u8 *)arg0) + 0x22, (s32)(*fn));
   {

@@ -7,15 +7,15 @@ void sub_0801FA30(void *);
 void sub_08013AC4(void *);
 void sub_08005E80(s32);
 void sub_080C31E8(void *, void *, s32, u32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 s32 sub_080C31E0(s32, s32);
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, s32);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, s32);
 void sub_08013C8C(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866D7A0[];
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 
 /*
  * Per-frame update for a player-controlled actor: evaluate its ground contact,
@@ -68,7 +68,7 @@ void sub_0801F300(u8 *actor)
       sub_08013AC4(actor);
       sub_08005E80(0x85);
       *((u8 *) (((((u32) (*((s16 *) (actor + 0x22)))) * 2) + ((u32) actor)) + 0x1B)) = zero;
-      scriptTable = D_08671BDC;
+      scriptTable = sScriptStepCallbacks;
       sub_080C31E8(actor + 0x18, actor + 0x22, 4, *scriptTable);
     }
     if ((*((u16 *) player)) & 0x0C)
@@ -76,7 +76,7 @@ void sub_0801F300(u8 *actor)
       sub_0801FA30(actor);
     }
   }
-  if (sub_08013B5C(sprite, player) == 0)
+  if (updateObjectDisplayState(sprite, player) == 0)
   {
     u8 *p2;
     *((u32 *) (actor + 0x14)) = (u32) D_0866D7A0;
@@ -91,8 +91,8 @@ void sub_0801F300(u8 *actor)
     *((u16 *) (actor + 0x22)) = (*((u16 *) (actor + 0x22))) - 1;
     if (((*((u16 *) (actor + 2))) & 0x8000) == 0)
     {
-      sub_080113A8(sprite, animState);
-      sub_0801165C(player, 0);
+      stepAnimationTrack(sprite, animState);
+      advanceMotion(player, 0);
     }
     else
     {

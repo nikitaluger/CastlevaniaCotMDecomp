@@ -1,5 +1,5 @@
 void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Fade step: advance the fade timer on every second script step and refresh
  * the palette-blend registers at 0x03000830 (colour 0x3F40, weights
@@ -23,7 +23,7 @@ void sub_080AEA88(void *entity)
             stepIndex = *(s16 *)((u8 *)entity + 0x22);
             ((u8 *)entity)[stepIndex * 2 + 0x19] = 0;
             {
-                void **interpreter = &gMainObjTimerCallback;
+                void **interpreter = &gScriptStepCallbackTable;
                 sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *interpreter);
             }
         }

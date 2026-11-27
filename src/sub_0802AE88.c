@@ -1,9 +1,9 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void moveObjectHorizontally(void *, s32, s32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080141AC(void *, void *);
@@ -11,7 +11,7 @@ void sub_080142C0(void *, void *);
 void sub_0802B178(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 extern u8 D_0866DAE4[];
 
 /* Updates an entity's child sprite: checks visibility/animation, handles a
@@ -35,11 +35,11 @@ void sub_0802AE88(void *obj) {
         sub_08013AC4(obj);
         *(u8 *)((u32)(*(s16 *)((u8 *)obj + 0x22)) * 2 + (u32)obj + 0x1B) = 0;
         {
-            void **fnaddr = &D_08671BDC;
+            void **fnaddr = &sScriptStepCallbacks;
             sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 2, *fnaddr);
         }
     }
-    if (sub_08013B5C(sprite, owner) == 0) {
+    if (updateObjectDisplayState(sprite, owner) == 0) {
         *(u32 *)((u8 *)obj + 0x14) = (u32)D_0866DAE4;
         *(u16 *)((u8 *)obj + 0x22) = *(u16 *)((u8 *)obj + 0x22) + 1;
         {
@@ -60,7 +60,7 @@ void sub_0802AE88(void *obj) {
         if (*(u16 *)((u8 *)obj + 2) & 0x8000) {
             return;
         }
-        sub_080113A8(sprite, ownerWork);
+        stepAnimationTrack(sprite, ownerWork);
         moveObjectHorizontally(owner, 0x80000, 0x80000);
     }
     sub_0802B178(sprite, owner);

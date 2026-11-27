@@ -2,9 +2,9 @@
 extern s32 sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BFC;
-extern u32 gMainObjTimerCallback;
-extern u32 D_08671BDC;
+extern u32 gTrigFuncPtr;
+extern u32 gScriptStepCallbackTable;
+extern u32 sScriptStepCallbacks;
 struct S_02025FF0_CC { u8 _0[0x18A8]; u8 f18A8; };
 extern struct S_02025FF0_CC gMainWorkspace;
 struct S_02021E90_CC { u8 _0[0x1278]; u32 f1278; u32 f127C; };
@@ -32,7 +32,7 @@ void sub_08019540(u8 *obj)
     scriptState = *(u8 **)(obj + 0x3C);
     control = scriptState + 0x48;
     if (*(u16 *)(obj + 0x64) & 8) {
-        paramTablePtr = &D_08671BFC;
+        paramTablePtr = &gTrigFuncPtr;
         result = sub_080C31E0((void *)((u32) * (u16 *)(*(u8 **)(control + 0x10) + 4)), (void *)*paramTablePtr);
         params = *(u8 **)(control + 0x10);
         *(s32 *)(scriptState + 8) = *(s32 *)(scriptState + 0x48) + *(s16 *)(params + 6) * result;
@@ -44,12 +44,12 @@ void sub_08019540(u8 *obj)
         stepCounterPtr = (u8 *)(*(s16 *)(obj + 0x22) * 2 + (u32)obj);
         zero = 0;
         stepCounterPtr[0x19] = (u8)zero;
-        handlerTablePtr = &gMainObjTimerCallback;
+        handlerTablePtr = &gScriptStepCallbackTable;
         scriptPtr = obj + 0x18;
         stepIndexPtr = obj + 0x22;
         sub_080C31E4(scriptPtr, stepIndexPtr, (s32)*handlerTablePtr);
         stepFlagPtr = (u8 *)(*(s16 *)(obj + 0x22) * 2 + (u32)obj);
         stepFlagPtr[0x1B] = (u8)zero;
-        sub_080C31E8(scriptPtr, stepIndexPtr, 0, (s32)D_08671BDC);
+        sub_080C31E8(scriptPtr, stepIndexPtr, 0, (s32)sScriptStepCallbacks);
     }
 }

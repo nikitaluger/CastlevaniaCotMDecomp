@@ -1,8 +1,8 @@
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 
 s32 sub_08013558(void *, void *, s32);
 void sub_08013978(void *, s32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080141AC(void *, void *);
@@ -36,13 +36,13 @@ void sub_080567E0(u8 *object)
         {
             *(u8 *)(slot + 0x1B) = 0;
             {
-                void **callback = &D_08671BDC;
+                void **callback = &sScriptStepCallbacks;
                 sub_080C31E8(object + 0x18, object + 0x22, 3, *callback);
             }
         }
     }
 
-    if (sub_08013B5C(sprite, state) == 0)
+    if (updateObjectDisplayState(sprite, state) == 0)
     {
         *(u32 *)(object + 0x14) = (u32)0x0866E7B8;
         *(u16 *)(object + 0x22) = (u16)(*(u16 *)(object + 0x22) + 1);

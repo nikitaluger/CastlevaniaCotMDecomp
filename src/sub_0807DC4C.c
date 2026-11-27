@@ -1,9 +1,9 @@
-s32 sub_08003740(void *, void *);
-s32 sub_0806D2F8(void *, void *);
-s32 sub_0806D518(void *, void *, void *);
+s32 stepDelayTimer(void *, void *);
+s32 cullOffscreenEntity(void *, void *);
+s32 checkGlobalStateChange(void *, void *, void *);
 s32 sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
-s32 sub_08007DD8(s32, s32, s32);
+s32 getTileTerrainB(s32, s32, s32);
 s32 sub_0808DBF8(s32, s32, s32);
 
 /* Object at +0x6C of the entity: an accumulator at +4 and a timer block at +0x20. */
@@ -50,7 +50,7 @@ void sub_0807DC4C(struct Entity *entity)
   struct MotionBase *motion = entity->motion;
   struct Motion *m = (struct Motion *)((u8 *) motion + 4);
   struct Target *target = entity->target;
-  if (sub_0806D518(entity, target, m) == 0) {
+  if (checkGlobalStateChange(entity, target, m) == 0) {
     s32 newCoord = motion->coord + m->delta;
     motion->coord = newCoord;
     if ((m->hit->flags & 1) != 0) {
@@ -60,17 +60,17 @@ void sub_0807DC4C(struct Entity *entity)
     }
     {
       u8 *room = gTilemapPages + (gMainWorkspace.roomIndex << 6);
-      if ((sub_08007DD8((s32) room, newCoord, m->subCoord) << 16) != 0) {
+      if ((getTileTerrainB((s32) room, newCoord, m->subCoord) << 16) != 0) {
         sub_0808DBF8(motion->coord, m->subCoord, 0);
         sub_080C31E0(entity, entity->handler);
         return;
       }
     }
     target->id = gMainWorkspace.spawnValue;
-    if (((sub_08003740(motion->timer, target), sub_0806D588(target, m), gMainWorkspace.levelId == 0x1C)) || ((gMainWorkspace.flag14ED == 0) && (gMainWorkspace.gameMode != 0))) {
+    if (((stepDelayTimer(motion->timer, target), sub_0806D588(target, m), gMainWorkspace.levelId == 0x1C)) || ((gMainWorkspace.flag14ED == 0) && (gMainWorkspace.gameMode != 0))) {
       sub_080C31E0(entity, entity->handler);
       return;
     }
-    sub_0806D2F8(entity, target);
+    cullOffscreenEntity(entity, target);
   }
 }

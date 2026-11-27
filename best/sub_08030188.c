@@ -18,7 +18,7 @@ struct AnimTable { u8 _0[4]; u16 baseTile; u16 extra; u8 _8[0x28 - 8]; };
 extern struct AnimTable gEffectGfxTable[];
 extern u16 D_080CEB30[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void sub_08030188(struct Entity *arg0)
 {
   u8 *obj;

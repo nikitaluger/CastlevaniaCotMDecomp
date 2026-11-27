@@ -6,7 +6,7 @@ extern void sub_080A5734(s32 arg0, s32 arg1, s32 arg2);
 extern void sub_0808D0A4(s32 arg0);
 extern void sub_080C31E4(void *arg0, void *arg1, s32 arg2);
 extern u8 D_08101C60[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Boss attack-phase step: play the animation for the current phase from the
  * phase table, wake the boss's three part groups (actor types 0x192, 0x195 and
@@ -40,7 +40,7 @@ void sub_080A3A24(void *entity) {
         *(u8 *)(self + step * 2 + 0x19) = 0;
     }
     {
-        u32 *scriptTable = gMainObjTimerCallback;
+        u32 *scriptTable = gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);
     }
 }

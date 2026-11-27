@@ -6,9 +6,9 @@ void sub_08013978(void *, s32);
 void sub_080142C0(void *, s32);
 void sub_08013AC4(void *);
 void sub_08005E80(s32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void _call_via_r1(void *, s32);
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08013C8C(void *, void *);
 void _call_via_r3(void *, void *, s32, s32);
 struct SpriteFlags { u16 attr; u16 flags; };
@@ -64,7 +64,7 @@ void sub_08024370(u8 *entity)
       }
     }
   }
-  if (sub_08013B5C(sprite, motion) != 0)
+  if (updateObjectDisplayState(sprite, motion) != 0)
   {
     goto call_c8c;
   }
@@ -88,7 +88,7 @@ void sub_08024370(u8 *entity)
   }
   if ((*((s16 *) (motionEx + 2))) == 1)
   {
-    sub_080113A8(sprite, status);
+    stepAnimationTrack(sprite, status);
   }
   call_c8c:
   sub_08013C8C(entity, sprite);

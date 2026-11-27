@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_080A1744(void *);
 extern void sub_080A1780(void *, void *, void *);
 extern void sub_080C31E0(void *, s32);
@@ -26,7 +26,7 @@ void sub_080A0C0C(void *arg0)
   sub_080A1744(sprite);
   zero = 0;
   *((u8 *) (work + 0x16)) = (u8)zero;
-  *((s32 *) (self + 0x04)) = sub_08005820(0xF0) + 0xF0;
+  *((s32 *) (self + 0x04)) = scaleByRandom(0xF0) + 0xF0;
   sub_080A1780(sprite, anim, work);
   *((u8 *) ((*(s16 *)(self + 0x22)) * 2 + self + 0x19)) = (u8)zero;
   scriptEvent = (s32 *) 0x08671BB0;

@@ -19,7 +19,7 @@ extern void _call_via_r2(void *, void *, s32);
 extern struct FixedEffectWorkspace gMainWorkspace;
 extern struct KindEffectGfxEntry gEffectGfxTable[];
 extern u8 gCameraState[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 void spawnScriptedEffectObject(struct ScriptedSpawnEntity *entity)
 {
@@ -100,7 +100,7 @@ void spawnScriptedEffectObject(struct ScriptedSpawnEntity *entity)
     entity->flags |= EFFECT_SPRITE_READY;
     stepClear = (u8 *)(((u32)entity->stateIndex * 2) + (u32)entity);
     stepClear[0x19] = 0;
-    callbackTable = &gMainObjTimerCallback;
+    callbackTable = &gScriptStepCallbackTable;
     _call_via_r2((u8 *)entity + 0x18, (u8 *)entity + 0x22, (s32)(*callbackTable));
     stepAdvance = (u8 *)(((u32)entity->stateIndex * 2) + (u32)entity);
     stepAdvance[0x19] = stepAdvance[0x19] + 1;

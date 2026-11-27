@@ -1,10 +1,10 @@
 /* Script step that configures an actor with fixed script/data pointers, sets a
  * flip flag from the global view position and a couple of movement constants,
  * then fires the step's timed effect and dispatches the next command. */
-extern void sub_08003A6C(s32, s32, s32);
+extern void startEffectTimer(s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 extern u8 gMainWorkspace[];
 
 void sub_0808A584(void *arg0) {
@@ -14,7 +14,7 @@ void sub_0808A584(void *arg0) {
     u8 *actor = *(u8 **)(self + 0x38);
 
     *(s32 *)(actor + 0x24) = 0x08502C40;
-    sub_08003A6C((s32)(ctrl + 0x20), 0, (s32)0x08502DAC);
+    startEffectTimer((s32)(ctrl + 0x20), 0, (s32)0x08502DAC);
 
     {
         u8 *globals = gMainWorkspace;
@@ -30,7 +30,7 @@ void sub_0808A584(void *arg0) {
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        s32 *effectData = gMainObjTimerCallback;
+        s32 *effectData = gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, *effectData);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

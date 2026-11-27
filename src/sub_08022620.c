@@ -3,7 +3,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0_174C { u8 _0[0x174C]; u32 x; u32 y; };
 extern struct S_02025FF0_174C gMainWorkspace;
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 struct Z { u32 w; u8 b; };
 
 /* Drives the sprite's animation and, when flag 1 is set, computes an angle to a
@@ -65,7 +65,7 @@ void sub_08022620(u8 *obj)
       *((obj + (stepIndex * 2)) + 0x19) = zeroByte;
     }
     {
-      void **fn = &gMainObjTimerCallback;
+      void **fn = &gScriptStepCallbackTable;
       sub_080C31E4(obj + 0x18, obj + 0x22, (s32) (*fn));
     }
   }

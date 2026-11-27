@@ -1,4 +1,4 @@
-extern void sub_08003A6C(void *, s32, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_08071A20(void *, s32);
 extern void _call_via_r1(void *, u32);
@@ -38,7 +38,7 @@ void sub_0806FDFC(u8 *g)
         *(u32 *)(p + 4) = *(u32 *)(table + 0x172C) + 0xFFEC0000;
     }
     sub_0806D588(o, p);
-    sub_08003A6C(q + 0x2C, 0, (void *)0x08472A58);
+    startEffectTimer(q + 0x2C, 0, (void *)0x08472A58);
     base2 = gMainWorkspace;
     {
         s32 value = (base2[0x14ED] != 0xA2) ? 0x2BF : 0x57E;

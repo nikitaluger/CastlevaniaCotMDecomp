@@ -1,5 +1,5 @@
 void sub_08015974(void *);
-void sub_080161F0(void *);
+void unlinkAndFreeObject(void *);
 void sub_08016678(void *);
 void sub_080C31E0(void *, u32);
 
@@ -20,7 +20,7 @@ struct ActorSub {
 void sub_080592F0(struct Actor *actor) {
     struct ActorSub *sub = (struct ActorSub *)actor->sub;
     if (sub->attachedA != 0) {
-        sub_080161F0((void *)sub->attachedA);
+        unlinkAndFreeObject((void *)sub->attachedA);
     }
     if (sub->attachedB != 0) {
         sub_08015974((void *)sub->attachedB);

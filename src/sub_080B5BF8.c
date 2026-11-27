@@ -1,5 +1,5 @@
 void sub_080C31E4(void *, void *, s32);
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 s32 sub_080C31E0(void *, void *);
 
 /* Sine bob: animate the linked body, then set its Y (body+0x0C) to the base Y
@@ -13,7 +13,7 @@ void sub_080B5BF8(void *arg0)
   u8 *body = *((u8 **) (self + 0x3C));
   s32 sinOffset;
   s32 *table;
-  sub_080113A8((void *) sprite, body + 0x34);
+  stepAnimationTrack((void *) sprite, body + 0x34);
   sinTable = (s32 *) 0x08671BFC;
   table = sinTable;
   sinOffset = sub_080C31E0((void *) ((*((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19))) << 11), (void *) (*table));

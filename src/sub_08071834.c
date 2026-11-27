@@ -10,11 +10,11 @@ struct GameState {
 };
 extern struct GameState gMainWorkspace;
 
-s32 sub_08003740(void *, s32);
-s32 sub_0806D2F8(void *, s32);
+s32 stepDelayTimer(void *, s32);
+s32 cullOffscreenEntity(void *, s32);
 s32 sub_0806D35C(void *, s32, void *);
 s32 sub_0806D588(s32, void *);
-s32 sub_0806E114(s32, s32, s32, s32);
+s32 spawnKind2CEntity(s32, s32, s32, s32);
 s32 sub_080C31E0(void *, s32);
 
 /* One frame of a scripted actor: skip it while an area movement override is
@@ -40,11 +40,11 @@ void sub_08071834(void *arg0) {
         *(s32 *)((u8 *)mover + 0x04) += delta >> 8;
     }
     sub_0806D588(world, mover);
-    sub_08003740((u8 *)actor + 0x30, world);
+    stepDelayTimer((u8 *)actor + 0x30, world);
     {
         void *moveCtrl = *(void **)((u8 *)mover + 0x3C);
         if (*(u16 *)((u8 *)moveCtrl + 0x14) & 1) {
-            sub_0806E114(*(s32 *)((u8 *)arg0 + 0x28), 8, *(s32 *)((u8 *)actor + 0x04), *(s32 *)((u8 *)mover + 0x04));
+            spawnKind2CEntity(*(s32 *)((u8 *)arg0 + 0x28), 8, *(s32 *)((u8 *)actor + 0x04), *(s32 *)((u8 *)mover + 0x04));
             goto abort;
         }
         if (gMainWorkspace.field14FC != 0) goto abort;
@@ -55,6 +55,6 @@ void sub_08071834(void *arg0) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;
     offscreen:
-        sub_0806D2F8(arg0, world);
+        cullOffscreenEntity(arg0, world);
     }
 }

@@ -1,7 +1,7 @@
 extern u8 gMainWorkspace[];
 
 s32 sub_0806D450(void *, void *, void *);
-s32 sub_08003740(void *, void *);
+s32 stepDelayTimer(void *, void *);
 void sub_080C31E0(void *, void *);
 
 /* Decide whether to hand an actor back to its default handler: apply any
@@ -25,7 +25,7 @@ void sub_080812E0(void *actor)
     *(u16 *)(*(u8 **)(position + 0x2C) + 0x14) = 0;
     state = gMainWorkspace;
     *sprite = *(u16 *)(state + 0x18C2);
-    if (sub_08003740(work + 0x20, sprite) != 0)
+    if (stepDelayTimer(work + 0x20, sprite) != 0)
         goto check;
 
 call:

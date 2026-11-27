@@ -7,7 +7,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 
-void sub_08003740(void *, void *);
+void stepDelayTimer(void *, void *);
 void sub_08005E80(s32);
 void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
@@ -38,6 +38,6 @@ void sub_080885F0(void *arg0)
         sub_080C31E0(arg0, *(s32 *)((s8 *)arg0 + 0x24));
         return;
     }
-    sub_08003740((s8 *)work + 0x20, obj);
+    stepDelayTimer((s8 *)work + 0x20, obj);
     sub_0806D588(obj, pos);
 }

@@ -23,8 +23,8 @@ s32 sub_08012C44(u8 *arg0, s32 arg1, s32 count)
  do { addr = 0xFFF98000; return (cur - (((s32) (((u32) arg0) & (0xE0 << 11))) + ((s32) addr))) - arg1; } while (0);
 
       case 2:
-        cur &= (s32) 0xFFF80000;
         addr = 0xFFFF8000;
+        cur &= (s32) 0xFFF80000;
         return (cur + (((s32) (((u32) arg0) & (0xE0 << 11))) + ((s32) addr))) - arg1;
 
       case 3:
@@ -38,8 +38,8 @@ s32 sub_08012C44(u8 *arg0, s32 arg1, s32 count)
         return (cur - (((((s32) arg0) >> 1) & 0x30000) + ((s32) addr))) - arg1;
 
       case 5:
-        cur &= (s32) 0xFFF80000;
         addr = 0xFFFF8000;
+        cur &= (s32) 0xFFF80000;
         return (cur + (((((s32) arg0) >> 1) & 0x30000) + ((s32) addr))) - arg1;
 
       case 6:

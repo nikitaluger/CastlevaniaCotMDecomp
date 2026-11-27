@@ -3,7 +3,7 @@
  * run the next animation command. */
 extern void sub_080A845C(void *, void *);
 extern void _call_via_r2(void *, void *, s32);
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 void sub_080A7BE4(void *arg0) {
     u16 *viewFlags = *(u16 **)((u8 *)arg0 + 0x38);
@@ -22,7 +22,7 @@ void sub_080A7BE4(void *arg0) {
             *(s32 *)accumX = 0;
             *(u8 *)((u8 *)arg0 + animIndex[0x11] * 2 + 0x19) = 0;
             {
-                s32 *animScript = &gMainObjTimerCallback;
+                s32 *animScript = &gScriptStepCallbackTable;
                 _call_via_r2((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *animScript);
             }
         }

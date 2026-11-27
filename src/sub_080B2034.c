@@ -1,6 +1,6 @@
 extern s32 sub_08005910(s32 dy, s32 dx);
-extern void sub_080113A8(s32 sprite, void *moverData);
-extern void sub_0801165C(void *mover, s32 accel);
+extern void stepAnimationTrack(s32 sprite, void *moverData);
+extern void advanceMotion(void *mover, s32 accel);
 extern void sub_080146D0(void *mover, s32 angle, s32 speed);
 extern s32 sub_0801473C(s32 currentAngle, s32 targetAngle);
 extern void sub_080C31E4(void *, void *, s32);
@@ -17,7 +17,7 @@ void sub_080B2034(u8 *self) {
     s32 targetAngle;
     s32 *scriptCb;
     s32 angle;
-    sub_080113A8(sprite, mover + 0x34);
+    stepAnimationTrack(sprite, mover + 0x34);
     angle = *(s32 *)(self + 0x7C);
     targetAngle = sub_08005910(gMainWorkspace.f1750 - *(s32 *)(mover + 0xC), gMainWorkspace.f174C - *(s32 *)(mover + 8));
     *(s32 *)(self + 0x7C) = *(s32 *)(self + 0x7C) + (sub_0801473C(angle, targetAngle) << 9);
@@ -26,7 +26,7 @@ void sub_080B2034(u8 *self) {
         *(s32 *)(self + 0x6C) = 0xC0 << 9;
     }
     sub_080146D0(mover, *(s32 *)(self + 0x7C), *(s32 *)(self + 0x6C));
-    sub_0801165C(mover, 0);
+    advanceMotion(mover, 0);
     if (*(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) == 0x78) {
         *(u8 *)(self + (*(s16 *)(self + 0x22)) * 2 + 0x19) = 0;
         scriptCb = (s32 *)0x08671BB0;

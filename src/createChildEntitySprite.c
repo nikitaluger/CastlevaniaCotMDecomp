@@ -15,7 +15,7 @@ extern u8 gMainWorkspace[];
 extern u8 gSpriteAnimDataTable[];
 extern u8 gChildSpriteKindTable[];
 extern u8 gChildSpriteLayerAttrs[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Effect layer allocated for the child sprite. */
 struct Extra {
@@ -117,7 +117,7 @@ body:
     }
     *(u8 *)((u32)(*(s16 *)(self + 0x22) * 2) + (u32)self + 0x19) = (u8)zeroByte;
     {
-        u32 *scriptOps = (u32 *)gMainObjTimerCallback;
+        u32 *scriptOps = (u32 *)gScriptStepCallbackTable;
         u8 *scriptSlots = self + 0x18;
         sub_080C31E4(scriptSlots, self + 0x22, *scriptOps);
         {

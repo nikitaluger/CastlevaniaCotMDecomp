@@ -1,8 +1,8 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, s32, s32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_08013CF4(void *, s32, s32);
@@ -14,7 +14,7 @@ void sub_080C31E0(void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
 extern s32 gGameStatus[];
-extern s32 D_08671BDC;
+extern s32 sScriptStepCallbacks;
 
 struct AnimFlags { u16 f0; };
 struct Flags2 { u16 f0; u16 f2; };
@@ -62,10 +62,10 @@ void sub_080586B8(void *self)
             p30->f2 |= 2;
         }
         *((u8 *)((s16)(*(u16 *)((u8 *)self + 0x22)) * 2 + (u32)self) + 0x1B) = 0;
-        stateFn = &D_08671BDC;
+        stateFn = &sScriptStepCallbacks;
         sub_080C31E8((u8 *)self + 0x18, (u8 *)self + 0x22, 2, *stateFn);
     }
-    if (sub_08013B5C(gfxObj, anim) == 0) {
+    if (updateObjectDisplayState(gfxObj, anim) == 0) {
         *(u32 *)((u8 *)self + 0x14) = 0x0866E81C;
         *(u16 *)((u8 *)self + 0x22) = *(u16 *)((u8 *)self + 0x22) + 1;
         {
@@ -84,7 +84,7 @@ void sub_080586B8(void *self)
         *(u16 *)((u8 *)self + 0x22) = *(u16 *)((u8 *)self + 0x22) - 1;
         if (*(u16 *)((u8 *)self + 2) & 0x8000)
             return;
-        sub_080113A8(gfxObj, animData);
+        stepAnimationTrack(gfxObj, animData);
         sub_08011EE8(anim, 0x16C1, 0);
     }
     sub_08058978(gfxObj, anim);

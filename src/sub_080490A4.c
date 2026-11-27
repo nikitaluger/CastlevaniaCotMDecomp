@@ -4,7 +4,7 @@
  * attribute bit from the script byte's parity, and switch to the stored state
  * when that byte reaches its end value.
  */
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_080492B8(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 
@@ -23,11 +23,11 @@ void sub_080490A4(void *arg0)
   animState = ((u8 *) work) + 0x34;
   if ((*((u8 *) (((u8 *) arg0) + 0x8C))) != 0)
   {
-    sub_0801165C(work, KNOCKBACK_IMPULSE);
+    advanceMotion(work, KNOCKBACK_IMPULSE);
   }
   else
   {
-    sub_0801165C(work, 0);
+    advanceMotion(work, 0);
   }
   sub_080492B8(sprite, work, animState);
   {

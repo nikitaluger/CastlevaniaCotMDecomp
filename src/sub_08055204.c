@@ -4,7 +4,7 @@
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866E730[];
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 s32 sub_080141AC(void *, void *);
 void sub_08013C5C(void *, void *);
 s32 sub_08013558(void *, void *, void *);
@@ -13,10 +13,10 @@ void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
 void sub_08005E80(s32);
 void sub_080C31E8(void *, void *, s32, u32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_080C31E0(void *, s32);
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, s32);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, s32);
 void sub_08055990(void *, void *);
 void sub_08013C8C(void *, void *);
 
@@ -55,11 +55,11 @@ void sub_08055204(u8 *arg0)
       sub_08013AC4(arg0);
       sub_08005E80(0x80);
       *((u8 *) (((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + ((u32) arg0)) + 0x1B)) = 0;
-      callback = D_08671BDC;
+      callback = sScriptStepCallbacks;
       sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 5, *callback);
     }
   }
-  if (sub_08013B5C(sprite, state) == 0)
+  if (updateObjectDisplayState(sprite, state) == 0)
   {
     u8 *stepPtr;
     *((u32 *) (arg0 + 0x14)) = (u32) D_0866E730;
@@ -74,8 +74,8 @@ void sub_08055204(u8 *arg0)
     *((u16 *) (arg0 + 0x22)) = (*((u16 *) (arg0 + 0x22))) - 1;
     if (((*((u16 *) (arg0 + 2))) & 0x8000) == 0)
     {
-      sub_080113A8(sprite, scratch);
-      sub_0801165C(state, 0);
+      stepAnimationTrack(sprite, scratch);
+      advanceMotion(state, 0);
     }
     else
     {

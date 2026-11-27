@@ -12,7 +12,7 @@ struct MoveParam { s32 velX; s32 velY; };
 extern struct FrameDef gEffectGfxTable[];
 extern struct MoveParam D_08102D14[];
 extern u16 D_08102D0C[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -22,7 +22,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(u8 *, u32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 
 void sub_080B67A0(u8 *entity) {
     u8 *workObj;
@@ -41,7 +41,7 @@ void sub_080B67A0(u8 *entity) {
     *(u32 *)(workObj + 0x1C) = 0x8000000B;
     mover = (struct MoverState *)*(u32 *)(entity + 0x3C);
     moverTarget = (u8 *)mover + 0x34;
-    installUpdateHandler(entity, mover, sub_08097DC8);
+    installUpdateHandler(entity, mover, updateActorEffectSubObject);
     mover->anim = 0x66;
     *(u16 *)workObj |= gMainWorkspace.flags;
     mover->x = *(u32 *)(entity + 0x4C);
@@ -71,7 +71,7 @@ cont:
     mover->desc->owner = (u32)workObj;
     *(u16 *)(entity + 2) |= 0x1000;
     *(u8 *)(entity + (u32)(*(s16 *)(entity + 0x22)) * 2 + 0x19) = 0;
-    cmdTable = &gMainObjTimerCallback;
+    cmdTable = &gScriptStepCallbackTable;
     scriptPtr = entity + 0x18;
     sub_080C31E4(scriptPtr, entity + 0x22, *cmdTable);
     *(u8 *)(entity + (u32)(*(s16 *)(entity + 0x22)) * 2 + 0x19) += 1;

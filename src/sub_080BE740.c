@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_080BE70C(s32, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -16,7 +16,7 @@ void sub_080BE740(s32 arg0)
   shiftBits = 8;
   kind = arg0;
   offsetBase = 0x80 << shiftBits;
-  roll = sub_08005820(0xC8 << 1);
+  roll = scaleByRandom(0xC8 << 1);
   scratch = roll;
   if (scratch <= 0xEF)
   {

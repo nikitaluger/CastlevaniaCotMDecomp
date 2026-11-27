@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -17,7 +17,7 @@ void sub_080BB0D4(void *entity) {
 
     *target = (u8)zero;
     *(s32 *)(attach + 0x40) = zero;
-    *(s32 *)(attach + 0x4C) = sub_08005820(3) + 2;
+    *(s32 *)(attach + 0x4C) = scaleByRandom(3) + 2;
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (u8)zero;
 
     interpreter = (s32 *)0x08671BB0;

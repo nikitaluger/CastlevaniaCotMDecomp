@@ -1,7 +1,7 @@
 /* Update the sprite's on-screen flag, fixed-point position and horizontal flip
  * from the entity's state, then convert that position into room-local screen
  * coordinates using the current room's scroll offsets. */
-s32 sub_0805F9B4(s32, s32);
+s32 isOutsideCameraBounds(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 void sub_08018868(void *entity)
@@ -18,7 +18,7 @@ void sub_08018868(void *entity)
   gfx = *((void **) (((u8 *) entity) + 0x38));
   motion = *((void **) (((u8 *) entity) + 0x3C));
   flipBit = 0x10;
-  if (sub_0805F9B4(*((s32 *) (((u8 *) motion) + 8)), *((s32 *) (((u8 *) motion) + 0xC))) == 1)
+  if (isOutsideCameraBounds(*((s32 *) (((u8 *) motion) + 8)), *((s32 *) (((u8 *) motion) + 0xC))) == 1)
   {
     visibleFlag = ((u8 *) gfx) + 0x2A;
     *visibleFlag &= 0xBF;

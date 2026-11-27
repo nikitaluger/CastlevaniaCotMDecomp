@@ -2,7 +2,7 @@ struct S_02025368 { u8 _pad1[0x8C]; s16 arr8C[1]; u8 _pad2[0x2D9 - 0x8E]; u8 fie
 struct Obj { u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; void *f10; u8 _pad14[2]; u16 f16; u16 f18; };
 struct Outer { u8 _pad[0x3C]; struct Obj *obj; };
 extern struct S_02025368 gGameStatus;
-u16 sub_0806D62C(u16, s32);
+u16 scalePercentSaturate16(u16, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
@@ -52,7 +52,7 @@ void sub_0806E8B8(void *arg0) {
         stateValue = base->field2DE;
         mode = base->arr8C[0];
         limit = (mode == 1) ? 0x8D : 0x2D;
-        outer->obj->fE = sub_0806D62C(stateValue, limit);
+        outer->obj->fE = scalePercentSaturate16(stateValue, limit);
         outer->obj->f10 = owner;
         outer->obj->f16 = 0x0F;
         outer->obj->f18 = 0x10;

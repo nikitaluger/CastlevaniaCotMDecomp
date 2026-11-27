@@ -1,4 +1,4 @@
-extern void sub_080113A8(void *animHandle, void *anim);
+extern void stepAnimationTrack(void *animHandle, void *anim);
 extern void sub_08051FD8(void *self, void *angles);
 
 /* Initialises the object's animation: plays the animation state at +0x34 of the
@@ -10,6 +10,6 @@ void sub_08050F58(u8 *self)
     u8 *data = *(u8 **)(self + 0x3C);
     u8 *anim = data + 0x34;
     data += 0x48;
-    sub_080113A8(animHandle, anim);
+    stepAnimationTrack(animHandle, anim);
     sub_08051FD8(self, data);
 }

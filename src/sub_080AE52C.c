@@ -1,6 +1,6 @@
 void setObjectAnimation(s32, void *, s32, s32);
 void sub_08011528(s32, void *);
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 
 /* Animated two-pose cycle: play the current animation, toggle between poses
  * 0x45 and 0x47 when it finishes, then integrate the body's motion. */
@@ -20,5 +20,5 @@ void sub_080AE52C(void *arg0) {
             setObjectAnimation(scene, anim, 0x47, 0);
         }
     }
-    sub_0801165C(body, 0);
+    advanceMotion(body, 0);
 }

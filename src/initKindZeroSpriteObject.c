@@ -60,7 +60,7 @@ extern s32 signOf(s32);
 extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08029098(void);
-extern u32 *gMainObjTimerCallback;
+extern u32 *gScriptStepCallbackTable;
 extern u8 gSpriteAnimDataTable[];
 extern u16 gKindZeroLayerAttrs[];
 

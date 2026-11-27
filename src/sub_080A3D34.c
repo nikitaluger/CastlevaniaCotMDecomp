@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern void sub_08011650(s32);
 extern void sub_08015974(void *);
-extern void sub_080161F0(void *);
+extern void unlinkAndFreeObject(void *);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -28,16 +28,16 @@ void sub_080A3D34(void *arg0) {
     info = M2C_FIELD(arg0, void **, 0x3C);
     fxBlock = (u8 *)info + 0x48;
     if (M2C_FIELD(info, s32 *, 0x28) != 0) {
-        sub_080161F0((void *)M2C_FIELD(info, s32 *, 0x28));
+        unlinkAndFreeObject((void *)M2C_FIELD(info, s32 *, 0x28));
     }
     if (M2C_FIELD(fxBlock, s32 *, 0x50) != 0) {
-        sub_080161F0((void *)M2C_FIELD(fxBlock, s32 *, 0x50));
+        unlinkAndFreeObject((void *)M2C_FIELD(fxBlock, s32 *, 0x50));
     }
     if (M2C_FIELD(fxBlock, s32 *, 0x54) != 0) {
-        sub_080161F0((void *)M2C_FIELD(fxBlock, s32 *, 0x54));
+        unlinkAndFreeObject((void *)M2C_FIELD(fxBlock, s32 *, 0x54));
     }
     if (M2C_FIELD(fxBlock, s32 *, 0x58) != 0) {
-        sub_080161F0((void *)M2C_FIELD(fxBlock, s32 *, 0x58));
+        unlinkAndFreeObject((void *)M2C_FIELD(fxBlock, s32 *, 0x58));
     }
     sub_08011650(sprite);
     if (M2C_FIELD(info, s32 *, 0x2C) != 0) {

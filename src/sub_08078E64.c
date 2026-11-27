@@ -71,7 +71,7 @@ extern struct { u8 _0[0x1510]; u8 f1510; } gMainWorkspace;
 void sub_08003A6C(u32, u32, u32);
 void *allocEffectPart(void);
 void sub_0806D2D0(void *);
-u16 sub_0806D62C(u16, u32);
+u16 scalePercentSaturate16(u16, u32);
 void sub_080C31E0(u32, u32);
 void sub_080C31E4(u32, u32, u32);
 extern void sub_0808449C(void);
@@ -107,7 +107,7 @@ void sub_08078E64(struct MainObj *arg0) {
     state->gfx->anim1 = 3;
     state->gfx->anim2 = zero;
     state->gfx->anim3 = zero;
-    state->gfx->anim4 = sub_0806D62C(*(u16 *)(data + 0x2E2), 0x32);
+    state->gfx->anim4 = scalePercentSaturate16(*(u16 *)(data + 0x2E2), 0x32);
     state->gfx->flag = 5;
     state->gfx->id = 0x56;
     state->gfx->object = (u32)target;

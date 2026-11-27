@@ -10,7 +10,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 extern s32 sub_0806D450(void *, void *, void *);
-extern void sub_08003740(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void _call_via_r1(void *, s32);
 
@@ -41,7 +41,7 @@ void sub_0807A960(u8 *self) {
             return;
         }
     }
-    sub_08003740(object + 0x20, sprite);
+    stepDelayTimer(object + 0x20, sprite);
     {
         s32 savedX = *(s32 *)(sprite + 0x18);
         sub_0806D588(sprite, pos);

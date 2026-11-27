@@ -1,8 +1,8 @@
-extern s32 sub_0806D518(void *self, void *sprite, void *pos);
+extern s32 checkGlobalStateChange(void *self, void *sprite, void *pos);
 extern s32 sub_0806D6B4(void *pos);
 extern void sub_0806D588(void *sprite, void *pos);
 extern void *sub_0806D2A0(s32 kind, s32 param1, s32 param2, s32 param3);
-extern void sub_0806D2F8(void *self, void *sprite);
+extern void cullOffscreenEntity(void *self, void *sprite);
 extern s32 sub_080C31E0(void *self, void *handler);
 
 struct GameState_76CD8 {
@@ -30,7 +30,7 @@ void sub_08076CD8(void *self) {
     pos = (u8 *)mover + 4;
     sprite = *(void **)((u8 *)self + 0x38);
 
-    if (sub_0806D518(self, sprite, pos) != 0)
+    if (checkGlobalStateChange(self, sprite, pos) != 0)
         goto end;
     if (sub_0806D6B4(pos) != 0)
         goto block_9;
@@ -53,7 +53,7 @@ block_9:
     sub_080C31E0(self, *(void **)((u8 *)self + 0x24));
     goto end;
 block_5c:
-    sub_0806D2F8(self, sprite);
+    cullOffscreenEntity(self, sprite);
 end:
     ;
 }

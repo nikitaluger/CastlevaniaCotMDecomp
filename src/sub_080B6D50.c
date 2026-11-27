@@ -1,6 +1,6 @@
 extern s32 setAnimationFrame(s32, u8 *, s32, s32);
-extern s32 sub_080113A8(s32, u8 *);
-extern s32 sub_08011898(u8 *, s32);
+extern s32 stepAnimationTrack(s32, u8 *);
+extern s32 moveEntityWithCollision(u8 *, s32);
 extern s32 sub_0809856C(s32, u8 *, s32);
 extern s32 sub_080B72CC(u8 *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -34,8 +34,8 @@ void sub_080B6D50(struct ScriptStepObj *self)
     work = self->work;
     animTrack = work + 0x34;
     sub_0809856C(0x18C, (u8 *)&self->soundCounter, 0x0F);
-    sub_08011898(work, 0x4000);
-    sub_080113A8(sprite, animTrack);
+    moveEntityWithCollision(work, 0x4000);
+    stepAnimationTrack(sprite, animTrack);
     sub_080B72CC((u8 *)self);
     remaining = self->countdown;
     remaining = remaining - 1;

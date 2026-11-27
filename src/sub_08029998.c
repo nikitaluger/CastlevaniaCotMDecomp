@@ -1,6 +1,6 @@
 void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E0(void *, void *);
-void *sub_0805FAEC(s32, s32);
+void *spawnBudgetedEffect(s32, s32);
 
 struct S_02025FF0 { u8 _0x000[0x1870]; u32 v; };
 extern struct S_02025FF0 gMainWorkspace;
@@ -25,7 +25,7 @@ void sub_08029998(void *actor) {
 /* Spawn a projectile from an origin point, offsetting its X by the sprite's
  * horizontal-flip direction and copying the origin's Y. */
 void sub_08040B34(s32 unused, void *sprite, void *origin) {
-    void *shot = sub_0805FAEC(gMainWorkspace.v, 0x108);
+    void *shot = spawnBudgetedEffect(gMainWorkspace.v, 0x108);
     if (shot != NULL) {
         s32 facingOffset;
         if (*(u16 *)((u8 *)sprite + 2) & 0x10)

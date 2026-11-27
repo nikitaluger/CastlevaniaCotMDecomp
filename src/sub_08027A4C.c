@@ -1,8 +1,8 @@
 extern s32 sub_080C31E0(s32, s32);
-extern u32 D_08671BFC;
+extern u32 gTrigFuncPtr;
 
 /* Rotates a child offset about an entity's origin using the sine lookup held
- * in D_08671BFC, writing the resulting X/Y coordinates to outX/outY. */
+ * in gTrigFuncPtr, writing the resulting X/Y coordinates to outX/outY. */
 void sub_08027A4C(u8 *entity, s32 angle, s32 *outX, s32 *outY)
 {
   s32 quarterTurn;
@@ -21,7 +21,7 @@ void sub_08027A4C(u8 *entity, s32 angle, s32 *outX, s32 *outY)
   motion = *((u8 **) (entity + 0x3C));
   ext = motion + 0x48;
   angleLo = angle & 0xFFFF;
-  sinFnAddr = (u32) (&D_08671BFC);
+  sinFnAddr = (u32) (&gTrigFuncPtr);
   quarterTurn = 0x4000;
   cosVal = sub_080C31E0(angleLo + quarterTurn, *((s32 *) sinFnAddr));
   if (cosVal < 0)

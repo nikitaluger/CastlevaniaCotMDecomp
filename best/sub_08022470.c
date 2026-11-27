@@ -1,11 +1,11 @@
-extern void sub_080113A8(s32, void *);
-extern void sub_0801165C(void *, s32);
-extern s32 sub_08013B5C(s32);
-extern s32 sub_0805F9B4(s32, s32);
-extern void sub_080227D4(s32);
+extern void stepAnimationTrack(s32, void *);
+extern void advanceMotion(void *, s32);
+extern s32 updateObjectDisplayState(s32);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern void configureChildMotionFromDirection(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 struct B1
@@ -56,7 +56,7 @@ void sub_08022470(u8 *arg0)
   p28 = *((u8 **) (p48 + 0x38));
   ((struct B1 *) p28)->f1 |= 1;
   new_var = (s32 *) (p + 8);
-  if (((*((s16 *) p48)) == 1) && (sub_0805F9B4(*new_var, *((s32 *) (p + 0xC))) == 1))
+  if (((*((s16 *) p48)) == 1) && (isOutsideCameraBounds(*new_var, *((s32 *) (p + 0xC))) == 1))
   {
     sub_080C31E0(arg0, *((void **) (arg0 + 0x24)));
     return;
@@ -84,13 +84,13 @@ void sub_08022470(u8 *arg0)
       *((s32 *) (p48 + 4)) = 0x16C1;
       p28 = *((u8 **) (p48 + 0x38));
       *((s32 *) (p_copy + 0x10)) = 0;
-      *((s32 *) (p_copy + 0x14)) = sub_08005820(0x10001) + 0x8000;
+      *((s32 *) (p_copy + 0x14)) = scaleByRandom(0x10001) + 0x8000;
       *((u8 *) (inline_fn(*((s16 *) (arg0 + 0x22)), 2, arg0) + 0x1B)) = 0;
       new_var3 = &(*((s32 *) 0x08671BDC));
       sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 2, *new_var3);
     }
   }
-  if (sub_08013B5C(a) == 0)
+  if (updateObjectDisplayState(a) == 0)
   {
     *((void **) (arg0 + 0x14)) = (void *) 0x0866D878;
     *((u16 *) (arg0 + 0x22)) = (u16) ((*((u16 *) (arg0 + 0x22))) + 1);
@@ -110,15 +110,15 @@ void sub_08022470(u8 *arg0)
     {
       if ((*((u16 *) p_copy)) == 0)
       {
-        sub_080113A8(a, r8);
+        stepAnimationTrack(a, r8);
       }
-      sub_0801165C(p_copy, *((s32 *) (p48 + 4)));
+      advanceMotion(p_copy, *((s32 *) (p48 + 4)));
     }
   }
   else
   {
     u8 *base2;
-    sub_080227D4(a);
+    configureChildMotionFromDirection(a);
     pt = gCameraState;
     q = gMainWorkspace;
     pb = q;

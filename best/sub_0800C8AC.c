@@ -6,7 +6,7 @@ struct S21E90 {
 };
 extern struct S21E90 gCameraState;
 extern volatile s32 D_040000D4;
-extern volatile u8 D_020278D0[];
+extern volatile u8 gMenuState[];
 int postDisplaySprite(void *a, void *b, void *c, u32 d, u32 e);
 void decompressToVram(u32, u32);
 void sub_0806D930(void *);
@@ -79,13 +79,13 @@ void sub_0800C8AC(void *arg0) {
     postDisplaySprite((void *)1, (void *)0x08641648, (void *)0x05000380, 0x40, sz);
     wz = zero;
     *(&D_040000D4 + 0) = (s32)&wz;
-    *(&D_040000D4 + 1) = (s32)&D_020278D0;
+    *(&D_040000D4 + 1) = (s32)&gMenuState;
     *(&D_040000D4 + 2) = 0x8500003F;
     (void)*(&D_040000D4 + 2);
-    D_020278D0[0x64] = bz;
-    D_020278D0[0x65] = bz;
-    D_020278D0[0x66] = bz;
-    D_020278D0[0xCA] = 1;
+    gMenuState[0x64] = bz;
+    gMenuState[0x65] = bz;
+    gMenuState[0x66] = bz;
+    gMenuState[0xCA] = 1;
     sub_0806D930((void *)(0x02025368 + 0x2C4));
     *(u8 *)((u8 *)a0 + 0x22 + a0->f22 * 2 + 0x19 - 0x22) = bz;
     temp = (u8 *)a0 + 0x18;

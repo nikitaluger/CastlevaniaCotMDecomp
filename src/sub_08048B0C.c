@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_08049180(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
@@ -24,7 +24,7 @@ void sub_08048B0C(void *entity) {
     steer->speed = steer->speed + 0xFFFFE000;
     sub_080146D0(motion, steer->angle, steer->speed);
     sub_08049180(sprite, collision, motion, steer);
-    sub_0801165C(motion, 0);
+    advanceMotion(motion, 0);
     if (steer->speed <= 0) {
         steer->angle = (steer->angle + 0x8000) & 0xFFFF;
         steer->speed = 0x20000;

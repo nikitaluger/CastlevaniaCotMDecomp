@@ -1,9 +1,9 @@
-extern void *sub_0805FAEC(s32 parent, s32 type);
+extern void *spawnBudgetedEffect(s32 parent, s32 type);
 
 /* Spawn a type-0x1C1 object under the entity and clear its state byte. */
 void *spawnKind1C1Child(s32 parent)
 {
-    void *obj = sub_0805FAEC(parent, 0x1C1);
+    void *obj = spawnBudgetedEffect(parent, 0x1C1);
     if (obj == 0) {
         return 0;
     }
@@ -15,7 +15,7 @@ void *spawnKind1C1Child(s32 parent)
  * state byte. */
 void *spawnParamChild(s32 parent, s32 arg1)
 {
-    void *obj = sub_0805FAEC(parent, 0x1C0);
+    void *obj = spawnBudgetedEffect(parent, 0x1C0);
     if (obj == 0) {
         return 0;
     }
@@ -39,8 +39,8 @@ void sub_080B722C(void *parent)
     }
 }
 
-extern void sub_08011898(void *, s32);
-extern void sub_080113A8(s32, void *);
+extern void moveEntityWithCollision(void *, s32);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_080B72CC(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -50,8 +50,8 @@ void sub_080B6DD4(void *entity)
 {
     s32 sprite = *(s32 *)((u8 *)entity + 0x38);
     u8 *anim = (u8 *)*(void **)((u8 *)entity + 0x3C) + 0x34;
-    sub_08011898(*(void **)((u8 *)entity + 0x3C), 0x4000);
-    sub_080113A8(sprite, anim);
+    moveEntityWithCollision(*(void **)((u8 *)entity + 0x3C), 0x4000);
+    stepAnimationTrack(sprite, anim);
     sub_080B72CC(entity);
     if (anim[0] & 2) {
         sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));

@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 
 /* Choose a random position within a fixed-point X/Y range, scale X by the
@@ -16,7 +16,7 @@ void sub_0803C70C(u8 *out, u8 xDir, u8 xMode, u8 yMode, s32 xRange, s32 yRange)
     switch (xMode)
     {
     case 0:
-        *(s32 *)(out + 0x10) = sub_08005820(xMax - xMin) + xMin;
+        *(s32 *)(out + 0x10) = scaleByRandom(xMax - xMin) + xMin;
         break;
     case 1:
         rnd = sub_0800583C(xMax - xMin);
@@ -33,7 +33,7 @@ void sub_0803C70C(u8 *out, u8 xDir, u8 xMode, u8 yMode, s32 xRange, s32 yRange)
     switch (yMode)
     {
     case 0:
-        *(s32 *)(out + 0x14) = sub_08005820(yMax - yMin) + yMin;
+        *(s32 *)(out + 0x14) = scaleByRandom(yMax - yMin) + yMin;
         break;
     case 1:
         rnd = sub_0800583C(yMax - yMin);
@@ -44,7 +44,7 @@ void sub_0803C70C(u8 *out, u8 xDir, u8 xMode, u8 yMode, s32 xRange, s32 yRange)
             *(s32 *)(out + 0x14) = rnd + yMin;
         break;
     case 2:
-        *(s32 *)(out + 0x14) = -(sub_08005820(yMax - yMin) + yMin);
+        *(s32 *)(out + 0x14) = -(scaleByRandom(yMax - yMin) + yMin);
         break;
     }
 }

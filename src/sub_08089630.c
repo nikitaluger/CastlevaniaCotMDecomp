@@ -10,7 +10,7 @@ struct S_D
 };
 extern struct S_D gMainWorkspace;
 void sub_080C31E4(void *, void *, s32);
-void sub_08003740(void *, void *);
+void stepDelayTimer(void *, void *);
 void sub_0806D588(void *, void *);
 
 /* Tick of a grounded actor: when the global state (+0x14) is 0x19, raise the
@@ -35,6 +35,6 @@ void sub_08089630(void *arg0) {
       sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *advanceTable);
     }
   }
-  sub_08003740((u8 *)mover + 0x20, sprite);
+  stepDelayTimer((u8 *)mover + 0x20, sprite);
   sub_0806D588(sprite, moverPos);
 }

@@ -1,8 +1,8 @@
 extern vu32 gMainWorkspace;
-extern vu32 gMainObjTimerCallback;
+extern vu32 gScriptStepCallbackTable;
 
-void *sub_0805FAEC(s32, s32);
-void sub_080161F0(void);
+void *spawnBudgetedEffect(s32, s32);
+void unlinkAndFreeObject(void);
 void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
 void setAnimationFrame(u32, void *, u32, u32);
@@ -36,7 +36,7 @@ struct ResultObj {
 void updateFixedKindEffect(struct MainObj *arg0) {
     struct SubObj *sub = (struct SubObj *)arg0->unk_0x3C;
     if (sub->unk_0x28 != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     sub_080C31E0(arg0, sub->unk_0x24);
 }

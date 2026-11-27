@@ -13,15 +13,15 @@ struct S_02025FF0_7B01C
 };
 extern struct S_02025FF0_7B01C gMainWorkspace;
 extern u8 gTilemapPages[];
-extern u32 gMainObjTimerCallback;
-extern s32 sub_0806D518(void *, void *, void *);
-extern s32 sub_08007DD8(s32, s32);
-extern void sub_08003A6C(void *, s32, void *);
+extern u32 gScriptStepCallbackTable;
+extern s32 checkGlobalStateChange(void *, void *, void *);
+extern s32 getTileTerrainB(s32, s32);
+extern void startEffectTimer(void *, s32, void *);
 extern void playSound(s32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_080C31E0(void *, void *);
-extern void sub_08003740(void *, void *);
-extern void sub_0806D588(void *, void *);
+extern void stepDelayTimer(void *, void *);
+extern void setSpriteScreenPosition(void *, void *);
 extern void sub_0806D330(void *, void *);
 static inline s32 sum2(s32 a, s32 b) { s32 r = b + a; return r; }
 static inline u32 andOne(u16 f) { u32 m = 1; m &= f; return m; }
@@ -41,7 +41,7 @@ void sub_08084230(void *arg0)
   u32 zero;
   u32 *pp;
   s32 sum;
-  if (sub_0806D518(self, p38, p4) != 0) return;
+  if (checkGlobalStateChange(self, p38, p4) != 0) return;
   t = (*((s32 *) (p4 + 0xC))) + 0x2000;
   *((s32 *) (p4 + 0xC)) = t;
   if (t > 0x80000)
@@ -55,10 +55,10 @@ void sub_08084230(void *arg0)
   if (flags) goto label_0808429A;
   idx = gMainWorkspace.f18A8;
   addr = (u32)gTilemapPages + (idx << 6);
-  val2 = sub_08007DD8(addr, *((s32 *) (((u8 *) p6C) + 4)));
+  val2 = getTileTerrainB(addr, *((s32 *) (((u8 *) p6C) + 4)));
   if ((val2 << 16) == 0) goto label_080842D2;
 label_0808429A:
-  sub_08003A6C(((u8 *) p6C) + 0x20, 0, (void *) 0x084FCB30);
+  startEffectTimer(((u8 *) p6C) + 0x20, 0, (void *) 0x084FCB30);
   {
     u16 *p6 = (u16 *)(*((u8 **) (p4 + 0x2C)) + 6);
     zero = 0;
@@ -68,12 +68,12 @@ label_0808429A:
   playSound(0x88);
   i = *((s16 *) (((u8 *) self) + 0x22));
   *((u8 *) (((u8 *) self) + i * 2 + 0x19)) = zero;
-  pp = &gMainObjTimerCallback;
+  pp = &gScriptStepCallbackTable;
   sub_080C31E4(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, *pp);
 label_080842D2:
   *((u16 *) p38) = gMainWorkspace.f18C2;
-  sub_08003740(p8 + 0x1C, p38);
-  sub_0806D588(p38, p4);
+  stepDelayTimer(p8 + 0x1C, p38);
+  setSpriteScreenPosition(p38, p4);
   if ((gMainWorkspace.f173A == 0x1C) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
   {
     sub_080C31E0(self, *((void **) (((u8 *) self) + 0x24)));

@@ -11,8 +11,8 @@ struct S_02025FF0_7B01C
 };
 extern struct S_02025FF0_7B01C gMainWorkspace;
 extern s32 sub_0806D450(void *, void *, void *);
-extern void sub_0806D2F8(void *, void *);
-extern void sub_08003740(void *, void *);
+extern void cullOffscreenEntity(void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_080C31E0(void *, void *);
@@ -58,7 +58,7 @@ void sub_0807B01C(void *arg0)
 
     ;
     *((u16 *) stateObj) = gMainWorkspace.f18C2;
-    sub_08003740(bodyPos + 0x1C, stateObj);
+    stepDelayTimer(bodyPos + 0x1C, stateObj);
     sub_0806D588(stateObj, vec);
     if ((gMainWorkspace.f173A == 0x1C) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
     {
@@ -68,7 +68,7 @@ void sub_0807B01C(void *arg0)
     }
     else
     {
- do { sub_0806D2F8(entity, stateObj); } while (0);
+ do { cullOffscreenEntity(entity, stateObj); } while (0);
     }
   }
 }

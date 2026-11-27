@@ -3,10 +3,10 @@ extern u8 gMainWorkspace[];
 extern u8 D_080E596C[];
 extern u8 D_080E598C[];
 extern s32 sub_0806D450(void *, void *, void *);
-extern void sub_080722E0(void *, u8);
+extern void setDirectionVector(void *, u8);
 extern void *sub_0808DBF8(s32, s32, u16);
-extern s32 sub_08003740(void *, s32);
-extern s16 sub_080C364C(s32, s16);
+extern s32 stepDelayTimer(void *, s32);
+extern s16 divInt32(s32, s16);
 extern void _call_via_r1(void *, void *);
 volatile int sub_08080C34(void *arg0)
 {
@@ -64,10 +64,10 @@ u32 __repair_subtotal;
     *((u16 *) (spr + 0x04)) = idx - 0x40;
     *((u16 *) (spr + 0x06)) = (*((u16 *) (spr + 0x06))) - 0x40;
     t_1 = *((u8 **) (q + 0x2C));
-    tmp = sub_080C364C(((s32) (*((s16 *) entry))) << 8, *((s16 *) (spr + 0x04)));
+    tmp = divInt32(((s32) (*((s16 *) entry))) << 8, *((s16 *) (spr + 0x04)));
     *((s16 *) (t_1 + 0x06)) = tmp;
     t_2 = *((u8 **) (q + 0x2C));
-    tmp = sub_080C364C(((s32) (*((s16 *) (entry + 2)))) << 8, *((s16 *) (spr + 0x06)));
+    tmp = divInt32(((s32) (*((s16 *) (entry + 2)))) << 8, *((s16 *) (spr + 0x06)));
     *((s16 *) (t_2 + 0x08)) = tmp;
   }
   v = entry[0x11];
@@ -88,7 +88,7 @@ idx = nr & __repair_subtotal;
   r1v = *((s32 *) (e + 0x24));
   goto L_D4C;
   L_CONT:
-  sub_080722E0(q, nr2);
+  setDirectionVector(q, nr2);
 
   v54_1 = *((s32 *) (q + 0x54));
   r0 = v54_1 >> 12;
@@ -146,7 +146,7 @@ idx = nr & __repair_subtotal;
     base2 = gMainWorkspace;
     h2 = *((u16 *) (base2 + 0x18C2));
     *((u16 *) (spr + 0x00)) = h2;
-    sub_08003740(q + 0x1C, (s32) spr);
+    stepDelayTimer(q + 0x1C, (s32) spr);
     v_1 = base2[0x173A];
     if (v_1 != 0x1C)
     {

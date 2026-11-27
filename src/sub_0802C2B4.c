@@ -1,13 +1,13 @@
 /* Enemy patrol AI driven by two countdown timers: one governs the action
  * animation, the other the direction changes. It uses the player's position
  * to decide when to turn around and when to end the current action. */
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 struct GlobalCoord { u8 _[0x174C]; s32 field174C; };
 extern struct GlobalCoord gMainWorkspace;
 
@@ -29,7 +29,7 @@ void sub_0802C2B4(u8 *self)
     *(s16 *)(body + 4) = *(s16 *)(body + 4) - 1;
     if (*(s16 *)(body + 4) <= 0)
     {
-        *(u16 *)(body + 4) = (u16)(sub_08005820(0x3D) + 0x96);
+        *(u16 *)(body + 4) = (u16)(scaleByRandom(0x3D) + 0x96);
         if (sub_08014900(*(s32 *)(entity + 8)) <= 0x880000 &&
             sub_0801491C(*(s32 *)(entity + 0xC)) <= 0x700000)
         {
@@ -52,7 +52,7 @@ void sub_0802C2B4(u8 *self)
         if (*(u16 *)(entity + 2) & 2)
         {
             *(s32 *)(entity + 0x10) = -*(s32 *)(entity + 0x10);
-            *(u16 *)(body + 2) = (u16)(sub_08005820(0x0B) + 0x1E);
+            *(u16 *)(body + 2) = (u16)(scaleByRandom(0x0B) + 0x1E);
         }
 
         *(s16 *)(body + 2) = *(s16 *)(body + 2) - 1;
@@ -83,11 +83,11 @@ checkForce:
             if (forceLong != 0)
                 goto block25;
 
-            *(u16 *)(body + 2) = (u16)(sub_08005820(6) + 0x0A);
+            *(u16 *)(body + 2) = (u16)(scaleByRandom(6) + 0x0A);
             goto afterSet;
 
 block25:
-            *(u16 *)(body + 2) = (u16)(sub_08005820(0x0B) + 0x1E);
+            *(u16 *)(body + 2) = (u16)(scaleByRandom(0x0B) + 0x1E);
 afterSet:
             *(s32 *)(entity + 0x10) = -*(s32 *)(entity + 0x10);
         }

@@ -1,6 +1,6 @@
-extern void sub_080113A8(void *, void *);
-extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_08013B5C(void *, void *);
+extern void stepAnimationTrack(void *, void *);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08018D3C(void *);
 extern s32 sub_080C31E0(s32, s32);
 extern u8 gCameraState[];
@@ -30,13 +30,13 @@ void sub_08018AE8(u8 *obj) {
     mainObj = *(u8 **)(obj + 0x38);
     state = *(u8 **)(obj + 0x3C);
     stateP34 = state + 0x34;
-    offCamera = sub_0805F9B4(*(s32 *)(state + 0x08), *(s32 *)(state + 0x0C));
+    offCamera = isOutsideCameraBounds(*(s32 *)(state + 0x08), *(s32 *)(state + 0x0C));
     if (offCamera == 1) {
         ((struct MainObjFlagByte *)(mainObj + 0x2A))->flag &= 0xBF;
     } else {
         ((struct MainObjFlagByte *)(mainObj + 0x2A))->flag |= 0x40;
     }
-    if (sub_08013B5C(mainObj, state) == 0) {
+    if (updateObjectDisplayState(mainObj, state) == 0) {
         *(u32 *)(obj + 0x14) = 0x0866D5BC;
         *(u16 *)(obj + 0x22) = *(u16 *)(obj + 0x22) + 1;
         scriptStep = (u8 *)((u32)(*(s16 *)(obj + 0x22)) * 2 + (u32)obj);
@@ -50,7 +50,7 @@ void sub_08018AE8(u8 *obj) {
         sub_08018D3C(obj);
         if ((*(u16 *)(obj + 2) & 0x8000) != 0)
             return;
-        sub_080113A8(mainObj, stateP34);
+        stepAnimationTrack(mainObj, stateP34);
     }
     coordTable = gCameraState;
     camTable = gMainWorkspace;

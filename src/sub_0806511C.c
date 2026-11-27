@@ -1,9 +1,9 @@
-extern s32 sub_0806C4B4(void *a, void *b);
-extern void sub_0806C5EC(void *a, void *b, void *c, void *d);
+extern s32 syncViewPosition(void *a, void *b);
+extern void resetActionResultState(void *a, void *b, void *c, void *d);
 extern void sub_0806AB04(void *a, void *b, void *c, void *d);
 extern void sub_0806A7AC(void *a, void *b, s32 c);
 extern void sub_0806A884(void *a, void *b);
-extern s32 sub_08003740(void *a, void *b);
+extern s32 stepDelayTimer(void *a, void *b);
 extern u16 sub_08065CC8(void *a, void *b, void *c, void *d);
 extern u16 sub_0806BCD8(void *a, void *b, void *c, void *d);
 extern void sub_0806C6B0(void *a, void *b, void *c, void *d);
@@ -18,9 +18,9 @@ void sub_0806511C(u8 *entity) {
     u8 *work = params + 4;
     u8 *target = *(u8 **)(entity + 0x38);
     u8 *pos = work;
-    s32 cameraMode = sub_0806C4B4(work, work);
+    s32 cameraMode = syncViewPosition(work, work);
     if (cameraMode != 0) return;
-    sub_0806C5EC(entity, target, work, work);
+    resetActionResultState(entity, target, work, work);
     if (((*(u16 *)(target + 2)) & 0x10) == 0) {
         u8 *offsetTable = D_080E03A0;
         s32 entryIndex = *(s32 *)(pos + 0x44);
@@ -52,7 +52,7 @@ void sub_0806511C(u8 *entity) {
     sub_0806A884(target, pos);
     {
         void *timer = work + 0x28;
-        s32 result = sub_08003740(timer, target);
+        s32 result = stepDelayTimer(timer, target);
         if (result == 0) {
             s32 *eventTable;
             *(s32 *)(pos + 8) = result;
@@ -64,7 +64,7 @@ void sub_0806511C(u8 *entity) {
         *(u32 *)(work + 0xC4) = (u16)result;
         if ((u16)result != 0) {
             s32 *eventTable;
-            sub_08003740(timer, target);
+            stepDelayTimer(timer, target);
             *(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x17) = 0;
             eventTable = (s32 *)0x08671BD8;
             sub_080C31E8(entity + 0x18, entity + 0x22, *(u32 *)(work + 0xC4), *eventTable);

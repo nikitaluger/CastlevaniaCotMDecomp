@@ -1,8 +1,8 @@
 /* Trail emitter: records recent positions, spawns two linked trail segments,
  * initializes a small descriptor and dispatches a message. */
-void *sub_0805FAEC(void *, s32);
+void *spawnBudgetedEffect(void *, s32);
 void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 struct ZeroPair { u32 word; u8 byte; };
 void sub_080272F0(void *entity) {
     u8 *state = *(u8 **)((u8 *)entity + 0x3C);
@@ -19,7 +19,7 @@ void sub_080272F0(void *entity) {
         trail += 2;
     }
     {
-        u8 *segment = sub_0805FAEC(entity, 0xB2);
+        u8 *segment = spawnBudgetedEffect(entity, 0xB2);
         if (segment != 0) {
             s32 coord;
             coord = *(s32 *)(state + 8);
@@ -32,7 +32,7 @@ void sub_080272F0(void *entity) {
             *(s16 *)(segment + 0x54) = coord;
             *(s16 *)(segment + 0x5C) = 0;
             { u16 angle = *(u16 *)(state + 0x1C); *(u16 *)(segment + 0x6C) = angle; }
-            segment = sub_0805FAEC(segment, 0xB2);
+            segment = spawnBudgetedEffect(segment, 0xB2);
             if (segment != 0) {
                 coord = *(s32 *)(state + 8);
                 if (coord < 0) coord += 0xFFFF;
@@ -64,7 +64,7 @@ void sub_080272F0(void *entity) {
         *((u8 *)entity + index * 2 + 0x19) = zeroByte;
     }
     {
-        void **msgTable = &gMainObjTimerCallback;
+        void **msgTable = &gScriptStepCallbackTable;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *msgTable);
     }
 }

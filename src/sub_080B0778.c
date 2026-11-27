@@ -1,4 +1,4 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 void sub_080B074C(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -19,12 +19,12 @@ void sub_080B0778(void) {
     cameraIndex = gMainWorkspace;
     cameraIndex += 0x18A8;
     xBase = coordTable + 0x1278;
-    spawnX = sub_08005820(0xD00000);
+    spawnX = scaleByRandom(0xD00000);
     spawnX += 0x108000;
     coordOffset = ((u32)*cameraIndex + 1) * 0x40;
     spawnX += *(s32 *)(coordOffset + (u32)xBase);
     yBase = coordTable + 0x127C;
-    spawnY = sub_08005820(0x180000);
+    spawnY = scaleByRandom(0x180000);
     spawnY += 0xF8000;
     coordOffset = ((u32)*cameraIndex + 1) * 0x40;
     spawnY += *(s32 *)(coordOffset + (u32)yBase);

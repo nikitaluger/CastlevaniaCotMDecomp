@@ -1,10 +1,10 @@
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_08035DB4(void *, void *, void *);
 extern void sub_0803B140(s32, void *, void *, s32);
 extern void sub_0803B194(void *);
-extern void sub_0805FAEC(void *, s32);
+extern void spawnBudgetedEffect(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 /* Enemy step: advance animation, spawn a one-shot effect under a state
  * condition, run the next script step when the animation flag is set, then
@@ -17,10 +17,10 @@ void sub_08035824(void *arg0) {
     u8 *moveState = work + 0x48;
     s32 *scriptTable;
     sub_0803B194(work + 0x54);
-    sub_080113A8(sprite, animState);
+    stepAnimationTrack(sprite, animState);
     if ((*(u16 *)(sprite + 0x28) == 0x1C) && (*(u8 *)(moveState + 0x18) == 0)) {
         *(u8 *)(moveState + 0x18) = 1;
-        sub_0805FAEC(self, 0xE7);
+        spawnBudgetedEffect(self, 0xE7);
         sub_08035DB4(self, work, sprite);
     }
     if (*(u8 *)animState & 2) {

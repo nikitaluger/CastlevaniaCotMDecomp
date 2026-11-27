@@ -2,7 +2,7 @@ extern s32 sub_08096F00(void *);
 extern void sub_08011344(u32, u32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 
 struct ActorObj {
     u8 _0[0x14];
@@ -54,7 +54,7 @@ void sub_08096B20(struct ActorObj *arg)
         target->status = (u16)inRange;
 
         ((struct ScriptEntry *)((u8 *)arg + arg->scriptIndex * 2))->state = 0;
-        pbd0 = &D_08671BD0;
+        pbd0 = &gScriptStepCallbacks;
         cbArgA = (u8 *)arg + 0x18;
         sub_080C31E8(cbArgA, (u8 *)arg + 0x22, 3, *pbd0);
 
@@ -76,7 +76,7 @@ void sub_08096B20(struct ActorObj *arg)
         target->failFlag = 1;
         idx = arg->scriptIndex;
         ((struct ScriptEntry *)((u8 *)arg + idx * 2))->state = 0;
-        pbd0 = &D_08671BD0;
+        pbd0 = &gScriptStepCallbacks;
         cbArgA = (u8 *)arg + 0x18;
         sub_080C31E8(cbArgA, (u8 *)arg + 0x22, 1, *pbd0);
 

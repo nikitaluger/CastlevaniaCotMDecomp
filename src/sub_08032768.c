@@ -1,4 +1,4 @@
-void sub_080113A8(s32, s32);
+void stepAnimationTrack(s32, s32);
 void sub_08011EE8(void *, s32, s32);
 s32 sub_080141AC(s32, s32);
 void sub_0803B0F8(void *, s32, void *, s32);
@@ -16,7 +16,7 @@ void sub_08032768(void *arg0) {
     if (sub_080141AC((s32)gfx, (s32)target) == 1) return;
     sub_0803B0F8(target, (s32)gfx, animState, 0x080CEBD8);
     sub_08011EE8(target, 0x16C1, 0);
-    sub_080113A8((s32)gfx, (s32)spriteData);
+    stepAnimationTrack((s32)gfx, (s32)spriteData);
     if (*(u8 *)(animState + 4) == 3) {
         void **stepTable;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

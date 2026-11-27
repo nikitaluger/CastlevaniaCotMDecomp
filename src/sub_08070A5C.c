@@ -3,15 +3,15 @@
 extern void sub_08003A6C(void *, s32, void *);
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern s16 sub_0806D62C(u16, s32);
-extern void sub_080718F4(void);
+extern s16 scalePercentSaturate16(u16, s32);
+extern void releaseEffectGroup(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u32 D_084737D4;
 extern u32 D_08473814;
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 struct S_08070A5C { u8 _0[0x3C]; u8 * volatile work; };
 struct S_08070A5C_R7 { u16 f00; };
@@ -60,7 +60,7 @@ void sub_08070A5C(u8 *entity) {
     *(u16 *)(ctx->work + 0xC) = zero;
     baseRate = *(u16 *)(cfg + 0x2DE);
     percent = (*(s16 *)(cfg + 0x8C) == 1) ? 0x7E : 0x59;
-    *(u16 *)(ctx->work + 0xE) = sub_0806D62C(baseRate, percent);
+    *(u16 *)(ctx->work + 0xE) = scalePercentSaturate16(baseRate, percent);
     {
         u8 *wp = ctx->work;
         *(void **)(wp + 0x10) = aux;
@@ -68,7 +68,7 @@ void sub_08070A5C(u8 *entity) {
     }
     *(u16 *)(ctx->work + 0x18) = 0x7C;
     *(u32 *)(brainCtx + 0x18) = *(u32 *)(entity + 0x24);
-    *(u32 *)(entity + 0x24) = (u32)&sub_080718F4;
+    *(u32 *)(entity + 0x24) = (u32)&releaseEffectGroup;
     *(u32 *)(aux + 0x24) = (u32)&D_084737D4;
     sub_08003A6C(brain + 0x30, 0, &D_08473814);
     *(s32 *)(brain + 4) = *(s32 *)(base + 0x174C);
@@ -87,7 +87,7 @@ void sub_08070A5C(u8 *entity) {
     }
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *scriptTable = &gMainObjTimerCallback;
+        s32 *scriptTable = &gScriptStepCallbackTable;
         u8 *scriptPtr = entity + 0x18;
         sub_080C31E4(scriptPtr, entity + 0x22, *scriptTable);
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) + 1;

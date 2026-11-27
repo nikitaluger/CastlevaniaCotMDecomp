@@ -1,4 +1,4 @@
-s32 sub_08003740(void *, s32);
+s32 stepDelayTimer(void *, s32);
 s32 sub_0806D588(s32, void *);
 s32 sub_080C31E4(void *, void *, s32);
 
@@ -23,6 +23,6 @@ void sub_08088DD4(void *arg0)
         frameTable = 0x08671BB0;
         sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *((s32 *) frameTable));
     }
-    sub_08003740(motion + 0x20, sprite);
+    stepDelayTimer(motion + 0x20, sprite);
     sub_0806D588(sprite, pos);
 }

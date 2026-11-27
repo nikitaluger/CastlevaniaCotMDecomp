@@ -2,10 +2,10 @@ extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
-extern void sub_080161F0(void *);
+extern void unlinkAndFreeObject(void *);
 extern void clearObjectSlot(void *);
-extern s32 D_08671BD8[];
-extern s32 gMainObjTimerCallback[];
+extern s32 gMenuScriptCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 void sub_0801F838(void *arg0) {
     u8 *self = (u8 *)arg0;
@@ -20,7 +20,7 @@ void sub_0801F838(void *arg0) {
         s16 idx = *(s16 *)(self + 0x22);
         *(u8 *)(self + idx * 2 + 0x17) = 0;
         *(u16 *)(r6 + 6) = 0x78;
-        lit = D_08671BD8;
+        lit = gMenuScriptCallback;
         sub_080C31E8(self + 0x18, self + 0x22, 3, *lit);
     }
 }
@@ -34,10 +34,10 @@ void destroyObject(void *obj) {
 
     clearObjectSlot(obj);
     if (*(u32 *)(data + 0x28) != 0) {
-        sub_080161F0(*(void **)(data + 0x28));
+        unlinkAndFreeObject(*(void **)(data + 0x28));
     }
     if (*(u32 *)(script + 4) != 0) {
-        sub_080161F0(*(void **)(script + 4));
+        unlinkAndFreeObject(*(void **)(script + 4));
     }
     sub_080C31E0(obj, *(s32 *)(data + 0x24));
 }
@@ -73,7 +73,7 @@ void sub_0802459C(void *arg0) {
         *(u16 *)r5 = 0;
         idx = *(s16 *)(self + 0x22);
         *(u8 *)(self + idx * 2 + 0x19) = 0;
-        lit = gMainObjTimerCallback;
+        lit = gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, *lit);
     }
 }

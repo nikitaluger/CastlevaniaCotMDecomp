@@ -1,4 +1,4 @@
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 struct Sprite { u8 pad[0x2A]; u8 flags; };
@@ -17,7 +17,7 @@ void sub_080A9944(void *entity) {
         u8 *flagPtr = (u8 *)(sprite + 0x2A);
         *flagPtr &= 0xBF;
     }
-    if (sub_08013B5C((void *)sprite, (void *)work) == 0) {
+    if (updateObjectDisplayState((void *)sprite, (void *)work) == 0) {
         int stepBaseOffset = 0x18;
         s32 stepIndex;
         s32 stepOffset;

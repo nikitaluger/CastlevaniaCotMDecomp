@@ -1,4 +1,4 @@
-extern void sub_08003A6C(void *, s32, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
@@ -15,7 +15,7 @@ void sub_0808C3C4(void *arg0)
     *(u32 *)((u8 *)pos + 0x18) = *(u32 *)(self + 0x24);
     *(u32 *)(self + 0x24) = (u32)sub_0808C9BC;
     *(u32 *)((u8 *)result + 0x24) = 0x0862ECE4;
-    sub_08003A6C((u8 *)actor + 0x20, 0, (void *)0x0862ED1C);
+    startEffectTimer((u8 *)actor + 0x20, 0, (void *)0x0862ED1C);
     *(u32 *)((u8 *)actor + 4) = 0x780000;
     *(u32 *)((u8 *)pos + 4) = 0x480000;
     sub_0806D588(result, pos);

@@ -19,11 +19,11 @@ extern u8 D_080E4E54[];
 extern u8 D_080E47E8[];
 extern u8 D_084E25C0[];
 extern u8 D_084E25D4[];
-s32 sub_08003740(void *, void *);
-void sub_08003A6C(void *, u32, u32);
+s32 stepDelayTimer(void *, void *);
+void startEffectTimer(void *, u32, u32);
 void *sub_0806D2A0(u32, u32, u32, u32);
 s32 sub_0806D35C(void *, void *, void *);
-void sub_0806D588(void *, void *);
+void setSpriteScreenPosition(void *, void *);
 void sub_0808DC40(s32, s32, u32);
 void sub_080C31E0(u32, u32);
 static inline u8 *inline_fn(u8 *arg0)
@@ -105,7 +105,7 @@ void sub_0807BD78(void *arg0)
       {
         timer = (*((u32 *) (p8 + 0x54))) - 1; goto dec;
       }
-      sub_08003A6C(r6, 0, (u32) D_084E25D4);
+      startEffectTimer(r6, 0, (u32) D_084E25D4);
       *((u32 *) (p8 + 0x54)) = 0x20;
     }
     else
@@ -127,7 +127,7 @@ void sub_0807BD78(void *arg0)
       {
         timer = (*((u32 *) (p8 + 0x54))) - 1; goto dec;
       }
-      sub_08003A6C(r6, 0, (u32) D_084E25D4);
+      startEffectTimer(r6, 0, (u32) D_084E25D4);
       *((u32 *) (p8 + 0x54)) = 0x20;
     }
   }
@@ -165,12 +165,12 @@ dec:
     *((u16 *) (v38 + 2)) &= 0xFFEF;
   }
 
-  if (sub_08003740(r6, v38) == 0)
+  if (stepDelayTimer(r6, v38) == 0)
   {
-    sub_08003A6C(r6, 0, (u32) D_084E25C0);
+    startEffectTimer(r6, 0, (u32) D_084E25C0);
   }
   new_var2 = (u32) s;
-  sub_0806D588(v38, p5);
+  setSpriteScreenPosition(v38, p5);
   if ((*((u8 *) (dEnd + 0x14ED))) == 0x81)
   {
     return;

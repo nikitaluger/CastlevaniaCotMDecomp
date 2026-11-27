@@ -1,7 +1,7 @@
 extern u8 D_080CF9BC[];
-extern u32 D_08671BD0[];
+extern u32 gScriptStepCallbacks[];
 
-void sub_080113A8(s32, void *);
+void stepAnimationTrack(s32, void *);
 void setAnimationFrame(s32, void *, u16, u8);
 void sub_08014668(void *, s32);
 void copyPoseAttrs(void *, void *);
@@ -18,7 +18,7 @@ void sub_0804D048(u8 *arg0) {
     s32 zero;
     u16 *bounceState;
     s32 one;
-    sub_080113A8((s32)sprite, anim);
+    stepAnimationTrack((s32)sprite, anim);
     if (*(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) == 8) {
         s32 velocity = -*(s32 *)(target + 0x10);
         *(s32 *)(target + 0x10) = velocity;
@@ -31,7 +31,7 @@ void sub_0804D048(u8 *arg0) {
         *bounceState = one;
         *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = zero;
         {
-            u32 *stepTable = D_08671BD0;
+            u32 *stepTable = gScriptStepCallbacks;
             sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0, *stepTable);
         }
     }

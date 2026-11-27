@@ -1,5 +1,5 @@
-void sub_08003A6C(s32, s32, s32);
-void sub_08003740(s32, s32);
+void startEffectTimer(s32, s32, s32);
+void stepDelayTimer(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_0806D588(s32, s32);
 
@@ -18,8 +18,8 @@ void sub_080891D8(void *arg0) {
     gMainWorkspace.spriteRef = *(s32 *)(sprite + 0x14);
     if (gMainWorkspace.state == 0x17) {
         mover += 0x20;
-        sub_08003A6C((s32)mover, 0, (s32)0x08500D50);
-        sub_08003740((s32)mover, sprite);
+        startEffectTimer((s32)mover, 0, (s32)0x08500D50);
+        stepDelayTimer((s32)mover, sprite);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         callback = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *callback);

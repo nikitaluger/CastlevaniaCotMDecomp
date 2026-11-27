@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);   /* random in [0, arg) */
+extern s32 scaleByRandom(s32);   /* random in [0, arg) */
 extern s32 signOf(s32);    /* sign(sharedTargetX - arg) */
 
 /* Random idle timer: count *timer down; when it expires, flip the sprite's
@@ -29,7 +29,7 @@ void sub_080149A4(void *sprite, void *entity, u16 *timer, u16 minDelay, s32 maxD
         } else {
             reduced = lo - 1;
             span = hi - reduced;
-            next = sub_08005820(span);
+            next = scaleByRandom(span);
             next = next + minD;
             *timer = next;
         }

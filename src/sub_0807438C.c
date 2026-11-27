@@ -12,11 +12,11 @@ struct S_02025FF0_7438C
   u16 gfxFlag;
 };
 extern struct S_02025FF0_7438C gMainWorkspace;
-extern s32 sub_0806D518(void *, void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_080C31E0(void *, void *);
-extern void sub_0806D2F8(void *, void *);
+extern void cullOffscreenEntity(void *, void *);
 
 void sub_0807438C(void *arg0) {
     void *entity;
@@ -27,7 +27,7 @@ void sub_0807438C(void *arg0) {
     child = *((u8 **)((u8 *)arg0 + 0x6C));
     motion = child + 4;
     sprite = *((u8 **)((u8 *)arg0 + 0x38));
-    if (sub_0806D518(arg0, sprite, motion) == 0) {
+    if (checkGlobalStateChange(arg0, sprite, motion) == 0) {
         entity = arg0;
         speed = *(s32 *)(motion + 8);
         rounded = speed;
@@ -39,10 +39,10 @@ void sub_0807438C(void *arg0) {
         *(s32 *)(motion + 4) += *(s32 *)(motion + 0xC);
         sub_0806D588(sprite, motion);
         *(u16 *)sprite = gMainWorkspace.gfxFlag;
-        if (sub_08003740(child + 0x20, sprite) == 0 || gMainWorkspace.state173A == 0x1C || (gMainWorkspace.state14ED == 0 && gMainWorkspace.flags10 != 0)) {
+        if (stepDelayTimer(child + 0x20, sprite) == 0 || gMainWorkspace.state173A == 0x1C || (gMainWorkspace.state14ED == 0 && gMainWorkspace.flags10 != 0)) {
             sub_080C31E0(entity, *((void **)((u8 *)entity + 0x24)));
         } else {
-            sub_0806D2F8(entity, sprite);
+            cullOffscreenEntity(entity, sprite);
         }
     }
 }

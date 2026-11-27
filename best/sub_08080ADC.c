@@ -1,7 +1,7 @@
-void sub_08003A6C(s32, s32, s32);
+void startEffectTimer(s32, s32, s32);
 void *allocEffectPart(void *);
-void sub_0806D2D0(void *);
-s16 sub_0806D62C(u16, u16);
+void cleanupFailedEffectSpawn(void *);
+s16 scalePercentSaturate16(u16, u16);
 void sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -63,7 +63,7 @@ void sub_08080ADC(u8 *arg0) {
     } while (0);
     r7->f2C = allocEffectPart(r9);
     if (r7->f2C == NULL) {
-        sub_0806D2D0(arg0);
+        cleanupFailedEffectSpawn(arg0);
         return;
     }
     r7->f30 = 0;
@@ -83,7 +83,7 @@ void sub_08080ADC(u8 *arg0) {
     ((struct R3 *)r7->f2C)->f08 = 1; } while (0);
     ((struct R3 *)r7->f2C)->f0A = 0;
     ((struct R3 *)r7->f2C)->f0C = 0;
-    ((struct R3 *)r7->f2C)->f0E = sub_0806D62C(gGameStatus.f2E2, r4->f04);
+    ((struct R3 *)r7->f2C)->f0E = scalePercentSaturate16(gGameStatus.f2E2, r4->f04);
     ((struct R3 *)r7->f2C)->f16 = 5;
     ((struct R3 *)r7->f2C)->f18 = r4->f18;
     ((struct R3 *)r7->f2C)->f10 = (u8 *)r5;
@@ -93,7 +93,7 @@ void sub_08080ADC(u8 *arg0) {
     r5->f06 = 0x800;
     r5->f08 = 0;
     r5->f24 = r4->f08;
-    sub_08003A6C((s32)r9 + 0x20, 0, (s32)r4->f0C);
+    startEffectTimer((s32)r9 + 0x20, 0, (s32)r4->f0C);
     r5->f14 = 0x780000;
     r5->f18 = 0x500000;
     r7->f54 = 0;

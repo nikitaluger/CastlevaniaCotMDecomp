@@ -2,7 +2,7 @@ extern void sub_08005FC4(s32, s32, s32, s32, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C0384(void);
-extern s32 D_020278D0;
+extern s32 gMenuState;
 
 /* Advance one scripted sprite/animation part of an object: clear the part's
  * step counter, run the shared IWRAM animation-step routine on its state
@@ -14,7 +14,7 @@ void sub_0800A4AC(void *arg0) {
     s32 *animStep;
     u8 *partState;
 
-    if (D_020278D0 != 1) {
+    if (gMenuState != 1) {
         sub_08005FC4(0, 1, 3, 0, sub_080C0384);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

@@ -1,7 +1,7 @@
 /* Per-frame AI update for the boss whose state script table is at 0x0866E5E4.
  * Applies contact/hit effects, runs the current state script and advances the
  * per-state animation flags, then syncs the hitbox component back to the boss. */
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 extern void _call_via_r3(void *, void *, s32, void *);
 void sub_08013C5C(void *, void *);
 s32 sub_080141AC(void *, void *);
@@ -11,7 +11,7 @@ void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
 void sub_08051CE8(void *);
 void sub_08051D18(void *, void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08051CA0(void *, void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
@@ -80,7 +80,7 @@ void sub_08050AE0(void *arg0) {
         animStatePtr = (u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0);
         if (animStatePtr[0x1A] == 0) {
             animStatePtr[0x1B] = 0;
-            { void **fnaddr = &D_08671BDC;
+            { void **fnaddr = &sScriptStepCallbacks;
               _call_via_r3((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 6, *fnaddr); }
         }
     }
@@ -91,11 +91,11 @@ void sub_08050AE0(void *arg0) {
         sub_08051CE8(arg0);
         animStatePtr2 = (u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0);
         animStatePtr2[0x1B] = 0;
-        { void **fnaddr = &D_08671BDC;
+        { void **fnaddr = &sScriptStepCallbacks;
           _call_via_r3((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 7, *fnaddr); }
     }
     sub_08051D18(parent, hitbox);
-    if (sub_08013B5C(parent, hitbox) == 0) {
+    if (updateObjectDisplayState(parent, hitbox) == 0) {
         *(u32 *)((u8 *)arg0 + 0x14) = BOSS_STATE_TABLE;
         *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) + 1;
         counterPtr = (u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0);

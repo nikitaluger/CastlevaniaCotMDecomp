@@ -40,14 +40,14 @@ struct CountdownEntry {
     u8 _8[0x50];
 };
 extern struct CountdownEntry D_080E03A0[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern u8 D_0846FEA8[];
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AB04(void *, void *, void *, void *);
-extern void sub_08003A6C(s32, s32, void *);
+extern void startEffectTimer(s32, s32, void *);
 extern void sub_0806A884(void *, void *);
-extern void sub_08003740(s32, void *);
+extern void stepDelayTimer(s32, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -60,13 +60,13 @@ void sub_08065E34(struct UpdateCtx *arg0) {
     struct StateBlock *state = (struct StateBlock *)arg0->state;
     struct ScriptEntity *entity = (struct ScriptEntity *)((u8 *)state + 4);
     u8 *work = arg0->work;
-    s32 posMode = sub_0806C4B4(entity, entity);
+    s32 posMode = syncViewPosition(entity, entity);
     if (posMode == 0) {
         u8 *stepPtr;
         s32 value, limit;
         u8 *timerPtr;
         s32 spawnFlag;
-        sub_0806C5EC(arg0, work, entity, entity);
+        resetActionResultState(arg0, work, entity, entity);
         value = entity->countdown + D_080E03A0[entity->timingIndex].delta;
         entity->countdown = value;
         limit = D_080E03A0[entity->timingIndex].limit;
@@ -76,17 +76,17 @@ void sub_08065E34(struct UpdateCtx *arg0) {
         timerPtr = (u8 *)state + 0x2C;
         if (spawnFlag == 1) {
             entity->countdown = posMode;
-            sub_08003A6C((s32)timerPtr, 0, (void *)D_0846FEA8);
+            startEffectTimer((s32)timerPtr, 0, (void *)D_0846FEA8);
             entity->field10 = 0x20;
             stepPtr = (u8 *)((u32)(arg0->stepIndex * 2) + (u32)arg0);
             stepPtr[0x19] = posMode;
             {
-                u32 *eventPtr = &gMainObjTimerCallback;
+                u32 *eventPtr = &gScriptStepCallbackTable;
                 sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *eventPtr);
             }
         }
         sub_0806A884(work, entity);
-        sub_08003740((s32)timerPtr, work);
+        stepDelayTimer((s32)timerPtr, work);
         sub_0806C6B0(arg0, work, entity, entity);
     }
 }

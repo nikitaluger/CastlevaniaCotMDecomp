@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08003A6C(void *, s32, void *);
+extern void startEffectTimer(void *, s32, void *);
 
 /* Actor effect step: bind an animation to the work state, flag the sprite,
  * clear then advance the current script byte, dispatch the script handler,
@@ -14,7 +14,7 @@ void sub_0808A374(void *actor)
     u8 zero;
 
     *(u32 *)(gfx + 0x24) = 0x08502C40;
-    sub_08003A6C((u8 *)work + 0x20, 0, (void *)0x08502D50);
+    startEffectTimer((u8 *)work + 0x20, 0, (void *)0x08502D50);
 
     {
         u32 flags = *(u16 *)(gfx + 2);

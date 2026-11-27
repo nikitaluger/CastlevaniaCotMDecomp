@@ -1,5 +1,5 @@
 extern void sub_0802279C(void);
-extern void sub_080161F0(void *);
+extern void unlinkAndFreeObject(void *);
 extern void sub_080C31E0(void *, s32);
 extern s32 sub_08014114(s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -31,14 +31,14 @@ void sub_08022760(void *obj)
 
     sub_0802279C();
     if (*(void **)(fields + 0x28) != 0)
-        sub_080161F0(*(void **)(fields + 0x28));
+        unlinkAndFreeObject(*(void **)(fields + 0x28));
 
     slots = (void **)(fields + 0x7C);
     remaining = 1;
     do
     {
         if (*slots != 0)
-            sub_080161F0(*slots);
+            unlinkAndFreeObject(*slots);
         slots++;
         remaining--;
     } while (remaining >= 0);

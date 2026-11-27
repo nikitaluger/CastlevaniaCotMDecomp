@@ -6,7 +6,7 @@ extern s32 findKindIndex(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080AA8A0(void *, void *);
-extern s64 sub_08005820(s32);
+extern s64 scaleByRandom(s32);
 struct S_02025FF0
 {
   u8 _0[0x18C2];
@@ -63,7 +63,7 @@ void sub_080AA650(void *entity)
   *((u16 *) sprite) = (u16) (spriteBase | (&gMainWorkspace)->w);
   initSpriteGraphics(sprite, status, (void *) ((((s32) (*((s16 *) (((char *) motion) + 0x1C)))) * 0xC) + 0x080CD400));
   setAnimationFrame(sprite, status, 8, 0);
-  *((s32 *) (((char *) entity) + 0x4C)) = (s32) sub_08005820(0x5B0) + 0xB60;
+  *((s32 *) (((char *) entity) + 0x4C)) = (s32) scaleByRandom(0x5B0) + 0xB60;
   *((u16 *) (((char *) entity) + 0x02)) |= 0x1000;
   {
     u8 *p = (u8 *) ((((s16) (*((s16 *) (((char *) entity) + 0x22)))) * 2) + ((u32) entity));

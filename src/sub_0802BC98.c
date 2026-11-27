@@ -2,9 +2,9 @@
  * its script, and write the mover's scroll-relative screen coordinates. */
 extern void sub_08005E80(s32);
 extern void sub_080113A8(s32, void *);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern s32 sub_08013B5C(s32, void *);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -26,7 +26,7 @@ void sub_0802BC98(u8 *entity)
     sub_080C31E0(entity, *((void **) (entity + 0x24)));
     return;
   }
-  if (sub_08016238(*((void **) (mover + 0x28))) != 0)
+  if (hitTestEntities(*((void **) (mover + 0x28))) != 0)
     ((struct MoverFlags *) mover)->flags |= 1;
   if (1 & ((struct StateExt *) (*((u8 **) (mover + 0x28))))->flags2)
     ((struct MoverFlags *) mover)->flags |= 1;
@@ -59,7 +59,7 @@ void sub_0802BC98(u8 *entity)
     if (((*((u16 *) (entity + 2))) & 0x8000) == 0)
     {
       sub_080113A8(workObj, moverTarget);
-      sub_0801165C(mover, 0x16C1);
+      advanceMotion(mover, 0x16C1);
     }
     else goto done;
   }

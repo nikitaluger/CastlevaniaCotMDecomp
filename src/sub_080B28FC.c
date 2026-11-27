@@ -1,4 +1,4 @@
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_080C31E0(void *, void *);
 /* Positions a trail slot relative to its parent object, applies its display
@@ -18,7 +18,7 @@ void sub_080B28FC(void *arg0)
   offset = ((slot * 8) - slot) << 0x13;
   *(u32 *)((u8 *)work + 8) = *(u32 *)((u8 *)parentWork + 8) + offset;
   *(u32 *)((u8 *)work + 0xC) = *(u32 *)((u8 *)parentWork + 0xC) + 0x2C0000;
-  if (sub_08013B5C(sprite, work) == 0)
+  if (updateObjectDisplayState(sprite, work) == 0)
   {
     *(u32 *)((u8 *)arg0 + 0x14) = 0x0867031C;
     *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) + 1;

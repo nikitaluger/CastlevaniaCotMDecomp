@@ -1,7 +1,7 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u16 gCameraState[];
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 /* Copy a value from the parent object into this script actor, refresh the
  * display state, then dispatch and advance to the next script step. */

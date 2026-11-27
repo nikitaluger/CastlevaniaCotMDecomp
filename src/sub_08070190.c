@@ -1,4 +1,4 @@
-s32 sub_08003740(s32, s32);
+s32 stepDelayTimer(s32, s32);
 s32 sub_0806D35C(void *, s32, s32);
 s32 sub_0806D588(s32, s32);
 s32 sub_080C31E0(void *, s32);
@@ -16,7 +16,7 @@ void sub_08070190(void *entity) {
     target = *(s32 *)((u8 *)entity + 0x38);
     if (sub_0806D35C(entity, target, vec) == 0) {
         sub_0806D588(target, vec);
-        if (sub_08003740(state + 0x30, target) == 0) {
+        if (stepDelayTimer(state + 0x30, target) == 0) {
             sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
         }
     }

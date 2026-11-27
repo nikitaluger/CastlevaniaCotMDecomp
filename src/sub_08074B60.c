@@ -20,7 +20,7 @@ extern struct SceneState74B60 gMainWorkspace;
 
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_080C31E0(void *, u32);
 
 /* One tick of a camera-followed entity: gated by sub_0806D450, syncs object
@@ -58,7 +58,7 @@ void sub_08074B60(void *arg0) {
     }
     sub_0806D588(sprite, objectDataSaved);
     *(u16 *)sprite = (u16)(gMainWorkspace.spriteAttrMask | *(u16 *)((u8 *)self + 0x7C));
-    if (sub_08003740(objectData + 0x1C, sprite) == 0) {
+    if (stepDelayTimer(objectData + 0x1C, sprite) == 0) {
         sub_080C31E0(self, *(u32 *)((u8 *)self + 0x24));
         return;
     }

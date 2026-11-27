@@ -1,4 +1,4 @@
-void sub_080113A8(s32, s32);
+void stepAnimationTrack(s32, s32);
 void _call_via_r2(void *, void *, s32);
 void sub_08011528(void *, void *);
 void _call_via_r1(void *, void *);
@@ -11,7 +11,7 @@ void sub_080ADFE8(void *arg0) {
     s32 sprite = *(s32 *)(actor + 0x38);
     u8 *work = *(u8 **)(actor + 0x3C);
     u8 *anim = work + 0x34;
-    sub_080113A8(sprite, (s32)anim);
+    stepAnimationTrack(sprite, (s32)anim);
     if (*anim & 2) {
         *(u8 *)(*(u8 **)(work + 0x28) + 1) = 5;
         {

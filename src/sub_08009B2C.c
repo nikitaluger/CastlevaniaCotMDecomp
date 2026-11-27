@@ -5,7 +5,7 @@ extern void *allocSpriteObject(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
 
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 void sub_08009B2C(u8 *entity)
 {
@@ -34,7 +34,7 @@ void sub_08009B2C(u8 *entity)
 
         stepIndex = *(s16 *)(entity + 0x22);
         *(u8 *)(entity + stepIndex * 2 + 0x19) = 0;
-        scriptFn = &D_08671BD0;
+        scriptFn = &gScriptStepCallbacks;
         stepTable = entity + 0x18;
         sub_080C31E8(stepTable, entity + 0x22, 1, *scriptFn);
 
@@ -55,7 +55,7 @@ void sub_08009B2C(u8 *entity)
 
         stepIndex = *(s16 *)(entity + 0x22);
         *(u8 *)(entity + stepIndex * 2 + 0x19) = 0;
-        scriptFn = &D_08671BD0;
+        scriptFn = &gScriptStepCallbacks;
         stepTable = entity + 0x18;
         sub_080C31E8(stepTable, entity + 0x22, 3, *scriptFn);
 

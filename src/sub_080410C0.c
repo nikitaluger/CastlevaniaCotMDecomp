@@ -12,7 +12,7 @@ void sub_080410C0(void *self)
   void *stateFlag = ((u8 *) params) + 0x48;
   s32 *switchScriptTable;
   sub_08011EE8(params, 0x16C1, 0);
-  sub_080113A8(owner, animState);
+  stepAnimationTrack(owner, animState);
   if ((*((u16 *) (((u8 *) params) + 0x02))) & 1)
   {
     if ((*((u8 *) stateFlag)) == 0)

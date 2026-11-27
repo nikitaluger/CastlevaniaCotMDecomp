@@ -9,7 +9,7 @@ struct Hdr { u16 f0; u16 f2; u16 f4; u16 f6; };
 struct BD { u8 _0[0xC]; u16 fC; u16 fE; u8 _10[0x18]; };
 extern struct BD gEffectGfxTable[];
 extern u16 D_08101CD4[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -19,7 +19,7 @@ extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 inline int inline_fn(s32 arg0, int arg1) { return arg0 + arg1; }
 
 void sub_080A4B44(u8 *arg0)
@@ -33,7 +33,7 @@ void sub_080A4B44(u8 *arg0)
   *((u32 *) inline_fn(a, 0x1C)) = 0x8000000A;
   p = (struct P *) (*((u8 **) (arg0 + 0x3C)));
   r7 = ((u8 *) p) + 0x34;
-  installUpdateHandler(arg0, (u8 *) p, sub_08097DC8);
+  installUpdateHandler(arg0, (u8 *) p, updateActorEffectSubObject);
   zero = 0;
   p->f1C = 0x59;
   p->f8 = *((u32 *) (arg0 + 0x4C));
@@ -71,7 +71,7 @@ void sub_080A4B44(u8 *arg0)
   p->f28->f10 = a;
   *((u16 *) (arg0 + 2)) |= 0x1000;
   *((u8 *) inline_fn(inline_fn(((u32) (*((s16 *) (arg0 + 0x22)))) * 2, (u32) arg0), 0x19)) = zero;
-  fn = &gMainObjTimerCallback;
+  fn = &gScriptStepCallbackTable;
   p18 = arg0;
   p18 += 0x18;
   sub_080C31E4(p18, arg0 + 0x22, (s32) (*fn));

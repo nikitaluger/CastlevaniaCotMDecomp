@@ -1,9 +1,9 @@
 /* Sync a scripted effect's position: update its in-view flag from the camera
  * bounds, drive its display state, then store its fixed-point position and
  * convert it to camera-relative screen coordinates. */
-extern void sub_080113A8(void *, void *);
-extern s32 sub_08013B5C(void *, void *);
-extern s32 sub_0805F9B4(s32, s32);
+extern void stepAnimationTrack(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 
@@ -19,14 +19,14 @@ void sub_08027CB0(u8 *effect) {
     fxState = *(void **)(effect + 0x3C);
     motion = (u8 *)fxState + 0x34;
 
-    outsideView = sub_0805F9B4(*(s32 *)((u8 *)fxState + 8), *(s32 *)((u8 *)fxState + 0xC));
+    outsideView = isOutsideCameraBounds(*(s32 *)((u8 *)fxState + 8), *(s32 *)((u8 *)fxState + 0xC));
     if (outsideView == 1) {
         ((struct S2A *)((u8 *)sprite + 0x2A))->flag &= 0xBF;
     } else {
         ((struct S2A *)((u8 *)sprite + 0x2A))->flag |= 0x40;
     }
-    if (sub_08013B5C(sprite, fxState) == 0) {
-        sub_080113A8(sprite, motion);
+    if (updateObjectDisplayState(sprite, fxState) == 0) {
+        stepAnimationTrack(sprite, motion);
     }
 
     *(s32 *)((u8 *)fxState + 8) = *(s16 *)(effect + 0x4C) << 16;

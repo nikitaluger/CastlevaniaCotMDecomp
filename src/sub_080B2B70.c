@@ -1,4 +1,4 @@
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_080C31E0(void *, void *);
 
@@ -20,7 +20,7 @@ void sub_080B2B70(void *arg0)
   xDelta = ((xFactor * 8) - xFactor) << 0x13;
   *(u32 *)((u8 *)work + 8) = *(u32 *)((u8 *)linkedWork + 8) + xDelta;
   *(u32 *)((u8 *)work + 0xC) = *(u32 *)((u8 *)linkedWork + 0xC) + 0x2C0000;
-  if (sub_08013B5C(sprite, work) == 0)
+  if (updateObjectDisplayState(sprite, work) == 0)
   {
     *(u32 *)((u8 *)arg0 + 0x14) = 0x08670328;
     *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) + 1;

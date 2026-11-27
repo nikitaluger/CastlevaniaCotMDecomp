@@ -1,4 +1,4 @@
-extern void sub_08011898(void *, s32);
+extern void moveEntityWithCollision(void *, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -10,7 +10,7 @@ void sub_080AA860(void *arg0) {
     s32 sprite = *(s32 *)(actor + 0x38);
     u8 *work = *(u8 **)(actor + 0x3C);
     u8 *anim = work + 0x34;
-    sub_08011898(work, *(s32 *)(actor + 0x4C));
+    moveEntityWithCollision(work, *(s32 *)(actor + 0x4C));
     if (*(s32 *)(work + 0x14) > (0x80 << 10)) {
         setAnimationFrame(sprite, anim, 0xC, 0);
     }

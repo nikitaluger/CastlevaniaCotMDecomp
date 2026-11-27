@@ -1,11 +1,11 @@
 s32 setAnimationFrame(s32, s32, s32, s32);
-s32 sub_080113A8(s32, s32);
+s32 stepAnimationTrack(s32, s32);
 s32 sub_080148D8(s32, s32);
 s32 sub_080C31E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 
-extern u32 gMainObjTimerCallback;
-extern u32 D_08671BFC;
+extern u32 gScriptStepCallbackTable;
+extern u32 gTrigFuncPtr;
 
 /* Entity update: offset the enemy's vertical position from a script parameter
  * through a lookup callback, set the sprite's facing from its horizontal
@@ -28,13 +28,13 @@ void sub_0804488C(void *arg0) {
     enemyData = (u8 *)enemy + 0x34;
     enemyState = (u8 *)enemy + 0x48;
 
-    pWaveFn = &D_08671BFC;
+    pWaveFn = &gTrigFuncPtr;
     paramIndex = *(s16 *)((u8 *)self + 0x22);
     param = *((u8 *)self + paramIndex * 2 + 0x19);
     param = (param << 8) + 0x4000;
     *(s32 *)((u8 *)enemy + 0x0C) = *(s32 *)((u8 *)enemy + 0x48) - (sub_080C31E0(param, *pWaveFn) + 0xFFFF0000) * 8;
 
-    sub_080113A8(actor, (s32)enemyData);
+    stepAnimationTrack(actor, (s32)enemyData);
     sub_080148D8(actor, *(s32 *)((u8 *)enemy + 8));
 
     paramIndex = *(s16 *)((u8 *)self + 0x22);
@@ -44,7 +44,7 @@ void sub_0804488C(void *arg0) {
         *(s32 *)((u8 *)enemy + 0x14) = 0xFFF9C000;
         paramIndex = *(s16 *)((u8 *)self + 0x22);
         *((u8 *)self + paramIndex * 2 + 0x19) = 0;
-        pCallbackFn = &gMainObjTimerCallback;
+        pCallbackFn = &gScriptStepCallbackTable;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *pCallbackFn);
     }
 }

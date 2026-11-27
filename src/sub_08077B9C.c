@@ -1,8 +1,8 @@
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_08003A6C(void *a, s32 b, void *c);
-extern void sub_080722E0(void *a, u8 b);
+extern void setDirectionVector(void *a, u8 b);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 extern void sub_0808449C(void);
@@ -77,7 +77,7 @@ void sub_08077B9C(u8 *entity)
   (*((struct SpritePart **) (record + 0x2C)))->height = 8;
   (*((struct SpritePart **) (record + 0x2C)))->unk0A = zero;
   (*((struct SpritePart **) (record + 0x2C)))->unk0C = zero;
-  (*((struct SpritePart **) (record + 0x2C)))->anim = sub_0806D62C(*((u16 *) (params + 0x2E2)), 0x8D);
+  (*((struct SpritePart **) (record + 0x2C)))->anim = scalePercentSaturate16(*((u16 *) (params + 0x2E2)), 0x8D);
   (*((struct SpritePart **) (record + 0x2C)))->unk16 = 0x1E;
   (*((struct SpritePart **) (record + 0x2C)))->unk18 = 0x51;
   (*((struct SpritePart **) (record + 0x2C)))->owner = (u32) sprite;
@@ -95,7 +95,7 @@ void sub_08077B9C(u8 *entity)
     u32 v = *((u32 *) (entity + 0x7C));
     u8 *dst = group + 0x48;
     *dst = v;
-    sub_080722E0(record, *dst);
+    setDirectionVector(record, *dst);
   }
   *((u32 *) (record + 0x48)) = 0x18;
   *(((u8 *) ((((s16) (*((s16 *) (entity + 0x22)))) * 2) + ((u32) entity))) + 0x19) = 0;

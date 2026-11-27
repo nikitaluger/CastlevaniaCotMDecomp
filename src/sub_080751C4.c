@@ -1,7 +1,7 @@
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern s32 sub_0806D35C(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
-extern void sub_080722E0(void *, u32);
+extern void setDirectionVector(void *, u32);
 extern void sub_080C31E0(void *, void *);
 
 struct HomingTargetState {
@@ -40,7 +40,7 @@ void sub_080751C4(void *arg0) {
     angle = *(u32 *)((u8 *)mover + 0x54);
     angle = (angle - 4) & 0xFF;
     *(u32 *)((u8 *)mover + 0x54) = angle;
-    sub_080722E0(mover, angle);
+    setDirectionVector(mover, angle);
 
     d = &gMainWorkspace;
     targetX = d->worldTargetX + (*(s32 *)((u8 *)mover + 8) << 5);
@@ -60,7 +60,7 @@ void sub_080751C4(void *arg0) {
 
     sub_0806D588(world, mover);
     *(u16 *)world = d->spriteAttr;
-    if (sub_08003740((u8 *)actor + 0x20, world) == 0) {
+    if (stepDelayTimer((u8 *)actor + 0x20, world) == 0) {
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
         return;
     }

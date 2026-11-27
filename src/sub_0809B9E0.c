@@ -3,14 +3,14 @@
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 extern s32 findKindIndex(void);
 extern void sub_0809C2F0(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 f18C2; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 struct Obj {
   u8 _0[2];
   u16 f02;
@@ -53,7 +53,7 @@ void sub_0809B9E0(struct Obj *obj)
   sprite->f1C = 2;
   scriptState = (struct R4 *) obj->f3C;
   stateArg = ((u8 *) scriptState) + 0x34;
-  installUpdateHandler(obj, scriptState, &sub_08097D90);
+  installUpdateHandler(obj, scriptState, &releaseActorEffectSubObject);
   scriptState->f1C = 0x44;
   playerIndex = findKindIndex();
   scriptState->f22 = playerIndex;
@@ -72,7 +72,7 @@ dispatch:
   ((u8 *) (&stepIndexPtr[stepIndex]))[0x19] = 0;
   objBytes = (u8 *) objSelf;
   {
-    u32 *pbb0 = &gMainObjTimerCallback;
+    u32 *pbb0 = &gScriptStepCallbackTable;
     stepTable = objBytes + 0x18;
     sub_080C31E4((s32) stepTable, (s32) (objBytes + 0x22), (s32) (*pbb0));
   }

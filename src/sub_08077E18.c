@@ -9,9 +9,9 @@ struct S_02025FF0 {
     u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern s32 sub_0806D518(void *, void *, void *);
-extern s32 sub_08003740(void *, void *);
-extern void sub_0806D2F8(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern void cullOffscreenEntity(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void _call_via_r1(void *, s32);
 
@@ -26,7 +26,7 @@ void sub_08077E18(u8 *entity) {
     owner = *(u8 **)(entity + 0x6C);
     ownerPos = owner + 4;
     fxState = *(u8 **)(entity + 0x38);
-    if (sub_0806D518(entity, fxState, ownerPos) != 0) return;
+    if (checkGlobalStateChange(entity, fxState, ownerPos) != 0) return;
     {
         u32 timer = *(u16 *)(fxState + 4) + 0x40;
         *(u16 *)(fxState + 4) = timer;
@@ -38,11 +38,11 @@ void sub_08077E18(u8 *entity) {
     }
     gs = &gMainWorkspace;
     { u16 initial = gMainWorkspace.f18C2; *(u16 *)fxState = initial; }
-    sub_08003740(owner + 0x20, fxState);
+    stepDelayTimer(owner + 0x20, fxState);
     sub_0806D588(fxState, ownerPos);
     if (gs->f173A == 0x1C || (gs->f14ED == 0 && gs->f10 != 0)) {
         _call_via_r1(entity, *(s32 *)(entity + 0x24));
     } else {
-        sub_0806D2F8(entity, fxState);
+        cullOffscreenEntity(entity, fxState);
     }
 }

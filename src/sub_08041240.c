@@ -1,8 +1,8 @@
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, s32, s32);
 void sub_080415D4(s32, void *, void *, void *);
 void sub_080C31E4(void *, void *, u32);
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Entity update driven by the component's flags: marks the entity and its
  * child active, updates the track pose and plays an action. Flag 4 finishes
@@ -20,7 +20,7 @@ void sub_08041240(void *self)
   u8 one = 1;
   *activeFlag = one;
   *((u8 *) ((*((u8 **) (((u8 *) self) + 0x30))) + 0x70)) = one;
-  sub_080113A8(fx, track);
+  stepAnimationTrack(fx, track);
   sub_08011EE8(component, 0x16C1, 0);
   ;
   if ((*((u16 *) (((u8 *) component) + 2))) & 4)
@@ -31,7 +31,7 @@ void sub_08041240(void *self)
     *activeFlag = (u8) zero;
     *((u8 *) ((*((u8 **) (((u8 *) self) + 0x30))) + 0x70)) = (u8) zero;
     *((u8 *) ((((u8 *) self) + ((*((s16 *) (((u8 *) self) + 0x22))) * 2)) + 0x19)) = (u8) zero;
-    pd = &gMainObjTimerCallback;
+    pd = &gScriptStepCallbackTable;
     sub_080C31E4(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, *pd);
   }
   else

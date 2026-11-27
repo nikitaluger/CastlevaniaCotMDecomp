@@ -2,17 +2,17 @@
  * mode owns the position, otherwise reset and re-track the scroll position,
  * spawn a trail object every fourth frame, fire a timed effect, then run the
  * final camera update. */
-s32 sub_0806C4B4(void *a, void *b);
-void sub_0806C5EC(void *a, void *b, void *c, void *d);
+s32 syncViewPosition(void *a, void *b);
+void resetActionResultState(void *a, void *b, void *c, void *d);
 void sub_0806AA64(void *a, void *b);
 void *sub_0806D2A0(void *a, s32 b, s32 c, s32 d);
-void sub_08003740(void *a, void *b);
-void sub_08003A6C(void *a, s32 b, s32 c);
+void stepDelayTimer(void *a, void *b);
+void startEffectTimer(void *a, s32 b, s32 c);
 void sub_0806C6B0(void *a, void *b, void *c, void *d);
 void sub_080C31E4(void *a, void *b, s32 c);
 
 extern s32 D_080DEA88[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 void sub_08066718(void *entity)
 {
@@ -22,10 +22,10 @@ void sub_08066718(void *entity)
     void *view = *(void **)((u8 *)self + 0x38);
     void *posOut = pos;
 
-    if (sub_0806C4B4(posOut, posOut) != 0)
+    if (syncViewPosition(posOut, posOut) != 0)
         return;
 
-    sub_0806C5EC(self, view, posOut, posOut);
+    resetActionResultState(self, view, posOut, posOut);
     sub_0806AA64(view, posOut);
 
     {
@@ -42,14 +42,14 @@ void sub_08066718(void *entity)
 
     {
         void *effectTimer = (u8 *)pos + 0x28;
-        sub_08003740(effectTimer, view);
+        stepDelayTimer(effectTimer, view);
         if (*(s32 *)((u8 *)pos + 0xB8) > 0x1FF)
         {
-            sub_08003A6C(effectTimer, 0, D_080DEA88[0xE3 << 1]);
+            startEffectTimer(effectTimer, 0, D_080DEA88[0xE3 << 1]);
             *(s32 *)((u8 *)pos + 0x10C) = *(s32 *)((u8 *)pos + 0x104);
             *(u8 *)((u8 *)self + *(s16 *)((u8 *)self + 0x22) * 2 + 0x19) = 0;
             {
-                s32 *effectData = &gMainObjTimerCallback;
+                s32 *effectData = &gScriptStepCallbackTable;
                 sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *effectData);
             }
         }

@@ -1,6 +1,6 @@
 extern void sub_080C2E68(void *, void *, u32);
 extern void sub_080C31E0(void *);
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 
 struct S_02025FF0_1874 { u8 _pad[0x1874]; u32 v; };
 extern struct S_02025FF0_1874 gMainWorkspace;
@@ -56,7 +56,7 @@ void sub_0808D858(void *arg0) {
 }
 
 void *sub_0808DBB4(s32 arg0, s32 arg1, u16 arg2) {
-    void *r = sub_0805FAEC((void *)gMainWorkspace.v, 0x201);
+    void *r = spawnBudgetedEffect((void *)gMainWorkspace.v, 0x201);
     if (r != 0) {
         u8 *p;
         *(s32 *)((u8 *)r + 0x4C) = arg0;

@@ -3,7 +3,7 @@ void setAnimationFrame(void *, void *, s16, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
 extern s16 D_0810043C[];
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* Set the entity's animation frame from a table, then on a condition copy a
  * field over; either way clear the script step byte, post a message, advance
@@ -22,7 +22,7 @@ void sub_08090854(void *entity) {
     void **handlerPtr;
     *((u32 *) (work + 0x0C)) = *((u32 *) (part + 0x0C));
     *((u8 *) ((u32)(*((s16 *) (self + 0x22))) * 2 + (u32)entity + 0x19)) = 0;
-    handlerPtr = &D_08671BD0;
+    handlerPtr = &gScriptStepCallbacks;
     sub_080C31E8(((u8 *) entity) + 0x18, ((u8 *) entity) + 0x22, 3, *handlerPtr);
     (*(u8 *)(self + 0x19 + (*(s16 *)(self + 0x22) * 2)))++;
     stepOffset = (*((s16 *) (self + 0x22))) * 2;
@@ -34,7 +34,7 @@ void sub_08090854(void *entity) {
   {
     void **handlerPtr;
     *((u8 *) ((u32)(*((s16 *) (self + 0x22))) * 2 + (u32)entity + 0x19)) = 0;
-    handlerPtr = &D_08671BD0;
+    handlerPtr = &gScriptStepCallbacks;
     sub_080C31E8(((u8 *) entity) + 0x18, ((u8 *) entity) + 0x22, 1, *handlerPtr);
     (*(u8 *)(self + 0x19 + (*(s16 *)(self + 0x22) * 2)))++;
     stepOffset = (*((s16 *) (self + 0x22))) * 2;

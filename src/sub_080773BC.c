@@ -10,9 +10,9 @@ struct S_02025FF0
   u16 field18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-s32 sub_0806D518(void *, void *, void *);
-s32 sub_08003740(void *, void *);
-void sub_0806D2F8(void *, void *);
+s32 checkGlobalStateChange(void *, void *, void *);
+s32 stepDelayTimer(void *, void *);
+void cullOffscreenEntity(void *, void *);
 void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
 
@@ -27,11 +27,11 @@ void sub_080773BC(void *actor)
   work = *((void **) (((s8 *) actor) + 0x6C));
   position = ((s8 *) work) + 4;
   child = *((void **) (((s8 *) actor) + 0x38));
-  if (sub_0806D518(actor, child, position) != 0) {
+  if (checkGlobalStateChange(actor, child, position) != 0) {
     return;
   }
   *((u16 *) child) = gMainWorkspace.field18C2;
-  if (sub_08003740(((s8 *) work) + 0x20, child) == 0) {
+  if (stepDelayTimer(((s8 *) work) + 0x20, child) == 0) {
     sub_080C31E0(actor, *((s32 *) (((s8 *) actor) + 0x24)));
     return;
   }
@@ -44,5 +44,5 @@ void sub_080773BC(void *actor)
     sub_080C31E0(actor, *((s32 *) (((s8 *) actor) + 0x24)));
     return;
   }
-  sub_0806D2F8(actor, child);
+  cullOffscreenEntity(actor, child);
 }

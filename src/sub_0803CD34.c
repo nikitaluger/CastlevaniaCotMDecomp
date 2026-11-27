@@ -1,4 +1,4 @@
-void sub_080113A8(s32, void *);
+void stepAnimationTrack(s32, void *);
 void setAnimationFrame(s32, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -14,7 +14,7 @@ void sub_0803CD34(void *arg0) {
     zero = 0;
     *(state + 2) = zero;
     *(u8 *)(*(u32 *)(work + 0x28) + 3) = zero;
-    sub_080113A8((s32)sprite, anim);
+    stepAnimationTrack((s32)sprite, anim);
     if (2 & *anim) {
         void **scriptHandlers;
         setAnimationFrame((s32)sprite, anim, 4, 0);

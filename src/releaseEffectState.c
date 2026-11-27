@@ -1,4 +1,4 @@
-s32 sub_080161F0();
+s32 unlinkAndFreeObject();
 s32 unregisterEffectEntity();
 void sub_080C31E0(void *, s32);
 
@@ -14,7 +14,7 @@ void releaseEffectState(void *entity)
   {
     entity++;
     entity--;
-    sub_080161F0();
+    unlinkAndFreeObject();
   }
   sub_080C31E0(entity, *((s32 *) (((u8 *) work) + 0x24)));
 }

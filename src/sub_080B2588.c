@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void _call_via_r1(void *, void *);
 
@@ -26,7 +26,7 @@ void sub_080B2588(void *entity)
         *(u16 *)((u8 *)sprite + 2) &= 0xFFEF;
     }
 
-    if (sub_08013B5C(sprite, work) == 0) {
+    if (updateObjectDisplayState(sprite, work) == 0) {
         u8 *stepEntry;
         u8 stepCommand;
         u32 handlerTable;

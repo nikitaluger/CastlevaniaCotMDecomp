@@ -1,8 +1,8 @@
-extern void sub_08003A6C(void *, s32, const void *);
+extern void startEffectTimer(void *, s32, const void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void sub_0808449C(void);
-extern void *gMainObjTimerCallback;
+extern void releaseActorEffectParts(void);
+extern void *gScriptStepCallbackTable;
 extern const void D_084A3DA4;
 extern const void D_084A3E44;
 extern const void D_084A3E5C;
@@ -29,13 +29,13 @@ void sub_0807654C(void *arg0)
     *(u32 *)(obj + 0x3C) = 0;
 
     *(u32 *)(obj + 0x18) = *(u32 *)((u8 *)arg0 + 0x24);
-    *(void **)((u8 *)arg0 + 0x24) = sub_0808449C;
+    *(void **)((u8 *)arg0 + 0x24) = releaseActorEffectParts;
     *(const void **)(ctx + 0x24) = &D_084A3DA4;
 
     if (*(u16 *)((u8 *)arg0 + 0x7C) != 0) {
-        sub_08003A6C(subObj + 0x20, 0, &D_084A3E5C);
+        startEffectTimer(subObj + 0x20, 0, &D_084A3E5C);
     } else {
-        sub_08003A6C(subObj + 0x20, 0, &D_084A3E44);
+        startEffectTimer(subObj + 0x20, 0, &D_084A3E44);
     }
 
     *(u32 *)(ctx + 0x1C) = 0x80000006;
@@ -44,7 +44,7 @@ void sub_0807654C(void *arg0)
     ((u8 *)arg0)[index * 2 + 0x19] = 0;
 
     {
-        void **effectIds = &gMainObjTimerCallback;
+        void **effectIds = &gScriptStepCallbackTable;
         paramPtr = (u8 *)arg0 + 0x18;
         sub_080C31E4(paramPtr, (u8 *)arg0 + 0x22, *effectIds);
     }

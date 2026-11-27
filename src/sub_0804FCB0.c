@@ -1,8 +1,8 @@
-u16 sub_08005820(s32);
+u16 scaleByRandom(s32);
 void sub_0805030C(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* On animation state 5/count 1, roll random values, shuffle the actor's 10-slot table, then end the state. */
 void sub_0804FCB0(void *arg0)
@@ -19,16 +19,16 @@ void sub_0804FCB0(void *arg0)
     {
         *(u16 *)drops = 0;
         *(u16 *)((u8 *)drops + 4) = 0;
-        *(u16 *)((u8 *)drops + 6) = sub_08005820(3);
-        *(u16 *)((u8 *)drops + 8) = sub_08005820(3);
+        *(u16 *)((u8 *)drops + 6) = scaleByRandom(3);
+        *(u16 *)((u8 *)drops + 8) = scaleByRandom(3);
 
         cbArg0 = self + 0x18;
         cbArg1 = self + 0x22;
         i = 9;
         do
         {
-            u16 rndA = sub_08005820(0x0A);
-            u16 rndB = sub_08005820(0x0A);
+            u16 rndA = scaleByRandom(0x0A);
+            u16 rndB = scaleByRandom(0x0A);
             void *pa = (u8 *)drops + (((s32)(rndA << 16) >> 15) + 0x0A);
             void *pb = (u8 *)drops + (((s32)(rndB << 16) >> 15) + 0x0A);
             sub_0805030C(pa, pb);
@@ -39,6 +39,6 @@ void sub_0804FCB0(void *arg0)
             s32 slot = *(s16 *)(self + 0x22);
             *(u8 *)(self + slot * 2 + 0x19) = 0;
         }
-        sub_080C31E4(cbArg0, cbArg1, gMainObjTimerCallback[0]);
+        sub_080C31E4(cbArg0, cbArg1, gScriptStepCallbackTable[0]);
     }
 }

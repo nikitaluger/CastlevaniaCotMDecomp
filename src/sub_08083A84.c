@@ -1,5 +1,5 @@
-extern s32 sub_08003740(void *, void *);
-extern s32 sub_08003A6C(void *, s32, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern s32 startEffectTimer(void *, s32, void *);
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, void *);
@@ -49,10 +49,10 @@ void sub_08083A84(void *actor) {
 
     {
         void *timer = (u8 *)work + 0x20;
-        timerResult = sub_08003740(timer, sprite);
+        timerResult = stepDelayTimer(timer, sprite);
         if (timerResult == 0) {
             s32 *scriptTable;
-            timerResult = sub_08003A6C(timer, 0, D_084FACEC);
+            timerResult = startEffectTimer(timer, 0, D_084FACEC);
             *(u8 *)((u8 *)actor + (s32)(*(s16 *)((u8 *)actor + 0x22) * 2) + 0x19) = 0;
             scriptTable = (s32 *)0x08671BB0;
             sub_080C31E4((u8 *)actor + 0x18, (u8 *)actor + 0x22, *scriptTable);

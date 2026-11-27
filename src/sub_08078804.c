@@ -2,9 +2,9 @@
  * parameters from global tables, install callbacks and run the first step. */
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *a);
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_08003A6C(void *a, s32 b, void *c);
-extern void sub_080722E0(void *a, u8 b);
+extern void setDirectionVector(void *a, u8 b);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
 extern void sub_0808449C(void);
@@ -52,7 +52,7 @@ void sub_08078804(u8 *entity)
     (*((struct AIChild **) (state + 0x2C)))->fA = 0;
     (*((struct AIChild **) (state + 0x2C)))->fC = 0;
   }
-  (*((struct AIChild **) (state + 0x2C)))->fE = sub_0806D62C(*((u16 *) (paramTable + 0x2E2)), 0x32);
+  (*((struct AIChild **) (state + 0x2C)))->fE = scalePercentSaturate16(*((u16 *) (paramTable + 0x2E2)), 0x32);
   (*((struct AIChild **) (state + 0x2C)))->f16 = 5;
   (*((struct AIChild **) (state + 0x2C)))->f18 = 0x54;
   (*((struct AIChild **) (state + 0x2C)))->f10 = (u32) sprite;
@@ -72,7 +72,7 @@ void sub_08078804(u8 *entity)
     u8 bval = *((u8 *) ((tbl + ((*((u32 *) variantPtr)) * 8)) + 4));
     u8 *dst = work + 0x48;
     *dst = bval;
-    sub_080722E0(state, *dst);
+    setDirectionVector(state, *dst);
   }
   *((u32 *) (state + 0x48)) = 0x18;
   *(((u8 *) ((((s16) (*((s16 *) (entity + 0x22)))) * 2) + ((u32) entity))) + 0x19) = 0;

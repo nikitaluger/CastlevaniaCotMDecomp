@@ -64,7 +64,7 @@ struct BdEntry
 };
 extern struct Unk7 *allocSpriteObject(void);
 extern void allocWorkSlot(void *arg0, int a, int b, int c);
-extern struct Unk5FAEC *sub_0805FAEC(void *arg0, int a);
+extern struct Unk5FAEC *spawnBudgetedEffect(void *arg0, int a);
 extern void installUpdateHandler(void *a, struct Unk6 *b, void (*c)(void));
 extern void updateScriptedEffectObject(void);
 extern s32 findKindIndex(int a);
@@ -78,7 +78,7 @@ extern u8 gMainWorkspace[];
 extern u8 gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 D_080CEE08[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void sub_08034E2C(struct Big *arg0)
 {
   struct Unk6 *p6;
@@ -112,7 +112,7 @@ void sub_08034E2C(struct Big *arg0)
       return;
     }
     p7->unk1C = 0x80000009;
-    p = sub_0805FAEC(arg0, 0xE5);
+    p = spawnBudgetedEffect(arg0, 0xE5);
     if (p != NULL)
     {
       p->unk7C = 1;
@@ -200,7 +200,7 @@ void sub_08034E2C(struct Big *arg0)
   zero = 0;
   U16(arg0, 0x02) = 0x1000 | U16(arg0, 0x02);
   U8(arg0, 0x19 + (((s16) U16(arg0, 0x22)) * 2)) = zero;
-  gp = &gMainObjTimerCallback;
+  gp = &gScriptStepCallbackTable;
   entries = ((u8 *) arg0) + 0x18;
   sub_080C31E4(entries, (s16 *) (((u8 *) arg0) + 0x22), *gp);
   U8(arg0, 0x19 + (((s16) U16(arg0, 0x22)) * 2)) = U8(arg0, 0x19 + (((s16) U16(arg0, 0x22)) * 2)) + 1;

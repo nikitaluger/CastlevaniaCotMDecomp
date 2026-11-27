@@ -13,7 +13,7 @@ struct EffectChild {
 struct ParamRecord { u8 _0[0x14]; u16 f14; u16 f16; u8 _18[0x10]; };
 extern u8 gEffectGfxTable[];     /* per-type spawn parameters, 0x28-byte records */
 extern u16 D_081026A4[];    /* parameter word defaults for the sub-object */
-extern void *gMainObjTimerCallback;    /* script step table */
+extern void *gScriptStepCallbackTable;    /* script step table */
 void *allocSpriteObject(void);
 void allocWorkSlot(void *, s32, s32, s32);
 void installUpdateHandler(void *, void *, void *);
@@ -72,7 +72,7 @@ void sub_080B0400(u8 *actor)
   *fieldPtr = zero;
   *((u16 *) (actor + 2)) |= 0x1000;
   *((u8 *) (((((u32) (*((s16 *) (actor + 0x22)))) * 2) + ((u32) actor)) + 0x19)) = zero;
-  scriptTable = &gMainObjTimerCallback;
+  scriptTable = &gScriptStepCallbackTable;
   scriptPtr = actor;
   scriptPtr += 0x18;
   sub_080C31E4(scriptPtr, actor + 0x22, (s32) (*scriptTable));

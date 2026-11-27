@@ -1,4 +1,4 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 void sub_080AAC20(s32, s32, s32);
 void setObjectAnimation(s32, s32, s32, s32);
 void _call_via_r2(void *, void *, s32);
@@ -11,11 +11,11 @@ void sub_080AAC58(void) {
     u32 i;
     s32 randOffset;
     for (i = 0; i < 4; i++) {
-        randOffset = sub_08005820(0x1B00000) + 0x280000;
+        randOffset = scaleByRandom(0x1B00000) + 0x280000;
         sub_080AAC20(0, randOffset, 0x200000);
     }
     for (i = 0; i < 4; i++) {
-        randOffset = sub_08005820(0x1B00000) + 0x280000;
+        randOffset = scaleByRandom(0x1B00000) + 0x280000;
         sub_080AAC20(1, randOffset, 0x200000);
     }
 }

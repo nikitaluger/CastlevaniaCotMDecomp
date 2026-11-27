@@ -1,13 +1,13 @@
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(u8 *, void *, s32);
 
 struct GlobalState { u8 _0[0x1510]; u8 flags; };
 extern struct GlobalState gMainWorkspace;
 extern u8 gGameStatus[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 struct SpawnParams {
     u8 _0;
@@ -94,7 +94,7 @@ void sub_0808371C(struct Entity *entity)
     worker->f2C->f08 = 0x28;
     worker->f2C->f0A = zero;
     worker->f2C->f0C = zero;
-    worker->f2C->f0E = sub_0806D62C(*(u16 *)(globals + 0x2E2), 0x16);
+    worker->f2C->f0E = scalePercentSaturate16(*(u16 *)(globals + 0x2E2), 0x16);
     worker->f2C->f16 = 0x3C;
     worker->f2C->f18 = 0x7A;
     worker->f2C->f10 = linkedObj;
@@ -103,7 +103,7 @@ void sub_0808371C(struct Entity *entity)
     worker->f10 = zero;
     *(u8 *)((u8 *)entity + entity->scriptIndex * 2 + 0x19) = zero2;
     {
-        s32 *fn = &gMainObjTimerCallback;
+        s32 *fn = &gScriptStepCallbackTable;
         u8 *scriptPtr = (u8 *)entity + 0x18;
         sub_080C31E4(scriptPtr, &entity->scriptIndex, *fn);
         (*(u8 *)((u8 *)entity + entity->scriptIndex * 2 + 0x19))++;

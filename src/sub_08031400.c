@@ -1,10 +1,10 @@
 extern void sub_08005E80(s32);
-extern s32 sub_080113A8(s32, void *);
-extern void sub_08011898(void *, s32);
+extern s32 stepAnimationTrack(s32, void *);
+extern void moveEntityWithCollision(void *, s32);
 extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C5C(void *, s32);
 extern void sub_08013C8C(void *, s32);
 extern s32 sub_080141AC(s32, void *);
@@ -47,7 +47,7 @@ void sub_08031400(u8 *self) {
             sub_080C31E8(self + 0x18, self + 0x22, 3, *callbackTable);
         }
     }
-    if (sub_08013B5C(parent, obj) != 0) goto skipExtra;
+    if (updateObjectDisplayState(parent, obj) != 0) goto skipExtra;
     {
         u8 *slot;
         s32 stateIdx;
@@ -68,9 +68,9 @@ void sub_08031400(u8 *self) {
         *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) - 1);
         endFlag = *(u16 *)(self + 2) & 0x8000;
         if (endFlag != 0) return;
-        sub_080113A8(parent, objSub);
+        stepAnimationTrack(parent, objSub);
         if (((struct R8 *)objState)->f8 == 1) {
-            sub_08011898(obj, 0x16C1);
+            moveEntityWithCollision(obj, 0x16C1);
             if (*(u16 *)(obj + 2) & 4) {
                 ((struct R8 *)objState)->f8 = 0;
             }

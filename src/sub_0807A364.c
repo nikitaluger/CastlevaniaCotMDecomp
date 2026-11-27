@@ -4,15 +4,15 @@ extern u8 gMainWorkspace[];
 extern u8 D_000018C2[];
 extern u8 D_0000173A[];
 extern u8 D_000014ED[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
-extern void sub_08003740(void *, u16 *);
+extern void stepDelayTimer(void *, u16 *);
 extern void sub_08005E80(s32);
-extern void sub_0806D2F8(void *, u16 *);
-extern s32 sub_0806D518(void *, u16 *, void *);
+extern void cullOffscreenEntity(void *, u16 *);
+extern s32 checkGlobalStateChange(void *, u16 *, void *);
 extern void sub_0806D588(u16 *, void *);
-extern u16 sub_0806D62C(u16, s32);
-extern s32 sub_080C364C(s32, s32);
+extern u16 scalePercentSaturate16(u16, s32);
+extern s32 divInt32(s32, s32);
 
 typedef void (*Fn2)(void *, void *);
 typedef void (*Fn1)(void *);
@@ -37,15 +37,15 @@ void sub_0807A364(void *arg0) {
     data = *(void **)((u8 *)arg0 + 0x6C);
     buf = (u8 *)data + 4;
     obj = *(u16 **)((u8 *)arg0 + 0x38);
-    timer = sub_0806D518(arg0, obj, buf);
+    timer = checkGlobalStateChange(arg0, obj, buf);
     if (timer != 0)
         return;
     gameState = gMainWorkspace;
     stateValue = *(u16 *)((u32)gameState + (u32)D_000018C2);
     zero = 0;
     *obj = stateValue;
-    *(u16 *)((*(void **)((u8 *)buf + 0x2C)) + 0x0E) = sub_0806D62C(*(u16 *)((*(void **)((u8 *)buf + 0x2C)) + 0x0E), 0x63);
-    sub_08003740((u8 *)data + 0x20, obj);
+    *(u16 *)((*(void **)((u8 *)buf + 0x2C)) + 0x0E) = scalePercentSaturate16(*(u16 *)((*(void **)((u8 *)buf + 0x2C)) + 0x0E), 0x63);
+    stepDelayTimer((u8 *)data + 0x20, obj);
     target = *(void **)((u8 *)buf + 0x4C);
     if (*(u8 *)((u8 *)target + 1) != *(u8 *)(data + 0x54))
         goto fail;
@@ -63,11 +63,11 @@ fail:
 success:
     targetX = *(s32 *)((u8 *)target + 0x0C);
     posX = *(s32 *)((u8 *)data + 4);
-    posX = posX + sub_080C364C(targetX - posX, 0x14);
+    posX = posX + divInt32(targetX - posX, 0x14);
     *(s32 *)((u8 *)data + 4) = posX;
     targetY = *(s32 *)((u8 *)target + 0x10);
     posY = *(s32 *)((u8 *)buf + 4);
-    posY = posY + sub_080C364C(targetY - posY, 0x14);
+    posY = posY + divInt32(targetY - posY, 0x14);
     *(s32 *)((u8 *)buf + 4) = posY;
     soundTimer = *(s32 *)((u8 *)buf + 0x14) - 1;
     *(s32 *)((u8 *)buf + 0x14) = soundTimer;
@@ -80,5 +80,5 @@ success:
         (*(Fn1 *)((u8 *)arg0 + 0x24))(arg0);
         return;
     }
-    sub_0806D2F8(arg0, obj);
+    cullOffscreenEntity(arg0, obj);
 }

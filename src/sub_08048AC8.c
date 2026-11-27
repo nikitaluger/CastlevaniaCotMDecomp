@@ -1,6 +1,6 @@
 /* Script-slot handler: applies the entity's contact recoil, then, once the
  * current script slot's timer has run for 30 frames, resets the timer and
- * runs the script handler from the D_08671BD0 table. */
+ * runs the script handler from the gScriptStepCallbacks table. */
 void sub_08048AC8(void *arg0)
 {
     u8 *self = (u8 *)arg0;

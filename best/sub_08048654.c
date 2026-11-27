@@ -6,7 +6,7 @@ struct S02025FF0_48654 {
 extern struct S02025FF0_48654 gMainWorkspace;
 
 s32 sub_08005910(s32, s32);
-void sub_0801165C(void *, s32);
+void advanceMotion(void *, s32);
 void setSpriteFlip(void *, s32);
 void sub_080146D0(void *, ...);
 s32 sub_0801473C(s32, s32);
@@ -41,7 +41,7 @@ void sub_08048654(void *arg0)
     *(s32 *)((u8 *)r7 + 0x04) += 0xFFFFF400;
 
     sub_080146D0(r6);
-    sub_0801165C(r6, 0);
+    advanceMotion(r6, 0);
     setSpriteFlip(r8, *(s32 *)((u8 *)r7 + 0x08));
     sub_08049180(r8, sp0, r6, r7);
 

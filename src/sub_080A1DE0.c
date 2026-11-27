@@ -1,12 +1,12 @@
 struct S_02025FF0 { u8 _0[0x1870]; u32 v; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 D_08671BFC;
+extern u32 gTrigFuncPtr;
 extern void *D_08101A58;
 
 void *sub_080057F8();
-s32 sub_08005820(s32);
-void sub_080113A8(s32, void*);
-void sub_0801165C(void*, s32);
+s32 scaleByRandom(s32);
+void stepAnimationTrack(s32, void*);
+void advanceMotion(void*, s32);
 void copyPoseAttrs(void*, s32);
 void sub_080A2D30(s32, s32, s32, s32, s32, s32);
 s32 sub_080C31E0(void *, void *);
@@ -52,7 +52,7 @@ void sub_080A1DE0(void *arg0) {
     sp8 = (s32)mainObj;
     p3C = *(void***)((u8*)arg0 + 0x3C);
     p34 = (void*)((u8*)p3C + 0x34);
-    sub_080113A8((s32)mainObj, p34);
+    stepAnimationTrack((s32)mainObj, p34);
     p34Ptr = (void**)p34;
     entryTable = *(s32**)((u8*)p34Ptr + 8);
     entryIndex = *(s16*)((u8*)p34Ptr + 0x0E);
@@ -74,14 +74,14 @@ void sub_080A1DE0(void *arg0) {
     flagPtr = (u8*)arg0 + 0x80;
     if (*flagPtr == 0) {
         if (tableValue == 0x0E) {
-            sub_0801165C(p3C, 0);
+            advanceMotion(p3C, 0);
         }
         if (*flagPtr == 0) {
             scriptIndex = *(s16*)((u8*)arg0 + 0x22);
             scriptOffset = (u32)(scriptIndex * 2);
             scriptPtr = (u8 *)(scriptOffset + (u32)arg0);
             if (!(*(scriptPtr + 0x19) & 1) && tableValue != 0x0E) {
-                speedScale = ((u32)sub_08005820(0x100000) + 0x80000) >> 8;
+                speedScale = ((u32)scaleByRandom(0x100000) + 0x80000) >> 8;
                 randomAngle = sub_080057F8();
                 angleFunc = (s32*)0x08671BFC;
                 angleCosArg = sub_080C31E0((void *)((u32)randomAngle + 0x4000), (void *)*angleFunc);

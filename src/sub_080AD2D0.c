@@ -2,14 +2,14 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern s32 findKindIndex(void);
 extern void installUpdateHandler(void *, void *, void *);
-extern void sub_080B05EC(void *, void *, s32, s32);
+extern void initSpriteFromTemplate(void *, void *, s32, s32);
 extern void setObjectAnimation(void *, void *, s16, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 struct GameState { u8 _0[0x18C2]; u16 flags; };
 extern struct GameState gMainWorkspace;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern u32 D_0810225C[];
 extern s16 D_08102258[];
 extern u8 D_08102264[];
@@ -55,7 +55,7 @@ void sub_080AD2D0(struct MainObj *arg)
   sprite->gfxBase = gfxTable[*kindPtr];
   owner = (struct OwnerEffect *) arg->owner;
   work = ((u8 *) owner) + 0x34;
-  installUpdateHandler(arg, owner, &sub_08097D90);
+  installUpdateHandler(arg, owner, &releaseActorEffectSubObject);
   owner->kind = 0x64;
   slot = findKindIndex();
   owner->slot = slot;
@@ -65,14 +65,14 @@ Lend:
   return;
 Lcont:
   sprite->gfxFlags = sprite->gfxFlags | gMainWorkspace.flags;
-  sub_080B05EC(sprite, work, D_08102264[*kindPtr], 6);
+  initSpriteFromTemplate(sprite, work, D_08102264[*kindPtr], 6);
   setObjectAnimation(sprite, work, D_08102258[*kindPtr], 0);
   arg->flags = arg->flags | 0x1000;
   i = arg->counter;
   arr = (u16 *)arg;
   ((u8 *)(&arr[i]))[0x19] = 0;
   {
-    u32 *pbb0 = &gMainObjTimerCallback;
+    u32 *pbb0 = &gScriptStepCallbackTable;
     stepBase = ((u8 *)arg) + 0x18;
     sub_080C31E4(stepBase, ((u8 *)arg) + 0x22, *pbb0);
   }

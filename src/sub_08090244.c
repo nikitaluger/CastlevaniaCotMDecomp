@@ -1,6 +1,6 @@
 extern void sub_080C050C(s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 struct S_02025FF0_1848 {
     u8 _0x000[0x1848];
@@ -34,7 +34,7 @@ void sub_08090244(void *arg0) {
         sub_080C050C(0x1BE);
         *(u8 *)((*(s16 *)(self + 0x22)) * 2 + self + 0x19) = 0;
         {
-            s32 *scriptHandlers = gMainObjTimerCallback;
+            s32 *scriptHandlers = gScriptStepCallbackTable;
             sub_080C31E4(self + 0x18, self + 0x22, *scriptHandlers);
         }
     }

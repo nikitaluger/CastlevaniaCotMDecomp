@@ -1,4 +1,4 @@
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_080C31E0(void *, s32);
 
 /* Clear the two tile indices of the entity's sub-object record, advance its
@@ -15,7 +15,7 @@ void sub_0803CFEC(void *entity) {
         part[2] = zero;
         (*(u8 **)(work + 0x28))[3] = zero;
     }
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
     if (anim[0] & 2) {
         sub_080C31E0(entity, *(s32 *)(self + 0x24));
     }

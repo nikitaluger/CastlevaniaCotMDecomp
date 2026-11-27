@@ -1,7 +1,7 @@
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 sub_080C31E0(s32, s32);
-extern void sub_0801165C(u8 *, s32);
-extern void sub_080113A8(u8 *, u8 *);
+extern void advanceMotion(u8 *, s32);
+extern void stepAnimationTrack(u8 *, u8 *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866FB08[];
@@ -33,7 +33,7 @@ void sub_080962C8(u8 *arg0)
   p3C = *((u8 **) (arg0 + 0x3C));
   p34 = p3C + 0x34;
   p48 = p3C + 0x48;
-  res = sub_0805F9B4(*((s32 *) (p3C + 8)), *((s32 *) (p3C + 0xC)));
+  res = isOutsideCameraBounds(*((s32 *) (p3C + 8)), *((s32 *) (p3C + 0xC)));
   if (res == 1)
   {
     *((u8 *) ((*((u8 **) (p48 + 4))) + 1)) = 0;
@@ -63,10 +63,10 @@ void sub_080962C8(u8 *arg0)
     *((u32 *) (p48 + 0xC)) = *((u32 *) (p3C + 0xC));
     *((u16 *) (p48 + 0x10)) = (u16) r2mask;
     maskFFFF = 0xFFFF0000;
-    sub_0801165C(p3C, 0);
+    advanceMotion(p3C, 0);
     if ((*((s16 *) (p48 + 0x12))) == 1)
     {
-      sub_080113A8(v38, p34);
+      stepAnimationTrack(v38, p34);
     }
     mask8000 = 0x8000;
     pt = gCameraState;

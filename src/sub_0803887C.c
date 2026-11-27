@@ -1,5 +1,5 @@
 s32 sub_080141AC(void *, void *);
-s32 sub_08016238(void *);
+s32 hitTestEntities(void *);
 s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
@@ -19,7 +19,7 @@ void sub_0803887C(void *behav) {
         sub_080C31E0((s32)behav, *(s32 *)((u8 *)behav + 0x24));
         return;
     }
-    if (sub_08016238(*(void **)((u8 *)owner + 0x28)) != 0) {
+    if (hitTestEntities(*(void **)((u8 *)owner + 0x28)) != 0) {
         s32 newFlags = 1 | *(u16 *)owner;
         *(u16 *)owner = newFlags;
     }

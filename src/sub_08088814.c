@@ -4,9 +4,9 @@ struct S_02025FF0
   s32 field1C;
 };
 extern struct S_02025FF0 gMainWorkspace;
-void sub_08003740(void *, void *);
+void stepDelayTimer(void *, void *);
 void sub_0806D588(void *, void *);
-void sub_0806E114(void *, s32, s32, s32);
+void spawnKind2CEntity(void *, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Motion step: accelerate the Y velocity, move the object by its X velocity,
@@ -32,12 +32,12 @@ void sub_08088814(void *self)
   *((s32 *) (((s8 *) pos) + 4)) = newY;
   if (newY > 0x7FFFFF)
   {
-    sub_0806E114(self, 0x20000004, *((s32 *) (((s8 *) motion) + 4)), newY);
+    spawnKind2CEntity(self, 0x20000004, *((s32 *) (((s8 *) motion) + 4)), newY);
     gMainWorkspace.field1C = 2;
     *((s8 *) (((s8 *) (((*((s16 *) (((s8 *) self) + 0x22))) * 2) + self)) + 0x19)) = 0;
     handlerTable = (s32 *)0x08671BB0;
     sub_080C31E4(((s8 *) self) + 0x18, ((s8 *) self) + 0x22, *handlerTable);
   }
-  sub_08003740(((s8 *) motion) + 0x20, sprite);
+  stepDelayTimer(((s8 *) motion) + 0x20, sprite);
   sub_0806D588(sprite, pos);
 }

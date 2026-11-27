@@ -1,8 +1,8 @@
 extern void sub_08015974(void);
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_08042130(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
@@ -15,7 +15,7 @@ void sub_08042078(void *actor) {
     void *work = *(void **)((u8 *)actor + 0x3C);
     void *state = (u8 *)work + 0x34;
     void *anim = (u8 *)work + 0x48;
-    sub_080113A8(sprite, state);
+    stepAnimationTrack(sprite, state);
     sub_08042130(anim, sprite);
     if (2 & *(u8 *)state) {
         *(u8 *)((u8 *)*(void **)((u8 *)anim + 4) + 1) = 0;

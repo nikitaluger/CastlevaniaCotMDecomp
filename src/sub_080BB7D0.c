@@ -3,7 +3,7 @@
  * object's stored callback. */
 extern void sub_08011650(s32);
 extern void sub_08015974(void *);
-extern void sub_080161F0(void *);
+extern void unlinkAndFreeObject(void *);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -17,10 +17,10 @@ void sub_080BB7D0(void *arg0) {
     sprite = *(s32 *)(self + 0x38);
     work = *(void **)(self + 0x3C);
     slot = (u8 *)work + 0x48;
-    if (*(s32 *)((u8 *)work + 0x28) != 0) sub_080161F0(*(void **)((u8 *)work + 0x28));
+    if (*(s32 *)((u8 *)work + 0x28) != 0) unlinkAndFreeObject(*(void **)((u8 *)work + 0x28));
     i = 0;
     do {
-        if (*(s32 *)slot != 0) sub_080161F0(*(void **)slot);
+        if (*(s32 *)slot != 0) unlinkAndFreeObject(*(void **)slot);
         slot += 4;
         i += 1;
     } while (i <= 4);

@@ -1,8 +1,8 @@
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void moveObjectHorizontally(void *, s32, s32);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_0804BB7C(void *, void *);
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern void sub_080C31E0(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -34,12 +34,12 @@ void sub_0804B988(u8 *entity)
   scriptPlayer = component + 0x34;
   status = *((struct ActorStatus **) (component + 0x28));
   status->flags |= 1;
-  if (sub_0805F9B4(*((s32 *) (component + 0x08)), *((s32 *) (component + 0x0C))) == 1)
+  if (isOutsideCameraBounds(*((s32 *) (component + 0x08)), *((s32 *) (component + 0x0C))) == 1)
   {
     sub_080C31E0(entity, *((s32 *) (entity + 0x24)));
     return;
   }
-  if (sub_08013B5C(parent, component) != 0)
+  if (updateObjectDisplayState(parent, component) != 0)
   {
     goto common;
   }
@@ -57,7 +57,7 @@ void sub_0804B988(u8 *entity)
   {
     return;
   }
-  sub_080113A8(parent, scriptPlayer);
+  stepAnimationTrack(parent, scriptPlayer);
   moveObjectHorizontally(component, 0x80000, 0x80000);
   common:
   sub_0804BB7C(entity, parent);

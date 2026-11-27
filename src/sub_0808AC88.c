@@ -1,7 +1,7 @@
 extern u8 D_08634A4C[];
 void *sub_08007EA8(u32);
 void sub_08005E80(u32);
-void sub_08003A6C(void *, u32, void *);
+void startEffectTimer(void *, u32, void *);
 void sub_080C31E8(void *, void *, u32, u32);
 void sub_080C31E4(void *, void *, u32);
 void sub_080C31E0(void *, void *);
@@ -36,7 +36,7 @@ void sub_0808AC88(void *entity)
         u32 *interpreter;
         *(u32 *)(motion + 4) = 0x008A0000;
         *(u32 *)(sprite + 0x24) = (u32)(D_08634A4C + 0xFFFFFE70);
-        sub_08003A6C(work + 0x20, 0, (void *)0x08634AB4);
+        startEffectTimer(work + 0x20, 0, (void *)0x08634AB4);
         zero = 0;
         scale = 0x100;
         *(u16 *)(sprite + 4) = scale;

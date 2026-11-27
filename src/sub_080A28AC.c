@@ -27,10 +27,10 @@ struct ScriptEntity {
 struct ScriptStep { u8 _0[0x19]; u8 counter; };
 
 extern u8 D_08101AD4[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 
@@ -54,12 +54,12 @@ void sub_080A28AC(struct ScriptEntity *entity) {
     u32 idx;
     u8 *base;
 
-    sub_080113A8(sprite, (u8 *)actor + 0x34);
+    stepAnimationTrack(sprite, (u8 *)actor + 0x34);
 
     if (entity->mode != 0) {
         ((struct ScriptStep *)((u8 *)entity + entity->stepIndex * 2))->counter = 0;
         {
-            void **fnaddr = &gMainObjTimerCallback;
+            void **fnaddr = &gScriptStepCallbackTable;
             u8 *q;
             p = (u8 *)entity + 0x18;
             q = (u8 *)entity + 0x22;
@@ -82,7 +82,7 @@ void sub_080A28AC(struct ScriptEntity *entity) {
     base = (u8 *)(patrolTable + 8);
     speedPtr = (s32 *)base;
     actor->vel = dirWide * *(s32 *)((u8 *)speedPtr + idx);
-    sub_0801165C(actor, 0);
+    advanceMotion(actor, 0);
     direction = *dirPtr;
     if (direction == -1) goto neg;
     if (direction != 1) goto end;

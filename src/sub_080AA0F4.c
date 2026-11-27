@@ -1,4 +1,4 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080AA1DC(void *);
@@ -11,7 +11,7 @@ void sub_080AA0F4(u8 *self) {
     u8 *sprite = *(u8 **)(self + 0x38);
     u8 *work = *(u8 **)(self + 0x3C);
     u8 *limbs = work + 0x48;
-    if (sub_08013B5C(sprite, work) == 0) {
+    if (updateObjectDisplayState(sprite, work) == 0) {
         s32 stepOffset;
         u8 action;
         u8 *scriptState;

@@ -1,12 +1,12 @@
 void sub_0803B0D0(void *);
 void sub_0803B0D8(void *, void *, s32);
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 void sub_08011344(void *, void *, s32, s32);
 void sub_08014668(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /*
  * Scripted entity setup/update: reset and configure the enemy's state block,
@@ -26,7 +26,7 @@ void sub_0803A134(void *arg0)
   u8 *pScriptIndex;
   s32 timerValue;
   sub_0803B0D0(enemyState);
-  timerValue = sub_08005820(3) + 2;
+  timerValue = scaleByRandom(3) + 2;
   zeroCounter = 0;
   *((u8 *) (((u8 *) enemyState) + 0x0D)) = (u8)timerValue;
   sub_0803B0D8(enemy, enemyState, 0x4000);

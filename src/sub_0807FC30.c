@@ -1,9 +1,9 @@
 /* Initializes an entity's child state and graphic callback, copies a couple
    of global values into it, then dispatches the next behavior in its list. */
-extern void sub_0808449C(void);
+extern void releaseActorEffectParts(void);
 extern void _call_via_r1(void *, void *);
 extern void _call_via_r2(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern u8 gMainWorkspace[];
 
 void sub_0807FC30(u8 *arg0)
@@ -29,7 +29,7 @@ void sub_0807FC30(u8 *arg0)
     *(s32 *)(state + 0x3C) = zero;
 
     *(u32 *)(state + 0x18) = *(u32 *)(arg0 + 0x24);
-    *(void **)(arg0 + 0x24) = &sub_0808449C;
+    *(void **)(arg0 + 0x24) = &releaseActorEffectParts;
     *(u32 *)(gfx + 0x24) = 0x084EBCCC;
 
     *(u8 *)(gfx + 0x2A) &= 0xBF;
@@ -42,7 +42,7 @@ void sub_0807FC30(u8 *arg0)
     index = *(s16 *)(arg0 + 0x22);
     *(u8 *)(arg0 + index * 2 + 0x19) = 0;
 
-    callbackPtr = &gMainObjTimerCallback;
+    callbackPtr = &gScriptStepCallbackTable;
     args = arg0 + 0x18;
     _call_via_r2(args, arg0 + 0x22, *callbackPtr);
 

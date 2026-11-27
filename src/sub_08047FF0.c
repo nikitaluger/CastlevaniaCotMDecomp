@@ -1,5 +1,5 @@
 extern void sub_080C31E0(void *, s32);
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 
 struct WorldState { u8 _pad[0x18BC]; u16 count; };
 extern struct WorldState gMainWorkspace;
@@ -12,7 +12,7 @@ void sub_08047FF0(void *arg0) {
     u8 *work = *(u8 **)(self + 0x3C);
     u8 *state = work + 0x48;
 
-    if (*(u32 *)(work + 0x28) != 0) sub_080161F0();
+    if (*(u32 *)(work + 0x28) != 0) unlinkAndFreeObject();
     if (*(s16 *)(state + 0x0A) == 1) {
         gMainWorkspace.count -= 1;
     }

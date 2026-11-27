@@ -2,7 +2,7 @@ extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080A8940(void *, void *);
 extern void sub_080A845C(void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Advances a sine-driven entity effect: derives X/Y offsets from a base angle
  * and the entity's per-state lifetime, sets a movement phase from that
@@ -37,7 +37,7 @@ void sub_080A6E28(void *arg0) {
         *ctrlFlag = 1;
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = (u8)zero;
         {
-            void **effectTable = &gMainObjTimerCallback;
+            void **effectTable = &gScriptStepCallbackTable;
             u8 *msgArgs = entity + 0x18;
             sub_080C31E4(msgArgs, entity + 0x22, *effectTable);
         }

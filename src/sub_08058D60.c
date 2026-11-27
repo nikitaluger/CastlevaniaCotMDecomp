@@ -1,7 +1,7 @@
 struct HeapGlobals { u8 _0[0x1874]; u32 pool; };
 extern struct HeapGlobals gMainWorkspace;
 
-extern void *sub_0805FAEC(u32, s32);
+extern void *spawnBudgetedEffect(u32, s32);
 
 /* Allocate a 0x162-byte object from the runtime pool and seed its fields.
  * xFixed/yFixed are 16.16 fixed-point positions, rounded toward +infinity and
@@ -13,7 +13,7 @@ void *sub_08058D60(s32 xFixed, s32 yFixed, s32 value5C, s32 value6C, u16 value7C
     s32 yRounded;
     s32 xWord, yWord;
 
-    obj = sub_0805FAEC(gMainWorkspace.pool, 0x162);
+    obj = spawnBudgetedEffect(gMainWorkspace.pool, 0x162);
     if (obj == 0) {
         return 0;
     }

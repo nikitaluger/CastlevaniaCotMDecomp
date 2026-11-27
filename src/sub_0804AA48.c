@@ -1,8 +1,8 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Idle update for a scripted object: refresh its animation and, after a
  * 32-frame delay, play animation 5 and execute the next script command. */
@@ -20,7 +20,7 @@ void sub_0804AA48(void *arg0)
     animDesc = motion + 0x34;
     delay = motion + 0x48;
 
-    sub_080113A8(anim, animDesc);
+    stepAnimationTrack(anim, animDesc);
 
     if ((delay[0x0C] = delay[0x0C] + 1) == 0x20) {
         setAnimationFrame(anim, animDesc, 5, 0);
@@ -29,7 +29,7 @@ void sub_0804AA48(void *arg0)
         ((u8 *)arg0)[scriptIdx * 2 + 0x19] = 0;
 
         {
-            void **lit = &gMainObjTimerCallback;
+            void **lit = &gScriptStepCallbackTable;
             scriptPos = (u8 *)arg0 + 0x18;
             sub_080C31E4(scriptPos, (u8 *)arg0 + 0x22, *lit);
         }

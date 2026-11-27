@@ -1,8 +1,8 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
-void sub_080113A8(void *, void *);
+void stepAnimationTrack(void *, void *);
 void sub_08011EE8(void *, s32, s32);
 
 /* Action-script object shared with the command handlers at 0x080B5EF0..:
@@ -29,7 +29,7 @@ void sub_080B5E90(struct ActionScript *arg0)
   int cmdArrayOffset;
   int stepOffset;
   void *sprite = (void *) arg0->sprite;
-  if (sub_08013B5C(sprite, (void *) arg0->work) == 0)
+  if (updateObjectDisplayState(sprite, (void *) arg0->work) == 0)
   {
     arg0->commandTable = 0x08670444;
     arg0->stepIndex += 1;

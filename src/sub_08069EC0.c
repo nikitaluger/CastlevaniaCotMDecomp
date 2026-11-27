@@ -1,10 +1,10 @@
 s32 sub_08005E80(s32);
-s32 sub_0806A7AC(void *, void *, s32);
+s32 setEntityForm(void *, void *, s32);
 s32 sub_0808BBAC(s32, s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 extern u8 gMainWorkspace[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /*
  * Sets up the entity's effect (id 0x57), copies its position, applies the
@@ -15,7 +15,7 @@ void sub_08069EC0(void *arg0) {
   void *subObj = *((void **) (((char *) arg0) + 0x6C));
   void *obj = ((char *) subObj) + 4;
   void *ctx = *((void **) (((char *) arg0) + 0x38));
-  sub_0806A7AC(ctx, obj, 0x57);
+  setEntityForm(ctx, obj, 0x57);
   *((s32 *) (((char *) subObj) + 0x108)) = *((s32 *) (((char *) obj) + 4));
   if (*((s32 *) (((char *) obj) + 0x40)) == 0) {
     *((s32 *) (((char *) subObj) + 0x110)) = *((s32 *) (((char *) obj) + 4));
@@ -37,7 +37,7 @@ void sub_08069EC0(void *arg0) {
   }
   *((u8 *) (((char *) arg0) + (*((s16 *) (((char *) arg0) + 0x22))) * 2 + 0x19)) = 0;
   {
-    void **effectIds = &gMainObjTimerCallback;
+    void **effectIds = &gScriptStepCallbackTable;
     u8 *paramPtr = ((char *) arg0) + 0x18;
     sub_080C31E4(paramPtr, ((char *) arg0) + 0x22, (s32) *effectIds);
     *((u8 *) (((char *) arg0) + (*((s16 *) (((char *) arg0) + 0x22))) * 2 + 0x19)) += 1;

@@ -22,7 +22,7 @@ extern void sub_080AA9C8(void *, void *, u32, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080A80B4(void *, void *);
-extern void *sub_0805FAEC(void *, u32);
+extern void *spawnBudgetedEffect(void *, u32);
 extern void sub_080AAD08(void);
 extern void registerScriptObject(void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -32,7 +32,7 @@ extern u16 D_08101D1C[];
 extern u8 gSpriteKindTable[];
 extern u8 gEffectGfxTable[];
 extern u32 gMainWorkspace[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern void sub_080A806C(void);
 void sub_080A5AE0(u8 *arg0)
 {
@@ -47,6 +47,8 @@ void sub_080A5AE0(u8 *arg0)
   u8 *p18;
   u8 *tbl;
   u8 *cbddbase;
+  u8 *dst28;
+  void **tcbp;
   r8v = *((u32 *) (arg0 + 0xAC));
   a = allocSpriteObject();
   if (a == NULL)
@@ -66,7 +68,6 @@ void sub_080A5AE0(u8 *arg0)
   installUpdateHandler(arg0, p, sub_080A806C);
   initSpawnedObject(arg0, a, p, r8v, 0x5F);
   tbl = D_0810201C;
-  cbddbase = gEffectGfxTable;
   idxp = arg0 + 0x4C;
   sub_080AA9C8(a, p34, tbl[*idxp], 4);
   setObjectAnimation(a, p34, 0, 0);
@@ -107,11 +108,11 @@ void sub_080A5AE0(u8 *arg0)
     sub_080A80B4(arg0, sp4);
     if ((*idxp) == 0)
     {
-      *((void **) (p + 0x180)) = sub_0805FAEC(arg0, 0x19D);
+      *((void **) (p + 0x180)) = spawnBudgetedEffect(arg0, 0x19D);
     }
     {
       void *t;
-      t = sub_0805FAEC((void *) gMainWorkspace[0x1870 / 4], 0x1A3);
+      t = spawnBudgetedEffect((void *) gMainWorkspace[0x1870 / 4], 0x1A3);
       *((void **) (p + 0x184)) = t;
       *((u32 *) (((u8 *) t) + 0x4C)) = *idxp;
     }
@@ -119,15 +120,17 @@ void sub_080A5AE0(u8 *arg0)
     *((u16 *) (p + 0x04)) |= 0x100;
     *((u8 *) (arg0 + 0x7C)) = 0;
     *((u32 *) (arg0 + 0x8C)) = *((u32 *) (p + 0x18));
-    *((u32 *) ((*((u32 *) (arg0 + 0x28))) + 0x5C)) = *((s16 *) ((cbddbase + (V1C * 40)) + 0x24));
+    dst28 = *(u8 **)(arg0 + 0x28);
+    cbddbase = gEffectGfxTable;
+    *((u32 *) (dst28 + 0x5C)) = *((s16 *) ((cbddbase + (V1C * 40)) + 0x24));
     registerScriptObject(arg0, 0);
     *((u16 *) (arg0 + 0x02)) |= 0x1000;
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19] = 0;
+    tcbp = &gScriptStepCallbackTable;
     do { p18 = arg0 + 0x18; } while (0);
-    do { sub_080C31E4(p18, arg0 + 0x22, gMainObjTimerCallback); } while (0);
+    do { sub_080C31E4(p18, arg0 + 0x22, *tcbp); } while (0);
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19]++;
     p = (void *) (*((s16 *) (arg0 + 0x22))); p18 += (u32) p * 2;
     do { sub_080C31E0(arg0, *((void **) ((*((u32 *) (arg0 + 0x14))) + (p18[0] * 4)))); } while (0);
   }
 }
-

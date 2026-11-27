@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 struct WorkState { u8 pad[0xEC]; u16 flipFlags; };
@@ -21,7 +21,7 @@ void sub_080A5FD0(void *arg0) {
     phase += 1;
     *phase = 2;
     ((struct WorkState *)work)->flipFlags = 0x10 & *(u16 *)(sprite + 2);
-    randValue = sub_08005820(2);
+    randValue = scaleByRandom(2);
     randValue += 2;
     *(u8 *)(work + 0x121) = (u8)randValue;
     *(u32 *)(work + 0x114) = 0x60;

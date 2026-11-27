@@ -1,10 +1,10 @@
 struct S_080DEA88 { u8 _pad[0xE3 << 3]; s32 field; };
 extern struct S_080DEA88 D_080DEA88;
-extern s32 sub_0806C4B4(s32, s32);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(s32, s32);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AA64(void *, void *);
-extern void sub_08003A6C(void *, s32, s32);
-extern s32 sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, s32);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern s32 sub_0808D330();
@@ -23,8 +23,8 @@ void sub_080676B8(void *arg0) {
     void *ctx = *(void **)(entity + 0x38);
     s32 count;
     pos = obj;
-    if (sub_0806C4B4((s32)pos, (s32)pos) == 0) {
-        sub_0806C5EC(entity, ctx, pos, pos);
+    if (syncViewPosition((s32)pos, (s32)pos) == 0) {
+        resetActionResultState(entity, ctx, pos, pos);
         sub_0806AA64(ctx, pos);
         subObj += 0xBC;
         count = *(s32 *)subObj + 1;
@@ -36,9 +36,9 @@ void sub_080676B8(void *arg0) {
             }
         }
         subObj = obj + 0x28;
-        sub_08003740(subObj, ctx);
+        stepDelayTimer(subObj, ctx);
         if (sub_0808D330() != 0) {
-            sub_08003A6C(subObj, 0, D_080DEA88.field);
+            startEffectTimer(subObj, 0, D_080DEA88.field);
             *(s32 *)(obj + (0x86 << 1)) = *(s32 *)(obj + (0x82 << 1));
             *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = 0;
             {

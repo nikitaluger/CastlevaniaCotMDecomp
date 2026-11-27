@@ -3,9 +3,9 @@ extern s32 sub_08014B1C(s32, s32, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 D_08671BFC;
-extern s32 gMainObjTimerCallback;
-extern s32 D_08671BD0;
+extern s32 gTrigFuncPtr;
+extern s32 gScriptStepCallbackTable;
+extern s32 gScriptStepCallbacks;
 static inline s32 add2(s32 a, s32 b) { return a + b; }
 static inline u16 zeroU16(void) { return 0; }
 /* Steer the entity toward a point at a fixed angle and speed; on arrival or

@@ -1,5 +1,5 @@
 extern s32 allocWorkSlot(void *, s32, s32, s32);
-extern void *sub_0805FAEC(void *, u16);
+extern void *spawnBudgetedEffect(void *, u16);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_0809F330;
 
@@ -28,7 +28,7 @@ void sub_0809F2A0(void *arg0) {
     spriteFlags = 0x84 << 6;
     *(u16 *)(workData + 0xA) = spriteFlags;
     *(u16 *)(workData + 6) = 1;
-    child = sub_0805FAEC(arg0, *(u16 *)objectIdPtr);
+    child = spawnBudgetedEffect(arg0, *(u16 *)objectIdPtr);
     *(void **)((u8 *)child + 0xAC) = work;
     if (*(u16 *)objectIdPtr == 0xBB) {
         value = *(u16 *)((u8 *)work + 8);
@@ -36,7 +36,7 @@ void sub_0809F2A0(void *arg0) {
         value = *(u16 *)(workData + 2);
         *(u16 *)((u8 *)child + 0x54) = value;
     }
-    sub_0805FAEC(child, 0x185);
+    spawnBudgetedEffect(child, 0x185);
     *(u16 *)((u8 *)arg0 + 2) |= 0x800;
     *(u16 *)((u8 *)arg0 + 0x22) = 0;
     *(void **)((u8 *)arg0 + 0x14) = &sub_0809F330;

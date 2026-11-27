@@ -1,4 +1,4 @@
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Global run state: offsets are the fields this entity system reads. */
 struct GameState {
@@ -14,7 +14,7 @@ struct GameState {
     u16 f18C2;
 };
 extern struct GameState gMainWorkspace;
-extern s32 sub_08003740(s32, void *);
+extern s32 stepDelayTimer(s32, void *);
 extern s32 sub_0806D450(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, s32);
@@ -51,10 +51,10 @@ void sub_0807B36C(void *entity) {
         *(s8 *)((u8 *)*(void **)((u8 *)pos + 0x30) + 1) = (s8)(1 & state->f1510);
         *(s8 *)((u8 *)*(void **)((u8 *)pos + 0x34) + 1) = (s8)(1 & state->f1510);
         *((u8 *)entity + ((*(s16 *)((u8 *)entity + 0x22)) * 2) + 0x19) = 0;
-        fxTable = &gMainObjTimerCallback;
+        fxTable = &gScriptStepCallbackTable;
         sub_080C31E4((u8 *)entity + 0x18, (u8 *)entity + 0x22, *fxTable);
     }
-    sub_08003740((s32)moveData + 0x20, obj);
+    stepDelayTimer((s32)moveData + 0x20, obj);
     sub_0806D588(obj, pos);
     if (state->f173A == 0x1C || (state->f14ED == 0 && state->f10 != 0)) {
         sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));

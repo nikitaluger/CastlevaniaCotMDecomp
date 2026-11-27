@@ -3,8 +3,8 @@ extern u8 gMainWorkspace[];
 extern u8 gSpriteKindTable[];
 extern u8 gEffectGfxTable[];
 s32 sub_080C36E4(s16, s32);
-void *sub_08016238(void *);
-s32 sub_080133EC(u32, u32);
+void *hitTestEntities(void *);
+s32 terrainHasSolidFlags(u32, u32);
 s32 sub_0806D5C4(u16, u16);
 s32 sub_0806D5F8(u16, u16);
 void sub_0808D7BC(s32, s32, s32, s32);
@@ -87,7 +87,7 @@ u8 *__repair_phase_p;
 
     c->f20 = c->f20 - 1;
     d->f4 |= 0x200;
-    sub_08016238(d);
+    hitTestEntities(d);
     return 0;
   }
   if (!((*((u8 *) (((u8 *) d) + 1))) & 4))
@@ -108,7 +108,7 @@ u8 *__repair_phase_p;
         {
           if (!(c->f4 & 0x100))
           {
-            if (sub_080133EC(c->f8, c->fC + 0x10000) != 1)
+            if (terrainHasSolidFlags(c->f8, c->fC + 0x10000) != 1)
             {
               goto skip;
             }
@@ -153,7 +153,7 @@ u8 *__repair_phase_p;
     }
   }
   skip:
-  e = (struct Ent13558 *) sub_08016238(d);
+  e = (struct Ent13558 *) hitTestEntities(d);
 
   if (e == 0)
   {

@@ -45,11 +45,11 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern s32 findKindIndex(s32);
-extern void sub_080B05EC(void *, void *, u8, s32);
+extern void initSpriteFromTemplate(void *, void *, u8, s32);
 extern void setObjectAnimation(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 
 /* Creates and initializes the effect object for this entity: allocates the
  * child objects, fills their parameters from the effect table, marks the
@@ -79,7 +79,7 @@ void sub_080AFBF4(u8 *entity)
   *((u32 *) (objHandle + 0x1C)) = 0x33;
   state = (struct P *) (*((u8 **) (entity + 0x3C)));
   anim = ((u8 *) state) + 0x34;
-  installUpdateHandler(entity, (u8 *) state, sub_08097D90);
+  installUpdateHandler(entity, (u8 *) state, releaseActorEffectSubObject);
   state->f1C = 0x64;
   tableIndex = findKindIndex(0x64);
   state->f22 = tableIndex;
@@ -88,7 +88,7 @@ void sub_080AFBF4(u8 *entity)
     goto fail;
   }
   *((u16 *) objHandle) |= gMainWorkspace.w;
-  sub_080B05EC((void *) objHandle, anim, 0x38, 8);
+  initSpriteFromTemplate((void *) objHandle, anim, 0x38, 8);
   setObjectAnimation((void *) objHandle, anim, 0x37, zero);
   values = D_0810269C;
   effect = allocEffectPart();

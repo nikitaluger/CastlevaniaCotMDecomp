@@ -1,5 +1,5 @@
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
 extern void sub_080146D0(void *, s32, s32);
 extern void sub_08049160(void *, void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -26,8 +26,8 @@ void sub_08048BA4(void *entity) {
         steer->speed = steer->speed + 0xFFFFE000;
     }
     sub_080146D0(motion, steer->angle, steer->speed);
-    sub_080113A8(sprite, collision);
-    sub_0801165C(motion, 0);
+    stepAnimationTrack(sprite, collision);
+    advanceMotion(motion, 0);
     if (*(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) == 0x14) {
         sub_08049160(sprite, collision, steer, 0);
         *(u8 *)((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x19) = 0;

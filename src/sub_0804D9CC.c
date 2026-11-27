@@ -1,8 +1,8 @@
 extern s32 sub_08005E80(s32);
 extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern s32 sub_08013B5C(void *, void *);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern s32 sub_0805F9B4(s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -30,7 +30,7 @@ void sub_0804D9CC(void *entity) {
         sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
         goto end;
     }
-    if (sub_08016238(*(void **)((u8 *)state + 0x28)) != 0) stateFlags->f0 |= 1;
+    if (hitTestEntities(*(void **)((u8 *)state + 0x28)) != 0) stateFlags->f0 |= 1;
     if ((*(struct S28 **)((u8 *)state + 0x28))->flag2 & 1) stateFlags->f0 |= 1;
     if (stateFlags->f0 & 1) {
         if (*((u8 *)entity + *(s16 *)((u8 *)entity + 0x22) * 2 + 0x1A) != 1) {
@@ -57,7 +57,7 @@ void sub_0804D9CC(void *entity) {
     *(u16 *)((u8 *)entity + 0x22) = *(u16 *)((u8 *)entity + 0x22) - 1;
     if (*(u16 *)((u8 *)entity + 2) & 0x8000) goto end;
     sub_080113A8(sprite, anim);
-    sub_0801165C(state, 0);
+    advanceMotion(state, 0);
 else_branch:
     {
         struct S28 *fx2; u8 *camTable; u8 *camBase; u32 idx; u8 *colX; u8 *colY;

@@ -4,11 +4,11 @@ extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 
 /* Runs the entity's periodic helpers, handles a pose transition, advances the
  * pose to select a script, then performs the post-update. */
@@ -30,12 +30,12 @@ void sub_0805715C(u8 *entity) {
                 u8 *posePtr = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
                 u8 zero = 0;
                 *(u8 *)(posePtr + 0x1B) = zero;
-                { void **scriptTable = &D_08671BDC;
+                { void **scriptTable = &sScriptStepCallbacks;
                   sub_080C31E8(entity + 0x18, entity + 0x22, 6, *scriptTable); }
             }
         }
     }
-    if (sub_08013B5C(ownerRef, data) == 0) {
+    if (updateObjectDisplayState(ownerRef, data) == 0) {
         *(u32 *)(entity + 0x14) = (u32)0x0866E7E0;
         *(u16 *)(entity + 0x22) = (u16)(*(u16 *)(entity + 0x22) + 1);
         {

@@ -5,7 +5,7 @@ extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(u8 *, s32);
 extern s32 sub_0800583C(s32);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void sub_0805CA00(u8 *, u8 *);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void registerScriptObject(u8 *, s32);
@@ -95,7 +95,7 @@ extern struct TBL6 gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 extern u16 D_080CFE3C[];
 extern u16 D_080CFE44[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 void sub_0805C3B4(struct Arg5 *arg0)
 {
   struct RefHolder5 *refHolder;
@@ -233,7 +233,7 @@ void sub_0805C3B4(struct Arg5 *arg0)
   }
 
   *((u32 *) (scratch + 0x10)) = zero;
-  *((u32 *) (scratch + 0x14)) = sub_08005820(0x10000);
+  *((u32 *) (scratch + 0x14)) = scaleByRandom(0x10000);
   *((u32 *) (scratch + 0x18)) = zero;
   *((u32 *) (scratch + 0x1C)) = 0x8000;
   *((u32 *) (scratch + 0x20)) = 0x200;

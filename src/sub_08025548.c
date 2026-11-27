@@ -10,7 +10,7 @@ struct S_02025FF0_189C {
 };
 extern struct S_02025FF0_189C gMainWorkspace;
 
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* Entity defeat frame: clear velocity, choose a variant from the global flag,
  * emit directional particles and a knockback impulse, then play a sound. */

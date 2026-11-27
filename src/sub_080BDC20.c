@@ -1,4 +1,4 @@
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08098428(s32);
 extern void sub_080984C4(s32);
 extern void sub_080C31E0(void *, s32);
@@ -17,7 +17,7 @@ void sub_080BDC20(void *arg0)
     u8 stateValue;
     s32 *handlerTable;
 
-    if (sub_08013B5C(*(void **)((u8 *)arg0 + 0x38), *(void **)((u8 *)arg0 + 0x3C)) == 0) {
+    if (updateObjectDisplayState(*(void **)((u8 *)arg0 + 0x38), *(void **)((u8 *)arg0 + 0x3C)) == 0) {
         *(u32 *)((u8 *)arg0 + 0x14) = 0x08670738;
         *(u16 *)((u8 *)arg0 + 0x22) += 1;
         step = *(s16 *)((u8 *)arg0 + 0x22);

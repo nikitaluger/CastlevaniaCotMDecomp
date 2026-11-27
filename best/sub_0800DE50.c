@@ -9,7 +9,7 @@ struct S_020278D0
   u8 _4C[0xF7 - 0x4C];
   u8 fF7;
 };
-extern struct S_020278D0 D_020278D0;
+extern struct S_020278D0 gMenuState;
 struct S_02021E90
 {
   u8 _0[0x1262];
@@ -111,7 +111,7 @@ void sub_0800DE50(s32 arg0)
   {
     sub_0805FEC8(0x8120);
   }
-  sub_0800F464(D_020278D0.fF7);
+  sub_0800F464(gMenuState.fF7);
   new_var3 = (u32) (&sp0);
   sp0 = 0;
   D_040000D4.src = new_var3;
@@ -125,7 +125,7 @@ void sub_0800DE50(s32 arg0)
   D_040000D4.dst = temp_r1 + 0x06000020;
   temp_r1 = (D_040000D4.ctrl = 0x81000010);
   temp_r0 = sub_08001480(arg0, 0x1B);
-  D_020278D0.f48 = temp_r0;
+  gMenuState.f48 = temp_r0;
   *((u8 *) (((u8 *) temp_r0) + 0x3C)) = 4;
 }
 

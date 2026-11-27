@@ -15,9 +15,9 @@ struct SceneStateFF0 {
 };
 extern struct SceneStateFF0 gMainWorkspace;
 
-extern s32 sub_08003740(void *, u16 *);
-extern s32 sub_0806D2F8(void *, u16 *);
-extern s32 sub_0806D518(void *, u16 *, void *);
+extern s32 stepDelayTimer(void *, u16 *);
+extern s32 cullOffscreenEntity(void *, u16 *);
+extern s32 checkGlobalStateChange(void *, u16 *, void *);
 extern s32 sub_0806D588(u16 *, void *);
 extern void _call_via_r1(void *, s32);
 
@@ -33,7 +33,7 @@ void sub_080797D8(u8 *entity) {
     component = *(void **)(entity + 0x6C);
     motion = (u8 *)component + 4;
     state = *(u16 **)(entity + 0x38);
-    if (sub_0806D518(entity, state, motion) == 0) {
+    if (checkGlobalStateChange(entity, state, motion) == 0) {
         self = entity;
         *(s32 *)(motion + 0x0C) += 0x100;
         *(s32 *)((u8 *)component + 0x04) += *(s32 *)(motion + 0x08);
@@ -41,11 +41,11 @@ void sub_080797D8(u8 *entity) {
         *state = gMainWorkspace.f18C2;
         *(s32 *)(motion + 0x48) -= 1;
         if (*(s32 *)(motion + 0x48) == 0 ||
-            (sub_08003740((u8 *)component + 0x20, state), sub_0806D588(state, motion), gMainWorkspace.f173A == 0x1C) ||
+            (stepDelayTimer((u8 *)component + 0x20, state), sub_0806D588(state, motion), gMainWorkspace.f173A == 0x1C) ||
             (gMainWorkspace.f14ED == 0 && gMainWorkspace.f10 != 0)) {
             _call_via_r1(self, *(s32 *)((u8 *)self + 0x24));
             return;
         }
-        sub_0806D2F8(self, state);
+        cullOffscreenEntity(self, state);
     }
 }

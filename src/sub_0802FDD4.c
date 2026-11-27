@@ -1,10 +1,10 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 struct Counter { u8 _0[8]; u16 value; };
 struct SCounter { u8 _0[8]; s16 value; };
 struct Flags { u8 _0[0x6C]; u16 flags; };
@@ -28,7 +28,7 @@ void sub_0802FDD4(u8 *arg0) {
     if ((v << 0x10) < 0) {
         if ((((struct Flags *)*(void **)(r4 + 0x48))->flags & 4) == 0 &&
             (((struct Flags *)*(void **)(r6 + 4))->flags & 4) == 0) {
-            ((struct Counter *)r6)->value = sub_08005820(0x1F) + 0x50;
+            ((struct Counter *)r6)->value = scaleByRandom(0x1F) + 0x50;
             if (sub_08014900(*(s32 *)(r4 + 8)) <= 0x600000 &&
                 sub_0801491C(*(s32 *)(r4 + 0xC)) <= 0x400000) {
                 u8 *q = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);

@@ -24,7 +24,7 @@ extern void sub_08011344(u32, u32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern s16 D_08100624[];
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 
 /* Conditional entity action: test a flag, seed the action state from an s16
  * value table, play animation 3 (flag set) or 1 (clear), advance the action
@@ -50,7 +50,7 @@ void sub_080921A4(struct S_080921A4_Obj *action)
         sub_08011344(field38, param24, *(s16 *)((u8 *)values + off), 0);
         params->accum += 0x40000;
         ((struct S_080921A4_Step *)((u8 *)action + action->actionIndex * 2))->subStep = 0;
-        effectArg = &D_08671BD0;
+        effectArg = &gScriptStepCallbacks;
         stepBase = (u8 *)action + 0x18;
         sub_080C31E8(stepBase, (u8 *)action + 0x22, 3, *effectArg);
         ((struct S_080921A4_Step *)((u8 *)action + action->actionIndex * 2))->subStep++;
@@ -62,7 +62,7 @@ void sub_080921A4(struct S_080921A4_Obj *action)
         u8 *stepBase; u8 *step; u8 animIndex; u32 nextAction; u32 *effectArg;
         sub_08011344(field38, param24, D_08100624[params->id * 2], 0);
         ((struct S_080921A4_Step *)((u8 *)action + action->actionIndex * 2))->subStep = flagSet;
-        effectArg = &D_08671BD0;
+        effectArg = &gScriptStepCallbacks;
         stepBase = (u8 *)action + 0x18;
         sub_080C31E8(stepBase, (u8 *)action + 0x22, 1, *effectArg);
         ((struct S_080921A4_Step *)((u8 *)action + action->actionIndex * 2))->subStep++;

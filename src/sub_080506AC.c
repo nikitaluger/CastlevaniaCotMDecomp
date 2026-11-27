@@ -1,6 +1,6 @@
 void setAnimationFrame(void *, void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Play sprite animation 0x0E on the entity (animation state at work+0x34); if
  * the animation's finished flag (bit 1 of its state byte) is set, clear the
@@ -13,7 +13,7 @@ void sub_080506AC(void *arg0) {
     setAnimationFrame(sprite, anim, 0xE, 0);
     if (2 & *anim) {
         *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0) + 0x19) = 0;
-        scriptTable = &gMainObjTimerCallback;
+        scriptTable = &gScriptStepCallbackTable;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *scriptTable);
     }
 }

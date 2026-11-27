@@ -1,10 +1,10 @@
-extern void *D_08671BD8;
+extern void *gMenuScriptCallback;
 extern void sub_0806AB04(void *, void *, void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern u16 sub_08065CC8(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void *sub_0806D2A0(void *, s32, s32, s32);
 extern void sub_0806D7B4(void *, s32);
@@ -26,11 +26,11 @@ void sub_08065FCC(u8 *actor) {
     u8 *cbArgA;
     u8 *cbArgB;
     u16 callbackValue;
-    if (sub_0806C4B4(obj, obj) == 0) {
-        sub_0806C5EC(actor, position, obj, obj);
+    if (syncViewPosition(obj, obj) == 0) {
+        resetActionResultState(actor, position, obj, obj);
         sub_0806AB04(actor, position, obj, obj);
         sub_0806A884(position, obj);
-        timerStatus = sub_08003740(state + 0x2C, position);
+        timerStatus = stepDelayTimer(state + 0x2C, position);
         if (timerStatus == 0) {
             void *spawned;
             sub_08084CBC(actor, obj);
@@ -43,7 +43,7 @@ void sub_08065FCC(u8 *actor) {
                 *(s32 *)cooldown = timerStatus;
             }
             (actor + *(s16 *)(actor + 0x22) * 2)[0x17] = 0;
-            callback = &D_08671BD8;
+            callback = &gMenuScriptCallback;
             cbArgA = actor + 0x18;
             cbArgB = actor + 0x22;
             callbackValue = sub_08065CC8(actor, position, objTail, obj);

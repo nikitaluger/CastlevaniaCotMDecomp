@@ -1,8 +1,8 @@
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, u32);
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 
 /*
  * Entity script update: copy the actor's animation params into its state,
@@ -29,12 +29,12 @@ void sub_0809ECD4(u8 *self)
     else
     {
       *((u8 *) (p + 0x1B)) = 0;
-      cmdParam = D_08671BDC;
+      cmdParam = sScriptStepCallbacks;
       sub_080C31E8(self + 0x18, self + 0x22, 5, *cmdParam);
     }
   }
 
-  if (sub_08013B5C(actor, enemy) == 0)
+  if (updateObjectDisplayState(actor, enemy) == 0)
   {
     int cmdArrayOff = 0x18;
     s32 scriptIdx;

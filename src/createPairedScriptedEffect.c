@@ -4,7 +4,7 @@ extern void installUpdateHandler(void *, void *, void *);
 extern void initWorkStateForKind(void *, void *, void *, void *, s32);
 extern void initSpriteGraphics(void *, void *, s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void *sub_0805FAEC(void *, s32);
+extern void *spawnBudgetedEffect(void *, s32);
 extern void *allocEffectPart(void);
 extern void registerScriptObject(void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -15,7 +15,7 @@ extern u8 gMainWorkspace[];
 extern u8 gSpriteAnimDataTable[];
 extern u8 gPairedEffectKindTable[];
 extern u8 gPairedEffectLayerAttrs[];
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 extern struct PairedEffectKindEntry gSpriteKindTable[];
 inline s16 getPairedEffectKind(struct PairedEffectWork *work)
 {
@@ -62,7 +62,7 @@ void createPairedScriptedEffect(u8 *entity)
   initWorkStateForKind(entity, sprite, (u8 *) work, parent, *((s16 *) (kindTable + ((*variantPtr) * 4))));
   initSpriteGraphics(sprite, gfxInit, ((s32) gSpriteAnimDataTable) + ((*((s16 *) (((u8 *) work) + 0x1C))) * 0xC));
   setAnimationFrame(sprite, gfxInit, 0, 0);
-  child = sub_0805FAEC(entity, 0x15E);
+  child = spawnBudgetedEffect(entity, 0x15E);
   if (child == NULL)
   {
     goto fail;
@@ -73,7 +73,7 @@ void createPairedScriptedEffect(u8 *entity)
     zeroByte = 0;
     *dst = variantByte;
   }
-  child = sub_0805FAEC(*((void **) (entity + 0x30)), 0x15E);
+  child = spawnBudgetedEffect(*((void **) (entity + 0x30)), 0x15E);
   if (child == NULL)
   {
     goto fail;
@@ -127,7 +127,7 @@ void createPairedScriptedEffect(u8 *entity)
     }
     *((u8 *) ((((u32) ((*((s16 *) (entity + 0x22))) * 2)) + ((u32) entity)) + 0x19)) = (u8) zero;
     {
-      u32 *scriptOps = (u32 *) gMainObjTimerCallback;
+      u32 *scriptOps = (u32 *) gScriptStepCallbackTable;
       u8 *scriptPtr = entity + 0x18;
       sub_080C31E4(scriptPtr, entity + 0x22, *scriptOps);
       {

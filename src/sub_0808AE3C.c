@@ -1,9 +1,9 @@
-extern void sub_08003740(void *timer, void *gfx);
+extern void stepDelayTimer(void *timer, void *gfx);
 extern void sub_08005E80(s32 resourceId);
 extern void sub_08007E24(s32 flag);
 extern void sub_0806D588(void *gfx, void *state);
 extern void sub_080C31E4(void *scriptData, void *scriptIndex, s32 handler);
-extern s32 sub_080C364C(s32 dividend, u8 divisor);
+extern s32 divInt32(s32 dividend, u8 divisor);
 
 struct S_02025FF0 { u8 _0[0x1C]; s32 globalEffect; };
 extern struct S_02025FF0 gMainWorkspace;
@@ -22,7 +22,7 @@ void sub_0808AE3C(u8 *actor) {
     gfx = *(u8 **)(actor + 0x38);
     state = work + 4;
     *(s32 *)(state + 0x2C) = *(s32 *)(state + 0x2C) + 1;
-    sub_08003740(work + 0x20, gfx);
+    stepDelayTimer(work + 0x20, gfx);
 
     phase = work + 0x34;
     nextPhase = *phase + 1;
@@ -39,7 +39,7 @@ void sub_0808AE3C(u8 *actor) {
         }
     }
 
-    scale = sub_080C364C(0x10, *phase);
+    scale = divInt32(0x10, *phase);
     *(u16 *)(gfx + 4) = scale << 8;
 
     if (*(s32 *)(state + 0x2C) & 2) {

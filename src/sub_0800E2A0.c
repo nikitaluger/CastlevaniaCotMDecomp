@@ -1,5 +1,5 @@
 extern u8 gGameStatus[];
-extern void *D_020278D0[];
+extern void *gMenuState[];
 void *sub_08001480(void *, s32);
 void sub_0800F4D4(s32, u8, s32);
 void sub_0800F584(u8, u8);
@@ -12,7 +12,7 @@ void sub_0800E2A0(void *parent)
 {
     u8 *workState = gGameStatus;
     u32 slotIndex = 0;
-    u8 *statusObjects = (u8 *)D_020278D0;
+    u8 *statusObjects = (u8 *)gMenuState;
     void **slotPtr;
     void *newObject;
     u8 *status;
@@ -31,7 +31,7 @@ void sub_0800E2A0(void *parent)
         slotIndex++;
     } while (slotIndex <= 1);
 
-    status = (u8 *)D_020278D0;
+    status = (u8 *)gMenuState;
     copyOffset = 0xB1;
     copyOffset <<= 2;
     sub_080C2E68(status, workState + copyOffset, 0x48);

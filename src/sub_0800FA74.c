@@ -9,7 +9,7 @@ struct ScreenEffects {
     u16 blendAlpha;    /* BLDALPHA: 0x0808 = EVA 8 / EVB 8 */
 };
 extern struct ScreenEffects D_03000830;
-extern u8 D_020278D0[];  /* map state: entry index at +0x6A, two row tables at +0x6B and +0x6F */
+extern u8 gMenuState[];  /* map state: entry index at +0x6A, two row tables at +0x6B and +0x6F */
 extern u8 D_086427B4[];  /* tile map of the transition */
 
 struct Sprite {
@@ -41,7 +41,7 @@ void sub_0800FA74(void *arg0)
     D_03000830.blendAlpha = 0x0808;
     sprite->flags |= 0x0400;
 
-    map = (s8 *)D_020278D0;
+    map = (s8 *)gMenuState;
     rowA = map + 0x6A;
     entry = *rowA;
     rowA++;

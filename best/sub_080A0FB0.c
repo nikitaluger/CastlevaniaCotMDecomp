@@ -5,8 +5,8 @@ extern void sub_080148D8(s32, s32);
 extern void sub_080A17B0(s32, s32, void *);
 extern s32 sub_080A17DC(s32, void *, s32, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BD0[];
-extern u32 D_08671BD8[];
+extern u32 gScriptStepCallbacks[];
+extern u32 gMenuScriptCallback[];
 
 void sub_080A0FB0(void *arg0)
 {
@@ -45,7 +45,7 @@ void sub_080A0FB0(void *arg0)
     {
       idx = *((s16 *)(a + 0x22));
       (((u8 *)a) + (idx * 2))[0x17] = (s8)temp_r1;
-      var_r2 = (s32 *)D_08671BD8;
+      var_r2 = (s32 *)gMenuScriptCallback;
       goto block_9;
     }
     if (sub_0801459C(temp_r5, 0x380000) != 0)
@@ -66,14 +66,14 @@ void sub_080A0FB0(void *arg0)
         *((u16 *)((u8 *)tp48 + 0x14)) = v;
         idx2 = *((s16 *)(a + 0x22));
         (((u8 *)a) + (idx2 * 2))[0x19] = zero;
-        pbd0g = D_08671BD0;
+        pbd0g = gScriptStepCallbacks;
         sub_080C31E8(((u8 *)a) + 0x18, ((u8 *)a) + 0x22, 2, *pbd0g);
         return;
       }
       sub_080A17B0(temp_r7, tp34, tp48);
       idx3 = *((s16 *)(a + 0x22));
       (((u8 *)a) + (idx3 * 2))[0x19] = (u8)temp_r5_2;
-      var_r2 = (s32 *)D_08671BD0;
+      var_r2 = (s32 *)gScriptStepCallbacks;
       block_9:
       sub_080C31E8(((u8 *)a) + 0x18, ((u8 *)a) + 0x22, 3, *var_r2);
       return;
@@ -85,7 +85,7 @@ void sub_080A0FB0(void *arg0)
     sub_080A17B0(temp_r7, tp34, tp48);
     idx5 = *((s16 *)(a + 0x22));
     (((u8 *)a) + (idx5 * 2))[0x19] = 0;
-    pbd0e = D_08671BD0;
+    pbd0e = gScriptStepCallbacks;
     sub_080C31E8(((u8 *)a) + 0x18, ((u8 *)a) + 0x22, 3, *pbd0e);
   }
 }

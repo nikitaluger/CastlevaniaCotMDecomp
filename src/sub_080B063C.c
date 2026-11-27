@@ -1,20 +1,20 @@
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 
 /* Spawns a kind-0x1A7 object owned by `owner` and stores `variant` in its +0x4C field. */
 void *sub_080B0614(s32 owner, u8 variant) {
-    void *obj = sub_0805FAEC(owner, 0x1A7);
+    void *obj = spawnBudgetedEffect(owner, 0x1A7);
     if (obj != NULL) {
         *(u8 *)((u8 *)obj + 0x4C) = variant;
     }
     return obj;
 }
 
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 
 /* Spawns a kind-0x1A8 object and fills in its spawn parameters: +0x4C variant,
  * +0x5C value, +0x6C angle, +0x7C word and +0x8C sub-variant (0 unless variant==1). */
 void *sub_080B063C(s32 owner, u8 variant, s32 value, s32 angle, u16 word, u8 subVariant) {
-    void *obj = sub_0805FAEC(owner, 0x1A8);
+    void *obj = spawnBudgetedEffect(owner, 0x1A8);
     if (obj == NULL) return NULL;
     *(u8 *)((u8 *)obj + 0x4C) = variant;
     *(s32 *)((u8 *)obj + 0x5C) = value;
@@ -25,7 +25,7 @@ void *sub_080B063C(s32 owner, u8 variant, s32 value, s32 angle, u16 word, u8 sub
     return obj;
 }
 
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 
 /* Allocates three kind-0x1A9 objects (using the global at 0x02027860 as owner)
  * and stores them into out[0..2]. */
@@ -33,7 +33,7 @@ void sub_080B06CC(s32 *out) {
     s32 *slot = out;
     u32 i = 0;
     do {
-        *slot = (s32)sub_0805FAEC(*(s32 *)0x02027860, 0x1A9);
+        *slot = (s32)spawnBudgetedEffect(*(s32 *)0x02027860, 0x1A9);
         slot++;
         i++;
     } while (i <= 2);

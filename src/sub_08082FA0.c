@@ -4,7 +4,7 @@
  * chosen by the animation state. */
 s32 allocWorkSlot(void *, s32, s32, s32);
 void *allocSpriteObject(void);
-void sub_0806D2D0(void *);
+void cleanupFailedEffectSpawn(void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E0(void *, s32);
 
@@ -14,7 +14,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 void sub_08082FA0(void *entity)
 {
@@ -30,7 +30,7 @@ void sub_08082FA0(void *entity)
     view = allocSpriteObject();
     if (view == 0)
     {
-        sub_0806D2D0(entity);
+        cleanupFailedEffectSpawn(entity);
         return;
     }
 

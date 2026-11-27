@@ -31,15 +31,15 @@ void sub_08087DA8(void *entity) {
     }
 }
 
-void sub_08003A6C(void *, s32, s32);
-void sub_08003740(void *, void *);
+void startEffectTimer(void *, s32, s32);
+void stepDelayTimer(void *, void *);
 void sub_08088010(void *arg0) {
     void *p6C = *(void **)((u8 *)arg0 + 0x6C);
     void *p38 = *(void **)((u8 *)arg0 + 0x38);
     if (gMainWorkspace.f14 == 0x11) {
         void *q = (u8 *)p6C + 0x20;
-        sub_08003A6C(q, 0, 0x085063F8);
-        sub_08003740(q, p38);
+        startEffectTimer(q, 0, 0x085063F8);
+        stepDelayTimer(q, p38);
         *(u8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = 0;
         {
             s32 *nv = (s32 *)0x08671BB0;
@@ -65,6 +65,6 @@ void sub_080881AC(void *arg0) {
             sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *nv);
         }
     }
-    sub_08003740((u8 *)p6C + 0x20, p38);
+    stepDelayTimer((u8 *)p6C + 0x20, p38);
     sub_0806D588(p38, q7);
 }

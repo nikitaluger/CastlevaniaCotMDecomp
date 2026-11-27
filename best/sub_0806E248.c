@@ -1,10 +1,10 @@
 extern void *allocEffectPart(void);
-extern void sub_0806D2D0(void *);
+extern void cleanupFailedEffectSpawn(void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0806E6BC(void);
 extern u8 gMainWorkspace[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 void sub_0806E248(void *arg0)
 {
   u8 *r5;
@@ -29,7 +29,7 @@ void sub_0806E248(void *arg0)
   *((void **) (r4 + 0x2C)) = tmp;
   if (tmp == 0)
   {
-    sub_0806D2D0(r5);
+    cleanupFailedEffectSpawn(r5);
     return;
   }
   {

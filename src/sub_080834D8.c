@@ -1,10 +1,10 @@
-extern void sub_08003A6C(void *a, s32 b, void *c);
+extern void startEffectTimer(void *a, s32 b, void *c);
 extern void sub_0806D2A0(void *a, s32 b, s32 c, s32 d);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
-extern void sub_0808449C(void);
+extern void releaseActorEffectParts(void);
 extern void sub_0808BBAC(s32, s32, s32);
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Sets up an entity's appearance (graphics/palette/animation) and its destruction
  * callback, then runs the first step of its script/behavior table. */
@@ -20,9 +20,9 @@ void sub_080834D8(void *entity) {
     *(u32 *)(state + 0x38) = 0;
     *(u32 *)(state + 0x3C) = 0;
     *(u32 *)(state + 0x18) = *(u32 *)(self + 0x24);
-    *(void **)(self + 0x24) = sub_0808449C;
+    *(void **)(self + 0x24) = releaseActorEffectParts;
     *(void **)(gfx + 0x24) = (void *)0x084FAC70;
-    sub_08003A6C(stateBlock + 0x20, 0, (void *)0x084FACFC);
+    startEffectTimer(stateBlock + 0x20, 0, (void *)0x084FACFC);
     *(u32 *)(gfx + 0x14) = 0xFFC00000;
     *(u32 *)(gfx + 0x18) = 0xA0 << 15;
     sub_0806D2A0(self, 0x77, 0xA, 0x12);
@@ -33,7 +33,7 @@ void sub_080834D8(void *entity) {
 
     *(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        u32 *pAnimStep = &gMainObjTimerCallback;
+        u32 *pAnimStep = &gScriptStepCallbackTable;
         u8 *stepBase = self + 0x18;
         sub_080C31E4(stepBase, self + 0x22, (void *)*pAnimStep);
         {

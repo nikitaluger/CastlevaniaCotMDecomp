@@ -2,7 +2,7 @@ struct S_25FF0 { u8 pad[0x24]; u32 f24; u16 f28; };
 extern struct S_25FF0 gMainWorkspace;
 extern u16 gGameStatus[];
 extern u16 gCameraState[];
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 extern s32 sub_08084500(void *, void *, void *);
 extern void sub_08085440(void *, void *, void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -36,7 +36,7 @@ s32 sub_0806B5B0(u8 *ent, u8 *s38, u8 *a5, u8 *a3)
   ((struct P130 *)*((struct P130 **)(a5 + 0x130)))->f16 = 30;
   *((s32 *) (a5 + 0x48)) = z32;
   *((u8 *) ((new_var2 + ((*((s16 *) (new_var2 + 0x22))) * 2)) + 0x19)) = z8;
-  new_var = &D_08671BD0;
+  new_var = &gScriptStepCallbacks;
   new_var3 = new_var2 + 0x18;
   {
     u32 *pd = new_var;

@@ -1,12 +1,12 @@
 struct MoveParam { s32 increment; s32 maximum; u8 pad[0x50]; };
 struct MoveParamTable { struct MoveParam entries[1]; };
 extern struct MoveParamTable D_080E03A0;
-extern void *gMainObjTimerCallback;
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern void *gScriptStepCallbackTable;
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AB04(void *, void *, void *, void *);
-extern void sub_08003740(void *, void *);
-extern void sub_08003A6C(void *, s32, s32);
+extern void stepDelayTimer(void *, void *);
+extern void startEffectTimer(void *, s32, s32);
 extern void sub_0806A884(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -21,8 +21,8 @@ void sub_08065EF4(u8 *actor) {
     u8 *obj = objTail;
     struct MoveParamTable *params;
     s32 timer, paramIndex, newSpeed, maxSpeed, timerVal;
-    if (sub_0806C4B4(obj, obj) == 0) {
-        sub_0806C5EC(actor, position, obj, obj);
+    if (syncViewPosition(obj, obj) == 0) {
+        resetActionResultState(actor, position, obj, obj);
         timer = *(s32 *)(obj + 0x10);
         if (timer != 0) *(s32 *)(obj + 0x10) = timer - 1;
         sub_0806AB04(actor, position, obj, obj);
@@ -38,13 +38,13 @@ void sub_08065EF4(u8 *actor) {
             if (timerVal == 0) {
                 *(s32 *)(obj + 8) = timerVal;
                 *(s32 *)(obj + 0x0C) = timerVal;
-                sub_08003A6C(state + 0x2C, 0, 0x0846FEBC);
+                startEffectTimer(state + 0x2C, 0, 0x0846FEBC);
                 (actor + *(s16 *)(actor + 0x22) * 2)[0x19] = (u8)timerVal;
-                { void **callback = &gMainObjTimerCallback; sub_080C31E4(actor + 0x18, actor + 0x22, *callback); }
+                { void **callback = &gScriptStepCallbackTable; sub_080C31E4(actor + 0x18, actor + 0x22, *callback); }
             }
         }
         sub_0806A884(position, obj);
-        sub_08003740(objTail + 0x28, position);
+        stepDelayTimer(objTail + 0x28, position);
         sub_0806C6B0(actor, position, objTail, obj);
     }
 }

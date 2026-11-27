@@ -34,7 +34,7 @@ void sub_080A3560(void *arg0)
     sub_080C31E0(arg0, *(u32 *)((u8 *)*(u32 *)((u8 *)arg0 + 0x14) + *(u8 *)script * 4));
 }
 
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 
 void sub_080A25D4(void *arg0)
 {
@@ -47,7 +47,7 @@ void sub_080A25D4(void *arg0)
     r4 = (s32 *)((u8 *)r6 + 0x48);
     do {
         if (*r4 != 0) {
-            sub_080161F0();
+            unlinkAndFreeObject();
         }
         r4++;
         r5++;

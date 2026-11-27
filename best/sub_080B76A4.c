@@ -37,7 +37,7 @@ extern void loadEffectPalette(u32);
 extern void sub_080036C0(s32);
 extern void *allocEffectPart(void);
 extern void sub_080B98B8(void *, s32, s32, u32);
-extern void *sub_0805FAEC(void *, u32);
+extern void *spawnBudgetedEffect(void *, u32);
 extern void registerScriptObject(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -45,11 +45,11 @@ extern u16 D_08102DA4[];
 extern u8 gSpriteKindTable[];
 extern u8 gSpriteAnimDataTable[];
 extern struct D20 gMainWorkspace;
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern void sub_080B8514(void);
 inline static void *inline_fn(u8 *arg0)
 {
-  return sub_0805FAEC(arg0, 0x1CB);
+  return spawnBudgetedEffect(arg0, 0x1CB);
 }
 
 void sub_080B76A4(u8 *arg0)
@@ -132,7 +132,7 @@ void sub_080B76A4(u8 *arg0)
     *((u16 *) (arg0 + 0x02)) |= 0x1000;
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19] = 0;
     p18 = arg0 + 0x18;
-    new_var2 = (void **) gMainObjTimerCallback;
+    new_var2 = (void **) gScriptStepCallbackTable;
     sub_080C31E4(p18, arg0 + 0x22, *new_var2);
     (arg0 + ((*((s16 *) (arg0 + 0x22))) * 2))[0x19]++;
     p18 += (*((s16 *) (arg0 + 0x22))) * 2;

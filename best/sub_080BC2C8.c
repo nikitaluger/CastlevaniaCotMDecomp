@@ -42,11 +42,11 @@ struct BD
 extern struct BD gEffectGfxTable[];
 extern u16 D_08102F10[];
 extern u16 D_08102F1C[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void *allocSpriteObject(void);
 void allocWorkSlot(void *, s32, s32, s32);
 s32 sub_080057F8(void);
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 s32 sub_0800583C(s32);
 void initSpriteGraphics(void *, s32, s32);
 void setAnimationFrame(void *, s32, s32, s32);
@@ -56,7 +56,7 @@ void *allocEffectPart(void);
 void sub_080BC73C(void *, void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
-void sub_08097DC8(void);
+void updateActorEffectSubObject(void);
 void sub_080BC2C8(u8 *arg0)
 {
   u8 *r5 = arg0;
@@ -94,7 +94,7 @@ void sub_080BC2C8(u8 *arg0)
   *((u32 *) (r6 + 0x1C)) = 0x80000009;
   r4 = (struct P *) (*((u32 *) (r5 + 0x3C)));
   r7 = ((u8 *) r4) + 0x34;
-  installUpdateHandler(r5, r4, sub_08097DC8);
+  installUpdateHandler(r5, r4, updateActorEffectSubObject);
   r4->f1C = 0x68;
   r = findKindIndex((s16) r4->f1C);
   new_var3 = (r << 16) < 0;
@@ -134,7 +134,7 @@ void sub_080BC2C8(u8 *arg0)
   new_var = r5 + 0x7C;
   new_var2 = 2;
   new_var4 = 0x8C;
-  *((u32 *) (r5 + 0x6C)) = sub_08005820(0x200000) - (-0x100000);
+  *((u32 *) (r5 + 0x6C)) = scaleByRandom(0x200000) - (-0x100000);
   *((u32 *) new_var) = 0xFFFF & sub_080057F8();
   r = (*((s32 *) (r5 + 0x8C)) = sub_0800583C(0x180));
   if (r < 0)
@@ -158,7 +158,7 @@ void sub_080BC2C8(u8 *arg0)
     *((u16 *) (r5 + 2)) = flags | 0x1000;
     i = *((s16 *) (r5 + 0x22));
     *((u8 *) (r5 + i * 2 + 0x19)) = 0;
-    fp = (s32)&gMainObjTimerCallback;
+    fp = (s32)&gScriptStepCallbackTable;
     base = r5 + 0x18;
     sub_080C31E4(base, r5 + 0x22, fp);
     i = *((s16 *) (r5 + 0x22));

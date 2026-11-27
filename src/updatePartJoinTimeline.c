@@ -1,6 +1,6 @@
 extern s32 sub_080AD174(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Advance the timeline timer; at fixed intervals test each part pair and set its
  * progress bit, then invoke the completion callback once all 18 bits are set. */
@@ -54,7 +54,7 @@ void updatePartJoinTimeline(u8 *entity) {
     if (*(s32 *)(parts + 0x1F4) == 0x3FFFF) {
         u8 *stateByte = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
         stateByte[0x19] = 0;
-        callbackPtr = &gMainObjTimerCallback;
+        callbackPtr = &gScriptStepCallbackTable;
         sub_080C31E4(entity + 0x18, entity + 0x22, *callbackPtr);
     }
 }

@@ -1,7 +1,7 @@
 void *sub_08001480(void *, s32);
 void sub_0800F4D4(u8, u8, s32);
 void sub_0800F6BC(void);
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 extern u8 gCameraState[];
 extern volatile u32 D_040000D4[3];
 
@@ -16,11 +16,11 @@ void sub_0800E55C(void *parent) {
     u32 t;
 
     object = sub_08001480(parent, 0x1B);
-    ((T_020278D0 *)D_020278D0)->object = (u32)object;
+    ((T_020278D0 *)gMenuState)->object = (u32)object;
     object = (u8 *)object + 0x3C;
     zero = 0;
     *(u8 *)object = 6;
-    sub_0800F4D4(D_020278D0[0xF9], D_020278D0[0xFA], 0x84 << 2);
+    sub_0800F4D4(gMenuState[0xF9], gMenuState[0xFA], 0x84 << 2);
     sub_0800F6BC();
     dmaFillWord = zero;
     D_040000D4[0] = (u32)&dmaFillWord;

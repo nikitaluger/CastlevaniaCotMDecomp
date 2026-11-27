@@ -18,7 +18,7 @@ extern u8 D_06000304[];
 extern u8 D_06000344[];
 extern u8 D_06000384[];
 extern u8 D_060003C4[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 void sub_080C2E68(u16 *dst, u32 src, s32 size);
 void clearActorPool(void);
@@ -116,7 +116,7 @@ void initStatusHud(void *entity)
     stateIndex = *(s16 *)((u8 *)hudEntity + 0x22);
     *(u8 *)((u8 *)hudEntity + stateIndex * 2 + 0x19) = zero;
 
-    handlerTablePtr = &gMainObjTimerCallback;
+    handlerTablePtr = &gScriptStepCallbackTable;
     scriptStatePtr = (u8 *)hudEntity + 0x18;
     sub_080C31E4(scriptStatePtr, (u8 *)hudEntity + 0x22, *handlerTablePtr);
 

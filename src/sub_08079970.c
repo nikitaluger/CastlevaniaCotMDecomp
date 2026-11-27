@@ -10,8 +10,8 @@ struct S02025FF0_79970 {
 };
 extern struct S02025FF0_79970 gMainWorkspace;
 
-extern void sub_08003A6C(void *, s32, void *);
-extern void sub_0808449C(void);
+extern void startEffectTimer(void *, s32, void *);
+extern void releaseActorEffectParts(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -28,13 +28,13 @@ void sub_08079970(void *arg0) {
     *(u32 *)(state + 0x38) = zero;
     *(u32 *)(state + 0x3C) = zero;
     *(u32 *)(state + 0x18) = *(u32 *)((u8 *)arg0 + 0x24);
-    *(u32 *)((u8 *)arg0 + 0x24) = (u32)sub_0808449C;
+    *(u32 *)((u8 *)arg0 + 0x24) = (u32)releaseActorEffectParts;
     {
         struct S02025FF0_79970 *globals = &gMainWorkspace;
         u8 kindByte = globals->f14EF;
         *(u8 *)(actor + 0x55) = kindByte;
         *(u32 *)(sprite + 0x24) = (u32)0x084DE7BC;
-        sub_08003A6C(actor + 0x20, 0, (void *)0x084DE890);
+        startEffectTimer(actor + 0x20, 0, (void *)0x084DE890);
         *(u32 *)(state + 0x54) = 0x1C;
         *(u32 *)(actor + 4) = globals->f1728;
         *(u32 *)(state + 4) = globals->f172C + (u32)0xFFEC0000;

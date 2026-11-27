@@ -1,9 +1,9 @@
-s32 sub_0806D518(void *, void *, void *);
+s32 checkGlobalStateChange(void *, void *, void *);
 void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
-s16 sub_080C364C(s32, s32);
-extern s32 gMainObjTimerCallback;
+s16 divInt32(s32, s32);
+extern s32 gScriptStepCallbackTable;
 struct S_02025FF0
 {
   u8 pad0[0x10];
@@ -26,7 +26,7 @@ void sub_0807FFDC(u8 *entity)
   u8 *ctx = *((u8 **) (entity + 0x38));
   s32 rc;
   s32 value;
-  rc = sub_0806D518(entity, ctx, obj);
+  rc = checkGlobalStateChange(entity, ctx, obj);
   if (rc == 0)
   {
     rc = 1;
@@ -35,15 +35,15 @@ void sub_0807FFDC(u8 *entity)
     new_var = *((u8 **) (obj + 0x2C));
     target = new_var;
     value = *((s16 *) (ctx + 4));
-    *((s16 *) (target + 6)) = sub_080C364C(0x1000, value);
+    *((s16 *) (target + 6)) = divInt32(0x1000, value);
     target = *((u8 **) (obj + 0x2C));
     value = *((s16 *) (ctx + 6));
-    *((s16 *) (target + 8)) = sub_080C364C(0xB00, value);
+    *((s16 *) (target + 8)) = divInt32(0xB00, value);
     if ((*((s16 *) (ctx + 4))) <= 0x100)
     {
       *((u8 *) ((entity + (((s32) (*((s16 *) (entity + 0x22)))) * 2)) + 0x19)) = 0;
       {
-        s32 *pd = &gMainObjTimerCallback;
+        s32 *pd = &gScriptStepCallbackTable;
         sub_080C31E4(entity + 0x18, entity + 0x22, *pd);
       }
     }

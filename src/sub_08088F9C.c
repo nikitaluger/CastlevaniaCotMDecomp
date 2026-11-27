@@ -10,7 +10,7 @@ struct GameState {
 extern struct GameState gMainWorkspace;
 
 void sub_080C31E4(void *, void *, s32); /* advance the actor's bytecode stream */
-void sub_08003740(void *, void *);      /* step a sub-script runner */
+void stepDelayTimer(void *, void *);      /* step a sub-script runner */
 void sub_0806D588(void *, void *);      /* sync a sprite to its 3D position */
 
 /* Moves the effect's 16.16 x position by its per-frame delta; once it passes
@@ -32,6 +32,6 @@ void sub_08088F9C(void *arg0) {
             sub_080C31E4(self + 0x18, self + 0x22, *stream);
         }
     }
-    sub_08003740(motion + 0x20, sprite);
+    stepDelayTimer(motion + 0x20, sprite);
     sub_0806D588(sprite, pos);
 }

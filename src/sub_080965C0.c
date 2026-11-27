@@ -1,11 +1,11 @@
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 s32 sub_0800583C(s32);
 void sub_08091E3C(s32, s32, s32, s32, s32, s32);
-s16 sub_080C364C(s16, s32);
+s16 divInt32(s16, s32);
 s16 sub_080C36E4(s16, s32);
 void sub_080C31E4(void *, void *, void *);
 extern u8 D_08100B1E[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 /* Periodic entity update: occasionally spawns an effect/projectile, counts down
  * a timer, and on expiry resets it and advances to the next script step. */
@@ -23,8 +23,8 @@ void sub_080965C0(void *self)
   {
     s32 spawnX = (*(s32 *)(body + 8)) + sub_0800583C(0xE0000);
     s32 spawnY = (*(s32 *)(body + 0xC)) + 0x30000;
-    s32 speed = sub_08005820(0x8000) + 0x2000;
-    s16 phase = sub_080C364C(*(s16 *)(state + 0x14), 6);
+    s32 speed = scaleByRandom(0x8000) + 0x2000;
+    s16 phase = divInt32(*(s16 *)(state + 0x14), 6);
     phase = sub_080C36E4(phase, 3);
     sub_08091E3C(spawnX, spawnY, 0, speed, 0x16C1, phase);
   }
@@ -34,7 +34,7 @@ void sub_080965C0(void *self)
     *(s16 *)(state + 0x14) = 3;
     *((u8 *)self + ((*(s16 *)(self + 0x22)) * 2) + 0x19) = 0;
     {
-      void **pBB0 = &gMainObjTimerCallback;
+      void **pBB0 = &gScriptStepCallbackTable;
       sub_080C31E4(self + 0x18, self + 0x22, *pBB0);
     }
   }

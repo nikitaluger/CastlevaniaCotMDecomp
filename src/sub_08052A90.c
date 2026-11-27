@@ -1,9 +1,9 @@
 s32 sub_080141AC(void *, void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Animation update: mirrors a child-object flag into the entity's state, dispatches a
  * handler, then calls the function selected by the per-animation state byte. */
@@ -27,7 +27,7 @@ void sub_08052A90(void *arg0) {
         u8 funcIndex;
         s32 idx;
         ((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2)[0x19] = 0;
-        handlerSlot = &gMainObjTimerCallback;
+        handlerSlot = &gScriptStepCallbackTable;
         statePtr = (u8 *)arg0 + 0x18;
         sub_080C31E4(statePtr, (u8 *)arg0 + 0x22, *handlerSlot);
         ((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2)[0x19]++;
@@ -37,7 +37,7 @@ void sub_08052A90(void *arg0) {
         sub_080C31E0((s32)arg0, *(s32 *)((u32)(funcIndex * 4) + *(u32 *)((u8 *)arg0 + 0x14)));
         return;
     }
-    if (sub_08013B5C(obj, state) == 0) {
+    if (updateObjectDisplayState(obj, state) == 0) {
         u8 *statePtr;
         u8 funcIndex;
         s32 idx;

@@ -1,14 +1,14 @@
 extern void sub_08003A6C(void *, s32, void *);
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern u16 sub_0806D62C(u16, s32);
+extern u16 scalePercentSaturate16(u16, s32);
 extern void sub_0808449C(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
 extern u8 D_0849A844[];
 extern u8 D_0849A864[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Saved-game flags: the byte at 0x1510 holds the player's mirror/flip bit. */
 struct SaveData
@@ -83,7 +83,7 @@ void sub_08075088(u8 *actor)
   group->f2C->f8 = 6;
   group->f2C->fA = zero;
   group->f2C->fC = zero;
-  group->f2C->fE = sub_0806D62C(*((u16 *) (params + 0x2E2)), 0x2D);
+  group->f2C->fE = scalePercentSaturate16(*((u16 *) (params + 0x2E2)), 0x2D);
   group->f2C->f16 = 0x0F;
   group->f2C->f18 = 0x31;
   group->f2C->f10 = (u32) sprite;

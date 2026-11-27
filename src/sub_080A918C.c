@@ -1,4 +1,4 @@
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
 /*
@@ -8,7 +8,7 @@ extern void sub_080C31E4(void *, void *, s32);
  */
 void sub_080A918C(void *entity) {
     u8 *self = (u8 *)entity;
-    sub_0801165C(*(void **)(self + 0x3C), 0);
+    advanceMotion(*(void **)(self + 0x3C), 0);
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x10) {
         s32 *scriptTable;
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

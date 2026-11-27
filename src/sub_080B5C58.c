@@ -1,7 +1,7 @@
 extern s32 sub_08005910(s32 dy, s32 dx);
 extern s32 sub_080059DC(s32 dx, s32 dy);
-extern void sub_080113A8(s32 sprite, void *moverData);
-extern void sub_0801165C(void *mover, s32 accel);
+extern void stepAnimationTrack(s32 sprite, void *moverData);
+extern void advanceMotion(void *mover, s32 accel);
 extern void sub_080146D0(void *mover, s32 angle, s32 speed);
 extern void sub_0808D7BC(s32 x, s32 y, u32 id, u8 kind);
 extern void sub_080C31E0(void *arg, void *func);
@@ -17,7 +17,7 @@ void sub_080B5C58(u8 *self) {
     s32 cur, delta, maxDelta;
     u32 animData = (u32)(mover + 0x34);
     targetMover = *(u8 **)(*(u8 **)(self + 0x28) + 0x3C);
-    sub_080113A8(sprite, (void *)animData);
+    stepAnimationTrack(sprite, (void *)animData);
     targetX = *(s32 *)(targetMover + 8);
     targetY = *(s32 *)(targetMover + 0xC);
     yOffset = 0xFFF00000;
@@ -25,7 +25,7 @@ void sub_080B5C58(u8 *self) {
     dy = targetY - *(s32 *)(mover + 0xC);
     dx = targetX - *(s32 *)(mover + 8);
     sub_080146D0(mover, sub_08005910(dy, dx), 0x80 << 11);
-    sub_0801165C(mover, 0);
+    advanceMotion(mover, 0);
     targetX = targetX - *(s32 *)(mover + 8);
     targetY = targetY - *(s32 *)(mover + 0xC);
     distance = sub_080059DC(targetX, targetY);

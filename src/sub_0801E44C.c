@@ -1,8 +1,8 @@
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 sub_080C364C(s32, s32);
-extern u32 sub_08005820(u32);
+extern s32 divInt32(s32, s32);
+extern u32 scaleByRandom(u32);
 
 /* Advance an effect driven by the body's animator and part state: when the
  * animator reaches its mark, reset the part's phase counter, compute a
@@ -25,7 +25,7 @@ void sub_0801E44C(void *arg0)
 
     {
         s32 *callbackTable = (s32 *)0x08671BFC;
-        s32 phase = sub_080C364C(*(s16 *)(part + 4) << 16, 0x24);
+        s32 phase = divInt32(*(s16 *)(part + 4) << 16, 0x24);
         *(s32 *)(part + 0) = sub_080C31E0(phase, *callbackTable) * 2;
     }
 
@@ -36,7 +36,7 @@ void sub_0801E44C(void *arg0)
         *(u16 *)(part + 6) = timer;
         if ((timer << 16) < 0)
         {
-            *(u16 *)(part + 0x2A) = sub_08005820(2);
+            *(u16 *)(part + 0x2A) = scaleByRandom(2);
             zero1 = 0;
             *(u16 *)(part + 0xC) = zero1;
             *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = (u8)*(u16 *)(part + 0xC);

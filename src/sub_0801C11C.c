@@ -18,7 +18,7 @@ extern struct Globals gMainWorkspace;
 struct ScrollTable { u8 _0[0x1278]; u32 f1278; u32 f127C; };
 extern struct ScrollTable gCameraState;
 extern u8 gSpriteAnimDataTable[];
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 void sub_0801C11C(struct Entity *entity) {
     u8 *workObj;

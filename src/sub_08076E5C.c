@@ -1,7 +1,7 @@
-extern void sub_08003A6C(void *, s32, s32);
+extern void startEffectTimer(void *, s32, s32);
 extern void sub_08005E80(s32);
 extern void *allocEffectPart(void);
-extern void sub_0806D2D0(void *);
+extern void cleanupFailedEffectSpawn(void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0 { u8 _0[0x14EF]; u8 f14EF; u8 _1[0x1510 - 0x14F0]; u8 f1510; };
@@ -9,7 +9,7 @@ extern struct S_02025FF0 gMainWorkspace;
 extern u8 gGameStatus[];
 extern u8 D_084CEC88[];
 extern u8 D_084CECC8[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 struct EffectPart {
   u8 _0;
   u8 f01;
@@ -76,7 +76,7 @@ void sub_08076E5C(struct EffectOwner *self)
   newPart = allocEffectPart();
   effectState->f2C = newPart;
   if (newPart == NULL) {
-    sub_0806D2D0(self);
+    cleanupFailedEffectSpawn(self);
     return;
   }
   zero = 0;
@@ -99,13 +99,13 @@ void sub_08076E5C(struct EffectOwner *self)
   self->f24 = (void *)0x0808449D;
   ((struct EffectGraphic *)effectObj)->f55 = gMainWorkspace.f14EF;
   ((struct EffectPart *)mainObj)->f24 = (void *)D_084CEC88;
-  sub_08003A6C((u8 *)effectObj + 0x20, 0, (s32)D_084CECC8);
+  startEffectTimer((u8 *)effectObj + 0x20, 0, (s32)D_084CECC8);
   ((struct EffectGraphic *)effectObj)->f4 = self->f7C;
   effectState->f4 = self->f8C;
   sub_08005E80(0x6D);
   ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19 = zero;
   {
-    s32 *cueTable = &gMainObjTimerCallback;
+    s32 *cueTable = &gScriptStepCallbackTable;
     u8 *scriptPtr = (u8 *)self + 0x18;
     sub_080C31E4(scriptPtr, (u8 *)self + 0x22, *cueTable);
     ((struct ScriptStep *)((u8 *)self + self->f22 * 2))->f19++;

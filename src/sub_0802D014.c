@@ -1,10 +1,10 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08014900(s32);
 extern s32 sub_0801491C(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* Updates an enemy object: advances its sprite animation, checks player
  * proximity on a timer and despawns through a callback when close, and on a
@@ -27,11 +27,11 @@ void sub_0802D014(u8 *object) {
     playerCheckTimer = playerCheckTimer - 1;
     *(u16 *)(ctrl + 0x0C) = playerCheckTimer;
     if ((playerCheckTimer << 16) <= 0) {
-        *(u16 *)(ctrl + 0x0C) = sub_08005820(0x29) + 0x3C;
+        *(u16 *)(ctrl + 0x0C) = scaleByRandom(0x29) + 0x3C;
         if (sub_08014900(*(s32 *)(data + 0x08)) <= 0x680000 &&
             sub_0801491C(*(s32 *)(data + 0x0C)) <= 0x400000) {
             *(u8 *)(object + (*(s16 *)(object + 0x22)) * 2 + 0x19) = 0;
-            { void **callbackPtr = &D_08671BD0;
+            { void **callbackPtr = &gScriptStepCallbacks;
               sub_080C31E8(object + 0x18, object + 0x22, 1, *callbackPtr); }
             return;
         }
@@ -43,7 +43,7 @@ void sub_0802D014(u8 *object) {
     turnTimer = turnTimer - 1;
     *(u16 *)(ctrl + 0x0A) = turnTimer;
     if ((turnTimer << 16) <= 0) {
-        *(u16 *)(ctrl + 0x0A) = sub_08005820(0x0C) + 0x0B;
+        *(u16 *)(ctrl + 0x0A) = scaleByRandom(0x0C) + 0x0B;
         xPos = *(s32 *)(data + 0x08);
         targetX = *(s32 *)(ctrl + 0x00);
         newVelX = 0xD000;

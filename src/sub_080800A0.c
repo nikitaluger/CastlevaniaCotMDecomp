@@ -1,5 +1,5 @@
-extern s32 sub_0806D518(void *, void *, void *);
-extern void sub_08003740(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -22,7 +22,7 @@ void sub_080800A0(u8 *self) {
     u8 *vec = base + 0x04;
     u8 *view = *(u8 **)(self + 0x38);
 
-    if (sub_0806D518(self, view, vec) == 0) {
+    if (checkGlobalStateChange(self, view, vec) == 0) {
         *(s32 *)vec = *(s32 *)vec + *(s32 *)(vec + 8);
         {
             s32 countdown = *(s32 *)(vec + 0x10) - 1;
@@ -36,7 +36,7 @@ void sub_080800A0(u8 *self) {
                 }
             }
         }
-        sub_08003740(base + 0x20, view);
+        stepDelayTimer(base + 0x20, view);
         sub_0806D588(view, vec);
         {
             struct S_02025FF0b *caps = &gMainWorkspace;

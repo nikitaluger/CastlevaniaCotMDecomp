@@ -9,7 +9,7 @@ struct Entity
     u32 sprite;        /* +0x38 */
     u32 state;         /* +0x3C */
 };
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_080C31E0(void *, void *);
 
@@ -35,7 +35,7 @@ void sub_0809AEC4(struct Entity *arg0)
         u8 command;
         u32 stepOffset;
         u32 stepOffset2;
-        if (sub_08013B5C(sprite, state) == 0)
+        if (updateObjectDisplayState(sprite, state) == 0)
         {
             *(u32 *)(self + 0x14) = 0x0866FC40;
             *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) + 1;

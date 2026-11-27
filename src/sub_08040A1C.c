@@ -1,4 +1,4 @@
-s32 sub_080113A8(void *, void *, void *, void *);
+s32 stepAnimationTrack(void *, void *, void *, void *);
 
 /* Advances the steering state: on certain heading transitions it nudges the
  * work velocity by +/-1.0 fixed point, records the new heading and reports the
@@ -10,7 +10,7 @@ s32 sub_08040A1C(void *sprite, void *animState, void *work, void *steer)
   u16 *steerH = (u16 *)steer;
   s32 transitioned = 0;
 
-  sub_080113A8(sprite, animState, work, steer);
+  stepAnimationTrack(sprite, animState, work, steer);
 
   if (steerH[1] == spriteH[0x14])
     goto end;

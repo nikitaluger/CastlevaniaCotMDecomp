@@ -5,7 +5,7 @@ void sub_08013978(void *, void *);
 void sub_0803B1F4(void *, void *, void *);
 void sub_08013AC4(void *);
 void sub_0803B1A4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_0803B1B4(void *, void *);
 s32 sub_080C31E0(s32, s32);
@@ -59,7 +59,7 @@ void sub_08036078(void *arg0) {
         behaviorFunc = *(s32 *)((u32)(behaviorId * 4) + behaviorTable);
         sub_080C31E0((s32)self, behaviorFunc);
     } else {
-        if (sub_08013B5C(parent, enemy) == 0) {
+        if (updateObjectDisplayState(parent, enemy) == 0) {
             u8 *script;
             u8 behaviorId;
             u32 behaviorTable;

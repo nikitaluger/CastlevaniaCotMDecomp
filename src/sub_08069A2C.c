@@ -3,10 +3,10 @@ extern struct S02025FF0 gMainWorkspace;
 struct S03000830 { u8 _0[4]; u16 f4; u16 f6; };
 extern struct S03000830 D_03000830;
 extern u8 gCameraState[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 extern void sub_08005E80(u16);
-extern void sub_0806C5EC(u8 *, u8 *, u8 *, u8 *);
+extern void resetActionResultState(u8 *, u8 *, u8 *, u8 *);
 extern void sub_0806C6B0(u8 *, u8 *, u8 *, u8 *);
 extern void sub_080C31E4(u8 *, u8 *, u32);
 
@@ -22,7 +22,7 @@ void sub_08069A2C(u8 *obj) {
 
     gfxData = *(u8 **)(obj + 0x6C) + 4;
     sprite = *(u8 **)(obj + 0x38);
-    sub_0806C5EC(obj, sprite, gfxData, gfxData);
+    resetActionResultState(obj, sprite, gfxData, gfxData);
 
     state = &gMainWorkspace;
     if (state->f14AC == 3) {
@@ -36,7 +36,7 @@ void sub_08069A2C(u8 *obj) {
         state->f14A8 = 0;
         sub_08005E80(0xDD << 1);
         *(u8 *)(obj + *(s16 *)(obj + 0x22) * 2 + 0x19) = zero;
-        table = &gMainObjTimerCallback;
+        table = &gScriptStepCallbackTable;
         sub_080C31E4(obj + 0x18, obj + 0x22, *table);
     }
     sub_0806C6B0(obj, sprite, gfxData, gfxData);

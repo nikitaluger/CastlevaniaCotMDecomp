@@ -1,7 +1,7 @@
 extern void sub_08057AF8(void *);
 extern void sub_08057B6C(void *, void *, void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BD0; /* RAM script table */
+extern u32 gScriptStepCallbacks; /* RAM script table */
 
 /* Spinning projectile update: keeps advancing its spin angle during the first
  * 32 frames; on frame 47 it resets the frame counter, advances its RAM script,
@@ -35,7 +35,7 @@ void sub_080575BC(void *arg0)
         stepPtr[0x19] = 0;
 
         {
-            u32 *scriptHandlers = &D_08671BD0;
+            u32 *scriptHandlers = &gScriptStepCallbacks;
             u8 *stepBase = (u8 *)arg0 + 0x18;
             u8 *stepIndexPtr = (u8 *)arg0 + 0x22;
             sub_080C31E8(stepBase, stepIndexPtr, 1, *scriptHandlers);

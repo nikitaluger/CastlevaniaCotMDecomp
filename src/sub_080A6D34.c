@@ -1,7 +1,7 @@
 extern void sub_080A860C(void *, void *);
 extern void sub_080A8940(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BD0[];
+extern u32 gScriptStepCallbacks[];
 
 /* Script-step callback: updates the control block shared with the companion,
  * then, when a trigger flag is set and its counter is zero, resets the current
@@ -24,13 +24,13 @@ void sub_080A6D34(void *entity)
             {
                 s16 stepIndex = *(s16 *)((u8 *)entity + 0x22);
                 *((u8 *)entity + stepIndex * 2 + 0x19) = 0;
-                { u32 *pTable = D_08671BD0; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 3, *pTable); }
+                { u32 *pTable = gScriptStepCallbacks; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 3, *pTable); }
             }
             else
             {
                 s16 stepIndex = *(s16 *)((u8 *)entity + 0x22);
                 *((u8 *)entity + stepIndex * 2 + 0x19) = 0;
-                { u32 *pTable = D_08671BD0; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 8, *pTable); }
+                { u32 *pTable = gScriptStepCallbacks; sub_080C31E8((u8 *)entity + 0x18, (u8 *)entity + 0x22, 8, *pTable); }
             }
         }
     }

@@ -1,9 +1,9 @@
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, u32);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, u32);
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080141AC(void *, void *);
@@ -44,7 +44,7 @@ void sub_0805C174(void *arg0)
             sub_080C31E8((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, 1, *actionTable);
         }
     }
-    if (sub_08013B5C(owner, actor) == 0) {
+    if (updateObjectDisplayState(owner, actor) == 0) {
         /* 0x0866E920 is this entity's script-step callback table. */
         *(u32 *)((u8 *)arg0 + 0x14) = 0x0866E920;
         *(u16 *)((u8 *)arg0 + 0x22) = *(u16 *)((u8 *)arg0 + 0x22) + 1;
@@ -62,8 +62,8 @@ void sub_0805C174(void *arg0)
         if (*(u16 *)((u8 *)arg0 + 2) & 0x8000) {
             return;
         }
-        sub_080113A8(owner, animState);
-        sub_0801165C(actor, 0);
+        stepAnimationTrack(owner, animState);
+        advanceMotion(actor, 0);
     }
     sub_08013C8C(arg0, owner);
 }

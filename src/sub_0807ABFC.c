@@ -1,5 +1,5 @@
 extern u8 gMainWorkspace[];
-extern s32 sub_08003740(s32, void *);
+extern s32 stepDelayTimer(s32, void *);
 extern s32 sub_0806D450(void *, void *, void *);
 extern s32 sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, s32);
@@ -35,7 +35,7 @@ void sub_0807ABFC(u8 *arg0) {
                 sub_080C31E4(arg0 + 0x18, arg0 + 0x22, *effectIds);
             }
         }
-        sub_08003740((s32)subObj + 0x20, ctx);
+        stepDelayTimer((s32)subObj + 0x20, ctx);
         sub_0806D588(ctx, obj);
         if (*(u8 *)(globalState + 0x173A) == 0x1C || (*(u8 *)(globalState + 0x14ED) == 0 && *(s32 *)(globalState + 0x10) != 0)) {
             sub_080C31E0(arg0, *(s32 *)(arg0 + 0x24));

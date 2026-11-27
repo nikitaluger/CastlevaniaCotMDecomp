@@ -1,8 +1,8 @@
 extern void sub_08005E80(s32);
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_08011EE8(void *, s32, s32);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C5C(void *, s32);
 extern void sub_08013C8C(void *, void *);
 extern s32 sub_080141AC(s32, void *);
@@ -76,7 +76,7 @@ void sub_0803E198(u8 *entity)
       }
     }
   }
-  if (sub_08013B5C(sprite, work) == 0)
+  if (updateObjectDisplayState(sprite, work) == 0)
   {
     *((u32 *) (entity + 0x14)) = (u32) D_0866E038;
     *((u16 *) (entity + 0x22)) = *((u16 *) (entity + 0x22)) + 1;
@@ -96,7 +96,7 @@ void sub_0803E198(u8 *entity)
     {
       return;
     }
-    sub_080113A8(sprite, animTrack);
+    stepAnimationTrack(sprite, animTrack);
     sub_08011EE8(work, 0x16C1, 0);
   }
   if ((*((u16 *) work) & 0x0D) == 0)

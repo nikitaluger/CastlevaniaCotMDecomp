@@ -1,5 +1,5 @@
 void setAnimationFrame(void *, void *, s32, s32);
-s32 sub_08005820(s32);
+s32 scaleByRandom(s32);
 
 /* Each frame set the sprite to animation frame 7 and decrement a counter;
  * when it expires, flip the velocity at +0x10 based on a position comparison
@@ -20,6 +20,6 @@ void sub_08059A2C(void *entity) {
             velocity = 0x2000;
         }
         *(s32 *)(work + 0x10) = velocity;
-        *(u16 *)(state + 4) = sub_08005820(0x65) + 0x78;
+        *(u16 *)(state + 4) = scaleByRandom(0x65) + 0x78;
     }
 }

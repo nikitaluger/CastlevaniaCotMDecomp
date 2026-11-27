@@ -1,8 +1,8 @@
-extern void sub_08003740(s32, s32);
-extern void sub_08003A6C(s32, s32, s32);
+extern void stepDelayTimer(s32, s32);
+extern void startEffectTimer(s32, s32, s32);
 extern void sub_0806D588(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 extern u8 gMainWorkspace[];
 
 struct F02 { u8 pad[2]; u16 f02; };
@@ -22,7 +22,7 @@ void sub_08088BC4(void *arg0) {
     s32 mode = *(s32 *)(statePtr + 0x1C);
     s32 *scriptHandlers;
     if (mode == 1) {
-        sub_08003A6C((s32)(base + 0x20), 0, (s32)0x084FEBF8);
+        startEffectTimer((s32)(base + 0x20), 0, (s32)0x084FEBF8);
         {
             struct F02 *flags = (struct F02 *)actor;
             s32 zero;
@@ -35,6 +35,6 @@ void sub_08088BC4(void *arg0) {
         }
         sub_080C31E4(obj + 0x18, obj + 0x22, *scriptHandlers);
     }
-    sub_08003740((s32)(base + 0x20), actor);
+    stepDelayTimer((s32)(base + 0x20), actor);
     sub_0806D588(actor, (s32)sprite);
 }

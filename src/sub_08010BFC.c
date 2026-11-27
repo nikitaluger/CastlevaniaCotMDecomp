@@ -1,6 +1,6 @@
 /* Clear the alternate sub-step byte (+0x17) of the actor's current script
- * step, then invoke the D_08671BD8 script-advance callback with the actor's
- * step table, step index and the D_020278D0 argument. */
+ * step, then invoke the gMenuScriptCallback script-advance callback with the actor's
+ * step table, step index and the gMenuState argument. */
 extern void sub_080C31E8(void *, void *, void *, void *);
 
 void sub_08010BFC(void *arg0) {

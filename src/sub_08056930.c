@@ -1,4 +1,4 @@
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern void sub_08056DB0(void *, void *, void *, s32);
 extern void sub_08056B58(void *, void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
@@ -21,7 +21,7 @@ void sub_08056930(void *entity) {
     work = *(void **)((u8 *)entity + 0x3C);
     anim = (u8 *)work + 0x34;
     state = (u8 *)work + 0x48;
-    if (sub_0805F9B4(*(s32 *)((u8 *)entity + 0x4C), *(s32 *)((u8 *)entity + 0x5C)) != 1) {
+    if (isOutsideCameraBounds(*(s32 *)((u8 *)entity + 0x4C), *(s32 *)((u8 *)entity + 0x5C)) != 1) {
         sub_08056DB0(entity, work, state, D_080CFBF8.entries[*(u8 *)((u8 *)state + 9)].value);
         if (*(u8 *)((u8 *)entity + 0x6C) != 0) {
             *(u32 *)((u8 *)state + 0x10) = *(u32 *)((u8 *)work + 0xC);

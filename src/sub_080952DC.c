@@ -1,6 +1,6 @@
-extern s32 sub_0805F9B4(s32, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern void sub_080C31E0(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u32 D_0866FAC4[];
@@ -35,7 +35,7 @@ void sub_080952DC(u8 *arg0)
     self = *(u8 **)(arg0 + 0x38);
     motion = *(u8 **)(arg0 + 0x3C);
     work = motion + 0x48;
-    offscreen = sub_0805F9B4(*(s32 *)(motion + 8), *(s32 *)(motion + 0xC));
+    offscreen = isOutsideCameraBounds(*(s32 *)(motion + 8), *(s32 *)(motion + 0xC));
     if (offscreen == 1) {
         sprite = *(u8 **)(work + 4);
         *(u8 *)(sprite + 1) = 0;
@@ -69,7 +69,7 @@ void sub_080952DC(u8 *arg0)
         *(u32 *)(work + 0x14) = *(u32 *)(motion + 8);
         *(u32 *)(work + 0x18) = *(u32 *)(motion + 0xC);
         *(u16 *)(work + 0x1C) = hidden;
-        sub_0801165C(motion, 0);
+        advanceMotion(motion, 0);
         coords = gCameraState;
         roomByte = gMainWorkspace;
         roomByte += 0x18A8;

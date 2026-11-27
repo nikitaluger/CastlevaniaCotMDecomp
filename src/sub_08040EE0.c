@@ -1,7 +1,7 @@
 s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C5C(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080141AC(void *, void *);
@@ -49,7 +49,7 @@ void sub_08040EE0(void *obj) {
             }
         }
     }
-    if (sub_08013B5C(mainObj, state) == 0) {
+    if (updateObjectDisplayState(mainObj, state) == 0) {
         *(u32 *)((u8 *)obj + 0x14) = 0x0866E114;
         *(u16 *)((u8 *)obj + 0x22) = *(u16 *)((u8 *)obj + 0x22) + 1;
         scriptStep = (u8 *)(2 * (u32)(s16)*(u16 *)((u8 *)obj + 0x22) + (u32)obj);

@@ -1,9 +1,9 @@
 extern void sub_08013C8C(void *, void *);
 extern s32 sub_08013B5C(void *, void *);
-extern s32 sub_08016238(void *);
+extern s32 hitTestEntities(void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 extern u8 D_0866FE98[];
 
 /* Behaviour-script callback: mask the target's state, set the owner's active flag
@@ -23,7 +23,7 @@ void sub_080A27E4(u8 *behav) {
   target = *(u8 **)(behav + 0x38);
   owner = *(u8 **)(behav + 0x3C);
   *(u16 *)target = *(u16 *)target & 0x0FFF;
-  if (sub_08016238(*(void **)(owner + 0x28)) != 0) {
+  if (hitTestEntities(*(void **)(owner + 0x28)) != 0) {
     *(u16 *)owner |= 1;
   }
   if (*(u16 *)(*(void **)(owner + 0x28) + 0x14) & 1) {
@@ -33,7 +33,7 @@ void sub_080A27E4(u8 *behav) {
     entry = (u8 *)((u32)(*(s16 *)(behav + 0x22)) * 2 + (u32)behav);
     if (*(u8 *)(entry + 0x1A) != 4) {
       *(u8 *)(entry + 0x1B) = 0;
-      cmdTable = D_08671BDC;
+      cmdTable = sScriptStepCallbacks;
       sub_080C31E8(behav + 0x18, behav + 0x22, 4, *cmdTable);
     }
   }

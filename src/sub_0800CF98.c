@@ -1,4 +1,4 @@
-extern u8 D_020278D0[];
+extern u8 gMenuState[];
 
 struct S_03000830 { u8 _[4]; u16 flags; u16 params; };
 
@@ -22,7 +22,7 @@ void sub_0800CF98(u8 *entity) {
     s32 next;
 
     fx->flags = mask;
-    base = D_020278D0;
+    base = gMenuState;
     counter = base + 0x67;
     level = *(s8 *)counter;
     maxLevel = 0x10;

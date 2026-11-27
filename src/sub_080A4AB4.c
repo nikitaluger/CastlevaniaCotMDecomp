@@ -1,4 +1,4 @@
-void sub_08011898(void *, s32);
+void moveEntityWithCollision(void *, s32);
 void sub_080C31E0(void *, s32);
 
 /* While the current script command is above 0x0B, raise the actor's y position
@@ -16,7 +16,7 @@ void sub_080A4AB4(void *arg0) {
         if ((s16)newY > 0x100) {
             *(u16 *)((u8 *)actor + 0x06) = 0x100;
         }
-        sub_08011898(path, *(s32 *)(self + 0x6C));
+        moveEntityWithCollision(path, *(s32 *)(self + 0x6C));
         if (*(u16 *)((u8 *)path + 0x02) != 0) {
             sub_080C31E0(self, *(s32 *)(self + 0x24));
         }

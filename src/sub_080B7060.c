@@ -10,8 +10,8 @@ typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
-M2C_UNK sub_080113A8(void *, s32);
-M2C_UNK sub_0801165C(void *, s32);
+M2C_UNK stepAnimationTrack(void *, s32);
+M2C_UNK advanceMotion(void *, s32);
 M2C_UNK sub_0809856C(s32, void *, s32);
 M2C_UNK sub_080B72CC(void *);
 M2C_UNK sub_080C31E0(void *, s32);
@@ -40,8 +40,8 @@ void sub_080B7060(void *arg0)
   aim = body + 0x34;
   targetBody = *((void **) (((s8 *) (*((void **) (((s8 *) arg0) + 0x28)))) + 0x3C));
   sub_0809856C(0x18E, arg0 + 0x7C, 0xA);
-  sub_080113A8(target, aim);
-  sub_0801165C(body, 0);
+  stepAnimationTrack(target, aim);
+  advanceMotion(body, 0);
   velocity = *((s32 *) (((s8 *) body) + 0x10));
   if (0x10 & *((u16 *) (((s8 *) target) + 2)))
   {

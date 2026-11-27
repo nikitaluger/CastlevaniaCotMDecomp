@@ -6,13 +6,13 @@ extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
 extern void sub_08005E80(s32);
 extern s32 sub_0801576C(s32, void *, void *, void *, void *, void *);
-extern void sub_080113A8(s32, void *);
+extern void stepAnimationTrack(s32, void *);
 extern void sub_08011EE8(void *, s32, s32);
 extern void sub_0803BB10(void *, s32);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u8 D_08671BDC[];
+extern u8 sScriptStepCallbacks[];
 extern u8 D_0866DF6C[];
 
 /* One update tick of a two-sub-object weapon entity: clear/prime the sub-objects' hit
@@ -80,7 +80,7 @@ void sub_0803B618(u8 *self)
         sub_080C31E0(self, (void *)handler);
         *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) - 1);
         if (*(u16 *)(self + 2) & 0x8000) goto end;
-        sub_080113A8(parent, objSub);
+        stepAnimationTrack(parent, objSub);
         sub_08011EE8(obj, 0x16C1, 0);
     }
     if ((*(u16 *)obj & 0x0D) == 0) {

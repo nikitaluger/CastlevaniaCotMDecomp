@@ -3,7 +3,7 @@
 extern void sub_08003A6C(void *, s32, void *);
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern s16 sub_0806D62C(u16, s32);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_0807199C(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -11,7 +11,7 @@ extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u32 D_08474A7C;
 extern u32 D_08474ABC;
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 struct AIWorkSlot { u8 _0[0x3C]; u8 * volatile resource; };
 
 void sub_08071370(u8 *entity) {
@@ -44,7 +44,7 @@ void sub_08071370(u8 *entity) {
     *(u16 *)(s->resource + 8) = 6;
     *(u16 *)(s->resource + 0xA) = zero;
     *(u16 *)(s->resource + 0xC) = zero;
-    *(u16 *)(s->resource + 0xE) = sub_0806D62C(*(u16 *)(base2 + 0x2DE), 0x64);
+    *(u16 *)(s->resource + 0xE) = scalePercentSaturate16(*(u16 *)(base2 + 0x2DE), 0x64);
     {
         u8 *rp = s->resource;
         *(void **)(rp + 0x10) = sprite;
@@ -71,7 +71,7 @@ void sub_08071370(u8 *entity) {
     *(u32 *)(state + 0x4C) = *(u32 *)(entity + 0x7C);
     *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *scriptTable = &gMainObjTimerCallback;
+        s32 *scriptTable = &gScriptStepCallbackTable;
         u8 *framePtr = entity + 0x18;
         sub_080C31E4(framePtr, entity + 0x22, *scriptTable);
         *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) = *(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) + 1;

@@ -1,8 +1,8 @@
 extern s32 sub_08005910(s32 dy, s32 dx); /* atan2-style heading toward a point */
-extern void sub_080113A8(void *sprite, void *animState);
+extern void stepAnimationTrack(void *sprite, void *animState);
 extern s32 sub_0801473C(s32 fromAngle, s32 toAngle); /* -1/0/1 shortest turn */
 extern void sub_080146D0(void *work, s32 heading, s32 speed);
-extern void sub_0801165C(void *work, s32 accelY);
+extern void advanceMotion(void *work, s32 accelY);
 
 struct S_02025FF0_174C { u8 pad[0x174C]; u32 lo; u32 hi; };
 extern struct S_02025FF0_174C gMainWorkspace;
@@ -19,7 +19,7 @@ void sub_08035220(u8 *self) {
     s32 heading;
     s32 turnDir;
 
-    sub_080113A8(sprite, animState);
+    stepAnimationTrack(sprite, animState);
 
     turnPhase = *(s32 *)(work + 0x48) + 0x800;
     *(s32 *)(work + 0x48) = turnPhase;
@@ -44,5 +44,5 @@ void sub_08035220(u8 *self) {
         *(s32 *)(steer + 4) = (u16)*(s32 *)(steer + 4);
     }
     sub_080146D0(work, *(s32 *)(steer + 4), *(s32 *)steer);
-    sub_0801165C(work, 0);
+    advanceMotion(work, 0);
 }

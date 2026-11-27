@@ -20,7 +20,7 @@ struct ScrollInput { u8 _0[0x10]; u8 scrollXEnabled; u8 scrollYEnabled; };
 extern struct ScreenParams D_03000830;
 extern struct ScrollState gCameraState;
 extern struct ScrollInput D_02027A00;
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Sub-state byte at task + index*2 + 0x19. */
 struct TaskSubState { u8 _0[0x19]; u8 subState; };
@@ -47,7 +47,7 @@ void sub_080619F0(struct ScreenTask *task)
     sub_08006210();
     ((struct TaskSubState *)((u8 *)task + task->stateIndex * 2))->subState = 0;
     {
-      s32 *callback = &gMainObjTimerCallback;
+      s32 *callback = &gScriptStepCallbackTable;
       stateArgs = (u8 *)task + 0x18;
       sub_080C31E4(stateArgs, (u8 *)task + 0x22, *callback);
     }

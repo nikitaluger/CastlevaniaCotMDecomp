@@ -1,7 +1,7 @@
-extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern s32 updateObjectDisplayState(void *, void *);
 extern s32 sub_080C31E0(s32, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_08019254(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -37,7 +37,7 @@ void sub_08018FB8(u8 *arg0) {
     sub->flag |= 1;
     {
         u8 zero = 0;
-        if (sub_0805F9B4(*(s32 *)(state + 8), *(s32 *)(state + 0xC)) == 1) {
+        if (isOutsideCameraBounds(*(s32 *)(state + 8), *(s32 *)(state + 0xC)) == 1) {
             ((struct MainFlag *)(mainObj + 0x2A))->flag &= 0xBF;
             ((struct SubFlag *)(*(u8 **)(state + 0x28)))->flag = zero;
         } else {
@@ -50,7 +50,7 @@ void sub_08018FB8(u8 *arg0) {
         ((struct StateFlag *)state)->flag |= 1;
     }
 
-    if (sub_08013B5C(mainObj, state) != 0) goto common;
+    if (updateObjectDisplayState(mainObj, state) != 0) goto common;
 
     *(u32 *)(arg0 + 0x14) = (u32)D_0866D5D0;
     *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) + 1;
@@ -63,7 +63,7 @@ void sub_08018FB8(u8 *arg0) {
     sub_080C31E0((s32)arg0, *(u32 *)(*(u32 *)(arg0 + 0x14) + cmd * 4));
     *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) - 1;
     if ((*(u16 *)(arg0 + 2) & 0x8000) != 0) return;
-    sub_080113A8(mainObj, p34);
+    stepAnimationTrack(mainObj, p34);
 
 common:
     sub_08019254(arg0, mainObj);

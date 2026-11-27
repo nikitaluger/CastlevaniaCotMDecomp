@@ -1,6 +1,6 @@
 extern void sub_080113A8(void *, void *);
 extern s32 sub_0805F9B4(s32, s32);
-extern u8 *sub_08016238(u8 *);
+extern u8 *hitTestEntities(u8 *);
 extern s32 sub_080C31E0(s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -52,7 +52,7 @@ void sub_0808FE8C(u8 *entity)
   if (targetId == 0)
   {
     *((u8 *) ((*((u8 **) (state + 4))) + 1)) = 4;
-    t = sub_08016238(*((u8 **) (state + 4)));
+    t = hitTestEntities(*((u8 **) (state + 4)));
     if (t != NULL)
     {
       targetList = D_081003F0;

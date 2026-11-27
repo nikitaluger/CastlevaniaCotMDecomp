@@ -1,6 +1,6 @@
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 struct Control { u16 timer; };
 
@@ -23,7 +23,7 @@ void sub_0802459C(void *arg0)
   {
     control->timer = 0;
     *(u8 *)((u8 *)((u32)(*(s16 *)((u8 *)arg0 + 0x22)) * 2 + (u32)arg0) + 0x19) = 0;
-    stepHandler = gMainObjTimerCallback;
+    stepHandler = gScriptStepCallbackTable;
     sub_080C31E4(obj + 0x18, obj + 0x22, *stepHandler);
   }
 }

@@ -4,12 +4,12 @@ s32 sub_08013558(void *, void *, void *);
 void sub_08013978(void *, void *);
 void sub_080142C0(void *, void *);
 void sub_08013AC4(void *);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Owner-linked effect update: filter the interaction, apply contact handling,
  * raise the owner's hit flags, play the kind-specific cue and either dispatch a
@@ -66,7 +66,7 @@ void sub_08039FBC(void *entity) {
         return;
     }
 
-    if (sub_08013B5C(mainObj, state) == 0) {
+    if (updateObjectDisplayState(mainObj, state) == 0) {
         u8 *scriptPtr;
         u8 scriptByte;
         s32 idx;

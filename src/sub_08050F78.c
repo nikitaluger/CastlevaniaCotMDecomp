@@ -5,7 +5,7 @@ struct WorkState { u8 pad[0x20]; s16 step; u8 pad2[0x26]; u16 angle; };
 
 /* Set up the work object's motion from the angle at +0x48, then advance that
  * angle by 0x10 (mod 0x100). Once its step counter at +0x20 reaches 1 or less,
- * clear this action's byte at +0x19 and run the handler at D_08671BD0[0]. */
+ * clear this action's byte at +0x19 and run the handler at gScriptStepCallbacks[0]. */
 void sub_08050F78(void *arg0) {
     u8 *self = (u8 *)arg0;
     struct WorkState *work = *(struct WorkState **)(self + 0x3C);

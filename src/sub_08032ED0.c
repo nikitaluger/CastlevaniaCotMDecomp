@@ -1,7 +1,7 @@
 extern u8 gCameraState[];    /* scroll-offset table */
 extern u8 gMainWorkspace[];    /* global game state */
 extern u32 gSpriteAnimDataTable[];   /* frame-control data */
-extern u32 gMainObjTimerCallback[];   /* step-script operation */
+extern u32 gScriptStepCallbackTable[];   /* step-script operation */
 
 extern void allocWorkSlot(void *, u32, u32, u32);
 extern void *allocSpriteObject(void *);          /* create the sprite object */
@@ -11,7 +11,7 @@ extern void initSpriteGraphics(void *, void *, void *);
 extern void setAnimationFrame(void *, void *, u32, u32); /* set animation/frame control */
 extern void sub_0803AEF0(void *, void *, void *);
 extern void sub_0803AF70(void *, void *, void *, void *);
-extern u32 sub_0805FAEC(void *, u32);
+extern u32 spawnBudgetedEffect(void *, u32);
 extern void sub_080338F0(void *, void *, void *);
 extern void registerScriptObject(void *, u32);
 extern void sub_080C31E0(void *, void *);   /* cleanup callback */
@@ -47,7 +47,7 @@ void sub_08032ED0(void *arg0)
     sub_0803AEF0(arg0, logic, sprite);
     sub_0803AF70(arg0, logic, sprite, (u8 *)logic + 0x54);
 
-    if (sub_0805FAEC(arg0, 0xE1) == 0) {
+    if (spawnBudgetedEffect(arg0, 0xE1) == 0) {
 fail:
         sub_080C31E0(arg0, *(void **)((u8 *)arg0 + 0x24));
     } else {

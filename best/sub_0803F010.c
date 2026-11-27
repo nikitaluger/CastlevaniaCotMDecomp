@@ -2,11 +2,11 @@ void allocWorkSlot(void *, s32, s32, s32);
 void setAnimationFrame(s32, s32, s32, s32);
 s16 sub_08014990(s32);
 s32 sub_08016830(s32);
-void *sub_0805FAEC(s32, s32);
+void *spawnBudgetedEffect(s32, s32);
 s32 sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 extern u8 gMainWorkspace[];
-extern u8 gMainObjTimerCallback[];
+extern u8 gScriptStepCallbackTable[];
 
 void sub_0803F010(void *arg0)
 {
@@ -51,13 +51,13 @@ void sub_0803F010(void *arg0)
             *(u16 *)((u8 *)temp_r0_4 + 0x5C) |= 2;
         }
         *(s8 *)((u8 *)arg0 + (*(s16 *)((u8 *)arg0 + 0x22)) * 2 + 0x19) = zero;
-        pBB0 = (s32 *)gMainObjTimerCallback;
+        pBB0 = (s32 *)gScriptStepCallbackTable;
         sub_080C31E4((u8 *)arg0 + 0x18, (u8 *)arg0 + 0x22, *pBB0);
         return;
     }
     base = gMainWorkspace;
     off = 0x1870;
-    temp_r0_5 = sub_0805FAEC(*(s32 *)(base + off), 0x102);
+    temp_r0_5 = spawnBudgetedEffect(*(s32 *)(base + off), 0x102);
     if (temp_r0_5 != NULL)
     {
         allocWorkSlot(temp_r0_5, 0, 8, 7);

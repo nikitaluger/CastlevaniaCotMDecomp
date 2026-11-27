@@ -1,5 +1,5 @@
 /* identical to unregisterChildObject (matched), with its names changed by decompdecomp */
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 
@@ -8,7 +8,7 @@ extern struct S_02025FF0_1870 gMainWorkspace;
 
 void *sub_0801C9A0(s32 arg0, s32 arg1)
 {
-    void *temp_r0 = sub_0805FAEC(gMainWorkspace.v, 0x90);
+    void *temp_r0 = spawnBudgetedEffect(gMainWorkspace.v, 0x90);
     s32 var_r0;
     s32 var_r1;
 

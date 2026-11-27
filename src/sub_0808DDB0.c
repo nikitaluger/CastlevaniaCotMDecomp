@@ -1,4 +1,4 @@
-s32 sub_080113A8(void *, void *);
+s32 stepAnimationTrack(void *, void *);
 s32 sub_080C31E0(void *, void *);
 struct ScrollState
 {
@@ -35,7 +35,7 @@ void sub_0808DDB0(void *entity)
   yTable = coordTable + 0x127C;
   ;
   *((s32 *) (((u8 *) sprite) + 0x18)) = (*((s32 *) (((u8 *) self) + 0x5C))) - ((s32) (((*((s32 *) (yTable + coordOffset))) + 0xFFFF8000) & 0xFFFF0000));
-  sub_080113A8(sprite, animState);
+  stepAnimationTrack(sprite, animState);
   if ((*((u8 *) animState)) & 2)
   {
     sub_080C31E0(self, *((void **) (((u8 *) self) + 0x24)));

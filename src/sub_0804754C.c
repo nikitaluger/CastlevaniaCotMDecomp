@@ -9,8 +9,8 @@ extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
 extern void sub_08005E80(s32);
 extern s32 sub_0801576C(s32, void *, void *, void *, void *, void *);
-extern void sub_080113A8(s32, void *);
-extern void sub_0801165C(void *, s32);
+extern void stepAnimationTrack(s32, void *);
+extern void advanceMotion(void *, s32);
 extern void sub_08047A30(s32, void *);
 extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -77,8 +77,8 @@ void sub_0804754C(u8 *entity) {
         if ((*(u16 *)(entity + 2) & 0x8000) != 0) {
             goto end;
         }
-        sub_080113A8(sprite, animState);
-        sub_0801165C(motion, 0);
+        stepAnimationTrack(sprite, animState);
+        advanceMotion(motion, 0);
         goto postUpdate;
     } else {
 postUpdate:

@@ -1,7 +1,7 @@
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
-void sub_080113A8(s32, void *);
-void sub_0801165C(void *, s32);
+void stepAnimationTrack(s32, void *);
+void advanceMotion(void *, s32);
 void sub_080146D0(void *, s32, s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
@@ -18,7 +18,7 @@ struct S_B53B8 {
 
 void sub_080B53B8(struct S_B53B8 *arg0) {
     void *r5 = (void *)arg0->field_38;
-    if (sub_08013B5C(r5, (void *)arg0->field_3C) == 0) {
+    if (updateObjectDisplayState(r5, (void *)arg0->field_3C) == 0) {
         arg0->field_14 = 0x0867040C;
         arg0->field_22 += 1;
         *((u8 *)(((u8 *)arg0) + (arg0->field_22 * 2) + 0x19)) += 1;
@@ -31,14 +31,14 @@ void sub_080B53B8(struct S_B53B8 *arg0) {
 void sub_080B59C0(void *arg0) {
     s32 temp_r5 = *(s32 *)((u8 *)arg0 + 0x3C);
     s32 temp_r0;
-    sub_080113A8(*(s32 *)((u8 *)arg0 + 0x38), temp_r5 + 0x34);
+    stepAnimationTrack(*(s32 *)((u8 *)arg0 + 0x38), temp_r5 + 0x34);
     temp_r0 = *(s32 *)((u8 *)arg0 + 0x6C) + 0xFFFFF000;
     *(s32 *)((u8 *)arg0 + 0x6C) = temp_r0;
     if (temp_r0 <= 0) {
         *(s32 *)((u8 *)arg0 + 0x6C) = 0;
     }
     sub_080146D0((void *)temp_r5, *(s32 *)((u8 *)arg0 + 0x7C), *(s32 *)((u8 *)arg0 + 0x6C));
-    sub_0801165C((void *)temp_r5, 0);
+    advanceMotion((void *)temp_r5, 0);
     if (*(s32 *)((u8 *)arg0 + 0x6C) == 0) {
         s32 idx = *(s16 *)((u8 *)arg0 + 0x22);
         *(u8 *)((u8 *)arg0 + idx * 2 + 0x19) = 0;
@@ -51,7 +51,7 @@ void sub_080B59C0(void *arg0) {
 void sub_080B5A20(void *arg0) {
     u8 *obj = (u8 *)arg0;
     s32 *lit;
-    sub_080113A8(*(s32 *)(obj + 0x38), (u8 *)*(void **)(obj + 0x3C) + 0x34);
+    stepAnimationTrack(*(s32 *)(obj + 0x38), (u8 *)*(void **)(obj + 0x3C) + 0x34);
     if (*(u8 *)(obj + (*(s16 *)(obj + 0x22) * 2) + 0x19) == 8) {
         *(u8 *)(obj + (*(s16 *)(obj + 0x22) * 2) + 0x19) = 0;
         lit = (s32 *)0x08671BB0;
@@ -62,12 +62,12 @@ void sub_080B5A20(void *arg0) {
 void sub_080B5ACC(void *arg0) {
     s32 temp_r5 = *(s32 *)((u8 *)arg0 + 0x3C);
     s32 temp_r0;
-    sub_080113A8(*(s32 *)((u8 *)arg0 + 0x38), temp_r5 + 0x34);
+    stepAnimationTrack(*(s32 *)((u8 *)arg0 + 0x38), temp_r5 + 0x34);
     temp_r0 = *(s32 *)((u8 *)arg0 + 0x6C) + 0x800;
     *(s32 *)((u8 *)arg0 + 0x6C) = temp_r0;
     if (temp_r0 > 0x17FFF) {
         *(s32 *)((u8 *)arg0 + 0x6C) = 0x18000;
     }
     sub_080146D0((void *)temp_r5, *(s32 *)((u8 *)arg0 + 0x7C), *(s32 *)((u8 *)arg0 + 0x6C));
-    sub_0801165C((void *)temp_r5, 0);
+    advanceMotion((void *)temp_r5, 0);
 }

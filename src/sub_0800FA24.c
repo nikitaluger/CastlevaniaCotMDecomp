@@ -1,4 +1,4 @@
-extern s8 D_020278D0[];
+extern s8 gMenuState[];
 extern u16 D_080CB214[];
 extern u8 D_086426B4[];
 
@@ -21,7 +21,7 @@ void sub_0800FA24(u8 *actor)
   sprite = *(u8 **)(actor + 0x38);
   orv = 0x40 | *(sprite + 0x2A);
   *(sprite + 0x2A) = orv;
-  facingPtr = D_020278D0;
+  facingPtr = gMenuState;
   facingPtr += 0x6A;
   globalFacing = *facingPtr;
   dir = *((s8 *)(actor + 0x44));

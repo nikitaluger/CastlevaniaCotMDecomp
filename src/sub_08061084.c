@@ -1,5 +1,5 @@
 extern u8 gCameraState[];
-void sub_0805FAEC(void);
+void spawnBudgetedEffect(void);
 
 /* DMA-fill the 0xE0-byte palette block at 0x06001600 (bank chosen by bits
  * 2-3 of the control word) with the grey level byte at gCameraState+0x1439

@@ -1,7 +1,7 @@
-extern s32 sub_0806D518(void *, void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
-extern void sub_08003740(void *, void *);
-extern void sub_0806D2F8(void *, void *);
+extern void stepDelayTimer(void *, void *);
+extern void cullOffscreenEntity(void *, void *);
 extern void sub_080C31E0(void *, void *);
 
 struct S_02025FF0 {
@@ -36,12 +36,12 @@ void sub_0807BB2C(struct S_arg0 *actor) {
     work = actor->work;
     position = (u8 *)(work + 4);
     child = actor->child;
-    if (sub_0806D518(actor, child, position) != 0) goto end;
+    if (checkGlobalStateChange(actor, child, position) != 0) goto end;
     if ((s16)child->f04 > 0x3FF) goto fail;
     child->f04 += 0x40;
     child->f06 += 0x40;
     sub_0806D588(child, position);
-    sub_08003740((u8 *)(work + 0x20), child);
+    stepDelayTimer((u8 *)(work + 0x20), child);
     globals = &gMainWorkspace;
     if (globals->f173A == 0x1C) goto fail;
     if (globals->f14ED != 0) goto ok;
@@ -50,6 +50,6 @@ fail:
     sub_080C31E0(actor, actor->fallbackScript);
     goto end;
 ok:
-    sub_0806D2F8(actor, child);
+    cullOffscreenEntity(actor, child);
 end:;
 }

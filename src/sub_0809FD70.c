@@ -15,7 +15,7 @@ struct S_0809FD70
   u8 _0x60[0x0C];
   u32 field_0x6C;
 };
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_08014668(void *);
 void sub_080C31E0(void *, void *);
@@ -32,7 +32,7 @@ void sub_0809FD70(struct S_0809FD70 *arg0)
   new_var2 = new_var3->field_0x6C;
   *((u32 *) (((u8 *) r4) + 0x10)) = new_var2;
   sub_08014668(r6);
-  if (sub_08013B5C(r6, r4) == 0)
+  if (updateObjectDisplayState(r6, r4) == 0)
   {
     new_var3->field_0x14 = 0x0866FDC8;
     new_var3->field_0x22 += 1;

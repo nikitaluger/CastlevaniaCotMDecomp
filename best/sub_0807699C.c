@@ -1,10 +1,10 @@
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void playSound(void);
-extern s32 sub_08007DD8(s32, s32, s32);
-extern s32 sub_0806D2F8(void *, void *);
-extern s32 sub_0806D518(void *, void *, void *);
-extern void sub_0806D588(void *, void *);
-extern void sub_0806E114(s32, s32, s32, s32);
+extern s32 getTileTerrainB(s32, s32, s32);
+extern s32 cullOffscreenEntity(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
+extern void setSpriteScreenPosition(void *, void *);
+extern void spawnKind2CEntity(s32, s32, s32, s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
 struct T
@@ -46,7 +46,7 @@ void sub_0807699C(void *arg0)
   do { p6C4 = ((u8 *) p6C) + 4; } while (0);
   p38 = *((void **) (((u8 *) arg0) + 0x38));
   r4 = p6C4;
-  if (sub_0806D518(arg0, p38, r4) != 0)
+  if (checkGlobalStateChange(arg0, p38, r4) != 0)
   {
     return;
   }
@@ -77,7 +77,7 @@ void sub_0807699C(void *arg0)
   *((u16 *) (((u8 *) (*((void **) (((u8 *) p6C4) + 0x2C)))) + 0x14)) = 0;
   if (tbl->f38 != 0)
   {
-    if ((sub_08007DD8((0x02023130) + (((s32) gMainWorkspace.f18A8) << 6), *((s32 *) (((u8 *) r4) + 0)), *((s32 *) (((u8 *) r4) + 4))) << 16) != 0)
+    if ((getTileTerrainB((0x02023130) + (((s32) gMainWorkspace.f18A8) << 6), *((s32 *) (((u8 *) r4) + 0)), *((s32 *) (((u8 *) r4) + 4))) << 16) != 0)
     {
       sub_0808DBF8(*((s32 *) (((u8 *) r4) + 0)), *((s32 *) (((u8 *) r4) + 4)), 0);
       if (tbl->f40 != 0)
@@ -94,17 +94,17 @@ void sub_0807699C(void *arg0)
     {
       if (((*((u16 *) (((u8 *) p38) + 2))) & 0x10) == 0)
       {
-        do { do { sub_0806E114(*((s32 *) (((u8 *) arg0) + 0x28)), tbl->f44 | 0x10000000, *((s32 *) (((u8 *) r4) + 0)), *((s32 *) (((u8 *) r4) + 4))); } while (0); } while (0);
+        do { do { spawnKind2CEntity(*((s32 *) (((u8 *) arg0) + 0x28)), tbl->f44 | 0x10000000, *((s32 *) (((u8 *) r4) + 0)), *((s32 *) (((u8 *) r4) + 4))); } while (0); } while (0);
       }
       else
       {
-        do { do { sub_0806E114(*((s32 *) (((u8 *) arg0) + 0x28)), tbl->f44 | 0x20000000, *((s32 *) (((u8 *) r4) + 0)), *((s32 *) (((u8 *) r4) + 4))); } while (0); } while (0);
+        do { do { spawnKind2CEntity(*((s32 *) (((u8 *) arg0) + 0x28)), tbl->f44 | 0x20000000, *((s32 *) (((u8 *) r4) + 0)), *((s32 *) (((u8 *) r4) + 4))); } while (0); } while (0);
       }
       *((s32 *) (((u8 *) p6C4) + 0x5C)) = tbl->f48;
     }
   }
-  sub_08003740(((u8 *) p6C4) + 0x1C, p38);
-  sub_0806D588(p38, r4);
+  stepDelayTimer(((u8 *) p6C4) + 0x1C, p38);
+  setSpriteScreenPosition(p38, r4);
   if ((gMainWorkspace.f173A == 0x1C) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
   {
     fail:
@@ -112,6 +112,6 @@ void sub_0807699C(void *arg0)
 
     return;
   }
-  do { do { sub_0806D2F8(arg0, p38); } while (0); } while (0);
+  do { do { cullOffscreenEntity(arg0, p38); } while (0); } while (0);
 }
 

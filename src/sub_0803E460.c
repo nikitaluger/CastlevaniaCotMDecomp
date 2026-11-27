@@ -1,7 +1,7 @@
 /* Tear down an object: free its optional sub-objects (the pair at fields+0x4C
  * and 0x50), reset its field state, then dispatch its stored callback. */
 extern void sub_08015974(void);
-extern void sub_080161F0(void);
+extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -11,7 +11,7 @@ void sub_0803E460(void *arg0) {
     u32 *slotPtr;
     s32 count;
     if (*(u32 *)(fields + 0x28) != 0) {
-        sub_080161F0();
+        unlinkAndFreeObject();
     }
     if (*(u32 *)(fields + 0x2C) != 0) {
         sub_08015974();
@@ -20,7 +20,7 @@ void sub_0803E460(void *arg0) {
     count = 1;
     do {
         if (*slotPtr != 0) {
-            sub_080161F0();
+            unlinkAndFreeObject();
         }
         slotPtr++;
         count--;

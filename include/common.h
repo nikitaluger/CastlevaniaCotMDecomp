@@ -795,3 +795,483 @@ struct ProjectileSpawnEntity {
 /* Affine/OAM parameter words (u16[4]) shared by the scripted sprite constructors.
  * Copied into a render layer's tile0..tile3 fields. */
 extern u16 gScriptedSpriteAffineParams[];
+
+/* Constants for the animated entity-effect spawner (spawnAnimatedEntityEffect). */
+#define ANIMATED_EFFECT_WORK_SLOT_SIZE 0x48   /* size passed to allocWorkSlot */
+#define ANIMATED_EFFECT_ANIM_STEP      0x2C   /* animation step written to sprite+0x28 */
+
+/* Affine/OAM parameter words (u16[4]) copied into the animated effect's layer. */
+extern u16 gAnimatedEffectAffineParams[];
+
+/* Starting animation frame passed to setAnimationFrame by spawnAnimatedFixedEffect. */
+#define FIXED_EFFECT_ANIM_FRAME 0x1A
+
+/* Kind and extra flag bits used by the two-layer effect spawner. */
+#define TWO_LAYER_EFFECT_KIND     0x64
+#define TWO_LAYER_EFFECT_FLAG_B   0x800   /* second flag set on the owner on success */
+
+/* Work-slot size and starting animation frame for spawnObjectKindEffect. */
+#define OBJECT_KIND_EFFECT_WORK_SLOT 0x48
+#define OBJECT_KIND_EFFECT_ANIM_FRAME 0xE
+
+/* Work-slot size and starting animation frame of the fixed kind-0x4F effect. */
+#define KIND4F_EFFECT_WORK_SLOT 0x78
+#define KIND4F_EFFECT_ANIM_FRAME 5
+
+/* Kind, work slot, graphics id and starting frame of the kind-0x51 effect. */
+#define SPRITE_KIND_51_EFFECT     0x51
+#define KIND51_EFFECT_WORK_SLOT   0x48
+#define KIND51_EFFECT_GFX_ID      0x80000009
+#define KIND51_EFFECT_ANIM_FRAME  0xD
+
+/* Fixed descriptor fields of the effect spawned from an entity's +0x4C params.
+ * The parameter's low nibble selects a frame and the special variant uses an
+ * alternate extension layout. */
+#define PARAM_EFFECT_WORK_SLOT    0x54
+#define PARAM_EFFECT_TYPE         4
+#define PARAM_EFFECT_LAYER        0x80
+#define PARAM_EFFECT_ANIM3        0xFFFA
+#define PARAM_EFFECT_GFX_ID       0x80000007
+#define PARAM_EFFECT_VARIANT_MASK 0xF
+#define PARAM_EFFECT_SPECIAL      5
+#define PARAM_EFFECT_FLAG_A       (0x80 << 10)
+#define PARAM_EFFECT_FLAG_B       (0x80 << 7)
+#define PARAM_EFFECT_ATTR         0x96
+#define PARAM_EFFECT_EXT_ID       0x16C1
+
+/* Work slot, graphics id and starting animation frame of the kind-0x55 effect. */
+#define KIND55_EFFECT_WORK_SLOT   0x48
+#define KIND55_EFFECT_GFX_ID      0x80000009
+#define KIND55_EFFECT_ANIM_FRAME  0x24
+
+/* Work slot, graphics id and starting animation frame of the kind-0x87 effect. */
+#define KIND87_EFFECT_WORK_SLOT   0x48
+#define KIND87_EFFECT_GFX_ID      0x80000009
+#define KIND87_EFFECT_ANIM_FRAME  0x24
+
+/* Attack-effect sprite constructor (spawnAttackEffectSprite). */
+#define ATTACK_SPRITE_KIND       20      /* animation/effect kind installed in the work slot */
+#define ATTACK_SPRITE_WORK_SLOT  0x50    /* size passed to allocWorkSlot */
+#define ATTACK_SPRITE_ANIM_FRAME 0x19    /* starting animation frame */
+extern u16 gAttackSpriteAffineParams[]; /* four u16s copied into the effect part */
+
+/* Per-variant parameters consumed by updateTrackedBehaviorStep. All three
+ * symbols are overlapping views of the table at 0x08102B62, indexed by the
+ * variant byte at (state+0x48)+0x20:
+ *   gBehaviorAnimKinds - s16 animation kind passed to setObjectAnimation
+ *   gBehaviorSpeeds    - u32 movement speed, negated for an X-flipped sprite
+ *   gBehaviorRanges    - u32 distance threshold for the step transition
+ */
+extern s16 gBehaviorAnimKinds[];
+extern u32 gBehaviorSpeeds[];
+extern u32 gBehaviorRanges[];
+
+/* Work block reached at (entity work state)+0x48 for the tracked behaviour. */
+struct TrackedBehaviorWork {
+    u8 _0[0x18];
+    u32 stateCount; /* 0x18: bumped on every timer wrap */
+    u16 timer;      /* 0x1C: countdown; wrap switches to the next step */
+    u8 _1E[2];
+    u8 variant;     /* 0x20: index into the per-variant tables above */
+};
+
+/* Sprite OAM attribute 1 bit 0x10 mirrors the behaviour's X motion. */
+#define BEHAVIOR_SPEED_PARAM 0x4000   /* argument to the movement integrator */
+#define BEHAVIOR_FAR_X       0x400000 /* absolute-X cutoff that resets the variant */
+#define BEHAVIOR_FOCUS_RANGE 0x180000 /* radius passed to the focus-distance test */
+#define BEHAVIOR_STEP_RESET  4
+#define BEHAVIOR_STEP_ALT    5
+
+/* Script-driven object update family (updateScriptedObject and its siblings).
+ * Object fields: +0x02 flags (bit 0x8000 skips animation and repositioning),
+ * +0x14 script-command handler table, +0x18 stream of 2-byte steps (opcode
+ * byte, timer byte), +0x22 current step index (s16), +0x24 cleanup callback,
+ * +0x38 sprite, +0x3C work state.
+ * Work state: +0x00 hit flags (bit 0 = hit), +0x02 extra flags, +0x08/+0x0C
+ * fixed-point world X/Y, +0x28 collision target, +0x34 animation track,
+ * +0x48 per-step state word (0 normal, 1 special).
+ * Collision target: +0x01 transient hit flags (bits 0 and 2), +0x14 status. */
+#define SCRIPT_OBJ_FLAG_SKIP_ANIM 0x8000
+#define SCRIPT_OBJ_HIT_FLAG       1
+#define SCRIPT_TARGET_HIT_CLEAR   0xFB
+#define SCRIPT_STEP_TABLE_OFFSET  0x14
+#define SCRIPT_STEP_BASE_OFFSET   0x18
+#define SCRIPT_STEP_INDEX_OFFSET  0x22
+#define SCRIPT_OBJECT_DEATH_SFX   0x18A
+
+/* Scripted-attack sibling: its own step-handler table and death sound. */
+#define SCRIPT_ATTACK_STEP_TABLE  0x0866DC30
+#define SCRIPT_ATTACK_DEATH_SFX   0x189
+
+/* Step handler table and motion gravity of the timed scripted-attack object. */
+#define SCRIPT_TIMED_ATTACK_STEP_TABLE 0x0866E324
+#define SCRIPT_TIMED_ATTACK_GRAVITY    0x16C1
+/* gObjectScriptStepTable: Thumb handler pointers indexed by the step opcode. */
+extern void *gObjectScriptStepTable[];
+
+/* Fourth spawn-sprite script command (scriptCmdSpawnSprite4). The script
+ * reference type selects one of two sprite kinds; the render part's four
+ * default attributes come from gSpriteDefaultAttrs4, and the initial patrol
+ * target is jittered by randomizePatrolTarget. */
+#define SCRIPT_CMD4_REF_A   0xB3
+#define SCRIPT_CMD4_REF_B   0xB4
+#define SCRIPT_CMD4_KIND_A  0x56
+#define SCRIPT_CMD4_KIND_B  0x6F
+extern u16 gSpriteDefaultAttrs4[];
+
+/* Entity sprite constructor (initEntitySpriteGraphics): the entity's kind word
+ * selects one of two start frames; gEntitySpriteAnimTable supplies animation
+ * data and the allocated render layer uses graphics id 0x8000000E. */
+#define ENTITY_SPRITE_KIND_MASK  0x3FFF
+#define ENTITY_SPRITE_KIND_A     0x1DE
+#define ENTITY_SPRITE_KIND_B     0x1DF
+#define ENTITY_SPRITE_ANIM_A     0x42
+#define ENTITY_SPRITE_ANIM_B     0x46
+#define ENTITY_SPRITE_GFX_ID     0x8000000E
+#define ENTITY_SPRITE_WORK_SLOT  0x24
+#define ENTITY_SPRITE_READY      0x1000
+extern u8 gEntitySpriteAnimTable[];
+
+/* Script-step and event callback tables used by the moving/scripted-entity
+ * update path (updateScriptedProjectile). */
+#define MOVING_ENTITY_STEP_TABLE    0x0866D9BC
+#define SCRIPT_EVENT_CALLBACK_TABLE 0x08671BDC
+
+#define ANGLE_EFFECT_KIND        0x5F      /* sprite kind written to state+0x1C */
+#define ANGLE_EFFECT_POS_SCALE   0x600     /* world-offset scale applied to the trig result */
+#define ANGLE_EFFECT_WORK_SLOT   0x48      /* size passed to allocWorkSlot */
+
+/* Pose-animation step (updatePoseStep): animation id base, the frame at which
+ * the result entity is spawned, the workspace kind word and the spawned kind. */
+#define POSE_ANIM_BASE         0x27
+#define POSE_FINAL_STEP        8
+#define POSE_WORKSPACE_KIND    0x1870
+#define POSE_RESULT_KIND       0xE9
+
+/* Pause-menu status/item panel. Its state block starts at gMenuState and is
+ * indexed with the offsets below; the panel is one of several screens that
+ * share this work buffer. */
+#define MENU_REDRAW_FLAG      0x69  /* toggled 0/1 whenever the category changes */
+#define MENU_CATEGORY         0x6A  /* selected category, s8, wraps over 0..MENU_CATEGORY_MAX */
+#define MENU_CATEGORY_MAX     3
+#define MENU_ITEM_INDEX_BASE  0x6B  /* first item index of each category */
+#define MENU_SUB_OBJECT       0x48  /* spawned item-preview object pointer */
+#define MENU_ICON_TABLE       0x73  /* item icon ids, indexed by the item offset */
+#define MENU_ENABLED_TABLE    0xF3  /* one enabled byte per category */
+#define MENU_STATE_COPY_SIZE  0x48  /* player-state bytes snapshotted into the panel */
+#define MENU_CANCEL_STATE     0x64  /* cleared when the panel is closed with B */
+
+/* Button bits in the input words at gCameraState+0x1470 (held, with repeat)
+ * and gCameraState+0x146C (pressed this frame). */
+#define MENU_INPUT_PREV       0x40
+#define MENU_INPUT_NEXT       0x80
+#define MENU_INPUT_CANCEL     0x02
+#define MENU_INPUT_CONFIRM    0x01
+#define MENU_INPUT_DIR_BOTH   0xC0
+
+/* Scripted-menu input handler: sounds and the script commands it dispatches. */
+#define SCRIPT_MENU_MOVE_SFX     0x153
+#define SCRIPT_MENU_CANCEL_SFX   0x159
+#define SCRIPT_MENU_CONFIRM_SFX  0x155
+#define SCRIPT_MENU_CANCEL_CMD   0x11
+#define SCRIPT_MENU_CONFIRM_CMD  0x10
+
+/* Sound effects played by the panel update. */
+#define SFX_MENU_MOVE         (0xA7 << 1)
+#define SFX_MENU_CANCEL       0x14F
+#define SFX_MENU_CONFIRM      0x13B
+
+/* Spawn kind and initial animation step of the item-preview object. */
+#define MENU_SUB_OBJECT_KIND  0x1B
+#define MENU_SUB_OBJECT_STEP  2
+
+/* Script-thread fields used by the scripted angle-effect spawner. */
+#define SCRIPT_ANGLE_SPRITE_PTR   0x38  /* spawned sprite written back to the script thread */
+#define SCRIPT_ANGLE_WORK_PTR     0x3C  /* 0x48-byte work state allocated here */
+#define SCRIPT_ANGLE_POS_X        0x4C
+#define SCRIPT_ANGLE_POS_Y        0x5C
+#define SCRIPT_ANGLE_VALUE        0x6C  /* angle fed to the trig lookup */
+#define SCRIPT_ANGLE_ANIM_PARAM   0x7C
+#define SCRIPT_ANGLE_SCALE_FLAG   0x90  /* when set, halve the layer's palette delta */
+#define SCRIPT_ANGLE_CLEANUP_CB   0x24  /* handler called on any allocation failure */
+#define ANGLE_SCRIPT_ATTR_FLAG    0x400  /* sprite attribute bit set on the spawned sprite */
+#define ANGLE_SCRIPT_ANGLE_BIAS   0x4000 /* added to the angle before the trig lookup */
+
+/* Work state of the scripted angle-driven effect (0x48 bytes at script+0x3C). */
+struct ScriptedAngleEffectWork {
+    u8 _0[8];
+    u32 x;             /* 0x08 */
+    u32 y;             /* 0x0C */
+    u32 adjustedX;     /* 0x10: cosine-scaled position */
+    u32 adjustedY;     /* 0x14: sine-scaled position */
+    u8 _18[4];
+    u16 kind;          /* 0x1C: ANGLE_EFFECT_KIND */
+    u8 _1E[4];
+    u16 gfxIndex;      /* 0x22: index returned by findKindIndex */
+    u8 _24[4];
+    struct ScriptedAngleLayer *layer; /* 0x28 */
+};
+
+/* Render layer allocated by allocEffectPart for the scripted angle effect. */
+struct ScriptedAngleLayer {
+    u8 _0, mode, layer, priority;    /* 0x00..0x03 */
+    u16 gfxA;                        /* 0x04 */
+    u16 affine0, affine1, affine2, affine3; /* 0x06..0x0C */
+    s16 palette;                     /* 0x0E */
+    u32 sprite;                      /* 0x10 */
+};
+
+/* gEffectGfxTable entry as viewed by the scripted angle spawner. */
+struct ScriptedAngleGfxEntry { u8 _0[8]; u16 gfxA; u16 palette; u8 _C[0x1C]; };
+
+/* Field views used by updateBoundedScriptedAttack (and its sibling scripted
+ * attack updates): a collision target's transient hit byte, the sprite
+ * attribute byte controlling visibility, and the work state's hit flag word. */
+struct AttackTargetState {
+    u8 status;     /* 0x00: target status word low byte */
+    u8 hitState;   /* 0x01: transient hit flags (cleared on a new attack) */
+};
+
+struct AttackSpriteFlags {
+    u8 flag;       /* 0x2A: bit 0x40 hides the sprite, bit 0x10 cleared when visible */
+};
+
+struct AttackHitFlags {
+    u16 flag;      /* 0x00 of the attack work state: bit 0 means a hit landed */
+};
+
+/* Sprite visibility flag at AttackSpriteFlags+0, and the mask that clears it. */
+#define ATTACK_SPRITE_HIDE_FLAG 0x40
+#define ATTACK_SPRITE_SHOW_MASK 0xBF
+
+/* States written to AttackTargetState.hitState by a bounded attack. */
+#define ATTACK_TARGET_CLEAR  0
+#define ATTACK_TARGET_PENDING 4
+
+/* Tile-map collision walkers (traceTilemapCollision / resolveTilemapCollision).
+ * Positions are 16.16 fixed point; a map page is 0x40 bytes, the low 16 bits
+ * select a tile within the page, and a blocked tile reports the tile centre.
+ * gTileTerrainFlags stores one u16 collision mask per terrain code at code*2. */
+#define TILEMAP_PAGE_STRIDE      0x40
+#define TILE_CENTER_BIAS         0x8000
+#define FIXED_POINT_FRAC_MASK    0xFFFF0000
+
+/* DSS card-combination menu (updateCardCombinationMenu). gMenuState is a shared
+ * work buffer; this screen uses the fields below. Cards hold values 1..10. */
+#define CARD_MENU_SLOT_A        0x40  /* card value in slot A */
+#define CARD_MENU_SLOT_B        0x41  /* card value in slot B */
+#define CARD_MENU_ACTIVE_SLOT   0xF8  /* 0 = slot B active, 1 = slot A active */
+#define CARD_MENU_CLOSED_FLAG   0x64  /* cleared when the menu is closed */
+#define CARD_MENU_CARD_MIN      1
+#define CARD_MENU_CARD_MAX      10
+#define CARD_MENU_STATE_ID      0x0E  /* state dispatched on close */
+
+/* Held-input bits (gCameraState+0x1470) used by the card menu. */
+#define CARD_INPUT_CARD_UP      0x20
+#define CARD_INPUT_CARD_DOWN    0x10
+#define CARD_INPUT_DIR_BOTH     0x30
+#define CARD_INPUT_SLOT_A       0x40
+#define CARD_INPUT_SLOT_B       0x80
+#define CARD_INPUT_SLOT_BOTH    0xC0
+
+/* Pressed-this-frame bits (gCameraState+0x146C): A/B close the menu. */
+#define CARD_INPUT_CLOSE_MASK   3
+
+/* Sound effects (sub_08005E80) played by the card menu. */
+#define CARD_MENU_SFX_CHANGE    0x139
+#define CARD_MENU_SFX_SLOT      0x140
+#define CARD_MENU_SFX_CLOSE     0x14F
+
+/* Randomized-offset attack spawned by spawnRandomOffsetAttack: the work state
+ * at owner+0x3C holds the attack kind and the chosen animation slot. */
+#define RAND_ATTACK_KIND       0x24   /* s16 kind stored at work+0x1C */
+#define RAND_ATTACK_WORK_SIZE  0x48   /* bytes allocated for the work state */
+#define RAND_ATTACK_ATTR_BASE  0x200  /* base OAM attribute word written to sprite+0x00 */
+#define RAND_ATTACK_FRAME_BIAS 8      /* added to the animation slot for the frame id */
+
+/* Owner fields read as the random-offset parameters passed to sub_0803C70C. */
+#define RAND_ATTACK_X_DIR_MODE  0x98  /* s8 direction multiplier */
+#define RAND_ATTACK_X_MODE      0x90  /* u8 X distribution mode */
+#define RAND_ATTACK_Y_MODE      0x94  /* u8 Y distribution mode */
+#define RAND_ATTACK_X_RANGE     0x6C  /* s32 fixed-point X range */
+#define RAND_ATTACK_Y_RANGE     0x7C  /* s32 fixed-point Y range */
+
+/* Timed actor/enemy AI update (updateActorAiWithTimer). Its work state hangs
+ * off the actor's +0x6C pointer; the +0x3C field is a position reference. */
+struct TimedAiActor {
+    u8 _0[0x18];
+    u8 kind;        /* 0x18 */
+    u8 _19[9];
+    s16 animIndex;  /* 0x22: current script-step index */
+    u8 _24[0x14];
+    u32 refPtr;     /* 0x38: position/target reference */
+    u8 _3C[0x30];
+    u32 aiPtr;      /* 0x6C: AI work state minus 4 */
+};
+
+struct TimedAiWork {
+    u8 _0[0xD0];
+    u16 fD0;        /* 0xD0 */
+    u16 fD2;        /* 0xD2 */
+};
+
+struct TimedAiState {
+    u8 _0[8];
+    u32 f08;        /* 0x08 */
+    u32 timer;      /* 0x0C: advanced from ENEMY_PARAM_TABLE */
+    u8 _10[0x1A];
+    u16 f2A;        /* 0x2A */
+    u16 mode;       /* 0x2C */
+    u8 _2E[0x12];
+    u32 idleTimer;  /* 0x40 */
+    u32 tableIndex; /* 0x44: row index into ENEMY_PARAM_TABLE */
+    u8 _48[4];
+    u32 flag4C;     /* 0x4C */
+    u32 flag50;     /* 0x50 */
+    u8 _54[0x64];
+    u32 flagB8;     /* 0xB8 */
+    u8 _BC[8];
+    u32 aiResult;   /* 0xC4: script step to dispatch */
+};
+
+/* Dash afterimage effect (spawnDashAfterimageEffect). */
+#define DASH_AFTERIMAGE_SFX       0x8F
+#define DASH_AFTERIMAGE_TIMER     0x7B
+#define DASH_AFTERIMAGE_SCALE_A   0x2D  /* percentage used for character 1 */
+#define DASH_AFTERIMAGE_SCALE_B   0x20  /* percentage for other characters */
+#define DASH_AFTERIMAGE_VEL_LEFT  0xFFF80000  /* fixed-point -8.0 */
+#define DASH_AFTERIMAGE_VEL_RIGHT 0x00080000  /* fixed-point +8.0 */
+#define DASH_AFTERIMAGE_ANIM_SEQ  0x084733C4  /* animation sequence installed at sprite+0x24 */
+#define DASH_AFTERIMAGE_GFX_ID    0x80000006  /* graphics id installed at sprite+0x1C */
+
+/* Clearing the horizontal-flip bit (SPRITE_OAM_FLIP_X) of sprite attribute 1. */
+#define SPRITE_OAM_FLIP_X_CLEAR 0xFFEF
+
+/* Standard GBA button bits in the input words at gCameraState+0x146C (pressed
+ * this frame) and gMainWorkspace+0x2A (held). */
+#define BUTTON_A       0x001
+#define BUTTON_RIGHT   0x010
+#define BUTTON_LEFT    0x020
+#define BUTTON_UP      0x040
+#define BUTTON_DOWN    0x080
+#define BUTTON_R       0x100
+#define BUTTON_L       0x200
+
+/* Form-preview controller: fixed-point move step, highest form index and the
+ * screen-centre coordinates written to the preview sprite. */
+#define FORM_PREVIEW_MOVE_STEP 0x20000
+#define FORM_PREVIEW_MAX_FORM  0x34
+#define FORM_PREVIEW_CENTER_X  (0xF0 << 15)
+#define FORM_PREVIEW_CENTER_Y  (0xC8 << 15)
+
+/* Kind-0x68 effect spawner (50 render parts): shared layouts and tables. */
+
+/* One render part allocated by allocEffectPart for each of the 50 slots. */
+struct Kind68EffectPart {
+    u8 _0;
+    u8 active;     /* 0x01: 0 while spawning */
+    u8 layer;      /* 0x02: 8 */
+    u8 priority;   /* 0x03: 1 */
+    u16 gfxIndex;  /* 0x04: tile id from gEffectGfxTable */
+    u16 affine0;   /* 0x06 */
+    u16 affine1;   /* 0x08 */
+    u16 affine2;   /* 0x0A */
+    u16 affine3;   /* 0x0C */
+    u16 palette;   /* 0x0E: palette id from gEffectGfxTable */
+    u32 sprite;    /* 0x10: owner sprite */
+};
+
+/* Four u16 affine/OAM words copied into each of the 50 render parts. */
+extern u16 gKind68EffectAffineParams[];
+
+/* Kind-0x59 script effect (spawnKind59ScriptEffect and its variant): the actor
+ * owns a sprite plus a 0x48-byte work block, whose +0x28 pointer is one render
+ * layer allocated by allocEffectPart. */
+#define KIND59_EFFECT_KIND       0x59        /* kind / animation index */
+#define KIND59_EFFECT_GFX_ID     0x80000009
+#define KIND59_EFFECT_WORK_SIZE  0x48
+#define KIND59_EFFECT_ANIM_TABLE 0x080CD400
+#define KIND59_EFFECT_ANIM_FRAME 0x1E
+#define KIND59_EFFECT_READY      0x1000       /* actor flags bit set on success */
+
+/* Render layer allocated by allocEffectPart for the kind-0x59 script effect. */
+struct Kind59EffectLayer {
+    u8 _0;        /* 0x00: unused */
+    u8 active;    /* 0x01: 0 while spawning */
+    u8 layer;     /* 0x02: 8 */
+    u8 priority;  /* 0x03: 1 */
+    u16 gfxIndex; /* 0x04: tile id from gEffectGfxTable */
+    u16 anim0;    /* 0x06 */
+    u16 anim1;    /* 0x08 */
+    u16 anim2;    /* 0x0A */
+    u16 anim3;    /* 0x0C */
+    u16 palette;  /* 0x0E: palette id from gEffectGfxTable */
+    u32 sprite;   /* 0x10: owner sprite */
+};
+
+/* Per-kind graphics entry: tile id at +0x08, palette at +0x0A. */
+struct Kind59GfxEntry {
+    u8 _0[4];
+    u16 f4;
+    u16 f6;
+    u16 gfxIndex; /* 0x08 */
+    u16 palette;  /* 0x0A */
+    u8 _C[0x1C];
+};
+
+/* Work block held in the actor's +0x3C slot. */
+struct Kind59EffectWork {
+    u8 _0[8];
+    s32 x;        /* 0x08: world X */
+    s32 y;        /* 0x0C: world Y */
+    u32 f10;
+    u32 f14;
+    u8 _18[4];
+    s16 kind;     /* 0x1C: KIND59_EFFECT_KIND */
+    u8 _1E[4];
+    s16 animSlot; /* 0x22: index returned by findKindIndex */
+    u8 _24[4];
+    struct Kind59EffectLayer *layer; /* 0x28 */
+    u8 _2C[8];
+};
+
+/* Actor owning the kind-0x59 script effect. */
+struct Kind59EffectActor {
+    u16 f0;
+    u16 flags;        /* 0x02: KIND59_EFFECT_READY */
+    u8 _4[0x14 - 4];
+    void *scriptTable; /* 0x14: script command handler table */
+    u8 _18[0xA];
+    s16 step;         /* 0x22: current script-step index */
+    void *cleanup;    /* 0x24: cleanup callback */
+    u8 _28[0x38 - 0x28];
+    void *sprite;     /* 0x38 */
+    void * volatile work; /* 0x3C */
+    u8 _40[0xC];
+    u32 spawnX;       /* 0x4C */
+    u8 _50[0xC];
+    u32 spawnY;       /* 0x5C */
+};
+
+/* Arcing trail attack: state block at work+0x48, holding one spawned object
+ * pointer per trail point. */
+struct ArcTrailState {
+    s32 angle;         /* 0x00: sine-derived horizontal offset */
+    u16 angleStep;     /* 0x04: sine-table index */
+    u16 timer;         /* 0x06 */
+    u16 spawnTimer;    /* 0x08: frames until the next trail point */
+    u8 _0A[4];
+    u16 count;         /* 0x0E: trail points still to spawn */
+    s16 phase;         /* 0x10: 0 = start-up, 1 = looping */
+    s32 centerX;       /* 0x14 */
+    s32 centerY;       /* 0x18 */
+    u8 _1C[8];
+    s16 direction;     /* 0x24: +1 / -1 facing */
+    u8 _26[2];
+    void *points[10];  /* 0x28: dust objects spawned along the trail */
+};
+
+#define ARC_TRAIL_ANGLE_DIVISOR 0x24       /* angle-step divisor for the sine lookup */
+#define ARC_TRAIL_MAX_POINTS    0xA        /* index bound of points[] */
+#define ARC_TRAIL_DUST_KIND     0xA2       /* kind of the spawned trail dust */
+#define SPAWN_KIND_OFFSET       0x1870     /* word in gMainWorkspace used as spawn parent/kind */

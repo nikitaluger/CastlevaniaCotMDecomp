@@ -1,4 +1,4 @@
-extern void sub_08011898(void *, s32);
+extern void moveEntityWithCollision(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* Step the object's motion by 0x16C1 units, OR the resulting status bits into
@@ -10,7 +10,7 @@ void sub_08041ECC(void *arg0)
   u8 *state = *((u8 **)(obj + 0x3C));
   u8 *animState = state + 0x48;
   s32 *advanceFunc;
-  sub_08011898(state, 0x16C1);
+  moveEntityWithCollision(state, 0x16C1);
   *((u16 *)(animState + 2)) = (u16)(*((u16 *)(animState + 2)) | *((u16 *)(state + 2)));
   if (4 & *((u16 *)(state + 2)))
   {

@@ -6,7 +6,7 @@ struct BdEntry { u8 _0[0xC]; u16 f4; u16 f6; u8 _8[0x16]; };
 extern struct BdEntry gEffectGfxTable[];
 extern u16 D_08102E08[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -18,7 +18,7 @@ extern void sub_080B98B8(void *, s32, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097DC8(void);
+extern void updateActorEffectSubObject(void);
 
 /* Creates a new entity for this object, fills its config block from the
  * animation/stat tables, and dispatches a child-creation callback. */
@@ -40,7 +40,7 @@ void sub_080B905C(u8 *arg0) {
   *(u32 *)(newEnt + 0x1C) = 2;
   obj = (struct Object *)*(u32 *)(arg0 + 0x3C);
   objSub = (u8 *)obj + 0x34;
-  installUpdateHandler(arg0, obj, sub_08097DC8);
+  installUpdateHandler(arg0, obj, updateActorEffectSubObject);
   obj->f1C = 0x67;
   obj->f8 = *(u32 *)(arg0 + 0x5C);
   obj->fC = *(u32 *)(arg0 + 0x6C);
@@ -80,7 +80,7 @@ ok:
     s16 slotIdx = *(s16 *)(arg0 + 0x22);
     *(u8 *)(arg0 + (u32)slotIdx * 2 + 0x19) = 0;
   }
-  callback = &gMainObjTimerCallback;
+  callback = &gScriptStepCallbackTable;
   slots = arg0 + 0x18;
   sub_080C31E4(slots, arg0 + 0x22, *callback);
   {

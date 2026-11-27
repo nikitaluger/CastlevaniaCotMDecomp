@@ -1,4 +1,4 @@
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_08014668(void *, s8);
 
@@ -21,7 +21,7 @@ void sub_080BBEF4(void *arg0)
   parent = *((void **)((s8 *)arg0 + 0x28));
   parentEntity = *((void **)((s8 *)parent + 0x3C));
   parentState = *((void **)((s8 *)parent + 0x4C));
-  if (sub_08013B5C(work, entity) == 0)
+  if (updateObjectDisplayState(work, entity) == 0)
   {
     s32 byteOffset;
     u8 *scriptData;

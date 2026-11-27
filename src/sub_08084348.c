@@ -24,8 +24,8 @@ struct S_02025FF0_43 {
 };
 extern struct S_02025FF0_43 gMainWorkspace;
 
-extern s32 sub_0806D518(void *, u16 *, void *);
-extern s32 sub_08003740(void *, u16 *);
+extern s32 checkGlobalStateChange(void *, u16 *, void *);
+extern s32 stepDelayTimer(void *, u16 *);
 extern void sub_0806D588(u16 *, void *);
 extern void sub_080C31E0(void *, void *);
 
@@ -33,10 +33,10 @@ void sub_08084348(struct S_sub_08084348 *arg0) {
     u8 *r7 = arg0->unk6C;
     struct S_B_43 *r5 = (struct S_B_43 *)(r7 + 4);
     u16 *r6 = arg0->unk38;
-    if (sub_0806D518(arg0, r6, r5) == 0) {
+    if (checkGlobalStateChange(arg0, r6, r5) == 0) {
         struct S_02025FF0_43 *base = &gMainWorkspace;
         *r6 = base->field18C2;
-        if (sub_08003740(r7 + 0x20, r6) == 0) {
+        if (stepDelayTimer(r7 + 0x20, r6) == 0) {
             sub_080C31E0(arg0, arg0->unk24);
             return;
         }

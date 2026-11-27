@@ -1,13 +1,13 @@
 s32 sub_0806D35C(void *, void *, void *);
-void sub_0806D2F8(void *, void *);
+void cullOffscreenEntity(void *, void *);
 void sub_0806D588(void *, void *);
-void sub_0806E114(void *, s32, s32, s32);
-void sub_080722E0(void *, u32);
-void sub_08072334(void *, s32, s32, void *);
-void sub_08003740(void *, void *);
+void spawnKind2CEntity(void *, s32, s32, s32);
+void setDirectionVector(void *, u32);
+void turnHeadingToward(void *, s32, s32, void *);
+void stepDelayTimer(void *, void *);
 void sub_080C31E4(void *, void *, void *);
 void sub_080C31E0(void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 
 struct GameState {
     u8 _0[0x10];
@@ -47,7 +47,7 @@ void sub_080716B8(void *entity)
     tmp = 2;
     *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = check;
     {
-      void **animFn = &gMainObjTimerCallback;
+      void **animFn = &gScriptStepCallbackTable;
       u8 *slots = self + 0x18;
       sub_080C31E4(slots, self + 0x22, *animFn);
       {
@@ -71,7 +71,7 @@ void sub_080716B8(void *entity)
   {
     *((u8 *) ((self + ((*((s16 *) (self + 0x22))) * 2)) + 0x19)) = remaining;
     {
-      void **animFn = &gMainObjTimerCallback;
+      void **animFn = &gScriptStepCallbackTable;
       u8 *slots = self + 0x18;
       sub_080C31E4(slots, self + 0x22, *animFn);
       {
@@ -89,8 +89,8 @@ void sub_080716B8(void *entity)
     }
     return;
   }
-  sub_08072334(body, *((s32 *) (stateObj + 0x0C)), *((s32 *) (stateObj + 0x10)), parent + 0x20);
-  sub_080722E0(body, *((u8 *) (parent + 0x24)));
+  turnHeadingToward(body, *((s32 *) (stateObj + 0x0C)), *((s32 *) (stateObj + 0x10)), parent + 0x20);
+  setDirectionVector(body, *((u8 *) (parent + 0x24)));
   tmp = (*((s32 *) (body + 0x1C))) >> 8;
   delta = tmp * (*((s32 *) (body + 0x08)));
   if (delta < 0)
@@ -108,10 +108,10 @@ void sub_080716B8(void *entity)
   delta >>= 8;
   *((s32 *) (body + 0x04)) += delta;
   sub_0806D588(status, body);
-  sub_08003740(parent + 0x30, status);
+  stepDelayTimer(parent + 0x30, status);
   if ((*((u16 *) ((*((u8 **) (body + 0x3C))) + 0x14))) & 1)
   {
-    sub_0806E114(*((void **) (self + 0x28)), 8, *((s32 *) (parent + 0x04)), *((s32 *) (body + 0x04)));
+    spawnKind2CEntity(*((void **) (self + 0x28)), 8, *((s32 *) (parent + 0x04)), *((s32 *) (body + 0x04)));
     goto via;
   }
   if (gMainWorkspace.field14FC != 0)
@@ -135,7 +135,7 @@ void sub_080716B8(void *entity)
 
   return;
   d2f8:
-  sub_0806D2F8(self, status);
+  cullOffscreenEntity(self, status);
 
   return;
   done:

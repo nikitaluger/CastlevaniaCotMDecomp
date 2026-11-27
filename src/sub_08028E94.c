@@ -1,16 +1,16 @@
-extern void sub_080113A8(s32, void *);
-extern void sub_0801165C(void *, s32);
+extern void stepAnimationTrack(s32, void *);
+extern void advanceMotion(void *, s32);
 extern s32 sub_08013558(s32, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(s32, void *);
+extern s32 updateObjectDisplayState(s32, void *);
 extern void sub_08013C5C(void *, s32);
 extern void sub_08013C8C(void *, s32);
 extern s32 sub_080141AC(s32, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 
 /* Runs one tick of a scripted entity: refreshes its owner/target state, does a
  * one-time action when flagged, then dispatches the current script step. */
@@ -36,12 +36,12 @@ void sub_08028E94(u8 *self) {
                 u8 *q = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
                 u8 zero = 0;
                 *(u8 *)(q + 0x1B) = zero;
-                { void **actionTable = &D_08671BDC;
+                { void **actionTable = &sScriptStepCallbacks;
                   sub_080C31E8(self + 0x18, self + 0x22, 2, *actionTable); }
             }
         }
     }
-    if (sub_08013B5C(owner, params) == 0) {
+    if (updateObjectDisplayState(owner, params) == 0) {
         *(void **)(self + 0x14) = (void *)0x0866DA30;
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) + 1;
         {
@@ -60,8 +60,8 @@ void sub_08028E94(u8 *self) {
         if (*(u16 *)(self + 0x02) & 0x8000) {
             return;
         }
-        sub_080113A8(owner, animState);
-        sub_0801165C(params, 0);
+        stepAnimationTrack(owner, animState);
+        advanceMotion(params, 0);
     }
     sub_08013C8C(self, owner);
 }

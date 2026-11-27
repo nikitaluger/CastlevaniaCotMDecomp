@@ -1,7 +1,7 @@
 void setAnimationFrame(void *, void *, s32, s32);
 s32 sub_080458CC(void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 
 struct WaitCtrl { u16 flags; u16 mode; u16 timer; };
 
@@ -43,7 +43,7 @@ void sub_0804570C(void *arg0)
     {
       ctrl->mode = 0;
       *((u8 *) ((((u8 *) selfPtr) + ((*((s16 *) (((u8 *) arg0) + 0x22))) * 2)) + 0x19)) = 0;
-      handlerPtr = (s32 *) (&D_08671BD0);
+      handlerPtr = (s32 *) (&gScriptStepCallbacks);
       sub_080C31E8(((u8 *) arg0) + 0x18, ((u8 *) arg0) + 0x22, 0, *handlerPtr);
     }
   }

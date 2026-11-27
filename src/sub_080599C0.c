@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -26,7 +26,7 @@ void sub_080599C0(void *arg0)
     if ((*anim) & 2) {
         direction = (*(s32 *)(work + 8) > *(s32 *)(work + 0x48)) ? (s32)0xFFFFE000 : 0x2000;
         *(s32 *)(work + 0x10) = direction;
-        randomPart = sub_08005820(0x65);
+        randomPart = scaleByRandom(0x65);
         delay = randomPart + 0x78;
         zero = zeroU16();
         *(u16 *)(pose + 4) = (u16)delay;

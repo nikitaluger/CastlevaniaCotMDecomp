@@ -3,12 +3,12 @@ extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
 extern s32 D_080DFF9C[];
 extern s32 D_080DFFB0[];
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 s32 sub_08084500(void *a, void *b, void *c);
 void sub_080C31E8(void *a, void *b, s32 c, u32 d);
 void *sub_0806D24C(s32 arg0, s32 arg1, u32 arg2, s32 arg3);
 void sub_08084AD0(void *a);
-void sub_0806A7AC(void *a, void *b, s32 c);
+void setEntityForm(void *a, void *b, s32 c);
 void sub_08085440(void *a, void *b, void *c, s32 d);
 inline u8 *inline_fn(void *arg0)
 {
@@ -69,7 +69,7 @@ s32 sub_0806B66C(void *a, void *b, void *c)
       *inline_fn((r5 + (idx * 2)) + 0x19) = 0;
       {
         u32 *nv;
-        nv = &D_08671BD0;
+        nv = &gScriptStepCallbacks;
         sub_080C31E8(r5 + 0x18, r5 + 0x22, r8, *nv);
       }
       return 2;
@@ -100,7 +100,7 @@ s32 sub_0806B66C(void *a, void *b, void *c)
             *((u16 *) (inline_fn(res) + 0x7C)) = bval;
             *((u16 *) (inline_fn(res) + 0x84)) = r8;
             do { sub_08084AD0(r5); } while (0);
-            sub_0806A7AC(r10, r6, 0x18);
+            setEntityForm(r10, r6, 0x18);
             {
               s16 idx;
               idx = *((s16 *) (r5 + 0x22));
@@ -108,7 +108,7 @@ s32 sub_0806B66C(void *a, void *b, void *c)
             }
             {
               u32 *nv;
-              nv = &D_08671BD0;
+              nv = &gScriptStepCallbacks;
               sub_080C31E8(r5 + 0x18, r5 + 0x22, 0x11, *nv);
             }
             return 1;
@@ -132,7 +132,7 @@ s32 sub_0806B66C(void *a, void *b, void *c)
     }
     {
       u32 *nv;
-      nv = &D_08671BD0;
+      nv = &gScriptStepCallbacks;
       sub_080C31E8(r5 + 0x18, r5 + 0x22, 0x0B, *nv);
     }
     return 1;

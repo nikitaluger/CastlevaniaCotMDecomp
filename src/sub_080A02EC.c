@@ -21,13 +21,13 @@ s32 sub_080A02AC(void) {
     else return 0;
 }
 
-void *sub_0805FAEC(s32, s32);
+void *spawnBudgetedEffect(s32, s32);
 extern u16 D_0866FDE8[];
 
 /* Spawns a type-0x184 effect from the source entity, copying its +0x4C word and
  * filling in +0x5C and +0x6C; returns NULL when no object slot is available. */
 void *sub_080A02EC(void *source) {
-    void *effect = sub_0805FAEC((s32)gMainWorkspace.v, 0x184);
+    void *effect = spawnBudgetedEffect((s32)gMainWorkspace.v, 0x184);
     void *result;
     if (effect != NULL) {
         u16 index;

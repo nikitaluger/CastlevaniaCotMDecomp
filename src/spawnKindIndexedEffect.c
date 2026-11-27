@@ -83,7 +83,7 @@ extern u8 gSpriteAnimDataTable[];
 extern u32 gChildSpriteKindTable[];
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 void spawnKindIndexedEffect(struct EffectSpawnerEntity *actor)
 {
   struct EffectSprite *sprite;
@@ -174,7 +174,7 @@ void spawnKindIndexedEffect(struct EffectSpawnerEntity *actor)
   stateIndex = *((s16 *) (((u8 *) actor) + 0x22));
   *((((u8 *) actor) + (((s32) stateIndex) * 2)) + 0x19) = 0;
   {
-    u32 *callbackTable = &gMainObjTimerCallback;
+    u32 *callbackTable = &gScriptStepCallbackTable;
     u8 *extra = ((u8 *) actor) + 0x18;
     u8 *stateIndexPtr = ((u8 *) actor) + 0x22;
     sub_080C31E4(extra, stateIndexPtr, *callbackTable);

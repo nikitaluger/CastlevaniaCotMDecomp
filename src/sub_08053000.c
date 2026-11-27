@@ -1,4 +1,4 @@
-s32 sub_08005820(s32 bound);
+s32 scaleByRandom(s32 bound);
 s32 setAnimationFrame(s32 sprite, void *animData, s32 anim, s32 flag);
 s32 sub_08014990(void *sprite);
 s32 sub_08053678(s32 x, s32 y);
@@ -42,5 +42,5 @@ void sub_08053000(void *arg0) {
         sub_08053678(x, y);
         offset += 4;
     } while ((s32)offset <= (s32)(offsetTable + 8));
-    *(u16 *)timer = (u16)(sub_08005820(0x79) + 0xF0);
+    *(u16 *)timer = (u16)(scaleByRandom(0x79) + 0xF0);
 }

@@ -3,18 +3,18 @@ extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u8 D_080CAFA8[];
 extern u32 D_0866CEF4[];
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 struct RoomState { u8 _0[0x64]; u8 state, prevState, mirror; };
-extern struct RoomState D_020278D0;
+extern struct RoomState gMenuState;
 
 /* Compare the room's current and previous state bytes; play one of two sounds
  * on a change, then refresh the cached bytes, dispatch the state's callback and
  * advance one script step. */
 void sub_0800CEB8(u8 *entity) {
     u8 *stateTable = D_080CAFA8;
-    u8 curIndex = D_020278D0.state;
+    u8 curIndex = gMenuState.state;
     u8 *curEntry = &stateTable[curIndex * 4];
-    u8 prevIndex = D_020278D0.prevState;
+    u8 prevIndex = gMenuState.prevState;
     u8 *prevEntry = &stateTable[prevIndex * 4];
     u8 curValue = *curEntry;
     u8 prevValue = *prevEntry;
@@ -27,10 +27,10 @@ void sub_0800CEB8(u8 *entity) {
         }
     }
     {
-        u8 stateNow = D_020278D0.state;
-        D_020278D0.mirror = stateNow;
-        D_020278D0.prevState = stateNow;
-        sub_080C31E0(entity, (void *)D_0866CEF4[D_020278D0.state]);
+        u8 stateNow = gMenuState.state;
+        gMenuState.mirror = stateNow;
+        gMenuState.prevState = stateNow;
+        sub_080C31E0(entity, (void *)D_0866CEF4[gMenuState.state]);
         {
             u8 zero = 0;
             s32 off = *(s16 *)(entity + 0x22);
@@ -38,7 +38,7 @@ void sub_0800CEB8(u8 *entity) {
             off += (u32)entity;
             *(u8 *)(off + 0x19) = zero;
             {
-                void **scriptCallbacks = &gMainObjTimerCallback;
+                void **scriptCallbacks = &gScriptStepCallbackTable;
                 u8 *base = entity + 0x18;
                 sub_080C31E4(base, entity + 0x22, *scriptCallbacks);
             }

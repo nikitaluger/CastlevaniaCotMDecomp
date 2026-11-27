@@ -1,11 +1,11 @@
-extern void sub_08003A6C(void *, s32, const void *);
-extern void sub_08003740(void *, void *);
+extern void startEffectTimer(void *, s32, const void *);
+extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 
 extern u32 gMainWorkspace[];
 extern const void D_084FEC0C;
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Tick a mover's attached animation: when the global mode word (+0x1C) is 1,
  * start the sub-script stored at mover+0x20 on its frame data and advance the
@@ -20,13 +20,13 @@ void sub_08088AEC(void *self)
 
     if (gMainWorkspace[7] == 1) {
         u32 *scriptTable;
-        sub_08003A6C(mover + 0x20, 0, &D_084FEC0C);
+        startEffectTimer(mover + 0x20, 0, &D_084FEC0C);
         gMainWorkspace[7] = 2;
         *(u8 *)(a + (*(s16 *)(a + 0x22) * 2) + 0x19) = 0;
-        scriptTable = gMainObjTimerCallback;
+        scriptTable = gScriptStepCallbackTable;
         sub_080C31E4(a + 0x18, a + 0x22, scriptTable[0]);
     }
 
-    sub_08003740(mover + 0x20, sprite);
+    stepDelayTimer(mover + 0x20, sprite);
     sub_0806D588(sprite, pos);
 }

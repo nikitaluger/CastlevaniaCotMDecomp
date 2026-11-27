@@ -1,10 +1,10 @@
-extern s32 sub_08003740(void *, s32);
-extern void sub_08003A6C(void *, s32, void *);
+extern s32 stepDelayTimer(void *, s32);
+extern void startEffectTimer(void *, s32, void *);
 extern void playSound(s32);
-extern s32 sub_08007DD8(s32, s32);
-extern void sub_0806D2F8(void *, s32);
-extern s32 sub_0806D518(void *, s32, void *);
-extern void sub_0806D588(s32, void *);
+extern s32 getTileTerrainB(s32, s32);
+extern void cullOffscreenEntity(void *, s32);
+extern s32 checkGlobalStateChange(void *, s32, void *);
+extern void setSpriteScreenPosition(s32, void *);
 extern void sub_080719EC(void *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gMainWorkspace[];
@@ -27,7 +27,7 @@ void sub_0806F78C(void *arg0v)
     s32 hit;
     u32 off;
 
-    if (sub_0806D518(arg0, Q, p4) != 0)
+    if (checkGlobalStateChange(arg0, Q, p4) != 0)
         return;
     sub_080719EC(arg0, p4, p4);
     has48 = *((s32 *)(p4 + 0x48));
@@ -45,7 +45,7 @@ void sub_0806F78C(void *arg0v)
         *((s32 *)(p4 + 0x04)) = velocity;
         off = 0x18A8;
         base = (u8 *)(off + ((u32)gMainWorkspace));
-        hit = sub_08007DD8((s32)(((u8 *)0x02023130) + ((*base) << 6)), *((s32 *)(P + 4))) << 16;
+        hit = getTileTerrainB((s32)(((u8 *)0x02023130) + ((*base) << 6)), *((s32 *)(P + 4))) << 16;
         p30 = P + 0x30;
         if (hit != 0) {
             P = base;
@@ -54,14 +54,14 @@ void sub_0806F78C(void *arg0v)
                 velocity = *((s32 *)(p4 + 0x04));
                 velocity -= 0x10000;
                 *((s32 *)(p4 + 0x04)) = velocity;
-                rr = (u16)sub_08007DD8((s32)(((u8 *)0x02023130) + ((*new_var) << 6)), *((s32 *)(p4 + 0)));
+                rr = (u16)getTileTerrainB((s32)(((u8 *)0x02023130) + ((*new_var) << 6)), *((s32 *)(p4 + 0)));
             } while (rr != 0);
             *((s32 *)(p4b + 0x48)) = rr;
             *((s32 *)(p4 + 0x0C)) = rr;
         }
     }
-    sub_0806D588(Q, p4);
-    rr2 = sub_08003740(p30, Q);
+    setSpriteScreenPosition(Q, p4);
+    rr2 = stepDelayTimer(p30, Q);
     if (rr2 == 0) {
         void *res;
         void *res_b1;
@@ -69,7 +69,7 @@ void sub_0806F78C(void *arg0v)
         void *res_b3;
         void **fp;
         s32 zero;
-        sub_08003A6C(p30, 0, (void *)0x08472AD4);
+        startEffectTimer(p30, 0, (void *)0x08472AD4);
         zero = 0;
         *((s32 *)(p4 + 0x10)) = 0x12C;
         res = *((void * volatile *)(p4b + 0x3C));
@@ -90,5 +90,5 @@ void sub_0806F78C(void *arg0v)
         playSound(0x96);
         *((s32 *)(p4 + 0x14)) = 0x0F;
     }
-    sub_0806D2F8(arg0, Q);
+    cullOffscreenEntity(arg0, Q);
 }

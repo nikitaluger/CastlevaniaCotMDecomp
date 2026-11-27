@@ -3,14 +3,14 @@ extern struct S_02025FF0 gMainWorkspace;
 extern u8 gTilemapPages[];
 extern u8 gGameStatus[];
 extern u8 gCameraState[];
-extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_08016238(void *);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern s32 hitTestEntities(void *);
 extern void sub_0800479C(void *, s32, s32, u16);
 extern void sub_08007E24(u16);
 extern void playSound(s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 void sub_08090C78(u8 *arg0)
 {
   u8 *base;
@@ -25,13 +25,13 @@ void sub_08090C78(u8 *arg0)
   sp0 = *((void **) (self + 0x38));
   w = *((u16 **) (self + 0xAC));
   p = *((u8 **) (self + 0x3C));
-  if (sub_0805F9B4(*((s32 *) (p + 8)), *((s32 *) (p + 0xC))) == 1)
+  if (isOutsideCameraBounds(*((s32 *) (p + 8)), *((s32 *) (p + 0xC))) == 1)
   {
     *((u8 *) ((*((u8 **) p)) + 1)) = 0;
     return;
   }
   *((u8 *) ((*((u8 **) p)) + 1)) = 4;
-  if (sub_08016238(*((void **) p)) != 0)
+  if (hitTestEntities(*((void **) p)) != 0)
   {
     *((u16 *) (p + 0x10)) = 1;
   }

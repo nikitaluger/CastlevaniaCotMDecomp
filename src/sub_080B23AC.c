@@ -1,5 +1,5 @@
 void setAnimationFrame(s32, s32, s32, s32);
-void sub_080113A8(s32, s32);
+void stepAnimationTrack(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Advances the actor's animation and, once its status byte reports completion
@@ -14,7 +14,7 @@ void sub_080B23AC(void *self) {
     animController = *(s32 *)((u8 *)self + 0x38);
     work = *(void **)((u8 *)self + 0x3C);
     animState = (s32)work + 0x34;
-    sub_080113A8(animController, animState);
+    stepAnimationTrack(animController, animState);
     if (2 & *(u8 *)((u8 *)work + 0x34)) {
         setAnimationFrame(animController, animState, 0x52, 1);
         *(s8 *)((s8 *)((*(s16 *)((u8 *)self + 0x22) * 2) + self) + 0x19) = 0;

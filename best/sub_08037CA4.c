@@ -1,5 +1,5 @@
-extern u32 D_08671BD0;
-s32 sub_080113A8(void *a, void *b, void *c, s32 d);
+extern u32 gScriptStepCallbacks;
+s32 stepAnimationTrack(void *a, void *b, void *c, s32 d);
 s32 copyPoseAttrs(void *a, void *b);
 s32 sub_080C31E8(void *a, void *b, s32 c, s32 d);
 
@@ -21,7 +21,7 @@ void sub_08037CA4(void *a) {
     r4 = (u8 *)p3C + 0x34;
     r2 = (u8 *)p3C + 0x48;
     r3 = 0;
-    sub_080113A8(r8p, r4, r2, r3);
+    stepAnimationTrack(r8p, r4, r2, r3);
 
     if ((*(u8 *)r4 & 0x02) != 0) {
         u32 *pp;
@@ -33,7 +33,7 @@ void sub_08037CA4(void *a) {
         s = s << 1;
         p = (void *)(pa + s);
         *(u8 *)((u8 *)p + 0x19) = 0;
-        pp = &D_08671BD0;
+        pp = &gScriptStepCallbacks;
         sub_080C31E8(pa + 0x18, pa + 0x22, 0, *pp);
     } else {
         r5 = 1;

@@ -1,5 +1,5 @@
 extern void sub_080C2E68(void *a, void *b, u32 c);
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_08091E3C(s32, s32, s32, s32, s32, s32);
 extern s32 sub_080C36E4(s16, s32);
@@ -66,7 +66,7 @@ void sub_0809668C(void *arg0)
         yPos += jitter;
         param = (param << 0x13) + 0xFFFC0000;
         yPos += param;
-        param = sub_08005820(0x2000);
+        param = scaleByRandom(0x2000);
         jitter = 0x800;
         param += jitter;
         index = *(s16 *)((u8 *)motionEx + 0x14);

@@ -4,7 +4,7 @@ void sub_080B0828(s32, s32, s32);
 void sub_080C31E8(void *, void *, s32, void *);
 
 extern s32 D_081021E4[];
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 /* Enemy AI state: mirror two effects around the body mid-attack, then advance state. */
 void sub_080AB7B0(u8 *self)

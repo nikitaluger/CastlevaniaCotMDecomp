@@ -1,6 +1,6 @@
 extern s32 sub_0800583C(s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 
 /* Entity update: advance the animation.  When its flag byte has bit 1 set
@@ -16,7 +16,7 @@ void sub_080BD8B8(void *arg0)
     u8 *anim = actor + 0x34;
     u8 *actorSub = actor + 0x48;
 
-    sub_080113A8(gfx, anim);
+    stepAnimationTrack(gfx, anim);
     if (anim[0] & 2) {
         *(s32 *)(actorSub + 0x10) = sub_0800583C(0x8000) + 0x10000;
         setAnimationFrame(gfx, anim, 5, 1);

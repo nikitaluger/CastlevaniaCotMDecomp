@@ -7,8 +7,8 @@ extern void *allocEffectPart(void);
 extern void initThreePartSpriteGfx(void *, void *, s32, s32);
 extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
-extern u32 gMainObjTimerCallback;
+extern void releaseActorEffectSubObject(void);
+extern u32 gScriptStepCallbackTable;
 
 struct S_02025FF0 {
   u8 _0[0x18C2];

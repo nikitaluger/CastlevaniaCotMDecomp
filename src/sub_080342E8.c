@@ -1,7 +1,7 @@
 extern void sub_08011344(void *, void *, s32, s32);
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 struct S_02025FF0_F { u8 _0[0x1870]; u32 v; };
 extern struct S_02025FF0_F gMainWorkspace;
 struct FlagByte { u8 pad; u8 flag; };
@@ -26,7 +26,7 @@ void sub_080342E8(void *entity) {
             sub_08011344(gfx, anim, 0x1F, 0);
         }
         ((struct FlagByte *)(*(u8 **)(ctrl + 0xC)))->flag = 0;
-        newObj = sub_0805FAEC((s32)gMainWorkspace.v, 0xE3);
+        newObj = spawnBudgetedEffect((s32)gMainWorkspace.v, 0xE3);
         if (newObj != NULL) {
             u8 *obj = (u8 *)newObj;
             *(s32 *)(obj + 0x4C) = *(s32 *)(data + 8);
@@ -40,7 +40,7 @@ void sub_080342E8(void *entity) {
             }
         }
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
-        lit = &gMainObjTimerCallback;
+        lit = &gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, *lit);
     }
 }

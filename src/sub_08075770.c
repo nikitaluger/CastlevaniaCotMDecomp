@@ -1,6 +1,6 @@
 s32 allocWorkSlot(void *, s32, s32, s32);
 void *allocSpriteObject(void);
-void sub_0806D2D0(void *);
+void cleanupFailedEffectSpawn(void *);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E0(void *, s32);
 
@@ -10,7 +10,7 @@ struct GameState {
 };
 extern struct GameState gMainWorkspace;
 
-extern u32 gMainObjTimerCallback[];
+extern u32 gScriptStepCallbackTable[];
 
 /* Spawns a projectile effect: reserves a sprite slot, allocates and initializes
  * the effect object, then fires the end callback and advances the animation. */
@@ -28,7 +28,7 @@ void sub_08075770(void *entity)
     effect = allocSpriteObject();
     if (effect == 0)
     {
-        sub_0806D2D0(entity);
+        cleanupFailedEffectSpawn(entity);
         return;
     }
 

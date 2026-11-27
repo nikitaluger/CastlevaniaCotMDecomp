@@ -4,7 +4,7 @@
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern s32 sub_080C364C(s32, s32);
+extern s32 divInt32(s32, s32);
 
 void sub_08023314(void *obj)
 {
@@ -22,7 +22,7 @@ void sub_08023314(void *obj)
 
     {
         s32 *valueFuncs = (s32 *)0x08671BFC;
-        s32 scaled = sub_080C364C(*(s16 *)(fx + 4) << 16, 0x24);
+        s32 scaled = divInt32(*(s16 *)(fx + 4) << 16, 0x24);
         *(s32 *)(fx + 0) = sub_080C31E0(scaled, *valueFuncs) * 2;
     }
 

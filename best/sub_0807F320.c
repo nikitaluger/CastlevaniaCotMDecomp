@@ -1,13 +1,13 @@
 extern void *allocEffectPart(void);
-extern void sub_08003A6C(void *, s32, void *);
-extern void sub_0806D2D0(void *);
-extern s16 sub_0806D62C(u16, s32);
+extern void startEffectTimer(void *, s32, void *);
+extern void cleanupFailedEffectSpawn(void *);
+extern s16 scalePercentSaturate16(u16, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern s32 D_02027718;
-extern u8 gMainObjTimerCallback[];
+extern u8 gScriptStepCallbackTable[];
 
 static inline u32 bitOne(u8 v) {
     u32 m = 1;
@@ -31,7 +31,7 @@ void sub_0807F320(u8 *arg0) {
     obj = allocEffectPart();
     *(u8 **)(r5 + 0x2C) = obj;
     if (0 == obj) {
-        sub_0806D2D0(arg0);
+        cleanupFailedEffectSpawn(arg0);
     } else {
         *(u32 *)(r5 + 0x30) = 0;
         *(u32 *)(r5 + 0x34) = 0;
@@ -45,14 +45,14 @@ void sub_0807F320(u8 *arg0) {
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 8) = 4;
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 0xA) = 0;
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 0xC) = 0;
-        *(u16 *)(*(u8 **)(r5 + 0x2C) + 0xE) = sub_0806D62C(*(u16 *)(r8 + 0x2E2), 0x64);
+        *(u16 *)(*(u8 **)(r5 + 0x2C) + 0xE) = scalePercentSaturate16(*(u16 *)(r8 + 0x2E2), 0x64);
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 0x16) = 0x1E;
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 0x18) = 0x67;
         *(u8 **)(*(u8 **)(r5 + 0x2C) + 0x10) = r4;
         *(u32 *)(r5 + 0x18) = *(u32 *)(arg0 + 0x24);
         *(u32 *)(arg0 + 0x24) = 0x0808449D;
         *(u32 *)(r4 + 0x24) = 0x084EA8E4;
-        sub_08003A6C(r7 + 0x20, 0, (void *)0x084EA9A4);
+        startEffectTimer(r7 + 0x20, 0, (void *)0x084EA9A4);
         *(u32 *)((*(u8 **)(arg0 + 0x6C)) + 4) = *(u32 *)(arg0 + 0x7C);
         *(u32 *)(r5 + 4) = *(u32 *)(arg0 + 0x8C) + 0xFFFD0000;
         if (*(s32 *)(r7 + 4) > D_02027718) {

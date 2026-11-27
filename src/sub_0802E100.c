@@ -1,7 +1,7 @@
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, s32);
-s32 sub_08013B5C(void *, void *);
-s32 sub_0805F9B4(s32, s32);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, s32);
+s32 updateObjectDisplayState(void *, void *);
+s32 isOutsideCameraBounds(s32, s32);
 void sub_080C31E0(void *, void *);
 
 extern u8 D_0866DBB4[];
@@ -27,12 +27,12 @@ void sub_0802E100(u8 *self) {
     target = *(struct Target **)(comp + 0x28);
     target->hitFlags |= 1;
 
-    if (sub_0805F9B4(*(s32 *)(comp + 8), *(s32 *)(comp + 0xC)) == 1) {
+    if (isOutsideCameraBounds(*(s32 *)(comp + 8), *(s32 *)(comp + 0xC)) == 1) {
         sub_080C31E0(self, *(void **)(self + 0x24));
         return;
     }
 
-    if (sub_08013B5C(parent, comp) == 0) {
+    if (updateObjectDisplayState(parent, comp) == 0) {
         *(u32 *)(self + 0x14) = (u32)D_0866DBB4;
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) + 1;
         {
@@ -48,8 +48,8 @@ void sub_0802E100(u8 *self) {
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
 
         if ((*(u16 *)(self + 2) & 0x8000) == 0) {
-            sub_080113A8(parent, body);
-            sub_0801165C(comp, 0);
+            stepAnimationTrack(parent, body);
+            advanceMotion(comp, 0);
         } else {
             return;
         }

@@ -15,7 +15,7 @@ extern void sub_0803AF70(void *a, struct SpawnLogic *b, struct SpawnSprite *c, u
 extern void sub_080C31E0(void *a, u32 b);
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
 extern void registerScriptObject(void *a, u32 b);
-extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u8 D_080CEFCC[]; extern u8 gMainObjTimerCallback[];
+extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u8 D_080CEFCC[]; extern u8 gScriptStepCallbackTable[];
 
 /* Spawn and initialise a scripted projectile/sprite: allocate the sprite,
  * set up its movement logic and animation, align its world position to the
@@ -68,7 +68,7 @@ body:
     registerScriptObject(arg0, 0);
     U16(arg0, 0x02) = 0x1000 | U16(arg0, 0x02);
     U8(arg0, 0x19 + (s16)U16(arg0, 0x22) * 2) = zero;
-    audioCmd = &gMainObjTimerCallback;
+    audioCmd = &gScriptStepCallbackTable;
     scriptData = (u8 *)arg0 + 0x18;
     sub_080C31E4(scriptData, (s16 *)((u8 *)arg0 + 0x22), *audioCmd);
     stepSlot = (u8 *)((s16)U16(arg0, 0x22) * 2 + (u32)arg0);

@@ -2,14 +2,14 @@
  * sync a few animation/status flags, advance a scripted action dispatched
  * through D_0866D78C, then (on the common path) refresh the sprite's
  * camera-relative screen position. */
-extern s32 sub_0805F9B4(s32, s32);
-extern s32 sub_08013B5C(void *, void *);
-extern void sub_080113A8(void *, void *);
-extern void sub_0801165C(void *, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
+extern s32 updateObjectDisplayState(void *, void *);
+extern void stepAnimationTrack(void *, void *);
+extern void advanceMotion(void *, s32);
 extern void sub_0801EF8C(void *, void *);
 extern s32 sub_080C31E0(s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 extern u32 D_0866D78C[];
 
 struct ActorBits { u8 unk0; u8 flags; };
@@ -41,7 +41,7 @@ void sub_0801ED28(u8 *entity) {
     ((struct ActorBits *)*(u32 *)(actor + 0x28))->flags |= 1;
 
     if (*(s16 *)countdown <= 0) {
-        if (sub_0805F9B4(*(s32 *)(actor + 0x08), *(s32 *)(actor + 0x0C)) == 1) {
+        if (isOutsideCameraBounds(*(s32 *)(actor + 0x08), *(s32 *)(actor + 0x0C)) == 1) {
             sub_080C31E0((s32)entity, *(u32 *)(entity + 0x24));
             return;
         }
@@ -55,12 +55,12 @@ void sub_0801ED28(u8 *entity) {
         child = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
         if (child[0x1A] != 2) {
             child[0x1B] = 0;
-            actionData = D_08671BDC;
+            actionData = sScriptStepCallbacks;
             sub_080C31E8(entity + 0x18, entity + 0x22, 2, *actionData);
         }
     }
 
-    if (sub_08013B5C(anim, actor) != 0)
+    if (updateObjectDisplayState(anim, actor) != 0)
         goto common;
 
     *(u32 *)(entity + 0x14) = (u32)D_0866D78C;
@@ -75,8 +75,8 @@ void sub_0801ED28(u8 *entity) {
     *(u16 *)(entity + 0x22) = *(u16 *)(entity + 0x22) - 1;
     if ((*(u16 *)(entity + 2) & 0x8000) != 0)
         goto end;
-    sub_080113A8(anim, actorTarget);
-    sub_0801165C(actor, 0);
+    stepAnimationTrack(anim, actorTarget);
+    advanceMotion(actor, 0);
 
 common:
     sub_0801EF8C(anim, actor);

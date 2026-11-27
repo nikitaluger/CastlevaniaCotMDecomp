@@ -1,7 +1,7 @@
 struct S_02025FF0 { u8 _0[0x174C]; u32 field_0x174C; };
 extern struct S_02025FF0 gMainWorkspace;
 extern u32 D_08102EEC[];
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 extern s32 sub_08005910(s32, s32);
 extern void sub_080988B8(s32, s32);
 extern s32 divideInt(s32, s32);

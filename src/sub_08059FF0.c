@@ -1,6 +1,6 @@
-s32 sub_0805F9B4(s32 a, s32 b);
-s32 sub_08013B5C(void *a, void *b);
-void sub_080113A8(void *a, void *b);
+s32 isOutsideCameraBounds(s32 a, s32 b);
+s32 updateObjectDisplayState(void *a, void *b);
+void stepAnimationTrack(void *a, void *b);
 void sub_08011EE8(void *a, s32 b, s32 c);
 void sub_080C31E0(void *a, void *b);
 extern u8 gCameraState[];
@@ -17,15 +17,15 @@ void sub_08059FF0(void *entity)
   sprite = *((void **) (((u8 *) entity) + 0x38));
   body = *((void **) (((u8 *) entity) + 0x3C));
   anim = ((u8 *) body) + 0x34;
-  if (sub_0805F9B4(*((s32 *) (((u8 *) body) + 0x08)), *((s32 *) (((u8 *) body) + 0x0C))) == 1)
+  if (isOutsideCameraBounds(*((s32 *) (((u8 *) body) + 0x08)), *((s32 *) (((u8 *) body) + 0x0C))) == 1)
   {
     goto end;
   }
-  if (sub_08013B5C(sprite, body) != 0)
+  if (updateObjectDisplayState(sprite, body) != 0)
   {
     goto calc;
   }
-  sub_080113A8(sprite, anim);
+  stepAnimationTrack(sprite, anim);
   sub_08011EE8(body, 0x2221, 0);
   if ((*((u16 *) (((u8 *) body) + 0x02))) & 4)
   {

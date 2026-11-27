@@ -1,4 +1,4 @@
-extern u16 D_080CE688[];
+extern u16 gKind87EffectLayerAttrs[];
 extern u16 D_080CE690[];
 extern u16 D_080CE698[];
 
@@ -13,7 +13,7 @@ void sub_0801C9F8(u8 *arg0, u8 *arg1)
     struct S_1C9F8 *r2;
     s32 idx;
 
-    r3 = D_080CE688;
+    r3 = gKind87EffectLayerAttrs;
     r2 = *(struct S_1C9F8 **)(arg0 + 0x3C);
     idx = *(u16 *)(arg1 + 0x28) - 0x32;
 

@@ -3,7 +3,7 @@ struct S_080CBDD0 { u8 _0[0xC]; u16 a; u16 b; u8 _10[0x16]; };
 extern struct S_02025FF0 gMainWorkspace;
 extern struct S_080CBDD0 gEffectGfxTable[];
 extern u16 D_08102CD4[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
@@ -13,7 +13,7 @@ extern void setObjectAnimation(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, u32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08097D90(void);
+extern void releaseActorEffectSubObject(void);
 
 /* Effect spawner: allocate a sprite, bind it to this object's work data and
  * animation, spawn a child effect, copy parameters out of the gEffectGfxTable and
@@ -40,7 +40,7 @@ void sub_080B5D3C(u8 *obj) {
   *((u32 *)(sprite + 0x1C)) = 0x8000000B;
   body = *((u8 **)(obj + 0x3C));
   anim = body + 0x34;
-  installUpdateHandler(obj, body, sub_08097D90);
+  installUpdateHandler(obj, body, releaseActorEffectSubObject);
   *((u16 *)(body + 0x1C)) = 0x66;
   counter = findKindIndex();
   *((u16 *)(body + 0x22)) = counter;
@@ -79,7 +79,7 @@ success:
     *((u16 *)(obj + 2)) = objAttrNew;
   } while (0);
   *((u8 *)((obj + (((u32)(*((s16 *)(obj + 0x22)))) * 2)) + 0x19)) = 0;
-  func = &gMainObjTimerCallback;
+  func = &gScriptStepCallbackTable;
   script = obj + 0x18;
   sub_080C31E4(script, obj + 0x22, *func);
   *((u8 *)((obj + (((u32)(*((s16 *)(obj + 0x22)))) * 2)) + 0x19)) += 1;

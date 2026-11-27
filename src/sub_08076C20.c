@@ -1,8 +1,8 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_0808449C(void);
+extern void releaseActorEffectParts(void);
 extern u8 gMainWorkspace[];
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 struct T55 { u8 pad[0x55]; u8 f55; };
 
@@ -36,7 +36,7 @@ void sub_08076C20(u8 *obj) {
     *(u32 *)(childData + 0x38) = zero;
     *(u32 *)(childData + 0x3C) = zero;
     *(u32 *)(childData + 0x18) = *(u32 *)(obj + 0x24);
-    *(u32 *)(obj + 0x24) = (u32)&sub_0808449C;
+    *(u32 *)(obj + 0x24) = (u32)&releaseActorEffectParts;
 
     state = gMainWorkspace;
     childFull = (struct T55 *)child;
@@ -56,7 +56,7 @@ void sub_08076C20(u8 *obj) {
     stepIdx = *(s16 *)(obj + 0x22);
     *(u8 *)(obj + stepIdx * 2 + 0x19) = zero;
 
-    msgPtr = &gMainObjTimerCallback;
+    msgPtr = &gScriptStepCallbackTable;
     step = obj;
     step += 0x18;
     sub_080C31E4(step, obj + 0x22, *msgPtr);

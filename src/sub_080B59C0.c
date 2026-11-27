@@ -1,5 +1,5 @@
-void sub_080113A8(s32, void *);
-void sub_0801165C(void *, s32);
+void stepAnimationTrack(s32, void *);
+void advanceMotion(void *, s32);
 void sub_080146D0(void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -11,14 +11,14 @@ void sub_080B59C0(void *self) {
     s32 animId = *(s32 *)((u8 *)self + 0x38);
     void *mover = *(void **)((u8 *)self + 0x3C);
     s32 step;
-    sub_080113A8(animId, (u8 *)mover + 0x34);
+    stepAnimationTrack(animId, (u8 *)mover + 0x34);
     step = *(s32 *)((u8 *)self + 0x6C) - 0x1000;
     *(s32 *)((u8 *)self + 0x6C) = step;
     if (step <= 0) {
         *(s32 *)((u8 *)self + 0x6C) = 0;
     }
     sub_080146D0(mover, *(s32 *)((u8 *)self + 0x7C), *(s32 *)((u8 *)self + 0x6C));
-    sub_0801165C(mover, 0);
+    advanceMotion(mover, 0);
     if (*(s32 *)((u8 *)self + 0x6C) == 0) {
         s32 slot = *(s16 *)((u8 *)self + 0x22);
         s32 *handlers;

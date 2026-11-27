@@ -5,11 +5,11 @@
 s32 sub_080141AC(void *, void *);          /* visibility/validity check */
 void sub_080C31E0(void *, void *);
 void sub_080C31E8(void *, void *, s32, void *);
-void *sub_08016238(void *);                /* find an overlapping entity */
+void *hitTestEntities(void *);                /* find an overlapping entity */
 s32 sub_08013B5C(void *, void *);
 void sub_08013C8C(void *, void *);
 void sub_08005E80(s32);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 extern u8 gMainWorkspace[];
 extern u8 D_00001728[];                     /* offset 0x1728 into gMainWorkspace */
 
@@ -20,7 +20,7 @@ void sub_08044E6C(u8 *self) {
         sub_080C31E0(self, *(void **)(self + 0x24));
         return;
     }
-    if (sub_08016238(*(void * volatile *)(params + 0x28)) != 0) {
+    if (hitTestEntities(*(void * volatile *)(params + 0x28)) != 0) {
         u16 flags = *(u16 *)params | 1;
         *(u16 *)params = flags;
     }
@@ -44,7 +44,7 @@ void sub_08044E6C(u8 *self) {
                 u8 *stepPtr2 = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
                 stepPtr2[0x1B] = 0;
             }
-            { void **actionTable = &D_08671BDC;
+            { void **actionTable = &sScriptStepCallbacks;
               sub_080C31E8(self + 0x18, self + 0x22, 1, *actionTable); }
         }
     }

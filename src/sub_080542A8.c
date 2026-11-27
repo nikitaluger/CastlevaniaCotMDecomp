@@ -4,14 +4,14 @@ extern s32 sub_08013558(void *, void *, void *);
 extern void sub_08013978(void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern void *D_08671BDC;
+extern void *sScriptStepCallbacks;
 extern void sub_08013C8C(void *, void *);
 extern void sub_080547E0(void *, void *);
 extern void sub_08054864(void *, void *, s32);
-extern void sub_0801165C(void *, s32);
+extern void advanceMotion(void *, s32);
 
 /* Scripted enemy update with an accumulating per-frame counter: run hit/damage
  * helpers, advance and dispatch the script, then accumulate the counter and
@@ -37,12 +37,12 @@ void sub_080542A8(u8 *arg0) {
             {
                 u8 *step = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
                 step[0x1B] = 0;
-                { void **audioCmd = &D_08671BDC;
+                { void **audioCmd = &sScriptStepCallbacks;
                   sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 5, *audioCmd); }
             }
         }
     }
-    if (sub_08013B5C(owner, comp) == 0) {
+    if (updateObjectDisplayState(owner, comp) == 0) {
         *(void **)(arg0 + 0x14) = (void *)0x0866E6F4;
         *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) + 1;
         {
@@ -64,7 +64,7 @@ void sub_080542A8(u8 *arg0) {
         *(u16 *)counter = (u16)(*(u16 *)counter + *(u16 *)(counter + 0x02));
         counterValue = *(s16 *)counter;
         sub_08054864(owner, status, counterValue);
-        sub_0801165C(comp, 0);
+        advanceMotion(comp, 0);
     }
     sub_080547E0(owner, comp);
     sub_08013C8C(arg0, owner);

@@ -1,6 +1,6 @@
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
-extern s32 gMainObjTimerCallback[];
+extern s32 gScriptStepCallbackTable[];
 
 // Work state at self+0x3C: +0xEC flip flag, +0xEE/+0xEF phase bytes, +0x114 motion.
 struct WorkState {
@@ -26,7 +26,7 @@ void sub_080A67A8(void *arg0) {
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     }
     {
-        s32 *scriptTable = gMainObjTimerCallback;
+        s32 *scriptTable = gScriptStepCallbackTable;
         sub_080C31E4(self + 0x18, self + 0x22, *scriptTable);
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) += 1;

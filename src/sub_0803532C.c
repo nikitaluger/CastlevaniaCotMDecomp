@@ -1,4 +1,4 @@
-extern void sub_080113A8(void *, void *);
+extern void stepAnimationTrack(void *, void *);
 
 /* Byte at +0x2A of the actor holds a sprite-attribute flag. */
 struct ActorFlags { u8 pad[0x2A]; u8 flag; };
@@ -47,5 +47,5 @@ void sub_0803532C(void *arg0)
     *((u32 *) (enemy + 0xC)) = *((u32 *) (ringBase2 + slotOffset));
   }
   *ringIndex = (*ringIndex) + 1;
-  sub_080113A8(actor, enemyData);
+  stepAnimationTrack(actor, enemyData);
 }

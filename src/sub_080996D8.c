@@ -5,8 +5,8 @@ struct S_02025FF0
     u32 targetY; /* 0x1750 */
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 D_08671BFC;
-extern u32 gMainObjTimerCallback;
+extern u32 gTrigFuncPtr;
+extern u32 gScriptStepCallbackTable;
 s32 sub_08005910(s32, s32);
 void sub_08005E80(s32);
 void setObjectAnimation(void *, void *, s32, s32);
@@ -76,7 +76,7 @@ void sub_080996D8(void *arg0)
                 }
             }
             {
-                u32 *angleFunc = &D_08671BFC;
+                u32 *angleFunc = &gTrigFuncPtr;
                 *((s32 *) (((u8 *) base) + 0x10)) = (s32) ((sub_080C31E0(angle + 0x4000, *angleFunc) >> 8) << 11);
                 *((s32 *) (((u8 *) base) + 0x14)) = (s32) ((sub_080C31E0(angle, *angleFunc) >> 8) << 11);
             }
@@ -84,7 +84,7 @@ void sub_080996D8(void *arg0)
             sub_08005E80(0x164);
             *((u8 *) ((((u8 *) self) + ((*((s16 *) (((u8 *) self) + 0x22))) * 2)) + 0x19)) = 0;
             {
-                u32 *cmdTable = &gMainObjTimerCallback;
+                u32 *cmdTable = &gScriptStepCallbackTable;
                 sub_080C31E4(((u8 *) self) + 0x18, ((u8 *) self) + 0x22, *cmdTable);
             }
         }

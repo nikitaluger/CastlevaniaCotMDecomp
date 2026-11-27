@@ -7,15 +7,15 @@ void sub_0802217C(void *);
 void sub_08013AC4(void *);
 void sub_08005E80(s32);
 void sub_080C31E8(void *, void *, s32, u32);
-s32 sub_08013B5C(void *, void *);
+s32 updateObjectDisplayState(void *, void *);
 s32 sub_080C31E0(s32, s32);
-void sub_080113A8(void *, void *);
-void sub_0801165C(void *, s32);
+void stepAnimationTrack(void *, void *);
+void advanceMotion(void *, s32);
 void sub_08013C8C(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_0866D848[];
-extern u32 D_08671BDC[];
+extern u32 sScriptStepCallbacks[];
 
 /* Updates a projectile/weapon entity: runs the hit and damage responses for its
  * owner and sub-object, dispatches a slot callback, then copies the owner's
@@ -66,7 +66,7 @@ void sub_08021A68(u8 *self)
       sub_08013AC4(self);
       sub_08005E80(0x85);
       *((u8 *) (((((u32) (*((s16 *) (self + 0x22)))) * 2) + ((u32) self)) + 0x1B)) = zero;
-      tableArg = D_08671BDC;
+      tableArg = sScriptStepCallbacks;
       sub_080C31E8(self + 0x18, self + 0x22, 4, *tableArg);
     }
     if ((*((u16 *) obj)) & 0x0C)
@@ -74,7 +74,7 @@ void sub_08021A68(u8 *self)
       sub_0802217C(self);
     }
   }
-  if (sub_08013B5C(parent, obj) == 0)
+  if (updateObjectDisplayState(parent, obj) == 0)
   {
     u8 *slot;
     *((u32 *) (self + 0x14)) = (u32) D_0866D848;
@@ -89,8 +89,8 @@ void sub_08021A68(u8 *self)
     *((u16 *) (self + 0x22)) = (*((u16 *) (self + 0x22))) - 1;
     if (((*((u16 *) (self + 2))) & 0x8000) == 0)
     {
-      sub_080113A8(parent, objSub);
-      sub_0801165C(obj, 0);
+      stepAnimationTrack(parent, objSub);
+      advanceMotion(obj, 0);
     }
     else
     {

@@ -10,7 +10,7 @@ extern struct S_02025FF0 gMainWorkspace;
 struct Dma3 { vu32 src, dst, ctrl; };
 #define REG_DMA3 (*(volatile struct Dma3 *)0x040000D4)
 
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Trigger a one-shot visual effect: set up the graphics layers and DMA the
  * effect gfx into its buffer, mark the global state flags, clear then bump the
@@ -31,7 +31,7 @@ void sub_0808CA14(u8 *self) {
     gMainWorkspace.f18C5 = 1;
     *(u8 *)(self + (s16)*(s16 *)(self + 0x22) * 2 + 0x19) = 0;
     {
-        void **effectTable = (void **)&gMainObjTimerCallback;
+        void **effectTable = (void **)&gScriptStepCallbackTable;
         childPtr = self + 0x18;
         sub_080C31E4(childPtr, self + 0x22, (s32)*effectTable);
     }

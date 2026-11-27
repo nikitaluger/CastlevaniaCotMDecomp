@@ -5,15 +5,15 @@
 extern void sub_08003A6C(void *, s32, void *);
 extern void *allocEffectPart(void);
 extern void sub_0806D2D0(void *);
-extern s16 sub_0806D62C(u16, s32);
-extern void sub_080722E0(void *, u8);
+extern s16 scalePercentSaturate16(u16, s32);
+extern void setDirectionVector(void *, u8);
 extern void sub_0808449C(void);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
 extern u32 D_084DB5E8;
 extern u32 D_084DB794;
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 
 /* Buffer at state+4: +0x2C holds the spawned object (reloaded each use) */
 struct SpawnBuf { u8 _0[0x2C]; u8 * volatile spawned; };
@@ -49,7 +49,7 @@ void sub_0807AEC4(u8 *self) {
     *(u16 *)(obj->spawned + 8) = 4;
     *(u16 *)(obj->spawned + 0xA) = zero;
     *(u16 *)(obj->spawned + 0xC) = zero;
-    *(u16 *)(obj->spawned + 0xE) = sub_0806D62C(*(u16 *)(paramTable + 0x2E2), 0x32);
+    *(u16 *)(obj->spawned + 0xE) = scalePercentSaturate16(*(u16 *)(paramTable + 0x2E2), 0x32);
     *(u16 *)(obj->spawned + 0x16) = 0x1E;
     *(u16 *)(obj->spawned + 0x18) = 0x59;
     {
@@ -68,7 +68,7 @@ void sub_0807AEC4(u8 *self) {
         u32 srcValue = *(u32 *)(self + 0x9C);
         *(u8 *)(state + 0x48) = srcValue;
     }
-    sub_080722E0(buf, *(u8 *)(state + 0x48));
+    setDirectionVector(buf, *(u8 *)(state + 0x48));
     {
         s32 scaleFactor = *(s32 *)(buf + 0x40) >> 8;
         *(s32 *)(buf + 8) = (*(s32 *)(buf + 8) * scaleFactor) / 256;
@@ -76,7 +76,7 @@ void sub_0807AEC4(u8 *self) {
     }
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = zero;
     {
-        s32 *cbTable = &gMainObjTimerCallback;
+        s32 *cbTable = &gScriptStepCallbackTable;
         u8 *scriptPtr = self + 0x18;
         sub_080C31E4(scriptPtr, self + 0x22, *cbTable);
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) + 1;

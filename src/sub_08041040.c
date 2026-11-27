@@ -1,12 +1,12 @@
-extern void sub_080113A8(s32, void *);
-extern void sub_08011898(void *, s32);
+extern void stepAnimationTrack(s32, void *);
+extern void moveEntityWithCollision(void *, s32);
 extern s32 sub_0801459C(void *, s32);
 extern void sub_08014668(s32, s32);
 extern s32 sub_080148AC(s32, s32);
 extern void sub_080148D8(s32, s32);
 extern void sub_080415D4(u8, s32, void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Update a falling enemy: integrate gravity, face the player, and when the
  * player is close enough, lunge toward them and play animation 1. */
@@ -16,8 +16,8 @@ void sub_08041040(void *arg0) {
     u8 *motion = *(u8 **)(entity + 0x3C);
     u8 *animDesc = motion + 0x34;
     s32 vx;
-    sub_08011898(motion, 0x16C1);                  /* gravity + tile collision */
-    sub_080113A8(anim, animDesc);                  /* refresh animation frame */
+    moveEntityWithCollision(motion, 0x16C1);                  /* gravity + tile collision */
+    stepAnimationTrack(anim, animDesc);                  /* refresh animation frame */
     sub_080148D8(anim, *(s32 *)(motion + 0x08));   /* face the player */
     if (sub_0801459C(motion, 0x600000) != 0) {     /* player within range */
         vx = sub_080148AC(anim, 0xFFFD0000);       /* lunge speed, toward player */
@@ -26,7 +26,7 @@ void sub_08041040(void *arg0) {
         sub_080415D4(1, anim, motion, (s32)animDesc);
         *(u8 *)(entity + (*(s16 *)(entity + 0x22) * 2) + 0x19) = 0;
         {
-            s32 *litp = (s32 *)&gMainObjTimerCallback;
+            s32 *litp = (s32 *)&gScriptStepCallbackTable;
             sub_080C31E4(entity + 0x18, entity + 0x22, *litp);
         }
     }

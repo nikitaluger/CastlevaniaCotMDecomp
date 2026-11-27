@@ -1,6 +1,6 @@
 extern s32 sub_08014620(s32, s32, u16);
 extern void sub_08005E80(u16);
-extern void *sub_0805FAEC(s32, s32);
+extern void *spawnBudgetedEffect(s32, s32);
 extern void sub_080C31E0(void *, s32);
 
 /* Plays a sound, works out the aim direction from the camera target, then
@@ -16,7 +16,7 @@ void sub_08057630(u8 *entity) {
     i = 0;
     p = (u32 *)0x02027860;
     while ((s32)i <= 3) {
-        void *obj = sub_0805FAEC(*p, 0x15F);
+        void *obj = spawnBudgetedEffect(*p, 0x15F);
         if (obj != 0) {
             u8 owner = *(entity + 0x4C);
             *(u8 *)((u8 *)obj + 0x4C) = owner;

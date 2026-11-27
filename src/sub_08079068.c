@@ -9,9 +9,9 @@ struct S_02025FF0 {
     u16 f18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern s32 sub_0806D518(void *, void *, void *);
-extern s32 sub_08003740(void *, void *);
-extern void sub_0806D2F8(void *, void *);
+extern s32 checkGlobalStateChange(void *, void *, void *);
+extern s32 stepDelayTimer(void *, void *);
+extern void cullOffscreenEntity(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void _call_via_r1(void *, s32);
 
@@ -26,7 +26,7 @@ void sub_08079068(u8 *entity) {
     component = *(u8 **)(entity + 0x6C);
     motion = component + 4;
     state = *(u8 **)(entity + 0x38);
-    if (sub_0806D518(entity, state, motion) != 0) return;
+    if (checkGlobalStateChange(entity, state, motion) != 0) return;
     {
         u32 angle = *(u16 *)(state + 4) + 0x40;
         *(u16 *)(state + 4) = angle;
@@ -40,11 +40,11 @@ void sub_08079068(u8 *entity) {
     *(s32 *)(motion + 4) = *(s32 *)(motion + 4) + *(s32 *)(motion + 0x0C);
     dp = &gMainWorkspace;
     { u16 stateWord = gMainWorkspace.f18C2; *(u16 *)state = stateWord; }
-    sub_08003740(component + 0x20, state);
+    stepDelayTimer(component + 0x20, state);
     sub_0806D588(state, motion);
     if (dp->f173A == 0x1C || (dp->f14ED == 0 && dp->f10 != 0)) {
         _call_via_r1(entity, *(s32 *)(entity + 0x24));
     } else {
-        sub_0806D2F8(entity, state);
+        cullOffscreenEntity(entity, state);
     }
 }

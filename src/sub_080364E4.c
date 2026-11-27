@@ -1,5 +1,5 @@
 extern void sub_08015974(void *);
-extern void sub_080161F0(void *);
+extern void unlinkAndFreeObject(void *);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
 
@@ -13,16 +13,16 @@ void sub_080364E4(void *arg0) {
     base = *(void **)((u8 *)arg0 + 0x3C);
     anim = (u8 *)base + 0x48;
     if (*(s32 *)((u8 *)base + 0x28) != 0) {
-        sub_080161F0(*(void **)((u8 *)base + 0x28));
+        unlinkAndFreeObject(*(void **)((u8 *)base + 0x28));
     }
     if (*(s32 *)((u8 *)anim + 0xC) != 0) {
-        sub_080161F0(*(void **)((u8 *)anim + 0xC));
+        unlinkAndFreeObject(*(void **)((u8 *)anim + 0xC));
     }
     if (*(s32 *)((u8 *)anim + 0x10) != 0) {
-        sub_080161F0(*(void **)((u8 *)anim + 0x10));
+        unlinkAndFreeObject(*(void **)((u8 *)anim + 0x10));
     }
     if (*(s32 *)((u8 *)anim + 0x14) != 0) {
-        sub_080161F0(*(void **)((u8 *)anim + 0x14));
+        unlinkAndFreeObject(*(void **)((u8 *)anim + 0x14));
     }
     if (*(s32 *)((u8 *)base + 0x2C) != 0) {
         sub_08015974(*(void **)((u8 *)base + 0x2C));

@@ -1,6 +1,6 @@
 /* Draft from identical target sub_0801BD58, retargeted and judged independently. */
 s32 sub_08014990(s32);
-void *sub_08016238(void);
+void *hitTestEntities(void);
 void sub_0808E9AC(s32, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -44,7 +44,7 @@ void *__repair_phase_p38;
     {
       return 0;
     }
-    r4 = sub_08016238();
+    r4 = hitTestEntities();
     if (r4 == 0)
     {
       return 0;

@@ -1,12 +1,12 @@
-void sub_08003740(void *, void *);
-void sub_08003A6C(void *, s32, void *);
+void stepDelayTimer(void *, void *);
+void startEffectTimer(void *, s32, void *);
 void sub_080C31E4(void *, void *, void *);
-extern void *gMainObjTimerCallback;
+extern void *gScriptStepCallbackTable;
 extern u8 gMainWorkspace[];
 
 /* Readable aliases for the game's helpers (preprocessor-only, no code effect). */
-#define RunSpriteTimer  sub_08003740
-#define InitFxRequest   sub_08003A6C
+#define RunSpriteTimer  stepDelayTimer
+#define InitFxRequest   startEffectTimer
 #define AdvanceScript   sub_080C31E4
 
 /*
@@ -32,7 +32,7 @@ void sub_0808C460(void *arg0)
                 s16 idx = *(s16 *)(self + 0x22);
                 self[idx * 2 + 0x19] = 0;
                 {
-                    void **lit = &gMainObjTimerCallback;
+                    void **lit = &gScriptStepCallbackTable;
                     AdvanceScript(self + 0x18, self + 0x22, *lit);
                 }
             }

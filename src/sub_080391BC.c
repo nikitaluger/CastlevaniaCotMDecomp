@@ -1,7 +1,7 @@
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_0801165C(void *, s32);
-extern void sub_080113A8(s32, void *);
+extern void advanceMotion(void *, s32);
+extern void stepAnimationTrack(s32, void *);
 extern void copyPoseAttrs(s32, s32);
 
 /* While the work value at +0x20 is zero, set byte +0x80 of the object at

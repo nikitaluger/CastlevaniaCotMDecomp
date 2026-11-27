@@ -10,8 +10,8 @@ extern void setAnimationFrame(void *, u8 *, s32, s32);
 struct CameraInfo { u8 _0[0x18C2]; u16 spriteAttrMask; };
 extern struct CameraInfo gMainWorkspace;
 extern u8 gSpriteAnimDataTable[];
-extern u32 gMainObjTimerCallback;
-extern u32 D_08671BFC;
+extern u32 gScriptStepCallbackTable;
+extern u32 gTrigFuncPtr;
 
 /* The sprite object created for the entity. */
 struct Sprite {
@@ -84,7 +84,7 @@ void sub_0803D088(struct Entity *arg) {
     actor->id = 0x2D;
     actor->x = arg->xPos;
     actor->y = arg->yPos;
-    pfc = &D_08671BFC;
+    pfc = &gTrigFuncPtr;
     actor->scaleX = (arg->param6C >> 8) * (sub_080C31E0(arg->param7C + 0x4000, *pfc) >> 8);
     actor->scaleY = (arg->param6C >> 8) * (sub_080C31E0(arg->param7C, *pfc) >> 8);
     ret = findKindIndex(actor->id);
@@ -105,7 +105,7 @@ Lcont:
     arr = (u16 *)arg;
     ((u8 *)(&arr[i]))[0x19] = 0;
     {
-        u32 *scriptData = &gMainObjTimerCallback;
+        u32 *scriptData = &gScriptStepCallbackTable;
         ctrlBase = ((u8 *)arg) + 0x18;
         sub_080C31E4(ctrlBase, ((u8 *)arg) + 0x22, *scriptData);
     }

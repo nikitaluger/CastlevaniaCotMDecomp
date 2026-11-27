@@ -1,5 +1,5 @@
-extern void sub_080113A8(s32, void *);
-extern void sub_0801165C(void *, s32);
+extern void stepAnimationTrack(s32, void *);
+extern void advanceMotion(void *, s32);
 extern void sub_0804ACB0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -18,9 +18,9 @@ void sub_0804ABB8(void *entity) {
     work = *(u8 **)(self + 0x3C);
     anim = work + 0x34;
     body = work + 0x48;
-    sub_080113A8(sprite, anim);
+    stepAnimationTrack(sprite, anim);
     sub_0804ACB0(work, sprite);
-    sub_0801165C(work, 0);
+    advanceMotion(work, 0);
     *(s32 *)(work + 0x14) += 0xFFFFF400;
     *(s32 *)(work + 0x10) += *(s32 *)(body + 8);
     if (*(s32 *)(work + 0x14) < 0) {

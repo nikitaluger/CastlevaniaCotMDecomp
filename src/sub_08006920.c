@@ -4,7 +4,7 @@ void sub_080158F4(void);
 void sub_08016160(void);
 void sub_08016530(void);
 void sub_080C31E4(void *, void *, s32);
-extern s32 gMainObjTimerCallback;
+extern s32 gScriptStepCallbackTable;
 static inline u8 zero8(void) { u8 v = 0; return v; }
 static inline u16 zero16(void) { u16 v = 0; return v; }
 

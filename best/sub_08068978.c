@@ -1,14 +1,14 @@
-extern void sub_08003740(void *, void *);
-extern void sub_08003A6C(void *, s32, void *);
+extern void stepDelayTimer(void *, void *);
+extern void startEffectTimer(void *, s32, void *);
 extern s32 sub_08007B3C(void *, s32, s32);
 extern s32 sub_08007B78(void *, s32, s32);
 extern void sub_0806926C(void *);
 extern s32 sub_080693E0(void *, void *, void *, void *);
 extern s32 sub_080694D8(void *, void *, void *);
 extern void sub_0806A884(void *, void *);
-extern void sub_0806C49C(void *, void *);
-extern volatile char sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern void resetActorForm(void *, void *);
+extern volatile char syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_0806DD94(void);
 extern void sub_0806AB04(void *, void *, void *, void *);
@@ -47,7 +47,7 @@ extern struct G_21E90 gCameraState;
 extern u8 gTilemapPages[];
 extern u8 D_084FCA60[];
 extern u8 D_084FCA84[];
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 void sub_08068978(u8 *arg0)
 {
   int new_var2;
@@ -67,7 +67,7 @@ void sub_08068978(u8 *arg0)
   u8 temp_r6_3;
   u16 temp_r0_3;
   u32 temp;
-  if (sub_0806C4B4(r8, r8) != 0)
+  if (syncViewPosition(r8, r8) != 0)
   {
     do
     {
@@ -75,7 +75,7 @@ void sub_08068978(u8 *arg0)
     while (0);
     return;
   }
-  sub_0806C5EC(arg0, r10, r8, r8);
+  resetActionResultState(arg0, r10, r8, r8);
   temp = gMainWorkspace.f24;
   if (temp != 0)
   {
@@ -101,7 +101,7 @@ void sub_08068978(u8 *arg0)
     *((s32 *) (r7 + 0xB8)) = 0;
     *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = 0;
     {
-      void **nv = &D_08671BD0;
+      void **nv = &gScriptStepCallbacks;
       sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x2B, *nv);
     }
   }
@@ -141,10 +141,10 @@ void sub_08068978(u8 *arg0)
       *((s32 *) (r7 + 0x40)) = temp_r6;
       *((s32 *) (r7 + 0x4C)) = 1;
       var_r4 = r7 + 0x28;
-      sub_08003A6C(var_r4, 0, D_084FCA84);
+      startEffectTimer(var_r4, 0, D_084FCA84);
       *(((u8 *) ((2 * (*((s16 *) (arg0 + 0x22)))) + ((u32) arg0))) + 0x19) = (u8) temp_r6;
       {
-        void **nv = &D_08671BD0;
+        void **nv = &gScriptStepCallbacks;
         sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x28, *nv);
       }
     }
@@ -169,10 +169,10 @@ void sub_08068978(u8 *arg0)
       if (sub_080694D8(r10, *new_var, r8) != 0)
     {
       *((s32 *) (r7 + 0x68)) = 1;
-      sub_08003A6C(var_r4, 0, D_084FCA60);
+      startEffectTimer(var_r4, 0, D_084FCA60);
       *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = (u8) temp_r0_2;
       {
-        void **nv = &D_08671BD0;
+        void **nv = &gScriptStepCallbacks;
         sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x2A, *nv);
       }
     }
@@ -214,7 +214,7 @@ void sub_08068978(u8 *arg0)
           {
             *(((u8 *) new_var4) + 0x19) = 0;
             {
-              void **nv = &D_08671BD0;
+              void **nv = &gScriptStepCallbacks;
               sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x2F, *nv);
             }
           }
@@ -244,7 +244,7 @@ void sub_08068978(u8 *arg0)
             {
               *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = (u8) temp_r6;
               {
-                void **nv = &D_08671BD0;
+                void **nv = &gScriptStepCallbacks;
                 sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x30, *nv);
               }
             }
@@ -274,10 +274,10 @@ void sub_08068978(u8 *arg0)
     if (temp_r6_2 == 0)
     {
       *((s32 *) (r7 + 0x4C)) = 1;
-      sub_08003A6C(var_r4, 0, D_084FCA84);
+      startEffectTimer(var_r4, 0, D_084FCA84);
       *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = (u8) temp_r6_2;
       {
-        void **nv = &D_08671BD0;
+        void **nv = &gScriptStepCallbacks;
         sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 0x28, *nv);
       }
     }
@@ -286,21 +286,21 @@ void sub_08068978(u8 *arg0)
   temp_r6_3 = gMainWorkspace.f14ED;
   if ((temp_r6_3 == 0) && ((*((u8 *) (arg0 + 0x18))) == 0x29))
   {
-    sub_0806C49C(r10, r7);
+    resetActorForm(r10, r7);
     *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = temp_r6_3;
     {
-      void **nv = &D_08671BD0;
+      void **nv = &gScriptStepCallbacks;
       sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 4, *nv);
     }
   }
-  sub_08003740(var_r4, r10);
+  stepDelayTimer(var_r4, r10);
   *((s32 *) (r7 + 0xC4)) = (temp_r0_3 = (u16) sub_0806BCD8(arg0, r10, r7, r8));
   if (temp_r0_3 != 0)
   {
-    sub_08003740(var_r4, r10);
+    stepDelayTimer(var_r4, r10);
     *(((u8 *) (((*((s16 *) (arg0 + 0x22))) * 2) + ((u32) arg0))) + 0x19) = 0;
     {
-      void **nv = &D_08671BD0;
+      void **nv = &gScriptStepCallbacks;
       sub_080C31E8(arg0 + 0x18, arg0 + 0x22, *((s32 *) (r7 + 0xC4)), *nv);
     }
   }

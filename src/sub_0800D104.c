@@ -1,7 +1,7 @@
 struct S_020278D0 { u8 _pad[0x65]; u8 v; };
-extern struct S_020278D0 D_020278D0;
+extern struct S_020278D0 gMenuState;
 extern u32 D_0866CF0C[];
-extern u32 D_08671BD0;
+extern u32 gScriptStepCallbacks;
 
 void sub_080C31E0(void *a, void *fp);
 void sub_080C31E8(void *a, void *b, s32 c, void *fp);
@@ -16,7 +16,7 @@ void sub_0800D104(u8 *self)
     u32 *modeHandlers = D_0866CF0C;
     u32 *scriptCb;
 
-    modeIndex = D_020278D0.v;
+    modeIndex = gMenuState.v;
     sub_080C31E0(self, (void *)modeHandlers[modeIndex]);
 
     {
@@ -24,7 +24,7 @@ void sub_0800D104(u8 *self)
         *(self + stepIndex * 2 + 0x19) = 0;
     }
 
-    scriptCb = &D_08671BD0;
+    scriptCb = &gScriptStepCallbacks;
     stepPtr = self + 0x18;
     {
         void *stepIndexPtr = self + 0x22;

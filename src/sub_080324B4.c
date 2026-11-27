@@ -5,7 +5,7 @@ extern void sub_08013978(void *, void *);
 extern void sub_080142C0(void *, void *);
 extern void sub_08013AC4(void *);
 extern void sub_08014414(void *);
-extern s32 sub_08013B5C(void *, void *);
+extern s32 updateObjectDisplayState(void *, void *);
 extern void sub_08013C8C(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -53,7 +53,7 @@ void sub_080324B4(void *arg0) {
         return;
     }
 
-    if (sub_08013B5C(mainObj, state) == 0) {
+    if (updateObjectDisplayState(mainObj, state) == 0) {
         s32 scriptOffset;
         u8 *scriptBase;
         u8 cmd;

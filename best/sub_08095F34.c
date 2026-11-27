@@ -1,4 +1,4 @@
-extern s32 sub_08005820(s32);
+extern s32 scaleByRandom(s32);
 extern s32 sub_0800583C(s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_0808E348(s32, s32, s32, s32);
@@ -51,11 +51,11 @@ void sub_08095F34(u8 *arg0)
     c2 = 0xFFFC0000;
     r6 = ((*(p + 1)) + sub_0800583C(0x80000)) + ((r6 << 0x12) + c2);
     {
-      s32 f1 = sub_08005820(0x2000);
+      s32 f1 = scaleByRandom(0x2000);
       s32 f2 = sub_080C36E4(D_02027888, 5) - 2;
       c = (f1 + 0x3000) * f2;
     }
-    d = 0x8000 - sub_08005820(0x20000);
+    d = 0x8000 - scaleByRandom(0x20000);
     cond = ((D_02027888 * 2) + i) & 3;
     flag = 1;
     if (cond)

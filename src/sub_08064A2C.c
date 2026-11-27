@@ -1,12 +1,12 @@
-extern s32 sub_0806C4B4(void *, void *);
-extern void sub_0806C5EC(void *, void *, void *, void *);
+extern s32 syncViewPosition(void *, void *);
+extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806BA20(void *, void *, void *);
 extern void sub_0806B104(void *, void *, void *);
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern void sub_08005E80(s32);
-extern void sub_0806E114(void *, s32, s32, s32);
+extern void spawnKind2CEntity(void *, s32, s32, s32);
 extern void sub_0806A884(void *, void *);
-extern s32 sub_08003740(void *, void *);
+extern s32 stepDelayTimer(void *, void *);
 extern void sub_0806A7AC(void *, void *, s32);
 extern u16 sub_0806BCD8(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
@@ -48,11 +48,11 @@ void sub_08064A2C(u8 *arg0)
   sprite = *((u8 **) (arg0 + 0x38));
   spriteRef = sprite;
   obj = state;
-  if (sub_0806C4B4(obj, obj) != 0)
+  if (syncViewPosition(obj, obj) != 0)
   {
     return;
   }
-  sub_0806C5EC(arg0, spriteRef, obj, obj);
+  resetActionResultState(arg0, spriteRef, obj, obj);
   sub_0806BA20(spriteRef, obj, obj);
   table = 0x080E03A0;
   typeOfs = ((struct Actor *) obj)->type * 0x58;
@@ -83,7 +83,7 @@ void sub_08064A2C(u8 *arg0)
       }
     }
     ((struct Actor *) obj)->f8 = 0;
-    sub_0806E114(arg0, 9, *((s32 *) (obj + 0)), *((s32 *) (obj + 4)));
+    spawnKind2CEntity(arg0, 9, *((s32 *) (obj + 0)), *((s32 *) (obj + 4)));
     q = (u8 *) ((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + ((u32) arg0));
     *((u8 *) (q + 0x19)) = 0;
     g = (s32 *) 0x08671BD0;
@@ -91,12 +91,12 @@ void sub_08064A2C(u8 *arg0)
   }
   sub_0806A884(spriteRef, obj);
   timer = state + 0x28;
-  if (sub_08003740(timer, spriteRef) == 0)
+  if (stepDelayTimer(timer, spriteRef) == 0)
   {
     u8 *q;
     s32 *g;
     sub_0806A7AC(spriteRef, state, 0x10);
-    sub_08003740(timer, spriteRef);
+    stepDelayTimer(timer, spriteRef);
     q = (u8 *) ((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + ((u32) arg0));
     *((u8 *) (q + 0x19)) = 0;
     g = (s32 *) 0x08671BD0;
@@ -107,7 +107,7 @@ void sub_08064A2C(u8 *arg0)
   {
     u8 *q;
     s32 *g;
-    sub_08003740(timer, spriteRef);
+    stepDelayTimer(timer, spriteRef);
     q = (u8 *) ((((u32) (*((s16 *) (arg0 + 0x22)))) * 2) + ((u32) arg0));
     *((u8 *) (q + 0x19)) = 0;
     g = (s32 *) 0x08671BD0;

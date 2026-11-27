@@ -13,7 +13,7 @@ struct S_A0_b {
 struct Sub { u8 _0[0x18]; u8 f18; u8 f19; };
 struct S_02025FF0_189C { u8 _0[0x189C]; u32 w; };
 extern struct S_02025FF0_189C gMainWorkspace;
-extern void *D_08671BD0;
+extern void *gScriptStepCallbacks;
 
 // Sets frame 0 and fires a step callback when this entity's position-derived phase matches the global phase.
 void sub_0804D4F8(struct S_A0_b *obj) {
@@ -31,7 +31,7 @@ void sub_0804D4F8(struct S_A0_b *obj) {
     if (sub_080C36E4(gMainWorkspace.w, 0x14A) == phaseMod) {
         ((struct Sub *)((u8 *)obj + obj->f22 * 2))->f19 = 0;
         {
-            void **fn = &D_08671BD0;
+            void **fn = &gScriptStepCallbacks;
             sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 1, *fn);
         }
     }

@@ -14,12 +14,12 @@ struct S_02025FF0_78C6C
 };
 extern struct S_02025FF0_78C6C gMainWorkspace;
 extern u8 gTilemapPages[];
-extern s32 sub_0806D518(void *, void *, void *);
-extern s32 sub_08007DD8(void *, s32);
+extern s32 checkGlobalStateChange(void *, void *, void *);
+extern s32 getTileTerrainB(void *, s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void *sub_0806D2A0(s32, s32, s32, s32);
-extern void sub_08003740(void *, void *);
-extern void sub_0806D588(void *, void *);
+extern void stepDelayTimer(void *, void *);
+extern void setSpriteScreenPosition(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_0806D330(void *, void *);
 
@@ -33,7 +33,7 @@ void sub_08078C6C(void *arg0)
   s32 t;
   void *p;
   void *base;
-  if (sub_0806D518(self, p38, p4) == 0)
+  if (checkGlobalStateChange(self, p38, p4) == 0)
   {
     t = (*((s32 *) (p4 + 0xC))) + 0x4000;
     *((s32 *) (p4 + 0xC)) = t;
@@ -45,7 +45,7 @@ void sub_08078C6C(void *arg0)
     t = (*((s32 *) (p4 + 4))) + (*((s32 *) (p4 + 0xC)));
     *((s32 *) (p4 + 4)) = t;
     base = gTilemapPages + (gMainWorkspace.f18A8 << 6);
-    if ((u16)sub_08007DD8(base, *((s32 *) (((u8 *) p6C) + 4))) != 0)
+    if ((u16)getTileTerrainB(base, *((s32 *) (((u8 *) p6C) + 4))) != 0)
     {
       sub_0808DBF8(*((s32 *) (((u8 *) p6C) + 4)), *((s32 *) (p4 + 4)), 0);
       goto block_9;
@@ -61,8 +61,8 @@ void sub_08078C6C(void *arg0)
       *((s32 *) (p4 + 0x54)) = 4;
     }
     *((u16 *) p38) = gMainWorkspace.f18C2;
-    sub_08003740(p8 + 0x1C, p38);
-    sub_0806D588(p38, p4);
+    stepDelayTimer(p8 + 0x1C, p38);
+    setSpriteScreenPosition(p38, p4);
     if ((gMainWorkspace.f173A == 0x1C) || ((gMainWorkspace.f14ED == 0) && (gMainWorkspace.f10 != 0)))
     {
       block_9:

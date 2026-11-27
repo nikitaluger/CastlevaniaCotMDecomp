@@ -7,7 +7,7 @@ extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0 { u8 _0[0x18C2]; u16 palette; };
 extern struct S_02025FF0 gMainWorkspace;
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 struct Entity {
   u8 _0[2]; u16 flags; u8 _1[0x14 - 4]; u32 stepHandlers; u8 _2[0x22 - 0x18];
   s16 stepIndex; u32 failHandler; u8 _3[0x38 - 0x28]; u32 sprite; u32 motion;
@@ -68,7 +68,7 @@ Lcont:
   words = (u16 *)entity;
   ((u8 *)(&words[stepIdx]))[0x19] = 0;
   {
-    u32 *scriptTable = &gMainObjTimerCallback;
+    u32 *scriptTable = &gScriptStepCallbackTable;
     stepBase = ((u8 *)entity) + 0x18;
     sub_080C31E4(stepBase, ((u8 *)entity) + 0x22, *scriptTable);
   }

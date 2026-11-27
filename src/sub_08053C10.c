@@ -2,7 +2,7 @@ s32 setAnimationFrame(s32, s32, s32, s32);
 s32 sub_08014990(s32);
 s32 sub_080C31E4(void *, void *, s32);
 
-extern u32 gMainObjTimerCallback;
+extern u32 gScriptStepCallbackTable;
 
 /* Enemy lunge update: start the wind-up animation, and when the animation
  * control flags fire, step the enemy in its facing direction with a velocity,
@@ -40,6 +40,6 @@ void sub_08053C10(void *arg0) {
     setAnimationFrame(actor, (s32)enemyData, 8, 0);
     paramIndex = *(s16 *)((u8 *)self + 0x22);
     *((u8 *)self + paramIndex * 2 + 0x19) = (u8)zero;
-    pCallback = &gMainObjTimerCallback;
+    pCallback = &gScriptStepCallbackTable;
     sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *pCallback);
 }
