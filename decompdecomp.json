@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795816609.4903314,
- "revision": 71290,
+ "saved_at": 1795816777.1641705,
+ "revision": 71297,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1790,28 +1790,6 @@
     "-O1",
     "-fno-strength-reduce"
    ]
-  },
-  "169448:134387176": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateTimerDrivenEffectObject",
-   "vram": 134387176
-  },
-  "214208:134431936": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_080344C0",
-   "vram": 134431936
   }
  },
  "instructions": "",
@@ -2176,8 +2154,7 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h",
-  "rom": "common_rom.h"
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7003,7 +6980,7 @@
   "updateTimerDrivenEffectObject": {
    "vram": 134387176,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "updateTimerDrivenEffect": {
    "vram": 134387468,
@@ -7305,10 +7282,10 @@
    "matched_by": "opencode-free-2",
    "readable": false
   },
-  "sub_0802C190": {
+  "updateOwnedScriptedObject": {
    "vram": 134398352,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "updatePatrolAI": {
    "vram": 134398644,
@@ -30416,7 +30393,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802C190",
+   "name": "updateOwnedScriptedObject",
    "vram": 134398352,
    "size": 292,
    "status": "open"
@@ -52645,6 +52622,12 @@
    "name": "updateScriptedObjectMover",
    "address": 134397080,
    "size": 368,
+   "kind": "func"
+  },
+  {
+   "name": "updateOwnedScriptedObject",
+   "address": 134398352,
+   "size": 292,
    "kind": "func"
   },
   {

@@ -13728,14 +13728,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802C190",
-  "text": "Releasing; will revisit later.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.966988,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0802DB60",
   "text": "Releasing.",
   "by": "opencode-free-1",
@@ -88800,14 +88792,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802C190",
-  "text": "Cannot improve further: ARM-vs-Thumb register allocation wall. Target (ARM mode) assigns callee-saved registers as r4=self, r5=p3C, r6=p3C+0x48, r8=p3C+0x34, r9=pAC for entire function. agbcc (Thumb unified APCS) assigns r5=self, r6=p3C, r4=p3C+0x48, r8=p3C+0x34, sb=pAC. The register allocator's choice of which callee-saved register gets which variable is an internal compiler heuristic; no C source change (variable declaration order, scoping, register keyword, loop structure) can force agbcc to use r4 for self and r9 for pAC while keeping r6 for p3C+0x48. This is the documented systemic wall class for ARM-mode functions. Best achievable with current compiler: 2170.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3642871,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0803D588",
   "text": "Release now: verified branch-offset/scheduling wall (1 compile = 581, matches noted best). Control flow 121/121 byte-exact; only diffs are bne/bl branch offsets (literal pool placement), 14 reordered scheduling rows, 1 stack/extra \u2014 all agbcc codegen choices not controllable from C. Ordinary C, not asm/not not_c. Best 581 preserved.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -90316,14 +90300,6 @@
   "text": "MATCHED (score 0). This is the 'actor update with 0x141AC early-exit + 0x16238/0x14 flag checks' family; exact working source is the matched sibling sub_080A1B38 recipe with the extra sub_080141AC(p38,p3C)==1 early-exit block and the sub_08016238(*(void**)(p3C+0x28)) check prepended. LOAD-BEARING details: (1) declare `void *p38; void *p3C; s32 funcptr; u8 *self=(u8*)arg0;` with self LAST; (2) the flag-OR blocks MUST be `s32 tmp = 1 | *(u16 *)p3C; *(u16 *)p3C = tmp;` \u2014 constant FIRST, named s32 temp, NOT `|= 1` or `value | 1` (those emit ldrh r0 / movs r1 instead of target ldrh r1 / movs r0); (3) the AND check is `if (1 & *(u16 *)((u8 *)*(void **)((u8 *)p3C + 0x28) + 0x14))` with u8* arithmetic (not u16**) \u2014 this produces target's `ldrh r1,[r0,#0x14]; movs r3,#1; adds r0,r3,#0; ands r0,r1`; (4) final pointer deref `*(s32 *)((u32)(byte*4) + *(u32 *)(self+0x14))` loads the array base first; (5) use `base` locals in nested `{...}` blocks for the 0x19 byte updates; (6) both `sub_080C31E0((s32)arg0, ...)` calls (early-exit + success) are tail-merged by agbcc into the shared tail. Adapted this to sub_080A4134 but that one lacks the 141AC block and has different callee-save coloring (still 505 wall there).",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.371952,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802C190",
-  "text": "1 compile, stuck at 2170 = previous agent's best. Regalloc wall: target (ARM mode) assigns r4=self, r5=p3C, r6=p3C+0x48, r8=p3C+0x34, sb=pAC; agbcc (Thumb) assigns r5=self, r6=p3C, r4=p3C+0x48, r8=p3C+0x34, no sb. Also original calls sub_08013B5C via r3 thunk; agbcc doesn't. Tried reorderings, dummy vars, struct-typed access, look-alike style \u2014 none flipped the allocation. Structure/logic correct; best = draft. Releasing to claim new functions.",
-  "by": "opencode-tidepool-alpha-free-1",
-  "created_at": 1795683534.37199,
   "score_before": null,
   "score_after": null
  },
@@ -92156,14 +92132,6 @@
   "text": "Stuck at score 1987 (85% match). Main issue: register allocation mismatch - target uses r5 for arg0/self, r4 for outer, r6 for base, r7 for om. Compiler assigns r4 to first local (outer or self), r5 to second, causing swapped r4/r5 vs target. Tried various declaration orders (outer first, self first, split decl/init) but compiler consistently puts first pointer local in r4. Target prologue: adds r5,r0,#0 (arg0->r5), then computes outer into r4. Also: function signature mismatches for sub_080C31E8/E4/E0 and sub_0806D62C reported at link time, and data pointer mismatches (D_02025368, D_08671BD0, D_08671BB0). Struct layout matches sub_0806F408. Need to resolve regalloc (possibly via register asm hints or different code structure) and verify extern prototypes against matched callees.",
   "by": "opencode-free-1",
   "created_at": 1795683534.3819692,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802C190",
-  "text": "MATCHED sub_0802C190 (2170 -> 80 -> 10 -> 0) by adapting the matched 89%-lookalike sub_0802CF08's exact C. Levers: (1) Use the sibling's declaration order and field-expression spellings verbatim; change only the constants (0x0866DB68 -> 0x0866DB34) and add pAC = *(void**)(arg0+0xAC) loaded AFTER p38 but BEFORE p3C (target load order is p38, pAC, p3C \u2014 this fixes a reordered-ldr diff; 80 -> 10). (2) The early-return branch `*(u16*)(p48+8)=0` is actually `*(u16*)p48=0` here (p48 = p3C+0x48, target strh [r6] not [r6,#8]) \u2014 sub_0802C190 differs from the sibling at that offset. (3) Final branch-offset diff (bne #0x106 vs target #0x10e): the `if (*(u16*)(arg0+2) & 0x8000)` must be an early `return`, NOT `goto tail; sub_08013C8C(...)`. Early return jumps past the tail call, adding exactly 8 bytes to the displacement (same lever as proposal #347). sub_08011674 takes THREE args: sub_08011674(p3C, 0x80000, 0x80000) \u2014 a 2-arg prototype floors the score at 2170.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.3820102,
   "score_before": null,
   "score_after": null
  },
@@ -356526,6 +356494,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:2a7053df7d7f3b9ddbe8b2005dfaf9e879fdf0e2436af975b6e480033519a63f"
  },
  {
+  "function": "sub_080344C0",
+  "text": "86% donor spawnAttackEffectSprite adapted; best 2750 (89.5%, 262/264 insns), rev 817d3a796e5950b9013e. Main structure matches: allocSpriteObject->allocWorkSlot(0,0x4C,0)->typeFlags 0x8000000B->installUpdateHandler(sub_08014290)->animId 0x17->copy owner f4C/f5C to part x/y->adjust y by owner+0x6C (0xFFF40000/0xFFE40000) and x by owner+0x70 (0x1E0000 / 0x02025FF0 literal)->set part+0x10=0x18C2, part+0x14=0->findKindIndex(part->animId)->graphics pack->initSpriteGraphics->setAnimationFrame(...,0x3B,1)->allocEffectPart->fill subEffect (1=5,2=8,3=1, f04/f0E from gEffectGfxTable[animId*40], f06-f0C from D_080CEDF4, +0x10=sprite)->camera scroll adjust (gCameraState+0x1278/0x127C indexed by (state[0x18A8]+1)*0x40)->flags|=0x1000->step byte clear, sub_080C31E4, step byte++, sub_080C31E0(dispatch). Remaining diffs mostly linker false positives from code-size/offset (bl addresses, pool symbol misattributions). Real structural diff: owner+0x70!=0 x-adjust branch in target has dead `movs r0,#0x80; lsls r0,r0,#0xb; b` before convergence; current code b's directly. Also keep x else as literal 0x02025FF0 (not (u32)gMainWorkspace) - symbol form regressed. Tried: findKindIndex(part->animId) improved; swapping x if/else regressed; gMainWorkspace symbol regressed; try_local_repairs found no better variant.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795805511.4602828,
+  "score_before": 3750,
+  "score_after": 2750,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:76ddeda282ddae4dfaf33b5294932af300e892514ec776aad8ff29fea5a1dec1"
+ },
+ {
   "function": "sub_0800FEDC",
   "text": "Leaf no-call Thumb function; body logic matches target exactly. Only diff is LR-frame wall: target `beq #0x10`/`bx lr`, candidate `push {lr}`/`beq #0x12`/`pop {r0}; bx r0`. 46+ prior attempts, all flag profiles same or worse. Confirmed 215 this session.\nConfirmed current candidate; prior history shows extensive attempts and flag search.\nNo change from baseline 215; all diffs are frame insertion/offset shift.",
   "by": "opencode-iceman-contributor-free-12",
@@ -359455,24 +359432,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:d8944ad3986dba9561928c803dedac5cae128d0b4f17b5275b8e92b03550474e"
  },
  {
-  "function": "sub_08037604",
-  "text": "Improved 280 -> 275 -> 220 -> 70 (137/137 insns) this session. Key fixes: (1) dedicated `u8 *self = arg0;` local declared AFTER sprite/work, used for both args of `_call_via_r1` \u2014 fixed the callback staging block; (2) `s32 t` temp for the byte counter with `(u8)t` casts on BOTH comparisons. Remaining sole residual is 4 backend rows: `mov r8,r0` scheduled later (rows 3/10 reordered) and OR operand order (`ldrb r1,[r2]; movs r0,#0x40` vs ours `ldrb r0,[r2]; movs r1,#0x40`). Tested and REJECTED (2520): declaring self first, using self for sprite/work loads, direct `arg0+0x24` in the call (2575). Tested neutral: 3 OR spellings, 6 local repairs, 3 variants of self usage. Do not repeat those.",
-  "by": "opencode-hy4-flash-free-64",
-  "created_at": 1795816410.8974006,
-  "score_before": 280,
-  "score_after": 70,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:7062276b08810cbfad990b8de25ad62fb96b6117267330a073a27a89223b93de"
- },
- {
-  "function": "sub_0802A974",
-  "text": "Structural rebuild needed; best 15940 (36.9%, 176 target insns vs 253 reported). Verified via resolve_addresses that ALL callee symbols are correct (0x805F9B4=isOutsideCameraBounds, 0x8005820=scaleByRandom, 0x8014900=absXFromFocus, 0x805FAEC=spawnBudgetedEffect, 0x800168C=allocWorkSlot, 0x8016830=sub_08016830, 0x8014090=sub_08014090, 0x80C31E0=_call_via_r1); the linker warnings are misalignment false positives. Target prologue saves 6 callee-saved regs (r4,r5,r6,r7,r8,sb) vs candidate 3, so the C needs more simultaneously live locals. Target computes data addresses as runtime base+offset literal loads (known agbcc relocation-folding wall). No matched twin. Correcting callee prototypes to the matched definitions (s32 allocWorkSlot(u8*,...), u32 scaleByRandom(u32), s32 sub_08014090(u16), s32 sub_08016830(u16)) made it WORSE: 15940 -> 16315; do not repeat.",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795816436.985957,
-  "score_before": 15940,
-  "score_after": 15940,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:7fe1b3d50709e83a1a13c30c9a0948470c3fe5e2ced0b1e77e9be0412705dc16"
- },
- {
   "function": "updateTimerDrivenEffectObject",
   "text": "Cannot reach 0 with current attempts; regalloc differs (r5/r6 swap, r7/r8 spill on p34). Releasing.",
   "by": "opencode-free-1",
@@ -359505,12 +359464,123 @@
   "score_after": null
  },
  {
-  "function": "sub_080344C0",
-  "text": "86% donor spawnAttackEffectSprite adapted; best 2750 (89.5%, 262/264 insns), rev 817d3a796e5950b9013e. Main structure matches: allocSpriteObject->allocWorkSlot(0,0x4C,0)->typeFlags 0x8000000B->installUpdateHandler(sub_08014290)->animId 0x17->copy owner f4C/f5C to part x/y->adjust y by owner+0x6C (0xFFF40000/0xFFE40000) and x by owner+0x70 (0x1E0000 / 0x02025FF0 literal)->set part+0x10=0x18C2, part+0x14=0->findKindIndex(part->animId)->graphics pack->initSpriteGraphics->setAnimationFrame(...,0x3B,1)->allocEffectPart->fill subEffect (1=5,2=8,3=1, f04/f0E from gEffectGfxTable[animId*40], f06-f0C from D_080CEDF4, +0x10=sprite)->camera scroll adjust (gCameraState+0x1278/0x127C indexed by (state[0x18A8]+1)*0x40)->flags|=0x1000->step byte clear, sub_080C31E4, step byte++, sub_080C31E0(dispatch). Remaining diffs mostly linker false positives from code-size/offset (bl addresses, pool symbol misattributions). Real structural diff: owner+0x70!=0 x-adjust branch in target has dead `movs r0,#0x80; lsls r0,r0,#0xb; b` before convergence; current code b's directly. Also keep x else as literal 0x02025FF0 (not (u32)gMainWorkspace) - symbol form regressed. Tried: findKindIndex(part->animId) improved; swapping x if/else regressed; gMainWorkspace symbol regressed; try_local_repairs found no better variant.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795805511.4602828,
-  "score_before": 3750,
-  "score_after": 2750,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:76ddeda282ddae4dfaf33b5294932af300e892514ec776aad8ff29fea5a1dec1"
+  "function": "sub_08037604",
+  "text": "Improved 280 -> 275 -> 220 -> 70 (137/137 insns) this session. Key fixes: (1) dedicated `u8 *self = arg0;` local declared AFTER sprite/work, used for both args of `_call_via_r1` \u2014 fixed the callback staging block; (2) `s32 t` temp for the byte counter with `(u8)t` casts on BOTH comparisons. Remaining sole residual is 4 backend rows: `mov r8,r0` scheduled later (rows 3/10 reordered) and OR operand order (`ldrb r1,[r2]; movs r0,#0x40` vs ours `ldrb r0,[r2]; movs r1,#0x40`). Tested and REJECTED (2520): declaring self first, using self for sprite/work loads, direct `arg0+0x24` in the call (2575). Tested neutral: 3 OR spellings, 6 local repairs, 3 variants of self usage. Do not repeat those.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816410.8974006,
+  "score_before": 280,
+  "score_after": 70,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:7062276b08810cbfad990b8de25ad62fb96b6117267330a073a27a89223b93de"
+ },
+ {
+  "function": "sub_0802A974",
+  "text": "Structural rebuild needed; best 15940 (36.9%, 176 target insns vs 253 reported). Verified via resolve_addresses that ALL callee symbols are correct (0x805F9B4=isOutsideCameraBounds, 0x8005820=scaleByRandom, 0x8014900=absXFromFocus, 0x805FAEC=spawnBudgetedEffect, 0x800168C=allocWorkSlot, 0x8016830=sub_08016830, 0x8014090=sub_08014090, 0x80C31E0=_call_via_r1); the linker warnings are misalignment false positives. Target prologue saves 6 callee-saved regs (r4,r5,r6,r7,r8,sb) vs candidate 3, so the C needs more simultaneously live locals. Target computes data addresses as runtime base+offset literal loads (known agbcc relocation-folding wall). No matched twin. Correcting callee prototypes to the matched definitions (s32 allocWorkSlot(u8*,...), u32 scaleByRandom(u32), s32 sub_08014090(u16), s32 sub_08016830(u16)) made it WORSE: 15940 -> 16315; do not repeat.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795816436.985957,
+  "score_before": 15940,
+  "score_after": 15940,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:7fe1b3d50709e83a1a13c30c9a0948470c3fe5e2ced0b1e77e9be0412705dc16"
+ },
+ {
+  "function": "sub_0800F584",
+  "text": "Baseline 735 (143/143 insns). New trials: halfword array index `[3]` to get `ldrh [r0,#6]` produced byte-identical output; hoisting D_080E47E8 base into a local (with or without `[3]`) scored 1200, worse. Residual is the D_080E47E8 early-hoist plus callee-saved arg1/result swap and literal-pool ripple. Known false-positive wrong-callee rows. No boundary/callee issue.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795816470.146367,
+  "score_before": 735,
+  "score_after": 735,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:61e5f9297f9be5f36e68304c72c3ae9bdaeadf9ab869d8111f89d045676af220"
+ },
+ {
+  "function": "sub_08008F90",
+  "text": "Baseline 70 (174/174 insns, 99.5%). Residual is 14 register-only rows from one r1/r2/r3 tie (first at `movs r1,#0x93; lsls r1,#5` vs ours r2). Prior 9 local repairs and 4 explicit patches all best 70. agbcc allocator wall; no boundary/callee/hand-asm issue.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795816488.814657,
+  "score_before": 70,
+  "score_after": 70,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:0abbef369036ecea8d006c368a9527d1ad9c38c00b66f1d2221a73c91f986cd1"
+ },
+ {
+  "function": "sub_08000A70",
+  "text": "Documented terminal allocator wall, independently confirmed by 2 agents over ~134 attempts, 35+ repair-family proposals, a permuter and every flag profile. Rechecked baseline 225; recompiling the inherited source verbatim confirmed 225. Residual is purely callee-saved pseudo coloring (ROM sb/sl/ip vs compiled r8/sb/sl; first diff `mov sb,r1` vs `mov r8,r1`) plus a +2 branch ripple. This session's only compile accidentally changed `__repair_phase___repair_phase_size` to `__repair_phase_pad` in the split block and scored 1733 (restored saved_best immediately). Do not spend C-edit budget here without a new hypothesis.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816507.6323526,
+  "score_before": 1733,
+  "score_after": 1733,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:03d80202b46e5cae35645426320acda801d6b16275055807c313bdfecb13314f"
+ },
+ {
+  "function": "sub_0809B05C",
+  "text": "Baseline 10 (183/183 insns, 181 byte-exact). New trials: new_var to u32, flag to u8, and explicit (u32) cast on the shift all produced byte-identical output (10). Residual is the 2-address-vs-3-address shift tie (`lsls r1,r1,#0x18` vs ROM `lsls r0,r1,#0x18`). Terminal agbcc backend tie; no boundary/callee issue.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795816514.8247542,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:9b3a14eaa091e9edf242de22ba3d97beec56d8cfa4e48b80c51db45d7a32f3bf"
+ },
+ {
+  "function": "sub_080C14E8",
+  "text": "Documented terminal agbcc register-coloring wall, independently confirmed by 5+ models over ~103 attempts. Rechecked baseline 210 with valid C (revision 8c4654cd85132638b333 / recompiled ec4cee93ea51eda72dbd); 171/171 insns byte-exact, residual is 42 pure register rows from the initial rotation (ROM p=r1/p1=r2/base=r0/ptr=r3; agbcc p=r0/p1=r1/base=r3) cascading through all switch cases. IMPORTANT: saved historical best 190 uses an uninitialized `p1` (quality report); do not restore it as valid C. This session tested 3 debug/GCSE flag variants (-g, -fno-gcse, O3 -g): all 210. Exhausted by others: decl/assignment order, struct fields, base-before-p local, p[N] indexing, type widths, temps, parameter reuse.\n103 C attempts across 5+ models, all flag profiles, 3 debug/GCSE variants this session, declaration/order/temp/type permutations\nbest valid score stayed 210; 42 pure register rows invariant",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816594.950305,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:cba84fa3bb17a6a61d4f471f7a8d08d9f6047acd07f7a2db32e9f8d4f538bf03"
+ },
+ {
+  "function": "sub_080A4B44",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked baseline 10; all 190 target insns byte-exact. Sole residual is a deterministic agbcc scratch-register tie at the `p->f28->f1 = zero` byte store: ROM `mov r2,r8` vs agbcc `mov r1,r8`; the later zero store picks r2, and matched sibling sub_080A3FA0 takes the opposite ROM choice for identical C. Two agents with 82+ attempts and an explicit no-closer override concluded no C step can improve this. Do not spend compile budget on spelling permutations; this needs a compiler tie-break change.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816634.2288945,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "sub_080BC2C8",
+  "text": "Score 380 (202/202 insns). Only 11 rows differ, all in the randomSignedOffset branch block at rows 135-149: target keeps jitter in r0 and computes actor+0x8C into r1 (`adds r1,r5,#0; adds r1,#0x8C; str r0,[r1]; cmp r0,#0`), candidate swaps the pseudos (jitter in r1, address in r0) and lacks the target's no-op `movs r0,r0` at the branch join. Everything before row 135 and after row 149 is byte-exact. Tried this session via compile_variants on f641ab7fcb0d70bea2e6: (1) fresh s32 jitter + ternary, (2) fresh s32 jitter + separate adjusted local + if/else, (3) u32 jitter with signed cast compare \u2014 scores 2465/3335/2505, all worse, added frames and shifted later call displacements; baseline retained. Not a C-shape or prototype error; treat as an agbcc regalloc/copy-insertion wall.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795816651.7340107,
+  "score_before": 380,
+  "score_after": 380,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c6fe666dc5010ec818114572ffffcd9fa9db20a7c795ce3d20ce35e6e47816f1:ba2933b13f82516e157a0ba4015c18b421443eb3a923f64a34035f10eb2f162a"
+ },
+ {
+  "function": "sub_080B54E4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked baseline 380. Documented terminal agbcc callee-saved coloring tie confirmed by 2 agents over 20 explicit patches and 3 local repairs. All 201 instructions present and byte-correct; residual is hard-register binding (ROM sel=r4, *3temp=r5, p48=r10) that no C lever selects. Forcing extra pressure only spills p34 or yields 670; -O2 also 400. Register pins banned. Not hand asm, not boundary/dependency issue. Advance queue permanently.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795816667.429649,
+  "score_before": 380,
+  "score_after": 380
+ },
+ {
+  "function": "updateOwnedScriptedObject",
+  "text": "Releasing; will revisit later.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.966988,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateOwnedScriptedObject",
+  "text": "Cannot improve further: ARM-vs-Thumb register allocation wall. Target (ARM mode) assigns callee-saved registers as r4=self, r5=p3C, r6=p3C+0x48, r8=p3C+0x34, r9=pAC for entire function. agbcc (Thumb unified APCS) assigns r5=self, r6=p3C, r4=p3C+0x48, r8=p3C+0x34, sb=pAC. The register allocator's choice of which callee-saved register gets which variable is an internal compiler heuristic; no C source change (variable declaration order, scoping, register keyword, loop structure) can force agbcc to use r4 for self and r9 for pAC while keeping r6 for p3C+0x48. This is the documented systemic wall class for ARM-mode functions. Best achievable with current compiler: 2170.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3642871,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateOwnedScriptedObject",
+  "text": "1 compile, stuck at 2170 = previous agent's best. Regalloc wall: target (ARM mode) assigns r4=self, r5=p3C, r6=p3C+0x48, r8=p3C+0x34, sb=pAC; agbcc (Thumb) assigns r5=self, r6=p3C, r4=p3C+0x48, r8=p3C+0x34, no sb. Also original calls sub_08013B5C via r3 thunk; agbcc doesn't. Tried reorderings, dummy vars, struct-typed access, look-alike style \u2014 none flipped the allocation. Structure/logic correct; best = draft. Releasing to claim new functions.",
+  "by": "opencode-tidepool-alpha-free-1",
+  "created_at": 1795683534.37199,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateOwnedScriptedObject",
+  "text": "MATCHED sub_0802C190 (2170 -> 80 -> 10 -> 0) by adapting the matched 89%-lookalike sub_0802CF08's exact C. Levers: (1) Use the sibling's declaration order and field-expression spellings verbatim; change only the constants (0x0866DB68 -> 0x0866DB34) and add pAC = *(void**)(arg0+0xAC) loaded AFTER p38 but BEFORE p3C (target load order is p38, pAC, p3C \u2014 this fixes a reordered-ldr diff; 80 -> 10). (2) The early-return branch `*(u16*)(p48+8)=0` is actually `*(u16*)p48=0` here (p48 = p3C+0x48, target strh [r6] not [r6,#8]) \u2014 sub_0802C190 differs from the sibling at that offset. (3) Final branch-offset diff (bne #0x106 vs target #0x10e): the `if (*(u16*)(arg0+2) & 0x8000)` must be an early `return`, NOT `goto tail; sub_08013C8C(...)`. Early return jumps past the tail call, adding exactly 8 bytes to the displacement (same lever as proposal #347). sub_08011674 takes THREE args: sub_08011674(p3C, 0x80000, 0x80000) \u2014 a 2-arg prototype floors the score at 2170.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.3820102,
+  "score_before": null,
+  "score_after": null
  }
 ]

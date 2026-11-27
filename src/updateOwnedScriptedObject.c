@@ -15,7 +15,7 @@ void sub_080C31E8(void *, void *, u32, u32);
  * on a filtered interaction, handle contact and the kind-specific cue, then
  * advance the script program and give the owner a velocity kick unless the
  * owner's 0x06 flags say no. */
-void sub_0802C190(void *self) {
+void updateOwnedScriptedObject(void *self) {
     void *mainObj;
     void *state;
     void *state34;

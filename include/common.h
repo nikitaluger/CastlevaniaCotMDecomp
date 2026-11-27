@@ -2839,3 +2839,10 @@ struct MainObjectParts {
     void *partA; /* 0x0C */
     void *partB; /* 0x10 */
 };
+
+/* Owned scripted-object variant (updateOwnedScriptedObject). In addition to the
+ * common script-driven object fields above, the entity carries an owner pointer
+ * at +0xAC; the owner's +0x04 record holds movement flags at +0x06 (bit 0x10
+ * suppresses the owner nudge). Step handlers are 4-byte Thumb pointers indexed
+ * by the opcode byte at the current step. */
+#define SCRIPT_OWNED_OBJ_STEP_TABLE 0x0866DB34
