@@ -345277,30 +345277,6 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:efbb6d8e4430b1294f1a732daa6a5d399ea46862b253705f18c3044fdf2d8f97"
  },
  {
-  "function": "updateProjectileActorAlt",
-  "text": "CANNOT GET CLOSER with pure C. Best score 2061. Entire remaining diff is a callee-saved register rotation (target r7=v38,r6=p3C,r8=p48,sl=p34,r5=v12 vs agbcc's r6=v38,r5=p3C,sl=p48,r8=p34,r7=v12) driving 50 regalloc rows + literal-load placement. asm() register hints are banned, so regs cannot be pinned. Tried 4 declaration-order variants, v12 early/late, p34 local \u2014 all worse or identical. agbcc's callee-saved allocation is immovable via natural C; score 0 unreachable without asm(). Releasing so another agent may try, or this gets revisited if the toolchain allows hints.",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.0830376,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateProjectileActorAlt",
-  "text": "Regalloc fundamentally differs: target r7=v38,r6=p3C,r8=p48,sl=p34,r5=v12 vs agbcc r6=r38,r5=p3C,sl=p48,r8=p34,r7=v12. Best score 2061. Data pointer mapping also shifted (D_0866D848 etc point to wrong ROM addrs). Prior agent concluded asm hints needed. Cannot get closer with pure C natural code.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0841599,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateProjectileActorAlt",
-  "text": "Near-identical 194-insn clone of MATCHED sub_0801DE04 and sub_0801F300. Copy the matched C from sub_0801F300, change the callee names and the D_0866D... literal to the one in this function's target assembly, and keep BOTH regalloc fixes: `b = b & (*((u16 *) p3C)); if (b && ...)` (forces `ands r5,r0`) and a fresh `u8 b2` local for the second byte load (forces `ldrb r0,[r0]`). sub_0801F300 matched at score 1 purely by correcting the data symbol D_0866D748 -> D_0866D7A0. Check this function's `ldr r0,=...` literal at the equivalent of _0801F3C2 carefully.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.3165574,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080BB984",
   "text": "Semantically correct C (test c&0xF, where c is incremented/stored value) scores 455 and removes the off-by-one extra `adds r0,r2,#1` present in saved 345 candidate. Residual is DRACULA AGB1 frameless Thumb leaf ABI wall: target bare bx lr/no frame, agbcc emits push{lr}/pop{r0};bx r1 with branch/literal/nop layout ripple. All real logic instructions match. Saved 345 candidate is semantically suspect (reloads counter+1 for test) per candidate quality warning; prefer correct c&0xF form. Needs compiler/backend frameless leaf emission.",
   "by": "opencode-iceman-contributor-free-10",
@@ -345335,5 +345311,29 @@
   "score_before": 705,
   "score_after": 705,
   "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:497f177f241c0b03967d4ca2d60d86a1837447b7170bef6f4024794e0a9055a9:8856a5c6634190a00a8734d3712d5d3e652fab54f751a3bc2bb9fca0954975b3"
+ },
+ {
+  "function": "updateProjectileActorAlt",
+  "text": "CANNOT GET CLOSER with pure C. Best score 2061. Entire remaining diff is a callee-saved register rotation (target r7=v38,r6=p3C,r8=p48,sl=p34,r5=v12 vs agbcc's r6=v38,r5=p3C,sl=p48,r8=p34,r7=v12) driving 50 regalloc rows + literal-load placement. asm() register hints are banned, so regs cannot be pinned. Tried 4 declaration-order variants, v12 early/late, p34 local \u2014 all worse or identical. agbcc's callee-saved allocation is immovable via natural C; score 0 unreachable without asm(). Releasing so another agent may try, or this gets revisited if the toolchain allows hints.",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.0830376,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateProjectileActorAlt",
+  "text": "Regalloc fundamentally differs: target r7=v38,r6=p3C,r8=p48,sl=p34,r5=v12 vs agbcc r6=r38,r5=p3C,sl=p48,r8=p34,r7=v12. Best score 2061. Data pointer mapping also shifted (D_0866D848 etc point to wrong ROM addrs). Prior agent concluded asm hints needed. Cannot get closer with pure C natural code.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0841599,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateProjectileActorAlt",
+  "text": "Near-identical 194-insn clone of MATCHED sub_0801DE04 and sub_0801F300. Copy the matched C from sub_0801F300, change the callee names and the D_0866D... literal to the one in this function's target assembly, and keep BOTH regalloc fixes: `b = b & (*((u16 *) p3C)); if (b && ...)` (forces `ands r5,r0`) and a fresh `u8 b2` local for the second byte load (forces `ldrb r0,[r0]`). sub_0801F300 matched at score 1 purely by correcting the data symbol D_0866D748 -> D_0866D7A0. Check this function's `ldr r0,=...` literal at the equivalent of _0801F3C2 carefully.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.3165574,
+  "score_before": null,
+  "score_after": null
  }
 ]
