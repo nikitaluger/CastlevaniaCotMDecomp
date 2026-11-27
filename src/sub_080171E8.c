@@ -2,7 +2,7 @@ s32 sub_08014938(void *);
 s32 sub_08005820(s32);
 s32 sub_08014900(void *);
 s32 sub_08014990(void *);
-void sub_080C31E4(void *, void *, s32, s32);
+void _call_via_r3(void *, void *, s32, s32);
 
 extern s32 D_08671BD0;
 
@@ -37,6 +37,9 @@ void sub_080171E8(void *arg0) {
         }
 
         *(u8 *)(p + *(s16 *)(p + 0x22) * 2 + 0x19) = 0;
-        do { sub_080C31E4(p + 0x18, p + 0x22, 0, *(s32 *)&D_08671BD0); } while (0);
+        {
+            s32 *scriptTable = &D_08671BD0;
+            _call_via_r3(p + 0x18, p + 0x22, 0, *scriptTable);
+        }
     }
 }

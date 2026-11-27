@@ -353364,15 +353364,6 @@
   "score_after": 0
  },
  {
-  "function": "sub_080171E8",
-  "text": "Best 1905/74insns (74.2%). Fixed: count narrowing (s32+cast), sub_080149A0->sub_08014990 in <=0x300000 branch, sub_080C31E4 signature to 4 args (p+0x18,p+0x22,0,*D_08671BD0). try_local_repairs run_weight_scope do{call}while(0) gave 1950->1905. Remaining: regalloc swap r4<->r7 for arg0/p3c (target r7=p,r4=p3c; ours r4=p,r7=p3c), and val materialization - target uses bgt/ble to shared 0x4000 (movs #0x80;lsls #7) with two separate pc-rel 0xFFFFC000 pool loads; ours preloads 0xFFFFC000 into r1 and conditionally overwrites with 0x4000. Declaration reorder/split no effect. Likely agbcc regalloc+literal-pool layout wall.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795786616.7209837,
-  "score_before": 2500,
-  "score_after": 1905,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:887f9b7bb8136ad34a547cbdfc017ac1b7eed8b7aba8b431788edec4e6922ed9:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
- },
- {
   "function": "spawnActorChildEffectScaledDirection",
   "text": "Renamed from sub_0807AEC4; renamed its two data tables; rewrote with canonical callee names (startEffectTimer/cleanupFailedEffectSpawn/releaseActorEffectParts/_call_via_r1/_call_via_r2), descriptive locals and a doc comment. Still byte-exact.",
   "by": "opencode-hy4-flash-free-13",
@@ -353968,15 +353959,6 @@
   "score_before": 9835,
   "score_after": 3415,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:d9f856bdcb6359feca9b4175bbca86d93cb3975ea2cab574cec2de4cca775aee"
- },
- {
-  "function": "sub_080171E8",
-  "text": "Best 1905 (74.2%), 74 insns both. Remaining: target r7=p(arg0), r4=*(p+0x3c), r5=*(p+0x38), r6=p3c+0x48; candidate swaps p and p3c between r4/r7. Target loads 0xFFFFC000 once from one pool word reused twice (ldr r0,[pc,#4] x2); candidate has two pool words. Target/materialization of 0x4000 differs in branch polarity (bgt vs ble). Tried: use arg0 directly -> 1950; invert both inner conditions to <=0 -> 2625 (agbcc merged the two identical branches, 62 insns); declaration reorder -> 1905 unchanged; try_local_repairs (single_use_inline, run_weight_scope, local_weight_ladder) -> 1905/1950/1905. bl/D_ diagnostics are length-misalignment false positives.\narg0-direct; condition inversion; declaration reorder; local repairs\narg0 1950; inversion 2625 (merged branches); reorder 1905; repairs 1905/1950/1905",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795790129.1540425,
-  "score_before": 1905,
-  "score_after": 1905,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
  },
  {
   "function": "sub_08093B10",
@@ -358187,5 +358169,23 @@
   "score_before": 1670,
   "score_after": 1100,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:726fc01325c306360913f637b6c6595c2383d10c25fab764abb786a4e99afbf9"
+ },
+ {
+  "function": "sub_080171E8",
+  "text": "Best 1905/74insns (74.2%). Fixed: count narrowing (s32+cast), sub_080149A0->sub_08014990 in <=0x300000 branch, sub_080C31E4 signature to 4 args (p+0x18,p+0x22,0,*D_08671BD0). try_local_repairs run_weight_scope do{call}while(0) gave 1950->1905. Remaining: regalloc swap r4<->r7 for arg0/p3c (target r7=p,r4=p3c; ours r4=p,r7=p3c), and val materialization - target uses bgt/ble to shared 0x4000 (movs #0x80;lsls #7) with two separate pc-rel 0xFFFFC000 pool loads; ours preloads 0xFFFFC000 into r1 and conditionally overwrites with 0x4000. Declaration reorder/split no effect. Likely agbcc regalloc+literal-pool layout wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795786616.7209837,
+  "score_before": 2500,
+  "score_after": 1905,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:887f9b7bb8136ad34a547cbdfc017ac1b7eed8b7aba8b431788edec4e6922ed9:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
+ },
+ {
+  "function": "sub_080171E8",
+  "text": "Best 1905 (74.2%), 74 insns both. Remaining: target r7=p(arg0), r4=*(p+0x3c), r5=*(p+0x38), r6=p3c+0x48; candidate swaps p and p3c between r4/r7. Target loads 0xFFFFC000 once from one pool word reused twice (ldr r0,[pc,#4] x2); candidate has two pool words. Target/materialization of 0x4000 differs in branch polarity (bgt vs ble). Tried: use arg0 directly -> 1950; invert both inner conditions to <=0 -> 2625 (agbcc merged the two identical branches, 62 insns); declaration reorder -> 1905 unchanged; try_local_repairs (single_use_inline, run_weight_scope, local_weight_ladder) -> 1905/1950/1905. bl/D_ diagnostics are length-misalignment false positives.\narg0-direct; condition inversion; declaration reorder; local repairs\narg0 1950; inversion 2625 (merged branches); reorder 1905; repairs 1905/1950/1905",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795790129.1540425,
+  "score_before": 1905,
+  "score_after": 1905,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:a9ffa5bcee72c1e480f4de31e0f9fcf0f75c620d82428e8fd7173a6bf8f273d6"
  }
 ]
