@@ -2806,3 +2806,10 @@ struct MainWorkspaceView {
 #define ATTACK_SCROLL_BIAS_X    0x8000
 #define ATTACK_SCROLL_BIAS_Y    0xFFFF8000
 #define ATTACK_SCROLL_FRAC_MASK 0xFFFF0000
+
+/* Alternate room-anchored scripted attack (updateRoomAnchoredScriptedAttackAlt).
+ * It shares the 2-byte step stream and per-step flag bytes of
+ * updateRoomAnchoredScriptedAttack, but its attack-state block is shifted by
+ * four bytes: fixed-point world X/Y at +0x04/+0x08, collision target at +0x10
+ * and animation track at +0x14. gScriptedAttackCmdTableAlt (0x0866F9A0) holds
+ * its 4-byte script-command handler pointers. */

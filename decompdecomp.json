@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795812962.2842042,
- "revision": 71070,
+ "saved_at": 1795813127.6005244,
+ "revision": 71076,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1781,17 +1781,6 @@
     "-fno-strength-reduce"
    ]
   },
-  "411908:134629636": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateCompanionBossAlt",
-   "vram": 134629636
-  },
   "589780:134807508": {
    "vram": 134807508,
    "function": "sub_0808FFD4",
@@ -1800,8 +1789,7 @@
     "-mthumb-interwork",
     "-O1",
     "-fno-strength-reduce"
-   ],
-   "timeout": 20
+   ]
   }
  },
  "instructions": "",
@@ -2143,7 +2131,6 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h",
   "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
@@ -7809,7 +7796,7 @@
   },
   "sub_0803157C": {
    "vram": 134419836,
-   "best_score": 6150,
+   "best_score": 3280,
    "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_080316BC": {
@@ -17237,10 +17224,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080912A0": {
+  "updateRoomAnchoredScriptedAttackAlt": {
    "vram": 134812320,
    "matched_by": "opencode-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080913C8": {
    "vram": 134812616,
@@ -23618,6 +23605,7 @@
   "updateScaledMainObjectEffect": "local_source_8589937090",
   "runActionStepResponse": "local_source_8589937398",
   "sub_0808EA30": "local_source_8589937664",
+  "sub_0808FFD4": "local_source_8589939150",
   "sub_080BE99C": "local_source_8589938934"
  },
  "layout": [
@@ -42864,7 +42852,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080912A0",
+   "name": "updateRoomAnchoredScriptedAttackAlt",
    "vram": 134812320,
    "size": 296,
    "status": "open"
@@ -53966,6 +53954,12 @@
    "kind": "func"
   },
   {
+   "name": "updateRoomAnchoredScriptedAttackAlt",
+   "address": 134812320,
+   "size": 296,
+   "kind": "func"
+  },
+  {
    "name": "spawnTrackedBehaviorSprite",
    "address": 134828268,
    "size": 496,
@@ -55924,6 +55918,12 @@
   {
    "name": "gTargetedAttackStepTable",
    "address": 140966216,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gScriptedAttackCmdTableAlt",
+   "address": 140966304,
    "size": 0,
    "kind": "data"
   },
