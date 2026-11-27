@@ -2813,3 +2813,7 @@ struct MainWorkspaceView {
  * four bytes: fixed-point world X/Y at +0x04/+0x08, collision target at +0x10
  * and animation track at +0x14. gScriptedAttackCmdTableAlt (0x0866F9A0) holds
  * its 4-byte script-command handler pointers. */
+
+/* Callback pointer read by the jittered particle emitters when their countdown
+ * finishes: entry 1 of the main-object timer callback table at 0x08671BB0. */
+#define PARTICLE_EMIT_CALLBACK_ADDR 0x08671BB4

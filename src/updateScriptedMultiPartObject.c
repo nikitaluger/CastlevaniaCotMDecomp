@@ -13,7 +13,7 @@ void sub_080C31E4(void *, void *, u32);
 void sub_080A2E98(void *, void *, void *);
 void sub_08098338(s32, void *);
 
-void sub_080A0934(u8 *entity) {
+void updateScriptedMultiPartObject(u8 *entity) {
     void *motion;
     void *sprite;
     u8 zero;

@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795813772.5036242,
- "revision": 71116,
+ "saved_at": 1795814229.7186499,
+ "revision": 71143,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1790,17 +1790,6 @@
     "-O1",
     "-fno-strength-reduce"
    ]
-  },
-  "582472:134800200": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnType207Effect",
-   "vram": 134800200
   }
  },
  "instructions": "",
@@ -2142,8 +2131,7 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "local_source_8589939150": "common_local_source_8589939150.h",
-  "rom": "common_rom.h"
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -8786,6 +8774,11 @@
    "matched_by": "autopilot",
    "readable": false
   },
+  "sub_08039E24": {
+   "vram": 134454820,
+   "best_score": 895,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_08039FBC": {
    "vram": 134455228,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -10343,8 +10336,8 @@
   },
   "sub_080489BC": {
    "vram": 134515132,
-   "best_score": 1487,
-   "best_by": "permuter-8589936264"
+   "best_score": 960,
+   "best_by": "opencode-hy4-flash-free-64"
   },
   "sub_08048AC8": {
    "vram": 134515400,
@@ -17494,7 +17487,7 @@
   "updateJitteredParticleEmitterA": {
    "vram": 134822180,
    "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
-   "readable": false
+   "readable": true
   },
   "sub_08093A4C": {
    "vram": 134822476,
@@ -17556,10 +17549,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08094188": {
+  "updateJitteredParticleSpawner": {
    "vram": 134824328,
    "matched_by": "opencode-hungerg-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080942B0": {
    "vram": 134824624,
@@ -19191,7 +19184,7 @@
    "best_score": 1917,
    "best_by": "permuter-8589938126"
   },
-  "sub_080A0934": {
+  "updateScriptedMultiPartObject": {
    "vram": 134875444,
    "matched_by": "opencode-free-1",
    "readable": false
@@ -43272,7 +43265,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08094188",
+   "name": "updateJitteredParticleSpawner",
    "vram": 134824328,
    "size": 296,
    "status": "open"
@@ -45324,7 +45317,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080A0934",
+   "name": "updateScriptedMultiPartObject",
    "vram": 134875444,
    "size": 296,
    "status": "open"
@@ -54002,6 +53995,12 @@
    "kind": "func"
   },
   {
+   "name": "updateJitteredParticleSpawner",
+   "address": 134824328,
+   "size": 296,
+   "kind": "func"
+  },
+  {
    "name": "spawnTrackedBehaviorSprite",
    "address": 134828268,
    "size": 496,
@@ -54209,6 +54208,12 @@
    "name": "aimEntityAtTarget",
    "address": 134874680,
    "size": 46,
+   "kind": "func"
+  },
+  {
+   "name": "updateScriptedMultiPartObject",
+   "address": 134875444,
+   "size": 296,
    "kind": "func"
   },
   {
@@ -55294,6 +55299,12 @@
   {
    "name": "gJitteredParticleOffsetsA",
    "address": 135268312,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gParticleSpawnOffsets",
+   "address": 135268384,
    "size": 0,
    "kind": "data"
   },
@@ -56552,6 +56563,16 @@
   {
    "address": 135267312,
    "type": "s16[]",
+   "source": "match"
+  },
+  {
+   "address": 135268312,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135268384,
+   "type": "u8[]",
    "source": "match"
   },
   {

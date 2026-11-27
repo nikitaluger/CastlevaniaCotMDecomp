@@ -57,7 +57,7 @@ if (sub_08049180(r10, sp0, r8, r7) != 0)
       {
         new_var2[0] = 8 - (*((s8 *) r7));
       }
-      rr = sub_08049200(r9, new_var, new_var2[0], 0);
+      rr = sub_08049200(r9, r8, new_var2[0], 0);
       if (rr != 0)
       {
         *((u8 *) r7) = (*((u8 *) r7)) + 1;
@@ -69,7 +69,8 @@ if (sub_08049180(r10, sp0, r8, r7) != 0)
   r8 = *((void **) (((u8 *) arg0) + 0x3C));
   tbl = (u16 *) 0x080CF900;
   new_var2[1] = *((u8 *) (((u8 *) r9) + 0x4C));
-  if (r2 == ((s8) val))
+  val = tbl[new_var2[1]];
+  if (r2 == val)
   {
     sub_08049160(r10, sp0, r7, 0);
     i = *((s16 *) (((u8 *) r9) + 0x22));
