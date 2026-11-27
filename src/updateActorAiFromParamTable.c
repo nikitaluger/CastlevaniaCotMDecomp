@@ -18,7 +18,7 @@ extern void sub_080C31E8(void *, void *, s32, s32);
 struct WorkState { u8 _0[8]; s32 f8; s32 fC; u8 _10[0x40-0x10]; s32 f40; s32 f44; u8 _48[4]; s32 f4C; s32 f50; s32 f54; };
 struct Work { u8 _0[0xC8]; s32 eventId; };
 
-void sub_08064CE0(u8 *arg0) {
+/* Per-frame actor AI update: clamps a work-state value against the per-enemy parameter table, handles the mode-1 action and delayed input checks, then dispatches the resulting script events. */ void updateActorAiFromParamTable(u8 *arg0) {
     u8 *checkPtr;
     u8 *work = *(u8 **)(arg0 + 0x6C);
     u8 *state = work + 4;

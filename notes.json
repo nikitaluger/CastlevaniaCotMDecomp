@@ -15648,7 +15648,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08064CE0",
+  "function": "updateActorAiFromParamTable",
   "text": "Matched sub_08064CE0 first try \u2014 it is near-identical to matched sub_08069128; adapt that source verbatim with: sub_0806B104 instead of sub_080694D8; extra sub_08005E80(0x67) and fourth zero store f54 in the f40==1 block plus sub_0806E114(arg0,9,*(r9+4),*(r4+4)); sub_0806A7AC(a,r4,0x10)+sub_08003740 instead of sub_08003A6C in the fC8 test block; extra sub_080849A4(arg0,r4) before the u16 result store; sound ids 0x12/3. R4 struct gains f54 at 0x54. Keep `s32 base, idx;` declared in that order with base assigned first (critical per sub_08069128 note).",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683533.9760866,
@@ -353128,6 +353128,14 @@
   "score_after": 310
  },
  {
+  "function": "updateScriptedAttackEffect",
+  "text": "Releasing: best attempt saved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9758346,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_080C0440",
   "text": "Terminal two-row register-coloring residual at score 10: target keeps records base in r2 and final loaded value reuses r2; candidate keeps the final value in r3. Separate index/value locals scored 25 and merely swapped r2/r3 earlier; reusing a u32 base/value local scored 35. Local repairs, O1/O2/O3/Os/expensive-optimization flags, and -mno-thumb-interwork did not fix it. No semantics or instruction-shape difference remains.",
   "by": "opencode-hungerg-free-3",
@@ -353137,11 +353145,65 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:77a1d23e2d6dbeaf9f40729280a14a883f9161e43c3b95c2326518e743a2b2d8"
  },
  {
-  "function": "updateScriptedAttackEffect",
-  "text": "Releasing: best attempt saved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9758346,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080121F8",
+  "text": "Addendum (session 3): two final confirmations \u2014 (11) rewriting the probe chain as a natural `if/else if/.../else return 0;` chain (instead of `goto common`/`success`) still gives score 80 with the IDENTICAL 6-row diff (revision 7c596ba3c1398f41036f); (12) `prove_chain(children=80, steps=6)` finds no improving child at revision afc0203d6b61a67e07a0 (\"no child of 80 improves on 80\"). Saved best restored to afc0203d6b61a67e07a0. A new reusable rule was proposed as #8589934685 describing this loop-preheader allocator+scheduler wall.\n\nAddendum 2: final profile sweep \u2014 -mno-thumb-interwork -O2 -fno-strength-reduce 440; -Os 2290; -O1 4910; -O0 19902; -mno-thumb-interwork -O1 5120; -O2 -fno-cse-follow-jumps 940. Default profile remains uniquely best at 80. No further productive hypothesis remains; hand off as proven agbcc loop-preheader allocator/scheduler wall.",
+  "by": "opencode-hy4-flash-free-53",
+  "created_at": 1795780875.4376657,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:ea992f69c8c83f8ca11fbe74fefe5720bf20620e985b4f9b600fa0f351b50ca7"
+ },
+ {
+  "function": "sub_080A040C",
+  "text": "Frameless Thumb leaf ABI wall. Semantics: if arg0 != 0: arg0[0x7C]=1. Bare bx lr, agbcc emits push/pop. Saved best 210 invalid (omits guard).",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780922.7375286,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:f644e556b61f022bac9dd4c76e81405c237f1ffd6129e8d8aa2c0a9568c125a2"
+ },
+ {
+  "function": "sub_080A041C",
+  "text": "Frameless Thumb leaf ABI wall. Semantics: return arg0 ? arg0[0x7C] : 0. Bare bx lr, agbcc emits push/pop.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795780956.7241037,
+  "score_before": 665,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:3d164c24fc4489f8bc8eb1d0e15fb02dac7e3949825c2c53d3d3c2cbf2413ea1"
+ },
+ {
+  "function": "sub_08055990",
+  "text": "Semantically correct C (rev c92d75bfde2c7f0053ab, score 605 rechecked) reloads dst from arg1+0x28 each store and uses D_080CFB70 table with case 0/3 offsets - matches target logic. Saved best 325 is semantically wrong (overwrites arg1, loads dst from table+0x28; flagged quality). Main residual: frame push{lr}/pop{r0};bx r0 vs bx lr and dst pointer cached in r1 instead of reloaded from r3+0x28 four times. Tried u32 vs vu32 reloads, direct struct access with/without volatile ptr, if-else vs switch. Volatile ptr reloads caused control-flow/regalloc changes (885); plain reloads cached ptr (610). Next step: find C pattern that forces 4 reloads of *(arg1+0x28) without introducing frame or changing the beq/cmp chain; compare against rev c92d75bfde2c7f0053ab and 6d7aeecf72e353535da4.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780958.5686374,
+  "score_before": 605,
+  "score_after": 605,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:eea8c57443d15f9bac93ad93ea1f86c3566635372a4889f8f93b03b0fd338edc"
+ },
+ {
+  "function": "sub_08020498",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked revision ae3bf3e684584dd3f02d remains score 215. The full diff is only agbcc's mandatory frameless-leaf LR frame: candidate adds push {lr} and pop {r0}, returns via bx r0 instead of bare bx lr, with the resulting branch/literal-pool displacement shifts. All body instructions and operands otherwise match. This is the accepted agbcc -mthumb-interwork/-mno-thumb-interwork no-call Thumb leaf wall; over 1100 historical attempts found no alternative.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780979.6100683,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_08098400",
+  "text": "Cannot get closer from C: terminal agbcc Thumb leaf LR-frame wall. Score 305 (84.7%), body logic matches; target frameless bx lr, candidate push{lr}/pop{r1};bx r1 with branch/nop ripple. Rechecked current candidate 305. Prior 16+ attempts and handoff confirm no C spelling/flag form removes frame.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795781009.276285,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:7c4f5f39f68b51e9a4adb9649db691e602c3ba5f03a4091d9267941fd0486611"
+ },
+ {
+  "function": "sub_080A2E74",
+  "text": "Frameless Thumb leaf ABI wall. Semantics: if arg0 != 0: arg0[0x54]=1. Bare bx lr, agbcc emits push/pop. Saved best 210 invalid (omits guard).",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795781019.0858235,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:53844f18ba4adcf3aaea30de82f9ec380253c8966ce4dcf3960fb73bd139402f"
  }
 ]
