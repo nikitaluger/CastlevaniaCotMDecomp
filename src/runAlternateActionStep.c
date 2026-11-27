@@ -8,7 +8,7 @@ extern void sub_08005E80(int);
 extern void sub_080C31E8(void *, void *, int, u32);
 extern void sub_0806D7B4(void *, u32);
 extern int spawnEntity(void *, int, int, int);
-extern int sub_08065CC8(void *, void *, void *, void *);
+extern int selectTileActionStep(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void D_0806AB04(void *, void *, void *, void *);
@@ -128,7 +128,7 @@ void runAlternateActionStep(void *actor)
       callbackTable = gScriptStepCallbacks;
       stepArray = entityBytes + 0x18;
       stepIndexField = entityBytes + 0x22;
-      actionResult = sub_08065CC8(entityBytes, context, work, workAlias);
+      actionResult = selectTileActionStep(entityBytes, context, work, workAlias);
       stepId = (u16) actionResult;
       callback = callbackTable[0];
       sub_080C31E8(stepArray, stepIndexField, stepId, callback);

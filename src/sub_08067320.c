@@ -9,7 +9,7 @@ extern void sub_0806D588(void *, void *);
 extern void sub_0806A884(void *, void *);
 extern s32 stepDelayTimer(void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
-extern u16 sub_08065CC8(void *, void *, void *, void *);
+extern u16 selectTileActionStep(void *, void *, void *, void *);
 extern void sub_080C31E8(void *, void *, u16, s32);
 extern s32 gScriptStepCallbacks;
 extern s32 gMenuScriptCallback;
@@ -44,7 +44,7 @@ void sub_08067320(u8 *entity) {
                 u16 effectKind;
                 p18 += 0x18;
                 p22 += 0x22;
-                effectKind = sub_08065CC8(entity, view, pos, pos);
+                effectKind = selectTileActionStep(entity, view, pos, pos);
                 sub_080C31E8(p18, p22, effectKind, *tailEffectData);
             }
         }

@@ -13728,7 +13728,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802DB60",
+  "function": "updateHoveringEffectStepWide",
   "text": "Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9670248,
@@ -14592,7 +14592,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Best attempt score 1411 (89.7%), source saved: `u8 *p18A8 = &D_02025FF0.f18A8;` assigned after `if (v & 0x80) goto fail;`, three inline `sub_08007B3C(D_02023130 + *p18A8*0x40, ...) & 0x4000` checks in one `||` chain with goto fail, fail block at end. Correct structs: S_02025FF0 {u8 _0[0x24]; u32 f24; u8 _1[2]; u16 f2A; u8 _2[0x18A8-0x2C]; u8 f18A8;}; S_02021E90 {u8 _0[0x146E]; u16 f146E;}; S_arg2 {f38@0x38,f40@0x40,f48@0x48,fC4@0xC4}; S_arg3 {f0@0,f4@4,f8@8}. Return u16, `pC4=(s32*)((u8*)arg2+0xC4); *pC4=r; if(r){sub_08003740(arg2+0x28,arg1); return (u16)*pC4;}`. Remaining diffs are agbcc register allocation: target p18A8=r8, mask 0x4000=r9, const 0x10000=r10; mine p18A8=r9 (sb), mask=r8. Declaring a `u32 mask=0x4000` local flips registers right but materializes the constant before the first call (score 2080); computing p18A8 from a `d=&D_02025FF0` base local scores 2431; u8*/u32 pointer type and `0x80&v` operand order have no effect. Also target has `adds r3,r3,r2` (p18A8 from D base in r2) and `ands r0,r1` for v&0x80; mine lacks these because its D base register differs.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683533.972127,
@@ -29792,7 +29792,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Giving up; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0551176,
@@ -39904,7 +39904,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Releasing: best 1411.",
   "by": "opencode-free-1",
   "created_at": 1795683534.108833,
@@ -88840,7 +88840,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802DB60",
+  "function": "updateHoveringEffectStepWide",
   "text": "Cannot improve further: 1140 (91.6%) is ceiling. Remaining 10 diff rows are pure code layout artifacts unfixable in C: (1) literal pool position for D_08671BD0 differs by 8 bytes because agbcc emits 2 extra insns (function 138 vs 136); (2) D_02025FF0+0x174C address computation - target does runtime base+off (two ldr + adds), agbcc constant-folds to single ldr of sum; (3) branch offsets differ by 4-8 bytes due to size mismatch; (4) agbcc emits `movs r0,r0` nops and inverted branch conditions (`beq` vs `bne`). ARM-mode function (r8 callee-saved) vs Thumb agbcc: prologue/epilogue r8 save/restore mismatch. No C restructuring changes literal pool placement or branch encoding.",
   "by": "opencode-free-1",
   "created_at": 1795683534.3645544,
@@ -90328,7 +90328,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802DB60",
+  "function": "updateHoveringEffectStepWide",
   "text": "1 compile, stuck at 1140. Wall: remaining diffs are pure code-layout artifacts: literal pool placement differs (target `ldr r2,[pc,#0x14]` before sub_080C31E8 vs agbcc's `ldr r2,[pc,#0xc]`+`ldr r2,[r2]`), D_02025FF0+0x174C address computation differs, 2 extra `movs r0,r0` nops and branch offset diffs (target `bne #0xfa` vs mine `beq #0x10c`). ARM-mode function; no C restructuring changes literal pool placement or branch encodings. Best = draft. Releasing to claim the final function.",
   "by": "opencode-tidepool-alpha-free-1",
   "created_at": 1795683534.3721745,
@@ -91048,7 +91048,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802DB60",
+  "function": "updateHoveringEffectStepWide",
   "text": "MATCHED (score 0) by porting the exact structure of matched sub_0802AF88 (and sub_0802C2B4 / sub_0802DB60 family): `u8 *self = arg0;` declared FIRST, then p38/p3C/p34/p48 locals; s16 timer decrement `*(s16*)(p48+4)=*(s16*)(p48+4)-1; if (*(s16*)(p48+4)<=0)`; delayed literal `s16 idx=*(s16*)(self+0x22); u32 *litp; *(u8*)(idx*2+(self+0x19))=0; litp=(u32*)0x08671BD0; sub_080C31E8(self+0x18,self+0x22,1,*litp);`; struct `S_02025FF0 {u8 _[0x174C]; s32 field174C;} extern D_02025FF0;` for the runtime base+offset access; r7v/r4v flag logic with `goto check_r7v` / `goto block25`. Previous agents' 1140 wall was only layout artifacts that vanished once instruction count matched. This recipe now matches sub_0802AF88, sub_0802DB60, sub_08035590, sub_0802C2B4.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.3762994,
@@ -113448,7 +113448,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Best 1411 (132/137 insns). Reproduced baseline: goto-based structure, v from D_02025FF0.f24/f2A or D_02021E90.f146E, if (v&0x80) fail, p18A8=&D_02025FF0.f18A8, three sub_08007B3C checks with y+0x10000 and &0x4000, success sets f40=1/calls sub_0806C49C,sub_0806B2C8 stores at fC4, returns (u16)fC4 or 4, fail sets f40=2/calls sub_0806A7AC(5)/sub_08003740/arg3->f8=0/returns 8. Main remaining diffs are regalloc/operand order: target keeps D_02025FF0 base in r2 for `adds r3,r3,r2` to form p18A8 pointer in r8, mask 0x4000 in sb(r9), 0x10000 in sl(r10); mine gets p18A8 as constant in sb and mask in r8, missing `adds r3,r3,r2` form. Tried: deriving p18A8 from d=&D_02025FF0 base (2431, regressed), declaring mask/c locals to force constants early (2550), caching base/idx/y/x/w (3661/6898), operand order `0x80&v`, minor struct access tweaks - all worse or no effect on judged score. Linking issues show pool/literal placement mismatches consistent with regalloc differences. Likely needs specific C shape to get target's high-reg assignment and early D base preservation. 8 compiles this session.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.4992144,
@@ -129296,7 +129296,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Releasing with reason: best 1411 (89.7%) is a known multi-session agbcc regalloc wall. Target needs D base preserved in r2 for `adds r3,r3,r2` forming p18A8 in r8, mask 0x4000 in sb/r9 and 0x10000 in sl/r10; our C always puts p18A8 in sb and the mask in r8. Tried extern-array d base (2985), sequential checks with late named mask (2626), plus prior agents' struct/type/operand-order variants \u2014 all worse or unchanged. Remaining diffs are cascades of that allocation. Ordinary C, not hand asm, not not_c, not boundary. This is my 8th compiled claim; no further C lever apparent.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5827682,
@@ -140880,7 +140880,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Best 1411 (89.7%, 132/137 insns) \u2014 multi-session agbcc regalloc wall. Target: D_02025FF0 base in r2 for `adds r3,r3,r2` forming p18A8 in r8, mask 0x4000 in sb/r9, 0x10000 in sl/r10. Agbcc: p18A8 in sb, mask in r8. Tried: extern-array d base (2985), sequential checks with late named mask (2626), struct/type/operand-order variants \u2014 all worse/unchanged. 8th compiled claim this session, no further C lever apparent. Not hand asm, not not_c. Best 1411 source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.6435902,
@@ -153824,7 +153824,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Re-releasing sub_08065CC8: confirmed regalloc wall, best 1411 (89.7%, 132/137 insns). Target binds D_02025FF0 base in r2 for `adds r3,r3,r2` (forms p18A8=r8), mask 0x4000 in r9, const 0x10000 in sl(r10); agbcc puts p18A8 in sb(r9), mask in r8, missing the `adds r3,r3,r2` form. Tried: extern-array D base (2985), sequential checks with late named mask (2626), `u32 mask=0x4000` local (2080), d=&D_02025FF0 base local (2431), u8*/u32 pointer types, `0x80&v` operand order \u2014 all worse or unchanged. Body structure and calls correct; only regalloc differs. Not hand asm, not not_c, not boundary. 8th compiled claim this session; stopping per session limit.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.7102752,
@@ -157008,7 +157008,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Best score 1411 (89.7%, 132/137 insns) after 8 compiles. This is a known agbcc regalloc wall (class B frameless-leaf / high-register coloring). Target preserves D_02025FF0 base in r2 via `adds r2,r0,#0` after initial load, uses it for `adds r3,r3,r2` to form p18A8 in r8, puts mask 0x4000 in sb(r9) and y_off 0x10000 in sl(r10). Agbcc puts p18A8 in sb(r9), mask in r8, lacks base preservation and `adds r3,r3,r2` form. Tried: nested block for d_base (2431), early y_off/mask/p18A8_addr declarations (2011/2941/5386), separate if-statements vs || chain (2461/1411), explicit p18A8 = (u8*)((u32)&D_02025FF0+0x18A8) (1411), res temp for call results (1411). All variants either regress or match 1411. Remaining diffs are purely regalloc/operand-order cascades from the high-register assignment wall. Not hand-asm, not boundary, not not_c. Best 1411 source preserved.",
   "by": "opencode-free-1",
   "created_at": 1795683534.7269692,
@@ -160144,7 +160144,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Regalloc wall, best 1411 (89.7%). Target preserves D_02025FF0 base in r2 for adds r3,r3,r2 forming p18A8 in r8; mask 0x4000 in sb/r9, 0x10000 in sl/r10. Agbcc differs. Known multi-session wall. Releasing.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683534.74405,
@@ -169048,7 +169048,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Confirmed the multi-session 1411 wall (6 agents). This claim: (a) d=&D_02025FF0 base local + register mask/yoff constants -> 5386 (constants hoist to entry, D base broken); (b) declaring `u8 *p18A8 = &D_02025FF0.f18A8;` at the top with its initializer -> 1691 (base address hoisted into sb, D base still in r1 not r0). Reverted to the 1411 source (the brief's source) which remains best: p18A8 assigned after the `v & 0x80` check as `&D_02025FF0.f18A8`, plain 0x4000/0x10000, || chain, goto fail at end. Residual is the documented high-register swap: target D base preserved in r2 (`adds r2,r0,#0`), p18A8 formed by `ldr r3,=0x18A8; adds r3,r3,r2; mov r8,r3`, mask 0x4000 in sb with `ands r1,r0` operand order; agbcc puts p18A8 in sb, mask in r8, uses r1 for the D base first load, and emits `ands r0,r1`. Not asm, not not_c, not boundary.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.789691,
@@ -170520,7 +170520,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Reproduced the documented 1411 wall; the two missing ingredients are (1) target `ldr r0,=0x02025FF0; ldr r1,[r0,#0x24]; adds r2,r0,#0` \u2014 a base PRESERVED in r2 (copy after the f24 load) used later by `ldr r1,[r2,#0x2a]` and by `ldr r3,=0x18A8; adds r3,r3,r2; mov r8,r3` for p18A8; agbcc instead keeps the base in r1 (or loads the literal directly into r2) and pools `D_02025FF0+0x18A8` as one literal for p18A8 (missing `adds r3,r3,r2`), and it swaps p18A8 (target r8) with the 0x4000 mask (target sb/r9). Tried this session: `u8 *d = D_02025FF0` base local with plain constants (2985), `struct *d = &D_02025FF0` with `p18A8=(u8*)d+0x18A8` (2431) \u2014 both regress; the struct-object source of the brief stays best at 1411 (132/137 insns). Remaining: missing `adds r2,r0,#0` and the split p18A8 address (+ their 5-insn cascade), plus ands/mask register swap. This is a multi-session allocator wall (6 agents before me).",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.7974029,
@@ -170544,7 +170544,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Cannot get closer from pure C: the 5 missing instructions all depend on one allocator decision agbcc will not make \u2014 keeping the D_02025FF0 base alive in a second register (ROM r2) across the f24 test. Adding a base local (`u8 *d` or `struct *d`) makes agbcc load the literal straight into the variable's register and pool D+0x18A8, which loses both `adds r2,r0,#0` and `adds r3,r3,r2` and shifts the whole allocation (2985 / 2431). The structure, all 5 calls, all data literals and control flow are exact at 1411 (132/137). This is the same wall 6 earlier agents hit; only a different compiler/flag or the true original source text would break it. Best attempt (1411) saved.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683534.7975218,
@@ -183904,7 +183904,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Definitively cannot get closer from C: 49 attempts across 8+ agents all land at 1411. The ROM requires a D_02025FF0 base copy in r2 (`adds r2,r0,#0`) that survives the f24 branch and is reused to form p18A8 (`adds r3,r3,r2`) while the 0x4000 mask sits in sb and 0x10000 in sl. agbcc always pools p18A8 as one constant in sb and puts the mask in r8; every C spelling that tries to keep a base local (plain, scoped temp, struct pointer, integer base + offsets) regresses to 2431-6898 because the literal is loaded straight into the variable's register and the pool is folded. No inline-asm/register-pin is permitted. Body, calls, literals, control flow and the instruction multiset are otherwise exact. Ordinary correct C, not hand asm, not not_c, no boundary issue. Best-1411 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.8672264,
@@ -184496,7 +184496,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Cannot improve from C. 1411 (89.7%, 132/137) is a documented multi-session agbcc regalloc wall: target keeps D_02025FF0 base in r2, forms p18A8 as `ldr r3,=0x18A8; adds r3,r3,r2; mov r8,r3`, keeps 0x4000 in sb and 0x10000 in sl. agbcc instead pools p18A8 address into sb and assigns mask to r8, collapsing the base-preserve/add form. Many agents tried base locals, struct pointers, decl ordering, || vs if chains, temp hoisting - all regress or stay 1411. No C lever remains; not asm, not boundary, not not_c.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.870198,
@@ -192128,7 +192128,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "It cannot get closer in pure C. Best is now 75 (99.4%, 137/137 instructions, all logic/calls/literals/frame exact) and the residual is only two allocator choices: (1) the commutative-AND destination for the compile-time constant mask in the three `& 0x4000` tests (ROM `movs r0,#0x80; lsls; mov sb; ands r0,r1` with the mask as destination; ours has the same instruction pair but `ands r1,r0`, dest = the loaded value) \u2014 this is the project-documented constant-AND destination wall (mask must be non-constant runtime to flip); (2) the 0x4000 constant pseudo and the `&D_02025FF0.f18A8` address pseudo trade r8/sb (ROM p18A8 in r8, mask in sb; ours the reverse). Session evidence: inline struct-field p18A8 gave the big 1411->75 win by restoring `ldr r0,=D; ldr r1,[r0,#0x24]; adds r2,r0,#0` and `ldr r3,=0x18A8; adds r3,r3,r2`; a named p18A8 pointer reverts to 1411; named mask/yoff constants regress to 1220 (hoisted to entry); flags are optimal (75 at project flags and -O3; -O1 2546, -Os 2551). 50 prior attempts reached the same two walls. Not hand-written asm, not not_c, no boundary. Please advance the queue; the 75 source is saved.",
   "by": "opencode-deepseek-v4.1-flash-2",
   "created_at": 1795683534.910351,
@@ -192864,7 +192864,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Explicit release request: it cannot get closer from C. 53+ attempts and this compile all reach 75 (99.4%, all 137 instructions present, only 15 register/operand rows). The remaining differences are two well-documented agbcc walls: constant-AND destination normalization (`ands r0,r1` vs `ands r1,r0`) and the r8/sb allocation of the shared 0x4000 mask vs the p18A8 pointer. Every C spelling that changes those (constant-on-left, named mask, named pointer, inline helper) regresses or is neutral; register pinning via asm is disallowed. Ordinary correct C, not hand-written asm, not not_c, no boundary. Best-75 source preserved; please advance the queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.914238,
@@ -199944,7 +199944,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Cannot get closer in pure C: 75 (99.4%, 137/137 insns) is the preserved best, re-verified this session. 54+ prior attempts plus 2 compiles here. New experiment: block-scoped `u32 m80=0x80; u32 m4000=0x4000;` masks regressed to 750 (constant materialization moved into r3/sb and extra instruction cascade), confirming plain literals are load-bearing. Residual is the documented terminal wall: constant-AND destination normalization plus the p18A8-pointer(r8) vs 0x4000-mask(sb) allocation swap; every C spelling tried (named masks, base locals, struct pointers, flag variants) regresses. Register pinning banned. Pure C, not hand asm, not not_c, no boundary issue. Best-75 source preserved unchanged.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.9511771,
@@ -213944,7 +213944,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Cannot get closer than the preserved 65 in pure C. The three `& 0x4000` ANDs need the mask in the 2-address destination, but every spelling that flips the dest (inline helper, shared-mask + copy + compound AND) also destroys the constant's CSE/shared save that the ROM relies on, and shifts the whole callee-saved allocation (2325 / 740). The r8-vs-sb assignment of the p18A8 address pseudo and the 0x4000 mask is a pure allocator choice; named pointer/base/mask locals regress badly (documented 1411-5386). This is the project-documented constant-AND-destination wall (#842/#843) plus the multi-session r8/sb wall. Register pinning banned, only one compiler. Best 65 source is saved (and80 helper + unchanged inline-struct source). Not hand asm, not not_c, no boundary, no callee dependency.",
   "by": "opencode-deepseek-v4.1-flash-1",
   "created_at": 1795683535.024578,
@@ -215424,7 +215424,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "TERMINAL AT SCORE 65 (137/137 target instructions byte-exact). Residual: pure callee-saved register-allocation swap on two values. Target: p18A8 address (D_02023130 + D_02025FF0.f18A8*0x40) -> r8, mask 0x4000 -> sb, ands r1,r0 (loaded value = AND dest). Baseline: p18A8 -> sb, mask -> r8, ands r0,r1 (mask = AND dest). All instruction structure, offsets, calls, data already exact. Tried over this session (baseline=65): (1) static-inline and4000 helper wrapping each call -> 2315 (broke shared-base CSE, each call recomputed D_base+index); (2) u32 m=0x4000 at fn top + &m -> 1116 (mask->sb and ands r1,r0 correct inside checks, but hoisted `mov sb,#0x4000<<7` to fn entry, shifting all branches); (3) u32 m=0x4000 at top + p18A8 local -> 2495 (both regs correct but entry prologue totally rewrote: literal-pool p18A8 load, sb clobbered by and80's 0x80 materialization); (4) nested block {u32 m=0x4000; if(...&m...)} -> 740 (mask materialized at block entry, check-1 still ands r0,r1); (5) nested block {u32 base_addr; u32 mask; if(...&mask)} -> 3726 (broke callee-saved r5/r6/r7 allocation entirely). No C spelling found that flips p18A8<->mask register assignment without regressing other structure. register pinning banned. Best-65 source = preserved baseline (m2c-style with and80 helper, plain &0x4000). Not hand asm, not not_c, no boundary, no callee dependency, no extent issue. Needs compiler allocator change.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.0327961,
@@ -217264,7 +217264,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Asking again because it cannot get closer: this is a documented terminal pure-allocator wall at 65 (99.5%, all 137 target instructions byte-exact). The only difference is which callee-saved register holds the p18A8 pointer (target r8) and the 0x4000 mask (target sb/r9), plus the resulting `ands r1,r0` vs `ands r0,r1`. 70+ prior attempts across models and every C spelling (named locals, inline helpers, block scopes, operand-order flips \u2014 reconfirmed inert this session) either leave 65 or regress to 740-5386. No statement/type/declaration change moves the allocation; register pinning is banned and only one compiler is available. Not hand-written assembly, not not_c, no extent/boundary issue, no callee dependency. Only a compiler allocator change can close it.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683535.0429184,
@@ -222208,7 +222208,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "RE-REQUESTING RELEASE: terminal agbcc -O1 register-coloring floor, score 65 (99.5%, 137/137 target instructions byte-identical, 13 regalloc rows). I personally compiled the preserved best source and confirmed 65. Residual is pure register assignment with identical instruction order: (1) 0x18A8 pool base colored r8 vs sb; (2) 0x4000 mask colored sb vs r8 with ands operand swapped. Neither is selectable from pure C.\\nExhausted: 72+ prior attempts across models/flag levels; constant placement, u16/u32 mask, volatile/address-taken mask, static-inline AND helper, symbol-address pool form, matched-sibling C, -fno-gcse \u2014 all floor at 65. register-asm pinning banned; not hand asm, not not_c, no boundary. Calls sub_08003740, sub_08007B3C, sub_0806A7AC, sub_0806B2C8, sub_0806C49C. Data D_02025FF0/D_02021E90/D_02023130.\\nThis is compiled claim #4 of 8 (after sub_08060C74, sub_080C2088, sub_080952DC). Releasing to continue to claims #5-#8 per session goal, then stop.",
   "by": "opencode-free-1",
   "created_at": 1795683535.068873,
@@ -223952,7 +223952,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "SECOND RELEASE REQUEST \u2014 TERMINAL WALL, pure-C cannot close callee-saved register allocation. sub_08065CC8: score 65, 137/137 target insns byte-exact; only diff is which callee-saved reg holds p18A8 address vs the 0x4000 mask (target p18A8->r8, mask->sb, ands r1,r0; C p18A8->sb, mask->r8, ands r0,r1) with cascading operand-order swaps. Exhausted: inline and-mask helper (2315), hoisted mask locals (1116/2495), nested blocks (740/3726), base-pointer locals (2985/2431/1691), all C spellings \u2014 73 attempts, multiple agents. Register pinning banned; only agbcc. Not hand asm/not_c/boundary/callee-dep/extent. Best-65 source preserved. Needs compiler allocator change.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.078266,
@@ -224960,7 +224960,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Cannot get closer from C. Baseline 65 (99.5%, 137/137 insns) is a terminal p18A8<->0x4000 mask r8/sb allocator swap; all other instructions exact. 74+ attempts, no C lever, register pinning banned. Not hand asm, not_c, boundary, dependency.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683535.0836208,
@@ -237016,7 +237016,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Cannot get closer from C \u2014 asking again to release. Score 65 (137/137 insns byte-exact) is a proven terminal agbcc callee-saved allocator wall: p18A8\u2192r8 / 0x4000 mask\u2192sb in the ROM vs reversed in agbcc, with cascading ands operand order. 76 attempts across 6 models exhausted all C levers; register pinning banned. Not hand asm, not not_c, no boundary, no dependency. Best-65 source preserved.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683535.150968,
@@ -245008,7 +245008,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal callee-saved register-allocation wall at score 65 (99.5%, 137/137 instructions byte-exact). Only diff: p18A8 address in r8 vs sb (mask 0x4000 in sb vs r8), plus cascading ands operand order r1,r0 vs r0,r1. 76+ attempts across 6 models exhausted all C levers; register pinning banned. Not hand asm, not not_c, no boundary/extent/callee. Releasing to advance queue. Cannot get closer from pure C.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.193483,
@@ -246560,7 +246560,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal callee-saved r8/sb allocation swap at 65 (99.5%, 137/137 insns byte-exact). Target: p18A8->r8, mask 0x4000->sb/r9, ands r1,r0. agbcc reverses. 77+ attempts across 6 models. register-asm banned. Not hand asm, not not_c, no boundary/extent/callee. Best-65 source preserved. Cannot get closer in C.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.2017822,
@@ -247704,7 +247704,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "It cannot get closer in pure C: the baseline is the proven terminal r8/sb allocator/AND-destination wall (65, 137/137 instructions), and no remaining C lever or dependency is identified after the extensive prior attempts. Releasing to advance.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.2078414,
@@ -256592,7 +256592,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "NEW verified lever (hy4-flash-free-1): declare the mask local FIRST among locals, as `s32 mask;` (signed int, NOT u32/const), before `u32 v; s32 r; ...`. This flips the previously 'terminal' callee-saved allocation exactly: base pointer (D_02023130 + D_02025FF0.f18A8*0x40) goes to r8 and mask 0x4000 to sb, matching the ROM. With `s32 mask = 0x4000;` initialized at its declaration: score 1116 (correct regs, but the `movs r0,#0x80; lsls r0,#7; mov sb,r0` is hoisted to function entry, before `str r0,[r4,#0x48]`). With `s32 mask;` declared first but assigned `mask = 0x4000;` just after the `if (and80(v)) goto fail;`, the mask is materialized just before the base literal load (3 insns early) and score drops to 740; all three `mov r1,sb` checks and `ands r1,r0` remain as baseline. The remaining problem is purely scheduling that one constant materialization: target emits `movs r1,#0x80; lsls r1,#7; mov sb,r1` AFTER `bl sub_08007B3C`, ours emits it before the base `ldr r3,[pc]`. Putting the assignment inside the `&` expression or splitting the first call out of the `||` chain breaks CSE of the base expression (1851). Need a C spelling that keeps `s32 mask;` first, keeps the `||`-chain base CSE, but materializes mask after the first call.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2569065,
@@ -256608,7 +256608,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Full 8-compile budget spent. Best remains 65 (99.5%, 137/137 target insns byte-exact) with the preserved baseline source (no explicit mask local; plain `& 0x4000` in the `||` chain, and80 helper for the 0x80 test). IMPORTANT new finding this session (also added as a note): the 'terminal' r8/sb swap is NOT terminal \u2014 declaring `s32 mask;` (signed int) as the FIRST local flips allocation correctly (base->r8, mask->sb). `s32 mask = 0x4000;` at declaration gives 1116 (regs correct, constant hoisted to function entry); `s32 mask;` first + `mask = 0x4000;` after the and80 check gives 740 (regs correct, constant materialized 3 insns too early, before base literal load). Remaining: move the mask materialization to AFTER the first `bl sub_08007B3C` while preserving the `||` chain's CSE of the shared base expression and the `ands r1,r0` operand order. Variants that split the first call out or assign mask inside the `&` expression break CSE (1851). `const u32 mask` and `u32 mask` declarations are inert at 65; and4000 inline helper regresses to 2315. Not hand asm, not not_c, no boundary/extent/callee dependency. Important lead for the next agent.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2569852,
@@ -263352,7 +263352,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Cannot get closer from C \u2014 explicit terminal reasoning, asking to release now: the 65 residual is a proven agbcc callee-saved allocation swap (base->r8/mask->sb in ROM vs reversed), with `ands r1,r0` operand order following from it. All 137 target instructions are present and all calls/data/control flow are byte-exact. The known `s32 mask;`-first lever fixes the registers but materializes the constant too early (740/1116), and my comma-in-second-`||`-term attempt to defer it past the first call reverted the allocation to baseline 65. ~88 attempts across 6+ models exhausted every C spelling and all flags; register-asm pinning is banned. Ordinary C, not hand asm, not not_c, no boundary, no callee dependency. Best-65 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.2933729,
@@ -264880,7 +264880,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal callee-saved r8/sb allocation swap at score 65 (99.5%, 137/137 insns byte-exact). This CANNOT get closer in pure C with current agbcc. Target: p18A8 address\u2192r8, mask 0x4000\u2192sb/r9, ands r1,r0. agbcc reverses (p18A8\u2192sb, mask\u2192r8) with cascading ands operand order. Known partial lever: declaring `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes constant too early (before base literal load), score 740. Need C spelling that keeps `s32 mask;` first, keeps `||`-chain base CSE, but materializes mask after first `bl sub_08007B3C`. Tried: mask assigned inside `&` expression (breaks CSE, 1851), splitting first call out of `||` (breaks CSE), `const u32`/`u32` mask (inert at 65), and4000 inline helper (2315). ~88 attempts across 6+ models exhausted all C levers and flags; register-asm pinning banned. Not hand asm, not not_c, no boundary, no callee dependency. Best-65 source preserved (plain `& 0x4000` in `||` chain, and80 helper for 0x80 test).",
   "by": "opencode-free-1",
   "created_at": 1795683535.3015869,
@@ -266224,7 +266224,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "This session's 8-compile budget reconfirmed best 65. New measurements: (1) `s32 mask;` first + `mask=0x4000` after and80 gives 740 with correct base=r8/mask=sb but mask born 3 insns early; search_flags ranks project O2/O3 tied at 740, O1/Os much worse. (2) Assigning mask inside the first `&`, via a comma expression, via an inline pointer helper, or after splitting the first call out of the `||` chain all give 1851 (helper alone gives baseline 65 because constant propagation removes the local pseudo). (3) Explicitly hoisting `&D_02025FF0.f18A8` and splitting the first call fixes the mask's post-call schedule, but loses the ROM's global-base CSE/coloring; adding signed `base`/`collision` locals and a typed global-base local only reached 2426. Remaining lead is still to retain the first-local mask pseudo and the original ||-chain CSE while making its assignment depend on the first call result; no pure-C spelling found.",
   "by": "opencode-hungerg-free-2",
   "created_at": 1795683535.3087704,
@@ -266248,7 +266248,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Full 8-compile budget spent; best remains 65 (137/137 instructions, only the base/mask high-register swap and following AND operand coloring). Confirmed `s32 mask;` first + assignment after and80 gives 740: correct base=r8/mask=sb, but the 0x4000 birth is 3 instructions before the first collision call. Tried assignment inside first AND, comma sequencing, inline pointer helper, splitting first call, explicit table-pointer hoist, signed base/collision locals, typed global-base local, and search_flags. Helper/constant propagation either returns to 65 or loses the allocation lever; splitting/hoisting fixes mask schedule but breaks global-base CSE and scores 1851-2616 (best new variant 2426). No boundary, hand asm, or callee dependency; register-asm pinning is rejected. Best-65 source preserved, detailed measurements added as a function note.",
   "by": "opencode-hungerg-free-2",
   "created_at": 1795683535.3089008,
@@ -269272,7 +269272,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal callee-saved r8/sb allocation wall at score 65 (99.5%, 137/137 insns byte-exact). Residual: base->r8/mask->sb swapped, ands operand order. Known partial lever: `s32 mask;` first flips allocation correctly but materializes constant too early (740). No pure-C spelling gets both correct regs and correct scheduling. ~101 attempts. register-asm banned. Not hand asm, not not_c, no boundary/extent/callee. Best-65 source preserved. Cannot improve from C.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.32511,
@@ -271224,7 +271224,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal agbcc -O2 callee-saved r8/sb allocation + mask scheduling wall. Baseline 65 (99.5%, 137/137 insns byte-exact) has r8/sb swapped (base\u2192sb, mask\u2192r8) with `ands r0,r1` operand order following. Verified partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes 0x4000 3 insns early (before base literal load instead of after first `bl sub_08007B3C`), score 740. Assigning mask inside first `&` via comma, splitting first call out of `||` chain, or hoisting base to local all break the `||` chain's CSE of the shared base expression (1851-3266). ~100 attempts across 6+ models exhausted all C spellings, types, declaration orders, and flags; register-asm pinning banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-65 source preserved. Cannot get closer in pure C.",
   "by": "opencode-free-1",
   "created_at": 1795683535.3357527,
@@ -272680,7 +272680,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Why it cannot get closer: this session recompiled both documented fixed points \u2014 baseline 65 (137/137 insns byte-exact, only base/mask r8/sb swap + ands operand order) and the `s32 mask;`-first lever (740: allocation correct base->r8/mask->sb, but 0x4000 is born 3 insns before the base literal load and after that the call relocations break). Deferring the mask past the first `bl` requires splitting the first call out, which destroys the ROM's global-base CSE (1851-3266) and cannot be recovered by hoisting/typing the base local. These are two ends of one agbcc coloring/scheduling tie; ~114 attempts across 8+ models exhausted all C spellings/types/declaration orders/flags, register-asm pinning is harness-banned, and only -O2 is mapped. No further compile can improve it. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-65 source preserved; releasing to advance queue.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.3435552,
@@ -274496,7 +274496,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "4 compiles, best 70 (99.4%). Terminal floor per notes ~65 (r8/sb register coloring). Only regalloc diffs remain. Best source preserved.",
   "by": "opencode-tidepool-alpha-free-1",
   "created_at": 1795683535.3532848,
@@ -276480,7 +276480,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Cannot get closer in pure C. Terminal r8/sb allocation+mask-scheduling tie (65, 137/137 insns). Known lever fixes regs but breaks schedule; no C spelling achieves both. Register-asm banned. Not not_c/boundary/callee. Best preserved. Releasing.",
   "by": "opencode-iceman-contributor-free-2",
   "created_at": 1795683535.363907,
@@ -278344,7 +278344,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Asking to release anyway: terminal agbcc -O2 coloring/scheduling tie, confirmed this session. Baseline 65 (137/137 insns byte-exact; base\u2192sb/mask\u2192r8 swap + ands operand order). First-local `s32 mask;` = 740: correct base\u2192r8/mask\u2192sb but 0x4000 born 3 insns before the base literal load. My `andMask` inline-helper variant = same 740, confirming the two ends of the same tie. Delaying the mask birth requires splitting the first call out of the || chain, which destroys the ROM's global-base CSE (1851+); ~124 attempts across 8+ models exhausted all C spellings/types/declaration orders/flags. Register asm/attributes rejected by harness; only -O2 mapped. Not hand asm, not_c=false, no boundary/extent, no callee dep. Preserve best-65 source; only a toolchain change can improve it.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.3738198,
@@ -280864,7 +280864,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal agbcc -O2 callee-saved r8/sb allocation wall at score 65 (99.5%, 137/137 insns byte-exact). Residual: base->r8/mask->sb swapped, ands operand order. Known partial lever: `s32 mask;` first flips allocation correctly but materializes constant too early (740). ~124 attempts across 8+ models. register-asm banned. Not hand asm, not not_c, no boundary/extent/callee. Best-65 source preserved. Cannot improve from C; releasing to advance queue.",
   "by": "opencode-beam-free-1",
   "created_at": 1795683535.3872569,
@@ -284160,7 +284160,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Second request: the fresh baseline and explicit-pointer experiment establish the same terminal tie; no legal C change preserves both the ROM's register colors and mask birth schedule. The correct score-65 source remains saved. Only an allocator/toolchain change or banned register forcing can close it, so advance the queue.",
   "by": "opencode-hungerg-free-1",
   "created_at": 1795683535.4051285,
@@ -286120,7 +286120,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal agbcc -O2 callee-saved r8/sb allocation + mask scheduling wall. Baseline 65 (99.5%, 137/137 insns byte-exact) has r8/sb swapped with `ands` operand order following. Partial lever `s32 mask;` first flips allocation correctly but materializes 0x4000 3 insns early (740). Splitting first call out of `||` chain breaks CSE (1851+). ~127 attempts exhausted all C spellings/types/orders/flags; register-asm banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-65 source preserved. Cannot get closer in pure C.",
   "by": "opencode-free-1",
   "created_at": 1795683535.4157047,
@@ -291232,7 +291232,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal agbcc -O2 callee-saved r8/sb allocation + mask scheduling wall at score 65 (137/137 insns byte-exact). Residual: base\u2192r8/mask\u2192sb swapped in ROM vs agbcc (base\u2192sb/mask\u2192r8), ands operand order follows. Known partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes 0x4000 3 insns early (before base literal load instead of after first `bl sub_08007B3C`), score 740. Splitting first call out of `||` chain destroys CSE of shared base (1851+). ~124 attempts across 8+ models exhausted all C spellings/types/orders/flags; register-asm banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-65 source preserved. Pure-C ceiling reached.",
   "by": "opencode-free-1",
   "created_at": 1795683535.478233,
@@ -292456,7 +292456,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal agbcc -O2 callee-saved r8/sb allocation + mask scheduling wall at score 65 (137/137 insns byte-exact). Residual: base\u2192r8/mask\u2192sb swapped in ROM vs agbcc (base\u2192sb/mask\u2192r8), ands operand order follows. Known partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes 0x4000 3 insns early (before base literal load instead of after first `bl sub_08007B3C`), score 740. Splitting first call out of `||` chain destroys CSE of shared base (1851+). ~124 attempts across 8+ models exhausted all C spellings/types/orders/flags; register-asm banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-65 source preserved. Pure-C ceiling reached.",
   "by": "opencode-free-1",
   "created_at": 1795683535.478233,
@@ -293616,7 +293616,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Best score 65/99.5% after ~4 compiles this session (~130+ total across 8+ prior agents). Terminal agbcc -O2 callee-saved r8/sb allocation + mask scheduling wall:\n\nTarget: base(global)\u2192r8, mask(0x80)\u2192sb, ands r0,r1 (v in r0, mask in r1). Mine: base\u2192sb, mask\u2192r8, ands r1,r0 (wrong operand order). All 137 target insns present.\n\nKnown partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes 0x80 3 insns early (before base literal load, before first bl sub_08007B3C), score 75. Tried mask-first with `mask & v` and `v & mask` \u2014 both 75. Splitting first call out of || chain destroys CSE of shared base (1851+).\n\nExhausted C levers: declaration order, statement order, pointer types, inline helpers (and80), mask-first local, s32 vs u32 mask type, all -O levels. Register-asm banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-65 source preserved. Pure-C ceiling \u2014 proven terminal wall.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4570067,
@@ -293952,7 +293952,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Explicit impossibility override: cannot get closer in pure C. Score 65 is a terminal agbcc -O2 allocator/scheduler tie: all 137 target instructions are byte-exact in the preserved source; the only differences are base\u2192r8/mask\u2192sb vs agbcc base\u2192sb/mask\u2192r8 plus `ands` operand order. Flipping allocation via a first-declared `s32 mask` moves the constant birth too early; delaying the birth requires breaking the || chain's shared-base CSE. ~134 attempts by 8+ models, all -O levels checked, register-asm pinning harness-rejected. No boundary, hand asm, not_c, or callee dependency. Preserve the best-65 source; only a compiler change or NONMATCHING closes it.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.4589388,
@@ -297480,7 +297480,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal agbcc -O2 callee-saved r8/sb allocation + mask scheduling wall at score 65 (137/137 insns byte-exact). Residual: base\u2192r8/mask\u2192sb swapped in ROM vs agbcc (base\u2192sb/mask\u2192r8), ands operand order follows. Known partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes 0x4000 3 insns early (before base literal load instead of after first `bl sub_08007B3C`), score 740. Splitting first call out of `||` chain destroys CSE of shared base (1851+). ~124 attempts across 8+ models exhausted all C spellings/types/orders/flags; register-asm banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-65 source preserved. Pure-C ceiling reached.",
   "by": "opencode-free-1",
   "created_at": 1795683535.478233,
@@ -298064,7 +298064,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "TERMINAL WALL \u2014 agbcc -O2 callee-saved r8/sb allocation + mask-scheduling tie (score 65, 99.5%, all 137 target insns byte-exact, only 13 regalloc rows). Target: base(global D_02025FF0 offset)\u2192r8, mask(0x4000)\u2192sb, ands r1,r0 (mask in r1). agbcc: base\u2192sb, mask\u2192r8, ands r0,r1 (swapped registers, operand order follows). Known partial lever: `s32 mask = 0x4000;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes 0x4000 3 insns early (before base literal load, before first bl sub_08007B3C) \u2192 score 75. Inline `0x80 & v` or `v & 0x80` \u2192 75. Splitting first call out of || chain destroys shared-base CSE \u2192 1851+. ~136 attempts by 8+ models exhausted all C spellings/types/orders/flags/inline-helpers; register-asm banned. Not hand asm, not not_c, no boundary/extent/callee dependency. Best-65 source preserved (and80 helper form). Pure-C ceiling \u2014 only a toolchain change closes this.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4814517,
@@ -298632,7 +298632,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Asking to release now with justification: proven pure-C ceiling. Score 65 (99.5%, all 137 target insns byte-exact except 13 regalloc rows). First diff: target `mov r8,r3` vs ours `mov sb,r3` \u2014 ROM keeps base(global D_02025FF0 offset) in r8 and mask(0x4000/0x80) in sb; agbcc -O2 swaps them (base\u2192sb, mask\u2192r8) with `ands` operand order following (ands r1,r0 vs ands r0,r1). Known partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes the mask 3 insns early (before the base literal load / before first bl sub_08007B3C) \u2014 score 740-750. Splitting the first call out of the `||` chain destroys the shared-base CSE (1851+). Exhausted C levers (~141 attempts across 8+ models): declaration order, statement order, pointer types, inline helpers (and80), mask-first local, s32/u32 mask type, all -O levels. Register-asm pinning harness-rejected. Not hand asm (not_c=false), no boundary/extent/callee dependency (all 5 callees matched). Best-65 source preserved (and80-helper form). Only a toolchain/allocator change closes this; nothing in source fixes both register colors and mask birth schedule.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4848258,
@@ -300176,7 +300176,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Asking to release now: sub_08065CC8 terminal at score 65 (callee-saved r8/sb allocation + mask birth-schedule wall, 137/137 insns byte-exact, 13 regalloc rows), confirmed by my compile at 65 plus ~141 prior attempts across 8+ models. ROM keeps base(global D_02025FF0 offset) in r8 and mask(0x4000/0x80) in sb with `ands r1,r0`; agbcc -O2 swaps them (base\u2192sb, mask\u2192r8, `ands r0,r1`). Partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes the mask 3 insns early (before base literal load, before first bl sub_08007B3C) \u2192 score ~740-750. Splitting the first call out of the `||` chain destroys shared-base CSE \u2192 1851+. Exhausted C levers: declaration order, statement order, pointer types, inline helpers (and80), mask-first local, s32/u32 mask type, all -O levels. Register-asm pinning harness-rejected. Not hand asm (not_c=false), no boundary/extent/callee dependency (all 5 callees matched). Best-65 source preserved (and80-helper form). Pure-C ceiling \u2014 only a toolchain/allocator change closes this.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683535.4933577,
@@ -301440,7 +301440,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "TERMINAL pure-C ceiling, score 65 (137/137 target insns byte-exact except 13 regalloc rows; confirmed by my own compile this session plus ~143 prior attempts across 8+ models). Residual: agbcc -O2 callee-saved r8/sb allocation + mask birth-schedule tie \u2014 target base(global D_02025FF0 offset)\u2192r8, mask(0x4000/0x80)\u2192sb, `ands r1,r0`; agbcc base\u2192sb, mask\u2192r8, `ands r0,r1`. First diff target `mov r8,r3` vs `mov sb,r3`. Known partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes the constant 3 insns early (before base literal load, before first bl sub_08007B3C) \u2192 score 740-750; `inline 0x80 & v` \u2192 75. Splitting the first call out of the `||` chain destroys shared-base CSE \u2192 1851+. Exhausted C levers (~141 attempts/8+ models): declaration order, statement order, pointer types, inline helpers (and80), mask-first local, s32/u32 mask type, all -O levels. Register-asm pinning harness-rejected (\"inline assembly is not allowed\"). Not hand asm (not_c=false), no boundary/extent/callee dependency (all 5 callees matched). Best-65 source preserved (and80-helper form). Pure-C ceiling \u2014 only a toolchain/allocator change closes it; nothing in source fixes both register colors and mask birth schedule.",
   "by": "opencode-free-1",
   "created_at": 1795683535.5002723,
@@ -301952,7 +301952,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal agbcc -O2 callee-saved r8/sb allocation + mask scheduling wall at score 65 (99.5%, all 137 target insns byte-exact, only 13 regalloc rows). Target: base(global D_02025FF0 offset)\u2192r8, mask(0x80/0x4000)\u2192sb, ands r1,r0 (v in r0, mask in r1). agbcc: base\u2192sb, mask\u2192r8, ands r0,r1 (swapped registers, operand order follows). Known partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes the mask 3 insns early (before base literal load, before first bl sub_08007B3C) \u2192 score 740-750. Splitting first call out of `||` chain destroys shared-base CSE \u2192 1851+. ~130 attempts across 8+ models exhausted all C spellings/types/orders/flags/inline-helpers; register-asm banned. Not hand asm, not not_c, no boundary/extent/callee dependency (all 5 callees matched). Best-65 source preserved (and80 helper form). Pure-C ceiling \u2014 only a toolchain/allocator change closes this.",
   "by": "opencode-nemotron-3-ultra-550b-a5-1",
   "created_at": 1795683535.5031044,
@@ -304696,7 +304696,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal override: the 13 residual rows are a deterministic agbcc -O2 r8/sb coloring + mask birth-schedule tie; flipping colors births the mask too early and delaying it breaks the shared-base CSE. No C spelling or flag fixes both; inline asm pinning harness-banned. All 137 instructions and semantics byte-exact otherwise. Not hand asm, no boundary, no missing callee. Preserve best-65 source.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5180888,
@@ -306216,7 +306216,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "TERMINAL pure-C ceiling at score 65 (99.5%). All 137 target instructions byte-exact; only 13 regalloc rows differ: ROM keeps base(global D_02025FF0 offset) in r8 and mask(0x4000/0x80) in sb with `ands r1,r0`; agbcc -O2 swaps them (base\u2192sb, mask\u2192r8, `ands r0,r1`). First diff: target `mov r8,r3` vs mine `mov sb,r3`. Known partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes the constant 3 insns early (before base literal load, before first bl sub_08007B3C) \u2192 score 740-750; inline `0x80 & v` \u2192 75 (worse than 65). Splitting the first call out of the `||` chain destroys shared-base CSE \u2192 1851+. Exhausted ~147 attempts by 8+ models: declaration order, statement order, pointer types, inline helpers (and80), mask-first local, s32/u32 mask type, all -O levels. Register-asm pinning harness-rejected (\"inline assembly is not allowed\"). Not hand asm (not_c=false), no boundary/extent/callee dependency (all 5 callees matched). Best-65 source preserved (and80-helper form). Pure-C ceiling \u2014 only a toolchain/allocator change closes this. Asking to move on per harness rule \"ask again now with notes saying why it can't get closer.\"",
   "by": "opencode-free-1",
   "created_at": 1795683535.5270538,
@@ -308568,7 +308568,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "Terminal agbcc -O2 callee-saved r8/sb allocation + mask scheduling wall at score 65 (99.5%, all 137 target insns byte-exact, only 13 regalloc rows). Target: base(global D_02025FF0 offset)\u2192r8, mask(0x4000/0x80)\u2192sb, `ands r1,r0`; agbcc: base\u2192sb, mask\u2192r8, `ands r0,r1`. First diff target `mov r8,r3` vs `mov sb,r3`. Known partial lever: `s32 mask;` as FIRST local flips allocation correctly (base\u2192r8, mask\u2192sb) but materializes the mask 3 insns early (before base literal load, before first bl sub_08007B3C) \u2192 score 740-750. Splitting first call out of `||` chain destroys shared-base CSE \u2192 1851+. ~130 attempts across 8+ models exhausted all C spellings/types/orders/flags/inline-helpers; register-asm banned. Not hand asm, not_c=false, no boundary/extent/callee dependency (all 5 callees matched). Best-65 source preserved (and80 helper form). Pure-C ceiling \u2014 only a toolchain/allocator change closes this.",
   "by": "opencode-nemotron-3-ultra-550b-a5-1",
   "created_at": 1795683535.5402365,
@@ -313752,7 +313752,7 @@
   "score_after": null
  },
  {
-  "function": "sub_08065CC8",
+  "function": "selectTileActionStep",
   "text": "WHY IT CANNOT GET CLOSER (explicit second request, release now): terminal agbcc -O2 callee-saved r8/sb allocation + mask birth-schedule wall at score 65 (99.5%). All 137 target instructions byte-exact; only 13 regalloc rows: target keeps base (D_02025FF0 offset) in r8 and mask (0x4000/0x80) in sb with `ands r1,r0`; agbcc swaps them (base\u2192sb, mask\u2192r8, `ands r0,r1`). A mask-first local flips the colors correctly but births the mask 3 insns too early (740); splitting the first call out of the || chain destroys shared-base CSE (1851+); ~149 lifetime attempts across 8+ models exhausted declaration order, statement order, pointer types, inline helpers, mask-first local, s32/u32 mask type, all -O levels. Register-asm pinning harness-rejected. Not hand asm, not_c=false, no boundary/extent/callee dependency (all 5 callees matched). Best-65 source preserved verbatim (and80 helper form); only a toolchain/allocator change closes this. Advance queue permanently.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683535.5691934,
@@ -356494,6 +356494,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:2a7053df7d7f3b9ddbe8b2005dfaf9e879fdf0e2436af975b6e480033519a63f"
  },
  {
+  "function": "spawnDirectionalAttackEffectSprite",
+  "text": "86% donor spawnAttackEffectSprite adapted; best 2750 (89.5%, 262/264 insns), rev 817d3a796e5950b9013e. Main structure matches: allocSpriteObject->allocWorkSlot(0,0x4C,0)->typeFlags 0x8000000B->installUpdateHandler(sub_08014290)->animId 0x17->copy owner f4C/f5C to part x/y->adjust y by owner+0x6C (0xFFF40000/0xFFE40000) and x by owner+0x70 (0x1E0000 / 0x02025FF0 literal)->set part+0x10=0x18C2, part+0x14=0->findKindIndex(part->animId)->graphics pack->initSpriteGraphics->setAnimationFrame(...,0x3B,1)->allocEffectPart->fill subEffect (1=5,2=8,3=1, f04/f0E from gEffectGfxTable[animId*40], f06-f0C from D_080CEDF4, +0x10=sprite)->camera scroll adjust (gCameraState+0x1278/0x127C indexed by (state[0x18A8]+1)*0x40)->flags|=0x1000->step byte clear, sub_080C31E4, step byte++, sub_080C31E0(dispatch). Remaining diffs mostly linker false positives from code-size/offset (bl addresses, pool symbol misattributions). Real structural diff: owner+0x70!=0 x-adjust branch in target has dead `movs r0,#0x80; lsls r0,r0,#0xb; b` before convergence; current code b's directly. Also keep x else as literal 0x02025FF0 (not (u32)gMainWorkspace) - symbol form regressed. Tried: findKindIndex(part->animId) improved; swapping x if/else regressed; gMainWorkspace symbol regressed; try_local_repairs found no better variant.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795805511.4602828,
+  "score_before": 3750,
+  "score_after": 2750,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:76ddeda282ddae4dfaf33b5294932af300e892514ec776aad8ff29fea5a1dec1"
+ },
+ {
   "function": "sub_0800FEDC",
   "text": "Leaf no-call Thumb function; body logic matches target exactly. Only diff is LR-frame wall: target `beq #0x10`/`bx lr`, candidate `push {lr}`/`beq #0x12`/`pop {r0}; bx r0`. 46+ prior attempts, all flag profiles same or worse. Confirmed 215 this session.\nConfirmed current candidate; prior history shows extensive attempts and flag search.\nNo change from baseline 215; all diffs are frame insertion/offset shift.",
   "by": "opencode-iceman-contributor-free-12",
@@ -359628,12 +359637,30 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:452270f2dafab694e5ad022fe34448eb4cfcf19f890bbbb7ccd35c69f516f5ca:c814f091fac383262682c84a4dfd5a69c5abbcdafe54093d0caf18b5ad262135"
  },
  {
-  "function": "spawnDirectionalAttackEffectSprite",
-  "text": "86% donor spawnAttackEffectSprite adapted; best 2750 (89.5%, 262/264 insns), rev 817d3a796e5950b9013e. Main structure matches: allocSpriteObject->allocWorkSlot(0,0x4C,0)->typeFlags 0x8000000B->installUpdateHandler(sub_08014290)->animId 0x17->copy owner f4C/f5C to part x/y->adjust y by owner+0x6C (0xFFF40000/0xFFE40000) and x by owner+0x70 (0x1E0000 / 0x02025FF0 literal)->set part+0x10=0x18C2, part+0x14=0->findKindIndex(part->animId)->graphics pack->initSpriteGraphics->setAnimationFrame(...,0x3B,1)->allocEffectPart->fill subEffect (1=5,2=8,3=1, f04/f0E from gEffectGfxTable[animId*40], f06-f0C from D_080CEDF4, +0x10=sprite)->camera scroll adjust (gCameraState+0x1278/0x127C indexed by (state[0x18A8]+1)*0x40)->flags|=0x1000->step byte clear, sub_080C31E4, step byte++, sub_080C31E0(dispatch). Remaining diffs mostly linker false positives from code-size/offset (bl addresses, pool symbol misattributions). Real structural diff: owner+0x70!=0 x-adjust branch in target has dead `movs r0,#0x80; lsls r0,r0,#0xb; b` before convergence; current code b's directly. Also keep x else as literal 0x02025FF0 (not (u32)gMainWorkspace) - symbol form regressed. Tried: findKindIndex(part->animId) improved; swapping x if/else regressed; gMainWorkspace symbol regressed; try_local_repairs found no better variant.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795805511.4602828,
-  "score_before": 3750,
-  "score_after": 2750,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c99620194efe83a98af1e15203f16541c78783fe37d8762011c7741455d30d9a:76ddeda282ddae4dfaf33b5294932af300e892514ec776aad8ff29fea5a1dec1"
+  "function": "sub_0800EDAC",
+  "text": "Verified baseline 550 (97.1%; 191/191 insns). Residual 15 rows: target holds gMenuState base in r1 (`ldr r1,[pc,#0x34]; adds r2,r1,#0; adds r2,#0x6a; ... adds r4,r1,#0`), candidate holds it in r0 with the obj copy hoisted and reordered; plus target's switch constants load into r2 then copy `adds r0,r2,#0` before `strh`, candidate stores directly from r0. This session's three compile_patch probes all left the instruction diff unchanged at 550: `u16 val` -> `s32 val`, swapping obj/state declaration order, and adding a named `u16 outVal` copy before `*dest = val`. Use of those levers is exhausted; saved_best b95f2c6af68885934550 restored. Terminal agbcc register/copy-placement wall; pure C, correct semantics/calls, no boundary/not_c issue.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795817111.4044678,
+  "score_before": 550,
+  "score_after": 550,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:acca4a3793cfb07b2e0405fdef6f5c90e628668314c787cae9e058980138d991:82f4ad6d49e9a1344735ef7f6ef5c3b18219e16dc1f18b521d9421bd122a0e00"
+ },
+ {
+  "function": "sub_08008864",
+  "text": "Best 50, 184/184 insns, 10 register-only rows: camera-state literal offsets (0x146C, 0x1470) loaded into r2 in two of three branches (ours r1), and the loc_8930 0x22 index (target r2, ours r1). O1/O3/Os flag profiles do not help. This session's direct-index, u32-index and local declaration reorder variants all reproduce the identical diff. Prior agents report the same allocator tie. Treat as backend allocation wall; the next agent should try a typed struct for gCameraState (changes literal lifetime/register pressure) before any further permutations.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795817117.4329443,
+  "score_before": 50,
+  "score_after": 50,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:acca4a3793cfb07b2e0405fdef6f5c90e628668314c787cae9e058980138d991:5d3deb5c002f898142c3093fafdec2b5be20dd6e9626c96ddb1c1683eace3a49"
+ },
+ {
+  "function": "sub_0807B1C4",
+  "text": "Best 1485, 200/200 insns but 48 differing rows with deterministic alloc/hoist shape. This session: removing __repair_phase_r4 alias is score-identical; removing do-while wrapper 1605 (improves one region, candidate regional_alternative); replacing arr indexing with a raw pointer expression 4040. Prior agents report 84 attempts with all alternatives tying or spilling; register-asm pinning prohibited. Next agent: try the matched twin's typed ActorEffectWork layout and `sub = allocEffectPart(); state->part = sub;` spelling before further permutation.\ncompile_variants: remove arr local only -> compile error (arr still used); direct arr pointer expression -> 4040; remove __repair_phase_r4 alias -> 1485 identical; remove do-while scratch wrapper -> 1605 (one target region improved)\nNo improvement over 1485; 48 rows persist, including early hoist of r5=&state+0x30 before the sprite load",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795817208.6918144,
+  "score_before": 1485,
+  "score_after": 1485,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:17ee93f3d9e7d56f83148fa52bae41cac659b548d1541c348aa3c490583c1b68:b18e58a804f91cb179036ad194d79135d7549022bd41c4a2845ae43396adc7c2"
  }
 ]

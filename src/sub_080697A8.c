@@ -4,7 +4,7 @@ extern s32 gMenuScriptCallback;
 s32 syncViewPosition(void *, void *);
 void resetActionResultState(void *, void *, void *, void *);
 void sub_0806C6B0(void *, void *, void *, void *);
-u16 sub_08065CC8(void *, void *, void *, void *);
+u16 selectTileActionStep(void *, void *, void *, void *);
 void sub_080C31E8(void *, void *, s32, s32);
 
 /* Advance one step of this entity's script: set up the game-state-derived
@@ -34,7 +34,7 @@ void sub_080697A8(u8 *entity) {
             entity[*(s16 *)(entity + 0x22) * 2 + 0x17] = 0;
             hookSlot = &gMenuScriptCallback;
             sub_080C31E8(entity + 0x18, entity + 0x22,
-                         sub_08065CC8(entity, state, out, out), *hookSlot);
+                         selectTileActionStep(entity, state, out, out), *hookSlot);
         }
         sub_0806C6B0(entity, state, ctx, out);
     }

@@ -32,7 +32,7 @@ static inline u32 and80(u32 b)
   m &= b;
   return m;
 }
-u16 sub_08065CC8(s32 arg0, s32 arg1, struct S_arg2 *arg2, struct S_arg3 *arg3)
+u16 selectTileActionStep(s32 arg0, s32 arg1, struct S_arg2 *arg2, struct S_arg3 *arg3)
 {
   u32 v;
   s32 r;

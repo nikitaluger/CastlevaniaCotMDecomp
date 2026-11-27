@@ -2,7 +2,7 @@ extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AA64(void *, void *);
 extern s32 stepDelayTimer(void *, void *);
-extern u16 sub_08065CC8(void *, void *, void *, void *);
+extern u16 selectTileActionStep(void *, void *, void *, void *);
 extern void sub_080C31E8(void *, void *, u16, s32);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern s32 gMenuScriptCallback;
@@ -31,7 +31,7 @@ void sub_080667E8(u8 *script) {
                 u16 rv;
                 p18 += 0x18;
                 p22 += 0x22;
-                rv = sub_08065CC8(script, sprite, mover, mover);
+                rv = selectTileActionStep(script, sprite, mover, mover);
                 sub_080C31E8(p18, p22, rv, *lit);
             }
         }

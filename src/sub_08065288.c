@@ -3,7 +3,7 @@ extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
 extern s32 stepDelayTimer(void *, void *);
-extern u16 sub_08065CC8(void *, void *, void *, void *);
+extern u16 selectTileActionStep(void *, void *, void *, void *);
 extern u16 sub_0806BCD8(void *, void *, void *, void *);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
@@ -36,7 +36,7 @@ void sub_08065288(u8 *behav) {
                 u16 rv;
                 p18 += 0x18;
                 p22 += 0x22;
-                rv = sub_08065CC8(behav, target, point, point);
+                rv = selectTileActionStep(behav, target, point, point);
                 sub_080C31E8(p18, p22, rv, *lit);
             }
         }

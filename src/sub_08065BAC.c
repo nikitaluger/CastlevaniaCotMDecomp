@@ -1,7 +1,7 @@
 extern void *gMenuScriptCallback;
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern s32 stepDelayTimer(void *, void *);
-extern u16 sub_08065CC8(void *, void *, void *, void *);
+extern u16 selectTileActionStep(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
@@ -67,7 +67,7 @@ void sub_08065BAC(u8 *entity)
         void **callbackSlot = &gMenuScriptCallback;
         u8 *cbArg0 = entity + 0x18;
         u8 *cbArg1 = entity + 0x22;
-        u16 cbArg2 = sub_08065CC8(entity, obj, vec, pos);
+        u16 cbArg2 = selectTileActionStep(entity, obj, vec, pos);
         sub_080C31E8(cbArg0, cbArg1, cbArg2, *callbackSlot);
       }
     }

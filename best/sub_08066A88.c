@@ -25,7 +25,7 @@ extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
 extern s32 stepDelayTimer(void *, void *);
-extern u16 sub_08065CC8(void *, void *, void *, void *);
+extern u16 selectTileActionStep(void *, void *, void *, void *);
 extern void sub_080C31E8(void *, void *, u16, u32);
 extern void sub_080C31E4(void *, void *, u32);
 extern void sub_0806C6B0(void *, void *, void *, void *);
@@ -70,7 +70,7 @@ void sub_08066A88(u8 *script)
         u16 rv;
         p18 += 0x18;
         p22 += 0x22;
-        rv = sub_08065CC8(script, sprite, state, state);
+        rv = selectTileActionStep(script, sprite, state, state);
         sub_080C31E8(p18, p22, rv, *lit);
       }
     }
@@ -99,7 +99,7 @@ void sub_08066A88(u8 *script)
     u16 rv;
     p18 += 0x18;
     p22 += 0x22;
-    rv = sub_08065CC8(script, sprite, work, state);
+    rv = selectTileActionStep(script, sprite, work, state);
     sub_080C31E8(p18, p22, rv, *lit);
   }
 join_arg = script;

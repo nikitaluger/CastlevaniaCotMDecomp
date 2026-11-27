@@ -3497,7 +3497,7 @@
 <g><title>sub_0802DA54: {&#x27;matched&#x27;: 1}</title>
 <rect x="410.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802DB60: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateHoveringEffectStepWide: {&#x27;matched&#x27;: 1}</title>
 <rect x="420.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802DC84: {&#x27;matched&#x27;: 1}</title>
@@ -7133,7 +7133,7 @@
 <g><title>sub_08065BAC: {&#x27;matched&#x27;: 1}</title>
 <rect x="530.000" y="450" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08065CC8: {&#x27;matched&#x27;: 1}</title>
+<g><title>selectTileActionStep: {&#x27;matched&#x27;: 1}</title>
 <rect x="540.000" y="450" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08065DEC: {&#x27;matched&#x27;: 1}</title>

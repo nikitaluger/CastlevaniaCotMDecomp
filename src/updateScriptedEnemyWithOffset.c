@@ -4,7 +4,7 @@ extern void sub_0806AB04(void *a, void *b, void *c, void *d);
 extern void setEntityForm(void *a, void *b, s32 c);
 extern void sub_0806A884(void *a, void *b);
 extern s32 stepDelayTimer(void *a, void *b);
-extern u16 sub_08065CC8(void *a, void *b, void *c, void *d);
+extern u16 selectTileActionStep(void *a, void *b, void *c, void *d);
 extern u16 sub_0806BCD8(void *a, void *b, void *c, void *d);
 extern void sub_0806C6B0(void *a, void *b, void *c, void *d);
 extern void _call_via_r3(void *a, void *b, s32 c, s32 d);
@@ -59,7 +59,7 @@ void updateScriptedEnemyWithOffset(u8 *entity) {
             *(s32 *)(work + 8) = result;
             *(u8 *)(entity + (*(s16 *)(entity + 0x22)) * 2 + 0x17) = (u8)result;
             eventTable = &gMenuScriptCallback;
-            _call_via_r3(entity + 0x18, entity + 0x22, sub_08065CC8(entity, target, ai, work), *eventTable);
+            _call_via_r3(entity + 0x18, entity + 0x22, selectTileActionStep(entity, target, ai, work), *eventTable);
         }
         result = sub_0806BCD8(entity, target, ai, work);
         *(u32 *)(ai + 0xC4) = (u16)result;

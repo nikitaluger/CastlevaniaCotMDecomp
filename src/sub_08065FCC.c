@@ -1,7 +1,7 @@
 extern void *gMenuScriptCallback;
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern s32 stepDelayTimer(void *, void *);
-extern u16 sub_08065CC8(void *, void *, void *, void *);
+extern u16 selectTileActionStep(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
@@ -46,7 +46,7 @@ void sub_08065FCC(u8 *actor) {
             callback = &gMenuScriptCallback;
             cbArgA = actor + 0x18;
             cbArgB = actor + 0x22;
-            callbackValue = sub_08065CC8(actor, position, objTail, obj);
+            callbackValue = selectTileActionStep(actor, position, objTail, obj);
             sub_080C31E8(cbArgA, cbArgB, callbackValue, *callback);
         }
         sub_0806C6B0(actor, position, objTail, obj);

@@ -1,7 +1,7 @@
 extern void *gScriptStepCallbacks;
 extern void sub_0806AB04(void *, void *, void *, void *);
 extern s32 stepDelayTimer(void *, void *);
-extern u16 sub_08065CC8(void *, void *, void *, void *);
+extern u16 selectTileActionStep(void *, void *, void *, void *);
 extern void sub_0806A884(void *, void *);
 extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
@@ -41,7 +41,7 @@ void updateTimedActorAction(u8 *actor)
             void **callback = &gScriptStepCallbacks;
             u8 *cbArgA = actor + 0x18;
             u8 *cbArgB = actor + 0x22;
-            u16 callbackValue = sub_08065CC8(actor, position, obj, obj);
+            u16 callbackValue = selectTileActionStep(actor, position, obj, obj);
             sub_080C31E8(cbArgA, cbArgB, callbackValue, *callback);
         }
         gMainWorkspace.f1824 = timerResult;

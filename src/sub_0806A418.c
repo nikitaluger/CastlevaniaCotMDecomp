@@ -4,7 +4,7 @@ extern s32 syncViewPosition(void *, void *);
 extern void resetActionResultState(void *, void *, void *, void *);
 extern void sub_0806AA64(void *, void *);
 extern s32 stepDelayTimer(void *, void *);
-extern u16 sub_08065CC8(void *, void *, void *, void *);
+extern u16 selectTileActionStep(void *, void *, void *, void *);
 extern void sub_0806C31E8(void *, void *, u16, s32);
 extern void sub_0806A7AC(void *, void *, s32);
 extern void sub_0806C6B0(void *, void *, void *, void *);
@@ -57,7 +57,7 @@ void sub_0806A418(u8 *entity)
           u16 msgId;
           msgArg0 += 0x18;
           msgArg1 += 0x22;
-          msgId = sub_08065CC8(entity, other, work, work);
+          msgId = selectTileActionStep(entity, other, work, work);
           sub_080C31E8(msgArg0, msgArg1, msgId, *msgTable);
         }
       }
