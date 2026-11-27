@@ -13792,7 +13792,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080210D0",
+  "function": "updateScriptedProjectileActor",
   "text": "Best score 210 (98.5%). Remaining diff is pure register allocation: target loads D_08671BDC into r2 then reads r3 after computing arg0+0x18/0x22; mine loads into r0/r2 at a different pc offset. Instruction count and control flow match. Likely needs register-pinning or statement reordering beyond source tweaks. Cannot get closer with source tweaks.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9672542,
@@ -13800,7 +13800,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0802970C",
+  "function": "updateTimerDrivenEffect",
   "text": "Complex function with many branches. Score 2500 (82%). Linking errors indicate D_08671BD0/D_02025FF0+0x174C symbol resolution issues and call mismatches. Needs more careful work; releasing for next agent.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9672937,
@@ -39248,7 +39248,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080210D0",
+  "function": "updateScriptedProjectileActor",
   "text": "MATCHED (score 0). Two changes took the old 210 best to 0: (1) `s32 *lp; ... lp = D_08671BDC; sub_080C31E8(arg0+0x18, arg0+0x22, 1, *lp);` \u2014 a named pointer assigned after the `strb` hoists `ldr r2,=0x08671BDC` to before the `adds r0,#0x18`/`adds r1,#0x22` computation (inline `D_08671BDC[0]` sinks it); (2) `((struct S3C *)p3C)->f0 |= 0x01;` with `struct S3C { u16 f0; };` instead of `*(u16 *)(p3C + 0) |= 0x01;` gives the target's `ldrh r1,[r5]; movs r0,#1; orrs r0,r1` (plain pointer form gives the mirrored r0/r1). Rest of the body is the saved source.",
   "by": "opencode-deepseek-v4.1-flash-free-1",
   "created_at": 1795683534.1047404,
@@ -357685,6 +357685,23 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:d5c86863464f94f483f7fe26735c4f4caabbcac56b71e5d2ac75f6c4c66f31bb"
  },
  {
+  "function": "sub_08055990",
+  "text": "Baseline/saved best is 325 (rev 86cb4b0f914cc79974a4) but semantically wrong: it overwrites arg1 with D_080CFB70 table base and loads dest from table+0x28 instead of original arg1+0x28. Correct-semantic candidates (r3=orig arg1, r2=table, volatile reload of *(u32*)(arg1+0x28)) scored 605-910; best correct attempt 605 at rev 23c23f1d90e09e7600af. Target: adds r3,r1,#0; ldr r2,=0x080CFB70; ldrh r0,[r0,#0x28]; switch case 0 -> r2+=8, case 3 -> r2+=0x10; then 4 stores from r2[0..3] to (*(void**)(arg1+0x28))+6/8/10/12, all reloading dest ptr. Residual in 605: leaf LR-frame wall (push{lr}/pop{r0}/bx r0) plus middle switch-layout extras (movs r0,r0 / adds r2,#8 / b #0x1a) and literal-pool shift causing linker diagnostic \"pointer to D_080CFB70 where original has 0xE0003208\" (offset-shift artifact from 4 extra halfwords before pool). D_080CFB70 resolves as unknown symbol but literal in ROM is 0x080CFB70.\nCorrect-semantic rewrites with volatile ptr reloads, extern D_080CFB70 and raw-address forms, and declaration ordering.\nCorrect semantics achieved but score regressed to 605-910 vs wrong-semantic saved 325; 605 has frame wall + extra switch-case block (adds r2,#8;b) causing pool shift.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795806464.417152,
+  "score_before": 605,
+  "score_after": 605,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:eea8c57443d15f9bac93ad93ea1f86c3566635372a4889f8f93b03b0fd338edc"
+ },
+ {
+  "function": "sub_0803C250",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No compiling draft and find_similar returned no matches; assembly listing from get_assembly is fragmented/mixed with data bytes making reconstruction difficult. Recommend manual review of full disassembly and nearby matched neighbors (sub_0803C23C, sub_0803C308) to infer C, then retry.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795806517.101713,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_08041F84",
   "text": "Progress from opencode-hy4-flash-free-64: best score 505 at revision 7ae85ddf878e87d6d1a7. Key finding: the script slot pointer is `self + *(s16 *)(self + 0x22) * 2`, NOT work-based \u2014 changing the first slot computation from work to self improved 2075 -> 505. The second slot computation (after setAnimationFrame(sprite,state,7,0)) still uses work in my candidate; target also uses self there (target `ldrsh r0,[r6,r1]; lsls r0,#1; adds r0,r0,r6; ldrb r0,[r0,#0x19]` with r6=self). Remaining diffs: (1) prologue register swap \u2014 target self=r6, sprite=r7, state=r8, work=r5, anim=r4; mine self=r7, sprite=r6, state=r8; (2) target loads 0xFFFC0000 literal with `ldr r1,[pc,#0x44]` AFTER the sprite-flag ands/cmp, mine loads r2 earlier; (3) `movs r1,#0xd0; lsls r1,#10; str r1,[r5,#0x10]` uses r1 in target vs r2 in mine (fallout); (4) `.byte 0x00,0xc0` vs `movs r0,r0` is a false-positive literal-pool misdecode. Target structure (verified from raw bytes): sub_08011EE8(work,0x16C1,0); stepAnimationTrack(sprite,state); sub_08042130(anim,sprite); if(*state&2){ v=(spriteflags&0x10)?0x34000:0xFFFC0000; *(u32*)(work+0x10)=v; setAnimationFrame(sprite,state,10,1);} if(*(u32*)(work+0x10)==0)return; if(absXFromFocus(*(s32*)(work+8))<=0xFFFFF) goto disp; sign=signOf(*(s32*)(work+8)); if(sign!=((spriteflags&0x10)?1:-1)){ if(absXFromFocus(work+8)>0x600000)goto disp;} slot=self+idx*2; if(slot[0x19]>0x3C)goto disp; if((*(u16*)(work+2)&3)==0)return; disp: setAnimationFrame(sprite,state,7,0); slot[0x19]=0; sub_080C31E4(self+0x18,self+0x22,*gMainObjTimerCallbacks). Next step: change both slot bases to self and try declaration reordering (declare sprite before self) to swap r6/r7.",
   "by": "opencode-hy4-flash-free-64",
@@ -357694,12 +357711,45 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:09f1e3fd22ce331a7691f3462a2b6a44b6f9a76f3ba4aa2723d92e3d791cab9a"
  },
  {
+  "function": "sub_0803C048",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No draft, no similar matched twins (find_similar empty). Assembly partially retrieved but contains pool/data at end; function logic involves calls (0x8011898, 0x8014588, 0x8011368, 0x80113a8) and state/flag checks on structs at +0x34/+0x38/+0x3C. Needs manual disassembly tracing to write C.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795806643.9017098,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_0804148C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Large function (328B, 164 insns), no compiling draft/machine output, no similar matched twins (find_similar empty). Neighbors matched (sub_08041458/sub_080415D4) give some context but full C not obvious from partial assembly fetches. Needs dedicated analysis of full disassembly (many branches/calls) and possibly struct layout inference.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795806701.5364175,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08041BE0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Large (380B), no draft/twins, complex control flow per asm snippet. Deferred for focused session.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795806741.7427034,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08037604",
+  "text": "Decoded target from raw bytes: 137 insns. Correct semantics are part+0xb in first condition, gMainWorkspace.targetY/targetX at +0x1750/+0x174C, callback pointer is *(s32 *)(arg0+0x24) in ROM but spelling that in C destroys allocation. Remaining 12 rows are pure register/scheduler differences (agbcc allocator wall). Next step: try a source spelling that makes agbcc emit `mov r2,r8; ldr r1,[r2,#0x24]; mov r0,r8` for the callback (e.g. a struct-typed entity with a handler field, or a fake dependency forcing arg3 evaluation first) and a fake dependency forcing `strb r2,[r5,#9]` before the part[0xa] increment; preserve the hoisted_const repair.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795806762.0103881,
+  "score_before": 5590,
+  "score_after": 400,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:7062276b08810cbfad990b8de25ad62fb96b6117267330a073a27a89223b93de"
+ },
+ {
   "function": "sub_08041F84",
   "text": "Low progress after 29 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 79; 2 differing rows (2 register; advisory).\nTarget: adds r0, r0, r6\nCandidate: adds r0, r6, r0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = ldrsh r0, [r6, r1]\n  = lsls r0, r0, #1\nr T: adds r0, r0, r6 | C: adds r0, r6, r0\n  = ldrb r0, [r0, #0x19]\n  = cmp r0, #0x3c\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
   "by": "opencode-hy4-flash-free-65",
   "created_at": 1795807003.6815832,
   "score_before": 505,
-  "score_after": 10,
+  "score_after": 0,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:09f1e3fd22ce331a7691f3462a2b6a44b6f9a76f3ba4aa2723d92e3d791cab9a"
  },
  {
@@ -357712,11 +357762,125 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:e136801417f9038c6a21ef96c8b621d47befce926c95e4075ff81ea90dcbe818"
  },
  {
-  "function": "sub_0803C048",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No draft, no similar matched twins (find_similar empty). Assembly partially retrieved but contains pool/data at end; function logic involves calls (0x8011898, 0x8014588, 0x8011368, 0x80113a8) and state/flag checks on structs at +0x34/+0x38/+0x3C. Needs manual disassembly tracing to write C.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795806643.9017098,
+  "function": "sub_080413AC",
+  "text": "Best ~470 (rev 73394dbadafdb03b2d19) with extern D_080CF4C0[] and table s16*table=D_080CF4C0; findKindIndex(table[((u8*)self)[0x74]*2]). Tried byte-offset hardcoded table gave ~680; twin attrib masking (0x0FFF|0xD000 + split bits) regressed to 2040; try_local_repairs(compare) no improvement. Residuals are regalloc/order in attrib/sign-ext region (e.g. extra ldrh r2,[r5], r0/r1/r2 swaps). Next: try attrib micro-edits (explicit casts/temps, reorder ORs/stores) to sway regalloc, or retest table load as *(s16*)((u8*)D_080CF4C0+idx*4).",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795807137.7939885,
+  "score_before": 680,
+  "score_after": 470,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:7f48f21c4d635b3a689f72ea5db37bf40a643cdd70cc4ee05402a960f2355ac5"
+ },
+ {
+  "function": "sub_0803D8BC",
+  "text": "Best 1100 (69/75 insns, 85.3%). Remaining 14 diff rows: 5 branch-target, 3 pc-relative operand, 6 deleted. Deleted are mostly pool/nop bytes (movs r0,r0 x2, .byte 0xfe,0xff, strh r0,[r0], .byte 0xfe,0xff) plus 1 real structural difference: target loads r1=0xFFFD0000 in both branches before the shared tail (kind==0xE: ldr r1,[pc,#8]; b shared; kind!=0xE: ldr r1,[pc,#0x28]; fallthrough), shared tail does adds r0,r0,r1; str r0,[r5,#0x14]. Candidate loads 0xFFFD0000 at merge as part of `tmp-0x30000`, so r1 preload is missing in kind==0xE and merge has ldr+adds+str instead of adds+str. Linker diagnostics for all calls are false positives from size/offset shift. Tried: (1) moved `tmp-0x30000` into both branches with merge storing tmp - score 1410, worse. (2) goto tail_store in kind==0xE - score 1100, identical diff. (3) try_local_repairs (6 variants) - no improvement.\nComputed `tmp = (s32)scaleByRandom(0x4000) - 0x30000` inside both branches and stored `tmp` at merge; also tried goto to shared tail label.\nBoth kept or worsened score (1410 and 1100). Neither reproduced target's per-branch r1=0xFFFD0000 preload before shared adds+str tail.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795807145.6504405,
+  "score_before": 1670,
+  "score_after": 1100,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:726fc01325c306360913f637b6c6595c2383d10c25fab764abb786a4e99afbf9"
+ },
+ {
+  "function": "sub_0803C874",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No m2c draft (parse error). Large (~174 insns), no similar twins. Needs manual RE from full assembly and likely struct/type inference.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795807182.3058007,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_08039E24",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No m2c draft (parse error). Large (~204 insns). Matched neighbors (spawnScriptedProjectile etc.) show similar allocation/script patterns \u2014 useful references (get_function section=matched). Needs manual work.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795807227.6776009,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_0803BB10",
+  "text": "Matched C uses `case 10: case 16:` for the D_080CF2B8 tiles2 path (not 14 or 15). ROM jump table: indices 0/5 -> D_080CF2A0 base path, 10/16 -> tiles2=D_080CF2B8, 21 -> D_080CF2C0 base path. When score 1 leaves only linker notes about two swapped jump-table pointers, brute-force the case label with compile_variants: case 16 was the winner.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795807259.3058987,
+  "score_before": 1,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:e136801417f9038c6a21ef96c8b621d47befce926c95e4075ff81ea90dcbe818"
+ },
+ {
+  "function": "sub_0803BC44",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No m2c draft (parse error). Large (~222 insns). High-similarity matched neighbors exist (spawnVariantEffectSprite/createChildEntitySprite/spawnKind15ScriptSprite/createPairedScriptedEffect) \u2014 good references to adapt. Needs manual RE.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795807263.7432978,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_0803E4A8",
+  "text": "Score 100 (130/130 insns). Only 20 register diffs: consistent r4<->r5 swap (target r4=state, r5=tiles2; candidate r5=state, r4=tiles2). 3-hitbox switch (index *(u16*)(arg1+0x28)-0x10, cases 0/1,4,7,12,16) and merge match. Tried declaration reorders and try_local_repairs compare (split_case_labels,byte_pointer_record_view,dispatch_constant_hoist) - no improvement. Linker pointer diagnostics are jump-table offset artifacts.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795807354.2711806,
+  "score_before": 850,
+  "score_after": 100,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:9c05207e3c637f091367e80a315d0655dfb2ae0204cb53d93efca735a84e28f9"
+ },
+ {
+  "function": "updateScriptedProjectileActor",
+  "text": "Readable pass (was sub_080210D0, 0x080210D0). Sibling of sub_08021548 and updateScriptedProjectileHit/Contact: self+0x38 sprite, +0x3C work, work+0x28 AttackTargetState (bit0 |= SCRIPT_OBJ_HIT_FLAG), work+0x00 AttackHitFlags latched when actor+0x6C bit SCRIPT_PROJ_ATTACK_FLAG is set; step stream at +0x18 with +0x1A event id / +0x1B timer bytes, callback id SCRIPT_PROJ_HIT_EVENT through gScriptEventCallbacks. Dispatches gProjectileScriptStepTable (0x0866D820) at self+0x14, then camera-scroll reposition identical to sub_08021548 (frame counter at gMainWorkspace+0x18A8, stride 0x40, scroll at gCameraState+0x1278/+0x127C, X bias 0x8000 / Y bias 0xFFFF8000, frac mask 0xFFFF0000). Kept the goto common label and exact statement order; header v195 adds SCRIPT_STEP_*_OFFSET / SCRIPT_PROJ_* defines.",
+  "by": "opencode-hy4-flash-free-13",
+  "created_at": 1795807385.4608014,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ace4313abae1ac37f05be0a2775bfcf17664f6a0bb20916c2ff2124de260c553:65e0d98a7fdd54572b43034a81e0c119dbf161723d4b65daed1a417ba0ae8012"
+ },
+ {
+  "function": "sub_08039604",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Best is revision 56fb8902b4da9f1cd742 at score 575 (96.3%, 158 insns exact). Residual: (1) ROM keeps `self` in r4 and reuses r4 as the pose pointer in the state cases; candidate uses r3 for self and r4 for pose. (2) ROM materializes a long-lived zero as `movs r3,#0` at instruction [79] (between `ldrh r0,[r0,#2]` and `strh r0,[r5,#2]`) and uses r3 for both `strb r3,[r0,#1]` zero writes; candidate emits `movs r1,#0` at [88] just before first use. (3) Three call sites: ROM loads `ldr r0,[r6,#0x28]` (dst) BEFORE `ldr r4,[pc]` (pose); candidate does the reverse. (4) Final attr block: ROM `mov r0,r8; ldrb r1,[r0]; movs r0,#0x40; orrs r0,r1; mov r1,r8; strb r0,[r1]`; candidate uses r1/r2. The `bl #0xfffdaf84` / `bl #0xda` and PC-pool offset differences are likely display/misalignment artifacts (callee is copyPoseAttrs at 0x08014588, verified). Tried and rejected: hoisting `pose` to function scope (690, converts `adds r4,#8` into `adds r1,#8`); using an unused/used `u32 zero` at function top (825/895); removing zero (575, same); local repair families declaration_order, narrow_sum_unsigned_constant, default_neighbour_case (no improvement over 630). Twin sub_0803A820 (87% same) is still open and may be a better place to establish the exact C shape.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795807454.2672567,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ace4313abae1ac37f05be0a2775bfcf17664f6a0bb20916c2ff2124de260c553:f1fded53a53855b5bfa16a4532fdbf323c2b4baed2a3b62560cc9090b8167ea9"
+ },
+ {
+  "function": "sub_08041824",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Large spawn routine (604 bytes / 302 insns), no saved C, machine draft fails to parse at `beq #0x8041934` (harness quirk). Best approach: adapt the matched twin `spawnLargeAttackEntity` (0x080339F0, 70% similar, full C available via get_function(section=\"matched\")). Observed differences from that twin in the first ~110 assembly lines: prologue uses r6=owner, sb=U32(owner,0xAC), r8=sprite from `bl 0x0800355C`; `allocWorkSlot` call is `bl 0x0800168C(owner, 0, 0x50, 0)` \u2014 size 0x50, NOT the twin's 0x5C; typeId store is `str [pc,#0xE4]` into sprite+0x1C; `installUpdateHandler` is `bl 0x08014288(owner, logic, [pc,#0xD8])`; `initWorkStateForKind` is `bl 0x080141F8(owner, sprite, logic, savedAC, [sp])` where `[sp] = *(s16*)(((u8*)owner+0x4C)[byte]*4 + [pc,#0xD4])`; then `bl 0x0801131C`, `bl 0x08011368`, `logic->kind = 8`, `bl 0x080148D8(sprite, logic+8, U32(logic,8))`; attr table is `[pc,#0x8C]`, entity from `bl 0x08016190` stored at logic+0x28. Fail path at 0x08041934 calls `sub_080C31E0(owner, U32(owner,0x24))`. Remaining pages 110:147 contain the field/coordinate setup and tail. Matched neighbour `sub_080417C8` (just before) shows the local `u8 zero = 0;` idiom. Use the game's signedness rules from my shared knowledge for switch/field loads.\nRead assembly pages 0:110 and the matched spawnLargeAttackEntity; no C submitted yet\nNo compile performed; candidate is empty",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795807489.5222661,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_08038C8C",
+  "text": "Best 1095 (94.2%, 192/192 insns). Same instruction count as target; 27 differing rows are mostly regalloc, pc-relative pool offsets, and garbled pool-byte decode noise in diff. Real structural diff: ldr r1 table-base scheduling at row ~31 (target loads [pc,#0x70] earlier), and effect+0x4C/0x7C store sequence regalloc (target uses `mov r1,sb` / reuses ptr+0x30; candidate stores literal 0 and computes 0x7C separately). Linker diagnostics for registerScriptObject/_call_via_r1/_call_via_r2 appear to be offset-shift false positives (names resolve correctly). Tried: (1) U8(effect,0x7C)= (u8)zero instead of literal 0 - regressed to 1550. (2) try_local_repairs 6 variants - no improvement. Kept do{zero=0;}while(0) and split tail declarations (variant 4) which improved 1550->1095.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795807576.0561984,
+  "score_before": 1700,
+  "score_after": 1095,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ace4313abae1ac37f05be0a2775bfcf17664f6a0bb20916c2ff2124de260c553:61d8f2f0036a065d1b12d6cb6e6865f1243cd4cfa333f77d930efd91985ab69d"
+ },
+ {
+  "function": "sub_0803A820",
+  "text": "Best 2920 (rev ad7f82b41fde58523e94, 78 diff rows). Target has 5 callee-saved regs (r4=self,r5=sprite,r6=work,r7=anim,r8=attrPtr; zero in r3) and saves r8 in prologue; candidate has 4 (self r2, work r3, zero r4, attrPtr r6). Target loads call arg1 before posePtr literal and increments posePtr in place; candidate reverses these. copyPoseAttrs linker note is a false positive (0x8014588 = copyPoseAttrs). Tried: register asm pinning (harness rejects), zero=0 (3120), literal 0 (2980), dst locals + u8*posePtr+=8 + zero=0 (4955), decl-order permutations (2920, 0 rows changed), try_local_repairs (2920, 0 rows changed). Saved_best is current candidate.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795807657.8747249,
+  "score_before": 2920,
+  "score_after": 2920,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ace4313abae1ac37f05be0a2775bfcf17664f6a0bb20916c2ff2124de260c553:92ccb45b4625ee2d0b6fb8853bcf3adafae489190e9e58f8ba8f66906cde54e5"
+ },
+ {
+  "function": "sub_08040CCC",
+  "text": "Best 2945 (253/251 insns) from 88% twin createPairedScriptedEffect. Key confirmed diffs vs twin: allocWorkSlot size 0x4C (not 0x64); variant/kind index at entity+0x74 (not +0x4C); child variant at +0x74; entity zero flags at +0x70 (not +0x8C). setAnimationFrame -> sub_080415D4(0,sprite,work,gfxInit) confirmed. Pool: D_080CF4C0 kind table, D_080CD400? gSpriteAnimDataTable, 0x0000010B and D_080CF4A0 swapped in my tries; tail pool has gSpriteKindTable/gCameraState/gMainWorkspace/gMainObjTimerCallbacks but mapping off. Calls allocEffectPart/registerScriptObject/sub_080C31E4 differ in target (linker diags). r6/r7 regalloc swap throughout. Assembly garbled by inline pools in get_assembly; used raw bytes.\nFixed allocWorkSlot 0x4C, entity+0x74 variant, child+0x74, entity+0x70, sub_080415D4, D_080CF4C0, pool swaps for D_080CF4A0/0x10B\nImproved structure but score regressed to 3325 from 2945 due to regalloc/pool/call mismatches; best remains 2945 twin copy",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795807667.173905,
+  "score_before": 2945,
+  "score_after": 2945,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ace4313abae1ac37f05be0a2775bfcf17664f6a0bb20916c2ff2124de260c553:2bb9d64d53b373cee57b86f004bb53580bc426b2029a8fa80f9ec9bd245793db"
+ },
+ {
+  "function": "sub_0803EAB4",
+  "text": "Score 13350 (274/244 insns) from 72% twin createEntityChildSpriteAlt - not structurally close. Target prologue differs: loads entity+0xAC into r4 before allocSpriteObject; allocWorkSlot 3rd arg 0x60 (not 0x48). Many call/symbol mismatches (allocSpriteObject/sub_0801F02C/findKindIndex/initSpriteGraphics/allocEffectPart/sub_080C31E0/sub_080C31E4 all flagged as different, pool symbols shifted). Assembly garbled by inline pools; needs raw-byte/call-target reconstruction. Use createEntityChildSpriteAlt/createEntityChildSprite as loose reference only.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795807756.2559032,
+  "score_before": 13350,
+  "score_after": 13350,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:7de439b88ee56fd8eef92d6fc0207dd7b463eeb8af157c4bb6689553d208c4ce"
  }
 ]

@@ -14,7 +14,7 @@ struct MainFlags {
 /* Update an effect: copy the owner's coordinates into the state, refresh the
    facing and animation flags, advance the script unless the visibility check
    stops it, and copy the state position back into the main object. */
-void sub_08035BD8(u8 *arg0)
+void updateCameraRelativeEffect(u8 *arg0)
 {
     u8 *mainObj;
     u8 *state;

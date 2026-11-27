@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795807278.0039873,
- "revision": 70748,
+ "saved_at": 1795807765.8107014,
+ "revision": 70772,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,50 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "253092:134470820": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_0803DCA4",
-   "vram": 134470820
-  },
-  "270212:134487940": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_08041F84",
-   "vram": 134487940
-  },
-  "244496:134462224": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_0803BB10",
-   "vram": 134462224
-  },
-  "245832:134463560": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_0803C048",
-   "vram": 134463560
   }
  },
  "instructions": "",
@@ -2129,7 +2085,6 @@
  "claim_order": "",
  "priority": [
   "sub_0804225C",
-  "sub_08041F84",
   "sub_08041BE0",
   "sub_08041824",
   "sub_0804148C",
@@ -2137,7 +2092,6 @@
   "sub_0803F2B8",
   "sub_0803EAB4",
   "sub_0803E4A8",
-  "sub_0803D8BC",
   "sub_0803D694",
   "sub_0803D310",
   "sub_0803CA24",
@@ -2145,7 +2099,6 @@
   "sub_0803C250",
   "sub_0803C048",
   "sub_0803BC44",
-  "sub_0803BB10",
   "sub_0803B2F8",
   "sub_0803AA4C",
   "sub_0803A820",
@@ -2167,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5574,7 +5526,7 @@
   "updateKind87EffectOwner": {
    "vram": 134334300,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0801C88C": {
    "vram": 134334604,
@@ -6111,10 +6063,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_080210D0": {
+  "updateScriptedProjectileActor": {
    "vram": 134353104,
    "matched_by": "opencode-deepseek-v4.1-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08021200": {
    "vram": 134353408,
@@ -6996,10 +6948,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0802970C": {
+  "updateTimerDrivenEffect": {
    "vram": 134387468,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0802983C": {
    "vram": 134387772,
@@ -8356,10 +8308,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_08035BD8": {
+  "updateCameraRelativeEffect": {
    "vram": 134437848,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08035D08": {
    "vram": 134438152,
@@ -8696,6 +8648,11 @@
    "matched_by": "autopilot",
    "readable": false
   },
+  "sub_08038C8C": {
+   "vram": 134450316,
+   "best_score": 1095,
+   "best_by": "opencode-iceman-contributor-free-12"
+  },
   "sub_08038E24": {
    "vram": 134450724,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -8736,6 +8693,11 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
+  "sub_0803925C": {
+   "vram": 134451804,
+   "best_score": 15955,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_08039484": {
    "vram": 134452356,
    "matched_by": "opencode-iceman-contributor-free-1",
@@ -8745,6 +8707,11 @@
    "vram": 134452636,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_08039604": {
+   "vram": 134452740,
+   "best_score": 575,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_0803974C": {
    "vram": 134453068,
@@ -8826,6 +8793,11 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
+  "sub_0803A478": {
+   "vram": 134456440,
+   "best_score": 15330,
+   "best_by": "opencode-iceman-contributor-free-12"
+  },
   "sub_0803A6A0": {
    "vram": 134456992,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -8835,6 +8807,11 @@
    "vram": 134457272,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_0803A820": {
+   "vram": 134457376,
+   "best_score": 2920,
+   "best_by": "opencode-hy4-flash-free-65"
   },
   "sub_0803A968": {
    "vram": 134457704,
@@ -8971,6 +8948,11 @@
    "matched_by": "autopilot",
    "readable": false
   },
+  "sub_0803BB10": {
+   "vram": 134462224,
+   "matched_by": "opencode-hy4-flash-free-64",
+   "readable": false
+  },
   "sub_0803BBFC": {
    "vram": 134462460,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -8991,10 +8973,20 @@
    "best_score": 1740,
    "best_by": "opencode-iceman-contributor-free-10"
   },
+  "sub_0803C048": {
+   "vram": 134463560,
+   "matched_by": "opencode-hy4-flash-free-76",
+   "readable": false
+  },
   "sub_0803C23C": {
    "vram": 134464060,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_0803C250": {
+   "vram": 134464080,
+   "best_score": 1215,
+   "best_by": "opencode-hy4-flash-free-75"
   },
   "sub_0803C308": {
    "vram": 134464264,
@@ -9050,6 +9042,11 @@
    "vram": 134466012,
    "matched_by": "opencode-free-1",
    "readable": false
+  },
+  "sub_0803CA24": {
+   "vram": 134466084,
+   "best_score": 12281,
+   "best_by": "opencode-hy4-flash-free-64"
   },
   "sub_0803CBEC": {
    "vram": 134466540,
@@ -9121,10 +9118,20 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0803D694": {
+   "vram": 134469268,
+   "best_score": 6920,
+   "best_by": "opencode-iceman-contributor-free-11"
+  },
   "sub_0803D85C": {
    "vram": 134469724,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_0803D8BC": {
+   "vram": 134469820,
+   "best_score": 1100,
+   "best_by": "opencode-iceman-contributor-free-12"
   },
   "sub_0803D960": {
    "vram": 134469984,
@@ -9216,6 +9223,11 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
+  "sub_0803E4A8": {
+   "vram": 134472872,
+   "best_score": 100,
+   "best_by": "opencode-iceman-contributor-free-10"
+  },
   "sub_0803E5AC": {
    "vram": 134473132,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -9255,6 +9267,11 @@
    "vram": 134474348,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_0803EAB4": {
+   "vram": 134474420,
+   "best_score": 13350,
+   "best_by": "opencode-iceman-contributor-free-10"
   },
   "sub_0803EEEC": {
    "vram": 134475500,
@@ -9511,6 +9528,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_08040CCC": {
+   "vram": 134483148,
+   "best_score": 2945,
+   "best_by": "opencode-iceman-contributor-free-10"
+  },
   "sub_08040EE0": {
    "vram": 134483680,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -9558,8 +9580,8 @@
   },
   "sub_080413AC": {
    "vram": 134484908,
-   "best_score": 5770,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "best_score": 470,
+   "best_by": "opencode-iceman-contributor-free-11"
   },
   "sub_08041458": {
    "vram": 134485080,
@@ -9634,6 +9656,11 @@
   "sub_08041F1C": {
    "vram": 134487836,
    "matched_by": "opencode-hy4-flash-free-1",
+   "readable": false
+  },
+  "sub_08041F84": {
+   "vram": 134487940,
+   "matched_by": "opencode-hy4-flash-free-65",
    "readable": false
   },
   "sub_08042078": {
@@ -23530,21 +23557,6 @@
    "vram": 135019440,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
-  },
-  "sub_08041F84": {
-   "vram": 134487940,
-   "matched_by": "opencode-hy4-flash-free-65",
-   "readable": false
-  },
-  "sub_0803BB10": {
-   "vram": 134462224,
-   "matched_by": "opencode-hy4-flash-free-64",
-   "readable": false
-  },
-  "sub_0803C048": {
-   "vram": 134463560,
-   "matched_by": "opencode-hy4-flash-free-76",
-   "readable": false
   }
  },
  "function_headers": {
@@ -28824,7 +28836,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080210D0",
+   "name": "updateScriptedProjectileActor",
    "vram": 134353104,
    "size": 304,
    "status": "open"
@@ -29928,7 +29940,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802970C",
+   "name": "updateTimerDrivenEffect",
    "vram": 134387468,
    "size": 304,
    "status": "open"
@@ -31590,7 +31602,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08035BD8",
+   "name": "updateCameraRelativeEffect",
    "vram": 134437848,
    "size": 304,
    "status": "open"
@@ -52184,6 +52196,12 @@
    "kind": "func"
   },
   {
+   "name": "updateScriptedProjectileActor",
+   "address": 134353104,
+   "size": 304,
+   "kind": "func"
+  },
+  {
    "name": "releaseEntityState",
    "address": 134353600,
    "size": 34,
@@ -52436,6 +52454,12 @@
    "kind": "func"
   },
   {
+   "name": "updateTimerDrivenEffect",
+   "address": 134387468,
+   "size": 304,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind2CEffect",
    "address": 134388748,
    "size": 572,
@@ -52655,6 +52679,12 @@
    "name": "initScriptedMultiPartGraphics",
    "address": 134437268,
    "size": 580,
+   "kind": "func"
+  },
+  {
+   "name": "updateCameraRelativeEffect",
+   "address": 134437848,
+   "size": 304,
    "kind": "func"
   },
   {
@@ -56586,6 +56616,11 @@
    "source": "match"
   },
   {
+   "address": 140957408,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 140957512,
    "type": "u8[]",
    "source": "match"
@@ -56617,6 +56652,11 @@
   },
   {
    "address": 140957680,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140957728,
    "type": "u8[]",
    "source": "match"
   },

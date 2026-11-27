@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="760" viewBox="0 0 840 760" role="img" aria-labelledby="title desc">
-<title id="title">3,979 / 4,296 functions matched (92.6%)</title>
+<title id="title">3,983 / 4,296 functions matched (92.7%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="760" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">gba</text>
-<text x="20" y="59" font-size="16">3,979 / 4,296 functions matched (92.6%)</text>
+<text x="20" y="59" font-size="16">3,983 / 4,296 functions matched (92.7%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="740.968" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="741.713" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 3,979</text>
+<text x="36" y="118" font-size="13">Matched: 3,983</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 289</text>
+<text x="236" y="118" font-size="13">Attempt: 300</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
-<text x="436" y="118" font-size="13">Open: 28</text>
+<text x="436" y="118" font-size="13">Open: 13</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
 <text x="636" y="118" font-size="13">Aside: 318</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
@@ -2651,7 +2651,7 @@
 <g><title>initScriptedProjectile: {&#x27;matched&#x27;: 1}</title>
 <rect x="790.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080210D0: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateScriptedProjectileActor: {&#x27;matched&#x27;: 1}</title>
 <rect x="800.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08021200: {&#x27;matched&#x27;: 1}</title>
@@ -3203,7 +3203,7 @@
 <g><title>sub_080295E8: {&#x27;matched&#x27;: 1}</title>
 <rect x="230.000" y="290" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802970C: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateTimerDrivenEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="240.000" y="290" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802983C: {&#x27;matched&#x27;: 1}</title>
@@ -4034,7 +4034,7 @@
 <g><title>initScriptedMultiPartGraphics: {&#x27;matched&#x27;: 1}</title>
 <rect x="600.000" y="320" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08035BD8: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateCameraRelativeEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="610.000" y="320" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08035D08: {&#x27;matched&#x27;: 1}</title>
@@ -4250,8 +4250,8 @@
 <g><title>sub_08038C30: {&#x27;matched&#x27;: 1}</title>
 <rect x="520.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08038C8C: {&#x27;open&#x27;: 1}</title>
-<rect x="530.000" y="330" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_08038C8C: {&#x27;attempt&#x27;: 1}</title>
+<rect x="530.000" y="330" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_08038E24: {&#x27;matched&#x27;: 1}</title>
 <rect x="540.000" y="330" width="8.000" height="8" fill="#238636"/>
@@ -4277,8 +4277,8 @@
 <g><title>sub_08039214: {&#x27;matched&#x27;: 1}</title>
 <rect x="610.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803925C: {&#x27;open&#x27;: 1}</title>
-<rect x="620.000" y="330" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803925C: {&#x27;attempt&#x27;: 1}</title>
+<rect x="620.000" y="330" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_08039484: {&#x27;matched&#x27;: 1}</title>
 <rect x="630.000" y="330" width="8.000" height="8" fill="#238636"/>
@@ -4286,8 +4286,8 @@
 <g><title>sub_0803959C: {&#x27;matched&#x27;: 1}</title>
 <rect x="640.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08039604: {&#x27;open&#x27;: 1}</title>
-<rect x="650.000" y="330" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_08039604: {&#x27;attempt&#x27;: 1}</title>
+<rect x="650.000" y="330" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803974C: {&#x27;matched&#x27;: 1}</title>
 <rect x="660.000" y="330" width="8.000" height="8" fill="#238636"/>
@@ -4346,8 +4346,8 @@
 <g><title>sub_0803A430: {&#x27;matched&#x27;: 1}</title>
 <rect x="40.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803A478: {&#x27;open&#x27;: 1}</title>
-<rect x="50.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803A478: {&#x27;attempt&#x27;: 1}</title>
+<rect x="50.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803A6A0: {&#x27;matched&#x27;: 1}</title>
 <rect x="60.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4355,8 +4355,8 @@
 <g><title>sub_0803A7B8: {&#x27;matched&#x27;: 1}</title>
 <rect x="70.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803A820: {&#x27;open&#x27;: 1}</title>
-<rect x="80.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803A820: {&#x27;attempt&#x27;: 1}</title>
+<rect x="80.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803A968: {&#x27;matched&#x27;: 1}</title>
 <rect x="90.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4445,8 +4445,8 @@
 <g><title>sub_0803BAC0: {&#x27;matched&#x27;: 1}</title>
 <rect x="370.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803BB10: {&#x27;open&#x27;: 1}</title>
-<rect x="380.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803BB10: {&#x27;matched&#x27;: 1}</title>
+<rect x="380.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0803BBFC: {&#x27;matched&#x27;: 1}</title>
 <rect x="390.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4463,14 +4463,14 @@
 <g><title>sub_0803BF54: {&#x27;attempt&#x27;: 1}</title>
 <rect x="430.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
-<g><title>sub_0803C048: {&#x27;open&#x27;: 1}</title>
-<rect x="440.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803C048: {&#x27;matched&#x27;: 1}</title>
+<rect x="440.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0803C23C: {&#x27;matched&#x27;: 1}</title>
 <rect x="450.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803C250: {&#x27;open&#x27;: 1}</title>
-<rect x="460.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803C250: {&#x27;attempt&#x27;: 1}</title>
+<rect x="460.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803C308: {&#x27;matched&#x27;: 1}</title>
 <rect x="470.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4511,8 +4511,8 @@
 <g><title>sub_0803C9DC: {&#x27;matched&#x27;: 1}</title>
 <rect x="590.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803CA24: {&#x27;open&#x27;: 1}</title>
-<rect x="600.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803CA24: {&#x27;attempt&#x27;: 1}</title>
+<rect x="600.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803CBEC: {&#x27;matched&#x27;: 1}</title>
 <rect x="610.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4559,14 +4559,14 @@
 <g><title>sub_0803D588: {&#x27;matched&#x27;: 1}</title>
 <rect x="750.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803D694: {&#x27;open&#x27;: 1}</title>
-<rect x="760.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803D694: {&#x27;attempt&#x27;: 1}</title>
+<rect x="760.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803D85C: {&#x27;matched&#x27;: 1}</title>
 <rect x="770.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803D8BC: {&#x27;open&#x27;: 1}</title>
-<rect x="780.000" y="340" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803D8BC: {&#x27;attempt&#x27;: 1}</title>
+<rect x="780.000" y="340" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803D960: {&#x27;matched&#x27;: 1}</title>
 <rect x="790.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4589,8 +4589,8 @@
 <g><title>sub_0803DBE8: {&#x27;matched&#x27;: 1}</title>
 <rect x="50.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803DCA4: {&#x27;attempt&#x27;: 1}</title>
-<rect x="60.000" y="350" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_0803DCA4: {&#x27;matched&#x27;: 1}</title>
+<rect x="60.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0803DD18: {&#x27;matched&#x27;: 1}</title>
 <rect x="70.000" y="350" width="8.000" height="8" fill="#238636"/>
@@ -4628,8 +4628,8 @@
 <g><title>sub_0803E460: {&#x27;matched&#x27;: 1}</title>
 <rect x="180.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803E4A8: {&#x27;open&#x27;: 1}</title>
-<rect x="190.000" y="350" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803E4A8: {&#x27;attempt&#x27;: 1}</title>
+<rect x="190.000" y="350" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803E5AC: {&#x27;matched&#x27;: 1}</title>
 <rect x="200.000" y="350" width="8.000" height="8" fill="#238636"/>
@@ -4655,8 +4655,8 @@
 <g><title>sub_0803EA6C: {&#x27;matched&#x27;: 1}</title>
 <rect x="270.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0803EAB4: {&#x27;open&#x27;: 1}</title>
-<rect x="280.000" y="350" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_0803EAB4: {&#x27;attempt&#x27;: 1}</title>
+<rect x="280.000" y="350" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_0803ECF0: {&#x27;aside&#x27;: 1}</title>
 <rect x="290.000" y="350" width="8.000" height="8" fill="#b54747"/>
@@ -4817,8 +4817,8 @@
 <g><title>sub_08040C70: {&#x27;matched&#x27;: 1}</title>
 <rect x="810.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08040CCC: {&#x27;open&#x27;: 1}</title>
-<rect x="20.000" y="360" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_08040CCC: {&#x27;attempt&#x27;: 1}</title>
+<rect x="20.000" y="360" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>sub_08040EE0: {&#x27;matched&#x27;: 1}</title>
 <rect x="30.000" y="360" width="8.000" height="8" fill="#238636"/>
@@ -4904,8 +4904,8 @@
 <g><title>sub_08041F1C: {&#x27;matched&#x27;: 1}</title>
 <rect x="300.000" y="360" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08041F84: {&#x27;open&#x27;: 1}</title>
-<rect x="310.000" y="360" width="8.000" height="8" fill="#64748b"/>
+<g><title>sub_08041F84: {&#x27;matched&#x27;: 1}</title>
+<rect x="310.000" y="360" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08042078: {&#x27;matched&#x27;: 1}</title>
 <rect x="320.000" y="360" width="8.000" height="8" fill="#238636"/>

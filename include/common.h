@@ -2622,3 +2622,21 @@ struct MainObjectState {
     u8 _24[0x18];
     u32 kind;        /* 0x3C */
 };
+
+/* Script-step stream layout: steps begin at SCRIPT_STEP_BASE_OFFSET (0x18) as
+ * 2-byte (opcode, timer) records; the next two bytes carry event ids. */
+#define SCRIPT_STEP_TIMER_OFFSET       0x19
+#define SCRIPT_STEP_EVENT_OFFSET       0x1A
+#define SCRIPT_STEP_EVENT_TIMER_OFFSET 0x1B
+
+/* Actor extra-flag bit at +0x6C that latches the work-state hit flag, and the
+ * event callback id dispatched when a flagged projectile hit lands. */
+#define SCRIPT_PROJ_ATTACK_FLAG 0x02
+#define SCRIPT_PROJ_HIT_EVENT   1
+
+/* Sprite OAM attribute words (attribute 0 and attribute 1) as viewed by the
+ * scripted effect updates. */
+struct EffectSpriteAttrs { u16 attr0; u16 attr1; };
+
+/* Step-handler table installed by updateCameraRelativeEffect. */
+#define EFFECT_VIEW_STEP_TABLE 0x0866DDD0

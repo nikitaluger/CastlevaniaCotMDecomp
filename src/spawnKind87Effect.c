@@ -5,7 +5,7 @@ extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_0801C980(void);
-extern void sub_0801C9F8(u8 *, u8 *);
+extern void setKind87EffectLayerAttrs(u8 *, u8 *);
 extern void sub_080C31E0(u8 *, s32);
 extern void sub_080C31E4(u8 *, u8 *, s32);
 
@@ -106,7 +106,7 @@ void spawnKind87Effect(struct MainObj *arg0) {
     { u32 offset = 0x1278; *(u32 *)(effect + 0x14) = owner->worldX - ((*(u32 *)(scrollTable + offset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
     { u32 offset = 0x127C; *(u32 *)(effect + 0x18) = owner->worldY - ((*(u32 *)(scrollTable + offset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     setAnimationFrame(effect, anim, 0x24, 0);
-    sub_0801C9F8((u8 *)arg0, effect);
+    setKind87EffectLayerAttrs((u8 *)arg0, effect);
     arg0->flags |= 0x1000;
     *(u8 *)((u8 *)arg0 + 2 * arg0->index + 0x19) = zero;
     {

@@ -1,22 +1,20 @@
-extern void stepAnimationTrack(void *, void *);
-extern void advanceMotion(void *, s32);
+extern s32 isOutsideCameraBounds(s32, s32);
 extern s32 updateObjectDisplayState(void *, void *);
-extern void setAttackHitbox(void *, void *);
-extern s32 sub_080C31E0(void *, s32);
-extern void sub_080C31E8(void *, void *, s32, s32);
+extern s32 sub_080C31E0(s32, s32);
+extern void stepAnimationTrack(void *, void *);
+extern void setKind87EffectLayerAttrs(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u8 D_0866D820[];
-extern s32 gScriptEventCallbacks[];
+extern u8 gKind87OwnerStepTable[];
 
 struct SubFlag { u8 a; u8 flag; };
+struct MainFlag { u8 flag; };
 struct StateFlag { u16 flag; };
 
-/* Update a camera-driven effect: refresh visibility and state flags, handle
-   the scripted flag-change command, advance the script when allowed, and copy
-   the state coordinates into the main object. */
-void sub_080210D0(u8 *arg0)
-{
+/* Update a camera-driven effect: refresh its visibility and animation state,
+   advance the script when the animation helper allows it, and copy the state
+   coordinates into the main object. */
+void updateKind87EffectOwner(u8 *arg0) {
     u8 *mainObj;
     u8 *state;
     u8 *p34;
@@ -37,24 +35,24 @@ void sub_080210D0(u8 *arg0)
     p34 = state + 0x34;
     sub = *(struct SubFlag **)(state + 0x28);
     sub->flag |= 1;
-
-    if ((*(u16 *)(arg0 + 0x6C) & 0x02) != 0) {
-        ((struct StateFlag *)state)->flag |= 0x01;
+    {
+        u8 zero = 0;
+        if (isOutsideCameraBounds(*(s32 *)(state + 8), *(s32 *)(state + 0xC)) == 1) {
+            ((struct MainFlag *)(mainObj + 0x2A))->flag &= 0xBF;
+            ((struct SubFlag *)(*(u8 **)(state + 0x28)))->flag = zero;
+        } else {
+            ((struct MainFlag *)(mainObj + 0x2A))->flag |= 0x40;
+            ((struct SubFlag *)(*(u8 **)(state + 0x28)))->flag = 1;
+        }
     }
 
-    if ((*(u16 *)(state + 0x00) & 0x01) != 0) {
-        u8 *flagPtr = (u8 *)((*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
-        if (*(u8 *)(flagPtr + 0x1A) != 1) {
-            s32 *scriptJump;
-            *(u8 *)(flagPtr + 0x1B) = 0;
-            scriptJump = gScriptEventCallbacks;
-            sub_080C31E8(arg0 + 0x18, arg0 + 0x22, 1, *scriptJump);
-        }
+    if (*(u16 *)(*(u8 **)(state + 0x28) + 0x14) & 1) {
+        ((struct StateFlag *)state)->flag |= 1;
     }
 
     if (updateObjectDisplayState(mainObj, state) != 0) goto common;
 
-    *(u32 *)(arg0 + 0x14) = (u32)D_0866D820;
+    *(u32 *)(arg0 + 0x14) = (u32)gKind87OwnerStepTable;
     *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) + 1;
     scriptPtr = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
     *(u8 *)(scriptPtr + 0x19) = *(u8 *)(scriptPtr + 0x19) + 1;
@@ -62,14 +60,13 @@ void sub_080210D0(u8 *arg0)
     scriptBase = arg0;
     scriptBase += 0x18;
     cmd = *(u8 *)((u32)scriptBase + (u32)scriptOffset);
-    sub_080C31E0((void *)arg0, *(u32 *)(*(u32 *)(arg0 + 0x14) + cmd * 4));
+    sub_080C31E0((s32)arg0, *(u32 *)(*(u32 *)(arg0 + 0x14) + cmd * 4));
     *(u16 *)(arg0 + 0x22) = *(u16 *)(arg0 + 0x22) - 1;
     if ((*(u16 *)(arg0 + 2) & 0x8000) != 0) return;
     stepAnimationTrack(mainObj, p34);
-    advanceMotion(state, 0);
 
 common:
-    setAttackHitbox(mainObj, state);
+    setKind87EffectLayerAttrs(arg0, mainObj);
 
     coordTable = gCameraState;
     camTable = gMainWorkspace;
