@@ -12,7 +12,7 @@ struct SpritePos {
  * extended screen area (x outside [-64, 312) or y beyond 224 pixels), so
  * off-screen entities stop updating.
  */
-void releaseEntityIfOffscreen(void *entity, void *sprite) {
+void sub_0806D330(void *entity, void *sprite) {
     struct SpritePos *pos = (struct SpritePos *)sprite;
 
     if (((u32)(pos->x + 0x400000) > 0x01780000u) ||
