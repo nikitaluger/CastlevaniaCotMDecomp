@@ -1,6 +1,6 @@
 extern u8 gGameStatus[];
 extern void *gMenuState[];
-void *sub_08001480(void *, s32);
+void *createChildObject(void *, s32);
 void sub_0800F4D4(s32, u8, s32);
 void sub_0800F584(u8, u8);
 void sub_0806D930(void *);
@@ -23,7 +23,7 @@ void sub_0800E2A0(void *parent)
     slotPtr = (void **)(statusObjects + 0x48);
 
     do {
-        newObject = sub_08001480(parent, 0x1B);
+        newObject = createChildObject(parent, 0x1B);
         *slotPtr = newObject;
         *(u8 *)((u8 *)newObject + 0x3C) = 5;
         newObject = *slotPtr++;

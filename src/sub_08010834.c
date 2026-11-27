@@ -1,4 +1,4 @@
-extern void sub_08001480(void *, s32);
+extern void createChildObject(void *, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E8(void *, void *, void *, void *);
@@ -19,7 +19,7 @@ void sub_08010760(void *arg0) {
     u8 *self = (u8*)arg0;
     u8 *scriptData;
     s32 *scriptTable;
-    sub_08001480(self, 0x17);
+    createChildObject(self, 0x17);
     *(u8*)((s16)*(u16*)(self + 0x22) * 2 + self + 0x19) = 0;
     scriptTable = (s32*)0x08671BB0;
     scriptData = self + 0x18;
@@ -35,7 +35,7 @@ void sub_080105F0(void *arg0) {
     u8 *self = (u8*)arg0;
     u8 *scriptData;
     s32 *scriptTable;
-    sub_08001480(self, 0x1E);
+    createChildObject(self, 0x1E);
     *(u8*)((s16)*(u16*)(self + 0x22) * 2 + self + 0x19) = 0;
     scriptTable = (s32*)0x08671BB0;
     scriptData = self + 0x18;
@@ -51,7 +51,7 @@ void sub_08010834(void *arg0) {
     u8 *self = (u8*)arg0;
     u8 *scriptData;
     s32 *scriptTable;
-    sub_08001480(self, 0x1D);
+    createChildObject(self, 0x1D);
     *(u8*)((s16)*(u16*)(self + 0x22) * 2 + self + 0x19) = 0;
     scriptTable = (s32*)0x08671BB0;
     scriptData = self + 0x18;

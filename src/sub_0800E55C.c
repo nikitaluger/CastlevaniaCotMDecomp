@@ -1,4 +1,4 @@
-void *sub_08001480(void *, s32);
+void *createChildObject(void *, s32);
 void sub_0800F4D4(u8, u8, s32);
 void sub_0800F6BC(void);
 extern u8 gMenuState[];
@@ -15,7 +15,7 @@ void sub_0800E55C(void *parent) {
     s16 zero;
     u32 t;
 
-    object = sub_08001480(parent, 0x1B);
+    object = createChildObject(parent, 0x1B);
     ((T_020278D0 *)gMenuState)->object = (u32)object;
     object = (u8 *)object + 0x3C;
     zero = 0;

@@ -1,4 +1,4 @@
-extern s32 sub_08001480(void *, s32);
+extern s32 createChildObject(void *, s32);
 extern u8 gGameStatus[];
 extern u8 D_02027A00[];
 extern u32 D_0866EB08[];
@@ -20,5 +20,5 @@ void sub_08061B4C(void *parent, s32 posX, s32 posY) {
     scroll = D_02027A00;
     scroll[0x12] = tileX;
     scroll[0x13] = tileY;
-    sub_08001480(parent, 0x12);
+    createChildObject(parent, 0x12);
 }

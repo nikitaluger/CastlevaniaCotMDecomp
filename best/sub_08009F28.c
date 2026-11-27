@@ -1,5 +1,5 @@
 void sub_080103BC(u8);
-s32 sub_080103F0(u8);
+s32 isSaveSlotValid(u8);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 extern u8 D_02025358[];
@@ -25,7 +25,7 @@ void sub_08009F28(void *arg0)
   for (i = 0; i < 8; i++)
   {
     u8 b = (u8) i;
-    if (sub_080103F0(b) == 0)
+    if (isSaveSlotValid(b) == 0)
     {
       sub_080103BC(b);
     }

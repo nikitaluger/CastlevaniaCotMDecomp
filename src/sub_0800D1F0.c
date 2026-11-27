@@ -10,7 +10,7 @@ struct Pair { s16 x; s16 y; };
 extern u32 gGameStatus[];
 extern u16 D_080CAFF8[];
 
-s32 sub_08001480(s32, s32);       /* spawn an actor of the given type */
+s32 createChildObject(s32, s32);       /* spawn an actor of the given type */
 void sub_0800EB44(s32, s32, s32); /* load a graphics block */
 void sub_0800FE08(s16, s32, s32, s32);
 void sub_0800EBDC(s16, s16, s32);
@@ -31,7 +31,7 @@ void sub_0800D1F0(s32 arg0) {
     d = (u8 *)&gMenuState;
     p = (u32 *)(d + 0x48);
     do {
-        s32 v = sub_08001480(arg0, 0x1B);
+        s32 v = createChildObject(arg0, 0x1B);
         *p = v;
         *(u8 *)(v + 0x3C) = 0;
         *(u8 *)(*p + 0x44) = (u8)i;

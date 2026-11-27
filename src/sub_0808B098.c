@@ -1,5 +1,5 @@
 extern u8 gGameStatus[];
-void *sub_08001480(void *, s32);
+void *createChildObject(void *, s32);
 void sub_080C31E0(void *, s32);
 
 struct S_off2C { u8 pad[0x2C]; s32 frameCounter; };
@@ -14,7 +14,7 @@ void sub_0808B098(void *arg0)
     u8 *sys = gGameStatus;
     mover->frameCounter = mover->frameCounter + 1;
     if ((mover->frameCounter & 3) == 0) {
-        void *effect = sub_08001480(arg0, 0x83);
+        void *effect = createChildObject(arg0, 0x83);
         if (effect != NULL)
             *(s32 *)((u8 *)effect + 0x9C) = mover->frameCounter >> 2;
     }

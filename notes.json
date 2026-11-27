@@ -3920,14 +3920,6 @@
   "score_after": null
  },
  {
-  "function": "sub_08001480",
-  "text": "Best 295 (92.4%). Key fix: mutate the parameter directly (`arg1 &= 0x3FFF;`) so agbcc reuses arg1's register (r5) for the mask result, matching `ands r5,r0`. Remaining: an extra `adds r0,r1,#0` after `ldr r0,=0xFFFF` before the `strh`, the table literal `ldr r0,=0x0202574E` scheduled before `lsls r1,r5,#1` instead of after, and a trailing `movs r0,r0` padding row. Pure scheduling/regalloc. Best C is the straightforward field-store version with `D_0202574E[arg1] += 1`.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9181712,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08010214",
   "text": "Score 903. Leaving.",
   "by": "opencode-free-1",
@@ -15796,6 +15788,14 @@
   "text": "Releasing: 91% match, best saved.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9765747,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind2FAttackSprite",
+  "text": "Best 1386 (91.8%, 164 vs 170 target) \u2014 NOT matched; can't get closer from C with the forms tried. This is the close sibling of sub_08059BF8; unlike that one, the callee-saved regalloc here is ALREADY exact (arg0=r5, obj=r7, p=r6, r4=p+0x34 \u2014 first 40 instructions match). Best source: raw u8* locals obj/p/r4, s32 v, u32 m; `extern s32 sub_08013C2C(s32);`; goto fail/success with fail block first; non-volatile `struct S_P { u8 _0[0x22]; s16 f22; }` for the first mask load (second load via raw `*(u16 *)(p+0x22)`); `u8 *tbl;` declared uninitialized and assigned `tbl = D_080CFDC8;` immediately before sub_08011368 (a local initialized at declaration costs an extra r8 push: 3161). Differences vs sub_08059BF8: no 0x5C flag block; sub_08011368 third arg `*(s16 *)(tbl + *(s16 *)(arg0+0x74)*2)` with `s16` prototype; p->0x10=arg0->0x7C and p->0x14=arg0->0x8C after obj->0x1C. Remaining ~7 missing instructions are all global-address materialization: target emits separate literal loads for D_02025FF0+0x18A8 (base already in r3 from the f18C2 access, offset literal in r4), D_02021E90 base in r2, and 0x1278/0x127C as distinct literals; mine folds some into absolute literals and strength-reduces 0x127C to `adds #4`. Tried and FAILED: struct fields f1278/f127C on D_02021E90 (no change, 1526); a base+offset locals formulation (2357, broke regalloc); a tbl local initialized at declaration (3161). All calls, pointers and other instructions already match; needs the exact original global-access expression that keeps base+offset literals separate.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9766307,
   "score_before": null,
   "score_after": null
  },
@@ -30452,6 +30452,14 @@
   "text": "Best score 1705. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0554998,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind2FAttackSprite",
+  "text": "Best score 1386. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0555422,
   "score_before": null,
   "score_after": null
  },
@@ -95344,6 +95352,14 @@
   "score_after": null
  },
  {
+  "function": "spawnKind2FAttackSprite",
+  "text": "Literal pool / global access formulation wall. Best score 1386 (91.8%). Regalloc exact for first 40 insns (arg0=r5, obj=r7, p=r6, r4=p+0x34). Target materializes globals as separate base+offset literals: D_02025FF0 base in r3 (from f18C2), then adds 0x18A8 in r4; D_02021E90 base in r2, then 0x1278/0x127C as distinct literals. agbcc folds into absolute literals and strength-reduces 0x127C to `adds #4`. Tried: struct fields f1278/f127C (1526), base+offset locals (2357, broke regalloc), tbl local initialized at declaration (3161). All failed. \"Needs the exact original global-access expression that keeps base+offset literals separate.\" Cannot match without compiler change.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.388815,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "getMetatileAttribute",
   "text": "Can't get closer: proven permanent agbcc -O1 regalloc coin-flip wall at score 10 (confirmed this session: 45/45 insns byte-exact except target `adds r0,r0,r1` vs agbcc `adds r1,r1,r0` in the tile-address calc; both operands die at the add, no C spelling chooses dest). ~600+ prior attempts across all models, search_flags -O1 optimal, same floor O1/O2/O3/Os. Only compiler/regalloc/flag-map change fixes \u2014 not asm, not not_c. Best-attempt source (row[x4] version) saved at score 10. Leaf function (no calls); the sub_08024B48 wait note is stale.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -100132,6 +100148,14 @@
   "text": "Effectively matched: all 163 real target instructions byte-exact from pure C. Score 200 = 2 extra decoded rows for trailing literal-pool data after bx r0 (linker data at 0x08007594+, not function code). report_boundary(end=0x08007594) submitted pending approval; on approval score = 0. Not asm, not not_c.",
   "by": "opencode-free-1",
   "created_at": 1795683534.4135928,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "spawnKind2FAttackSprite",
+  "text": "MATCHED (1386 -> 0) by adapting matched sibling sub_0802F40C's C EXACTLY: same `||` comma-expression early-exit, same local order (`u8 *obj; struct P *r5; u8 *r9; s32 r0_3; u32 tmp; u8 *base; s32 *fp; s16 idx;`), same global-access structs `S_02025FF0 {u8 _0[0x18A8]; u8 f18A8; u8 _18A9[0x19]; u16 f18C2;}` and `S_02021E90 {u8 _0[0x1278]; u32 f1278; u32 f127C;}` with `base=(u8*)&D_02021E90; {u32 k=0x1278; ...}` locals \u2014 this is what keeps base+offset literals separate (the prior raw-pointer formulation folded them into absolute literals = 1386 wall). Changes from sibling: 0x69->0x2F (f1C and sub_08013C2C), table D_080CFDC8 indexed by `idx = *(s16*)((u8*)arg0+0x74)`, 4th arg to sub_08011368 = 0, `r5->f10 = arg0->f7C; r5->f14 = *(u32*)((u8*)arg0+0x8C);` (struct field for 0x7C, raw pointer for 0x8C \u2014 reproduces target's direct-ldr vs two-adds). Lesson: global base+offset literal separation comes from the matched sibling's struct-with-base-local + per-offset k-local formulation, not from raw `&D + off` arithmetic.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.4136305,
   "score_before": null,
   "score_after": null
  },
@@ -352775,35 +352799,136 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:f7a1e3cb84ab8186a149c8ce7ec8b811fba833fc9ba19ac67e529419d84a2a3b"
  },
  {
-  "function": "spawnKind2FAttackSprite",
-  "text": "Best 1386 (91.8%, 164 vs 170 target) \u2014 NOT matched; can't get closer from C with the forms tried. This is the close sibling of sub_08059BF8; unlike that one, the callee-saved regalloc here is ALREADY exact (arg0=r5, obj=r7, p=r6, r4=p+0x34 \u2014 first 40 instructions match). Best source: raw u8* locals obj/p/r4, s32 v, u32 m; `extern s32 sub_08013C2C(s32);`; goto fail/success with fail block first; non-volatile `struct S_P { u8 _0[0x22]; s16 f22; }` for the first mask load (second load via raw `*(u16 *)(p+0x22)`); `u8 *tbl;` declared uninitialized and assigned `tbl = D_080CFDC8;` immediately before sub_08011368 (a local initialized at declaration costs an extra r8 push: 3161). Differences vs sub_08059BF8: no 0x5C flag block; sub_08011368 third arg `*(s16 *)(tbl + *(s16 *)(arg0+0x74)*2)` with `s16` prototype; p->0x10=arg0->0x7C and p->0x14=arg0->0x8C after obj->0x1C. Remaining ~7 missing instructions are all global-address materialization: target emits separate literal loads for D_02025FF0+0x18A8 (base already in r3 from the f18C2 access, offset literal in r4), D_02021E90 base in r2, and 0x1278/0x127C as distinct literals; mine folds some into absolute literals and strength-reduces 0x127C to `adds #4`. Tried and FAILED: struct fields f1278/f127C on D_02021E90 (no change, 1526); a base+offset locals formulation (2357, broke regalloc); a tbl local initialized at declaration (3161). All calls, pointers and other instructions already match; needs the exact original global-access expression that keeps base+offset literals separate.",
+  "function": "sub_08084500",
+  "text": "FINAL BEST THIS RUN (245/300 tries): revision 9fba26d23a5df7998d5a, rechecked score 7640 (86.9%), 587 insns = target's 587. Recover exact C with get_candidate(function=\"sub_08084500\"). This supersedes my earlier 8905 note; the saved 2460 draft remains invalid (old 78-byte extent, uninitialized temp).\n\nHow 8905 -> 7640: prove_chain (80 children) found a 6-step repair chain, applied one family at a time with try_local_repairs: split_case_labels (8905->8750, duplicates case 0 and case 9 bodies), disjoint_local_merge twice (8750->8595->8055, reuses off_1 for the case-0x80 offset and off_1 for case 0x43), argument_slot_drop (8055->7855, drops the p3 local and uses the fourth formal a2 directly), run_weight_scope (7855->7680, wraps the case-0x80 guard in do{}while(0)), local_weight_ladder (7680->7660, splits bp/tp initializer assignments and wraps the case-0x43 off_1 assignment), then a second run_weight_scope step (7660->7640, wraps the case-0x40 bp/tp block in do{}while(0)). No further prove_chain step exists from 7640 with any family subset tried (all families, the chain families, and the widening/width/branch/goto/switch families). Formal-name reversion to natural a0/a1/a2/a3 is codegen-neutral.\n\nResidual 153 rows: 15 opcode, 78 register, 6 branch target, 17 operand, 7 reordered, 15 inserted, 15 deleted. Dominant first difference is still the allocator tie: ROM prologue `adds r4,r0; adds r5,r1; adds r7,r2; mov r9,r3; ... mov r8,=<gs>` -> a0=r4,a1=r5,a2=r7,gs=r8,a3=r9,flag=r10; candidate `adds r4,r0; mov sl,r1; adds r6,r2; ldr r7,=<gs>; mov sb,r3` -> a0=r4,a1=r10,a2=r6,gs=r7,a3=r9. push {r5,r6,r7} now matches. Register hints (register keyword on formals/gs/gs2), type-widening, declaration order, casts, case permutations and all flag profiles leave this residual; -O2 is a diagnostic-only ~8030 on an older source and suggest refuses a non-exact profile. Treat as the accepted agbcc -O1 large-switch allocator wall; a future agent should start from revision 9fba26d23a5df7998d5a, not the saved 2460 draft.",
+  "by": "opencode-hy4-flash-free-50",
+  "created_at": 1795780212.5700686,
+  "score_before": 8770,
+  "score_after": 7640,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:0d4c1174e28a17a3329cf2199c7148e8af5357bd2256eb5c2304e26e37822f26"
+ },
+ {
+  "function": "sub_08093B10",
+  "text": "Verified baseline 305 (rev a46c7125f979cdd7248f, same as saved). Tiny range check on *(s16*)0x020279E8: returns 0 if in [4,5], else -1. Target is frameless leaf `bx lr`; candidate adds `push{lr}/pop{r1}; bx r1` plus pc-relative/branch-offset ripple. Semantics match; residual is standard agbcc frameless-leaf LR-frame wall.\nRecompiled saved candidate to confirm diff.\nNo score change (305); diff shows only frame/prologue ripple from LR-frame wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780227.5119522,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:b1d34ff952124869da38ed6df93eb8ce26fbc86e77d9878e5ec401d629c10a74"
+ },
+ {
+  "function": "sub_08090A7C",
+  "text": "Correct s32 switch (rev 38b84f7511822dcfc93c) scores 475 vs saved 455 volatile-char hack. Semantics: read *(s16*)0x020279E8, case 0->0, case 2->1, default->-1. Target frameless leaf `bx lr`; candidate has push{lr}/pop{r1};bx r1 + ripple. Reported ac95f882 as wrong_value. No semantic work remains.\nCompiled correct s32 return type replacing volatile-char hack.\nScore 455->475 but semantics correct; residual is frameless-leaf LR-frame wall.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780227.6606786,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:6ac70a43e02019d7437b497cd78e34401bf7d18a3f54761d1cf205d6bde6c21e"
+ },
+ {
+  "function": "sub_08062770",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stable score 215: all real target instructions match, but agbcc -mthumb-interwork inserts an LR frame (push {lr}/pop {r0}/bx r0) where the ROM has frameless bx lr, shifting the branch displacement. Current cached repair pass made no progress. Treat as the accepted frameless-leaf compiler wall unless the compiler profile changes.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780245.8305817,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_0809295C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stable score 455: target body rows match, but agbcc forces push {lr}/pop {r1}; bx r1, folds -1 to movs #0xff, and shifts branch/pool rows. Known frameless-branchy-leaf compiler wall, not a source error.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780245.8904734,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "sub_0808B458",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stable score 215: pointer/break-loop body matches all target instructions; residual is agbcc's inserted push {lr}/pop {pc} instead of the ROM's frameless bx lr and resulting pool/branch shifts. This independently confirms the known frameless-loop-leaf wall.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780245.91635,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "sub_08094374",
+  "text": "Move-on budget exhausted. Saved best db4341b6 scores 455 but uses volatile unsigned char and folds -1; the semantically cleaner s32 revision 427b9760 was freshly compiled and scored 465, with the same LR-frame wall plus one extra movs r0,r0. Restored saved_best for handoff. No match.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780246.0170014,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:45b7af2d8a4dd8e58deaeeaf99b7833dbaf0cc54b2922bac609dd4df7db3e3c9"
+ },
+ {
+  "function": "sub_0801C4BC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known terminal frameless-loop-leaf ABI wall: byte-exact real body but agbcc inserts push {lr}/pop {r0}; bx r0 and branch ripple. 23 compiles across 5 agents already exhausted source/loop/flag variants; accepted knowledge says no C spelling fixes this profile.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780270.9820006,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "sub_08096F5C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known branchy literal-pool frameless-leaf wall. Saved best beffa951 scores 305 but incorrectly returns +1 on the non-equal path; corrected acc9cc80 scores 465 with the exact real body and only forced LR-frame/pool/branch ripple. Do not optimize the semantically wrong lower score.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780271.1214774,
+  "score_before": 305,
+  "score_after": 305
+ },
+ {
+  "function": "getSpawnBehaviorIndex",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known branchy literal-pool frameless-leaf wall. Saved best d540167a scores 295 but has inverted polarity; reported corrected d1dd4307 scores 465 with byte-exact target body and only forced LR-frame/pool/branch ripple. Accepted compiler tip covers this exact 24-byte shape.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780271.2339993,
+  "score_before": 295,
+  "score_after": 295
+ },
+ {
+  "function": "sub_08097234",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Known branchy literal-pool frameless-leaf wall. Saved best dd416da9 scores 455 via (unsigned char)-1, which returns 255 rather than target -1; corrected d021fbb7 scores 465 with byte-exact body and only compiler LR-frame/pool/branch ripple. Lower score is wrong-type codegen.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780271.3394508,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "sub_0800822C",
+  "text": "Rechecked saved best at 10: 191/191 instructions byte-exact, only 2 rows differ (target `ldr r2,[r4,#8]; cmp r2,#0` vs candidate r0) at the dead reload of obj+0x08 after `str r1,[r2]`. Tried naming that reload `check` as a separate temporary \u2014 output byte-identical (still score 10). 137+ prior attempts across 6+ agents/profiles unchanged. Terminal allocator tie; no C spelling found.\nnamed temporary for the final obj+0x08 reload\nunchanged score 10 and unchanged instruction diff",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795780288.6399727,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:dd4c9d624a5de897ab86f1c43d8512b49a95236dc599608d9cadc009aeb37bb5"
+ },
+ {
+  "function": "createChildObject",
+  "text": "Best 295 (92.4%). Key fix: mutate the parameter directly (`arg1 &= 0x3FFF;`) so agbcc reuses arg1's register (r5) for the mask result, matching `ands r5,r0`. Remaining: an extra `adds r0,r1,#0` after `ldr r0,=0xFFFF` before the `strh`, the table literal `ldr r0,=0x0202574E` scheduled before `lsls r1,r5,#1` instead of after, and a trailing `movs r0,r0` padding row. Pure scheduling/regalloc. Best C is the straightforward field-store version with `D_0202574E[arg1] += 1`.",
   "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9766307,
+  "created_at": 1795683533.9181712,
   "score_before": null,
   "score_after": null
  },
  {
-  "function": "spawnKind2FAttackSprite",
-  "text": "Best score 1386. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0555422,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_080B7408",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Verified baseline 210 (rev e2856c54bbcea931eed8). Residual matches known agbcc dead-copy/copy-propagation wall around -1 staging/selection (`movs r3,#1; rsbs r3,r3,#0; adds r1,r3,#0` in target vs folded copy in candidate), plus minor ripple. Many prior attempts; no C-shape fix found this session.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795780338.4360044,
+  "score_before": 210,
+  "score_after": 210
  },
  {
-  "function": "spawnKind2FAttackSprite",
-  "text": "Literal pool / global access formulation wall. Best score 1386 (91.8%). Regalloc exact for first 40 insns (arg0=r5, obj=r7, p=r6, r4=p+0x34). Target materializes globals as separate base+offset literals: D_02025FF0 base in r3 (from f18C2), then adds 0x18A8 in r4; D_02021E90 base in r2, then 0x1278/0x127C as distinct literals. agbcc folds into absolute literals and strength-reduces 0x127C to `adds #4`. Tried: struct fields f1278/f127C (1526), base+offset locals (2357, broke regalloc), tbl local initialized at declaration (3161). All failed. \"Needs the exact original global-access expression that keeps base+offset literals separate.\" Cannot match without compiler change.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.388815,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_0809C840",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Accepted frameless-leaf LR-frame wall: byte-exact target body including two movs r0,r0 alignment NOPs and bare bx lr; agbcc -mno-thumb-interwork inserts push {lr}/pop {r0}; bx r0 and shifts pool/branch offsets. 26 compiles across 5 agents and all flag profiles tried; no C spelling known to match.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780343.4607284,
+  "score_before": 555,
+  "score_after": 555
  },
  {
-  "function": "spawnKind2FAttackSprite",
-  "text": "MATCHED (1386 -> 0) by adapting matched sibling sub_0802F40C's C EXACTLY: same `||` comma-expression early-exit, same local order (`u8 *obj; struct P *r5; u8 *r9; s32 r0_3; u32 tmp; u8 *base; s32 *fp; s16 idx;`), same global-access structs `S_02025FF0 {u8 _0[0x18A8]; u8 f18A8; u8 _18A9[0x19]; u16 f18C2;}` and `S_02021E90 {u8 _0[0x1278]; u32 f1278; u32 f127C;}` with `base=(u8*)&D_02021E90; {u32 k=0x1278; ...}` locals \u2014 this is what keeps base+offset literals separate (the prior raw-pointer formulation folded them into absolute literals = 1386 wall). Changes from sibling: 0x69->0x2F (f1C and sub_08013C2C), table D_080CFDC8 indexed by `idx = *(s16*)((u8*)arg0+0x74)`, 4th arg to sub_08011368 = 0, `r5->f10 = arg0->f7C; r5->f14 = *(u32*)((u8*)arg0+0x8C);` (struct field for 0x7C, raw pointer for 0x8C \u2014 reproduces target's direct-ldr vs two-adds). Lesson: global base+offset literal separation comes from the matched sibling's struct-with-base-local + per-offset k-local formulation, not from raw `&D + off` arithmetic.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.4136305,
-  "score_before": null,
-  "score_after": null
+  "function": "sub_08016518",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Accepted frameless Thumb loop-leaf ABI wall. The real linked-list traversal body is byte-exact; agbcc adds push {lr}/pop {r0}; bx r0 instead of bare bx lr, with two-byte branch/pool ripple. 27 compiles across 7 agents and all loop/pointer/type/flag variants exhausted.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795780343.7880814,
+  "score_before": 365,
+  "score_after": 365
  }
 ]

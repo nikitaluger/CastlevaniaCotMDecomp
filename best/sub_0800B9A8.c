@@ -1,4 +1,4 @@
-extern s32 sub_080103F0(u8);
+extern s32 isSaveSlotValid(u8);
 extern void sub_0800B824(u16, u16, s32);
 extern void sub_0800BDBC(const void *, void *, s32);
 extern void drawDecimal(s32, s32, s16 *);
@@ -89,7 +89,7 @@ void sub_0800B9A8(u8 arg0, u8 arg1, void *arg2)
   dma[2] = 0x81000002;
   (void)dma[2];
   sign = (s8)arg0;
-  if (sub_080103F0(arg0) == 0 || sign < 0)
+  if (isSaveSlotValid(arg0) == 0 || sign < 0)
   {
     do { sub_0800BDBC(D_080CAB14, ((u8 *)arg2) + (sp10 * 0x300), (vramBase + ((D_02023132 & 0xC) << 12)) + (((u32)t) << 5)); } while (0);
     new_var = 0x10;

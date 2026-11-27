@@ -1,4 +1,4 @@
-extern void *sub_08001480(u32, u32);
+extern void *createChildObject(u32, u32);
 extern void sub_080C31E4(void *, void *, u32);
 extern u32 gScriptStepCallbackTable;
 
@@ -18,12 +18,12 @@ void loadEntityEffectObjects(void *entity) {
         u8 *ws = gMainWorkspace;
         u32 stage = *(u32 *)(ws + 0x14B4);
         if (stage == 0) {
-            *(u32 *)(ws + 0x184C) = (u32)sub_08001480(0, 7);
-            *(u32 *)(ws + 0x1850) = (u32)sub_08001480(0, 8);
-            *(u32 *)(ws + 0x1854) = (u32)sub_08001480(0, 9);
-            *(u32 *)(ws + 0x185C) = (u32)sub_08001480(0, 0x0B);
-            *(u32 *)(ws + 0x1860) = (u32)sub_08001480(0, 0x0C);
-            *(u32 *)(ws + 0x1864) = (u32)sub_08001480(0, 0x0D);
+            *(u32 *)(ws + 0x184C) = (u32)createChildObject(0, 7);
+            *(u32 *)(ws + 0x1850) = (u32)createChildObject(0, 8);
+            *(u32 *)(ws + 0x1854) = (u32)createChildObject(0, 9);
+            *(u32 *)(ws + 0x185C) = (u32)createChildObject(0, 0x0B);
+            *(u32 *)(ws + 0x1860) = (u32)createChildObject(0, 0x0C);
+            *(u32 *)(ws + 0x1864) = (u32)createChildObject(0, 0x0D);
             *(u32 *)(ws + 0x188C) = stage;
             *(u32 *)(ws + 0x1894) = stage;
         } else {
@@ -43,17 +43,17 @@ void loadEntityEffectObjects(void *entity) {
     {
         u8 *ws;
         void *effectSlot;
-        effectSlot = sub_08001480(0, 0x0A);
+        effectSlot = createChildObject(0, 0x0A);
         ws = gMainWorkspace;
         *(u32 *)(ws + 0x1858) = (u32)effectSlot;
-        *(u32 *)(ws + 0x1868) = (u32)sub_08001480(0, 2);
-        *(u32 *)(ws + 0x186C) = (u32)sub_08001480(0, 0x0E);
-        *(u32 *)(ws + 0x1870) = (u32)sub_08001480(0, 2);
-        *(u32 *)(ws + 0x1874) = (u32)sub_08001480(0, 2);
-        *(u32 *)(ws + 0x1878) = (u32)sub_08001480(0, 0x0F);
-        *(u32 *)(ws + 0x187C) = (u32)sub_08001480(0, 2);
-        *(u32 *)(ws + 0x1880) = (u32)sub_08001480(0, 2);
-        *(u32 *)(ws + 0x1888) = (u32)sub_08001480(0, 0x11);
+        *(u32 *)(ws + 0x1868) = (u32)createChildObject(0, 2);
+        *(u32 *)(ws + 0x186C) = (u32)createChildObject(0, 0x0E);
+        *(u32 *)(ws + 0x1870) = (u32)createChildObject(0, 2);
+        *(u32 *)(ws + 0x1874) = (u32)createChildObject(0, 2);
+        *(u32 *)(ws + 0x1878) = (u32)createChildObject(0, 0x0F);
+        *(u32 *)(ws + 0x187C) = (u32)createChildObject(0, 2);
+        *(u32 *)(ws + 0x1880) = (u32)createChildObject(0, 2);
+        *(u32 *)(ws + 0x1888) = (u32)createChildObject(0, 0x11);
         {
             /* Mark the second batch's kinds as loaded. */
             u32 kindBitA, kindBitB, kindBitC;

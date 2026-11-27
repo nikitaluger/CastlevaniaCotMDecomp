@@ -1,9 +1,9 @@
-void *sub_08001480(void *parent, s32 kind);
+void *createChildObject(void *parent, s32 kind);
 
 /* Create a kind-0x22 object under `parent` and store `value` in its +0x3C
  * field; returns NULL when the object cannot be allocated. */
 void *sub_08008D18(void *parent, s32 value) {
-    void *child = sub_08001480(parent, 0x22);
+    void *child = createChildObject(parent, 0x22);
     if (child == NULL) return NULL;
     *(s32 *)((u8 *)child + 0x3C) = value;
     return child;

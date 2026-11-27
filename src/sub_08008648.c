@@ -2,7 +2,7 @@
  * graphics into VRAM, allocates the parent's two sub-objects when its target check
  * succeeds, runs a callback over the object list and advances the parent's script step. */
 extern void postDisplaySprite(s32, void *, void *, s32, s32);
-extern void *sub_08001480(void *, s32);
+extern void *createChildObject(void *, s32);
 extern s32 allocWorkSlot(void *, s32, s32, s32);
 extern void clearActorPool(void);
 extern s32 sub_08006044(s32, s32, s32, s32, void *);
@@ -66,10 +66,10 @@ void sub_08008648(u8 *arg0)
   if (targetFound != 0)
   {
     *((s32 *) (arg0 + 0x4C)) = -1;
-    childA = sub_08001480(arg0, 0x20);
+    childA = createChildObject(arg0, 0x20);
     *((void **) (state + 0x00)) = childA;
     *((s32 *) (((u8 *) childA) + 0x4C)) = 0;
-    childB = sub_08001480(arg0, 0x20);
+    childB = createChildObject(arg0, 0x20);
     *((void **) (state + 0x04)) = childB;
     *((s32 *) (((u8 *) childB) + 0x4C)) = 1;
   }

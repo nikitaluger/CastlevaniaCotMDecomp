@@ -1,4 +1,4 @@
-void *sub_08001480(s32 arg0, s32 arg1);
+void *createChildObject(s32 arg0, s32 arg1);
 extern u8 gMainWorkspace[];
 
 /* Allocate an entity into the first free slot of a range in the global slot
@@ -16,7 +16,7 @@ void *sub_0806D24C(s32 parent, s32 entityId, u32 startSlot, s32 slotCount)
         {
             if (*slot == 0)
             {
-                void *entity = sub_08001480(parent, entityId);
+                void *entity = createChildObject(parent, entityId);
                 if (entity == 0)
                 {
                     return 0;

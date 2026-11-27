@@ -13,7 +13,7 @@ void sub_0800F3C8(u32, u32);               /* set up the status-screen backgroun
 void sub_0800EF3C(u32);                    /* load the selected item's graphics */
 void sub_0800EDAC(u32);                    /* redraw the stat values */
 void sub_0806D930(void *);                 /* recompute the panel's stat values */
-void *sub_08001480(void *, u32);           /* allocate and link a child object */
+void *createChildObject(void *, u32);           /* allocate and link a child object */
 void sub_080C2E68(void *, void *, u32);    /* memcpy */
 void sub_080C31E8(void *, void *, u32, u32); /* state-machine dispatch */
 void sub_080C31E4(void *, void *, u32);    /* indirect call through a callback */
@@ -101,7 +101,7 @@ void updateStatusMenu(u8 *entity)
     sub_0800EDAC(0);
     sub_0800F1D8(gMenuState[MENU_CATEGORY], (gMenuState[MENU_REDRAW_FLAG] + 1) & 1);
     {
-      void *subObject = sub_08001480(entity, MENU_SUB_OBJECT_KIND);
+      void *subObject = createChildObject(entity, MENU_SUB_OBJECT_KIND);
       *((void **) (gMenuState + MENU_SUB_OBJECT)) = subObject;
       *((u8 *) (((u8 *) subObject) + 0x3C)) = MENU_SUB_OBJECT_STEP;
     }

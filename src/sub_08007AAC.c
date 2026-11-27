@@ -1,5 +1,5 @@
 void sub_08006404(void *);
-void sub_08001480(void *, s32);
+void createChildObject(void *, s32);
 void sub_08061B4C(void *, s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -30,7 +30,7 @@ void sub_08007AAC(void *obj) {
         break;
     }
     case 2:
-        sub_08001480(obj, 0x1A);
+        createChildObject(obj, 0x1A);
         break;
     default:
         break;

@@ -2,7 +2,7 @@ struct S_02025358 { u8 _[0x0C]; u8 flag; };
 extern struct S_02025358 D_02025358;
 extern s32 gScriptStepCallbackTable;
 extern s32 gMenuScriptCallback;
-void *sub_08001480(void *, s32);
+void *createChildObject(void *, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
@@ -19,7 +19,7 @@ void sub_08010B74(void *actor)
             sub_080C31E8((u8 *)actor + 0x18, (u8 *)actor + 0x22, 0, *altTable);
         }
     } else {
-        sub_08001480(actor, 0x1F);
+        createChildObject(actor, 0x1F);
         *(u8 *)((u8 *)actor + (*(s16 *)((u8 *)actor + 0x22)) * 2 + 0x19) = mode;
         {
             s32 *scriptTable = (s32 *)0x08671BB0;

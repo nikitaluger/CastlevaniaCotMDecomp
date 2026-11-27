@@ -1,7 +1,7 @@
 extern s32 stepDelayTimer(void *, void *);
 extern void startEffectTimer(void *, s32, void *);
 extern void sub_0806D588(void *, void *);
-extern void sub_08001480(s32, s32);
+extern void createChildObject(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
 struct S_02025FF0_1864 { u8 _0[0x1864]; u32 v; };
 extern struct S_02025FF0_1864 gMainWorkspace;
@@ -22,7 +22,7 @@ void sub_08089D40(void *arg0)
   {
     startEffectTimer(script, 0, (void *)0x08507E1C);
     stepDelayTimer(script, obj);
-    sub_08001480(gMainWorkspace.v, 0x7F);
+    createChildObject(gMainWorkspace.v, 0x7F);
     *((u8 *) ((entity + ((*((s16 *) (entity + 0x22))) * 2)) + 0x19)) = (u8) done;
     litp = &(*((s32 *) 0x08671BB0));
     sub_080C31E4(entity + 0x18, entity + 0x22, *litp);

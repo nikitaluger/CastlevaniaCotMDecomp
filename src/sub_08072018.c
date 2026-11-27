@@ -1,4 +1,4 @@
-extern void sub_08001480(void *a, s32 b);
+extern void createChildObject(void *a, s32 b);
 extern void sub_08005E80(s32 a);
 extern void sub_0806D930(void *a);
 
@@ -19,5 +19,5 @@ void sub_08072018(void *entity)
     gGameStatus.phase++;
     sub_0806D930(&gGameStatus.stats);
     sub_08005E80(0x74);
-    sub_08001480(entity, 0x2E);
+    createChildObject(entity, 0x2E);
 }

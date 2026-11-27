@@ -1,4 +1,4 @@
-extern void sub_08001480(void *, int);
+extern void createChildObject(void *, int);
 extern void updateObjectTree(s32);
 extern void sub_08006234(void);
 extern void sub_0808BB54(void);
@@ -78,7 +78,7 @@ void sub_08006E0C(void *obj)
   if ((*inputFlagPtr) == 0)
   {
     *inputFlagPtr = 1;
-    sub_08001480(objPtr, 0x13);
+    createChildObject(objPtr, 0x13);
   }
   stepIndex = *((s16 *) (objPtr + 0x22));
   addr = (u8 *)((stepIndex * 2) + (u32)objPtr) + 0x19;

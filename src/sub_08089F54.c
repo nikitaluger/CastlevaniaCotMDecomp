@@ -1,5 +1,5 @@
 extern s32 stepDelayTimer(s32, s32);
-extern void sub_08001480(s32, s32);
+extern void createChildObject(s32, s32);
 extern void sub_0806D588(s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern u32 gMainWorkspace[];
@@ -27,7 +27,7 @@ void sub_08089F54(void *arg0)
         gMainWorkspace[7] = 8;
         parentOff = 0x1864;
         parent = *(s32 *)((u8 *)gMainWorkspace + parentOff);
-        sub_08001480(parent, 0x82);
+        createChildObject(parent, 0x82);
         sub_080C31E0(self, *(s32 *)((u8 *)self + 0x24));
         return;
     }

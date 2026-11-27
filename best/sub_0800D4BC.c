@@ -1,4 +1,4 @@
-extern void *sub_08001480(s32, s32);
+extern void *createChildObject(s32, s32);
 extern void sub_0800EC20(s32);
 extern void sub_0800ECF8(void);
 extern void sub_0800EDAC(s32);
@@ -34,7 +34,7 @@ void sub_0800D4BC(s32 arg0)
     base_2 = gMenuState;
     entry = (void **)(base_2 + 0x4C);
     for (; i <= 3; i++) {
-        entry[0] = sub_08001480(arg0, 0x1B);
+        entry[0] = createChildObject(arg0, 0x1B);
         ((u8 *)entry[0])[0x3C] = 1;
         ((u8 *)entry++[0])[0x44] = i;
     }
@@ -43,7 +43,7 @@ void sub_0800D4BC(s32 arg0)
     base_3 = gMenuState;
     entry = (void **)(base_3 + 0x5C);
     for (; i <= 1; i++) {
-        entry[0] = sub_08001480(arg0, 0x1B);
+        entry[0] = createChildObject(arg0, 0x1B);
         ((u8 *)entry[0])[0x3C] = 3;
         ((u8 *)entry++[0])[0x44] = i;
     }

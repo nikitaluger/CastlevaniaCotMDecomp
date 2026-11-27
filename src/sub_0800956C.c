@@ -2,7 +2,7 @@ extern u32 gScriptStepCallbackTable;
 void clearActorPool(void);
 void decompressToVram(const void *src, void *dst);
 void postDisplaySprite(s32 a, const void *src, void *dst, s32 c, s32 d);
-u8 *sub_08001480(void *arg0, s32 idx);
+u8 *createChildObject(void *arg0, s32 idx);
 s32 sub_08005F1C(void);
 void sub_080C0574(void);
 void sub_080C08D0(s32);
@@ -66,9 +66,9 @@ void sub_0800956C(void *scene)
     decompressToVram((void *)0x08635A70, (void *)0x06010000);
     postDisplaySprite(1, (void *)0x086363BC, (void *)0x050002A0, 0x40, 0x10);
     *(u8 *)((u8 *)scene + 0x5C) = 2;
-    obj = sub_08001480(scene, 0x16);
+    obj = createChildObject(scene, 0x16);
     *(u8 *)(obj + 0x3C) = 0;
-    obj = sub_08001480(scene, 0x16);
+    obj = createChildObject(scene, 0x16);
     *(u8 *)(obj + 0x3C) = 1;
     if (sub_08005F1C() == 0)
     {

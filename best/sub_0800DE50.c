@@ -1,4 +1,4 @@
-extern void *sub_08001480(s32, s32);
+extern void *createChildObject(s32, s32);
 extern s32 sub_0800F464(u8);
 extern s32 setLayerTilemap(s32, s32);
 extern s32 sub_0805FEC8(s32);
@@ -124,7 +124,7 @@ void sub_0800DE50(s32 arg0)
   D_040000D4.src = (u32) new_var;
   D_040000D4.dst = temp_r1 + 0x06000020;
   temp_r1 = (D_040000D4.ctrl = 0x81000010);
-  temp_r0 = sub_08001480(arg0, 0x1B);
+  temp_r0 = createChildObject(arg0, 0x1B);
   gMenuState.f48 = temp_r0;
   *((u8 *) (((u8 *) temp_r0) + 0x3C)) = 4;
 }

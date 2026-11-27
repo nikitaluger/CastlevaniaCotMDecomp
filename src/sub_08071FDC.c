@@ -1,6 +1,6 @@
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, s32 c);
-extern void sub_08001480(void *a, s32 b);
+extern void createChildObject(void *a, s32 b);
 extern void sub_08005E80(s32 a);
 extern void sub_0806D930(void *a);
 extern void sub_08071FA0(void);
@@ -69,7 +69,7 @@ void sub_08072018(void *arg0)
     gGameStatus.s2FC++;
     sub_0806D930(&gGameStatus.u2C4);
     sub_08005E80(0x74);
-    sub_08001480(arg0, 0x2E);
+    createChildObject(arg0, 0x2E);
 }
 
 void sub_08072140(void *arg0)

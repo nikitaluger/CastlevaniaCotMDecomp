@@ -1,7 +1,7 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_08001480(void *, s32);
+extern void createChildObject(void *, s32);
 extern void stepAnimationTrack(void *, void *);
 extern void sub_080415D4(s32, s32, void *, void *);
 
@@ -56,7 +56,7 @@ void sub_080108FC(void *arg0) {
     u8 *self = (u8*)arg0;
     u8 *base18;
     s32 *lit;
-    sub_08001480(self, 0x06);
+    createChildObject(self, 0x06);
     *(u8*)((s16)*(u16*)(self + 0x22) * 2 + self + 0x19) = 0;
     lit = (s32*)0x08671BB0;
     base18 = self + 0x18;

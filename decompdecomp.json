@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795780193.4897707,
- "revision": 69467,
+ "saved_at": 1795780382.767527,
+ "revision": 69477,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,17 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "368268:134585996": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "spawnKind2FAttackSprite",
-   "vram": 134585996
   }
  },
  "instructions": "",
@@ -2105,8 +2094,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -2249,7 +2237,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08001480": {
+  "createChildObject": {
    "vram": 134222976,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
@@ -3919,7 +3907,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080103F0": {
+  "isSaveSlotValid": {
    "vram": 134284272,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -23408,7 +23396,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08001480",
+   "name": "createChildObject",
    "vram": 134222976,
    "size": 80,
    "status": "open"
@@ -25640,7 +25628,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080103F0",
+   "name": "isSaveSlotValid",
    "vram": 134284272,
    "size": 52,
    "status": "open"
@@ -50326,6 +50314,12 @@
    "kind": "func"
   },
   {
+   "name": "createChildObject",
+   "address": 134222976,
+   "size": 80,
+   "kind": "func"
+  },
+  {
    "name": "allocWorkSlot",
    "address": 134223500,
    "size": 54,
@@ -50497,6 +50491,12 @@
    "name": "formatPlayTime",
    "address": 134282992,
    "size": 76,
+   "kind": "func"
+  },
+  {
+   "name": "isSaveSlotValid",
+   "address": 134284272,
+   "size": 52,
    "kind": "func"
   },
   {
@@ -53551,7 +53551,7 @@
  "global_types": [
   {
    "address": 33693328,
-   "type": "struct Kind2FCameraState",
+   "type": "struct S_02021E90",
    "source": "match"
   },
   {
@@ -53576,7 +53576,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct Kind2FWorkspace",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -53586,7 +53586,7 @@
   },
   {
    "address": 33716432,
-   "type": "s32",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -54351,7 +54351,7 @@
   },
   {
    "address": 140975024,
-   "type": "u32",
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -54361,7 +54361,7 @@
   },
   {
    "address": 140975064,
-   "type": "s32",
+   "type": "u32",
    "source": "match"
   },
   {

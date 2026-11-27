@@ -1,4 +1,4 @@
-void *sub_08001480(void *parent, s32 kind);
+void *createChildObject(void *parent, s32 kind);
 s32 sub_0808D330(void);
 
 struct ObjNode {
@@ -26,7 +26,7 @@ extern struct S_02025FF0 gMainWorkspace;
 void sub_0808D2FC(void *data)
 {
     if (sub_0808D330() != 0) {
-        void *obj = sub_08001480(gMainWorkspace.p1874, 0x212);
+        void *obj = createChildObject(gMainWorkspace.p1874, 0x212);
         if (obj != 0) {
             *(void **)((u8 *)obj + 0x3C) = data;
         }

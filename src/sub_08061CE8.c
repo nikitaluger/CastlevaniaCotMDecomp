@@ -1,4 +1,4 @@
-extern s32 sub_08001480(void *, s32);
+extern s32 createChildObject(void *, s32);
 extern s32 sub_08061C9C(u32, s32);
 extern u8 gGameStatus[];
 extern u8 D_02027A00[];
@@ -19,7 +19,7 @@ void sub_08061B4C(void *arg0, s32 arg1, s32 arg2) {
     out = D_02027A00;
     out[0x12] = (s8)((arg1 >> 24) + p[0]);
     out[0x13] = (s8)((arg2 >> 24) + p[1]);
-    sub_08001480(arg0, 0x12);
+    createChildObject(arg0, 0x12);
 }
 
 /* Is tile (col,row) solid? The tile attribute byte in D_080D9B3C (64 cells

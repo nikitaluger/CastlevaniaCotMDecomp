@@ -149,7 +149,7 @@
 <g><title>sub_08001448: {&#x27;matched&#x27;: 1}</title>
 <rect x="450.000" y="160" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08001480: {&#x27;matched&#x27;: 1}</title>
+<g><title>createChildObject: {&#x27;matched&#x27;: 1}</title>
 <rect x="460.000" y="160" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080014D0: {&#x27;matched&#x27;: 1}</title>
@@ -1265,7 +1265,7 @@
 <g><title>sub_080103BC: {&#x27;matched&#x27;: 1}</title>
 <rect x="170.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080103F0: {&#x27;matched&#x27;: 1}</title>
+<g><title>isSaveSlotValid: {&#x27;matched&#x27;: 1}</title>
 <rect x="180.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08010424: {&#x27;attempt&#x27;: 1}</title>

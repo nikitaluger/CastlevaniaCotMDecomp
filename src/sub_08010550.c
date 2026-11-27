@@ -1,4 +1,4 @@
-extern void sub_08001480(void *, s32);
+extern void createChildObject(void *, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -10,7 +10,7 @@ void sub_08010550(void *arg0) {
     u8 *self = (u8 *)arg0;
     u8 *steps;
     s32 *stepFnTable;
-    sub_08001480(self, 0x03);
+    createChildObject(self, 0x03);
     *(u8 *)((s16)*(u16 *)(self + 0x22) * 2 + self + 0x19) = 0;
     stepFnTable = (s32 *)0x08671BB0;
     steps = self + 0x18;

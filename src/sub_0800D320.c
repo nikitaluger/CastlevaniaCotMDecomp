@@ -5,7 +5,7 @@ void _call_via_r1(void *, void *);
 void sub_0806DD94(void);
 void sub_080C2E68(void *, void *, u32);
 void sub_0806D930(void *);
-void *sub_08001480(s32, s32);
+void *createChildObject(s32, s32);
 
 /* Dispatch the handler at object+0x24 for each of the five tracked objects. */
 void sub_0800D320(void) {
@@ -91,14 +91,14 @@ void sub_0800E8B0(s32 kind) {
     void *cur;
     void *lastObj;
     do {
-        newObj = sub_08001480(kind, 0x1B);
+        newObj = createChildObject(kind, 0x1B);
         *objPtr = newObj;
         *(u8 *)((u8 *)newObj + 0x3C) = 8;
         cur = *objPtr++;
         *(u8 *)((u8 *)cur + 0x44) = (u8)i;
         i++;
     } while (i <= 3);
-    lastObj = sub_08001480(kind, 0x1B);
+    lastObj = createChildObject(kind, 0x1B);
     *(void **)(state + 0x58) = lastObj;
     *(u8 *)((u8 *)*objPtr + 0x3C) = 7;
 }
