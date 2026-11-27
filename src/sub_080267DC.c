@@ -11,19 +11,15 @@ void sub_080267DC(void *arg0) {
     s32 dx = *(s32 *)(work + 8) - *(s32 *)(box + 0x68);
     s32 dy = *(s32 *)(work + 0xC) - *(s32 *)(box + 0x6C);
     s32 dist = fixedPointDistance(dx, dy);
-    s32 angle;
-    s32 val;
     s16 step;
 
     if (dist <= 0x2FFFF) {
         *(s32 *)(box + 0x68) = *(s32 *)(work + 8);
         *(s32 *)(box + 0x6C) = *(s32 *)(work + 0xC);
     } else {
-        angle = sub_08005910(dy, dx);
-        val = gTrigFuncTable[0](angle + 0x4000);
-        *(s32 *)(box + 0x68) = val * 3 + *(s32 *)(box + 0x68);
-        val = gTrigFuncTable[0](angle);
-        *(s32 *)(box + 0x6C) = val * 3 + *(s32 *)(box + 0x6C);
+        s32 angle = sub_08005910(dy, dx);
+        *(s32 *)(box + 0x68) = gTrigFuncTable[0](angle + 0x4000) * 3 + *(s32 *)(box + 0x68);
+        *(s32 *)(box + 0x6C) = gTrigFuncTable[0](angle) * 3 + *(s32 *)(box + 0x6C);
     }
 
     step = *(s16 *)(self + 0x22);
