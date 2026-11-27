@@ -1780,6 +1780,17 @@
     "-O2",
     "-fno-strength-reduce"
    ]
+  },
+  "319836:134537564": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "updateTimerDrivenEffectAlt",
+   "vram": 134537564
   }
  },
  "instructions": "",
@@ -2120,7 +2131,8 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h"
+  "local_source_8589938934": "common_local_source_8589938934.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -10886,7 +10898,7 @@
   "updateTimerDrivenEffectAlt": {
    "vram": 134537564,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": true
+   "readable": false
   },
   "sub_0804E28C": {
    "vram": 134537868,
