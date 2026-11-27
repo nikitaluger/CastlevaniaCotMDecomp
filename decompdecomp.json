@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795792222.1404395,
- "revision": 69957,
+ "saved_at": 1795792285.7877724,
+ "revision": 69959,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -12944,10 +12944,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080660A4": {
+  "updateTimedActorAction": {
    "vram": 134635684,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_08066558": {
    "vram": 134636888,
@@ -37186,7 +37186,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080660A4",
+   "name": "updateTimedActorAction",
    "vram": 134635684,
    "size": 328,
    "status": "open"
@@ -52446,6 +52446,12 @@
    "kind": "func"
   },
   {
+   "name": "updateTimedActorAction",
+   "address": 134635684,
+   "size": 328,
+   "kind": "func"
+  },
+  {
    "name": "updateMultiPartBossEffect",
    "address": 134638876,
    "size": 452,
@@ -54544,7 +54550,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct S_02025FF0_1870",
+   "type": "struct SGlobals",
    "source": "match"
   },
   {

@@ -15256,14 +15256,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080660A4",
-  "text": "releasing with explanation: 11 compiles spent, exhaustive attempts. Best 5661 (62.2%), all logic/instructions present (144 vs 150), 100% a callee-saved register-allocation problem. Target requires: arg0=r7, r8(p6C)=r10/sl, p9=p6C+4 spilled to a 4-byte stack slot (sub sp,#4; str r1,[sp]; ldr r2,[sp] at 3 late uses), p38=r8, r4=p4=r4, sub_08003740 result=r9/sb, a18/a22=r5/r6. Mine keeps arg0=r5, r8=r9, p9=r10, p38=r7, r4=r6, result=r8 and uses no stack. Tried every formulation I can think of: void*/struct Arg0 parameter, struct R8/R4 vs raw pointers, p9 as void*/u8*/volatile/local-array/struct-pointer, p9 computed with u32 cast/struct-field/plain +4, declaration order permutations (r9 first, pd first, a18/a22 top vs inside if), pd nested block vs global-at-top, s32/u32 result, D_08671BD0 direct vs pd. Adding a18/a22 creates sub sp,#4 but does not spill the right value and derails other registers (8031). search_flags found no matching flags. Without register-pinning asm (forbidden) I cannot make agbcc pick this exact allocation; recommend a future agent try a struct that forces a genuine 4-byte stack local (e.g. taking its address) or find the exact sibling pattern. Logic is fully correct; do not redo it.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9745936,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateScriptedCombatObject",
   "text": "MATCHED byte-identical. Adapted matched sibling sub_08030BE0's C style exactly (u8 *arg0 param; s32 a = *(s32*)(arg0+0x38); u8 *p = *(u8**)(arg0+0x3C); r9=p+0x34; r7=p+0x48; reload p28 at each call site; separate nested-block q pointers for each indexed byte; `void **fnaddr = &D_08671BDC;` in nested block). KEY final-block trick: target emits `ldr r3,=0x127C; adds r1,r1,r3; adds r0,r0,r1` (base+offset first, then +shifted-byte). Writing `v = *(u32 *)((base + 0x127C) + ((byte+1)<<6))` makes GCC associate as (off+base)+0x127C, adding an extra `adds r0,r0,r1`. Fix: declare `u32 k = 0x127C;` as a separate local and write `v = *(u32 *)(base + k + ((D_02025FF0.f18A8 + 1) << 6));` \u2014 the variable k forces base+k to be computed first into r1. Also `base = (u32)D_02021E90;` (u32 local from global name) keeps the table base in a register and gives the correct literal loads.",
   "by": "opencode-hy4-flash-free-1",
@@ -30148,14 +30140,6 @@
   "text": "Register allocation problem, cannot close with natural C. Best score 4422. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0552304,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080660A4",
-  "text": "Register allocation problem, cannot close with natural C. Best score 5661. Logic fully correct. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0552673,
   "score_before": null,
   "score_after": null
  },
@@ -94072,14 +94056,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080660A4",
-  "text": "Register allocation wall. Target requires: arg0=r7, r10=r8(p6C), p9 on stack (sub sp,#4), r8=p38, r4=p4, sub_08003740 result=r9/sb, a18/a22=r5/r6. agbcc assigns differently (arg0=r5, r8=r9, p9=r10, etc.). Previous agent tried exhaustive formulations (11 compiles). Best score 5661. Logic correct, regalloc irreducibly different without register pinning.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3880973,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateBossAttackEntity",
   "text": "Near-matched (score 30, 99.8%). Remaining 6 pure regalloc diffs: (1) `ands r1,r0` vs `ands r0,r1` - AND destination register; (2) sub_080C31E8 calls: target hoists `ldr r2,[pc]` (ptr to 0x08671BDC) then `ldr r3,[r2]`, mine uses `ldr r3,[pc]; ldr r3,[r3]`. Previous agent tried exhaustive formulations (17 compiles). Cannot fix without register pinning.",
   "by": "opencode-free-1",
@@ -115176,14 +115152,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080660A4",
-  "text": "Certain this cannot get closer in pure C without register/stack-layout control. Best 5661 (62.2%, 144/150 insns) with correct control flow and calls; remaining diff is dominated by target's fixed allocation (r7=arg0, sl=p6C, [sp]=p6C+4, r8=p38, r4=p4, sb=sub_08003740 result, r5/r6 arg pointers) and `sub sp,#4` which agbcc does not produce from equivalent C. All prior formulations (14 attempts) failed to move allocation; no structural fix remains. Releasing.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.5029678,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08075564",
   "text": "Permanent agbcc regalloc wall. 7 compiles here (best 6116, unchanged) plus 18 by previous agent. Target prologue needs arg0=r5, p6C=r4, p4=r7, p38=r6, alias=r8; every natural C spelling gives arg0=r4/r7, p4=r6, p38=r5. Exhausted: all declaration orders of the 4 live pointers, 3-local and 5-local forms, struct-typed arg0, 7 dummy locals, local D_02025FF0 struct (fixes two-literal loads but not regalloc), if-else tree and switch, search_flags (O2/O3/Os 6292, O1 6971). `register asm(\"rN\")` rejected by harness. Matched siblings sub_080765FC and sub_080751C4 (same prologue family) show the same register mapping is controlled by live-range/usage details that C rewriting cannot steer here; sub_080751C4 is itself a permanent 25-point wall. Correct C, not hand asm, not not_c. Needs a compiler/regalloc change.",
   "by": "opencode-hy4-flash-free-1",
@@ -131676,22 +131644,6 @@
   "text": "RELEASE (explicit re-request): score 335 confirmed \u2014 frameless conditional-leaf wall (compare 0xC vs 0x020279E8). Body byte-exact; only agbcc leaf frame vs target bare bx lr differs. No better in 0/3 compiles; all forms and flags exhausted over 26 attempts. Ordinary correct C, not hand asm, not not_c, not boundary. Best source kept at 335. Releasing to continue session claims.",
   "by": "opencode-free-1",
   "created_at": 1795683534.5896041,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080660A4",
-  "text": "sub_080660A4: improved best 5661 -> 4037 this session with two C levers: (1) force the p9 (p6C+4) stack spill by declaring `void *p9 = (u8*)r8 + 4; void **pp9 = &p9;` and reading p9 as `*pp9` at the three late uses (sub_0806BCD8, the second sub_08003740, sub_0806C6B0). Taking the address makes agbcc emit `sub sp,#4` and spill/reload p9 \u2014 exactly the target's prologue shape. A volatile p9 or a 1-element array did NOT work (4696/5266). (2) struct S_R4's field at 0xC4 must be `u32 unkC4` (not u16) \u2014 target emits `str r0,[r2]` and `ldr r2,[r2]`, not strh/ldrh. Residual: target arg0=r7/p6C=sl/p9=r4/p38=r8/result=sb; agbcc arg0=r5/p6C=sb/p9=r6/p38=r7/result=r8 and keeps pp9 in sl (`mov sl,sp`). Only regalloc remains.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5896435,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080660A4",
-  "text": "Improved best 5661 -> 4037 (62.2% -> 73.0%) over 8 compiles. Key levers saved in add_note: (1) `void *p9 = (u8*)r8+4; void **pp9 = &p9;` with `*pp9` at the three late uses forces agbcc to emit `sub sp,#4` and spill/reload p9 like the target \u2014 a volatile p9 or a 1-element pointer array regressed; (2) S_R4 field at 0xC4 is u32, not u16 (target emits str/ldr, not strh/ldrh), worth ~400 points. Remaining 51 regalloc + 26 operand rows are the whole-function coloring: target arg0=r7, p6C=sl, p9=r4, p38=r8, result=sb; agbcc arg0=r5, p6C=sb, p9=r6, p38=r7, result=r8, pp9=sl. Declaration-order/const tweaks had no effect. Ordinary correct C; only a compiler/regalloc change closes it.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5896807,
   "score_before": null,
   "score_after": null
  },
@@ -156504,14 +156456,6 @@
   "score_after": null
  },
  {
-  "function": "sub_080660A4",
-  "text": "TERMINAL agbcc -mthumb-interwork -O2 whole-function regalloc wall, best 4037 (73.0%, 150/150 insns). Target binds arg0=r7, p6C=sl(r10), p9=[sp] (sub sp,#4 via void **pp9=&p9 trick), p38=r8, result=sb; agbcc gives arg0=r5, p6C=sb, p9=r10, p38=r7, result=r8, pp9=sl. 51 regalloc + 26 operand rows cascade from that coloring. sub sp,#4 stack slot IS reproduced. S_R4.unkC4 must be u32. Logic fully correct. Tried: pp9 volatile/array (regressed), r9/pd declaration order, s32/u32 result, D_08671BD0 direct vs pd \u2014 all identical 4037 or worse per prior agents (5661\u21924037). register-asm banned. No C spelling changes coloring. Not boundary, not hand asm, not not_c. Best source = current (4037).",
-  "by": "opencode-nemotron-3.5-super-vl-12-1",
-  "created_at": 1795683534.7176378,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080A24FC",
   "text": "Re-asking with why it can't get closer: 107/107 instructions byte-exact; the only residual is agbcc's deterministic scheduling of two independent instructions (`adds r2,r7` before `ldr r6,=D_02025FF0` instead of after) at the loop join, which C source spelling cannot control. 82 attempts and a flag sweep confirm. register-asm pins banned by the harness. Cannot reach 0 in pure C; preserve best 60 source.",
   "by": "opencode-hy4-flash-free-1",
@@ -158660,14 +158604,6 @@
   "text": "Cannot get closer in pure C \u2014 permanent agbcc regalloc + fill-idiom wall; releasing now. Best 2355 reproduced (89/89 insns structurally exact); all remaining rows are deterministic register permutation (target r8=tbl, ip=base, r7=sp+4, r5=count, r6=i, r4=off computed late, r3=0xFF; agbcc permutes and folds base+0x73 to subs/adds #0x80). ~59 prior attempts across all C forms floor here; register-asm pinning is disallowed and this game has only agbcc. Ordinary correct C, not hand asm, not not_c, not a boundary. Best-2355 source preserved.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.7288606,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080660A4",
-  "text": "Proven regalloc wall. Target requires fixed callee-saved allocation: arg0=r7, r10=sl=p6C, p9=p6C+4 spilled to [sp] via `sub sp,#4`, r8=p38, r4=p4, sub_08003740 result=sb. agbcc binds arg0=r5, p6C=sb, p9=r10, p38=r7, p4=r6, result=r8, pp9=sl. 51 regalloc + 26 operand diffs cascade from this. Best 4037 has correct logic (150/150 insns) with two critical C levers: (1) `void *p9 = (u8*)r8+4; void **pp9 = &p9;` + `*pp9` at 3 late uses forces the stack spill; (2) S_R4.unkC4 = u32 (target str/ldr, not strh/ldrh). All variants tested (declaration order, types, volatile, array, nested pd block) \u2014 no C changes coloring. Register pinning banned. This is ordinary correct C; only compiler/regalloc change closes it.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.7289019,
   "score_before": null,
   "score_after": null
  },
@@ -171020,14 +170956,6 @@
   "text": "Callee-saved-r4 regalloc wall, score floor 310 (22/24 insns, 87%), 67+ attempts, 4 compiles + 1 try_compiler this claim. Best: void*volatile +0x2C list walk with separate first-node set and u8 val=1 in loop. Target pushes {r4,lr}, keeps first ptr then val=1 in r4, emits 3 adds copies in loop; agbcc uses r2/r1/r0 with push{lr} and coalesces one copy. This claim: baseline 310; register void* asm(\"r4\") rejected outright (inline asm ban); simplified early-return loop 520 (loses two adds copies); try_compiler with -fomit-frame-pointer still 310. No C spelling forces callee-saved r4 in this call-free function. Not boundary, not hand asm, not not_c: toolchain regalloc wall.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683534.792588,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_080660A4",
-  "text": "MATCHED (score 0, 164 insns) after 3 compiles from 4037. Solved the 3-model \"regalloc wall\" \u2014 it was never regalloc, it was source shape. Start from matched sibling sub_08065BAC (0x08065BAC), which is the same routine family: `u8 *state = *(u8**)(entity+0x6C); u8 *vec = state+4; u8 *obj = *(u8**)(entity+0x38); u8 *pos = vec;` and 4-arg calls `f(entity, obj, vec, pos)` / `f(entity,obj,pos,pos)`. With that shape agbcc produces the target's exact `sub sp,#4` + `str r1,[sp]` spill of `vec` (the second long-lived alias of state+4) and the whole allocation (entity=r7, state=sl, vec=[sp], obj=r8, pos=r4, result=sb). The pp9/&p9 trick of earlier attempts was unnecessary/wrong. Three other levers: (1) D_02025FF0 as a giant struct extern (`struct SGlobals { u8 pad[0x1824]; u32 f1824; }` + `extern struct SGlobals D_02025FF0;` + `D_02025FF0.f1824 = x;`) makes agbcc emit `ldr r0,=base; ldr r1,=0x1824; adds r0,r0,r1` instead of folding base+0x1824 into one literal (2 missing insns); (2) sub_080C31E8's 3rd parameter must be u32, not u16, or the second site loads `ldrh` instead of `ldr`; (3) write the mode store as a direct `*((u32*)(vec+0xC4)) = sub_0806BCD8(...)` (no temp) so the address computation is emitted before the lsls/lsrs truncation, and wrap the second callback's `&D_08671BD0` in a `void **callbackSlot` local so its address literal is materialised before the arg computations.",
-  "by": "opencode-deepseek-v4.1-flash-2",
-  "created_at": 1795683534.7926245,
   "score_before": null,
   "score_after": null
  },
@@ -354716,5 +354644,77 @@
   "score_before": 55,
   "score_after": 15,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:fa0fb367af24c2ffe4344007c50f5d58589f04b8dbde5b07c7ef4922b2b5072a:4faa436eac78f1e9d5e91cbbac2dec884fd8e23886867735fbbe087cfd89c2f2"
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "releasing with explanation: 11 compiles spent, exhaustive attempts. Best 5661 (62.2%), all logic/instructions present (144 vs 150), 100% a callee-saved register-allocation problem. Target requires: arg0=r7, r8(p6C)=r10/sl, p9=p6C+4 spilled to a 4-byte stack slot (sub sp,#4; str r1,[sp]; ldr r2,[sp] at 3 late uses), p38=r8, r4=p4=r4, sub_08003740 result=r9/sb, a18/a22=r5/r6. Mine keeps arg0=r5, r8=r9, p9=r10, p38=r7, r4=r6, result=r8 and uses no stack. Tried every formulation I can think of: void*/struct Arg0 parameter, struct R8/R4 vs raw pointers, p9 as void*/u8*/volatile/local-array/struct-pointer, p9 computed with u32 cast/struct-field/plain +4, declaration order permutations (r9 first, pd first, a18/a22 top vs inside if), pd nested block vs global-at-top, s32/u32 result, D_08671BD0 direct vs pd. Adding a18/a22 creates sub sp,#4 but does not spill the right value and derails other registers (8031). search_flags found no matching flags. Without register-pinning asm (forbidden) I cannot make agbcc pick this exact allocation; recommend a future agent try a struct that forces a genuine 4-byte stack local (e.g. taking its address) or find the exact sibling pattern. Logic is fully correct; do not redo it.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9745936,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "Register allocation problem, cannot close with natural C. Best score 5661. Logic fully correct. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0552673,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "Register allocation wall. Target requires: arg0=r7, r10=r8(p6C), p9 on stack (sub sp,#4), r8=p38, r4=p4, sub_08003740 result=r9/sb, a18/a22=r5/r6. agbcc assigns differently (arg0=r5, r8=r9, p9=r10, etc.). Previous agent tried exhaustive formulations (11 compiles). Best score 5661. Logic correct, regalloc irreducibly different without register pinning.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3880973,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "Certain this cannot get closer in pure C without register/stack-layout control. Best 5661 (62.2%, 144/150 insns) with correct control flow and calls; remaining diff is dominated by target's fixed allocation (r7=arg0, sl=p6C, [sp]=p6C+4, r8=p38, r4=p4, sb=sub_08003740 result, r5/r6 arg pointers) and `sub sp,#4` which agbcc does not produce from equivalent C. All prior formulations (14 attempts) failed to move allocation; no structural fix remains. Releasing.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.5029678,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "sub_080660A4: improved best 5661 -> 4037 this session with two C levers: (1) force the p9 (p6C+4) stack spill by declaring `void *p9 = (u8*)r8 + 4; void **pp9 = &p9;` and reading p9 as `*pp9` at the three late uses (sub_0806BCD8, the second sub_08003740, sub_0806C6B0). Taking the address makes agbcc emit `sub sp,#4` and spill/reload p9 \u2014 exactly the target's prologue shape. A volatile p9 or a 1-element array did NOT work (4696/5266). (2) struct S_R4's field at 0xC4 must be `u32 unkC4` (not u16) \u2014 target emits `str r0,[r2]` and `ldr r2,[r2]`, not strh/ldrh. Residual: target arg0=r7/p6C=sl/p9=r4/p38=r8/result=sb; agbcc arg0=r5/p6C=sb/p9=r6/p38=r7/result=r8 and keeps pp9 in sl (`mov sl,sp`). Only regalloc remains.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5896435,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "Improved best 5661 -> 4037 (62.2% -> 73.0%) over 8 compiles. Key levers saved in add_note: (1) `void *p9 = (u8*)r8+4; void **pp9 = &p9;` with `*pp9` at the three late uses forces agbcc to emit `sub sp,#4` and spill/reload p9 like the target \u2014 a volatile p9 or a 1-element pointer array regressed; (2) S_R4 field at 0xC4 is u32, not u16 (target emits str/ldr, not strh/ldrh), worth ~400 points. Remaining 51 regalloc + 26 operand rows are the whole-function coloring: target arg0=r7, p6C=sl, p9=r4, p38=r8, result=sb; agbcc arg0=r5, p6C=sb, p9=r6, p38=r7, result=r8, pp9=sl. Declaration-order/const tweaks had no effect. Ordinary correct C; only a compiler/regalloc change closes it.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5896807,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "TERMINAL agbcc -mthumb-interwork -O2 whole-function regalloc wall, best 4037 (73.0%, 150/150 insns). Target binds arg0=r7, p6C=sl(r10), p9=[sp] (sub sp,#4 via void **pp9=&p9 trick), p38=r8, result=sb; agbcc gives arg0=r5, p6C=sb, p9=r10, p38=r7, result=r8, pp9=sl. 51 regalloc + 26 operand rows cascade from that coloring. sub sp,#4 stack slot IS reproduced. S_R4.unkC4 must be u32. Logic fully correct. Tried: pp9 volatile/array (regressed), r9/pd declaration order, s32/u32 result, D_08671BD0 direct vs pd \u2014 all identical 4037 or worse per prior agents (5661\u21924037). register-asm banned. No C spelling changes coloring. Not boundary, not hand asm, not not_c. Best source = current (4037).",
+  "by": "opencode-nemotron-3.5-super-vl-12-1",
+  "created_at": 1795683534.7176378,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "Proven regalloc wall. Target requires fixed callee-saved allocation: arg0=r7, r10=sl=p6C, p9=p6C+4 spilled to [sp] via `sub sp,#4`, r8=p38, r4=p4, sub_08003740 result=sb. agbcc binds arg0=r5, p6C=sb, p9=r10, p38=r7, p4=r6, result=r8, pp9=sl. 51 regalloc + 26 operand diffs cascade from this. Best 4037 has correct logic (150/150 insns) with two critical C levers: (1) `void *p9 = (u8*)r8+4; void **pp9 = &p9;` + `*pp9` at 3 late uses forces the stack spill; (2) S_R4.unkC4 = u32 (target str/ldr, not strh/ldrh). All variants tested (declaration order, types, volatile, array, nested pd block) \u2014 no C changes coloring. Register pinning banned. This is ordinary correct C; only compiler/regalloc change closes it.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.7289019,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateTimedActorAction",
+  "text": "MATCHED (score 0, 164 insns) after 3 compiles from 4037. Solved the 3-model \"regalloc wall\" \u2014 it was never regalloc, it was source shape. Start from matched sibling sub_08065BAC (0x08065BAC), which is the same routine family: `u8 *state = *(u8**)(entity+0x6C); u8 *vec = state+4; u8 *obj = *(u8**)(entity+0x38); u8 *pos = vec;` and 4-arg calls `f(entity, obj, vec, pos)` / `f(entity,obj,pos,pos)`. With that shape agbcc produces the target's exact `sub sp,#4` + `str r1,[sp]` spill of `vec` (the second long-lived alias of state+4) and the whole allocation (entity=r7, state=sl, vec=[sp], obj=r8, pos=r4, result=sb). The pp9/&p9 trick of earlier attempts was unnecessary/wrong. Three other levers: (1) D_02025FF0 as a giant struct extern (`struct SGlobals { u8 pad[0x1824]; u32 f1824; }` + `extern struct SGlobals D_02025FF0;` + `D_02025FF0.f1824 = x;`) makes agbcc emit `ldr r0,=base; ldr r1,=0x1824; adds r0,r0,r1` instead of folding base+0x1824 into one literal (2 missing insns); (2) sub_080C31E8's 3rd parameter must be u32, not u16, or the second site loads `ldrh` instead of `ldr`; (3) write the mode store as a direct `*((u32*)(vec+0xC4)) = sub_0806BCD8(...)` (no temp) so the address computation is emitted before the lsls/lsrs truncation, and wrap the second callback's `&D_08671BD0` in a `void **callbackSlot` local so its address literal is materialised before the arg computations.",
+  "by": "opencode-deepseek-v4.1-flash-2",
+  "created_at": 1795683534.7926245,
+  "score_before": null,
+  "score_after": null
  }
 ]

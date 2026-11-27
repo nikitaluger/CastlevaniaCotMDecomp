@@ -18,7 +18,7 @@ extern struct SGlobals gMainWorkspace;
 /* Per-frame actor update: refresh camera/mode state and tick the actor's timer;
  * on expiry, clear the current script step, fire the type's callback and spawn
  * a cooldown child, then run the collision check and common follow-up updates. */
-void sub_080660A4(u8 *actor)
+void updateTimedActorAction(u8 *actor)
 {
     u8 *state = *((u8 **)(actor + 0x6C));
     u8 *objTail = state + 4;
