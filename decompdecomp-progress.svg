@@ -3410,7 +3410,7 @@
 <g><title>spawnKind29ScriptSprite: {&#x27;matched&#x27;: 1}</title>
 <rect x="120.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0802E4A8: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateScriptedEnemySpeedCheck: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0802E628: {&#x27;matched&#x27;: 1}</title>

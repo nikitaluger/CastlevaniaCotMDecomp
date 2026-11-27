@@ -22,7 +22,7 @@ extern u32 sScriptStepCallbacks[];
 /* Updates a projectile/weapon entity: runs the hit and damage responses for its
  * owner and sub-object, dispatches a slot callback, then copies the owner's
  * camera-corrected world position back through the coordinate table. */
-void sub_0801A5E8(u8 *self) {
+void updateScriptedProjectileContact(u8 *self) {
     u8 *parent;
     u8 *obj;
     u8 *objSub;

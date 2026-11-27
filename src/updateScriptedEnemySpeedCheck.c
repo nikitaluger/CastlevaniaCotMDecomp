@@ -18,7 +18,7 @@ struct Flags { u16 f0; };
 /* Script-driven enemy update with a movement-speed check: run hit/damage
  * helpers, flag oversized velocities, then advance the script and dispatch
  * its handler, optionally applying a movement/animation update. */
-void sub_0802E4A8(u8 *entity)
+void updateScriptedEnemySpeedCheck(u8 *entity)
 {
   u8 *owner = *(u8 **)(entity + 0x38);
   u8 *comp = *(u8 **)(entity + 0x3C);

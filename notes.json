@@ -14712,14 +14712,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E4A8",
-  "text": "Complex. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9705534,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080542A8",
   "text": "Complex. Releasing.",
   "by": "opencode-free-1",
@@ -52548,14 +52540,6 @@
   "text": "Complex creator. Best 4890 by deep-permuter. Regalloc/pool layout issues. Cannot improve further this session. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1680596,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802E4A8",
-  "text": "Releasing.",
-  "by": "opencode-beam-free-7",
-  "created_at": 1795683534.168104,
   "score_before": null,
   "score_after": null
  },
@@ -95224,14 +95208,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E4A8",
-  "text": "2-high-register prologue (push {r7} + mov r7,r8) wall. Best 1541 (91.3%). Core issue: agbcc allocates temp for `ldr r2,[r5,#0x28]` to r0 instead of r2; saves flags in r3 via local var but target uses `adds r3,r1,#0` directly from p3C+2 load. Branch offsets and literal pool cascades from register allocation. Tried: inlining flags load, fewer locals, different variable orders. Cannot get closer from pure C without register-pinning.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3764117,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08008648",
   "text": "Permanent agbcc regalloc wall at score 120 (range 0x8008648-0x80087DC, -O1). First diff: target `movs r0,#0x93` vs ours `movs r2,#0x93` \u2014 target binds r0/r2 to offset computations (0x93<<5, 0xD8<<8, 0x99<<5, subs #0x40) while agbcc binds r3/r0, cascading into 8 regalloc + 2 reordered + 2 operand diffs and literal-pool PC offsets. ~29 prior attempts confirm no pure-C spelling fixes agbcc's deterministic register binding for these live-range offsets. Ordinary correct C (best-attempt source on file), not hand asm, not not_c \u2014 only a compiler/regalloc change fixes it. Asking to release now: this is a proven regalloc wall, no C spelling can fix it.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -96580,14 +96556,6 @@
   "text": "Can't get closer: proven permanent agbcc -O2 ip(r12)/sb(r9) callee-saved regalloc tie-break wall at score 40 (181/181 insns byte-exact; target keeps *(s16*)(arg0+0x3C) in ip(r12) and n1>>3 in sb(r9), agbcc deterministically swaps them, 8 regalloc rows). ~130+ prior attempts across all models/forms/flags floor at 40; search_flags -O2 optimal, O1/O3/Os same; register-asm banned. Ordinary correct C (sub-rect dirty-region tracking calling sub_08004484), not asm, not not_c \u2014 only compiler change fixes. Releasing after 8 compiled claims this session (all regalloc/coloring walls, none matched).",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.382918,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802E4A8",
-  "text": "Cannot get closer \u2014 no C step left. Full 8-compile budget spent; best 950 (down from 1325). Exhausted this session: 3-arg callee arity (confirmed by matched sibling sub_0802A390), struct-field accessors for p3C (best), pointer-local and function-pointer variants of the 0x08671BDC load, explicit flags-copy local, volatile load, declaration/assignment reorder. Remaining diffs are deterministic agbcc regalloc rotations (target r0=abs/r1=limit vs ours r1=abs/r3=limit; two missing `adds r3,r1,#0` copies) plus consequent branch offsets; the 2-instruction shortage cannot be closed from C. Ordinary correct C, not hand asm, not not_c. Releasing to claim matchable functions.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.3829548,
   "score_before": null,
   "score_after": null
  },
@@ -114552,14 +114520,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E4A8",
-  "text": "Cannot get closer in C: score ~921-945 is a proven agbcc register-allocation wall (all instructions structurally correct; only regalloc rotations and consequent branch offsets). My clean straight-line rewrite removed the inherited duplicate branch but did not lower the score. Prior agents exhausted every C lever across 21 attempts. Ordinary correct C, not hand asm, not not_c.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.475118,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08008C78",
   "text": "Permanent agbcc regalloc wall at score 1385 (80/80 insns byte-exact). Target keeps arg0 in ip/r12 (`mov ip,r0` at entry; `mov rX,ip` before each deref); agbcc puts it in r7 with extra prologue. Pointer-reassociation `(X+0x1C)+a` vs `X+(a+0x1C)` unforceable from C without register pinning (asm rejected). ~27 prior attempts floor at 1385-3070. Not hand asm/not not_c. Needs sub_08008B98 per wait chain.",
   "by": "opencode-free-1",
@@ -117420,14 +117380,6 @@
   "text": "NOT C \u2014 hand-written assembly (m4a sound-engine wrapper family), not matchable as agbcc C. Target at 0x080BFD64: `mov r12, lr; ldr r2,[r1,#0x40]; ldrb r3,[r2]; adds r2,#1; ldr r0,=0x04000060; adds r0,r0,r3; bl sub_080BFBEE; strb r3,[r0]; bx r12` \u2014 frameless `mov r12/lr`/`bx r12` epilogue identical to the confirmed hand-asm wrappers sub_080BFBB8/sub_080BFCAC (frameless mov r12,lr/bx r12) and sub_080BFD38 (mov ip,lr/bx ip) in the 0x080BFBEC-0x080BFD58 cluster; same region neighbors sub_080BFBEE/sub_080BFBD2 already released not_c by multiple models (opencode-nemotron, opencode-free-1, opencode-iceman-contributor-free-1). Non-standard ABI no C signature can express: relies on caller-saved r3 (= v = *p) surviving the `bl sub_080BFBEE` for the post-call `strb r3,[r0]`; agbcc must assume r3 clobbered and spills v to r4/stack. Compiles: deep-permuter best 425 (12 attempts, push {r4,lr}...bx r0); mine 635 with identical structural diff (target `mov ip,lr`/`bx ip` vs push {r4,lr}...pop {r4}/pop {r0}/bx r0, v in r3 vs r4, literal placement). No C form, flag variant, or prototype can produce mov r12,lr + r3-live-across-bl + bx r12. Family consensus across 3+ models: not_c. Callee sub_080BFBEE is also hand-asm (non-word-aligned tail-b fragment). Best C attempt saved (score 425): extern u8 *sub_080BFBEE(u32, void *, u8 *); void sub_080BFD64(void *arg0, void *arg1){ u8 *p=*(u8**)((u8*)arg1+0x40); u8 v=p[0]; u8 *dst=sub_080BFBEE(0x04000060u+v,arg1,p+1); *dst=v; }.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.490023,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802E4A8",
-  "text": "Best 921 (94.8%, 179/179 insns). Started from permuter best and tried cleaned rewrites (matched sibling patterns like sub_08024370/sub_0802A390/sub_0803D588), removed duplicate if(r5) block, adjusted data symbol forms (D_08671BDC/D_0866DBC0), removed volatile/locals. No improvement beyond 921.\n\nRemaining diffs: extra `sub sp,#4` and stack slot vs target frameless layout; missing `adds r3,r1,#0` after loading r5->f2 so flags copy/lifetime differs (target preserves flags in r3 for bit4 test as `ands r0,r3`, mine becomes `ands r3,r0`); register allocation swaps in abs/threshold blocks (r0/r1/r3), branch offsets/call offsets, literal placement/order for D_08671BDC and D_0866DBC0, and minor tail/indexing reg choices. Logic/call sequence matches: sub_080141AC early return; sub_08013C5C/sub_08013558/sub_08013978; f28->f14&1 and f2 bit checks set r5->f0 on speed/velocity thresholds; sub_080142C0; if r5->f0&1 and arg0 byte @idx*2+0x1A!=3 -> sub_08013AC4, sub_08005E80(0x8B), clear idx*2+0x1B, sub_080C31E8(arg0+0x18,arg0+0x22,3,D_08671BDC[0]); if sub_08013B5C==0 do table call setup/inc-dec and if !(arg0+2&0x8000) call sub_08011460(r6,r5+0x34,*(u32*)(r5+0x48)) and sub_08011EE8(r5,0x16C1,0); then clear f28->f14 and sub_08013C8C. Likely needs precise temp lifetimes to eliminate stack slot and restore flags copy/regalloc.",
-  "by": "opencode-iceman-contributor-free-1",
-  "created_at": 1795683534.490061,
   "score_before": null,
   "score_after": null
  },
@@ -122008,26 +121960,10 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E4A8",
-  "text": "Best remains 921 (94.8%). This session: removing `volatile int pad;` or the duplicate if(r5) block regressed to 950-955 (the volatile pad is load-bearing despite adding `sub sp,#4`). Two-variable flags copy (`flags2 = flags` inside/else branches) produced the target's `adds r3,r1,#0` but scheduled after the `cmp`/`beq` instead of before, score 1555. Remaining diffs are regalloc rotations in the abs/threshold blocks (target r0=abs, r1=limit; ours r1=abs, r3=limit) plus consequent branch/call offsets, and the flags-copy scheduling. Ordinary C, not asm/not_c.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5135412,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_0809B2E0",
   "text": "Best 490 (96.1%, 127/127 insns). Structure/control flow complete. Remaining: extra copy after sub_0800355C (adds r4,r0; cmp r4) vs target using r6; missing post-sub_08013C2C copy `adds r1,r0,#0` with strh/lsls from r1; success block lacks fresh signed reload `movs r0,#0x22; ldrsh r1,[r4,r0]` of r4->f22 (store-to-load CSE reuses v) \u2014 tried volatile cast read (*(volatile s16*)&r4->f22) and volatile s16 field, both produced ldrh+shift/worse layout; mask setup allocates 0x200/0xFC0 to swapped regs with extra `adds r0,r2,#0`; tail index uses u16 truncation (lsls #0x11,lsrs #0x10) vs target s16*2 (lsls #1) but changing to s32 broke layout/score badly; minor goto/null/inline variants no gain. Twin sub_080A21A8 shows same residuals (likely agbcc regalloc/CSE wall). Call relocation/link diffs follow from above.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.5135813,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802E4A8",
-  "text": "Releasing with explicit why-it-can't-get-closer: best 921 (94.8%, all 179 insns present). The residual is deterministic agbcc register allocation/scheduling, not missing logic: target uses r0=abs / r1=threshold in both speed-check blocks, agbcc uses r1/r3; target schedules the flags copy `adds r3,r1,#0` between the AND and the compare, agbcc cannot be coaxed into that position (two-variable variant put it after the branch and scored 1555). The `volatile int pad;` and duplicate if(r5) block look dead but are load-bearing (removing either regressed to 950/955). ~31 prior attempts plus 5 this session tried struct/spelling/scoping/data-symbol variants with no better result. Not hand-written assembly, not not_c; needs a compiler change. Best permuter source preserved for the next agent.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.5136297,
   "score_before": null,
   "score_after": null
  },
@@ -136616,14 +136552,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E4A8",
-  "text": "Pure regalloc/scheduling wall; 35 prior attempts, volatile pad load-bearing. Ordinary correct C, not asm, not not_c.",
-  "by": "opencode-beam-free-1",
-  "created_at": 1795683534.5892158,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080953F0",
   "text": "Conditional-leaf compiler wall; not hand-written asm. Best 245.",
   "by": "opencode-beam-free-1",
@@ -146384,14 +146312,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802E4A8",
-  "text": "Best 921 (94.8%, 179/179 insns) \u2014 agbcc register allocation/scheduling wall. Residual diffs: (1) extra `sub sp,#4` from `volatile int pad` (load-bearing; removing it regresses to 955); (2) missing `adds r3,r1,#0` flags copy \u2014 target copies flags to r3 between bit0 test and branch, agbcc cannot schedule this copy at the right point (two-variable `flags2=flags` produces copy but after cmp/beq, score 1555); (3) regalloc rotations in abs/threshold blocks (target r0=abs/r1=limit vs ours r1=abs/r3=limit); (4) consequent branch/call offset differences. Duplicate if(r5) block is load-bearing. ~36 prior attempts plus this session exhausted C levers. Ordinary correct C, not asm, not not_c; needs compiler change. Best permuter source preserved.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.6398144,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080BD2F0",
   "text": "CANNOT GET CLOSER in pure C: 2-row register-coloring wall at score 10 (99.8%, 85/85 insns). agbcc always colors the loaded byte\u2192r0 and the 0x40 constant\u2192r1 in the OR block; target needs byte\u2192r1, constant\u2192r0 (OR destination). All C forms tried across 62+ agents and 8 compiles here (compound |=, literal inline, scoped val/mask, mask-as-destination, mask-first declaration, u32/u16/u8 types, zero placement variants, struct-field assignment) either keep the swap or spill a stack slot / pull in r9 (scores 1475-2086). Register pressure is maxed (r4-r8 all live), so the constant pseudo cannot be created first without spilling. Pure agbcc coloring; needs compiler-level change. Best attempt preserved.",
   "by": "opencode-hy4-flash-free-1",
@@ -148428,14 +148348,6 @@
   "text": "Matched from 2685 in 2 compiles: copy the matched twin sub_08032354's C shape verbatim (typed SpawnSprite/SpawnLogic pointers, U8/U16/U32 macros, savedAC=U32(arg0,0xAC) first, duplicated goto fail blocks, named u8 arrays for COORD tables), changing only family-specific constants/calls (0x64, sub_08037128, computed spVal 5th arg via table, sub_0803AF70). At score 200 the only diff was literal-load scheduling for the spVal table: target emits `ldr r1,[pc]` for D_080CEFCC immediately after `bl sub_08014288`, before computing arg0+0x4C. Fix: declare `u8 *tbl;` at top, `tbl = D_080CEFCC;` right after the call, then `*(s16 *)(tbl + U8(arg0,0x4C)*4)`.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.6500247,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802E4A8",
-  "text": "Matched from best 921 in 8 compiles. (1) Raw u8* casts like matched sibling sub_08024370; thunk names _call_via_r1/_call_via_r3; store literal `(u32)0x0866DBC0` directly, NOT `extern u32 D_0866DBC0` (adds ldr r0,[r0]). (2) Do not keep motion+0x28 pointer in a local: it becomes a 6th callee-saved reg (mov r7,sb); inline `*(void**)(motion+0x28)` at both the f14 test and sub_080142C0 arg so CSE emits the single target `ldr r2,[r5,#0x28]`. (3) Flags copy before cmp/beq: `u16 f2,f4; u32 bit0; f2=*(u16*)(motion+2); bit0=f2&1; f4=f2; if(bit0)... if(f4&4)...` puts adds r3,r1,#0 between ands and cmp. (4) Final 2 regalloc rows: third setflag must be inline struct field `((struct Flags *)motion)->f0 |= 1;` with `struct Flags { u16 f0; };` \u2014 a named pointer local regresses to 6 callee-saved regs.",
-  "by": "opencode-hy4-flash-free-2",
-  "created_at": 1795683534.6500676,
   "score_before": null,
   "score_after": null
  },
@@ -346033,6 +345945,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:9a823c655d23edf3550b050c44f69a8156e640b5f1f60c641f4f0ee42556d685"
  },
  {
+  "function": "updateScriptedProjectileContact",
+  "text": "Readable pass. Renamed from sub_0801A5E8; D_0866D630 -> gProjectileContactStepTable. Byte-for-byte sibling of updateScriptedProjectileHit (0x08016E44) with a different contact helper (sub_0801BD58), child helpers (sub_0801BB90/0801BBB4) and step table. Same field map and matching idioms; keep locals/order exact. Header edits are currently rejected project-wide because spawnKind15ScriptSprite no longer matches.",
+  "by": "opencode-hy4-flash-free-13",
+  "created_at": 1795743382.8824277,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:4e1db846d3982681d7124a8913cfa12b13f168de8ab75fd15359a6eccf167a4c"
+ },
+ {
   "function": "updateScriptedProjectileHit",
   "text": "Readable pass. Renamed from sub_08016E44; D_0866D520 -> gProjectileStepTable (Thumb step-handler table at object+0x14, indexed by step opcode). Locals: self=projectile, +0x38 sprite, +0x3C work, work+0x34 animTrack, work+0x48 stepState, +0x22 script step, +0x18 step stream, +0x1A/+0x1B timer/opcode bytes. sScriptStepCallbacks at 0x08671BDC is the event-callback table (entry 0 passed to sub_080C31E8); rename/header edits of it are blocked by the currently-broken spawnKind15ScriptSprite, so keep the candidate-local name. This C is a widely copied matching template; keep statement order and temporaries exact.",
   "by": "opencode-hy4-flash-free-13",
@@ -346042,12 +345963,100 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:23074ea9c6b05417bfef32bba345edf0ef2e88bbc0be832d8ad9d44a081a6a9f"
  },
  {
-  "function": "updateScriptedProjectileContact",
-  "text": "Readable pass. Renamed from sub_0801A5E8; D_0866D630 -> gProjectileContactStepTable. Byte-for-byte sibling of updateScriptedProjectileHit (0x08016E44) with a different contact helper (sub_0801BD58), child helpers (sub_0801BB90/0801BBB4) and step table. Same field map and matching idioms; keep locals/order exact. Header edits are currently rejected project-wide because spawnKind15ScriptSprite no longer matches.",
-  "by": "opencode-hy4-flash-free-13",
-  "created_at": 1795743382.8824277,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:4e1db846d3982681d7124a8913cfa12b13f168de8ab75fd15359a6eccf167a4c"
+  "function": "sub_08001614",
+  "text": "Reconfirmed 200: 7/7 real insns match; only trailing 2 `movs r0,r0` nops from literal pool emitted inside 16-byte extent (pool sits past extent). Extent/literal-pool layout issue, not C logic. No C fix possible standalone.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795743400.9765742,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d8e79e92f5b6961465fb3ef4d8b6177010e94eb09a441039de3b4ec1367f05b:0c200189b7cfb428a6b7f70434c4299edf05dae199dbbf27d30932143e2eec9b"
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Complex. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9705534,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Releasing.",
+  "by": "opencode-beam-free-7",
+  "created_at": 1795683534.168104,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "2-high-register prologue (push {r7} + mov r7,r8) wall. Best 1541 (91.3%). Core issue: agbcc allocates temp for `ldr r2,[r5,#0x28]` to r0 instead of r2; saves flags in r3 via local var but target uses `adds r3,r1,#0` directly from p3C+2 load. Branch offsets and literal pool cascades from register allocation. Tried: inlining flags load, fewer locals, different variable orders. Cannot get closer from pure C without register-pinning.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3764117,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Cannot get closer \u2014 no C step left. Full 8-compile budget spent; best 950 (down from 1325). Exhausted this session: 3-arg callee arity (confirmed by matched sibling sub_0802A390), struct-field accessors for p3C (best), pointer-local and function-pointer variants of the 0x08671BDC load, explicit flags-copy local, volatile load, declaration/assignment reorder. Remaining diffs are deterministic agbcc regalloc rotations (target r0=abs/r1=limit vs ours r1=abs/r3=limit; two missing `adds r3,r1,#0` copies) plus consequent branch offsets; the 2-instruction shortage cannot be closed from C. Ordinary correct C, not hand asm, not not_c. Releasing to claim matchable functions.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.3829548,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Cannot get closer in C: score ~921-945 is a proven agbcc register-allocation wall (all instructions structurally correct; only regalloc rotations and consequent branch offsets). My clean straight-line rewrite removed the inherited duplicate branch but did not lower the score. Prior agents exhausted every C lever across 21 attempts. Ordinary correct C, not hand asm, not not_c.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.475118,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Best 921 (94.8%, 179/179 insns). Started from permuter best and tried cleaned rewrites (matched sibling patterns like sub_08024370/sub_0802A390/sub_0803D588), removed duplicate if(r5) block, adjusted data symbol forms (D_08671BDC/D_0866DBC0), removed volatile/locals. No improvement beyond 921.\n\nRemaining diffs: extra `sub sp,#4` and stack slot vs target frameless layout; missing `adds r3,r1,#0` after loading r5->f2 so flags copy/lifetime differs (target preserves flags in r3 for bit4 test as `ands r0,r3`, mine becomes `ands r3,r0`); register allocation swaps in abs/threshold blocks (r0/r1/r3), branch offsets/call offsets, literal placement/order for D_08671BDC and D_0866DBC0, and minor tail/indexing reg choices. Logic/call sequence matches: sub_080141AC early return; sub_08013C5C/sub_08013558/sub_08013978; f28->f14&1 and f2 bit checks set r5->f0 on speed/velocity thresholds; sub_080142C0; if r5->f0&1 and arg0 byte @idx*2+0x1A!=3 -> sub_08013AC4, sub_08005E80(0x8B), clear idx*2+0x1B, sub_080C31E8(arg0+0x18,arg0+0x22,3,D_08671BDC[0]); if sub_08013B5C==0 do table call setup/inc-dec and if !(arg0+2&0x8000) call sub_08011460(r6,r5+0x34,*(u32*)(r5+0x48)) and sub_08011EE8(r5,0x16C1,0); then clear f28->f14 and sub_08013C8C. Likely needs precise temp lifetimes to eliminate stack slot and restore flags copy/regalloc.",
+  "by": "opencode-iceman-contributor-free-1",
+  "created_at": 1795683534.490061,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Best remains 921 (94.8%). This session: removing `volatile int pad;` or the duplicate if(r5) block regressed to 950-955 (the volatile pad is load-bearing despite adding `sub sp,#4`). Two-variable flags copy (`flags2 = flags` inside/else branches) produced the target's `adds r3,r1,#0` but scheduled after the `cmp`/`beq` instead of before, score 1555. Remaining diffs are regalloc rotations in the abs/threshold blocks (target r0=abs, r1=limit; ours r1=abs, r3=limit) plus consequent branch/call offsets, and the flags-copy scheduling. Ordinary C, not asm/not_c.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5135412,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Releasing with explicit why-it-can't-get-closer: best 921 (94.8%, all 179 insns present). The residual is deterministic agbcc register allocation/scheduling, not missing logic: target uses r0=abs / r1=threshold in both speed-check blocks, agbcc uses r1/r3; target schedules the flags copy `adds r3,r1,#0` between the AND and the compare, agbcc cannot be coaxed into that position (two-variable variant put it after the branch and scored 1555). The `volatile int pad;` and duplicate if(r5) block look dead but are load-bearing (removing either regressed to 950/955). ~31 prior attempts plus 5 this session tried struct/spelling/scoping/data-symbol variants with no better result. Not hand-written assembly, not not_c; needs a compiler change. Best permuter source preserved for the next agent.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.5136297,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Pure regalloc/scheduling wall; 35 prior attempts, volatile pad load-bearing. Ordinary correct C, not asm, not not_c.",
+  "by": "opencode-beam-free-1",
+  "created_at": 1795683534.5892158,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Best 921 (94.8%, 179/179 insns) \u2014 agbcc register allocation/scheduling wall. Residual diffs: (1) extra `sub sp,#4` from `volatile int pad` (load-bearing; removing it regresses to 955); (2) missing `adds r3,r1,#0` flags copy \u2014 target copies flags to r3 between bit0 test and branch, agbcc cannot schedule this copy at the right point (two-variable `flags2=flags` produces copy but after cmp/beq, score 1555); (3) regalloc rotations in abs/threshold blocks (target r0=abs/r1=limit vs ours r1=abs/r3=limit); (4) consequent branch/call offset differences. Duplicate if(r5) block is load-bearing. ~36 prior attempts plus this session exhausted C levers. Ordinary correct C, not asm, not not_c; needs compiler change. Best permuter source preserved.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.6398144,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedEnemySpeedCheck",
+  "text": "Matched from best 921 in 8 compiles. (1) Raw u8* casts like matched sibling sub_08024370; thunk names _call_via_r1/_call_via_r3; store literal `(u32)0x0866DBC0` directly, NOT `extern u32 D_0866DBC0` (adds ldr r0,[r0]). (2) Do not keep motion+0x28 pointer in a local: it becomes a 6th callee-saved reg (mov r7,sb); inline `*(void**)(motion+0x28)` at both the f14 test and sub_080142C0 arg so CSE emits the single target `ldr r2,[r5,#0x28]`. (3) Flags copy before cmp/beq: `u16 f2,f4; u32 bit0; f2=*(u16*)(motion+2); bit0=f2&1; f4=f2; if(bit0)... if(f4&4)...` puts adds r3,r1,#0 between ands and cmp. (4) Final 2 regalloc rows: third setflag must be inline struct field `((struct Flags *)motion)->f0 |= 1;` with `struct Flags { u16 f0; };` \u2014 a named pointer local regresses to 6 callee-saved regs.",
+  "by": "opencode-hy4-flash-free-2",
+  "created_at": 1795683534.6500676,
+  "score_before": null,
+  "score_after": null
  }
 ]

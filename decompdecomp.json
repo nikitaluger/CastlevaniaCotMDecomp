@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795743387.8802996,
- "revision": 68736,
+ "saved_at": 1795743472.2251184,
+ "revision": 68742,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "108008:134325736": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateScriptedProjectileContact",
-   "vram": 134325736
   }
  },
  "instructions": "",
@@ -2017,8 +2006,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5054,7 +5042,7 @@
   "updateScriptedProjectileContact": {
    "vram": 134325736,
    "matched_by": "opencode-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0801A768": {
    "vram": 134326120,
@@ -7151,7 +7139,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_0802E4A8": {
+  "updateScriptedEnemySpeedCheck": {
    "vram": 134407336,
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
@@ -29761,7 +29749,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802E4A8",
+   "name": "updateScriptedEnemySpeedCheck",
    "vram": 134407336,
    "size": 384,
    "status": "open"
@@ -50985,6 +50973,12 @@
    "kind": "func"
   },
   {
+   "name": "updateScriptedEnemySpeedCheck",
+   "address": 134407336,
+   "size": 384,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind69ScriptSprite",
    "address": 134409876,
    "size": 552,
@@ -52739,6 +52733,12 @@
   {
    "name": "gObjectScriptStepTable",
    "address": 140958544,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gEnemyScriptStepTable",
+   "address": 140958656,
    "size": 0,
    "kind": "data"
   },
