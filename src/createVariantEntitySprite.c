@@ -11,7 +11,7 @@ struct Entity {
     u32 object;         /* 0x38: sprite object created here */
     u32 part;           /* 0x3C: effect part data */
     u8 _40[0xC];
-    u8 variant;         /* 0x4C: index into D_080CEFCC */
+    u8 variant;         /* 0x4C: index into gProjectileSpeedTable */
     u8 _4D[0xF];
     u32 x;              /* 0x5C */
     u8 _60[0xC];
@@ -67,7 +67,7 @@ void sub_080C31E0(void *, u32);
 void sub_080C31E4(void *, void *, u32);
 extern u8 gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
-extern u32 D_080CEFCC[];
+extern u32 gProjectileSpeedTable[];
 extern u16 D_080CEF98[];
 extern u8 gMainWorkspace[];
 extern u8 gCameraState[];
@@ -97,7 +97,7 @@ void createVariantEntitySprite(struct Entity *entity)
   part = (struct Part *) entity->part;
   anim = ((u8 *) part) + 0x34;
   installUpdateHandler(entity, part, &sub_08014290);
-  part->animId = (s16) D_080CEFCC[entity->variant];
+  part->animId = (s16) gProjectileSpeedTable[entity->variant];
   zero = 0;
   part->x = entity->x;
   part->y = entity->y;

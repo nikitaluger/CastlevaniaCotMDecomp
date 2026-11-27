@@ -15,12 +15,12 @@ extern void initThreeSubObjects(void *a, struct SpawnLogic *b, struct SpawnSprit
 extern void sub_080C31E0(void *a, u32 b);
 extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
 extern void registerScriptObject(void *a, u32 b);
-extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u8 D_080CEFCC[]; extern u8 gScriptStepCallbackTable[];
+extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u8 gProjectileSpeedTable[]; extern u8 gScriptStepCallbackTable[];
 
 /* Spawn and initialise a scripted projectile/sprite: allocate the sprite,
  * set up its movement logic and animation, align its world position to the
  * scene's scroll offset, then start its script at the first handler. */
-void sub_08036BDC(void *arg0) {
+void spawnTriplePartProjectile(void *arg0) {
     struct SpawnSprite *sprite; struct SpawnLogic *logic;
     u32 savedAC; s32 zero, speed;
     u8 *animData; u8 *coordTable, *scrollState, *xBase, *yBase;
@@ -47,7 +47,7 @@ body:
     logic = (struct SpawnLogic *)U32(arg0, 0x3C);
     animData = (u8 *)logic + 0x34;
     installUpdateHandler(arg0, logic, sub_08037128);
-    speedTable = D_080CEFCC;
+    speedTable = gProjectileSpeedTable;
     speed = *(s16 *)(speedTable + U8(arg0, 0x4C) * 4);
     initWorkStateForKind(arg0, sprite, logic, savedAC, speed);
     zero = 0;

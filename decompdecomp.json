@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795743472.2251184,
- "revision": 68742,
+ "saved_at": 1795743760.8115032,
+ "revision": 68761,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "189608:134407336": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateScriptedEnemySpeedCheck",
-   "vram": 134407336
   }
  },
  "instructions": "",
@@ -2017,8 +2006,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7154,7 +7142,7 @@
   "updateScriptedEnemySpeedCheck": {
    "vram": 134407336,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_0802E628": {
    "vram": 134407720,
@@ -8031,7 +8019,7 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08036BDC": {
+  "spawnTriplePartProjectile": {
    "vram": 134441948,
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
@@ -12743,8 +12731,8 @@
   },
   "sub_08066A88": {
    "vram": 134638216,
-   "best_score": 3595,
-   "best_by": "permuter-8589936889"
+   "best_score": 2855,
+   "best_by": "opencode-hungerg-free-3"
   },
   "sub_08066C10": {
    "vram": 134638608,
@@ -30817,7 +30805,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08036BDC",
+   "name": "spawnTriplePartProjectile",
    "vram": 134441948,
    "size": 384,
    "status": "open"
@@ -51051,6 +51039,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnTriplePartProjectile",
+   "address": 134441948,
+   "size": 384,
+   "kind": "func"
+  },
+  {
    "name": "createVariantEntitySprite",
    "address": 134443456,
    "size": 496,
@@ -52223,6 +52217,12 @@
   {
    "name": "gScriptObjectAffineParams",
    "address": 135065392,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gProjectileSpeedTable",
+   "address": 135065548,
    "size": 0,
    "kind": "data"
   },
@@ -53504,7 +53504,7 @@
   },
   {
    "address": 140975068,
-   "type": "u32[]",
+   "type": "u32",
    "source": "match"
   },
   {
