@@ -53,8 +53,6 @@ extern u32 D_0202771C;
 extern u8 D_02025368[];
 
 void sub_0807C3D4(u8 *arg0) {
-int __repair_literal;
-
     struct R8 *r8;
     struct R7 *r7;
     struct R5 *r5;
@@ -107,8 +105,6 @@ int __repair_literal;
         u8 *b18 = arg0 + 0x18;
         sub_080C31E4(b18, arg0 + 0x22, *(u32 *)0x08671BB0);
         *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) += 1;
-__repair_literal = 2;
-
-        sub_080C31E0((s32)arg0, *(s32 *)(*(u8 *)(b18 + *(s16 *)(arg0 + 0x22) * __repair_literal) * 4 + *(u32 *)(arg0 + 0x14)));
+        sub_080C31E0((s32)arg0, *(s32 *)(*(u8 *)(b18 + *(s16 *)(arg0 + 0x22) * 2) * 4 + *(u32 *)(arg0 + 0x14)));
     }
 }

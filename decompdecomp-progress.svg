@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="750" viewBox="0 0 840 750" role="img" aria-labelledby="title desc">
-<title id="title">3,950 / 4,197 functions matched (94.1%)</title>
+<title id="title">3,950 / 4,196 functions matched (94.1%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="750" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">gba</text>
-<text x="20" y="59" font-size="16">3,950 / 4,197 functions matched (94.1%)</text>
+<text x="20" y="59" font-size="16">3,950 / 4,196 functions matched (94.1%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="752.919" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="753.098" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
 <text x="36" y="118" font-size="13">Matched: 3,950</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 247</text>
+<text x="236" y="118" font-size="13">Attempt: 246</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
 <text x="436" y="118" font-size="13">Open: 0</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
-<text x="636" y="118" font-size="13">Aside: 329</text>
+<text x="636" y="118" font-size="13">Aside: 330</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
 <g><title>sub_08000468: {&#x27;matched&#x27;: 1}</title>
 <rect x="20.000" y="160" width="8.000" height="8" fill="#238636"/>
@@ -6797,8 +6797,8 @@
 <g><title>updateScriptedEnemy: {&#x27;matched&#x27;: 1}</title>
 <rect x="210.000" y="440" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08064504: {&#x27;attempt&#x27;: 1}</title>
-<rect x="220.000" y="440" width="8.000" height="8" fill="#bf8700"/>
+<g><title>sub_08064504: {&#x27;aside&#x27;: 1}</title>
+<rect x="220.000" y="440" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>sub_080646A0: {&#x27;aside&#x27;: 1}</title>
 <rect x="230.000" y="440" width="8.000" height="8" fill="#b54747"/>
@@ -10439,7 +10439,7 @@
 <g><title>sub_0809F41C: {&#x27;matched&#x27;: 1}</title>
 <rect x="350.000" y="590" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0809F4A0: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateSixSlotFormation: {&#x27;matched&#x27;: 1}</title>
 <rect x="360.000" y="590" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0809F614: {&#x27;matched&#x27;: 1}</title>
@@ -10583,10 +10583,10 @@
 <g><title>sub_080A054C: {&#x27;matched&#x27;: 1}</title>
 <rect x="30.000" y="600" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080A05D0: {&#x27;matched&#x27;: 1}</title>
+<g><title>arrangeSlotsOnCircle: {&#x27;matched&#x27;: 1}</title>
 <rect x="40.000" y="600" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080A0638: {&#x27;matched&#x27;: 1}</title>
+<g><title>aimEntityAtTarget: {&#x27;matched&#x27;: 1}</title>
 <rect x="50.000" y="600" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080A0668: {&#x27;matched&#x27;: 1}</title>
@@ -12248,7 +12248,7 @@
 <g><title>sub_080B6758: {&#x27;matched&#x27;: 1}</title>
 <rect x="780.000" y="660" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080B67A0: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind66Effect: {&#x27;matched&#x27;: 1}</title>
 <rect x="790.000" y="660" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080B69A8: {&#x27;matched&#x27;: 1}</title>
@@ -12284,7 +12284,7 @@
 <g><title>initThreePartSpriteGfx: {&#x27;matched&#x27;: 1}</title>
 <rect x="100.000" y="670" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080B7134: {&#x27;matched&#x27;: 1}</title>
+<g><title>initSharedSpriteGraphics: {&#x27;matched&#x27;: 1}</title>
 <rect x="110.000" y="670" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>spawnParamChild: {&#x27;matched&#x27;: 1}</title>

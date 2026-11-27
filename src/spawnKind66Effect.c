@@ -10,7 +10,7 @@ struct MoverState {
 struct FrameDef { u8 _0[0x18]; u16 data0; u16 data1; u8 _18[0x0C]; };
 struct MoveParam { s32 velX; s32 velY; };
 extern struct FrameDef gEffectGfxTable[];
-extern struct MoveParam D_08102D14[];
+extern struct MoveParam gKind66Velocities[];
 extern u16 D_08102D0C[];
 extern u32 gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
@@ -24,7 +24,7 @@ extern void sub_080C31E0(u8 *, u32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
 extern void updateActorEffectSubObject(void);
 
-void sub_080B67A0(u8 *entity) {
+void spawnKind66Effect(u8 *entity) {
     u8 *workObj;
     struct MoverState *mover;
     u8 *moverTarget;
@@ -46,8 +46,8 @@ void sub_080B67A0(u8 *entity) {
     *(u16 *)workObj |= gMainWorkspace.flags;
     mover->x = *(u32 *)(entity + 0x4C);
     mover->y = *(u32 *)(entity + 0x5C);
-    mover->velX = D_08102D14[*(u8 *)(entity + 0x70)].velX * (s8)*(u8 *)(entity + 0x6C);
-    mover->velY = D_08102D14[*(u8 *)(entity + 0x70)].velY;
+    mover->velX = gKind66Velocities[*(u8 *)(entity + 0x70)].velX * (s8)*(u8 *)(entity + 0x6C);
+    mover->velY = gKind66Velocities[*(u8 *)(entity + 0x70)].velY;
     setSpriteFlipForDirection(workObj, -mover->velX);
     sub_080B7134(workObj, moverTarget);
     setAnimationFrame(workObj, moverTarget, 0, 1);

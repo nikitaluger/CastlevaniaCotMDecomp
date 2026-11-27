@@ -1,13 +1,13 @@
 extern s32 updateObjectDisplayState(u32, u32);
-extern void sub_080A05D0(u32, u32, u16, void *);
-extern void sub_080A0638(void *, u32, u32);
+extern void arrangeSlotsOnCircle(u32, u32, u16, void *);
+extern void aimEntityAtTarget(void *, u32, u32);
 extern s32 sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 
 /* Per-frame update for a six-slot formation: clear finished slots, run the entity's script
  * step, cache every slot's world position, arrange the slots on a circle around the entity
  * and aim each slot at its cached target. */
-void sub_0809F4A0(u8 *entity)
+void updateSixSlotFormation(u8 *entity)
 {
     u32 sprite;
     u32 state;
@@ -99,7 +99,7 @@ void sub_0809F4A0(u8 *entity)
         slot++;
     } while (slot <= 5);
 
-    sub_080A05D0(*(u32 *)(entity + 0x4C), *(u32 *)(entity + 0x5C), *(u16 *)(slots + 0x48), slots);
+    arrangeSlotsOnCircle(*(u32 *)(entity + 0x4C), *(u32 *)(entity + 0x5C), *(u16 *)(slots + 0x48), slots);
 
     if (*flagPtr != 0) {
         slot = 0;
@@ -112,7 +112,7 @@ void sub_0809F4A0(u8 *entity)
             {
                 u32 targetX = *(u32 *)xRead;
                 xRead += 4;
-                sub_080A0638(child, targetX, *(u32 *)yRead);
+                aimEntityAtTarget(child, targetX, *(u32 *)yRead);
             }
             yRead += 4;
             slot++;

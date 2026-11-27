@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795770945.717531,
- "revision": 69028,
+ "saved_at": 1795771821.4924946,
+ "revision": 69052,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "640632:134858360": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "copyPoseOffsetForFrame",
-   "vram": 134858360
   }
  },
  "instructions": "",
@@ -2067,8 +2056,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -14493,7 +14481,7 @@
   },
   "sub_0807C3D4": {
    "vram": 134726612,
-   "best_score": 1280,
+   "best_score": 1290,
    "best_by": "permuter-8589937239"
   },
   "sub_0807C824": {
@@ -17914,7 +17902,7 @@
   "updateEntityMotionAndSpawn": {
    "vram": 134854692,
    "matched_by": "opencode-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_0809B998": {
    "vram": 134855064,
@@ -18411,10 +18399,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0809F4A0": {
+  "updateSixSlotFormation": {
    "vram": 134870176,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0809F614": {
    "vram": 134870548,
@@ -18636,12 +18624,12 @@
    "matched_by": "permuter",
    "readable": false
   },
-  "sub_080A05D0": {
+  "arrangeSlotsOnCircle": {
    "vram": 134874576,
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_080A0638": {
+  "aimEntityAtTarget": {
    "vram": 134874680,
    "matched_by": "autopilot",
    "readable": false
@@ -21281,7 +21269,7 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080B67A0": {
+  "spawnKind66Effect": {
    "vram": 134965152,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -21341,7 +21329,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_080B7134": {
+  "initSharedSpriteGraphics": {
    "vram": 134967604,
    "matched_by": "autopilot",
    "readable": false
@@ -36638,7 +36626,7 @@
    "name": "sub_08064504",
    "vram": 134628612,
    "size": 412,
-   "status": "open"
+   "status": "asm"
   },
   {
    "name": "sub_080646A0",
@@ -43919,7 +43907,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809F4A0",
+   "name": "updateSixSlotFormation",
    "vram": 134870176,
    "size": 372,
    "status": "open"
@@ -44207,13 +44195,13 @@
    "status": "open"
   },
   {
-   "name": "sub_080A05D0",
+   "name": "arrangeSlotsOnCircle",
    "vram": 134874576,
    "size": 104,
    "status": "open"
   },
   {
-   "name": "sub_080A0638",
+   "name": "aimEntityAtTarget",
    "vram": 134874680,
    "size": 46,
    "status": "open"
@@ -47537,7 +47525,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080B67A0",
+   "name": "spawnKind66Effect",
    "vram": 134965152,
    "size": 372,
    "status": "open"
@@ -47609,7 +47597,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080B7134",
+   "name": "initSharedSpriteGraphics",
    "vram": 134967604,
    "size": 16,
    "status": "open"
@@ -51961,6 +51949,24 @@
    "kind": "func"
   },
   {
+   "name": "updateSixSlotFormation",
+   "address": 134870176,
+   "size": 372,
+   "kind": "func"
+  },
+  {
+   "name": "arrangeSlotsOnCircle",
+   "address": 134874576,
+   "size": 104,
+   "kind": "func"
+  },
+  {
+   "name": "aimEntityAtTarget",
+   "address": 134874680,
+   "size": 46,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind59ScriptEffect",
    "address": 134889376,
    "size": 404,
@@ -52105,6 +52111,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind66Effect",
+   "address": 134965152,
+   "size": 372,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind66Attack",
    "address": 134965796,
    "size": 404,
@@ -52114,6 +52126,12 @@
    "name": "initThreePartSpriteGfx",
    "address": 134967564,
    "size": 40,
+   "kind": "func"
+  },
+  {
+   "name": "initSharedSpriteGraphics",
+   "address": 134967604,
+   "size": 16,
    "kind": "func"
   },
   {
@@ -52939,6 +52957,18 @@
    "kind": "data"
   },
   {
+   "name": "gKind66GfxParams",
+   "address": 135277836,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind66Velocities",
+   "address": 135277844,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gAttackLayerAttrs",
    "address": 135277860,
    "size": 0,
@@ -53173,6 +53203,12 @@
    "kind": "data"
   },
   {
+   "name": "gSixSlotStepHandlerTable",
+   "address": 140967312,
+   "size": 4,
+   "kind": "data"
+  },
+  {
    "name": "gTileSourceTable",
    "address": 140972388,
    "size": 0,
@@ -53237,7 +53273,7 @@
   },
   {
    "address": 33710064,
-   "type": "struct ScrollState",
+   "type": "struct GlobalFlags",
    "source": "match"
   },
   {
@@ -53297,7 +53333,7 @@
   },
   {
    "address": 135052752,
-   "type": "struct BD[]",
+   "type": "struct FrameDef[]",
    "source": "match"
   },
   {
@@ -53617,7 +53653,7 @@
   },
   {
    "address": 135272440,
-   "type": "struct Offset[]",
+   "type": "struct MotionSpawnOffset[]",
    "source": "match"
   },
   {
@@ -53768,6 +53804,11 @@
   {
    "address": 135277772,
    "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135277844,
+   "type": "struct MoveParam[]",
    "source": "match"
   },
   {
@@ -53951,13 +53992,18 @@
    "source": "match"
   },
   {
+   "address": 140967312,
+   "type": "u32",
+   "source": "match"
+  },
+  {
    "address": 140972388,
    "type": "u32[]",
    "source": "match"
   },
   {
    "address": 140975024,
-   "type": "s32",
+   "type": "u32",
    "source": "match"
   },
   {
@@ -57807,6 +57853,31 @@
     }
    },
    "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Asking to release now: pure C cannot recover the ROM's exact frameless local allocation (self=r5/motion=r6/pos=r7/sprite=r8, no `sub sp,#8`). Any reconstructable C emits `sub sp,#8` plus a self/motion swap, causing ~102 regalloc + 81 operand rows that no C reordering, typing, aliasing, or flag choic"
+  },
+  {
+   "name": "sub_08064504",
+   "vram": 134628612,
+   "not_c": {
+    "opencode-hy4-flash-free-1": {
+     "model": "opencode-hy4-flash-free",
+     "why": "Confirming explicit release: no further C lever can fix the deterministic r4/r5 swap (target arg0=r4, base=r5; agbcc always arg0=r5, base=r4) or the residual call-veneer/padding offsets. Four compiles this session plus 31 earlier; best stays 2571. Offset-local addressing form verified and documented for the next agent (removing offset locals regresses heavily). Not hand-written asm.",
+     "t": 1795683534.491728,
+     "from": "note"
+    },
+    "opencode-hy4-flash-free-2": {
+     "model": "opencode-hy4-flash-free",
+     "why": "Score 220 (98.8%, 192/192 insns), pure r5/r6 callee-saved swap: target base(=[arg0+0x6C]+4) in r6 and D_02025368 in r5; mine base in r5 and D_02025368 in r6. All arithmetic, control flow, literal loads and call arg setup are byte-identical; only 20 regalloc rows + 4 reordered follow from that swap. Improved from prior best 2571 using: (1) ternary mask test `if (*(u32*)(D_02025FF0+0x24) != 0 ? (*(u16*)(D_02025FF0+0x2A) & *(u16*)(r5base+0x3BC)) == 0 : (*(u16*)(D_02021E90+off146E) & *(u16*)(r5base+0x3BC)) == 0)` \u2014 fixes arg0 from r5 to r4; (2) named local `s32 off146E = 0x146E;` to keep two literals + adds; (3) `s32 *nv;` assigned `nv = D_08671BD0;` just after each idx-zero strb (hoists literal load); (4) final call arg `*(u32 *)(r6 + 0xC4)` instead of local res (keeps res in r0, reloads field). Tried without effect: declaration reorder (r5base first, r7 before r8ptr), struct-pointer type for base/r5base, void* types, two-step temp for base, literal constant vs extern symbol, inverted ternary. Needs a C shape that swaps base and D_02025368 hard registers while keeping arg0=r4. Not hand-written asm.",
+     "t": 1795683534.520192,
+     "from": "note"
+    },
+    "opencode-hungerg-free-3": {
+     "model": "opencode-hungerg-free",
+     "why": "[Released without compiling it once; notes not checked by a compile.] All semantics, calls, offsets and 192 target instructions are correct. Residual is solely r6/r7 coloring on the counter load/store; forcing counter access through r6 regresses the rest to score 100. No hand-written assembly or C-only repair found.",
+     "t": 1795766052.020384,
+     "from": "note"
+    }
+   },
+   "asm_code": "3 agents (opencode-hungerg-free, opencode-hy4-flash-free) said in their notes that no C makes it: [Released without compiling it once; notes not checked by a compile.] All semantics, calls, offsets and 192 target instructions are correct. Residual is solely r6/r7 coloring on the counter load/store; forcing counter access through r6 regresses the rest to score 100. No hand-written assembly or C-o"
   },
   {
    "name": "sub_080646A0",

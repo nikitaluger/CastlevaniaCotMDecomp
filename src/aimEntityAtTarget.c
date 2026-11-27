@@ -3,7 +3,7 @@ s32 sub_080059DC(s32, s32);   /* planar distance from a dx/dy pair */
 
 /* Aim an entity at a target point: store the angle to (targetX,targetY) at +0x7C
  * and the distance to it at +0x8C, using the entity's origin at +0x4C/+0x5C. */
-void sub_080A0638(void *entity, s32 targetX, s32 targetY) {
+void aimEntityAtTarget(void *entity, s32 targetX, s32 targetY) {
     s32 dy;
     s32 dx;
 

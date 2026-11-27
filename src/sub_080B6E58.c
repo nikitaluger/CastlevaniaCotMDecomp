@@ -51,7 +51,7 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern void setSpriteFlipForDirection(void *, s32);
-extern void sub_080B7134(void *, void *);
+extern void initSharedSpriteGraphics(void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(void *, u32);
@@ -97,7 +97,7 @@ void sub_080B6E58(u8 *arg0)
     p->f10 = -(f10 << 16);
   }
   setSpriteFlipForDirection(obj, -p->f10);
-  sub_080B7134(obj, p34);
+  initSharedSpriteGraphics(obj, p34);
   setAnimationFrame(obj, p34, 2, 1);
   t = D_08102D44;
   p2 = allocEffectPart();

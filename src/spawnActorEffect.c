@@ -15,7 +15,7 @@ extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
 extern void installUpdateHandler(void *, void *, void *);
 extern void setSpriteFlipForDirection(void *, s32);
-extern void sub_080B7134(void *, void *);
+extern void initSharedSpriteGraphics(void *, void *);
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E0(u8 *, u32);
@@ -51,7 +51,7 @@ void spawnActorEffect(u8 *parent) {
     subObj->f10 = D_08102CFC[*(u8 *)(parent + 0x70)].a * (s8)*(u8 *)(parent + 0x6C);
     subObj->f14 = D_08102CFC[*(u8 *)(parent + 0x70)].b;
     setSpriteFlipForDirection(mainObj, -subObj->f10);
-    sub_080B7134(mainObj, subState);
+    initSharedSpriteGraphics(mainObj, subState);
     setAnimationFrame(mainObj, subState, 7, 1);
     spriteParams = D_08102CF4;
     subObj->f28 = allocEffectPart();

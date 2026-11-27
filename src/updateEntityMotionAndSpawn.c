@@ -1,72 +1,61 @@
-/* Update an entity's motion state from its mover, fire a queued spawn request,
- * then convert its world position into scroll-relative screen coordinates. */
-struct Entity {
-    u8 _00[0x38]; void *motion; void *mover; u8 _40[0x0C];
-    u32 worldX; u8 _50[0x0C]; u32 worldY; u8 _60[0x0C]; u32 facing;
-    u8 _70[0x0C]; u16 pose; u8 _7E[6]; s8 requestedPose; u8 _85[3]; s8 currentPose; u8 _89[3]; u8 spawnRequest;
-};
-struct Mover {
-    u8 _00[0x08]; u32 x; u32 y; u32 facing; u8 _14[0x14]; u32 linkData; u8 _2C[8];
-};
-struct Motion {
-    u8 _00[0x02]; u16 flags; u8 _04[0x04]; u16 pose; u8 _0A[0x0A]; u32 screenX; u32 screenY;
-};
-struct Offset { u32 dx; u32 dy; };
-struct ScrollState { u8 _0[0x18A8]; u8 frame; };
+/* Copy the mover's world position and facing into its sprite descriptor,
+ * change the animation frame when the requested pose changed, fire a queued
+ * child spawn, then write camera-relative screen coordinates back. */
+
 extern u8 gCameraState[];
-extern struct ScrollState gMainWorkspace;
+extern struct MotionEntityWorkspace gMainWorkspace;
 extern s16 gPoseFrameIndices[];
-extern struct Offset gSpawnOffsets[];
+extern struct MotionSpawnOffset gSpawnOffsets[];
 void setSpriteFlipForDirection(void *, u32);
-void sub_080114A8(void *, u32, s16, u32);
+void forceAnimationFrame(void *, u32, s16, u32);
 void copyPoseOffsetForFrame(u32, u32);
 void spawnPositionedEffect(u32, u32);
-void sub_0809C8A8(u32, u32, u16, s32);
+void spawnPositionedEffectWithParam(u32, u32, u16, s32);
 
-void updateEntityMotionAndSpawn(void *a) {
-    struct Entity *entity = a;
-    struct Motion *motion = entity->motion;
-    struct Mover *mover = entity->mover;
-    u8 *coordTable;
-    u8 *xTable;
-    u8 *yTable;
-    u32 moverTarget = 0x34 + (u32)mover;
-    u32 spawnX, spawnY, baseX;
-    u32 coordIdx;
+void updateEntityMotionAndSpawn(void *arg) {
+    struct MotionEntity *entity = arg;
+    struct MotionEntitySprite *sprite = entity->sprite;
+    struct MotionEntityMover *mover = entity->mover;
+    u8 *scrollState;
+    u8 *scrollXTable;
+    u8 *scrollYTable;
+    u32 animTrack = 0x34 + (u32)mover;
+    u32 spawnX, spawnY, originX;
+    u32 scrollIndex;
 
     mover->x = entity->worldX;
     mover->y = entity->worldY;
     mover->facing = entity->facing;
-    motion->pose = entity->pose;
-    setSpriteFlipForDirection(motion, mover->facing);
-    if ((s8)entity->currentPose != (s8)entity->requestedPose) {
-        entity->currentPose = entity->requestedPose;
-        sub_080114A8(motion, moverTarget, gPoseFrameIndices[(s32)(s8)entity->requestedPose], 0);
+    sprite->pose = entity->pose;
+    setSpriteFlipForDirection(sprite, mover->facing);
+    if ((s8)entity->shownPose != (s8)entity->wantedPose) {
+        entity->shownPose = entity->wantedPose;
+        forceAnimationFrame(sprite, animTrack, gPoseFrameIndices[(s32)(s8)entity->wantedPose], 0);
     }
-    if (entity->spawnRequest != 0) {
-        baseX = mover->x;
-        if ((motion->flags & 0x10) != 0) {
-            spawnX = baseX + gSpawnOffsets[entity->spawnRequest - 1].dx;
+    if (entity->spawnRequest != MOTION_SPAWN_NONE) {
+        originX = mover->x;
+        if ((sprite->flags & ORIGIN_FLIP_X) != 0) {
+            spawnX = originX + gSpawnOffsets[entity->spawnRequest - 1].dx;
         } else {
-            spawnX = baseX - gSpawnOffsets[entity->spawnRequest - 1].dx;
+            spawnX = originX - gSpawnOffsets[entity->spawnRequest - 1].dx;
         }
         spawnY = mover->y + gSpawnOffsets[entity->spawnRequest - 1].dy;
         switch (entity->spawnRequest) {
-        case 1:
+        case MOTION_SPAWN_POSITION:
             spawnPositionedEffect(spawnX, spawnY);
             break;
-        case 2:
-            sub_0809C8A8(spawnX, spawnY, (u16)(0x1000 + entity->pose), (motion->flags & 0x10) ? 1 : -1);
+        case MOTION_SPAWN_PARAM:
+            spawnPositionedEffectWithParam(spawnX, spawnY, (u16)(0x1000 + entity->pose), (sprite->flags & ORIGIN_FLIP_X) ? MOTION_SPAWN_DIR_RIGHT : MOTION_SPAWN_DIR_LEFT);
             break;
         }
-        entity->spawnRequest = 0;
+        entity->spawnRequest = MOTION_SPAWN_NONE;
     }
-    copyPoseOffsetForFrame(moverTarget, mover->linkData);
-    coordTable = gCameraState;
-    coordIdx = (gMainWorkspace.frame + 1) * 64;
-    xTable = coordTable + 0x1278;
-    motion->screenX = mover->x - ((*(u32 *)(xTable + coordIdx) + 0x8000) & 0xFFFF0000);
-    coordIdx = (gMainWorkspace.frame + 1) * 64;
-    yTable = coordTable + 0x127C;
-    motion->screenY = mover->y - ((*(u32 *)(yTable + coordIdx) + 0xFFFF8000u) & 0xFFFF0000);
+    copyPoseOffsetForFrame(animTrack, mover->linkData);
+    scrollState = gCameraState;
+    scrollIndex = (gMainWorkspace.frame + 1) * BEHAVIOR_SCROLL_STEP;
+    scrollXTable = scrollState + BEHAVIOR_SCROLL_X_OFFSET;
+    sprite->screenX = mover->x - ((*(u32 *)(scrollXTable + scrollIndex) + BEHAVIOR_SCROLL_BIAS_X) & BEHAVIOR_FRAC_MASK);
+    scrollIndex = (gMainWorkspace.frame + 1) * BEHAVIOR_SCROLL_STEP;
+    scrollYTable = scrollState + BEHAVIOR_SCROLL_Y_OFFSET;
+    sprite->screenY = mover->y - ((*(u32 *)(scrollYTable + scrollIndex) + BEHAVIOR_SCROLL_BIAS_Y) & BEHAVIOR_FRAC_MASK);
 }

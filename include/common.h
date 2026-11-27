@@ -1486,3 +1486,76 @@ struct ActorUpdateWorkspace {
 /* Kind-0x44 effect spawner (spawnKind44Effect): gEffectGfxTable record viewed as
  * a tile-id/palette-id pair at +8 and +0xA. */
 struct Kind44GfxEntry { u8 _0[8]; u16 gfxIndex; u16 palette; u8 _c[0x1C]; };
+
+/* Entity driven by updateEntityMotionAndSpawn. It keeps a sprite descriptor at
+ * +0x38 and a motion mover at +0x3C; the mover's world X/Y/facing live at
+ * +0x08/+0x0C/+0x10 and its animation track begins at +0x34. The sprite's
+ * animation frame sits at +0x08 and its camera-relative screen X/Y are written
+ * back to +0x14/+0x18. */
+struct MotionEntity {
+    u8 _00[0x38];
+    struct MotionEntitySprite *sprite; /* 0x38 */
+    struct MotionEntityMover *mover;   /* 0x3C */
+    u8 _40[0x0C];
+    u32 worldX;      /* 0x4C */
+    u8 _50[0x0C];
+    u32 worldY;      /* 0x5C */
+    u8 _60[0x0C];
+    u32 facing;      /* 0x6C */
+    u8 _70[0x0C];
+    u16 pose;        /* 0x7C */
+    u8 _7E[6];
+    s8 wantedPose;   /* 0x84 */
+    u8 _85[3];
+    s8 shownPose;    /* 0x88 */
+    u8 _89[3];
+    u8 spawnRequest; /* 0x8C */
+};
+
+struct MotionEntitySprite {
+    u8 _00[0x02];
+    u16 flags;       /* 0x02: ORIGIN_FLIP_X mirrors spawned children */
+    u8 _04[0x04];
+    u16 pose;        /* 0x08 */
+    u8 _0A[0x0A];
+    u32 screenX;     /* 0x14 */
+    u32 screenY;     /* 0x18 */
+};
+
+struct MotionEntityMover {
+    u8 _00[0x08];
+    u32 x;           /* 0x08 */
+    u32 y;           /* 0x0C */
+    u32 facing;      /* 0x10 */
+    u8 _14[0x14];
+    u32 linkData;    /* 0x28 */
+    u8 _2C[0x08];
+};
+
+struct MotionEntityWorkspace {
+    u8 _0[0x18A8];
+    u8 frame;        /* 0x18A8: video-frame counter */
+};
+
+/* One (dx,dy) child-spawn offset; gSpawnOffsets is indexed by spawnRequest - 1. */
+struct MotionSpawnOffset { u32 dx; u32 dy; };
+/* gPoseFrameIndices maps the requested pose to an animation-frame index. */
+
+/* Values of MotionEntity.spawnRequest and the child X-direction argument. */
+#define MOTION_SPAWN_NONE      0
+#define MOTION_SPAWN_POSITION  1
+#define MOTION_SPAWN_PARAM     2
+#define MOTION_SPAWN_DIR_RIGHT 1
+#define MOTION_SPAWN_DIR_LEFT  -1
+
+/* Six-slot circular formation driven by updateSixSlotFormation. The work block
+ * hangs off the entity's +0x3C pointer and its slot area starts at +0x48:
+ *   +0x00..0x17 six child-entity pointers
+ *   +0x18..0x2F cached child world X (six u32)
+ *   +0x30..0x47 cached child world Y (six u32)
+ *   +0x48 base angle (u16), +0x4A rotating angle (u16), +0x4F active flag
+ * The entity keeps its sprite at +0x38, the step-handler table at +0x14, the
+ * script stream at +0x18 and the current s16 step index at +0x22. */
+#define FORMATION_SLOT_COUNT  6
+#define FORMATION_ANGLE_STEP  0xD9
+#define FORMATION_KIND_ACTIVE 4
