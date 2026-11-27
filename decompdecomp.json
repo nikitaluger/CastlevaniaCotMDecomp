@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795739144.3593152,
- "revision": 68534,
+ "saved_at": 1795739629.2731247,
+ "revision": 68559,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -20230,8 +20230,8 @@
   },
   "sub_080B020C": {
    "vram": 134939148,
-   "best_score": 5475,
-   "best_by": "permuter-8589938501"
+   "best_score": 5330,
+   "best_by": "opencode-hungerg-free-3"
   },
   "sub_080B03B8": {
    "vram": 134939576,
@@ -20961,7 +20961,7 @@
   "spawnKind66ScriptEffect": {
    "vram": 134960924,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "sub_080B59C0": {
    "vram": 134961600,
@@ -22068,10 +22068,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080BC878": {
+  "spawnKind68ScriptEffect": {
    "vram": 134989944,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080BCA00": {
    "vram": 134990336,
@@ -48568,7 +48568,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080BC878",
+   "name": "spawnKind68ScriptEffect",
    "vram": 134989944,
    "size": 392,
    "status": "open"
@@ -51618,6 +51618,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind68ScriptEffect",
+   "address": 134989944,
+   "size": 392,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind68Effect",
    "address": 134990896,
    "size": 400,
@@ -52338,6 +52344,18 @@
    "kind": "data"
   },
   {
+   "name": "gKind68AnimDataTable",
+   "address": 135278372,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind68LayerAttrs",
+   "address": 135278384,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gKind68EffectAffineParams",
    "address": 135278392,
    "size": 0,
@@ -52553,7 +52571,7 @@
   },
   {
    "address": 135052752,
-   "type": "struct SpawnParams[]",
+   "type": "struct Kind68GfxRecord[]",
    "source": "match"
   },
   {
@@ -52967,6 +52985,11 @@
    "source": "match"
   },
   {
+   "address": 135277772,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 135277860,
    "type": "u16[]",
    "source": "match"
@@ -52984,6 +53007,16 @@
   {
    "address": 135278052,
    "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 135278372,
+   "type": "char[]",
+   "source": "match"
+  },
+  {
+   "address": 135278384,
+   "type": "u16[]",
    "source": "match"
   },
   {
@@ -53068,7 +53101,7 @@
   },
   {
    "address": 140975024,
-   "type": "s32[]",
+   "type": "u32",
    "source": "match"
   },
   {

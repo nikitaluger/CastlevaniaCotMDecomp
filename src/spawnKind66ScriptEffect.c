@@ -1,17 +1,62 @@
 struct GlobalState { u8 _0[0x18C2]; u16 gfxFlags; };
 extern struct GlobalState gMainWorkspace;
-struct SubObject { u8 _0; u8 f1; u8 f2; u8 f3; u16 f4; u16 f6; u16 f8; u16 fA; u16 fC; u16 fE; u32 f10; };
-struct HostObject {
-    u8 _0[8]; u32 f8; u32 fC; u32 f10; u32 f14; u8 _18[4]; s16 f1C; u8 _1E[4]; s16 f22; u8 _24[4];
-    struct SubObject *f28; u8 _2C[8]; u16 a34; u16 a36; u16 a38; u16 a3A;
+
+/* One render layer allocated by allocEffectPart. */
+struct Kind66RenderLayer {
+    u8 mode;         /* 0x00 */
+    u8 kind;         /* 0x01: RENDER_PART_KIND */
+    u8 layer;        /* 0x02 */
+    u8 priority;     /* 0x03 */
+    u16 gfxIndex;    /* 0x04: tile id from gEffectGfxTable */
+    u16 anim0;       /* 0x06 */
+    u16 anim1;       /* 0x08 */
+    u16 anim2;       /* 0x0A */
+    u16 anim3;       /* 0x0C */
+    u16 palette;     /* 0x0E: palette id from gEffectGfxTable */
+    u32 sprite;      /* 0x10: owner sprite */
 };
-struct ActorContext {
-    u16 f0; u16 f2; u8 _4[0x14-0x4]; void *f14; u8 f18; u8 f19; u8 _1A[0x22-0x1A];
-    s16 f22; void *f24; u8 _28[0x38-0x28]; void *f38; void * volatile f3C;
-    u8 _40[0xC]; u32 f4C; u8 _50[0xC]; u32 f5C; u8 _60[0xC]; s32 f6C;
+
+/* 0x48-byte work state in the script thread's slot at +0x3C. */
+struct Kind66WorkState {
+    u8 _0[8];
+    u32 x;           /* 0x08: world X from the script */
+    u32 y;           /* 0x0C: world Y from the script */
+    u8 _10[0xC];
+    s16 kind;        /* 0x1C: KIND66_EFFECT_KIND */
+    u8 _1E[4];
+    s16 animSlot;    /* 0x22: index returned by findKindIndex */
+    u8 _24[4];
+    struct Kind66RenderLayer *layer; /* 0x28 */
 };
-struct SpawnParams { u8 _0[0x10]; u16 f10; u16 f12; u8 _14[0x14]; };
-extern struct SpawnParams gEffectGfxTable[];
+
+/* Script thread that owns the spawned effect. */
+struct Kind66ScriptThread {
+    u16 f0;
+    u16 flags;                /* 0x02: KIND66_EFFECT_READY */
+    u8 _4[0x14 - 4];
+    void *scriptTable;        /* 0x14: handlers indexed by the step opcode */
+    u8 _18[0x22 - 0x18];      /* 0x18: script opcode/timer stream */
+    s16 step;                 /* 0x22: current script-step index */
+    void *cleanup;            /* 0x24: callback run on failure */
+    u8 _28[0x38 - 0x28];
+    void *sprite;             /* 0x38 */
+    void * volatile work;     /* 0x3C: work state above */
+    u8 _40[0xC];
+    u32 spawnX;               /* 0x4C */
+    u8 _50[0xC];
+    u32 spawnY;               /* 0x5C */
+    u8 _60[0xC];
+    s32 sizeParam;            /* 0x6C: fixed-point size (3.0 here) */
+};
+
+/* gEffectGfxTable record; this kind reads the tile/palette pair at +0x10/+0x12. */
+struct Kind66GfxRecord {
+    u8 _0[0x10];
+    u16 gfx;      /* 0x10 */
+    u16 palette;  /* 0x12 */
+    u8 _14[0x14];
+};
+extern struct Kind66GfxRecord gEffectGfxTable[];
 extern u16 gKind66LayerAttrs[];
 extern char gSpriteAnimDataTable[];
 extern u32 gScriptStepCallbackTable;
@@ -27,75 +72,77 @@ extern void sub_080C31E4(void *, void *, s32);
 extern void updateActorEffectSubObject(void);
 
 /*
- * Build the graphics/sub-object pair for an actor, set up its animation and
- * palette, copy in the spawn defaults, then advance the actor's script index.
+ * Spawn a script-driven kind-0x66 effect: allocate its sprite and work block,
+ * seed the animation and render layer from the shared tables, install the
+ * per-frame updater, then clear and advance the script step. On any failure
+ * the script's cleanup callback runs instead.
  */
-void spawnKind66ScriptEffect(struct ActorContext *actor) {
-    s32 gfx;
-    struct HostObject *host;
+void spawnKind66ScriptEffect(struct Kind66ScriptThread *actor) {
+    s32 sprite;
+    struct Kind66WorkState *work;
     u8 *animState;
     u16 *defaults;
-    u32 value;
+    u32 kindIndex;
     u8 *scriptPtr;
-    void **scriptTablePtr;
+    void **timerCallbacks;
     u8 *scriptEntry;
 
-    gfx = (s32)allocSpriteObject();
-    if (gfx == 0) goto fail;
-    actor->f38 = (void *)gfx;
-    allocWorkSlot(actor, 0, 0x48, 0);
-    if (actor->f3C == NULL) goto fail;
-    *((u32 *)(gfx + 0x1C)) = 0x80000009;
-    host = (struct HostObject *)actor->f3C;
-    animState = ((u8 *)host) + 0x34;
-    installUpdateHandler(actor, (u8 *)host, updateActorEffectSubObject);
-    host->f1C = 0x66;
-    host->f8 = actor->f4C;
-    host->fC = actor->f5C;
-    actor->f6C = 0xC0 << 10;
-    value = findKindIndex(host->f1C);
-    host->f22 = value;
-    if ((s16)value < 0) goto fail;
-    value = host->f22;
-    value = value << 6;
-    value = value + 0x200;
-    value &= 0xFC0;
-    *((u16 *)gfx) = value;
-    *((u16 *)gfx) |= gMainWorkspace.gfxFlags;
-    initSpriteGraphics((void *)gfx, animState, (host->f1C * 0xC) + ((u32)0x080CD400));
-    setAnimationFrame((void *)gfx, animState, 0, 1);
+    sprite = (s32)allocSpriteObject();
+    if (sprite == 0) goto fail;
+    actor->sprite = (void *)sprite;
+    allocWorkSlot(actor, 0, KIND66_EFFECT_WORK_SIZE, 0);
+    if (actor->work == NULL) goto fail;
+    *((u32 *)(sprite + 0x1C)) = KIND66_EFFECT_GFX_ID;
+    work = (struct Kind66WorkState *)actor->work;
+    animState = ((u8 *)work) + 0x34;
+    installUpdateHandler(actor, (u8 *)work, updateActorEffectSubObject);
+    work->kind = KIND66_EFFECT_KIND;
+    work->x = actor->spawnX;
+    work->y = actor->spawnY;
+    actor->sizeParam = KIND66_EFFECT_SCALE;
+    kindIndex = findKindIndex(work->kind);
+    work->animSlot = kindIndex;
+    if ((s16)kindIndex < 0) goto fail;
+    kindIndex = work->animSlot;
+    kindIndex = kindIndex << 6;
+    kindIndex = kindIndex + 0x200;
+    kindIndex &= 0xFC0;
+    *((u16 *)sprite) = kindIndex;
+    *((u16 *)sprite) |= gMainWorkspace.gfxFlags;
+    initSpriteGraphics((void *)sprite, animState, (work->kind * 0xC) + ((u32)KIND66_EFFECT_ANIM_TABLE));
+    setAnimationFrame((void *)sprite, animState, 0, 1);
     defaults = gKind66LayerAttrs;
-    host->f28 = allocEffectPart();
-    if (host->f28 == NULL) goto fail;
+    work->layer = allocEffectPart();
+    if (work->layer == NULL) goto fail;
     goto ok;
 fail:
-    sub_080C31E0(actor, actor->f24);
+    sub_080C31E0(actor, actor->cleanup);
     return;
 ok:
-    host->f28->f1 = 5;
-    host->f28->f2 = 8;
-    host->f28->f3 = 1;
-    host->f28->f4 = gEffectGfxTable[host->f1C].f10;
-    host->f28->f6 = defaults[0];
-    host->f28->f8 = defaults[1];
-    host->f28->fA = defaults[2];
-    host->f28->fC = defaults[3];
-    host->f28->fE = gEffectGfxTable[host->f1C].f12;
-    host->f28->f10 = (void *)gfx;
-    *((u16 *)((u8 *)gfx + 2)) |= 0x400;
-    actor->f2 |= 0x1000;
+    work->layer->kind = KIND66_EFFECT_LAYER_KIND;
+    work->layer->layer = KIND66_EFFECT_LAYER_NUM;
+    work->layer->priority = KIND66_EFFECT_LAYER_PRI;
+    work->layer->gfxIndex = gEffectGfxTable[work->kind].gfx;
+    work->layer->anim0 = defaults[0];
+    work->layer->anim1 = defaults[1];
+    work->layer->anim2 = defaults[2];
+    work->layer->anim3 = defaults[3];
+    work->layer->palette = gEffectGfxTable[work->kind].palette;
+    work->layer->sprite = (void *)sprite;
+    *((u16 *)((u8 *)sprite + 2)) |= 0x400;
+    actor->flags |= KIND66_EFFECT_READY;
     {
-        s16 idx = actor->f22;
+        s16 idx = actor->step;
         *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) = 0;
     }
-    scriptTablePtr = &gScriptStepCallbackTable;
+    timerCallbacks = &gScriptStepCallbackTable;
     scriptPtr = ((u8 *)actor) + 0x18;
-    sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, (s32)(*scriptTablePtr));
+    sub_080C31E4(scriptPtr, ((u8 *)actor) + 0x22, (s32)(*timerCallbacks));
     {
-        s16 idx = actor->f22;
+        s16 idx = actor->step;
         *((u8 *)(((u32)idx * 2) + (u32)actor + 0x19)) += 1;
-        idx = actor->f22;
+        idx = actor->step;
         scriptEntry = scriptPtr + ((u32)idx * 2);
-        sub_080C31E0(actor, *((void **)(actor->f14 + ((*scriptEntry) * 4))));
+        sub_080C31E0(actor, *((void **)(actor->scriptTable + ((*scriptEntry) * 4))));
     }
 }

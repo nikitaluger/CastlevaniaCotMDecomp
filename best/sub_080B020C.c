@@ -93,6 +93,6 @@ new_var7 = 0;
   sp4 = temp_r4_2;
   *((s32 *) (temp_r6[2] + 0x6C)) = (*((s32 *) ((*new_var6) + 0x6C))) + ((sub_080C31E0(temp_r4_2 + 0x4000, *inline_fn2(0x08671BFC)) >> 8) * 0x1800);
   *((s32 *) (temp_r6[2] + 0x7C)) = (*((s32 *) ((*new_var6) + 0x7C))) + ((sub_080C31E0(temp_r4_2, *inline_fn2(0x08671BFC)) >> 8) * 0x1800);
-  *((s32 *) ((new_var4 + new_var5) + 0x8C)) = sp8;
+  *((s32 *) (temp_r6[0] + 0x8C)) = sp8;
   *((s32 *) ((*new_var6) + 0x8C)) = inline_fn(var_r9, sp4);
 }

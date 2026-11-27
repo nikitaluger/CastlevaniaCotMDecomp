@@ -17144,7 +17144,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BC878",
+  "function": "spawnKind68ScriptEffect",
   "text": "stub compiled; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683533.9826257,
@@ -51280,7 +51280,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BC878",
+  "function": "spawnKind68ScriptEffect",
   "text": "Best score 6900 (combined-if structure). Core blocker: register allocation (arg0 in r4 vs target r5; sprite r7 vs r6; inner r5 vs r4) and missing 'adds r1,r0,#0' copy + inner load. Tried struct fixes, t13 s32, base as integer/volatile/extern, goto (worse), decl reordering, dummy var, reload-based sign check. Combined if is correct. Cannot get closer without register-pinning (register asm not allowed) or a different variable-liveness pattern. Base folding also single load vs target two. Releasing.",
   "by": "opencode-beam-free-5",
   "created_at": 1795683534.1608932,
@@ -111120,7 +111120,7 @@
   "score_after": null
  },
  {
-  "function": "sub_080BC878",
+  "function": "spawnKind68ScriptEffect",
   "text": "Can't get closer: register-allocation wall at score 6900 (best so far). Target keeps arg0 in r5, sprite in r6, inner in r4 across the whole body; any C I write assigns them to r4/r7/r5 and the diff is pure regalloc plus a few missing copy insns \u2014 no pure-C form changes which register holds a live value across calls. Confirmed floor by prior agent (beam-free-5, 6900). Called-symbols also don't link to ROM call sites. This is a regalloc wall, not a C wall; not worth burning the 8-compile move-on budget. Releasing to match small near-misses instead.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.4558887,
@@ -344287,5 +344287,174 @@
   "score_before": 215,
   "score_after": 215,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:76d54f8372dd9c03e3e6c9b8af82709975ba98edf00523c0f59451481afb8771:e2b65aa1062d91297ec8f17799c2cc90d5e038aa8b8a3c72e1f44cc82a863215"
+ },
+ {
+  "function": "sub_080ADCA0",
+  "text": "Matched donor spawnKind65ScriptEffect supplied the correct overall structure. A clean kind-0x64 adaptation compiled at 855; keeping allocEffectPart's result in a local for the first f1 store removed an extra reload and improved it to 635, but inherited best remains 525. Target and candidate are both 198 instructions. Remaining differences are register coloring for the heading OR, f1/f3 byte stores, flip-mask load, and the 0x1000 flag/zero-register cluster; linker call warnings are displacement artifacts, not different callees.\nAdapted matched spawnKind65ScriptEffect with kind 0x64, sprite type 1, animation args 0/0, D_08102508 attrs, table f4/f6, and sub_080057F8 flip branch (855). Added a SubObject *e local and changed only the allocation/f1 store to e->f1 (635).\nThe e local removes the candidate's extra ldr r0,[r4,#0x28] and restores the target alignment nop, but register-coloring differences remain and 525 is still better.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795739152.1350725,
+  "score_before": 855,
+  "score_after": 635,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:76d54f8372dd9c03e3e6c9b8af82709975ba98edf00523c0f59451481afb8771:938ac0e7caea40f41bd109b988e264014a941b55396a1fa8cfab072d22d0a650"
+ },
+ {
+  "function": "sub_0800DE50",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Score 25 (99.8%; 232/232 instructions). Only residual: 5 `r` rows at the first DMA dst expression `(0xC & gCameraState.f1262)<<12` \u2014 target uses r1 for the AND result and r0 for the literal, agbcc swaps them. An accepted agbcc allocator-tie rule covers this. Flags confirmed not the cause (search_flags: -O1/-O2/-O3/Os all >=25, project's best). Do not cycle declarations/volatile/statement order. Requires allocator/compiler change.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795739158.3979878,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "sub_0809295C",
+  "text": "Branchy inline-literal-pool Thumb leaf ABI wall. Target is 12-insn frameless leaf with literal pool embedded mid-function (0x0809296C) and bare bx lr; agbcc -mthumb-interwork emits push{lr}/pop{r1};bx r1 and moves pool/end, rippling branch/PC offsets. Current best 455 (rev a6591c04df73cfd6f506) is byte-exact on real body logic but cannot clear frame+inline-pool layout. Tried: current best recompile only; matches known DRACULA AGB1 branchy literal-pool Thumb leaf wall / inline-literal-pool wall. Next step: requires compiler/backend or extent/layout handling that can emit frameless Thumb leaf with inline pool as ROM; no C-source fix in-profile.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739282.945967,
+  "score_before": 455,
+  "score_after": 455,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a695290ee003fe0601e57402e1edead36b998ba5b3f5490679817d34d2fd55e5:9a823c655d23edf3550b050c44f69a8156e640b5f1f60c641f4f0ee42556d685"
+ },
+ {
+  "function": "sub_08016518",
+  "text": "Frameless Thumb loop-leaf ABI wall. Target is 12-insn no-call circular-list walk ending bare bx lr; agbcc -mthumb-interwork emits push{lr}/pop{r0};bx r0 and ripples beq/literal offsets. Current best 365 (rev 9e1f54d522fbd4929938) has exact loop/body logic; only frame/offset ripple remains. Tried: recompiled clean void** walk; same diff as known wall. Next step: needs compiler/backend mode emitting frameless Thumb leaves; no C-source fix in-profile.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739283.2353783,
+  "score_before": 365,
+  "score_after": 365,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:a695290ee003fe0601e57402e1edead36b998ba5b3f5490679817d34d2fd55e5:d747b9c7cdf8768ae3f27aea72aba017ab36122fcb659c4d1e929c840489e0cc"
+ },
+ {
+  "function": "sub_080BF004",
+  "text": "Rechecked baseline at 360 with 209/209 instructions. Only six rows differ, all in the VBlank wait loop: ROM uses mask r3/status r1 plus `adds r0,r3,#0`; agbcc uses mask r1/status r0 and folds the copy away, rippling the branch, pool displacement and trailing nop. Five source variants were byte-identical at 360; volatile mask regressed to 1162. Proposed reusable allocator-wall knowledge #8589934655.\nBaseline 360; local repair temp/store/reload variants were 360, compile error, and 400. Explicit u32 mask, register mask, split initializer, direct AND, and status temporary variants all remained byte-identical at 360; volatile mask scored 1162.\nNo source spelling changed the six-row residual. The missing mask copy and following branch/pool/nop offsets are one deterministic register-allocation difference.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795739329.9291687,
+  "score_before": 360,
+  "score_after": 360,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:a695290ee003fe0601e57402e1edead36b998ba5b3f5490679817d34d2fd55e5:dc654efaa1ec8b49b0dc18c68bc1b86d93f94ca85edf5d2df6d357ae2e693829"
+ },
+ {
+  "function": "sub_08086E28",
+  "text": "Register-allocation tie at 99.5% (20). Target keeps literal 0x305 in r4 across load/dec/reload sequence (`ldr r4,=#0x305; adds r0,r5,r4; ... subs r4,#1; adds r1,r5,r4; ldrb r4,[r1]`), agbcc uses r1 for the literal/address temp (4 reg rows differ). Body/opcodes/order exact. Tried: baseline recompile (20), try_local_repairs 6 families on rev 5d6448cb1fef5e694ef2 (decl_order/signedness/dead_copy/store_temp_inline/relay_copy_fold/loop_fence_unwrap) - no improvement. Prior handoff reports ~254 attempts. Next step: if any, find a source shape that creates callee-saved pressure or changes literal lifetime without disturbing r4/r5 byte flow; likely agbcc allocator tie, not C-logic issue.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739354.8670425,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:750c3b182cd43765a5f8367f4fd85b3c4cfa76746e4e3f7bae1ef43717cf7ac0"
+ },
+ {
+  "function": "sub_080BEF60",
+  "text": "Thumb leaf, 40 insns, fixed profile agbcc -mno-thumb-interwork -O2 -fno-strength-reduce. Score 705 floor. Root cause: ROM is frameless (`bx lr`, two separate 0x04000005 literal-pool entries), every agbcc profile emits `push {lr}` ... `pop {pc}`; that shifts branch/literal offsets and makes the final pool entry differ. Accepted frameless-Thumb-leaf wall. A prior agent recorded a 416 floor with 'all 40 target instructions present' \u2014 likely a source shape that preserved `lsls r0,r2,#0x18`; search that before cycling flags. Do not repeat the shift==0 or u32-r2 edits (already held 705).\nBaseline + 2 patches (if((r2<<24)==0); u32 r2) + 5 compiler_experiments (-mthumb-interwork O1/O2, -mno-interwork -fomit-frame-pointer O2), all score 705; 28 historical compiles at this best\nNo C spelling or flag changed the 6 residual rows: extra push {lr}, missing lsls r0,r2,#24 (ours cmp r2,#0), two literal-pool operand rows shifted 4, pop {pc} vs bx lr. -mthumb-interwork is worse (865).",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795739398.1465206,
+  "score_before": 705,
+  "score_after": 705,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:8856a5c6634190a00a8734d3712d5d3e652fab54f751a3bc2bb9fca0954975b3"
+ },
+ {
+  "function": "sub_080A89A4",
+  "text": "Saved best 905 (rev be9464eef3c229a4800d) is much better than my attempts (1635/1425/1635). Saved best has uninitialized `volatile unsigned int off; v = *((s32 *)(base - (-off)));` in the arg0+0x4C==0 branch - quality flag says invalid/uninitialized read, but it preserved separate gMainWorkspace/0x174C literals and structure. My fixes: initializing off to 0x174C with same volatile-minus-minus shape regressed to 1635 (stack spill); clean `u32 off=0x174C; *(base+off)` regressed to 1425 with literal fold/swap diagnostic. Target shape: load base 0x02025FF0 and off 0x174C as separate literals, ldr word, compare 0x87FFFF/0x1780000, return 0/1/2 or 2/1/0 by branch. Next step: start from saved_best, fix only the uninitialized off while preserving its exact codegen/literal layout (try `volatile unsigned int off; off=0x174C; v=*((s32*)(base - (-off)));` or equivalent that initializes without adding stack slot), then verify no linker/literal-fold diagnostics.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739410.1563535,
+  "score_before": 1425,
+  "score_after": 1425,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:6079cd73d1c269116f7eef7298f03eaa073e12070a438d9aa138c518d7e2d3f7"
+ },
+ {
+  "function": "sub_08001614",
+  "text": "Score 200 (71.4%) floor; 7/7 real target instructions byte-exact including `bx r1`. Only residual: 2 extra `movs r0,r0` alignment nops before our emitted literal pool. Accepted DRACULA AGB1 literal-pool/extent wall (pool at 0x08001624 holds .byte 0x7C,0x5B \u2014 top bytes belong to adjacent data). Flags and source spelling cannot move the pool out of the extent. Requires linker/extent change (propose_change with exact old/new end, or a compiler that emits a 2-byte-aligned external pool).\nBaseline + 82 historical compiles at score 200; tried both `s32(void*)` and `void*(s32)` signatures (32 times, 6 agents) and the m2c raw-offset shape; both keep the 7 real target instructions byte-exact\nNo C spelling, cast, signature or in-profile flag removed the 2 trailing `movs r0,r0` alignment nops. The ROM's 2-byte pool fragment at 0x08001624 is outside the 16-byte declared extent; agbcc must emit a full 4-byte pool inside it, adding 4 bytes of padding.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795739433.0041592,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:0c200189b7cfb428a6b7f70434c4299edf05dae199dbbf27d30932143e2eec9b"
+ },
+ {
+  "function": "sub_08094374",
+  "text": "Frameless branchy Thumb leaf ABI wall. Target: 12-insn leaf reading s16 0x020279E8, cmp 0xD, return 0 else -1, inline literal pool, bare bx lr. agbcc -mthumb-interwork inserts push{lr}/pop{r1};bx r1 and ripples branch/pool offsets. Best 455 (rev 4ad332391e5f97abd349) body exact. Tried: baseline recompile. Next step: requires frameless Thumb-leaf compiler/backend mode; no C-source fix in-profile.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739479.3021064,
+  "score_before": 455,
+  "score_after": 455,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:45b7af2d8a4dd8e58deaeeaf99b7833dbaf0cc54b2922bac609dd4df7db3e3c9"
+ },
+ {
+  "function": "sub_080186C0",
+  "text": "Score 215 (84.6%) floor; no-call leaf saturating-add helper. Accepted DRACULA AGB1 frameless-Thumb-leaf ABI wall: agbcc -mthumb-interwork always inserts push {lr}/pop {r0}; bx r0 where ROM uses bare bx lr. All flag variants hold 215 (O1 worse 955). Requires an ABI/backend that emits frameless Thumb leaves. C source is correct; do not cycle loop/if spellings or pointer declarations.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795739479.8421922,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
+ },
+ {
+  "function": "decode2bppTiles",
+  "text": "Best 1145/96 insns. Residual is u8 truncation of a=t<<4 and b=t2<<4: compiler emits lsls #0x1c + lsrs #0x18 instead of target's single lsls #4. Widening a,b changes register allocation and instruction count (92), worsening score. u8 allocation matches target registers otherwise. Local repairs (9 trials) no improvement. Next agent: try compound assignment (a=t; a<<=4) or compiler_passes to identify pass emitting lsrs; keep u8 to preserve allocation.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795739521.0551014,
+  "score_before": 1145,
+  "score_after": 1145,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:f622e5f9bcf2e862001d36e2d9d0f23d46aa18d95ab75ec127a6f7e931e67eb2"
+ },
+ {
+  "function": "sub_080BF1A8",
+  "text": "Best score 360: all real instructions through the wait loop and BG stores are byte-exact; only tail loop register allocation differs. Target keeps mask in r3, loads DISPSTAT into r1, copies r3 to r0 (`adds r0,r3,#0`) before `ands`; candidate puts mask in r1, loads into r0, and omits the copy, causing a 2-byte branch/literal shift plus trailing alignment nop. Tried explicit byte temporary/break loop, reversed `&` operands, and `(u8)` cast; all produced the identical score-360 diff. Shared andBits helper change to a u8 temporary caused a much worse score 2080 and was reverted.\nExplicit u8 loop temporary with if/break; reversed operand order; cast mask to u8. Each retained score 360 and the exact same six-row tail diff. Changing the shared andBits temporary to u8 regressed to 2080.\nNo improvement; the compiler still coalesces the mask/result and omits target `adds r0,r3,#0`.",
+  "by": "opencode-hungerg-free-3",
+  "created_at": 1795739528.75361,
+  "score_before": 360,
+  "score_after": 360,
+  "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:0d6d0f6442940a86b7acc9b6fb4a092db51d76afa84e02c08ece128d24c5d255"
+ },
+ {
+  "function": "sub_08097234",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Frameless branchy Thumb leaf ABI wall. Target: 12-insn leaf reading s16 0x020279E8, cmp 0x10, return 0 else -1, inline literal pool, bare bx lr. agbcc -mthumb-interwork inserts push{lr}/pop frame and ripples branch/pool offsets. Best 455 (rev dd416da91618ea9e35d3/historical). Same known DRACULA AGB1 branchy literal-pool Thumb leaf/inline-pool wall. Next step: requires frameless Thumb-leaf compiler/backend mode; no C-source fix in-profile.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739543.2808347,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "getSpawnBehaviorIndex",
+  "text": "Correct logic per target asm is `if (*(s16*)0x020279E8 == 6) return 0; return -1;` (beq->movs r0,#0, else movs r0,#1;negs;b). That correct C scores 465 (rev 5aed81b10be0f6a0b3c8) and hits frameless branchy Thumb leaf ABI wall: agbcc inserts push{lr}/pop{r1};bx r1 and ripples inline literal/branch offsets, body logic exact. Saved historical best 325 is WRONG logic (returned 1/0) - do not use it as behavior reference. Next step: requires frameless Thumb-leaf compiler/backend mode; no C-source fix in-profile. Use correct 0/-1 logic.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739557.7944057,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:c6e94bc0436d6b951c66352abe1596f2602c9d9f3f0c23a6095ff03fededccfa"
+ },
+ {
+  "function": "sub_08096F5C",
+  "text": "Correct logic per target asm is `if (*(s16*)0x020279E8 == 0xB) return 0; return -1;`. Correct C scores 465 (rev 64f91746f9eedf63955e) with same frameless branchy Thumb leaf ABI wall (push{lr}/pop frame, inline pool/branch ripple, body exact). Saved historical best 325 was wrong logic (1/0) - do not treat as correct. Next step: requires frameless Thumb-leaf compiler/backend mode; no C-source fix in-profile. Use correct 0/-1 logic.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795739557.8643825,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:7af7f9e11635829fe05b6fcf9d308108ddd0dbe3d614805018e6f7b7eac4e6fb"
+ },
+ {
+  "function": "sub_08016AB8",
+  "text": "Score 365 floor. No-call counted loop searching a 128-entry table at 0x020207C0, returns pointer or 0. Accepted DRACULA AGB1 frameless-Thumb loop-leaf ABI wall. Do not cycle while/for/pointer declaration spellings: the only source-order edit tried (counter declared before pointer) made it worse (455) because the pool offset shifted; saved_best restored. Requires a compiler/backend that emits frameless Thumb leaves.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795739574.5885653,
+  "score_before": 365,
+  "score_after": 365,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e28efd9a6224ed8c7ce4f9f7e4b4c8707dad1c304b66452d11162dd1b11f7707:79e799d52d779d5a5c9fb062222e70c94ad7e3e52bab186887b3b50998267ae1"
+ },
+ {
+  "function": "sub_08030188",
+  "text": "Best 70/288 insns, pure regalloc: one-shot 0x1C/0x22 index temps target r2/r4 vs agbcc r1/r2; sl/sb zero/one copies target r1/r2/r4 vs agbcc r4/r2/r2. All 288 target instructions byte-exact and in order. Local repairs 6 trials no improvement. Terminal agbcc -O2 scratch-register tie; ~82 lifetime attempts. Next agent: declaration order or compiler_passes to see allocation priority; likely compiler wall.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795739617.098506,
+  "score_before": 70,
+  "score_after": 70,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:70027ac705364fd4308527007f042cbaad5ad3eb2bd7de214c51feef48db9748"
+ },
+ {
+  "function": "sub_08098400",
+  "text": "Verified this session (fresh compile, score 305). Frameless Thumb leaf checking D_03000830 flags; literal pool at 0x0809841C. Accepted DRACULA AGB1 frameless-leaf + literal-pool-extent wall. All 20 real target instructions byte-exact. Do not spend budget on source permutations or flags; requires compiler/backend that emits frameless Thumb leaves with the ROM's pool placement.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795739622.8918858,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:79fbbe020d34b0e5a61234dfd2c566022564c96163fb7bfa11d3af1ed02ced85:7c4f5f39f68b51e9a4adb9649db691e602c3ba5f03a4091d9267941fd0486611"
  }
 ]

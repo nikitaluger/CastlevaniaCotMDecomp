@@ -1275,3 +1275,31 @@ struct ArcTrailState {
 #define ARC_TRAIL_MAX_POINTS    0xA        /* index bound of points[] */
 #define ARC_TRAIL_DUST_KIND     0xA2       /* kind of the spawned trail dust */
 #define SPAWN_KIND_OFFSET       0x1870     /* word in gMainWorkspace used as spawn parent/kind */
+
+/* Kind-0x66 scripted effect (spawnKind66ScriptEffect). The script thread owns
+ * a sprite at +0x38 and a 0x48-byte work block at +0x3C. gEffectGfxTable
+ * records are 0x28 bytes; the tile/palette pair used by this kind sits at
+ * +0x10/+0x12. */
+#define KIND66_EFFECT_KIND       0x66
+#define KIND66_EFFECT_GFX_ID     0x80000009
+#define KIND66_EFFECT_WORK_SIZE  0x48
+#define KIND66_EFFECT_READY      0x1000
+#define KIND66_EFFECT_LAYER_KIND 5
+#define KIND66_EFFECT_LAYER_NUM  8
+#define KIND66_EFFECT_LAYER_PRI  1
+#define KIND66_EFFECT_SCALE      (0xC0 << 10)
+#define KIND66_EFFECT_ANIM_TABLE 0x080CD400
+
+/* Kind-0x68 scripted effect (spawnKind68ScriptEffect): like the other
+ * spawnKindXX constructors, but flips the sprite and scales its motion from a
+ * signed script parameter jittered by a random factor. The gEffectGfxTable
+ * record's tile/palette pair for this kind is at +0x08/+0x0A. */
+#define KIND68_EFFECT_KIND       0x68
+#define KIND68_EFFECT_GFX_ID     0x80000009
+#define KIND68_EFFECT_WORK_SIZE  0x48
+#define KIND68_EFFECT_READY      0x1000
+#define KIND68_EFFECT_LAYER_KIND 5
+#define KIND68_EFFECT_LAYER_NUM  8
+#define KIND68_EFFECT_LAYER_PRI  1
+#define KIND68_SCALE_JITTER      0x8000  /* random offset range */
+#define KIND68_SCALE_BASE        0x40000 /* centres the scale near 1.0 */
