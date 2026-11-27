@@ -1741,3 +1741,8 @@ struct ActorChildVariantStep { u8 _0[0x19]; u8 counter; };
 #define ACTOR_CHILD_VARIANT_VEL_RIGHT   0x00028000
 #define ACTOR_CHILD_VARIANT_VEL_LEFT    0xFFFD8000
 #define ACTOR_CHILD_VARIANT_VEL_Y       0xFFFB0000
+
+/* Kind-0x66 three-part effect spawner (spawnKind66ThreePartEffect). */
+#define KIND66_3PART_LAYER_PARAMS 0x08102B84  /* u16 affine parameter table */
+#define KIND66_3PART_GFX_ID       0x80000009
+#define KIND66_3PART_VISIBLE_FLAG 0x400       /* sprite attribute bit set on success */

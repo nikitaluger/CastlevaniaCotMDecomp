@@ -74,7 +74,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08097D90(void);
 extern void updateActorEffectSubObject(void);
 
-void sub_080B4DD4(struct Sarg *parent)
+void spawnKind66ThreePartEffect(struct Sarg *parent)
 {
   struct P *subObjAlias;
   s32 mainObj;

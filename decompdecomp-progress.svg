@@ -7820,7 +7820,7 @@
 <g><title>sub_08079D34: {&#x27;matched&#x27;: 1}</title>
 <rect x="420.000" y="480" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_08079DF0: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnActorChildEffectWithSound: {&#x27;matched&#x27;: 1}</title>
 <rect x="430.000" y="480" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_08079F50: {&#x27;matched&#x27;: 1}</title>
@@ -12122,7 +12122,7 @@
 <g><title>scriptSetPairedActorPose: {&#x27;matched&#x27;: 1}</title>
 <rect x="360.000" y="660" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_080B4DD4: {&#x27;matched&#x27;: 1}</title>
+<g><title>spawnKind66ThreePartEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="370.000" y="660" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_080B4F34: {&#x27;matched&#x27;: 1}</title>
