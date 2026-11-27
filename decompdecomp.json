@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795810684.1202304,
- "revision": 70956,
+ "saved_at": 1795811011.0953047,
+ "revision": 70973,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1780,28 +1780,6 @@
     "-O2",
     "-fno-strength-reduce"
    ]
-  },
-  "230456:134448184": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_08038438",
-   "vram": 134448184
-  },
-  "165988:134383716": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "sub_08028864",
-   "vram": 134383716
   }
  },
  "instructions": "",
@@ -2142,8 +2120,7 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -3664,7 +3641,7 @@
   "handleMenuSelectionInput": {
    "vram": 134271888,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_0800D4BC": {
    "vram": 134272188,
@@ -6453,8 +6430,8 @@
   },
   "sub_080248C0": {
    "vram": 134367424,
-   "best_score": 3760,
-   "best_by": "opencode-hy4-flash-free-66"
+   "best_score": 2820,
+   "best_by": "opencode-hy4-flash-free-11"
   },
   "sub_080249E4": {
    "vram": 134367716,
@@ -7196,7 +7173,7 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_0802B66C": {
+  "updateHoveringEffectStep": {
    "vram": 134395500,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
@@ -30281,7 +30258,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802B66C",
+   "name": "updateHoveringEffectStep",
    "vram": 134395500,
    "size": 300,
    "status": "open"
@@ -52561,6 +52538,12 @@
    "kind": "func"
   },
   {
+   "name": "updateHoveringEffectStep",
+   "address": 134395500,
+   "size": 300,
+   "kind": "func"
+  },
+  {
    "name": "updateScriptedObjectMover",
    "address": 134397080,
    "size": 368,
@@ -56004,7 +55987,12 @@
   },
   {
    "address": 135049208,
-   "type": "u16[]",
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 135049218,
+   "type": "u8[]",
    "source": "match"
   },
   {

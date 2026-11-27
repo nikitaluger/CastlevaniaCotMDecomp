@@ -1,7 +1,7 @@
-extern void sub_08005E80(s32);
+extern void playSound(s32);
 extern void sub_08006210(void);
 extern void sub_0800EB44(u16, s32, s32);
-extern void sub_080C31E8(void *, void *, s32, s32);
+extern void _call_via_r3(void *, void *, s32, s32);
 
 struct S_020278D0 {
     u8 _0[0x64];
@@ -19,77 +19,77 @@ struct S_02021E90 {
 };
 extern struct S_02021E90 gCameraState;
 
-extern u8 D_080CAFF8[];
-extern u8 D_080CB002[];
+extern u8 gMenuGfxIdTable[];
+extern u8 gMenuChoiceValueTable[];
 extern u32 gMenuScriptCallback[];
 
-/* Handle menu-selection input: move the five-way cursor with the direction
- * bits, play a sound and redraw when it changes, then dispatch the confirm or
- * cancel callback. */
-void handleMenuSelectionInput(void *obj)
+/* Moves the five-way menu cursor from the held D-pad bits, redraws its icon and
+ * plays a click when the choice changes, then dispatches the cancel or confirm
+ * script command. */
+void handleMenuSelectionInput(void *script)
 {
-    s32 oldSelection;
-    u16 dirButtons;
-    u16 actionButtons;
-    u32 buttonBits;
+    s32 previousSelection;
+    u16 heldButtons;
+    u16 pressedButtons;
+    u32 cancelBits;
 
-    oldSelection = gMenuState.selection;
-    dirButtons = gCameraState.dirButtons;
+    previousSelection = gMenuState.selection;
+    heldButtons = gCameraState.dirButtons;
     {
-        u32 bothDirs = 0xC0;
+        u32 bothDirMask = MENU_INPUT_DIR_BOTH;
 
-        bothDirs &= dirButtons;
-        if (bothDirs != 0xC0) {
-            u32 dirMinus = 0x40;
+        bothDirMask &= heldButtons;
+        if (bothDirMask != MENU_INPUT_DIR_BOTH) {
+            u32 prevMask = MENU_INPUT_PREV;
 
-            dirMinus &= dirButtons;
-            if (dirMinus != 0) gMenuState.selection--;
+            prevMask &= heldButtons;
+            if (prevMask != 0) gMenuState.selection--;
             {
-                u16 dirButtons2 = gCameraState.dirButtons;
-                u32 dirPlus = 0x80;
+                u16 heldButtons2 = gCameraState.dirButtons;
+                u32 nextMask = MENU_INPUT_NEXT;
 
-                dirPlus &= dirButtons2;
-                if (dirPlus != 0) gMenuState.selection++;
+                nextMask &= heldButtons2;
+                if (nextMask != 0) gMenuState.selection++;
             }
-            if (gMenuState.selection < 0) gMenuState.selection = 4;
-            if (gMenuState.selection > 4) gMenuState.selection = 0;
+            if (gMenuState.selection < 0) gMenuState.selection = FIVEWAY_MENU_MAX_INDEX;
+            if (gMenuState.selection > FIVEWAY_MENU_MAX_INDEX) gMenuState.selection = 0;
         }
     }
-    if (oldSelection != gMenuState.selection) {
-        u8 *gfxTable;
-        s32 selection;
+    if (previousSelection != gMenuState.selection) {
+        u8 *gfxIds;
+        s32 selectedIndex;
 
-        sub_08005E80(0x14E);
-        gfxTable = D_080CAFF8;
-        selection = gMenuState.selection;
-        sub_0800EB44(*(u16 *)(gfxTable + selection * 2), 2, 0xFC0);
+        playSound(SFX_MENU_MOVE);
+        gfxIds = gMenuGfxIdTable;
+        selectedIndex = gMenuState.selection;
+        sub_0800EB44(*(u16 *)(gfxIds + selectedIndex * 2), FIVEWAY_MENU_TILE_ROW, FIVEWAY_MENU_TILE_SIZE);
     }
-    actionButtons = gCameraState.actionButtons;
-    buttonBits = 0xA;
-    buttonBits &= actionButtons;
-    if (buttonBits != 0) {
-        sub_08005E80(0x14F);
+    pressedButtons = gCameraState.actionButtons;
+    cancelBits = FIVEWAY_MENU_CANCEL_BITS;
+    cancelBits &= pressedButtons;
+    if (cancelBits != 0) {
+        playSound(SFX_MENU_CANCEL);
         sub_08006210();
-        *(u8 *)((u8 *)obj + *(s16 *)((u8 *)obj + 0x22) * 2 + 0x17) = 0;
+        *(u8 *)((u8 *)script + *(s16 *)((u8 *)script + SCRIPT_STEP_INDEX_OFFSET) * 2 + FIVEWAY_STEP_TIMER_OFF) = 0;
         {
-            u32 *callbackTbl = gMenuScriptCallback;
+            u32 *callbackTable = gMenuScriptCallback;
 
-            sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 0x10, callbackTbl[0]);
+            _call_via_r3((u8 *)script + SCRIPT_STEP_BASE_OFFSET, (u8 *)script + SCRIPT_STEP_INDEX_OFFSET, FIVEWAY_MENU_CANCEL_CMD, callbackTable[0]);
         }
         return;
     }
     {
-        u32 confirmBit = 0x01;
+        u32 confirmButton = MENU_INPUT_CONFIRM;
 
-        confirmBit &= actionButtons;
-        if (confirmBit != 0) {
-            sub_08005E80(0x13B);
-            gMenuState.chosenValue = D_080CB002[gMenuState.selection];
-            *(u8 *)((u8 *)obj + *(s16 *)((u8 *)obj + 0x22) * 2 + 0x17) = buttonBits;
+        confirmButton &= pressedButtons;
+        if (confirmButton != 0) {
+            playSound(SFX_MENU_CONFIRM);
+            gMenuState.chosenValue = gMenuChoiceValueTable[gMenuState.selection];
+            *(u8 *)((u8 *)script + *(s16 *)((u8 *)script + SCRIPT_STEP_INDEX_OFFSET) * 2 + FIVEWAY_STEP_TIMER_OFF) = cancelBits;
             {
-                u32 *callbackTbl2 = gMenuScriptCallback;
+                u32 *confirmCallbackTable = gMenuScriptCallback;
 
-                sub_080C31E8((u8 *)obj + 0x18, (u8 *)obj + 0x22, 0xE, callbackTbl2[0]);
+                _call_via_r3((u8 *)script + SCRIPT_STEP_BASE_OFFSET, (u8 *)script + SCRIPT_STEP_INDEX_OFFSET, FIVEWAY_MENU_CONFIRM_CMD, confirmCallbackTable[0]);
             }
         }
     }

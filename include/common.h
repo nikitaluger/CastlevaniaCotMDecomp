@@ -2744,3 +2744,15 @@ struct MenuInputCameraState {
 #define MENU_CURSOR_FILL_SIZE   0xFC0 /* bytes cleared for that tile */
 #define MENU_SCRIPT_CMD_CANCEL  0x10  /* script command id sent on cancel */
 #define MENU_SCRIPT_CMD_CONFIRM 0xE   /* script command id sent on confirm */
+
+/* Five-way selection menu (handleMenuSelectionInput): the cursor wraps over
+ * indices 0..FIVEWAY_MENU_MAX_INDEX, the two held bits in
+ * FIVEWAY_MENU_CANCEL_BITS close the screen, and a change redraws one tile
+ * row of the menu icon. The step timer byte sits just before the step stream. */
+#define FIVEWAY_MENU_MAX_INDEX   4
+#define FIVEWAY_MENU_CANCEL_BITS 0xA
+#define FIVEWAY_MENU_TILE_ROW    2
+#define FIVEWAY_MENU_TILE_SIZE   0xFC0
+#define FIVEWAY_STEP_TIMER_OFF   0x17
+#define FIVEWAY_MENU_CANCEL_CMD  0x10
+#define FIVEWAY_MENU_CONFIRM_CMD 0xE

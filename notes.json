@@ -13784,14 +13784,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802B66C",
-  "text": "Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9671767,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateScriptedProjectileActor",
   "text": "Best score 210 (98.5%). Remaining diff is pure register allocation: target loads D_08671BDC into r2 then reads r3 after computing arg0+0x18/0x22; mine loads into r0/r2 at a different pc offset. Instruction count and control flow match. Likely needs register-pinning or statement reordering beyond source tweaks. Cannot get closer with source tweaks.",
   "by": "opencode-free-1",
@@ -89328,14 +89320,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0802B66C",
-  "text": "Cannot improve further: 1995 (85.7%) is ceiling. Remaining 12 diff rows are pure agbcc codegen differences unfixable in C: (1) extra lsls/lsrs on val4/val2 - agbcc sign-extends for u16 store; target keeps 32-bit reg; (2) division by 2: target uses `ldrsh`/`lsrs`/`adds`/`asrs`; agbcc emits `ldrh`/`lsls`/`asrs`/`asrs`; (3) literal pool offsets differ by 8 bytes (144 vs 140 insns); (4) branch offsets off by 2-8 bytes. ARM-mode function (r8 callee-saved) vs Thumb agbcc - documented systemic wall class. Best achievable with current compiler: 1995.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3650222,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08009C84",
   "text": "Ask again: frameless-branchy-leaf wall (#300), score 315, cannot get closer in C. All 40 real target insns byte-exact; sole diff agbcc push {lr}/pop {r0}/bx r0 vs ROM bare bx lr (+2 insns shifts branches). ~28+ attempts across flags/forms confirm ceiling; inline raw pointer constants essential for 315. No pure-C fix; needs toolchain change. Not hand asm, not not_c. Best 315 source preserved. Session complete: 8 compiled claims.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -90772,14 +90756,6 @@
   "text": "Cannot improve further: literal pool ordering differences are inherent to agbcc for this constant set. Matched function sub_08019628 has identical structure but different constants (0x0866D5EC vs 0x0866E080, arg0+0x64 vs arg0+0x5C, sub_080C31E8 arg 1 vs 3) which change literal pool layout. Nested blocks for pl and table section variables achieved optimal C structure (936 score, 94.3%). The 4-byte pl load offset and table constant shifts are agbcc literal pool slot allocation differences that no C rearrangement fixes. 9 compiles done, no further progress possible.",
   "by": "opencode-free-1",
   "created_at": 1795683534.3722475,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802B66C",
-  "text": "1 compile, stuck at 1995. Diff rows: branch offsets off by 2-8 bytes (target `bgt #0x94` vs mine `bgt #0x96`); literal pool placement differs (target `ldr r2,[pc,#0x14]` before sub_080C31E8 vs agbcc `ldr r2,[pc,#0xc]`+`ldr r3,[r2]`); divide-by-2 sequence differs (target ldrsh/lsrs/adds/asrs vs agbcc ldrsh/lsls/asrs/asrs); tool notes agbcc sign-extends u16 stores, target keeps 32-bit. ARM-mode function \u2014 no C restructuring changes branch encodings or literal pool placement. Best = draft. Releasing to claim the final function.",
-  "by": "opencode-tidepool-alpha-free-1",
-  "created_at": 1795683534.3722854,
   "score_before": null,
   "score_after": null
  },
@@ -92596,14 +92572,6 @@
   "text": "Release now: proven permanent regalloc wall, not a compile-budget problem. Score 646, 144/144 insns, diff is purely register allocation \u2014 systematic one-register-lower rotation across store walks, prologue r8/r9 shuffle, CSE of standalone movs r2,#0, bl veneer/ldr-pc offsets (53 regalloc + 6 reordered + 1 stack). ~120 attempts across all -O levels and C spellings floor at 646/736/836/980/1180. Ordinary correct C (VRAM/window init, 4x sub_08000E98, 0x080C0574, sub_080C31E4 via _call_via_r2), not hand asm, not not_c. Only a compiler/flags change fixes. Best 646 source saved. Moving to tractable functions.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.3821425,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_0802B66C",
-  "text": "MATCHED sub_0802B66C (score 0) by adapting matched 88%-lookalike sub_0802DB60's exact C with three differences: (1) BOTH range checks use 0x600000 (lookalike uses 0x800000 then 0x600000) and they are written as `if (check > 0x600000) goto div;` early gotos, not a combined `<= && <=`; (2) the `div:` block (absent in the lookalike) must compute the half with `s32 t = *(s16*)(p48+4); *(s16*)(p48+4) = ((s32)(t + ((u32)t >> 31))) >> 1;` \u2014 the cast back to s32 is essential to get target's `asrs r0,#1` instead of `lsrs`; a `vu32 off` local to force the D_02025FF0 two-literal load spills an extra stack word (sub sp,#8 vs #4), but the exact matched struct `struct S_02025FF0 {u8 _[0x174C]; s32 field174C;} extern D_02025FF0;` already emits target's `ldr r0,[pc]; ldr r2,[pc]; adds r0,r0,r2` once instruction count matches. Lesson: start from the matched lookalike and change only what the target assembly actually differs on; layout/literal/branch-offset diffs vanish once the instruction count and structure are exact.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.382183,
   "score_before": null,
   "score_after": null
  },
@@ -354208,6 +354176,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:407ab29e6d5b3f1269e8afe381f72d4be6396d2a8bf6265a346bd65392ec8905:8cfac606f1c9db95c966f2d09518e54b5341bf9704fbc0017f1a2aec5bdec43a"
  },
  {
+  "function": "sub_08028864",
+  "text": "Reached 305 (96.4%). Positive arm needed local s32 value inside the branch (prevents folding away the >0x7000 store), operand order *anglePtr + delta (adds r0,r0,r1), else clamp 0x1000 (movs #0x80; lsls #5). Remaining 3 diff rows are in the raw-byte tail past the 58-line analyzed extent: extra .byte 0xff,0xff, bogus vcvt decode, and lsrs r7 vs lsrs r6. Exhaustive source and flag experiments left them unchanged. m2c draft fails to parse bne #0x80288b0. sub_08028BAC prototype conflict (u16 vs s32 arg2) left unresolved; current s32 declaration compiles correctly.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795793830.503313,
+  "score_before": 1450,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e7b58565fe9bcdd502aa0e0325c00dcbb368f510df0961f491622236193f57a4:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
+ },
+ {
   "function": "sub_080298E4",
   "text": "Residual is 13 rows of pure scheduling: target computes the shifted value before the destination address on all three halfword stores. C spelling and flags cannot reorder it; explicit value locals swap registers and add copies. The wrong-callee linker note is the known 2-byte-alignment false positive.\nSix expression spellings (u16/s16 cast, array index, vu16, comma-assign, split cast) all kept score 330; s32 `out` locals at top and near v regressed to 1065; all five flag profiles stayed 330.\nOnly value temporaries changed output, swapping value/address registers (strh r1,[r0]) and adding two copies. Saved_best restored at 2ce6ceec9d54073ecc85.",
   "by": "opencode-hy4-flash-free-64",
@@ -354539,6 +354516,15 @@
   "created_at": 1795795630.6973343,
   "score_before": 295,
   "score_after": 295
+ },
+ {
+  "function": "sub_08028864",
+  "text": "All 53 compared instruction rows match; score 305 comes from literal-pool tail mis-disassembly in diff (target 85 insns vs candidate 84, differing rows are .byte/garbled pool bytes after final b). Verified with fresh compile_and_diff and try_local_repairs(compare=true, 3 variants, all worse/equal). No C-side fix found. Next agent: confirm whether pool-end artifact is real mismatch by inspecting raw bytes/read_data around function end; if real, only pool layout/constant emission differs.\nRecompiled same source and ran try_local_repairs(compare=true): else_if_arm_swap, do-while call weight, duplicated call-in-arms. All worse/equal; baseline retained.\nNo instruction-row improvement; score stayed 305 with same 3 tail rows (.byte 0xff,0xff / vcvt garbage) after final branch.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795795701.7021623,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:7f7ef764d67524b608681169128c0a1e4865cd0f3346b9ae10d60ecc0ece7220:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
  },
  {
   "function": "sub_080253A4",
@@ -357025,6 +357011,14 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2d250ec46e85afa88793dc3092c94e572c63f1e340e9692e64f5b1d7cdc8cf44:8def06abbb62995237d4e1447e37125c167914e67e8c6ab20cf0fef7e87c85e0"
  },
  {
+  "function": "sub_08038438",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No compiling draft; 142-insn/284-byte function with garbled/unusable tail in assembly dump (lines ~116+ show invalid Thumb/data-like bytes: subs r0,r2,r7; lsrs r7,r4,#1; ... vrev64.16). Likely boundary/disassembly issue. Did not compile. Needs boundary/extent review before decomp; inspect around 0x08038540-0x08038554 (next matched is sub_08038554 at 0x08038554).",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795804749.7489846,
+  "score_before": null,
+  "score_after": null
+ },
+ {
   "function": "sub_0802D180",
   "text": "Low progress after 30 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 34; 11 differing rows (1 register, 1 branch target, 3 operand, 2 reordered, 2 inserted, 2 deleted; advisory).\nTarget: strh r0, [r1]\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = adds r1, #0x5c\n  = movs r0, #1\n< T: strh r0, [r1] | C: \n| T: b #0x70 [bytes 11e0] | C: b #0x70 [bytes 12e0]\no T:  | C: movs r0, r0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest candidate revision 92a509a7690fb244a0e2, verified score 60 (2 reordered rows only). Target schedules `movs r2,#0` after `adds r0,#0x4c`; ours emits it before `adds r0,r4,#0`.\n\nWhat worked (sequential):\n1) The two branch arms had their constant-store spellings swapped relative to the ROM. Change positive arm to literal `*(u16 *)(result + 0x5C) = 1;` and the else arm to a named local `{ u16 zero = 0; *(u16 *)(result + 0x4C) = q2; *(u16 *)(result + 0x5C) = zero; }`. Score 820 -> 185. The literal arm gets fresh address in r1 + constant in r0; the named-local arm gets reused address (result+0x4C then +0x10) + constant in r2, exactly as the ROM does.\n2) Third block must use direct stores and no r54 pointer local: `*(u16 *)(result + 0x54) = q3; v = *(u16 *)(state + 0x1C); *(u16 *)(result + 0x6C) = v;` with `u16 v;` declared in the block (assigned after the q3 store). Score 120 -> 65. A `u8 *r54` local with `r54 += 0x18` assigns the Y/kind block to r1 instead of r0.\n3) Final clear as array indexing `entity[stepOffset + 0x19] = 0;` fixes the `adds r0,r0,r6` vs `adds r0,r6,r0` operand order. Score 65 -> 60.\n\nTried and failed (do not repeat): local repairs else_if_arm_swap (635), local_weight_ladder (120), declaration_order (65); `u8`/`s16` zero types (60), `const u16 zero` (775), zero at function scope with or without initializer (65/780), splitting else stores across lines, swapping the two stores, `u8 *p = result+0x4C` local (950), `s32 zero` (185), moving `u16 v` load before q3 store (130/325). Residual is likely an agbcc instruction-scheduling wall for the constant materialization.",
   "by": "opencode-hy4-flash-free-11",
@@ -357604,6 +357598,15 @@
   "created_at": 1795683533.9151714,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_08038438",
+  "text": "Assembly dump shows garbled/misread tail after ~line ~113 (data-like bytes: subs/lsrs/ldrh shifts into vrev64.16) suggesting the disassembled function extent may include trailing data/padding; real code likely ends near the final if/else store+return path around 0x8038540 area. Best candidate (rev 35cb688b337334131172, from prior work) scores 770 with remaining diffs mainly register/order around storing *(result+0x4C)=*(entity+0x4C) and later scheduling; compile budget exhausted (3/3 no improvement). Needs human/boundary review of function end before further attempts.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795806206.970454,
+  "score_before": 970,
+  "score_after": 770,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
  },
  {
   "function": "sub_080C1274",
@@ -358287,6 +358290,15 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:32bc3d26a5e2c3310f6f734dbd62bf417deadb22f0ef61519c7fe09f7b1d43d7"
  },
  {
+  "function": "sub_08028864",
+  "text": "Fresh compile confirms score 305 (target 85 vs 84 insns). All real instruction rows match; only 3 tail rows differ: target has extra `.byte 0xff,0xff`, a real `adds r0,r7,#0` where candidate has a garbage `vcvt` pool decode, and `lsrs r7` vs `lsrs r6`. Raw dump at 0x0802890E/0x08028912 shows the two literal words 0xFFFF0000 and 0x0FFF0000; this is a literal-pool placement/2-byte-length artifact, not a semantics error. Prior agents: 24 attempts, 12 local repairs, 6 explicit patches, no C fix.\ninherited candidate rechecked\nscore 305 unchanged; pool-tail artifact",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795809412.4273162,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
+ },
+ {
   "function": "sub_08047E40",
   "text": "Baseline rechecks 590; 75 insns each. Residual is coloring: target uses r1=flags, r3=constant 1 (copied to r0 for AND and kept for strh), r0=0x12C, r2=0 early; candidate shifts all by one register. Flags/local/operand-order variants all collapse to 590; all flag profiles >=590.",
   "by": "opencode-hy4-flash-free-65",
@@ -358455,32 +358467,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:2dba984f234462fe45495fdb8059368b86ce38e793002549134a611fb0c6d1b9:707937383b2add1ae83b75a16ea16f68aa3730482124b89d5fe0d9f640ba755d"
  },
  {
-  "function": "sub_0801977C",
-  "text": "Byte-identical twin of matched sub_0801CF20 (122 insns each). Adapt its C verbatim; the ONLY difference is the script-table pointer at entity+0x14: this function uses D_0866D5F4 (0x0866D5F4), not the twin's D_0866D704. Keep the twin's `off = 0x18C2` plus `(u8 *)&gMainWorkspace + off` spelling to avoid constant-address folding, its unconditional sub_080C31E0 call (NOT inside the clamp `if`), and its `<= 0x7FFF` branch polarity. The inherited best candidate was wrong on all three.",
-  "by": "opencode-hy4-flash-free-64",
-  "created_at": 1795810655.2924938,
-  "score_before": 1,
-  "score_after": 0,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:437e6c8f24a1162d4b9112cdb8d41d6173bee8d9ebfdb8cfd447778af5210575"
- },
- {
-  "function": "sub_08038438",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No compiling draft; 142-insn/284-byte function with garbled/unusable tail in assembly dump (lines ~116+ show invalid Thumb/data-like bytes: subs r0,r2,r7; lsrs r7,r4,#1; ... vrev64.16). Likely boundary/disassembly issue. Did not compile. Needs boundary/extent review before decomp; inspect around 0x08038540-0x08038554 (next matched is sub_08038554 at 0x08038554).",
-  "by": "opencode-iceman-contributor-free-12",
-  "created_at": 1795804749.7489846,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "sub_08038438",
-  "text": "Assembly dump shows garbled/misread tail after ~line ~113 (data-like bytes: subs/lsrs/ldrh shifts into vrev64.16) suggesting the disassembled function extent may include trailing data/padding; real code likely ends near the final if/else store+return path around 0x8038540 area. Best candidate (rev 35cb688b337334131172, from prior work) scores 770 with remaining diffs mainly register/order around storing *(result+0x4C)=*(entity+0x4C) and later scheduling; compile budget exhausted (3/3 no improvement). Needs human/boundary review of function end before further attempts.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795806206.970454,
-  "score_before": 970,
-  "score_after": 770,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
- },
- {
   "function": "sub_08038438",
   "text": "Matched at revision 5e32b634468e6665dd55 (score 0). Two fixes: (1) byte copy from entity[0x4C] to result[0x4C] must use matched twin updatePoseStep's spelling -- declare `u8 resultKind;` at top of the `if (result != NULL)` block and use a separate assignment `resultKind = *(u8 *)(entityBytes + 0x4C); *(u8 *)(result + 0x4C) = resultKind;` (the direct one-line assignment scores 420 with a 6-row RHS/LHS evaluation-order diff; a braced initializer temporary scores 2530). (2) sub_080148C0's third argument is -0xC0000 (pool word 0xFFF40000), NOT -0xC00; the pool word at 0x08038534 proves it. Changing -0xC00 -> -0xC0000 took 200 -> 0.",
   "by": "opencode-hy4-flash-free-11",
@@ -358490,30 +358476,80 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:a8e6c9402851666b982f9b07767d8b6eebc989a5c227000ca684a6f87097f50b"
  },
  {
-  "function": "sub_08028864",
-  "text": "Reached 305 (96.4%). Positive arm needed local s32 value inside the branch (prevents folding away the >0x7000 store), operand order *anglePtr + delta (adds r0,r0,r1), else clamp 0x1000 (movs #0x80; lsls #5). Remaining 3 diff rows are in the raw-byte tail past the 58-line analyzed extent: extra .byte 0xff,0xff, bogus vcvt decode, and lsrs r7 vs lsrs r6. Exhaustive source and flag experiments left them unchanged. m2c draft fails to parse bne #0x80288b0. sub_08028BAC prototype conflict (u16 vs s32 arg2) left unresolved; current s32 declaration compiles correctly.",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795793830.503313,
-  "score_before": 1450,
-  "score_after": 305,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:e7b58565fe9bcdd502aa0e0325c00dcbb368f510df0961f491622236193f57a4:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
- },
- {
-  "function": "sub_08028864",
-  "text": "All 53 compared instruction rows match; score 305 comes from literal-pool tail mis-disassembly in diff (target 85 insns vs candidate 84, differing rows are .byte/garbled pool bytes after final b). Verified with fresh compile_and_diff and try_local_repairs(compare=true, 3 variants, all worse/equal). No C-side fix found. Next agent: confirm whether pool-end artifact is real mismatch by inspecting raw bytes/read_data around function end; if real, only pool layout/constant emission differs.\nRecompiled same source and ran try_local_repairs(compare=true): else_if_arm_swap, do-while call weight, duplicated call-in-arms. All worse/equal; baseline retained.\nNo instruction-row improvement; score stayed 305 with same 3 tail rows (.byte 0xff,0xff / vcvt garbage) after final branch.",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795795701.7021623,
-  "score_before": 305,
-  "score_after": 305,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:7f7ef764d67524b608681169128c0a1e4865cd0f3346b9ae10d60ecc0ece7220:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
- },
- {
-  "function": "sub_08028864",
-  "text": "Fresh compile confirms score 305 (target 85 vs 84 insns). All real instruction rows match; only 3 tail rows differ: target has extra `.byte 0xff,0xff`, a real `adds r0,r7,#0` where candidate has a garbage `vcvt` pool decode, and `lsrs r7` vs `lsrs r6`. Raw dump at 0x0802890E/0x08028912 shows the two literal words 0xFFFF0000 and 0x0FFF0000; this is a literal-pool placement/2-byte-length artifact, not a semantics error. Prior agents: 24 attempts, 12 local repairs, 6 explicit patches, no C fix.\ninherited candidate rechecked\nscore 305 unchanged; pool-tail artifact",
+  "function": "sub_0801977C",
+  "text": "Byte-identical twin of matched sub_0801CF20 (122 insns each). Adapt its C verbatim; the ONLY difference is the script-table pointer at entity+0x14: this function uses D_0866D5F4 (0x0866D5F4), not the twin's D_0866D704. Keep the twin's `off = 0x18C2` plus `(u8 *)&gMainWorkspace + off` spelling to avoid constant-address folding, its unconditional sub_080C31E0 call (NOT inside the clamp `if`), and its `<= 0x7FFF` branch polarity. The inherited best candidate was wrong on all three.",
   "by": "opencode-hy4-flash-free-64",
-  "created_at": 1795809412.4273162,
-  "score_before": 305,
-  "score_after": 305,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:6a6eb1e1ac04835ef39cf6c90a474a1ebb0bd7583e172a75b02fafbf302ce34a:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
+  "created_at": 1795810655.2924938,
+  "score_before": 1,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:437e6c8f24a1162d4b9112cdb8d41d6173bee8d9ebfdb8cfd447778af5210575"
+ },
+ {
+  "function": "sub_08028864",
+  "text": "Matched (case 8589938569, category constants). The historical 305 'literal-pool tail misdisassembly wall' was actually two wrong constants: `(angle + delta) & 0xFFFF0000` must be `& 0xFFFF`, and `if (value < 0xFFF)` must be `<= 0xFFF`. The bad constants misaligned the pool and produced fake `vcvt` tail rows that misled 25 prior attempts. When a diff shows only garbage tail rows, verify each arm's literal against read_data bytes.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795810693.827076,
+  "score_before": 5,
+  "score_after": 0,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:58a2af7a433a0d1a5589d2d045006451d0b55425d81be3e2b64fc43419194a71"
+ },
+ {
+  "function": "sub_08002C94",
+  "text": "Root divergence: target ldr r2,=0xFFFF8000; adds r0,r2,#0; orrs r0,r1 vs candidate ldr r0,=0xFFFF8000; orrs r0,r1. Missing 2-byte copy shifts all later pool offsets and call displacements; the bl #0x918 diagnostics are the known false positive. -Os best; O1/O2/O3 much worse.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795810802.6927612,
+  "score_before": 540,
+  "score_after": 540,
+  "handoff_inputs": "fd9f45f67e8e14748929d22155b2d0f48a5c2243cea7aaff409031a7f159a90f:d360ef3b42663abf95f6aed8603ea580292eacb6441872232186082ee00c045a:d894fda48ada2f5633bd1c5ccc8a44450437e3a2672c9dfdf638316f31957060"
+ },
+ {
+  "function": "sub_0802DD2C",
+  "text": "Target has ldr r0,=gMainWorkspace; ldr r1,=0x1870; adds r0,r0,r1; ldr r0,[r0]; agbcc folds to a single relocated load. Other residual: r0/r1 swap in the three 0xFFFF divide-adjust blocks and a 2-instruction length deficit shifting pool offsets. Constants verified: 0xFFFF, 0x18, 0x1A, 0xCE, 0x30000, -0x30000 (0xFFFD0000) all correct. -Os profile. Do not retry the shared-store rewrite; it regressed to 1735.",
+  "by": "opencode-hy4-flash-free-65",
+  "created_at": 1795810873.37775,
+  "score_before": 1735,
+  "score_after": 1735,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:fdc55e53dc480df6e222bb1e8429389ef0be1b1fa9c6d4a614650a783588d10a"
+ },
+ {
+  "function": "sub_0801B02C",
+  "text": "Best verified 1805 at revision 32c39929150ba3326581 (inherited saved 1465 is a 2-arg-call artifact missing target's movs r2,#5/movs r3,#0). Raw-byte BL decode proves all five callees; linker 'wrong call' notes are false positives from the 1-instruction pool shift. Residual is the same 3-cycle register coloring + `movs r4,#0` hoist + `mov ip,r1` zero pair as near-twin sub_08017888. Data symbols: gEffectGfxTable=0x080CBDD0 (stride 0x28), affine table D_080CE680, callback 0x08671BB0.\n4-arg sub_08011368 + sub_0801C454 spawn + allocEffectPart() (1805); local repairs compare (1805, no change); 2-arg call variant (1465, inherited best but structurally wrong)\ndecoded target BLs from raw bytes: callees are sub_08011368, sub_08014990, sub_0801C454 (spawn), allocEffectPart (0x08016190, no args), sub_080C31E4; affine table is D_080CE680",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795810910.1887212,
+  "score_before": 1805,
+  "score_after": 1805,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:ac662b2435a09e3d72e7346dc9eab82a3e27ffe4573529f3c53994f1866bea0c:0a80591ed0677c4d10d548505205a3433da7c1ff755ddbd68f2957d072664cf8"
+ },
+ {
+  "function": "updateHoveringEffectStep",
+  "text": "Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9671767,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateHoveringEffectStep",
+  "text": "Cannot improve further: 1995 (85.7%) is ceiling. Remaining 12 diff rows are pure agbcc codegen differences unfixable in C: (1) extra lsls/lsrs on val4/val2 - agbcc sign-extends for u16 store; target keeps 32-bit reg; (2) division by 2: target uses `ldrsh`/`lsrs`/`adds`/`asrs`; agbcc emits `ldrh`/`lsls`/`asrs`/`asrs`; (3) literal pool offsets differ by 8 bytes (144 vs 140 insns); (4) branch offsets off by 2-8 bytes. ARM-mode function (r8 callee-saved) vs Thumb agbcc - documented systemic wall class. Best achievable with current compiler: 1995.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3650222,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateHoveringEffectStep",
+  "text": "1 compile, stuck at 1995. Diff rows: branch offsets off by 2-8 bytes (target `bgt #0x94` vs mine `bgt #0x96`); literal pool placement differs (target `ldr r2,[pc,#0x14]` before sub_080C31E8 vs agbcc `ldr r2,[pc,#0xc]`+`ldr r3,[r2]`); divide-by-2 sequence differs (target ldrsh/lsrs/adds/asrs vs agbcc ldrsh/lsls/asrs/asrs); tool notes agbcc sign-extends u16 stores, target keeps 32-bit. ARM-mode function \u2014 no C restructuring changes branch encodings or literal pool placement. Best = draft. Releasing to claim the final function.",
+  "by": "opencode-tidepool-alpha-free-1",
+  "created_at": 1795683534.3722854,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateHoveringEffectStep",
+  "text": "MATCHED sub_0802B66C (score 0) by adapting matched 88%-lookalike sub_0802DB60's exact C with three differences: (1) BOTH range checks use 0x600000 (lookalike uses 0x800000 then 0x600000) and they are written as `if (check > 0x600000) goto div;` early gotos, not a combined `<= && <=`; (2) the `div:` block (absent in the lookalike) must compute the half with `s32 t = *(s16*)(p48+4); *(s16*)(p48+4) = ((s32)(t + ((u32)t >> 31))) >> 1;` \u2014 the cast back to s32 is essential to get target's `asrs r0,#1` instead of `lsrs`; a `vu32 off` local to force the D_02025FF0 two-literal load spills an extra stack word (sub sp,#8 vs #4), but the exact matched struct `struct S_02025FF0 {u8 _[0x174C]; s32 field174C;} extern D_02025FF0;` already emits target's `ldr r0,[pc]; ldr r2,[pc]; adds r0,r0,r2` once instruction count matches. Lesson: start from the matched lookalike and change only what the target assembly actually differs on; layout/literal/branch-offset diffs vanish once the instruction count and structure are exact.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.382183,
+  "score_before": null,
+  "score_after": null
  }
 ]
