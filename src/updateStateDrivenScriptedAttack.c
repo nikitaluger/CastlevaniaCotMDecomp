@@ -15,7 +15,7 @@ struct SpriteDefTimer { u8 _0[0x14]; u16 timer; };
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 
-void updateStateDrivenScriptedAttack(u8 *self)
+void sub_08031D64(u8 *self)
 {
     s32 sprite = *((s32 *)(self + 0x38));
     u8 *state = *((u8 **)(self + 0x3C));

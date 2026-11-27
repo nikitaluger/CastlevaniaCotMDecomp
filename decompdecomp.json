@@ -1780,6 +1780,17 @@
     "-O2",
     "-fno-strength-reduce"
    ]
+  },
+  "204132:134421860": {
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O2",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20,
+   "function": "updateStateDrivenScriptedAttack",
+   "vram": 134421860
   }
  },
  "instructions": "",
@@ -2094,7 +2105,8 @@
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h"
+  "local_source_8589938934": "common_local_source_8589938934.h",
+  "rom": "common_rom.h"
  },
  "functions": {
   "sub_08000468": {
@@ -7570,7 +7582,7 @@
   "updateStateDrivenScriptedAttack": {
    "vram": 134421860,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": true
+   "readable": false
   },
   "sub_08031EC8": {
    "vram": 134422216,

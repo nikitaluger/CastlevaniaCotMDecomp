@@ -352690,30 +352690,6 @@
   "score_after": 60
  },
  {
-  "function": "updateStateDrivenScriptedAttack",
-  "text": "Cannot get closer: remaining 20 differences are pure agbcc register allocation with identical instruction types, count (169) and order. Tried 15 compiles: declaration order permutations, block vs function scope, struct vs raw pointer for the D_02021E90 lookups, inline vs local q expressions, and every arithmetic reordering that helped elsewhere (best 100/99.4%). Register asm pinning is rejected by the tool as inline assembly. Best source uses: struct S_02025FF0 idx@0x18A8 for two-literal access; `base=D_02021E90; idx=(D_02025FF0.idx+1)<<6; p1=base+0x1278; v=*(s32*)(p1+idx);` with p1 assigned after idx; inline q for 0x1A/0x1B sites; local q for 0x19 site; struct-cast `|=` compounds; literal 1 for both flag checks. Remaining: second q offset in r2 vs target r1, third q offset in r3 vs target r0, and final block D_02021E90 base/0x1278 literal swapped between r3 and r4 cascading into ~16 diffs.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683533.9695797,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateStateDrivenScriptedAttack",
-  "text": "Best attempt 65 (99.6%). Remaining 13 diffs are pure regalloc. Register asm rejected. Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.0540383,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateStateDrivenScriptedAttack",
-  "text": "Force release: 1 compile at 65 (99.6%), matches previous best after 15 attempts. Pure register allocation wall - 13 diffs all regalloc with identical instruction sequence. agbcc assigns q offsets to different registers than target (r2/r3 vs r1/r0), D_02021E90 base/offset literals swapped between r3/r4. Register asm pinning rejected by tool. No C-level fix possible.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3731108,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08096BF8",
   "text": "[Released without compiling it once; notes not checked by a compile.] Inherited terminal -Os-style CSE floor at score 240. agbcc hoists two mutually exclusive *(s16*)(a3C+0x14) loads that ROM emits separately; barriers add instructions and offset cascades. Volatile probe 870. Explicit impossibility override. Preserve c67d7052928d8c35a3f8; no new compile.",
   "by": "opencode-hungerg-free-3",
@@ -352746,5 +352722,29 @@
   "score_before": 10,
   "score_after": 10,
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:09518c524c58a899ec455b5295ad479d69fba9b610ebad6527a7ddcbf2b54f15:7421a7381eac44c53b0e77f06198a5668786d98d2e2391efa851cad5b385c57c"
+ },
+ {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Cannot get closer: remaining 20 differences are pure agbcc register allocation with identical instruction types, count (169) and order. Tried 15 compiles: declaration order permutations, block vs function scope, struct vs raw pointer for the D_02021E90 lookups, inline vs local q expressions, and every arithmetic reordering that helped elsewhere (best 100/99.4%). Register asm pinning is rejected by the tool as inline assembly. Best source uses: struct S_02025FF0 idx@0x18A8 for two-literal access; `base=D_02021E90; idx=(D_02025FF0.idx+1)<<6; p1=base+0x1278; v=*(s32*)(p1+idx);` with p1 assigned after idx; inline q for 0x1A/0x1B sites; local q for 0x19 site; struct-cast `|=` compounds; literal 1 for both flag checks. Remaining: second q offset in r2 vs target r1, third q offset in r3 vs target r0, and final block D_02021E90 base/0x1278 literal swapped between r3 and r4 cascading into ~16 diffs.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683533.9695797,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Best attempt 65 (99.6%). Remaining 13 diffs are pure regalloc. Register asm rejected. Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.0540383,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateStateDrivenScriptedAttack",
+  "text": "Force release: 1 compile at 65 (99.6%), matches previous best after 15 attempts. Pure register allocation wall - 13 diffs all regalloc with identical instruction sequence. agbcc assigns q offsets to different registers than target (r2/r3 vs r1/r0), D_02021E90 base/offset literals swapped between r3/r4. Register asm pinning rejected by tool. No C-level fix possible.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3731108,
+  "score_before": null,
+  "score_after": null
  }
 ]
