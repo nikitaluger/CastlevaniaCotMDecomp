@@ -38,9 +38,9 @@ void sub_080328CC(u8 *self)
                     *(s32 *)(obj + 0x6C) = (s32)0xFFFFFD00;
                 }
                 if (stepState[0xD] & 0x10)
-                    *(s32 *)((u8 *)work + 0x5C) = *(s32 *)((u8 *)work + 0xC) + (s32)0xFFFFE500;
+                    *(s32 *)(obj + 0x5C) = *(s32 *)((u8 *)work + 0xC) + (s32)0xFFFFE500;
                 else
-                    *(s32 *)((u8 *)work + 0x5C) = *(s32 *)((u8 *)work + 0xC) + (s32)0xFFFFF700;
+                    *(s32 *)(obj + 0x5C) = *(s32 *)((u8 *)work + 0xC) + (s32)0xFFFFF700;
             }
             else
             {

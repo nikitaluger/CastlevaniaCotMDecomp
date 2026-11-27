@@ -14640,7 +14640,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0805CCFC",
+  "function": "updateRoomAnchoredScriptedAttack",
   "text": "Cannot get closer under agbcc -O2 with natural C: the target's fixed register assignment (arg0=r5, f38=r8, f3C=r6, f3C+0x10=r9) is not reproducible. Best score 3555 (struct-based source saved); swapping assignment order scores 3565, adding a zero local 3835. All remaining diffs are register allocation/literal-pool consequences of this one register swap. This is the 8th compiled claim of the session; stopping here as instructed.",
   "by": "opencode-hy4-flash-free-1",
   "created_at": 1795683533.972242,
@@ -29848,7 +29848,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0805CCFC",
+  "function": "updateRoomAnchoredScriptedAttack",
   "text": "Giving up; releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.0551558,
@@ -40048,7 +40048,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0805CCFC",
+  "function": "updateRoomAnchoredScriptedAttack",
   "text": "Cannot get closer this session: linking calls wrong, regalloc off, pointer constants wrong. Score 3555. Releasing.",
   "by": "opencode-free-1",
   "created_at": 1795683534.1092641,
@@ -113704,7 +113704,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0805CCFC",
+  "function": "updateRoomAnchoredScriptedAttack",
   "text": "Can't get closer within reasonable effort. Best 1545 (88.9%, 143/140 insns). Correct overall structure: early sub_0805F9B4==1 -> sub_080C31E0(arg0,arg0[0x24]); middle block conditional on f1A!=1 and sub_08016238(v3C+0x0C) doing f0C[1]=0, sub_08005E80(0x6E), f1B=0, sub_080C31E8(base18,arg0+0x22,1,D_08671BDC); table dispatch via D_0866E958 with f22++/f19++/sub_080C31E0/f22--; 0x8000 early out; sub_080113A8(v38,v3C+0x10); COORD block matching sub_08026BDC exactly. Main blockers: (1) regalloc swap - target keeps v38 in r8 (`ldr r0,[r5,#0x38]; mov r8,r0`) and base18 in r7 set mid-block (`adds r7,r5,#0; adds r7,#0x18`), all my attempts put v38 in r7 and base18 in r8 or generate extra moves/branches; (2) control flow in middle: best form set base18 in both if/else branches but caused duplicated tail/extra branches (beq #0x74/#0x78, extra block) vs target's single unconditional base18 set before cmp; setting base18 unconditionally in target-like position regressed to 2100 due to register/ordering; (3) literal pool order shifted (D_08671BDC/D_0866E958/D_02021E90/D_02025FF0/0x18A8) causing many pc-relative load diffs. Calls follow matched sub_0805D0E4 convention. 12 compiles this session; remaining gap is regalloc/layout.",
   "by": "opencode-iceman-contributor-free-1",
   "created_at": 1795683534.4996648,
@@ -129648,7 +129648,7 @@
   "score_after": null
  },
  {
-  "function": "sub_0805CCFC",
+  "function": "updateRoomAnchoredScriptedAttack",
   "text": "MATCHED (0) from best 1545. Levers that closed the gap: (1) keep `base18` assigned in BOTH arms of the if/else \u2014 assigning it unconditionally before the if swaps callee-saved regs (v38 moves from r8 to r7, base18 to r8, score 1900-2100); (2) SWAP THE BRANCHES: write `if (*(u8*)(arg0+idx*2+0x1A) == 1) { base18 = arg0+0x18; } else { base18 = arg0+0x18; if (sub_08016238(...)) {...} }`. This gives the target's single `cmp r0,#1; beq` with both beq targets at the same label and NO duplicated tail; (3) `lp = &D_08671BDC;` assigned just before sub_080C31E8 gives the early `ldr r0,[pc]`; (4) `b = *(u8 *)((u32)base18 + (u32)idx2)` (integer addition, base first) gives `adds r0,r7,r0`; (5) `*(s16*)... * 2` inline with integer add to arg0 gives `lsls; adds r0,r0,r5`.",
   "by": "opencode-hy4-flash-free-2",
   "created_at": 1795683534.5834415,
@@ -358451,15 +358451,6 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:89edd23fbe5f93bf1295e96f44c2bd49c7d58ca77817c3caf385d9dfb8d4bf4e"
  },
  {
-  "function": "sub_08097B70",
-  "text": "Best 245 (rechecked), reverted to saved_best fd7930101b8e957b30e8. Residual is exactly: target mask 0x8000 in r2 plus `adds r3,r2,#0` copy before walker=base; ours mask in r3 and no copy. New insight: the extra `movs r0,r0` immediately after the final forward `b` is 2-byte literal-pool alignment padding, not a semantic instruction; target has the 2-byte mask copy instead, so both are 135 insns. Negatives this session: corrected matched prototypes (allocWorkSlot returns s32, sub_0805FB24 first arg void*) = no effect; named u32 mask local used in both conditions = 1490 (allocator cascade); u16 eight = no effect; declaring sub_08097CF4 as void(void) = no effect. Linker callee diagnostics are displacement-shift false positives.\ncorrected prototypes; named u32 mask local; u16 eight; void(void) declaration for sub_08097CF4\nall either left the same 12-row diff (245) or collapsed allocation (1490)",
-  "by": "opencode-hy4-flash-free-64",
-  "created_at": 1795812123.5406978,
-  "score_before": 245,
-  "score_after": 245,
-  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:f244449d35b4edc1316eb4c75cc2640f7690ebde2e9f996766861bba5a9fe786"
- },
- {
   "function": "updateVirtualInputFromRaw",
   "text": "Releasing.",
   "by": "opencode-free-1",
@@ -358722,5 +358713,41 @@
   "created_at": 1795683534.1905682,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_08097B70",
+  "text": "Best 245 (rechecked), reverted to saved_best fd7930101b8e957b30e8. Residual is exactly: target mask 0x8000 in r2 plus `adds r3,r2,#0` copy before walker=base; ours mask in r3 and no copy. New insight: the extra `movs r0,r0` immediately after the final forward `b` is 2-byte literal-pool alignment padding, not a semantic instruction; target has the 2-byte mask copy instead, so both are 135 insns. Negatives this session: corrected matched prototypes (allocWorkSlot returns s32, sub_0805FB24 first arg void*) = no effect; named u32 mask local used in both conditions = 1490 (allocator cascade); u16 eight = no effect; declaring sub_08097CF4 as void(void) = no effect. Linker callee diagnostics are displacement-shift false positives.\ncorrected prototypes; named u32 mask local; u16 eight; void(void) declaration for sub_08097CF4\nall either left the same 12-row diff (245) or collapsed allocation (1490)",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795812123.5406978,
+  "score_before": 245,
+  "score_after": 245,
+  "handoff_inputs": "bceadeea9b4804ecd9609be463615d34701ddee74d7208ba27986ffd71cefb8f:df94e80e6cec1046869946ae6f8f786d0fac5af4122dd037e90acd794e078849:f244449d35b4edc1316eb4c75cc2640f7690ebde2e9f996766861bba5a9fe786"
+ },
+ {
+  "function": "sub_080248C0",
+  "text": "Best 1685 at revision 0ce0d9c889283b830eb4. Keep these fixes: reuse sprite as gTrigFuncTable base after getSpriteFacingSign (removes mov copies); do not cache level, reload *(s16*)body at each use; split temp/trig/y; inline callback. Residual is a callee-saved coloring rotation despite exact instruction count.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795812207.4582195,
+  "score_before": 1985,
+  "score_after": 1685,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c54258c83e7b6a40251a7a08924a5783b418d5bd7444d22aa0f4f25472ebae3b:800b02de1c3219715af12dd2e0e41bb2154cb76211e73bcce9ec3446b296e159"
+ },
+ {
+  "function": "sub_0809E860",
+  "text": "Score 10 terminal register tie: 144/144 insns, only `mov r2,r8; strb r2,[arg0+0x7C]` (ROM) vs `mov r1,r8` (agbcc). Confirmed this session: 5 independent C variants on the zero store (pointer-arith spelling, u8 cast, s32 zero, two declaration-order swaps) all yielded identical 2-row diff; compiler_experiments O2/O3/Os all score 10 (O1 1160, no-interwork 820). ~400 prior compiles at this best across agents. No legal C step remains; matches accepted scratch-register-tie knowledge.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795812262.8435504,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c54258c83e7b6a40251a7a08924a5783b418d5bd7444d22aa0f4f25472ebae3b:4d346b3ee1010480af1c8a0ebfa91a032cbdfd21de8190e1d589c6656f29ccfb"
+ },
+ {
+  "function": "sub_080962C8",
+  "text": "Score 200 terminal coupled allocator/scheduler tie; 146/146 insns, sole residual is `ldr r4,=0xFFFF0000` position (ROM row 76, after second `ldr r1,[r6,#4]`; agbcc row 84 after `strh r2,[r6,#0x10]`). This session: moving maskFFFF initializer to block start = same 200; hoisting its declaration = same 200; using it in the +0x10 store = same 200 (agbcc folds it); widening the +6 store source into s32 vv = 260. Restored saved_best e2a8c3fbcb818767f6f0. No legal C spelling moved the literal load to the ROM slot.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795812358.2671847,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:c54258c83e7b6a40251a7a08924a5783b418d5bd7444d22aa0f4f25472ebae3b:caff088c0927a191ae73d593d2e6ee0c7d2a0a20623730fff0be8daacd24cca1"
  }
 ]

@@ -9,10 +9,10 @@ extern s32 sub_080C31E0(void *, s32);
 extern s32 sub_080C31E8(void *, void *, s32, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u8 D_0866E958[];
+extern u8 gScriptedAttackCmdTable[];
 extern s32 gScriptEventCallbacks;
 
-void sub_0805CCFC(u8 *script) {
+void updateRoomAnchoredScriptedAttack(u8 *script) {
     u8 *attacker;
     u8 *attack;
     u8 *attackData34;
@@ -44,7 +44,7 @@ void sub_0805CCFC(u8 *script) {
         }
     }
 
-    *(u32 *)(script + 0x14) = (u32)D_0866E958;
+    *(u32 *)(script + 0x14) = (u32)gScriptedAttackCmdTable;
     *(s16 *)(script + 0x22) = *(s16 *)(script + 0x22) + 1;
     *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) + 1;
     scriptIndex = *(s16 *)(script + 0x22) * 2;

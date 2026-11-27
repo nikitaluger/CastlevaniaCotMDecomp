@@ -1,6 +1,7 @@
-/* Fold the raw coordinate pairs at gCameraState+0x1460 into the virtual input
- * word at gCrossfadeGfxState: copy the id/pressure fields, then set or clear the two
- * direction flags along with their coordinate values. */
+/* Fold the raw coordinate pairs at gCameraState+0x1460 into the virtual-input
+ * word at gCrossfadeGfxState: copy the id/pressure fields, then set or clear the
+ * two direction flags along with their coordinate values. flagBit builds each
+ * flag by a runtime shift rather than a literal. */
 extern u8 gCameraState[];
 extern u16 gCrossfadeGfxState[];
 
@@ -9,33 +10,33 @@ static inline u16 flagBit(int n) {
     return m;
 }
 
-void sub_080062AC(void) {
-    u16 *input = gCrossfadeGfxState;
-    u8 *raw = gCameraState;
+void updateVirtualInputFromRaw(void) {
+    u16 *virtualInput = gCrossfadeGfxState;
+    u8 *rawInput = gCameraState;
     u16 word, upper;
 
-    input[9] = raw[0x1468] | (raw[0x1469] << 8);
-    word = input[10];
+    virtualInput[9] = rawInput[0x1468] | (rawInput[0x1469] << 8);
+    word = virtualInput[10];
     upper = word & 0xFF00;
-    input[10] = upper | raw[0x146A];
+    virtualInput[10] = upper | rawInput[0x146A];
 
-    if (raw[0x1460] >= raw[0x1462] && raw[0x1464] >= raw[0x1466]) {
-        word = input[0];
-        input[0] = word & 0xDFFF;
+    if (rawInput[0x1460] >= rawInput[0x1462] && rawInput[0x1464] >= rawInput[0x1466]) {
+        word = virtualInput[0];
+        virtualInput[0] = word & 0xDFFF;
     } else {
-        word = input[0];
-        input[0] = flagBit(6) | word;
-        input[5] = (raw[0x1460] << 8) | raw[0x1462];
-        input[7] = (raw[0x1464] << 8) | raw[0x1466];
+        word = virtualInput[0];
+        virtualInput[0] = flagBit(6) | word;
+        virtualInput[5] = (rawInput[0x1460] << 8) | rawInput[0x1462];
+        virtualInput[7] = (rawInput[0x1464] << 8) | rawInput[0x1466];
     }
 
-    if (raw[0x1461] >= raw[0x1463] && raw[0x1465] >= raw[0x1467]) {
-        word = input[0];
-        input[0] = word & 0xBFFF;
+    if (rawInput[0x1461] >= rawInput[0x1463] && rawInput[0x1465] >= rawInput[0x1467]) {
+        word = virtualInput[0];
+        virtualInput[0] = word & 0xBFFF;
     } else {
-        word = input[0];
-        input[0] = flagBit(7) | word;
-        input[6] = (raw[0x1461] << 8) | raw[0x1463];
-        input[8] = (raw[0x1465] << 8) | raw[0x1467];
+        word = virtualInput[0];
+        virtualInput[0] = flagBit(7) | word;
+        virtualInput[6] = (rawInput[0x1461] << 8) | rawInput[0x1463];
+        virtualInput[8] = (rawInput[0x1465] << 8) | rawInput[0x1467];
     }
 }

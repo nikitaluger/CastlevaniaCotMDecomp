@@ -2790,3 +2790,19 @@ struct MainWorkspaceView {
 #define VIRTUAL_INPUT_FLAG_B       0x4000  /* 0x80 << 7, from the odd pair */
 #define VIRTUAL_INPUT_FLAG_A_CLEAR 0xDFFF  /* ~VIRTUAL_INPUT_FLAG_A */
 #define VIRTUAL_INPUT_FLAG_B_CLEAR 0xBFFF  /* ~VIRTUAL_INPUT_FLAG_B */
+
+/* Step records of a scripted attack: the s16 step index at script+0x22 selects
+ * two-byte records at script+0x18 (opcode byte then timer byte). The next two
+ * bytes hold a "already active" flag and a "cleared on hit" flag. The attacker
+ * is re-anchored each frame by subtracting the current room's scroll row. */
+#define ATTACK_STEP_STRIDE      2
+#define ATTACK_STEP_TIMER_OFF   0x19
+#define ATTACK_STEP_FLAG_A_OFF  0x1A
+#define ATTACK_STEP_FLAG_B_OFF  0x1B
+#define ATTACK_ROOM_COUNTER_OFF 0x18A8  /* gMainWorkspace frame/room index */
+#define ATTACK_SCROLL_STRIDE    0x40    /* bytes per scroll row */
+#define ATTACK_SCROLL_X_OFF     0x1278  /* gCameraState room scroll X */
+#define ATTACK_SCROLL_Y_OFF     0x127C  /* gCameraState room scroll Y */
+#define ATTACK_SCROLL_BIAS_X    0x8000
+#define ATTACK_SCROLL_BIAS_Y    0xFFFF8000
+#define ATTACK_SCROLL_FRAC_MASK 0xFFFF0000
