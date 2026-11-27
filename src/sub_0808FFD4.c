@@ -50,8 +50,9 @@ void sub_0808FFD4(struct S_Obj *obj)
         actionTable = D_081003E4;
         tableOff = params->f00 * 4;
         sub_08011344(animChannel, animInfo, *(s16 *)((u8 *)actionTable + tableOff), 0);
+        p = (u8 *)(*(volatile u32 *)((u8 *)params + 4));
         zero = 0;
-        *(s16 *)(*(volatile u32 *)((u8 *)params + 4) + 6) = 4;
+        *(s16 *)(p + 6) = 4;
         *(s16 *)(*(volatile u32 *)((u8 *)params + 4) + 8) = 10;
         *(s16 *)(*(volatile u32 *)((u8 *)params + 4) + 10) = (s16)r6;
         p = (u8 *)(*(volatile u32 *)((u8 *)params + 4));

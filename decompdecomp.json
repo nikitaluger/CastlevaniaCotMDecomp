@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795812858.3987374,
- "revision": 71062,
+ "saved_at": 1795812962.2842042,
+ "revision": 71070,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1791,6 +1791,17 @@
    "timeout": 20,
    "function": "updateCompanionBossAlt",
    "vram": 134629636
+  },
+  "589780:134807508": {
+   "vram": 134807508,
+   "function": "sub_0808FFD4",
+   "toolchain": "agbcc",
+   "flags": [
+    "-mthumb-interwork",
+    "-O1",
+    "-fno-strength-reduce"
+   ],
+   "timeout": 20
   }
  },
  "instructions": "",
@@ -2132,7 +2143,8 @@
   "local_source_8589937398": "common_local_source_8589937398.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
   "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "rom": "common_rom.h",
+  "local_source_8589939150": "common_local_source_8589939150.h"
  },
  "functions": {
   "sub_08000468": {
@@ -17107,8 +17119,8 @@
   },
   "sub_0808FFD4": {
    "vram": 134807508,
-   "best_score": 210,
-   "best_by": "opencode-hy4-flash-free-11"
+   "matched_by": "opencode-hy4-flash-free-64",
+   "readable": false
   },
   "sub_080901D4": {
    "vram": 134808020,

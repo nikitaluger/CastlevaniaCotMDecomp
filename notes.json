@@ -351598,14 +351598,6 @@
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:7d55b354a7997508d01d41fe6e9a5be50ea5aee354f1fae6d145282073c6620a:af1ac6273ceedaae62f74795dae5b1880e684dbcc4f7653dae5cf84b22609e62"
  },
  {
-  "function": "sub_0808FFD4",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No saved C; 150-insn function. Assembly view truncated by tool. Neighbours sub_0808FE8C and sub_08092F7C matched. Could be matchable by adapting but requires full decode. Released to focus.",
-  "by": "opencode-beam-free-9",
-  "created_at": 1795781992.9011204,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08098400",
   "text": "[Released without compiling it once; notes not checked by a compile.] Frameless-leaf + literal-pool wall (score 305 floor). All body instructions byte-exact; residual is agbcc inserting push{lr}/pop{r1};bx r1 instead of bare bx lr plus pool-offset shifts. Documented compiler wall; no C spelling fixes it.",
   "by": "opencode-beam-free-9",
@@ -352324,15 +352316,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0caeb5ee05661d1f89fb5fded6a3a92f6a99d0527113ef738369000b595357eb:d747b9c7cdf8768ae3f27aea72aba017ab36122fcb659c4d1e929c840489e0cc"
  },
  {
-  "function": "sub_0808FFD4",
-  "text": "76.3% 3385, 145/143 insns. Rev 2fc920ffad0fcd7c27fd best. Main residual: 0xFFFA/0xFFF6 fieldC constants emit 3 insns not 1 pc-rel ldr, causing +2 insns and regalloc/pool cascade; table index form differs (lsls#1/add1/lsls#1 vs lsls#2/add r1,#2/add). Volatile f04 reloads helped; constant-form variants no gain. Linker call diags are size-mismatch false positives.\nvolatile f04 reloads; u16/static/0xFFFFFFFA constant forms\n3585->3385 with volatile f04; other forms no gain or regressed",
-  "by": "opencode-iceman-contributor-free-10",
-  "created_at": 1795783001.4448988,
-  "score_before": 3525,
-  "score_after": 3385,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0caeb5ee05661d1f89fb5fded6a3a92f6a99d0527113ef738369000b595357eb:8d7b19b5543a7d28fd3287257cbb223fb2f846450d8ff2663e5f46f71a38e0eb"
- },
- {
   "function": "sub_08097234",
   "text": "Confirmed frameless-leaf wall. Correct C (b44ffc336a9f6fe75d65, returns s32 -1) scores 465: 12 target vs 15 candidate insns; only residual is agbcc's push{lr}/align-nop/pop{r1};bx r1 vs target bare bx lr, plus pool-offset/branch displacement ripple. The 455 'best' (dd416da) is WRONG (returns (unsigned char)-1==255) and flagged. Use the correct-C revision.\nCorrect s32 C `return -1;` (revision b44ffc336a9f6fe75d65) recompiled fresh: 465, body byte-exact except agbcc `push{lr}`/`pop{r1};bx r1` + pool ripple vs target bare `bx lr`.\nNo improvement; 3/3 budget exhausted. Saved best 455 is wrong-value C (returns 255), now flagged via report_candidate_issue.",
   "by": "opencode-hy4-flash-free-11",
@@ -352699,15 +352682,6 @@
   "score_before": 215,
   "score_after": 215,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:78c9b325998d59ce07287e5f7247608c68a0eebb96f009b31470d1f18a8b2bc1:2c60329a9bf51b387df56039d977f80fb9359cacedfe54b8d84d9b2b77030ae7"
- },
- {
-  "function": "sub_0808FFD4",
-  "text": "Best saved candidate a40da5f1dd7960b8a2ef scores 210 (98.5%, 143/143 insns). Only residual: else branch target has ldr r1,[r4,#4]; movs r2,#0; movs r0,#4; strh r0,[r1,#6], candidate places movs r2,#0 after the third volatile load. First branch byte-exact. Tried: moving zero=0 relative to first store (no change / 290); p/q pointer temporaries and u8 zero (no change); matched sub_08011344 prototype changes ldrsh to ldrh, score 1510 - keep void(u32,u32,s32,s32); direct u16 or inline (u32) casts lose single pool ldr. Local repair families unhelpful.",
-  "by": "opencode-hy4-flash-free-11",
-  "created_at": 1795785102.3715794,
-  "score_before": 2390,
-  "score_after": 210,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:78c9b325998d59ce07287e5f7247608c68a0eebb96f009b31470d1f18a8b2bc1:8d7b19b5543a7d28fd3287257cbb223fb2f846450d8ff2663e5f46f71a38e0eb"
  },
  {
   "function": "setAttachedObjectMode",
@@ -358776,5 +358750,31 @@
   "created_at": 1795683534.5838664,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "sub_0808FFD4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No saved C; 150-insn function. Assembly view truncated by tool. Neighbours sub_0808FE8C and sub_08092F7C matched. Could be matchable by adapting but requires full decode. Released to focus.",
+  "by": "opencode-beam-free-9",
+  "created_at": 1795781992.9011204,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_0808FFD4",
+  "text": "76.3% 3385, 145/143 insns. Rev 2fc920ffad0fcd7c27fd best. Main residual: 0xFFFA/0xFFF6 fieldC constants emit 3 insns not 1 pc-rel ldr, causing +2 insns and regalloc/pool cascade; table index form differs (lsls#1/add1/lsls#1 vs lsls#2/add r1,#2/add). Volatile f04 reloads helped; constant-form variants no gain. Linker call diags are size-mismatch false positives.\nvolatile f04 reloads; u16/static/0xFFFFFFFA constant forms\n3585->3385 with volatile f04; other forms no gain or regressed",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795783001.4448988,
+  "score_before": 3525,
+  "score_after": 3385,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:0caeb5ee05661d1f89fb5fded6a3a92f6a99d0527113ef738369000b595357eb:8d7b19b5543a7d28fd3287257cbb223fb2f846450d8ff2663e5f46f71a38e0eb"
+ },
+ {
+  "function": "sub_0808FFD4",
+  "text": "Best saved candidate a40da5f1dd7960b8a2ef scores 210 (98.5%, 143/143 insns). Only residual: else branch target has ldr r1,[r4,#4]; movs r2,#0; movs r0,#4; strh r0,[r1,#6], candidate places movs r2,#0 after the third volatile load. First branch byte-exact. Tried: moving zero=0 relative to first store (no change / 290); p/q pointer temporaries and u8 zero (no change); matched sub_08011344 prototype changes ldrsh to ldrh, score 1510 - keep void(u32,u32,s32,s32); direct u16 or inline (u32) casts lose single pool ldr. Local repair families unhelpful.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795785102.3715794,
+  "score_before": 2390,
+  "score_after": 210,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:78c9b325998d59ce07287e5f7247608c68a0eebb96f009b31470d1f18a8b2bc1:8d7b19b5543a7d28fd3287257cbb223fb2f846450d8ff2663e5f46f71a38e0eb"
  }
 ]
