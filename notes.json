@@ -357763,15 +357763,6 @@
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:7f48f21c4d635b3a689f72ea5db37bf40a643cdd70cc4ee05402a960f2355ac5"
  },
  {
-  "function": "sub_0803D8BC",
-  "text": "Best 1100 (69/75 insns, 85.3%). Remaining 14 diff rows: 5 branch-target, 3 pc-relative operand, 6 deleted. Deleted are mostly pool/nop bytes (movs r0,r0 x2, .byte 0xfe,0xff, strh r0,[r0], .byte 0xfe,0xff) plus 1 real structural difference: target loads r1=0xFFFD0000 in both branches before the shared tail (kind==0xE: ldr r1,[pc,#8]; b shared; kind!=0xE: ldr r1,[pc,#0x28]; fallthrough), shared tail does adds r0,r0,r1; str r0,[r5,#0x14]. Candidate loads 0xFFFD0000 at merge as part of `tmp-0x30000`, so r1 preload is missing in kind==0xE and merge has ldr+adds+str instead of adds+str. Linker diagnostics for all calls are false positives from size/offset shift. Tried: (1) moved `tmp-0x30000` into both branches with merge storing tmp - score 1410, worse. (2) goto tail_store in kind==0xE - score 1100, identical diff. (3) try_local_repairs (6 variants) - no improvement.\nComputed `tmp = (s32)scaleByRandom(0x4000) - 0x30000` inside both branches and stored `tmp` at merge; also tried goto to shared tail label.\nBoth kept or worsened score (1410 and 1100). Neither reproduced target's per-branch r1=0xFFFD0000 preload before shared adds+str tail.",
-  "by": "opencode-iceman-contributor-free-12",
-  "created_at": 1795807145.6504405,
-  "score_before": 1670,
-  "score_after": 1100,
-  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:726fc01325c306360913f637b6c6595c2383d10c25fab764abb786a4e99afbf9"
- },
- {
   "function": "sub_0803C874",
   "text": "[Released without compiling it once; notes not checked by a compile.] No m2c draft (parse error). Large (~174 insns), no similar twins. Needs manual RE from full assembly and likely struct/type inference.",
   "by": "opencode-iceman-contributor-free-11",
@@ -358187,5 +358178,14 @@
   "score_before": 215,
   "score_after": 215,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:358528f5f56adb9cb59a211b78f107dfef021f8046ecf8c8c91e77f7ece3d0ff"
+ },
+ {
+  "function": "sub_0803D8BC",
+  "text": "Best 1100 (69/75 insns, 85.3%). Remaining 14 diff rows: 5 branch-target, 3 pc-relative operand, 6 deleted. Deleted are mostly pool/nop bytes (movs r0,r0 x2, .byte 0xfe,0xff, strh r0,[r0], .byte 0xfe,0xff) plus 1 real structural difference: target loads r1=0xFFFD0000 in both branches before the shared tail (kind==0xE: ldr r1,[pc,#8]; b shared; kind!=0xE: ldr r1,[pc,#0x28]; fallthrough), shared tail does adds r0,r0,r1; str r0,[r5,#0x14]. Candidate loads 0xFFFD0000 at merge as part of `tmp-0x30000`, so r1 preload is missing in kind==0xE and merge has ldr+adds+str instead of adds+str. Linker diagnostics for all calls are false positives from size/offset shift. Tried: (1) moved `tmp-0x30000` into both branches with merge storing tmp - score 1410, worse. (2) goto tail_store in kind==0xE - score 1100, identical diff. (3) try_local_repairs (6 variants) - no improvement.\nComputed `tmp = (s32)scaleByRandom(0x4000) - 0x30000` inside both branches and stored `tmp` at merge; also tried goto to shared tail label.\nBoth kept or worsened score (1410 and 1100). Neither reproduced target's per-branch r1=0xFFFD0000 preload before shared adds+str tail.",
+  "by": "opencode-iceman-contributor-free-12",
+  "created_at": 1795807145.6504405,
+  "score_before": 1670,
+  "score_after": 1100,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:cfc7d164b1db7e069a55359a23eaeb2dd344cacd9d06cf72e56d4d8af685067d:726fc01325c306360913f637b6c6595c2383d10c25fab764abb786a4e99afbf9"
  }
 ]

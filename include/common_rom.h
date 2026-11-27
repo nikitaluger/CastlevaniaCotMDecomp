@@ -124,6 +124,11 @@ extern void *sub_080015E0(s32 mask, s32 object);
 #define SPRITE_KIND_MAIN_OBJ_EFFECT 0x69
 #define MAIN_OBJ_EFFECT_START_FRAME 0xC
 
+/* Large scaled effect spawned from a main object's script (spawnScaledMainObjectEffect). */
+#define SCALED_MAIN_OBJ_EFFECT_SCRIPT_TABLE 0x08499408
+#define SCALED_MAIN_OBJ_EFFECT_TIMER_DATA   0x08499690
+#define SCALED_MAIN_OBJ_EFFECT_GFX_ID       0x2B
+
 /* Fixed effect kind spawned as a projectile by scriptCmdSpawnProjectile. */
 #define SPRITE_KIND_PROJECTILE 0x20
 
@@ -730,6 +735,12 @@ struct ActionCameraState {
 #define BOSS_STEP_ATTACK  6
 #define BOSS_STEP_FALLBACK 3
 
+/* Companion/boss updaters (updateCompanionBoss and its sibling): the actor's
+ * +0x6C pointer leads to a work block whose +4 is the state passed to the
+ * helpers. In that state +0x40 is the active flag, +0x48/+0x4C hold the
+ * interaction result, +0x28 is a delay timer and +0xC4 receives the next event
+ * id. The actor's +0x22 step index selects a per-step byte at +0x19. */
+
 /* Form indices passed to the entity-form reinitializer by the boss update. */
 #define BOSS_FORM_ATTACK  9
 #define BOSS_FORM_SECOND  0x1E
@@ -970,6 +981,24 @@ struct TrackedBehaviorWork {
 #define SCRIPT_STEP_BASE_OFFSET   0x18
 #define SCRIPT_STEP_INDEX_OFFSET  0x22
 #define SCRIPT_OBJECT_DEATH_SFX   0x18A
+
+/* Angle-driven scripted object (updateScriptedAngleObject). Its +0x3C work
+ * state holds the animation track at +0x34 and a per-step block at +0x48:
+ * +0x00 fixed-point X, +0x14 status, +0x1C countdown, +0x20 cached trig
+ * result, +0x24 angle index. Step handlers live in gAngleObjectStepTable. */
+#define ANGLE_OBJECT_FAR_LIMIT   0x1000000  /* |step X| past this picks the far event */
+#define ANGLE_OBJECT_NEAR_LIMIT  0x7FFFFF   /* |work X| under this allows the chance roll */
+#define ANGLE_OBJECT_CHANCE      0x1388     /* threshold passed to rollProbability */
+
+/* The alternate angle-object updater (updateScriptedAngleObjectAlt) shares the
+ * work-state layout above but dispatches through its own step table. */
+extern u32 gAngleObjectAltStepTable[];
+
+/* Angle index -> trig-table divisor, and the countdown reload range. */
+#define ANGLE_TRIG_INDEX_DIVISOR 0x3C
+#define ANGLE_TIMER_RANDOM_SPAN  0x3D
+#define ANGLE_TIMER_RELOAD_BASE  0x3C
+
 
 /* Scripted-attack sibling: its own step-handler table and death sound. */
 #define SCRIPT_ATTACK_STEP_TABLE  0x0866DC30
@@ -2296,3 +2325,352 @@ struct WaypointActor {
 #define WAYPOINT_FOCUS_CUTOFF  (0xD2 << 0x10)  /* reset distance from focus */
 #define WAYPOINT_ANGLE_DIVISOR 0x24            /* angle units per trig step */
 #define WAYPOINT_SHRINK_STEP   (0x80 << 0x6)   /* radius decrement per frame */
+
+/* Contact target reached from a scripted attack's per-step pointer pair at
+ * work+0x48/+0x4C. Bit 0x20 of the flag word at +0x6C marks it blocked. */
+struct ScriptAttackContactTarget { u8 pad[0x6C]; u16 flags; };
+#define SCRIPT_TARGET_BLOCKED_FLAG 0x20    /* ORed into a contact target's status */
+#define SCRIPT_TARGET_UNBLOCK_MASK 0xFFDF  /* clears the blocked bit above */
+
+/* Step-handler table installed at entity+0x14 by the scripted-attack tick. */
+#define SCRIPT_ATTACK_OBJ_STEP_TABLE 0x0866DC10
+
+/* Five-part scripted entity. Its work state (+0x3C) holds five render-part
+ * pointers at +0x84; part[1] is the OAM alpha byte (0 opaque, 1 translucent).
+ * The entity is idle (and fades its parts) when none of these flag bits are set. */
+#define FIVE_PART_PART_ALPHA_OPAQUE 0
+#define FIVE_PART_PART_ALPHA_FADE   1
+#define FIVE_PART_ACTIVE_FLAGS      0x0D
+#define FIVE_PART_STEP_END_SFX      0x85
+
+/* Workspace fields and constants used when a script command starts a main-object
+ * timer effect. The two coordinate pairs select the effect's spawn origin. */
+#define MAIN_OBJ_GATE_BYTE          0x173A
+#define MAIN_OBJ_WORK_STATE         0x14EC
+#define MAIN_OBJ_MODE_BYTE          0x14ED
+#define MAIN_OBJ_MODE_SPECIAL       0xA2
+#define MAIN_OBJ_EFFECT_X           0x1728
+#define MAIN_OBJ_EFFECT_X_ALT       0x1744
+#define MAIN_OBJ_EFFECT_Y           0x172C
+#define MAIN_OBJ_EFFECT_Y_ALT       0x1748
+#define MAIN_OBJ_EFFECT_Y_BIAS      0xFFEC0000  /* -0x140000 in 16.16 */
+#define MAIN_OBJ_EFFECT_VALUE_A     0x2BF
+#define MAIN_OBJ_EFFECT_VALUE_B     0x57E
+#define MAIN_OBJ_TIMER_EFFECT_ANIM_TABLE 0x08472A58
+
+/* Script-step steering helper (updateSteerTowardPlayerStep).
+ * The player's fixed-point world position lives in the main workspace at
+ * STEER_PLAYER_X_OFFSET / STEER_PLAYER_Y_OFFSET (see also the playerX/playerY
+ * view used by the other player-tracking steps). */
+#define STEER_PLAYER_X_OFFSET 0x174C
+#define STEER_PLAYER_Y_OFFSET 0x1750
+
+/* Animation-track flag raised on the frame that retriggers the steering
+ * adjustment, and the frame installed in response. */
+#define STEER_KEYFRAME_FLAG 2
+#define STEER_ANIM_FRAME 5
+
+/* Steering step block hung off the work state at +0x48:
+ *   +0: u8 index into gSteerAngleOffsets
+ *   +8: s32 heading produced from the bearing and the table offset */
+#define STEER_HEADING_OFFSET 8
+
+/* Render layer reached through work+0x28. Its +2 byte is the layer id and +3
+ * the priority; the steering step clears them, then restores these values. */
+#define STEER_LAYER_VALUE 8
+#define STEER_PRIORITY_VALUE 1
+
+/* Per-state angle adjustments added to (or subtracted from, by bearing
+ * quadrant) the direction to the player. Indexed by the steering block's
+ * first byte. */
+extern s32 gSteerAngleOffsets[];
+
+/* View/camera position synchronisation (syncViewPosition). gMainWorkspace is
+ * the global state buffer; this is the partial view used when the camera
+ * follows a world position. */
+struct ViewSyncState {
+    u8 _0[0x14B8];
+    u32 modeFlags;       /* 0x14B8: low nibble selects the position source */
+    u8 _14BC[8];
+    u8 fracXFrom;        /* 0x14C4: fractional X of the previous position */
+    u8 fracYFrom;        /* 0x14C5 */
+    u8 fracXTo;          /* 0x14C6: fractional X of the target position */
+    u8 fracYTo;          /* 0x14C7 */
+    u32 srcX;            /* 0x14C8: 16.16 source position */
+    u32 srcY;            /* 0x14CC */
+    u8 _14D0[0x258];
+    u32 viewX;           /* 0x1728: camera position written back here */
+    u32 viewY;           /* 0x172C */
+    u8 _1730[0x1C];
+    u32 playerX;         /* 0x174C: player position written back here */
+    u32 playerY;         /* 0x1750 */
+    u8 _1754[0x150];
+    u32 mode;            /* 0x18A4: low nibble copied from modeFlags */
+};
+
+/* Script parameter reached through the action context's +0x12C pointer. */
+struct ViewSyncParam {
+    u8 _0[0xC];
+    s16 offsetY;         /* 0x0C: 16.16 vertical adjustment (shifted <<16) */
+};
+
+struct ViewSyncContext {
+    u8 _0[0x12C];
+    struct ViewSyncParam *param; /* 0x12C */
+};
+
+/* Output world position, in 16.16 fixed point. */
+struct WorldPosition { u32 x; u32 y; };
+
+/* Low nibble of ViewSyncState.modeFlags selects how the position is chosen. */
+#define VIEW_SYNC_FLAGS_MASK      0x0F
+#define VIEW_SYNC_FLAG_HELD       0x08  /* keep the current position */
+#define VIEW_SYNC_FLAG_INTERP     0x05  /* interpolate between fractional parts */
+#define VIEW_SYNC_FLAG_DIRECT     0x02  /* copy the source position directly */
+
+/* Values returned by syncViewPosition. */
+#define VIEW_SYNC_MODE_NONE          0
+#define VIEW_SYNC_MODE_HELD          1
+#define VIEW_SYNC_MODE_INTERPOLATED  2
+#define VIEW_SYNC_MODE_DIRECT        3
+
+/* Render layer grabbed from allocEffectPart and hung off a scripted entity's
+ * work state at +0x3C by spawnPoseCompanionEffect. Its fields mirror the
+ * standard effect-layer layout, with two extra words at +0x16/+0x18. */
+struct PoseCompanionLayer {
+    u8 _0;           /* 0x00: unused */
+    u8 mode;         /* 0x01: low bits of the scene mode flags */
+    u8 kind;         /* 0x02: POSE_COMPANION_KIND */
+    u8 layer;        /* 0x03: render layer index */
+    u16 gfxIndex;    /* 0x04 */
+    u16 affine0;     /* 0x06 */
+    u16 affine1;     /* 0x08 */
+    u16 affine2;     /* 0x0A */
+    u16 affine3;     /* 0x0C */
+    u16 palette;     /* 0x0E: percentage-scaled duration */
+    u32 sprite;      /* 0x10: owning sprite handle */
+    u8 _14[2];       /* 0x14 */
+    u16 animSlot;    /* 0x16: starting animation slot */
+    u16 extraFlags;  /* 0x18: companion-specific flags */
+};
+
+#define POSE_COMPANION_MODE_MASK     5
+#define POSE_COMPANION_KIND          2
+#define POSE_COMPANION_LAYER         8
+#define POSE_COMPANION_AFFINE_0      8
+#define POSE_COMPANION_AFFINE_1      0x10
+#define POSE_COMPANION_ANIM_SLOT     0xF
+#define POSE_COMPANION_FLAGS         0x7E
+#define POSE_COMPANION_SCALE_100     0x64
+#define POSE_COMPANION_SCALE_ALT     0x8D
+#define POSE_COMPANION_Y_OFFSET      0x500000
+#define POSE_COMPANION_VARIANT_SHIFT 3
+#define POSE_COMPANION_VARIANT_MASK  7
+
+/* Companion sprite variant of the pose-effect spawner: it seeds the owner
+ * sprite's animation/position fields instead of the work-state coordinates,
+ * and uses a different affine preset and percentage scale. */
+#define POSE_COMPANION_SPRITE_AFFINE_0  0x1E
+#define POSE_COMPANION_SPRITE_AFFINE_1  0x1E
+#define POSE_COMPANION_SPRITE_SCALE_100 0x2D
+#define POSE_COMPANION_SPRITE_SCALE_ALT 0x3F
+#define POSE_COMPANION_SPRITE_FLAGS     0x7D
+
+/* gPoseCompanionOffsets (0x080E00C8) holds eight fixed-point offsets; the
+ * pose manager's variant word selects one with (variant >> 3) & 7. */
+
+/* Work state hung off a scripted companion entity at +0x3C. */
+struct CompanionWorkState {
+    u8 _0[4];
+    u16 flags;           /* 0x04: pending-cancel bit cleared on finalize */
+    u8 _6[0xA];
+    u32 velocityX;       /* 0x10 */
+    u32 velocityY;       /* 0x14 */
+    u8 _18[0x1C];
+    u8 animDesc[0x14];   /* 0x34: graphics descriptor passed to forceAnimationFrame */
+    u8 _48[8];
+    void *effect;        /* 0x50: spawned effect entity */
+    u8 _54[0xC];
+    void *timerNode;     /* 0x60 */
+    u8 _64[7];
+    u8 state;            /* 0x6B */
+    u16 timer;           /* 0x6C */
+};
+
+/* Child-node kinds whose pending callbacks are cancelled during finalize. */
+#define COMPANION_CHILD_CANCEL_A 0x17D
+#define COMPANION_CHILD_CANCEL_B 0x177
+
+/* Flags, state and animation/audio constants of the finalize path. */
+#define COMPANION_FINAL_FLAG_MASK 0xFFFB
+#define COMPANION_DONE_FLAG       0x0400
+#define COMPANION_FINAL_STATE     0x10
+#define COMPANION_FINAL_FRAME     9
+#define COMPANION_FINAL_BEHAVIOR  1
+#define COMPANION_FINAL_SFX       0x186
+#define COMPANION_FINAL_PARAM     0x0B
+
+/* Work block hung off a main object at +0x6C: layout used by initMainObjectEffectGraphics. */
+struct MainObjectEffectWork {
+    u8 _0[4];
+    u32 gfxWord0;        /* 0x04: first graphics-init word */
+    u8 _8[0x10C];
+    u32 posX;            /* 0x114: zeroed */
+    u32 posY;            /* 0x118: zeroed */
+    u8 _11C[8];
+    u8 statusByte0;      /* 0x124: from gGameStatus */
+    u8 statusByte1;      /* 0x125 */
+    u8 statusByte2;      /* 0x126 */
+    u8 _127[9];
+    struct MainObjectEffectLayer *layer1; /* 0x130 */
+    struct MainObjectEffectLayer *layer2; /* 0x134 */
+};
+
+/* Render layer allocated twice by allocEffectPart and stored in the work block above. */
+struct MainObjectEffectLayer {
+    u8 mode;             /* 0x00 */
+    u8 active;           /* 0x01 */
+    u8 param2;           /* 0x02 */
+    u8 param3;           /* 0x03 */
+    u16 gfxA;            /* 0x04 */
+    u8 affine[8];        /* 0x06..0x0D */
+    u16 gfxB;            /* 0x0E */
+    void *sprite;        /* 0x10: owner sprite */
+    u8 _14[2];
+    u16 timer;           /* 0x16 */
+    u16 tail;            /* 0x18 */
+};
+
+/* Companion/boss action handler (tryCompanionBossAction): layout of the global
+ * workspace it samples. The first fields mirror ActionWorkspace; +0x1848 is
+ * the flag word armed when the special attack fires. */
+struct CompanionActionWorkspace {
+    u8 pad0[0x24];
+    u32 modeFlags;      /* 0x24: nonzero selects the modeMask input word */
+    u16 modeMask;       /* 0x28: action bits active in that mode */
+    u8 pad2A[0x14C3];
+    u8 actionState;     /* 0x14ED: nonzero queues a screen transition */
+    u8 pad14EE[0x35A];
+    u32 attackFlags;    /* 0x1848 */
+};
+
+/* gGameStatus bytes consulted by the companion action gate. */
+#define COMPANION_ACTION_MASK     0x3C2  /* u16 action-allow mask */
+#define COMPANION_GATE_BYTE       0x2DB  /* must read 0 for the special attack */
+#define COMPANION_GATE_INDEX_A    0x304  /* index into the table at +0x30B */
+#define COMPANION_GATE_INDEX_B    0x305  /* index into the table at +0x315 */
+#define COMPANION_GATE_TABLE_A    0x30B
+#define COMPANION_GATE_TABLE_B    0x315
+
+/* Special action armed by tryCompanionBossAction. */
+#define COMPANION_ATTACK_FLAG_BITS 0x49FE0000
+#define COMPANION_ATTACK_FORM      0x35
+#define COMPANION_ATTACK_SFX       0x12C
+#define COMPANION_ATTACK_STEP      0x1C
+#define COMPANION_ACTION_READY     0x8C  /* work+0x8C set to 1 on success */
+
+/* Main work buffer at 0x02025FF0, as viewed by the enemy script step that
+ * spawns a projectile: +0x1870 is the owner id passed to the spawner. */
+struct EnemySpawnWorkspace {
+    u8 _0[0x1870];
+    u32 ownerId;
+};
+
+/* Animation opcodes read from the current frame-table entry of an enemy
+ * script step. The motion opcode advances movement instead of spawning. */
+#define ENEMY_STEP_OP_MOTION 0x0E
+#define ENEMY_STEP_OP_POSE_1 15
+#define ENEMY_STEP_OP_POSE_2A 17
+#define ENEMY_STEP_OP_POSE_2B 19
+#define ENEMY_STEP_OP_POSE_3 21
+
+/* Constants of the random-projectile script step and of its animation track. */
+#define ENEMY_STEP_PROJECTILE_KIND 1
+#define ENEMY_STEP_PROJECTILE_LIFE 2
+#define ENEMY_STEP_QUARTER_TURN    0x4000
+#define ENEMY_STEP_SKIP_FLAG       1
+#define ANIM_TRACK_CALLBACK_FLAG   2
+
+/* Offsets into gCameraState used by initMainObjectGraphics. */
+#define CAMERA_MO_STATE_WORD  0x125C
+#define CAMERA_MO_MAP_BASE    0x1260
+#define CAMERA_MO_MAP_CONTROL 0x1262
+#define CAMERA_MO_SCROLL_X    0x1278
+#define CAMERA_MO_SCROLL_Y    0x127C
+
+/* Table at 0x0866CB50: one 8-byte record per object kind,
+ * {compressed gfx A, compressed gfx B}, followed by handler pointers. */
+#define MAIN_OBJ_GFX_TABLE 0x0866CB50
+
+/* Compressed graphics loaded by initMainObjectGraphics. Kinds 0..4 use the
+ * normal pair, other kinds the alternate pair; the per-kind pair comes from
+ * MAIN_OBJ_GFX_TABLE. */
+#define MAIN_OBJ_TILE_GFX_NORMAL_A 0x0864292C
+#define MAIN_OBJ_TILE_GFX_NORMAL_B 0x086452A4
+#define MAIN_OBJ_TILE_GFX_ALT_A    0x08644680
+#define MAIN_OBJ_TILE_GFX_ALT_B    0x08645604
+#define MAIN_OBJ_SPRITE_GFX        0x08645264
+
+/* Script state shared by the main-object timer callbacks. The step bytes start
+ * at +0x18 (one byte at +0x19 is the current step's counter), +0x22 is the
+ * signed step index and +0x3C selects the object's graphics set. */
+struct MainObjectState {
+    u8 _0[0x14];
+    void *stepTable; /* 0x14 */
+    u8 steps[0xE];   /* 0x18 */
+    s16 stepIndex;   /* 0x22 */
+    u8 _24[0x18];
+    u32 kind;        /* 0x3C */
+};
+
+/* Script-step stream layout: steps begin at SCRIPT_STEP_BASE_OFFSET (0x18) as
+ * 2-byte (opcode, timer) records; the next two bytes carry event ids. */
+#define SCRIPT_STEP_TIMER_OFFSET       0x19
+#define SCRIPT_STEP_EVENT_OFFSET       0x1A
+#define SCRIPT_STEP_EVENT_TIMER_OFFSET 0x1B
+
+/* Actor extra-flag bit at +0x6C that latches the work-state hit flag, and the
+ * event callback id dispatched when a flagged projectile hit lands. */
+#define SCRIPT_PROJ_ATTACK_FLAG 0x02
+#define SCRIPT_PROJ_HIT_EVENT   1
+
+/* Sprite OAM attribute words (attribute 0 and attribute 1) as viewed by the
+ * scripted effect updates. */
+struct EffectSpriteAttrs { u16 attr0; u16 attr1; };
+
+/* Step-handler table installed by updateCameraRelativeEffect. */
+#define EFFECT_VIEW_STEP_TABLE 0x0866DDD0
+
+/* ---- Moving-object tile-collision update (updateObjectTileCollision) ---- */
+
+/* The actor's +0x6C slot points at a scene block; scene+4 is the position/
+ * motion body passed to setSpriteScreenPosition and the delay-timer helpers. */
+struct TileCollisionScene {
+    u8 _0[4];
+    s32 coordX;        /* 0x04: world X, 16.16 */
+    u8 _8[0x2C];
+};
+
+struct TileCollisionBody {
+    u8 _0[4];
+    s32 coordY;        /* 0x04: world Y, 16.16 */
+    s32 offsetX;       /* 0x08: pending X motion */
+    s32 offsetY;       /* 0x0C: pending Y motion */
+    u8 _10[0x2C];
+    void *effect;      /* 0x3C: effect whose +0x14 flags gate the extra spawn */
+    u8 _40[8];
+    s32 bounce;        /* 0x4C: collision bounce value */
+};
+
+struct TileCollisionEffect { u8 _0[0x14]; u16 flags; };
+
+/* gMainWorkspace byte at +0x18A8 selects the current tilemap page. */
+struct TilePageWorkspace { u8 _0[0x18A8]; u8 pageIndex; };
+
+/* Payload installed on the hit timer and the kind spawned on a flagged hit. */
+#define TILE_COLLISION_ANIM_DATA 0x08472AB0
+#define TILE_COLLISION_EFFECT_KIND 8
+
+/* Bounce written to the body on a tile hit, and the collision sound id. */
+#define TILE_COLLISION_BOUNCE 0x4000
+#define TILE_COLLISION_SFX 0x6F

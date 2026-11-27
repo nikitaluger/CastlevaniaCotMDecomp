@@ -30,7 +30,7 @@ void sub_0803D8BC(void *arg0)
             if (getSpriteFacingSign(sprite) > 0)
                 *(s32 *)(work + 0x10) = 0x18000;
             else
-                *(s32 *)(work + 0x10) = 0xFFFD0000;
+                *(s32 *)(work + 0x10) = 0xFFFE8000;
             tmp = (s32)scaleByRandom(0x4000);
             delta = (s32)0xFFFD0000;
         }
