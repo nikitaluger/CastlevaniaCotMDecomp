@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795743324.5805604,
- "revision": 68733,
+ "saved_at": 1795743387.8802996,
+ "revision": 68736,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -1770,17 +1770,6 @@
     "-mthumb-interwork",
     "-O2"
    ]
-  },
-  "93764:134311492": {
-   "toolchain": "agbcc",
-   "flags": [
-    "-mthumb-interwork",
-    "-O2",
-    "-fno-strength-reduce"
-   ],
-   "timeout": 20,
-   "function": "updateScriptedProjectileHit",
-   "vram": 134311492
   }
  },
  "instructions": "",
@@ -1814,7 +1803,9 @@
   "DRACULA AGB1 literal-pool/extent wall: when every real target instruction is byte-exact and the only residual rows at the very end are a `movs r0,r0` alignment nop plus 2 rows decoding the bytes of a literal-pool word, the ROM's pool entry sits just past the function's declared extent. A standalone compile must emit its own pool inside the extent, so those rows can never be removed by C spelling, casts, constant formatting or in-profile flags. Release with a compiler/extent handoff; do not spend the compile budget on it.",
   "DRACULA AGB1 frameless Thumb loop-leaf ABI wall: when a no-call leaf loop has a byte-exact real body but agbcc adds `push {lr}` and `pop {r0}; bx r0` where the ROM uses bare `bx lr`, treat it as compiler frame-emission, not loop C. Exact flags, -O1, -O3, and even explicit -fomit-frame-pointer preserve this inserted frame and branch-displacement ripple, while -Os/non-interwork are worse. Do not spend budget on while/do/for or pointer declaration permutations; a compiler/backend change is required.",
   "DRACULA AGB1 / frameless Thumb leaf frame wall: when a no-call leaf's entire real target body is already byte-exact and the only residual is candidate `push {lr}` / `pop {r0}` / `bx r0` versus the ROM's frameless `bx lr`, with branch and literal offsets rippling by two, this is agbcc `-mthumb-interwork` prologue/epilogue emission, not a C-source mismatch. Source permutations cannot remove it. Confirm the compiler profile once with search_flags, then release with a compiler_settings handoff; matching requires an ABI/compiler mode that emits frameless Thumb leaves.",
-  "DRACULA AGB1 / agbcc initial-copy CSE wall: when a switch walker seeds its loop counter with `s32 status = 0; s32 i = status;` and the ROM's prologue is `movs r7,#0; adds r3,r7,#0` (status in callee-saved r7, counter copied into call-clobbered r3), agbcc -O2 constant-propagates both locals to `movs #0` and no legal C spelling preserves the register copy. Declaration order, assignment vs initializer, chained assignment, for-init, do/while(0), struct aggregates, pointer/alias reads, narrow or unsigned types, register/const hints and all five agbcc flag profiles leave the fold (or break other row"
+  "DRACULA AGB1 / branchy literal-pool Thumb leaf wall: a 24-byte leaf that loads a global s16 via `ldr r0,[pc,#..]; movs r1,#0; ldsh r0,[r0,r1]; cmp; beq; movs r0,#1; negs r0,r0; b; <pool>; movs r0,#0; bx lr` cannot be matched by agbcc -mthumb-interwork. Every correct C spelling produces the byte-exact real body but adds push {lr}/pop {rN};bx rN and ripples the literal-pool and branch offsets; -O1/-O2/-O3/-Os/-fomit-frame-pointer all emit the same frame. Treat it as a compiler backend wall, not a C-source problem.",
+  "DRACULA AGB1 / agbcc initial-copy CSE wall: when a switch walker seeds its loop counter with `s32 status = 0; s32 i = status;` and the ROM's prologue is `movs r7,#0; adds r3,r7,#0` (status in callee-saved r7, counter copied into call-clobbered r3), agbcc -O2 constant-propagates both locals to `movs #0` and no legal C spelling preserves the register copy. Declaration order, assignment vs initializer, chained assignment, for-init, do/while(0), struct aggregates, pointer/alias reads, narrow or unsigned types, register/const hints and all five agbcc flag profiles leave the fold (or break other row",
+  "DRACULA AGB1 / agbcc -1 materialization in small branchy leaves: when the ROM returns -1 via two instructions `movs rN,#1; negs rN,rN`, declare the function's return type as `s32` (or another signed 32-bit type). A `u8`/`unsigned char`/`volatile unsigned char` return collapses this to a single `movs rN,#0xff`, which is a real operand mismatch even after the known frameless-leaf frame residual is allowed for. Also write the condition in the ROM's taken-branch polarity (`if (value == K) return 0; return -1;`) so agbcc emits `beq` with the -1 path as fallthrough; the equivalent `if (value != K) r"
  ],
  "knowledge_evidence": {
   "DRACULA AGB1 near-match triage: when a function's residual is only `r` (register) rows and several structurally different legal C spellings give the same score (or merely rotate which register holds a value), it is an agbcc -O2 allocator-coloring tie, not a source problem. Check before spending a budget: try_local_repairs with compare=true, then a small compile_variants grid of type/declaration/expression changes, then compiler_experiments flag profiles. If non-project flags are all much worse and C variants keep the same score/diff, release with an explicit compiler-change handoff rather than": {
@@ -1945,6 +1936,24 @@
     }
    ]
   },
+  "DRACULA AGB1 / branchy literal-pool Thumb leaf wall: a 24-byte leaf that loads a global s16 via `ldr r0,[pc,#..]; movs r1,#0; ldsh r0,[r0,r1]; cmp; beq; movs r0,#1; negs r0,r0; b; <pool>; movs r0,#0; bx lr` cannot be matched by agbcc -mthumb-interwork. Every correct C spelling produces the byte-exact real body but adds push {lr}/pop {rN};bx rN and ripples the literal-pool and branch offsets; -O1/-O2/-O3/-Os/-fomit-frame-pointer all emit the same frame. Treat it as a compiler backend wall, not a C-source problem.": {
+   "model": [
+    {
+     "by": "opencode-hy4-flash-free-11",
+     "value": "hy4-flash-free"
+    },
+    {
+     "by": "opencode-beam-free-9",
+     "value": "beam-free"
+    }
+   ],
+   "text": [
+    {
+     "by": "opencode-hy4-flash-free-11",
+     "value": "getSpawnBehaviorIndex (0x080954A4), verified this session: semantically correct source (`if (*(s16*)0x020279E8==6) return 0; return -1;`) yields byte-exact real body but push {lr}/pop {r1};bx r1, ldr [pc,#0x10] vs [pc,#0xc], b #0x1a vs #0x16 and a spurious alignment nop (score 465). compiler_experiments across current, -fomit-frame-pointer, -O1, -Os, -O3 all scored 465 identically; -mno-thumb-interwork scored 550. Best historical score 325 (`if ... return 1; return 0;`) keeps the frame. find_similar shows sub_08097234, sub_08096F5C, sub_0809683C, sub_08094B84, sub_08094374, sub_0809295C, sub_080923C0 are the same 12-insn shape, all stalled at 325/455 or unstarted."
+    }
+   ]
+  },
   "DRACULA AGB1 / agbcc initial-copy CSE wall: when a switch walker seeds its loop counter with `s32 status = 0; s32 i = status;` and the ROM's prologue is `movs r7,#0; adds r3,r7,#0` (status in callee-saved r7, counter copied into call-clobbered r3), agbcc -O2 constant-propagates both locals to `movs #0` and no legal C spelling preserves the register copy. Declaration order, assignment vs initializer, chained assignment, for-init, do/while(0), struct aggregates, pointer/alias reads, narrow or unsigned types, register/const hints and all five agbcc flag profiles leave the fold (or break other row": {
    "model": [
     {
@@ -1966,6 +1975,24 @@
      "value": "Fresh compile of sub_08012C44 revision 14c0b2547d3c49a8b18f: score 200, 203/203 instructions, sole diff target `adds r3,r7,#0` vs candidate `movs r3,#0` at instruction 9. Claim history records 31 explicit patches and 6 local-repair trials with best 200. The source is exactly `status = 0; i = status;`, and every other instruction is byte-exact under the current agbcc profile."
     }
    ]
+  },
+  "DRACULA AGB1 / agbcc -1 materialization in small branchy leaves: when the ROM returns -1 via two instructions `movs rN,#1; negs rN,rN`, declare the function's return type as `s32` (or another signed 32-bit type). A `u8`/`unsigned char`/`volatile unsigned char` return collapses this to a single `movs rN,#0xff`, which is a real operand mismatch even after the known frameless-leaf frame residual is allowed for. Also write the condition in the ROM's taken-branch polarity (`if (value == K) return 0; return -1;`) so agbcc emits `beq` with the -1 path as fallthrough; the equivalent `if (value != K) r": {
+   "model": [
+    {
+     "by": "opencode-hy4-flash-free-11",
+     "value": "hy4-flash-free"
+    },
+    {
+     "by": "opencode-beam-free-9",
+     "value": "beam-free"
+    }
+   ],
+   "text": [
+    {
+     "by": "opencode-hy4-flash-free-11",
+     "value": "sub_08094374 (24-byte frameless branchy leaf reading s16 at 0x020279E8 and returning 0 when value==0xD else -1): `volatile unsigned char` return gives score 455 with `movs r0,#0xff` and target's `movs r0,#1; negs r0,r0` missing; `s32` return with `if(value==0xD) return 0; return -1;` gives score 465 with every real instruction byte-exact (only the known push{lr}/pop frame residual); `if(value!=0xD) return -1;` gives score 495 with bne and reversed return paths."
+    }
+   ]
   }
  },
  "claim_order": "",
@@ -1979,8 +2006,7 @@
   "local_source_8589935146": "common_local_source_8589935146.h",
   "local_source_8589937090": "common_local_source_8589937090.h",
   "local_source_8589937664": "common_local_source_8589937664.h",
-  "local_source_8589938934": "common_local_source_8589938934.h",
-  "rom": "common_rom.h"
+  "local_source_8589938934": "common_local_source_8589938934.h"
  },
  "functions": {
   "sub_08000468": {
@@ -5013,10 +5039,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_0801A5E8": {
+  "updateScriptedProjectileContact": {
    "vram": 134325736,
    "matched_by": "opencode-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0801A768": {
    "vram": 134326120,
@@ -27083,7 +27109,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0801A5E8",
+   "name": "updateScriptedProjectileContact",
    "vram": 134325736,
    "size": 384,
    "status": "open"
@@ -50617,6 +50643,12 @@
    "kind": "func"
   },
   {
+   "name": "updateScriptedProjectileContact",
+   "address": 134325736,
+   "size": 384,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind87Effect",
    "address": 134333828,
    "size": 472,
@@ -52627,6 +52659,12 @@
    "kind": "data"
   },
   {
+   "name": "gProjectileContactStepTable",
+   "address": 140957232,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "sPlayerScriptStepTable",
    "address": 140957512,
    "size": 0,
@@ -53342,6 +53380,11 @@
   },
   {
    "address": 140956960,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140957232,
    "type": "u8[]",
    "source": "match"
   },
