@@ -73,9 +73,9 @@ void sub_080BE388(void *arg0)
         src = D_08670760[*(s32 *)(base + 4)];
 
         i = 0;
+        off = 0;
         accRBase = (s32 *)(base + 0x8C);
         accGBase = (s32 *)(base + 0x90);
-        off = 0;
         accBBase = (s32 *)(base + 0x94);
 
         while (i <= 0x3F)

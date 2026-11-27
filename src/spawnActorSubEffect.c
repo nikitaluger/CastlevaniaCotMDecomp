@@ -23,7 +23,7 @@ inline u8 inline_fn()
  * data, swap in its release callback, then advance the actor's script table
  * index and run the new script command.
  */
-void sub_0807A0D4(void *arg0)
+/* Spawn a small effect sub-object for an actor: allocate it from the pool, seed its sprite/animation from global game data, swap in its release callback, then advance the actor's script index and run the next script command. */ void spawnActorSubEffect(void *arg0)
 {
   u8 *actor = *((u8 **) (((u8 *) arg0) + 0x6C));
   u8 *state = 4 + actor;

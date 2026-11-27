@@ -42,7 +42,6 @@ void sub_0807BD78(void *arg0)
   u8 *p4;
   u8 *p8;
   int new_var5;
-  u8 *new_var;
   u8 *v38;
   u32 new_var2;
   unsigned int new_var8;
@@ -63,7 +62,7 @@ void sub_0807BD78(void *arg0)
   void *other_gc;
   s32 *temp;
   s = (u8 *) arg0;
-  p4 = *((u8 **) (s + 0x6C));
+  other = *((u8 **) (s + 0x6C)); p4=(u8 *)other;
   p8 = inline_fn2(p4);
   do { v38 = *((u8 **) (s + 0x38)); } while (0);
   p5 = p8;
@@ -94,18 +93,17 @@ void sub_0807BD78(void *arg0)
     __repair_timer_1 += 31;
   }
   *((s32 *) (p5 + 4)) += __repair_timer_1 >> 5;
-  new_var = p8 + 0x1C;
   new_var8 = 0x10;
   if (gMainWorkspace.f24 != 0)
   {
     if (gMainWorkspace.f2A & (*((u16 *) (gGameStatus + 0x3BC))))
     {
-      r6 = new_var;
+      r6 = (p8 + 0x1C);
       if (0 != (*((u32 *) (p8 + 0x54))))
       {
         timer = (*((u32 *) (p8 + 0x54))) - 1; goto dec;
       }
-      startEffectTimer(r6, 0, (u32) D_084E25D4);
+      do { startEffectTimer(r6, 0, (u32) D_084E25D4); } while (0);
       *((u32 *) (p8 + 0x54)) = 0x20;
     }
     else

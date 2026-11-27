@@ -1,7 +1,9 @@
+extern u8 sScriptedEntityStepTable[];
+
 /* One tick of scripted-entity AI: check screen bounds and contact state, react
  * to the current script step's flags (state bits and sound), then dispatch the
  * step from the script callback table and integrate the actor. */
-void sub_0802F0BC(u8 *entity) {
+void updateScriptedEntityAi(u8 *entity) {
     s32 sprite = *(s32 *)(entity + 0x38);
     u8 *actor = *(u8 **)(entity + 0x3C);
     u32 anim = (u32)actor + 0x34;
@@ -60,7 +62,7 @@ void sub_0802F0BC(u8 *entity) {
         u8 opcode;
         void **scriptCallbacks;
         void *callback;
-        *(void **)(entity + 0x14) = (void *)0x0866DBE8;
+        *(void **)(entity + 0x14) = (void *)sScriptedEntityStepTable;
         *(u16 *)(entity + 0x22) = (u16)(*(u16 *)(entity + 0x22) + 1);
         step = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
         *(u8 *)(step + 0x19) = (u8)(*(u8 *)(step + 0x19) + 1);

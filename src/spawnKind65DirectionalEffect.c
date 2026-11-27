@@ -60,7 +60,7 @@ struct BD
   u8 _8[0x20];
 };
 extern struct BD gEffectGfxTable[];
-extern u16 D_08102700[];
+extern u16 gKind65DirectionalLayerAttrs[];
 extern void *gScriptStepCallbackTable;
 extern void *allocSpriteObject(void);
 extern void allocWorkSlot(void *, s32, s32, s32);
@@ -78,7 +78,7 @@ extern void updateActorEffectSubObject(void);
  * link the update callback, configure the sprite/animation sub-object from the parameter
  * tables, dispatch the first state handler and register the completion callback. On
  * allocation failure the parent's callback is freed and the function returns. */
-void sub_080B2780(struct Sarg *parent)
+void spawnKind65DirectionalEffect(struct Sarg *parent)
 {
   struct P *subObjAlias;
   s32 mainObj;
@@ -121,7 +121,7 @@ void sub_080B2780(struct Sarg *parent)
   setSpriteFlipForDirection((void *) mainObj, parent->f4C);
   initSpriteGraphics((void *) mainObj, auxPtr, (subObj->f1C * 0xC) + ((u32) 0x080CD400));
   setAnimationFrame((void *) mainObj, auxPtr, 0x42, 0x01);
-  auxPtr = (u8 *) D_08102700;
+  auxPtr = (u8 *) gKind65DirectionalLayerAttrs;
   subObj->f28 = allocEffectPart();
   if (subObj->f28 == NULL)
   {

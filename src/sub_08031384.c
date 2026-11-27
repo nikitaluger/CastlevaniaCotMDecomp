@@ -1,4 +1,4 @@
-s32 sub_08014900(s32);
+s32 absXFromFocus(s32);
 void sub_080C31E0(void *, void *);
 void sub_080C31E4(void *, void *, s32);
 
@@ -17,7 +17,7 @@ void sub_08031384(void *arg0)
     work = *(u8 **)(self + 0x3C);
     ownerData = *(u32 **)((u8 *)owner + 4);
     if (*(u16 *)((u8 *)ownerData + 6) & 0x100) {
-        if (sub_08014900(*(s32 *)(work + 8)) <= 0x400000) {
+        if (absXFromFocus(*(s32 *)(work + 8)) <= 0x400000) {
             *(s32 *)(work + 0x14) = 0x40000;
         } else {
             return;

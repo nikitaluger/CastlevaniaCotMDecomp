@@ -59,14 +59,12 @@ void sub_08068978(u8 *arg0)
   u8 *var_r4;
   s32 temp_r0_2;
   s32 *new_var3;
-  int new_var6;
   s32 *new_var5;
   int new_var4;
   s32 temp_r6_2;
   u16 temp_r6;
   u8 temp_r6_3;
   u16 temp_r0_3;
-  u32 temp;
   if (syncViewPosition(r8, r8) != 0)
   {
     do
@@ -76,8 +74,7 @@ void sub_08068978(u8 *arg0)
     return;
   }
   resetActionResultState(arg0, r10, r8, r8);
-  temp = gMainWorkspace.f24;
-  if (temp != 0)
+  if ((gMainWorkspace.f24) != 0)
   {
     if (!(gMainWorkspace.f28 & gGameStatus.f3BC))
     {
@@ -229,15 +226,15 @@ void sub_08068978(u8 *arg0)
           block_35:
           if (gMainWorkspace.f24 != 0)
           {
-            if (!(gMainWorkspace.f2A & 0x40))
+            if (gMainWorkspace.f2A & 0x40)
             {
-              goto block_42;
-            }
             goto block_39;
           }
+            else {
+              goto block_42;
+            }}
 
-          new_var6 = 0x40;
-          if (gCameraState.f146E & new_var6)
+          if (gCameraState.f146E & (0x40))
           {
             block_39:
             if (((0x3F & sub_08007B78(gTilemapPages + (gMainWorkspace.f18A8 << 6), *((s32 *) r7), (*new_var5) + 0x10000)) == 0x14) && ((temp_r6 = gMainWorkspace.f14AC, temp_r6 == 0)))

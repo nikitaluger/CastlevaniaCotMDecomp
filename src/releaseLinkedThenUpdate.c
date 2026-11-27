@@ -1,4 +1,4 @@
-void sub_08015974(void);
+void freeMotionTracker(void);
 
 /* A state block hanging off an entity: a linked object in the global object
  * list that gets released, and a saved update handler called with the entity. */
@@ -14,7 +14,7 @@ void releaseLinkedThenUpdate(void *entity) {
     struct State *state = *(struct State **)((s8 *)entity + 0x3C);
 
     if (state->linked != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     state->update(entity);
 }

@@ -21,7 +21,7 @@ void applySpritePaletteVariant(void *, void *);
 void sub_08013C8C(void *, void *);
 s32 checkActorViewBounds(void *, void *);
 void uploadPendingSpriteGraphic(void *, void *);
-void sub_08015974(void);
+void freeMotionTracker(void);
 void sub_0802A7A4(void *, void *);
 void sub_0802A390(struct Entity *entity)
 {
@@ -57,7 +57,7 @@ void sub_0802A390(struct Entity *entity)
       }
       if (motion->cleanupPtr != NULL)
       {
-        sub_08015974();
+        freeMotionTracker();
         motion->cleanupPtr = NULL;
       }
       if (motion->linkFlags != NULL)

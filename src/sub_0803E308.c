@@ -1,6 +1,6 @@
 extern s32 setAnimationFrame(s32, s32, s32, s32);
-extern s32 sub_08014900(s32);
-extern s32 sub_0801491C(s32);
+extern s32 absXFromFocus(s32);
+extern s32 absYFromFocus(s32);
 extern s32 signOf(s32);
 extern s32 sub_08014990(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
@@ -29,8 +29,8 @@ void sub_0803E308(void *self) {
     *(u16 *)(enemyState + 2) = timer;
     if ((s32)(timer << 16) <= 0) {
         *(u16 *)(enemyState + 2) = 0x3C;
-        if (sub_08014900(*(s32 *)(enemy + 8)) <= 0x300000 &&
-            sub_0801491C(*(s32 *)(enemy + 0xC)) <= 0x300000) {
+        if (absXFromFocus(*(s32 *)(enemy + 8)) <= 0x300000 &&
+            absYFromFocus(*(s32 *)(enemy + 0xC)) <= 0x300000) {
             coordX = signOf(*(s32 *)(enemy + 8));
             if (coordX == sub_08014990((s32)actor)) {
                 s16 scriptIndex = *(s16 *)((u8 *)self + 0x22);

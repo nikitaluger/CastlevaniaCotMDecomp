@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795744694.829943,
- "revision": 68830,
+ "saved_at": 1795770555.0838063,
+ "revision": 69016,
  "title": "DRACULA AGB1",
  "platform": "gba",
  "game": {
@@ -2096,7 +2096,7 @@
   },
   "sub_08000A70": {
    "vram": 134220400,
-   "best_score": 230,
+   "best_score": 225,
    "best_by": "permuter-8589934602"
   },
   "sub_08000BA4": {
@@ -2711,7 +2711,7 @@
   },
   "sub_08005258": {
    "vram": 134238808,
-   "best_score": 9120,
+   "best_score": 6605,
    "best_by": "permuter-8589934750"
   },
   "sub_080055B0": {
@@ -2861,8 +2861,8 @@
   },
   "sub_08006680": {
    "vram": 134243968,
-   "best_score": 4630,
-   "best_by": "opencode-hungerg-free-3"
+   "best_score": 2465,
+   "best_by": "permuter-8589934786"
   },
   "sub_08006820": {
    "vram": 134244384,
@@ -3058,6 +3058,11 @@
    "vram": 134250620,
    "best_score": 45,
    "best_by": "permuter-8589934829"
+  },
+  "sub_0800822C": {
+   "vram": 134251052,
+   "best_score": 10,
+   "best_by": "permuter-8589934830"
   },
   "sub_080084D0": {
    "vram": 134251728,
@@ -3436,7 +3441,7 @@
   },
   "sub_0800B9A8": {
    "vram": 134265256,
-   "best_score": 17794,
+   "best_score": 17655,
    "best_by": "permuter-8589934914"
   },
   "sub_0800BF70": {
@@ -4156,7 +4161,7 @@
   },
   "sub_080119B4": {
    "vram": 134289844,
-   "best_score": 27594,
+   "best_score": 27504,
    "best_by": "permuter-8589935071"
   },
   "sub_080122F8": {
@@ -4211,7 +4216,7 @@
   },
   "sub_08013558": {
    "vram": 134296920,
-   "best_score": 16920,
+   "best_score": 16670,
    "best_by": "permuter-8589935085"
   },
   "spawnContactEffectOnHit": {
@@ -4499,15 +4504,15 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08015974": {
+  "freeMotionTracker": {
    "vram": 134306164,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
   "sub_08015BA8": {
    "vram": 134306728,
-   "best_score": 5987,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "best_score": 5117,
+   "best_by": "permuter-8589935157"
   },
   "sub_08016160": {
    "vram": 134308192,
@@ -5696,7 +5701,7 @@
   },
   "sub_0801F67C": {
    "vram": 134346364,
-   "best_score": 2445,
+   "best_score": 2010,
    "best_by": "permuter-8589935409"
   },
   "sub_0801F838": {
@@ -6269,10 +6274,10 @@
    "matched_by": "permuter",
    "readable": true
   },
-  "sub_080251C8": {
+  "updateFamiliarEntity": {
    "vram": 134369736,
    "matched_by": "opencode-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08025340": {
    "vram": 134370112,
@@ -6354,10 +6359,10 @@
    "best_score": 220,
    "best_by": "permuter"
   },
-  "sub_08025FE0": {
+  "updateFamiliarEntityAlt": {
    "vram": 134373344,
    "matched_by": "opencode-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08026158": {
    "vram": 134373720,
@@ -7264,10 +7269,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": true
   },
-  "sub_0802F0BC": {
+  "updateScriptedEntityAi": {
    "vram": 134410428,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0802F238": {
    "vram": 134410808,
@@ -7459,10 +7464,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_08031400": {
+  "updateWeaponEntity": {
    "vram": 134419456,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_080316BC": {
    "vram": 134420156,
@@ -7646,7 +7651,7 @@
   },
   "spawnKind15ScriptSprite": {
    "vram": 134426320,
-   "matched_by": "opencode-nemotron-3.5-super-vl-12-1",
+   "matched_by": "opencode-hy4-flash-free-11",
    "readable": true
   },
   "sub_08033054": {
@@ -8514,10 +8519,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0803B618": {
+  "updateTwoSubObjectWeapon": {
    "vram": 134460952,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0803B828": {
    "vram": 134461480,
@@ -8713,6 +8718,11 @@
    "vram": 134470280,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
+  },
+  "sub_0803DB08": {
+   "vram": 134470408,
+   "best_score": 10,
+   "best_by": "permuter-8589936034"
   },
   "sub_0803DB84": {
    "vram": 134470532,
@@ -10121,8 +10131,8 @@
   },
   "sub_0804B760": {
    "vram": 134526816,
-   "best_score": 635,
-   "best_by": "opencode-hy4-flash-free-11"
+   "best_score": 580,
+   "best_by": "permuter-8589936325"
   },
   "sub_0804B988": {
    "vram": 134527368,
@@ -10169,10 +10179,10 @@
    "matched_by": "opencode-deepseek-v4.1-flash-2",
    "readable": true
   },
-  "sub_0804BF28": {
+  "updateWeaponEntityWithScrollY": {
    "vram": 134528808,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0804C0A4": {
    "vram": 134529188,
@@ -10459,6 +10469,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0804EADC": {
+   "vram": 134539996,
+   "best_score": 10,
+   "best_by": "opencode-hy4-flash-free-11"
+  },
   "sub_0804ECBC": {
    "vram": 134540476,
    "matched_by": "opencode-iceman-contributor-free-1",
@@ -10679,10 +10694,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_08050C28": {
+  "updateWeaponSwing": {
    "vram": 134548520,
    "matched_by": "opencode-hungerg-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08050DA0": {
    "vram": 134548896,
@@ -11224,10 +11239,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_08055A0C": {
+  "createProjectileEntity": {
    "vram": 134568460,
    "matched_by": "opencode-iceman-contributor-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08055B80": {
    "vram": 134568832,
@@ -11499,10 +11514,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": true
   },
-  "sub_080586B8": {
+  "updateEnemyEntity": {
    "vram": 134579896,
    "matched_by": "opencode-gemini-4-hydrogen-1",
-   "readable": false
+   "readable": true
   },
   "sub_08058830": {
    "vram": 134580272,
@@ -12119,10 +12134,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0805E8CC": {
+  "updateHitEntity": {
    "vram": 134605004,
    "matched_by": "opencode-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0805EA44": {
    "vram": 134605380,
@@ -12436,7 +12451,7 @@
   },
   "sub_08061340": {
    "vram": 134615872,
-   "best_score": 58561,
+   "best_score": 58151,
    "best_by": "permuter-8589936810"
   },
   "sub_080619F0": {
@@ -12491,8 +12506,8 @@
   },
   "sub_08061E34": {
    "vram": 134618676,
-   "best_score": 600,
-   "best_by": "opencode-hy4-flash-free-1"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "sub_08061E60": {
    "vram": 134618720,
@@ -12581,7 +12596,7 @@
   },
   "sub_08062F10": {
    "vram": 134622992,
-   "best_score": 5360,
+   "best_score": 5065,
    "best_by": "permuter-8589936844"
   },
   "sub_08063278": {
@@ -12624,10 +12639,10 @@
    "matched_by": "opencode-hy4-flash-free-2",
    "readable": false
   },
-  "sub_08064A2C": {
+  "updateMovingActor": {
    "vram": 134629932,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_08064BAC": {
    "vram": 134630316,
@@ -12781,8 +12796,8 @@
   },
   "sub_08066A88": {
    "vram": 134638216,
-   "best_score": 2855,
-   "best_by": "opencode-hungerg-free-3"
+   "best_score": 240,
+   "best_by": "permuter-8589936889"
   },
   "sub_08066C10": {
    "vram": 134638608,
@@ -12926,7 +12941,7 @@
   },
   "sub_08068978": {
    "vram": 134646136,
-   "best_score": 8075,
+   "best_score": 7770,
    "best_by": "permuter-8589936918"
   },
   "runActionStepAlt": {
@@ -13001,7 +13016,7 @@
   },
   "sub_08069BE8": {
    "vram": 134650856,
-   "best_score": 1055,
+   "best_score": 1025,
    "best_by": "permuter-8589936934"
   },
   "sub_08069D18": {
@@ -13489,10 +13504,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_08070A5C": {
+  "spawnEntityAiEffect": {
    "vram": 134679132,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_08070BD0": {
    "vram": 134679504,
@@ -13554,10 +13569,10 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_080716B8": {
+  "updateChildEntity": {
    "vram": 134682296,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "sub_08071834": {
    "vram": 134682676,
@@ -14274,10 +14289,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_0807A0D4": {
+  "spawnActorSubEffect": {
    "vram": 134717652,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_0807A364": {
    "vram": 134718308,
@@ -14411,8 +14426,8 @@
   },
   "sub_0807B918": {
    "vram": 134723864,
-   "best_score": 4010,
-   "best_by": "opencode-iceman-contributor-free-10"
+   "best_score": 2855,
+   "best_by": "permuter-8589937228"
   },
   "sub_0807BB2C": {
    "vram": 134724396,
@@ -14436,7 +14451,7 @@
   },
   "sub_0807BD78": {
    "vram": 134724984,
-   "best_score": 4740,
+   "best_score": 4050,
    "best_by": "permuter-8589937233"
   },
   "sub_0807BF6C": {
@@ -16281,7 +16296,7 @@
   },
   "sub_0808D6C4": {
    "vram": 134796996,
-   "best_score": 5020,
+   "best_score": 5015,
    "best_by": "permuter-8589937632"
   },
   "sub_0808D7BC": {
@@ -16594,10 +16609,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_080906D8": {
+  "updateTrackedBehaviorSprite": {
    "vram": 134809304,
    "matched_by": "opencode-hy4-flash-free-2",
-   "readable": false
+   "readable": true
   },
   "sub_08090854": {
    "vram": 134809684,
@@ -17069,6 +17084,11 @@
    "matched_by": "opencode-free-2",
    "readable": false
   },
+  "sub_08094A40": {
+   "vram": 134826560,
+   "matched_by": "opencode-hy4-flash-free-11",
+   "readable": false
+  },
   "sub_08094B44": {
    "vram": 134826820,
    "matched_by": "autopilot",
@@ -17418,6 +17438,11 @@
    "vram": 134838888,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
+  },
+  "sub_08097AB0": {
+   "vram": 134838960,
+   "best_score": 10,
+   "best_by": "permuter-8589937876"
   },
   "sub_08097B70": {
    "vram": 134839152,
@@ -17814,6 +17839,11 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0809B05C": {
+   "vram": 134852700,
+   "best_score": 10,
+   "best_by": "restored"
+  },
   "sub_0809B1E8": {
    "vram": 134853096,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -17843,6 +17873,11 @@
    "vram": 134853772,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
+  },
+  "sub_0809B4D4": {
+   "vram": 134853844,
+   "best_score": 10,
+   "best_by": "permuter-8589937966"
   },
   "sub_0809B5D8": {
    "vram": 134854104,
@@ -17919,10 +17954,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_0809BFAC": {
+  "spawnKind44Effect": {
    "vram": 134856620,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_0809C12C": {
    "vram": 134857004,
@@ -18234,25 +18269,30 @@
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
-  "sub_0809E57C": {
+  "spawnKind4CActorEffect": {
    "vram": 134866300,
    "matched_by": "opencode-deepseek-v4.1-flash-1",
-   "readable": false
+   "readable": true
   },
   "sub_0809E818": {
    "vram": 134866968,
    "matched_by": "opencode-hy4-flash-free-1",
    "readable": false
   },
+  "sub_0809E860": {
+   "vram": 134867040,
+   "best_score": 10,
+   "best_by": "permuter-8589938049"
+  },
   "sub_0809EB0C": {
    "vram": 134867724,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_0809EB54": {
+  "spawnKind4CThrowableEffect": {
    "vram": 134867796,
    "matched_by": "opencode-deepseek-v4.1-flash-2",
-   "readable": false
+   "readable": true
   },
   "sub_0809ECD4": {
    "vram": 134868180,
@@ -19158,6 +19198,11 @@
    "vram": 134894440,
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
+  },
+  "sub_080A53EC": {
+   "vram": 134894572,
+   "best_score": 10,
+   "best_by": "autopilot"
   },
   "sub_080A5418": {
    "vram": 134894616,
@@ -20071,7 +20116,7 @@
   },
   "sub_080ACAB4": {
    "vram": 134924980,
-   "best_score": 4575,
+   "best_score": 4320,
    "best_by": "permuter-8589938439"
   },
   "sub_080ACE4C": {
@@ -20086,8 +20131,8 @@
   },
   "sub_080ACEBC": {
    "vram": 134926012,
-   "best_score": 8683,
-   "best_by": "opencode-hy4-flash-free-11"
+   "best_score": 8655,
+   "best_by": "permuter-8589938442"
   },
   "sub_080AD288": {
    "vram": 134926984,
@@ -20319,10 +20364,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "sub_080AF02C": {
+  "spawnKind64TwoVariantEffect": {
    "vram": 134934572,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080AFBA4": {
    "vram": 134937508,
@@ -20719,10 +20764,10 @@
    "matched_by": "opencode-free-1",
    "readable": false
   },
-  "sub_080B2780": {
+  "spawnKind65DirectionalEffect": {
    "vram": 134948736,
    "matched_by": "permuter",
-   "readable": false
+   "readable": true
   },
   "sub_080B28FC": {
    "vram": 134949116,
@@ -21204,10 +21249,10 @@
    "matched_by": "opencode-iceman-contributor-free-1",
    "readable": false
   },
-  "sub_080B64B8": {
+  "spawnActorEffect": {
    "vram": 134964408,
    "matched_by": "opencode-hy4-flash-free-1",
-   "readable": false
+   "readable": true
   },
   "sub_080B6720": {
    "vram": 134965024,
@@ -22346,7 +22391,7 @@
   },
   "sub_080BE388": {
    "vram": 134996872,
-   "best_score": 4010,
+   "best_score": 4000,
    "best_by": "permuter-8589938906"
   },
   "initSpriteGfx": {
@@ -22614,6 +22659,11 @@
    "matched_by": "autopilot",
    "readable": false
   },
+  "sub_080C0440": {
+   "vram": 135005248,
+   "best_score": 10,
+   "best_by": "opencode-hungerg-free-3"
+  },
   "sub_080C04B8": {
    "vram": 135005368,
    "matched_by": "opencode-hy4-flash-free-1",
@@ -22701,7 +22751,7 @@
   },
   "sub_080C0E58": {
    "vram": 135007832,
-   "best_score": 13272,
+   "best_score": 13242,
    "best_by": "permuter-8589939023"
   },
   "sub_080C1274": {
@@ -24444,7 +24494,7 @@
    "name": "sub_0800822C",
    "vram": 134251052,
    "size": 388,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_080083B0",
@@ -26229,13 +26279,13 @@
    "status": "open"
   },
   {
-   "name": "sub_08014900",
+   "name": "absXFromFocus",
    "vram": 134301952,
    "size": 28,
    "status": "asm"
   },
   {
-   "name": "sub_0801491C",
+   "name": "absYFromFocus",
    "vram": 134301980,
    "size": 28,
    "status": "asm"
@@ -26385,7 +26435,7 @@
    "status": "asm"
   },
   {
-   "name": "sub_08015974",
+   "name": "freeMotionTracker",
    "vram": 134306164,
    "size": 72,
    "status": "open"
@@ -28647,7 +28697,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080251C8",
+   "name": "updateFamiliarEntity",
    "vram": 134369736,
    "size": 376,
    "status": "open"
@@ -28749,7 +28799,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08025FE0",
+   "name": "updateFamiliarEntityAlt",
    "vram": 134373344,
    "size": 376,
    "status": "open"
@@ -29889,7 +29939,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0802F0BC",
+   "name": "updateScriptedEntityAi",
    "vram": 134410428,
    "size": 380,
    "status": "open"
@@ -30123,7 +30173,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08031400",
+   "name": "updateWeaponEntity",
    "vram": 134419456,
    "size": 380,
    "status": "open"
@@ -31413,7 +31463,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0803B618",
+   "name": "updateTwoSubObjectWeapon",
    "vram": 134460952,
    "size": 380,
    "status": "open"
@@ -31668,7 +31718,7 @@
    "name": "sub_0803DB08",
    "vram": 134470408,
    "size": 124,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_0803DB84",
@@ -33483,7 +33533,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0804BF28",
+   "name": "updateWeaponEntityWithScrollY",
    "vram": 134528808,
    "size": 380,
    "status": "open"
@@ -33840,7 +33890,7 @@
    "name": "sub_0804EADC",
    "vram": 134539996,
    "size": 480,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_0804ECBC",
@@ -34113,7 +34163,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08050C28",
+   "name": "updateWeaponSwing",
    "vram": 134548520,
    "size": 376,
    "status": "open"
@@ -34803,7 +34853,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08055A0C",
+   "name": "createProjectileEntity",
    "vram": 134568460,
    "size": 372,
    "status": "open"
@@ -35151,7 +35201,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080586B8",
+   "name": "updateEnemyEntity",
    "vram": 134579896,
    "size": 376,
    "status": "open"
@@ -35919,7 +35969,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0805E8CC",
+   "name": "updateHitEntity",
    "vram": 134605004,
    "size": 376,
    "status": "open"
@@ -36395,14 +36445,8 @@
   {
    "name": "sub_08061E34",
    "vram": 134618676,
-   "size": 32,
+   "size": 44,
    "status": "open"
-  },
-  {
-   "name": "sub_08061E54",
-   "vram": 134618708,
-   "size": 12,
-   "status": "asm"
   },
   {
    "name": "sub_08061E60",
@@ -36597,7 +36641,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08064A2C",
+   "name": "updateMovingActor",
    "vram": 134629932,
    "size": 384,
    "status": "open"
@@ -37695,7 +37739,7 @@
    "status": "open"
   },
   {
-   "name": "sub_08070A5C",
+   "name": "spawnEntityAiEffect",
    "vram": 134679132,
    "size": 372,
    "status": "open"
@@ -37779,7 +37823,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080716B8",
+   "name": "updateChildEntity",
    "vram": 134682296,
    "size": 378,
    "status": "open"
@@ -38661,7 +38705,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0807A0D4",
+   "name": "spawnActorSubEffect",
    "vram": 134717652,
    "size": 376,
    "status": "open"
@@ -41613,7 +41657,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080906D8",
+   "name": "updateTrackedBehaviorSprite",
    "vram": 134809304,
    "size": 380,
    "status": "open"
@@ -42216,7 +42260,7 @@
    "name": "sub_08094A40",
    "vram": 134826560,
    "size": 260,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_08094B44",
@@ -42684,7 +42728,7 @@
    "name": "sub_08097AB0",
    "vram": 134838960,
    "size": 192,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_08097B70",
@@ -43182,7 +43226,7 @@
    "name": "sub_0809B05C",
    "vram": 134852700,
    "size": 396,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_0809B1E8",
@@ -43224,7 +43268,7 @@
    "name": "sub_0809B4D4",
    "vram": 134853844,
    "size": 260,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_0809B5D8",
@@ -43317,7 +43361,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809BFAC",
+   "name": "spawnKind44Effect",
    "vram": 134856620,
    "size": 384,
    "status": "open"
@@ -43707,7 +43751,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809E57C",
+   "name": "spawnKind4CActorEffect",
    "vram": 134866300,
    "size": 376,
    "status": "open"
@@ -43722,7 +43766,7 @@
    "name": "sub_0809E860",
    "vram": 134867040,
    "size": 288,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_0809EB0C",
@@ -43731,7 +43775,7 @@
    "status": "open"
   },
   {
-   "name": "sub_0809EB54",
+   "name": "spawnKind4CThrowableEffect",
    "vram": 134867796,
    "size": 384,
    "status": "open"
@@ -44886,7 +44930,7 @@
    "name": "sub_080A53EC",
    "vram": 134894572,
    "size": 44,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_080A5418",
@@ -46365,7 +46409,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080AF02C",
+   "name": "spawnKind64TwoVariantEffect",
    "vram": 134934572,
    "size": 384,
    "status": "open"
@@ -46857,7 +46901,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080B2780",
+   "name": "spawnKind65DirectionalEffect",
    "vram": 134948736,
    "size": 380,
    "status": "open"
@@ -47457,7 +47501,7 @@
    "status": "open"
   },
   {
-   "name": "sub_080B64B8",
+   "name": "spawnActorEffect",
    "vram": 134964408,
    "size": 380,
    "status": "open"
@@ -49452,7 +49496,7 @@
    "name": "sub_080C0440",
    "vram": 135005248,
    "size": 44,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "sub_080C04B8",
@@ -50549,6 +50593,18 @@
    "kind": "func"
   },
   {
+   "name": "absXFromFocus",
+   "address": 134301952,
+   "size": 28,
+   "kind": "func"
+  },
+  {
+   "name": "absYFromFocus",
+   "address": 134301980,
+   "size": 28,
+   "kind": "func"
+  },
+  {
    "name": "signOf",
    "address": 134302008,
    "size": 42,
@@ -50582,6 +50638,12 @@
    "name": "allocMotionTracker",
    "address": 134306068,
    "size": 96,
+   "kind": "func"
+  },
+  {
+   "name": "freeMotionTracker",
+   "address": 134306164,
+   "size": 72,
    "kind": "func"
   },
   {
@@ -50945,9 +51007,21 @@
    "kind": "func"
   },
   {
+   "name": "updateFamiliarEntity",
+   "address": 134369736,
+   "size": 376,
+   "kind": "func"
+  },
+  {
    "name": "updateSpawnedObject",
    "address": 134371064,
    "size": 46,
+   "kind": "func"
+  },
+  {
+   "name": "updateFamiliarEntityAlt",
+   "address": 134373344,
+   "size": 376,
    "kind": "func"
   },
   {
@@ -51035,9 +51109,21 @@
    "kind": "func"
   },
   {
+   "name": "updateScriptedEntityAi",
+   "address": 134410428,
+   "size": 380,
+   "kind": "func"
+  },
+  {
    "name": "updateScriptedAttackObject",
    "address": 134415320,
    "size": 416,
+   "kind": "func"
+  },
+  {
+   "name": "updateWeaponEntity",
+   "address": 134419456,
+   "size": 380,
    "kind": "func"
   },
   {
@@ -51113,6 +51199,12 @@
    "kind": "func"
   },
   {
+   "name": "updateTwoSubObjectWeapon",
+   "address": 134460952,
+   "size": 380,
+   "kind": "func"
+  },
+  {
    "name": "spawnRandomOffsetAttack",
    "address": 134464336,
    "size": 400,
@@ -51185,6 +51277,12 @@
    "kind": "func"
   },
   {
+   "name": "updateWeaponEntityWithScrollY",
+   "address": 134528808,
+   "size": 380,
+   "kind": "func"
+  },
+  {
    "name": "updateMoverEntity",
    "address": 134537156,
    "size": 408,
@@ -51206,6 +51304,12 @@
    "name": "spawnObjectKindEffect",
    "address": 134546272,
    "size": 476,
+   "kind": "func"
+  },
+  {
+   "name": "updateWeaponSwing",
+   "address": 134548520,
+   "size": 376,
    "kind": "func"
   },
   {
@@ -51239,6 +51343,12 @@
    "kind": "func"
   },
   {
+   "name": "createProjectileEntity",
+   "address": 134568460,
+   "size": 372,
+   "kind": "func"
+  },
+  {
    "name": "createPairedScriptedEffect",
    "address": 134573900,
    "size": 528,
@@ -51248,6 +51358,12 @@
    "name": "spawnKind32EffectSprite",
    "address": 134579408,
    "size": 488,
+   "kind": "func"
+  },
+  {
+   "name": "updateEnemyEntity",
+   "address": 134579896,
+   "size": 376,
    "kind": "func"
   },
   {
@@ -51347,6 +51463,12 @@
    "kind": "func"
   },
   {
+   "name": "updateHitEntity",
+   "address": 134605004,
+   "size": 376,
+   "kind": "func"
+  },
+  {
    "name": "isOutsideCameraBounds",
    "address": 134609332,
    "size": 112,
@@ -51434,6 +51556,12 @@
    "name": "updateScriptedEnemy",
    "address": 134627704,
    "size": 496,
+   "kind": "func"
+  },
+  {
+   "name": "updateMovingActor",
+   "address": 134629932,
+   "size": 384,
    "kind": "func"
   },
   {
@@ -51563,6 +51691,18 @@
    "kind": "func"
   },
   {
+   "name": "spawnEntityAiEffect",
+   "address": 134679132,
+   "size": 372,
+   "kind": "func"
+  },
+  {
+   "name": "updateChildEntity",
+   "address": 134682296,
+   "size": 378,
+   "kind": "func"
+  },
+  {
    "name": "releaseEffectGroup",
    "address": 134682868,
    "size": 56,
@@ -51614,6 +51754,12 @@
    "name": "spawnActorParamSubObject",
    "address": 134714948,
    "size": 404,
+   "kind": "func"
+  },
+  {
+   "name": "spawnActorSubEffect",
+   "address": 134717652,
+   "size": 376,
    "kind": "func"
   },
   {
@@ -51674,6 +51820,12 @@
    "name": "initVariantSpriteObject",
    "address": 134799596,
    "size": 400,
+   "kind": "func"
+  },
+  {
+   "name": "updateTrackedBehaviorSprite",
+   "address": 134809304,
+   "size": 380,
    "kind": "func"
   },
   {
@@ -51749,6 +51901,24 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind44Effect",
+   "address": 134856620,
+   "size": 384,
+   "kind": "func"
+  },
+  {
+   "name": "spawnKind4CActorEffect",
+   "address": 134866300,
+   "size": 376,
+   "kind": "func"
+  },
+  {
+   "name": "spawnKind4CThrowableEffect",
+   "address": 134867796,
+   "size": 384,
+   "kind": "func"
+  },
+  {
    "name": "spawnKind59ScriptEffect",
    "address": 134889376,
    "size": 404,
@@ -51803,6 +51973,12 @@
    "kind": "func"
   },
   {
+   "name": "spawnKind64TwoVariantEffect",
+   "address": 134934572,
+   "size": 384,
+   "kind": "func"
+  },
+  {
    "name": "initSpriteFromTemplate",
    "address": 134940140,
    "size": 40,
@@ -51818,6 +51994,12 @@
    "name": "spawnKind65FlippedEffect",
    "address": 134947204,
    "size": 404,
+   "kind": "func"
+  },
+  {
+   "name": "spawnKind65DirectionalEffect",
+   "address": 134948736,
+   "size": 380,
    "kind": "func"
   },
   {
@@ -51872,6 +52054,12 @@
    "name": "spawnKind66ScriptEffect",
    "address": 134960924,
    "size": 392,
+   "kind": "func"
+  },
+  {
+   "name": "spawnActorEffect",
+   "address": 134964408,
+   "size": 380,
    "kind": "func"
   },
   {
@@ -52373,6 +52561,12 @@
    "kind": "data"
   },
   {
+   "name": "gProjectileFrameTable",
+   "address": 135068516,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gPairedEffectKindTable",
    "address": 135068824,
    "size": 0,
@@ -52505,6 +52699,24 @@
    "kind": "data"
   },
   {
+   "name": "gKind44EffectLayerAttrs",
+   "address": 135272468,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind4CActorLayerAttrs",
+   "address": 135272948,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind4CThrowableLayerAttrs",
+   "address": 135272956,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gKind59LayerAttrs",
    "address": 135273676,
    "size": 0,
@@ -52589,6 +52801,30 @@
    "kind": "data"
   },
   {
+   "name": "gKind64EffectLayerAttrs",
+   "address": 135275804,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind64EffectAnimIds",
+   "address": 135275836,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind64EffectGfxIds",
+   "address": 135275844,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind64EffectTemplateIds",
+   "address": 135275852,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gKind65LayerAttrs",
    "address": 135276272,
    "size": 0,
@@ -52597,6 +52833,12 @@
   {
    "name": "gKind65FlipLayerAttrs",
    "address": 135276280,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "gKind65DirectionalLayerAttrs",
+   "address": 135276288,
    "size": 0,
    "kind": "data"
   },
@@ -52817,8 +53059,32 @@
    "kind": "data"
   },
   {
+   "name": "sScriptedEntityStepTable",
+   "address": 140958696,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "sWeaponStepTable",
+   "address": 140958844,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "sTwoSubObjectWeaponStepTable",
+   "address": 140959596,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "gThreePartEnemyStateHandlers",
    "address": 140960152,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "sWeaponScrollYStepTable",
+   "address": 140960920,
    "size": 0,
    "kind": "data"
   },
@@ -52912,7 +53178,7 @@
   },
   {
    "address": 33706856,
-   "type": "s32[]",
+   "type": "u8[]",
    "source": "match"
   },
   {
@@ -52932,7 +53198,7 @@
   },
   {
    "address": 33716736,
-   "type": "struct HudBannerState",
+   "type": "struct S_02027A00_61",
    "source": "match"
   },
   {
@@ -52972,17 +53238,17 @@
   },
   {
    "address": 135049912,
-   "type": "struct KindTable[]",
+   "type": "struct PairedEffectKindEntry[]",
    "source": "match"
   },
   {
    "address": 135052752,
-   "type": "struct Kind67ChainedGfxEntry[]",
+   "type": "struct ScriptedEffectKindEntry[]",
    "source": "match"
   },
   {
    "address": 135058432,
-   "type": "u8[]",
+   "type": "u32[]",
    "source": "match"
   },
   {
@@ -53181,6 +53447,11 @@
    "source": "match"
   },
   {
+   "address": 135068516,
+   "type": "s16[]",
+   "source": "match"
+  },
+  {
    "address": 135068824,
    "type": "u8[]",
    "source": "match"
@@ -53286,6 +53557,21 @@
    "source": "match"
   },
   {
+   "address": 135272468,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135272948,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135272956,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
    "address": 135273676,
    "type": "u16[]",
    "source": "match"
@@ -53351,12 +53637,37 @@
    "source": "match"
   },
   {
+   "address": 135275804,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135275836,
+   "type": "struct AnimEntry[]",
+   "source": "match"
+  },
+  {
+   "address": 135275844,
+   "type": "u32[]",
+   "source": "match"
+  },
+  {
+   "address": 135275852,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 135276272,
    "type": "u16[]",
    "source": "match"
   },
   {
    "address": 135276280,
+   "type": "u16[]",
+   "source": "match"
+  },
+  {
+   "address": 135276288,
    "type": "u16[]",
    "source": "match"
   },
@@ -53526,7 +53837,27 @@
    "source": "match"
   },
   {
+   "address": 140958696,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140958844,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140959596,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
    "address": 140960152,
+   "type": "u8[]",
+   "source": "match"
+  },
+  {
+   "address": 140960920,
    "type": "u8[]",
    "source": "match"
   },
@@ -53562,7 +53893,7 @@
   },
   {
    "address": 140975024,
-   "type": "u32",
+   "type": "s32",
    "source": "match"
   },
   {
@@ -53577,7 +53908,7 @@
   },
   {
    "address": 140975068,
-   "type": "u8[]",
+   "type": "s32",
    "source": "match"
   },
   {
@@ -54680,31 +55011,6 @@
    "asm_code": "3 agents (opencode-beam-free, opencode-deepseek-v4.1-flash, opencode-hy4-flash-free) said in their notes that no C makes it: Confirmed the documented callee-saved-r4 / constant-folding wall (best 640). This session tried two new source shapes, both exactly 640: (1) `return base[3 + idx] & mask;` and (2) `u32 *p = (u32*)0x02025368; ... p = p + idx; p = p + 3;` \u2014 agbcc folds base+0xC into the pool literal 0x02025374 in ever"
   },
   {
-   "name": "sub_0800822C",
-   "vram": 134251052,
-   "not_c": {
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer in pure C: score 10 is a measured terminal floor across 104+ attempts by six agents. All 191/191 instructions are byte-exact; the only two differing rows are the allocator's choice of r0 instead of the ROM's r2 for the aliasing-forced tail reload `ldr r?,[r4,#8]` (and its cmp). Both registers are dead at that point, so no C shape steers it. This session I tested two new levers \u2014 an inline identity helper on that load, and hoisting the 0x09000000 limit into a local to keep r0 live \u2014 and both reproduce the identical 10. Register pinning via asm is rejected by the harness. Not hand-written asm, not not_c, no boundary issue (clean epilogue). Best source preserved; releasing to spend budget on functions with headroom.",
-     "t": 1795454174.291046,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer: score 10 is a measured terminal floor across 104+ attempts by six agents; all 191/191 instructions are byte-exact and the only two differing rows are the allocator's choice of r0 instead of the ROM's r2 for the aliasing-forced tail reload `ldr r?,[r4,#8]` (and its cmp). Both registers are dead at that point, so no C shape or flag steers it. This session I tested two levers \u2014 `volatile s32*` on the comparison load and the preserved best source \u2014 both reproduce 10 exactly. Register pinning via asm is rejected by the harness. Not hand-written asm, not not_c, no boundary issue (clean epilogue). Best source preserved; releasing to spend budget on functions with headroom.",
-     "t": 1795454963.187986,
-     "from": "note"
-    },
-    "opencode-deepseek-v4.1-flash-2": {
-     "model": "opencode-deepseek-v4.1-flash",
-     "why": "SECOND ASK. Score 10 is the measured floor for this function: 191/191 instructions are byte-exact and the only residual is the reload register in the tail (`ldr r2,[r4,#8]` in ROM vs `ldr r0,[r4,#8]`), where both r0 and r2 are dead at that insn. Mechanism identified (see previous note): the ROM's 0x09000000 constant pseudo is allocated before the reload pseudo (constant takes r0, reload takes the r2 that just died at `str r1,[r2]`); in agbcc the reload pseudo is born first (left operand of &&) and takes r0, then the constant reuses r0. 117 previous attempts plus my 5 compiles this session (early-return shape, inline ld32 helper -> 2670, `register s32 v`, compound-assign + slot re-read, plain best source) all reproduce 10; -fno-strength-reduce 2015, -fno-gcse 1175; register-asm pinning rejected by harness. No C form can renumber the constant's pseudo without changing the insn order. Not hand-written asm, not not_c, no boundary, no callee dependency. Best-10 source preserved; please advance the queue.",
-     "t": 1795455895.9627423,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hy4-flash-free) said in their notes that no C makes it: SECOND ASK. Score 10 is the measured floor for this function: 191/191 instructions are byte-exact and the only residual is the reload register in the tail (`ldr r2,[r4,#8]` in ROM vs `ldr r0,[r4,#8]`), where both r0 and r2 are dead at that insn. Mechanism identified (see previous note): the ROM's 0x"
-  },
-  {
    "name": "sub_080083B0",
    "vram": 134251440,
    "not_c": {
@@ -55429,7 +55735,7 @@
    "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Cannot get closer. All 10 body instructions are byte-exact at 225; only this agbcc build's mandatory saved-LR frame (`push {lr}` / `pop {r1}; bx r1`) vs the ROM's bare `bx lr` (and two +2 branch offsets) differs. This is the documented frameless-branched-leaf toolchain wall, 64+ attempts, no C or fl"
   },
   {
-   "name": "sub_08014900",
+   "name": "absXFromFocus",
    "vram": 134301952,
    "not_c": {
     "opencode-hy4-flash-free-1": {
@@ -55466,7 +55772,7 @@
    "asm_code": "5 agents (opencode-free, opencode-hy4-flash-free, opencode-iceman-contributor-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Confirmed wall after 1 compile: score stuck at 615. All body insns match byte-exact; only prologue/epilogue differ (target bare `bx lr`, agbcc emits `push {lr}`/`pop {r1}; bx r1` for the interworking thumb return). No pure-C form can change that (tried if, ternary, direct global 0x0202773C, all opt "
   },
   {
-   "name": "sub_0801491C",
+   "name": "absYFromFocus",
    "vram": 134301980,
    "not_c": {
     "opencode-beam-free-7": {
@@ -56549,31 +56855,6 @@
    "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-iceman-contributor-free) found no C makes it: Not C \u2014 data blob misidentified as a function. At 0x0803CE96 the bytes are f8 ff 00 00 f0 ff bc f3 0c 08 b0 1b 67 08, which disassemble as ARM VFP instructions (vrev64.32, vrsra.u64) under the diff tool, not valid Thumb-1 code (0xFFF8/0xFFF0 are undefined in Thumb-1). The real function starts at 0x0803CEA4 with `push {r4, r5, lr}`. Looks like a pointer/literal table. No C can produce these bytes. Compile of `return arg0` scored 500 with 0% match."
   },
   {
-   "name": "sub_0803DB08",
-   "vram": 134470408,
-   "not_c": {
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "No C step can improve this \u2014 terminal toolchain wall, release with best attempt preserved. Proven agbcc dead-load regalloc wall at 10 (99.8%, 57/57 target insns byte-exact). Sole residual: target's dead `movs r1,#0x1c; ldrsh r0,[r5,r1]` (value clobbered by the following 0x4000 materialization) vs agbcc's `movs r0,#0x1c; ldrsh r1,[r5,r0]` \u2014 identical final call state, only the offset temp's register differs. ~60 prior attempts across all models and this session's recompile confirm no C form, type, declaration order, prototype, volatile or flag variant produces the target's register pair; register-asm pinning banned. Ordinary correct C, not hand-written asm, not not_c, not a boundary case. Only a compiler change can fix it. Move on.",
-     "t": 1795306310.2939255,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Explicit reason it cannot get closer: the remaining diff is only 2 register-allocation rows on a dead load whose value is clobbered by the next instruction; agbcc's register allocator hardwires the value that is live until the call into r1 and the short-lived offset into r0, and the target does the reverse. No source-level expression, type, declaration order, temporary, prototype or flag variant changes that allocation (59 prior attempts across all models plus this session's inline-load compile at 285 all floor at 10 or worse). It is not a boundary case, not hand-written assembly, and not uncompiled \u2014 the score-10 source was compiled and is preserved. Only a toolchain change can fix it, so further compiles are pointless.",
-     "t": 1795306309.9478397,
-     "from": "note"
-    },
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Cannot get closer in pure C: terminal dead-load regalloc wall at 10 (99.8%). 57/57 insns exact except 2 rows on dead signed load `movs r1,#0x1c; ldrsh r0,[r5,r1]` (value immediately clobbered) - agbcc emits offset in r0/value in r1; no C form produces target pair while keeping 0x4000 in r0 for call. 69+ attempts, proposal #615 confirms. Not hand asm, not_c, not boundary. Best source preserved.",
-     "t": 1795311600.5884557,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Cannot get closer in pure C: terminal dead-load regalloc wall at 10 (99.8%). 57/57 insns exact except 2 rows on dead signed load `movs r1,#0x1c; ldrsh r0,[r5,r1]` (value immediately clobbered) - agbcc emits offset in r0/value in r1; no C form produces target pair while keeping 0x4000 in r0 for call."
-  },
-  {
    "name": "sub_0803DDF0",
    "vram": 134471152,
    "not_c": {
@@ -56878,31 +57159,6 @@
     }
    },
    "asm_code": "3 agents (opencode-beam-free, opencode-deepseek-v4.1-flash, opencode-free) found no C makes it: Terminal agbcc frameless-branchy-leaf wall. Score 440 with all 27 real body instructions byte-exact. Sole residual is compiler-mandated push{lr}/pop{pc} LR frame vs ROM's frameless bare bx lr + 2 pad bytes, plus coupled +2 shifts on literal load and three branch displacements. No C spelling / declaration order / type / switch-if form / -O level / flag set / compiler removes the compiler-generated frame while keeping the cmp/blt/ble/bne chain; register/naked/inline asm banned. ~130+ lifetime attempts across many models. Not a boundary (pool+pad inside declared extent). not_c=true: no C can produce the ROM's frameless leaf under -mno-thumb-interwork -O2 -fno-strength-reduce. Best-440 canonical switch source preserved."
-  },
-  {
-   "name": "sub_0804EADC",
-   "vram": 134539996,
-   "not_c": {
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer: this is a pure agbcc register-coloring tie-break that no C source change can influence. Exhaustively established across 3 agents and this session's 5 compiles: score 10 = 230/230 insns, first 169 byte-exact, only `ldr r1,[r6,#0x5c]/str r1,[r5,#0x10]` vs r0. Matched sibling ROMs (sub_08019A80, sub_080584D0) with byte-identical surrounding code use r0 for both copies, proving the r1 is a compiler-version hash artifact, not C-expressible. All flag variants score 10. Best C is correct and preserved. Moving on permanently.",
-     "t": 1795164126.300654,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer: all 230 real instructions are byte-identical; the sole difference is agbcc coloring one load r0 instead of the target's r1. Matched siblings with byte-identical surrounding code use r0 for both loads, so the target's r1 is a compiler-version artifact, not expressible in C. Exhausted 2 compiles this session (exact sibling-C alignment, spare local) plus ~21 prior attempts, all flags, and register pinning is disallowed. Only 'agbcc' available. Score cannot improve; releasing to advance the queue.",
-     "t": 1795215650.8184962,
-     "from": "note"
-    },
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Confirmed best 10 (99.9%, 230/230 insns), first 169 exact. Only diff is register coloring on the f5C field copy: target `ldr r1,[r6,#0x5c]; str r1,[r5,#0x10]` vs mine `ldr r0,[r6,#0x5c]; str r0,[r5,#0x10]` (f6C copy matches). Tried: temp local for f5C (v5c), reusing temp for both copies, swapping f10/f14 assignment order, raw pointer accesses, fixing call names to sub_080C31E0/sub_080C31E4, and trivial variations; all stayed at 10 or regressed (order swap gave 40). Consistent with prior notes that this is a pure agbcc regalloc tie-break not expressible in C; siblings with similar code use r0 in ROM but this target uses r1. No C-level fix found.",
-     "t": 1795224965.5153883,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Confirmed best 10 (99.9%, 230/230 insns), first 169 exact. Only diff is register coloring on the f5C field copy: target `ldr r1,[r6,#0x5c]; str r1,[r5,#0x10]` vs mine `ldr r0,[r6,#0x5c]; str r0,[r5,#0x10]` (f6C copy matches). Tried: temp local for f5C (v5c), reusing temp for both copies, swapping f1"
   },
   {
    "name": "sub_08050316",
@@ -57365,28 +57621,6 @@
     }
    },
    "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Second ask to release this known-terminal case (game knowledge base explicitly lists sub_08061D74 as the open example of the \"frameless branchy leaf\" wall: ROM = conditional branch + bare `bx lr`, no prologue, 9-40 insns, compile byte-exact except an added `push {lr}`/`pop {r1}; bx r1` + branch disp"
-  },
-  {
-   "name": "sub_08061E54",
-   "vram": 134618708,
-   "not_c": {
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "This is not a function at all: the 12 bytes are the literal pool of sub_08061E34 (words 0x02027A00, 0x02021E90, 0x0000127C, 0x00000000) decoded as bogus Thumb instructions. sub_08061E34 ends with `bx lr` at 0x08061E52; pool occupies 0x08061E54..0x08061E5F and the next real function starts at 0x08061E60. No C can produce these bytes as function code. report_boundary at the start was rejected (must be inside), so marking not C.",
-     "t": 1794836639.1694827
-    },
-    "opencode-free-1": {
-     "model": "opencode-free",
-     "why": "Not code: literal pool of sub_08061E34. No C can match.",
-     "t": 1794923455.78599
-    },
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "12 bytes at 0x08061E54 are literal pool data for preceding function sub_08061E34 (decoded as Thumb but actually words/pointers/constants). No C function can match.",
-     "t": 1794932094.6077068
-    }
-   },
-   "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-iceman-contributor-free) found no C makes it: 12 bytes at 0x08061E54 are literal pool data for preceding function sub_08061E34 (decoded as Thumb but actually words/pointers/constants). No C function can match."
   },
   {
    "name": "sub_08062614",
@@ -58728,31 +58962,6 @@
    "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Asking release again with explicit impossibility rationale (3 compiles this session, best 526 = the historical floor over 70+ attempts across models). The dispatch and all case bodies are already byte-exact; the only difference is this agbcc build's mandatory push {lr}/pop {r1}; bx r1 around a branc"
   },
   {
-   "name": "sub_08094A40",
-   "vram": 134826560,
-   "not_c": {
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer in pure C: score 10 is the proven ceiling (123/123 insns byte-exact, 99.9%). The only residual is agbcc's deterministic operand coloring of a commutative byte AND: it always puts the byte-load pseudo in the AND destination (r0) and the 0xBF constant in r1, whereas the ROM has the constant in r0 and the load in r1. 83+ attempts by 6+ agents tried every spelling (named u8/u32 mask, `&=`, struct-field compound assignment, bitfield RMW, `~0x40`, temp-before-store, statement swap, volatile load); all either floor at 10 or cascade the later loop's coloring to 640-920. register-asm is banned and only agbcc exists. Not hand-written asm, not not_c, no boundary. Best score-10 source preserved.",
-     "t": 1795409923.030854,
-     "from": "note"
-    },
-    "opencode-iceman-contributor-free-1": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Terminal known wall (score 10, 123/123 insns): only regalloc diff on commutative AND in if-body: ROM `ldrb r1,[r2]; movs r0,#0xBF; ands r0,r1; strb r0,[r2]` vs agbcc `ldrb r0,[r2]; movs r1,#0xBF; ands r0,r1; strb r0,[r2]`. Baseline + volatile store variant + temp-load/store split all produced same score (no change). Prior agents report statement reorder cascades to ~900+ and other forms fail; body logic (buffer via sub_080C2E68 from 0x0810087C, 2-iter loop with (val*2+var_r7)>>3*8 indexing into buffer/sp48, calls sub_0800583C/sub_08005820, sub_08091B80, then decrement + conditional flag/call) matches expected structure. Not hand-written asm, not boundary.",
-     "t": 1795402626.6965475,
-     "from": "note"
-    },
-    "opencode-nemotron-3.5-super-vl-12-1": {
-     "model": "opencode-nemotron-3.5-super-vl-12",
-     "why": "Asking to release: score 10 is the proven pure-C ceiling for this function (87+ attempts by 6+ agents over ~27h; every C spelling tried). Residual is solely the commutative-AND operand-coloring tie at `byte = 0xBF & byte`: ROM `ldrb r1,[r2]; movs r0,#0xBF; ands r0,r1`, agbcc deterministically `ldrb r0,[r2]; movs r1,#0xBF; ands r0,r1` because the loaded byte dies at the AND and r0 is free after the preceding `movs r0,#0; strb r0,[r1,#1]`. No C construct lengthens that live range without adding an instruction; register-asm pinning is rejected by the harness; only agbcc exists for this project. Body is 123/123 byte-exact otherwise. Not hand-written asm, not not_c, not a boundary issue. Best score-10 source saved.",
-     "t": 1795420821.3578396,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Asking to release: score 10 is the proven pure-C ceiling for this function (87+ attempts by 6+ agents over ~27h; every C spelling tried). Residual is solely the commutative-AND operand-coloring tie at `byte = 0xBF & byte`: ROM `ldrb r1,[r2]; movs r0,#0xBF; ands r0,r1`, agbcc deterministically `ldrb "
-  },
-  {
    "name": "sub_08094B84",
    "vram": 134826884,
    "not_c": {
@@ -58945,31 +59154,6 @@
    "asm_code": "3 agents (opencode-beam-free, opencode-free, opencode-hy4-flash-free) found no C makes it: Hand-written assembly: conditional (switch) leaf with bare bx lr. agbcc emits push {lr}/pop {r1}/bx r1 and mid-pool movs r0,r0 pad, shifting offsets. Body byte-exact (switch *(s16*)0x020279E8: case3->0, case4->1, default->-1). 30+ attempts. Multiple agents agree. Best 355."
   },
   {
-   "name": "sub_08097AB0",
-   "vram": 134838960,
-   "not_c": {
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Explicit cannot-get-closer: the whole 92-instruction body is byte-exact except two adjacent zero-materialization rows. The target emits the byte-store zero (`movs r2,#0`) before the halfword-store zero (`movs r1,#0`); agbcc always emits them in the opposite order. Five compiles this session (4x score 10 with s32/u16 zero, separate u8/u16 zero locals, literal 0 at the byte store; 275 when the byte-zero is initialized at function top; 231 when zero is assigned before pd) plus 26 prior attempts never flip it. This is a deterministic gcc pseudo-order artifact with no C lever left; not hand-written asm, not not_c.",
-     "t": 1795166403.9799557,
-     "from": "note"
-    },
-    "opencode-free-1": {
-     "model": "opencode-free",
-     "why": "Score 10 (99.8%, 92/92 insns byte-exact). Only difference is regalloc coin-flip on two adjacent zero materializations: target emits `movs r2,#0; movs r1,#0` (byte-store zero then halfword-store zero) at the pd/pd2 stores; agbcc always emits `movs r1,#0; movs r2,#0` regardless of variable ordering, types, literal zeros, chained assignments, or statement order. This is a deterministic gcc pseudo-order artifact with no C lever left. Not hand-written asm, not not_c. Best attempt (score 10) preserved. Cannot get closer from C.",
-     "t": 1795237128.3968754,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer: the entire 92-insn body is byte-exact; only two adjacent `movs #0` rows are swapped by agbcc (target r2-then-r1, compiler r1-then-r2). This is a deterministic agbcc pseudo-register materialization-order artifact with no C lever \u2014 ~65 prior attempts across every C shape/type/flag/compiler floor at 10, and the one lever that flipped the order regressed to 231 by breaking unrelated register assignments. Not hand-written asm, not not_c, not a boundary case; only a compiler scheduling change could fix it. Best source (score 10) preserved; release permanently.",
-     "t": 1795281693.9832122,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free) said in their notes that no C makes it: Cannot get closer: the entire 92-insn body is byte-exact; only two adjacent `movs #0` rows are swapped by agbcc (target r2-then-r1, compiler r1-then-r2). This is a deterministic agbcc pseudo-register materialization-order artifact with no C lever \u2014 ~65 prior attempts across every C shape/type/flag/c"
-  },
-  {
    "name": "sub_08097F88",
    "vram": 134840200,
    "not_c": {
@@ -59045,56 +59229,6 @@
    "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Cannot get closer in pure C: 235 (96.3%, 64/64 insns) is a confirmed multi-agent regalloc/CSE wall. Remaining rows: (a) post-call zero must be in r1 (target `movs r1,#0` right after the bl); agbcc puts the named/literal zero in r2; (b) target stores at +0x69/+0x6A via `adds r0,#1` pointer increment;"
   },
   {
-   "name": "sub_0809B05C",
-   "vram": 134852700,
-   "not_c": {
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer in C: this is a deterministic register-allocation tie, not a structural problem. All 183 instructions are correct; the only difference is the destination register of one shift: target `lsls r0,r1,#0x18; cmp r0,#0` vs generated `lsls r1,r1,#0x18; cmp r1,#0`. The flag byte arrives in r1 via ldrb and is dead after the test, so the allocator reuses r1 as the shift destination; the original allocator chose r0. Two new compiles this session confirm it: static-inline u32 shift helper kept the exact score-10 diff, and `flag & 0x80` regressed to 995 (different instruction form). ~29 prior attempts across all models and all flag variants (typed/volatile locals, multiplication, global flag, union type-pun, register-asm rejected) all floor at 10. No C construct selects the shift destination register. Ordinary correct C, not hand-written asm, not not_c; best score-10 source preserved.",
-     "t": 1795306307.2269783,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Why it cannot get closer: 183/183 target instructions are present and 181 byte-exact; the sole difference is a single shift's destination register (target 3-address-form `lsls r0,r1,#0x18; cmp r0,#0`, agbcc 2-address-form `lsls r1,r1,#0x18; cmp r1,#0`). The flag byte is loaded into r1 by ldrb and is dead after the test, so agbcc's local allocator deterministically coalesces the shift result into the dying source r1; the original allocator gave the result a fresh r0. No C spelling changes this \u2014 ~58 attempts by 7 agents (typed u8/u16/s32/u32 locals, volatile, global, union type-pun, multiplication, separate/block-scoped shift temps, variable/constant shift amount, declaration reorder, static-inline helper, keeping flag live at L136 which regresses to 1356) all floor at 10. This session recompiled permuter best (10) and a u32 sh temp `if(sh>0)` variant (10) with the identical diff. Register-asm pinning is rejected by the judge. This is a compiler-side allocator tie, not a source structure problem. Not hand-written assembly, not not_c, no boundary, no callee dependency. Best score-10 source preserved verbatim.",
-     "t": 1795447646.8742237,
-     "from": "note"
-    },
-    "opencode-deepseek-v4.1-flash-1": {
-     "model": "opencode-deepseek-v4.1-flash",
-     "why": "Second ask: release. 10 is the ceiling (61 attempts / 7 agents; reproduced this session). Only two rows differ: the 3-address vs 2-address Thumb LSL destination register. This is an agbcc pattern/allocator choice, not expressible in C; register pinning is rejected. Not hand asm, not not_c, no boundary, no dependency. Best source preserved.",
-     "t": 1795480004.4193408,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hy4-flash-free) said in their notes that no C makes it: Second ask: release. 10 is the ceiling (61 attempts / 7 agents; reproduced this session). Only two rows differ: the 3-address vs 2-address Thumb LSL destination register. This is an agbcc pattern/allocator choice, not expressible in C; register pinning is rejected. Not hand asm, not not_c, no bounda"
-  },
-  {
-   "name": "sub_0809B4D4",
-   "vram": 134853844,
-   "not_c": {
-    "opencode-deepseek-v4.1-flash-2": {
-     "model": "opencode-deepseek-v4.1-flash",
-     "why": "Second ask \u2014 releasing because score 10 is a proven terminal 2-row callee-saved tie (89 attempts/8 models; I reproduced 10 with 121/121 insns byte-exact, and my one new experiment regressed to 940). Residual: the volatile load `component = *(void**) (arg0+0x3C)` lands in r7 and is copied into r6 (`ldr r7; adds r6,r7,#0; adds r7,#0x34`) where the ROM loads straight into r6 and copies to r7 (`ldr r6; adds r7,r6,#0; adds r7,#0x34`); both end with component=r6/component34=r7, so this is purely agbcc's choice of register for a volatile load result vs the copy target \u2014 not expressible from C (the volatile double-load is mandatory: without it agbcc CSEs the second `ldr [r5,#0x3c]`). All source levers listed in earlier notes are exhausted (decl/type/order/volatile/call placement, -O levels, inline-expression variant = 940). Register-asm pinning is rejected by the tool (\"inline assembly is not allowed\"). Not hand asm, not_c=false, no boundary, no dependency. Best-10 source preserved; the notes contain the full body map so nobody needs to re-derive it.",
-     "t": 1795466345.1475573,
-     "from": "note"
-    },
-    "opencode-free-1": {
-     "model": "opencode-free",
-     "why": "RE-REQUESTING RELEASE: sub_0809B4D4 terminal at score 10 (99.9%, 121/121 instructions) \u2014 pure callee-saved r6/r7 tie-break (`ldr r6,[r5,#0x3c]` vs `ldr r7,[r5,#0x3c]`), uncontrollable from C, matching sibling sub_080A21A8 gets opposite colouring. 91+ prior attempts plus my compile exhausted declaration order, role renaming, pointer typing, volatile double-load, call placement, all flag levels; register pinning disallowed. Not hand-written asm, not not_c, no boundary. Best-10 source preserved.",
-     "t": 1795467376.8101113,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "EXPLICIT IMPOSSIBILITY OVERRIDE \u2014 release now, advance permanently. This is a proven terminal agbcc callee-saved register-coloring tie, not a function where another C step can help. Score 10 (99.9%, 121/121 target instructions byte-exact); fresh compile this session reproduced the exact floor. The ONLY difference is 2 regalloc rows: ROM emits `ldr r6,[r5,#0x3c]; adds r7,r6,#0` (component loaded into r6, component34 copy into r7) while agbcc emits `ldr r7,[r5,#0x3c]; adds r6,r7,#0`. Both register allocations are functionally identical (r6=component, r7=component34 at all uses) \u2014 a pure cyclic r6/r7 allocator tie with r5=arg0 fixed. ~216 lifetime attempts across 8+ models exhausted every C spelling (declaration/statement order, temp reuse, types, volatile, component34 placement, address-of, memcpy tricks, inline helpers, single-expression copy) and all -O levels (all floor at 10); register-asm pinning is harness-rejected as inline assembly, so the required load destination is unreachable from C. Ordinary compiled C, NOT hand-written assembly, not_c=false (compiler artifact), no boundary defect (own literal pool inside extent, clean `pop {r0}; bx r0`), no callee dependency. Best-10 source preserved. Needs a toolchain allocator change; do not hand this function back.",
-     "t": 1795623847.3768861,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-free, opencode-hy4-flash-free) said in their notes that no C makes it: EXPLICIT IMPOSSIBILITY OVERRIDE \u2014 release now, advance permanently. This is a proven terminal agbcc callee-saved register-coloring tie, not a function where another C step can help. Score 10 (99.9%, 121/121 target instructions byte-exact); fresh compile this session reproduced the exact floor. The O"
-  },
-  {
    "name": "sub_0809E0B4",
    "vram": 134865076,
    "not_c": {
@@ -59143,31 +59277,6 @@
     }
    },
    "asm_code": "3 agents (opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Re-releasing: this is a permanent, irreducible one-instruction agbcc register-coalescing wall. Best score 15 (64/64 insns byte-exact). Sole diff: first block target `subs r2,r0,#4; ldrh r0,[r2,#2]` vs agbcc `subs r0,#4; ldrh r0,[r0,#2]`. p dies at its single load so agbcc always copy-propagates p in"
-  },
-  {
-   "name": "sub_0809E860",
-   "vram": 134867040,
-   "not_c": {
-    "opencode-deepseek-v4.1-flash-1": {
-     "model": "opencode-deepseek-v4.1-flash",
-     "why": "Release as terminal: 136/136 instructions byte-exact at score 10; the only residual is a 2-row agbcc local-allocator tie at `*(u8*)(arg0+0x7C) = zero` (ROM `mov r2,r8; strb r2,[r0]`, agbcc `mov r1,r8; strb r1,[r0]`), with every following instruction identical. 108 attempts across 6+ models plus this session's new test (store wrapped in a static inline helper) all reproduce the same tie; forcing r2 (both pointers early) hoists the arg0+0x80 address and drops to 120. Not hand-written asm, not not_c, no boundary, no callee dependency. Best-10 source preserved.",
-     "t": 1795472299.6182117,
-     "from": "note"
-    },
-    "opencode-hungerg-free-2": {
-     "model": "opencode-hungerg-free",
-     "why": "Cannot get closer in pure C: fresh compile reconfirmed score 10, 136/136 instructions byte-exact except ROM `mov r2,r8` versus agbcc `mov r1,r8` at the arg0+0x7C zero store. Both scratch registers are free; ~140 prior attempts exhausted type, scope, declaration/statement order, pointer aliases, helper, and compiler-flag levers. Inline register pinning is forbidden by the harness. Not hand-written assembly, not a boundary, and no callee dependency. Preserve the best source and advance the queue.",
-     "t": 1795565265.0580661,
-     "from": "note"
-    },
-    "opencode-iceman-contributor-free-2": {
-     "model": "opencode-iceman-contributor-free",
-     "why": "Cannot get closer in pure C. Confirmed score 10 (136/136 insns, 2 regalloc diffs): sole residual is `mov r2,r8` (ROM) vs `mov r1,r8` (agbcc) for zero store to arg0+0x7C, with r1/r2 both free \u2014 fixed agbcc allocator tie-break. ~160+ total attempts across many models exhausted all C levers (declaration/order/type/scope/temporaries/helpers/flags). register-asm pinning is rejected by harness. Not hand-written asm, no boundary/extent issue, no callee dependency. Terminal pure-C ceiling; best-10 source preserved.",
-     "t": 1795572907.727615,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-deepseek-v4.1-flash, opencode-hungerg-free, opencode-iceman-contributor-free) said in their notes that no C makes it: Cannot get closer in pure C. Confirmed score 10 (136/136 insns, 2 regalloc diffs): sole residual is `mov r2,r8` (ROM) vs `mov r1,r8` (agbcc) for zero store to arg0+0x7C, with r1/r2 both free \u2014 fixed agbcc allocator tie-break. ~160+ total attempts across many models exhausted all C levers (declaratio"
   },
   {
    "name": "sub_0809F760",
@@ -59439,31 +59548,6 @@
     }
    },
    "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12) said in their notes that no C makes it: Ceiling at 136 (99.1%, 166/166 insns) \u2014 terminal agbcc instruction-scheduling/register-coloring tie, NOT fixable from C. All structure, control flow, calls, and data match target exactly. Remaining 8 diff units: (1) `movs r0,#0; mov r8,r0` zero-init pair is hoisted to function start by agbcc, target"
-  },
-  {
-   "name": "sub_080A53EC",
-   "vram": 134894572,
-   "not_c": {
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Re-releasing with explicit reason: this is an irreducible agbcc register-coloring tie-break. At the pointer store both r1 and r2 are free after `orrs r1,r2; strh r1,[r0,#2]`; target uses r2 for the literal, agbcc always r1. Forcing r1 elsewhere (`u16 one` assigned before the store) just swaps which value lands in r2 and adds an extra materialization (220). ~23 attempts across models and C forms all floor at 10; 21/21 instructions otherwise byte-exact. Not hand-written asm, not not_c \u2014 no pure-C form changes agbcc's deterministic register choice. Best source preserved; cannot get closer.",
-     "t": 1795161183.87803,
-     "from": "note"
-    },
-    "opencode-free-1": {
-     "model": "opencode-free",
-     "why": "Score 10 (99.5%): 21/21 instructions byte-exact except for a single deterministic agbcc regalloc tie-break. Target loads the sub_080A5418 function pointer into r2 for `str r2,[r0,#0x14]` (after `orrs r1,r2; strh r1,[r0,#2]` frees both r1 and r2), while agbcc always reuses r1. Best C form uses `int new_var` temporary for the OR expression (0x800 | *(u16*)(arg0+2)) to get the exact instruction sequence. Tried: fn-pointer local first, void** local, different call signatures, hoisting the 0x800 constant, struct-field access pattern from matched sub_0809FDE4 \u2014 all floor at 10. No pure-C form changes agbcc's register choice here. Ordinary correct C, not hand-written asm, not not_c.",
-     "t": 1795202031.73562,
-     "from": "note"
-    },
-    "opencode-hy4-flash-free-1": {
-     "model": "opencode-hy4-flash-free",
-     "why": "I cannot get closer and no C form can match this function: permanent agbcc regalloc tie-break wall, score 10 (99.5%), ~56 prior attempts by multiple models. Recompiled this session with the best `int new_var` form; all 21 instructions byte-exact except a single deterministic tie-break \u2014 after `orrs r1,r2; strh r1,[r0,#2]` both r1 and r2 are free, the target loads the sub_080A5418 literal into r2 (`ldr r2,[pc]; str r2,[r0,#0x14]`) while agbcc always picks r1. No C source form, flag, or compiler variant changes it (only agbcc builds this game). Not a boundary case; not hand-written assembly; ordinary correct C. Preserving best 10 source and moving on rather than re-confirming a known unmatchable artifact.",
-     "t": 1795266295.307043,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-free, opencode-hy4-flash-free) said in their notes that no C makes it: I cannot get closer and no C form can match this function: permanent agbcc regalloc tie-break wall, score 10 (99.5%), ~56 prior attempts by multiple models. Recompiled this session with the best `int new_var` form; all 21 instructions byte-exact except a single deterministic tie-break \u2014 after `orrs "
   },
   {
    "name": "sub_080A543C",
@@ -61168,31 +61252,6 @@
     }
    },
    "asm_code": "3 agents (opencode-hy4-flash-free, opencode-iceman-contributor-free, opencode-nemotron-3-ultra-550b-a5) said in their notes that no C makes it: EXPLICIT IMPOSSIBILITY OVERRIDE \u2014 release now, advance permanently. Proven terminal agbcc scheduler tie: score 60 (99.0%, 64/64 target insns byte-exact), freshly recompiled. ONLY difference is `mov r5,r8` (ptr=base copy) one slot late. Moving copy earlier forces base/ptr coalescing into r6, drops 0x"
-  },
-  {
-   "name": "sub_080C0440",
-   "vram": 135005248,
-   "not_c": {
-    "opencode-hy4-flash-free-2": {
-     "model": "opencode-hy4-flash-free",
-     "why": "Cannot get closer from C \u2014 asking again with explicit impossibility rationale. Score 10 is a deterministic agbcc coalescer coloring wall (documented across 204 prior attempts / 8+ models): all 21 instructions byte-exact except 2 regalloc rows. ROM reuses dying table-base r2 for the loaded value (ldr r2,[r1]; adds r0,r2), agbcc only reaches value=r3/table=r2/idx=r3 (score 10) or the mutually-exclusive value=r2/table=r3/idx=r2 (score 25). Every C form, declaration order, type, temporary, inline helper and flag variant has been tried; register-asm pinning is tool-rejected and inline asm is banned. Extent fine (literal pool inside), callee sub_080C0ABC already matched, not hand-written asm, not not_c, no boundary. No C step exists that improves this; advance queue permanently.",
-     "t": 1795570951.3841157,
-     "from": "note"
-    },
-    "opencode-nemotron-3.5-super-vl-12-1": {
-     "model": "opencode-nemotron-3.5-super-vl-12",
-     "why": "Best score 10 (99.5%), ALL 21 target instructions byte-exact. Sole residual: 2 regalloc rows \u2014 target `ldr r2,[r1]; adds r0,r2` (value coalesces into dying table register r2 after `adds r1,r1,r2`), ours `ldr r3,[r1]; adds r0,r3`. Target needs table=r2, idx=r3, value=r2 simultaneously; agbcc's coalescer gives mutually exclusive buckets: (table r2, idx r3, value r3)=10 or (table r3, idx r2, value r2)=25. Not reachable from C.\n\nTried ~170 attempts across 7 models before this session. This session: nv-reuse baseline (10, best); `tbl=(u8*)*(s32*)(tbl+idx*12)` (1345, broke prologue); `u32 *tbl_entry=(u32*)(D_08106DCC+nv*12)` (280, table addr load order swapped); `base=e+off` + both globals declared upfront (86, closer: r3 vs r2 for table base, pool offset, lsrs scheduling). None beat 10. register-asm pinning not available.\n\nNot hand-written asm, not not_c=false, no boundary (ends pop{bx r0}, literal pool inside extent), no callee dependency (sub_080C0ABC matched elsewhere). Best-10 source: `u32 off = arg0<<16>>13; u8 *t = D_08106DCC; u8 *e = D_08106E38; u16 nv = *(u16*)(e+off+4); nv = *(s32*)(t+nv*12); sub_080C0ABC(nv, *(s32*)(e+off));`. Data: D_08106DCC, D_08106E38.",
-     "t": 1795516923.3433216,
-     "from": "note"
-    },
-    "opencode-tidepool-alpha-free-1": {
-     "model": "opencode-tidepool-alpha-free",
-     "why": "Terminal 10 (99.5%, 21/21 insns byte-exact). My compile = 10 (target coloring: table r2, idx r3, value r3). The 2 residual regalloc rows are the documented mutually exclusive coalescer colorings: ROM uses value=r2 with dying table-base r2 and idx=r3 (ours: table r2, idx r3, value r3 = 10); the alternative (table r3, idx r2, value r2 = 25) is unreachable from C. Confirmed by ~200 attempts/8 models: all C forms/orders/types/temps/helpers/flags tried, all 10 or worse (25, 661); register-asm pinning tool-rejected; inline asm banned. Not hand-written asm (structure and operands all right), not not_c, no boundary (literal pool inside extent), no callee dependency (sub_080C0ABC matched). Full budget: 1 compile, at floor. Best-10 source preserved in claim. Releasing per the 3-compile rule.",
-     "t": 1795568846.968215,
-     "from": "note"
-    }
-   },
-   "asm_code": "3 agents (opencode-hy4-flash-free, opencode-nemotron-3.5-super-vl-12, opencode-tidepool-alpha-free) said in their notes that no C makes it: Cannot get closer from C \u2014 asking again with explicit impossibility rationale. Score 10 is a deterministic agbcc coalescer coloring wall (documented across 204 prior attempts / 8+ models): all 21 instructions byte-exact except 2 regalloc rows. ROM reuses dying table-base r2 for the loaded value (ldr"
   },
   {
    "name": "sub_080C0BB0",

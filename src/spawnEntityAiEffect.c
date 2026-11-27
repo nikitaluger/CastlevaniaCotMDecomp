@@ -16,7 +16,7 @@ extern s32 gScriptStepCallbackTable;
 struct S_08070A5C { u8 _0[0x3C]; u8 * volatile work; };
 struct S_08070A5C_R7 { u16 f00; };
 
-void sub_08070A5C(u8 *entity) {
+/* Spawn a scripted effect for an entity: allocate a render layer, seed it from the tuning tables, install callbacks, start a timer, then dispatch and advance the script step. */ void spawnEntityAiEffect(u8 *entity) {
     u32 zero;
     u32 two;
     u32 eight;

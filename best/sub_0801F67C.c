@@ -27,7 +27,6 @@ void sub_0801F67C(void *arg0) {
         u32 *pp;
         u16 *qq;
         s16 off;
-        u8 *ppo;
         void (*fn)(void *, void *);
         do {
             pp = (u32 *)r3p;
@@ -40,8 +39,7 @@ void sub_0801F67C(void *arg0) {
             r2c--;
         } while (r2c >= 0);
         off = *(s16 *)(r7 + 0x22);
-        ppo = r7 + off * 2;
-        ppo[0x19] = 0;
+        (r7 + off * 2)[0x19] = 0;
         fn = (void (*)(void *, void *))sb[0];
         fn(r12, r8);
         goto end;
@@ -71,8 +69,8 @@ blockB:
         u32 r0sh3;
         u32 r1val3;
         s32 r2fin;
-        s16 r1asr;
-        s16 r1asr2;
+        s32 r1asr;
+        s32 r1asr2;
         u32 r0final;
         s32 h28;
         u8 *r1p;
@@ -118,8 +116,8 @@ blockB:
             r1p = r8b + 0x174C;
             r0p = (u8 *)(0x080CE7AC + r5v2);
             sh = *(s16 *)r0p;
-            r0sh = (u32)sh << 16;
-            r1val = *(u32 *)r1p;
+            r0sh = (u32)sh << 16;/*__repair_loop_weight*/do {
+            r1val = *(u32 *)r1p;} while (0);
             r3v = r1val + r0sh;
             r1q = r4b + 0x5C;
             storeval_1 = 0x10;

@@ -24,7 +24,7 @@ extern struct GameState gMainWorkspace;
 /* Updates a child entity: applies camera/scroll adjustment, advances its
  * position and state timer, changes animation state on a mismatch, then
  * spawns an effect or retires the entity depending on global game flags. */
-void sub_080716B8(void *entity)
+/* Per-frame update for a child entity: apply camera adjustment, turn and advance its motion, step the state timer, then spawn a projectile effect or cull the entity based on game flags. */ void updateChildEntity(void *entity)
 {
   u8 *self = (u8 *) entity;
   u8 *parent = *((u8 **) (self + 0x6C));

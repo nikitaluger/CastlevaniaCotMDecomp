@@ -1,7 +1,7 @@
 s32 scaleByRandom(s32);
 void setAnimationFrame(s32, void *, s32, s32);
-s32 sub_08014900(s32);
-s32 sub_0801491C(s32);
+s32 absXFromFocus(s32);
+s32 absYFromFocus(s32);
 void sub_080149A4(s32, void *, void *, s32, s32);
 void sub_080C31E8(void *, void *, s32, u32);
 struct S_02025FF0 { u8 _[0x174C]; s32 targetX; };
@@ -25,8 +25,8 @@ void sub_0802B66C(u8 *arg0)
     if (*(s16 *)(body + 4) <= 0)
     {
         *(u16 *)(body + 4) = (u16)(scaleByRandom(0x3D) + 0x5A);
-        if (sub_08014900(*(s32 *)(state + 8)) > 0x600000) goto div;
-        if (sub_0801491C(*(s32 *)(state + 0xC)) > 0x600000) goto div;
+        if (absXFromFocus(*(s32 *)(state + 8)) > 0x600000) goto div;
+        if (absYFromFocus(*(s32 *)(state + 0xC)) > 0x600000) goto div;
         {
             s16 scriptIndex = *(s16 *)(self + 0x22);
             u32 *scriptJump;
@@ -55,7 +55,7 @@ void sub_0802B66C(u8 *arg0)
         s32 farFromTarget = 0;
         s32 toTargetX;
 
-        if (sub_08014900(*(s32 *)(state + 8)) > 0x400000)
+        if (absXFromFocus(*(s32 *)(state + 8)) > 0x400000)
             farFromTarget = 1;
 
         toTargetX = gMainWorkspace.targetX - *(s32 *)(state + 8);

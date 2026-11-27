@@ -13,7 +13,7 @@ extern void sub_08051F98(void *, void *, s32, s16, s32);
  * advances the swing phase and pose counter, and on the final step aims the
  * arc at the player (or widens the swing when out of range) before advancing
  * the command script. */
-void sub_08050C28(void *self)
+/* Weapon-swing step: rebuild the arc trail, spawn a scaled effect, advance the swing phase and pose counter, then on the final step aim the arc at the player (or widen it when out of range) and advance the command script. */ void updateWeaponSwing(void *self)
 {
   void *sprite = *((void **) (((u8 *) self) + 0x38));
   u8 *selfBytes;

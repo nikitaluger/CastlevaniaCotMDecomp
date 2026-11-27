@@ -1,6 +1,6 @@
 extern void sub_08013CF4(void *, s32, s32);
 extern void sub_08013EEC(void *);
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 extern void sub_08016678(void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -44,7 +44,7 @@ void updateActorWorldPosition(void *arg0) {
         ((struct FlagDst *)ownerFlags)->flags |= 4;
     }
     if (*(void **)((u8 *)work + 0x2C) != 0) {
-        sub_08015974();
+        freeMotionTracker();
         *(void **)((u8 *)work + 0x2C) = 0;
     }
     sub_08016678(self);

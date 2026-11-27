@@ -1,5 +1,5 @@
 extern s32 sub_0801459C(void *, s32);
-extern s32 sub_08014900(s32);
+extern s32 absXFromFocus(s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E8(void *, void *, u16, s32);
 extern u16 D_08102B7C[];
@@ -15,7 +15,7 @@ void sub_080B4074(u8 *arg0)
   s32 reaction;
   s32 timer;
   u8 stateByte;
-  if (sub_08014900(*((s32 *) (entity + 8))) <= 0x1FFFFF)
+  if (absXFromFocus(*((s32 *) (entity + 8))) <= 0x1FFFFF)
   {
     reaction = 1;
   }

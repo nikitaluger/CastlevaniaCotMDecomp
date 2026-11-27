@@ -19,7 +19,7 @@ extern u32 sScriptStepCallbacks[];
 /* Updates a weapon/familiar entity: checks its animation state, handles
  * attack events, advances its state callback and applies camera-relative
  * positioning. */
-void sub_08025FE0(u8 *self)
+/* Alternate per-frame familiar/weapon updater: test view bounds and animation state, handle hit events, mark the entity's slot group, advance the script-step callback, step animation and motion, and apply camera-relative screen positioning. */ void updateFamiliarEntityAlt(u8 *self)
 {
     u8 *gfxObj;
     u8 *anim;

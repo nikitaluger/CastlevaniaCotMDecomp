@@ -26,14 +26,14 @@ void sub_080175E0(void *arg0) {
 }
 
 extern u8 gMainWorkspace[];
-s32 sub_0801491C(s32 arg0) {
+s32 absYFromFocus(s32 arg0) {
     u8 *b = gMainWorkspace;
     s32 v = *(s32 *)(b + 0x1750) - arg0;
     if (v < 0) v = -v;
     return v;
 }
 
-s32 sub_08014900(s32 arg0) {
+s32 absXFromFocus(s32 arg0) {
     u8 *b = gMainWorkspace;
     s32 v = *(s32 *)(b + 0x174C) - arg0;
     if (v < 0) v = -v;

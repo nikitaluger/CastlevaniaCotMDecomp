@@ -1,6 +1,6 @@
 extern void setAnimationFrame(s32, void *, s32, s32);
 extern void setSpriteFlip(s32, s32);
-extern s32 sub_08014900(s32);
+extern s32 absXFromFocus(s32);
 extern s32 sub_08014A04(void *, s32, s32, s32, s32);
 extern s32 sub_08014A6C(void *, s32, s32, s32);
 extern void sub_08014B1C(void *, void *, s32, s32);
@@ -61,7 +61,7 @@ void sub_08022E2C(u8 *entity) {
             }
         }
     } else {
-        if (sub_08014900(*(s32 *)(motionEx + 0x1C)) > (0xD2 << 0x10)) {
+        if (absXFromFocus(*(s32 *)(motionEx + 0x1C)) > (0xD2 << 0x10)) {
             u8 *stepData = (u8 *)((u32)(*(s16 *)(entity + 0x22)) * 2 + (u32)entity);
             stepData[0x19] = zero;
             {

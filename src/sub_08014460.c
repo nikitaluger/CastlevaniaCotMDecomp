@@ -38,5 +38,5 @@ void sub_08014460(void *arg0)
   }
 }
 
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 void sub_08014060(void *arg0);

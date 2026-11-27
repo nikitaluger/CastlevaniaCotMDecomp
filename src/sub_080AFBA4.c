@@ -1,5 +1,5 @@
 extern void sub_08011650(s32);
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
@@ -22,7 +22,7 @@ void sub_080AFBA4(void *entity)
 
     sub_08011650(sprite);
     if (*(s32 *)((u8 *)work + 0x2C) != 0)
-        sub_08015974();
+        freeMotionTracker();
     sub_08016678(entity);
     sub_080C31E0(entity, *(s32 *)((u8 *)work + 0x24));
 }

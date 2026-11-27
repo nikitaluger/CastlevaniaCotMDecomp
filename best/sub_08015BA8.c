@@ -30,7 +30,7 @@ u8 temp;
             {
                 if (dy > 0 && r7 >= __repair_phase___repair_phase_t)
                 {
-                    __repair_phase___repair_phase_t = y + (s32)sub_080C37B4(D_080C3218(dy, bx - x), dx);
+                    do { __repair_phase___repair_phase_t = y + (s32)sub_080C37B4(D_080C3218(dy, bx - x), dx); } while (0);
                     if (dy > 0) { if (r6 < __repair_phase___repair_phase_t) __repair_phase___repair_phase_t = r6; }
                     else if (__repair_phase___repair_phase_t < r6) __repair_phase___repair_phase_t = r6;
                     if (__repair_phase___repair_phase_t >= top && __repair_phase___repair_phase_t < bottom) { bx = left - 0x8000; by = __repair_phase___repair_phase_t; hits |= 2; }

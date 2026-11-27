@@ -8,7 +8,7 @@ extern s32 updateObjectDisplayState(s32, void *);
 extern void stepAnimationTrack(s32, void *);
 extern void moveObjectHorizontally(void *, s32, s32);
 extern void sub_08013C8C(void *, s32);
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *sScriptStepCallbacks;
@@ -47,7 +47,7 @@ void sub_0802B51C(u8 *self) {
                     ((struct FlagBits *)pAC)->lo |= 4;
                 }
                 if (*(void **)(p3C + 0x2C) != NULL) {
-                    sub_08015974();
+                    freeMotionTracker();
                     *(void **)(p3C + 0x2C) = NULL;
                 }
                 {

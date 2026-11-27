@@ -1,8 +1,8 @@
-void startEffectTimer(s32, s32, s32);
+void sub_08003A6C(s32, s32, s32);
 void *sub_08016190(void *);
-void cleanupFailedEffectSpawn(void *);
-s16 scalePercentSaturate16(u16, s32);
-void setDirectionVector(void *, u8);
+void sub_0806D2D0(void *);
+s16 sub_0806D62C(u16, s32);
+void sub_080722E0(void *, u8);
 void sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -67,7 +67,7 @@ int __repair_literal;
     base = D_02025368;
     r7->f2C = sub_08016190(r8);
     if (r7->f2C == NULL) {
-        cleanupFailedEffectSpawn(arg0);
+        sub_0806D2D0(arg0);
         return;
     }
     z = 0;
@@ -83,14 +83,14 @@ int __repair_literal;
     ((struct R3 *)r7->f2C)->f08 = 0xA;
     ((struct R3 *)r7->f2C)->f0A = z;
     ((struct R3 *)r7->f2C)->f0C = z;
-    ((struct R3 *)r7->f2C)->f0E = scalePercentSaturate16(*(u16 *)(base + 0x2E2), 0x20);
+    ((struct R3 *)r7->f2C)->f0E = sub_0806D62C(*(u16 *)(base + 0x2E2), 0x20);
     ((struct R3 *)r7->f2C)->f16 = 5;
     ((struct R3 *)r7->f2C)->f18 = 0x60;
     ((struct R3 *)r7->f2C)->f10 = (u8 *)r5;
     r7->f18 = *(u32 *)(arg0 + 0x24);
     *(u32 *)(arg0 + 0x24) = 0x0808449D;
     r5->f24 = 0x084E3A38;
-    startEffectTimer((s32)((u8 *)r8 + 0x20), 0, 0x084E3AF8);
+    sub_08003A6C((s32)((u8 *)r8 + 0x20), 0, 0x084E3AF8);
     r8->f04 = *(u32 *)((u32)D_02025FF0 + (u32)D_00001728);
     z = D_0202771C;
     r7->f04 = z + 0xFF800000;
@@ -99,7 +99,7 @@ int __repair_literal;
     r7->f40 = 0x4000;
     { int repair_store_value = 0x40; r8->f48 = repair_store_value; }
     r8->f49 = 4;
-    setDirectionVector(r7, r8->f48);
+    sub_080722E0(r7, r8->f48);
     r7->f4C = z;
     r8->f54 = z;
     *(u8 *)(arg0 + *(s16 *)(arg0 + 0x22) * 2 + 0x19) = z;

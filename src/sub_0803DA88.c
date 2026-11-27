@@ -1,7 +1,7 @@
 typedef void (*Fn)(void *);
 
 void sub_080C31E0(void *a, Fn b);
-s32 sub_08014900(s32);
+s32 absXFromFocus(s32);
 
 /* Actor update: clear the pose field when the horizontal distance test fails,
  * install the script table at 0x0866E01C and run one script step, then (when
@@ -14,7 +14,7 @@ void sub_0803DA88(void *arg0)
     s32 distance;
     s32 zero;
 
-    distance = sub_08014900(*(s32 *)(work + 0x08));
+    distance = absXFromFocus(*(s32 *)(work + 0x08));
     if ((u32)(distance + 0xFFD00000) > 0x00100000U) {
         *(u16 *)(pose + 0x02) = 0;
     }

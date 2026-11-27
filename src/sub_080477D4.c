@@ -1,5 +1,5 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014900(s32);
+extern s32 absXFromFocus(s32);
 extern s32 signOf(s32);
 extern s32 sub_08014990(void *);
 extern void sub_08048074(s32, s32, s32, s32, s32);
@@ -29,7 +29,7 @@ void sub_080477D4(void *self) {
     if (*(u8 *)((u8 *)state34 + 1) == 2 && *(s32 *)((u8 *)state34 + 4) == 1) {
         facing = sub_08014990(mainObj);
         if (facing == signOf(*(s32 *)((u8 *)state + 8))) {
-            distance = sub_08014900(*(s32 *)((u8 *)state + 8));
+            distance = absXFromFocus(*(s32 *)((u8 *)state + 8));
             if (distance < 0) distance += 0x1F;
             speed = distance >> 5;
             if (speed > 0x5FFF) {

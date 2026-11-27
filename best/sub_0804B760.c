@@ -107,7 +107,7 @@ void sub_0804B760(struct MainObj *arg0) {
     *(u16 *)effect = flags | gMainWorkspace.flags;
     *(u32 *)(effect + 0x1C) = 0x8000000A;
     scrollTable = (u8 *)&gCameraState;
-    { u32 offset = 0x1278; *(u32 *)(effect + 0x14) = owner->worldX - ((*(u32 *)(scrollTable + offset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
+    do { { u32 offset = 0x1278; *(u32 *)(effect + 0x14) = owner->worldX - ((*(u32 *)(scrollTable + offset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); } } while (0);
     { u32 offset = 0x127C; *(u32 *)(effect + 0x18) = owner->worldY - ((*(u32 *)(scrollTable + offset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     setAnimationFrame(effect, anim, 0x1C, 0);
     if (arg0->f6C > 0) {

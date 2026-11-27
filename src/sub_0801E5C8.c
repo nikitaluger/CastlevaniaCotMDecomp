@@ -1,5 +1,5 @@
 void unlinkAndFreeObject();
-void sub_08015974();
+void freeMotionTracker();
 void sub_08016678(void *);
 void releaseActorSlots(void *);
 s32 sub_080C31E0(void *, s32);
@@ -15,7 +15,7 @@ void sub_0801E5C8(void *arg0) {
         unlinkAndFreeObject();
     }
     if (*(s32 *)((u8 *)scriptState + 0x2C) != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     releaseActorSlots(obj);
     sub_08016678(obj);

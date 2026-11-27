@@ -1,5 +1,5 @@
 s32 sub_08011650(s32);
-void sub_08015974(void *);
+void freeMotionTracker(void *);
 void unlinkAndFreeObject(void *);
 void sub_08016678(void *);
 void sub_080C31E0(void *, s32);
@@ -20,7 +20,7 @@ void sub_080B1920(void *entity) {
     }
     sub_08011650(resource);
     if (*(void **)((u8 *)data + 0x2C) != NULL) {
-        sub_08015974(*(void **)((u8 *)data + 0x2C));
+        freeMotionTracker(*(void **)((u8 *)data + 0x2C));
     }
     sub_08016678(entity);
     sub_080C31E0(entity, *(s32 *)((u8 *)data + 0x24));

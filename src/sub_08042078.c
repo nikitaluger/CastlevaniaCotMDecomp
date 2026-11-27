@@ -1,4 +1,4 @@
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);

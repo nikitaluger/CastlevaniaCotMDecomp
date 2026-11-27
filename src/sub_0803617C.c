@@ -2,7 +2,7 @@ void sub_080144D8(void *, void *);
 void sub_080144FC(void *, void *);
 void sub_080C31E0(void *, void *);
 void unlinkAndFreeObject(void);
-void sub_08015974(void);
+void freeMotionTracker(void);
 void sub_08016678(void *);
 void _call_via_r1(void *, void *);
 
@@ -14,7 +14,7 @@ void sub_08035D6C(void *arg0) {
     if (*(s32 *)(work + 0x28) != 0) unlinkAndFreeObject();
     if (*(s32 *)(work + 0x48) != 0) unlinkAndFreeObject();
     if (*(s32 *)(state + 4) != 0) unlinkAndFreeObject();
-    if (*(s32 *)(work + 0x2C) != 0) sub_08015974();
+    if (*(s32 *)(work + 0x2C) != 0) freeMotionTracker();
     sub_08016678(arg0);
     _call_via_r1(arg0, *(void **)(work + 0x24));
 }

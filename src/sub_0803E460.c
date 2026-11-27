@@ -1,6 +1,6 @@
 /* Tear down an object: free its optional sub-objects (the pair at fields+0x4C
  * and 0x50), reset its field state, then dispatch its stored callback. */
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
@@ -14,7 +14,7 @@ void sub_0803E460(void *arg0) {
         unlinkAndFreeObject();
     }
     if (*(u32 *)(fields + 0x2C) != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     slotPtr = (u32 *)(fields + 0x4C);
     count = 1;

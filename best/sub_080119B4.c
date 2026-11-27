@@ -99,7 +99,7 @@ C26:
     t1 = getTileTerrain((s32)gTilemapPages + (gMainWorkspace[0x18A8] << 6), v, y);
     if (gTileTerrainFlags[(unsigned short)t1] & 0x0A) {
         flag = r6 > 0;
-        if (flag) v = (v & 0xFFF80000) + 0xFFFF8000;
+        newX = (v & 0xFFF80000); if (flag) v = newX + 0xFFFF8000;
         else v = (v & 0xFFF80000) + 0x88000;
     } else {
         t2 = getTileTerrain((s32)gTilemapPages + (gMainWorkspace[0x18A8] << 6), v, y - c);

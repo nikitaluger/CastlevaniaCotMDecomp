@@ -1,4 +1,4 @@
-extern s32 sub_08015974();
+extern s32 freeMotionTracker();
 extern s32 unlinkAndFreeObject();
 extern s32 sub_08016678(void *);
 extern s32 sub_0803B1CC(void *);
@@ -13,7 +13,7 @@ void sub_08033498(void *entity) {
     }
     sub_0803B1CC(state + 0x54);
     if (*(s32 *)((u8 *)state + 0x2C) != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     sub_08016678(entity);
     sub_080C31E0(entity, *(s32 *)((u8 *)state + 0x24));

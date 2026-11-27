@@ -47,8 +47,9 @@ u32 sub_08013558(struct Ent13558 *b, struct C13558 *c, struct Ent13558 *d)
   s16 idx;
   
 s32 __repair_phase_r12;
+s32 __repair_phase___repair_phase_r12;
   s32 r1;
-  s32 r6;
+  
   
 s32 __repair_phase_t;
   u16 cf;
@@ -60,14 +61,14 @@ u8 *__repair_phase_p;
   s32 d2a;
   int temp;
   
-  cf = (c->f0 &= 0xFFFD);
+  do { cf = (c->f0 &= 0xFFFD);
   d->f4 &= 0xFDFF;
-  __repair_phase_r12 = cf & 1;
-  if (__repair_phase_r12)
+  __repair_phase___repair_phase_r12 = cf & 1;
+  if (__repair_phase___repair_phase_r12)
   {
     *((u8 *) (((u8 *) d) + 1)) &= 0xFA;
     return 0;
-  }
+  } } while (0);
   idx = c->f20;
   if (idx > 0)
   {
@@ -116,7 +117,6 @@ u8 *__repair_phase_p;
           p = gSpriteKindTable + (((idx * 4) + idx) * 4);
           new_var3 = gMainWorkspace + 0x174C;
           __repair_phase_r12 = (u16) sub_0806D5C4(*((u16 *) (gMainWorkspace + 0x18BE)), *((u16 *) (p + 6)));
-          do
           {
             if (((double) __repair_phase_r12) <= 0)
             {
@@ -127,16 +127,15 @@ u8 *__repair_phase_p;
             idx = d->f30;
             if (__repair_phase_t < idx)
             {
-              r6 = (((idx << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << 6))))) - (d->f26 << 16);
+              __repair_phase___repair_phase_r12 = (((idx << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << 6))))) - (d->f26 << 16);
             }
             else
             {
-              r6 = (((idx << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << 6))))) + (d->f26 << 16);
+              __repair_phase___repair_phase_r12 = (((idx << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << 6))))) + (d->f26 << 16);
             }
             r1 = (((d->f32 << 16) + 0xFFFF8000) + (*((u32 *) ((gCameraState + 0x127C) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << 6))))) - (d->f28 << 16);
           }
-          while (0);
-          sub_0808D7BC(r6, r1, __repair_phase_r12, 0);
+          sub_0808D7BC(__repair_phase___repair_phase_r12, r1, __repair_phase_r12, 0);
           if (((s32) c->f18) <= 0)
           {
             c->f18 = 0;
@@ -189,15 +188,15 @@ u8 *__repair_phase_p;
   c->f18 = c->f18 - __repair_phase_r12;
   if (e->f30 < d->f30)
   {
-    r6 = (((d->f30 << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << new_var2))))) - (d->f26 << 16);
+    __repair_phase___repair_phase_r12 = (((d->f30 << 16) + 0x8000) + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << new_var2))))) - (d->f26 << 16);
   }
   else
   {
     idx = (d->f30 << 16) + 0x8000;
-    r1 = (idx + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << new_var2))))); r6 = r1 + (d->f26 << 16);
+    r1 = (idx + (*((u32 *) ((gCameraState + 0x1278) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << new_var2))))); __repair_phase___repair_phase_r12 = r1 + (d->f26 << 16);
   }
   r1 = (((d->f32 << 16) + 0xFFFF8000) + (*((u32 *) ((gCameraState + 0x127C) + ((((u8) (*(gMainWorkspace + 0x18A8))) + 1) << new_var2))))) - (d->f28 << 16);
-  sub_0808D7BC(r6, r1, __repair_phase_r12, 0);
+  sub_0808D7BC(__repair_phase___repair_phase_r12, r1, __repair_phase_r12, 0);
   if (c->f30 != 0)
   {
     *((u32 *) (c->f30 + 8)) = (u32) e;

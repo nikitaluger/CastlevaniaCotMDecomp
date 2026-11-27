@@ -96,7 +96,7 @@ align_loop:
   else
   {
     { if (first != cur) {
-                          s32 hdr_a1; new_var3 = (avail << 8); *((u32 *) p) = ((*((u32 *) p)) & ff) | new_var3; __repair_phase___repair_phase_size = pad; hdr_a1 = *((u32 *) first); *((u32 *) first) = (inline_fn(hdr_a1 >> 8, __repair_phase___repair_phase_size) << 8) | (hdr_a1 & ff); } else { goto b46; } }
+                          s32 hdr_a1; new_var3 = (avail << 8); *((u32 *) p) = ((*((u32 *) p)) & ff) | new_var3; __repair_phase___repair_phase_size = pad; do { do { do { hdr_a1 = *((u32 *) first); } while (0); } while (0); } while (0); *((u32 *) first) = (inline_fn(hdr_a1 >> 8, __repair_phase___repair_phase_size) << 8) | (hdr_a1 & ff); } else { goto b46; } }
   }
   cur = p;
   b46:

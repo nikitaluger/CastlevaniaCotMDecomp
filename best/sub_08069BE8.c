@@ -31,9 +31,12 @@ void sub_08069BE8(struct Arg69 *arg0) {
     u32 off3 = 0x12BC;
     u32 maskG, maskB;
     u32 *table;
+    u32 temp;
+    int temp2;
 
     args.a = arg0->f6C + 4;
-    args.b = (void *)arg0->f38;
+    temp = arg0->f38;
+    args.b = (void *)temp;
     sp20 = args.a;
     resetActionResultState(arg0, args.b, sp20, sp20);
 
@@ -74,7 +77,8 @@ void sub_08069BE8(struct Arg69 *arg0) {
         *(u32 *)(gCameraState + off3) = 0;
         ((struct Regs *)0x03000830)->reg = 0xBF;
         gMainWorkspace[0x52B] = 4;
-        *(u8 *)((u8 *)arg0 + arg0->f22 * 2 + 0x19) = 0;
+        temp2 = arg0->f22 * 2 + 0x19;
+        *(u8 *)((u8 *)(temp2 * 1 + (int)arg0)) = 0;
         table = gScriptStepCallbackTable;
         sub_080C31E4(&arg0->f18, &arg0->f22, (void *)table[0]);
     }

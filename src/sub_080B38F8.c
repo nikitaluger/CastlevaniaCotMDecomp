@@ -1,7 +1,7 @@
 s32 setObjectAnimation(s32, s32, s32, s32);
 s32 sub_08011528(s32, s32);
 s32 sub_080148D8(s32, s32);
-s32 sub_08014900(s32);
+s32 absXFromFocus(s32);
 void sub_080C31E4(void *, void *, s32);
 
 /* Enemy idle update: play its animation, face the player, and every 20
@@ -21,7 +21,7 @@ void sub_080B38F8(void *arg0)
     sub_08011528(anim, animDesc);
     sub_080148D8(anim, *((s32 *)((s8 *)motion + 8)));
     if (*((u8 *)((s8 *)arg0 + *((s16 *)((s8 *)arg0 + 0x22)) * 2 + 0x19)) == 0x14) {
-        if (sub_08014900(*((s32 *)((s8 *)motion + 8))) <= 0x3FFFFF) {
+        if (absXFromFocus(*((s32 *)((s8 *)motion + 8))) <= 0x3FFFFF) {
             *((u8 *)((s8 *)motion + 0x68)) = 0;
         } else {
             *((u8 *)((s8 *)motion + 0x68)) = 1;

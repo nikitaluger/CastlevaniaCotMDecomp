@@ -1,8 +1,8 @@
 struct Z { u32 w; u8 b; };
 extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
-extern s32 sub_08014900(s32);
-extern s32 sub_0801491C(s32);
+extern s32 absXFromFocus(s32);
+extern s32 absYFromFocus(s32);
 extern s32 signOf(s32);
 extern s32 sub_08014990(s32);
 extern s32 sub_080458CC(void *, void *);
@@ -32,8 +32,8 @@ void sub_08045574(void *self) {
     *(u16 *)(state + 2) = timer;
     if ((s32)(timer << 16) <= 0) {
         *(u16 *)(state + 2) = 0x3C;
-        if (sub_08014900(*(s32 *)(motion + 8)) <= 0x380000 &&
-            sub_0801491C(*(s32 *)(motion + 0xC)) <= 0x200000) {
+        if (absXFromFocus(*(s32 *)(motion + 8)) <= 0x380000 &&
+            absYFromFocus(*(s32 *)(motion + 0xC)) <= 0x200000) {
             side = signOf(*(s32 *)(motion + 8));
             if (side == sub_08014990((s32)actor)) {
                 {

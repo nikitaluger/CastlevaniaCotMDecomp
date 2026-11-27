@@ -1,89 +1,87 @@
-extern u8 gCameraState[];    /* scroll-offset table */
-extern u8 gMainWorkspace[];    /* global game state */
-extern u32 gSpriteAnimDataTable[];   /* frame-control data */
-extern u32 gScriptStepCallbackTable[];   /* step-script operation */
+/* Build the kind-0x15 scripted sprite for an entity: allocate its sprite and
+ * work state, install the graphics and animation, place it using the camera
+ * scroll rows, then arm the next script step and run the entity's callback. */
+#define U8(p, o)  (*(u8 *)((u8 *)(p) + (o)))
+#define U16(p, o) (*(u16 *)((u8 *)(p) + (o)))
+#define U32(p, o) (*(u32 *)((u8 *)(p) + (o)))
+struct SpawnSprite { u16 flags0; u8 pad2[0x12]; u32 worldX, worldY, typeId; u8 pad20[0x60]; };
+struct SpawnLogic { u8 pad0[4]; u16 kind; u8 pad6[2]; u32 moveX, moveY; u8 pad10[0xC]; s16 cfgIndex; u8 pad1E[0x16]; u8 pad34[0x14]; };
+extern struct SpawnSprite *allocSpriteObject(void);
+extern void allocWorkSlot(void *entity, int a, int b, int c);
+extern void installUpdateHandler(void *a, struct SpawnLogic *b, void (*c)(void));
+extern void sub_08033498(void);
+extern void initWorkStateForKind(void *a, struct SpawnSprite *b, struct SpawnLogic *c, u32 d, u32 e);
+extern void initSpriteGraphics(struct SpawnSprite *a, u8 *b, void *c);
+extern void setAnimationFrame(struct SpawnSprite *a, u8 *b, int c, int d);
+extern void allocSpriteConfigPart(void *a, struct SpawnLogic *b, struct SpawnSprite *c);
+extern void initThreeSubObjects(void *a, struct SpawnLogic *b, struct SpawnSprite *c, void *d);
+extern void sub_080C31E0(void *a, u32 b);
+extern void sub_080C31E4(u8 *a, s16 *b, u32 c);
+extern void registerScriptObject(void *a, u32 b);
+extern u8 gCameraState[]; extern u8 gMainWorkspace[]; extern u8 gSpriteAnimDataTable[]; extern u32 gScriptStepCallbackTable;
+extern u32 sub_0805FAEC(void *, u32);
+extern void sub_080338F0(void *a, struct SpawnLogic *b, struct SpawnSprite *c);
 
-extern void allocWorkSlot(void *, u32, u32, u32);
-extern void *allocSpriteObject(void *);          /* create the sprite object */
-extern void installUpdateHandler(void *, void *, void *);
-extern void initWorkStateForKind(void *, void *, void *, void *, u32);
-extern void initSpriteGraphics(void *, void *, void *);
-extern void setAnimationFrame(void *, void *, u32, u32); /* set animation/frame control */
-extern void allocSpriteConfigPart(void *, void *, void *);
-extern void initThreeSubObjects(void *, void *, void *, void *);
-extern u32 spawnBudgetedEffect(void *, u32);
-extern void syncChildObjectParams(void *, void *, void *);
-extern void registerScriptObject(void *, u32);
-extern void _call_via_r1(void *, void *);   /* cleanup callback */
-extern void _call_via_r2(void *, void *, void *); /* run a script handler */
-extern void cleanupKind15Sprite(void);
-
-/* Spawn and initialise a scripted sprite using the calling entity's parameters,
- * align its world position to the scene scroll, then either finish setup or
- * abort to the script's cleanup path depending on a game-state flag. */
-void spawnKind15ScriptSprite(void *arg0)
-{
-    u8 *ownerParams = *(u8 **)((u8 *)arg0 + 0xAC);
-    u8 *sprite = allocSpriteObject(ownerParams);
-    u8 *state;
-    u8 *animTrack;
-    s16 kindIndex;
-    u8 *scriptSteps;
-    u8 opcode;
-
-    if (sprite == NULL) goto fail;
-    *(u8 **)((u8 *)arg0 + 0x38) = sprite;
-    allocWorkSlot(arg0, 0, KIND15_WORK_SLOT, 0);
-    if (*(u8 *volatile *)((u8 *)arg0 + 0x3C) == NULL) goto fail;
-    *(u32 *)((u8 *)sprite + 0x1C) = KIND15_SPRITE_GFX_ID;
-    state = *(u8 **)((u8 *)arg0 + 0x3C);
-    animTrack = state + 0x34;
-    installUpdateHandler(arg0, state, (void *) cleanupKind15Sprite);
-    initWorkStateForKind(arg0, sprite, state, ownerParams, KIND15_SPRITE_KIND);
-    *(u16 *)((u8 *)state + 0x04) = KIND15_INIT_VALUE;
-    kindIndex = *(s16 *)((u8 *)state + 0x1C);
-    initSpriteGraphics(sprite, animTrack, (void *)((u32)kindIndex * KIND15_ANIM_STRIDE + (u32)gSpriteAnimDataTable));
-    setAnimationFrame(sprite, animTrack, 0, 1);
-    allocSpriteConfigPart(arg0, state, sprite);
-    initThreeSubObjects(arg0, state, sprite, (u8 *)state + 0x54);
-
-    if (spawnBudgetedEffect(arg0, KIND15_SPAWN_EFFECT) == 0) {
+void spawnKind15ScriptSprite(void *entity) {
+    struct SpawnSprite *sprite; struct SpawnLogic *logic;
+    u32 spawnParam; s32 zero;
+    u8 *animData; u8 *coordTable, *scrollState, *xBase, *yBase;
+    u32 coordIndex;
+    u8 *scriptData; u8 *stepSlot; u8 *scriptEntry;
+    u32 *callbackEntry;
+    spawnParam = U32(entity, 0xAC);
+    sprite = allocSpriteObject();
+    if (sprite == NULL) goto fail0;
+    goto ok0;
+fail0:
+    sub_080C31E0(entity, U32(entity, 0x24));
+    return;
+ok0:
+    U32(entity, 0x38) = (u32)sprite;
+    allocWorkSlot(entity, 0, 0x64, 0);
+    if (U32(entity, 0x3C) == 0) goto fail;
+    goto body;
 fail:
-        _call_via_r1(arg0, *(void **)((u8 *)arg0 + 0x24));
+    sub_080C31E0(entity, U32(entity, 0x24));
+    return;
+body:
+    sprite->typeId = 0x8000000A;
+    logic = (struct SpawnLogic *)U32(entity, 0x3C);
+    animData = (u8 *)logic + 0x34;
+    installUpdateHandler(entity, logic, sub_08033498);
+    initWorkStateForKind(entity, sprite, logic, spawnParam, 0x15);
+    zero = 0;
+    logic->kind = 8;
+    initSpriteGraphics(sprite, animData, (u8 *)gSpriteAnimDataTable + logic->cfgIndex * 12);
+    setAnimationFrame(sprite, animData, 0, 1);
+    allocSpriteConfigPart(entity, logic, sprite);
+    initThreeSubObjects(entity, logic, sprite, (u8 *)logic + 0x54);
+    if (sub_0805FAEC(entity, 0xE1) == 0) {
+fail1:
+        sub_080C31E0(entity, U32(entity, 0x24));
+        goto end;
     } else {
-        syncChildObjectParams(arg0, state, sprite);
-
-        {
-            u8 *pt = gCameraState;
-            u8 *pb = gMainWorkspace;
-            u8 *base1;
-            u8 *base2;
-            u32 idx;
-
-            pb += 0x18A8;
-
-            idx = ((u32)*pb + 1) * 0x40;
-            base1 = pt + 0x1278;
-            *(u32 *)((u8 *)sprite + 0x14) = *(u32 *)((u8 *)state + 0x08) - ((*(u32 *)(base1 + idx) + 0x8000) & 0xFFFF0000);
-
-            idx = ((u32)*pb + 1) * 0x40;
-            base2 = pt + 0x127C;
-            *(u32 *)((u8 *)sprite + 0x18) = *(u32 *)((u8 *)state + 0x0C) - ((*(u32 *)(base2 + idx) + 0xFFFF8000) & 0xFFFF0000);
-        }
-
-        registerScriptObject(arg0, 0);
-        *(u16 *)((u8 *)arg0 + 0x02) |= KIND15_SPRITE_READY;
-        *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) = 0;
-        {
-            u32 litaddr = (u32) gScriptStepCallbackTable;
-            scriptSteps = (u8 *)arg0 + 0x18;
-            _call_via_r2(scriptSteps, (u8 *)arg0 + 0x22, *(void **)litaddr);
-        }
-        *(u8 *)((u8 *)arg0 + *(s16 *)((u8 *)arg0 + 0x22) * 2 + 0x19) += 1;
-        {
-            s32 off = *(s16 *)((u8 *)arg0 + 0x22) * 2;
-            opcode = *(u8 *)(scriptSteps + off);
-        }
-        _call_via_r1(arg0, *(void **)(*(u32 *)((u8 *)arg0 + 0x14) + opcode * 4));
+        sub_080338F0(entity, logic, sprite);
     }
+    coordTable = gCameraState;
+    scrollState = gMainWorkspace;
+    scrollState += 0x18A8;
+    coordIndex = ((u32)*scrollState + 1) * 0x40;
+    xBase = coordTable + 0x1278;
+    sprite->worldX = logic->moveX - ((*(u32 *)(xBase + coordIndex) + 0x8000) & 0xFFFF0000);
+    coordIndex = ((u32)*scrollState + 1) * 0x40;
+    yBase = coordTable + 0x127C;
+    sprite->worldY = logic->moveY - ((*(u32 *)(yBase + coordIndex) + 0xFFFF8000) & 0xFFFF0000);
+    registerScriptObject(entity, 0);
+    U16(entity, 0x02) = 0x1000 | U16(entity, 0x02);
+    U8(entity, 0x19 + (s16)U16(entity, 0x22) * 2) = zero;
+    callbackEntry = &gScriptStepCallbackTable;
+    scriptData = (u8 *)entity + 0x18;
+    sub_080C31E4(scriptData, (s16 *)((u8 *)entity + 0x22), *callbackEntry);
+    stepSlot = (u8 *)((s16)U16(entity, 0x22) * 2 + (u32)entity);
+    stepSlot[0x19] = (u8)(stepSlot[0x19] + 1);
+    scriptEntry = scriptData + (s16)U16(entity, 0x22) * 2;
+    sub_080C31E0(entity, *(u32 *)(U32(entity, 0x14) + *scriptEntry * 4));
+end:
+    return;
 }

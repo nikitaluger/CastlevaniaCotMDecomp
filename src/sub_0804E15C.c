@@ -1,7 +1,7 @@
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_08014900(s32);
-extern s32 sub_0801491C(s32);
+extern s32 absXFromFocus(s32);
+extern s32 absYFromFocus(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *gScriptStepCallbacks;
@@ -28,8 +28,8 @@ void sub_0804E15C(u8 *arg0) {
     ((struct P48u *)p48)->timer4 = timer4;
     if ((timer4 << 0x10) <= 0) {
         ((struct P48u *)p48)->timer4 = (u16)(scaleByRandom(0x3D) + 0x5A);
-        if (sub_08014900(*(s32 *)(state + 8)) <= 0x380000 &&
-            sub_0801491C(*(s32 *)(state + 0xC)) <= 0x380000) {
+        if (absXFromFocus(*(s32 *)(state + 8)) <= 0x380000 &&
+            absYFromFocus(*(s32 *)(state + 0xC)) <= 0x380000) {
             u8 *scriptPtr = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
             s32 *scriptJump;
             *(u8 *)(scriptPtr + 0x19) = 0;
@@ -51,7 +51,7 @@ void sub_0804E15C(u8 *arg0) {
 
     useLongDelay = 0;
     farFromTarget = 0;
-    if (sub_08014900(*(s32 *)(state + 8)) > 0x200000) {
+    if (absXFromFocus(*(s32 *)(state + 8)) > 0x200000) {
         farFromTarget = 1;
     }
     toTargetX = gMainWorkspace.targetX - *(s32 *)(state + 8);

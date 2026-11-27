@@ -1,7 +1,7 @@
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_08014900(s32);
-extern s32 sub_0801491C(s32);
+extern s32 absXFromFocus(s32);
+extern s32 absYFromFocus(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern void *gScriptStepCallbacks;
@@ -29,8 +29,8 @@ void sub_0802FDD4(u8 *arg0) {
         if ((((struct Flags *)*(void **)(r4 + 0x48))->flags & 4) == 0 &&
             (((struct Flags *)*(void **)(r6 + 4))->flags & 4) == 0) {
             ((struct Counter *)r6)->value = scaleByRandom(0x1F) + 0x50;
-            if (sub_08014900(*(s32 *)(r4 + 8)) <= 0x600000 &&
-                sub_0801491C(*(s32 *)(r4 + 0xC)) <= 0x400000) {
+            if (absXFromFocus(*(s32 *)(r4 + 8)) <= 0x600000 &&
+                absYFromFocus(*(s32 *)(r4 + 0xC)) <= 0x400000) {
                 u8 *q = (u8 *)((u32)(*(s16 *)(arg0 + 0x22)) * 2 + (u32)arg0);
                 s32 *g;
                 *(u8 *)(q + 0x19) = 0;

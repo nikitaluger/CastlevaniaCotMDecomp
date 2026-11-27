@@ -1,5 +1,5 @@
 void unlinkAndFreeObject(void);
-void sub_08015974(void);
+void freeMotionTracker(void);
 void sub_08016678(void *);
 void sub_080C31E0(void *, void *);
 
@@ -15,7 +15,7 @@ void sub_0805A85C(void *arg0) {
         unlinkAndFreeObject();
     }
     if (*(u32 *)(work + 0x2C) != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     sub_08016678(arg0);
     if (*(s16 *)(moveState + 0x0A) == 1) {

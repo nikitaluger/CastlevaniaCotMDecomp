@@ -7,7 +7,7 @@ extern u8 D_080D9AB0[];
 extern u8 D_080D9AC0[];
 extern u8 D_080D9B3C[];
 extern u8 D_080DABDC[];
-extern u16 gCrossfadeGfxState[];
+extern u16 D_03000830[];
 struct S61340
 {
   u8 buf[0xB0C];
@@ -32,6 +32,7 @@ struct S61340
 };
 void sub_08061340(void *arg0)
 {
+    u8 *__base_D_080D9AA0;
     u8 *__base_D_080D9AC0;
     s32 __index_D_080D9AC0;
   struct S61340 s;
@@ -55,7 +56,6 @@ void sub_08061340(void *arg0)
   int new_var6;
   struct S61340 *new_var2;
   u32 new_var4;
-  u32 temp;
 
     __base_D_080D9AC0 = 0;
   s.f0C = (u32) arg0;
@@ -63,13 +63,13 @@ void sub_08061340(void *arg0)
   s.f10 = 0;
   sub_08061ED0(*((s32 *) (s.f0C + 0x38)), (void *) s.f0C, 0);
   new_var = s.f14 <= 0x29;
-  *((u16 *) (*((u32 **) (s.f0C + 0x3C)))) = gCrossfadeGfxState[3];
+  *((u16 *) (*((u32 **) (s.f0C + 0x3C)))) = D_03000830[3];
   s.f40 = (u32) (&s.buf[0x20]);
   s.f48 = s.f0C + 0x18;
   s.f4C = s.f0C + 0x22;
   s.f10 = (s.f14 = 0);
   new_var10 = 0xF;
-  __repair_rows: {
+  loop_0: {
     s.f14 = 0;
     p = (u8 *) (s.f40 + (0x2B * s.f10));
     do
@@ -80,8 +80,7 @@ void sub_08061340(void *arg0)
     }
     while (s.f14 <= 0x2A);
     s.f10++;
-  }
-if (s.f10 <= 0x40) goto __repair_rows;
+  } if (s.f10 <= 0x40) { goto loop_0; }
   new_var9 = 0x06008000;
   s.f2C = new_var9;
   do
@@ -93,8 +92,7 @@ if (s.f10 <= 0x40) goto __repair_rows;
     do
     {
       s.f20 = 0;
-      temp = s.f18 + 1;
-      s.f38 = temp;
+      s.f38 = s.f18 + 1;
       v = s.f20;
       s.f50 = new_var + 0x20;
       s.f30 = s.f18 * 2;
@@ -114,8 +112,7 @@ if (s.f10 <= 0x40) goto __repair_rows;
         switch (t)
         {
           case 1:
-            t7 = *((u8 *) (D_080DABDC + c));
-            t7 >>= 4;
+            t7 = (*((u8 *) (D_080DABDC + c))) >> 4;
             __index_D_080D9AC0 = t7 * 4;
             __base_D_080D9AC0 = D_080D9AC0;
             t5 = *((u8 *) (__base_D_080D9AC0 + __index_D_080D9AC0));
@@ -133,7 +130,8 @@ if (s.f10 <= 0x40) goto __repair_rows;
         }
 
         t5 = (t5 | (t5 << 4)) & 0xFF;
-        d = *((u32 *) (D_080D9AA0 + s.f24));
+        __base_D_080D9AA0 = D_080D9AA0;
+        d = *((u32 *) (__base_D_080D9AA0 + s.f24));
         *((u8 *) (&s.buf[d])) = t5;
         *((u8 *) (&s.buf[d + 1])) = t5;
         *((u8 *) (&s.buf[d + 4])) = t5;
@@ -142,8 +140,8 @@ if (s.f10 <= 0x40) goto __repair_rows;
         *((u8 *) (&s.buf[d + 9])) = t5;
         *((u8 *) (&s.buf[d + 0xC])) = t5;
         *((u8 *) (&s.buf[d + 0xD])) = t5;
-        t7 = ((*((u8 *) (D_080D9B3C - (-c)))) >> 2) & 3;
         new_var2 = &s;
+        t7 = ((*((u8 *) (D_080D9B3C - (-c)))) >> 2) & 3;
         if (t7 != 0)
         {
           do { if ((s.f20 == 2) || (t == 2))
@@ -194,14 +192,14 @@ if (s.f10 <= 0x40) goto __repair_rows;
             v = 6;
           }
           t2 = (t < s.f28) ? ((u8) (*new_var2).f28) : (t);
-          if (t2 == 1)
+          do { if (t2 == 1)
           {
             s.f1C = 7;
           }
           else
           {
             s.f1C = (t2 == 2) ? (3) : (2);
-          }
+          } } while (0);
           {
             u32 w = (v * 0x10) | v;
             if (t7 != 2)

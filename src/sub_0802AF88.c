@@ -1,7 +1,7 @@
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_08014900(s32);
-extern s32 sub_0801491C(s32);
+extern s32 absXFromFocus(s32);
+extern s32 absYFromFocus(s32);
 extern s32 signOf(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
@@ -31,8 +31,8 @@ void sub_0802AF88(u8 *mgr)
     if (*(s16 *)(timers + 4) <= 0)
     {
         *(u16 *)(timers + 4) = (u16)(scaleByRandom(0x1F) + 0x3C);
-        if (sub_08014900(*(s32 *)(ent + 8)) <= 0x300000 &&
-            sub_0801491C(*(s32 *)(ent + 0xC)) <= 0x200000)
+        if (absXFromFocus(*(s32 *)(ent + 8)) <= 0x300000 &&
+            absYFromFocus(*(s32 *)(ent + 0xC)) <= 0x200000)
         {
             s32 dirSign = signOf(*(s32 *)(ent + 8));
             if (dirSign == sub_08014990(owner))
@@ -63,7 +63,7 @@ void sub_0802AF88(u8 *mgr)
         s32 playerFarX = 0;
         s32 deltaX;
 
-        if (sub_08014900(*(s32 *)(ent + 8)) > 0x280000)
+        if (absXFromFocus(*(s32 *)(ent + 8)) > 0x280000)
             playerFarX = 1;
 
         deltaX = gMainWorkspace.field174C - *(s32 *)(ent + 8);

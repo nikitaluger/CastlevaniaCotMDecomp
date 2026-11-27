@@ -1,4 +1,4 @@
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 extern void unlinkAndFreeObject(void);
 extern void sub_080C050C(s32);
 extern void sub_080C31E0(void *, s32);
@@ -14,7 +14,7 @@ void sub_0808EE90(void *arg0)
     state = (u8 *)field + 0x34;
     if (*(s32 *)((u8 *)state + 4) != 0)
     {
-        sub_08015974();
+        freeMotionTracker();
     }
     if (*(s32 *)((u8 *)state + 8) != 0)
     {

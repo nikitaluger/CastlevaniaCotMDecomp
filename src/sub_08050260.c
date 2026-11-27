@@ -1,5 +1,5 @@
 extern s32 updateObjectDisplayState(s32, u16 *);
-extern void sub_08015974();
+extern void freeMotionTracker();
 
 /* Applies an object's timed display state to its sprite attributes; while the
  * state is active it also clears two sprite-link flags and drops its effects. */
@@ -29,12 +29,12 @@ s32 sub_08050260(void *obj, s32 spriteAttrs)
     {
       if ((*((s32 *) (((s8 *) state) + 0x28))) != 0)
       {
-        sub_08015974();
+        freeMotionTracker();
         *((s32 *) (((s8 *) state) + 0x28)) = flagBits;
       }
       if ((*((s32 *) (((s8 *) state) + 0x2C))) != 0)
       {
-        sub_08015974();
+        freeMotionTracker();
         *((s32 *) (((s8 *) state) + 0x2C)) = flagBits;
       }
     }

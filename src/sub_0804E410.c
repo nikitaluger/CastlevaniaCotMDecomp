@@ -1,4 +1,4 @@
-extern void sub_08015974(void);   /* release a 0x14-byte particle object */
+extern void freeMotionTracker(void);   /* release a 0x14-byte particle object */
 extern void unlinkAndFreeObject(void);   /* release a 0x34-byte particle object */
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
@@ -20,10 +20,10 @@ void sub_0804E410(void *arg0) {
         unlinkAndFreeObject();
     }
     if (*(u32 *)(work + 0x2C) != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     if (*(u32 *)(slots + 0x14) != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     slots = work + 0x50;
     i = 1;

@@ -743,6 +743,50 @@ struct ActionCameraState {
 #define BEHAVIOR_SCROLL_BIAS_X      0x8000
 #define BEHAVIOR_SCROLL_BIAS_Y      0xFFFF8000
 #define BEHAVIOR_FRAC_MASK          0xFFFF0000
+
+/* Motion-tracker states and table used by updateTrackedBehaviorSprite. The
+ * tracker's +1 byte is 0 while the effect is hidden and 7 while it is active;
+ * +0x14 of the entity is repointed at this step-handler table each frame. */
+#define TRACKER_STATE_HIDDEN    0
+#define TRACKER_STATE_ACTIVE    7
+#define TRACKER_ACTIVE_DISTANCE 0x00400000
+#define TRACKER_STATE_HANDLERS  0x0866F96C
+
+/* Parent/script object that spawns the kind-0x65 directional effect. */
+struct Kind65EffectParent {
+    u16 f0;
+    u16 flags;             /* 0x02: EFFECT_SPRITE_READY set on success */
+    u8 _4[0x10];
+    void *scriptTable;     /* 0x14: step-handler table */
+    u8 stepTimer;          /* 0x18 */
+    u8 stepTime;           /* 0x19 */
+    u8 _1A[8];
+    s16 stepIndex;         /* 0x22 */
+    void *cleanup;         /* 0x24: callback run on allocation failure */
+    u8 _28[0x10];
+    void *sprite;          /* 0x38 */
+    void *volatile work;   /* 0x3C: work block */
+    u8 _40[0xC];
+    s32 direction;         /* 0x4C: selects the sprite's horizontal flip */
+};
+
+/* Work block hung off the parent's +0x3C slot. */
+struct Kind65EffectWork {
+    u8 _0[8];
+    s32 worldX;      /* 0x08 */
+    s32 worldY;      /* 0x0C */
+    u8 _10[0xC];
+    s16 kind;        /* 0x1C: 0x65 */
+    u8 _1E[4];
+    s16 animSlot;    /* 0x22: index returned by findKindIndex */
+    void *cleanup;   /* 0x24 */
+    struct FixedEffectSpriteLayer *layer; /* 0x28 */
+    u8 _2C[0xC];
+};
+
+/* gEffectGfxTable row as seen by the kind-0x65 directional effect: the tile
+ * and palette pair sits at +0x04/+0x06 (kept candidate-local elsewhere). */
+struct Kind65EffectGfxEntry { u8 _0[4]; u16 gfxIndex; u16 palette; u8 _8[0x20]; };
 #define BEHAVIOR_STEP_BASE_OFFSET   0x18
 #define BEHAVIOR_STEP_TIME_OFFSET   0x19
 #define BEHAVIOR_STEP_INDEX_OFFSET  0x22
@@ -867,8 +911,24 @@ extern u32 gBehaviorSpeeds[];
 extern u32 gBehaviorRanges[];
 
 /* Work block reached at (entity work state)+0x48 for the tracked behaviour. */
+/* Motion tracker allocated by allocMotionTracker and hung off the tracked
+ * behaviour's work block at +0x04. The pointer is volatile: every field write
+ * below re-reads it from memory. */
+struct MotionTracker {
+    u8 _0;            /* 0x00 */
+    u8 state;         /* 0x01: TRACKER_STATE_HIDDEN / TRACKER_STATE_ACTIVE */
+    u16 previous;     /* 0x02: low half of the prior tracker handle */
+    u16 animX;        /* 0x04: integer part of the motion's world X */
+    u16 animY;        /* 0x06: integer part of the motion's world Y, plus one */
+    u16 kind;         /* 0x08: 0x10 */
+    u16 layer;        /* 0x0A: 0x10 */
+    void *owner;      /* 0x0C: entity that owns the tracker */
+};
+
 struct TrackedBehaviorWork {
-    u8 _0[0x18];
+    u8 _0[4];
+    struct MotionTracker *volatile tracker; /* 0x04 */
+    u8 _8[0x14];
     u32 stateCount; /* 0x18: bumped on every timer wrap */
     u16 timer;      /* 0x1C: countdown; wrap switches to the next step */
     u8 _1E[2];
@@ -1397,3 +1457,32 @@ extern u32 sMultiPartProjectileStepTable[];
 #define KIND15_INIT_VALUE        8
 #define KIND15_SPAWN_EFFECT      0xE1
 #define KIND15_SPRITE_READY      0x1000
+
+/* Work state of a moving actor, reached through actor->extra + 4. */
+struct MovingActorState {
+    u8 _0[8];
+    s32 f8;             /* 0x08: cleared on the death transition */
+    s32 speed;          /* 0x0C: advanced from the per-type timing table */
+    u8 _10[0x40 - 0x10];
+    s32 state;          /* 0x40: 1 starts the death transition */
+    s32 type;           /* 0x44: row index into ENEMY_PARAM_TABLE */
+    u8 _48[4];
+    s32 f4C;            /* 0x4C */
+    s32 f50;            /* 0x50 */
+    s32 f54;            /* 0x54 */
+};
+
+/* Fields of the shared workspace read by updateMovingActor. */
+struct ActorUpdateWorkspace {
+    u8 _0[0x14ED];
+    u8 mode;              /* 0x14ED: 0x35 starts a new round */
+    u8 _14EE[0x1754 - 0x14EE];
+    s32 smallSlotCounter; /* 0x1754: forced to 9 on the transition */
+};
+
+/* Script step dispatched by updateMovingActor on the death transition. */
+#define ACTOR_STEP_DEATH 0x10
+
+/* Kind-0x44 effect spawner (spawnKind44Effect): gEffectGfxTable record viewed as
+ * a tile-id/palette-id pair at +8 and +0xA. */
+struct Kind44GfxEntry { u8 _0[8]; u16 gfxIndex; u16 palette; u8 _c[0x1C]; };

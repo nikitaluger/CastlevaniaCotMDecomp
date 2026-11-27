@@ -1,3 +1,5 @@
+extern u8 sWeaponStepTable[];
+
 extern void sub_08005E80(s32);
 extern s32 stepAnimationTrack(s32, void *);
 extern void moveEntityWithCollision(void *, s32);
@@ -15,9 +17,10 @@ extern void sub_080C31E8(void *, void *, s32, s32);
 struct R8 { u8 _0[8]; s16 f8; };
 
 /* One update tick of a weapon entity: run the hit/damage responses, issue the
- * attack-end callback, dispatch the current state handler from the D_0866DC7C table,
- * mirror the entity's animation state into its sub-object, then finish with cleanup. */
-void sub_08031400(u8 *self) {
+ * attack-end callback, dispatch the current state handler from the weapon's
+ * handler table, mirror the entity's animation state into its sub-object, then
+ * finish with cleanup. */
+void updateWeaponEntity(u8 *self) {
     s32 parent = *(s32 *)(self + 0x38);
     u8 *obj = *(u8 **)(self + 0x3C);
     u8 *objSub = obj + 0x34;
@@ -55,7 +58,7 @@ void sub_08031400(u8 *self) {
         u8 stateByte;
         void **handlers;
         void *handler;
-        *(void **)(self + 0x14) = (void *)0x0866DC7C;
+        *(void **)(self + 0x14) = (void *)sWeaponStepTable;
         *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) + 1);
         slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
         *(u8 *)(slot + 0x19) = (u8)(*(u8 *)(slot + 0x19) + 1);

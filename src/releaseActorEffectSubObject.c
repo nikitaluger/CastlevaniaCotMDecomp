@@ -1,5 +1,5 @@
 extern s32 sub_08011650(s32);
-extern s32 sub_08015974();
+extern s32 freeMotionTracker();
 extern s32 unlinkAndFreeObject();
 extern s32 sub_08016678(void *);
 extern s32 sub_080C31E0(void *, s32);
@@ -14,7 +14,7 @@ void releaseActorEffectSubObject(void *entity) {
     }
     sub_08011650(sprite);
     if (*(s32 *)((u8 *)state + 0x2C) != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     sub_08016678(entity);
     sub_080C31E0(entity, *(s32 *)((u8 *)state + 0x24));

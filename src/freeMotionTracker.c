@@ -56,7 +56,7 @@ void sub_0801604C(void *arg0) {
 }
 
 /* Unlink the given object from the global object list and free it. */
-void sub_08015974(void *arg0) {
+void freeMotionTracker(void *arg0) {
     void *entry = arg0;
     void *cur = D_0201E8A0;
     void *prev = NULL;

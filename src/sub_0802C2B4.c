@@ -3,8 +3,8 @@
  * to decide when to turn around and when to end the current action. */
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_08014900(s32);
-extern s32 sub_0801491C(s32);
+extern s32 absXFromFocus(s32);
+extern s32 absYFromFocus(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern u32 gScriptStepCallbacks;
@@ -30,8 +30,8 @@ void sub_0802C2B4(u8 *self)
     if (*(s16 *)(body + 4) <= 0)
     {
         *(u16 *)(body + 4) = (u16)(scaleByRandom(0x3D) + 0x96);
-        if (sub_08014900(*(s32 *)(entity + 8)) <= 0x880000 &&
-            sub_0801491C(*(s32 *)(entity + 0xC)) <= 0x700000)
+        if (absXFromFocus(*(s32 *)(entity + 8)) <= 0x880000 &&
+            absYFromFocus(*(s32 *)(entity + 0xC)) <= 0x700000)
         {
             s16 actionIndex = *(s16 *)(self + 0x22);
             u32 *cbTable;
@@ -62,7 +62,7 @@ void sub_0802C2B4(u8 *self)
             s32 farX = 0;
             s32 toPlayerX;
 
-            if (sub_08014900(*(s32 *)(entity + 8)) > 0x300000)
+            if (absXFromFocus(*(s32 *)(entity + 8)) > 0x300000)
                 farX = 1;
 
             toPlayerX = gMainWorkspace.field174C - *(s32 *)(entity + 8);

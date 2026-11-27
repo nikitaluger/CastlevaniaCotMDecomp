@@ -1,4 +1,4 @@
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 extern void unlinkAndFreeObject(void);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
@@ -16,7 +16,7 @@ void sub_080428B8(void *entity) {
         unlinkAndFreeObject();
     }
     if (*(s32 *)((u8 *)state + 0x2C) != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     childRef = (u8 *)state + 0x50;
     remaining = 1;

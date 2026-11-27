@@ -32,11 +32,12 @@ extern void sub_080C31E4(void *, void *, u32);
 extern void sub_0806C6B0(void *, void *, void *, void *);
 
 void sub_08066A88(u8 *script)
-{
+{    u8 *join_arg;
+
   u8 *actor = *(u8 **)(script + 0x6C);
   u8 *work = actor + 4;
-  u8 *state = work;
   void *sprite = *(void **)(script + 0x38);
+  u8 *state = work;
 
   if (syncViewPosition(state, state) != 0)
   {
@@ -48,7 +49,7 @@ void sub_08066A88(u8 *script)
   {
     *(s32 *)(state + 0x4C) = 1;
     *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = 0;
-    sub_080C31E8(script + 0x18, script + 0x22, 4, gScriptStepCallbacks);
+    { const u32 *gScriptStepCallbacks_ptr = &gScriptStepCallbacks; sub_080C31E8(script + 0x18, script + 0x22, 4, *gScriptStepCallbacks_ptr); }
   }
   sub_0806A884(sprite, state);
   if (stepDelayTimer(actor + 0x2C, sprite) == 0)
@@ -58,7 +59,7 @@ void sub_08066A88(u8 *script)
     if (timer != 0)
     {
       *(u8 *)(script + *(s16 *)(script + 0x22) * 2 + 0x19) = 0;
-      sub_080C31E4(script + 0x18, script + 0x22, D_08671BC0);
+      { const u32 *D_08671BC0_ptr = &D_08671BC0; sub_080C31E4(script + 0x18, script + 0x22, *D_08671BC0_ptr); }
     }
     else
     {
@@ -79,6 +80,7 @@ void sub_08066A88(u8 *script)
   {
     if ((gMainWorkspace.f28 & gGameStatus.f3BE) == 0)
     {
+      join_arg = script;
       goto end;
     }
   }
@@ -86,6 +88,7 @@ void sub_08066A88(u8 *script)
   {
     if ((gCameraState.f146C & gGameStatus.f3BE) == 0)
     {
+      join_arg = script;
       goto end;
     }
   }
@@ -100,6 +103,7 @@ void sub_08066A88(u8 *script)
     rv = sub_08065CC8(script, sprite, work, state);
     sub_080C31E8(p18, p22, rv, *lit);
   }
+join_arg = script;
 end:
-  sub_0806C6B0(script, sprite, work, state);
+  sub_0806C6B0(join_arg, sprite, work, state);
 }

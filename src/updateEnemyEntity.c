@@ -8,7 +8,7 @@ void sub_08013C8C(void *, void *);
 void sub_08013CF4(void *, s32, s32);
 s32 sub_08014114(s32, s32, s32, s32, s32, s32);
 void uploadPendingSpriteGraphic(void *, void *);
-void sub_08015974(void *);
+void freeMotionTracker(void *);
 void sub_08058978(void *, void *);
 void sub_080C31E0(void *, s32);
 void sub_080C31E8(void *, void *, s32, s32);
@@ -21,7 +21,7 @@ struct Flags2 { u16 f0; u16 f2; };
 
 /* Updates an enemy/projectile entity: culls it when out of bounds, handles
  * hit events, advances its state callback and applies camera positioning. */
-void sub_080586B8(void *self)
+/* Per-frame update for an enemy/projectile: cull it out of bounds, handle hit events, advance the script-step callback, step animation, and apply screen positioning. */ void updateEnemyEntity(void *self)
 {
     void *gfxObj;
     void *anim;
@@ -54,7 +54,7 @@ void sub_080586B8(void *self)
             cnt[0xC0] = 0x05F5E0FF;
         }
         if (*(void **)((u8 *)anim + 0x2C) != NULL) {
-            sub_08015974(*(void **)((u8 *)anim + 0x2C));
+            freeMotionTracker(*(void **)((u8 *)anim + 0x2C));
             *(void **)((u8 *)anim + 0x2C) = NULL;
         }
         p30 = *(struct Flags2 **)((u8 *)anim + 0x30);

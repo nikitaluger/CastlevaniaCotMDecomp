@@ -1,4 +1,4 @@
-void sub_08015974(void);
+void freeMotionTracker(void);
 void sub_080C31E0(void *obj, s32 handler);
 
 struct MainObj {
@@ -18,7 +18,7 @@ struct SubObj {
 void sub_08090A3C(struct MainObj *self) {
     struct SubObj *sub = self->sub;
     if (sub->child != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     sub_080C31E0(self, sub->handler);
 }

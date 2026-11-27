@@ -2,8 +2,8 @@
  * cooldowns relative to the player, and choose a facing direction. */
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(void *, void *, s32, s32);
-extern s32 sub_08014900(s32);
-extern s32 sub_0801491C(s32);
+extern s32 absXFromFocus(s32);
+extern s32 absYFromFocus(s32);
 extern s32 signOf(s32);
 extern s32 sub_08014990(void *);
 extern void sub_080149A4(void *, void *, void *, s32, s32);
@@ -56,7 +56,7 @@ void sub_08030D18(void *entity)
 
     behavior->cooldown--;
     if ((s16)behavior->cooldown <= 0) {
-        if (sub_08014900(mover->x) <= 0x180000 && sub_0801491C(mover->y) <= 0x100000) {
+        if (absXFromFocus(mover->x) <= 0x180000 && absYFromFocus(mover->y) <= 0x100000) {
             s32 dirSign = signOf(mover->x);
             if (dirSign == sub_08014990(workObj)) {
                 s16 idx2;
@@ -90,7 +90,7 @@ void sub_08030D18(void *entity)
     behavior->timer--;
     if ((s16)behavior->timer <= 0) {
         behavior->timer = scaleByRandom(0x3D) + 0x78;
-        if (sub_08014900(mover->x) <= 0x600000 && sub_0801491C(mover->y) <= 0x400000) {
+        if (absXFromFocus(mover->x) <= 0x600000 && absYFromFocus(mover->y) <= 0x400000) {
             behavior->state = 1;
         } else {
             behavior->state = 0;

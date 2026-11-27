@@ -33,6 +33,7 @@ void sub_0800B9A8(u8 arg0, u8 arg1, void *arg2)
   u32 temp2;
   u32 temp3;
   u32 temp4;
+  u32 temp5;
   t = 2;
   if (arg1 == t)
     sp10 = 1;
@@ -57,9 +58,10 @@ void sub_0800B9A8(u8 arg0, u8 arg1, void *arg2)
   dma[1] = temp3 + temp4;
   dma[2] = 0x81000002;
   (void)dma[2];
+  temp5 = off + 3;
   sp4 = 0;
   dma[0] = (u32)&sp4;
-  c = (u32)D_080CAADE[off + 3] << 6;
+  c = (u32)D_080CAADE[temp5] << 6;
   d = D_080CAADE[off + 2];
   dma[1] = (((D_02023132 & 0x1F00) << 3) + vramBase) + c + d * 2;
   dma[2] = 0x81000001;

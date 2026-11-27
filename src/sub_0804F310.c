@@ -1,5 +1,5 @@
-s32 sub_08014900(s32);
-s32 sub_0801491C(s32);
+s32 absXFromFocus(s32);
+s32 absYFromFocus(s32);
 s32 signOf(s32);
 s32 sub_08014964(s32);
 s32 sub_08014990(s32);
@@ -23,8 +23,8 @@ void sub_0804F310(void *self)
     if (facing == signOf(*((s32 *) (((s8 *) target) + 8))))
     {
       yPtr = ((s8 *) target) + 0xC;
-      dist = sub_08014900(*((s32 *) (((s8 *) target) + 8)));
-      if (dist <= sub_0801491C(*((s32 *) yPtr)))
+      dist = absXFromFocus(*((s32 *) (((s8 *) target) + 8)));
+      if (dist <= absYFromFocus(*((s32 *) yPtr)))
       {
         if (1)
         {

@@ -22,7 +22,8 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
   u32 i;
   u32 j;
   s32 x1;
-  s32 x2;
+s32 __repair_phase_x1;
+  
   s32 v;
   s32 delta;
   s32 tmp;
@@ -39,8 +40,8 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
     goto other;
   } } while (0);
   temp = (u8 *) arg1 + j * 4;
-  x2 = (*(struct E **)(temp + 4))->f5C;
-  if (x2 < (-0x1000))
+  __repair_phase_x1 = (*(struct E **)(temp + 4))->f5C;
+  if (__repair_phase_x1 < (-0x1000))
   {
     goto other;
   }
@@ -56,13 +57,13 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
     if (arg1->vel[i] < 0)
     {
       s32 tmp_a1;
-      tmp_a1 = (-0x1000) - x1;
+      do { tmp_a1 = (-0x1000) - x1; } while (0);
       if (tmp_a1 < 0)
       {
-        tmp_a1 = x1 + (0x80 << 5);
+        do { do { do { tmp_a1 = x1 + (0x80 << 5); } while (0); } while (0); } while (0);
       }
-      x2 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C + (0x80 << 5);
-      if (x2 >= 0)
+      do { __repair_phase_x1 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C + (0x80 << 5); } while (0);
+      if (__repair_phase_x1 >= 0)
       {
         delta = (tmp_a1 + (0x80 << 5)) + (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
       }
@@ -82,20 +83,20 @@ void sub_080ACAB4(u32 arg0, struct Ctx *arg1)
       {
         delta = arg1->ptrs[i]->f5C - 0x1000;
       }
-      x2 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
-      tmp = x2 - 0x1000;
+      __repair_phase_x1 = (*(struct E **)((u8 *) arg1 + (4 + j * 4)))->f5C;
+      tmp = __repair_phase_x1 - 0x1000;
       if (tmp >= 0)
       {
-        delta = (delta - 0x1000) + x2;
+        delta = (delta - 0x1000) + __repair_phase_x1;
       }
       else
       {
-        delta = (delta + (0x80 << 5)) - x2;
+        delta = (delta + (0x80 << 5)) - __repair_phase_x1;
       }
     }
   }
   check:
-  if (((delta + (0x80 << 5)) - x2) > 0x1FFF)
+  if (((delta + (0x80 << 5)) - __repair_phase_x1) > 0x1FFF)
   {
     arg1->flag2C[i] = 0;
   }
@@ -146,10 +147,10 @@ do {
       arg1->ptrs[i]->f6C = -0x3800;
     }
   }
-  do { x1 = arg1->ptrs[i]->f7C; } while (0);
-  do { if (x1 <= 0x2FFF)
+  do { __repair_phase_x1 = arg1->ptrs[i]->f7C; } while (0);
+  do { if (__repair_phase_x1 <= 0x2FFF)
   {
-    arg1->ptrs[i]->f7C = x1 + (0x80 << 1);
+    arg1->ptrs[i]->f7C = __repair_phase_x1 + (0x80 << 1);
     if (arg1->ptrs[i]->f7C > (0xC0 << 6))
     {
       arg1->ptrs[i]->f7C = 0xC0 << 6;
@@ -157,9 +158,9 @@ do {
   }
   else
   {
-    if (x1 > (0xC0 << 6))
+    if (__repair_phase_x1 > (0xC0 << 6))
     {
-      arg1->ptrs[i]->f7C = x1 - (0x80 << 1);
+      arg1->ptrs[i]->f7C = __repair_phase_x1 - (0x80 << 1);
       if (arg1->ptrs[i]->f7C > 0x2FFF)
       {
         arg1->ptrs[i]->f7C = 0xC0 << 6;

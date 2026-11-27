@@ -1,4 +1,4 @@
-void sub_08015974(void);
+void freeMotionTracker(void);
 
 /* Release the ten objects tracked in the work area's pointer array: for each
  * live entry, set its flag bit 0 and empty the slot. */
@@ -47,8 +47,8 @@ void sub_0801565C(void *arg0, s32 *arg1, s32 *arg2) {
     zero = 0;
     *(u16 *)((u8 *)arg0 + 0x1E) = remaining;
     if ((remaining << 16) <= 0) {
-        if (*arg1 != 0) { sub_08015974(); *arg1 = zero; }
-        if (*arg2 != 0) { sub_08015974(); *arg2 = zero; }
+        if (*arg1 != 0) { freeMotionTracker(); *arg1 = zero; }
+        if (*arg2 != 0) { freeMotionTracker(); *arg2 = zero; }
         *(u16 *)arg0 &= 0xFFFB;
     }
 }

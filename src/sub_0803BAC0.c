@@ -1,4 +1,4 @@
-extern void sub_08015974(void *);
+extern void freeMotionTracker(void *);
 extern void unlinkAndFreeObject(void *);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
@@ -19,10 +19,10 @@ void sub_0803BAC0(void *arg0) {
         unlinkAndFreeObject(*(void **)((u8 *)anim + 0xC));
     }
     if (*(s32 *)((u8 *)base + 0x2C) != 0) {
-        sub_08015974(*(void **)((u8 *)base + 0x2C));
+        freeMotionTracker(*(void **)((u8 *)base + 0x2C));
     }
     if (*(s32 *)((u8 *)anim + 0x10) != 0) {
-        sub_08015974(*(void **)((u8 *)anim + 0x10));
+        freeMotionTracker(*(void **)((u8 *)anim + 0x10));
     }
     if (*(s32 *)((u8 *)anim + 8) != 0) {
         unlinkAndFreeObject(*(void **)((u8 *)anim + 8));

@@ -7,13 +7,13 @@ App versions: started on 1.0.11-rr.1 (branch build), upgraded to 1.0.13-rr.1, th
 
 | Metric | Baseline (`c0108aa`) | Now | Delta |
 |---|---:|---:|---:|
-| Matched functions | 3,894 | 3,948 | **+54** |
-| Set aside (`asm`) | 368 | 340 | −28 (24 phantoms removed, 4 recovered functions matched) |
-| Layout entries | 4,551 | 4,527 | −24 |
+| Matched functions | 3,894 | 3,950 | **+56** |
+| Set aside (`asm`) | 368 | 329 | −39 (25 phantoms removed, recovered functions matched) |
+| Layout entries | 4,551 | 4,526 | −25 |
 
-≈32 of the new matches are directly attributable to the repairs below (3 boundary cuts, 22 extent extensions,
-1 compiler-profile correction, 7 source restorations, and 5 from the re-point fixes); the remainder came from
-autopilot/deep-permuter passes and the app's token-free local-source reuse.
+A large share of the new matches is directly attributable to the repairs below (3 boundary cuts, 24 extent
+extensions, 1 compiler-profile correction, 7 source restorations, four re-point pairs and a fifth pool-phantom
+extension); the remainder came from autopilot/deep-permuter passes and the app's token-free local-source reuse.
 
 ## Root cause
 
@@ -74,6 +74,7 @@ the target address, and validated with the app's own `_manifest` validator befor
 | `sub_08055840` | 74 → 84 | was set aside; reopened, score-500 source restored, phantom `sub_0805588A` removed |
 | `sub_080A36AC` | 300 → 324 | was set aside; reopened, score-1200 source restored |
 | `sub_08080920` | 200 → 220 | phantom `sub_080809E8` removed |
+| `sub_08061E34` | 32 → 44 | phantom `sub_08061E54` was three literal words (`0x02027A00`, `0x02021E90`, `0x0000127C`), not code; matched after 22 attempts |
 | `sub_08012A94` | 416 → 432 | **still unmatched** (see below) |
 | `sub_08012C44` | 416 → 432 | **still unmatched** (see below) |
 
@@ -97,6 +98,10 @@ updated. The neighbour's set-aside status was preserved unless the judge matched
 | `sub_080653B0` 240 → 244 | `sub_080654A0` 392 → 388 @ `0x080654A4` | preceding matched; neighbour remains set aside with corrected bytes |
 | `sub_0801E0DC` 76 → 80 | `sub_0801E12A` 54 → 52 @ `0x0801E12C` | both matched (`restored` + autopilot) |
 
+`sub_08061E34` / `sub_08061E54` is a variant of the same pattern: the neighbour was **pure pool data**, not a
+misaligned function, so it was deleted rather than re-pointed. It had burned 1,180 attempts on a "literal-pool
+leaf wall"; the real function matched on the first 22 attempts with the three words inside its own extent.
+
 ## Unresolved
 
 `sub_08012A94` and `sub_08012C44` (twins, both 432 bytes, open, best 200) have all 203 instructions present
@@ -104,6 +109,10 @@ and differ by exactly one row: ROM `adds r3,r7,#0` vs agbcc `movs r3,#0` for `i 
 Every C spelling, declaration permutation, type, volatile/register hint, flag profile, repair family and
 `prove_chain` has been tried without moving off 200. Both are left open with no active claim so the token-free
 local-source reuse path can still solve them — a single source variant emitting the register copy should fix both.
+
+Set-aside verdicts are not always final: `sub_08094A40` was labelled a permanent commutative-AND coloring wall
+and matched at score 0 after 1,144 attempts. The single-register ties listed below are plausible reuse targets,
+but each already has 100–1,400 attempts behind it.
 
 Several other open functions are genuine compiler walls (frameless-leaf LR frames, high-register coloring
 ties, linker-level interworking veneers) with 100–500 attempts across many models. A set-aside audit of 347
@@ -113,6 +122,30 @@ small entries are padding, literal fragments or BIOS stubs, and the larger ones 
 convention, hand-written asm") was based on the pool-word halfwords now excluded from its extent, so the reason
 is obsolete, but 1,140 attempts stayed between scores 17,805 and 18,005 and there is no preserved source — a
 new agent would need to reconstruct a large function from scratch.
+
+## Tool defects observed (not project-data problems)
+
+Both of the following are defects in the app / repair library, not in any function's saved data. They surfaced as
+"needs attention" flags and cost time before being diagnosed; neither damaged a source or a match.
+
+### 1. Deep-proposal result key race (`KeyError: 'choices'`)
+
+`decompnet/app/deep_proposals.py:252` reads `result['choices']`, but the worker writes `result['candidates']` and a
+done-callback renames the key. Under DB-write contention the reader can win the race, get no `choices`, and fail
+the whole deep-lane turn. `sub_08096F5C` was flagged because of this; its saved data is intact (it is a genuine
+frameless-branchy-leaf wall with a semantically wrong score-325 best). Needs a library fix or a defensive `.get`.
+
+### 2. `nested_guard_repairs` prefix collision (`ValueError: substring not found`)
+
+`decomprepair/nested_guard_repairs.py:69` used `str.index(parts[1])` to locate the second `&&` operand. When that
+operand is a prefix of the first (`mask != 0` inside `mask != 0xC0`, `r_arm != 0` inside `r_arm != 0x30`) `index`
+returns 0, and the following `raw.rindex('&&', 0, cut)` raises. One crashing family aborts the whole proposal
+batch, so deep-permuter produced **zero** candidates for `sub_0800E644` and `sub_0800D860`.
+
+Resolved locally by changing `index` → `rindex` on that line (original backed up at
+`backups/nested_guard_repairs.py.orig`); with the patched library both functions generate candidates again
+(800 and 1,544). A source-side workaround — swapping the `&&` operands — also works, but the library fix covers
+every function with the same shape. This needs the same fix upstream; release 1.0.14-rr.1 reports itself current.
 
 ## Procedure used for an extent repair
 

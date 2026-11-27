@@ -2,7 +2,7 @@
  * release its sprite, free the linked object, stop its motion and run the
  * object's stored callback. */
 extern void sub_08011650(s32);
-extern void sub_08015974(void *);
+extern void freeMotionTracker(void *);
 extern void unlinkAndFreeObject(void *);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
@@ -25,7 +25,7 @@ void sub_080BB7D0(void *arg0) {
         i += 1;
     } while (i <= 4);
     sub_08011650(sprite);
-    if (*(s32 *)((u8 *)work + 0x2C) != 0) sub_08015974(*(void **)((u8 *)work + 0x2C));
+    if (*(s32 *)((u8 *)work + 0x2C) != 0) freeMotionTracker(*(void **)((u8 *)work + 0x2C));
     sub_08016678(arg0);
     sub_080C31E0(arg0, *(s32 *)((u8 *)work + 0x24));
 }

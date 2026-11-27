@@ -2,8 +2,8 @@ extern u32 gScriptStepCallbacks[];
 
 s32 scaleByRandom(s32);
 void setAnimationFrame(s32, void *, u16, u8);
-s32 sub_08014900(s32);
-s32 sub_0801491C(s32);
+s32 absXFromFocus(s32);
+s32 absYFromFocus(s32);
 void sub_080C31E8(void *, void *, s32, s32);
 
 // Idle animator step: play frame 0 and decrement the pose countdown; when it
@@ -23,8 +23,8 @@ void sub_0804FBDC(u8 *arg0) {
     *(u16 *)(pose + 2) = countdown;
     if ((s32)(countdown << 16) <= 0) {
         *(u16 *)(pose + 2) = scaleByRandom(0x33) + 0x64;
-        if (sub_08014900(*(s32 *)(work + 8)) <= 0x00800000 &&
-            sub_0801491C(*(s32 *)(work + 0xC)) <= 0x00600000) {
+        if (absXFromFocus(*(s32 *)(work + 8)) <= 0x00800000 &&
+            absYFromFocus(*(s32 *)(work + 0xC)) <= 0x00600000) {
             *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
             {
                 u32 *scriptTable = gScriptStepCallbacks;

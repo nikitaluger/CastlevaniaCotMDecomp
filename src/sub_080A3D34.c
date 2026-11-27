@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern void sub_08011650(s32);
-extern void sub_08015974(void *);
+extern void freeMotionTracker(void *);
 extern void unlinkAndFreeObject(void *);
 extern void sub_08016678(void *);
 extern void sub_080C31E0(void *, s32);
@@ -41,7 +41,7 @@ void sub_080A3D34(void *arg0) {
     }
     sub_08011650(sprite);
     if (M2C_FIELD(info, s32 *, 0x2C) != 0) {
-        sub_08015974((void *)M2C_FIELD(info, s32 *, 0x2C));
+        freeMotionTracker((void *)M2C_FIELD(info, s32 *, 0x2C));
     }
     sub_08016678(arg0);
     sub_080C31E0(arg0, M2C_FIELD(info, s32 *, 0x24));

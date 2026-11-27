@@ -16,7 +16,7 @@ struct AnimFlag { u16 flag; };
 
 /* Updates a projectile/hit entity: culls it when out of range, manages target
  * hit flags and attack state, advances its callback and snaps to camera. */
-void sub_0805E8CC(u8 *self) {
+/* Per-frame update for a projectile/hit entity: cull it outside the camera, manage target hit flags and attack state, advance the script-step callback, step animation with collision, and snap to camera coordinates. */ void updateHitEntity(u8 *self) {
     u8 *gfxObj;
     u8 *anim;
     void *animData;

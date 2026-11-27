@@ -1,4 +1,4 @@
-void sub_08015974(void);
+void freeMotionTracker(void);
 void unlinkAndFreeObject(void);
 void sub_08016678(void *);
 void sub_080C31E0(void *, u32);
@@ -27,7 +27,7 @@ void sub_080530FC(struct MainObj *actor) {
         unlinkAndFreeObject();
     }
     if (r4->attachedB != 0) {
-        sub_08015974();
+        freeMotionTracker();
     }
     sub_08016678(actor);
     sub_080C31E0(actor, r4->handler);

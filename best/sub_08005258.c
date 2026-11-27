@@ -1,6 +1,6 @@
 typedef s32 (*Fn)(s32);
 extern Fn D_08671BFC[];
-inline static int inline_fn(s32 arg0, s32 arg1)
+inline static int inline_fn(s32 arg0, u32 arg1)
 {
   return (arg0 >> 0x10) - (arg1 >> 0x10);
 }
@@ -20,7 +20,7 @@ void sub_08005258(void)
   s32 a0;
   s32 a1;
   s32 a2;
-  s32 b0;
+  
   s32 b1;
   s32 b2;
   s32 b3;
@@ -65,95 +65,92 @@ void sub_08005258(void)
   Fn *pf = &D_08671BFC[0];
   s32 temp;
   s32 temp2;
+s32 __repair_phase_temp2;
   s32 temp3;
   v0 = (*pf)((*((u16 *) 0x0300269C)) + 0x4000);
   v1 = (*pf)((*((u16 *) 0x030026A8)) + 0x4000);
   v3 = (*pf)(*((u16 *) 0x0300269C));
   v4 = (*pf)(*((u16 *) 0x030026A8));
   v2 = (*pf)(*((u16 *) 0x03002914));
-  if (v0 < 0)
-  {
-    v0 += 0xFF;
-  }
-  temp2 = v0 >> 8; temp = temp2 * v1;
+  __repair_phase_temp2 = v0 / 0x100; temp = __repair_phase_temp2 * v1;
   p0 = temp;
   if (p0 < 0)
   {
-    p0 += 0xFFFF;
+    /*__repair_loop_weight*/do { p0 += 0xFFFF; } while (0);
   }
   x0 = v2;
   if (x0 < 0)
   {
-    x0 += 0xFF;
+    do { x0 += 0xFF; } while (0);
   }
   p1 = v3 * (x0 >> 8);
   if (p1 < 0)
   {
-    p1 += 0xFF;
+    do { p1 += 0xFF; } while (0);
   }
   x1 = v4;
   if (x1 < 0)
   {
-    x1 += 0xFF;
+    do { x1 += 0xFF; } while (0);
   }
   temp2 = p1 >> 8;
   p2 = (x1 >> 8) * temp2;
   if (p2 < 0)
   {
-    p2 += 0xFFFF;
+    do { p2 += 0xFFFF; } while (0);
   }
-  *((s32 *) 0x02025B90) = (p0 >> 0x10) - (p2 >> 0x10);
+  *((s32 *) 0x02025B90) = (p0 >>= 0x10) - (p2 >> 0x10);
   a0 = (*pf)((*((u16 *) 0x03002914)) + 0x4000);
   a1 = (*pf)(*((u16 *) 0x030026A8));
   if (a0 < 0)
   {
-    a0 += 0xFF;
+    do { a0 += 0xFF; } while (0);
   }
   a2 = (a0 >> 8) * a1;
   if (a2 < 0)
   {
-    a2 += 0xFFFF;
+    do { a2 += 0xFFFF; } while (0);
   }
   temp3 = a2 >> 0x10;
   *((s32 *) 0x02025FD8) = temp3;
-  b0 = (*pf)(*((u16 *) 0x0300269C));
+  temp3 = (*pf)(*((u16 *) 0x0300269C));
   b1 = (*pf)((*((u16 *) 0x030026A8)) + 0x4000);
   b2 = (*pf)(*((u16 *) 0x03002914));
   b3 = (*pf)((*((u16 *) 0x0300269C)) + 0x4000);
   b4 = (*pf)(*((u16 *) 0x030026A8));
-  nb0 = -b0;
+  nb0 = -temp3;
   if (nb0 < 0)
   {
-    nb0 += 0xFF;
+    do { nb0 += 0xFF; } while (0);
   }
   bp0 = (nb0 >> 8) * b1;
   if (bp0 < 0)
   {
-    bp0 += 0xFFFF;
+    do { bp0 += 0xFFFF; } while (0);
   }
   bx = b2;
   if (bx < 0)
   {
-    bx += 0xFF;
+    do { bx += 0xFF; } while (0);
   }
   bp1 = b3 * (bx >> 8);
   do
   {
     if (bp1 < 0)
     {
-      bp1 += 0xFF;
+      do { bp1 += 0xFF; } while (0);
     }
   }
   while (0);
   by = b4;
   if (by < 0)
   {
-    by += 0xFF;
+    do { by += 0xFF; } while (0);
   }
   bp2 = (by >> 8) * (bp1 >> 8);
   if (bp2 < 0)
   {
-    bp2 += 0xFFFF;
+    do { bp2 += 0xFFFF; } while (0);
   }
   *((s32 *) 0x02025FE0) = inline_fn(bp0, bp2);
   c0 = (*pf)((*((u16 *) 0x0300269C)) + 0x4000);
@@ -164,44 +161,44 @@ void sub_08005258(void)
   nc0 = -c0;
   if (nc0 < 0)
   {
-    nc0 += 0xFF;
+    do { nc0 += 0xFF; } while (0);
   }
   cp0 = (nc0 >> 8) * c1;
   if (cp0 < 0)
   {
-    cp0 += 0xFFFF;
+    do { cp0 += 0xFFFF; } while (0);
   }
   cx = c2;
   if (cx < 0)
   {
-    cx += 0xFF;
+    do { cx += 0xFF; } while (0);
   }
   cp1 = c3 * (cx >> 8);
   if (cp1 < 0)
   {
-    cp1 += 0xFF;
+    do { cp1 += 0xFF; } while (0);
   }
   cy = c4;
   if (cy < 0)
   {
-    cy += 0xFF;
+    do { cy += 0xFF; } while (0);
   }
   temp2 = cp1 >> 8; cp2 = (cy >> 8) * temp2;
   if (cp2 < 0)
   {
-    cp2 += 0xFFFF;
+    do { cp2 += 0xFFFF; } while (0);
   }
   *((s32 *) 0x02025B94) = inline_fn(cp0, cp2);
   d0 = (*pf)((*((u16 *) 0x03002914)) + 0x4000);
   d1 = (*pf)((*((u16 *) 0x030026A8)) + 0x4000);
   if (d0 < 0)
   {
-    d0 += 0xFF;
+    do { d0 += 0xFF; } while (0);
   }
   d2 = (d0 >> 8) * d1;
   if (d2 < 0)
   {
-    d2 += 0xFFFF;
+    do { d2 += 0xFFFF; } while (0);
   }
   *((s32 *) 0x02025B98) = d2 >> 0x10;
   e0 = (*pf)(*((u16 *) 0x0300269C));
@@ -211,62 +208,62 @@ void sub_08005258(void)
   e4 = (*pf)((*((u16 *) 0x030026A8)) + 0x4000);
   if (e0 < 0)
   {
-    e0 += 0xFF;
+    do { e0 += 0xFF; } while (0);
   }
   ep0 = (e0 >> 8) * e1;
   if (ep0 < 0)
   {
-    ep0 += 0xFFFF;
+    do { ep0 += 0xFFFF; } while (0);
   }
   ex = e2;
   if (ex < 0)
   {
-    ex += 0xFF;
+    do { ex += 0xFF; } while (0);
   }
   ep1 = (ex >> 8) * e3;
   if (ep1 < 0)
   {
-    ep1 += 0xFF;
+    do { do { do { ep1 += 0xFF; } while (0); } while (0); } while (0);
   }
   ey = e4;
   if (ey < 0)
   {
-    ey += 0xFF;
+    do { ey += 0xFF; } while (0);
   }
   ep2 = (ey >> 8) * (ep1 >> 8);
   if (ep2 < 0)
   {
-    ep2 += 0xFFFF;
+    do { ep2 += 0xFFFF; } while (0);
   }
   *((s32 *) 0x02025FD0) = inline_fn(ep0, ep2);
   f0 = (*pf)((*((u16 *) 0x03002914)) + 0x4000);
   f1 = (*pf)(*((u16 *) 0x0300269C));
   if (f0 < 0)
   {
-    f0 += 0xFF;
+    do { f0 += 0xFF; } while (0);
   }
   f2 = (f0 >> 8) * f1;
   if (f2 < 0)
   {
-    f2 += 0xFFFF;
+    do { f2 += 0xFFFF; } while (0);
   }
   *((s32 *) 0x02025FE8) = f2 >> 0x10;
   g0 = (*pf)(*((u16 *) 0x03002914));
   if (g0 < 0)
   {
-    g0 += 0xFF;
+    do { g0 += 0xFF; } while (0);
   }
   *((s32 *) 0x02025BC0) = g0 >> 8;
   h0 = (*pf)((*((u16 *) 0x03002914)) + 0x4000);
   h1 = (*pf)((*((u16 *) 0x0300269C)) + 0x4000);
   if (h0 < 0)
   {
-    h0 += 0xFF;
+    do { h0 += 0xFF; } while (0);
   }
   h2 = (h0 >> 8) * h1;
   if (h2 < 0)
   {
-    h2 += 0xFFFF;
+    do { h2 += 0xFFFF; } while (0);
   }
   *((s32 *) 0x02025FD4) = h2 >> 0x10;
 }

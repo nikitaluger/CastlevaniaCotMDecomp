@@ -22,11 +22,11 @@ extern void sub_080C31E0(u8 *, u32);
 extern void sub_080C31E4(u8 *, u8 *, u32);
 extern void updateActorEffectSubObject(void);
 
-/* Creates a weapon/projectile under its parent: allocate the main object and sub-object,
+/* Creates a weapon/projectile effect under its parent: allocate the main object and sub-object,
  * link the update callback, seed speed/camera fields and the sprite/animation sub-object
  * from the parameter tables, dispatch the first state handler and register the completion
  * callback. On allocation failure the parent's callback is freed and the function returns. */
-void sub_080B64B8(u8 *parent) {
+void spawnActorEffect(u8 *parent) {
     u8 *mainObj;
     struct P *subObj;
     u8 *subState;

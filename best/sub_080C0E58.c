@@ -53,7 +53,7 @@ block_17:
             do { var_r8 = (struct S *)((u8 *)var_r4 + 0x40);
             var_r9 = var_r6_sum; } while (0);
             if (temp_r5 != 0) goto block_42;
-            var_r4->f00=__repair_constant; var_r4->f1D=__repair_constant; sp14=0x40; sub_080C0DF0(var_r4);
+            var_r4->f00=3; var_r4->f1D=3; sp14=0x40; sub_080C0DF0(var_r4);
             if (var_r6==2) goto block_26;
             if (var_r6>2) goto block_23;
             if (var_r6==1) goto block_25;

@@ -37,7 +37,7 @@ void sub_0809310C(void *arg0)
     }
 }
 
-extern void sub_08015974(void);
+extern void freeMotionTracker(void);
 extern void sub_080C31E0(void *, s32);
 
 struct S_02025FF0_9324C {
@@ -52,7 +52,7 @@ void sub_0809324C(void *arg0)
 {
     u8 *group = *(u8 **)((u8 *)arg0 + 0x3C);
     if (*(s32 *)(group + 4) != 0)
-        sub_08015974();
+        freeMotionTracker();
     gMainWorkspace.h3C = 0;
     sub_080C31E0(arg0, *(s32 *)(group + 8));
 }

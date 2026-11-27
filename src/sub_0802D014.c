@@ -1,7 +1,7 @@
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(s32, void *, s32, s32);
-extern s32 sub_08014900(s32);
-extern s32 sub_0801491C(s32);
+extern s32 absXFromFocus(s32);
+extern s32 absYFromFocus(s32);
 extern void sub_080149A4(s32, void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, void *);
 extern void *gScriptStepCallbacks;
@@ -28,8 +28,8 @@ void sub_0802D014(u8 *object) {
     *(u16 *)(ctrl + 0x0C) = playerCheckTimer;
     if ((playerCheckTimer << 16) <= 0) {
         *(u16 *)(ctrl + 0x0C) = scaleByRandom(0x29) + 0x3C;
-        if (sub_08014900(*(s32 *)(data + 0x08)) <= 0x680000 &&
-            sub_0801491C(*(s32 *)(data + 0x0C)) <= 0x400000) {
+        if (absXFromFocus(*(s32 *)(data + 0x08)) <= 0x680000 &&
+            absYFromFocus(*(s32 *)(data + 0x0C)) <= 0x400000) {
             *(u8 *)(object + (*(s16 *)(object + 0x22)) * 2 + 0x19) = 0;
             { void **callbackPtr = &gScriptStepCallbacks;
               sub_080C31E8(object + 0x18, object + 0x22, 1, *callbackPtr); }

@@ -1,7 +1,7 @@
 s32 scaleByRandom(s32);
 void setAnimationFrame(s32, void *, s32, s32);
-s32 sub_08014900(s32);
-s32 sub_0801491C(s32);
+s32 absXFromFocus(s32);
+s32 absYFromFocus(s32);
 void sub_080149A4(s32, void *, void *, s32, s32);
 void sub_080C31E8(void *, void *, s32, u32);
 extern u32 gScriptStepCallbacks;
@@ -26,8 +26,8 @@ void sub_0802DB60(u8 *arg0)
     if (*(s16 *)(state48 + 4) <= 0)
     {
         *(u16 *)(state48 + 4) = (u16)(scaleByRandom(0x3D) + 0x5A);
-        if (sub_08014900(*(s32 *)(state + 8)) <= 0x800000 &&
-            sub_0801491C(*(s32 *)(state + 0xC)) <= 0x600000)
+        if (absXFromFocus(*(s32 *)(state + 8)) <= 0x800000 &&
+            absYFromFocus(*(s32 *)(state + 0xC)) <= 0x600000)
         {
             s16 scriptIdx = *(s16 *)(self + 0x22);
             u32 *scriptJump;
@@ -51,7 +51,7 @@ void sub_0802DB60(u8 *arg0)
         s32 farFromTarget = 0;
         s32 toTargetX;
 
-        if (sub_08014900(*(s32 *)(state + 8)) > 0x400000)
+        if (absXFromFocus(*(s32 *)(state + 8)) > 0x400000)
             farFromTarget = 1;
 
         toTargetX = gMainWorkspace.field174C - *(s32 *)(state + 8);

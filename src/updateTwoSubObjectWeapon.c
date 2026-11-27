@@ -13,12 +13,12 @@ extern void sub_08013C8C(void *, s32);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E8(void *, void *, s32, s32);
 extern u8 sScriptStepCallbacks[];
-extern u8 D_0866DF6C[];
+extern u8 sTwoSubObjectWeaponStepTable[];
 
 /* One update tick of a two-sub-object weapon entity: clear/prime the sub-objects' hit
  * state, apply the hit responses, issue the attack-end callback, dispatch the current
- * state handler from the D_0866DF6C table, then update and clean up. */
-void sub_0803B618(u8 *self)
+ * state handler from the sTwoSubObjectWeaponStepTable table, then update and clean up. */
+void updateTwoSubObjectWeapon(u8 *self)
 {
     s32 parent = *(s32 *)(self + 0x38);
     u8 *obj = *(u8 **)(self + 0x3C);
@@ -68,7 +68,7 @@ void sub_0803B618(u8 *self)
         u8 stateByte;
         u32 *handlers;
         u32 handler;
-        *(u32 *)(self + 0x14) = (u32)D_0866DF6C;
+        *(u32 *)(self + 0x14) = (u32)sTwoSubObjectWeaponStepTable;
         *(u16 *)(self + 0x22) = (u16)(*(u16 *)(self + 0x22) + 1);
         slot = (u8 *)((u32)(*(s16 *)(self + 0x22)) * 2 + (u32)self);
         *(u8 *)(slot + 0x19) = (u8)(*(u8 *)(slot + 0x19) + 1);

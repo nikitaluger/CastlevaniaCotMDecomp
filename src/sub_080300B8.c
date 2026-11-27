@@ -1,5 +1,5 @@
 void unlinkAndFreeObject(void);
-void sub_08015974(void);
+void freeMotionTracker(void);
 void sub_08016678(void *);
 void _call_via_r1(void *, void *);
 
@@ -15,7 +15,7 @@ void sub_080300B8(void *arg0)
     }
     {
         void *linked = *(void **)(work + 0x2C);
-        if (linked != NULL) sub_08015974();
+        if (linked != NULL) freeMotionTracker();
     }
     {
         void *linked = *(void **)(work + 0x48);

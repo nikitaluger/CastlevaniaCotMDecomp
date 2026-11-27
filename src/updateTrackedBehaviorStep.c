@@ -3,7 +3,7 @@ extern void sub_08011528(void *, void *);
 extern void sub_08011EE8(void *, u32, s32);
 extern s32 moduloInt(u32, u32);
 extern s32 signOf(s32);
-extern s32 sub_08014900(s32);
+extern s32 absXFromFocus(s32);
 extern s32 sub_0801459C(u8 *, u32);
 extern void sub_080C31E8(void *, void *, s32, u32);
 extern void sub_080C31E4(void *, void *, u32);
@@ -54,14 +54,14 @@ void updateTrackedBehaviorStep(u8 *entity) {
     }
     xSign = signOf(*(u32 *)(work + 8));
     if ((*(u16 *)((u8 *)sprite + 2) & SPRITE_OAM_FLIP_X) ? (xSign == 1) : (xSign == -1)) {
-        if (sub_08014900(*(u32 *)(work + 8)) > BEHAVIOR_FAR_X) {
+        if (absXFromFocus(*(u32 *)(work + 8)) > BEHAVIOR_FAR_X) {
             *(u8 *)(behavior + 0x20) = 1;
             return;
         }
     }
     xSign = signOf(*(u32 *)(work + 8));
     if (!((*(u16 *)((u8 *)sprite + 2) & SPRITE_OAM_FLIP_X) ? (xSign == 1) : (xSign == -1))) {
-        if (sub_08014900(*(u32 *)(work + 8)) > (s32)gBehaviorRanges[*(u8 *)(behavior + 0x20)]) {
+        if (absXFromFocus(*(u32 *)(work + 8)) > (s32)gBehaviorRanges[*(u8 *)(behavior + 0x20)]) {
             u32 *callback;
             (entity + *(s16 *)(entity + 0x22) * 2)[0x19] = 0;
             callback = &gScriptStepCallbackTable;
