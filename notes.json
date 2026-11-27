@@ -13728,14 +13728,6 @@
   "score_after": null
  },
  {
-  "function": "updateHoveringEffectStepWide",
-  "text": "Releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9670248,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080111D0",
   "text": "Releasing.",
   "by": "opencode-free-1",
@@ -88840,14 +88832,6 @@
   "score_after": null
  },
  {
-  "function": "updateHoveringEffectStepWide",
-  "text": "Cannot improve further: 1140 (91.6%) is ceiling. Remaining 10 diff rows are pure code layout artifacts unfixable in C: (1) literal pool position for D_08671BD0 differs by 8 bytes because agbcc emits 2 extra insns (function 138 vs 136); (2) D_02025FF0+0x174C address computation - target does runtime base+off (two ldr + adds), agbcc constant-folds to single ldr of sum; (3) branch offsets differ by 4-8 bytes due to size mismatch; (4) agbcc emits `movs r0,r0` nops and inverted branch conditions (`beq` vs `bne`). ARM-mode function (r8 callee-saved) vs Thumb agbcc: prologue/epilogue r8 save/restore mismatch. No C restructuring changes literal pool placement or branch encoding.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3645544,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08006120",
   "text": "Documented constant-materialization wall. Body logic matches except target loads VALUE 9 directly via ldr r0,[pc] then lsls/lsrs #16; agbcc emits address+deref (ldr r0,[pc]; ldr r0,[r0]) or folds to movs#9 for every natural C form tried. Best 235 (45/45 insns, same count). Remaining diff is exactly direct value load vs address+deref plus branch offset (#0x12 vs #0x14) and literal-pool order. Not hand-written asm, not not_c; needs compiler change. Releasing to a winnable function.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
@@ -90328,14 +90312,6 @@
   "score_after": null
  },
  {
-  "function": "updateHoveringEffectStepWide",
-  "text": "1 compile, stuck at 1140. Wall: remaining diffs are pure code-layout artifacts: literal pool placement differs (target `ldr r2,[pc,#0x14]` before sub_080C31E8 vs agbcc's `ldr r2,[pc,#0xc]`+`ldr r2,[r2]`), D_02025FF0+0x174C address computation differs, 2 extra `movs r0,r0` nops and branch offset diffs (target `bne #0xfa` vs mine `beq #0x10c`). ARM-mode function; no C restructuring changes literal pool placement or branch encodings. Best = draft. Releasing to claim the final function.",
-  "by": "opencode-tidepool-alpha-free-1",
-  "created_at": 1795683534.3721745,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080964CC",
   "text": "Cannot get closer: proven agbcc structural wall at 1886 (83.8%). All 6 compiles across two sessions floor at 1886-2086. Three independent structural mismatches that C cannot express: literal-before-index table lookup order, register-offset ldrsh with 32-bit-shift-artifact asrs #0x12, and unavoidable r1/r2/r4 regalloc. No pure-C form closes these; only a different compiler would. Releasing permanently.",
   "by": "opencode-hy4-flash-free-1",
@@ -91044,14 +91020,6 @@
   "text": "Effectively matched: all 163 real target instructions byte-exact from pure C (score 200, 98.7%). Only remaining diff is 2 extra Thumb rows decoding the trailing literal-pool word 0x08671BD0 at 0x080075D8 after bx r0 \u2014 linker-placed data, not C-fixable. Boundary reported at end=0x08007594 (start of literal pool = end of real code), pending user approval; on approval score becomes 0 (match). Ordinary correct C, not hand asm, not not_c. Data: D_02025FF0 base pool, D_03000830; calls sub_08001738, sub_080C31E0, sub_080C31E8. Waited for by sub_08001034 \u2014 matching this unblocks them. Best source preserved in claim notes.",
   "by": "opencode-nemotron-3.5-super-vl-12-1",
   "created_at": 1795683534.3762631,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateHoveringEffectStepWide",
-  "text": "MATCHED (score 0) by porting the exact structure of matched sub_0802AF88 (and sub_0802C2B4 / sub_0802DB60 family): `u8 *self = arg0;` declared FIRST, then p38/p3C/p34/p48 locals; s16 timer decrement `*(s16*)(p48+4)=*(s16*)(p48+4)-1; if (*(s16*)(p48+4)<=0)`; delayed literal `s16 idx=*(s16*)(self+0x22); u32 *litp; *(u8*)(idx*2+(self+0x19))=0; litp=(u32*)0x08671BD0; sub_080C31E8(self+0x18,self+0x22,1,*litp);`; struct `S_02025FF0 {u8 _[0x174C]; s32 field174C;} extern D_02025FF0;` for the runtime base+offset access; r7v/r4v flag logic with `goto check_r7v` / `goto block25`. Previous agents' 1140 wall was only layout artifacts that vanished once instruction count matched. This recipe now matches sub_0802AF88, sub_0802DB60, sub_08035590, sub_0802C2B4.",
-  "by": "opencode-hy4-flash-free-1",
-  "created_at": 1795683534.3762994,
   "score_before": null,
   "score_after": null
  },
@@ -359662,5 +359630,37 @@
   "score_before": 1485,
   "score_after": 1485,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:17ee93f3d9e7d56f83148fa52bae41cac659b548d1541c348aa3c490583c1b68:b18e58a804f91cb179036ad194d79135d7549022bd41c4a2845ae43396adc7c2"
+ },
+ {
+  "function": "updateHoveringEffectStepWide",
+  "text": "Releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9670248,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateHoveringEffectStepWide",
+  "text": "Cannot improve further: 1140 (91.6%) is ceiling. Remaining 10 diff rows are pure code layout artifacts unfixable in C: (1) literal pool position for D_08671BD0 differs by 8 bytes because agbcc emits 2 extra insns (function 138 vs 136); (2) D_02025FF0+0x174C address computation - target does runtime base+off (two ldr + adds), agbcc constant-folds to single ldr of sum; (3) branch offsets differ by 4-8 bytes due to size mismatch; (4) agbcc emits `movs r0,r0` nops and inverted branch conditions (`beq` vs `bne`). ARM-mode function (r8 callee-saved) vs Thumb agbcc: prologue/epilogue r8 save/restore mismatch. No C restructuring changes literal pool placement or branch encoding.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3645544,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateHoveringEffectStepWide",
+  "text": "1 compile, stuck at 1140. Wall: remaining diffs are pure code-layout artifacts: literal pool placement differs (target `ldr r2,[pc,#0x14]` before sub_080C31E8 vs agbcc's `ldr r2,[pc,#0xc]`+`ldr r2,[r2]`), D_02025FF0+0x174C address computation differs, 2 extra `movs r0,r0` nops and branch offset diffs (target `bne #0xfa` vs mine `beq #0x10c`). ARM-mode function; no C restructuring changes literal pool placement or branch encodings. Best = draft. Releasing to claim the final function.",
+  "by": "opencode-tidepool-alpha-free-1",
+  "created_at": 1795683534.3721745,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateHoveringEffectStepWide",
+  "text": "MATCHED (score 0) by porting the exact structure of matched sub_0802AF88 (and sub_0802C2B4 / sub_0802DB60 family): `u8 *self = arg0;` declared FIRST, then p38/p3C/p34/p48 locals; s16 timer decrement `*(s16*)(p48+4)=*(s16*)(p48+4)-1; if (*(s16*)(p48+4)<=0)`; delayed literal `s16 idx=*(s16*)(self+0x22); u32 *litp; *(u8*)(idx*2+(self+0x19))=0; litp=(u32*)0x08671BD0; sub_080C31E8(self+0x18,self+0x22,1,*litp);`; struct `S_02025FF0 {u8 _[0x174C]; s32 field174C;} extern D_02025FF0;` for the runtime base+offset access; r7v/r4v flag logic with `goto check_r7v` / `goto block25`. Previous agents' 1140 wall was only layout artifacts that vanished once instruction count matched. This recipe now matches sub_0802AF88, sub_0802DB60, sub_08035590, sub_0802C2B4.",
+  "by": "opencode-hy4-flash-free-1",
+  "created_at": 1795683534.3762994,
+  "score_before": null,
+  "score_after": null
  }
 ]
