@@ -351848,30 +351848,6 @@
   "score_after": 455
  },
  {
-  "function": "updateScriptedMoverVariant",
-  "text": "Releasing after 3 compiles; regalloc cannot be pinned (inline asm rejected). Best score 3441. Control flow matches m2c. Next agent: try declaration-order tuning or register asm via allowed mechanism.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9768267,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateScriptedMoverVariant",
-  "text": "Register allocation + literal pool wall. Best score 3441 (79.8%). Target: r6=p38, r5=p3C, r7=p3C+0x34; agbcc: r7=p38, r6=p3C, r5=p28 (42 regalloc diffs). Also D_02025FF0+0x18A8 and D_02021E90+0x1278 materialized as absolute literals vs target's base+offset. Matched sibling sub_08029E48 (95% similar) has same structure but different regalloc. Note: \"regalloc cannot be pinned (inline asm rejected)\". Cannot match without compiler change.",
-  "by": "opencode-free-1",
-  "created_at": 1795683534.3892615,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "updateScriptedMoverVariant",
-  "text": "Best score: 4395 (v2). Register allocation: mine: r2=obj, r5=p3C, r7=p38, r8=+34; target: r2=obj, r5=p3C, r6=p38, r7=+34 \u2014 mine is +1 for p38 and +34. v3/v4 (renames/re-reads, 4395) had no effect. The allocation issue persists: the allocator in my code puts the p38 var in r7 and the +34 var in r8; the target has them in r6 and r7. I have no clear theory of the allocator's ordering \u2014 the target: {obj: r2, p3C: r5, p38: r6, +34: r7} vs mine: {obj: r2, p3C: r5, p38: r7, +34: r8}.\nTool warnings: the original calls a different function at many call sites (the claim's calls list vs the tool's \"the original calls something else\"); the tool says \"a pointer to D_08671BDC where the original has 0xBCF061B0 (D_BCF061B0)\" \u2014 the correct form is unclear (tried the literal; worse). Remaining diffs are mostly regalloc (p38/34 +1) and operand diffs.",
-  "by": "opencode-tidepool-alpha-free-1",
-  "created_at": 1795683534.3987565,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_080147D4",
   "text": "Confirmed systemic frameless Thumb branched-leaf wall. All body instructions and literals otherwise match; the LR frame accounts for the extra instruction and all residual rows.\nRechecked exact-body candidate and diff, then tested all flag variants.\nFresh compile confirmed score 310 with target 31 versus candidate 32 instructions; only residual rows are target `adds r1,r0,#0` versus candidate `push {lr}`, first literal destination register, and target `bx lr` versus `pop {r1}; bx r1`. All five flag profiles tied at 310.",
   "by": "opencode-hungerg-free-3",
@@ -351947,5 +351923,29 @@
   "score_before": 495,
   "score_after": 495,
   "handoff_inputs": "9d881a924b0c7efdd4bcc1e034e4f22c407127d9e323cb242ab214a3ae285f02:2efab7d8d4509ac87aafb931dfe29958cac7930369c8798ef278be0ac4191d70:5631c3afadca45ebd06beb53d0ff7e24d1c6b1cea640b3639b44bd4a8d7e7c81"
+ },
+ {
+  "function": "updateScriptedMoverVariant",
+  "text": "Releasing after 3 compiles; regalloc cannot be pinned (inline asm rejected). Best score 3441. Control flow matches m2c. Next agent: try declaration-order tuning or register asm via allowed mechanism.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9768267,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedMoverVariant",
+  "text": "Register allocation + literal pool wall. Best score 3441 (79.8%). Target: r6=p38, r5=p3C, r7=p3C+0x34; agbcc: r7=p38, r6=p3C, r5=p28 (42 regalloc diffs). Also D_02025FF0+0x18A8 and D_02021E90+0x1278 materialized as absolute literals vs target's base+offset. Matched sibling sub_08029E48 (95% similar) has same structure but different regalloc. Note: \"regalloc cannot be pinned (inline asm rejected)\". Cannot match without compiler change.",
+  "by": "opencode-free-1",
+  "created_at": 1795683534.3892615,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "updateScriptedMoverVariant",
+  "text": "Best score: 4395 (v2). Register allocation: mine: r2=obj, r5=p3C, r7=p38, r8=+34; target: r2=obj, r5=p3C, r6=p38, r7=+34 \u2014 mine is +1 for p38 and +34. v3/v4 (renames/re-reads, 4395) had no effect. The allocation issue persists: the allocator in my code puts the p38 var in r7 and the +34 var in r8; the target has them in r6 and r7. I have no clear theory of the allocator's ordering \u2014 the target: {obj: r2, p3C: r5, p38: r6, +34: r7} vs mine: {obj: r2, p3C: r5, p38: r7, +34: r8}.\nTool warnings: the original calls a different function at many call sites (the claim's calls list vs the tool's \"the original calls something else\"); the tool says \"a pointer to D_08671BDC where the original has 0xBCF061B0 (D_BCF061B0)\" \u2014 the correct form is unclear (tried the literal; worse). Remaining diffs are mostly regalloc (p38/34 +1) and operand diffs.",
+  "by": "opencode-tidepool-alpha-free-1",
+  "created_at": 1795683534.3987565,
+  "score_before": null,
+  "score_after": null
  }
 ]
