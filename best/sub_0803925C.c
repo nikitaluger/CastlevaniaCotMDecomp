@@ -96,14 +96,10 @@ void sub_0803925C(struct ScriptedObject3925C *arg0)
   if (((s32)(kindIndex << 16)) < 0) goto fail;
   initSpriteGraphics(sprite, animState, 0x080CD400 + work->kind * 0xC);
   animTable = D_080CF0C4;
+  work->gfx = allocEffectPart();
+  if (work->gfx == NULL) goto fail;
   layer = 8;
   priority = 1;
-  work->gfx = allocEffectPart();
-  if (work->gfx != NULL) goto main;
-fail:
-  _call_via_r1((u8 *)arg0, *(s32 *)(((u8 *)arg0) + 0x24));
-  goto end;
-main:
   work->gfx->kind = 0;
   work->gfx->layer = layer;
   work->gfx->priority = priority;
@@ -118,7 +114,11 @@ main:
     u16 *animTable2 = animTable + 4;
   }
   work->gfx2 = allocEffectPart();
-  if (work->gfx2 == NULL) goto fail;
+  if (work->gfx2 != NULL) goto main;
+fail:
+  _call_via_r1((u8 *)arg0, *(s32 *)(((u8 *)arg0) + 0x24));
+  goto end;
+main:
   work->gfx2->kind = 0;
   work->gfx2->layer = layer;
   work->gfx2->priority = priority;

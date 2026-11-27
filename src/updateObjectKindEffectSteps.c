@@ -14,7 +14,7 @@ struct StateFlag { u16 flag; };
 /* Update a camera-driven effect: refresh its visibility and animation state,
    advance the script when the animation helper allows it, and copy the state
    coordinates into the main object. */
-void sub_0805053C(u8 *arg0) {
+void updateObjectKindEffectSteps(u8 *arg0) {
     u8 *mainObj;
     u8 *state;
     u8 *p34;

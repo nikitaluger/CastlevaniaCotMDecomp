@@ -55,7 +55,7 @@ struct GameWorkspace { u8 _0[0x18A8]; u8 scrollIndex; u8 _18A9[0x19]; u16 gfxFla
 extern struct GameWorkspace gMainWorkspace;
 struct ScrollState { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
 extern struct ScrollState gCameraState;
-struct EffectDef { u8 _0[0x10]; u16 gfxIndex; u16 palette; u8 _14[0x28-0x14]; };
+struct EffectDef { u8 _0[4]; u16 gfxIndex; u16 palette; u8 _8[0x28-8]; };
 extern struct EffectDef gEffectGfxTable[];
 extern u8 gSpriteAnimDataTable[];
 
@@ -121,9 +121,9 @@ void sub_0803F2B8(struct MainObj *obj) {
                     cameraBase = (u8 *)&gCameraState;
                     { u32 scrollOffset = 0x1278; *(u32 *)(sprite + 0x14) = work->worldX - ((*(u32 *)(cameraBase + scrollOffset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
                     { u32 scrollOffset = 0x127C; *(u32 *)(sprite + 0x18) = work->worldY - ((*(u32 *)(cameraBase + scrollOffset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
-                    work->extraA = obj->extraA;
-                    work->extraB = obj->extraB;
-                    setAnimationFrame(sprite, anim, 0x1A, 0);
+                    work->extraA = 0;
+                    work->extraB = 0;
+                    setAnimationFrame(sprite, anim, 9, 0);
                     sub_0801D678((u8 *)obj, sprite);
                     obj->flags |= 0x1000;
                     *(u8 *)((u8 *)obj + 2 * obj->index + 0x19) = zero;

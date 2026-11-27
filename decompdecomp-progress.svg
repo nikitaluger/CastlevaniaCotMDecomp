@@ -5810,7 +5810,7 @@
 <g><title>spawnObjectKindEffect: {&#x27;matched&#x27;: 1}</title>
 <rect x="120.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>sub_0805053C: {&#x27;matched&#x27;: 1}</title>
+<g><title>updateObjectKindEffectSteps: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>sub_0805066C: {&#x27;matched&#x27;: 1}</title>

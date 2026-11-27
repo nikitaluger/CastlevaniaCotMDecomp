@@ -14688,14 +14688,6 @@
   "score_after": null
  },
  {
-  "function": "sub_0805053C",
-  "text": "Cannot complete now; releasing.",
-  "by": "opencode-free-1",
-  "created_at": 1795683533.9723876,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "sub_08065670",
   "text": "Stub only; releasing.",
   "by": "opencode-free-1",
@@ -357918,5 +357910,75 @@
   "score_before": 26850,
   "score_after": 26850,
   "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:17db8cc012f19a628173eb680909178ac0317460dc74439f7cdeb61360b14dd4"
+ },
+ {
+  "function": "sub_0803CA24",
+  "text": "Hard 456-byte function; best score 12131 after 2 historical attempts + this session's local repairs. Candidate C is semantically plausible but agbcc emits much larger code (24 inserted / 36 deleted rows). First mismatch at prologue callee-saved register allocation; likely deep allocator/lifetime wall plus structural code-shape mismatch. Linker diagnostic about call targets present; _call_via_r1/_call_via_r2 prototype uses integer args where target loads pointer. No m2c draft (parse failure at beq #0x803cab4). Literal pool has 9 words incl 0x080CB2B8, tables at 0x02021E90/0x02025FF0, constants 0x18A8/0x1278/0xFFFF0000/0x127C/0xFFFF8000, pointer 0x08671BB0.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795807921.313868,
+  "score_before": 12131,
+  "score_after": 12131,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:eef3e2027de079b02524522ac2579c40d75e065042a767088892de849c8dbbec"
+ },
+ {
+  "function": "sub_08039830",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Large 420-insn switch function; no working m2c draft (parse failure at bne #0x8039846). Entered only to rotate to nearer-match work; no compile attempted. Structure: switch on byte at entity+0x84 (cases 0/1/default), call 0x800355c allocSpriteObject, 0x800168c allocWorkSlot, 0x8014288, then many literal-pool table loads. Matched neighbour sub_08039B78 shows the game's script-step dispatch habit via table at +0x14 and step at +0x22. Bogus pool-decoded rows present (strh r0,[r0], vaddl.u32).",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808001.088141,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "setKind87EffectLayerAttrs",
+  "text": "Confirmed score 570 (60/60 insns). Exact-body match; only residual is agbcc mandatory LR frame (push {lr}/pop {pc} vs bx lr) plus jump-table/pool ripple and D_080CE690/D_080CE698 pointer swap in literal pool - same frameless Thumb switch/jump-table leaf wall as sub_08019254. No C-level fix found; prior agents same result.",
+  "by": "opencode-iceman-contributor-free-10",
+  "created_at": 1795808016.7934916,
+  "score_before": 570,
+  "score_after": 570,
+  "handoff_inputs": "ac824cec6505ce5b7f8c876f58d89e651222bc361272d897be4ab76cb04786ae:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:960db762946c8d18ff6ebc6390c51b0e67a6bbad6287c46aa2f54e4566da330a"
+ },
+ {
+  "function": "sub_0801102C",
+  "text": "Known wall, ~293 prior attempts across agents. 67/67 instructions exact except two pairs at the 0x8000 tests: ROM copies the materialized constant (r7=0x8000) into r0 then ANDs with the value in r2; agbcc always copies the value into r0 then ANDs with the constant. Explicit patches and local repairs never moved score 20. commit: this session's 4 operand-order variants also stayed at 20.",
+  "by": "opencode-hy4-flash-free-64",
+  "created_at": 1795808084.8426974,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:550e80ab93b4a6d3cf94a935bf904fd5f78af3a619860297fdf160a9a8b3ce40"
+ },
+ {
+  "function": "sub_0803D694",
+  "text": "Best 5530/73.7% (211 target insns, 222 candidate). Reconstructed from hex decode (get_assembly view was truncated/broken). Structure is mostly right: prologue/setup, updateFacingFlipTimer+setAnimationFrame, 0x4A==0 proximity/facing checks setting owner+0x10 to \u00b10x8000 and script dispatch param 1 (0x08671BD0), L724 timer decrement at owner+0x4C with recheck+scaleByRandom(0x97)+0x1E reload, 0xfe path (flags 1&4 + facing match -> script dispatch param 2), 0x13a ax threshold logic (0x002FFFFF/0x400000) adjusting owner+0x4A, tail: if 0x4A==0 store (ax<<16) to owner+0x10 else if flag4 script dispatch param 2 else clear 0x4A. Main residual: regalloc swap (target r8=sprite,r7=owner+0x48; candidate r7=sprite,r8=owner+0x48) causing many reg/branch-target diffs, and ~11 extra insns. Linker \"calls something else\" diagnostics are false positives from size mismatch. Tried: declaration reorder (worse), try_local_repairs compare (no change), empty-if branch-shape patch (no change), v4a temp (no change).",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808127.3068995,
+  "score_before": 6920,
+  "score_after": 5530,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:dded074b2bf67077d16eb103be66cb7beb5c3787e39bb7ce50c5cc500c74a808"
+ },
+ {
+  "function": "sub_0801EF2C",
+  "text": "Score 215 (82%, 12 target/14 cand). Body matches exactly; residual is known agbcc frameless Thumb leaf wall: target has bare bx lr, candidate emits push{lr}/pop{r0};bx r0 and bge offset shift. No C-level fix.",
+  "by": "opencode-iceman-contributor-free-11",
+  "created_at": 1795808181.3271737,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:39943b495b98c09714f9ba9df38bdbe468f78452bf448bba9eb0bb1742d665cc"
+ },
+ {
+  "function": "updateObjectKindEffectSteps",
+  "text": "Cannot complete now; releasing.",
+  "by": "opencode-free-1",
+  "created_at": 1795683533.9723876,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "sub_0803925C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 20; 94 differing rows (8 opcode, 32 register, 8 branch target, 20 operand, 7 reordered, 6 inserted, 13 deleted; advisory).\nTarget: ldr r0, [pc, #0xcc]\nCandidate: ldr r0, [pc, #0xc8]\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = cmp r0, #0\n  = beq #0xee\ni T: ldr r0, [pc, #0xcc] | C: ldr r0, [pc, #0xc8]\n  = str r0, [r7, #0x1c]\n  = ldr r5, [r6, #0x3c]\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest verified score 6240 (76.5%), 258 insns vs 266 target; saved C revision ec0fb0106f6fd08db9c8. Rebuild from get_candidate(base=\"saved_best\").\n\nSTRUCTURE THAT WORKED (do not undo): use EffectPart/EffectWork/ScriptedObject/EffectTemplate structs like matched spawnKind30ScriptEffect; work->gfx at +0x28, work->gfx2 at +0x48 (pad2C[0x1C]); fail block placed between the second alloc check and part2 init by writing:\n  work->gfx = allocEffectPart();\n  if (work->gfx == NULL) goto fail;\n  ...part1 init...\n  work->gfx2 = allocEffectPart();\n  if (work->gfx2 != NULL) goto main;\nfail: _call_via_r1(arg0, *(s32 *)((u8 *)arg0+0x24)); goto end;\nmain: ...part2 init, camera, script...\nend: ;\n\nREMAINING DIFFS (~94 rows, mostly regalloc/operand):\n1. Literal-pool offsets 4-8 bytes short (target ldr [pc,#0xcc] vs ours #0xc8): code before pool is 2-4 insns shorter; fix by matching the camera section exactly.\n2. animTable (D_080CF0C4) lands in r4; target keeps it in r8 (`mov r8,r4` right after the first alloc). layer=8 lands in r8; target has layer in sl (`movs r2,#8; mov sl,r2; mov r4,sl; strb r4,[part,#2]`), priority in sb.\n3. agbcc hoists a zero into sl (`movs r1,#0; mov sl,r1` before findKindIndex); target materializes `movs r1,#0; strb r1,[part,#1]` at each of the three zero stores (part1 kind, part2 kind, scriptByte).\n4. Camera section: target splits `workspace = &gMainWorkspace; workspace += 0x18A8;` into two statements and uses scrollX/scrollY locals (`camera+0x1278`, `camera+0x127C`). Current C folds the constant into one relocation. Use the exact twin spelling from initScriptedSinglePartGraphics/spawnKind30ScriptEffect.\n\nTRIED, NO GAIN: u8/s32 layer+priority; declaration-order swaps; removing workCheck; `(u8)(0)` casts; kind store before layer assignment (regional gain, overall worse); workCheck removed; search_flags (all O-levels identical 6240); try_local_repairs (3 families, no change); moving `goto end` to `return` (much worse, 9290); `goto main` with fail right after first check (8775).\n\nNext step: patch the camera block to split gMainWorkspace + 0x18A8 and add scrollX/scrollY locals (twin spelling), compile, then tackle the zero-hoist and animTable/layer register swap.",
+  "by": "opencode-hy4-flash-free-11",
+  "created_at": 1795808259.5707896,
+  "score_before": 16550,
+  "score_after": 6240,
+  "handoff_inputs": "19ca6be9a1eae61f7a44c6ac6fc86735e1aab0d2de9d559d500c67f22a73eaee:f55cf7091657b8cf75dfb449af782141a1d5a2125175c9b310c9bd3ff64dd863:8694afff4e64d1f433422f6be9c7e1425d5461ba821130006d11aae987c43352"
  }
 ]
