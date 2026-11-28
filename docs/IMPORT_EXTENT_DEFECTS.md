@@ -177,7 +177,7 @@ is obsolete, but 1,140 attempts stayed between scores 17,805 and 18,005 and ther
 new agent would need to reconstruct a large function from scratch.
 
 Two set-asides are **genuine not-C cases**, not extent defects. `sub_080BF7C8` (904 B) is `m4aSoundMain`
-(magic `0x68736D53`) with two inline raw ARM opcode blobs entered via `add rX,pc,#4; bx rX`; none of the 3,979
+(magic `0x68736D53`) with two inline raw ARM opcode blobs entered via `add rX,pc,#4; bx rX`; none of the 4,008
 matched sources uses inline asm, while the other m4a functions in the same region match without such blobs.
 `sub_080BFDBE` (610 B) has a hand-crafted split prologue and a `pop {r3}; bx r3` return that agbcc cannot emit;
 agents reached `not_c` after the extent fix. Leave both set aside — unlike the cases above, their verdicts are
