@@ -34,6 +34,7 @@ void sub_08061340(void *arg0)
 {
     u8 *__base_D_080D9AA0;
     u8 *__base_D_080D9AC0;
+    
     s32 __index_D_080D9AC0;
   struct S61340 s;
   int new_var9;
@@ -44,34 +45,46 @@ void sub_08061340(void *arg0)
   u32 d;
   u8 *p;
   u8 new_var5;
-  u8 t;
+  s32 t;
   int new_var3;
   int new_var10;
   u8 t2;
-  u8 t5;
+  
   u32 new_var;
   u8 *new_var7;
-  u8 t7;
+  u8 t7_1;
+  u8 t7_2;
+  u8 t7_3;
+  u8 t7_4;
   u32 v;
   int new_var6;
   struct S61340 *new_var2;
   u32 new_var4;
+  u16 temp;
+    u8 *__base_D_080D9AB0;
+    u32 temp2;
+    u32 temp3;
+
+    __base_D_080D9AB0 = D_080D9AB0;
 
     __base_D_080D9AC0 = 0;
   s.f0C = (u32) arg0;
   s.f1C = 0;
   s.f10 = 0;
   sub_08061ED0(*((s32 *) (s.f0C + 0x38)), (void *) s.f0C, 0);
+  temp = D_03000830[3];
   new_var = s.f14 <= 0x29;
-  *((u16 *) (*((u32 **) (s.f0C + 0x3C)))) = D_03000830[3];
+  *((u16 *) (*((u32 **) (s.f0C + 0x3C)))) = temp;
   s.f40 = (u32) (&s.buf[0x20]);
   s.f48 = s.f0C + 0x18;
-  s.f4C = s.f0C + 0x22;
+  temp3 = s.f0C + 0x22;
+  s.f4C = temp3;
   s.f10 = (s.f14 = 0);
   new_var10 = 0xF;
   loop_0: {
     s.f14 = 0;
-    p = (u8 *) (s.f40 + (0x2B * s.f10));
+    temp2 = s.f10;
+    p = (u8 *) (s.f40 + (0x2B * temp2));
     do
     {
       *p = sub_08061CE8(s.f10, s.f14);
@@ -101,50 +114,52 @@ void sub_08061340(void *arg0)
       do
       {
         a = ((1 & s.f20) + s.f30) * (new_var3 = 0x2B);
-        b = s.f14 + (s.f20 >> 1);
+        new_var4 = (s.f20 >> 1); b = s.f14 + new_var4;
         t = *((u8 *) ((s.f40 + b) + a));
         s.f20 = *((u8 *) (((s.f40 + b) + a) + new_var3));
         new_var9 = (u8)(D_080D9AC0[0]);
         v = *((u8 *) (((s.f40 + b) + a) + 1));
         __index_D_080D9AC0 = (u8)(*(new_var7 = (u8 *) (((s.f40 + b) + a) + 0x2C)));
         s.f28 = __index_D_080D9AC0;
-        c = s.f34 + (*((u32 *) (D_080D9AB0 + s.f24)));
+        c = s.f34 + (*((u32 *) (__base_D_080D9AB0 + s.f24)));
         switch (t)
         {
           case 1:
-            t7 = (*((u8 *) (D_080DABDC + c))) >> 4;
-            __index_D_080D9AC0 = t7 * 4;
-            __base_D_080D9AC0 = D_080D9AC0;
-            t5 = *((u8 *) (__base_D_080D9AC0 + __index_D_080D9AC0));
+            t7_1 = (*((u8 *) (D_080DABDC + c))) >> 4;
+            __index_D_080D9AC0 = t7_1 * 4;
+            __base_D_080D9AA0 = D_080D9AC0;
+            t2 = *((u8 *) (__base_D_080D9AA0 + __index_D_080D9AC0));
             break;
 
           case 2:
-            t7 = (*((u8 *) (D_080D9B3C + c))) >> 4;
-            t5 = *((u8 *) (D_080D9AC0 + (t7 * 4)));
+            t7_2 = (*((u8 *) (D_080D9B3C + c))) >> 4;
+            t2 = *((u8 *) (D_080D9AC0 + (t7_2 * 4)));
             break;
 
           default:
-            t5 = new_var9;
+            t2 = new_var9;
             break;
 
         }
 
-        t5 = (t5 | (t5 << 4)) & 0xFF;
+        t2 = (t2 | (t2 << 4)) & 0xFF;
         __base_D_080D9AA0 = D_080D9AA0;
         d = *((u32 *) (__base_D_080D9AA0 + s.f24));
-        *((u8 *) (&s.buf[d])) = t5;
-        *((u8 *) (&s.buf[d + 1])) = t5;
-        *((u8 *) (&s.buf[d + 4])) = t5;
-        *((u8 *) (&s.buf[d + 5])) = t5;
-        *((u8 *) (&s.buf[d + 8])) = t5;
-        *((u8 *) (&s.buf[d + 9])) = t5;
-        *((u8 *) (&s.buf[d + 0xC])) = t5;
-        *((u8 *) (&s.buf[d + 0xD])) = t5;
+        do {
+            *((u8 *) (&s.buf[d])) = t2;
+        } while (0);
+        *((u8 *) (&s.buf[d + 1])) = t2;
+        *((u8 *) (&s.buf[d + 4])) = t2;
+        *((u8 *) (&s.buf[d + 5])) = t2;
+        *((u8 *) (&s.buf[d + 8])) = t2;
+        *((u8 *) (&s.buf[d + 9])) = t2;
+        *((u8 *) (&s.buf[d + 0xC])) = t2;
+        *((u8 *) (&s.buf[d + 0xD])) = t2;
         new_var2 = &s;
-        t7 = ((*((u8 *) (D_080D9B3C - (-c)))) >> 2) & 3;
-        if (t7 != 0)
+        t7_3 = ((*((u8 *) (D_080D9B3C - (-c)))) >> 2) & 3;
+        if (t7_3 != 0)
         {
-          do { if ((s.f20 == 2) || (t == 2))
+          do { { if ((s.f20 == 2) || (t == 2))
           {
             v = 0x10;
           }
@@ -163,10 +178,10 @@ void sub_08061340(void *arg0)
           else
           {
             s.f1C = 7;
-          } } while (0);
-          if (t7 == 3)
+          } } } while (0);
+          if (t7_3 == 3)
           {
-            if ((sub_08061D9C(a, b, 0) == 0) && (t7 == 1))
+            if ((sub_08061D9C(a, b, 0) == 0) && (t7_3 == 1))
             {
               *((u8 *) (&s.buf[d + 5])) = ((*((u8 *) (&s.buf[d + 5]))) & new_var10) | v;
             }
@@ -180,8 +195,8 @@ void sub_08061340(void *arg0)
             *((u8 *) (&s.buf[d + 5])) = ((*((u8 *) (&s.buf[d + 5]))) & new_var10) | ((*new_var2).f1C * 0x10);
           }
         }
-        t7 = (*((u8 *) (D_080D9B3C + c))) & 3;
-        if (t7 != 0)
+        t7_4 = (*((u8 *) (D_080D9B3C + c))) & 3;
+        if (t7_4 != 0)
         {
           if (((*new_var2).f20 == 2) || (v == 2))
           {
@@ -192,22 +207,22 @@ void sub_08061340(void *arg0)
             v = 6;
           }
           t2 = (t < s.f28) ? ((u8) (*new_var2).f28) : (t);
-          do { if (t2 == 1)
+          { if (t2 == 1)
           {
             s.f1C = 7;
           }
           else
           {
             s.f1C = (t2 == 2) ? (3) : (2);
-          } } while (0);
+          } }
           {
             u32 w = (v * 0x10) | v;
-            if (t7 != 2)
+            if (t7_4 != 2)
             {
               new_var4 = b;
-              if (t7 == 3)
+              if (t7_4 == 3)
               {
-                if ((sub_08061D9C(a, new_var4, 1) != 0) || (t7 == 1))
+                if ((sub_08061D9C(a, new_var4, 1) != 0) || (t7_4 == 1))
                 {
                   w = ((*new_var2).f1C * 0x10) | v;
                 }

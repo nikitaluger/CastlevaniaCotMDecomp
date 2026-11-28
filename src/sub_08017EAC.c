@@ -3,7 +3,7 @@ s32 sub_080199B0(void *, s32, s32, s16, s32);
 s32 sub_080C31E0(s32, s32);
 s32 sub_080C31E4(void *, void *, s32);
 s32 divInt32(s32, s32);
-s32 sub_080C36E4(s16, s32);
+s32 signedRemainder(s16, s32);
 extern u32 gMainObjTimerCallbacks[];
 
 /* Periodic attack: sweep an angle, spawn a shot every few ticks, then advance state. */
@@ -25,7 +25,7 @@ void sub_08017EAC(void *arg0) {
     trigTable = (void *) 0x08671BFC;
     *((s32 *) (((s8 *) attack) + 0x20)) = (s32) (sub_080C31E0(divInt32(*((s16 *) (((s8 *) attack) + 0x24)) << 0x10, 0x3C), *((s32 *) trigTable)) * 2);
     *((s16 *) (((s8 *) attack) + 0x24)) = (s16) ((u16) *((s16 *) (((s8 *) attack) + 0x24)) + 1);
-    if ((sub_080C36E4(*((s16 *) (((s8 *) attack) + 0x16)), 3) << 0x10) == 0) {
+    if ((signedRemainder(*((s16 *) (((s8 *) attack) + 0x16)), 3) << 0x10) == 0) {
         sub_080199B0(arg0, *((s32 *) (((s8 *) work) + 8)), *((s32 *) (((s8 *) attack) + 0xC)), *((s16 *) (((s8 *) attack) + 0x18)), 8);
         *((s16 *) (((s8 *) attack) + 0x18)) = (s16) ((u16) *((s16 *) (((s8 *) attack) + 0x18)) + 1);
     }

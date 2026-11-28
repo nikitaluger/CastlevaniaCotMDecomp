@@ -1,7 +1,7 @@
 extern void createChildObject(void *, int);
 extern void updateObjectTree(s32);
 extern void sub_08006234(void);
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern u8 sub_0808CB58(void);
 extern void sub_080C31E4(void *, void *, u32);
 extern u8 gGameStatus[];
@@ -58,7 +58,7 @@ void sub_08006E0C(void *obj)
   else
   {
     u16 *d = (u16 *) (gameState + 0x94);
-    if ((*d) == 0x0200) sub_0808BB54();
+    if ((*d) == 0x0200) initCrossfadeGfxState();
   }
   L6EAE:
   {

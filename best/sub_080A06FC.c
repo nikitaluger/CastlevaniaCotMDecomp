@@ -68,7 +68,7 @@ fail:
     } else {
         b->f48->f01 = 0;
         b->f48->f02 = 8;
-        b->f48->f03 = 1;
+        do { b->f48->f03 = 1;
         b->f48->f04 = gEffectGfxTable[b->f1C].a;
         b->f48->f06 = ((u16 *)ptr)[0];
         b->f48->f08 = ((u16 *)ptr)[1];
@@ -77,7 +77,7 @@ fail:
         b->f48->f0E = gEffectGfxTable[b->f1C].b;
         b->f48->f10 = (u32)res;
         r9[1] = spawnBudgetedEffect((u32)a, 0x18C);
-        r9[2] = spawnBudgetedEffect((u32)a, 0x18E);
+        r9[2] = spawnBudgetedEffect((u32)a, 0x18E); } while (0);
         do { r9[4] = spawnBudgetedEffect(gMainWorkspace.field, 0x190); } while (0);
         a->f4C = b->f18;
         a->f54 = gEffectGfxTable[b->f1C].f24;

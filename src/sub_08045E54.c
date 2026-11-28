@@ -6,7 +6,7 @@ void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
 void sub_08013C8C(void *, void *);
 void uploadPendingSpriteGraphic(void *, void *);
-void sub_08014314(void *, void *);
+void clearMotionSpriteOverride(void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, u32);
 
@@ -84,7 +84,7 @@ void sub_08045E54(u8 *self) {
             sub_080C31E0((s32)self, *(s32 *)((u32)(behaviorId * 4) + behaviorTable));
             *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
         } else {
-            sub_08014314(enemy, ((struct AIComponentExt *)enemyExt)->target);
+            clearMotionSpriteOverride(enemy, ((struct AIComponentExt *)enemyExt)->target);
         }
         sub_08013C8C(self, parent);
     }

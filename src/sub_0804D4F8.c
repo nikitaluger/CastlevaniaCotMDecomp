@@ -1,6 +1,6 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void sub_080C31E8(void *, void *, s32, void *);
-extern s32 sub_080C36E4(s32, s32);
+extern s32 signedRemainder(s32, s32);
 
 struct S_3C_b { u8 _0[8]; s32 f08; s32 f0C; };
 struct S_A0_b {
@@ -27,8 +27,8 @@ void sub_0804D4F8(struct S_A0_b *obj) {
     xPhase = physics->f08 / 0x10000;
     yPhase = (physics->f0C * 3) / 0x10000;
     phase = xPhase + yPhase;
-    phaseMod = sub_080C36E4(phase, 0x14A);
-    if (sub_080C36E4(gMainWorkspace.w, 0x14A) == phaseMod) {
+    phaseMod = signedRemainder(phase, 0x14A);
+    if (signedRemainder(gMainWorkspace.w, 0x14A) == phaseMod) {
         ((struct Sub *)((u8 *)obj + obj->f22 * 2))->f19 = 0;
         {
             void **fn = &gScriptStepCallbacks;

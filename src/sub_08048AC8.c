@@ -12,7 +12,7 @@ void sub_08048AC8(void *arg0)
 
     sprite = *(s32 *)(self + 0x38);
     work = *(s32 *)(self + 0x3C);
-    sub_08049180(sprite, work + 0x34, work, work + 0x48);
+    applyHomingContactRecoil(sprite, work + 0x34, work, work + 0x48);
 
     slot = *(s16 *)(self + 0x22);
     off = slot * 2;

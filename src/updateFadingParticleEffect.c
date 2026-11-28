@@ -1,7 +1,7 @@
 extern u32 nextRandomWord(void);              /* pseudo-random number */
 extern s32 randomSignedOffset(s32);                /* random in [0, arg) */
 extern void sub_08005FC4(s32, s32, s32, s32, void *);
-extern void sub_0808DC40(s32, s32, s32);     /* spawn a particle at x, y */
+extern void spawnVariant2Effect(s32, s32, s32);     /* spawn a particle at x, y */
 extern void sub_08098428(s32, s32);          /* scale OBJ palettes by arg1/0x10000 */
 extern s32 sub_080C31E0(s32, s32);           /* call the sine table entry */
 extern void sub_080C31E4(void *, void *, s32);
@@ -41,7 +41,7 @@ void updateFadingParticleEffect(void *effect) {
         u32 angle = nextRandomWord() & 0xFFFF;
         s32 *sinTable = (s32*)TRIG_FUNC_TABLE;
         s32 x = *(s32*)((u8*)bodyWork+8) + ((spread >> 8) * (sub_080C31E0(angle + 0x4000, *sinTable) >> 8));
-        sub_0808DC40(x, *(s32*)((u8*)bodyWork+0x0C) + ((spread >> 8) * (sub_080C31E0(angle, *sinTable) >> 8)) + 0x100000, 8);
+        spawnVariant2Effect(x, *(s32*)((u8*)bodyWork+0x0C) + ((spread >> 8) * (sub_080C31E0(angle, *sinTable) >> 8)) + 0x100000, 8);
     }
     if (gMainWorkspace.mode == 3) {
         sub_08005FC4(0, 0x186, 3, 0, &sub_080C0384);

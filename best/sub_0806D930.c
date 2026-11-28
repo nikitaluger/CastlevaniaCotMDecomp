@@ -23,20 +23,20 @@ void sub_0806D930(u8 *arg0)
   s32 r6;
   s32 r3v;
   s32 r2v;
-  int repair_scratch;
+  volatile int repair_scratch;
   u8 *p2;
   *((s32 *) (arg0 + 0x04)) = ((*((s32 *) (t + 0x00))) + ((*((s32 *) (t + 0x04))) * ((s32) r4))) + (((s32) base[0x3C5]) * 0xA0000);
   *((s32 *) (arg0 + 0x0C)) = ((*((s32 *) (t + 0x08))) + ((*((s32 *) (t + 0x0C))) * ((s32) r4))) + (((s32) base[0x3C6]) * 0xA0000);
   *((s16 *) (arg0 + 0x12)) = (((*((s16 *) (t + 0x12))) * ((s32) r4)) + (*((u16 *) (t + 0x10)))) + (((s32) base[0x3C4]) * 6);
-  (void)&r7;
+  (void) (&r7);
   r7 = ((*((u16 *) (t + 0x16))) * ((s32) r4)) + (*((u16 *) (t + 0x14)));
   *((s16 *) (arg0 + 0x18)) = r7;
   r6 = ((*((u16 *) (t + 0x1A))) * ((s32) r4)) + (*((u16 *) (t + 0x18)));
   *((s16 *) (arg0 + 0x20)) = r6;
-  (void)&r3v;
+  (void) (&r3v);
   r3v = ((*((u16 *) (t + 0x1E))) * ((s32) r4)) + (*((u16 *) (t + 0x1C)));
   *((s16 *) (arg0 + 0x28)) = r3v;
-  (void)&r2v;
+  (void) (&r2v);
   r2v = ((*((u16 *) (t + 0x22))) * ((s32) r4)) + (*((u16 *) (t + 0x20)));
   *((s16 *) (arg0 + 0x30)) = r2v;
   *((s16 *) (arg0 + 0x1A)) = r7;
@@ -52,18 +52,18 @@ void sub_0806D930(u8 *arg0)
     *((s16 *) (arg0 + 0x2A)) = r3v + (*((u16 *) (e + 4)));
     *((s16 *) (arg0 + 0x32)) = r2v + (*((u16 *) (e + 6)));
   }
-  repair_scratch = (int)(arg0 + 0x43);
+  repair_scratch = (int) (arg0 + 0x43);
   p2 = arg0 + 0x44;
-  if ((*((u8 *)repair_scratch)) != 0)
+  if ((*((u8 *) repair_scratch)) != 0)
   {
     u8 *e;
-    if (((*((u8 *)repair_scratch)) == 0x17) && ((*p2) == 0x17))
+    if (((*((u8 *) repair_scratch)) == 0x17) && ((*p2) == 0x17))
     {
       e = D_080E0AB8;
     }
     else
     {
-      e = D_080E0970 + ((*((u8 *)repair_scratch)) * 8);
+      e = D_080E0970 + ((*((u8 *) repair_scratch)) * 8);
     }
     *((s16 *) (arg0 + 0x1A)) = (*((s16 *) (arg0 + 0x1A))) + (*((u16 *) (e + 0)));
     *((s16 *) (arg0 + 0x22)) = (*((s16 *) (arg0 + 0x22))) + (*((u16 *) (e + 2)));
@@ -139,8 +139,7 @@ void sub_0806D930(u8 *arg0)
         break;
 
       case 0x2A:
-        *((s16 *) (arg0 + 0x24)) = (*((s16 *) (arg0 + 0x24))) / 2;
-        break;
+ do { *((s16 *) (arg0 + 0x24)) = (*((s16 *) (arg0 + 0x24))) / 2; break; } while (0);
 
       case 0xA5:
         *((s16 *) (arg0 + 0x24)) = (*((s16 *) (arg0 + 0x24))) + divInt32(*((s32 *) (base + 0x90)), 0x5460);
@@ -298,4 +297,3 @@ void sub_0806D930(u8 *arg0)
     *((s16 *) (arg0 + 0x36)) = 0x270F;
   }
 }
-

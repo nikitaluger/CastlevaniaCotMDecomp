@@ -3,7 +3,7 @@ extern s32 randomSignedOffset(s32);
 extern void sub_0808DBF8(s32, s32, s32);
 extern void sub_080918B0(s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E0(void *, s32);
-extern s32 sub_080C36E4(s32, s32);
+extern s32 signedRemainder(s32, s32);
 
 /* Global frame counter; this system reads it at offset 0x1898 to phase effects. */
 struct FrameState { u8 pad[0x1898]; s32 value; };
@@ -33,7 +33,7 @@ void sub_08095754(u8 *entity) {
     frameMod4 = frame - ((rounded >> 2) << 2);
     posYFinal = posY + ((frameMod4 - 1) * 3) * 0x80000 + 0x180000;
     sine = scaleByRandom(0x2000);
-    spread = sub_080C36E4(gMainWorkspace.value, 5) - 2;
+    spread = signedRemainder(gMainWorkspace.value, 5) - 2;
     spreadX = (sine + 0x4000) * spread;
     spreadY = 0x8000 - scaleByRandom(0x20000);
     frameParity = gMainWorkspace.value;

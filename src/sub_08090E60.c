@@ -1,6 +1,6 @@
 extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
-extern s32 sub_080C36E4(u32, s32);
+extern s32 signedRemainder(u32, s32);
 extern void sub_0808E05C(s32, s32, s16, s32);
 extern void spawnType207Effect(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -33,7 +33,7 @@ void sub_08090E60(void *arg0)
   r1 = coords[3];
   originY = r1 + r0;
   r0 = gMainWorkspace[0x1898 / 4];
-  r0 = sub_080C36E4(r0, 5) - 2;
+  r0 = signedRemainder(r0, 5) - 2;
   speed = r0 << 15;
   angle = 0x8000 - scaleByRandom(0x20000);
   worldFlags = gMainWorkspace[0x1898 / 4];

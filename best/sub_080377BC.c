@@ -51,17 +51,28 @@ void sub_080377BC(u8 *obj) {
     u8 *stepClear;
     u8 *stepAdvance;
     u8 *stepWord;
-    u8 *table;
     void *cleanupFn;
+    u8 *__base_gSpriteAnimDataTable;
+    struct TwoLayerPart *temp;
+    u8 **cleanupTable;
+    u32 *timerCallbacks;
+
+    __base_gSpriteAnimDataTable = gSpriteAnimDataTable;
 
     param = *(s32 *)(obj + 0xAC);
     sprite = allocSpriteObject();
     if (sprite == NULL)
-        goto fail;
+        {
+sub_080C31E0(obj, *(void **)(obj + 0x24));
+return;
+}
     *(void **)(obj + 0x38) = sprite;
     allocWorkSlot(obj, 0, 0x5C, 0);
     if (*(u32 *)(obj + 0x3C) == 0)
-        goto fail;
+        {
+sub_080C31E0(obj, *(void **)(obj + 0x24));
+return;
+}
     *(u32 *)(sprite + 0x1C) = MULTI_PART_SPRITE_GFX_ID;
     work = *(u8 **)(obj + 0x3C);
     anim = work + 0x34;
@@ -70,21 +81,24 @@ void sub_080377BC(u8 *obj) {
     initWorkStateForKind(obj, sprite, work, param, 0x1C);
     zero = 0;
     *(u16 *)(work + 4) = 8;
-    initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + *(s16 *)(work + 0x1C) * 0xC);
+    initSpriteGraphics(sprite, anim, (s32)__base_gSpriteAnimDataTable + *(s16 *)(work + 0x1C) * 0xC);
     setAnimationFrame(sprite, anim, 0, 1);
-    allocSpriteConfigPart(obj, work, sprite);
+    do { allocSpriteConfigPart(obj, work, sprite); } while (0);
     layerAttrs = D_080CEFF4;
 
     part = allocEffectPart();
     *(u32 *)(layerPtrs + 0xC) = (u32)part;
     if (part == NULL)
-        goto fail;
+        {
+sub_080C31E0(obj, *(void **)(obj + 0x24));
+return;
+}
     part->f1 = zero;
     (*(struct TwoLayerPart **)(layerPtrs + 0xC))->f2 = 8;
-    param = 1;
-    (*(struct TwoLayerPart **)(layerPtrs + 0xC))->f3 = param;
+    (*(struct TwoLayerPart **)(layerPtrs + 0xC))->f3 = (param = 1);
+    temp = *(struct TwoLayerPart **)(layerPtrs + 0xC);
     gfxAttrs = gEffectGfxTable;
-    (*(struct TwoLayerPart **)(layerPtrs + 0xC))->f4 = *(u16 *)(gfxAttrs + *(s16 *)(work + 0x1C) * 40 + 4);
+    temp->f4 = *(u16 *)(gfxAttrs + *(s16 *)(work + 0x1C) * 40 + 4);
     (*(struct TwoLayerPart **)(layerPtrs + 0xC))->f6 = *(u16 *)(layerAttrs + 0);
     (*(struct TwoLayerPart **)(layerPtrs + 0xC))->f8 = *(u16 *)(layerAttrs + 2);
     (*(struct TwoLayerPart **)(layerPtrs + 0xC))->fA = *(u16 *)(layerAttrs + 4);
@@ -98,7 +112,7 @@ void sub_080377BC(u8 *obj) {
     if (part != NULL)
         goto init_second;
 
-fail:
+
     sub_080C31E0(obj, *(void **)(obj + 0x24));
     return;
 
@@ -128,11 +142,12 @@ init_second:
     *(u16 *)(obj + 2) |= 0x1000;
     stepClear = (u8 *)(*(s16 *)(obj + 0x22) * 2 + obj + 0x19);
     *stepClear = zero;
-    sub_080C31E4(obj + 0x18, obj + 0x22, gMainObjTimerCallbacks[0]);
+    timerCallbacks = gMainObjTimerCallbacks;
+    sub_080C31E4(obj + 0x18, obj + 0x22, timerCallbacks[0]);
     stepAdvance = (u8 *)(*(s16 *)(obj + 0x22) * 2 + obj + 0x19);
     *stepAdvance = *stepAdvance + 1;
     stepWord = (u8 *)(obj + 0x18 + *(s16 *)(obj + 0x22) * 2);
-    table = *(u8 **)(stepWord + 4);
-    cleanupFn = *(void **)(table + *stepWord * 4);
+    cleanupTable = *(u8 **)(obj + 0x14);
+    do { cleanupFn = (void *)cleanupTable[*stepWord]; } while (0);
     sub_080C31E0(obj, cleanupFn);
 }

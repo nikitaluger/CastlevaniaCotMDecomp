@@ -1,13 +1,14 @@
 extern void *allocSpriteObject(void);
 extern s32 allocWorkSlot(u8 *, s32, s32, s32);
-extern s32 findKindIndex(s32);
+s16 findKindIndex(s16);
 extern void initSpriteGraphics(u8 *, u8 *, s32);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_0803F7CC(u8 *);
 extern void sub_0801D678(u8 *, u8 *);
 extern void _call_via_r1(u8 *, s32);
-extern void _call_via_r2(u8 *, u8 *, s32);
+extern void sub_080C31E4(u8 *, u8 *, s32);
+extern void sub_080C31E0(u8 *, s32);
 extern void sub_0801D5F8(void);
 
 struct EffectGfx {
@@ -57,6 +58,7 @@ struct ScrollState { u8 _0[0x1278]; u32 scrollX; u32 scrollY; };
 extern struct ScrollState gCameraState;
 struct EffectDef { u8 _0[4]; u16 gfxIndex; u16 palette; u8 _8[0x28-8]; };
 extern struct EffectDef gEffectGfxTable[];
+extern u16 gKind87EffectAffineParams[];
 extern u8 gSpriteAnimDataTable[];
 
 void sub_0803F2B8(struct MainObj *obj) {
@@ -74,65 +76,66 @@ void sub_0803F2B8(struct MainObj *obj) {
     work = NULL;
     anim = NULL;
     animSlot = 0;
-    zero = 0;
     if (sprite == NULL) {
         sub_0803F7CC((u8 *)obj);
-    } else {
-        obj->object = sprite;
-        allocWorkSlot((u8 *)obj, 0, 0x48, 0);
-        work = obj->effect;
-        if (work == NULL) {
-            sub_0803F7CC((u8 *)obj);
-        } else {
-            anim = (u8 *)work + 0x34;
-            work->updateCb = *(u32 *)((u8 *)obj + 0x24);
-            *(u32 *)((u8 *)obj + 0x24) = (u32)sub_0801D5F8;
-            zero = 0;
-            work->kind = 0x57;
-            work->active = 1;
-            work->worldX = obj->posX << 16;
-            work->worldY = obj->posY << 16;
-            animSlot = findKindIndex(0x57);
-            work->slot = animSlot;
-            if ((s32)(animSlot << 16) < 0) {
-            } else {
-                initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + work->kind * 0xC);
-                layerBytes = allocEffectPart();
-                work->gfx = (struct EffectGfx *)layerBytes;
-                if (layerBytes == NULL) {
-                } else {
-                    work->gfx->type = zero;
-                    work->gfx->layer = 8;
-                    work->gfx->priority = 1;
-                    work->gfx->gfxIndex = gEffectGfxTable[work->kind].gfxIndex;
-                    work->gfx->anim0 = ((u16 *)0x080CF43C)[0];
-                    work->gfx->anim1 = ((u16 *)0x080CF43C)[1];
-                    work->gfx->anim2 = ((u16 *)0x080CF43C)[2];
-                    work->gfx->anim3 = ((u16 *)0x080CF43C)[3];
-                    work->gfx->palette = gEffectGfxTable[work->kind].palette;
-                    work->gfx->object = (u32)sprite;
-                    work->gfx->tail = 0;
-                    oamAttr = (*(u16 *)sprite & 0xC00) |
-                              (((*(s16 *)((u8 *)work + 0x22) << 6) + 0x200) |
-                               ((*(u16 *)((u8 *)work + 0x22) + 8) << 12));
-                    *(u16 *)sprite = oamAttr;
-                    *(u16 *)sprite = oamAttr | gMainWorkspace.gfxFlags;
-                    *(u32 *)(sprite + 0x1C) = 0x80000009;
-                    cameraBase = (u8 *)&gCameraState;
-                    { u32 scrollOffset = 0x1278; *(u32 *)(sprite + 0x14) = work->worldX - ((*(u32 *)(cameraBase + scrollOffset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
-                    { u32 scrollOffset = 0x127C; *(u32 *)(sprite + 0x18) = work->worldY - ((*(u32 *)(cameraBase + scrollOffset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
-                    work->extraA = 0;
-                    work->extraB = 0;
-                    setAnimationFrame(sprite, anim, 9, 0);
-                    sub_0801D678((u8 *)obj, sprite);
-                    obj->flags |= 0x1000;
-                    *(u8 *)((u8 *)obj + 2 * obj->index + 0x19) = zero;
-                    callbackTable = (s32 *)0x08671BB0;
-                    _call_via_r2((u8 *)obj + 0x18, (u8 *)obj + 0x22, *callbackTable);
-                    return;
-                }
-            }
-        }
+        goto tail;
     }
+    obj->object = sprite;
+    allocWorkSlot((u8 *)obj, 0, 0x48, 0);
+    work = obj->effect;
+    if (work == NULL) {
+        sub_0803F7CC((u8 *)obj);
+        goto tail;
+    }
+    anim = (u8 *)work + 0x34;
+    work->updateCb = *(u32 *)((u8 *)obj + 0x24);
+    *(u32 *)((u8 *)obj + 0x24) = (u32)sub_0801D5F8;
+    zero = 0;
+    work->kind = 0x57;
+    work->active = 1;
+    work->worldX = obj->posX << 16;
+    work->worldY = obj->posY << 16;
+    animSlot = findKindIndex(0x57);
+    work->slot = animSlot;
+    if ((s32)(animSlot << 16) < 0) {
+        goto tail;
+    }
+    initSpriteGraphics(sprite, anim, (s32)gSpriteAnimDataTable + work->kind * 0xC);
+    layerBytes = allocEffectPart();
+    work->gfx = (struct EffectGfx *)layerBytes;
+    if (layerBytes == NULL) {
+        sub_080C31E0((u8 *)obj, *(s32 *)((u8 *)obj + 0x24));
+        return;
+    }
+    work->gfx->type = zero;
+    work->gfx->layer = 8;
+    work->gfx->priority = 1;
+    work->gfx->gfxIndex = gEffectGfxTable[work->kind].gfxIndex;
+    work->gfx->anim0 = ((u16 *)0x080CF43C)[0];
+    work->gfx->anim1 = ((u16 *)0x080CF43C)[1];
+    work->gfx->anim2 = ((u16 *)0x080CF43C)[2];
+    work->gfx->anim3 = ((u16 *)0x080CF43C)[3];
+    work->gfx->palette = gEffectGfxTable[work->kind].palette;
+    work->gfx->object = (u32)sprite;
+    work->gfx->tail = 0;
+    oamAttr = (*(u16 *)sprite & 0xC00) |
+              (((*(s16 *)((u8 *)work + 0x22) << 6) + 0x200) |
+               ((*(u16 *)((u8 *)work + 0x22) + 8) << 12));
+    *(u16 *)sprite = oamAttr;
+    *(u16 *)sprite = oamAttr | gMainWorkspace.gfxFlags;
+    *(u32 *)(sprite + 0x1C) = 0x80000009;
+    cameraBase = (u8 *)&gCameraState;
+    { u32 scrollOffset = 0x1278; *(u32 *)(sprite + 0x14) = work->worldX - ((*(u32 *)(cameraBase + scrollOffset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0x8000) & 0xFFFF0000); }
+    { u32 scrollOffset = 0x127C; *(u32 *)(sprite + 0x18) = work->worldY - ((*(u32 *)(cameraBase + scrollOffset + ((gMainWorkspace.scrollIndex + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
+    work->extraA = 0;
+    work->extraB = 0;
+    setAnimationFrame(sprite, anim, 9, 0);
+    sub_0801D678((u8 *)obj, sprite);
+    obj->flags |= 0x1000;
+    *(u8 *)((u8 *)obj + 2 * obj->index + 0x19) = zero;
+    callbackTable = (s32 *)0x08671BB0;
+    sub_080C31E4((u8 *)obj + 0x18, (u8 *)obj + 0x22, *callbackTable);
+    return;
+tail:
     _call_via_r1((u8 *)obj, *(s32 *)((u8 *)obj + 0x24));
 }

@@ -3,7 +3,7 @@ void applySpritePaletteVariant(void*, void*);
 void sub_08013C8C(void*, void*);
 s32 checkActorViewBounds(void*, void*);
 void uploadPendingSpriteGraphic(void*, void*);
-s32 sub_08014328(void*, void*, void*);
+s32 updateMotionState(void*, void*, void*);
 void sub_080C31E8(void*, void*, s32, s32);
 
 typedef void (*Fn)(void*);
@@ -32,7 +32,7 @@ void sub_0805176C(u8 *entity) {
         }
     }
 
-    if (sub_08014328(*(void**)(entity + 0x28), parent, component) == 0) {
+    if (updateMotionState(*(void**)(entity + 0x28), parent, component) == 0) {
         u8 *stepPtr;
         s32 pcOffset;
         u8 *opcodePtr;

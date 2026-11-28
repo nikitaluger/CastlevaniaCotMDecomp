@@ -1,5 +1,5 @@
 typedef s32 M2C_UNK;
-M2C_UNK sub_0808DC40(s32, s32, s32);
+M2C_UNK spawnVariant2Effect(s32, s32, s32);
 M2C_UNK sub_080C31E0(void *, s32);
 
 /* Script step: set the animator's pose/facing bits from the step byte or the
@@ -17,7 +17,7 @@ void sub_08051880(u8 *self)
 
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) > 0x17)
     {
-        sub_0808DC40(*(s32 *)(work + 0x08), *(s32 *)(work + 0x0C), 8);
+        spawnVariant2Effect(*(s32 *)(work + 0x08), *(s32 *)(work + 0x0C), 8);
         sub_080C31E0(self, *(s32 *)(self + 0x24));
     }
 }

@@ -1,59 +1,131 @@
 extern u8 gMainWorkspace[];
-extern s32 spawnBudgetedEffect(u32, s32);
-extern s32 getSpriteFacingSign(void *);
-extern s32 signOf(s32);
-extern s32 absXFromFocus(s32);
-extern s32 absYFromFocus(s32);
-extern s32 signY(s32);
-extern s32 divInt32(s32, s32);
-extern s32 scaleByRandom(u32);
+extern void *spawnBudgetedEffect(u32 arg0, s32 effect);
+extern s32 getSpriteFacingSign(void *sprite);
+extern s32 signOf(s32 value);
+extern s32 absXFromFocus(s32 x);
+extern s32 absYFromFocus(s32 y);
+extern s32 sub_08014964(s32);
+extern s32 divInt32(s32 num, s32 den);
+extern s32 scaleByRandom(u32 arg);
+extern void sub_080C31E8(void *, void *, s32);
+extern u8 gMainObjTimerCallbacks[];
 
-void sub_0802C4C4(u8 *self) {
-    void *sprite = *(void **)(self + 0x38);
-    u8 *actor = *(u8 **)(self + 0x3C);
-    u8 *track = actor + 0x34;
-    u8 *effect;
-    s32 facing, sign, x, y;
-    s32 tmp;
+void sub_0802C4C4(u8 *self)
+{
+  u8 *sprite;
+  u8 *actor;
+  u8 *base;
+  void *effect;
+  s32 facing;
+  s32 sign;
+  s32 x;
+  s32 y;
+  s32 r8;
+  s32 absy;
+  s32 r2;
+  s32 t;
+  s32 ax;
+  s32 ay;
+  s16 val;
+  u8 *step;
+  u8 *kind;
 
-    if (*(u8 *)(track + 1) != 2)
-        return;
-    if (*(u32 *)(track + 4) != (u32)(*(u16 *)(track + 2) - 1))
-        return;
-
-    effect = (u8 *)spawnBudgetedEffect(*(u32 *)(gMainWorkspace + 0x1870), 0xC8);
-    if (effect == 0)
-        return;
-
+  sprite = *((u8 **) (self + 0x38));
+  actor = *((u8 **) (self + 0x3C));
+  kind = actor + 0x34;
+  if (kind[1] != 2)
+  {
+    return;
+  }
+  if (*((u32 *) (kind + 4)) != (u32)(*((u16 *) (kind + 2)) - 1))
+  {
+    return;
+  }
+  base = gMainWorkspace;
+  effect = spawnBudgetedEffect(*((u32 *) (base + 0x1870)), 0xC8);
+  if (effect != 0)
+  {
     facing = getSpriteFacingSign(sprite);
-    sign = signOf(*(s32 *)(actor + 8));
-    x = absXFromFocus(*(s32 *)(actor + 8));
-    if (x < 0)
-        x += 0xFFFF;
-    x = x >> 16;
-    y = absYFromFocus(*(s32 *)(actor + 0xC));
-    if (y < 0)
-        y += 0xFFFF;
-    y = y >> 16;
+    sign = signOf(*((s32 *) (actor + 8)));
+    { s32 raw;
+      raw = absXFromFocus(*((s32 *) (actor + 8)));
+      x = raw < 0 ? (raw + 0xFFFF) >> 16 : raw >> 16;
+      raw = absYFromFocus(*((s32 *) (actor + 0xC)));
+      y = raw < 0 ? (raw + 0xFFFF) >> 16 : raw >> 16;
+    }
     if (x > 0xA0)
-        x = 0xA0;
+    {
+      x = 0xA0;
+    }
     if (y > 0x78)
-        y = 0x78;
-
-    if (sign == facing) {
-        tmp = divInt32(x << 16, 0x88);
-    } else {
-        tmp = scaleByRandom(0x1001);
-        if (absYFromFocus(*(s32 *)(actor + 0xC)) >= 0) {
-            /* placeholder */
-        }
+    {
+      y = 0x78;
     }
-
-    if (getSpriteFacingSign(sprite) >= 0) {
-        if (absXFromFocus(*(s32 *)(actor + 8)) >= 0) {
-            /* placeholder */
-        }
+    if (sign == facing)
+    {
+      r8 = divInt32(x << 16, 0x88);
     }
-
-    (void)tmp;
+    else
+    {
+      r8 = scaleByRandom(0x1001);
+      absy = sub_08014964(*((s32 *) (actor + 0xC)));
+      if (absy < 0)
+      {
+        r2 = (divInt32(((x + y) * 3) << 15, 0xF80000) << 16) + 0x20000;
+      }
+      else
+      {
+        r2 = 0x20000;
+      }
+      if (facing > 0)
+      {
+        ax = *((s32 *) (actor + 8));
+        if (ax < 0)
+        {
+          ax += 0xFFFF;
+        }
+        ax >>= 16;
+        ax += 0x0E;
+        do { *((s16 *) ((u8 *) effect + 0x4C)) = (s16) ax;
+        *((s32 *) ((u8 *) effect + 0x5C)) = -r8;
+        ay = *((s32 *) (actor + 0x0C));
+        if (ay < 0)
+        {
+          ay += 0xFFFF;
+        }
+        ay >>= 16;
+        ay -= 0x18;
+        *((s16 *) ((u8 *) effect + 0x54)) = (s16) ay;
+        *((s32 *) ((u8 *) effect + 0x6C)) = -r2;
+        val = *((s16 *) (actor + 0x1C));
+        *((s16 *) ((u8 *) effect + 0x7C)) = val; } while (0);
+      }
+      else
+      {
+        ax = *((s32 *) (actor + 8));
+        if (ax < 0)
+        {
+          ax += 0xFFFF;
+        }
+        ax >>= 16;
+        ax -= 0x0E;
+        *((s16 *) ((u8 *) effect + 0x4C)) = (s16) ax;
+        *((s32 *) ((u8 *) effect + 0x5C)) = -r8;
+        ay = *((s32 *) (actor + 0x0C));
+        if (ay < 0)
+        {
+          ay += 0xFFFF;
+        }
+        ay >>= 16;
+        ay -= 0x18;
+        *((s16 *) ((u8 *) effect + 0x54)) = (s16) ay;
+        *((s32 *) ((u8 *) effect + 0x6C)) = -r2;
+        val = *((s16 *) (actor + 0x1C));
+        *((s16 *) ((u8 *) effect + 0x7C)) = val;
+      }
+    }
+  }
+  step = self + (2 * *((s16 *) (self + 0x22)));
+  *((u8 *) (step + 0x19)) = 0;
+  { s32 **slot = (s32 **) 0x08671BB0; sub_080C31E8(self + 0x18, self + 0x22, *slot); }
 }

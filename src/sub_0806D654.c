@@ -1,5 +1,5 @@
 extern u8 gGameStatus[];
-extern s32 sub_08007B78(s32, s32, s32);   /* tile query at (x, y) */
+extern s32 getMapTileAttribute(s32, s32, s32);   /* tile query at (x, y) */
 extern void sub_080C31E0(void *a, void *b);
 
 /* Current camera coordinate-table index. */
@@ -23,13 +23,13 @@ s32 sub_0806D654(struct Vec *arg0)
     s32 tileBase = (s32)gTilemapPages + ((u32)sceneState[0x18A8] << 6);
     s32 step;
 
-    if ((u16)sub_08007B78(tileBase, arg0->x, arg0->y) != 0)
+    if ((u16)getMapTileAttribute(tileBase, arg0->x, arg0->y) != 0)
     {
         step = 0;
         while (1)
         {
             arg0->y += 0xFFFF0000;
-            if ((u16)sub_08007B78(tileBase, arg0->x, arg0->y) == 0)
+            if ((u16)getMapTileAttribute(tileBase, arg0->x, arg0->y) == 0)
             {
                 return 1;
             }

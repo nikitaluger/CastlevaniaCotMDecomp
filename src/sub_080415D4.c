@@ -1,11 +1,11 @@
 extern s32 setAnimationFrame(s32, s32, s32, s32);
 extern void copyPoseAttrs(s32, s32);
-extern u8 D_080CF4A0[];
+extern u8 gEnemyActionParams[];
 
 /* Readable aliases for the game's symbols (preprocessor-only, no effect on code). */
 #define StartAnimation     setAnimationFrame
 #define ApplyMotionParams  copyPoseAttrs
-#define sActionParams      D_080CF4A0
+#define sActionParams      gEnemyActionParams
 
 /* Enemy action indices; each selects an animation and one 8-byte table entry. */
 enum {

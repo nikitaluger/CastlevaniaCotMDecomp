@@ -2,7 +2,7 @@ extern u8 gMainWorkspace[];
 extern u8 D_080E06C0[];
 void setSpriteScreenPosition(void *, void *);
 unsigned short _call_via_r1(void *, void *);
-s32 sub_0806D35C(void *, void *, void *);
+s32 applyAreaEffectBehavior(void *, void *, void *);
 s32 divInt32(s32, s32);
 struct E_080E06C0
 {
@@ -92,7 +92,7 @@ void sub_0806E380(void *arg0)
   sp4 = *((u8 **) (new_var4 + 0x6C));
   idx = *((u16 *) ((*((u8 **) (new_var4 + 0x38))) + 2));
   sp4 = sp4 + 4;
-  ret = sub_0806D35C(arg0, v38, r8);
+  ret = applyAreaEffectBehavior(arg0, v38, r8);
   if ((ret == 1) || (ret == 4))
   {
     return;

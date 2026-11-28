@@ -1,4 +1,4 @@
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern void copyPoseAttrs(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, void *);
@@ -47,7 +47,7 @@ void sub_080ABD6C(void *entity)
         newFlags = *(u16 *)((u8 *)parent + 2) & 0xFBFF;
         zero = 0;
         *(u16 *)((u8 *)parent + 2) = newFlags;
-        sub_0808BB54();
+        initCrossfadeGfxState();
         *(u8 *)(*(u8 **)((u8 *)component + 0x28) + 1) = 5;
         copyPoseAttrs(*(void **)((u8 *)component + 0x28), D_081021CC);
 

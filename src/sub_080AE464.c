@@ -3,7 +3,7 @@ void setObjectAnimation(s32, s32, s32, s32);
 void advanceAnimTrack(s32, s32);
 void advanceMotion(s32, s32);
 void setPolarOffset(s32, s32, s32);
-s32 sub_0801473C(s32, s32);
+s32 getAngleTurnDirection(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
 struct S_02025FF0 { u8 _0[0x174C]; u32 playerX; u32 playerY; };
@@ -32,7 +32,7 @@ void sub_080AE464(u8 *self) {
     }
     {
         s32 angle = *(s32 *)motion;
-        *(s32 *)motion = *(s32 *)motion + sub_0801473C(angle, getAngleFromDelta(gMainWorkspace.playerY - *(s32 *)(actor + 0xC), gMainWorkspace.playerX - *(s32 *)(actor + 8))) * 0x140;
+        *(s32 *)motion = *(s32 *)motion + getAngleTurnDirection(angle, getAngleFromDelta(gMainWorkspace.playerY - *(s32 *)(actor + 0xC), gMainWorkspace.playerX - *(s32 *)(actor + 8))) * 0x140;
     }
     setPolarOffset(actor, *(s32 *)motion, *(s32 *)(motion + 4));
     advanceMotion(actor, 0);

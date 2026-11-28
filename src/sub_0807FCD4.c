@@ -1,12 +1,12 @@
 extern u8 gMainWorkspace[];
 extern u32 D_080E572C[];
-s32 sub_0806D35C(void *, void *, void *);
+s32 applyAreaEffectBehavior(void *, void *, void *);
 void sub_0806D588(void *, void *);
 void startEffectTimer(void *, s32, s32);
 void stepDelayTimer(void *, void *);
 
 /* Updates a follower entity: if the current area's special behavior handled it
- * (sub_0806D35C returned nonzero) do nothing; otherwise copy the global target
+ * (applyAreaEffectBehavior returned nonzero) do nothing; otherwise copy the global target
  * position and the source's 0x10 flag, reinitialize its animation whenever the
  * global animation index changes, step the animation timer, and snap the state
  * object to the grid. */
@@ -19,7 +19,7 @@ void sub_0807FCD4(u8 *entity) {
     target = component + 4;
     state = *(u8 **)(entity + 0x38);
     targetCopy = target;
-    if (sub_0806D35C(entity, state, target) != 0) return;
+    if (applyAreaEffectBehavior(entity, state, target) != 0) return;
     {
         u8 *globals = gMainWorkspace;
         u32 value;

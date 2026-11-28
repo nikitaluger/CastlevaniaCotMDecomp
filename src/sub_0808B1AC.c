@@ -1,7 +1,7 @@
 extern void startEffectTimer(void *a, s32 b, void *c);
 extern void sub_080C31E0(void *a, void *b);
 extern void sub_080C31E4(void *a, void *b, void *c);
-extern s32 sub_080C36E4(s32 a, s32 b);
+extern s32 signedRemainder(s32 a, s32 b);
 extern u32 gMainObjTimerCallbacks;
 extern u8 D_080E6974[];
 extern u32 D_080E6940[];
@@ -42,7 +42,7 @@ void sub_0808B1AC(void *entity) {
     startEffectTimer(stateBlock + 0x20, 0, *(void **)(entry + 8));
 
     colorTable = D_080E6940;
-    colorIdx = sub_080C36E4(*(s32 *)idPtr, 0x0D);
+    colorIdx = signedRemainder(*(s32 *)idPtr, 0x0D);
     *(u32 *)(gfx + 0x14) = colorTable[colorIdx];
     *(u32 *)(gfx + 0x18) = 0x80 << 12;
 

@@ -14,14 +14,15 @@ void sub_0803D694(void *obj) {
     u8 *work34;
     u8 *r7;
     s32 facing;
-    s32 ax;
+s32 __repair_phase_facing;
+    
 
     sprite = *(void **)(self + 0x38);
     owner = *(u8 **)(self + 0x3C);
     work34 = owner + 0x34;
     r7 = owner + 0x48;
 
-    updateFacingFlipTimer(sprite, owner, (u16 *)r7, 0x5A, 0x78);
+    do { updateFacingFlipTimer(sprite, owner, (u16 *)r7, 0x5A, 0x78); } while (0);
     setAnimationFrame((s32)sprite, work34, 0, 1);
 
     if (*(s16 *)(r7 + 2) == 0) {
@@ -54,8 +55,8 @@ L724:
         if ((s16)v < 0) {
             if (*(u16 *)(owner + 2) & 4) {
                 if (absXFromFocus(*(s32 *)(owner + 8)) == getSpriteFacingSign(sprite)) {
-                    facing = getSpriteFacingSign(sprite);
-                    if (facing > 0)
+                    __repair_phase_facing = getSpriteFacingSign(sprite);
+                    if (__repair_phase_facing > 0)
                         *(u32 *)(owner + 0x10) = 0x8000;
                     else
                         *(u32 *)(owner + 0x10) = 0xFFFF8000;
@@ -79,21 +80,21 @@ L724:
         }
     }
 
-    ax = absXFromFocus(*(s32 *)(owner + 8));
+    __repair_phase_facing = absXFromFocus(*(s32 *)(owner + 8));
     if (*(s16 *)(r7 + 2) == 0) {
-        if (ax <= 0x002FFFFF)
+        if (__repair_phase_facing <= 0x002FFFFF)
             *(s16 *)(r7 + 2) = 1;
     } else {
-        if (ax > 0x400000) {
+        if (__repair_phase_facing > 0x400000) {
             *(s16 *)(r7 + 2) = 0;
         } else if (*(u16 *)(owner + 2) & 1) {
             *(s16 *)(r7 + 2) = 0;
         }
     }
 
-    ax = absXFromFocus(*(s32 *)(owner + 8));
+    __repair_phase_facing = absXFromFocus(*(s32 *)(owner + 8));
     if (*(s16 *)(r7 + 2) == 0) {
-        *(u32 *)(owner + 0x10) = ((u32)ax) << 16;
+        *(u32 *)(owner + 0x10) = ((u32)__repair_phase_facing) << 16;
         return;
     }
 

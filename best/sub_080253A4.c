@@ -19,20 +19,20 @@ void sub_080253A4(void *arg0)
     u32 coordBase;
     u32 coordOffset;
 
-    setAnimationFrame((s32)sprite, (s32)animState, 0, 1);
+    do { setAnimationFrame((s32)sprite, (s32)animState, 0, 1); } while (0);
     coordBase = 0x02025FF0;
     coordOffset = 0x1728;
     targetX = *(s32 *)(coordBase + coordOffset) + *(s32 *)(steer + 8);
     coordOffset = 0x172C;
     targetY = *(s32 *)(coordBase + coordOffset) + *(s32 *)(steer + 0x0C);
 
-    if (sub_08014A04((s32)motion, targetX, targetY, 0x100000, 0x100000) == 1)
+    do { if (sub_08014A04((s32)motion, targetX, targetY, 0x100000, 0x100000) == 1)
     {
-        s32 counter = (s16)(*(u16 *)(steer + 0x12) - 1);
+        s32 counter = *(u16 *)(steer + 0x12) - 1;
         *(u16 *)(steer + 0x12) = counter;
-        if (counter >= 0)
+        if ((counter << 16) >= 0)
         {
-            randomizeLaunchOffsets(motion + 0x50, motion + 0x54);
+            do { do { randomizeLaunchOffsets(motion + 0x50, motion + 0x54); } while (0); } while (0);
         }
         else
         {
@@ -41,13 +41,16 @@ void sub_080253A4(void *arg0)
             else
                 *(s32 *)(steer + 8) = 0x300000;
             *(s32 *)(steer + 0x0C) = randomSignedOffset(0x200000) - 0x300000;
-            *(u16 *)(steer + 0x10) = 0;
+            {
+                u16 zero = 0;
+                *(u16 *)(steer + 0x10) = zero;
+            }
             {
                 s16 scriptIndex = *(s16 *)(entity + 0x22);
                 *(u8 *)(entity + scriptIndex * 2 + 0x19) = 0;
                 {
                     s32 *callbacks = (s32 *)0x08671BB0;
-                    _call_via_r2(entity + 0x18, entity + 0x22, *callbacks);
+                    do { _call_via_r2(entity + 0x18, entity + 0x22, *callbacks); } while (0);
                 }
             }
         }
@@ -55,6 +58,6 @@ void sub_080253A4(void *arg0)
     else
     {
         sub_08014B1C((s32)entity, (s32)(entity + 0x18), targetX, targetY);
-        setSpriteFlip((s32)sprite, *(s32 *)(steer + 0x1C));
-    }
+        do { do { do { setSpriteFlip((s32)sprite, *(s32 *)(steer + 0x1C)); } while (0); } while (0); } while (0);
+    } } while (0);
 }

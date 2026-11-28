@@ -5,6 +5,8 @@ extern void *gMainObjTimerCallbacks;
 
 void sub_0802FEAC(u8 *arg0)
 {
+int __repair_literal;
+
     void *sprite = *(void **)(arg0 + 0x38);
     u8 *work = *(u8 **)(arg0 + 0x3C);
     u8 *status = work + 0x34;
@@ -15,9 +17,11 @@ void sub_0802FEAC(u8 *arg0)
     u8 *objA;
     u8 *objB;
     s32 q;
+    u8 temp;
 
     setAnimationFrame((s32)sprite, status, 5, 0);
-    kind = status[1];
+    temp = status[1];
+    kind = temp;
     if (kind != 1)
         return;
     check = *(u32 *)(status + 4);
@@ -48,20 +52,22 @@ void sub_0802FEAC(u8 *arg0)
         *(u16 *)(objB + 0x5C) = 0;
     }
     q = *(s32 *)(work + 0xC);
-    if (q < 0)
+__repair_literal = 0;
+
+    if (q < __repair_literal)
         q += FIXED_TRUNC_BIAS;
     q >>= 16;
     q -= 0xC;
     *(u16 *)(objA + 0x54) = q;
     *(u16 *)(objB + 0x54) = q;
-    *(u16 *)(objA + 0x6C) |= 4;
     *(u16 *)(objB + 0x6C) |= 4;
+    *(u16 *)(objA + 0x6C) |= 4;
     *(u16 *)(timer + 0xC) = 0x28;
     {
         u8 zero = 0;
         void **cbp = &gMainObjTimerCallbacks;
         s16 step = *(s16 *)(arg0 + 0x22);
-        *(u8 *)(arg0 + step * 2 + 0x19) = zero;
+        *(u8 *)(arg0 + step * 2 + 0x19) = 0;
         _call_via_r2(arg0 + 0x18, arg0 + 0x22, *cbp);
     }
 }

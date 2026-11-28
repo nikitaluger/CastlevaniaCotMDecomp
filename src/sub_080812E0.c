@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 
-s32 sub_0806D450(void *, void *, void *);
+s32 applyAreaSpecialBehavior(void *, void *, void *);
 s32 stepDelayTimer(void *, void *);
 void sub_080C31E0(void *, void *);
 
@@ -19,7 +19,7 @@ void sub_080812E0(void *actor)
     position = work + 4;
     sprite = *(u16 **)((u8 *)actorRef + 0x38);
 
-    if (sub_0806D450(actorRef, sprite, position) > 0)
+    if (applyAreaSpecialBehavior(actorRef, sprite, position) > 0)
         goto call;
 
     *(u16 *)(*(u8 **)(position + 0x2C) + 0x14) = 0;

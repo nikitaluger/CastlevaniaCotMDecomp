@@ -22,9 +22,9 @@ extern u8 D_084E25D4[];
 s32 stepDelayTimer(void *, void *);
 void startEffectTimer(void *, u32, u32);
 void *spawnEntity(u32, u32, u32, u32);
-s32 sub_0806D35C(void *, void *, void *);
+s32 applyAreaEffectBehavior(void *, void *, void *);
 void setSpriteScreenPosition(void *, void *);
-void sub_0808DC40(s32, s32, u32);
+void spawnVariant2Effect(s32, s32, u32);
 void sub_080C31E0(u32, u32);
 static inline u8 *inline_fn(u8 *arg0)
 {
@@ -67,7 +67,7 @@ void sub_0807BD78(void *arg0)
   do { v38 = *((u8 **) (s + 0x38)); } while (0);
   p5 = p8;
   g = gGameStatus;
-  if (sub_0806D35C(s, v38, p5) != 0)
+  if (applyAreaEffectBehavior(s, v38, p5) != 0)
   {
     return;
   }
@@ -173,7 +173,7 @@ dec:
   {
     return;
   }
-  sub_0808DC40(*((s32 *) p5), *((s32 *) inline_fn2(p5)), 0);
+  spawnVariant2Effect(*((s32 *) p5), *((s32 *) inline_fn2(p5)), 0);
   sub_080C31E0(new_var2, *((u32 *) (s + 0x24)));
 }
 

@@ -1,4 +1,4 @@
-s32 sub_0806D35C(void *, void *, void *);
+s32 applyAreaEffectBehavior(void *, void *, void *);
 void cullOffscreenEntity(void *, void *);
 void sub_0806D588(void *, void *);
 void spawnKind2CEntity(void *, s32, s32, s32);
@@ -36,7 +36,7 @@ extern struct GameState gMainWorkspace;
   s32 tmp;
   s32 tmp2;
   s32 delta;
-  check = sub_0806D35C(self, status, body);
+  check = applyAreaEffectBehavior(self, status, body);
   if (check != 0)
   {
     goto done;

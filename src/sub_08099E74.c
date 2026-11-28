@@ -1,5 +1,5 @@
 extern void setObjectAnimation(s32, s32, s32, s32);
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern void setEffectBehavior(void *, s32);
 extern void sub_0809C510(void *, s32, s32);
 extern void sub_080C050C(s32);
@@ -37,7 +37,7 @@ void sub_08099E74(void *arg0)
         *(u8 *)(*(u8 **)(*(u8 **)(*(u8 **)(state + 0x08) + 0x3C) + 0x28) + 0x01) = 5;
         setEffectBehavior(*(void **)(state + 0x08), 1);
         setObjectAnimation((s32)gfx, (s32)anim, 0x0F, 0);
-        sub_0808BB54();
+        initCrossfadeGfxState();
         *(u8 *)((u8 *)self + ((*(s16 *)((u8 *)self + 0x22)) * 2) + 0x19) = 0;
         {
           s32 *cbTable = (s32 *)0x08671BB0;

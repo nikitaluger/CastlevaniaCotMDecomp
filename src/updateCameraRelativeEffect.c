@@ -1,7 +1,7 @@
 extern s32 checkActorViewBounds(void *, void *);
 extern void uploadPendingSpriteGraphic(s32, s32);
-extern void sub_08014314(void *, s32);
-extern s32 sub_08014328(s32, void *, void *);
+extern void clearMotionSpriteOverride(void *, s32);
+extern s32 updateMotionState(s32, void *, void *);
 extern void _call_via_r1(void *, s32);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -43,7 +43,7 @@ void updateCameraRelativeEffect(u8 *object)
     }
     uploadPendingSpriteGraphic(*(s32 *)(object + 0x28), *(s32 *)partState);
     uploadPendingSpriteGraphic(*(s32 *)(object + 0x28), *(s32 *)(partState + 4));
-    if (sub_08014328(*(s32 *)(object + 0x28), sprite, state) == 0) {
+    if (updateMotionState(*(s32 *)(object + 0x28), sprite, state) == 0) {
         *(u32 *)(object + 0x14) = EFFECT_VIEW_STEP_TABLE;
         *(u16 *)(object + 0x22) = *(u16 *)(object + 0x22) + 1;
         scriptStep = (u8 *)((u32)(*(s16 *)(object + 0x22)) * 2 + (u32)object);
@@ -55,8 +55,8 @@ void updateCameraRelativeEffect(u8 *object)
         _call_via_r1((void *)object, *(u32 *)(*(u32 *)(object + 0x14) + stepOpcode * 4));
         *(u16 *)(object + 0x22) = *(u16 *)(object + 0x22) - 1;
     } else {
-        sub_08014314(state, *(s32 *)partState);
-        sub_08014314(state, *(s32 *)(partState + 4));
+        clearMotionSpriteOverride(state, *(s32 *)partState);
+        clearMotionSpriteOverride(state, *(s32 *)(partState + 4));
     }
 
     camera = gCameraState;

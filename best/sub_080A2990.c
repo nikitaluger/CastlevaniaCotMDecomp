@@ -17,8 +17,8 @@ void sub_080A2990(void *obj) {
     if (!(2 & ((struct ScriptStep *)((u8 *)self + *(s16 *)(self + 0x22) * 2))->counter)) goto plus;
     v = *sprite;
     c = (v & 0xFFF); k = 0xFFFFC000; v = c | k;
-    *sprite = v;
     temp = (u8 *)obj + 0x19;
+    *sprite = v;
     if (2 & *(u8 *)(temp + *(s16 *)((u8 *)obj + 0x22) * 2)) goto minus;
 plus:
     k = (0x80 << 9);

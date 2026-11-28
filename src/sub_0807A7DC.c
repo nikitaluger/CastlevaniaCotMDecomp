@@ -1,4 +1,4 @@
-s32 sub_0806D450(void *, void *, void *);
+s32 applyAreaSpecialBehavior(void *, void *, void *);
 void stepDelayTimer(void *, s32);
 void sub_0806D588(void *, void *);
 void sub_080C31E0(void *, s32);
@@ -31,7 +31,7 @@ void sub_0807A7DC(u8 *self)
     u8 *view = *(u8 **)(self + 0x38);
     u8 *vec = (u8 *)pos;
 
-    if (sub_0806D450(self, view, vec) > 0) {
+    if (applyAreaSpecialBehavior(self, view, vec) > 0) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));
         return;
     }

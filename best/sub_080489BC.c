@@ -21,9 +21,9 @@ void sub_080489BC(void *arg0)
   r8 = *((void **) (((u8 *) arg0) + 0x3C));
   sp0 = ((u8 *) r8) + 0x34;
   r7 = ((u8 *) r8) + 0x48;
-  setSpriteFacingToTarget(r10, *((s32 *) (((u8 *) r8) + 8)));
+  do { setSpriteFacingToTarget(r10, *((s32 *) (((u8 *) r8) + 8))); } while (0);
   do {
-if (sub_08049180(r10, sp0, r8, r7) != 0)
+if (applyHomingContactRecoil(r10, sp0, r8, r7) != 0)
   {
     if ((*((u8 *) (((u8 *) r9) + 0x4C))) != 0)
     {

@@ -12,6 +12,7 @@ void sub_08006680(s32 start, s32 end)
 {
   u16 tmp[0x200];
   s32 i = start;
+  u16 temp;
   do { if (i <= end)
   {
     do
@@ -31,7 +32,8 @@ void sub_08006680(s32 start, s32 end)
         bl = ((((e->c0[j]) & 0x1F) * t) + ((e->c1[j] & 0x1F) * s)); r = bl >> 8;
         do
         {
-          bl = e->c1[j];
+          temp = e->c1[j];
+          bl = temp;
         }
         while (0);
         g = ((((e->c0[j]) & 0x3E0) * t) + ((bl & 0x3E0) * s)) >> 8;

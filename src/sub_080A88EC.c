@@ -1,4 +1,4 @@
-s32 sub_0801473C(s32, s32);
+s32 getAngleTurnDirection(s32, s32);
 s32 sub_080A857C(s32, void *);
 
 /* Keeps a work state's motion aimed at the player: when the source's facing
@@ -13,5 +13,5 @@ void sub_080A88EC(s32 actor, void *source, void *work) {
         *facingPtr = (u16)(0x10 & *(u16 *)((u8 *)source + 2));
     }
     velocity = *(s32 *)((u8 *)work + 0xA0);
-    *(s32 *)((u8 *)work + 0xA0) = *(s32 *)((u8 *)work + 0xA0) + (sub_0801473C(velocity, sub_080A857C(actor, work)) << 8);
+    *(s32 *)((u8 *)work + 0xA0) = *(s32 *)((u8 *)work + 0xA0) + (getAngleTurnDirection(velocity, sub_080A857C(actor, work)) << 8);
 }

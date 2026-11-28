@@ -50,6 +50,11 @@ extern void *sub_080015E0(s32 mask, s32 object);
 #define ORIGIN_FLIP_X 0x10  /* mirror the child's X offset */
 #define ORIGIN_FLIP_Y 0x20  /* mirror the child's Y offset */
 
+/* Facing tables used by updateRandomFacingEffect. gFacingFrameTable is an
+ * s16[4] of animation frame ids (12/14/16/18); gFacingOrderTable is a byte
+ * table of permutations of the four facing indices, indexed by
+ * (phase + variant * 4). They alias at 0x0810181C/0x08101824. */
+
 /* Added to a negative fixed-point coordinate before >>16 so it truncates
  * toward zero instead of toward negative infinity. */
 #define FIXED_TRUNC_BIAS 0xFFFF
@@ -111,6 +116,12 @@ extern void *sub_080015E0(s32 mask, s32 object);
 /* Base of the main-object timer callback table. Script commands read entry 0 as the
  * completion callback passed to their indirect dispatch helper. */
 #define MAIN_OBJ_TIMER_CALLBACK_TABLE 0x08671BB0
+
+/* Thumb entry (sub_0808AF6C + 1) installed as the scripted prop's new script handler. */
+#define SCRIPT_PROP_UPDATE_CALLBACK 0x0808AF6D
+
+/* Timer-effect payload passed to startEffectTimer by setupScriptedPropEffectStep. */
+#define SCRIPT_PROP_TIMER_DATA 0x08634AB4
 
 /* Script/timer data tables and graphics image id used by the main-object effect spawner. */
 #define MAIN_OBJ_EFFECT_SCRIPT_TABLE 0x084D99AC
@@ -876,6 +887,11 @@ extern u16 gAnimatedEffectAffineParams[];
 /* Kind and extra flag bits used by the two-layer effect spawner. */
 #define TWO_LAYER_EFFECT_KIND     0x64
 #define TWO_LAYER_EFFECT_FLAG_B   0x800   /* second flag set on the owner on success */
+/* More values used by spawnTwoLayerEffect. */
+#define TWO_LAYER_SPRITE_KIND     0x33   /* kind word written to sprite+0x1C */
+#define TWO_LAYER_TEMPLATE_INDEX  0x38   /* sprite-template / VRAM slot passed to initSpriteFromTemplate */
+#define TWO_LAYER_ANIM_ID         0x37   /* starting animation id passed to setObjectAnimation */
+#define TWO_LAYER_UPDATE_CALLBACK 0x080AFD11 /* Thumb entry installed as the entity's step handler */
 
 /* Work-slot size and starting animation frame for spawnObjectKindEffect. */
 #define OBJECT_KIND_EFFECT_WORK_SLOT 0x48
@@ -1048,6 +1064,18 @@ extern u8 gEntitySpriteAnimTable[];
 #define POSE_FINAL_STEP        8
 #define POSE_WORKSPACE_KIND    0x1870
 #define POSE_RESULT_KIND       0xE9
+
+/* Companion pose-step updater (updatePoseResultStep): it spawns its result when the
+ * sprite reaches frame POSE_VARIANT_FINAL_FRAME, resets to frame 9 on the
+ * earliest pose steps and cancels the script step afterwards. gPoseResultParams
+ * holds one (facing-signed X offset, result kind) pair per pose step, indexed
+ * by poseState+0x11. */
+#define POSE_VARIANT_FINAL_FRAME    0x13
+#define POSE_VARIANT_ANIM_FRAME     9
+#define POSE_VARIANT_RESULT_KIND    0xEE
+#define POSE_VARIANT_X_OFFSET       (-0xC0000)
+#define POSE_VARIANT_Y_BIAS         0xFFD70000
+#define POSE_VARIANT_VISIBLE_FRAME  0xE
 
 /* Pause-menu status/item panel. Its state block starts at gMenuState and is
  * indexed with the offsets below; the panel is one of several screens that
@@ -2848,3 +2876,359 @@ struct MainObjectParts {
 #define SCRIPT_OWNED_OBJ_STEP_TABLE 0x0866DB34
 
 #define HOVER_END_X_DISTANCE 0x800000  /* wider X cutoff that ends this hovering step */
+
+/* Limb-pose layout used by updateLimbPartOffsets (and its caller at 0x080AA0F4).
+ * A pose holds two limbs; each limb has three part pointers. The cached vectors
+ * at +0x28/+0x40 hold the last computed coordinates for each limb (component
+ * 2 is the base), and +0x58 holds the two angles used to recompute them. */
+struct LimbPoseVector { s32 v[3]; };
+struct LimbPosePart {
+    u8 pad0[0x4C];
+    s32 coordA;   /* 0x4C: X component from posA */
+    u8 pad50[0x0C];
+    s32 coordB;   /* 0x5C: X component from posB */
+    u8 pad60[0x0C];
+    s32 angle;    /* 0x6C: copied from LimbPose.angles[i] */
+    u8 pad70[0x0C];
+    s8 flip;      /* 0x7C: sign selector for the trig offset */
+};
+struct LimbPoseParts { struct LimbPosePart *volatile parts[3]; };
+struct LimbPose {
+    struct LimbPoseParts limbs[2];
+    u8 pad18[0x10];
+    struct LimbPoseVector posA[2];
+    struct LimbPoseVector posB[2];
+    u32 angles[2];
+};
+
+/* Limb-part transform block hung off a scripted entity's work state at +0x48.
+ * Each of the two limbs owns three render parts; the part's signed byte at
+ * +0x7C selects whether the computed X offset is added or subtracted.
+ * The two vectors at +0x28/+0x40 hold the per-axis part offsets, and +0x58
+ * holds the angles fed to the trig table. */
+struct LimbVector { s32 axis[3]; };
+struct LimbPart {
+    u8 pad0[0x4C];
+    s32 offsetA;   /* 0x4C */
+    u8 pad50[0x0C];
+    s32 offsetB;   /* 0x5C */
+    u8 pad60[0x0C];
+    s32 angle;     /* 0x6C */
+    u8 pad70[0x0C];
+    s8 sign;       /* 0x7C */
+};
+struct LimbChain { struct LimbPart *volatile parts[3]; };
+struct LimbTransform {
+    struct LimbChain limbs[2];    /* 0x00 */
+    u8 pad18[0x10];
+    struct LimbVector offsetA[2]; /* 0x28 */
+    struct LimbVector offsetB[2]; /* 0x40 */
+    u32 angles[2];                /* 0x58 */
+};
+
+/* Camera position in 16.16 fixed point (set by sub_08003650) and the 8.8
+ * view matrix rebuilt each frame by sub_08005258 from the camera angles.
+ * isWorldPointVisible multiplies a camera-relative point by the three rows. */
+extern s32 gCameraPosX, gCameraPosY, gCameraPosZ;
+extern s32 gViewMatrixXX, gViewMatrixXY, gViewMatrixXZ;
+extern s32 gViewMatrixYX, gViewMatrixYY, gViewMatrixYZ;
+extern s32 gViewMatrixZX, gViewMatrixZY, gViewMatrixZZ;
+
+/* Bias added before >>8 so negative products truncate toward zero. */
+#define BYTE_TRUNC_BIAS 0xFF
+
+/* Perspective view volume checked by isWorldPointVisible: the transformed X
+ * is the depth and must lie in [VIEW_NEAR_Z, VIEW_NEAR_Z + VIEW_Z_SPAN]. */
+#define VIEW_NEAR_Z  0x80
+#define VIEW_Z_SPAN  0xF80
+#define VIEW_Y_SLOPE 0xB8
+#define VIEW_Z_SLOPE 0x90
+#define VIEW_Z_MAX   0x8F
+
+/* Camera position in the 16.16 fixed-point world, subtracted from a world
+ * point to bring it into camera space before the view transform. */
+extern s32 gCameraPosX; /* 0x030026B0 */
+extern s32 gCameraPosY; /* 0x03002698 */
+extern s32 gCameraPosZ; /* 0x030026AC */
+
+/* 3x3 view matrix in 8.8 fixed point: row X/YZ hold the coefficients that
+ * project a camera-space point onto the view-space X/Y/Z axes. */
+extern s32 gViewMatrixXX; /* 0x02025FE8 */
+extern s32 gViewMatrixXY; /* 0x02025BC0 */
+extern s32 gViewMatrixXZ; /* 0x02025FD4 */
+extern s32 gViewMatrixYX; /* 0x02025B90 */
+extern s32 gViewMatrixYY; /* 0x02025FD8 */
+extern s32 gViewMatrixYZ; /* 0x02025FE0 */
+extern s32 gViewMatrixZX; /* 0x02025B94 */
+extern s32 gViewMatrixZY; /* 0x02025B98 */
+extern s32 gViewMatrixZZ; /* 0x02025FD0 */
+
+/* Added to a signed 8.8 product before >>8 so it truncates toward zero. */
+#define VIEW_TRUNC_BIAS 0xFF
+
+/* Table of Thumb step handlers installed into an attached effect's +0x14
+ * script-dispatch slot when its display state has no pending frame. */
+#define EFFECT_SCRIPT_STEP_TABLE 0x0866DED0
+
+/* Nine-entry Thumb table of per-opcode script-step callbacks installed by
+ * updateAttachedEffectAlt (0x08039FBC). */
+#define ATTACHED_EFFECT_ALT_STEP_TABLE 0x0866DF24
+
+/* Step-handler table installed by the second attached-effect updater. */
+#define EFFECT_SCRIPT_STEP_TABLE_B 0x0866DF24
+
+/* Map-tile attributes returned by getMapTileAttribute that open a door/warp,
+ * and the button that triggers the interaction. */
+#define SPECIAL_TILE_ATTR_MASK        0x3F
+#define SPECIAL_TILE_DOOR             0x14
+#define SPECIAL_TILE_WARP             0x15
+#define SPECIAL_TILE_INTERACT_BUTTON  0x40
+
+/* Countdown-driven graphics effect (updateTimedGraphicsEffect). */
+#define TIMED_GFX_SCALE_NUMERATOR 0x6400
+#define TIMED_GFX_EFFECT_KIND     0x69
+#define TIMED_GFX_EFFECT_ARG      0x0A
+#define TIMED_GFX_EFFECT_FRAME    0x12
+#define TIMED_GFX_SFX             0x160
+#define TIMED_GFX_SFX_PERIOD      0x14
+
+/* Timed graphics effect (updateTimedGraphicsEffect). Its work block hangs off
+ * the actor's +0x6C pointer with a 4-byte allocation header; the countdown and
+ * reload timers are the first two words of that block. */
+#define TIMED_EFFECT_ACTOR_WORK      0x6C
+#define TIMED_EFFECT_WORK_HEADER     4
+#define TIMED_EFFECT_ACTOR_SPRITE    0x38
+#define TIMED_EFFECT_ACTOR_CB        0x24
+#define TIMED_EFFECT_ACTOR_SPAWN     0x28
+#define TIMED_EFFECT_SPRITE_TILE0    4
+#define TIMED_EFFECT_SPRITE_TILE1    6
+#define TIMED_EFFECT_DELAY_TIMER     0x1C
+#define TIMED_EFFECT_TIMER_MAX       0x100
+#define TIMED_EFFECT_DIV_BASE        0x64
+#define TIMED_EFFECT_NEAR_END        0x31
+#define TIMED_EFFECT_EARLY_LIMIT     0x13
+#define TIMED_EFFECT_EARLY_BASE      0x14
+#define TIMED_EFFECT_EARLY_STEP      5
+#define TIMED_EFFECT_SCALE_NUM       0x6400
+#define TIMED_EFFECT_FADE_HIGH       0xE0
+#define TIMED_EFFECT_FADE_LOW        0x1F
+#define TIMED_EFFECT_FADE_HALF       0x10
+#define TIMED_EFFECT_GFX_REG_SLOT    3
+#define TIMED_EFFECT_SPAWN_MASK      7
+#define TIMED_EFFECT_CHILD_SHIFT     3
+#define TIMED_EFFECT_SPAWN_KIND      0x69
+#define TIMED_EFFECT_SPAWN_A         0x0A
+#define TIMED_EFFECT_SPAWN_B         0x12
+#define TIMED_EFFECT_CHILD_TIMER     0x9C
+#define TIMED_EFFECT_TICK_SFX        0x160
+#define TIMED_EFFECT_SFX_PERIOD      0x14
+#define TIMED_EFFECT_WS_GFX_FLAGS    0x18C2
+#define TIMED_EFFECT_WS_CANCEL       0x173A
+#define TIMED_EFFECT_WS_CANCEL_VAL   0x1C
+#define TIMED_EFFECT_WS_STATE        0x14ED
+#define TIMED_EFFECT_WS_ACTIVE       0x10
+
+/* Constants for updateTimedCrossfadeEffect (0x08082088), the faster sibling of
+ * updateTimedGraphicsEffect. All the timing, layout and workspace constants are
+ * shared (TIMED_EFFECT_*); only these five differ between the two effects. */
+#define CROSSFADE_EFFECT_SPAWN_KIND  0x6F  /* child effect kind spawned on a tick */
+#define CROSSFADE_EFFECT_SPAWN_A     0x0A
+#define CROSSFADE_EFFECT_SPAWN_B     0x12
+#define CROSSFADE_EFFECT_SPAWN_MASK  3     /* spawn when (ticksLeft & 3) == 0 */
+#define CROSSFADE_EFFECT_CHILD_SHIFT 2     /* child timer seeded with ticksLeft >> 2 */
+#define CROSSFADE_EFFECT_TICK_SFX    0x161 /* sound played when the sfx timer expires */
+#define CROSSFADE_EFFECT_SFX_PERIOD  0xC   /* sfx timer reload value */
+
+/* Constants for the fixed kind-0x36 effect sprite spawner
+ * (spawnKind36EffectSprite). The owner's +0x3C slot holds the work state and
+ * its +0x28 pointer the render layer; screen positions are world coordinates
+ * minus the camera scroll rows indexed by the frame counter. */
+#define KIND36_EFFECT_KIND          0x36
+#define KIND36_EFFECT_WORK_SLOT     0x48
+#define KIND36_EFFECT_START_FRAME   0x0C
+#define KIND36_LAYER_KIND           5
+#define KIND36_LAYER_INDEX          8
+#define KIND36_LAYER_PRIORITY       1
+#define KIND36_GFX_ENTRY_STRIDE     40
+#define KIND36_ANIM_ENTRY_STRIDE    12
+#define KIND36_FRAME_COUNTER        0x18A8
+#define KIND36_GFX_FLAGS            0x18C2
+#define KIND36_SCROLL_STRIDE        0x40
+#define KIND36_SCROLL_X             0x1278
+#define KIND36_SCROLL_Y             0x127C
+#define KIND36_SCROLL_BIAS_X        0x8000
+#define KIND36_SCROLL_BIAS_Y        0xFFFF8000
+
+/* ---------- Kind-table scripted effect spawner (spawnKindTableEffectObject) ---------- */
+
+/* Parent entity requesting the effect. The byte at +0x4C selects a sprite kind
+ * through gEffectKindBySelector; +0x5C/+0x6C hold fixed-point coordinates and
+ * +0x7C the (signed byte) facing direction. Steps are 2-byte opcode/timer pairs
+ * starting at +0x18 and indexed by the s16 step index at +0x22. */
+struct KindTableEffectEntity {
+    u8 _0[2];
+    u16 flags;                 /* 0x02: KIND_TABLE_EFFECT_READY set on success */
+    u8 _4[0x10];
+    u8 *scriptStepTable;       /* 0x14: handlers indexed by the step opcode */
+    u8 stepCode;               /* 0x18 */
+    u8 stepTimer;              /* 0x19 */
+    u8 _1A[8];
+    s16 stepIndex;             /* 0x22 */
+    u32 cleanup;               /* 0x24: handler invoked on allocation failure */
+    u8 _28[0x10];
+    u8 *sprite;                /* 0x38 */
+    u8 *work;                  /* 0x3C: work state below */
+    u8 kindSelector;           /* 0x4C: index into gEffectKindBySelector */
+    u8 _4D[0xF];
+    s32 worldX;                /* 0x5C */
+    s32 worldY;                /* 0x6C */
+    s8 direction;              /* 0x7C */
+};
+
+/* Work state allocated at entity+0x3C. */
+struct KindTableEffectWork {
+    u8 _0[8];
+    s32 worldX;                /* 0x08 */
+    s32 worldY;                /* 0x0C */
+    s32 direction;             /* 0x10: sign-extended entity direction */
+    u8 _14[8];
+    s16 kind;                  /* 0x1C: from gEffectKindBySelector */
+    u8 _1E[4];
+    s16 kindSlot;              /* 0x22: index returned by findKindIndex */
+    u32 savedHandler;          /* 0x24 */
+    u8 _28[0xC];
+    u8 gfxInit[0x14];          /* 0x34: graphics/animation state */
+};
+
+#define KIND_TABLE_EFFECT_WORK_SIZE   0x48
+#define KIND_TABLE_EFFECT_GFX_ID      0x80000009
+#define KIND_TABLE_EFFECT_ANIM_FRAME  0x0D
+#define KIND_TABLE_EFFECT_READY       0x1000
+#define KIND_TABLE_EFFECT_UPDATE_CB   0x08014291
+#define KIND_TABLE_EFFECT_ANIM_STRIDE 12
+#define KIND_TABLE_EFFECT_STEP_STRIDE 2
+
+/* ---- Map room transition (beginRoomTransition) ----
+ * gMainWorkspace+0x14B4..0x14D4 holds the pending room change. The caller
+ * checks the room id at +0x14BC; once syncViewPosition reports the view is
+ * settled, the selected gRoomEntryTable record is applied and the id cleared. */
+struct MapRoomEntryRecord {
+    u8 mapX;         /* 0x00: map tile column of the destination room */
+    u8 mapY;         /* 0x01: map tile row of the destination room */
+    u8 _02[2];
+    s32 x;           /* 0x04: room entry position, 16.16 */
+    s32 y;           /* 0x08: room entry position, 16.16 */
+    u32 flags;       /* 0x0C: copied to the transition state at +0x14C0 */
+};
+#define MAP_ROOM_ENTRY_STRIDE   16      /* records indexed by room id << 4 */
+#define MAP_ROOM_STATE_MARKER   0x822   /* written to gMainWorkspace+0x14B4 */
+
+struct MapRoomTransitionState {
+    u32 marker;      /* 0x14B4 */
+    u32 _0[1];
+    u32 roomId;      /* 0x14BC: nonzero selects a room, cleared when applied */
+    u32 flags;       /* 0x14C0 */
+    u8 newTileLo;    /* 0x14C4: low byte of the tile word at the new coords */
+    u8 newTileHi;    /* 0x14C5 */
+    u8 oldTileLo;    /* 0x14C6: low byte of the tile word at the old coords */
+    u8 oldTileHi;    /* 0x14C7 */
+    s32 roomX;       /* 0x14C8 */
+    s32 roomY;       /* 0x14CC */
+    s32 deltaX;      /* 0x14D0: roomX minus the view reference X */
+    s32 deltaY;      /* 0x14D4: roomY minus the view reference Y */
+};
+
+/* Flag bits raised in the display-flag word at gMainWorkspace+0x1844. */
+#define MAP_REDRAW_FLAG_A  0x04000000
+#define MAP_REDRAW_FLAG_B  0x02000000
+
+/* Scanline crossfade step state, in the shared work buffer at 0x02021E90.
+ * Offsets 0x1361..0x137B hold the active step; the saved* bytes are a snapshot
+ * of the configuration bytes copied in when a step starts. */
+struct ScanlineEffectStepState {
+    u8 _0[0x1361];
+    u8 mode;             /* 0x1361: active step mode id */
+    u8 _1[2];
+    u8 stepDuration;     /* 0x1364: reload value for holdTimer */
+    u8 holdTimer;        /* 0x1365: counts down to the next scroll step */
+    u8 param0;           /* 0x1366 */
+    u8 param1;           /* 0x1367 */
+    u8 param2;           /* 0x1368 */
+    u8 param3;           /* 0x1369 */
+    u8 scrollStep;       /* 0x136A: added to scrollAccum on timer reload */
+    u8 param5;           /* 0x136B */
+    u8 param6;           /* 0x136C */
+    u8 activeLines;      /* 0x136D: drives the VCOUNT compare setting */
+    u8 scrollAccum;      /* 0x136E: running scroll position */
+    u8 scrollPrevious;   /* 0x136F: previous scroll position */
+    u8 fadeColor0;       /* 0x1370 */
+    u8 fadeColor1;       /* 0x1371 */
+    u8 fadeColor2;       /* 0x1372 */
+    u8 fadeColor3;       /* 0x1373 */
+    u8 savedDuration;    /* 0x1374: copy of stepDuration */
+    u8 savedParam0;      /* 0x1375: copy of param0, also the new activeLines */
+    u8 savedParam1;      /* 0x1376 */
+    u8 savedParam2;      /* 0x1377 */
+    u8 savedParam3;      /* 0x1378 */
+    u8 savedScrollStep;  /* 0x1379: copy of scrollStep */
+    u8 savedParam5;      /* 0x137A */
+    u8 savedParam6;      /* 0x137B */
+};
+
+/* Crossfade colour table at 0x03000830. Each step mode reads its own group of
+ * four u16 entries; only the low byte of each is copied into the effect state. */
+struct CrossfadeColorTable {
+    u8 _0[0x1E];
+    u16 color0;          /* 0x1E */
+    u8 _1[2];
+    u16 color1;          /* 0x22 */
+    u8 _2[2];
+    u16 color2;          /* 0x26 */
+    u8 _3[2];
+    u16 color3;          /* 0x2A */
+};
+
+/* Alternate view of the crossfade colour table at 0x03000830 used by scanline
+ * effect mode 2. Mode 1 (CrossfadeColorTable) reads its four u16 colours at
+ * 0x1E/0x22/0x26/0x2A; mode 2 reads the next group at 0x20/0x24/0x28/0x2C. */
+struct CrossfadeColorTableMode2 {
+    u8 _0[0x20];
+    u16 color0;          /* 0x20 */
+    u8 _1[2];
+    u16 color1;          /* 0x24 */
+    u8 _2[2];
+    u16 color2;          /* 0x28 */
+    u8 _3[2];
+    u16 color3;          /* 0x2C */
+};
+
+/* Orbit-effect work block used by updateOrbitEffectMotion.
+ * The entity's +0x3C slot points at the sprite; the motion block is sprite+0x48:
+ *   +0x1C kind, +0x20 attached object, +0x34 effect part,
+ *   +0x6C reverse-acceleration flag, +0x70 orbit angle, +0x74 angular velocity,
+ *   +0x78 acceleration, +0x7C radius/height, +0x80 vertical velocity.
+ * Recomputed screen X/Y are written to sprite+0x08/+0x0C. */
+#define ORBIT_QUARTER_TURN      0x4000      /* added to the angle to get the sine term */
+#define ORBIT_SCREEN_X_BASE     0x01000000
+#define ORBIT_SCREEN_Y_BASE     0x01500000
+#define ORBIT_VELOCITY_LIMIT    0x80        /* angular velocity is clamped to +/- this */
+#define ORBIT_WRAP_UPPER        0x680000    /* positive velocity past this wraps to -0x8000 */
+#define ORBIT_WRAP_LOWER        0x2FFFFF    /* negative velocity at/below this wraps to +0x8000 */
+#define ORBIT_TIMER_REVERSE     0x2B0       /* flip the acceleration direction */
+#define ORBIT_TIMER_FINISH      0x2D0       /* tear down the effect and dispatch the next step */
+
+/* ---------- Tracking-effect updater (updateTrackingEffect) ---------- */
+/* Actor (arg0) fields: 0x18 kind, 0x19+step*2 per-step byte, 0x22 s16 step
+ * index, 0x24 cleanup callback, 0x38 sprite object, 0x6C work-state pointer
+ * minus four. (actor+0x6C)+4 is the work block: 0x00/0x04 fixed-point X/Y,
+ * 0x10 step countdown, 0x14 sound countdown, 0x2C sprite-layer pointer (0x0E
+ * attribute, +1 active flag), 0x4C target-descriptor pointer. The descriptor
+ * holds a kind byte at +1 and fixed-point target X/Y at 0x0C/0x10.
+ * D_000018C2, D_0000173A and D_000014ED are zero-based address literals used
+ * only as byte offsets into gMainWorkspace (OAM flags, game mode, action
+ * state), materialised as link-time constants. */
+#define TRACK_SPRITE_SCALE_PCT 0x63  /* scale a layer attribute to 99% */
+#define TRACK_EASE_DIVISOR     0x14  /* close 1/20 of the remaining distance */
+#define TRACK_TICK_SFX         0x14C /* sound played while tracking */
+#define TRACK_TICK_INTERVAL    0xA   /* frames between tracking sounds */
+#define TRACK_ABORT_MODE       0x1C  /* workspace mode that aborts tracking */

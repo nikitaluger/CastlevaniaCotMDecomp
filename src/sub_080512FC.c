@@ -3,7 +3,7 @@ void applySpritePaletteVariant(void *, void *);
 void spawnContactEffectOnHit(void *, void *);
 void uploadPendingSpriteGraphic(void *, void *);
 void sub_08013C8C(void *, void *);
-s32 sub_08014328(void *, void *, void *);
+s32 updateMotionState(void *, void *, void *);
 void sub_080C31E0(s32, s32);
 void sub_080C31E8(void *, void *, s32, u32);
 extern u8 D_0866E610[];
@@ -54,7 +54,7 @@ void sub_080512FC(u8 *task)
         sub_080C31E8(task + 0x18, task + 0x22, 1, *callbackSrc);
       }
     }
-    if (sub_08014328(*((void **) (task + 0x28)), actor, subject) == 0)
+    if (updateMotionState(*((void **) (task + 0x28)), actor, subject) == 0)
     {
       *((u32 *) (task + 0x14)) = (u32) D_0866E610;
       *((u16 *) (task + 0x22)) = (*((u16 *) (task + 0x22))) + 1;

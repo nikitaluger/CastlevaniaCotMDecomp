@@ -6,7 +6,7 @@ extern void sub_080C31E4(void *, void *, s32);
 extern u8 gGameStatus[];
 extern u8 gMainWorkspace[];
 extern u8 D_080E068C[];
-extern u8 *D_0866EB08[];
+extern u8 *gMapTileRows[];
 extern u32 gMainObjTimerCallbacks;
 inline u8 inline_fn(u8 *arg0) { return *arg0; }
 void sub_080695D4(u8 *arg0)
@@ -33,7 +33,7 @@ void sub_080695D4(u8 *arg0)
   p95 = gGameStatus + 0x95;
   p18 = arg0 + 0x18;
   p22 = arg0 + 0x22;
-  t5 = (u8 *)(D_0866EB08[inline_fn(p94)] + inline_fn(p95) * 2);
+  t5 = (u8 *)(gMapTileRows[inline_fn(p94)] + inline_fn(p95) * 2);
   gMainWorkspace[0x14C6] = inline_fn(t5);
   gMainWorkspace[0x14C7] = inline_fn(t5 + 1);
   i = 0;
@@ -59,7 +59,7 @@ void sub_080695D4(u8 *arg0)
   i = j;
   *p94 = D_080E068C[i * 4];
   *p95 = new_var[i * 4 + 1];
-  t5 = (u8 *)(D_0866EB08[inline_fn(p94)] + inline_fn(p95) * 2);
+  t5 = (u8 *)(gMapTileRows[inline_fn(p94)] + inline_fn(p95) * 2);
   gMainWorkspace[0x14C4] = inline_fn(t5);
   gMainWorkspace[0x14C5] = inline_fn(t5 + 1);
   *(u32 *)(p96_2 + 0x14C8) = 0x780000;

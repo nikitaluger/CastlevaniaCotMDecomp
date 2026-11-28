@@ -2,7 +2,7 @@ extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 D_080E596C[];
 extern u8 D_080E598C[];
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void setDirectionVector(void *, u8);
 extern void *sub_0808DBF8(s32, s32, u16);
 extern s32 stepDelayTimer(void *, s32);
@@ -49,7 +49,7 @@ u32 __repair_subtotal;
   e = (u8 *) arg0;
   q = (*((u8 **) (e + 0x6C))) + 4;
   spr = *((u8 **) (e + 0x38));
-  if (sub_0806D450(e, spr, q) > 0)
+  if (applyAreaSpecialBehavior(e, spr, q) > 0)
   {
     r1v = *((s32 *) (e + 0x24));
     goto L_D4C;

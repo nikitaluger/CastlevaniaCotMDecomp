@@ -18,9 +18,17 @@ extern s16 gTileTerrainFlags[];
 
 void sub_080119B4(struct Movement119B4 *entity, s32 accel, s32 height, s32 halfWidth, s32 width) {
     s32 probe[5];
-    s32 probeHit;
+    s32 probeHit_1;
+    s32 probeHit_2;
+    s32 probeHit_3;
+    s32 probeHit_4;
+    s32 probeHit_5;
+    s32 probeHit_6;
+    s32 probeHit_7;
+    s32 probeHit_8;
+    
     s32 yLimit;
-    s32 rightLimit;
+    
     s32 velX;
     s32 velY;
     s32 terrain;
@@ -35,8 +43,8 @@ void sub_080119B4(struct Movement119B4 *entity, s32 accel, s32 height, s32 halfW
         velY = entity->velY;
         if (entity->flags & 0x10) {
             if (velX < 0) {
-                probeHit = probeEntityCollision(entity->x - halfWidth, entity->y, velX, velY, entity->collisionMask | 0x200, probe);
-                if (probeHit == 1) {
+                probeHit_1 = probeEntityCollision(entity->x - halfWidth, entity->y, velX, velY, entity->collisionMask | 0x200, probe);
+                if (probeHit_1 == 1) {
                     velX += probe[1];
                     if (*(u16 *)&probe[0] & 1) entity->touchFlags |= 0x100;
                     if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
@@ -48,15 +56,15 @@ void sub_080119B4(struct Movement119B4 *entity, s32 accel, s32 height, s32 halfW
                         if (*(u16 *)&probe[0] & 8) entity->touchFlags |= 0x400;
                     }
                 }
-                probeHit = probeEntityCollision(entity->x + width, entity->y, velX, velY, entity->collisionMask | 0x400, probe);
-                if ((probeHit == 1) && (*(u16 *)&probe[0] & 1)) entity->touchFlags |= 0x100;
+                probeHit_2 = probeEntityCollision(entity->x + width, entity->y, velX, velY, entity->collisionMask | 0x400, probe);
+                if ((probeHit_2 == 1) && (*(u16 *)&probe[0] & 1)) entity->touchFlags |= 0x100;
                 if (height != 0) {
-                    probeHit = probeEntityCollision(entity->x + width, entity->y - height, velX, velY, entity->collisionMask | 0x500, probe);
-                    if ((probeHit == 1) && (*(u16 *)&probe[0] & 8)) entity->touchFlags |= 0x400;
+                    probeHit_3 = probeEntityCollision(entity->x + width, entity->y - height, velX, velY, entity->collisionMask | 0x500, probe);
+                    if ((probeHit_3 == 1) && (*(u16 *)&probe[0] & 8)) entity->touchFlags |= 0x400;
                 }
             } else {
-                probeHit = probeEntityCollision(entity->x + width, entity->y, velX, velY, entity->collisionMask | 0x400, probe);
-                if (probeHit == 1) {
+                probeHit_4 = probeEntityCollision(entity->x + width, entity->y, velX, velY, entity->collisionMask | 0x400, probe);
+                if (probeHit_4 == 1) {
                     velX += probe[1];
                     if (*(u16 *)&probe[0] & 1) entity->touchFlags |= 0x100;
                     if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
@@ -68,11 +76,11 @@ void sub_080119B4(struct Movement119B4 *entity, s32 accel, s32 height, s32 halfW
                         if (*(u16 *)&probe[0] & 8) entity->touchFlags |= 0x400;
                     }
                 }
-                probeHit = probeEntityCollision(entity->x - halfWidth, entity->y, velX, velY, entity->collisionMask | 0x200, probe);
-                if ((probeHit == 1) && (*(u16 *)&probe[0] & 1)) entity->touchFlags |= 0x100;
+                probeHit_5 = probeEntityCollision(entity->x - halfWidth, entity->y, velX, velY, entity->collisionMask | 0x200, probe);
+                if ((probeHit_5 == 1) && (*(u16 *)&probe[0] & 1)) entity->touchFlags |= 0x100;
                 if (height != 0) {
-                    probeHit = probeEntityCollision(entity->x - halfWidth, entity->y - height, velX, velY, entity->collisionMask | 0x300, probe);
-                    if ((probeHit == 1) && (*(u16 *)&probe[0] & 8)) entity->touchFlags |= 0x400;
+                    probeHit_6 = probeEntityCollision(entity->x - halfWidth, entity->y - height, velX, velY, entity->collisionMask | 0x300, probe);
+                    if ((probeHit_6 == 1) && (*(u16 *)&probe[0] & 8)) entity->touchFlags |= 0x400;
                 }
             }
         }
@@ -80,8 +88,7 @@ void sub_080119B4(struct Movement119B4 *entity, s32 accel, s32 height, s32 halfW
         if ((gTileTerrainFlags[(u16)terrain] & 0xE) || (gTileTerrainFlags[(u16)getTileTerrain(gTilemapPages + (gMainWorkspace[0x18A8] << 6), entity->x + velX + width, entity->y + 0x80000)] & 0xE)) {
             entity->touchFlags |= 4;
         }
-        newX = entity->x + velX;
-        if ((entity->x & 0xFFFF0000) == (newX & 0xFFFF0000)) {
+        if ((entity->x & 0xFFFF0000) == ((newX = entity->x + velX) & 0xFFFF0000)) {
             entity->x = newX;
             return;
         }
@@ -108,15 +115,15 @@ void sub_080119B4(struct Movement119B4 *entity, s32 accel, s32 height, s32 halfW
     velY = entity->velY;
     entity->velY = velY + accel;
     if (entity->flags & 0x10) {
-        probeHit = probeEntityCollision(entity->x - halfWidth, entity->y, 0, velY, entity->collisionMask | 0x200, probe);
-        if (probeHit == 1) {
+        probeHit_7 = probeEntityCollision(entity->x - halfWidth, entity->y, 0, velY, entity->collisionMask | 0x200, probe);
+        if (probeHit_7 == 1) {
             velY += probe[2];
             if (*(u16 *)&probe[0] & 1) entity->touchFlags |= 0x100;
             if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
             if (*(u16 *)&probe[0] & 8) entity->touchFlags |= 0x400;
         }
-        probeHit = probeEntityCollision(entity->x + width, entity->y, 0, velY, entity->collisionMask | 0x400, probe);
-        if (probeHit == 1) {
+        probeHit_8 = probeEntityCollision(entity->x + width, entity->y, 0, velY, entity->collisionMask | 0x400, probe);
+        if (probeHit_8 == 1) {
             velY += probe[2];
             if (*(u16 *)&probe[0] & 1) entity->touchFlags |= 0x100;
             if (*(u16 *)&probe[0] & 6) entity->touchFlags |= 0x200;
@@ -124,9 +131,9 @@ void sub_080119B4(struct Movement119B4 *entity, s32 accel, s32 height, s32 halfW
         }
     }
     yLimit = sub_08012A94(entity->x - halfWidth, entity->y, 2);
-    rightLimit = sub_08012A94(entity->x + width, entity->y, 2);
-    if (rightLimit > yLimit) yLimit = rightLimit;
-    if (yLimit > velY) {
+    probeHit_8 = sub_08012A94(entity->x + width, entity->y, 2);
+    if (probeHit_8 > yLimit) yLimit = probeHit_8;
+    if (probeHit_8 > velY) {
         entity->y = entity->y + velY;
     } else {
         entity->y = entity->y + yLimit;

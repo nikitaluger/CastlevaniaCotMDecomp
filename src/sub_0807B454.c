@@ -1,4 +1,4 @@
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void releaseEntityIfOffscreen(void *, void *);
@@ -28,7 +28,7 @@ void sub_0807B454(u8 *self) {
     actor = *(u8 **)(self + 0x6C);
     work = actor + 4;
     state = *(u8 **)(self + 0x38);
-    if (sub_0806D450(self, state, work) > 0) {
+    if (applyAreaSpecialBehavior(self, state, work) > 0) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));
         return;
     }

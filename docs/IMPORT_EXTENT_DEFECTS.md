@@ -7,13 +7,13 @@ App versions: started on 1.0.11-rr.1 (branch build), upgraded to 1.0.13-rr.1, th
 
 | Metric | Baseline (`c0108aa`) | Now | Delta |
 |---|---:|---:|---:|
-| Matched functions | 3,894 | 3,979 | **+85** |
+| Matched functions | 3,894 | 4,008 | **+114** |
 | Set aside (`asm`) | 368 | 318 | −50 (phantom deletions, recovered functions matched) |
-| Layout entries | 4,551 | 4,614 | +63 (95 functions added, 32 phantoms deleted) |
+| Layout entries | 4,551 | 4,644 | +93 (125 functions added, 32 phantoms deleted) |
 
 A large share of the new matches is directly attributable to the repairs below: 3 boundary cuts, 30+ extent
 extensions, 1 compiler-profile correction, 7 source restorations, six re-point pairs, two jump-table/data
-splits, three recovered 4-byte prologue stubs, **95 functions recovered from gaps the importer never declared**,
+splits, three recovered 4-byte prologue stubs, **125 functions recovered from gaps the importer never declared**,
 and twelve phantom deletions. The remainder came from autopilot/deep-permuter passes and the app's token-free
 local-source reuse. Many agent notes blamed "terminal compiler walls"; the corrected bytes matched within
 4–45 attempts.
@@ -127,7 +127,7 @@ The same pure-data case was `sub_0803CE96` (12 B, 1,540 attempts, no function re
 ### Functions the splitter never declared
 
 A literal-pointer / `bl`-target scan over the ROM found gaps containing real code with no function entry at all.
-**95 such functions were added** in seven batches (5 pilot, five batches of 10, one batch of 30). One
+**125 such functions were added** in nine batches (5 pilot, six batches of 10, two batches of 30). One
 (`sub_0805A500`, 244 B) matched at score 0 after 13 attempts; all were registered as `open` with a symbol,
 target bytes, a Thumb disassembly and a manifest layout entry, with no attempt or note history — the cleanest
 work in the project.
@@ -144,7 +144,7 @@ module but is not exposed.
 Batches were inserted with the app closed (it holds DB write locks for minutes), a DB + manifest backup per batch,
 `progress._manifest` validation, and a restart afterwards. Each batch was also **prepended to `config["priority"]`
 and the manifest `priority` array** (newest first), so agents worked the fresh functions before anything with a
-history. The operator unmarked entries as soon as each received its first compile. Roughly 166 verified candidates
+history. The operator unmarked entries as soon as each received its first compile. Roughly 136 verified candidates
 remain for future batches.
 
 A batch is safe only with the app closed: it holds DB write locks for minutes and an in-place insert once waited
@@ -219,6 +219,12 @@ it simply stopped. The diagnostics show why: 51 `project-lock-diagnostics` warni
 behind them. DB writes waited 2.9–4.1 s behind `progress.py:2762 (_sync)`; `history_summary.py:86 (build)` did
 full scans up to 3.7 s. This is a lock/verification stall, not OOM: the app's own maintenance actions, agents and
 tool calls all queue behind saved-file verification, which gets slower as the layout grows.
+
+A later freeze had a **different signature**: 97% CPU but only **211 MB RSS**, with a deep-permutation pass
+(`deep-pass_6`, `deep-permutation-pass 2ad762`) active when logging stopped at 05:29 and no further output for
+hours. That points to a CPU-bound loop/stall inside the deep pass rather than lock or memory pressure, so the
+thread caps and lock diagnosis do not explain every hang. Each freeze required `decomp stop` force-killing after
+75 s and a detached restart; the DB and manifest always validated afterwards.
 
 Two mitigating settings were applied by the operator: `maintenance_cpu_percent = 50` (was already set) and
 `worker_threads = 4` instead of the automatic 14 (16 cores − 2 reserved). Peak memory fell from ~7.8 GB to

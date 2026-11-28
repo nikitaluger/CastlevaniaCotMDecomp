@@ -3,7 +3,7 @@ extern void setAnimationFrame(s32, void *, s32, s32);
 extern s32 sub_08012A94(s32, s32, s32);
 extern void sub_0801C9A0(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 sub_080C36E4(s16, s32);
+extern s32 signedRemainder(s16, s32);
 
 /* On a periodic trigger, spawn two result objects at mirrored offsets; advance
  * the step counters and end the script step once the repeat limit is passed. */
@@ -28,7 +28,7 @@ void sub_0801B42C(u8 *obj)
     control = scriptState + 0x48;
     setAnimationFrame(sprite, stateArg, 9, 0);
     limitPtr = &maxOffset;
-    if ((sub_080C36E4(*((s16 *) (control + 0x16)), 3) << 16) == 0)
+    if ((signedRemainder(*((s16 *) (control + 0x16)), 3) << 16) == 0)
     {
         range = 0x10000;
         coord = ((*((s32 *) (scriptState + 8))) + (((*((s16 *) (control + 0x18))) + 1) * 0x110000)) + (randomSignedOffset(range) * 3);

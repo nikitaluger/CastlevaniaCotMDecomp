@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK sub_0808DC40(s32, s32, s32);                /* extern */
+M2C_UNK spawnVariant2Effect(s32, s32, s32);                /* extern */
 M2C_UNK sub_080C31E0(void *, s32);                  /* extern */
 
 /* Spawn a variant-2 effect at the anchor's position shifted down by 0xC0000
@@ -21,6 +21,6 @@ void sub_08058434(void *obj) {
     void *anchor;
 
     anchor = M2C_FIELD(obj, void **, 0x3C);
-    sub_0808DC40(M2C_FIELD(anchor, s32 *, 8), M2C_FIELD(anchor, s32 *, 0xC) + 0xC0000, 8);
+    spawnVariant2Effect(M2C_FIELD(anchor, s32 *, 8), M2C_FIELD(anchor, s32 *, 0xC) + 0xC0000, 8);
     sub_080C31E0(obj, M2C_FIELD(obj, s32 *, 0x24));
 }

@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 extern s32 stepDelayTimer(s32, void *);
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern s32 sub_0806D588(void *, void *);
 extern void sub_08005E80(s32);
 extern void sub_080C31E0(void *, s32);
@@ -13,7 +13,7 @@ void sub_0807A708(u8 *self) {
     u8 *object = *(u8 **)(self + 0x6C);
     u8 *state = object + 4;
     void *sprite = *(void **)(self + 0x38);
-    if (sub_0806D450(self, sprite, state) > 0) {
+    if (applyAreaSpecialBehavior(self, sprite, state) > 0) {
         sub_080C31E0(self, *(s32 *)(self + 0x24));
         return;
     }

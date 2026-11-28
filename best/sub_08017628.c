@@ -19,15 +19,14 @@ void sub_08017628(void *arg0)
     s32 facing;
     s32 zero;
     s16 step;
-    u8 *cmdBase;
 
     actor = (u8 *)arg0;
-    sprite = *(u8 **)(actor + 0x38);
     work = *(u8 **)(actor + 0x3C);
     control = work;
     control += 0x48;
     dist = absXFromFocus(*(s32 *)(work + 8));
     dir = signOf(*(s32 *)(work + 8));
+    sprite = *(u8 **)(actor + 0x38);
     facing = getSpriteFacingSign(sprite);
     zero = 0;
 
@@ -37,7 +36,7 @@ void sub_08017628(void *arg0)
         if (rollProbability(*(s16 *)(control + 0x2A)) == 1) {
             sub_080186DC(control + 0x2A, 0xAF * 4);
             *(u8 *)(actor + *(s16 *)(actor + 0x22) * 2 + 0x19) = zero;
-            sub_080C31E8(actor + 0x18, actor + 0x22, 7, gScriptStepCallbacks[0]);
+            do { sub_080C31E8(actor + 0x18, actor + 0x22, 7, gScriptStepCallbacks[0]); } while (0);
         } else {
             sub_080186C0(control + 0x2A, 0xAF * 8);
             goto cleanup;
@@ -72,18 +71,17 @@ void sub_08017628(void *arg0)
 
 cleanup:
     sub_080186C0(work + 0x2A, 400);
-    sub_080186C0(work + 0x2C, 400);
-    sub_080186C0(work + 0x2E, 400);
+    do { do { sub_080186C0(work + 0x2C, 400);
+    sub_080186C0(work + 0x2E, 400); } while (0); } while (0);
     *(u8 *)(actor + *(s16 *)(actor + 0x22) * 2 + 0x19) = zero;
     sub_080C31E8(actor + 0x18, actor + 0x22, 6, gScriptStepCallbacks[0]);
 
 increment:
-    step = *(s16 *)(actor + 0x22);
-    *(u8 *)(actor + step * 2 + 0x19) = *(u8 *)(actor + step * 2 + 0x19) + 1;
+    dist = *(u8 *)(actor + (step = *(s16 *)(actor + 0x22)) * 2 + 0x19); *(u8 *)(actor + step * 2 + 0x19) = dist + 1;
     step = *(s16 *)(actor + 0x22);
     {
         s32 off = step * 2;
-        cmdBase = actor + 0x18;
-        sub_080C31E0(arg0, *(void **)((u8 *)*(void **)(actor + 0x14) + *(u8 *)(cmdBase + off) * 4));
+        sprite = actor + 0x18;
+        do { do { sub_080C31E0(arg0, *(void **)((u8 *)*(void **)(actor + 0x14) + *(u8 *)(sprite + off) * 4)); } while (0); } while (0);
     }
 }

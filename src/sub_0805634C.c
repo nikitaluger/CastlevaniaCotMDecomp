@@ -1,4 +1,4 @@
-void sub_0808DC40(void *, s32, s32);
+void spawnVariant2Effect(void *, s32, s32);
 void sub_080C31E0(void *, void *);
 extern u8 D_080CFBF8[];
 
@@ -14,6 +14,6 @@ void sub_0805634C(void *obj) {
     u8 index = ctrl[9];
     u32 offset = index * 0x24;
     table += 0x1C;
-    sub_0808DC40(x, *(s32 *)((u8 *)work + 0xC) + *(s32 *)(table + offset), 8);
+    spawnVariant2Effect(x, *(s32 *)((u8 *)work + 0xC) + *(s32 *)(table + offset), 8);
     sub_080C31E0(self, *(void **)((u8 *)self + 0x24));
 }

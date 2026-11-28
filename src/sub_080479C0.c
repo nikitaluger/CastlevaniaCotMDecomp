@@ -1,4 +1,4 @@
-extern void *sub_0808DC40(s32, s32, u16);
+extern void *spawnVariant2Effect(s32, s32, u16);
 extern void sub_080C31E0(void *, s32);
 
 /* Actor position block (16.16 fixed point). */
@@ -20,6 +20,6 @@ struct Actor {
 void sub_080479C0(struct Actor *actor) {
     struct Pos *pos = actor->pos;
 
-    sub_0808DC40(pos->x, pos->y + 0xFFF00000, 8);
+    spawnVariant2Effect(pos->x, pos->y + 0xFFF00000, 8);
     sub_080C31E0(actor, actor->update);
 }

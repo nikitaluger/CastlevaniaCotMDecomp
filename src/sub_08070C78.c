@@ -16,7 +16,7 @@ struct GameState_70C78 {
 };
 extern struct GameState_70C78 gMainWorkspace;
 
-s32 sub_0806D450(void *, void *, void *);
+s32 applyAreaSpecialBehavior(void *, void *, void *);
 void setDirectionVector(void *, u8);
 void stepDelayTimer(void *, void *);
 void sub_0806D588(void *, void *);
@@ -35,7 +35,7 @@ void sub_08070C78(void *entity)
     work = (s8 *)state + 4;
     other = *(void **)((s8 *)entity + 0x38);
 
-    if (sub_0806D450(entity, other, work) > 0) goto Lcall1;
+    if (applyAreaSpecialBehavior(entity, other, work) > 0) goto Lcall1;
     timer = *(s32 *)((s8 *)work + 0x5C) - 1;
     *(s32 *)((s8 *)work + 0x5C) = timer;
     if (timer == 0) {

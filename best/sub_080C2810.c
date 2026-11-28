@@ -120,7 +120,7 @@ void sub_080C2810(s32 arg0, s32 arg1)
   new_var[1] |= r0;
   new_var[1] >>= 31;
   sp[1] = new_var[1];
-  ptr0 = (void *) r7;
+  ptr0 = (void *) (&sp[0]);
   goto L_END;
   L_BE:
   r0 = sp[1];

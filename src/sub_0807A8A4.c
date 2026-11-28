@@ -10,7 +10,7 @@ struct GameState_7A8A4
   u16 spriteAttr;
 };
 extern struct GameState_7A8A4 gMainWorkspace;
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, void *);
@@ -26,7 +26,7 @@ void sub_0807A8A4(void *arg0)
   u8 *world = *((u8 **) (((u8 *) arg0) + 0x38));
   struct GameState_7A8A4 *d;
   int zero;
-  if (sub_0806D450(arg0, world, mover) > 0)
+  if (applyAreaSpecialBehavior(arg0, world, mover) > 0)
   {
     sub_080C31E0(arg0, *((void **) (((u8 *) arg0) + 0x24)));
     return;

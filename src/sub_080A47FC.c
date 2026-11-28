@@ -1,6 +1,6 @@
 s32 sub_080C31E0(s32, s32);
 void stepAnimationTrack(void *, void *);
-s32 sub_0801473C(u16, s32);
+s32 getAngleTurnDirection(u16, s32);
 void sub_080C31E4(void *, void *, s32);
 
 void sub_080A43AC(void *arg0) {
@@ -32,9 +32,9 @@ void sub_080A47FC(void *arg0)
   sprite = *((void **) (((s8 *) arg0) + 0x38));
   stepAnimationTrack(sprite, (void *)((*((s32 *) (((s8 *) arg0) + 0x3C))) + 0x34));
   angle = *((u16 *) (((s8 *) sprite) + 8));
-  turn = sub_0801473C(angle, *((s32 *) (((s8 *) arg0) + 0x6C)));
+  turn = getAngleTurnDirection(angle, *((s32 *) (((s8 *) arg0) + 0x6C)));
   *((u16 *) (((s8 *) sprite) + 8)) = (u16) (angle + (turn << 0xA));
-  if ((turn != sub_0801473C(*((u16 *) (((s8 *) sprite) + 8)), *((s32 *) (((s8 *) arg0) + 0x6C)))) || (turn == 0))
+  if ((turn != getAngleTurnDirection(*((u16 *) (((s8 *) sprite) + 8)), *((s32 *) (((s8 *) arg0) + 0x6C)))) || (turn == 0))
   {
     s32 target;
     s32 zero;

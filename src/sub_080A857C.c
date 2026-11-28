@@ -1,5 +1,5 @@
 extern s32 getAngleFromDelta(s32, s32);
-extern s32 sub_0801473C(s32, s32);
+extern s32 getAngleTurnDirection(s32, s32);
 extern s32 angleWithinRange(s32, s32, s32);
 
 struct PlayerPosition { u8 _0[0x174C]; s32 playerX; s32 playerY; };
@@ -20,7 +20,7 @@ s32 sub_080A857C(void *arg0, void *arg1) {
     if (angleWithinRange(baseAngle, 0xC0 << 5, desiredAngle) != 0) {
         return desiredAngle - baseAngle;
     }
-    if (sub_0801473C(baseAngle, desiredAngle) == 1) {
+    if (getAngleTurnDirection(baseAngle, desiredAngle) == 1) {
         return 0xC0 << 5;
     }
     return 0xFFFFE800;

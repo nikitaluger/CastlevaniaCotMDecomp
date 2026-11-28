@@ -2,7 +2,7 @@ extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
 extern void moveEntityWithCollision(void *, s32);
 extern void spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern void spawnEffectParticle(s32, s32, s32, s32);
 extern void copyBytes(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
@@ -58,7 +58,7 @@ void updateAttackVfxState(void *entity)
   if (((u8 *) vfxState)[0x23] == 0)
   {
     *flagWord(gMainWorkspace) = 2;
-    sub_0808BB54();
+    initCrossfadeGfxState();
     sub_080C31E0(entity, *((s32 *) (((u8 *) entity) + 0x24)));
   }
 }

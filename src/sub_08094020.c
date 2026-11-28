@@ -2,7 +2,7 @@ extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
 extern void spawnType207Effect(s32, s32, s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern s32 sub_080C36E4(s16, s32);
+extern s32 signedRemainder(s16, s32);
 extern u8 D_08100818[];
 extern u32 gMainObjTimerCallbacks;
 
@@ -35,7 +35,7 @@ void sub_08094020(u8 *self) {
     valueEntry = valueTable + 4;
 
     *(u16 *)(fx + 0x28) = *(u16 *)(valueEntry + tableOff);
-    check = (s16)sub_080C36E4(*(s16 *)(timer + 0x0C), 6);
+    check = (s16)signedRemainder(*(s16 *)(timer + 0x0C), 6);
     if (check == 0) {
         spawnX = *(s32 *)(fields + 8) + randomSignedOffset(0xE0000);
         spawnY = *(s32 *)(fields + 0x0C) + randomSignedOffset(0x20000);

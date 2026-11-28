@@ -12,7 +12,7 @@ struct Entity { u8 _0[2]; u16 touchFlags; };
 /* Move an entity by its velocity: apply gravity to the Y velocity, probe other
  * entities for collisions, resolve the terrain slope under the X step, and cap
  * the Y step at the floor, recording contacts in the entity's touch flags. */
-void moveEntityWithCollision(void *entity, s32 accel) {
+/* Move an entity by its velocity under gravity: probe other entities for collisions, resolve the tilemap's vertical clearance at the new X, and clamp the Y step while recording contacts in the entity's touch flags. */ void moveEntityWithCollision(void *entity, s32 accel) {
     s32 probe[5];       /* out from the collision probe: {u16 flags, s32 dx, s32 dy} */
     s32 probeHit;
     s32 yLimit;

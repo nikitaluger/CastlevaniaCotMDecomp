@@ -1,6 +1,6 @@
 extern s32 getAngleFromDelta(s32 dy, s32 dx); /* atan2-style heading toward a point */
 extern void stepAnimationTrack(void *sprite, void *animState);
-extern s32 sub_0801473C(s32 fromAngle, s32 toAngle); /* -1/0/1 shortest turn */
+extern s32 getAngleTurnDirection(s32 fromAngle, s32 toAngle); /* -1/0/1 shortest turn */
 extern void setPolarOffset(void *work, s32 heading, s32 speed);
 extern void advanceMotion(void *work, s32 accelY);
 
@@ -32,7 +32,7 @@ void sub_08035220(u8 *self) {
         {
             s32 deltaY = (s32)gMainWorkspace.hi - *(s32 *)(work + 0x0C);
             s32 deltaX = (s32)gMainWorkspace.lo - *(s32 *)(work + 8);
-            turnDir = sub_0801473C(heading, getAngleFromDelta(deltaY, deltaX));
+            turnDir = getAngleTurnDirection(heading, getAngleFromDelta(deltaY, deltaX));
         }
         if (turnDir != -1) {
             if (turnDir == 1) {

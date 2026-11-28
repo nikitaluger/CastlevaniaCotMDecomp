@@ -75,10 +75,10 @@ void sub_0803925C(struct ScriptedObject3925C *arg0)
   u32 priority;
   u8 *camera;
   u8 *workspace;
-  u32 scrollIdx;
   u8 *scriptPtr;
   u8 *scriptBytePtr;
   u32 *scriptOps;
+  s32 *temp;
 
   sprite = allocSpriteObject();
   if (sprite == NULL) goto fail;
@@ -98,11 +98,11 @@ void sub_0803925C(struct ScriptedObject3925C *arg0)
   animTable = D_080CF0C4;
   work->gfx = allocEffectPart();
   if (work->gfx == NULL) goto fail;
-  layer = 8;
-  priority = 1;
   work->gfx->kind = 0;
-  work->gfx->layer = layer;
-  work->gfx->priority = priority;
+  layer = 8;
+  work->gfx->layer = 8;
+  work->gfx->priority = 1;
+    priority = 1;
   work->gfx->gfxIndex = gEffectGfxTable[work->kind].gfxIndex;
   work->gfx->anim0 = animTable[0];
   work->gfx->anim1 = animTable[1];
@@ -111,30 +111,33 @@ void sub_0803925C(struct ScriptedObject3925C *arg0)
   work->gfx->palette = gEffectGfxTable[work->kind].palette;
   work->gfx->object = (u32)sprite;
   {
-    u16 *animTable2 = animTable + 4;
+    u16 *animTable2;
+    animTable2 = animTable + 4;
   }
+  temp = (s32 *)(((u8 *)arg0) + 0x24);
   work->gfx2 = allocEffectPart();
   if (work->gfx2 != NULL) goto main;
 fail:
-  _call_via_r1((u8 *)arg0, *(s32 *)(((u8 *)arg0) + 0x24));
+  _call_via_r1((u8 *)arg0, *temp);
   goto end;
 main:
   work->gfx2->kind = 0;
   work->gfx2->layer = layer;
   work->gfx2->priority = priority;
   work->gfx2->gfxIndex = gEffectGfxTable[work->kind].gfxIndex;
-  work->gfx2->anim0 = animTable[1];
-  work->gfx2->anim1 = animTable[2];
-  work->gfx2->anim2 = animTable[3];
-  work->gfx2->anim3 = animTable[4];
+  work->gfx2->anim0 = animTable[4];
+  work->gfx2->anim1 = animTable[1];
+  work->gfx2->anim2 = animTable[2];
+  work->gfx2->anim3 = animTable[3];
   work->gfx2->palette = gEffectGfxTable[work->kind].palette;
   work->gfx2->object = (u32)sprite;
   camera = (u8 *)(&gCameraState);
-  workspace = (u8 *)(&gMainWorkspace) + 0x18A8;
-  scrollIdx = ((u32)*workspace + 1) * 0x40;
-  *(u32 *)((u8 *)sprite + 0x14) = work->worldX - ((*(u32 *)(camera + 0x1278 + scrollIdx) + 0x8000) & 0xFFFF0000);
-  scrollIdx = ((u32)*workspace + 1) * 0x40;
-  *(u32 *)((u8 *)sprite + 0x18) = work->worldY - ((*(u32 *)(camera + 0x127C + scrollIdx) + 0xFFFF8000) & 0xFFFF0000);
+  workspace = (u8 *)(&gMainWorkspace);
+  workspace += 0x18A8;
+  layer = ((u32)*workspace + 1) * 0x40;
+  *(u32 *)((u8 *)sprite + 0x14) = work->worldX - (((*((u32 *)(camera + 0x1278 + layer))) + 0x8000) & 0xFFFF0000);
+  layer = ((u32)*workspace + 1) * 0x40;
+  *(u32 *)((u8 *)sprite + 0x18) = work->worldY - (((*((u32 *)(camera + 0x127C + layer))) + 0xFFFF8000) & 0xFFFF0000);
   arg0->flags |= 0x1000;
   scriptBytePtr = (u8 *)((u32)(2 * arg0->index) + (u32)arg0) + 0x19;
   *scriptBytePtr = 0;
@@ -145,8 +148,10 @@ main:
   *scriptBytePtr = (u8)((*scriptBytePtr) + 1);
   scriptPtr += (u32)(2 * arg0->index);
   {
-    u8 opcode = *scriptPtr;
-    void *handler = ((void **)(*((void **)((u8 *)arg0 + 0x14))))[opcode];
+    u8 opcode;
+    void *handler;
+    opcode = *scriptPtr;
+    handler = ((void **)(*((void **)((u8 *)arg0 + 0x14))))[opcode];
     _call_via_r1((u8 *)arg0, (s32)handler);
   }
 end:

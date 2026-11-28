@@ -1,5 +1,5 @@
 extern s32 stepDelayTimer(void *, void *);
-extern s32 sub_0806D35C(void *, void *, void *);
+extern s32 applyAreaEffectBehavior(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void setDirectionVector(void *, u32);
 extern void sub_080C31E0(void *, void *);
@@ -34,7 +34,7 @@ void sub_080751C4(void *arg0) {
     actor = *(void **)((u8 *)arg0 + 0x6C);
     mover = (u8 *)actor + 4;
     world = *(void **)((u8 *)arg0 + 0x38);
-    if (sub_0806D35C(arg0, world, mover) != 0)
+    if (applyAreaEffectBehavior(arg0, world, mover) != 0)
         return;
 
     angle = *(u32 *)((u8 *)mover + 0x54);

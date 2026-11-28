@@ -1,4 +1,4 @@
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void cullOffscreenEntity(void *, void *);
 extern void sub_0808DBF8(s32, s32, s32);
@@ -32,7 +32,7 @@ void sub_08081874(u8 *owner)
     u8 *entity;
     state = (u8 *)(*((u8 **)(owner + 0x6C))) + 4;
     entity = *((u8 **)(owner + 0x38));
-    if (sub_0806D450(owner, entity, state) > 0)
+    if (applyAreaSpecialBehavior(owner, entity, state) > 0)
     {
         sub_080C31E0(owner, *((void **)(owner + 0x24)));
         return;

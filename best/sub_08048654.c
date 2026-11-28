@@ -9,8 +9,8 @@ s32 getAngleFromDelta(s32, s32);
 void advanceMotion(void *, s32);
 void setSpriteFlip(void *, s32);
 void setPolarOffset(void *, ...);
-s32 sub_0801473C(s32, s32);
-void sub_08049180(void *, void *, void *, void *);
+s32 getAngleTurnDirection(s32, s32);
+void applyHomingContactRecoil(void *, void *, void *, void *);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -37,13 +37,13 @@ void sub_08048654(void *arg0)
     v5 -= *(s32 *)((u8 *)r6 + 0x08);
 
     rr = getAngleFromDelta(v1, v5);
-    *(s32 *)((u8 *)r7 + 0x08) += sub_0801473C(*(s32 *)((u8 *)r7 + 0x08), rr) << 9;
+    *(s32 *)((u8 *)r7 + 0x08) += getAngleTurnDirection(*(s32 *)((u8 *)r7 + 0x08), rr) << 9;
     *(s32 *)((u8 *)r7 + 0x04) += 0xFFFFF400;
 
     setPolarOffset(r6);
     advanceMotion(r6, 0);
     setSpriteFlip(r8, *(s32 *)((u8 *)r7 + 0x08));
-    sub_08049180(r8, sp0, r6, r7);
+    applyHomingContactRecoil(r8, sp0, r6, r7);
 
     if (*(s32 *)((u8 *)r7 + 0x04) <= 0)
     {

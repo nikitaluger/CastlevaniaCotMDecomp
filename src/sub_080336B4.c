@@ -1,5 +1,5 @@
 extern void uploadPendingSpriteGraphic(void *, void *);
-extern s32 sub_08014328(void *, void *, void *);
+extern s32 updateMotionState(void *, void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
@@ -34,7 +34,7 @@ void sub_080336B4(u8 *entity)
     uploadPendingSpriteGraphic((void *)*((u32 *)(entity + 0x28)), (void *)*((u32 *)(motion + 0x28)));
 
     posePtr = entity + 0x22;
-    if (sub_08014328((void *)*((u32 *)(entity + 0x28)), sprite, motion) == 0)
+    if (updateMotionState((void *)*((u32 *)(entity + 0x28)), sprite, motion) == 0)
     {
         s16 poseIndex;
         s32 byteOffset;

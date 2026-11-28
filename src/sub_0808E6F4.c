@@ -1,6 +1,6 @@
 extern s32 sub_0808DBB4(s32 x, s32 y, s32 kind);
 extern s32 sub_0808DBF8(s32 x, s32 y, s32 kind);
-extern s32 sub_0808DC40(s32 x, s32 y, s32 kind);
+extern s32 spawnVariant2Effect(s32 x, s32 y, s32 kind);
 extern void sub_080C31E0(void *actor, s32 handler);
 
 /* Steps a falling projectile: optionally spawns a trail particle of the selected
@@ -23,7 +23,7 @@ void sub_0808E6F4(void *arg0)
             sub_0808DBF8(*((s32 *) (((s8 *) arg0) + 0x4C)), *((s32 *) (((s8 *) arg0) + 0x9C)), 8);
             break;
           case 2:
-            sub_0808DC40(*((s32 *) (((s8 *) arg0) + 0x4C)), *((s32 *) (((s8 *) arg0) + 0x9C)), 8);
+            spawnVariant2Effect(*((s32 *) (((s8 *) arg0) + 0x4C)), *((s32 *) (((s8 *) arg0) + 0x9C)), 8);
             break;
         }
     }

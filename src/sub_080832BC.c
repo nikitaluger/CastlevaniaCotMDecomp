@@ -1,7 +1,7 @@
 extern void startEffectTimer(void *, s32, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
-extern s32 sub_080C36E4(s32, s32);
+extern s32 signedRemainder(s32, s32);
 extern u32 D_080E5E58[];
 extern u32 D_080E5E88[];
 
@@ -34,9 +34,9 @@ void sub_080832BC(u8 *arg0)
   ctxCallbacks = (void **) (ctx + 0x14);
   durationTable12 = D_080E5E58;
   paramPtr = arg0 + 0x9C;
-  *ctxCallbacks = (void *) durationTable12[sub_080C36E4(*((s32 *) paramPtr), 0x0C)];
+  *ctxCallbacks = (void *) durationTable12[signedRemainder(*((s32 *) paramPtr), 0x0C)];
   durationTable7 = D_080E5E88;
-  *((void **) (ctx + 0x18)) = (void *) durationTable7[sub_080C36E4(*((s32 *) paramPtr), 0x07)];
+  *((void **) (ctx + 0x18)) = (void *) durationTable7[signedRemainder(*((s32 *) paramPtr), 0x07)];
   *((u8 *) ((arg0 + ((*((s16 *) (arg0 + 0x22))) * 2)) + 0x19)) = zero;
   {
     u32 *effectIds = (u32 *) 0x08671BB0;

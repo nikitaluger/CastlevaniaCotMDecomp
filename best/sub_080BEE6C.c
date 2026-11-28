@@ -1,6 +1,6 @@
 extern u8 gCameraState[];
 extern u16 gCrossfadeGfxState[];
-extern vu8 D_04000005;
+extern vu8 gVcountCompare;
 s32 divideInt(s32, s32);
 void sub_080BEE6C(void)
 {
@@ -82,5 +82,5 @@ void sub_080BEE6C(void)
     }
 
   }
-  D_04000005 = 0x4B;
+  gVcountCompare = 0x4B;
 }

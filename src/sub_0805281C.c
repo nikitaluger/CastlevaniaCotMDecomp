@@ -1,4 +1,4 @@
-void *sub_0808DC40(s32, s32, u32);
+void *spawnVariant2Effect(s32, s32, u32);
 void sub_080C31E0(void *, u32);
 
 /* Scripted object header: the handler run by the command script sits at 0x24,
@@ -16,6 +16,6 @@ struct MainObj {
  * handler at +0x24. */
 void sub_0805281C(struct MainObj *arg0) {
     void *work = (void *)arg0->work;
-    sub_0808DC40(*(s32 *)((u8 *)work + 8), *(s32 *)((u8 *)work + 0xC), 8);
+    spawnVariant2Effect(*(s32 *)((u8 *)work + 8), *(s32 *)((u8 *)work + 0xC), 8);
     sub_080C31E0(arg0, arg0->updateCb);
 }

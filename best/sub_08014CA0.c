@@ -44,7 +44,7 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   int new_var2;
   ;
   ;
-  half = (arg3 + inline_fn2(arg3)) >> 1;
+  half = arg3 / 2;
   if (arg7 < (0x7FFF + 1))
   {
     new_var2 = (arg4 + 0x4000); base = half + new_var2;
@@ -119,4 +119,3 @@ s32 sub_08014CA0(volatile unsigned int arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
   }
   return 1;
 }
-

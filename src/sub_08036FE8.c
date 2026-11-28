@@ -2,7 +2,7 @@ extern u8 gMainWorkspace[];
 extern s32 gMainObjTimerCallbacks;
 extern void *spawnBudgetedEffect(s32, s32);
 s32 stepAnimationTrack(s32, s32);
-s32 sub_080148C0(void *, s32, s32);
+s32 addFacingOffsetToX(void *, s32, s32);
 void sub_0803B140(u32, void *, void *, void *);
 void sub_0803B194(void *);
 s32 sub_080C31E4(void *, void *, s32);
@@ -31,7 +31,7 @@ void sub_08036FE8(u8 *behav) {
         if (proj != 0) {
             objParam = *(u8 *)(self + 0x4C);
             *(u8 *)((u8 *)proj + 0x4C) = objParam;
-            *(s32 *)((u8 *)proj + 0x5C) = sub_080148C0(owner, (s32)target, 0xFFD80000);
+            *(s32 *)((u8 *)proj + 0x5C) = addFacingOffsetToX(owner, (s32)target, 0xFFD80000);
             *(s32 *)((u8 *)proj + 0x6C) = *(s32 *)((u8 *)owner + 0x0C) + 0xFFE00000;
             if (*(u16 *)((u8 *)target + 2) & 0x10) {
                 *(s32 *)((u8 *)proj + 0x7C) = 0x80 << 4;

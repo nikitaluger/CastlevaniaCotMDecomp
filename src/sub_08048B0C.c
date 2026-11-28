@@ -1,7 +1,7 @@
 extern void setAnimationFrame(void *, void *, s32, s32);
 extern void advanceMotion(void *, s32);
 extern void setPolarOffset(void *, s32, s32);
-extern void sub_08049180(void *, void *, void *, void *);
+extern void applyHomingContactRecoil(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, u32);
 
 /* Steering block at motion+0x48: +4 is the speed counter, +8 the travel angle. */
@@ -23,7 +23,7 @@ void sub_08048B0C(void *entity) {
     steer = (struct HomingSteer *)((u8 *)motion + 0x48);
     steer->speed = steer->speed + 0xFFFFE000;
     setPolarOffset(motion, steer->angle, steer->speed);
-    sub_08049180(sprite, collision, motion, steer);
+    applyHomingContactRecoil(sprite, collision, motion, steer);
     advanceMotion(motion, 0);
     if (steer->speed <= 0) {
         steer->angle = (steer->angle + 0x8000) & 0xFFFF;

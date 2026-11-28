@@ -1,5 +1,5 @@
 extern u8 gMainWorkspace[];
-s32 sub_0806D35C(void *, void *, void *);
+s32 applyAreaEffectBehavior(void *, void *, void *);
 void setSpriteScreenPosition(void *, void *);
 void sub_080C31E0(void *, void *);
 s32 divInt32(s32, s32);
@@ -16,7 +16,7 @@ void sub_08075564(void *arg0)
   p4 = ((u8 *) p6c) + 4;
   p38 = *((void **) (((u8 *) arg0) + 0x38));
   alias = ((u8 *) p6c) + 4;
-  if (sub_0806D35C(arg0, p38, p4) != 0)
+  if (applyAreaEffectBehavior(arg0, p38, p4) != 0)
   {
     return;
   }

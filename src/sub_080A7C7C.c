@@ -2,7 +2,7 @@ extern u32 D_081020DC[];
 extern void *gMainObjTimerCallbacks;
 extern s32 getAngleFromDelta(s32 a, s32 b);
 extern u32 scaleByRandom(u32 a);
-extern s32 sub_0801473C(s32 a, s32 b);
+extern s32 getAngleTurnDirection(s32 a, s32 b);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, void *);
 
@@ -46,7 +46,7 @@ void sub_080A7C7C(void *arg0)
     chosenAngle = r0 + angleBase;
   }
   while (chosenAngle == ((u32) currentAngle));
-  r0 = sub_0801473C(currentAngle, chosenAngle);
+  r0 = getAngleTurnDirection(currentAngle, chosenAngle);
   r1 = ((u8 *) ai) + 0xC4;
   turnRateSlot = ((u8 *) ai) + 0xD0;
   *((u32 *) r1) = chosenAngle;

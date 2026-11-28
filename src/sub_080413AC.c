@@ -5,7 +5,7 @@ extern void *allocSpriteObject(void);
 extern s16 findKindIndex(s16);
 extern void sub_080C31E0(void *, void *);
 extern void sub_08041458(void);
-extern s16 D_080CF4C0[];
+extern s16 gEnemyActionKindTable[];
 
 void sub_080413AC(void *self)
 {
@@ -25,7 +25,7 @@ void sub_080413AC(void *self)
         return;
     }
     *(void **)((u8 *)self + 0x38) = animCtrl;
-    { s16 *table = D_080CF4C0; tableIndex = findKindIndex(table[((u8 *)self)[0x74] * 2]); index16 = (u16)tableIndex; }
+    { s16 *table = gEnemyActionKindTable; tableIndex = findKindIndex(table[((u8 *)self)[0x74] * 2]); index16 = (u16)tableIndex; }
     if ((tableIndex << 16) < 0) {
         sub_080C31E0(self, *(void **)((u8 *)self + 0x24));
         return;

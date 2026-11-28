@@ -1,4 +1,4 @@
-extern s32 sub_08007B78(void *, s32, s32);
+extern s32 getMapTileAttribute(void *, s32, s32);
 extern u8 gMainWorkspace[];
 extern u8 gTilemapPages[];
 
@@ -38,14 +38,14 @@ s32 sub_0806D6B4(u8 *move) {
     if (y >= (*(s16 *)(mapBase + 0x12) << 21))
         return 0;
 
-    if (sub_08007B78(mapBase, x, y) << 16) {
+    if (getMapTileAttribute(mapBase, x, y) << 16) {
         i = 0;
         if (i < steps) {
             do {
                 y = *(s32 *)(move + 4);
                 y += 0xFFFF0000;
                 *(s32 *)(move + 4) = y;
-                if ((sub_08007B78(mapBase, *(s32 *)(move + 0), y) << 16) == 0)
+                if ((getMapTileAttribute(mapBase, *(s32 *)(move + 0), y) << 16) == 0)
                     return 0;
                 i++;
             } while (i < steps);
@@ -55,7 +55,7 @@ s32 sub_0806D6B4(u8 *move) {
         i = 0;
         if (i < steps + 1) {
             do {
-                if (sub_08007B78(mapBase, *(s32 *)(move + 0), *(s32 *)(move + 4) + 0x10000) << 16)
+                if (getMapTileAttribute(mapBase, *(s32 *)(move + 0), *(s32 *)(move + 4) + 0x10000) << 16)
                     return 0;
                 *(s32 *)(move + 4) += 0x10000;
                 i++;

@@ -1,9 +1,9 @@
-s32 sub_0806D35C(void *, s32, void *);
+s32 applyAreaEffectBehavior(void *, s32, void *);
 s32 stepDelayTimer(s32, s32);
 void sub_0807F588(void *, void *);
 void startEffectTimer(s32, s32, s32);
 void sub_0806D588(s32, void *);
-void sub_0808DC40(s32, s32, s32);
+void spawnVariant2Effect(s32, s32, s32);
 void sub_080C31E0(void *, s32);
 void sub_080C31E4(void *, void *, s32);
 
@@ -28,7 +28,7 @@ void sub_0807F934(u8 *entity)
     u8 *comp = *(u8 **)(entity + 0x6C);
     u8 *ctx = comp + 4;
     s32 stateObj = *(s32 *)(entity + 0x38);
-    s32 action = sub_0806D35C(entity, stateObj, ctx);
+    s32 action = applyAreaEffectBehavior(entity, stateObj, ctx);
     if ((u32)(action - 2) <= 1) {
         sub_0807F588(entity, ctx);
     }
@@ -50,7 +50,7 @@ void sub_0807F934(u8 *entity)
         gMainWorkspace.field14FC = *(s32 *)(comp + 4);
         gMainWorkspace.field1500 = *(s32 *)(ctx + 4);
         if (gMainWorkspace.gameMode != 0x8A) {
-            sub_0808DC40(*(s32 *)(comp + 4), *(s32 *)(ctx + 4), 0);
+            spawnVariant2Effect(*(s32 *)(comp + 4), *(s32 *)(ctx + 4), 0);
             sub_080C31E0(entity, *(s32 *)(entity + 0x24));
         }
     }

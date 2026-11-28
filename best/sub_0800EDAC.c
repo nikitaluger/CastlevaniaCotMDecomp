@@ -4,7 +4,7 @@ void sub_0806D930(void *);
 extern u8 gGameStatus[];
 extern u8 gMenuState[];
 extern u16 D_080CB052[];
-static inline u32 inline_fn(u16 arg0)
+inline static u32 inline_fn(u16 arg0)
 {
   return ((u32) arg0) << 1;
 }
@@ -68,7 +68,7 @@ void sub_0800EDAC(s32 arg0)
 
     case 2:
     {
-      u8 *q = obj + ((s8) obj[0x6D]);
+      u8 *q = obj - (-((s8) obj[0x6D]));
       u8 val = q[0xB3];
       obj[0x44] = val;
       break;

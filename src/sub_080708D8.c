@@ -13,7 +13,7 @@ struct GameState
 };
 extern struct GameState gMainWorkspace;
 extern u8 gTilemapPages[];
-s32 sub_0806D450(void *, void *, void *);
+s32 applyAreaSpecialBehavior(void *, void *, void *);
 void sub_0806D588(void *, void *);
 s16 getTileTerrainB(u8 *, s32, s32);
 void spawnKind2CEntity(s32, s32, s32, s32);
@@ -29,7 +29,7 @@ void sub_080708D8(u8 *arg0)
   u8 *mover = actor + 4;
   u8 *world = *(u8 **)(arg0 + 0x38);
   s16 hitType;
-  if (sub_0806D450(arg0, world, mover) > 0) goto abort;
+  if (applyAreaSpecialBehavior(arg0, world, mover) > 0) goto abort;
   *(s32 *)(actor + 4) += *(s32 *)(mover + 8);
   sub_0806D588(world, mover);
   if ((*(u16 *)(*((u8 **)(mover + 0x3C)) + 0x14) & 1) == 0) goto checkCollision;

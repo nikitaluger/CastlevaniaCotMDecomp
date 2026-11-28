@@ -9,7 +9,7 @@ struct S_02025368
 extern struct S_02025368 gGameStatus;
 extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
-extern u32 D_0866EB08[];
+extern u32 gMapTileRows[];
 s32 sub_08061C9C(s32, s32);
 void sub_08061D30(s32, s32);
 
@@ -35,7 +35,7 @@ void sub_08061B90(s32 x, s32 y)
         s32 maxY = (*((s16 *) (coordTable + 0x1272))) << 21;
         if (y < maxY)
         {
-          u32 tileTableBase = (u32) D_0866EB08;
+          u32 tileTableBase = (u32) gMapTileRows;
           u8 *patternPtr = ((u8 *) state) + 0x94;
           u32 *tileList = (u32 *) (((*patternPtr) << 2) + tileTableBase);
           u8 tileOffset;

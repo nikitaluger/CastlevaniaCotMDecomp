@@ -9,7 +9,7 @@ struct S_02025FF0 {
     u16 sprite18C2;
 };
 extern struct S_02025FF0 gMainWorkspace;
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void _call_via_r1(void *, s32);
@@ -26,7 +26,7 @@ void sub_0807A960(u8 *self) {
     object = *(u8 **)(self + 0x6C);
     pos = object + 4;
     sprite = *(u8 **)(self + 0x38);
-    if (sub_0806D450(self, sprite, pos) > 0) {
+    if (applyAreaSpecialBehavior(self, sprite, pos) > 0) {
         _call_via_r1(self, *(s32 *)(self + 0x24));
         return;
     }

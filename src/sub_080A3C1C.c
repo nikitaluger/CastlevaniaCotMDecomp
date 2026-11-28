@@ -1,6 +1,6 @@
 extern void sub_08005E80(s32);
 extern void moveEntityWithCollision(u8 *, s32);
-extern void sub_0808DC40(s32, s32, s32);
+extern void spawnVariant2Effect(s32, s32, s32);
 extern void sub_0808DC88(s32, s32, s32);
 extern void sub_0808E670(s32, s32, s32, s32);
 extern void sub_080C050C(s32);
@@ -29,7 +29,7 @@ void sub_080A3C1C(u8 *entity) {
     }
     moveEntityWithCollision(body, 0x16C1);
     if (!(*(u8 *)(entity + *(s16 *)(entity + 0x22) * 2 + 0x19) & 3)) {
-        sub_0808DC40(*(s32 *)(body + 8), *(s32 *)(body + 0xC), 8);
+        spawnVariant2Effect(*(s32 *)(body + 8), *(s32 *)(body + 0xC), 8);
     }
     if (*(u16 *)(body + 2) != 0) {
         sub_080C050C(0x186);

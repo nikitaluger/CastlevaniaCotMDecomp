@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 s32 randomSignedOffset(s32);                              /* extern */
 M2C_UNK sub_0808DBB4(s32, s32, s32);                /* extern */
 M2C_UNK sub_0808DBF8(s32, s32, s32);                /* extern */
-M2C_UNK sub_0808DC40(s32, s32, s32);                /* extern */
+M2C_UNK spawnVariant2Effect(s32, s32, s32);                /* extern */
 
 /* Spawns `count` objects of the selected kind at positions jittered around
  * (baseX, baseY) by a signed random offset within the given ranges. */
@@ -36,7 +36,7 @@ void spawnJitteredParticles(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s3
                 sub_0808DBF8(x, y, 8);
                 break;
             case 2:
-                sub_0808DC40(x, y, 8);
+                spawnVariant2Effect(x, y, 8);
                 break;
             }
             remaining -= 1;

@@ -37,6 +37,8 @@ void sub_080C31E4(void *, void *, void *);
 
 void sub_0800D860(u8 *a)
 {
+    void **__base_gPoseScriptCallbacks;
+    void **__base_gMainObjTimerCallbacks;
     u32 *tbl;
     struct St *g;
     s8 *p6A;
@@ -46,12 +48,12 @@ void sub_0800D860(u8 *a)
     u32 r_1;
     u32 r_2;
     u32 r_3;
-    u32 r_4;
+    
     u16 v;
     s32 i;
     u32 t;
     u16 temp;
-    u16 temp2;
+    
     tbl = gGameStatus;
     g = &gMenuState;
     p6A = &g->c6A;
@@ -65,8 +67,7 @@ void sub_0800D860(u8 *a)
         sub_0806D930(g);
     }
     temp = gCameraState.c1470;
-    r_1 = 0x200;
-    r_1 &= temp;
+    r_1 = 0x200 & temp;
     if (r_1 != 0) {
         s32 i_arm;
         *p6A = *p6A - 1;
@@ -75,9 +76,8 @@ void sub_0800D860(u8 *a)
         if (g->cF3[i_arm] == 0) *p6A = *p6A - 1;
         if ((s8)*p6A < 0) *p6A = 3;
     }
-    temp2 = gCameraState.c1470;
-    r_2 = 0x100;
-    r_2 &= temp2;
+    temp = gCameraState.c1470;
+    r_2 = 0x100 & temp;
     if (r_2 != 0) {
         *p6A = *p6A + 1;
         if ((s8)*p6A > 3) *p6A = 0;
@@ -85,8 +85,7 @@ void sub_0800D860(u8 *a)
         if (g->cF3[i] == 0) *p6A = *p6A + 1;
         if ((s8)*p6A > 3) *p6A = 0;
     }
-    r = 0x300;
-    r &= gCameraState.c1470;
+    r = 0x300 & gCameraState.c1470;
     if (r != 0) {
         u32 t_arm;
         playSound(0xA7 * 2);
@@ -96,8 +95,7 @@ void sub_0800D860(u8 *a)
         sub_0800F3C8(g->c69, 0);
         sub_0800EDAC(0);
         i = *p6A;
-        t_arm = (s8)g->c6B[i];
-        t_arm = t_arm + (i << 5);
+        t_arm = ((s8)g->c6B[i]) + (i << 5);
         sub_0800EF3C(*(u8 *)((u8 *)g + 0x73 + t_arm));
         return;
     }
@@ -107,17 +105,14 @@ D9A4:
         u8 *q = &g->c6B[idx];
         s32 saved;
         saved = (s8)*q;
-        r_arm = 0xC0;
-        r_arm &= gCameraState.c1470;
+        r_arm = 0xC0 & gCameraState.c1470;
         if (r_arm != 0xC0) {
-            r_arm = 0x40;
-            r_arm &= gCameraState.c1470;
+            r_arm = 0x40 & gCameraState.c1470;
             if (r_arm != 0) {
                 if ((s8)*q > 1) *q = *q - 2;
             }
         }
-        r_arm = 0x80;
-        r_arm &= gCameraState.c1470;
+        r_arm = 0x80 & gCameraState.c1470;
         if (r_arm != 0) {
             s32 a1;
             u8 lim = g->cF3[idx];
@@ -125,8 +120,7 @@ D9A4:
             if (a1 < lim) *q = *q + 2;
             else if (lim & 1) *q = lim - 1;
         }
-        r_arm = 0x30;
-        r_arm &= gCameraState.c1470;
+        r_arm = 0x30 & gCameraState.c1470;
         if (r_arm != 0x30 && r_arm != 0) {
             u8 x;
             x = *q;
@@ -136,7 +130,7 @@ D9A4:
         if (saved != (s8)*q) {
             playSound(0x139);
             sub_0800EDAC(0);
-            sub_0800EF3C(g->c73[idx * 32 + (s8)*q]);
+            sub_0800EF3C(g->c73[(s8)*q + idx * 32]);
         }
         {
             u8 *rp = &g->c6F[idx];
@@ -166,7 +160,8 @@ D9A4:
     v = gCameraState.c146C;
     r_3 = 2;
     r_3 &= v;
-    t = (u16)r_3;
+    idx = (u16)r_3;
+    t = idx;
     if (t != 0) {
         void **pp;
         void *obj;
@@ -182,15 +177,17 @@ D9A4:
             d = a + ((s16)*(u16 *)(a + 0x22) << 1);
             d[0x19] = 0;
         }
-        sub_080C31E4(a + 0x18, a + 0x22, *(void **)&gPoseScriptCallbacks);
+        __base_gPoseScriptCallbacks = &gPoseScriptCallbacks;
+        sub_080C31E4(a + 0x18, a + 0x22, *(void **)__base_gPoseScriptCallbacks);
         return;
     }
-    r_4 = 1;
-    r_4 &= v;
-    if (r_4 != 0) {
+    t = 1;
+    t &= v;
+    if (t != 0) {
         u8 *d;
         d = a + ((s16)*(u16 *)(a + 0x22) << 1);
+        __base_gMainObjTimerCallbacks = &gMainObjTimerCallbacks;
         d[0x19] = 0;
-        sub_080C31E4(a + 0x18, a + 0x22, *(void **)&gMainObjTimerCallbacks);
+        sub_080C31E4(a + 0x18, a + 0x22, *(void **)__base_gMainObjTimerCallbacks);
     }
 }

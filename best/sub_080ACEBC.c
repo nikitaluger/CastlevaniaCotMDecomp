@@ -19,6 +19,7 @@ extern f32 m2c_fbits;
 s32 getAngleFromDelta(s32, s32);                         /* extern */
 s32 fixedPointDistance(s32, s32);                         /* extern */
 
+struct __rows_sp34_4 { struct { s32 m0; } e[1]; };
 void sub_080ACEBC(void *arg0, void *arg1) {
   s32 *__repair_entry_var_r10;
     s32 sp0;
@@ -29,10 +30,6 @@ void sub_080ACEBC(void *arg0, void *arg1) {
     s32 *sp14;
     s32 *sp18;
     
-    void *sp20;
-    void *sp24;
-    void *sp28;
-    void *sp2C;
     u32 sp30;
     void *sp34;
     void *sp38;
@@ -50,7 +47,6 @@ s32 *__repair_phase_sp54;
     s32 *var_r8;
     s32 *var_r8_2;
     s32 temp_r0_2;
-    s32 temp_r0_4;
     s32 temp_r0_5;
     s32 temp_r0_6;
     s32 temp_r2_6;
@@ -118,17 +114,17 @@ s32 *__repair_phase_sp54;
     temp_r2_3 = arg0 + 0xE0;
     sp48 = temp_r2_3;
     sp34 = sp8 + 0xC;
-    sp2C = temp_r7 + 0xB0;
-    sp20 = temp_r0_3 + 0x9C;
-    sp24 = temp_r1_2 + 0x9C;
-    sp28 = temp_r2_3 + 0xC;
+    temp_r7 += 0xB0;
+    temp_r0_3 += 0x9C;
+    temp_r1_2 += 0x9C;
+    temp_r2_3 += 0xC;
     sp14 = arg0 + 0x170;
     sp18 = arg0 + 0x16C;
     sp4 = 0;
     var_r10 = &sp0;
     do {
         __repair_entry_var_r10 = var_r10;
-        var_r9 = 0;
+        /*__repair_loop_weight*/do {do {do { var_r9 = 0; } while (0);} while (0);} while (0);
         var_r8 = sp4 + sp44;
         var_r3 = sp4 + sp40;
         var_r4 = sp4 + sp38;
@@ -141,9 +137,9 @@ s32 *__repair_phase_sp54;
             do { sp50 = var_r3; } while (0);
             *sp54 = getAngleFromDelta(M2C_FIELD(temp_r2_4, s32 *, 0x7C) - *sp14, M2C_FIELD(temp_r2_4, s32 *, 0x6C) - *sp18);
             temp_r2_5 = *var_r4;
-            temp_r0_4 = fixedPointDistance(*sp18 - M2C_FIELD(temp_r2_5, s32 *, 0x6C), *sp14 - M2C_FIELD(temp_r2_5, s32 *, 0x7C));
-            *var_r3 = temp_r0_4;
-            *var_r8 = temp_r0_4;
+            sp0 = fixedPointDistance(*sp18 - M2C_FIELD(temp_r2_5, s32 *, 0x6C), *sp14 - M2C_FIELD(temp_r2_5, s32 *, 0x7C));
+            *var_r3 = sp0;
+            *var_r8 = sp0;
             var_r8 += 0x14;
             var_r3 += 0x14;
             var_r4 += 0x14;
@@ -161,15 +157,15 @@ s32 *__repair_phase_sp54;
     do {
         temp_r2_6 = spC * 0x3C;
         var_r4_2 = sp48 + temp_r2_6;
-        temp_r3 = *(s32 *)(sp34 + (spC * 4));
+        temp_r3 = (((struct __rows_sp34_4 *)sp34)->e[spC].m0);
         *var_r4_2 = M2C_FIELD(temp_r3, M2C_UNK **, 0x6C);
-        *(s32 *)(sp2C + temp_r2_6) = M2C_FIELD(temp_r3, s32 *, 0x7C);
+        *(s32 *)(temp_r7 + temp_r2_6) = M2C_FIELD(temp_r3, s32 *, 0x7C);
         *(s32 *)(arg0 + 0x108 + temp_r2_6) = M2C_FIELD(temp_r3, s32 *, 0x8C);
         var_r9_2 = 0;
         sp30 = spC + 1;
-        var_r8_2 = sp28 + temp_r2_6;
-        var_r3_2 = temp_r2_6 + sp24;
-        __repair_phase_sp54 = temp_r2_6 + sp20;
+        var_r8_2 = temp_r2_3 + temp_r2_6;
+        var_r3_2 = temp_r2_6 + temp_r1_2;
+        __repair_phase_sp54 = temp_r2_6 + temp_r0_3;
         var_r5_3 = temp_r2_6 + (arg0 + 0xF0);
 loop_8:
         *var_r5_3 = 2;
@@ -183,7 +179,7 @@ loop_8:
         var_r8_2 += 0x14;
         var_r3_2 += 0x14;
         var_r4_2 += 0x14;
-        __repair_phase_sp54 += 0x14;
+        do { __repair_phase_sp54 += 0x14; } while (0);
         var_r5_3 += 0x14;
         var_r9_2 += 1;
         if (var_r9_2 <= 2U) {

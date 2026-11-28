@@ -1,7 +1,7 @@
 /* Entity tick: dispatches the current script command, then spawns periodic
  * effects/projectiles around the entity based on its facing direction and a
  * countdown timer; when the timer expires it calls the failure callback.
- * sub_080C36E4 is a remainder helper (a % b), so the two tests fire on timer
+ * signedRemainder is a remainder helper (a % b), so the two tests fire on timer
  * multiples of 6 and 3. */
 extern s32 scaleByRandom(s32);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
@@ -9,7 +9,7 @@ extern void spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
 extern s32 getSpriteFacingSign(u8 *);
 extern void sub_0801A310(s32, s32, s32, s32);
 extern s32 sub_080C31E0(s32, s32);
-extern s32 sub_080C36E4(s16, s32);
+extern s32 signedRemainder(s16, s32);
 
 /* Kind-55 scripted effect tick: dispatch the current script command, spawn periodic effects/projectiles around the entity based on facing and a countdown timer, then run the failure callback when the timer expires. */ void updateKind55Effect(u8 *self) {
     u8 *work;
@@ -52,10 +52,10 @@ extern s32 sub_080C36E4(s16, s32);
     if (facing < 0) {
         xOffset = 0x80 << 11;
     }
-    if ((sub_080C36E4(*(s16 *)(body + 0x16), 6) << 16) == 0) {
+    if ((signedRemainder(*(s16 *)(body + 0x16), 6) << 16) == 0) {
         spawnJitteredParticles(1, 2, *(u32 *)(entity + 0x08) + xOffset, *(u32 *)(entity + 0x0C) + 0xFFEE0000, 0x80 << 13, 0xC0 << 13);
     }
-    if ((sub_080C36E4(*(s16 *)(body + 0x16), 3) << 16) == 0) {
+    if ((signedRemainder(*(s16 *)(body + 0x16), 3) << 16) == 0) {
         xPos = *(u32 *)(entity + 0x08) + xOffset;
         if (xPos < 0) xPos += 0xFFFF;
         xGrid = xPos >> 16;

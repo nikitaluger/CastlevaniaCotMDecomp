@@ -7,7 +7,8 @@ extern void *allocEffectPart(void);
 extern void setAnimationFrame(u8 *, u8 *, s32, s32);
 extern void registerScriptObject(u8 *, s32);
 extern void updateRefSprite(void *);
-extern void sub_080149A4(void *, void *, u16 *, u16, s32);
+extern u32 scaleByRandom(u32);
+extern void updateFacingFlipTimer(void *, void *, u16 *, u16, s32);
 extern s32 getSpriteFacingSign(u8 *);
 extern s32 _call_via_r1(u8 *, s32);
 extern s32 _call_via_r2(u8 *, u8 *, s32);
@@ -81,7 +82,7 @@ void sub_0803D310(struct RefSpawnThread *thread)
     s32 *callbackSlot;
     struct RefSpawnPositionHolder *refHolder;
     s16 refType;
-    s32 facingSign;
+    
 
     refHolder = thread->refHolder;
     sprite = allocSpriteObject();
@@ -109,8 +110,8 @@ void sub_0803D310(struct RefSpawnThread *thread)
     work->spriteLayer->affine2 = gSpriteAffineParams[2];
     work->spriteLayer->affine3 = gSpriteAffineParams[3];
     work->spriteLayer->palette = ((struct RefSpawnKindEntry *)kindTable)[work->kind].mode;
-    work->spriteLayer->sprite = (u32)sprite;
     work->spriteLayer->timer = zero;
+    work->spriteLayer->sprite = (u32)sprite;
     attrs = (*(u16 *)sprite & 0xC00) |
           (((*(s16 *)((u8 *)work + 0x22) << 6) + 0x200) |
            ((*(u16 *)((u8 *)work + 0x22) + 8) << 12));
@@ -121,15 +122,15 @@ void sub_0803D310(struct RefSpawnThread *thread)
     { u32 scrollOffset = 0x1278; *(u32 *)(sprite + 0x14) = work->x - ((*(u32 *)(camera + scrollOffset + ((gMainWorkspace.frameCounter + 1) << 6)) + 0x8000) & 0xFFFF0000); }
     { u32 scrollOffset = 0x127C; *(u32 *)(sprite + 0x18) = work->y - ((*(u32 *)(camera + scrollOffset + ((gMainWorkspace.frameCounter + 1) << 6)) + 0xFFFF8000) & 0xFFFF0000); }
     {
-        u8 *animPos = anim + 0x14;
-        *(u16 *)(animPos + 8) = zero;
-        *(u16 *)(animPos + 0xA) = 0x28;
-        *(u32 *)(anim + 0x14) = work->x;
-        *(u32 *)(animPos + 4) = work->y;
+        u8 *anim14 = anim + 0x14;
+        *(u16 *)anim14 = zero;
+        *(u16 *)(anim14 + 4) = scaleByRandom(0x97) + 0x1e;
+        *(u16 *)(anim14 + 6) = zero;
+        *(u16 *)(anim14 + 2) = zero;
+        updateFacingFlipTimer(sprite, work, (u16 *)anim14, 0x5a, 0x78);
     }
-    sub_080149A4(sprite, work, (u16 *)(anim + 0x1C), 0x28, 0x3C);
-    facingSign = getSpriteFacingSign(sprite);
-    work->velX = facingSign > 0 ? 0xD000 : (u32)0xFFFF3000;
+    zero = getSpriteFacingSign(sprite);
+    work->velX = zero > 0 ? 0x10000 : (u32)(anim + 0x14);
     setAnimationFrame(sprite, anim, 0, 1);
     registerScriptObject((u8 *)thread, 0);
     thread->flags |= 0x1000;

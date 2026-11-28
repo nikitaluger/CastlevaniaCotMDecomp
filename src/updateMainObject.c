@@ -10,7 +10,7 @@ void updateActorWorldPosition(void *);
 s32 updateObjectDisplayState(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void uploadPendingSpriteGraphic(void *, void *);
-void sub_08014314(void *, void *);
+void clearMotionSpriteOverride(void *, void *);
 s32 _call_via_r1(s32, s32);
 void _call_via_r2(void *, void *, u32);
 
@@ -86,8 +86,8 @@ void updateMainObject(void *entity) {
             _call_via_r1((s32)entity, *(s32 *)((u32)(opcode * 4) + handlers));
             *(u16 *)((u8 *)entity + SCRIPT_STEP_INDEX_OFFSET) = *(u16 *)((u8 *)entity + SCRIPT_STEP_INDEX_OFFSET) - 1;
         } else {
-            sub_08014314(work, parts->partA);
-            sub_08014314(work, parts->partB);
+            clearMotionSpriteOverride(work, parts->partA);
+            clearMotionSpriteOverride(work, parts->partB);
         }
         syncSpriteToWorldPosition(entity, sprite);
     }

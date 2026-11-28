@@ -1,7 +1,7 @@
 extern void sub_080C31E0(void *, void *);
 extern void *sub_0806D24C(void *, s32, s32, s32);
 extern void sub_08005E80(void);
-extern s32 sub_080C36E4(s32, s32);
+extern s32 signedRemainder(s32, s32);
 
 extern u8 gMainWorkspace[];
 extern u8 gGameStatus[];
@@ -42,7 +42,7 @@ void sub_0806DE38(void) {
 /* Play the footstep sound for the current walk phase modulo 9. */
 void sub_0806DE0C(void) {
     s32 v = *(s32*)(gGameStatus + 0x90);
-    s32 idx = sub_080C36E4(v, 9);
+    s32 idx = signedRemainder(v, 9);
     if (*(u16*)(0x080E0AC8 + idx * 2) != 0) {
         sub_08005E80();
     }

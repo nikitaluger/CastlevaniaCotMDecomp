@@ -5,7 +5,7 @@ extern void sub_0803C5F4(s32, void *, s32, s32, s32, s32, s32, s32);
 extern void sub_08011368(void *, void *, s32, s32);
 extern void sub_08014588(s32, s32);
 extern void sub_080C31E4(void *, void *, s32);
-extern void sub_0803C674(void *, void *, void *);
+extern void spawnEffectSprites(void *, void *, void *);
 
 extern s32 D_08671BB0[];
 extern u8 gScriptedEffectPartAttrs[];
@@ -17,6 +17,7 @@ void sub_0803BF54(void *obj)
     void *r8;
     void *eff;
     s32 *handlerTable;
+    u16 upd1;
     owner = *(void **)((u8 *)obj + 0x38);
     work = *(void **)((u8 *)obj + 0x3C);
     r8 = (u8 *)work + 0x34;
@@ -24,7 +25,9 @@ void sub_0803BF54(void *obj)
 
     if (*(u16 *)((u8 *)work + 2) & 3) {
         s32 v;
-        *(u16 *)((u8 *)work + 2) &= 0xFFFC;
+        upd1 = *(u16 *)((u8 *)work + 2);
+        upd1 &= 0xFFFC;
+        *(u16 *)((u8 *)work + 2) = upd1;
         v = *(s32 *)((u8 *)work + 0x10);
         v = ~v;
         v += 1;
@@ -52,6 +55,6 @@ void sub_0803BF54(void *obj)
         handlerTable = (s32 *)D_08671BB0;
         sub_080C31E4((u8 *)obj + 0x18, (u8 *)obj + 0x22, *handlerTable);
     } else {
-        sub_0803C674(owner, work, eff);
+        spawnEffectSprites(owner, work, eff);
     }
 }

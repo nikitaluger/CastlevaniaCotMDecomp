@@ -4,14 +4,14 @@ extern u8 gGameStatus[];
 extern u8 D_02027A00[];
 extern u8 D_080D9B3C[];
 extern u8 D_080DABDC[];
-extern u32 D_0866EB08[];
+extern u32 gMapTileRows[];
 
 /* Copy the two signed map-cell offsets of the current metatile set (selected
  * by gGameStatus[0x94], gGameStatus[0x95]) into the OAM buffer's bytes 0x12 and
  * 0x13, adding the high byte of arg1/arg2 to them. */
 void sub_08061B4C(void *arg0, s32 arg1, s32 arg2) {
     u8 *base = gGameStatus;
-    u32 *table = D_0866EB08;
+    u32 *table = gMapTileRows;
     u8 *out;
     u8 *p;
     u32 idx = base[0x94] * 4;

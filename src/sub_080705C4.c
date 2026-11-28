@@ -12,7 +12,7 @@ extern struct GameState gMainWorkspace;
 
 s32 stepDelayTimer(void *, s32);
 s32 cullOffscreenEntity(void *, s32);
-s32 sub_0806D450(void *, s32, void *);
+s32 applyAreaSpecialBehavior(void *, s32, void *);
 s32 sub_0806D588(s32, void *);
 s32 spawnKind2CEntity(s32, s32, s32, s32);
 s32 sub_080C31E0(void *, s32);
@@ -28,7 +28,7 @@ void sub_080705C4(void *arg0) {
     actor = *(void **)((u8 *)arg0 + 0x6C);
     mover = (u8 *)actor + 4;
     world = *(s32 *)((u8 *)arg0 + 0x38);
-    if (sub_0806D450(arg0, world, mover) > 0) {
+    if (applyAreaSpecialBehavior(arg0, world, mover) > 0) {
         goto abort;
     }
     {

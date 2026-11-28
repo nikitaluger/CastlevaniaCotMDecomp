@@ -2,7 +2,7 @@ extern void copyBytes(void *a, void *b, u32 c);
 extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
 extern void sub_08091E3C(s32, s32, s32, s32, s32, s32);
-extern s32 sub_080C36E4(s16, s32);
+extern s32 signedRemainder(s16, s32);
 extern void sub_080C31E0(void *, s32);
 
 static inline u8 andBF(u8 b)
@@ -70,7 +70,7 @@ void sub_0809668C(void *arg0)
         jitter = 0x800;
         param += jitter;
         index = *(s16 *)((u8 *)motionEx + 0x14);
-        duration = sub_080C36E4(index, 3);
+        duration = signedRemainder(index, 3);
         sub_08091E3C(xPos, yPos, 0, param, 0x4000, (s16)duration);
         i++;
     } while (i <= 1);

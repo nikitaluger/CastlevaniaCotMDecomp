@@ -3,7 +3,7 @@ void sub_080AAC20(s32, s32, s32);
 void setObjectAnimation(s32, s32, s32, s32);
 void _call_via_r2(void *, void *, s32);
 void _call_via_r3(void *, void *, s32, s32);
-s32 sub_0801473C(s32, s32);
+s32 getAngleTurnDirection(s32, s32);
 s32 sub_080A857C(s32, void *);
 
 /* Spawn four objects of each of two kinds at random vertical offsets. */
@@ -66,5 +66,5 @@ void sub_080A88EC(s32 arg0, void *arg1, void *arg2) {
         *(u16 *)((u8 *)arg2 + 0xA4) = (u16)(0x10 & *(u16 *)((u8 *)arg1 + 2));
     }
     velocity = *(s32 *)((u8 *)arg2 + 0xA0);
-    *(s32 *)((u8 *)arg2 + 0xA0) = *(s32 *)((u8 *)arg2 + 0xA0) + (sub_0801473C(velocity, sub_080A857C(arg0, arg2)) << 8);
+    *(s32 *)((u8 *)arg2 + 0xA0) = *(s32 *)((u8 *)arg2 + 0xA0) + (getAngleTurnDirection(velocity, sub_080A857C(arg0, arg2)) << 8);
 }

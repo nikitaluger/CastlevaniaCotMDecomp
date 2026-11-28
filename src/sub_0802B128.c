@@ -1,4 +1,4 @@
-void sub_0808DC40(s32 x, s32 y, u16 param);
+void spawnVariant2Effect(s32 x, s32 y, u16 param);
 void sub_080C31E0(void *obj, u32 handler);
 
 struct SubObj {
@@ -20,6 +20,6 @@ struct MainObj {
  * dispatch the object's script handler. */
 void sub_0802B128(struct MainObj *obj) {
     struct SubObj *sub = obj->sub;
-    sub_0808DC40(sub->x, sub->y, 8);
+    spawnVariant2Effect(sub->x, sub->y, 8);
     sub_080C31E0(obj, obj->handler);
 }

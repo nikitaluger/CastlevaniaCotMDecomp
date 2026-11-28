@@ -50,7 +50,7 @@ void sub_08017888(void *arg0) {
     if (((struct AnimState *)state)->gfx == 0)
         return;
 
-    ((struct AnimState *)state)->gfx->renderKind = 0;
+    { ((struct AnimState *)state)->gfx->renderKind = 0;
     ((struct AnimState *)state)->gfx->layer = 8;
     ((struct AnimState *)state)->gfx->priority = 1;
     ((struct AnimState *)state)->gfx->gfxIndex = gEffectGfxTable[*(s16 *)(field + 0x1C)].baseTile;
@@ -58,8 +58,8 @@ void sub_08017888(void *arg0) {
     ((struct AnimState *)state)->gfx->affine1 = D_080CE680[1];
     ((struct AnimState *)state)->gfx->affine2 = D_080CE680[2];
     ((struct AnimState *)state)->gfx->affine3 = D_080CE680[3];
-    ((struct AnimState *)state)->gfx->palette = gEffectGfxTable[*(s16 *)(field + 0x1C)].extra;
-    ((struct AnimState *)state)->gfx->sprite = (u32)sprite;
+    do { ((struct AnimState *)state)->gfx->palette = gEffectGfxTable[*(s16 *)(field + 0x1C)].extra; ((struct AnimState *)state)->gfx->sprite = (u32)sprite; } while (0);
+    }
     ((struct AnimState *)state)->gfx->tail = 0;
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

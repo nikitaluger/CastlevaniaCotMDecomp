@@ -1,7 +1,7 @@
 s32 updateObjectDisplayState(void *, void *);
 void syncSpriteToWorldPosition(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_080AA1DC(void *);
+void updateLimbPartOffsets(void *);
 
 /* If the sprite's timed display did not consume this frame, switch the entity to
  * the script handler table at 0x086700C4, bump the step index so its action byte
@@ -27,5 +27,5 @@ void sub_080AA0F4(u8 *self) {
         sub_080C31E0(self, *(void **)(action * 4 + *(u32 *)(self + 0x14)));
         *(u16 *)(self + 0x22) = *(u16 *)(self + 0x22) - 1;
     }
-    sub_080AA1DC(limbs);
+    updateLimbPartOffsets(limbs);
 }

@@ -3,7 +3,7 @@ extern s32 D_080CFE1C[]; /* per-type amount added to the timer each step */
 extern s32 D_080CFE28[]; /* per-type heading turn step */
 
 s32 getAngleFromDelta(s32, s32);
-s32 sub_0801473C(s32, s32);
+s32 getAngleTurnDirection(s32, s32);
 void setPolarOffset(u8 *, s32, s32);
 s32 advanceMotion(void *, s32);
 void setSpriteFlip(u16 *, s32);
@@ -33,7 +33,7 @@ void sub_0805BC78(u8 *self)
         u8 *target = (u8 *)0x02025FF0;
         s32 dx = *(s32 *)(target + 0x1750) - *(s32 *)(entity + 0x0C);
         s32 dy = *(s32 *)(target + 0x174C) - *(s32 *)(entity + 0x08);
-        s32 turn = sub_0801473C(curAngle, getAngleFromDelta(dx, dy));
+        s32 turn = getAngleTurnDirection(curAngle, getAngleFromDelta(dx, dy));
 
         if (turn != -1)
         {

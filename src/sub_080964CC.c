@@ -5,7 +5,7 @@ s32 scaleByRandom(s32);
 s32 randomSignedOffset(s32);
 void sub_08091E3C(s32, s32, s32, s32, s32, s32);
 void sub_080C31E4(void *, void *, s32);
-s16 sub_080C36E4(s32, s32);
+s16 signedRemainder(s32, s32);
 extern u8 D_08100B1E[];
 
 void sub_080964CC(void *script) {
@@ -44,7 +44,7 @@ void sub_080964CC(void *script) {
             {
                 s32 timer = *(s16 *)((u8 *)state + 0x14);
                 s32 bias = (u32)timer >> 31;
-                s16 angle = sub_080C36E4((timer + bias) >> 1, 3);
+                s16 angle = signedRemainder((timer + bias) >> 1, 3);
                 sub_08091E3C(x, y, 0, param, 0x16C1, (s32)angle << 16 >> 16);
             }
         }

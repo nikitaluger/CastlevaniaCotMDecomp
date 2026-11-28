@@ -10,7 +10,7 @@ struct S_02025FF0_7B01C
   u16 f18C2;
 };
 extern struct S_02025FF0_7B01C gMainWorkspace;
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void cullOffscreenEntity(void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void sub_0806D588(void *, void *);
@@ -31,7 +31,7 @@ void sub_0807B01C(void *arg0)
   s32 vy;
   s32 newY;
   u16 flags;
-  if (sub_0806D450(entity, stateObj, vec) == 0)
+  if (applyAreaSpecialBehavior(entity, stateObj, vec) == 0)
   {
     vy = (*((s32 *) (vec + 0xC))) + 0x4000;
     *((s32 *) (vec + 0xC)) = vy;

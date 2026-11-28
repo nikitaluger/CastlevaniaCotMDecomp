@@ -1,6 +1,6 @@
 extern s32 stepDelayTimer(void *, void *);
 extern s32 startEffectTimer(void *, s32, void *);
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
@@ -31,7 +31,7 @@ void sub_08083A84(void *actor) {
     position = (u8 *)work + 4;
     sprite = *(void **)((u8 *)actor + 0x38);
 
-    if (sub_0806D450(actor, sprite, position) > 0) {
+    if (applyAreaSpecialBehavior(actor, sprite, position) > 0) {
         sub_080C31E0(actor, *(void **)((u8 *)actor + 0x24));
         return;
     }

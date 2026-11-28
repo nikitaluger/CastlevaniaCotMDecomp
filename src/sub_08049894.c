@@ -1,7 +1,7 @@
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_08005E80(s32);
-extern void sub_0808DC40(s32, s32, s32);
+extern void spawnVariant2Effect(s32, s32, s32);
 
 void sub_0804964C(void *arg0)
 {
@@ -74,7 +74,7 @@ void sub_0804A070(void *arg0)
     v = *(u8 *)(r1 + 0x48 + 0x0A);
     add = (-(s32)v | v) >> 31;
     add &= 0x100000;
-    sub_0808DC40(*(s32 *)(r1 + 8), *(s32 *)(r1 + 0x0C) + add, 8);
+    spawnVariant2Effect(*(s32 *)(r1 + 8), *(s32 *)(r1 + 0x0C) + add, 8);
     sub_08005E80(0x88);
     sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
 }

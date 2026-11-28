@@ -15,7 +15,7 @@ void sub_080B07EC(void)
     }
 }
 
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 
 /* If the entity's current command byte is 0x28, clear it and reload the
  * entity's command script from the default table. */
@@ -25,7 +25,7 @@ void sub_080B0E40(void *arg0)
     s16 slot = *(s16 *)(self + 0x22);
     if (*(u8 *)(self + slot * 2 + 0x19) == 0x28) {
         s32 *lit;
-        sub_0808BB54();
+        initCrossfadeGfxState();
         *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;
         lit = (s32 *)0x08671BB0;
         sub_080C31E4(self + 0x18, self + 0x22, *lit);

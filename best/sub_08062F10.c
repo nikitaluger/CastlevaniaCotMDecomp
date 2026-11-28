@@ -15,7 +15,7 @@ extern void sub_080C31E8(void *a, void *b, s32 c, u32 d);
 extern s32 handleSpecialTileAction(void *a, void *b, void *c, void *d);
 extern s32 tryCompanionAction(void *a, void *b, void *c);
 extern void sub_0806AB04(void *a, void *b, void *c, void *d);
-extern s16 sub_08007B78(void *a, s32 b, s32 c);
+extern s16 getMapTileAttribute(void *a, s32 b, s32 c);
 extern s16 sub_08007C40(void *a, s32 b, s32 c);
 extern s32 stepDelayTimer(void *a, void *b);
 extern void sub_0806A884(void *a, void *b);
@@ -193,7 +193,7 @@ void sub_08062F10(void *a)
   {
     u8 *map = gTilemapPages + (gMainWorkspace[0x18A8] * 0x40);
     s32 off = 0x10000;
-    if (sub_08007B78(map, *((s32 *) (r6 + 0)), (*((s32 *) (r6 + 4))) + off) == 0)
+    if (getMapTileAttribute(map, *((s32 *) (r6 + 0)), (*((s32 *) (r6 + 4))) + off) == 0)
     {
       *((u32 *) (r5 + 0x78)) = 1;
     }

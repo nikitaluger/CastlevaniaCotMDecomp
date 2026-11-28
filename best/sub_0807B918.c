@@ -44,7 +44,7 @@ void sub_0807B918(u8 *arg0)
   self = arg0;
   p9 = (void *) (0x6C + ((s32) self));
   temp = *((u8 **) p9);
-  p9 = temp;
+  { u8 *__fence_temp; do { __fence_temp = temp; } while (0); p9 = __fence_temp; }
   p8 = *((u8 **) (self + 0x38));
   p10 = (void *) (4 + ((s32) p9));
   if (checkGlobalStateChange(self, p8, p10) != 0)
@@ -102,7 +102,7 @@ void sub_0807B918(u8 *arg0)
       s32 t;
       t = (((s32) (*((u32 *) (p10 + 0x40)))) >> 8) * (*((s32 *) (p10 + 8)));
       *((u32 *) (p9 + 4)) += t / 0x100;
-      t = (((s32) (*((u32 *) (p10 + 0x40)))) >> 8) * (*((s32 *) (p10 + 0xC)));
+      t = (*((s32 *) (p10 + 0xC))) * (((s32) (*((u32 *) (p10 + 0x40)))) >> 8);
       *((u32 *) (p10 + 4)) += t / 0x100;
     }
     sub_080168C4();
@@ -129,7 +129,7 @@ void sub_0807B918(u8 *arg0)
       u8 *base = gMainWorkspace;
       *((u16 *) p8) = *((u16 *) (base + 0x18C2));
       stepDelayTimer(p10 + 0x1C);
-      setSpriteScreenPosition(p8, p10);
+      do { do { setSpriteScreenPosition(p8, p10); } while (0); } while (0);
       if (((*((u8 *) (base + 0x173A))) == 0x1C) || (((*((u8 *) (base + 0x14ED))) == 0) && ((*((u32 *) (base + 0x10))) != 0)))
       {
         sub_080C31E0(self, *((u32 *) (self + 0x24)));

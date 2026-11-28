@@ -4,7 +4,7 @@ extern void sub_0808DBF8(s32, s32, s32);
 extern void spawnType207Effect(s32, s32, s32, s32);
 extern void copyBytes(void *, u8 *, s32);
 extern void sub_080C31E0(void *, s32);
-extern s32 sub_080C36E4(s32, s32);
+extern s32 signedRemainder(s32, s32);
 extern s32 D_02027888;
 extern u8 gMainWorkspace[];
 
@@ -52,7 +52,7 @@ void sub_08095F34(u8 *arg0)
     r6 = ((*(p + 1)) + randomSignedOffset(0x80000)) + ((r6 << 0x12) + c2);
     {
       s32 f1 = scaleByRandom(0x2000);
-      s32 f2 = sub_080C36E4(D_02027888, 5) - 2;
+      s32 f2 = signedRemainder(D_02027888, 5) - 2;
       c = (f1 + 0x3000) * f2;
     }
     d = 0x8000 - scaleByRandom(0x20000);

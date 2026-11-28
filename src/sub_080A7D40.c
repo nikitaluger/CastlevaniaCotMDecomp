@@ -1,4 +1,4 @@
-extern void sub_0808DC40(s32, s32, s32);
+extern void spawnVariant2Effect(s32, s32, s32);
 extern void sub_080A860C(void *, void *);
 extern void decelerateTargetX(u16 *, void *);
 extern void sub_080C31E4(void *, void *, void *);
@@ -32,7 +32,7 @@ void sub_080A7D40(void *arg0) {
     stepOffset <<= 1;
     stepOffset += (u32)arg0;
     if (!(*(u8 *)((u8 *)stepOffset + 0x19) & 7)) {
-        sub_0808DC40(*(s32 *)(actor + 8), *(s32 *)(actor + 0xC), 8);
+        spawnVariant2Effect(*(s32 *)(actor + 8), *(s32 *)(actor + 0xC), 8);
     }
 
     sub_080A860C(arg0, ai);

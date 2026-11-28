@@ -2,7 +2,7 @@ s32 scaleByRandom(s32);
 s32 randomSignedOffset(s32);
 void sub_08091E3C(s32, s32, s32, s32, s32, s32);
 s16 divInt32(s16, s32);
-s16 sub_080C36E4(s16, s32);
+s16 signedRemainder(s16, s32);
 void sub_080C31E4(void *, void *, void *);
 extern u8 D_08100B1E[];
 extern void *gMainObjTimerCallbacks;
@@ -19,13 +19,13 @@ void sub_080965C0(void *self)
   s32 tableOffset = animIdx * 4;
   pTable += 2;
   *(u16 *)(gfx + 0x28) = *(u16 *)(pTable + tableOffset);
-  if (sub_080C36E4(*(s16 *)(state + 0x14), 6) == 0)
+  if (signedRemainder(*(s16 *)(state + 0x14), 6) == 0)
   {
     s32 spawnX = (*(s32 *)(body + 8)) + randomSignedOffset(0xE0000);
     s32 spawnY = (*(s32 *)(body + 0xC)) + 0x30000;
     s32 speed = scaleByRandom(0x8000) + 0x2000;
     s16 phase = divInt32(*(s16 *)(state + 0x14), 6);
-    phase = sub_080C36E4(phase, 3);
+    phase = signedRemainder(phase, 3);
     sub_08091E3C(spawnX, spawnY, 0, speed, 0x16C1, phase);
   }
   (*(s16 *)(state + 0x14))--;

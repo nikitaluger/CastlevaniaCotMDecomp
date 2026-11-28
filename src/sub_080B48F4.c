@@ -1,4 +1,4 @@
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern void sub_080C31E0(void *, void *);
 extern void sub_080B722C(void *);
 extern void sub_080B7454(void *);
@@ -19,7 +19,7 @@ void sub_080B48F4(void *arg0) {
     s16 stepIdx;
     u8 *stepBase;
 
-    sub_0808BB54();
+    initCrossfadeGfxState();
     {
         u8 *child = *(u8 **)(children + 4);
         sub_080C31E0(child, *(void **)(child + 0x24));

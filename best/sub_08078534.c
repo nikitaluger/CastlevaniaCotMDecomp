@@ -36,6 +36,7 @@ static inline u32 andOne(u16 v)
 void sub_08078534(u8 *self)
 {
     s32 r2;
+s32 __repair_result_r2;
     u16 *r8;
     u8 *r4;
     u8 *r5;
@@ -58,14 +59,14 @@ void sub_08078534(u8 *self)
     r2 = *(s32 *)(r5 + 4) + *(s32 *)(r5 + 0xC);
     *(s32 *)(r5 + 4) = r2;
 
-    r2 = andOne(*(u16 *)(*(u8 **)(r5 + 0x2C) + 0x14));
-    rr = 0;
-    if (!r2) {
+    __repair_result_r2 = andOne(*(u16 *)(*(u8 **)(r5 + 0x2C) + 0x14));
+    rr = __repair_result_r2;
+    if (!__repair_result_r2) {
         rr = getTileTerrainB((gMainWorkspace.b18A8 << 6) + (u32)gTilemapPages,
                           *(s32 *)(r4 + 4)) << 0x10;
     }
     base20 = r4 + 0x20;
-    if (r2 || rr != 0) {
+    if (__repair_result_r2 || rr != 0) {
         r4 += 0x20;
         startEffectTimer(r4, 0, (void *)0x084D96AC);
         *(u16 *)(*(u8 **)(r5 + 0x2C) + 6) = 0xA;

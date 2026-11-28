@@ -2,7 +2,7 @@ extern s32 scaleByRandom(s32);
 extern s32 randomSignedOffset(s32);
 extern void sub_08091B80(s32, s32, s32, s32, s32);
 extern void sub_080C31E4(void *, void *, u32);
-extern s32 sub_080C36E4(s16, s32);
+extern s32 signedRemainder(s16, s32);
 
 extern u8 D_08100860[];
 
@@ -23,7 +23,7 @@ void sub_08094848(u8 *effect) {
         *(u16 *)(fx + 0x28) = *(u16 *)(table + tableOffset);
     }
 
-    if ((u16)sub_080C36E4(*(s16 *)(state + 0x0C), 6) == 0) {
+    if ((u16)signedRemainder(*(s16 *)(state + 0x0C), 6) == 0) {
         s32 spawnX = *(s32 *)(work + 8) + randomSignedOffset(0xE0000);
         s32 spawnY = *(s32 *)(work + 0x0C) + randomSignedOffset(0x20000);
         s32 spawnSpeed = scaleByRandom(0x8000) + 0x2000;

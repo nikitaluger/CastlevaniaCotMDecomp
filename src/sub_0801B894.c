@@ -4,7 +4,7 @@ s32 getSpriteFacingSign(s32);
 void sub_0801D618(s32, s32, s32, s32);
 s32 sub_080C31E0(s32, s32);
 void sub_080C31E4(void *, void *, s32);
-s32 sub_080C36E4(s16, s32);
+s32 signedRemainder(s16, s32);
 
 /* Every six ticks spawns projectile 0x92 on either side of the parent,
  * aiming it by a counter, then advances the counters and dispatches. */
@@ -27,7 +27,7 @@ void sub_0801B894(u8 *entity)
   animObj = obj + 0x34;
   spawnState = obj + 0x48;
   setAnimationFrame((void *) parent, animObj, 9, 0);
-  if ((sub_080C36E4((s16) (*((s16 *) (spawnState + 0x16))), 6) << 16) == 0)
+  if ((signedRemainder((s16) (*((s16 *) (spawnState + 0x16))), 6) << 16) == 0)
   {
     zero = 0;
     if (getSpriteFacingSign(parent) < zero)

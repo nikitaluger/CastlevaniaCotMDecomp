@@ -50,7 +50,7 @@ void uploadPendingSpriteGraphic(void *arg0, void *arg1) {
     }
 }
 
-void sub_08014314(u16 *arg0, void *arg1) {
+void clearMotionSpriteOverride(u16 *arg0, void *arg1) {
     if (0xC & *arg0) {
         *(u8 *)((u8 *)arg1 + 1) = 0;
     }

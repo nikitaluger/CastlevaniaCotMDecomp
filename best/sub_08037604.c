@@ -3,7 +3,7 @@ extern struct S_02025FF0_37604 gMainWorkspace;
 s32 getAngleFromDelta(s32, s32);
 s32 stepAnimationTrack(s32, void *);
 s32 sub_08037724(s32, void *);
-s32 sub_0801473C(s32, s32);
+s32 getAngleTurnDirection(s32, s32);
 void _call_via_r1(void *, s32, void *);
 void setPolarOffset(u8 *, s32, s32);
 void advanceMotion(u8 *, s32);
@@ -33,7 +33,7 @@ void sub_08037604(void *arg0) {
         s32 oldAngle = *(s32 *)(part + 4);
         s32 angle = getAngleFromDelta((s32)gMainWorkspace.targetY - *(s32 *)(work + 0xC),
                                       (s32)gMainWorkspace.targetX - *(s32 *)(work + 8));
-        s32 result = sub_0801473C(oldAngle, angle);
+        s32 result = getAngleTurnDirection(oldAngle, angle);
         if (result != -1) {
             if (result == 1)
                 *(s32 *)(part + 4) += 1024;

@@ -1,6 +1,6 @@
 extern u8 gGameStatus[];
 extern u16 D_080E0AC8[];
-extern s32 sub_080C36E4(s32, s32);
+extern s32 signedRemainder(s32, s32);
 extern void sub_08005E80(void);
 
 /* Play one of nine alternate sound IDs from D_080E0AC8, selected by the counter
@@ -15,7 +15,7 @@ void sub_0806DE0C(void) {
     soundIds = D_080E0AC8;
     state += 0x90;
     counter = *(s32 *)state;
-    soundIndex = sub_080C36E4(counter, 9);
+    soundIndex = signedRemainder(counter, 9);
     if (soundIds[soundIndex] != 0) {
         sub_08005E80();
     }

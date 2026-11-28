@@ -1,5 +1,5 @@
 extern s32 stepDelayTimer(void *, void *);
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, void *);
 
@@ -30,7 +30,7 @@ void sub_080765FC(void *arg0) {
     ctrl = *(void **)((u8 *)arg0 + 0x6C);
     pos = (u8 *)ctrl + 4;
     mainObj = *(void **)((u8 *)arg0 + 0x38);
-    if (sub_0806D450(arg0, mainObj, pos) != 0)
+    if (applyAreaSpecialBehavior(arg0, mainObj, pos) != 0)
         return;
     state = &gMainWorkspace;
     *(s32 *)((u8 *)ctrl + 4) = state->word174C;

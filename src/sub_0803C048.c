@@ -2,7 +2,7 @@ extern void moveEntityWithCollision(void *, s32);
 extern void copyPoseAttrs(void *, void *);
 extern void setAnimationFrame(s32, void *, u16, u8);
 extern void stepAnimationTrack(s32, void *);
-extern void sub_0803C674(u16 *, void *, void *);
+extern void spawnEffectSprites(u16 *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern u8 gScriptedEffectPartAttrs[];
 
@@ -38,5 +38,5 @@ void sub_0803C048(u8 *self) {
         handlerTable = (s32 *)MAIN_OBJ_TIMER_CALLBACK_TABLE;
         sub_080C31E4((u8 *)self + 0x18, (u8 *)self + 0x22, *handlerTable);
     }
-    sub_0803C674((u16 *)parent, obj, objState);
+    spawnEffectSprites((u16 *)parent, obj, objState);
 }

@@ -18,12 +18,12 @@ struct SceneState74B60 {
 };
 extern struct SceneState74B60 gMainWorkspace;
 
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern s32 stepDelayTimer(void *, void *);
 extern void sub_080C31E0(void *, u32);
 
-/* One tick of a camera-followed entity: gated by sub_0806D450, syncs object
+/* One tick of a camera-followed entity: gated by applyAreaSpecialBehavior, syncs object
  * coordinates from the scene state, then despawns when the scene says so. */
 void sub_08074B60(void *arg0) {
     void *self = arg0;
@@ -36,7 +36,7 @@ void sub_08074B60(void *arg0) {
     objectData = object + 4;
     sprite = *(u8 **)((u8 *)self + 0x38);
     objectDataSaved = objectData;
-    if (sub_0806D450(self, sprite, objectData) != 0) return;
+    if (applyAreaSpecialBehavior(self, sprite, objectData) != 0) return;
 
     if (object[0x55] == 0x33) {
         u32 v = *(u16 *)(sprite + 2) & 0xFFEF;

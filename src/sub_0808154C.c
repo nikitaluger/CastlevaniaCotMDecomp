@@ -30,7 +30,7 @@ struct S_02025FF0 {
 };
 extern struct S_02025FF0 gMainWorkspace;
 
-extern s32 sub_0806D450(void *, u16 *, void *);
+extern s32 applyAreaSpecialBehavior(void *, u16 *, void *);
 extern void *spawnEntity(s32, s32, s32, s32);
 extern void stepDelayTimer(void *, u16 *);
 extern void playSound(s32);
@@ -42,7 +42,7 @@ void sub_0808154C(struct S_0808154C_arg *arg) {
     u16 *p16 = arg->f38;
     struct S_0808154C_sub *sub = p;
 
-    if (sub_0806D450(arg, p16, sub) > 0) {
+    if (applyAreaSpecialBehavior(arg, p16, sub) > 0) {
         sub_080C31E0(arg, arg->f24);
         return;
     }

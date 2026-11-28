@@ -1,6 +1,6 @@
 extern s32 getSpriteFacingSign(void *);
-extern void setAnimationFrame(s32,  void *);
-extern void *sub_0801C454(s32, s32, s32);
+extern void setAnimationFrame(void *, void *, s32, s32);
+extern void *sub_0801C454(void *, s32, s32);
 extern void *allocEffectPart(void);
 extern void sub_080C31E4(void *, void *, u32);
 
@@ -31,7 +31,7 @@ void sub_0801B02C(void *arg0) {
     u8 *state = field + 0x48;
     s32 val;
 
-    setAnimationFrame((s32)sprite,  anim);
+    setAnimationFrame(sprite, anim, 5, 0);
     if (!(*(u8 *)anim & 2))
         return;
 
@@ -40,13 +40,13 @@ void sub_0801B02C(void *arg0) {
     else
         val = *(s32 *)(field + 8) + 0x240000;
 
-    *(u32 *)(state + 0x30) = (u32)sub_0801C454((s32)self, val, *(s32 *)(field + 0xC) - 0x280000);
+    *(u32 *)(state + 0x30) = (u32)sub_0801C454(self, val, *(s32 *)(field + 0xC) - 0x280000);
     *(u16 *)(state + 0x16) = 0x78;
     ((struct AnimState *)state)->gfx = (struct GfxLayer *)allocEffectPart();
     if (((struct AnimState *)state)->gfx == NULL)
         return;
 
-    ((struct AnimState *)state)->gfx->renderKind = 0;
+    { ((struct AnimState *)state)->gfx->renderKind = 0;
     ((struct AnimState *)state)->gfx->layer = 8;
     ((struct AnimState *)state)->gfx->priority = 1;
     ((struct AnimState *)state)->gfx->gfxIndex = gEffectGfxTable[*(s16 *)(field + 0x1C)].baseTile;
@@ -54,8 +54,8 @@ void sub_0801B02C(void *arg0) {
     ((struct AnimState *)state)->gfx->affine1 = D_080CE680[1];
     ((struct AnimState *)state)->gfx->affine2 = D_080CE680[2];
     ((struct AnimState *)state)->gfx->affine3 = D_080CE680[3];
-    ((struct AnimState *)state)->gfx->palette = gEffectGfxTable[*(s16 *)(field + 0x1C)].extra;
-    ((struct AnimState *)state)->gfx->sprite = (u32)sprite;
+    do { ((struct AnimState *)state)->gfx->palette = gEffectGfxTable[*(s16 *)(field + 0x1C)].extra; ((struct AnimState *)state)->gfx->sprite = (u32)sprite; } while (0);
+    }
     ((struct AnimState *)state)->gfx->tail = 0;
 
     *(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) = 0;

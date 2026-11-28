@@ -30,6 +30,7 @@ s32 __repair_phase_v;
     s32 temp;
     u8 *__base_D_02025FF0;
     u16 temp2;
+    u16 temp3;
 
     __base_D_02025FF0 = gMainWorkspace;
 
@@ -71,7 +72,8 @@ l_da60:
 l_da8c:
     sub_0805DB1C(e->x, e->y, w, h, 0x0E, &res);
 l_daa0:
-    e->f02 = res.f0;
+    temp3 = res.f0;
+    e->f02 = temp3;
     return;
 l_daa6:
     e->h = t;

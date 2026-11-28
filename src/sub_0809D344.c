@@ -1,7 +1,7 @@
 /* Applies a brief sprite tilt/scroll effect driven by the entity's counter,
    then restores the sprite and re-dispatches the entity once the counter hits
    0x20. */
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern void sub_0809E32C(void *, void *, void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 struct GfxFlags { u8 _pad[2]; u16 flags; };
@@ -29,7 +29,7 @@ void sub_0809D344(u8 *entity)
   {
     do
     {
-      sub_0808BB54();
+      initCrossfadeGfxState();
       {
         u16 size = 0x100;
         *((u16 *) (gfx + 4)) = size;

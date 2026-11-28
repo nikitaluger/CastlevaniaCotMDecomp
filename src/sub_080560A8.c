@@ -1,7 +1,7 @@
 void sub_080144D8(void *, void *);
 void sub_080144FC(void *, void *);
 void sub_080C31E0(void *, void *);
-void sub_0808DC40(void *, s32, s32);
+void spawnVariant2Effect(void *, s32, s32);
 
 /* Run one script command out of line: save the sprite, temporarily advance the
  * script step and its action byte, dispatch the command at the new step from

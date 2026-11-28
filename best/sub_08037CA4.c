@@ -1,5 +1,5 @@
 extern u32 gScriptStepCallbacks;
-s32 stepAnimationTrack(void *a, void *b, void *c, s32 d);
+s32 stepAnimationTrack(void *a, void *b, void *c, s32 d, void *e, s32 f);
 s32 copyPoseAttrs(void *a, void *b);
 s32 sub_080C31E8(void *a, void *b, s32 c, s32 d);
 
@@ -21,7 +21,7 @@ void sub_08037CA4(void *a) {
     r4 = (u8 *)p3C + 0x34;
     r2 = (u8 *)p3C + 0x48;
     r3 = 0;
-    stepAnimationTrack(r8p, r4, r2, r3);
+    stepAnimationTrack(r8p, r4, r2, r3, r2, r3);
 
     if ((*(u8 *)r4 & 0x02) != 0) {
         u32 *pp;
@@ -40,22 +40,24 @@ void sub_08037CA4(void *a) {
         r6 = 0;
         idx = *(u16 *)((u8 *)r8p + 0x28);
         idx -= 14;
-        if (idx <= 43) {
-            switch (idx) {
-                case 0: r3 = 0; r5 = 0; break;
-                case 4: r3 = 1; break;
-                case 9: r3 = 2; break;
-                case 14: r3 = 3; break;
-                case 19: r3 = 4; break;
-                case 24: r3 = 5; break;
-                case 28: r3 = 6; break;
-                case 33: r3 = 7; break;
-                case 38: r3 = 8; break;
-                case 43: r3 = 9; r6 = 1; break;
-                default: r3 = 0; break;
-            }
-        } else {
-            r3 = 0;
+        switch (idx) {
+            case 0: r3 = 0; r5 = 0; break;
+            case 4: r3 = 1; break;
+            case 9: r3 = 2; break;
+            case 14: r3 = 3; break;
+            case 19: r3 = 4; break;
+            case 24: r3 = 5; break;
+            case 28: r3 = 6; break;
+            case 33: r3 = 7; break;
+            case 38: r3 = 8; break;
+            case 43: r3 = 9; r6 = 1; break;
+            case 1: case 2: case 3: case 5: case 6: case 7: case 8:
+            case 10: case 11: case 12: case 13: case 15: case 16: case 17: case 18:
+            case 20: case 21: case 22: case 23: case 25: case 26: case 27:
+            case 29: case 30: case 31: case 32: case 34: case 35: case 36: case 37:
+            case 39: case 40: case 41: case 42:
+                break;
+            default: break;
         }
         t = *(void **)(r2 + 0x0C);
         *(u8 *)((u8 *)t + 1) = (u8)r5;

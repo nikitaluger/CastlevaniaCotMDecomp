@@ -1,4 +1,4 @@
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void stepDelayTimer(void *, void *);
 extern void playSound(s32);
 extern void *spawnEntity(s32, s32, s32, s32);
@@ -23,7 +23,7 @@ void sub_0808039C(void *arg0)
     u8 *r5 = *(u8 **)(r6 + 0x38);
     u8 *r4 = r8;
 
-    if (sub_0806D450(r6, r5, r4) <= 0) {
+    if (applyAreaSpecialBehavior(r6, r5, r4) <= 0) {
         *(s32 *)(r4 + 0x10) -= 1;
         *(s32 *)(r5 + 0x14) += 0xFFFF8000;
         *(s32 *)(r5 + 0x18) += 0x10000;

@@ -1,6 +1,6 @@
 s32 scaleByRandom(s32);
 s32 randomSignedOffset(s32);
-s32 sub_080C36E4(s32, s32);
+s32 signedRemainder(s32, s32);
 void sub_08054E88(s32, s32, s32, s32, s32, s32);
 
 struct S_Tbl546F0 {
@@ -49,10 +49,10 @@ void sub_080546F0(struct S_080546F0 *self)
     jitterY = randomSignedOffset(0x80000);
     cfg = obj->f28;
     spawnY = obj->f0C + ((s32)cfg->f0C << 16) + jitterY;
-    param = sub_080C36E4(gMainWorkspace[1575], 7);
+    param = signedRemainder(gMainWorkspace[1575], 7);
     velX = (param - 3) << 13;
     velY = 0x8000 - scaleByRandom(0x20000);
-    angle = sub_080C36E4(gMainWorkspace[1575], 7);
+    angle = signedRemainder(gMainWorkspace[1575], 7);
     sp0 = (s32)(s16)angle;
     sub_08054E88(spawnX, spawnY, velX, velY, sp0, (s32)(s16)obj->f1C);
     if (*(u8 *)((u8 *)self + (s32)self->f22 * 2 + 0x19) > 6) {

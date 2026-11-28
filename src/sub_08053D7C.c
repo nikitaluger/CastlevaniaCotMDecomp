@@ -1,5 +1,5 @@
 s32 getSpriteFacingSign(s32);
-void sub_0808DC40(s32, s32, s32);
+void spawnVariant2Effect(s32, s32, s32);
 s32 sub_080C31E0(void *, s32);
 
 /* Spawn effect 0x203 to the side of this entity (which side depends on the
@@ -13,11 +13,11 @@ void sub_08053D7C(void *arg0)
   work = *((u8 **) (((u8 *) arg0) + 0x3C));
   if (getSpriteFacingSign(gfx) < 0)
   {
-    sub_0808DC40((*((s32 *) (work + 8))) + 0xFFF20000, (*((s32 *) (work + 0xC))) + 0x80000, 8);
+    spawnVariant2Effect((*((s32 *) (work + 8))) + 0xFFF20000, (*((s32 *) (work + 0xC))) + 0x80000, 8);
   }
   else
   {
-    sub_0808DC40((*((s32 *) (work + 8))) + 0xE0000, (*((s32 *) (work + 0xC))) + 0x80000, 8);
+    spawnVariant2Effect((*((s32 *) (work + 8))) + 0xE0000, (*((s32 *) (work + 0xC))) + 0x80000, 8);
   }
   sub_080C31E0(arg0, *((s32 *) (((u8 *) arg0) + 0x24)));
 }

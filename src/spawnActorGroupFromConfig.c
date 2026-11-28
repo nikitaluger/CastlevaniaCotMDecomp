@@ -7,7 +7,7 @@ extern void *allocEffectPart(void);
 extern void cleanupFailedEffectSpawn(void *a);
 extern s16 scalePercentSaturate16(u16, u16);
 extern void startEffectTimer(void *a, s32 b, s32 c);
-extern s32 sub_080C36E4(s32, s32);
+extern s32 signedRemainder(s32, s32);
 extern void _call_via_r1(void *a, s32 b);
 extern void _call_via_r2(void *a, void *b, s32 c);
 extern void releaseActorEffectParts(void);
@@ -98,7 +98,7 @@ void spawnActorGroupFromConfig(u8 *actor) {
 
     *(u32 *)(sprite + 0x14) = 0x1000000;
     animTable = D_080E5C5C;
-    *(u32 *)(sprite + 0x18) = *(u32 *)(animTable + (sub_080C36E4(*slotPtr, 9) << 2));
+    *(u32 *)(sprite + 0x18) = *(u32 *)(animTable + (signedRemainder(*slotPtr, 9) << 2));
 
     group->field54 = *(u32 *)(table + 4);
     *(u32 *)((u8 *)group + 8) = *(u32 *)(table + 0);

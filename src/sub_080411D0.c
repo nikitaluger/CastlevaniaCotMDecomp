@@ -5,7 +5,7 @@
  * step counter and advance the script.
  */
 extern void stepAnimationTrack(s32, void *);
-extern s32 sub_080148AC(s32, s32);   /* -speed when the sprite faces left */
+extern s32 applyFacingSign(s32, s32);   /* -speed when the sprite faces left */
 extern void setSpriteFlipForDirection(s32, s32);  /* set the sprite's facing flag from a direction */
 extern void sub_080415D4(u8, s32, void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -18,7 +18,7 @@ void sub_080411D0(void *arg0) {
     s32 speedX;
     stepAnimationTrack(sprite, animator);
     if (*animator & 2) {
-        speedX = sub_080148AC(sprite, 0xFFF90000);
+        speedX = applyFacingSign(sprite, 0xFFF90000);
         *(s32 *)(work + 0x10) = speedX;
         *(s32 *)(work + 0x14) = 0xFFFF0000;
         setSpriteFlipForDirection(sprite, speedX);

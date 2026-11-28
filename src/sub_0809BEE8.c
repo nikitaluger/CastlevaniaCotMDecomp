@@ -1,4 +1,4 @@
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern void sub_080C31E0(void *, s32);
 
 /* Runs a 16-frame screen-effect countdown: on every fourth frame updates the
@@ -39,7 +39,7 @@ void sub_0809BEE8(u8 *arg0) {
                     node = *(u8 **)(node + 0x2C);
                 }
             }
-            sub_0808BB54();
+            initCrossfadeGfxState();
             sub_080C31E0(self, *(s32 *)(self + 0x24));
         }
     }

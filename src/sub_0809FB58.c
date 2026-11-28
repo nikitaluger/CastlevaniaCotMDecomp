@@ -3,7 +3,7 @@ extern struct S_02025FF0 gMainWorkspace;
 u16 getAngleFromDelta(s32, s32);
 void advanceMotion(void *, s32);
 void setPolarOffset(void *, s32, s32);
-s32 sub_0801473C(s32, u16);
+s32 getAngleTurnDirection(s32, u16);
 void sub_080C31E4(void *, void *, s32);
 
 /* Homing actor step: advance a thrust accumulator, aim at the camera by
@@ -28,7 +28,7 @@ void sub_0809FB58(void *actor) {
     dy = (s32)gMainWorkspace.camY - *(s32 *)(work + 0x0C);
     dx = (s32)gMainWorkspace.camX - *(s32 *)(work + 0x08);
     targetAngle = getAngleFromDelta(dy, dx);
-    turn = sub_0801473C(*(s32 *)(self + 0x7C), targetAngle);
+    turn = getAngleTurnDirection(*(s32 *)(self + 0x7C), targetAngle);
     turn = turn << 8;
     *(s32 *)(self + 0x7C) = *(s32 *)(self + 0x7C) + turn;
     setPolarOffset(work, *(s32 *)(self + 0x7C), *thrust);

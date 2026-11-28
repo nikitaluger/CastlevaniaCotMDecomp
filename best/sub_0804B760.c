@@ -82,7 +82,7 @@ void sub_0804B760(struct MainObj *arg0) {
         (arg0->object = effect, allocWorkSlot((u8 *)arg0, 0, 0x4C, 0), owner = arg0->effect, owner == NULL) ||
         (anim = (u8 *)owner + 0x34,
          owner->updateCb = *(u32 *)((u8 *)arg0 + 0x24), *(u32 *)((u8 *)arg0 + 0x24) = (u32)sub_0804BB5C,
-         zero = 0, owner->kind = arg0->kind, owner->f18 = 1,
+         owner->kind = arg0->kind, zero = 0, owner->f18 = 1,
          owner->worldX = arg0->posX << 16, owner->worldY = arg0->posY << 16,
          slot = findKindIndex(owner->kind), owner->slot = slot, ((s32)(slot << 16) < 0)) ||
         (initSpriteGraphics(effect, anim, (s32)gSpriteAnimDataTable + owner->kind * 0xC), gfx = allocEffectPart(), owner->gfx = (struct EffectGfx *)gfx, gfx == NULL)) {

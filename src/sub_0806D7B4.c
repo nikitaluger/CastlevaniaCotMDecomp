@@ -1,7 +1,7 @@
 extern u8 gGameStatus[];
 extern void sub_0808D7BC(s32, s32, s32, s32);
 extern s32 divInt32(s32, s32);
-extern s32 sub_08007B78(s32, s32, s32);
+extern s32 getMapTileAttribute(s32, s32, s32);
 
 struct S_02025FF0_18A8 {
     u8 pad[0x18A8];
@@ -73,7 +73,7 @@ s32 sub_0806D654(struct Vec *position)
     s32 map = (s32)gTilemapPages + ((u32)gMainWorkspace.b << 6);
     s32 i;
 
-    if ((u16)sub_08007B78(map, position->x, position->y) == 0)
+    if ((u16)getMapTileAttribute(map, position->x, position->y) == 0)
     {
         return 0;
     }
@@ -81,7 +81,7 @@ s32 sub_0806D654(struct Vec *position)
     for (i = 0; i < 8; i++)
     {
         position->y += 0xFFFF0000;
-        if ((u16)sub_08007B78(map, position->x, position->y) == 0)
+        if ((u16)getMapTileAttribute(map, position->x, position->y) == 0)
         {
             return 1;
         }

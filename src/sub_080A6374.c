@@ -1,5 +1,5 @@
 extern s32 scaleByRandom(s32);
-extern s32 sub_0801473C(s32, s32);
+extern s32 getAngleTurnDirection(s32, s32);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
 
@@ -38,7 +38,7 @@ void sub_080A6374(void *arg0)
         u8 stepId;
         s32 *scriptCallbacks;
 
-        turnRate = sub_0801473C(*desiredAngle, matchedAngle);
+        turnRate = getAngleTurnDirection(*desiredAngle, matchedAngle);
         *(s32 *)(ai + 0xC4) = matchedAngle;
         *(s32 *)(ai + 0xD0) = turnRate * 3;
         *(s32 *)(ai + 0xC8) = 0;

@@ -1,5 +1,5 @@
 extern void sub_080C31E0(void *, s32);
-extern s32 sub_080C36E4(s32, s16);
+extern s32 signedRemainder(s32, s16);
 extern void sub_08005E80(s32);
 
 /* Increments the actor's counter each call: past the schedule's limit it fires
@@ -15,7 +15,7 @@ void sub_08094C8C(void *actor)
   if ((*((s32 *) state)) >= (*((s16 *) ((*((u8 **) (((u8 *) state) + 4))) + 0))))
   {
     s16 *schedule = *((s16 **) (((u8 *) state) + 4));
-    if (sub_080C36E4((count = *((s32 *) state)) - schedule[0], schedule[1]) == 0)
+    if (signedRemainder((count = *((s32 *) state)) - schedule[0], schedule[1]) == 0)
     {
       sub_08005E80(0x1B1);
     }

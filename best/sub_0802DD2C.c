@@ -4,6 +4,9 @@ extern void *spawnBudgetedEffect(void *, s32);
 extern s32 getSpriteFacingSign(void *);
 extern void sub_080C31E8(void *, void *, s32);
 
+typedef struct { s32 v; } Field_s32;
+typedef struct { u16 v; } Field_u16;
+typedef struct { u32 v; } Field_u32;
 void sub_0802DD2C(void *self)
 {
     void *gfx;
@@ -11,8 +14,7 @@ void sub_0802DD2C(void *self)
     u8 *anim;
     void *effect;
     s32 w;
-s32 __repair_phase_w;
-    
+    s32 w_b2;
     s32 idx;
     u8 *stateEntry;
     u16 val1C;
@@ -40,16 +42,16 @@ s32 __repair_phase_w;
         w >>= 16;
         w -= 0x18;
         *(u16 *)((u8 *)effect + 0x4C) = w;
-        w = -0x30000;
+        w_b2 = -0x30000;
     }
-    *(s32 *)((u8 *)effect + 0x5C) = w;
+    *(s32 *)((u8 *)effect + 0x5C) = w_b2;
 
     if (*(s32 *)((u8 *)work + 0xC) < 0) {
-        __repair_phase_w = *(s32 *)((u8 *)work + 0xC);
-        if (__repair_phase_w < 0) __repair_phase_w += 0xFFFF;
-        __repair_phase_w >>= 16;
-        __repair_phase_w -= 0x1A;
-        *(u16 *)((u8 *)effect + 0x54) = __repair_phase_w;
+        s32 tmp = *(s32 *)((u8 *)work + 0xC);
+        if (tmp < 0) tmp += 0xFFFF;
+        tmp >>= 16;
+        tmp -= 0x1A;
+        *(u16 *)((u8 *)effect + 0x54) = tmp;
         *(u32 *)((u8 *)effect + 0x6C) = 0;
     }
 

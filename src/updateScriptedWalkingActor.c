@@ -1,4 +1,4 @@
-s32 sub_0806D450(void *, void *, void *);
+s32 applyAreaSpecialBehavior(void *, void *, void *);
 void sub_0806D588(void *, void *);
 void cullOffscreenEntity(void *, void *);
 void spawnKind2CEntity(void *, s32, s32, s32);
@@ -35,7 +35,7 @@ void updateScriptedWalkingActor(void *entityScript)
     u8 *body = mover;
     u32 frameCount;
 
-    if (sub_0806D450(script, world, mover) > 0) goto L594;
+    if (applyAreaSpecialBehavior(script, world, mover) > 0) goto L594;
 
     frameCount = *(u32 *)(mover + 0x10) + 1;
     *(u32 *)(mover + 0x10) = frameCount;

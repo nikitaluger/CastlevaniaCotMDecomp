@@ -5,7 +5,7 @@ s32 randomSignedOffset(s32);
 void sub_0808DBF8(s32, s32, s32);
 void sub_080918B0(s32, s32, s32, s32, s32, s32);
 void sub_080C31E0(void *, s32);
-s32 sub_080C36E4(s32, s32);
+s32 signedRemainder(s32, s32);
 
 /* Spawn an effect at the owner's position with random jitter and a count-derived
  * speed/angle; hand control back to the script once its state byte exceeds 0x10. */
@@ -27,7 +27,7 @@ void sub_08092BAC(void *behav)
     countMod = halfCount % 4;
     posY = posYraw + ((countMod - 1) << 20);
     speed = scaleByRandom(0x2000);
-    countDiv = sub_080C36E4(*(s32 *)counter, 5) - 2;
+    countDiv = signedRemainder(*(s32 *)counter, 5) - 2;
     speed += 0x4000;
     speed *= countDiv;
     angle = 0x8000 - scaleByRandom(0x20000);

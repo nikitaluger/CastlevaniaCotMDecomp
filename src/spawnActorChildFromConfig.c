@@ -2,7 +2,7 @@ extern void *allocEffectPart(void);
 extern void cleanupFailedEffectSpawn(void *a);
 extern s16 scalePercentSaturate16(u16, u16);
 extern void startEffectTimer(void *a, s32 b, s32 c);
-extern s32 sub_080C36E4(s32, s32);
+extern s32 signedRemainder(s32, s32);
 extern void _call_via_r1(void *a, s32 b);
 extern void _call_via_r2(void *a, void *b, s32 c);
 extern void releaseActorEffectParts(void);
@@ -96,7 +96,7 @@ void spawnActorChildFromConfig(u8 *actor) {
     startEffectTimer(stateBase + 0x20, 0, *(u32 *)(table + 0x10));
 
     animTable = D_080E5BC8;
-    *(u32 *)(sprite + 0x14) = *(u32 *)(animTable + (sub_080C36E4(*slotPtr, 0x0D) << 2));
+    *(u32 *)(sprite + 0x14) = *(u32 *)(animTable + (signedRemainder(*slotPtr, 0x0D) << 2));
     *(u32 *)(sprite + 0x18) = 0xB00000;
 
     state->field54 = *(u32 *)(table + 4);

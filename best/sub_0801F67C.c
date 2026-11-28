@@ -5,7 +5,7 @@ extern u32 D_080CE7C4[];
 extern u32 D_08671BB0[];
 extern void sub_08011368(void*, void*, int, int);
 extern int spawnBudgetedEffect(int, int);
-extern int getSpriteFacingSign(void*);
+extern int sub_08014990(void*);
 
 void sub_0801F67C(void *arg0) {
     u8 *r7 = (u8 *)arg0;
@@ -110,14 +110,14 @@ blockB:
         *(u32 *)dst = (u32)r4b;
         if (r4b == 0) goto FE;
 
-        r0c = getSpriteFacingSign(r10);
+        r0c = sub_08014990(r10);
         if (r0c < 0) {
           u16 storeval_1;
             r1p = r8b + 0x174C;
             r0p = (u8 *)(0x080CE7AC + r5v2);
             sh = *(s16 *)r0p;
-            r0sh = (u32)sh << 16;/*__repair_loop_weight*/do {
-            r1val = *(u32 *)r1p;} while (0);
+            r0sh = (u32)sh << 16;
+            r1val = *(u32 *)r1p;
             r3v = r1val + r0sh;
             r1q = r4b + 0x5C;
             storeval_1 = 0x10;
@@ -142,8 +142,8 @@ blockB:
         r0sh3 = (u32)sh3 << 16;
         r1val3 = *(u32 *)r1fin;
         r2fin = r1val3 + r0sh3;
-        r1asr = (s16)(r3v / 0x10000);
-        *(s16 *)(r4b + 0x4C) = r1asr;
+        r3v = (s16)(r3v / 0x10000);
+        *(s16 *)(r4b + 0x4C) = r3v;
         r1asr2 = (s16)(r2fin / 0x10000);
         *(s16 *)(r4b + 0x54) = r1asr2;
         r0final = *(u32 *)(0x080CE7C4 + r5v2);

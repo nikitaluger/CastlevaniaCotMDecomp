@@ -1,6 +1,6 @@
 s32 sub_08005E80(s32);
 s32 spawnJitteredParticles(s32, s32, s32, s32, s32, s32);
-s32 sub_0808DC40(s32, s32, s32);
+s32 spawnVariant2Effect(s32, s32, s32);
 s32 sub_080C31E0(void *, s32);
 
 /* Effect entity tick: mirror a per-frame flag of `self` into the attribute
@@ -25,7 +25,7 @@ void sub_0803B220(void *self, void *state, u16 *attr, u8 *frame)
   }
   if ((*frame) == 0x1E)
   {
-    sub_0808DC40(*((s32 *) (((s8 *) state) + 8)), *((s32 *) (((s8 *) state) + 0xC)), 8);
+    spawnVariant2Effect(*((s32 *) (((s8 *) state) + 8)), *((s32 *) (((s8 *) state) + 0xC)), 8);
     sub_080C31E0(self, *((s32 *) (((s8 *) self) + 0x24)));
   }
 }

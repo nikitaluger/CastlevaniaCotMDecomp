@@ -1,5 +1,5 @@
 extern s32 advanceMotion(void *, s32);
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern void sub_0809C840(void *, void *);
 extern s32 sub_080C31E0(void *, s32);
 
@@ -31,7 +31,7 @@ void sub_0809B1E8(u8 *arg0) {
         phase = *(u8 *)(extra + 7) + 1;
         *(u8 *)(extra + 7) = phase;
         if ((u8)phase == 0x0C) {
-            sub_0808BB54();
+            initCrossfadeGfxState();
             *(u8 *)(*(u8 **)(arg0 + 0x28) + 0x4C) = 1;
             sub_080C31E0(arg0, *(s32 *)(arg0 + 0x24));
         } else {

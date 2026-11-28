@@ -1,4 +1,4 @@
-s32 sub_0806D450(void *a, void *b, void *c);
+s32 applyAreaSpecialBehavior(void *a, void *b, void *c);
 void sub_0806D588(void *a, void *b);
 void setDirectionVector(void *a, s32 v);
 void cullOffscreenEntity(void *a, void *b);
@@ -41,7 +41,7 @@ void sub_080711E0(void *entity)
     u8 *world = *(u8 **)((u8 *)entity + 0x38);
     s32 angle;
 
-    if (sub_0806D450(entity, world, mover) > 0)
+    if (applyAreaSpecialBehavior(entity, world, mover) > 0)
         goto abort;
 
     mover->fallVel += 0xFFFC0000;

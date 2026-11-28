@@ -45,7 +45,10 @@ void sub_08038C8C(void *arg0) {
     logic = (struct SpawnLogic *)U32(arg0, 0x3C);
     animData = (u8 *)logic + 0x34;
     installUpdateHandler(arg0, logic, sub_08014290);
-    initWorkStateForKind(arg0, sprite, logic, savedAC, ((s16 *)0x080CD400)[U8(arg0, 0x4C) * 2]);
+    {
+        s16 *attrTable = (s16 *)0x080CD400;
+        initWorkStateForKind(arg0, sprite, logic, savedAC, attrTable[U8(arg0, 0x4C) * 2]);
+    }
     do { zero = 0; } while (0);
     logic->kind = 8;
     initSpriteGraphics(sprite, animData, (u8 *)gSpriteAnimDataTable + logic->cfgIndex * 12);

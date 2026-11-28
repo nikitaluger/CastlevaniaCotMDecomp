@@ -1,4 +1,4 @@
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080168C4(void);
 extern void *sub_080168F8(void);
@@ -25,7 +25,7 @@ void sub_08083820(void *self)
   void *spawned;
   void *owner;
   void *world;
-  if (sub_0806D450(self, obj, attack) > 0)
+  if (applyAreaSpecialBehavior(self, obj, attack) > 0)
   {
     sub_080C31E0(self, *((s32 *) (((u8 *) self) + 0x24)));
     return;

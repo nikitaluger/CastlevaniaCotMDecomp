@@ -2,7 +2,7 @@ extern void stepAnimationTrack(s32, void *);
 extern void moveEntityWithCollision(void *, s32);
 extern s32 sub_0801459C(void *, s32);
 extern void setSpriteFlipForDirection(s32, s32);
-extern s32 sub_080148AC(s32, s32);
+extern s32 applyFacingSign(s32, s32);
 extern void setSpriteFacingToTarget(s32, s32);
 extern void sub_080415D4(u8, s32, void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -20,7 +20,7 @@ void sub_08041040(void *arg0) {
     stepAnimationTrack(anim, animDesc);                  /* refresh animation frame */
     setSpriteFacingToTarget(anim, *(s32 *)(motion + 0x08));   /* face the player */
     if (sub_0801459C(motion, 0x600000) != 0) {     /* player within range */
-        vx = sub_080148AC(anim, 0xFFFD0000);       /* lunge speed, toward player */
+        vx = applyFacingSign(anim, 0xFFFD0000);       /* lunge speed, toward player */
         *(s32 *)(motion + 0x10) = vx;
         setSpriteFlipForDirection(anim, vx);
         sub_080415D4(1, anim, motion, (s32)animDesc);

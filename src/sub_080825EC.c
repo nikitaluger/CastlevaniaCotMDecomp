@@ -1,6 +1,6 @@
 extern u8 gMainWorkspace[];
 
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void *spawnEntity(s32, s32, s32, s32);
 extern void stepDelayTimer(void *, void *);
 extern void playSound(s32);
@@ -19,7 +19,7 @@ void sub_080825EC(void *arg0) {
     r5 = *(u8 **)(r6 + 0x38);
     r4 = r8;
 
-    if (sub_0806D450(r6, r5, r4) > 0) {
+    if (applyAreaSpecialBehavior(r6, r5, r4) > 0) {
         _call_via_r1(r6, *(void **)(r6 + 0x24));
         return;
     }

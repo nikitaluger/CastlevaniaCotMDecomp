@@ -1,4 +1,4 @@
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern s32 sub_0806D588(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080C31E0(void *, s32);
@@ -21,7 +21,7 @@ void sub_08070BD0(void *arg0) {
     u8 *actor = *(u8 **)(self + 0x38);
     s32 *tablePtr;
     s32 countdown;
-    if (sub_0806D450(self, actor, pos) > 0) {
+    if (applyAreaSpecialBehavior(self, actor, pos) > 0) {
         sub_080C31E0(arg0, *(s32 *)((u8 *)arg0 + 0x24));
         return;
     }

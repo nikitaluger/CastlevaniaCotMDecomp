@@ -2,7 +2,7 @@ extern u8 gCameraState[];
 extern u8 gMainWorkspace[];
 extern u8 gSpriteKindTable[];
 extern u8 gEffectGfxTable[];
-s32 sub_080C36E4(s16, s32);
+s32 signedRemainder(s16, s32);
 void *hitTestEntities(void *);
 s32 terrainHasSolidFlags(u32, u32);
 s32 sub_0806D5C4(u16, u16);
@@ -73,7 +73,7 @@ u8 *__repair_phase_p;
   if (idx > 0)
   {
     idx = c->f20;
-    __repair_phase_t = (s16) sub_080C36E4(idx, 3);
+    __repair_phase_t = (s16) signedRemainder(idx, 3);
     switch (__repair_phase_t)
     {
       case 0:
@@ -165,10 +165,10 @@ u8 *__repair_phase_p;
   }
   a2a = e->f2A & 0xF;
   d2a = d->f2A & 0xF;
-  new_var = 0xC;
+  do { new_var = 0xC;
   new_var2 = 6;
   idx = c->f1C;
-  p = gSpriteKindTable + (2 * (2 * ((idx * 4) + idx)));
+  p = gSpriteKindTable + (2 * (2 * ((idx * 4) + idx))); } while (0);
   if ((d2a != 0) && (a2a == d2a))
   {
     __repair_phase_r12 = ((u16) sub_0806D5F8(e->f2C, *((u16 *) (p + new_var2)))) >> 1;

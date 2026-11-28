@@ -35,7 +35,7 @@ void sub_080A605C(void *arg0)
         u8 stepId;
         s32 *scriptCallbacks;
 
-        turnRate = sub_0801473C(angle, matchedAngle);
+        turnRate = getAngleTurnDirection(angle, matchedAngle);
         *(s32 *)(ai + 0xC4) = matchedAngle;
         *(s32 *)(ai + 0xD0) = turnRate * 3;
         *(s32 *)(ai + 0xC8) = 0;

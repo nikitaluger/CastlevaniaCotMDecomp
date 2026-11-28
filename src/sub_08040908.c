@@ -5,7 +5,7 @@ extern s32 getAngleFromDelta(s32, s32);
 extern void stepAnimationTrack(void *, void *);
 extern void advanceMotion(void *, s32);
 extern void setPolarOffset(void *, u16, s32);
-extern s32 sub_0801473C(void *, s32);
+extern s32 getAngleTurnDirection(void *, s32);
 extern void *spawnBudgetedEffect(void *, s32);
 
 struct GlobalTarget {
@@ -38,7 +38,7 @@ void sub_08040908(void *entity) {
         angleVal = *(void **)((u8 *)entity + 0x6C);
         targetAngle = getAngleFromDelta(gMainWorkspace.targetY - *(s32 *)((u8 *)motion + 0x0C),
                                    gMainWorkspace.targetX - *(s32 *)((u8 *)motion + 0x08));
-        turnDir = sub_0801473C(angleVal, targetAngle);
+        turnDir = getAngleTurnDirection(angleVal, targetAngle);
         turnDir = turnDir << 9;
         newAngle = *(s32 *)((u8 *)entity + 0x6C);
         newAngle = newAngle + turnDir;

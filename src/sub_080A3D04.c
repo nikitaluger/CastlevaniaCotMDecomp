@@ -1,4 +1,4 @@
-void sub_0808BB54(void);
+void initCrossfadeGfxState(void);
 s32 sub_080C31E0(void *, void *);
 
 struct GameState { u8 _0[0x3C]; u16 screenMode; };
@@ -12,7 +12,7 @@ void sub_080A3D04(void *arg0) {
     s16 idx = *(s16 *)(p + 0x22);
     if (*(u8 *)(p + 0x19 + (idx << 1)) == 0x78) {
         gMainWorkspace.screenMode = 2;
-        sub_0808BB54();
+        initCrossfadeGfxState();
         sub_080C31E0(arg0, *(void **)(p + 0x24));
     }
 }

@@ -42,7 +42,7 @@ struct EffectObj {
 };
 
 extern s32 isOutsideCameraBounds(u32, u32); /* 1 when off camera */
-extern s32 sub_080C36E4(u32, u32);          /* integer divide */
+extern s32 signedRemainder(u32, u32);          /* integer divide */
 extern u32 hitTestEntities(u32);            /* hit-test actor against global list */
 extern void playSound(u32);                 /* play sound effect */
 extern void setAnimationFrame(u32, u32, u32, u32); /* set animation/frame control */
@@ -72,7 +72,7 @@ void updateScriptedProjectile(struct EffectObj *eff) {
     if (isOutsideCameraBounds(actor->worldX, actor->worldY) == 1) goto fail;
     timer = actor->timer;
     if (timer > 0) {
-        phase = (s16)sub_080C36E4(timer, 3);
+        phase = (s16)signedRemainder(timer, 3);
         if (phase == 0) goto set_d;
         if (phase == 1) goto set_c;
         goto after;

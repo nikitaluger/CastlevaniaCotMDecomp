@@ -41,7 +41,7 @@ s32 sub_08015BA8(u8 *p, s32 x, s32 y, s32 dx, s32 dy, s32 *outA, s32 *outB, u16 
                     else if (r6 >= bottom && y < bottom) { bx = left - 0x8000; by = bottom - 1; hits |= 0x20; }
                     else if (r6 >= top && r6 < bottom) { bx = left - 0x8000; by = r6; hits |= 2; }
                 }
-                else if (r6 >= by && r6 < bottom) { bx = r7; hits = 2; by = r6; }
+                else if (r6 >= by && r6 < bottom) { bx = r7; by = r6; hits = 2; }
             }
         }
         if (x >= right && !(flags & 0x400) && !(hits & 0xFF))
@@ -49,14 +49,14 @@ s32 sub_08015BA8(u8 *p, s32 x, s32 y, s32 dx, s32 dy, s32 *outA, s32 *outB, u16 
             t = right + 0x10000;
             if (x >= t)
             {
-                if (dx < 0 && r7 < t)
+                do { if (dx < 0 && r7 < t)
                 {
                     s32 t2;
                     t2 = y + (s32)D_080C3218(sub_080C37B4(dy, right - x), dx);
                     if (dy > 0) { if (t2 > r6) t2 = r6; }
                     else if (t2 < r6) t2 = r6;
                     if (t2 >= top && t2 < bottom) { bx = t2 + 0x8000; by = t2; hits |= 4; }
-                }
+                } } while (0);
             }
             else if (r7 < t)
             {
@@ -91,7 +91,10 @@ s32 sub_08015BA8(u8 *p, s32 x, s32 y, s32 dx, s32 dy, s32 *outA, s32 *outB, u16 
                     {
                         if (r7 < left && x >= left) { bx = left; by = top - 0x8000; hits |= 0x10; }
                         else if (r7 >= right && x < right) { bx = right - 1; by = top - 0x8000; hits |= 0x10; }
-                        else if (r7 >= left && r7 < right) { bx = r7; by = top - 0x8000; hits |= 1; }
+                        else if (r7 >= left && r7 < right) {
+do { bx = r7; by = top - 0x8000; hits |= 1;
+} while (0);
+}
                     }
                     else if (r7 >= left && r7 < right) { bx = r7; by = r6; hits |= 1; }
                 }
@@ -110,10 +113,10 @@ s32 sub_08015BA8(u8 *p, s32 x, s32 y, s32 dx, s32 dy, s32 *outA, s32 *outB, u16 
                 {
                     if (dx < 0 && r6 < t)
                     {
-                        t = x + (s32)D_080C3218(sub_080C37B4(dx, bottom - y), dy);
+                        do { t = x + (s32)D_080C3218(sub_080C37B4(dx, bottom - y), dy); } while (0);
                         do { if (dx > 0) { if (t > r7) t = r7; }
                         else if (t < r7) t = r7; } while (0);
-                        if (t >= left && t < right) { hits |= 8; by = bottom + 0x8000; bx = t; }
+                        if (t >= left && t < right) { by = bottom + 0x8000; hits |= 8; bx = t; }
                     }
                 }
                 else if (r6 < t)
@@ -122,7 +125,7 @@ s32 sub_08015BA8(u8 *p, s32 x, s32 y, s32 dx, s32 dy, s32 *outA, s32 *outB, u16 
                     {
                         if (r7 < left && x >= left) { by = bottom + 0x8000; bx = left; hits |= 0x80; }
                         else if (r7 >= right && x < right) { by = bottom + 0x8000; bx = right - 1; hits |= 0x80; }
-                        else if (r7 >= left && r7 < right) { by = bottom + 0x8000; bx = r7; hits |= 8; }
+                        else if (r7 >= left && r7 < right) { bx = r7; by = bottom + 0x8000; hits |= 8; }
                     }
                     else if (r7 >= left && r7 < right) { by = r6; bx = r7; hits |= 8; }
                 }

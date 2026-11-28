@@ -1,6 +1,6 @@
 s32 advanceMotion(void *, s32);
 s32 sub_0808DBF8(s32, s32, s32);
-s32 sub_0808DC40(s32, s32, s32);
+s32 spawnVariant2Effect(s32, s32, s32);
 s32 sub_080C31E0(void *, s32);
 
 /*
@@ -18,7 +18,7 @@ void sub_0809EF64(void *arg0) {
         sub_0808DBF8(*(s32 *)(work + 8), *(s32 *)(work + 0xC) + 0x80000, 8);
     }
     if (*(u8 *)(self + *(s16 *)(self + 0x22) * 2 + 0x19) == 0x14) {
-        sub_0808DC40(*(s32 *)(work + 8), *(s32 *)(work + 0xC) + 0x80000, 8);
+        spawnVariant2Effect(*(s32 *)(work + 8), *(s32 *)(work + 0xC) + 0x80000, 8);
         sub_080C31E0(arg0, *(s32 *)(self + 0x24));
     }
 }

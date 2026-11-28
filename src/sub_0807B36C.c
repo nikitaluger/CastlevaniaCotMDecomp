@@ -15,7 +15,7 @@ struct GameState {
 };
 extern struct GameState gMainWorkspace;
 extern s32 stepDelayTimer(s32, void *);
-extern s32 sub_0806D450(void *, void *, void *);
+extern s32 applyAreaSpecialBehavior(void *, void *, void *);
 extern void sub_0806D588(void *, void *);
 extern void sub_080C31E0(void *, s32);
 extern void sub_080C31E4(void *, void *, s32);
@@ -35,7 +35,7 @@ void sub_0807B36C(void *entity) {
     moveData = *(void **)((u8 *)entity + 0x6C);
     pos = (void *)((u8 *)moveData + 4);
     obj = *(void **)((u8 *)entity + 0x38);
-    if (sub_0806D450(entity, obj, pos) > 0) {
+    if (applyAreaSpecialBehavior(entity, obj, pos) > 0) {
         sub_080C31E0(entity, *(s32 *)((u8 *)entity + 0x24));
         return;
     }

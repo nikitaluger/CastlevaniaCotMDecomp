@@ -1,5 +1,5 @@
 extern s32 stepDelayTimer(s32, u16 *);
-extern s32 sub_0806D450(void *, u16 *, u8 *);
+extern s32 applyAreaSpecialBehavior(void *, u16 *, u8 *);
 extern s32 sub_0806D588(u16 *, u8 *);
 extern void sub_080C31E0(void *, s32);
 struct S_02025FF0_x {
@@ -20,7 +20,7 @@ void sub_08083B50(void *arg0) {
     s32 actor = *(s32 *)(self + 0x6C);
     u8 *pos = (u8 *)(actor + 4);
     u16 *result = *(u16 **)(self + 0x38);
-    if (sub_0806D450(arg0, result, pos) > 0) {
+    if (applyAreaSpecialBehavior(arg0, result, pos) > 0) {
         sub_080C31E0(arg0, *(s32 *)(self + 0x24));
         return;
     }

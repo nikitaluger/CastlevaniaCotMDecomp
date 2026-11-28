@@ -6,10 +6,10 @@ extern u8 D_080E4764[];
 extern u8 D_080E47E8[];
 extern u32 D_0866EB64[];
 extern void playSound(u32);
-extern u16 sub_08007B3C(u32, u32, u32);
+extern u16 getTileAttrAtPos(u32, u32, u32);
 extern void sub_08061B90(u32, u32);
 extern void sub_0806CD80(u8 *, u8 *, u8 *, u32 *);
-extern void sub_0806D044(u8 *, u8 *, u32 *);
+extern void beginRoomTransition(u8 *, u8 *, u32 *);
 extern void sub_0806D7F4(void);
 extern void sub_0806D81C(void);
 extern void sub_0806D844(void);
@@ -93,14 +93,14 @@ set1:
   }
   *((u32 *)(c + 0x44)) = 0;
   *(c + 0xAC) = 0;
-  { u16 r = sub_08007B3C((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - 0x40000);
+  { u16 r = getTileAttrAtPos((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - 0x40000);
     s32 v = r & 0x3F;
     if (v == 0x0A) *((u32 *)(c + 0x44)) = 1;
     if ((g[0x3CF] == 0) && (g[0x3CC] != 0)) g[0x3CF] = 1;
     if ((h[0x14ED] != 0xA9) && ((j = g[0x3CC]) == 0)) *((u32 *)(c + 0xAC)) = 1; }
   if (h[0x14ED] == 0xA7) *((u32 *)(c + 0x44)) = 4;
   if (*((s16 *)(h + 0x18BC)) != 0) *((u32 *)(c + 0x44)) = 2;
-  { u16 r = sub_08007B3C((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - 0x40000);
+  { u16 r = getTileAttrAtPos((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - 0x40000);
     u32 v = r & 0x3F;
     if (v == 0x16) {
       if (((((u8)(v18 - 6)) <= 1) || (v18 == 0x25)) || (v18 == 0x2A)) {
@@ -110,7 +110,7 @@ set1:
         (*((u32 *)(c + 0x118)))++;
       } else *((u32 *)(c + 0x118)) = 0;
     } else *((u32 *)(c + 0x118)) = 0; }
-  { u16 r = sub_08007B3C((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - (*((u32 *)(c + 0x3C))));
+  { u16 r = getTileAttrAtPos((u32)(gTilemapPages + h[0x18A8] * 0x10), d[0], d[1] - (*((u32 *)(c + 0x3C))));
     u32 *p11C = (u32 *)(c + 0x11C);
     if ((r & 0x3F) == 0x17) {
       if ((*p11C) == 0) { u32 v2 = (d[1] - (*((u32 *)(c + 0x3C)))) & 0xFFF80000;
@@ -137,21 +137,21 @@ set1:
       else (*pE8)--; } }
   *((u16 *)(h + 0x14E2)) = 0;
   sub_0806CD80(a, b, c, d);
-  if (*((u32 *)(h + 0x14BC))) sub_0806D044(a, c, d);
+  if (*((u32 *)(h + 0x14BC))) beginRoomTransition(a, c, d);
   *((u32 *)(h + 0x1728)) = d[0];
   *((u32 *)(h + 0x172C)) = d[1];
   ph = (u16 *)(*((u32 *)(c + 0x12C)));
   *((u16 *)(h + 0x1730)) = inline_fn2(ph);
-  *((u16 *)(h + 0x1732)) = ph[4];
   *((u16 *)(h + 0x1734)) = ph[5];
+  *((u16 *)(h + 0x1732)) = ph[4];
   *((u16 *)(h + (val = 0x1736))) = inline_fn23(ph);
   *((u16 *)(h + 0x1738)) = *(b + 2);
   *((u8 *)(h + 0x173A)) = a[0x18];
   *((u32 *)(h + 0x173C)) = *((u32 *)(c + 0x70));
   *((u32 *)(h + 0x1740)) = *((u32 *)(c + 0x40));
   *((u32 *)(h + 0x1508)) = *((u32 *)(g + 0x300));
-  idx2_1 = (u32)(inline_fn23(ph) << 16);
   *((u32 *)(h + 0x174C)) = d[0];
+  idx2_1 = (u32)(inline_fn23(ph) << 16);
   *((u32 *)(h + 0x1750)) = d[1] + idx2_1;
   j = *((u32 *)(h + 0x1718));
   *((u32 *)((h + 0x1518) + (j * 4))) = d[0];

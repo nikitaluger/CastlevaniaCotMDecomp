@@ -2,7 +2,7 @@ extern void sub_080C31E0(void *, void *);
 extern void sub_080C31E4(void *, void *, s32);
 extern void sub_080144D8(void *, void *);
 extern void sub_080144FC(void *, void *);
-extern void sub_0803C674(u32, u32, u32);
+extern void spawnEffectSprites(u32, u32, u32);
 
 void sub_0803C818(void *arg0) {
     u8 z = 0;
@@ -49,5 +49,5 @@ void sub_0803C23C(void *arg0) {
     u8 *p = (u8 *)arg0;
     u32 attrs = *(u32 *)(p + 0x38);
     u8 *source = *(u8 **)(p + 0x3C);
-    sub_0803C674(attrs, (u32)source, (u32)(source + 0x48));
+    spawnEffectSprites(attrs, (u32)source, (u32)(source + 0x48));
 }

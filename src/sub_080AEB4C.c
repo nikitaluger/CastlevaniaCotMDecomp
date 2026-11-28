@@ -1,4 +1,4 @@
-extern void sub_0808BB54(void);
+extern void initCrossfadeGfxState(void);
 extern void sub_080C31E0(void *arg, void *func);
 extern void sub_080C31E8(void *scriptData, void *scriptIndex, s32 arg, s32 callback);
 extern u32 gScriptStepCallbacks;
@@ -32,7 +32,7 @@ void sub_080AEB4C(u8 *self)
   if ((*stepCount) == 0)
   {
     *((u8 *) (self + 0x4C)) = zero;
-    sub_0808BB54();
+    initCrossfadeGfxState();
     stepIdx = *((s16 *) (self + 0x22));
     *((u8 *) ((self + (stepIdx * 2)) + 0x19)) = zero;
     scriptCb = &gScriptStepCallbacks;
